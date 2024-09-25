@@ -110,13 +110,30 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             'LOCATION': env.str("DJANGO_CACHE_LOCATION"),
             'TIMEOUT': env.int("DJANGO_CACHE_TIMEOUT"),
             'OPTIONS': {
-                'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS"),
+                'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS")
             }
         }
     }
 
     if os.environ.get('DJANGO_CACHE_CLIENT_PASSWORD'):
         CACHES['default']['OPTIONS']['PASSWORD'] = env.str('DJANGO_CACHE_CLIENT_PASSWORD')
+
+    CONNECTION_POOL_KWARGS = dict()
+    if "DJANGO_CACHE_CLIENT_SSL_KEYFILE" in os.environ:
+        CONNECTION_POOL_KWARGS['ssl_keyfile'] = env.str("DJANGO_CACHE_CLIENT_SSL_KEYFILE")
+
+    if "DJANGO_CACHE_CLIENT_SSL_CERTFILE" in os.environ:
+        CONNECTION_POOL_KWARGS['ssl_certfile'] = env.str("DJANGO_CACHE_CLIENT_SSL_CERTFILE")
+
+    if "DJANGO_CACHE_CLIENT_SSL_CERT_REQS" in os.environ:
+        CONNECTION_POOL_KWARGS['ssl_cert_reqs'] = env.str("DJANGO_CACHE_CLIENT_SSL_CERT_REQS")
+
+    if "DJANGO_CACHE_CLIENT_SSL_CHECK_HOSTNAME" in os.environ:
+        CONNECTION_POOL_KWARGS['ssl_check_hostname'] = env.bool(
+            "DJANGO_CACHE_CLIENT_SSL_CHECK_HOSTNAME")
+
+    if CONNECTION_POOL_KWARGS:
+        CACHES["default"]["OPTIONS"]["CONNECTION_POOL_KWARGS"] = CONNECTION_POOL_KWARGS
 
 # Folder for compressed CSS and JS files
 COMPRESS_ROOT = STATIC_ROOT
