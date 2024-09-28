@@ -22,19 +22,19 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2024-07-09 08:09+0000\n"
-"Last-Translator: florent4014 <florent.touzet@gmail.com>\n"
+"PO-Revision-Date: 2024-09-29 10:15+0000\n"
+"Last-Translator: MrSniikyz <babygeek83bis@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
-msgstr "Activité par défaut"
+msgstr "Salle de sport par défaut"
 
 #: config/models/gym_config.py:48
 msgid ""
@@ -243,10 +243,8 @@ msgid "Language full name"
 msgstr "Nom complet de la langue"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Nom complet de la langue"
+msgstr "Nom complet de la langue en Anglais"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -2891,7 +2889,7 @@ msgstr "Teneur en acides gras saturés dans les acides gras"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Fibre"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3294,11 +3292,12 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
 msgstr ""
+"Suivez-nous sur mastodon pour voir les mises a jours et nouvelles du projet"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3330,18 +3329,14 @@ msgstr "Faire un don"
 msgid ""
 "Buy us a coffee to help the project, pay for server costs, and keep us fueled"
 msgstr ""
+"Achètes-nous un café pour aider le projet, payer pour les cours des servers, "
+"et pour nous garder plein d'énergie"
 
 #: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr "Notre objectif"
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3349,10 +3344,11 @@ msgid ""
 "                exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"Le but est de construire un \n"
-"entraîneur de conditionnement physique impressionnant et flexible, ainsi "
-"qu’une liste exhaustive et complète d’exercices\n"
-"et d’ingrédients, tous publiés sous une licence libre."
+"Le but est de construire un\n"
+"……………entraîneur de conditionnement physique impressionnant et flexible, "
+"ainsi qu’une liste exhaustive et complète \n"
+"……………d’exercices et\n"
+"……………d’ingrédients, tous publiés sous une licence libre."
 
 #: software/templates/features.html:11
 msgid ""
