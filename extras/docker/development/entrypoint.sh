@@ -57,6 +57,26 @@ then
     python3 manage.py download-exercise-images
 fi
 
+# Download exercise videos
+if [[ "$DOWNLOAD_EXERCISE_VIDEOS_ON_STARTUP" == "True" ]];
+then
+    echo "Downloading exercise videos"
+    python3 manage.py download-exercise-videos
+fi
+
+# Load online fixtures
+if [[ "$LOAD_ONLINE_FIXTURES_ON_STARTUP" == "True" ]];
+then
+    echo "Loading online fixtures"
+    wger load-online-fixtures
+fi
+
+# Sync ingredients
+if [[ "$SYNC_INGREDIENTS_ON_STARTUP" == "True" ]];
+then
+    echo "Syncing ingredients"
+    python3 manage.py sync-ingredients
+fi
 
 # Set the site URL
 python3 manage.py set-site-url

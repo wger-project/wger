@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2024-05-07 00:42+0000\n"
-"Last-Translator: becothas <lukas.jedinger@gmail.com>\n"
+"PO-Revision-Date: 2024-09-05 18:09+0000\n"
+"Last-Translator: Tobias Lechner <me@tobias-lechner.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -495,6 +495,11 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Bei der Bearbeitung deiner Anfrage ist ein Fehler auf dem Server "
+"aufgetreten. Versuche deinen Browser zu aktualisieren, und wenn das nicht "
+"hilft, versuche es bitte zu einem späteren Zeitpunkt erneut. Wenn das "
+"Problem weiterhin besteht, kannst du auf die unten aufgeführten Arten Hilfe "
+"suchen:"
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
 #, python-format
@@ -2895,7 +2900,7 @@ msgstr "Davon gesättigte Fettsäuren"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Faser"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3291,11 +3296,11 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
-msgstr ""
+msgstr "Folge uns auf Mastodon für Updates und Neuigkeiten über das Projekt"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3328,6 +3333,8 @@ msgstr "Spenden"
 msgid ""
 "Buy us a coffee to help the project, pay for server costs, and keep us fueled"
 msgstr ""
+"Kaufe uns einen Kaffee, um das Projekt zu unterstützen, die Serverkosten zu "
+"bezahlen und uns mit Energie zu versorgen"
 
 #: software/templates/about_us.html:68
 msgid "Our goal"
@@ -3392,11 +3399,11 @@ msgstr "Leute <br> die wger benutzen"
 
 #: software/templates/features.html:134
 msgid "exercises <br> for workout creation"
-msgstr ""
+msgstr "Übungen <br> zur Erstellung von Workouts"
 
 #: software/templates/features.html:138
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "Lebensmittel <br> für die Essensplanung"
 
 #: software/templates/features.html:142
 msgid "stars <br> on GitHub"
@@ -3433,6 +3440,7 @@ msgstr "Plane deine <span>täglichen Mahlzeiten</span>"
 #: software/templates/features.html:204
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Fülle deine Woche mit nahrhaften Mahlzeiten, die dir helfen, mehr zu leisten"
 
 #: software/templates/features.html:207
 msgid "Build meals from a database of more than 2 million foods"
@@ -3455,10 +3463,11 @@ msgstr "Behalte den Überblick über <span>deine Fortschritte</span>"
 #: software/templates/features.html:242
 msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
+"Verfolge und kommentiere alles über deine Mahlzeiten und Trainingseinheiten"
 
 #: software/templates/features.html:245
 msgid "Add custom notes"
-msgstr ""
+msgstr "Eigene Notizen hinzufügen"
 
 #: software/templates/features.html:248
 msgid "Record your weight"
@@ -3478,7 +3487,7 @@ msgstr "Probiere es jetzt"
 
 #: software/templates/features.html:290
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "Angetrieben von <span>der Community</span>"
 
 #: software/templates/features.html:293
 msgid ""
@@ -3499,7 +3508,7 @@ msgstr ""
 
 #: software/templates/features.html:304
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Hilf mit und mache wger noch besser!"
 
 #: software/templates/features.html:313
 msgid "Contribute"
@@ -3531,7 +3540,7 @@ msgstr ""
 
 #: software/templates/features.html:380
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Integriere mit deiner eigenen App"
 
 #: software/templates/features.html:383
 msgid "wger offers an open API that you can use for your app."
@@ -3583,7 +3592,7 @@ msgstr "Der Originaltitel dieses Objekts, falls verfügbar"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Link zum Originalobjekt, falls vorhanden"
 
 #: utils/models.py:63
 #, fuzzy
@@ -3592,22 +3601,16 @@ msgid "Author(s)"
 msgstr "Urheber"
 
 #: utils/models.py:67
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Wenn du nicht der Urheber bist, gebe den Namen hier ein. Das wird bei "
-"manchen Lizenzen benötigt, z.B. die CC-BY-SA."
+msgstr "Wenn du nicht der Urheber bist, gebe den Namen hier ein."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Link zum Autorenprofil, falls vorhanden"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Link zur Originalquelle, wenn es sich um ein abgeleitetes Werk handelt"
 
 #: utils/models.py:79
 msgid ""
@@ -3615,6 +3618,9 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Ein abgeleitetes Werk ist ein Werk, das nicht nur auf einem früheren Werk "
+"beruht, sondern auch genügend neue, schöpferische Inhalte enthält, um ein "
+"eigenes Urheberrecht zu begründen."
 
 #: weight/forms.py:54
 msgid "Input"

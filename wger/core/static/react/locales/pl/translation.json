@@ -197,7 +197,8 @@
         "logThisMealItem": "Wpisz ten składnik do dziennika",
         "valueRemaining": "pozostało",
         "valueTooMany": "za dużo",
-        "7dayAvg": "Średnia z 7 dni"
+        "7dayAvg": "Średnia z 7 dni",
+        "goalFiber": "Cel błonnikowy"
     },
     "routines": {
         "routines": "Plany treningowe",

@@ -16,14 +16,12 @@
 
 # Standard Library
 import logging
-from decimal import Decimal
 
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
 
 # Local
