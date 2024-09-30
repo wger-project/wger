@@ -277,6 +277,21 @@ urlpatterns += [
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version',
     ),
+    path(
+        'api/v2/powersync-token',
+        core_api_views.get_powersync_token,
+        name='get_token',
+    ),
+    path(
+        'api/v2/powersync-keys',
+        core_api_views.get_powersync_keys,
+        name='powersync-keys',
+    ),
+    path(
+        'api/v2/upload-powersync-data',
+        core_api_views.upload_powersync_data,
+        name='powersync-data',
+    ),
     # Api documentation
     path(
         'api/v2/schema',
