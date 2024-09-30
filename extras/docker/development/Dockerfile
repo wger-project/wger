@@ -11,7 +11,7 @@
 ##########
 # Builder
 ##########
-FROM wger/base:latest as builder
+FROM wger/base:latest AS builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
