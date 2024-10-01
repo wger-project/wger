@@ -1,5 +1,5 @@
 #
-# Docker image for wger development
+# Docker image for wger
 #
 # Please consult the README for usage
 #
@@ -33,7 +33,7 @@ RUN apt update \
 COPY requirements* ./
 RUN --mount=type=tmpfs,target=/root/.cargo \
     pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt \
-    && pip3 install --user --no-cache-dir /wheels/*
+    && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
 
 
 
@@ -64,7 +64,7 @@ RUN chmod +x /home/wger/entrypoint.sh \
     && chmod +x /start-flower
 
 USER wger
-RUN pip3 install --user -e . \
+RUN pip3 install --break-system-packages --user -e . \
     && mkdir ~/media \
     && mkdir ~/static \
     && mkdir ~/beat \

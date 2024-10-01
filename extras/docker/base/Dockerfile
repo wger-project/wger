@@ -8,7 +8,7 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
@@ -16,8 +16,9 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update \
   && apt install --no-install-recommends -y \
+      adduser \
       locales \
-      yarn \
+      yarnpkg \
       python3-pip \
       sqlite3 \
       wget \
@@ -36,4 +37,6 @@ ENV PYTHONUNBUFFERED=1
 
 
 # Add wger user
+RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn
+RUN ln -s /usr/bin/sassc /usr/bin/sass
 RUN adduser wger --disabled-password --gecos ""

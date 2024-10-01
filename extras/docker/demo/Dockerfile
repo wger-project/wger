@@ -17,7 +17,7 @@
 ##########
 # Builder
 ##########
-FROM wger/base:latest as builder
+FROM wger/base:latest AS builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
@@ -31,8 +31,7 @@ RUN apt update \
       libwebp-dev \
       libpq-dev \
       rustc \
-      cargo \
-  && pip install --upgrade pip
+      cargo
 
 # Build the necessary python wheels
 # Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
@@ -45,7 +44,8 @@ RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir
 ########
 FROM wger/base:latest
 LABEL maintainer="Roland Geider <roland@geider.net>"
-
+ENV PATH="/root/.local/bin:$PATH"
+ENV TERM=xterm
 ARG DOCKER_DIR=./extras/docker/demo
 EXPOSE 80
 
@@ -84,7 +84,6 @@ RUN ln -s /home/wger/static/CACHE /var/www
 USER wger
 
 WORKDIR /home/wger/src
-#RUN git clone https://github.com/wger-project/wger.git
 RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \

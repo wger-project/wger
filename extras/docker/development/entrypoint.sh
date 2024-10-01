@@ -13,7 +13,7 @@ fi
 # after a first checkout), repeat the process.
 if [ ! -d "/home/wger/src/wger.egg-info" ];
 then
-    pip3 install -e .
+    pip3 install --break-system-packages -e .
 fi
 
 # Bootstrap the application
