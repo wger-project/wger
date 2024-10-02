@@ -2,7 +2,7 @@
 
 # Copy a settings file if nothing's found (e.g. when mounting a fresh checkout)
 # This is a bit ugly, but it's needed since we use this image for development
-# and "production".
+# and production.
 if [ ! -f /home/wger/src/settings.py ]; then
    cp /tmp/settings.py /home/wger/src
 fi
@@ -19,9 +19,16 @@ fi
 # Bootstrap the application
 #   * Load the fixtures with exercises, ingredients, etc
 #   * Create an admin user
-#   * Download JS and CSS files
-#   * Compile custom bootstrap theme
-wger bootstrap
+#   * (optionally) Download JS and CSS files
+#   * (optionally) Compile custom bootstrap theme
+
+if [ "$YARN_PROCESS_STATIC" == "True" ]; then
+    yarn_static=""
+else
+    yarn_static="--no-process-static"
+fi
+
+wger bootstrap yarn_static
 
 # Collect static files
 if [ "$DJANGO_CLEAR_STATIC_FIRST" == "False" ]; then

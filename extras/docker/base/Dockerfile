@@ -18,13 +18,11 @@ RUN apt update \
   && apt install --no-install-recommends -y \
       adduser \
       locales \
-      yarnpkg \
       python3-pip \
       sqlite3 \
       wget \
       tzdata \
       libpq5 \
-      sassc \
   && locale-gen en_US.UTF-8
 
 # Environmental variables
@@ -37,6 +35,5 @@ ENV PYTHONUNBUFFERED=1
 
 
 # Add wger user
-RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn
-RUN ln -s /usr/bin/sassc /usr/bin/sass
-RUN adduser wger --disabled-password --gecos ""
+RUN deluser ubuntu
+RUN adduser wger --uid 1000 --disabled-password --gecos ""

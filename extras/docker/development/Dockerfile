@@ -25,8 +25,9 @@ RUN apt update \
       libwebp-dev \
       libpq-dev \
       rustc \
-      cargo \
-  && pip install --upgrade pip
+      yarnpkg \
+      sassc \
+      cargo
 
 # Build the necessary python wheels
 # Note that the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
@@ -35,6 +36,13 @@ RUN --mount=type=tmpfs,target=/root/.cargo \
     pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt \
     && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
 
+# Download and copy js and css files
+COPY --chown=wger:wger . /home/wger/src
+WORKDIR /home/wger/src
+RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
+    && ln -s /usr/bin/sassc /usr/bin/sass \
+    && yarn install \
+    && yarn build:css:sass
 
 
 ########
@@ -52,6 +60,7 @@ EXPOSE 8000
 WORKDIR /home/wger/src
 COPY --chown=wger:wger . /home/wger/src
 COPY --from=builder --chown=wger:wger /root/.local /home/wger/.local
+COPY --from=builder --chown=wger:wger /home/wger/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh

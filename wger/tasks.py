@@ -34,7 +34,6 @@ import requests
 from invoke import task
 from tqdm import tqdm
 
-
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
@@ -45,7 +44,7 @@ FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
         'port': 'Port to use. Default: 8000',
         'settings-path': 'Path to settings file (absolute path). Leave empty for default',
         'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: '
-        '"--arg1 --arg2=value". Default: none',
+                      '"--arg1 --arg2=value". Default: none',
     }
 )
 def start(context, address='localhost', port=8000, settings_path=None, extra_args=''):
@@ -70,7 +69,7 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
         'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
     }
 )
-def bootstrap(context, settings_path=None, database_path=None):
+def bootstrap(context, settings_path=None, database_path=None, process_static=True):
     """
     Performs all steps necessary to bootstrap the application
     """
@@ -92,8 +91,9 @@ def bootstrap(context, settings_path=None, database_path=None):
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS and CSS libraries
-    context.run('yarn install')
-    context.run('yarn build:css:sass')
+    if process_static:
+        context.run('yarn install')
+        context.run('yarn build:css:sass')
 
 
 @task(
