@@ -20,19 +20,22 @@ A more comfortable development version is provided in the compose folder.
 
 ### 1 - Installing docker
 
-Install docker, and the docker buildx tool (if they are separate packages on your system, e.g. on Arch Linux)
+Install docker, and the docker buildx tool (if they are separate packages on your system, e.g. on
+Arch Linux)
 
 ### 2 - Obtaining/building the docker image
 
 We will run the `wger/server:latest` image in the next step.
 
-You can either download it from [dockerhub](https://hub.docker.com/r/wger/server); docker will do this automatically if you have no such image with that tag yet.
-You can also run `docker pull wger/server` to get the latest version. (you can use `docker images` to see if your image is old)
+You can either download it from [dockerhub](https://hub.docker.com/r/wger/server); docker will do
+this automatically if you have no such image with that tag yet.
+You can also run `docker pull wger/server` to get the latest version. (you can use `docker images`
+to see if your image is old)
 
 Alternatively, you can build it yourself from your wger code checkout.
 To do this, you **must** build from the project root!
 
-```docker build -f extras/docker/development/Dockerfile --tag wger/server .```
+```docker build -f extras/docker/production/Dockerfile --tag wger/server .```
 
 ### 3 - Start the container
 

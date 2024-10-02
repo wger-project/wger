@@ -4,7 +4,7 @@
 # Please consult the README for usage
 #
 # Note: you MUST build this image from the project's root!
-# docker build -f extras/docker/development/Dockerfile --tag wger/server .
+# docker build -f extras/docker/production/Dockerfile --tag wger/server .
 #
 # To run the container consult https://github.com/wger-project/docker
 
@@ -50,7 +50,7 @@ RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
 ########
 FROM wger/base:latest
 LABEL maintainer="Roland Geider <roland@geider.net>"
-ARG DOCKER_DIR=./extras/docker/development
+ARG DOCKER_DIR=./extras/docker/production
 ENV PATH="/home/wger/.local/bin:$PATH"
 
 EXPOSE 8000

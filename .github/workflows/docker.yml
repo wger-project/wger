@@ -72,7 +72,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: extras/docker/development/Dockerfile
+          file: extras/docker/production/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
