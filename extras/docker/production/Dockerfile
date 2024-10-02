@@ -37,7 +37,7 @@ RUN --mount=type=tmpfs,target=/root/.cargo \
     && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
 
 # Download and copy js and css files
-COPY --chown=wger:wger . /home/wger/src
+COPY . /home/wger/src
 WORKDIR /home/wger/src
 RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
     && ln -s /usr/bin/sassc /usr/bin/sass \
