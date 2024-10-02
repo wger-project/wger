@@ -44,7 +44,6 @@ RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir
 ########
 FROM wger/base:latest
 LABEL maintainer="Roland Geider <roland@geider.net>"
-ENV PATH="/root/.local/bin:$PATH"
 ENV TERM=xterm
 ARG DOCKER_DIR=./extras/docker/demo
 EXPOSE 80
