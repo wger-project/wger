@@ -9,7 +9,7 @@
 wheel==0.44.0
 
 # for ingredient import script from OFF
-pymongo==4.9.1
+pymongo==4.10.1
 
 # for running the dummy entry generators
 faker==26.0.0
