@@ -54,6 +54,14 @@
         <link rel="stylesheet" type="text/css" href="{% static 'react/main.css' %}" id="react-css">
     {% endcompress %}
 
+    {# this needs to be outside of the compress block! #}
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/react-simple-wysiwyg.css' %}"
+        id="react-css"
+    >
+
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
@@ -67,8 +75,10 @@
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
-        <script src="{% static 'react/main.js' %}" defer="defer"></script>
     {% endcompress %}
+
+    {# this needs to be outside of the compress block! #}
+    <script src="{% static 'react/main.js' %}" type="module" defer="defer"></script>
 
     {% block header %}{% endblock %}
 
@@ -158,15 +168,26 @@
 <footer id="main-footer" class="bg-light border-top">
     <div class="container bg-wger-light">
         <div class="row">
-            <div class="col-xl-2 col-md-3">
+            <div class="col-xl-4 col-md-7 mt-2">
                 <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                    <img src="{% static 'images/logos/play-store/google-play-badge.png' %}"
-                         height="60"
-                         alt="Get it on Google Play"
-                         title="Get it on Google Play">
-                </a>
+                    <img
+                        src="{% static 'images/logos/play-store/badge.svg' %}"
+                        alt="google play logo"
+                        height="40"
+                    /></a>
+                <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792">
+                    <img
+                        src="{% static 'images/logos/app-store/black.svg' %}"
+                        alt="app store logo"
+                        height="40"/></a>
+                <a href="https://flathub.org/apps/de.wger.flutter">
+                    <img
+                        src="{% static 'images/logos/flathub/black.svg' %}"
+                        alt="flathub logo"
+                        height="40"
+                    /></a>
             </div>
-            <div class="col-xl-6 col-md-5">
+            <div class="col-xl-6 col-md-3">
                 <ul class="list-unstyled mb-0 pt-2">
                     <li>
                         <a href="{% url 'core:imprint' %}" class="text-muted small">
@@ -184,7 +205,7 @@
             {#                                         #}
             {# Render the links to the other languages #}
             {#                                         #}
-            <div class="col-md-4">
+            <div class="col-md-2">
                 {% if not is_api_path %}
                     {# Don't show language switcher in the generated API views #}
                     <div class="btn-group dropup">

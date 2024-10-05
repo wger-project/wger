@@ -23,6 +23,10 @@ from django.db import IntegrityError
 
 # Third Party
 import requests
+from openfoodfacts.images import (
+    AWS_S3_BASE_URL,
+    generate_image_path,
+)
 
 # wger
 from wger.nutrition.api.endpoints import (
@@ -54,7 +58,11 @@ def fetch_ingredient_image(pk: int):
     # wger
     from wger.nutrition.models import Ingredient
 
-    ingredient = Ingredient.objects.get(pk=pk)
+    try:
+        ingredient = Ingredient.objects.get(pk=pk)
+    except Ingredient.DoesNotExist:
+        logger.info(f'Ingredient with ID {pk} does not exist')
+        return
 
     if hasattr(ingredient, 'image'):
         return
@@ -93,7 +101,7 @@ def fetch_image_from_wger_instance(ingredient):
         Image.from_json(ingredient, retrieved_image, image_data)
 
 
-def fetch_image_from_off(ingredient):
+def fetch_image_from_off(ingredient: Ingredient):
     """
     See
     - https://openfoodfacts.github.io/openfoodfacts-server/api/how-to-download-images/
@@ -104,9 +112,15 @@ def fetch_image_from_off(ingredient):
     url = ingredient.source_url + '?fields=images,image_front_url'
     headers = wger_headers()
     try:
-        product_data = requests.get(url, headers=headers).json()
+        product_data = requests.get(url, headers=headers, timeout=3).json()
     except requests.JSONDecodeError:
         logger.warning(f'Could not decode JSON response from {url}')
+        return
+    except requests.ConnectTimeout as e:
+        logger.warning(f'Connection timeout while trying to fetch {url}: {e}')
+        return
+    except requests.ReadTimeout as e:
+        logger.warning(f'Read timeout while trying to fetch {url}: {e}')
         return
 
     try:
@@ -120,22 +134,23 @@ def fetch_image_from_off(ingredient):
         return
     image_data = product_data['product']['images']
 
-    # Download the image file
-    response = requests.get(image_url, headers=headers)
-    if response.status_code != 200:
-        logger.info(f'An error occurred! Status code: {response.status_code}')
-        return
-
-    # Parse the file name, looks something like this:
-    # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg
+    # Extract the image key from the url:
+    # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg -> "front_en"
     image_id: str = image_url.rpartition('/')[2].partition('.')[0]
 
-    # Retrieve the uploader name
+    # Extract the uploader name
     try:
         image_id: str = image_data[image_id]['imgid']
         uploader_name: str = image_data[image_id]['uploader']
     except KeyError as e:
         logger.info('could not load all image information, skipping...', e)
+        return
+
+    # Download image from amazon
+    image_s3_url = f'{AWS_S3_BASE_URL}{generate_image_path(ingredient.code, image_id)}'
+    response = requests.get(image_s3_url, headers=headers)
+    if not response.ok:
+        logger.info(f'Could not locate image on AWS! Status code: {response.status_code}')
         return
 
     # Save to DB

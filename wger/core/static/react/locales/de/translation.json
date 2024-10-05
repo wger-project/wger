@@ -200,5 +200,8 @@
         "valueTooMany": "zu viele"
     },
     "downloadAsPdf": "Als PDF runterladen",
-    "total": "Summe"
+    "total": "Summe",
+    "licenses": {
+        "authors": "Author(en)"
+    }
 }
