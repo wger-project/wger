@@ -28,7 +28,7 @@ else
     yarn_static="--no-process-static"
 fi
 
-wger bootstrap yarn_static
+wger bootstrap $yarn_static
 
 # Collect static files
 if [ "$DJANGO_CLEAR_STATIC_FIRST" == "False" ]; then
