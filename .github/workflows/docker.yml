@@ -9,7 +9,6 @@ on:
 
 env:
   REGISTRY_IMAGE: ${{ vars.REGISTRY_REPO }}/server
-  REGISTRY_IMAGE_ALT: ${{ vars.REGISTRY_REPO }}/devel
 
 jobs:
   build-prod:
@@ -42,7 +41,6 @@ jobs:
             type=raw,value=2.3-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
-            ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.2.0
@@ -72,7 +70,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: extras/docker/development/Dockerfile
+          file: extras/docker/production/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -126,7 +124,6 @@ jobs:
             type=raw,value=2.3-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
-            ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
