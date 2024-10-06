@@ -183,13 +183,13 @@ class Routine(models.Model):
             if skip_til_date:
                 out.append(
                     WorkoutDayData(
-                        iteration=None,
+                        iteration=counter[current_day],
                         date=current_date,
                         day=None,
                         label=labels.get(current_date),
                     )
                 )
-                # current_date += delta
+                current_date += delta
                 if current_date == skip_til_date:
                     skip_til_date = None
                 continue

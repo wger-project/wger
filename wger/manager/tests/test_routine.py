@@ -185,25 +185,25 @@ class RoutineTestCase(WgerTestCase):
                 ),
                 WorkoutDayData(
                     day=None,
-                    iteration=None,
+                    iteration=1,
                     date=datetime.date(2024, 1, 4),
                     label='First label',
                 ),
                 WorkoutDayData(
                     day=None,
-                    iteration=None,
+                    iteration=1,
                     date=datetime.date(2024, 1, 5),
                     label='Second label',
                 ),
                 WorkoutDayData(
                     day=None,
-                    iteration=None,
+                    iteration=1,
                     date=datetime.date(2024, 1, 6),
                     label='Second label',
                 ),
                 WorkoutDayData(
                     day=None,
-                    iteration=None,
+                    iteration=1,
                     date=datetime.date(2024, 1, 7),
                     label=None,
                 ),
@@ -259,7 +259,7 @@ class RoutineTestCase(WgerTestCase):
                 user_id=1,
                 date=date,
                 day=self.day1,
-                workout_id=1,
+                routine_id=1,
             )
             session.save()
 
