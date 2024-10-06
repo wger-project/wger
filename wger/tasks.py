@@ -34,6 +34,7 @@ import requests
 from invoke import task
 from tqdm import tqdm
 
+
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
@@ -44,7 +45,7 @@ FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
         'port': 'Port to use. Default: 8000',
         'settings-path': 'Path to settings file (absolute path). Leave empty for default',
         'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: '
-                      '"--arg1 --arg2=value". Default: none',
+        '"--arg1 --arg2=value". Default: none',
     }
 )
 def start(context, address='localhost', port=8000, settings_path=None, extra_args=''):
