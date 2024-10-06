@@ -17,7 +17,6 @@
 # Standard Library
 import datetime
 import logging
-from decimal import Decimal
 
 # Django
 from django.contrib.auth.models import User
@@ -30,7 +29,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
@@ -121,7 +119,7 @@ class NutritionPlan(models.Model):
         if not nutritional_representation:
             nutritional_values = NutritionalValues()
             use_metric = self.user.userprofile.use_metric
-            unit = 'kg' if use_metric else 'lb'
+            unit = 'metric' if use_metric else 'imperial'
             result = {
                 'total': NutritionalValues(),
                 'percent': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
