@@ -166,7 +166,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 timeout=ANY,
             )
             mock_request.assert_any_call(
-                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987654321/12345.jpg',
+                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987/654321/12345.jpg',
                 headers=wger_headers(),
             )
             mock_from_json.assert_called()
