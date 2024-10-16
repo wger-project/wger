@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2021-08-20 23:35+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2024-08-20 18:09+0000\n"
+"Last-Translator: GS Bacon <gs@gsvoren.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
 "web/nb_NO/>\n"
 "Language: no\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -76,10 +76,8 @@ msgid "Another sample day"
 msgstr "En annen eksempel-dag"
 
 #: core/demo.py:212
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
-msgstr "Eksempel ærnæringsplan"
+msgstr "Eksempel ernæringsplan"
 
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
 #, python-brace-format
@@ -233,10 +231,8 @@ msgid "Language full name"
 msgstr "Språk, fullt navn"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Språk, fullt navn"
+msgstr "Språk fullt navn på Engelsk"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -471,7 +467,7 @@ msgstr "Forbudt!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "Du er ikke tillatt tilgang til denne siden"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -491,19 +487,23 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Det oppstod en feil når serveren forsøkte å gjennomføre din forespørsel. "
+"Prøv å oppdatere nettsiden i nettleseren og hvis det ikke hjelper, prøv "
+"igjen på et senere tidspunkt. Hvis problemet vedvarerer kan du oppsøke hjelp "
+"på følgende måter nedenfor:"
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
 "actions are performed on their data.\n"
 "            "
 msgstr ""
-"Du\n"
-" besøker siden som brukeren «%(current_user)s». Alle handlinger utføres på "
-"vedkommendes data.\n"
-"    "
+"You are\n"
+"                besøker siden som brukeren «%(current_user)s». Alle "
+"handlinger utføres på vedkommendes data.\n"
+"            "
 
 #: core/templates/base.html:14 core/templates/base_wide.html:11
 #, python-format
@@ -516,37 +516,32 @@ msgstr ""
 "Er du sikker på at du vil slette dette? Denne handlingen kan ikke angres."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email verification"
-msgstr "Konfiguarsjon"
+msgstr "Epost verifisering"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, din epost ble verifisert"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Feil, ugyldig verifikasjonstoken"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Konfiguarsjon"
+msgstr "Epost Bekreftelse"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "kalender for %(username)s"
+msgstr "Du er nesten der, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
-msgstr ""
+msgstr "Vennligst klikk <a href=\"%(link)s\">her</a> for å bekrefte din epost"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
@@ -642,7 +637,7 @@ msgstr "Ingenting funnet"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:175
 msgid "Imprint"
-msgstr ""
+msgstr "Inntrykk"
 
 #: core/templates/misc/license/list.html:47
 #, fuzzy

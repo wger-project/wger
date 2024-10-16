@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2023-06-07 12:57+0000\n"
-"Last-Translator: Dan <jonweblin2205@protonmail.com>\n"
+"PO-Revision-Date: 2024-08-26 12:09+0000\n"
+"Last-Translator: kvinto <badsystem@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.18-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 5.7.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -237,10 +237,8 @@ msgid "Language full name"
 msgstr "Довге позначення мови"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Довге позначення мови"
+msgstr "Повне позначення мови"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -474,7 +472,7 @@ msgstr "Заборонено!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "Ви не маєте доступу до цієї сторінки"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -494,6 +492,9 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Під час обробки Вашого запиту на сервері сталася помилка. Спробуйте оновити "
+"веб-переглядач. Якщо це не допоможе, повторіть спробу пізніше. Якщо проблема "
+"не зникає, Ви можете звернутися за допомогою зазначеними нижче способами:"
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
 #, python-format
@@ -518,10 +519,8 @@ msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "Ви дійсно хочете вилучити це? Цю дію неможливо скасувати."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
-msgstr "Електронну адресу підтверджено"
+msgstr "Підтвердження E-mail"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -675,10 +674,8 @@ msgid "Calendar"
 msgstr "Календар"
 
 #: core/templates/navigation.html:64
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "Макроелементи"
+msgstr "Вимірювання"
 
 #: core/templates/navigation.html:75 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -1770,10 +1767,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Показати назву тренажерного залу в заголовку сайта"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "Конфігурація для {}"
+msgstr "Конфігурація для {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -2050,7 +2046,7 @@ msgstr "Пластини"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr "Перекладина"
+msgstr "Планка для підтягувань"
 
 #: i18n.tpl:29
 msgid "Quads"
@@ -2448,10 +2444,10 @@ msgid ""
 "C and so on."
 msgstr ""
 "Ви можете вказати тривалість кожного тренування,\n"
-"        перед тим як перейти до\n"
-"наступного. Також можна створити цикл, для того,\n"
-"        щоб виконувати однакові\n"
-"тренування поспіль, наприклад A> B> C> A> B> C і т.д."
+"        перед тим як перейти до наступного. Також можна створити цикл, для "
+"того,\n"
+"        щоб виконувати однакові тренування поспіль, наприклад A> B> C> A> B> "
+"C і т.д."
 
 #: manager/templates/schedule/overview.html:43
 msgid ""
@@ -2863,7 +2859,7 @@ msgstr "Вміст жиру у жирах"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Волокна"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -2881,7 +2877,7 @@ msgstr "Торгова марка виробу"
 #: nutrition/models/ingredient.py:305
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
-msgstr ""
+msgstr "Загальна енергія ({self.energy}ккал) не є приблизною сумою "
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
@@ -3263,11 +3259,11 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
-msgstr ""
+msgstr "Слідкуйте за оновленнями та новинами про проект на Mastodon"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3298,18 +3294,14 @@ msgstr "Підтримка проєкту"
 msgid ""
 "Buy us a coffee to help the project, pay for server costs, and keep us fueled"
 msgstr ""
+"Купіть нам каву, щоб допомогти проекту, оплатити витрати на сервер і "
+"підтримати нас"
 
 #: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr "Наша мета"
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3319,8 +3311,9 @@ msgid ""
 msgstr ""
 "Мета полягає в тому, щоб побудувати дивовижний і гнучкий фітнес-менеджер, а "
 "також\n"
-"всебічний і повний перелік вправ і інгредієнтів, випущений під вільною\n"
-"ліцензією."
+"                всебічний і повний перелік\n"
+"                вправ і\n"
+"                інгредієнтів, випущений під вільною ліцензією."
 
 #: software/templates/features.html:11
 msgid ""
@@ -3532,7 +3525,7 @@ msgstr "Процедури тренувань"
 
 #: software/templates/features.html:470
 msgid "Discord"
-msgstr "Discord"
+msgstr "Дискорд"
 
 #: software/templates/features.html:485
 msgid "Software"

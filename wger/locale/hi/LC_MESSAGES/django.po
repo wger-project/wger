@@ -8,25 +8,27 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2022-10-05 20:25+0000\n"
-"Last-Translator: Ritish Bhardwaj <ritishbhardwajratan@gmail.com>\n"
+"PO-Revision-Date: 2024-10-04 07:15+0000\n"
+"Last-Translator: Ritik Sharma <pandatritik47@gmail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/wger/web/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
-msgstr ""
+msgstr "डिफ़ॉल्ट जिम"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"इस इंस्टॉलेशन के लिए डिफ़ॉल्ट जिम चुनें। यह सभी नए पंजीकृत उपयोगकर्ताओं को इस जिम को असाइन करेगा और बिना जि"
+"म वाले सभी मौजूदा उपयोगकर्ताओं को अपडेट करेगा।"
 
 #: config/views/gym_config.py:42 core/templates/language/view.html:67
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:18
@@ -52,32 +54,32 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:165
 #: nutrition/templates/units/list.html:19
 msgid "Edit"
-msgstr ""
+msgstr "संपादन"
 
 #: core/demo.py:96
 msgid "Sample workout"
-msgstr ""
+msgstr "उदाहरणात्मक वर्कआउट"
 
 #: core/demo.py:100
 msgid "Sample day"
-msgstr ""
+msgstr "उदाहरणात्मक दिन"
 
 #: core/demo.py:104
 msgid "Another sample day"
-msgstr ""
+msgstr "एक और उदाहरणात्मक दिन"
 
 #: core/demo.py:212
 msgid "Sample nutritional plan"
-msgstr ""
+msgstr "उदाहरणात्मक पोषण योजना"
 
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
 #, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr ""
+msgstr "कार्यक्रम के लिए वर्कआउट संख्या {0} का प्लेसहोल्डर"
 
 #: core/demo.py:353
 msgid "My cool workout schedule"
-msgstr ""
+msgstr "मेरा शानदार वर्कआउट शेड्यूल"
 
 #: core/demo.py:392 core/demo.py:407
 msgid "Empty placeholder schedule"
