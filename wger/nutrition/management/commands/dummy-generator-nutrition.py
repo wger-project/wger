@@ -107,11 +107,12 @@ class Command(BaseCommand):
                     self.stdout.write(f'  created plan {plan.description}')
 
                 # Add meals
-                for _ in range(0, meals_per_plan):
+                for i in range(0, meals_per_plan):
                     order = 1
                     meal = Meal(
                         plan=plan,
                         order=order,
+                        name=f'Dummy meal {i}',
                         time=datetime.time(hour=randint(0, 23), minute=randint(0, 59)),
                     )
                     meal.save()
