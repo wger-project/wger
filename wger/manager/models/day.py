@@ -29,7 +29,7 @@ from wger.manager.dataclasses import SlotData
 
 class DayType(models.TextChoices):
     CUSTOM = 'custom'
-    EMOM = 'enom'
+    ENOM = 'enom'
     AMRAP = 'amrap'
     HIIT = 'hiit'
     TABATA = 'tabata'

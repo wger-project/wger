@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         choices=[
                             ('custom', 'Custom'),
-                            ('enom', 'Emom'),
+                            ('enom', 'Enom'),
                             ('amrap', 'Amrap'),
                             ('hiit', 'Hiit'),
                             ('tabata', 'Tabata'),
