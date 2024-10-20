@@ -160,9 +160,8 @@
       "slot_config_id": 1,
       "iteration": 1,
       "value": 5,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -173,9 +172,8 @@
       "slot_config_id": 2,
       "iteration": 1,
       "value": 2,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -186,9 +184,8 @@
       "slot_config_id": 3,
       "iteration": 1,
       "value": 5,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -199,9 +196,8 @@
       "slot_config_id": 4,
       "iteration": 1,
       "value": 3,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -212,9 +208,8 @@
       "slot_config_id": 1,
       "iteration": 1,
       "value": 80,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -225,9 +220,8 @@
       "slot_config_id": 2,
       "iteration": 1,
       "value": 20,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -238,9 +232,8 @@
       "slot_config_id": 3,
       "iteration": 1,
       "value": 80,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -251,9 +244,8 @@
       "slot_config_id": 4,
       "iteration": 1,
       "value": 50,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -264,9 +256,8 @@
       "slot_config_id": 1,
       "iteration": 1,
       "value": 4,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -277,9 +268,8 @@
       "slot_config_id": 2,
       "iteration": 1,
       "value": 5,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -290,9 +280,8 @@
       "slot_config_id": 3,
       "iteration": 1,
       "value": 6,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   },
@@ -303,9 +292,8 @@
       "slot_config_id": 4,
       "iteration": 1,
       "value": 4,
-      "operation": null,
+      "operation": "r",
       "step": null,
-      "replace": true,
       "need_log_to_apply": false
     }
   }

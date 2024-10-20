@@ -5,6 +5,5 @@ CONFIG_FIELDS = (
     'value',
     'operation',
     'step',
-    'replace',
     'need_log_to_apply',
 )

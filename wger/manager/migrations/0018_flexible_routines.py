@@ -344,10 +344,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -359,7 +359,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -392,10 +391,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -407,7 +406,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -440,10 +438,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -455,7 +453,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -488,10 +485,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -503,7 +500,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -536,10 +532,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -551,7 +547,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -584,10 +579,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -599,7 +594,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -631,10 +625,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -646,7 +640,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
@@ -678,10 +671,10 @@ class Migration(migrations.Migration):
                 (
                     'operation',
                     models.CharField(
-                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
                         default='+',
                         max_length=1,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 (
@@ -693,7 +686,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',

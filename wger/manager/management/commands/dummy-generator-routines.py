@@ -33,7 +33,7 @@ from wger.manager.models import (
     SlotConfig,
     WeightConfig,
 )
-
+from wger.manager.models.abstract_config import OperationChoices
 
 logger = logging.getLogger(__name__)
 
@@ -132,19 +132,19 @@ class Command(BaseCommand):
                             slot_config=slot_config,
                             value=sets,
                             iteration=1,
-                            replace=True,
+                            operation=OperationChoices.REPLACE,
                         ).save()
 
                         RepsConfig(
                             slot_config=slot_config,
                             value=reps,
                             iteration=1,
-                            replace=True,
+                            operation=OperationChoices.REPLACE,
                         ).save()
 
                         WeightConfig(
                             slot_config=slot_config,
                             value=weight,
                             iteration=1,
-                            replace=True,
+                            operation=OperationChoices.REPLACE,
                         ).save()

@@ -27,6 +27,8 @@ def migrate_routines(apps) -> dict[int, Any]:
     RiRConfig = apps.get_model('manager', 'RiRConfig')
     RestConfig = apps.get_model('manager', 'RestConfig')
 
+    REPLACE_OP = 'r'
+
     workouts_to_routines = {}
 
     for workout in Workout.objects.all():
@@ -92,7 +94,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 slot_config=slot_config,
                                 value=setting.weight,
                                 iteration=1,
-                                replace=True,
+                                operation=REPLACE_OP,
                             ).save()
 
                         if setting.reps:
@@ -100,7 +102,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 slot_config=slot_config,
                                 value=setting.reps,
                                 iteration=1,
-                                replace=True,
+                                operation=REPLACE_OP,
                             ).save()
 
                         if setting.rir:
@@ -108,21 +110,21 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 slot_config=slot_config,
                                 value=setting.rir,
                                 iteration=1,
-                                replace=True,
+                                operation=REPLACE_OP,
                             ).save()
 
                         RestConfig(
                             slot_config=slot_config,
                             value=120,
                             iteration=1,
-                            replace=True,
+                            operation=REPLACE_OP,
                         ).save()
 
                         SetsConfig(
                             slot_config=slot_config,
                             value=set_obj.sets,
                             iteration=1,
-                            replace=True,
+                            operation=REPLACE_OP,
                         ).save()
 
         routine.first_day = day_dict[1]

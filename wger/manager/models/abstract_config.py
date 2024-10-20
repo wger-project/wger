@@ -17,10 +17,13 @@
 # Django
 from django.db import models
 
+from wger.utils.context_processor import processor
+
 
 class OperationChoices(models.TextChoices):
     PLUS = '+'
     MINUS = '-'
+    REPLACE = 'r'
 
 
 class StepChoices(models.TextChoices):
@@ -57,7 +60,7 @@ class AbstractChangeConfig(models.Model):
     operation = models.CharField(
         choices=OperationChoices.choices,
         max_length=1,
-        default=OperationChoices.PLUS,
+        default=OperationChoices.REPLACE,
         null=True,
     )
     """The operation"""
@@ -66,17 +69,9 @@ class AbstractChangeConfig(models.Model):
         choices=StepChoices.choices,
         max_length=10,
         default=StepChoices.ABSOLUTE,
-        null=True,
+        null=False,
     )
     """The step by which the change will happen"""
-
-    replace = models.BooleanField(
-        default=False,
-    )
-    """
-    Flag indicating that there is no increase, but that the value will simply
-    be replaced with the new one
-    """
 
     need_log_to_apply = models.BooleanField(
         default=False,
@@ -87,21 +82,40 @@ class AbstractChangeConfig(models.Model):
     apply the rules anyway
     """
 
+    @property
+    def replace(self):
+        """
+        Flag indicating that there is no increase, but that the value will simply
+        be replaced with the new one
+        """
+        return self.operation == OperationChoices.REPLACE
+
     def save(self, **kwargs):
-        # Cleanup some combinations. While these would be ignored in the
-        # calculations anyway, this makes it cleaner
+        """
+        Cleanup some combinations. While these would be ignored in the
+        calculations anyway, this makes it cleaner
+        """
 
         # Override values for the first iteration.
         if self.iteration == 1:
-            self.replace = True
+            self.operation = OperationChoices.REPLACE
 
         # Override values for replace
         if self.replace:
             self.need_log_to_apply = None
             self.step = None
-            self.operation = None
 
         super().save(**kwargs)
+
+    def delete(self, using=None, keep_parents=False):
+        """
+        There must be a config object for the first iteration
+        """
+
+        if self.iteration == 1:
+            return
+
+        return super().delete(using=using, keep_parents=keep_parents)
 
     def get_owner_object(self):
         """
