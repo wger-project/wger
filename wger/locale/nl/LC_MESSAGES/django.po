@@ -523,7 +523,7 @@ msgstr "Terug naar \"%(target)s\""
 #: core/templates/delete.html:15
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr ""
-"Ben je zeker dat je dit wil verwijderen? Deze actie kan niet ongedaan worden "
+"Weet je zeker dit je d wil verwijderen? Deze actie kan niet ongedaan worden "
 "gemaakt."
 
 #: core/templates/email_verification/confirm_template.html:4
@@ -834,7 +834,7 @@ msgstr "Wachtwoord-reset voltooid"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Je wachtwoord werd ingesteld. Je kan jezelf nu aanmelden."
+msgstr "Je wachtwoord is ingesteld. Je kan jezelf nu aanmelden."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
@@ -842,7 +842,7 @@ msgstr "Aanmelden"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr "Wachtwoord-reset niet geslaagd"
+msgstr "Wachtwoord opnieuw instellen niet geslaagd"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
@@ -872,7 +872,7 @@ msgstr "Je gebruikersnaam, in geval je deze vergeten bent:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
-msgstr "Bedankt om onze site te gebruiken!"
+msgstr "Bedankt voor het gebruiken van onze site!"
 
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
@@ -894,7 +894,7 @@ msgstr "Voeg gewichtlog toe"
 
 #: core/templates/tags/render_day.html:116
 msgid "Placeholder image for exercise"
-msgstr "Placeholder afbeelding voor oefening"
+msgstr "Aanduiding afbeelding voor oefening"
 
 #: core/templates/tags/render_day.html:133
 msgid "This exercise has no repetitions."
