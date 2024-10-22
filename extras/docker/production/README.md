@@ -1,79 +1,16 @@
-# Development image for wger
+# Production image for wger
 
 wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that help
 you manage your personal workouts, weight and diet plans and can also be used
 as a simple gym management utility. It offers a REST API as well, for easy
 integration with other projects and tools.
 
-If you want to host your own instance, take a look at the provided docker compose file:
-
-<https://github.com/wger-project/docker>
-
 ## Usage
 
-This docker image is meant to provide a quick development environment using
-django's development server and an sqlite database from your current code
-checkout (if you don't want or need a local checkout, use the wger/demo image,
-it is self-contained).
+It is recommended to use this image with the provided docker compose, which has all the different
+services configured:
 
-A more comfortable development version is provided in the compose folder.
-
-### 1 - Installing docker
-
-Install docker, and the docker buildx tool (if they are separate packages on your system, e.g. on
-Arch Linux)
-
-### 2 - Obtaining/building the docker image
-
-We will run the `wger/server:latest` image in the next step.
-
-You can either download it from [dockerhub](https://hub.docker.com/r/wger/server); docker will do
-this automatically if you have no such image with that tag yet.
-You can also run `docker pull wger/server` to get the latest version. (you can use `docker images`
-to see if your image is old)
-
-Alternatively, you can build it yourself from your wger code checkout.
-To do this, you **must** build from the project root!
-
-```docker build -f extras/docker/production/Dockerfile --tag wger/server .```
-
-### 3 - Start the container
-
-    docker run -ti  \
-       -v /path/to/your/wger/checkout:/home/wger/src \
-       --name wger.devel \
-       --publish 8000:8000 wger/server
-
-When developing with windows, you might have problems with the `--volume` option,
-use the more verbose mount instead:
-
-    --mount type=bind,source='"C:\your\path\to your\checkout"',target=/home/wger/src
-
-You might also want to download the exercise images and the ingredients
-(will take some time):
-
-    docker exec wger.devel python3 manage.py sync-exercises
-    docker exec wger.devel python3 manage.py download-exercise-images
-    docker exec wger.devel wger load-online-fixtures
-
-### 4 - Open the Application
-
-Just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
-
-To stop the container:
-
-```sudo docker container stop wger.devel```
-
-To start developing again:
-
-```sudo docker container start --attach wger.devel```
-
-### 5 - Other commands
-
-If you need to update the CSS/JS libraries or just issue some other command:
-
-     docker exec -ti wger.devel yarn
-     docker exec -ti wger.devel /bin/bash
+<https://github.com/wger-project/docker>
 
 ## Contact
 
