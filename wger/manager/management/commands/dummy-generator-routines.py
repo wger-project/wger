@@ -35,6 +35,7 @@ from wger.manager.models import (
 )
 from wger.manager.models.abstract_config import OperationChoices
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -89,26 +90,11 @@ class Command(BaseCommand):
                 nr_of_days = random.randint(2, 5)
 
                 day_list = []
-                is_first_day = False
-                for _ in range(nr_of_days):
+                for i in range(nr_of_days):
                     uid = str(uuid.uuid4()).split('-')
-                    day = Day(routine=routine, name=f'Dummy day - {uid[0]}')
+                    day = Day(routine=routine, name=f'Dummy day - {uid[0]}', order=i)
                     day.save()
-                    if is_first_day:
-                        routine.first_day = day
-                        routine.save()
-
-                    is_first_day = False
                     day_list.append(day)
-
-                next_day = None
-                for day in reversed(day_list):
-                    if next_day:
-                        day.next_day = next_day
-                        day.save()
-                    next_day = day
-                day_list[-1].next_day = day_list[0]
-                day_list[-1].save()
 
                 # Add exercises (no supersets, all very simple)
                 exercise_list = [i for i in Exercise.objects.all()]

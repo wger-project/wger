@@ -28,7 +28,7 @@ class Slot(models.Model):
         related_name='slots',
     )
 
-    order = models.IntegerField(
+    order = models.PositiveIntegerField(
         default=1,
         null=False,
         verbose_name=_('Order'),

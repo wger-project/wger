@@ -53,18 +53,12 @@ def migrate_routines(apps) -> dict[int, Any]:
         # To simulate a hard coded week, we will create exactly seven day entries (since
         # we know the routine starts on a monday).
         for i in range(1, 8):
-            current_day = DayNg(routine=routine, next_day=None, is_rest=True)
+            current_day = DayNg(routine=routine, order=i, is_rest=True)
             current_day.save()
             day_dict[i] = current_day
 
         for i in range(1, 8):
             current_day = day_dict[i]
-
-            if i == 7:
-                current_day.next_day = day_dict[1]
-            else:
-                current_day.next_day = day_dict[i + 1]
-            current_day.save()
 
             day = workout.day_set.filter(day__id=i).first()
             if day:

@@ -50,13 +50,6 @@ class Routine(models.Model):
         on_delete=models.CASCADE,
     )
 
-    first_day = models.ForeignKey(
-        'Day',
-        on_delete=models.CASCADE,
-        null=True,
-        related_name='first_days',
-    )
-
     name = models.CharField(
         verbose_name=_('Name'),
         max_length=50,
@@ -137,15 +130,7 @@ class Routine(models.Model):
 
         Each day object points to the next one in the sequence till it loops back
         """
-
-        out = []
-        day = self.first_day
-        while day:
-            if day in out:
-                break
-            out.append(day)
-            day = day.next_day
-        return out
+        return list(self.days.all())
 
     @property
     def label_dict(self) -> dict[datetime.date, str]:
@@ -169,7 +154,9 @@ class Routine(models.Model):
         labels = self.label_dict
         delta = datetime.timedelta(days=1)
         current_date = self.start
-        current_day = self.first_day
+        days = list(self.days.all())
+        current_day = self.days.first()
+        nr_days = self.days.count()
         counter = Counter()
         skip_til_date = None
 
@@ -178,6 +165,7 @@ class Routine(models.Model):
         if current_day is None:
             return out
 
+        index = 0
         while current_date <= self.end:
             # Fill all days till the end of the week with empty workout days
             if skip_til_date:
@@ -195,6 +183,7 @@ class Routine(models.Model):
                 continue
 
             counter[current_day] += 1
+            index = (index + 1) % nr_days
 
             if current_day.last_day_in_week:
                 days_til_monday = 7 - current_date.weekday()
@@ -210,7 +199,7 @@ class Routine(models.Model):
             )
 
             if current_day.can_proceed(current_date):
-                current_day = current_day.next_day
+                current_day = days[index]
 
             current_date += delta
 

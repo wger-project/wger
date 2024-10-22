@@ -49,29 +49,19 @@ class RoutineTestCase(WgerTestCase):
         )
         self.routine.save()
 
-        self.day1 = Day(routine=self.routine, description='day 1')
+        self.day1 = Day(routine=self.routine, description='day 1', order=1)
         self.day1.save()
 
         self.day2 = Day(
             routine=self.routine,
             description='day 2',
+            order=2,
             is_rest=True,
         )
         self.day2.save()
 
-        self.day3 = Day(routine=self.routine, description='day 3')
+        self.day3 = Day(routine=self.routine, description='day 3', order=3)
         self.day3.save()
-
-        self.day1.next_day = self.day2
-        self.day1.save()
-
-        self.day2.next_day = self.day3
-        self.day2.save()
-
-        self.day3.next_day = self.day1
-        self.day3.save()
-
-        self.routine.first_day = self.day1
 
         Label(routine=self.routine, start_offset=0, end_offset=3, label='First label').save()
         Label(routine=self.routine, start_offset=4, end_offset=5, label='Second label').save()

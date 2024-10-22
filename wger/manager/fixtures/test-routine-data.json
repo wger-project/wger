@@ -40,7 +40,7 @@
     "model": "manager.day",
     "fields": {
       "routine": 1,
-      "next_day": 2,
+      "order": 2,
       "is_rest": false
     }
   },
@@ -49,7 +49,7 @@
     "model": "manager.day",
     "fields": {
       "routine": 1,
-      "next_day": 3,
+      "order": 3,
       "is_rest": false
     }
   },
@@ -58,7 +58,7 @@
     "model": "manager.day",
     "fields": {
       "routine": 1,
-      "next_day": 1,
+      "order": 1,
       "is_rest": false
     }
   },

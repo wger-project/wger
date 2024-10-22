@@ -50,15 +50,7 @@ class Migration(migrations.Migration):
                 ('is_rest', models.BooleanField(default=False)),
                 ('last_day_in_week', models.BooleanField(default=False)),
                 ('need_logs_to_advance', models.BooleanField(default=False)),
-                (
-                    'next_day',
-                    models.ForeignKey(
-                        blank=True,
-                        null=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.dayng',
-                    ),
-                ),
+                ('order', models.PositiveIntegerField(default=1, verbose_name='Order')),
             ],
         ),
         migrations.AddField(
@@ -98,7 +90,7 @@ class Migration(migrations.Migration):
                         verbose_name='ID',
                     ),
                 ),
-                ('order', models.IntegerField(default=1, verbose_name='Order')),
+                ('order', models.PositiveIntegerField(default=1, verbose_name='Order')),
                 ('comment', models.CharField(blank=True, max_length=200, verbose_name='Comment')),
                 (
                     'day',
@@ -231,15 +223,6 @@ class Migration(migrations.Migration):
                 ),
                 ('start', models.DateField(verbose_name='Start date')),
                 ('end', models.DateField(verbose_name='End date')),
-                (
-                    'first_day',
-                    models.ForeignKey(
-                        null=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name='first_days',
-                        to='manager.dayng',
-                    ),
-                ),
                 (
                     'user',
                     models.ForeignKey(

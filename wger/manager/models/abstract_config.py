@@ -17,6 +17,7 @@
 # Django
 from django.db import models
 
+# wger
 from wger.utils.context_processor import processor
 
 

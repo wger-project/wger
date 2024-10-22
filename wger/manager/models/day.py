@@ -43,6 +43,11 @@ class Day(models.Model):
     Model for a training day
     """
 
+    class Meta:
+        ordering = [
+            'order',
+        ]
+
     routine = models.ForeignKey(
         'Routine',
         verbose_name=_('Routine'),
@@ -50,11 +55,10 @@ class Day(models.Model):
         related_name='days',
     )
 
-    next_day = models.ForeignKey(
-        'self',
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
+    order = models.PositiveIntegerField(
+        default=1,
+        null=False,
+        verbose_name=_('Order'),
     )
 
     type = models.CharField(

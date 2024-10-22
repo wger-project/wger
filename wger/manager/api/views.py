@@ -452,7 +452,7 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'id',
-        'next_day',
+        'order',
         'name',
         'description',
         'is_rest',

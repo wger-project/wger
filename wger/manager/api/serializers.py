@@ -52,7 +52,6 @@ class RoutineSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
-            'first_day',
             'created',
             'start',
             'end',
@@ -69,7 +68,7 @@ class DaySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'routine',
-            'next_day',
+            'order',
             'name',
             'description',
             'is_rest',
@@ -243,7 +242,7 @@ class DayStructureSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'routine',
-            'next_day',
+            'order',
             'name',
             'description',
             'is_rest',
@@ -266,7 +265,6 @@ class RoutineStructureSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
-            'first_day',
             'created',
             'start',
             'end',
