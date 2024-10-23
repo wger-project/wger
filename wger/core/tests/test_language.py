@@ -72,7 +72,7 @@ class CreateLanguageTestCase(WgerAddTestCase):
 
 class EditLanguageTestCase(WgerEditTestCase):
     """
-    Tests adding a new language
+    Tests editing a language
     """
 
     object_class = Language
@@ -83,7 +83,7 @@ class EditLanguageTestCase(WgerEditTestCase):
 
 class DeleteLanguageTestCase(WgerDeleteTestCase):
     """
-    Tests adding a new language
+    Tests deleting a language
     """
 
     object_class = Language
