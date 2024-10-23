@@ -104,6 +104,15 @@ class SetConfigDataTestCase(WgerTestCase):
         self.config.max_weight = 30
         self.assertEqual(self.config.text_repr, '3 Sets, 4 × 20-30 kg @ 3 RiR')
 
+    def test_text_repr_only_sets(self):
+        self.config.sets = 3
+        self.config.weight = None
+        self.config.max_weight = None
+        self.config.max_reps = None
+        self.config.reps = None
+        self.config.rir = None
+        self.assertEqual(self.config.text_repr, '3 Sets')
+
     def test_rpe_calculation(self):
         self.assertEqual(self.config.rpe, 7)
 

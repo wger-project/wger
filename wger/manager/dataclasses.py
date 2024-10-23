@@ -135,7 +135,7 @@ class SetConfigData:
             rir = round_value(self.rir, 0.5)
             out.append(f'@ {rir} {_("RiR")}')
 
-        return ' '.join(out)
+        return ' '.join(out).strip(',')
 
 
 @dataclass
