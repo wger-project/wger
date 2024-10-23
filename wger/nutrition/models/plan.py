@@ -17,7 +17,7 @@
 # Standard Library
 import datetime
 import logging
-from decimal import Decimal
+import uuid
 
 # Django
 from django.contrib.auth.models import User
@@ -30,7 +30,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
@@ -48,6 +47,13 @@ class NutritionPlan(models.Model):
         ordering = [
             '-creation_date',
         ]
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
+    )
 
     user = models.ForeignKey(
         User,
