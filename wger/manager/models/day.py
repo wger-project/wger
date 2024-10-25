@@ -76,6 +76,7 @@ class Day(models.Model):
     description = models.CharField(
         max_length=1000,
         verbose_name=_('Description'),
+        blank=True,
     )
 
     is_rest = models.BooleanField(

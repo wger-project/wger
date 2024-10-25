@@ -103,20 +103,10 @@ class AbstractChangeConfig(models.Model):
 
         # Override values for replace
         if self.replace:
-            self.need_log_to_apply = None
+            self.need_log_to_apply = False
             self.step = None
 
         super().save(**kwargs)
-
-    def delete(self, using=None, keep_parents=False):
-        """
-        There must be a config object for the first iteration
-        """
-
-        if self.iteration == 1:
-            return
-
-        return super().delete(using=using, keep_parents=keep_parents)
 
     def get_owner_object(self):
         """
