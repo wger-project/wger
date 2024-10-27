@@ -28,6 +28,7 @@ def migrate_routines(apps) -> dict[int, Any]:
     RestConfig = apps.get_model('manager', 'RestConfig')
 
     REPLACE_OP = 'r'
+    ABS_STEP = 'abs'
 
     workouts_to_routines = {}
 
@@ -89,6 +90,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 value=setting.weight,
                                 iteration=1,
                                 operation=REPLACE_OP,
+                                step=ABS_STEP,
                             ).save()
 
                         if setting.reps:
@@ -97,6 +99,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 value=setting.reps,
                                 iteration=1,
                                 operation=REPLACE_OP,
+                                step=ABS_STEP,
                             ).save()
 
                         if setting.rir:
@@ -105,6 +108,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 value=setting.rir,
                                 iteration=1,
                                 operation=REPLACE_OP,
+                                step=ABS_STEP,
                             ).save()
 
                         RestConfig(
@@ -112,6 +116,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                             value=120,
                             iteration=1,
                             operation=REPLACE_OP,
+                            step=ABS_STEP,
                         ).save()
 
                         SetsConfig(
@@ -119,6 +124,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                             value=set_obj.sets,
                             iteration=1,
                             operation=REPLACE_OP,
+                            step=ABS_STEP,
                         ).save()
 
         routine.first_day = day_dict[1]

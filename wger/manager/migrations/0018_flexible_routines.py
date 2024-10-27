@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                         max_length=10,
                     ),
                 ),
-                ('name', models.CharField(max_length=20, verbose_name='Description')),
+                ('name', models.CharField(max_length=20, verbose_name='Name')),
                 (
                     'description',
                     models.CharField(
@@ -59,6 +59,9 @@ class Migration(migrations.Migration):
                 ('need_logs_to_advance', models.BooleanField(default=False)),
                 ('order', models.PositiveIntegerField(default=1, verbose_name='Order')),
             ],
+            options={
+                'ordering': ['order'],
+            },
         ),
         migrations.AddField(
             model_name='workoutlog',
@@ -71,6 +74,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
+                related_name='logs',
                 to='manager.workoutsession',
                 verbose_name='Session',
             ),
@@ -335,9 +339,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -346,7 +349,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -382,9 +385,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -393,7 +395,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -429,9 +431,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -440,7 +441,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -476,9 +477,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -487,7 +487,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -523,9 +523,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -534,7 +533,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -570,9 +569,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -581,7 +579,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -616,9 +614,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -627,7 +624,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
@@ -662,9 +659,8 @@ class Migration(migrations.Migration):
                     'operation',
                     models.CharField(
                         choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
-                        default='+',
+                        default='r',
                         max_length=1,
-                        null=False,
                     ),
                 ),
                 (
@@ -673,7 +669,7 @@ class Migration(migrations.Migration):
                         choices=[('abs', 'Absolute'), ('percent', 'Percent')],
                         default='abs',
                         max_length=10,
-                        null=True,
+                        null=False,
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
