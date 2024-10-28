@@ -1,0 +1,62 @@
+[
+  {
+    "pk": 1,
+    "model": "manager.workoutlog",
+    "fields": {
+      "weight": 30,
+      "routine": 1,
+      "reps": 8,
+      "user": 1,
+      "date": "2012-10-01T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.workoutlog",
+    "fields": {
+      "weight": 32,
+      "routine": 1,
+      "reps": 8,
+      "user": 1,
+      "date": "2012-10-10T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.workoutlog",
+    "fields": {
+      "weight": 38,
+      "routine": 1,
+      "reps": 8,
+      "user": 1,
+      "date": "2013-10-30T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.workoutlog",
+    "fields": {
+      "weight": 30,
+      "routine": 1,
+      "reps": 8,
+      "user": 1,
+      "date": "2012-11-01T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "manager.workoutlog",
+    "fields": {
+      "weight": 30,
+      "routine": 3,
+      "reps": 8,
+      "user": 2,
+      "date": "2012-11-01T00:00:00+01:00",
+      "exercise": 2
+    }
+  }
+]
