@@ -145,11 +145,10 @@ class RoutineTestCase(WgerTestCase):
 
     def test_date_sequence_week_skip(self):
         """
-        Test that the last_day_in_week flag works
+        Test that the fit_in_week flag works
         """
-
-        self.day3.last_day_in_week = True
-        self.day3.save()
+        self.routine.fit_in_week = True
+        self.routine.save()
 
         self.assertListEqual(
             self.routine.date_sequence,

@@ -93,6 +93,10 @@ class Routine(models.Model):
         null=False,
     )
 
+    fit_in_week = models.BooleanField(
+        default=False,
+    )
+
     def get_absolute_url(self):
         """
         Returns the canonical URL to view a workout
@@ -127,8 +131,6 @@ class Routine(models.Model):
     def day_sequence(self):
         """
         Return a sequence of days.
-
-        Each day object points to the next one in the sequence till it loops back
         """
         return list(self.days.all())
 
@@ -185,7 +187,9 @@ class Routine(models.Model):
             counter[current_day] += 1
             index = (index + 1) % nr_days
 
-            if current_day.last_day_in_week:
+            # If we reach the end of the available days, check whether we want to fill up the
+            # week with empty days, unless the routine already consists of 7 training days
+            if nr_days % 7 != 0 and index == 0 and self.fit_in_week:
                 days_til_monday = 7 - current_date.weekday()
                 skip_til_date = current_date + datetime.timedelta(days=days_til_monday)
 

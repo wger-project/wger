@@ -44,6 +44,7 @@ def migrate_routines(apps) -> dict[int, Any]:
             end=next_monday + timedelta(weeks=4 * 6),
             is_template=workout.is_template,
             is_public=workout.is_public,
+            fit_in_week=False,
         )
         routine.save()
 

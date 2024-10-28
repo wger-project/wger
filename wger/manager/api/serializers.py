@@ -55,6 +55,7 @@ class RoutineSerializer(serializers.ModelSerializer):
             'created',
             'start',
             'end',
+            'fit_in_week',
         )
 
 
@@ -72,7 +73,6 @@ class DaySerializer(serializers.ModelSerializer):
             'name',
             'description',
             'is_rest',
-            'last_day_in_week',
             'need_logs_to_advance',
             'type',
         )
@@ -246,7 +246,6 @@ class DayStructureSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'is_rest',
-            'last_day_in_week',
             'need_logs_to_advance',
             'slots',
         )
@@ -268,6 +267,7 @@ class RoutineStructureSerializer(serializers.ModelSerializer):
             'created',
             'start',
             'end',
+            'fit_in_week',
             'days',
         )
 

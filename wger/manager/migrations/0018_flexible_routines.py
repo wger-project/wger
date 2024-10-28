@@ -55,7 +55,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('is_rest', models.BooleanField(default=False)),
-                ('last_day_in_week', models.BooleanField(default=False)),
                 ('need_logs_to_advance', models.BooleanField(default=False)),
                 ('order', models.PositiveIntegerField(default=1, verbose_name='Order')),
             ],
@@ -258,6 +257,10 @@ class Migration(migrations.Migration):
                         verbose_name='Workout template',
                     ),
                 ),
+                (
+                    'fit_in_week',
+                    models.BooleanField(default=False),
+                )
             ],
             options={
                 'ordering': ['-created'],
