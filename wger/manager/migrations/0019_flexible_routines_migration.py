@@ -20,7 +20,7 @@ def migrate_routines(apps) -> dict[int, Any]:
     Routine = apps.get_model('manager', 'Routine')
     DayNg = apps.get_model('manager', 'DayNg')
     Slot = apps.get_model('manager', 'Slot')
-    SlotConfig = apps.get_model('manager', 'SlotConfig')
+    SlotEntry = apps.get_model('manager', 'SlotEntry')
     SetsConfig = apps.get_model('manager', 'SetsConfig')
     WeightConfig = apps.get_model('manager', 'WeightConfig')
     RepsConfig = apps.get_model('manager', 'RepsConfig')
@@ -75,7 +75,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                     slot = Slot(day=current_day, comment=set_obj.comment, order=set_obj.order)
                     slot.save()
                     for setting in set_obj.setting_set.all():
-                        slot_config = SlotConfig(
+                        slot_entry = SlotEntry(
                             slot=slot,
                             exercise=setting.exercise_base,
                             repetition_unit=setting.repetition_unit,
@@ -83,11 +83,11 @@ def migrate_routines(apps) -> dict[int, Any]:
                             order=setting.order,
                             comment=setting.comment,
                         )
-                        slot_config.save()
+                        slot_entry.save()
 
                         if setting.weight:
                             WeightConfig(
-                                slot_config=slot_config,
+                                slot_entry=slot_entry,
                                 value=setting.weight,
                                 iteration=1,
                                 operation=REPLACE_OP,
@@ -96,7 +96,7 @@ def migrate_routines(apps) -> dict[int, Any]:
 
                         if setting.reps:
                             RepsConfig(
-                                slot_config=slot_config,
+                                slot_entry=slot_entry,
                                 value=setting.reps,
                                 iteration=1,
                                 operation=REPLACE_OP,
@@ -105,7 +105,7 @@ def migrate_routines(apps) -> dict[int, Any]:
 
                         if setting.rir:
                             RiRConfig(
-                                slot_config=slot_config,
+                                slot_entry=slot_entry,
                                 value=setting.rir,
                                 iteration=1,
                                 operation=REPLACE_OP,
@@ -113,7 +113,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                             ).save()
 
                         RestConfig(
-                            slot_config=slot_config,
+                            slot_entry=slot_entry,
                             value=120,
                             iteration=1,
                             operation=REPLACE_OP,
@@ -121,7 +121,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                         ).save()
 
                         SetsConfig(
-                            slot_config=slot_config,
+                            slot_entry=slot_entry,
                             value=set_obj.sets,
                             iteration=1,
                             operation=REPLACE_OP,

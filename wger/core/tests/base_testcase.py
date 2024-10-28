@@ -129,9 +129,8 @@ class BaseTestCase:
         'test-ingredients',
         'test-nutrition-data',
         'test-nutrition-diary',
-        'test-workout-data',
+        'test-workout-log-data',
         'test-workout-session',
-        'test-schedules',
         'test-routine-data',
         'test-gallery-images',
         'test-measurement-categories',
@@ -165,7 +164,8 @@ class BaseTestCase:
         """
         Reset settings
         """
-        del os.environ['RECAPTCHA_TESTING']
+
+        # del os.environ['RECAPTCHA_TESTING']
         cache.clear()
 
         # Clear MEDIA_ROOT folder

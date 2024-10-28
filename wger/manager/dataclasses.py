@@ -59,7 +59,7 @@ class SetConfigData:
 
     comment: str = ''
     type: str = 'normal'
-    slot_config_id: int | None = None
+    slot_entry_id: int | None = None
 
     @property
     def rpe(self):
@@ -140,7 +140,7 @@ class SetConfigData:
 
 @dataclass
 class SetExerciseData:
-    config: Any  # 'SlotConfig'
+    config: Any  # 'SlotEntry'
     data: SetConfigData
 
     @property

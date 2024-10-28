@@ -63,12 +63,12 @@ class Slot(models.Model):
         """
         Checks whether this slot is a superset or not
         """
-        return self.configs.count() > 1
+        return self.entries.count() > 1
 
     def set_data(self, iteration: int) -> List[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
 
-        return [SetExerciseData(data=s.get_config(iteration), config=s) for s in self.configs.all()]
+        return [SetExerciseData(data=s.get_config(iteration), config=s) for s in self.entries.all()]
 
     def get_sets(self, iteration: int) -> list[SetConfigData]:
         """
@@ -118,4 +118,4 @@ class Slot(models.Model):
         """
         Returns the list of distinct exercises in the configs
         """
-        return [slot.exercise.id for slot in self.configs.all()]
+        return [slot.exercise.id for slot in self.entries.all()]

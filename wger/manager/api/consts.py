@@ -1,6 +1,6 @@
 CONFIG_FIELDS = (
     'id',
-    'slot_config',
+    'slot_entry',
     'iteration',
     'value',
     'operation',

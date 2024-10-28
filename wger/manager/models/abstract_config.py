@@ -36,11 +36,11 @@ class AbstractChangeConfig(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['slot_config', 'iteration']
-        unique_together = ['slot_config', 'iteration']
+        ordering = ['slot_entry', 'iteration']
+        unique_together = ['slot_entry', 'iteration']
 
-    slot_config = models.ForeignKey(
-        'SlotConfig',
+    slot_entry = models.ForeignKey(
+        'SlotEntry',
         on_delete=models.CASCADE,
     )
 
@@ -107,4 +107,4 @@ class AbstractChangeConfig(models.Model):
         """
         Get owner information
         """
-        return self.slot_config.slot.day.routine
+        return self.slot_entry.slot.day.routine

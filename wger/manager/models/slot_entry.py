@@ -51,7 +51,8 @@ class SetType(models.TextChoices):
 # TODO: rename to SlowEntry!
 #
 
-class SlotConfig(models.Model):
+
+class SlotEntry(models.Model):
     """
     Set configuration for an exercise (weight, reps, etc.)
     """
@@ -59,7 +60,7 @@ class SlotConfig(models.Model):
     slot = models.ForeignKey(
         'Slot',
         on_delete=models.CASCADE,
-        related_name='configs',
+        related_name='entries',
     )
 
     exercise = models.ForeignKey(
@@ -219,7 +220,7 @@ class SlotConfig(models.Model):
             # We do need to check the logs, iterate over them and check that we
             # matched the planned values and continue or
             elif weight_config.need_log_to_apply or reps_config.need_log_to_apply:
-                log_data = self.workoutlog_set.filter(slot_config_id=self.id, iteration=i - 1)
+                log_data = self.workoutlog_set.filter(slot_entry_id=self.id, iteration=i - 1)
 
                 # If any of the entries in last log is greater than the last config data,
                 # proceed. Otherwise, the weight won't change
@@ -245,7 +246,7 @@ class SlotConfig(models.Model):
         max_rest = self.get_max_rest(iteration)
 
         return SetConfigData(
-            slot_config_id=self.id,
+            slot_entry_id=self.id,
             exercise=self.exercise.id,
             sets=sets if sets is not None else 1,
             weight=weight,

@@ -89,8 +89,8 @@ class WorkoutLog(models.Model):
         null=True,
     )
 
-    slot_config = models.ForeignKey(
-        'SlotConfig',
+    slot_entry = models.ForeignKey(
+        'SlotEntry',
         on_delete=models.CASCADE,
         null=True,
     )

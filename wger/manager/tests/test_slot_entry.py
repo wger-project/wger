@@ -25,6 +25,7 @@ from wger.manager.models import (
     RestConfig,
     RiRConfig,
     SetsConfig,
+    SlotEntry,
     WeightConfig,
     WorkoutLog,
 )
@@ -32,25 +33,24 @@ from wger.manager.models.abstract_config import (
     OperationChoices,
     StepChoices,
 )
-from wger.manager.models.slot_config import SlotConfig
 
 
-class SlotConfigTestCase(WgerTestCase):
+class SlotEntryTestCase(WgerTestCase):
     """
-    Test the slot config calculations
+    Test the slot entry calculations
     """
 
-    slot_config: SlotConfig
+    slot_entry: SlotEntry
 
     def setUp(self):
         super().setUp()
 
-        self.slot_config = SlotConfig(
+        self.slot_entry = SlotEntry(
             slot_id=1,
             exercise_id=1,
             order=1,
         )
-        self.slot_config.save()
+        self.slot_entry.save()
 
     def test_weight_config(self):
         """
@@ -58,17 +58,17 @@ class SlotConfigTestCase(WgerTestCase):
         """
 
         # Initial value
-        WeightConfig(slot_config=self.slot_config, iteration=1, value=80).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
 
         # Increase by 2.5
-        WeightConfig(slot_config=self.slot_config, iteration=3, value=2.5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=3, value=2.5).save()
 
         # Replace with 42
-        WeightConfig(slot_config=self.slot_config, iteration=6, value=42, replace=True).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=6, value=42, replace=True).save()
 
         # Reduce by 2
         WeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=7,
             value=2,
             operation=OperationChoices.MINUS,
@@ -76,21 +76,21 @@ class SlotConfigTestCase(WgerTestCase):
 
         # Increase by 10%
         WeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=8,
             value=10,
             operation=OperationChoices.PLUS,
             step=StepChoices.PERCENT,
         ).save()
 
-        self.assertEqual(self.slot_config.get_weight(1), 80)
-        self.assertEqual(self.slot_config.get_weight(2), 80)
-        self.assertEqual(self.slot_config.get_weight(3), 82.5)
-        self.assertEqual(self.slot_config.get_weight(4), 82.5)
-        self.assertEqual(self.slot_config.get_weight(5), 82.5)
-        self.assertEqual(self.slot_config.get_weight(6), 42)
-        self.assertEqual(self.slot_config.get_weight(7), 40)
-        self.assertEqual(self.slot_config.get_weight(8), 44)
+        self.assertEqual(self.slot_entry.get_weight(1), 80)
+        self.assertEqual(self.slot_entry.get_weight(2), 80)
+        self.assertEqual(self.slot_entry.get_weight(3), 82.5)
+        self.assertEqual(self.slot_entry.get_weight(4), 82.5)
+        self.assertEqual(self.slot_entry.get_weight(5), 82.5)
+        self.assertEqual(self.slot_entry.get_weight(6), 42)
+        self.assertEqual(self.slot_entry.get_weight(7), 40)
+        self.assertEqual(self.slot_entry.get_weight(8), 44)
 
     def test_weight_config_with_logs(self):
         """
@@ -98,24 +98,24 @@ class SlotConfigTestCase(WgerTestCase):
         if there are logs
         """
 
-        self.slot_config.weight_rounding = 2.5
-        self.slot_config.repetition_rounding = 2
-        self.slot_config.save()
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 2
+        self.slot_entry.save()
 
         # Initial value
-        SetsConfig(slot_config=self.slot_config, iteration=1, value=4).save()
-        RepsConfig(slot_config=self.slot_config, iteration=1, value=5).save()
-        RestConfig(slot_config=self.slot_config, iteration=1, value=120).save()
-        RiRConfig(slot_config=self.slot_config, iteration=1, value=2).save()
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4).save()
+        RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        RestConfig(slot_entry=self.slot_entry, iteration=1, value=120).save()
+        RiRConfig(slot_entry=self.slot_entry, iteration=1, value=2).save()
         WeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=1,
             value=80,
         ).save()
 
         # Increase weight by 2.5 at iteration 2
         WeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=2,
             value=2.5,
             need_log_to_apply=True,
@@ -125,7 +125,7 @@ class SlotConfigTestCase(WgerTestCase):
 
         # Replace weight with 42 at iteration 5, no logs needed
         WeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=5,
             value=42,
             replace=True,
@@ -139,7 +139,7 @@ class SlotConfigTestCase(WgerTestCase):
             exercise_id=1,
             user_id=1,
             routine_id=1,
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=2,
             weight=82.5,
             reps=4,
@@ -150,16 +150,16 @@ class SlotConfigTestCase(WgerTestCase):
             exercise_id=1,
             user_id=1,
             routine_id=1,
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=3,
             weight=82.5,
             reps=5,
         ).save()
 
         self.assertEqual(
-            self.slot_config.get_config(1),
+            self.slot_entry.get_config(1),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
                 weight=80,
@@ -172,9 +172,9 @@ class SlotConfigTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_config.get_config(2),
+            self.slot_entry.get_config(2),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
                 weight=80,
@@ -187,9 +187,9 @@ class SlotConfigTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_config.get_config(3),
+            self.slot_entry.get_config(3),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
                 weight=80,
@@ -202,9 +202,9 @@ class SlotConfigTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_config.get_config(4),
+            self.slot_entry.get_config(4),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
                 weight=Decimal(82.5),
@@ -217,9 +217,9 @@ class SlotConfigTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_config.get_config(5),
+            self.slot_entry.get_config(5),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
                 weight=42,
@@ -232,9 +232,9 @@ class SlotConfigTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_config.get_config(6),
+            self.slot_entry.get_config(6),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
                 weight=42,
@@ -252,21 +252,21 @@ class SlotConfigTestCase(WgerTestCase):
         if there are logs and there is a weight / rep range
         """
 
-        self.slot_config.weight_rounding = 2.5
-        self.slot_config.repetition_rounding = 2
-        self.slot_config.save()
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 2
+        self.slot_entry.save()
 
         # Initial value: 5-6 reps x 80-100 kg
-        RepsConfig(slot_config=self.slot_config, iteration=1, value=5).save()
-        MaxRepsConfig(slot_config=self.slot_config, iteration=1, value=6).save()
+        RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        MaxRepsConfig(slot_entry=self.slot_entry, iteration=1, value=6).save()
         WeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=1,
             value=80,
         ).save()
 
         MaxWeightConfig(
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=1,
             value=100,
         ).save()
@@ -276,7 +276,7 @@ class SlotConfigTestCase(WgerTestCase):
             exercise_id=1,
             user_id=1,
             routine_id=1,
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=2,
             weight=82.5,
             reps=4,
@@ -287,16 +287,16 @@ class SlotConfigTestCase(WgerTestCase):
             exercise_id=1,
             user_id=1,
             routine_id=1,
-            slot_config=self.slot_config,
+            slot_entry=self.slot_entry,
             iteration=3,
             weight=80,
             reps=5,
         ).save()
 
         self.assertEqual(
-            self.slot_config.get_config(1),
+            self.slot_entry.get_config(1),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=1,
                 weight=80,
@@ -311,9 +311,9 @@ class SlotConfigTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_config.get_config(2),
+            self.slot_entry.get_config(2),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=1,
                 weight=80,
@@ -334,24 +334,24 @@ class SlotConfigTestCase(WgerTestCase):
         """
 
         # Initial value with custom python code
-        self.slot_config.class_name = 'dummy'
-        self.slot_config.save()
-        SetsConfig(slot_config=self.slot_config, iteration=1, value=5).save()
-        WeightConfig(slot_config=self.slot_config, iteration=1, value=100, replace=True).save()
-        RepsConfig(slot_config=self.slot_config, iteration=1, value=5).save()
-        RestConfig(slot_config=self.slot_config, iteration=1, value=120).save()
-        RiRConfig(slot_config=self.slot_config, iteration=1, value=2).save()
+        self.slot_entry.class_name = 'dummy'
+        self.slot_entry.save()
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100, replace=True).save()
+        RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        RestConfig(slot_entry=self.slot_entry, iteration=1, value=120).save()
+        RiRConfig(slot_entry=self.slot_entry, iteration=1, value=2).save()
 
         self.assertEqual(
-            self.slot_config.get_config(1),
+            self.slot_entry.get_config(1),
             SetConfigData(exercise=1, sets=2, weight=24, reps=1, rir=2, rest=120),
         )
         self.assertEqual(
-            self.slot_config.get_config(2),
+            self.slot_entry.get_config(2),
             SetConfigData(exercise=2, sets=4, weight=42, reps=10, rir=1, rest=90),
         )
         self.assertEqual(
-            self.slot_config.get_config(3),
+            self.slot_entry.get_config(3),
             SetConfigData(exercise=2, sets=4, weight=42, reps=10, rir=1, rest=90),
         )
 
@@ -360,11 +360,11 @@ class SlotConfigTestCase(WgerTestCase):
         Test that the correct config is calculated if there are no configs at all
         """
 
-        print(self.slot_config.get_config(1))
+        print(self.slot_entry.get_config(1))
         self.assertEqual(
-            self.slot_config.get_config(1),
+            self.slot_entry.get_config(1),
             SetConfigData(
-                slot_config_id=self.slot_config.pk,
+                slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=1,
                 weight=None,

@@ -33,7 +33,7 @@ from wger.manager.models import (
     ScheduleStep,
     SetsConfig,
     Slot,
-    SlotConfig,
+    SlotEntry,
     WeightConfig,
     Workout,
     WorkoutLog,
@@ -158,9 +158,9 @@ class MaxRestConfigSerializer(serializers.ModelSerializer):
         fields = CONFIG_FIELDS
 
 
-class SlotConfigSerializer(serializers.ModelSerializer):
+class SlotEntryStructureSerializer(serializers.ModelSerializer):
     """
-    Slot configuration
+    Slot entry
     """
 
     weight_configs = WeightConfigSerializer(source='weightconfig_set', many=True)
@@ -173,7 +173,7 @@ class SlotConfigSerializer(serializers.ModelSerializer):
     max_rest_configs = RestConfigSerializer(source='maxrestconfig_set', many=True)
 
     class Meta:
-        model = SlotConfig
+        model = SlotEntry
         fields = (
             'id',
             'slot',
@@ -202,7 +202,7 @@ class SlotStructureSerializer(serializers.ModelSerializer):
     Slot
     """
 
-    configs = SlotConfigSerializer(many=True)
+    entries = SlotEntryStructureSerializer(many=True)
 
     class Meta:
         model = Slot
@@ -211,7 +211,7 @@ class SlotStructureSerializer(serializers.ModelSerializer):
             'day',
             'order',
             'comment',
-            'configs',
+            'entries',
         )
 
 
@@ -272,13 +272,13 @@ class RoutineStructureSerializer(serializers.ModelSerializer):
         )
 
 
-class SlotConfigSerializer(serializers.ModelSerializer):
+class SlotEntrySerializer(serializers.ModelSerializer):
     """
-    Slot config serializer
+    Slot entry serializer
     """
 
     class Meta:
-        model = SlotConfig
+        model = SlotEntry
         fields = (
             'id',
             'slot',
@@ -298,7 +298,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     SetConfigData serializer
     """
 
-    slot_config_id = serializers.IntegerField()
+    slot_entry_id = serializers.IntegerField()
     exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
     weight = serializers.DecimalField(max_digits=5, decimal_places=2)
@@ -401,7 +401,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
         fields = [
             'session',
             'routine',
-            'slot_config',
+            'slot_entry',
             'next_log',
             'exercise',
             'reps',

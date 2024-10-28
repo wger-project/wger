@@ -30,7 +30,7 @@ from wger.manager.models import (
     Routine,
     SetsConfig,
     Slot,
-    SlotConfig,
+    SlotEntry,
     WeightConfig,
 )
 from wger.manager.models.abstract_config import OperationChoices
@@ -107,29 +107,29 @@ class Command(BaseCommand):
                         slot.save()
                         order += 1
 
-                        slot_config = SlotConfig(exercise=exercise, order=order, slot=slot)
-                        slot_config.save()
+                        slot_entry = SlotEntry(exercise=exercise, order=order, slot=slot)
+                        slot_entry.save()
 
                         reps = random.choice([1, 3, 5, 8, 10, 12, 15])
                         sets = random.randint(2, 4)
                         weight = random.randint(20, 100)
 
                         SetsConfig(
-                            slot_config=slot_config,
+                            slot_entry=slot_entry,
                             value=sets,
                             iteration=1,
                             operation=OperationChoices.REPLACE,
                         ).save()
 
                         RepsConfig(
-                            slot_config=slot_config,
+                            slot_entry=slot_entry,
                             value=reps,
                             iteration=1,
                             operation=OperationChoices.REPLACE,
                         ).save()
 
                         WeightConfig(
-                            slot_config=slot_config,
+                            slot_entry=slot_entry,
                             value=weight,
                             iteration=1,
                             operation=OperationChoices.REPLACE,

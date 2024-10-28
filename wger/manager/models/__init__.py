@@ -34,7 +34,7 @@ from .schedule_step import ScheduleStep
 from .session import WorkoutSession
 from .sets_config import SetsConfig
 from .slot import Slot
-from .slot_config import SlotConfig
+from .slot_entry import SlotEntry
 from .weight_config import (
     MaxWeightConfig,
     WeightConfig,

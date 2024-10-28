@@ -54,7 +54,7 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.manager.models import (
-    SlotConfig,
+    SlotEntry,
     WorkoutLog,
 )
 from wger.utils.requests import (
@@ -313,7 +313,7 @@ def handle_deleted_entries(
         if model_type == DeletionLog.MODEL_EXERCISE:
             obj_replaced = None
             nr_settings = None
-            nr_slot_configs = None
+            nr_slot_entries = None
             nr_logs = None
             try:
                 obj_replaced = Exercise.objects.get(uuid=replaced_by_uuid)
@@ -325,7 +325,7 @@ def handle_deleted_entries(
 
                 # Replace exercise in workouts and logs
                 if obj_replaced:
-                    nr_slot_configs = SlotConfig.objects.filter(exercise=obj).update(
+                    nr_slot_entries = SlotEntry.objects.filter(exercise=obj).update(
                         exercise=obj_replaced
                     )
 
@@ -335,8 +335,8 @@ def handle_deleted_entries(
                 print_fn(f'Deleted exercise {uuid}')
                 if nr_settings:
                     print_fn(f'- replaced in {nr_settings} in workouts with {replaced_by_uuid}')
-                if nr_slot_configs:
-                    print_fn(f'- replaced in {nr_slot_configs} routines with {replaced_by_uuid}')
+                if nr_slot_entries:
+                    print_fn(f'- replaced in {nr_slot_entries} routines with {replaced_by_uuid}')
                 if nr_logs:
                     print_fn(f'- replaced in {nr_logs} workout logs with {replaced_by_uuid}')
             except Exercise.DoesNotExist:

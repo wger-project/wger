@@ -70,13 +70,13 @@ class Command(BaseCommand):
             for routine in Routine.objects.filter(user=user):
                 for day in routine.days.all():
                     for slot in day.slots.all():
-                        for config in slot.configs.all():
+                        for entry in slot.entries.all():
                             for reps in (8, 10, 12):
                                 for i in range(options['nr_diary_entries']):
                                     date = datetime.date.today() - datetime.timedelta(weeks=i)
                                     log = WorkoutLog(
                                         user=user,
-                                        exercise=config.exercise,
+                                        exercise=entry.exercise,
                                         routine=routine,
                                         reps=reps,
                                         weight=50 - reps + random.randint(1, 10),

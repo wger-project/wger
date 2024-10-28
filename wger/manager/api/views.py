@@ -46,7 +46,7 @@ from wger.manager.api.serializers import (
     ScheduleSerializer,
     ScheduleStepSerializer,
     SetNrConfigSerializer,
-    SlotConfigSerializer,
+    SlotEntrySerializer,
     SlotSerializer,
     WeightConfigSerializer,
     WorkoutDayDataDisplayModeSerializer,
@@ -69,7 +69,7 @@ from wger.manager.models import (
     ScheduleStep,
     SetsConfig,
     Slot,
-    SlotConfig,
+    SlotEntry,
     WeightConfig,
     Workout,
     WorkoutLog,
@@ -529,12 +529,12 @@ class SlotViewSet(WgerOwnerObjectModelViewSet):
         return [(Day, 'day')]
 
 
-class SlotConfigViewSet(WgerOwnerObjectModelViewSet):
+class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
     """
-    API endpoint for routine slot config objects
+    API endpoint for routine slot entry objects
     """
 
-    serializer_class = SlotConfigSerializer
+    serializer_class = SlotEntrySerializer
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
@@ -555,9 +555,9 @@ class SlotConfigViewSet(WgerOwnerObjectModelViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return SlotConfig.objects.none()
+            return SlotEntry.objects.none()
 
-        return SlotConfig.objects.filter(slot__day__routine__user=self.request.user)
+        return SlotEntry.objects.filter(slot__day__routine__user=self.request.user)
 
     def get_owner_objects(self):
         """
@@ -579,7 +579,7 @@ class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(SlotConfig, 'slot_config')]
+        return [(SlotEntry, 'slot_entry')]
 
 
 class WeightConfigViewSet(AbstractConfigViewSet):
@@ -597,7 +597,7 @@ class WeightConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return WeightConfig.objects.none()
 
-        return WeightConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+        return WeightConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
 
 class MaxWeightConfigViewSet(AbstractConfigViewSet):
@@ -616,7 +616,7 @@ class MaxWeightConfigViewSet(AbstractConfigViewSet):
             return MaxWeightConfig.objects.none()
 
         return MaxWeightConfig.objects.filter(
-            slot_config__slot__day__routine__user=self.request.user
+            slot_entry__slot__day__routine__user=self.request.user
         )
 
 
@@ -666,12 +666,13 @@ class SetsConfigViewSet(AbstractConfigViewSet):
     def get_queryset(self):
         """
         Only allow access to appropriate objects
+        Only allow access to appropriate objects
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
             return SetsConfig.objects.none()
 
-        return SetsConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+        return SetsConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
 
 class RestConfigViewSet(AbstractConfigViewSet):
@@ -689,7 +690,7 @@ class RestConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return RestConfig.objects.none()
 
-        return RestConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+        return RestConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
 
 class MaxRestConfigViewSet(AbstractConfigViewSet):
@@ -707,7 +708,7 @@ class MaxRestConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return MaxRestConfig.objects.none()
 
-        return MaxRestConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+        return MaxRestConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
 
 class RiRConfigViewSet(AbstractConfigViewSet):
@@ -725,4 +726,4 @@ class RiRConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return RiRConfig.objects.none()
 
-        return RiRConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+        return RiRConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)

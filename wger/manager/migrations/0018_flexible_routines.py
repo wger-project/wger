@@ -117,7 +117,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='SlotConfig',
+            name='SlotEntry',
             fields=[
                 (
                     'id',
@@ -278,11 +278,11 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='workoutlog',
-            name='slot_config',
+            name='slot_entry',
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                to='manager.slotconfig',
+                to='manager.slotentry',
             ),
         ),
         migrations.AddField(
@@ -357,17 +357,17 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.slotconfig',
+                        to='manager.slotentry',
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -403,17 +403,17 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.slotconfig',
+                        to='manager.slotentry',
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -449,17 +449,17 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.slotconfig',
+                        to='manager.slotentry',
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -495,17 +495,17 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.slotconfig',
+                        to='manager.slotentry',
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -541,17 +541,17 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.slotconfig',
+                        to='manager.slotentry',
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -587,16 +587,16 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotentry'
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -632,16 +632,16 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotentry'
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -677,17 +677,17 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
-                    'slot_config',
+                    'slot_entry',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.slotconfig',
+                        to='manager.slotentry',
                     ),
                 ),
             ],
             options={
-                'ordering': ['slot_config', 'iteration'],
+                'ordering': ['slot_entry', 'iteration'],
                 'abstract': False,
-                'unique_together': {('slot_config', 'iteration')},
+                'unique_together': {('slot_entry', 'iteration')},
             },
         ),
         migrations.CreateModel(

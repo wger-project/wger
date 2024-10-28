@@ -94,7 +94,7 @@
   },
   {
     "pk": 1,
-    "model": "manager.slotconfig",
+    "model": "manager.slotentry",
     "fields": {
       "slot_id": 1,
       "exercise_id": 1,
@@ -110,7 +110,7 @@
   },
   {
     "pk": 2,
-    "model": "manager.slotconfig",
+    "model": "manager.slotentry",
     "fields": {
       "slot_id": 1,
       "exercise_id": 2,
@@ -126,7 +126,7 @@
   },
   {
     "pk": 3,
-    "model": "manager.slotconfig",
+    "model": "manager.slotentry",
     "fields": {
       "slot_id": 2,
       "exercise_id": 3,
@@ -142,7 +142,7 @@
   },
   {
     "pk": 4,
-    "model": "manager.slotconfig",
+    "model": "manager.slotentry",
     "fields": {
       "slot_id": 3,
       "exercise_id": 3,
@@ -160,7 +160,7 @@
     "pk": 1,
     "model": "manager.setsconfig",
     "fields": {
-      "slot_config_id": 1,
+      "slot_entry_id": 1,
       "iteration": 1,
       "value": 5,
       "operation": "r",
@@ -172,7 +172,7 @@
     "pk": 2,
     "model": "manager.setsconfig",
     "fields": {
-      "slot_config_id": 2,
+      "slot_entry_id": 2,
       "iteration": 1,
       "value": 2,
       "operation": "r",
@@ -184,7 +184,7 @@
     "pk": 3,
     "model": "manager.setsconfig",
     "fields": {
-      "slot_config_id": 3,
+      "slot_entry_id": 3,
       "iteration": 1,
       "value": 5,
       "operation": "r",
@@ -196,7 +196,7 @@
     "pk": 4,
     "model": "manager.setsconfig",
     "fields": {
-      "slot_config_id": 4,
+      "slot_entry_id": 4,
       "iteration": 1,
       "value": 3,
       "operation": "r",
@@ -208,7 +208,7 @@
     "pk": 1,
     "model": "manager.weightconfig",
     "fields": {
-      "slot_config_id": 1,
+      "slot_entry_id": 1,
       "iteration": 1,
       "value": 80,
       "operation": "r",
@@ -220,7 +220,7 @@
     "pk": 2,
     "model": "manager.weightconfig",
     "fields": {
-      "slot_config_id": 2,
+      "slot_entry_id": 2,
       "iteration": 1,
       "value": 20,
       "operation": "r",
@@ -232,7 +232,7 @@
     "pk": 3,
     "model": "manager.weightconfig",
     "fields": {
-      "slot_config_id": 3,
+      "slot_entry_id": 3,
       "iteration": 1,
       "value": 80,
       "operation": "r",
@@ -244,7 +244,7 @@
     "pk": 4,
     "model": "manager.weightconfig",
     "fields": {
-      "slot_config_id": 4,
+      "slot_entry_id": 4,
       "iteration": 1,
       "value": 50,
       "operation": "r",
@@ -256,7 +256,7 @@
     "pk": 1,
     "model": "manager.repsconfig",
     "fields": {
-      "slot_config_id": 1,
+      "slot_entry_id": 1,
       "iteration": 1,
       "value": 4,
       "operation": "r",
@@ -268,7 +268,7 @@
     "pk": 2,
     "model": "manager.repsconfig",
     "fields": {
-      "slot_config_id": 2,
+      "slot_entry_id": 2,
       "iteration": 1,
       "value": 5,
       "operation": "r",
@@ -280,7 +280,7 @@
     "pk": 3,
     "model": "manager.repsconfig",
     "fields": {
-      "slot_config_id": 3,
+      "slot_entry_id": 3,
       "iteration": 1,
       "value": 6,
       "operation": "r",
@@ -292,7 +292,7 @@
     "pk": 4,
     "model": "manager.repsconfig",
     "fields": {
-      "slot_config_id": 4,
+      "slot_entry_id": 4,
       "iteration": 1,
       "value": 4,
       "operation": "r",

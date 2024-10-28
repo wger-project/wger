@@ -33,7 +33,7 @@ class DaySlotTestCase(WgerTestCase):
         set_configs = slots[0].sets
 
         config_1 = SetConfigData(
-            slot_config_id=1,
+            slot_entry_id=1,
             exercise=1,
             weight=80,
             reps=4,
@@ -42,7 +42,7 @@ class DaySlotTestCase(WgerTestCase):
             sets=1,
         )
         config_2 = SetConfigData(
-            slot_config_id=2,
+            slot_entry_id=2,
             exercise=2,
             weight=20,
             reps=5,
@@ -82,7 +82,7 @@ class DaySlotTestCase(WgerTestCase):
         self.assertEqual(
             set_configs_1[0],
             SetConfigData(
-                slot_config_id=1,
+                slot_entry_id=1,
                 exercise=1,
                 weight=80,
                 reps=4,
@@ -94,7 +94,7 @@ class DaySlotTestCase(WgerTestCase):
         self.assertEqual(
             set_configs_1[1],
             SetConfigData(
-                slot_config_id=2,
+                slot_entry_id=2,
                 exercise=2,
                 weight=20,
                 reps=5,
@@ -111,7 +111,7 @@ class DaySlotTestCase(WgerTestCase):
         self.assertEqual(
             set_configs_2[0],
             SetConfigData(
-                slot_config_id=3,
+                slot_entry_id=3,
                 exercise=3,
                 weight=80,
                 reps=6,
@@ -124,7 +124,7 @@ class DaySlotTestCase(WgerTestCase):
         self.assertEqual(
             set_configs_2[1],
             SetConfigData(
-                slot_config_id=4,
+                slot_entry_id=4,
                 exercise=3,
                 weight=50,
                 reps=4,

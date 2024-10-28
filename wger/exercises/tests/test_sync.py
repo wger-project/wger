@@ -38,7 +38,7 @@ from wger.exercises.sync import (
     sync_muscles,
 )
 from wger.manager.models import (
-    SlotConfig,
+    SlotEntry,
     WorkoutLog,
 )
 from wger.utils.requests import wger_headers
@@ -652,10 +652,10 @@ class TestSyncMethods(WgerTestCase):
 
         exercise1 = Exercise.objects.get(pk=1)
         exercise2 = Exercise.objects.get(pk=4)
-        self.assertFalse(SlotConfig.objects.filter(exercise=exercise2).count())
+        self.assertFalse(SlotEntry.objects.filter(exercise=exercise2).count())
         self.assertFalse(WorkoutLog.objects.filter(exercise=exercise2).count())
 
-        slot_configs = SlotConfig.objects.filter(exercise=exercise1)
+        slot_entries = SlotEntry.objects.filter(exercise=exercise1)
         logs = WorkoutLog.objects.filter(exercise=exercise1)
 
         handle_deleted_entries(print)
@@ -670,8 +670,8 @@ class TestSyncMethods(WgerTestCase):
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
         # Workouts and logs have been moved
-        for pk in slot_configs:
-            self.assertEqual(SlotConfig.objects.get(pk=pk).exercise_id, 2)
+        for pk in slot_entries:
+            self.assertEqual(SlotEntry.objects.get(pk=pk).exercise_id, 2)
         for pk in logs:
             self.assertEqual(WorkoutLog.objects.get(pk=pk).exercise_id, 2)
 

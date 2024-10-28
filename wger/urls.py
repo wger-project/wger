@@ -86,9 +86,9 @@ router.register(
     basename='slot',
 )
 router.register(
-    r'slot-config',
-    manager_api_views.SlotConfigViewSet,
-    basename='slot-config',
+    r'slot-entry',
+    manager_api_views.SlotEntryViewSet,
+    basename='slot-entry',
 )
 router.register(
     r'weight-config',
