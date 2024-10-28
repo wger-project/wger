@@ -20,6 +20,7 @@ import datetime
 from calendar import HTMLCalendar
 
 # Django
+from django.core.cache import cache
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
@@ -36,6 +37,8 @@ from reportlab.platypus import (
 )
 
 # wger
+from wger.manager.models import Routine
+from wger.utils.cache import CacheKeyMapper
 from wger.utils.pdf import (
     header_colour,
     row_color,
@@ -269,3 +272,11 @@ class WorkoutCalendar(HTMLCalendar):
         Renders a day cell
         """
         return f'<td class="{cssclass}" style="vertical-align: middle;">{body}</td>'
+
+
+def reset_routine_cache(instance: Routine):
+    """Resets all caches related to a routine"""
+    cache.delete(CacheKeyMapper.get_routine_date_sequence_key(instance.id))
+    cache.delete(CacheKeyMapper.get_routine_api_date_sequence_key(instance.id))
+    cache.delete(CacheKeyMapper.get_routine_api_current_iteration_display_key(instance.id))
+    cache.delete(CacheKeyMapper.get_routine_api_structure_key(instance.id))

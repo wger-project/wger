@@ -260,7 +260,7 @@ class Migration(migrations.Migration):
                 (
                     'fit_in_week',
                     models.BooleanField(default=False),
-                )
+                ),
             ],
             options={
                 'ordering': ['-created'],

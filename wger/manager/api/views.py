@@ -20,6 +20,8 @@ import json
 from datetime import datetime
 
 # Django
+from django.conf import settings
+from django.core.cache import cache
 from django.shortcuts import get_object_or_404
 
 # Third Party
@@ -46,7 +48,6 @@ from wger.manager.api.serializers import (
     SetNrConfigSerializer,
     SlotConfigSerializer,
     SlotSerializer,
-    SlotStructureSerializer,
     WeightConfigSerializer,
     WorkoutDayDataDisplayModeSerializer,
     WorkoutDayDataGymModeSerializer,
@@ -74,6 +75,7 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+from wger.utils.cache import CacheKeyMapper
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 from wger.weight.helpers import process_log_entries
 
@@ -122,11 +124,17 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        return Response(
-            WorkoutDayDataDisplayModeSerializer(self.get_object().date_sequence, many=True).data
-        )
+        cache_key = CacheKeyMapper.get_routine_api_date_sequence_key(pk)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
 
-    @action(detail=True, url_path='date-sequence-gym-mode')
+        out = WorkoutDayDataDisplayModeSerializer(self.get_object().date_sequence, many=True).data
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+
+        return Response(out)
+
+    @action(detail=True, url_path='date-sequence-gym')
     def date_sequence_gym_mode(self, request, pk):
         """
         Return the day sequence of the routine
@@ -135,33 +143,39 @@ class RoutineViewSet(viewsets.ModelViewSet):
             WorkoutDayDataGymModeSerializer(self.get_object().date_sequence, many=True).data
         )
 
-    @action(detail=True, url_path='current-day-display-mode')
+    @action(detail=True, url_path='current-day-display')
     def current_day_display_mode(self, request, pk):
         """
         Return current day of the routine
         """
         return Response(WorkoutDayDataDisplayModeSerializer(self.get_object().data_for_day()).data)
 
-    @action(detail=True, url_path='current-day-gym-mode')
+    @action(detail=True, url_path='current-day-gym')
     def current_day_gym_mode(self, request, pk):
         """
         Return current day of the routine
         """
         return Response(WorkoutDayDataGymModeSerializer(self.get_object().data_for_day()).data)
 
-    @action(detail=True, url_path='current-iteration-display-mode')
+    @action(detail=True, url_path='current-iteration-display')
     def current_iteration_display_mode(self, request, pk):
         """
         Return current day of the routine
         """
-        return Response(
-            WorkoutDayDataDisplayModeSerializer(
-                self.get_object().data_for_iteration(),
-                many=True,
-            ).data
-        )
+        cache_key = CacheKeyMapper.get_routine_api_current_iteration_display_key(pk)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
 
-    @action(detail=True, url_path='current-iteration-gym-mode')
+        out = WorkoutDayDataDisplayModeSerializer(
+            self.get_object().data_for_iteration(),
+            many=True,
+        ).data
+
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+        return Response(out)
+
+    @action(detail=True, url_path='current-iteration-gym')
     def current_iteration_gym_mode(self, request, pk):
         """
         Return current day of the routine
@@ -175,7 +189,15 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return full object structure of the routine.
         """
-        return Response(RoutineStructureSerializer(self.get_object()).data)
+        cache_key = CacheKeyMapper.get_routine_api_structure_key(pk)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
+
+        out = RoutineStructureSerializer(self.get_object()).data
+
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+        return Response(out)
 
     @action(detail=True, url_path='logs')
     def logs(self, request, pk):
@@ -456,7 +478,6 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
         'name',
         'description',
         'is_rest',
-        'last_day_in_week',
         'need_logs_to_advance',
     )
 

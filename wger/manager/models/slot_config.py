@@ -47,6 +47,10 @@ class SetType(models.TextChoices):
     JUMP = 'jump'
 
 
+#
+# TODO: rename to SlowEntry!
+#
+
 class SlotConfig(models.Model):
     """
     Set configuration for an exercise (weight, reps, etc.)

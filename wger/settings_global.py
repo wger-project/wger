@@ -541,6 +541,7 @@ WGER_SETTINGS = {
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'INGREDIENT_CACHE_TTL': 604800,  # one week
+    'ROUTINE_CACHE_TTL': 4 * 604800,  # one month
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'SYNC_EXERCISES_CELERY': False,
     'SYNC_EXERCISE_IMAGES_CELERY': False,

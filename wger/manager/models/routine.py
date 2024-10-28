@@ -20,7 +20,9 @@ from collections import Counter
 from typing import List
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
@@ -28,6 +30,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.manager.dataclasses import WorkoutDayData
+from wger.utils.cache import CacheKeyMapper
 
 
 class Routine(models.Model):
@@ -153,6 +156,11 @@ class Routine(models.Model):
         If a day needs logs to continue it will be repeated until the user adds one.
         """
 
+        cache_key = CacheKeyMapper.get_routine_date_sequence_key(self.id)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return cached_data
+
         labels = self.label_dict
         delta = datetime.timedelta(days=1)
         current_date = self.start
@@ -207,6 +215,7 @@ class Routine(models.Model):
 
             current_date += delta
 
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
         return out
 
     def data_for_day(self, date=None) -> WorkoutDayData | None:

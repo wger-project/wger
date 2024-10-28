@@ -17,9 +17,6 @@
 # Django
 from django.db import models
 
-# wger
-from wger.utils.context_processor import processor
-
 
 class OperationChoices(models.TextChoices):
     PLUS = '+'
@@ -62,7 +59,6 @@ class AbstractChangeConfig(models.Model):
         choices=OperationChoices.choices,
         max_length=1,
         default=OperationChoices.REPLACE,
-        null=True,
     )
     """The operation"""
 
@@ -70,7 +66,6 @@ class AbstractChangeConfig(models.Model):
         choices=StepChoices.choices,
         max_length=10,
         default=StepChoices.ABSOLUTE,
-        null=False,
     )
     """The step by which the change will happen"""
 
@@ -104,12 +99,12 @@ class AbstractChangeConfig(models.Model):
         # Override values for replace
         if self.replace:
             self.need_log_to_apply = False
-            self.step = None
+            self.step = 'abs'
 
         super().save(**kwargs)
 
     def get_owner_object(self):
         """
-        Config has no owner information
+        Get owner information
         """
         return self.slot_config.slot.day.routine
