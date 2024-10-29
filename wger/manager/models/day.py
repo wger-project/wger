@@ -95,6 +95,12 @@ class Day(models.Model):
     Needs logs to advance to the next day
     """
 
+    config = models.JSONField(
+        default=None,
+        null=True,
+    )
+    """JSON configuration field for custom behaviour"""
+
     def __str__(self):
         """
         Return a more human-readable representation

@@ -136,6 +136,12 @@ class SlotEntry(models.Model):
     If this is set, all other settings will be ignored.
     """
 
+    config = models.JSONField(
+        default=None,
+        null=True,
+    )
+    """JSON configuration field for custom behaviour"""
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [

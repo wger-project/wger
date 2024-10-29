@@ -75,6 +75,7 @@ class DaySerializer(serializers.ModelSerializer):
             'is_rest',
             'need_logs_to_advance',
             'type',
+            'config',
         )
 
 
@@ -182,6 +183,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
             'comment',
             'type',
             'class_name',
+            'config',
             'repetition_unit',
             'repetition_rounding',
             'reps_configs',
@@ -212,6 +214,7 @@ class SlotStructureSerializer(serializers.ModelSerializer):
             'order',
             'comment',
             'entries',
+            'config',
         )
 
 
@@ -227,6 +230,7 @@ class SlotSerializer(serializers.ModelSerializer):
             'day',
             'order',
             'comment',
+            'config',
         )
 
 
@@ -290,6 +294,7 @@ class SlotEntrySerializer(serializers.ModelSerializer):
             'weight_rounding',
             'order',
             'comment',
+            'config',
         )
 
 

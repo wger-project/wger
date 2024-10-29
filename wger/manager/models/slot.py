@@ -40,6 +40,12 @@ class Slot(models.Model):
         blank=True,
     )
 
+    config = models.JSONField(
+        default=None,
+        null=True,
+    )
+    """JSON configuration field for custom behaviour"""
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [

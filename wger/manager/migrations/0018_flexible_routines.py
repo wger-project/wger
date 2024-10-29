@@ -45,7 +45,10 @@ class Migration(migrations.Migration):
                         max_length=10,
                     ),
                 ),
-                ('name', models.CharField(max_length=20, verbose_name='Name')),
+                (
+                    'name',
+                    models.CharField(max_length=20, verbose_name='Name'),
+                ),
                 (
                     'description',
                     models.CharField(
@@ -54,9 +57,22 @@ class Migration(migrations.Migration):
                         blank=True,
                     ),
                 ),
-                ('is_rest', models.BooleanField(default=False)),
-                ('need_logs_to_advance', models.BooleanField(default=False)),
-                ('order', models.PositiveIntegerField(default=1, verbose_name='Order')),
+                (
+                    'is_rest',
+                    models.BooleanField(default=False),
+                ),
+                (
+                    'need_logs_to_advance',
+                    models.BooleanField(default=False),
+                ),
+                (
+                    'order',
+                    models.PositiveIntegerField(default=1, verbose_name='Order'),
+                ),
+                (
+                    'config',
+                    models.JSONField(default=None, null=True),
+                ),
             ],
             options={
                 'ordering': ['order'],
@@ -100,8 +116,14 @@ class Migration(migrations.Migration):
                         verbose_name='ID',
                     ),
                 ),
-                ('order', models.PositiveIntegerField(default=1, verbose_name='Order')),
-                ('comment', models.CharField(blank=True, max_length=200, verbose_name='Comment')),
+                (
+                    'order',
+                    models.PositiveIntegerField(default=1, verbose_name='Order'),
+                ),
+                (
+                    'comment',
+                    models.CharField(blank=True, max_length=200, verbose_name='Comment'),
+                ),
                 (
                     'day',
                     models.ForeignKey(
@@ -110,6 +132,10 @@ class Migration(migrations.Migration):
                         to='manager.dayng',
                         verbose_name='Exercise day',
                     ),
+                ),
+                (
+                    'config',
+                    models.JSONField(default=None, null=True),
                 ),
             ],
             options={
@@ -170,7 +196,7 @@ class Migration(migrations.Migration):
                     'slot',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='configs',
+                        related_name='entries',
                         to='manager.Slot',
                     ),
                 ),
@@ -190,6 +216,10 @@ class Migration(migrations.Migration):
                         default=1.25,
                         max_digits=4,
                     ),
+                ),
+                (
+                    'config',
+                    models.JSONField(default=None, null=True),
                 ),
             ],
             options={
@@ -589,7 +619,8 @@ class Migration(migrations.Migration):
                 (
                     'slot_entry',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotentry'
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotentry',
                     ),
                 ),
             ],
@@ -634,7 +665,8 @@ class Migration(migrations.Migration):
                 (
                     'slot_entry',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotentry'
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotentry',
                     ),
                 ),
             ],
