@@ -251,6 +251,8 @@ class DayStructureSerializer(serializers.ModelSerializer):
             'description',
             'is_rest',
             'need_logs_to_advance',
+            'type',
+            'config',
             'slots',
         )
 
@@ -404,6 +406,8 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkoutLog
         fields = [
+            'id',
+            'date',
             'session',
             'routine',
             'slot_entry',
