@@ -47,11 +47,11 @@ def add_ivm_views(apps, schema_editor):
                 m.id AS remote_id,
                 "order",
                 time,
-                plan_id,
+                p.uuid AS plan_id,
                 name,
                 p.user_id
              FROM (SELECT * FROM nutrition_meal) AS m
-             JOIN (SELECT id, user_id FROM nutrition_nutritionplan) AS p ON m.plan_id = p.id;'
+             JOIN (SELECT id, uuid, user_id FROM nutrition_nutritionplan) AS p ON m.plan_id = p.id;'
         );
         """
     )
@@ -66,11 +66,11 @@ def add_ivm_views(apps, schema_editor):
                 "order",
                 amount,
                 ingredient_id,
-                meal_id,
+                m.uuid AS meal_id,
                 weight_unit_id,
                 p.user_id
              FROM (SELECT * FROM nutrition_mealitem) AS mi
-             JOIN (SELECT id, plan_id FROM nutrition_meal) AS m ON mi.meal_id = m.id
+             JOIN (SELECT id, uuid, plan_id FROM nutrition_meal) AS m ON mi.meal_id = m.id
              JOIN (SELECT id, user_id FROM nutrition_nutritionplan) AS p ON m.plan_id = p.id;'
         );
         """
@@ -87,12 +87,13 @@ def add_ivm_views(apps, schema_editor):
                 comment,
                 amount,
                 ingredient_id,
-                plan_id,
+                p.uuid AS plan_id,
                 weight_unit_id,
-                meal_id,
+                m.uuid AS meal_id,
                 p.user_id
              FROM (SELECT * FROM nutrition_logitem) AS li
-             JOIN (SELECT id, user_id FROM nutrition_nutritionplan) AS p ON li.plan_id = p.id;'
+             JOIN (SELECT id, uuid FROM nutrition_meal) AS m ON li.meal_id = m.id
+             JOIN (SELECT id, uuid, user_id FROM nutrition_nutritionplan) AS p ON li.plan_id = p.id;'
             );
         """
     )
