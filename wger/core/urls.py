@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.contrib import admin
 from django.conf.urls import include
 from django.contrib.auth import views
 from django.urls import (
