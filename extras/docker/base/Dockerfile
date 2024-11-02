@@ -8,7 +8,7 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
@@ -16,25 +16,24 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update \
   && apt install --no-install-recommends -y \
+      adduser \
       locales \
-      nodejs \
-      npm \
       python3-pip \
       sqlite3 \
       wget \
       tzdata \
       libpq5 \
-  && npm install -g yarn sass\
   && locale-gen en_US.UTF-8
 
 # Environmental variables
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 
 # Add wger user
-RUN adduser wger --disabled-password --gecos ""
+RUN deluser ubuntu
+RUN adduser wger --uid 1000 --disabled-password --gecos ""

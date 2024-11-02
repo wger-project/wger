@@ -70,7 +70,7 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
         'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
     }
 )
-def bootstrap(context, settings_path=None, database_path=None):
+def bootstrap(context, settings_path=None, database_path=None, process_static=True):
     """
     Performs all steps necessary to bootstrap the application
     """
@@ -92,8 +92,9 @@ def bootstrap(context, settings_path=None, database_path=None):
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS and CSS libraries
-    context.run('yarn install')
-    context.run('yarn build:css:sass')
+    if process_static:
+        context.run('yarn install')
+        context.run('yarn build:css:sass')
 
 
 @task(

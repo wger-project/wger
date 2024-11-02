@@ -9,7 +9,6 @@ on:
 
 env:
   REGISTRY_IMAGE: ${{ vars.REGISTRY_REPO }}/server
-  REGISTRY_IMAGE_ALT: ${{ vars.REGISTRY_REPO }}/devel
 
 jobs:
   build-prod:
@@ -23,6 +22,11 @@ jobs:
           - linux/arm/v7
           - linux/arm64
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -37,7 +41,6 @@ jobs:
             type=raw,value=2.3-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
-            ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.2.0
@@ -67,7 +70,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: extras/docker/development/Dockerfile
+          file: extras/docker/production/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -85,9 +88,9 @@ jobs:
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: digests
+          name: digests-${{ env.PLATFORM_PAIR }}
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
@@ -103,10 +106,11 @@ jobs:
       - build-prod
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: digests
           path: /tmp/digests
+          pattern: digests-*
+          merge-multiple: true
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -120,7 +124,6 @@ jobs:
             type=raw,value=2.3-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
-            ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
