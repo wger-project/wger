@@ -34,7 +34,7 @@ User = get_user_model()
 
 class WeightEntryViewSetTestCase(WgerTestCase):
     """
-    Tests the WeightEntryViewSet filtering logic directly
+    Tests the WeightEntryViewSet filtering logic
     """
 
     def setUp(self):

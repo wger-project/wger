@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
 # Third Party
 from rest_framework import viewsets
 from django.utils import timezone
@@ -24,6 +27,7 @@ from datetime import timedelta
 from wger.weight.api.serializers import WeightEntrySerializer
 from wger.weight.models import WeightEntry
 
+logger = logging.getLogger(__name__)
 
 class WeightEntryViewSet(viewsets.ModelViewSet):
     """
@@ -58,8 +62,12 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(date__gte=timezone.now() - timedelta(days=30))
         elif filter_type == 'lastWeek':
             queryset = queryset.filter(date__gte=timezone.now() - timedelta(days=7))
-        else:
+        elif filter_type == '':
+            # No filtering applied if the filter is empty
             pass
+        else:
+            # Log a warning if an unknown filter_type is encountered
+            logger.warning(f"Unrecognized filter type: {filter_type}")
 
         return queryset
 
