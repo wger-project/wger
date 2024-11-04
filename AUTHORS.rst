@@ -80,6 +80,7 @@ Developers
 * Dieter Plaetinck - https://github.com/Dieterbe
 * Jonathan La Field - https://github.com/JLaField
 * Taylor Fuller - https://github.com/taylor-fuller
+* Chris Ulicny - https://github.com/ChrisUlicny
 
 
 Translators
