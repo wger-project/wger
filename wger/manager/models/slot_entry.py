@@ -36,7 +36,7 @@ from wger.manager.models.abstract_config import (
 )
 
 
-class SetType(models.TextChoices):
+class ExerciseType(models.TextChoices):
     NORMAL = 'normal'
     DROPSET = 'dropset'
     MYO = 'myo'
@@ -45,11 +45,6 @@ class SetType(models.TextChoices):
     TUT = 'tut'
     ISO_HOLD = 'iso'
     JUMP = 'jump'
-
-
-#
-# TODO: rename to SlowEntry!
-#
 
 
 class SlotEntry(models.Model):
@@ -119,9 +114,9 @@ class SlotEntry(models.Model):
     )
 
     type = models.CharField(
-        choices=SetType.choices,
+        choices=ExerciseType.choices,
         max_length=10,
-        default=SetType.NORMAL,
+        default=ExerciseType.NORMAL,
         null=False,
     )
 

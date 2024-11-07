@@ -122,7 +122,7 @@ class WorkoutSession(models.Model):
         """
         Return a more human-readable representation
         """
-        return f'{self.workout} - {self.date}'
+        return f'{self.routine} - {self.date}'
 
     class Meta:
         """
