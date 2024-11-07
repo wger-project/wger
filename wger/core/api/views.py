@@ -76,6 +76,7 @@ from wger.core.models import (
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
 
+
 logger = logging.getLogger(__name__)
 
 
