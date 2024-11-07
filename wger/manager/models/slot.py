@@ -80,31 +80,42 @@ class Slot(models.Model):
         """
         Calculates the sets as they would be performed in the gym
 
-        Note that this is only different from the list of sets in supersets, since
-        they will be "interleaved". E.g.:
-        - Exercise 1, 4 Sets
-        - Exercise 2, 3 Sets
-        - Exercise 3, 2 Sets
+        * For supersets:
+        The sets will be interleaved as well as possible, e.g.:
+        - Exercise 1, 4 sets
+        - Exercise 2, 3 sets
+        - Exercise 3, 2 sets
         (the other weight, reps, etc. settings are not important here)
 
         Would result in:
-        - Exercise 1
-        - Exercise 2
-        - Exercise 3
-        - Exercise 1
-        - Exercise 2
-        - Exercise 3
-        - Exercise 1
-        - Exercise 2
-        - Exercise 1
+        - Exercise 1, 1 set
+        - Exercise 2, 1 set
+        - Exercise 3, 1 set
+        - Exercise 1, 1 set
+        - Exercise 2, 1 set
+        - Exercise 3, 1 set
+        - Exercise 1, 1 set
+        - Exercise 2, 1 set
+        - Exercise 1, 1 set
+
+        * For regular sets:
+        The sets are just repeated, e.g.:
+        - Exercise 1, 4 sets
+
+        Would result in:
+        - Exercise 1, 1 set
+        - Exercise 1, 1 set
+        - Exercise 1, 1 set
+        - Exercise 1, 1 set
         """
         set_data = self.set_data(iteration)
 
-        # If this is not a superset, just return the data
+        # If this is not a superset, adjust the sets and just return the data
         if len(set_data) == 1:
-            return [
-                set_data[0].data,
-            ]
+            data = set_data[0].data
+            nr_sets = int(data.sets)
+            data.sets = 1
+            return [data] * nr_sets
 
         result = []
         sets = [slot.data.sets for slot in set_data]

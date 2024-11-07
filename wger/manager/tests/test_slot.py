@@ -92,6 +92,7 @@ class SlotTestCase(WgerTestCase):
 
         result = self.slot.get_sets(1)
 
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0].exercise, 1)
-        self.assertEqual(result[0].sets, Decimal(4))
+        self.assertEqual(len(result), 4)
+        for i in range(0, 3):
+            self.assertEqual(result[i].exercise, 1)
+            self.assertEqual(result[i].sets, 1)
