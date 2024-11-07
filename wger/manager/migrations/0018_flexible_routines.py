@@ -505,7 +505,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('value', models.PositiveIntegerField()),
                 (
                     'operation',
                     models.CharField(
@@ -551,7 +551,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('value', models.PositiveIntegerField()),
                 (
                     'operation',
                     models.CharField(
@@ -689,7 +689,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('value', models.PositiveIntegerField()),
                 (
                     'operation',
                     models.CharField(

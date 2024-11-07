@@ -58,13 +58,28 @@ class SlotEntryTestCase(WgerTestCase):
         """
 
         # Initial value
-        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=80,
+            operation=OperationChoices.REPLACE,
+        ).save()
 
         # Increase by 2.5
-        WeightConfig(slot_entry=self.slot_entry, iteration=3, value=2.5).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=3,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+        ).save()
 
         # Replace with 42
-        WeightConfig(slot_entry=self.slot_entry, iteration=6, value=42, replace=True).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=6,
+            value=42,
+            operation=OperationChoices.REPLACE,
+        ).save()
 
         # Reduce by 2
         WeightConfig(
@@ -128,9 +143,8 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=5,
             value=42,
-            replace=True,
             need_log_to_apply=False,
-            operation=OperationChoices.PLUS,
+            operation=OperationChoices.REPLACE,
             step=StepChoices.ABSOLUTE,
         ).save()
 
@@ -337,7 +351,12 @@ class SlotEntryTestCase(WgerTestCase):
         self.slot_entry.class_name = 'dummy'
         self.slot_entry.save()
         SetsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
-        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100, replace=True).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=100,
+            operation=OperationChoices.REPLACE,
+        ).save()
         RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
         RestConfig(slot_entry=self.slot_entry, iteration=1, value=120).save()
         RiRConfig(slot_entry=self.slot_entry, iteration=1, value=2).save()

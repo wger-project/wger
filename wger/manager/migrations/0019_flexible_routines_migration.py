@@ -78,12 +78,14 @@ def migrate_routines(apps) -> dict[int, Any]:
                         slot_entry = SlotEntry(
                             slot=slot,
                             exercise=setting.exercise_base,
-
                             # default "reps"
-                            repetition_unit_id=setting.repetition_unit_id if setting.repetition_unit_id is not None else 1,
-
+                            repetition_unit_id=setting.repetition_unit_id
+                            if setting.repetition_unit_id is not None
+                            else 1,
                             # default "kg"
-                            weight_unit_id=setting.weight_unit_id if setting.weight_unit_id is not None else 1,
+                            weight_unit_id=setting.weight_unit_id
+                            if setting.weight_unit_id is not None
+                            else 1,
                             order=setting.order,
                             comment=setting.comment,
                         )

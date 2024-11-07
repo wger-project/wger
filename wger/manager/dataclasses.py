@@ -45,13 +45,13 @@ class SetConfigData:
     weight: Decimal | int | None
     reps: Decimal | int | None
     rir: Decimal | int | None
-    rest: Decimal | int | None
+    rest: int | None
 
     max_weight: Decimal | int | None = None
     max_reps: Decimal | int | None = None
-    max_rest: Decimal | int | None = None
+    max_rest: int | None = None
 
-    sets: Decimal | int = 1
+    sets: int = 1
     weight_unit: int | None = 1
     reps_unit: int | None = 1
     weight_rounding: Decimal | int | None = 1.25

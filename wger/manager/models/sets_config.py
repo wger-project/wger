@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.db import models
+
 # wger
 from wger.manager.models import AbstractChangeConfig
 
@@ -23,4 +26,5 @@ class SetsConfig(AbstractChangeConfig):
     Configuration model for the number of sets for a workout set
     """
 
-    pass
+    value = models.PositiveIntegerField()
+    """Sets are always positive integers"""

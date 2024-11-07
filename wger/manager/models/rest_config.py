@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.db import models
+
 # wger
 from wger.manager.models import AbstractChangeConfig
 
@@ -23,7 +26,8 @@ class RestConfig(AbstractChangeConfig):
     Configuration model for the rest time for a workout set
     """
 
-    pass
+    value = models.PositiveIntegerField()
+    """Rest times are always in seconds, so always positive integers"""
 
 
 class MaxRestConfig(AbstractChangeConfig):
@@ -31,4 +35,5 @@ class MaxRestConfig(AbstractChangeConfig):
     Configuration model for the upper limit of the rest time for a workout set
     """
 
-    pass
+    value = models.PositiveIntegerField()
+    """Rest times are always in seconds, so always positive integers"""
