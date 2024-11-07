@@ -24,7 +24,6 @@ from datetime import timedelta
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -461,7 +460,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '10/min'
+        'login': '10/min',
+        'registration': '5/min'
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
