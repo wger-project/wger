@@ -10,6 +10,11 @@
   "close": "Close",
   "difference": "Difference",
   "days": "Days",
+  "all": "All",
+  "lastYear": "Last Year",
+  "lastHalfYear": "Last 6 Months",
+  "lastMonth": "Last Month",
+  "lastWeek": "Last Week",
   "licenses": {
     "authors": "Author(s)",
     "authorProfile": "Link to author website or profile, if available",

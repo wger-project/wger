@@ -58,7 +58,13 @@
         "replacementsInfoText": "Optional können Sie auch eine Übung auswählen, die diese ersetzen soll (z. B. weil sie zweimal eingereicht wurde oder ähnliches). Dadurch wird die Übung in Routinen sowie Trainingsprotokollen ersetzt, anstatt sie einfach zu löschen. Diese Änderungen werden auch auf alle Instanzen übertragen, die Übungen von dieser übernehmen.",
         "replacementsSearch": "Suche nach Übungen oder kopiere eine Bekannte ID in das Feld und drücke den \"Laden\" Button.",
         "noReplacementSelected": " Keine Übung zum ersätzen ausgewählt",
-        "deleteExerciseReplace": "Löschen und ersetzen"
+        "deleteExerciseReplace": "Löschen und ersetzen",
+        "imageStylePhoto": "Foto",
+        "imageStyle3D": "3D",
+        "imageStyleLine": "Linie",
+        "imageStyleLowPoly": "Niedrig-Poly",
+        "imageStyleOther": "andere",
+        "imageDetails": "Bilddetails"
     },
     "noResults": "Keine Ergebnisse",
     "noResultsDescription": "Keine Ergebnisse für diese Suche gefunden, bitte reduziere die Anzahl der Filter.",
@@ -100,7 +106,8 @@
         "kilometers_per_hour": "Kilometer pro Stunde",
         "body_weight": "Körpergewicht",
         "miles_per_hour": "Meilen pro Stunde",
-        "max_reps": "Max. Wdh."
+        "max_reps": "Max. Wdh.",
+        "plates": "Gewichtsscheiben"
     },
     "submit": "Abschicken",
     "weight": "Gewicht",
@@ -127,7 +134,9 @@
         "routine": "Routine",
         "routines": "Routinen",
         "addWeightLog": "Trainingslog hinzufügen",
-        "logsFilterNote": "Beachte, dass nur Einträge mit einer Gewichtseinheit (kg oder lb) und Wiederholungen gezeichnet werden, andere Kombinationen wie Zeit oder bis zum Ausfall werden hier ignoriert"
+        "logsFilterNote": "Beachte, dass nur Einträge mit einer Gewichtseinheit (kg oder lb) und Wiederholungen gezeichnet werden, andere Kombinationen wie Zeit oder bis zum Ausfall werden hier ignoriert",
+        "logsHeader": "Trainingsprotokoll für das Workout",
+        "addLogToDay": "Protokoll zu diesem Tag hinzufügen"
     },
     "name": "Name",
     "cancel": "Abbrechen",
@@ -197,11 +206,21 @@
         "addMealItem": "Zutat zu Mahlzeit hinzufügen",
         "searchIngredientName": "Suche nach Zutatenname",
         "saturatedFat": "Gesättigte Fette",
-        "valueTooMany": "zu viele"
+        "valueTooMany": "zu viele",
+        "logThisMealItem": "Diese Zutat unverändert in das Ernährungstagebuch eintragen",
+        "onlyLoggingHelpText": "Nur Kalorien verfolgen. Markiere das Kästchen, wenn du nur deine Kalorien protokollieren möchtest und keinen detaillierten Ernährungsplan mit spezifischen Mahlzeiten einrichten willst",
+        "goalFiber": "Ballaststoffziel",
+        "logThisMeal": "Dieses Gericht unverändert in das Ernährungstagebuch eintragen"
     },
     "downloadAsPdf": "Als PDF runterladen",
     "total": "Summe",
     "licenses": {
-        "authors": "Author(en)"
-    }
+        "authors": "Author(en)",
+        "derivativeSourceUrl": "Link zur Originalquelle, falls es sich um ein abgeleitetes Werk handelt",
+        "originalObjectUrl": "Link zur Quell-Website, falls verfügbar",
+        "originalTitle": "Titel",
+        "authorProfile": "Link zur Website oder zum Profil des Autors, falls verfügbar",
+        "derivativeSourceUrlHelper": "Beachte, dass ein abgeleitetes Werk nicht nur auf einem vorherigen Werk basiert, sondern auch genügend neue, kreative Inhalte enthält, um ein eigenes Urheberrecht zu beanspruchen."
+    },
+    "filters": "Filter"
 }
