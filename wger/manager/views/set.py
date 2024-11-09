@@ -36,8 +36,11 @@ from django.shortcuts import (
 from django.urls import reverse
 
 # wger
+from wger.core.models import (
+    UserProfile,
+    WeightUnit,
+)
 from wger.exercises.models import ExerciseBase
-from wger.core.models import UserProfile, WeightUnit
 from wger.manager.forms import (
     SetForm,
     SettingForm,
@@ -143,6 +146,7 @@ def get_formset(request, base_pk, reps=Set.DEFAULT_SETS):
         class Meta:
             model = Setting
             fields = SETTING_FORMSET_FIELDS
+
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.fields['weight_unit'].initial = pref_weight_unit_num
