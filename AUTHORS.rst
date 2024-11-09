@@ -79,6 +79,7 @@ Developers
 * Ethan Winters - https://github.com/ebwinters
 * Dieter Plaetinck - https://github.com/Dieterbe
 * Jonathan La Field - https://github.com/JLaField
+* Kevin Moy - https://github.com/kmoy1
 * Taylor Fuller - https://github.com/taylor-fuller
 
 
