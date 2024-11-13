@@ -130,7 +130,7 @@
     "preferences": "Preferencias",
     "cancel": "Cancelar",
     "noResults": "Sin resultados",
-    "success": "¡Éxitoso!",
+    "success": "¡Éxito!",
     "routines": {
         "rir": "Repeticiones",
         "addDay": "Añadir un día de entrenamiento",
@@ -219,5 +219,10 @@
         "derivativeSourceUrlHelper": "Tenga en cuenta que una obra derivada es aquella que no sólo se basa en una obra anterior, sino que además contiene suficiente contenido nuevo y creativo como para tener derecho a sus propios derechos de autor.",
         "authorProfile": "Enlace al sitio web o perfil del autor, si está disponible"
     },
-    "filters": "Filtros"
+    "filters": "Filtros",
+    "lastYear": "El año pasado",
+    "lastHalfYear": "Últimos 6 meses",
+    "lastMonth": "Mes pasado",
+    "all": "Todo",
+    "lastWeek": "Mes semana"
 }
