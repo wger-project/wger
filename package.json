@@ -10,6 +10,7 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
+    "htmx.org": "^2.0.3",
     "Sortable": "RubaXa/Sortable#1.15.3",
     "bootstrap": "5.3.3",
     "components-font-awesome": "5.9.0",
@@ -18,7 +19,7 @@
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
-    "popper.js": "^1.16.1",
+    "@popperjs/core": "^2.11.8",
     "yarn": "^1.22.22"
   },
   "scripts": {

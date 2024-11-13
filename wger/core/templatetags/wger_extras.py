@@ -26,6 +26,7 @@ from django.utils.translation import (
     pgettext,
 )
 
+from wger.core.tests.base_testcase import get_reverse
 # wger
 from wger.manager.models import Day
 from wger.utils.constants import (
@@ -33,7 +34,6 @@ from wger.utils.constants import (
     PAGINATION_PAGES_AROUND_CURRENT,
 )
 from wger.utils.language import get_language_data
-
 
 register = template.Library()
 
@@ -175,6 +175,11 @@ def fa_class(class_name='', icon_type='fas', fixed_width=True):
     if fixed_width:
         css += ' fa-fw'
     return mark_safe(css)
+
+
+@register.inclusion_tag('tags/modal_link.html')
+def modal_link(url: str, text: str, css_class='btn btn-success btn-sm'):
+    return {'url': get_reverse(url), 'text': text, 'css_class': css_class}
 
 
 @register.simple_tag
