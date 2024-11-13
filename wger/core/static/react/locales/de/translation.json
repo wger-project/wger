@@ -222,5 +222,8 @@
         "authorProfile": "Link zur Website oder zum Profil des Autors, falls verfügbar",
         "derivativeSourceUrlHelper": "Beachte, dass ein abgeleitetes Werk nicht nur auf einem vorherigen Werk basiert, sondern auch genügend neue, kreative Inhalte enthält, um ein eigenes Urheberrecht zu beanspruchen."
     },
-    "filters": "Filter"
+    "filters": "Filter",
+    "calendar": "Kalender",
+    "entries": "Einträge",
+    "no_entries_for_day": "Keine Einträge für diesen Tag"
 }
