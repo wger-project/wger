@@ -21,10 +21,7 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import (
-    get_object_or_404,
-    render,
-)
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
@@ -125,20 +122,3 @@ def delete(request, pk):
     day = get_object_or_404(Day, training__user=request.user, pk=pk)
     day.delete()
     return HttpResponseRedirect(reverse('manager:workout:view', kwargs={'pk': day.training_id}))
-
-
-@login_required
-def view(request, id):
-    """
-    Renders a day as shown in the workout overview.
-
-    This function is to be used with AJAX calls.
-    """
-    template_data = {}
-
-    # Load day and check if its workout belongs to the user
-    day = get_object_or_404(Day, pk=id, training__user=request.user)
-
-    template_data['day'] = day
-
-    return render(request, 'day/view.html', template_data)

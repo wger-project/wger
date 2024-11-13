@@ -92,19 +92,6 @@ def pagination(paginator, page):
     return {'page': page, 'page_range': page_range}
 
 
-@register.inclusion_tag('tags/render_weight_log.html')
-def render_weight_log(log, div_uuid, user=None):
-    """
-    Renders a weight log series
-    """
-
-    return {
-        'log': log,
-        'div_uuid': div_uuid,
-        'user': user,
-    }
-
-
 @register.inclusion_tag('tags/muscles.html')
 def render_muscles(muscles=None, muscles_sec=None):
     """
