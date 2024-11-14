@@ -1,5 +1,7 @@
 {
   "weight": "Weight",
+  "height": "Height",
+  "cm": "cm",
   "date": "Date",
   "timeOfDay": "Time of day",
   "submit": "Submit",
@@ -139,6 +141,14 @@
     "logThisMealItem": "Log this ingredient as-is to the nutrition diary",
     "valueRemaining": "remaining",
     "valueTooMany": "too many"
+  },
+  "bmi": {
+    "calculator": "BMI calculator",
+    "overweight": "Overweight",
+    "obese": "Obese",
+    "normal": "Normal weight",
+    "underweight": "Underweight",
+    "result": "Your BMI is {{value}}"
   },
   "downloadAsPdf": "Download as PDF",
   "total": "Total",

@@ -12,7 +12,6 @@
   "dependencies": {
     "bootstrap": "5.3.3",
     "components-font-awesome": "5.9.0",
-    "d3": "^7.9.0",
     "datatables.net-bs5": "^2.1.8",
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.7.1",
