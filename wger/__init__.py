@@ -8,10 +8,9 @@
 # Local
 from .celery_configuration import app
 
-
 MIN_APP_VERSION = (1, 7, 4, 'final', 1)
 
-VERSION = (2, 3, 0, 'alpha', 2)
+VERSION = (2, 3, 0, 'alpha', 3)
 RELEASE = True
 
 
