@@ -81,13 +81,13 @@ $(document).ready(function() {
                                         <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                            <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                                {% translate 'Edit' %}
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                                {% translate 'Delete' %}
-                                            </a>
+                                            {% translate 'Edit' as text %}
+                                            {% url 'manager:log:edit' log.pk as url %}
+                                            {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                                            {% translate 'Delete' as text %}
+                                            {% url 'manager:log:delete' log.pk as url %}
+                                            {% modal_link url=url text=text css_class='dropdown-item' %}
                                         </div>
                                     </div>
                                 {% endif %}

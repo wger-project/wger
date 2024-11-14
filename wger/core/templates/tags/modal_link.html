@@ -1,0 +1,12 @@
+{% load static i18n %}
+
+<a
+    href="{{ url }}"
+    class="{{ css_class }}"
+    hx-get="{{ url }}"
+    hx-target="#ajax-info-content"
+    data-bs-toggle="modal"
+    data-bs-target="#wger-ajax-info"
+>
+    {{ text }}
+</a>

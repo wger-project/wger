@@ -27,7 +27,9 @@
         </p>
     {% endif %}
     <p>
-        <small class="text-muted">{% translate "You need to verify your email to contribute exercises" %}</small>
+        <small class="text-muted">
+            {% translate "You need to verify your email to contribute exercises" %}
+        </small>
     </p>
 {% endblock %}
 
@@ -39,8 +41,11 @@
 {% block options %}
     <div class="btn-group">
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+            <button type="button" 
+                    class="btn btn-primary btn-sm dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true" 
+                    aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}
             </button>
@@ -54,10 +59,8 @@
                     {% translate "API key" %}
                 </a>
                 <div role="separator" class="dropdown-divider"></div>
-                <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
-                    <span class="{% fa_class 'trash' %}"></span>
-                    {% translate "Delete account" %}
-                </a>
+                {% translate 'Delete account' as text %}
+                {% modal_link url='core:user:delete' text=text css_class='dropdown-item' %}
             </div>
         </div>
     </div>
