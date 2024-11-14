@@ -9,14 +9,18 @@
         {% for equipment in equipment_list %}
             <li class="list-group-item list-group-item-action">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'exercise:equipment:edit' equipment.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                        <a href="{% url 'exercise:equipment:delete' equipment.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'exercise:equipment:edit' equipment.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete' as text %}
+                        {% url 'exercise:equipment:delete' equipment.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
                 {{ equipment.name }}
@@ -30,14 +34,9 @@
 {% endblock %}
 
 
-
-
-{% block sidebar %}
+{% block options %}
     {% if perms.exercises.add_equipment %}
-        <p>
-            <a href="{% url 'exercise:equipment:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-                {% translate "Add new equipment" %}
-            </a>
-        </p>
+        {% translate 'Add' as text %}
+        {% modal_link url='exercise:equipment:add' text=text %}
     {% endif %}
 {% endblock %}

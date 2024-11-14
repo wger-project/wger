@@ -19,6 +19,7 @@
 from rest_framework import viewsets
 
 # wger
+from wger.weight.api.filtersets import WeightEntryFilterSet
 from wger.weight.api.serializers import WeightEntrySerializer
 from wger.weight.models import WeightEntry
 
@@ -32,7 +33,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
 
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('date', 'weight')
+    filterset_class = WeightEntryFilterSet
 
     def get_queryset(self):
         """

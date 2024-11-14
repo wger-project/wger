@@ -6,7 +6,7 @@
 -r requirements.txt
 
 # Building/installing
-wheel==0.44.0
+wheel==0.45.0
 
 # for ingredient import script from OFF
 pymongo==4.10.1
@@ -16,7 +16,7 @@ faker==26.0.0
 
 # Development packages
 django-extensions~=3.2
-coverage==7.6.1
+coverage==7.6.3
 django-debug-toolbar==4.4.5
 isort==5.13.2
 ruff==0.6.8

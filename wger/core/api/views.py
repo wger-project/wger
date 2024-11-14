@@ -304,8 +304,9 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
     API endpoint
     """
 
-    permission_classes = (AllowRegisterUser,)
+    # permission_classes = (AllowRegisterUser,)
     serializer_class = UserRegistrationSerializer
+    throttle_scope = 'registration'
 
     def get_queryset(self):
         """
@@ -327,7 +328,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        user.userprofile.added_by = request.user
+        # user.userprofile.added_by = request.user
         user.userprofile.save()
         token = create_token(user)
 

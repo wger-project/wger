@@ -137,6 +137,7 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
 
 # Folder for compressed CSS and JS files
 COMPRESS_ROOT = STATIC_ROOT
+COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', not DEBUG)
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL

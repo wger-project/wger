@@ -228,6 +228,54 @@ patterns_session = [
     ),
 ]
 
+# sub patterns for workout days
+patterns_day = [
+    path(
+        '<int:pk>/edit',
+        login_required(day.DayEditView.as_view()),
+        name='edit',
+    ),
+    path(
+        '<int:workout_pk>/add',
+        login_required(day.DayCreateView.as_view()),
+        name='add',
+    ),
+    path(
+        '<int:pk>/delete',
+        day.delete,
+        name='delete',
+    ),
+    path(
+        '<int:pk>/log/add',
+        log.add,
+        name='log',
+    ),
+]
+
+# sub patterns for workout sets
+patterns_set = [
+    path(
+        '<int:day_pk>/add',
+        set.create,
+        name='add',
+    ),
+    path(
+        'get-formset/<int:base_pk>/<int:reps>',
+        set.get_formset,
+        name='get-formset',
+    ),  # Used by JS
+    path(
+        '<int:pk>/delete',
+        set.delete,
+        name='delete',
+    ),
+    path(
+        '<int:pk>/edit',
+        set.edit,
+        name='edit',
+    ),
+]
+
 # sub patterns for schedules
 patterns_schedule = [
     path(

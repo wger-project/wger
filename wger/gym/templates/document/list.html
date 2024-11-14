@@ -22,32 +22,32 @@
         {% for document in userdocument_list %}
             <li class="list-group-item ">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="{{ document.document.url }}" download="{{ document.original_name }}">
-                                <span class="glyphicon glyphicon-download"></span>
+                            <a href="{{ document.document.url }}"
+                               download="{{ document.original_name }}" class="dropdown-item">
                                 {% translate 'Download' %}
                             </a>
                         </li>
                         {% if perms.gym.change_userdocument %}
                             <li>
-                                <a href="{% url 'gym:document:edit' document.pk %}">
-                                    {% translate 'Edit' %}
-                                </a>
+                                {% translate 'Edit' as text %}
+                                {% url 'gym:document:edit' document.pk as url %}
+                                {% modal_link url=url text=text css_class='dropdown-item' %}
                             </li>
                         {% endif %}
 
                         {% if perms.gym.delete_userdocument %}
                             <li>
-                                <a href="{% url 'gym:document:delete' document.pk %}" class="wger-modal-dialog">
-                                    {% translate 'Delete' %}
-                                </a>
+                                {% translate 'Delete' as text %}
+                                {% url 'gym:document:delete' document.pk as url %}
+                                {% modal_link url=url text=text css_class='dropdown-item' %}
                             </li>
                         {% endif %}
-
                     </ul>
                 </div>
 
@@ -75,8 +75,8 @@
 {#         #}
 {% block options %}
     {% if perms.gym.add_userdocument %}
-        <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-sm btn-success">
-            {% translate "Add" %}
-        </a>
+        {% translate 'Add' as text %}
+        {% url 'gym:document:add' member.pk as url %}
+        {% modal_link url=url text=text %}
     {% endif %}
 {% endblock %}

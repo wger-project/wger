@@ -151,8 +151,6 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ):
             result = fetch_ingredient_image(1)
 
-            # log1 = mock_logger.mock_calls[0]
-            # print(log1)
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
                 'Trying to fetch image from OFF for Test ingredient 1 (UUID: '
@@ -160,13 +158,14 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
             mock_logger.assert_any_call('Image successfully saved')
 
+            # print(mock_request.mock_calls)
             mock_request.assert_any_call(
                 'https://world.openfoodfacts.org/api/v2/product/5055365635003.json?fields=images,image_front_url',
                 headers=wger_headers(),
                 timeout=ANY,
             )
             mock_request.assert_any_call(
-                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987/654321/12345.jpg',
+                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987654321/12345.jpg',
                 headers=wger_headers(),
             )
             mock_from_json.assert_called()

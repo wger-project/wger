@@ -461,7 +461,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '10/min'
+        'login': '10/min',
+        'registration': '5/min'
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

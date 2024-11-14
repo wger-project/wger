@@ -205,11 +205,11 @@ class IngredientDetailTestCase(WgerTestCase):
 
         # Only authorized users see the edit links
         if editor:
-            self.assertContains(response, 'Edit ingredient')
-            self.assertContains(response, 'Delete ingredient')
+            self.assertContains(response, 'Edit')
+            self.assertContains(response, 'Delete')
         else:
-            self.assertNotContains(response, 'Edit ingredient')
-            self.assertNotContains(response, 'Delete ingredient')
+            self.assertNotContains(response, 'Edit')
+            self.assertNotContains(response, 'Delete')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))
@@ -249,8 +249,7 @@ class IngredientSearchTestCase(WgerTestCase):
         Helper function
         """
 
-        kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
-        response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
+        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 2)
