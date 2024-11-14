@@ -26,7 +26,6 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -63,6 +62,7 @@ class PreferencesTestCase(WgerTestCase):
                 'num_days_weight_reminder': 10,
                 'weight_unit': 'kg',
                 'birthdate': '02/25/1987',
+                'height': 180,
             },
         )
 
@@ -89,6 +89,7 @@ class PreferencesTestCase(WgerTestCase):
                 'num_days_weight_reminder': 10,
                 'weight_unit': 'lb',
                 'birthdate': '02/25/1987',
+                'height': 170,
             },
         )
 
@@ -305,7 +306,6 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         self.assertEqual(
             user.userprofile.calculate_activities(), decimal.Decimal(1.52).quantize(TWOPLACES)
         )
-
 
 # TODO: the user can't delete or create new profiles
 # class UserProfileApiTestCase(api_base_test.ApiBaseResourceTestCase):
