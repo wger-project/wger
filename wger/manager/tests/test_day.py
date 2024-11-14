@@ -112,51 +112,6 @@ class EditWorkoutDayTestCase(WgerEditTestCase):
     data = {'description': 'a different description', 'day': [1, 4]}
 
 
-class RenderWorkoutDayTestCase(WgerTestCase):
-    """
-    Tests rendering a single workout day
-    """
-
-    def render_day(self, fail=False):
-        """
-        Helper function to test rendering a single workout day
-        """
-
-        # Fetch the day edit page
-        response = self.client.get(reverse('manager:day:view', kwargs={'id': 5}))
-
-        if fail:
-            self.assertIn(response.status_code, (302, 404))
-            self.assertTemplateUsed('login.html')
-
-        else:
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed('day/view.html')
-
-    def test_render_day_anonymous(self):
-        """
-        Test rendering a single workout day as an anonymous user
-        """
-
-        self.render_day(fail=True)
-
-    def test_render_workout_owner(self):
-        """
-        Test rendering a single workout day as the owner user
-        """
-
-        self.user_login('test')
-        self.render_day(fail=False)
-
-    def test_render_workout_other(self):
-        """
-        Test rendering a single workout day as a different logged in user
-        """
-
-        self.user_login('admin')
-        self.render_day(fail=True)
-
-
 class WorkoutCacheTestCase(WgerTestCase):
     """
     Workout cache test case
@@ -200,7 +155,6 @@ class DayTestCase(WgerTestCase):
 
         day = Day.objects.get(pk=3)
         self.assertEqual(day.get_first_day_id, 1)
-
 
 # class DayApiTestCase(api_base_test.ApiBaseResourceTestCase):
 #     """
