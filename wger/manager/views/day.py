@@ -41,7 +41,6 @@ from wger.manager.models import (
 )
 from wger.utils.generic_views import WgerFormMixin
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -105,6 +104,7 @@ class DayCreateView(DayView, CreateView):
 
     title = gettext_lazy('Add workout day')
     owner_object = {'pk': 'workout_pk', 'class': Workout}
+    template_name = 'form_content.html'
 
     def form_valid(self, form):
         """

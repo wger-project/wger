@@ -249,8 +249,7 @@ class IngredientSearchTestCase(WgerTestCase):
         Helper function
         """
 
-        kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
-        response = self.client.get(reverse('ingredient-search'), {'term': 'test'}, **kwargs)
+        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 2)
