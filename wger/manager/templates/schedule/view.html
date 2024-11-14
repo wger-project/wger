@@ -111,18 +111,31 @@
                     </td>
                     {% if is_owner %}
                         <td style="min-width: 6em;">
-            <span class="editoptions">
-                <span title="{% translate 'Move me' %}" class="dragndrop-handle {% fa_class 'bars' %}"></span>
+                            <span class="editoptions">
+                                <span title="{% translate 'Move me' %}"
+                                      class="dragndrop-handle {% fa_class 'bars' %}"></span>
+                                <a
+                                    href="{% url 'manager:step:edit' step.id %}"
+                                    class="{{ css_class }}"
+                                    hx-get="{% url 'manager:step:edit' step.id %}"
+                                    hx-target="#ajax-info-content"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#wger-ajax-info"
+                                >
+                                    <span class="{% fa_class 'edit' %}"></span>
+                                </a>
 
-                 <a href="{% url 'manager:step:edit' step.id %}"
-                    title="{% translate 'Edit' %}"
-                    class="wger-modal-dialog">
-                    <span class="{% fa_class 'edit' %}"></span></a>
-                <a href="{% url 'manager:step:delete' step.id %}"
-                   title="{% translate 'Delete' %}"
-                   class="wger-modal-dialog">
-                    <span class="{% fa_class 'trash' %}"></span></a>
-            </span>
+                                <a
+                                    href="{% url 'manager:step:delete' step.id %}"
+                                    class="{{ css_class }}"
+                                    hx-get="{% url 'manager:step:delete' step.id %}"
+                                    hx-target="#ajax-info-content"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#wger-ajax-info"
+                                >
+                                    <span class="{% fa_class 'trash' %}"></span>
+                                </a>
+                            </span>
                         </td>
                     {% endif %}
                     <td>
@@ -139,10 +152,9 @@
                 {% if is_owner %}
                     <tr>
                         <td colspan="4">
-                            <a href="{% url 'manager:step:add' schedule.id %}"
-                               class="wger-modal-dialog btn btn-block btn-light">
-                                {% translate "No workouts found." %} {% translate "Add one now." %}
-                            </a>
+                            {% translate 'Add one now.' as text %}
+                            {% url 'manager:step:add' schedule.id as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
                         </td>
                     </tr>
                 {% endif %}
@@ -151,17 +163,16 @@
                 <tr>
                     <td colspan="4">
                         {% if not schedule.is_active %}
-                            <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
+                            <a href="{% url 'manager:schedule:start' schedule.pk %}"
+                               class="btn btn-success btn-sm">
                                 <span class="{% fa_class 'play' %}"></span>
                                 {% translate "Start schedule" %}
                             </a>
                         {% endif %}
 
-                        <a href="{% url 'manager:step:add' schedule.id %}"
-                           class="wger-modal-dialog btn btn-light btn-sm">
-                            <span class="{% fa_class 'plus' %}"></span>
-                            {% translate "Add workout" %}
-                        </a>
+                        {% translate 'Add workout' as text %}
+                        {% url 'manager:step:add' schedule.id as url %}
+                        {% modal_link url=url text=text css_class='btn btn-light btn-sm' %}
                     </td>
                     <td colspan="2">
                     </td>
@@ -230,13 +241,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">{% translate "Export calendar file" %}</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>{% translate "Export this schedule as a calendar file." %}</p>
                     <p>{% blocktranslate %}You can then import the file it into your calendar
                         application for example google calendar, outlook or iCal. This will create
-                        an appointment for each training day with the appropriate exercises.{% endblocktranslate %}</p>
+                        an appointment for each training day with the appropriate
+                        exercises.{% endblocktranslate %}</p>
                     <p>
                         <a href="{% url 'manager:schedule:ical' schedule.id uid token %}"
                            class="btn btn-block btn-light">
@@ -245,7 +259,8 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">{% translate "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -256,17 +271,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">{% translate "Download as PDF" %}</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form class="wger-form">
                         {% crispy download_form %}
-                        <div id="pdf-download-info" data-schedule-id="{{ schedule.id|unlocalize }}" data-uid="{{ uid }}"
+                        <div id="pdf-download-info" data-schedule-id="{{ schedule.id|unlocalize }}"
+                             data-uid="{{ uid }}"
                              data-token="{{ token }}"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">{% translate "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -279,30 +298,33 @@
 {% block options %}
     <div class="btn-group">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                    data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}
             </button>
             <div class="dropdown-menu">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#export-ical-popup" class="dropdown-item">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#export-ical-popup"
+                   class="dropdown-item">
                     <span class="{% fa_class 'calendar' %}"></span>
                     {% translate "Export calendar file" %}
                 </a>
-                <a data-bs-toggle="modal" data-bs-target="#download-pdf-popup" class="dropdown-item">
+                <a data-bs-toggle="modal" data-bs-target="#download-pdf-popup"
+                   class="dropdown-item">
                     <span class="{% fa_class 'download' %}"></span>
                     {% translate "Download as PDF" %}
                 </a>
                 {% if is_owner %}
-                    <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog dropdown-item">
-                        <span class="{% fa_class 'edit' %}"></span>
-                        {% translate "Edit schedule" %}
-                    </a>
+                    {% translate 'Edit' as text %}
+                    {% url 'manager:schedule:edit' schedule.id as url %}
+                    {% modal_link url=url text=text css_class='dropdown-item' %}
+
                     <div role="separator" class="dropdown-divider"></div>
-                    <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog dropdown-item">
-                        <span class="{% fa_class 'trash' %}"></span>
-                        {% translate "Delete schedule" %}
-                    </a>
+
+                    {% translate 'Delete' as text %}
+                    {% url 'manager:schedule:delete' schedule.id as url %}
+                    {% modal_link url=url text=text css_class='dropdown-item' %}
                 {% endif %}
             </div>
         </div>

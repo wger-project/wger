@@ -102,7 +102,8 @@
 
 
 
-{% block sidebar %}
-    <h4>{% translate 'Options' %}</h4>
-    <a href="{% url 'gym:contract:edit' object.pk %}" class="wger-modal-dialog">{% translate 'Edit' %}</a>
+{% block options %}
+    {% translate 'Edit' as text %}
+    {% url 'gym:contract:edit' object.pk as url %}
+    {% modal_link url=url text=text %}
 {% endblock %}

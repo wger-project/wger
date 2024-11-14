@@ -205,11 +205,11 @@ class IngredientDetailTestCase(WgerTestCase):
 
         # Only authorized users see the edit links
         if editor:
-            self.assertContains(response, 'Edit ingredient')
-            self.assertContains(response, 'Delete ingredient')
+            self.assertContains(response, 'Edit')
+            self.assertContains(response, 'Delete')
         else:
-            self.assertNotContains(response, 'Edit ingredient')
-            self.assertNotContains(response, 'Delete ingredient')
+            self.assertNotContains(response, 'Edit')
+            self.assertNotContains(response, 'Delete')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))

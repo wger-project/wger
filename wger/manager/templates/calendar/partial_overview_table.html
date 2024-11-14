@@ -13,24 +13,26 @@
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog dropdown-item">
-                            <span class="{% fa_class 'edit-o' %}"></span>
-                            {% translate "Edit" %}
-                        </a>
+                        {% translate 'Edit' as text %}
+                        {% url 'manager:session:edit' value.session.pk as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
                         <div class="dropdown-divider"></div>
-                        <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog dropdown-item">
-                            <span class="{% fa_class 'trash' %}"></span>
-                            {% translate "Delete" %}
-                        </a>
-                        <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog dropdown-item">
-                            <span class="{% fa_class 'trash' %}"></span>
-                            {% translate "Delete with logs" %}
-                        </a>
+
+                        {% translate 'Delete' as text %}
+                        {% url 'manager:session:delete' value.session.pk as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete with logs' as text %}
+                        {% url 'manager:session:delete' value.session.pk 'logs' as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
             </div>
         {% else %}
-            <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-light btn-block wger-modal-dialog">{% translate "Add workout impression" %}</a>
+            {% translate 'Add workout impression' as text %}
+            {% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
         {% endif %}
     {% endif %}
 </div>
