@@ -104,6 +104,7 @@ from wger.utils.generic_views import (
 from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -548,8 +549,8 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
             )
         context['workouts'] = out
         context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
-                                    :5
-                                    ]
+            :5
+        ]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]
