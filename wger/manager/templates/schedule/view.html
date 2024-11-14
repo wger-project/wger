@@ -13,52 +13,6 @@
 {% block title %}{{ schedule.name }}{% endblock %}
 
 {% block header %}
-    <script type="text/javascript">
-        function init_sortable() {
-            $("#schedule-table").find("tbody").off();
-            var elements = document.getElementsByTagName('tbody');
-            $.each(elements, function (index, element) {
-                Sortable.create(element, {
-                    handle: '.dragndrop-handle',
-                    animation: 150,
-                    onUpdate: function (event) {
-                        $.each(($(event.from).children('tr')), function (index, tr_element) {
-                            var tr_element = $(tr_element);
-                            console.log(tr_element.data('id'));
-
-                            // The last table element has no ID attribute (has only the
-                            // 'add exercise' link
-                            if (tr_element.data('id')) {
-                                var step_pk = tr_element.data('id');
-                                $.ajax({
-                                    url: '/api/v2/schedulestep/' + step_pk + '/',
-                                    type: 'PATCH',
-                                    data: {'order': index + 1}
-                                }).done(function (data) {
-                                    // console.log(data);
-                                });
-                            }
-                        });
-
-
-                        // TODO: again, why do we need to do this twice. Otherwise, sometimes
-                        //       it doesn't get current data
-                        var current_url = $("#current-url").data('currentUrl');
-                        $.get(current_url);
-                        $.get(current_url, function (data) {
-                            $('#schedule-table').html($(data).find('#schedule-table').html());
-                            init_sortable();
-                            wgerFormModalDialog();
-                        });
-                    }
-                });
-            })
-        }
-
-        $(function () {
-            init_sortable();
-        });
-    </script>
 {% endblock %}
 
 {% block content %}
@@ -112,8 +66,6 @@
                     {% if is_owner %}
                         <td style="min-width: 6em;">
             <span class="editoptions">
-                <span title="{% translate 'Move me' %}" class="dragndrop-handle {% fa_class 'bars' %}"></span>
-
                  <a href="{% url 'manager:step:edit' step.id %}"
                     title="{% translate 'Edit' %}"
                     class="wger-modal-dialog">
