@@ -156,6 +156,7 @@ class DayTestCase(WgerTestCase):
         day = Day.objects.get(pk=3)
         self.assertEqual(day.get_first_day_id, 1)
 
+
 # class DayApiTestCase(api_base_test.ApiBaseResourceTestCase):
 #     """
 #     Tests the day API resource
