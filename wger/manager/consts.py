@@ -26,3 +26,7 @@ RIR_OPTIONS = [
     ('3.5', 3.5),
     ('4', 4),
 ]
+
+ID_UNIT_REPS = 1
+ID_UNIT_KG = 1
+ID_UNIT_LB = 2

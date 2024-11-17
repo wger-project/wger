@@ -18,6 +18,13 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
+# wger
+from wger.manager.consts import (
+    ID_UNIT_KG,
+    ID_UNIT_LB,
+    ID_UNIT_REPS,
+)
+
 
 class ScheduleManager(models.Manager):
     """
@@ -62,6 +69,39 @@ class ScheduleManager(models.Manager):
                 active_workout = False
 
         return active_workout, schedule
+
+
+class WorkoutLogQuerySet(models.QuerySet):
+    def kg(self):
+        """Return all entries with kg as weight"""
+        return self.filter(weight_unit_id=ID_UNIT_KG)
+
+    def lb(self):
+        """Return all entries with lb as weight"""
+        return self.filter(weight_unit_id=ID_UNIT_LB)
+
+    def reps(self):
+        """Return all entries with reps as unit"""
+        return self.filter(repetition_unit_id=ID_UNIT_REPS)
+
+
+class WorkoutLogManager(models.Manager):
+    """Custom manager for log entries"""
+
+    def get_queryset(self):
+        return WorkoutLogQuerySet(self.model, using=self._db)
+
+    def kg(self):
+        """Return all entries with kg as weight"""
+        return self.get_queryset().kg()
+
+    def lb(self):
+        """Return all entries with lb as weight"""
+        return self.get_queryset().lb()
+
+    def reps(self):
+        """Return all entries with reps as unit"""
+        return self.get_queryset().reps()
 
 
 class WorkoutManager(models.Manager):

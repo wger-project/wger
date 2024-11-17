@@ -34,7 +34,8 @@ from wger.exercises.models import Exercise
 from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.api.serializers import (
     DaySerializer,
-    LogDataSerializer,
+    LogDisplaySerializer,
+    LogStatsDataSerializer,
     MaxRepsConfigSerializer,
     MaxRestConfigSerializer,
     MaxWeightConfigSerializer,
@@ -56,6 +57,7 @@ from wger.manager.api.serializers import (
     WorkoutSessionSerializer,
     WorkoutTemplateSerializer,
 )
+from wger.manager.dataclasses import RoutineLogData
 from wger.manager.models import (
     Day,
     MaxRepsConfig,
@@ -211,7 +213,22 @@ class RoutineViewSet(viewsets.ModelViewSet):
             except ValueError:
                 pass
 
-        return Response(LogDataSerializer(self.get_object().logs_display(date), many=True).data)
+        return Response(LogDisplaySerializer(self.get_object().logs_display(date), many=True).data)
+
+    @action(detail=True, url_path='stats')
+    def stats(self, request, pk):
+        """
+        Returns the logs for the routine
+        """
+        cache_key = CacheKeyMapper.get_routine_api_stats(pk)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
+
+        out = LogStatsDataSerializer(self.get_object().calculate_log_statistics()).data
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+
+        return Response(out)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):

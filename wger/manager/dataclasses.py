@@ -17,6 +17,7 @@
 
 # Standard Library
 import datetime
+from collections import defaultdict
 from dataclasses import (
     dataclass,
     field,
@@ -181,3 +182,28 @@ class WorkoutDayData:
             return []
 
         return self.day.get_slots_display_mode(self.iteration)
+
+
+@dataclass
+class LogData:
+    exercises: defaultdict[int, Decimal] = field(default_factory=lambda: defaultdict(Decimal))
+    muscle_group: defaultdict[int, Decimal] = field(default_factory=lambda: defaultdict(Decimal))
+    upper_body: Decimal = 0
+    lower_body: Decimal = 0
+    total: Decimal = 0
+
+
+@dataclass
+class GroupedLogData:
+    mesocycle: LogData = field(default_factory=LogData)
+    iteration: defaultdict[int, LogData] = field(default_factory=lambda: defaultdict(LogData))
+    weekly: defaultdict[int, LogData] = field(default_factory=lambda: defaultdict(LogData))
+    daily: defaultdict[datetime.date, LogData] = field(default_factory=lambda: defaultdict(LogData))
+
+
+@dataclass
+class RoutineLogData:
+    volume: GroupedLogData = field(default_factory=GroupedLogData)
+    intensity: GroupedLogData = field(default_factory=GroupedLogData)
+    # tonnage: GroupedLogData = field(default_factory=GroupedLogData)
+    sets: GroupedLogData = field(default_factory=GroupedLogData)

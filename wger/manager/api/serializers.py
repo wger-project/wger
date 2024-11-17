@@ -422,13 +422,47 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
         ]
 
 
-class LogDataSerializer(serializers.Serializer):
+class LogDisplaySerializer(serializers.Serializer):
     """
-    Log Data serializer
+    Log Display Data serializer
     """
 
     session = WorkoutSessionSerializer()
     logs = WorkoutLogSerializer(many=True)
+
+
+class LogDataSerializer(serializers.Serializer):
+    """
+    Log Stats Data serializer
+    """
+
+    exercises = serializers.DictField()
+    muscle_group = serializers.DictField()
+    upper_body = serializers.DecimalField(max_digits=10, decimal_places=2)
+    upper_body = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+
+class GroupedLogDataSerializer(serializers.Serializer):
+    """
+    Log Stats Data serializer
+    """
+
+    iteration = serializers.DictField(child=LogDataSerializer())
+    weekly = serializers.DictField(child=LogDataSerializer())
+    daily = serializers.DictField(child=LogDataSerializer())
+    mesocycle = LogDataSerializer()
+
+
+class LogStatsDataSerializer(serializers.Serializer):
+    """
+    Log Stats Data serializer
+    """
+
+    intensity = GroupedLogDataSerializer()
+    # tonnage = GroupedLogDataSerializer()
+    sets = GroupedLogDataSerializer()
+    volume = GroupedLogDataSerializer()
 
 
 class ScheduleStepSerializer(serializers.ModelSerializer):

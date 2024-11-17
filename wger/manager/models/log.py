@@ -30,6 +30,7 @@ from wger.core.models import (
 )
 from wger.exercises.models import Exercise
 from wger.manager.consts import RIR_OPTIONS
+from wger.manager.managers import WorkoutLogManager
 from wger.manager.models.session import WorkoutSession
 from wger.utils.cache import reset_workout_log
 
@@ -38,6 +39,8 @@ class WorkoutLog(models.Model):
     """
     A log entry for an exercise
     """
+
+    objects = WorkoutLogManager()
 
     date = models.DateTimeField(
         verbose_name=_('Date'),

@@ -100,6 +100,10 @@ def update_cache_rir_config(sender, instance: RiRConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
 
 
+def update_cache_log(sender, instance: WorkoutLog, **kwargs):
+    reset_routine_cache(instance.routine)
+
+
 post_save.connect(update_activity_cache, sender=WorkoutSession)
 post_save.connect(update_activity_cache, sender=WorkoutLog)
 
@@ -115,6 +119,7 @@ pre_save.connect(update_cache_sets_config, sender=SetsConfig)
 pre_save.connect(update_cache_rest_config, sender=RestConfig)
 pre_save.connect(update_cache_max_rest_config, sender=MaxRestConfig)
 pre_save.connect(update_cache_rir_config, sender=RiRConfig)
+pre_save.connect(update_cache_log, sender=WorkoutLog)
 
 pre_delete.connect(update_cache_routine, sender=Routine)
 pre_delete.connect(update_cache_day, sender=Day)

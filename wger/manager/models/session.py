@@ -57,6 +57,7 @@ class WorkoutSession(models.Model):
     routine = models.ForeignKey(
         'Routine',
         on_delete=models.CASCADE,
+        related_name='sessions',
         null=True,
     )
 

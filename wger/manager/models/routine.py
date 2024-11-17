@@ -29,7 +29,10 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.manager.dataclasses import WorkoutDayData
+from wger.manager.dataclasses import (
+    RoutineLogData,
+    WorkoutDayData,
+)
 from wger.utils.cache import CacheKeyMapper
 
 
@@ -262,7 +265,7 @@ class Routine(models.Model):
         """
         out = []
 
-        qs = self.workoutsession_set.all()
+        qs = self.sessions.all()
         if date:
             qs = qs.filter(date=date)
 
@@ -270,3 +273,81 @@ class Routine(models.Model):
             out.append({'session': session, 'logs': session.logs.all()})
 
         return out
+
+    def calculate_log_statistics(self) -> RoutineLogData:
+        """
+        Calculates various statistics for the routine based on the logged workouts.
+
+        Returns:
+            RoutineLogData: An object containing the calculated statistics.
+        """
+        result = RoutineLogData()
+
+        # Iterate over each workout session associated with the routine
+        for session in self.sessions.all():
+            session_date = session.date
+            week_number = session_date.isocalendar().week
+
+            # TODO: filter for lb
+            for log in session.logs.kg().reps():
+                exercise = log.exercise
+                weight = log.weight
+                reps = log.reps
+                iteration = log.iteration
+                exercise_volume = weight * reps
+
+                # Initialize LogData
+                daily_volume = result.volume.daily[session_date]
+                weekly_volume = result.volume.weekly[week_number]
+                iteration_volume = result.volume.iteration[iteration]
+                mesocycle_volume = result.volume.mesocycle
+
+                daily_sets = result.sets.daily[session_date]
+                weekly_sets = result.sets.weekly[week_number]
+                iteration_sets = result.sets.iteration[iteration]
+                mesocycle_sets = result.sets.mesocycle
+
+                #
+                # Volume calculations
+                #
+                daily_volume.exercises[exercise.id] += exercise_volume
+                weekly_volume.exercises[exercise.id] += exercise_volume
+                iteration_volume.exercises[exercise.id] += exercise_volume
+                mesocycle_volume.exercises[exercise.id] += exercise_volume
+
+                #
+                # Sets calculations
+                #
+                daily_sets.exercises[exercise.id] += 1
+                weekly_sets.exercises[exercise.id] += 1
+                iteration_sets.exercises[exercise.id] += 1
+                mesocycle_sets.exercises[exercise.id] += 1
+
+                #
+                # Muscles calculations
+                #
+                for muscle in exercise.muscles.all():
+                    # Volume
+                    daily_volume.muscle_group[muscle.id] += exercise_volume
+                    weekly_volume.muscle_group[muscle.id] += exercise_volume
+                    iteration_volume.muscle_group[muscle.id] += exercise_volume
+                    mesocycle_volume.muscle_group[muscle.id] += exercise_volume
+
+                    # Sets
+                    daily_sets.muscle_group[muscle.id] += 1
+                    weekly_sets.muscle_group[muscle.id] += 1
+                    iteration_sets.muscle_group[muscle.id] += 1
+                    mesocycle_sets.muscle_group[muscle.id] += 1
+
+                # Update totals for daily, weekly, and mesocycle
+                daily_volume.total += exercise_volume
+                weekly_volume.total += exercise_volume
+                iteration_volume.total += exercise_volume
+                mesocycle_volume.total += exercise_volume
+
+                daily_sets.total += 1
+                weekly_sets.total += 1
+                iteration_sets.total += 1
+                mesocycle_sets.total += 1
+
+        return result

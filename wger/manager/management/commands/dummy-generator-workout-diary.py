@@ -79,7 +79,7 @@ class Command(BaseCommand):
                                         exercise=entry.exercise,
                                         routine=routine,
                                         reps=reps,
-                                        weight=50 - reps + random.randint(1, 10),
+                                        weight=50 - reps + random.randint(1, 30),
                                         date=date,
                                     )
                                     weight_log.append(log)
