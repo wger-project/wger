@@ -35,7 +35,6 @@ from wger.manager.views import (
     workout_session,
 )
 
-
 # sub patterns for workout logs
 patterns_log = [
     path(
@@ -114,7 +113,7 @@ patterns_workout = [
     path(
         '<int:pk>/view',
         # ReactView.as_view(login_required=True),
-        workout.view,
+        ReactView.as_view(),
         name='view',
     ),
     re_path(
