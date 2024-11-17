@@ -71,6 +71,7 @@ class Day(models.Model):
     name = models.CharField(
         max_length=20,
         verbose_name=_('Name'),
+        blank=True,  # needed for rest days
     )
 
     description = models.CharField(
