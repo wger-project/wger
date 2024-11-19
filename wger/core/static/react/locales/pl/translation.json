@@ -223,5 +223,8 @@
     "seeDetails": "Zobacz szczegóły",
     "actions": "Akcje",
     "downloadAsPdf": "Pobierz PDF",
-    "total": "Całkowite"
+    "total": "Całkowite",
+    "calendar": "Kalendarz",
+    "entries": "Wpisy",
+    "no_entries_for_day": "Brak wpisów na ten dzień"
 }
