@@ -60,6 +60,7 @@ from wger.utils.generic_views import (
 )
 from wger.weight.helpers import process_log_entries
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -217,7 +218,7 @@ def add(request, pk):
     for exercise in exercise_list:
         form_id_from = min(exercise_list[exercise]['form_ids'])
         form_id_to = max(exercise_list[exercise]['form_ids'])
-        exercise_list[exercise]['forms'] = formset[form_id_from: form_id_to + 1]
+        exercise_list[exercise]['forms'] = formset[form_id_from : form_id_to + 1]
 
     context = {
         'day': day,
