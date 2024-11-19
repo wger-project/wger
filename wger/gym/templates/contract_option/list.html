@@ -24,26 +24,20 @@
                     <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <div class="dropdown-menu" role="menu">
                         {% if perms.gym.change_contracttype %}
-                            <li>
-                                <a href="{% url 'gym:contract-option:edit' option.pk %}"
-                                   class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Edit' %}
-                                </a>
-                            </li>
+                            {% translate 'Edit' as text %}
+                            {% url 'gym:contract-option:edit' option.pk as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
                         {% endif %}
 
                         {% if perms.gym.delete_contracttype %}
-                            <li>
-                                <a href="{% url 'gym:contract-option:delete' option.pk %}"
-                                   class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Delete' %}
-                                </a>
-                            </li>
+                            {% translate 'Delete' as text %}
+                            {% url 'gym:contract-option:delete' option.pk as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
                         {% endif %}
 
-                    </ul>
+                    </div>
                 </div>
 
 
@@ -68,7 +62,7 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'gym:contract-option:add' gym.id %}" class="wger-modal-dialog btn btn-sm btn-success">
-        {% translate "Add" %}
-    </a>
+    {% translate 'Add' as text %}
+    {% url 'gym:contract-option:add' gym.id  as url %}
+    {% modal_link url=url text=text %}
 {% endblock %}

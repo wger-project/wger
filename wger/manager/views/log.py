@@ -60,7 +60,6 @@ from wger.utils.generic_views import (
 )
 from wger.weight.helpers import process_log_entries
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -218,7 +217,7 @@ def add(request, pk):
     for exercise in exercise_list:
         form_id_from = min(exercise_list[exercise]['form_ids'])
         form_id_to = max(exercise_list[exercise]['form_ids'])
-        exercise_list[exercise]['forms'] = formset[form_id_from : form_id_to + 1]
+        exercise_list[exercise]['forms'] = formset[form_id_from: form_id_to + 1]
 
     context = {
         'day': day,
@@ -231,71 +230,3 @@ def add(request, pk):
     }
 
     return render(request, 'log/add.html', context)
-
-
-class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
-    """
-    An overview of the workout's log
-    """
-
-    model = Workout
-    template_name = 'workout/log.html'
-    context_object_name = 'workout'
-    owner_user = None
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(WorkoutLogDetailView, self).get_context_data(**kwargs)
-        is_owner = self.owner_user == self.request.user
-
-        # Prepare the entries for rendering and the D3 chart
-        workout_log = {}
-
-        for day_obj in self.object.day_set.all():
-            day_id = day_obj.id
-            workout_log[day_id] = {}
-            for set_obj in day_obj.set_set.all():
-                exercise_log = {}
-                for base_obj in set_obj.exercise_bases:
-                    exercise_base_id = base_obj.id
-                    exercise_log[exercise_base_id] = []
-
-                    # Filter the logs for user and exclude all units that are not weight
-                    logs = base_obj.workoutlog_set.filter(
-                        user=self.owner_user,
-                        weight_unit__in=(1, 2),
-                        repetition_unit=1,
-                        workout=self.object,
-                    )
-                    entry_log, chart_data = process_log_entries(logs)
-                    if entry_log:
-                        exercise_log[base_obj.id].append(entry_log)
-
-                    if exercise_log:
-                        workout_log[day_id][exercise_base_id] = {}
-                        workout_log[day_id][exercise_base_id]['log_by_date'] = entry_log
-                        workout_log[day_id][exercise_base_id]['div_uuid'] = 'div-' + str(
-                            uuid.uuid4()
-                        )
-                        workout_log[day_id][exercise_base_id]['chart_data'] = chart_data
-
-        context['workout_log'] = workout_log
-        context['owner_user'] = self.owner_user
-        context['is_owner'] = is_owner
-
-        return context
-
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Check for ownership
-        """
-
-        workout = get_object_or_404(Workout, pk=kwargs['pk'])
-        self.owner_user = workout.user
-        is_owner = request.user == self.owner_user
-
-        if not is_owner and not self.owner_user.userprofile.ro_access:
-            return HttpResponseForbidden()
-
-        # Dispatch normally
-        return super(WorkoutLogDetailView, self).dispatch(request, *args, **kwargs)

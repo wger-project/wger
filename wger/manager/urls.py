@@ -212,11 +212,6 @@ patterns_day = [
         name='delete',
     ),
     path(
-        '<int:id>/view',
-        day.view,
-        name='view',
-    ),
-    path(
         '<int:pk>/log/add',
         log.add,
         name='log',

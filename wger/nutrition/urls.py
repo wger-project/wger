@@ -26,7 +26,6 @@ from django.urls import (
 # wger
 from wger.core.views.react import ReactView
 from wger.nutrition.views import (
-    bmi,
     calculator,
     ingredient,
     plan,
@@ -140,19 +139,9 @@ patterns_unit_ingredient = [
 patterns_bmi = [
     path(
         '',
-        bmi.view,
+        ReactView.as_view(),
         name='view',
     ),
-    path(
-        'calculate',
-        bmi.calculate,
-        name='calculate',
-    ),
-    path(
-        'chart-data',
-        bmi.chart_data,
-        name='chart-data',
-    ),  # JS
 ]
 
 # sub patterns for calories calculator

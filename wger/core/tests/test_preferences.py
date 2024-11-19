@@ -63,6 +63,7 @@ class PreferencesTestCase(WgerTestCase):
                 'num_days_weight_reminder': 10,
                 'weight_unit': 'kg',
                 'birthdate': '02/25/1987',
+                'height': 180,
             },
         )
 
@@ -89,6 +90,7 @@ class PreferencesTestCase(WgerTestCase):
                 'num_days_weight_reminder': 10,
                 'weight_unit': 'lb',
                 'birthdate': '02/25/1987',
+                'height': 170,
             },
         )
 

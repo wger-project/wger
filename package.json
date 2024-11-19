@@ -10,11 +10,10 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "Sortable": "RubaXa/Sortable#1.15.2",
+    "htmx.org": "^2.0.3",
     "bootstrap": "5.3.3",
     "components-font-awesome": "5.9.0",
-    "d3": "^7.9.0",
-    "datatables": "^1.10.18",
+    "datatables.net-bs5": "^2.1.8",
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
