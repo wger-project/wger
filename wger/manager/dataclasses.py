@@ -136,6 +136,13 @@ class SetConfigData:
             rir = round_value(self.rir, 0.5)
             out.append(f'@ {rir} {_("RiR")}')
 
+        if self.rest:
+            rest = self.rest
+            if self.max_rest:
+                rest = f'{rest}-{self.max_rest}'
+
+            out.append(f'{rest}s {_("rest")}')
+
         return ' '.join(out).strip(',')
 
 

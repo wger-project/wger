@@ -36,7 +36,7 @@ class SetConfigDataTestCase(WgerTestCase):
             weight=20,
             weight_unit=1,
             rir=3,
-            rest=40,
+            rest=None,
         )
 
     def test_text_repr(self):
@@ -104,6 +104,18 @@ class SetConfigDataTestCase(WgerTestCase):
         self.config.max_weight = 30
         self.assertEqual(self.config.text_repr, '3 Sets, 4 × 20-30 kg @ 3 RiR')
 
+    def test_text_repr_sets_weight_and_rest_range(self):
+        self.config.sets = 3
+        self.config.max_weight = 30
+        self.config.rest = 100
+        self.config.max_rest = 120
+        self.assertEqual(self.config.text_repr, '3 Sets, 4 × 20-30 kg @ 3 RiR 100-120s rest')
+
+    def test_text_repr_sets_weight_and_rest(self):
+        self.config.sets = 3
+        self.config.rest = 100
+        self.assertEqual(self.config.text_repr, '3 Sets, 4 × 20 kg @ 3 RiR 100s rest')
+
     def test_text_repr_only_sets(self):
         self.config.sets = 3
         self.config.weight = None
@@ -113,8 +125,12 @@ class SetConfigDataTestCase(WgerTestCase):
         self.config.rir = None
         self.assertEqual(self.config.text_repr, '3 Sets')
 
-    def test_rpe_calculation(self):
+    def test_rpe_calculation_1(self):
         self.assertEqual(self.config.rpe, 7)
+
+    def test_rpe_calculation_2(self):
+        self.config.rir = 1
+        self.assertEqual(self.config.rpe, 9)
 
     def test_no_rpe_calculation(self):
         self.config.rir = None
