@@ -21,49 +21,16 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import make_token
 
 
-class WorkoutPdfLogExportTestCase(WgerTestCase):
+class RoutinePdfLogExportTestCase(WgerTestCase):
     """
-    Tests exporting a workout as a pdf
+    Tests exporting a routine as a PDF - logs
     """
-
-    def export_pdf_token(self):
-        """
-        Helper function to test exporting a workout as a pdf using tokens
-        """
-
-        user = User.objects.get(username='test')
-        uid, token = make_token(user)
-        response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'uidb64': uid, 'token': token})
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'application/pdf')
-        self.assertEqual(response['Content-Disposition'], 'attachment; filename=Workout-3-log.pdf')
-
-        # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 38000)
-        self.assertLess(int(response['Content-Length']), 42000)
-
-    def export_pdf_token_wrong(self):
-        """
-        Helper function to test exporting a workout as a pdf using a wrong token
-        """
-
-        uid = 'AB'
-        token = 'abc-11223344556677889900'
-        response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'uidb64': uid, 'token': token})
-        )
-
-        self.assertEqual(response.status_code, 403)
 
     def export_pdf(self, fail=False):
         """
-        Helper function to test exporting a workout as a pdf
+        Helper function to test exporting a routine as a pdf
         """
-
-        response = self.client.get(reverse('manager:workout:pdf-log', kwargs={'id': 3}))
+        response = self.client.get(reverse('manager:routine:pdf-log', kwargs={'pk': 3}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -72,7 +39,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Workout-3-log.pdf',
+                'attachment; filename=Routine-3-log.pdf',
             )
 
             # Approximate size only
@@ -85,7 +52,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'comments': 0})
+            reverse('manager:routine:pdf-log', kwargs={'id': 3, 'comments': 0})
         )
 
         if fail:
@@ -95,7 +62,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Workout-3-log.pdf',
+                'attachment; filename=Routine-3-log.pdf',
             )
 
             # Approximate size only
@@ -108,7 +75,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'images': 1})
+            reverse('manager:routine:pdf-log', kwargs={'id': 3, 'images': 1})
         )
 
         if fail:
@@ -118,7 +85,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Workout-3-log.pdf',
+                'attachment; filename=Routine-3-log.pdf',
             )
 
             # Approximate size only
@@ -131,7 +98,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'images': 1, 'comments': 1})
+            reverse('manager:routine:pdf-log', kwargs={'id': 3, 'images': 1, 'comments': 1})
         )
 
         if fail:
@@ -140,7 +107,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
-                response['Content-Disposition'], 'attachment; filename=Workout-3-log.pdf'
+                response['Content-Disposition'], 'attachment; filename=Routine-3-log.pdf'
             )
 
             # Approximate size only
@@ -153,8 +120,6 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         self.export_pdf(fail=True)
-        self.export_pdf_token()
-        self.export_pdf_token_wrong()
 
     def test_export_pdf_owner(self):
         """
@@ -163,8 +128,6 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
 
         self.user_login('test')
         self.export_pdf(fail=False)
-        self.export_pdf_token()
-        self.export_pdf_token_wrong()
 
     def test_export_pdf_other(self):
         """
@@ -173,57 +136,19 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
-        self.export_pdf_token()
-        self.export_pdf_token_wrong()
 
 
-class WorkoutPdfTableExportTestCase(WgerTestCase):
+class RoutinePdfTableExportTestCase(WgerTestCase):
     """
-    Tests exporting a workout as a pdf
+    Tests exporting a routine as a PDF - table
     """
-
-    def export_pdf_token(self):
-        """
-        Helper function to test exporting a workout as a pdf using tokens
-        """
-
-        user = User.objects.get(username='test')
-        uid, token = make_token(user)
-        response = self.client.get(
-            reverse('manager:workout:pdf-table', kwargs={'id': 3, 'uidb64': uid, 'token': token})
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'application/pdf')
-        self.assertEqual(
-            response['Content-Disposition'],
-            'attachment; filename=Workout-3-table.pdf',
-        )
-
-        # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 38000)
-        self.assertLess(int(response['Content-Length']), 42000)
-
-    def export_pdf_token_wrong(self):
-        """
-        Helper function to test exporting a workout as a pdf using a wrong token
-        """
-
-        uid = 'AB'
-        token = 'abc-11223344556677889900'
-        response = self.client.get(
-            reverse('manager:workout:pdf-table', kwargs={'id': 3, 'uidb64': uid, 'token': token})
-        )
-
-        self.assertEqual(response.status_code, 403)
 
     def export_pdf(self, fail=False):
         """
-        Helper function to test exporting a workout as a pdf
+        Helper function to test exporting a routine as a pdf
         """
 
-        # Create a workout
-        response = self.client.get(reverse('manager:workout:pdf-table', kwargs={'id': 3}))
+        response = self.client.get(reverse('manager:routine:pdf-table', kwargs={'pk': 3}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -232,7 +157,7 @@ class WorkoutPdfTableExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Workout-3-table.pdf',
+                'attachment; filename=Routine-3-table.pdf',
             )
 
             # Approximate size only
@@ -245,8 +170,6 @@ class WorkoutPdfTableExportTestCase(WgerTestCase):
         """
 
         self.export_pdf(fail=True)
-        self.export_pdf_token()
-        self.export_pdf_token_wrong()
 
     def test_export_pdf_owner(self):
         """
@@ -255,8 +178,6 @@ class WorkoutPdfTableExportTestCase(WgerTestCase):
 
         self.user_login('test')
         self.export_pdf(fail=False)
-        self.export_pdf_token()
-        self.export_pdf_token_wrong()
 
     def test_export_pdf_other(self):
         """
@@ -265,5 +186,3 @@ class WorkoutPdfTableExportTestCase(WgerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
-        self.export_pdf_token()
-        self.export_pdf_token_wrong()

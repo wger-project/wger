@@ -32,6 +32,8 @@ from reportlab.platypus import (
 )
 
 # wger
+from wger.exercises.models import Exercise
+from wger.manager.dataclasses import WorkoutDayData
 from wger.manager.models import Routine
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.pdf import (
@@ -41,11 +43,17 @@ from wger.utils.pdf import (
 )
 
 
-def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
+def render_workout_day(
+    day_data: WorkoutDayData,
+    nr_of_weeks=7,
+    images=False,
+    comments=False,
+    only_table=False,
+):
     """
     Render a table with reportlab with the contents of the training day
 
-    :param day: a workout day object
+    :param day_data: a workout day object
     :param nr_of_weeks: the numbrer of weeks to render, default is 7
     :param images: boolean indicating whether to also draw exercise images
            in the PDF (actually only the main image)
@@ -70,13 +78,18 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
     set_count = 1
     day_markers.append(len(data))
 
-    p = Paragraph(
-        '<para align="center">%(days)s: %(description)s</para>'
-        % {'days': day.days_txt, 'description': day.description},
-        styleSheet['SubHeader'],
+    data.append(
+        [
+            Paragraph(
+                f'<para align="center">{day_data.day.name if not day_data.day.is_rest else _("Rest day")}</para>',
+                styleSheet['SubHeader'],
+            ),
+            # Paragraph(
+            #     f'<para align="center">{day_data.day.description}</para>',
+            #     styleSheet['SubHeader'],
+            # )
+        ]
     )
-
-    data.append([p])
 
     # Note: the _('Date') will be on the 3rd cell, but since we make a span
     #       over 3 cells, the value has to be on the 1st one
@@ -85,31 +98,24 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
     # Sets
     exercise_start = len(data)
-    for set_obj in day.set_set.all():
-        group_exercise_marker[set_obj.id] = {'start': len(data), 'end': len(data)}
+    slot_count = 0
+    for slot in day_data.slots_display_mode:
+        slot_count += 1
 
-        # Exercises
-        for base in set_obj.exercise_bases:
-            exercise = base.get_translation()
-            group_exercise_marker[set_obj.id]['end'] = len(data)
+        group_exercise_marker[slot_count] = {'start': len(data), 'end': len(data)}
+
+        for slot_set in slot.sets:
+            # TODO
+            exercise = Exercise.objects.get(pk=slot_set.exercise)
+            group_exercise_marker[slot_count]['end'] = len(data)
 
             # Process the settings
-            setting_out = []
-            for i in set_obj.reps_smart_text(base).split('–'):
-                setting_out.append(Paragraph(i, styleSheet['Small'], bulletText=''))
-
-            # Collect a list of the exercise comments
-            item_list = [Paragraph('', styleSheet['Small'])]
-            if comments:
-                item_list = [
-                    ListItem(Paragraph(i.comment, style=styleSheet['ExerciseComments']))
-                    for i in exercise.exercisecomment_set.all()
-                ]
+            slot_entries_out = [Paragraph(slot_set.text_repr, styleSheet['Small'], bulletText='')]
 
             # Add the exercise's main image
             image = Paragraph('', styleSheet['Small'])
             if images:
-                if base.main_image:
+                if exercise.main_image:
                     # Make the images somewhat larger when printing only the workout and not
                     # also the columns for weight logs
                     if only_table:
@@ -117,26 +123,17 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
                     else:
                         image_size = 1.5
 
-                    image = Image(base.main_image.image)
+                    image = Image(exercise.main_image.image)
                     image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
                     image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
             exercise_content = [
-                Paragraph(exercise.name, styleSheet['Small']),
+                Paragraph(exercise.get_translation().name, styleSheet['Small']),
                 image,
-                ListFlowable(
-                    item_list,
-                    bulletType='bullet',
-                    leftIndent=5,
-                    spaceBefore=7,
-                    bulletOffsetY=-3,
-                    bulletFontSize=3,
-                    start='square',
-                ),
             ]
 
-            data.append([f'#{set_count}', exercise_content, setting_out] + [''] * nr_of_weeks)
+            data.append([f'#{set_count}', exercise_content, slot_entries_out] + [''] * nr_of_weeks)
         set_count += 1
 
     table_style = [
@@ -174,16 +171,21 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             table_style.append(('BACKGROUND', (0, i - 1), (-1, i - 1), row_color))
 
     # Put everything together and manually set some of the widths
-    t = Table(data, style=table_style)
-    if len(t._argW) > 1:
-        if only_table:
-            t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 8 * cm  # Exercise
-            t._argW[2] = 3.5 * cm  # Repetitions
-        else:
-            t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 4 * cm  # Exercise
-            t._argW[2] = 3 * cm  # Repetitions
+    if only_table:
+        col_widths = [
+            0.6 * cm,  # Numbering
+            7 * cm,  # Exercise
+            7 * cm,  # Repetitions
+        ]
+    else:
+        col_widths = [
+            0.6 * cm,  # Numbering
+            6 * cm,  # Exercise
+            6 * cm,  # Repetitions
+            1.5 * cm,  # Logs
+        ]
+
+    t = Table(data, style=table_style, colWidths=col_widths)
 
     return KeepTogether(t)
 

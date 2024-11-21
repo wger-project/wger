@@ -36,6 +36,7 @@ from wger.manager.views import (
     workout_session,
 )
 
+
 # sub patterns for workout logs
 patterns_log = [
     path(
@@ -101,31 +102,6 @@ patterns_workout = [
         ical.export,
         name='ical',
     ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),  # JS!
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    path(
-        '<int:id>/pdf/log',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    path(
-        '<int:pk>/pdf/table',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
 ]
 
 # sub patterns for workouts
@@ -149,6 +125,16 @@ patterns_routine = [
         '<int:pk>/copy',
         routine.copy_routine,
         name='copy',
+    ),
+    path(
+        '<int:pk>/pdf/log',
+        pdf.workout_log,
+        name='pdf-log',
+    ),
+    path(
+        '<int:pk>/pdf/table',
+        pdf.workout_view,
+        name='pdf-table',
     ),
 ]
 
