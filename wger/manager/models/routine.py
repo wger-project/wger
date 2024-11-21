@@ -17,6 +17,7 @@
 # Standard Library
 import datetime
 from collections import Counter
+from decimal import Decimal
 from typing import List
 
 # Django
@@ -29,7 +30,9 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
+from wger.exercises.models import Muscle
 from wger.manager.dataclasses import (
+    GroupedLogData,
     RoutineLogData,
     WorkoutDayData,
 )
@@ -283,6 +286,36 @@ class Routine(models.Model):
         """
         result = RoutineLogData()
 
+        def update_grouped_log_data(
+            entry: GroupedLogData,
+            date: datetime.date,
+            week_nr: int,
+            iteration: int,
+            muscles: List[Muscle],
+            value: Decimal | int,
+        ):
+            """
+            Updates grouped log data
+
+            This method always just adds the value to the corresponding entries
+            """
+
+            entry.daily[date].exercises[exercise.id] += value
+            entry.weekly[week_nr].exercises[exercise.id] += value
+            entry.iteration[iteration].exercises[exercise.id] += value
+            entry.mesocycle.exercises[exercise.id] += value
+
+            entry.daily[date].total += value
+            entry.weekly[week_nr].total += value
+            entry.iteration[iteration].total += value
+            entry.mesocycle.total += value
+
+            for muscle in muscles:
+                entry.daily[date].muscle[muscle.id] += value
+                entry.weekly[week_number].muscle[muscle.id] += value
+                entry.iteration[iteration].muscle[muscle.id] += value
+                entry.mesocycle.muscle[muscle.id] += value
+
         # Iterate over each workout session associated with the routine
         for session in self.sessions.all():
             session_date = session.date
@@ -296,58 +329,21 @@ class Routine(models.Model):
                 iteration = log.iteration
                 exercise_volume = weight * reps
 
-                # Initialize LogData
-                daily_volume = result.volume.daily[session_date]
-                weekly_volume = result.volume.weekly[week_number]
-                iteration_volume = result.volume.iteration[iteration]
-                mesocycle_volume = result.volume.mesocycle
-
-                daily_sets = result.sets.daily[session_date]
-                weekly_sets = result.sets.weekly[week_number]
-                iteration_sets = result.sets.iteration[iteration]
-                mesocycle_sets = result.sets.mesocycle
-
-                #
-                # Volume calculations
-                #
-                daily_volume.exercises[exercise.id] += exercise_volume
-                weekly_volume.exercises[exercise.id] += exercise_volume
-                iteration_volume.exercises[exercise.id] += exercise_volume
-                mesocycle_volume.exercises[exercise.id] += exercise_volume
-
-                #
-                # Sets calculations
-                #
-                daily_sets.exercises[exercise.id] += 1
-                weekly_sets.exercises[exercise.id] += 1
-                iteration_sets.exercises[exercise.id] += 1
-                mesocycle_sets.exercises[exercise.id] += 1
-
-                #
-                # Muscles calculations
-                #
-                for muscle in exercise.muscles.all():
-                    # Volume
-                    daily_volume.muscle_group[muscle.id] += exercise_volume
-                    weekly_volume.muscle_group[muscle.id] += exercise_volume
-                    iteration_volume.muscle_group[muscle.id] += exercise_volume
-                    mesocycle_volume.muscle_group[muscle.id] += exercise_volume
-
-                    # Sets
-                    daily_sets.muscle_group[muscle.id] += 1
-                    weekly_sets.muscle_group[muscle.id] += 1
-                    iteration_sets.muscle_group[muscle.id] += 1
-                    mesocycle_sets.muscle_group[muscle.id] += 1
-
-                # Update totals for daily, weekly, and mesocycle
-                daily_volume.total += exercise_volume
-                weekly_volume.total += exercise_volume
-                iteration_volume.total += exercise_volume
-                mesocycle_volume.total += exercise_volume
-
-                daily_sets.total += 1
-                weekly_sets.total += 1
-                iteration_sets.total += 1
-                mesocycle_sets.total += 1
+                update_grouped_log_data(
+                    entry=result.volume,
+                    iteration=iteration,
+                    week_nr=week_number,
+                    date=session_date,
+                    muscles=exercise.muscles.all(),
+                    value=exercise_volume,
+                )
+                update_grouped_log_data(
+                    entry=result.sets,
+                    iteration=iteration,
+                    week_nr=week_number,
+                    date=session_date,
+                    muscles=exercise.muscles.all(),
+                    value=1,
+                )
 
         return result

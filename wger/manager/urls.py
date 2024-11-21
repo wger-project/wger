@@ -35,6 +35,7 @@ from wger.manager.views import (
     workout_session,
 )
 
+
 # sub patterns for workout logs
 patterns_log = [
     path(

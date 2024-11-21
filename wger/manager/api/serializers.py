@@ -437,9 +437,9 @@ class LogDataSerializer(serializers.Serializer):
     """
 
     exercises = serializers.DictField()
-    muscle_group = serializers.DictField()
+    muscle = serializers.DictField()
     upper_body = serializers.DecimalField(max_digits=10, decimal_places=2)
-    upper_body = serializers.DecimalField(max_digits=10, decimal_places=2)
+    lower_body = serializers.DecimalField(max_digits=10, decimal_places=2)
     total = serializers.DecimalField(max_digits=10, decimal_places=2)
 
 

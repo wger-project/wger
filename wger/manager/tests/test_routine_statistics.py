@@ -106,7 +106,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.mesocycle,
             LogData(
                 exercises={1: 2, 3: 1},
-                muscle_group={1: 3, 2: 2},
+                muscle={1: 3, 2: 2},
                 upper_body=0,
                 lower_body=0,
                 total=3,
@@ -118,7 +118,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.iteration[1],
             LogData(
                 exercises={1: 1},
-                muscle_group={1: 1, 2: 1},
+                muscle={1: 1, 2: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -128,7 +128,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.iteration[2],
             LogData(
                 exercises={1: 1},
-                muscle_group={1: 1, 2: 1},
+                muscle={1: 1, 2: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -138,7 +138,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.iteration[3],
             LogData(
                 exercises={3: 1},
-                muscle_group={1: 1},
+                muscle={1: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -150,7 +150,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.weekly[5],
             LogData(
                 exercises={1: 2},
-                muscle_group={1: 2, 2: 2},
+                muscle={1: 2, 2: 2},
                 upper_body=0,
                 lower_body=0,
                 total=2,
@@ -160,7 +160,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.weekly[6],
             LogData(
                 exercises={3: 1},
-                muscle_group={1: 1},
+                muscle={1: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -172,7 +172,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.daily[datetime.date(2024, 2, 1)],
             LogData(
                 exercises={1: 1},
-                muscle_group={1: 1, 2: 1},
+                muscle={1: 1, 2: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -182,7 +182,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.daily[datetime.date(2024, 2, 2)],
             LogData(
                 exercises={1: 1},
-                muscle_group={1: 1, 2: 1},
+                muscle={1: 1, 2: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -192,7 +192,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.sets.daily[datetime.date(2024, 2, 10)],
             LogData(
                 exercises={3: 1},
-                muscle_group={1: 1},
+                muscle={1: 1},
                 upper_body=0,
                 lower_body=0,
                 total=1,
@@ -207,7 +207,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.mesocycle,
             LogData(
                 exercises={1: 60, 3: 10},
-                muscle_group={1: 70, 2: 60},
+                muscle={1: 70, 2: 60},
                 upper_body=0,
                 lower_body=0,
                 total=70,
@@ -219,7 +219,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.iteration[1],
             LogData(
                 exercises={1: 50},
-                muscle_group={1: 50, 2: 50},
+                muscle={1: 50, 2: 50},
                 upper_body=0,
                 lower_body=0,
                 total=50,
@@ -229,7 +229,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.iteration[2],
             LogData(
                 exercises={1: 10},
-                muscle_group={1: 10, 2: 10},
+                muscle={1: 10, 2: 10},
                 upper_body=0,
                 lower_body=0,
                 total=10,
@@ -239,7 +239,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.iteration[3],
             LogData(
                 exercises={3: 10},
-                muscle_group={1: 10},
+                muscle={1: 10},
                 upper_body=0,
                 lower_body=0,
                 total=10,
@@ -251,7 +251,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.weekly[5],
             LogData(
                 exercises={1: 60},
-                muscle_group={1: 60, 2: 60},
+                muscle={1: 60, 2: 60},
                 upper_body=0,
                 lower_body=0,
                 total=60,
@@ -261,7 +261,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.weekly[6],
             LogData(
                 exercises={3: 10},
-                muscle_group={1: 10},
+                muscle={1: 10},
                 upper_body=0,
                 lower_body=0,
                 total=10,
@@ -273,7 +273,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.daily[datetime.date(2024, 2, 1)],
             LogData(
                 exercises={1: 50},
-                muscle_group={1: 50, 2: 50},
+                muscle={1: 50, 2: 50},
                 upper_body=0,
                 lower_body=0,
                 total=50,
@@ -283,7 +283,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.daily[datetime.date(2024, 2, 2)],
             LogData(
                 exercises={1: 10},
-                muscle_group={1: 10, 2: 10},
+                muscle={1: 10, 2: 10},
                 upper_body=0,
                 lower_body=0,
                 total=10,
@@ -293,7 +293,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             stats.volume.daily[datetime.date(2024, 2, 10)],
             LogData(
                 exercises={3: 10},
-                muscle_group={1: 10},
+                muscle={1: 10},
                 upper_body=0,
                 lower_body=0,
                 total=10,

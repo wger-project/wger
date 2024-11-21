@@ -194,7 +194,7 @@ class WorkoutDayData:
 @dataclass
 class LogData:
     exercises: defaultdict[int, Decimal] = field(default_factory=lambda: defaultdict(Decimal))
-    muscle_group: defaultdict[int, Decimal] = field(default_factory=lambda: defaultdict(Decimal))
+    muscle: defaultdict[int, Decimal] = field(default_factory=lambda: defaultdict(Decimal))
     upper_body: Decimal = 0
     lower_body: Decimal = 0
     total: Decimal = 0
@@ -212,5 +212,4 @@ class GroupedLogData:
 class RoutineLogData:
     volume: GroupedLogData = field(default_factory=GroupedLogData)
     intensity: GroupedLogData = field(default_factory=GroupedLogData)
-    # tonnage: GroupedLogData = field(default_factory=GroupedLogData)
     sets: GroupedLogData = field(default_factory=GroupedLogData)
