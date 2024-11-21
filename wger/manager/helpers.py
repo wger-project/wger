@@ -17,7 +17,6 @@
 
 # Django
 from django.core.cache import cache
-from django.urls import reverse
 from django.utils.translation import gettext as _
 
 # Third Party

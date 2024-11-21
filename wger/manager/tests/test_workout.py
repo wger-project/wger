@@ -98,7 +98,7 @@ class WorkoutOverviewTestCase(WgerTestCase):
         Helper function to test the workout overview
         """
 
-        response = self.client.get(reverse('manager:workout:overview'))
+        response = self.client.get(reverse('manager:routine:overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)

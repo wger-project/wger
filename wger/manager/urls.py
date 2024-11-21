@@ -90,11 +90,6 @@ patterns_workout = [
         workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
     ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)$',
-        log.calendar,
-        name='calendar',
-    ),
     path(
         'calendar',
         ReactView.as_view(login_required=True),

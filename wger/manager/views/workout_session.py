@@ -50,7 +50,6 @@ from wger.utils.generic_views import (
     WgerFormMixin,
 )
 
-
 logger = logging.getLogger(__name__)
 """
 Workout session
@@ -138,7 +137,7 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = WorkoutSession
-    success_url = reverse_lazy('manager:workout:overview')
+    success_url = reverse_lazy('manager:routine:overview')
     messages = gettext_lazy('Successfully deleted')
 
     def form_valid(self, form):
