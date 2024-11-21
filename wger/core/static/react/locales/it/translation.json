@@ -220,5 +220,8 @@
     "success": "Completato!",
     "cannotBeUndone": "L'azione non può essere annullata.",
     "English": "Inglese",
-    "videos": "Video"
+    "videos": "Video",
+    "calendar": "Calendario",
+    "entries": "Voci",
+    "no_entries_for_day": "Nessuna voce per questo giorno"
 }

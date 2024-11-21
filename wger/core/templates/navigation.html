@@ -40,7 +40,7 @@
                             {% if user.is_authenticated %}
                                 <li>
                                     <a class="dropdown-item"
-                                       href="{% url 'manager:workout:calendar' user.username %}"
+                                       href="{% url 'manager:workout:calendar' %}"
                                        rel="nofollow">
                                         {% translate "Calendar" %}
                                     </a>

@@ -225,5 +225,8 @@
         "unitFormHelpText": "L'unité dans laquelle la catégorie sera mesurée, telle que cm ou %",
         "deleteInfo": "Ceci supprimera la catégorie ainsi que toutes ses entrées"
     },
-    "downloadAsPdf": "Télécharger en PDF"
+    "downloadAsPdf": "Télécharger en PDF",
+    "calendar": "Calendrier",
+    "entries": "Entrées",
+    "no_entries_for_day": "Aucune entrée pour ce jour"
 }

@@ -254,5 +254,8 @@
     "kg": "kg",
     "lb": "lb",
     "none__bodyweight_exercise_": "none (bodyweight exercise)"
-  }
+  },
+  "calendar": "Calendar",
+  "entries": "Entries",
+  "no_entries_for_day": "No entries for this day"
 }

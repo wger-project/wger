@@ -224,5 +224,8 @@
     "lastHalfYear": "Últimos 6 meses",
     "lastMonth": "Mes pasado",
     "all": "Todo",
-    "lastWeek": "Mes semana"
+    "lastWeek": "Mes semana",
+    "calendar": "Calendario",
+    "entries": "Entradas",
+    "no_entries_for_day": "No hay entradas para este día"
 }
