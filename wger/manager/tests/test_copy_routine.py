@@ -26,9 +26,9 @@ from wger.manager.models import Routine
 logger = logging.getLogger(__name__)
 
 
-class CopyWorkoutTestCase(WgerTestCase):
+class CopyRoutineTestCase(WgerTestCase):
     """
-    Tests copying a workout or template
+    Tests copying a routine or template
     """
 
     def copy_routine_and_assert(self):
@@ -38,7 +38,7 @@ class CopyWorkoutTestCase(WgerTestCase):
 
         # Copy the routine
         count_before = Routine.objects.count()
-        self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         count_after = Routine.objects.count()
 
         self.assertGreater(count_after, count_before)
@@ -108,7 +108,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         Test copying a workout (not template) from another user
         """
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 403)
 
     def test_copy_template_no_public_other_user(self):
@@ -120,7 +120,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         routine.save()
 
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 403)
 
     def test_copy_template_no_public_owner_user(self):
@@ -132,7 +132,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         routine.save()
 
         self.user_login('test')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 200)
 
     def test_copy_template_public_other_user(self):
@@ -145,5 +145,5 @@ class CopyWorkoutTestCase(WgerTestCase):
         routine.save()
 
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 200)

@@ -29,6 +29,7 @@ from wger.manager.views import (
     ical,
     log,
     pdf,
+    routine,
     schedule,
     schedule_step,
     workout,
@@ -81,11 +82,6 @@ patterns_templates = [
 # sub patterns for workouts
 patterns_workout = [
     path(
-        '<int:pk>/copy',
-        workout.copy_routine,
-        name='copy',
-    ),
-    path(
         '<int:pk>/make-template',
         workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
@@ -125,23 +121,8 @@ patterns_workout = [
         pdf.workout_log,
         name='pdf-log',
     ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),  # JS!
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
     path(
-        '<int:id>/pdf/table',
+        '<int:pk>/pdf/table',
         pdf.workout_view,
         name='pdf-table',
     ),
@@ -155,9 +136,19 @@ patterns_routine = [
         name='overview',
     ),
     path(
+        'add',
+        ReactView.as_view(login_required=True),
+        name='add',
+    ),
+    path(
         '<int:pk>/view',
         ReactView.as_view(login_required=True),
         name='view',
+    ),
+    path(
+        '<int:pk>/copy',
+        routine.copy_routine,
+        name='copy',
     ),
 ]
 

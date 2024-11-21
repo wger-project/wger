@@ -57,7 +57,6 @@ from wger.manager.api.serializers import (
     WorkoutSessionSerializer,
     WorkoutTemplateSerializer,
 )
-from wger.manager.dataclasses import RoutineLogData
 from wger.manager.models import (
     Day,
     MaxRepsConfig,
@@ -73,7 +72,6 @@ from wger.manager.models import (
     Slot,
     SlotEntry,
     WeightConfig,
-    Workout,
     WorkoutLog,
     WorkoutSession,
 )
