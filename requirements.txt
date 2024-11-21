@@ -6,7 +6,7 @@
 Django==4.2.16
 bleach[css]~=6.1
 celery[redis]==5.4.0
-crispy-bootstrap5==2024.2
+crispy-bootstrap5==2024.10
 django-activity-stream==2.0.0
 django-axes[ipware]==7.0.0
 django-bootstrap-breadcrumbs2==1.0.0 # fork of django-bootstrap-breadcrumbs, we might need to migrate away completely
