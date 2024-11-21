@@ -35,7 +35,6 @@ from wger.manager.views import (
     workout_session,
 )
 
-
 # sub patterns for workout logs
 patterns_log = [
     path(
@@ -82,40 +81,14 @@ patterns_templates = [
 # sub patterns for workouts
 patterns_workout = [
     path(
-        'overview',
-        ReactView.as_view(login_required=True),
-        name='overview',
-    ),
-    path(
-        'add',
-        workout.add,
-        name='add',
-    ),
-    path(
         '<int:pk>/copy',
-        workout.copy_workout,
+        workout.copy_routine,
         name='copy',
-    ),
-    path(
-        '<int:pk>/edit',
-        workout.WorkoutEditView.as_view(),
-        name='edit',
     ),
     path(
         '<int:pk>/make-template',
         workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
-    ),
-    path(
-        '<int:pk>/delete',
-        workout.WorkoutDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/view',
-        # ReactView.as_view(login_required=True),
-        ReactView.as_view(),
-        name='view',
     ),
     re_path(
         r'^calendar/(?P<username>[\w.@+-]+)$',
@@ -203,8 +176,7 @@ patterns_routine = [
     ),
     path(
         '<int:pk>/view',
-        # ReactView.as_view(login_required=True),
-        workout.view,
+        ReactView.as_view(login_required=True),
         name='view',
     ),
 ]
@@ -333,7 +305,7 @@ patterns_step = [
 
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace='workout')),
-    path('routine/', include((patterns_routine, 'routine'), namespace='routine')),
+    path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
     path('session/', include((patterns_session, 'session'), namespace='session')),

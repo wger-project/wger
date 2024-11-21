@@ -247,9 +247,9 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return Workout.objects.none()
+            return Routine.objects.none()
 
-        return Workout.objects.filter(user=self.request.user)
+        return Routine.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         """
@@ -301,9 +301,9 @@ class UserWorkoutTemplateViewSet(viewsets.ReadOnlyModelViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return Workout.objects.none()
+            return Routine.objects.none()
 
-        return Workout.templates.filter(user=self.request.user)
+        return Routine.templates.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         """
@@ -326,7 +326,7 @@ class PublicWorkoutTemplateViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
-        return Workout.templates.filter(is_public=True)
+        return Routine.templates.filter(is_public=True)
 
     def perform_create(self, serializer):
         """
@@ -373,7 +373,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Workout, 'workout')]
+        return [(Routine, 'workout')]
 
 
 class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
@@ -405,7 +405,7 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Workout, 'workout'), (Schedule, 'schedule')]
+        return [(Routine, 'workout'), (Schedule, 'schedule')]
 
 
 class ScheduleViewSet(viewsets.ModelViewSet):
@@ -478,7 +478,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Workout, 'workout')]
+        return [(Routine, 'workout')]
 
 
 class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
