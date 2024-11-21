@@ -46,7 +46,6 @@ from wger.utils.pdf import (
     styleSheet,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -99,6 +98,8 @@ def workout_log(request, pk: int, images=False):
 
     # Iterate through the Workout and render the training days
     for day_data in routine.data_for_iteration():
+        if day_data.day is None:
+            continue
         elements.append(render_workout_day(day_data, images=images, comments=comments))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
@@ -166,6 +167,8 @@ def workout_view(request, pk, images: bool = False):
 
     # Iterate through the Workout and render the training days
     for day_data in routine.data_for_iteration():
+        if day_data.day is None:
+            continue
         elements.append(
             render_workout_day(day_data, images=images, comments=comments, only_table=True),
         )
