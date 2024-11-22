@@ -70,7 +70,6 @@ from wger.utils.pdf import (
     styleSheet,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -124,9 +123,6 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
     """
     user = request.user
 
-    comments = bool(int(comments))
-    images = bool(int(images))
-
     # Load the workout
     if uidb64 is not None and token is not None:
         if check_token(uidb64, token):
@@ -171,9 +167,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
         for day in step.workout.day_set.all():
-            elements.append(
-                render_workout_day(day, images=images, comments=comments, nr_of_weeks=7)
-            )
+            elements.append(render_workout_day(day, nr_of_weeks=7))
             elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
@@ -194,7 +188,6 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
     """
     user = request.user
 
-    comments = bool(int(comments))
     images = bool(int(images))
 
     # Load the workout
@@ -244,8 +237,6 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
             elements.append(
                 render_workout_day(
                     day,
-                    images=images,
-                    comments=comments,
                     nr_of_weeks=7,
                     only_table=True,
                 )

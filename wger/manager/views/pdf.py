@@ -49,12 +49,10 @@ from wger.utils.pdf import (
 logger = logging.getLogger(__name__)
 
 
-def workout_log(request, pk: int, images=False):
+def workout_log(request, pk: int):
     """
     Generates a PDF with the contents of the given routine
     """
-    comments = False
-    images = bool(int(images))
 
     # Load the workout
     if request.user.is_anonymous:
@@ -100,7 +98,7 @@ def workout_log(request, pk: int, images=False):
     for day_data in routine.data_for_iteration():
         if day_data.day is None:
             continue
-        elements.append(render_workout_day(day_data, images=images, comments=comments))
+        elements.append(render_workout_day(day_data))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
@@ -111,12 +109,11 @@ def workout_log(request, pk: int, images=False):
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = f'attachment; filename=Routine-{pk}-log.pdf'
     response['Content-Length'] = len(response.content)
     return response
 
 
-def workout_view(request, pk, images: bool = False):
+def workout_view(request, pk):
     """
     Generates a PDF with the contents of the workout, without table for logs
     """
@@ -126,8 +123,6 @@ def workout_view(request, pk, images: bool = False):
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
-    comments = False
-    images = bool(int(images))
 
     if request.user.is_anonymous:
         return HttpResponseForbidden()
@@ -169,9 +164,7 @@ def workout_view(request, pk, images: bool = False):
     for day_data in routine.data_for_iteration():
         if day_data.day is None:
             continue
-        elements.append(
-            render_workout_day(day_data, images=images, comments=comments, only_table=True),
-        )
+        elements.append(render_workout_day(day_data, only_table=True))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
@@ -182,6 +175,5 @@ def workout_view(request, pk, images: bool = False):
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = f'attachment; filename=Routine-{pk}-table.pdf'
     response['Content-Length'] = len(response.content)
     return response

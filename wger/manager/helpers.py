@@ -46,8 +46,6 @@ from wger.utils.pdf import (
 def render_workout_day(
     day_data: WorkoutDayData,
     nr_of_weeks=7,
-    images=False,
-    comments=False,
     only_table=False,
 ):
     """
@@ -78,28 +76,23 @@ def render_workout_day(
     set_count = 1
     day_markers.append(len(data))
 
-    data.append(
-        [
-            Paragraph(
-                f'<para align="center">{day_data.day.name if not day_data.day.is_rest else _("Rest day")}</para>',
-                styleSheet['SubHeader'],
-            ),
-            # Paragraph(
-            #     f'<para align="center">{day_data.day.description}</para>',
-            #     styleSheet['SubHeader'],
-            # )
-        ]
+    data.append([
+        Paragraph(
+            f'<para align="center">{_("Rest day") if day_data.day.is_rest else day_data.day.name}</para>',
+            styleSheet['SubHeader'],
+        )]
     )
 
     # Note: the _('Date') will be on the 3rd cell, but since we make a span
     #       over 3 cells, the value has to be on the 1st one
-    data.append([_('Date') + ' ', '', ''] + [''] * nr_of_weeks)
+    data.append(['' if only_table else _('Date') + ' ', '', ''] + [''] * nr_of_weeks)
     data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
 
     # Sets
     exercise_start = len(data)
     slot_count = 0
     for slot in day_data.slots_display_mode:
+
         slot_count += 1
 
         group_exercise_marker[slot_count] = {'start': len(data), 'end': len(data)}
@@ -113,24 +106,24 @@ def render_workout_day(
             slot_entries_out = [Paragraph(slot_set.text_repr, styleSheet['Small'], bulletText='')]
 
             # Add the exercise's main image
-            image = Paragraph('', styleSheet['Small'])
-            if images:
-                if exercise.main_image:
-                    # Make the images somewhat larger when printing only the workout and not
-                    # also the columns for weight logs
-                    if only_table:
-                        image_size = 2
-                    else:
-                        image_size = 1.5
-
-                    image = Image(exercise.main_image.image)
-                    image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
-                    image.drawWidth = image_size * cm
+            # image = Paragraph('', styleSheet['Small'])
+            # if images:
+            #     if exercise.main_image:
+            #         # Make the images somewhat larger when printing only the workout and not
+            #         # also the columns for weight logs
+            #         if only_table:
+            #             image_size = 2
+            #         else:
+            #             image_size = 1.5
+            #
+            #         image = Image(exercise.main_image.image)
+            #         image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
+            #         image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
             exercise_content = [
                 Paragraph(exercise.get_translation().name, styleSheet['Small']),
-                image,
+                # image,
             ]
 
             data.append([f'#{set_count}', exercise_content, slot_entries_out] + [''] * nr_of_weeks)
