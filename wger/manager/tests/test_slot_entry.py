@@ -379,20 +379,130 @@ class SlotEntryTestCase(WgerTestCase):
         Test that the correct config is calculated if there are no configs at all
         """
 
-        print(self.slot_entry.get_config(1))
         self.assertEqual(
             self.slot_entry.get_config(1),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=1,
+                max_sets=None,
                 weight=None,
                 weight_rounding=None,
-                weight_unit=None,
+                weight_unit=1,
                 reps=None,
                 reps_rounding=None,
-                reps_unit=None,
+                reps_unit=1,
                 rir=None,
                 rest=None,
             ),
         )
+
+    def test_duplicate_configs(self):
+        configs = [
+            WeightConfig(
+                pk=1,
+                iteration=1,
+                value=80,
+                operation=OperationChoices.REPLACE,
+                repeat=False,
+            ),
+            WeightConfig(
+                pk=2,
+                iteration=2,
+                value=2,
+                operation=OperationChoices.PLUS,
+                repeat=True,
+            ),
+            WeightConfig(
+                pk=3,
+                iteration=6,
+                value=50,
+                operation=OperationChoices.REPLACE,
+                repeat=False,
+            ),
+        ]
+
+        result = SlotEntry.duplicate_configs(
+            10,
+            configs=configs,
+        )
+
+        # Repeats the config of iteration 2 up to the 8th one, the rest remains unchanged
+        self.assertEqual(len(result), 6)
+
+        self.assertEqual(result[0].iteration, 1)
+        self.assertEqual(result[0].value, 80)
+
+        self.assertEqual(result[1].iteration, 2)
+        self.assertEqual(result[1].value, 2)
+
+        self.assertEqual(result[2].iteration, 3)
+        self.assertEqual(result[2].value, 2)
+
+        self.assertEqual(result[3].iteration, 4)
+        self.assertEqual(result[3].value, 2)
+
+        self.assertEqual(result[4].iteration, 5)
+        self.assertEqual(result[4].value, 2)
+
+        self.assertEqual(result[5].iteration, 6)
+        self.assertEqual(result[5].value, 50)
+
+    def test_duplicate_configs_2(self):
+        """Test that repeat configs can follow each other"""
+
+        configs = [
+            WeightConfig(
+                pk=1,
+                iteration=1,
+                value=80,
+                operation=OperationChoices.REPLACE,
+                repeat=False,
+            ),
+            WeightConfig(
+                pk=2,
+                iteration=2,
+                value=2,
+                operation=OperationChoices.PLUS,
+                repeat=True,
+            ),
+            WeightConfig(
+                pk=3,
+                iteration=5,
+                value=3,
+                operation=OperationChoices.MINUS,
+                repeat=True,
+            ),
+        ]
+
+        result = SlotEntry.duplicate_configs(
+            10,
+            configs=configs,
+        )
+
+        # Repeats the config of iteration 2 up to the 8th one, the rest remains unchanged
+        self.assertEqual(len(result), 10)
+
+        self.assertEqual(result[0].iteration, 1)
+        self.assertEqual(result[0].value, 80)
+        self.assertFalse(result[0].repeat)
+
+        self.assertEqual(result[1].iteration, 2)
+        self.assertEqual(result[1].value, 2)
+        self.assertTrue(result[1].repeat)
+
+        self.assertEqual(result[2].iteration, 3)
+        self.assertEqual(result[2].value, 2)
+        self.assertTrue(result[2].repeat)
+
+        self.assertEqual(result[3].iteration, 4)
+        self.assertEqual(result[3].value, 2)
+        self.assertTrue(result[3].repeat)
+
+        self.assertEqual(result[4].iteration, 5)
+        self.assertEqual(result[4].value, 3)
+        self.assertTrue(result[4].repeat)
+
+        self.assertEqual(result[5].iteration, 6)
+        self.assertEqual(result[5].value, 3)
+        self.assertTrue(result[5].repeat)

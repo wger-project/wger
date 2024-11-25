@@ -15,8 +15,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import copy
 import importlib
 from decimal import Decimal
+from typing import List
 
 # Django
 from django.db import models
@@ -151,7 +153,7 @@ class SlotEntry(models.Model):
         return self.slot.day.routine
 
     @staticmethod
-    def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal | None:
+    def calculate_config_value(configs: List[AbstractChangeConfig]) -> Decimal | None:
         if not configs:
             return None
 
@@ -167,6 +169,29 @@ class SlotEntry(models.Model):
                 out += step
             else:
                 out -= step
+
+        return out
+
+    @staticmethod
+    def duplicate_configs(
+        iteration: int,
+        configs: List[AbstractChangeConfig],
+    ) -> List[AbstractChangeConfig]:
+        """Duplicates configs according to the "repeat" parameter"""
+
+        out = []
+        for config in configs:
+            if config.repeat:
+                for i in range(config.iteration, iteration + 1):
+                    # If there is another config responsible for the iteration, finish here
+                    if any(other.iteration == i and other.pk != config.pk for other in configs):
+                        break
+
+                    new_config = copy.copy(config)
+                    new_config.iteration = i
+                    out.append(new_config)
+            else:
+                out.append(config)
 
         return out
 
@@ -255,12 +280,14 @@ class SlotEntry(models.Model):
             weight=weight,
             max_weight=max_weight if max_weight and weight and max_weight > weight else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
+            # TODO: decide on whether to return None or always the unit
             # weight_unit=self.weight_unit.pk if weight is not None else None,
             weight_unit=self.weight_unit.pk,
             reps=reps,
             max_reps=max_reps if max_reps and reps and max_reps > reps else None,
             reps_rounding=self.repetition_rounding if reps is not None else None,
             reps_unit=self.repetition_unit.pk,
+            # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.get_rir(iteration),
             rest=rest,
@@ -270,30 +297,72 @@ class SlotEntry(models.Model):
         )
 
     def get_sets(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.setsconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.setsconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
 
     def get_max_sets(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.maxsetsconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.maxsetsconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
 
     def get_weight(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration, list(self.weightconfig_set.filter(iteration__lte=iteration))
+            )
+        )
 
     def get_max_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
-            self.maxweightconfig_set.filter(iteration__lte=iteration),
+            self.duplicate_configs(
+                iteration,
+                list(self.maxweightconfig_set.filter(iteration__lte=iteration)),
+            )
         )
 
     def get_reps(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.repsconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.repsconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
 
     def get_max_reps(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.maxrepsconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.maxrepsconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
 
     def get_rir(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.rirconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.rirconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
 
     def get_rest(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.restconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.restconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
 
     def get_max_rest(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(self.maxrestconfig_set.filter(iteration__lte=iteration))
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.maxrestconfig_set.filter(iteration__lte=iteration)),
+            )
+        )

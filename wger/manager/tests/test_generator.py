@@ -29,7 +29,7 @@ class RoutineGeneratorTestCase(WgerTestCase):
         Workout.objects.all().delete()
 
         # Act
-        call_command('dummy-generator-routine', '--plans', 10)
+        call_command('dummy-generator-routines', '--plans', 10)
 
         # Assert
         self.assertEqual(Workout.objects.filter(user_id=1).count(), 10)
@@ -39,7 +39,7 @@ class RoutineGeneratorTestCase(WgerTestCase):
         Workout.objects.all().delete()
 
         # Act
-        call_command('dummy-generator-routine', '--plans', 1)
+        call_command('dummy-generator-routines', '--plans', 1)
         call_command('dummy-generator-workout-diary', '--diary-entries', 10)
 
         # Assert

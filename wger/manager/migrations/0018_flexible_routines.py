@@ -390,6 +390,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -436,6 +437,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -482,6 +484,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -528,6 +531,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -574,6 +578,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -620,6 +625,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -666,6 +672,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -712,6 +719,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(
@@ -739,6 +747,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
+                ('value', models.PositiveIntegerField()),
                 (
                     'operation',
                     models.CharField(
@@ -756,7 +765,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
-                ('value', models.PositiveIntegerField()),
+                ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
                     models.ForeignKey(

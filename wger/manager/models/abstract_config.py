@@ -78,6 +78,15 @@ class AbstractChangeConfig(models.Model):
     apply the rules anyway
     """
 
+    repeat = models.BooleanField(default=False)
+    """
+    This setting makes the current rule repeat for subsequent iterations until a
+    new rule is defined. For example, if you want to increase the weight by 1kg
+    each week, you only need to set this rule once and enable "repeat". The system
+    will automatically apply it to every following week until you specify a
+    different change.
+    """
+
     @property
     def replace(self):
         """

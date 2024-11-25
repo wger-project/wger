@@ -6,4 +6,5 @@ CONFIG_FIELDS = (
     'operation',
     'step',
     'need_log_to_apply',
+    'repeat',
 )

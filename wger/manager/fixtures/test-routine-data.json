@@ -165,7 +165,8 @@
       "value": 5,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -177,7 +178,8 @@
       "value": 2,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -189,7 +191,8 @@
       "value": 5,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -201,7 +204,8 @@
       "value": 3,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -213,7 +217,8 @@
       "value": 80,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -225,7 +230,8 @@
       "value": 20,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -237,7 +243,8 @@
       "value": 80,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -249,7 +256,8 @@
       "value": 50,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -261,7 +269,8 @@
       "value": 4,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -273,7 +282,8 @@
       "value": 5,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -285,7 +295,8 @@
       "value": 6,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   },
   {
@@ -297,7 +308,8 @@
       "value": 4,
       "operation": "r",
       "step": "abs",
-      "need_log_to_apply": false
+      "need_log_to_apply": false,
+      "repeat": false
     }
   }
 ]
