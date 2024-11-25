@@ -390,6 +390,7 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'routine',
+            'day',
             'date',
             'notes',
             'impression',
