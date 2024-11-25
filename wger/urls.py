@@ -116,6 +116,11 @@ router.register(
     basename='sets-config',
 )
 router.register(
+    r'max-sets-config',
+    manager_api_views.MaxSetsConfigViewSet,
+    basename='max-sets-config',
+)
+router.register(
     r'rest-config',
     manager_api_views.RestConfigViewSet,
     basename='rest-config',

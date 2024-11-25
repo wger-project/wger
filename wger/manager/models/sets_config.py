@@ -28,3 +28,12 @@ class SetsConfig(AbstractChangeConfig):
 
     value = models.PositiveIntegerField()
     """Sets are always positive integers"""
+
+
+class MaxSetsConfig(AbstractChangeConfig):
+    """
+    Configuration model for the maximum number of sets for a workout set
+    """
+
+    value = models.PositiveIntegerField()
+    """Sets are always positive integers"""

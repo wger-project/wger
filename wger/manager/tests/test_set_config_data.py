@@ -62,6 +62,11 @@ class SetConfigDataTestCase(WgerTestCase):
         self.config.sets = 3
         self.assertEqual(self.config.text_repr, '3 Sets, 4 × 20 kg @ 3 RiR')
 
+    def test_text_repr_max_sets(self):
+        self.config.sets = 3
+        self.config.max_sets = 6
+        self.assertEqual(self.config.text_repr, '3-6 Sets, 4 × 20 kg @ 3 RiR')
+
     def test_text_repr_weight_rounding(self):
         self.config.weight = 22.499
         self.config.weight_rounding = 5

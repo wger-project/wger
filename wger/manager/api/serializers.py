@@ -24,6 +24,7 @@ from wger.manager.models import (
     Day,
     MaxRepsConfig,
     MaxRestConfig,
+    MaxSetsConfig,
     MaxWeightConfig,
     RepsConfig,
     RestConfig,
@@ -129,6 +130,16 @@ class SetNrConfigSerializer(serializers.ModelSerializer):
         fields = CONFIG_FIELDS
 
 
+class MaxSetNrConfigSerializer(serializers.ModelSerializer):
+    """
+    Max Set Nr config serializer
+    """
+
+    class Meta:
+        model = MaxSetsConfig
+        fields = CONFIG_FIELDS
+
+
 class RiRConfigSerializer(serializers.ModelSerializer):
     """
     RiR Config serializer
@@ -169,6 +180,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
     reps_configs = RepsConfigSerializer(source='repsconfig_set', many=True)
     max_reps_configs = RepsConfigSerializer(source='maxrepsconfig_set', many=True)
     set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
+    max_set_nr_configs = MaxSetNrConfigSerializer(source='maxsetsconfig_set', many=True)
     rir_configs = RiRConfigSerializer(source='rirconfig_set', many=True)
     rest_configs = RestConfigSerializer(source='restconfig_set', many=True)
     max_rest_configs = RestConfigSerializer(source='maxrestconfig_set', many=True)
@@ -193,6 +205,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
             'weight_configs',
             'max_weight_configs',
             'set_nr_configs',
+            'max_set_nr_configs',
             'rir_configs',
             'rest_configs',
             'max_rest_configs',
@@ -308,6 +321,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     slot_entry_id = serializers.IntegerField()
     exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
+    max_sets = serializers.IntegerField()
     weight = serializers.DecimalField(max_digits=5, decimal_places=2)
     max_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
     weight_unit = serializers.IntegerField()

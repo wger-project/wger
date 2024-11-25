@@ -51,6 +51,7 @@ class SetConfigData:
     max_weight: Decimal | int | None = None
     max_reps: Decimal | int | None = None
     max_rest: int | None = None
+    max_sets: int | None = None
 
     sets: int = 1
     weight_unit: int | None = 1
@@ -89,7 +90,10 @@ class SetConfigData:
         out = []
 
         if self.sets and self.sets > 1:
-            sets = normalize_decimal(Decimal(self.sets))
+            sets = self.sets
+            if self.max_sets:
+                sets = f'{sets}-{self.max_sets}'
+
             out.append(f'{sets} {_("Sets")},')
 
         if self.reps:

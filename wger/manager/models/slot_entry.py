@@ -236,6 +236,7 @@ class SlotEntry(models.Model):
                         break
 
         sets = self.get_sets(iteration)
+        max_sets = self.get_max_sets(iteration)
 
         weight = self.get_weight(max_iter_weight)
         max_weight = self.get_max_weight(max_iter_max_weight)
@@ -250,6 +251,7 @@ class SlotEntry(models.Model):
             slot_entry_id=self.id,
             exercise=self.exercise.id,
             sets=sets if sets is not None else 1,
+            max_sets=max_sets,
             weight=weight,
             max_weight=max_weight if max_weight and weight and max_weight > weight else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
@@ -269,6 +271,9 @@ class SlotEntry(models.Model):
 
     def get_sets(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.setsconfig_set.filter(iteration__lte=iteration))
+
+    def get_max_sets(self, iteration: int) -> Decimal | None:
+        return self.calculate_config_value(self.maxsetsconfig_set.filter(iteration__lte=iteration))
 
     def get_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))

@@ -38,6 +38,7 @@ from wger.manager.api.serializers import (
     LogStatsDataSerializer,
     MaxRepsConfigSerializer,
     MaxRestConfigSerializer,
+    MaxSetNrConfigSerializer,
     MaxWeightConfigSerializer,
     RepsConfigSerializer,
     RestConfigSerializer,
@@ -61,6 +62,7 @@ from wger.manager.models import (
     Day,
     MaxRepsConfig,
     MaxRestConfig,
+    MaxSetsConfig,
     MaxWeightConfig,
     RepsConfig,
     RestConfig,
@@ -360,6 +362,9 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
             return WorkoutSession.objects.none()
 
         return WorkoutSession.objects.filter(user=self.request.user)
+
+    # def create(self, request, *args, **kwargs):
+    #     super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         """
@@ -681,13 +686,30 @@ class SetsConfigViewSet(AbstractConfigViewSet):
     def get_queryset(self):
         """
         Only allow access to appropriate objects
-        Only allow access to appropriate objects
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
             return SetsConfig.objects.none()
 
         return SetsConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
+
+
+class MaxSetsConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for max set config objects
+    """
+
+    serializer_class = MaxSetNrConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return MaxSetsConfig.objects.none()
+
+        return MaxSetsConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
 
 class RestConfigViewSet(AbstractConfigViewSet):

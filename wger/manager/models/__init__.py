@@ -32,7 +32,10 @@ from .routine import Routine
 from .schedule import Schedule
 from .schedule_step import ScheduleStep
 from .session import WorkoutSession
-from .sets_config import SetsConfig
+from .sets_config import (
+    MaxSetsConfig,
+    SetsConfig,
+)
 from .slot import Slot
 from .slot_entry import SlotEntry
 from .weight_config import (

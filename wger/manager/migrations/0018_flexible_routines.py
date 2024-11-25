@@ -93,7 +93,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='logs',
+                related_name='sessions',
                 to='manager.workoutsession',
                 verbose_name='Session',
             ),
@@ -712,6 +712,51 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                (
+                    'slot_entry',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotentry',
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['slot_entry', 'iteration'],
+                'abstract': False,
+                'unique_together': {('slot_entry', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
+            name='MaxSetsConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('iteration', models.PositiveIntegerField()),
+                (
+                    'operation',
+                    models.CharField(
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
+                        default='r',
+                        max_length=1,
+                    ),
+                ),
+                (
+                    'step',
+                    models.CharField(
+                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        default='abs',
+                        max_length=10,
+                    ),
+                ),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('value', models.PositiveIntegerField()),
                 (
                     'slot_entry',
                     models.ForeignKey(
