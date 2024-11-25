@@ -15,6 +15,9 @@
 # Standard Library
 from decimal import Decimal
 
+# Django
+from django.test import SimpleTestCase
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import SetConfigData
@@ -176,11 +179,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
-                weight=80,
-                weight_rounding=Decimal('2.5'),
-                reps=5,
+                weight=Decimal(80),
+                weight_rounding=Decimal(2.5),
+                reps=Decimal(4),
                 reps_rounding=2,
-                rir=2,
+                rir=Decimal(2),
                 rest=120,
             ),
         )
@@ -191,11 +194,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
-                weight=80,
-                weight_rounding=Decimal('2.5'),
-                reps=5,
+                weight=Decimal(80),
+                weight_rounding=Decimal(2.5),
+                reps=Decimal(4),
                 reps_rounding=2,
-                rir=2,
+                rir=Decimal(2),
                 rest=120,
             ),
         )
@@ -206,11 +209,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
-                weight=80,
+                weight=Decimal(80),
                 weight_rounding=Decimal('2.5'),
-                reps=5,
+                reps=Decimal(4),
                 reps_rounding=2,
-                rir=2,
+                rir=Decimal(2),
                 rest=120,
             ),
         )
@@ -223,9 +226,9 @@ class SlotEntryTestCase(WgerTestCase):
                 sets=4,
                 weight=Decimal(82.5),
                 weight_rounding=Decimal('2.5'),
-                reps=5,
+                reps=Decimal(4),
                 reps_rounding=2,
-                rir=2,
+                rir=Decimal(2),
                 rest=120,
             ),
         )
@@ -236,11 +239,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
-                weight=42,
+                weight=Decimal('42.5'),
                 weight_rounding=Decimal('2.5'),
-                reps=5,
+                reps=Decimal(4),
                 reps_rounding=2,
-                rir=2,
+                rir=Decimal(2),
                 rest=120,
             ),
         )
@@ -251,11 +254,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=4,
-                weight=42,
+                weight=Decimal(42.5),
                 weight_rounding=Decimal('2.5'),
-                reps=5,
+                reps=Decimal(4),
                 reps_rounding=2,
-                rir=2,
+                rir=Decimal(2),
                 rest=120,
             ),
         )
@@ -313,11 +316,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=1,
-                weight=80,
-                max_weight=100,
+                weight=Decimal(80),
+                max_weight=Decimal(100),
                 weight_rounding=Decimal('2.5'),
-                reps=5,
-                max_reps=6,
+                reps=Decimal(4),
+                max_reps=Decimal(6),
                 reps_rounding=2,
                 rir=None,
                 rest=None,
@@ -330,11 +333,11 @@ class SlotEntryTestCase(WgerTestCase):
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
                 sets=1,
-                weight=80,
-                max_weight=100,
+                weight=Decimal(80),
+                max_weight=Decimal(100),
                 weight_rounding=Decimal('2.5'),
-                reps=5,
-                max_reps=6,
+                reps=Decimal(4),
+                max_reps=Decimal(6),
                 reps_rounding=2,
                 rir=None,
                 rest=None,
@@ -397,6 +400,8 @@ class SlotEntryTestCase(WgerTestCase):
             ),
         )
 
+
+class SlotEntryDuplicateConfigTestCase(SimpleTestCase):
     def test_duplicate_configs(self):
         configs = [
             WeightConfig(

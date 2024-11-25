@@ -22,7 +22,10 @@ from dataclasses import (
     dataclass,
     field,
 )
-from decimal import Decimal
+from decimal import (
+    ROUND_DOWN,
+    Decimal,
+)
 from typing import (
     Any,
     List,
@@ -83,9 +86,6 @@ class SetConfigData:
 
         This converts the values to something readable like "10 × 100 kg @ 2.00RiR"
         """
-
-        def round_value(x: int | float, base: float = 5) -> Decimal:
-            return normalize_decimal(Decimal(base * round(Decimal(x) / Decimal(base))))
 
         out = []
 
@@ -217,3 +217,23 @@ class RoutineLogData:
     volume: GroupedLogData = field(default_factory=GroupedLogData)
     intensity: GroupedLogData = field(default_factory=GroupedLogData)
     sets: GroupedLogData = field(default_factory=GroupedLogData)
+
+
+def round_value(
+    x: int | float | Decimal | None,
+    base: int | float | Decimal | None = None,
+) -> Decimal | None:
+    """
+    Rounds a value to the nearest base
+
+    If the base is None, the value will be returned as a Decimal object.
+    """
+    if x is None:
+        return x
+
+    # If the result is an integer, remove the decimal part
+    result = Decimal(x) if base is None else Decimal(base * round(Decimal(x) / Decimal(base)))
+    if result == result.to_integral_value():
+        result = result.quantize(1, ROUND_DOWN)
+
+    return result

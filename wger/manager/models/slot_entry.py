@@ -30,7 +30,10 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import Exercise
-from wger.manager.dataclasses import SetConfigData
+from wger.manager.dataclasses import (
+    SetConfigData,
+    round_value,
+)
 from wger.manager.models.abstract_config import (
     AbstractChangeConfig,
     OperationChoices,
@@ -77,7 +80,8 @@ class SlotEntry(models.Model):
     repetition_rounding = models.DecimalField(
         decimal_places=2,
         max_digits=4,
-        default=1,
+        default=None,
+        null=True,
     )
     """
     The amount by which the repetitions will be rounded
@@ -98,7 +102,8 @@ class SlotEntry(models.Model):
     weight_rounding = models.DecimalField(
         decimal_places=2,
         max_digits=4,
-        default=1.25,
+        default=None,
+        null=True,
     )
     """
     The amount by which the weight will be rounded
@@ -276,22 +281,26 @@ class SlotEntry(models.Model):
             slot_entry_id=self.id,
             exercise=self.exercise.id,
             sets=sets if sets is not None else 1,
-            max_sets=max_sets,
-            weight=weight,
-            max_weight=max_weight if max_weight and weight and max_weight > weight else None,
+            max_sets=round_value(max_sets, 1),
+            weight=round_value(weight, self.weight_rounding),
+            max_weight=round_value(max_weight, self.weight_rounding)
+            if max_weight and weight and max_weight > weight
+            else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
             # TODO: decide on whether to return None or always the unit
             # weight_unit=self.weight_unit.pk if weight is not None else None,
             weight_unit=self.weight_unit.pk,
-            reps=reps,
-            max_reps=max_reps if max_reps and reps and max_reps > reps else None,
+            reps=round_value(reps, self.repetition_rounding),
+            max_reps=round_value(max_reps, self.repetition_rounding)
+            if max_reps and reps and max_reps > reps
+            else None,
             reps_rounding=self.repetition_rounding if reps is not None else None,
             reps_unit=self.repetition_unit.pk,
             # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.get_rir(iteration),
-            rest=rest,
-            max_rest=max_rest if max_rest and rest and max_rest > rest else None,
+            rest=round_value(rest, 1),
+            max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
             type=str(self.type),
             comment=self.comment,
         )

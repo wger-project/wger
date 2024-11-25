@@ -93,7 +93,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='sessions',
+                related_name='logs',
                 to='manager.workoutsession',
                 verbose_name='Session',
             ),
@@ -194,7 +194,12 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'repetition_rounding',
-                    models.DecimalField(decimal_places=2, default=1, max_digits=4),
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=None,
+                        max_digits=4,
+                        null=True,
+                    ),
                 ),
                 (
                     'slot',
@@ -217,8 +222,9 @@ class Migration(migrations.Migration):
                     'weight_rounding',
                     models.DecimalField(
                         decimal_places=2,
-                        default=1.25,
+                        default=None,
                         max_digits=4,
+                        null=True,
                     ),
                 ),
                 (
@@ -355,6 +361,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
+                related_name='sessions',
                 to='manager.routine',
             ),
         ),
