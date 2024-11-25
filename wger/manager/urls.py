@@ -79,6 +79,15 @@ patterns_templates = [
     ),
 ]
 
+# sub patterns for days
+patterns_days = [
+    path(
+        '<int:day_pk>/add-logs',
+        ReactView.as_view(),
+        name='overview',
+    ),
+]
+
 # sub patterns for workouts
 patterns_workout = [
     path(
@@ -263,6 +272,7 @@ urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace='workout')),
     path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
+    path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='template')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
     path('session/', include((patterns_session, 'session'), namespace='session')),
     path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
