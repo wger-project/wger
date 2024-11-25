@@ -69,10 +69,7 @@ class AbstractChangeConfig(models.Model):
     )
     """The step by which the change will happen"""
 
-    need_log_to_apply = models.BooleanField(
-        default=False,
-        null=True,
-    )
+    need_log_to_apply = models.BooleanField(default=False)
     """
     Only apply the change if the user logged the last weight, otherwise
     apply the rules anyway

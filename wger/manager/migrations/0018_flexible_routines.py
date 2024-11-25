@@ -389,7 +389,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -436,7 +436,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -483,7 +483,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -530,7 +530,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -577,7 +577,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -624,7 +624,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -671,7 +671,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -718,7 +718,7 @@ class Migration(migrations.Migration):
                         null=False,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
@@ -764,7 +764,7 @@ class Migration(migrations.Migration):
                         max_length=10,
                     ),
                 ),
-                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
                 (
                     'slot_entry',
