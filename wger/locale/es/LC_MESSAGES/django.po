@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-07-23 11:09+0000\n"
+"PO-Revision-Date: 2024-11-27 21:00+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -883,10 +883,8 @@ msgid "next"
 msgstr "próximo"
 
 #: core/templates/tags/render_day.html:44
-#, fuzzy
-#| msgid "Placeholder image for exercise"
 msgid "Placeholder image for translation"
-msgstr "Marcador de imagen para ejercicio"
+msgstr "Imagen de marcador de posición para traducción"
 
 #: core/templates/template.html:123 manager/templates/calendar/month.html:138
 #: manager/templates/schedule/view.html:215
@@ -2417,10 +2415,8 @@ msgid "No schedules found."
 msgstr "No se han encontrado programas."
 
 #: manager/templates/schedule/overview.html:28
-#, fuzzy
-#| msgid "Add one now."
 msgid "Add one now"
-msgstr "Añadir ahora."
+msgstr "Añadir uno ahora"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2431,13 +2427,6 @@ msgstr ""
 "                  sucesión."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "        before jumping to the next. It is also possible to create a loop, "
-#| "so you\n"
-#| "        always do the same workouts in succession, e.g. A > B > C > A > B "
-#| "> C and so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2446,11 +2435,12 @@ msgid ""
 "C and so\n"
 "        on."
 msgstr ""
-"Puedes indicar cuánto tiempo quieres hacer cada rutina \n"
-"                   antes de saltar a la siguiente. También puedes crear un "
-"bucle, para \n"
-"                   poder hacer siempre las mismas rutinas en sucesión, p.ej. "
-"A > B > C > A > B > C, etc."
+"Puedes indicar cuánto tiempo quieres hacer cada entrenamiento\n"
+"        antes de pasar al siguiente. También es posible crear un bucle, de "
+"modo que\n"
+"        los mismos ejercicios sucesivamente, por ejemplo, A > B > C > A > B "
+"> C y así sucesivamente.\n"
+"        en."
 
 #: manager/templates/schedule/overview.html:44
 msgid ""
@@ -2532,13 +2522,6 @@ msgstr "Expora este programa como archivo de calendario."
 
 #: manager/templates/schedule/view.html:202
 #: manager/templates/workout/view.html:76
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "                        application for example google calendar, outlook "
-#| "or iCal. This will create\n"
-#| "                        an appointment for each training day with the "
-#| "appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2547,9 +2530,11 @@ msgid ""
 "appropriate\n"
 "                        exercises."
 msgstr ""
-"Podrás importar el archivo en tu aplicación de calendario, como por ejemplo\n"
-"Google Calendar, Outlook o iCal. Esto creará una entrada para cada día\n"
-"de entrenamiento con los respectivos ejercicios."
+"A continuación, puede importar el archivo en su calendario\n"
+"                        por ejemplo google calendar, outlook o iCal. Esto "
+"creará\n"
+"                        una cita para cada día de entrenamiento con los\n"
+"                        ejercicios."
 
 #: manager/templates/schedule/view.html:225
 #: manager/templates/schedule/view.html:268
