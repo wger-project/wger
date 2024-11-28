@@ -33,8 +33,11 @@ class RoundValueTestCase(SimpleTestCase):
     def test_round_value2(self):
         self.assertEqual(round_value(Decimal('7'), 1.25), Decimal('7.5'))
 
-    def test_round_value_no_base(self):
+    def test_round_value_base_none(self):
         self.assertEqual(round_value(Decimal('1.33')), Decimal('1.33'))
+
+    def test_round_value_base_zero(self):
+        self.assertEqual(round_value(Decimal('1.33'), 0), Decimal('1.33'))
 
     def test_round_no_value(self):
         self.assertEqual(round_value(None), None)

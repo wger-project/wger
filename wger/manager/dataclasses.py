@@ -228,7 +228,8 @@ def round_value(
 
     If the base is None, the value will be returned as a Decimal object.
     """
-    if x is None:
+
+    if x is None or base == 0:
         return x
 
     # If the result is an integer, remove the decimal part
