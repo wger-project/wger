@@ -23,10 +23,7 @@ from django.utils.translation import gettext as _
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    Image,
     KeepTogether,
-    ListFlowable,
-    ListItem,
     Paragraph,
     Table,
 )
@@ -76,11 +73,13 @@ def render_workout_day(
     set_count = 1
     day_markers.append(len(data))
 
-    data.append([
-        Paragraph(
-            f'<para align="center">{_("Rest day") if day_data.day.is_rest else day_data.day.name}</para>',
-            styleSheet['SubHeader'],
-        )]
+    data.append(
+        [
+            Paragraph(
+                f'<para align="center">{_("Rest day") if day_data.day.is_rest else day_data.day.name}</para>',
+                styleSheet['SubHeader'],
+            )
+        ]
     )
 
     # Note: the _('Date') will be on the 3rd cell, but since we make a span
@@ -92,7 +91,6 @@ def render_workout_day(
     exercise_start = len(data)
     slot_count = 0
     for slot in day_data.slots_display_mode:
-
         slot_count += 1
 
         group_exercise_marker[slot_count] = {'start': len(data), 'end': len(data)}

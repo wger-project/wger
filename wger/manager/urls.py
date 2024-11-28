@@ -17,7 +17,6 @@
 
 # Django
 from django.conf.urls import include
-from django.contrib.auth.decorators import login_required
 from django.urls import (
     path,
     re_path,
@@ -27,13 +26,11 @@ from django.urls import (
 from wger.core.views.react import ReactView
 from wger.manager.views import (
     ical,
-    log,
     pdf,
     routine,
     schedule,
     schedule_step,
     workout,
-    workout_session,
 )
 
 # sub patterns for workout logs
@@ -42,16 +39,6 @@ patterns_log = [
         '<int:pk>/view',
         ReactView.as_view(login_required=True),
         name='log',
-    ),
-    path(
-        '<int:pk>/edit',  # JS
-        log.WorkoutLogUpdateView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        log.WorkoutLogDeleteView.as_view(),
-        name='delete',
     ),
 ]
 
@@ -143,25 +130,6 @@ patterns_routine = [
         '<int:pk>/pdf/table',
         pdf.workout_view,
         name='pdf-table',
-    ),
-]
-
-# sub patterns for workout sessions
-patterns_session = [
-    re_path(
-        r'^(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
-        workout_session.WorkoutSessionAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit',
-        workout_session.WorkoutSessionUpdateView.as_view(),
-        name='edit',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/delete/(?P<logs>session|logs)?$',
-        workout_session.WorkoutSessionDeleteView.as_view(),
-        name='delete',
     ),
 ]
 
@@ -272,9 +240,8 @@ urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace='workout')),
     path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
-    path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='template')),
+    path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
-    path('session/', include((patterns_session, 'session'), namespace='session')),
     path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
     path('schedule/step/', include((patterns_step, 'step'), namespace='step')),
 ]

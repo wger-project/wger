@@ -101,7 +101,8 @@ def update_cache_rir_config(sender, instance: RiRConfig, **kwargs):
 
 
 def update_cache_log(sender, instance: WorkoutLog, **kwargs):
-    reset_routine_cache(instance.routine)
+    if instance.routine:
+        reset_routine_cache(instance.routine)
 
 
 post_save.connect(update_activity_cache, sender=WorkoutSession)
