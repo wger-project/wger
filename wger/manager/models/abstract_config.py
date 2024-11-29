@@ -85,8 +85,14 @@ class AbstractChangeConfig(models.Model):
     different change.
     """
 
+    requirements = models.JSONField(
+        default=None,
+        null=True,
+    )
+    """Requirements for the application of this rule as JSON"""
+
     @property
-    def replace(self):
+    def replace(self) -> bool:
         """
         Flag indicating that there is no increase, but that the value will simply
         be replaced with the new one
