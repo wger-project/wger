@@ -472,7 +472,13 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                (
+                    'value',
+                    models.DecimalField(
+                        decimal_places=1,
+                        max_digits=2,
+                    ),
+                ),
                 (
                     'operation',
                     models.CharField(
@@ -492,6 +498,62 @@ class Migration(migrations.Migration):
                 ),
                 ('need_log_to_apply', models.BooleanField(default=False)),
                 ('repeat', models.BooleanField(default=False)),
+                (
+                    'slot_entry',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotentry',
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['slot_entry', 'iteration'],
+                'abstract': False,
+                'unique_together': {('slot_entry', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
+            name='MaxRiRConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('iteration', models.PositiveIntegerField()),
+                (
+                    'operation',
+                    models.CharField(
+                        choices=[('+', 'Plus'), ('-', 'Minus'), ('r', 'Replace')],
+                        default='r',
+                        max_length=1,
+                    ),
+                ),
+                (
+                    'step',
+                    models.CharField(
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
+                        default='abs',
+                        max_length=10,
+                    ),
+                ),
+                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('repeat', models.BooleanField(default=False)),
+                (
+                    'value',
+                    models.DecimalField(
+                        decimal_places=1,
+                        max_digits=2,
+                    ),
+                ),
                 (
                     'slot_entry',
                     models.ForeignKey(

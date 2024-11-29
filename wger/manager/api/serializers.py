@@ -24,6 +24,7 @@ from wger.manager.models import (
     Day,
     MaxRepsConfig,
     MaxRestConfig,
+    MaxRiRConfig,
     MaxSetsConfig,
     MaxWeightConfig,
     RepsConfig,
@@ -150,6 +151,16 @@ class RiRConfigSerializer(serializers.ModelSerializer):
         fields = CONFIG_FIELDS
 
 
+class MaxRiRConfigSerializer(serializers.ModelSerializer):
+    """
+    RiR Config serializer
+    """
+
+    class Meta:
+        model = MaxRiRConfig
+        fields = CONFIG_FIELDS
+
+
 class RestConfigSerializer(serializers.ModelSerializer):
     """
     Rest Config serializer
@@ -182,6 +193,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
     set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
     max_set_nr_configs = MaxSetNrConfigSerializer(source='maxsetsconfig_set', many=True)
     rir_configs = RiRConfigSerializer(source='rirconfig_set', many=True)
+    max_rir_configs = MaxRiRConfigSerializer(source='maxrirconfig_set', many=True)
     rest_configs = RestConfigSerializer(source='restconfig_set', many=True)
     max_rest_configs = RestConfigSerializer(source='maxrestconfig_set', many=True)
 
@@ -207,6 +219,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
             'set_nr_configs',
             'max_set_nr_configs',
             'rir_configs',
+            'max_rir_configs',
             'rest_configs',
             'max_rest_configs',
         )

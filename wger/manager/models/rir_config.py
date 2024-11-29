@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.db import models
+
 # wger
 from wger.manager.models import AbstractChangeConfig
 
@@ -23,4 +26,18 @@ class RiRConfig(AbstractChangeConfig):
     Configuration model for the number of RiR for a workout set
     """
 
-    pass
+    value = models.DecimalField(
+        decimal_places=1,
+        max_digits=2,
+    )
+
+
+class MaxRiRConfig(AbstractChangeConfig):
+    """
+    Configuration model for the upper limit of RiR for a workout set
+    """
+
+    value = models.DecimalField(
+        decimal_places=1,
+        max_digits=2,
+    )

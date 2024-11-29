@@ -85,8 +85,6 @@ class SlotEntry(models.Model):
     )
     """
     The amount by which the repetitions will be rounded
-
-    Note that this will happen in the UI, and not in the backend
     """
 
     weight_unit = models.ForeignKey(
@@ -107,8 +105,6 @@ class SlotEntry(models.Model):
     )
     """
     The amount by which the weight will be rounded
-
-    Note that this will happen in the UI, and not in the backend
     """
 
     order = models.PositiveIntegerField(

@@ -38,6 +38,7 @@ from wger.manager.api.serializers import (
     LogStatsDataSerializer,
     MaxRepsConfigSerializer,
     MaxRestConfigSerializer,
+    MaxRiRConfigSerializer,
     MaxSetNrConfigSerializer,
     MaxWeightConfigSerializer,
     RepsConfigSerializer,
@@ -62,6 +63,7 @@ from wger.manager.models import (
     Day,
     MaxRepsConfig,
     MaxRestConfig,
+    MaxRiRConfig,
     MaxSetsConfig,
     MaxWeightConfig,
     RepsConfig,
@@ -764,3 +766,21 @@ class RiRConfigViewSet(AbstractConfigViewSet):
             return RiRConfig.objects.none()
 
         return RiRConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
+
+
+class MaxRiRConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for set config objects
+    """
+
+    serializer_class = MaxRiRConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return MaxRiRConfig.objects.none()
+
+        return MaxRiRConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)

@@ -27,7 +27,10 @@ from .rest_config import (
     MaxRestConfig,
     RestConfig,
 )
-from .rir_config import RiRConfig
+from .rir_config import (
+    MaxRiRConfig,
+    RiRConfig,
+)
 from .routine import Routine
 from .schedule import Schedule
 from .schedule_step import ScheduleStep
