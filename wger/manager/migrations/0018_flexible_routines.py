@@ -390,7 +390,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -437,7 +441,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -490,7 +498,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -593,7 +605,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -640,7 +656,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -687,7 +707,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -734,7 +758,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -781,7 +809,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                         null=False,
@@ -828,7 +860,11 @@ class Migration(migrations.Migration):
                 (
                     'step',
                     models.CharField(
-                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        choices=[
+                            ('na', 'Not Applicable'),
+                            ('abs', 'Absolute'),
+                            ('percent', 'Percent'),
+                        ],
                         default='abs',
                         max_length=10,
                     ),

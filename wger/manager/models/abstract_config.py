@@ -25,6 +25,7 @@ class OperationChoices(models.TextChoices):
 
 
 class StepChoices(models.TextChoices):
+    NOT_APPLICABLE = 'na'
     ABSOLUTE = 'abs'
     PERCENT = 'percent'
 
@@ -105,7 +106,7 @@ class AbstractChangeConfig(models.Model):
         # Override values for replace
         if self.replace:
             self.need_log_to_apply = False
-            self.step = 'abs'
+            self.step = StepChoices.NOT_APPLICABLE
 
         super().save(**kwargs)
 
