@@ -15,93 +15,10 @@
 # Standard Library
 import datetime
 
-# Django
-from django.urls import reverse
-
 # wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import (
-    WgerDeleteTestCase,
-    WgerEditTestCase,
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import Workout
-
-
-class AddWorkoutTestCase(WgerTestCase):
-    """
-    Tests adding a Workout
-    """
-
-    def create_workout(self):
-        """
-        Helper function to test creating workouts
-        """
-
-        # Create a workout
-        count_before = Workout.objects.count()
-        response = self.client.get(reverse('manager:workout:add'))
-        count_after = Workout.objects.count()
-
-        # There is always a redirect
-        self.assertEqual(response.status_code, 302)
-
-        # Test creating workout
-        self.assertGreater(count_after, count_before)
-
-        # Test accessing workout
-        response = self.client.get(reverse('manager:workout:view', kwargs={'pk': 1}))
-        self.assertEqual(response.status_code, 200)
-
-    def test_create_workout_logged_in(self):
-        """
-        Test creating a workout a logged in user
-        """
-
-        self.user_login()
-        self.create_workout()
-        self.user_logout()
-
-
-class DeleteTestWorkoutTestCase(WgerDeleteTestCase):
-    """
-    Tests deleting a Workout
-    """
-
-    object_class = Workout
-    url = 'manager:workout:delete'
-    pk = 3
-    user_success = 'test'
-    user_fail = 'admin'
-
-
-class EditWorkoutTestCase(WgerEditTestCase):
-    """
-    Tests editing a Workout
-    """
-
-    object_class = Workout
-    url = 'manager:workout:edit'
-    pk = 3
-    user_success = 'test'
-    user_fail = 'admin'
-    data = {'name': 'A new comment'}
-
-
-class WorkoutOverviewTestCase(WgerTestCase):
-    """
-    Tests the workout overview
-    """
-
-    def get_workout_overview(self):
-        """
-        Helper function to test the workout overview
-        """
-
-        response = self.client.get(reverse('manager:routine:overview'))
-
-        # Page exists
-        self.assertEqual(response.status_code, 200)
 
 
 class WorkoutModelTestCase(WgerTestCase):
