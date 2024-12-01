@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-08-26 12:09+0000\n"
-"Last-Translator: kvinto <badsystem@ukr.net>\n"
+"PO-Revision-Date: 2024-12-02 18:00+0000\n"
+"Last-Translator: Максим Горпиніч <mgorpinic2005@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -871,10 +871,8 @@ msgid "next"
 msgstr "вперед"
 
 #: core/templates/tags/render_day.html:44
-#, fuzzy
-#| msgid "Placeholder image for exercise"
 msgid "Placeholder image for translation"
-msgstr "Заповнювач зображення для вправи"
+msgstr "Зображення-заповнювач для перекладу"
 
 #: core/templates/template.html:123 manager/templates/calendar/month.html:138
 #: manager/templates/schedule/view.html:215
@@ -2399,10 +2397,8 @@ msgid "No schedules found."
 msgstr "Програм не знайдено."
 
 #: manager/templates/schedule/overview.html:28
-#, fuzzy
-#| msgid "Add one now."
 msgid "Add one now"
-msgstr "Додати зараз."
+msgstr "Додайте зараз"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2413,13 +2409,6 @@ msgstr ""
 "по порядку."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "        before jumping to the next. It is also possible to create a loop, "
-#| "so you\n"
-#| "        always do the same workouts in succession, e.g. A > B > C > A > B "
-#| "> C and so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2428,11 +2417,12 @@ msgid ""
 "C and so\n"
 "        on."
 msgstr ""
-"Ви можете вказати тривалість кожного тренування,\n"
-"        перед тим як перейти до наступного. Також можна створити цикл, для "
-"того,\n"
-"        щоб виконувати однакові тренування поспіль, наприклад A> B> C> A> B> "
-"C і т.д."
+"Ви можете вказати, як довго ви хочете виконувати кожне тренування \n"
+"        перш ніж перейти до наступного. Також є можливість створити петлю, "
+"щоб ви \n"
+"        завжди виконуйте ті самі тренування поспіль, напр. A > B > C > A > B "
+"> C тощо \n"
+"        на."
 
 #: manager/templates/schedule/overview.html:44
 msgid ""
@@ -2521,13 +2511,6 @@ msgstr "Експортувати цю програму в файл календ�
 
 #: manager/templates/schedule/view.html:202
 #: manager/templates/workout/view.html:76
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "                        application for example google calendar, outlook "
-#| "or iCal. This will create\n"
-#| "                        an appointment for each training day with the "
-#| "appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2536,9 +2519,11 @@ msgid ""
 "appropriate\n"
 "                        exercises."
 msgstr ""
-"Цей файл можна потім імпортувати в календар застосунку, наприклад\n"
-"google календар, outlook або iCal. Це дозволить створити розклад на\n"
-"кожен тренувальний день з відповідними вправами."
+"Потім ви можете імпортувати файл у свій календар \n"
+"                        програму, наприклад календар Google, Outlook або "
+"iCal. Це створить \n"
+"                        запис на кожен навчальний день із відповідним \n"
+"                        вправи."
 
 #: manager/templates/schedule/view.html:225
 #: manager/templates/schedule/view.html:268
