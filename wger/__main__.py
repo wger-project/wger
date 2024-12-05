@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -14,11 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import os
-import sys
 
-# Third Party
+# wger
 from wger.tasks import make_program
 
 
@@ -33,5 +28,5 @@ def main():
     make_program().run()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
