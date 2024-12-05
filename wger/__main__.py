@@ -19,28 +19,19 @@ import os
 import sys
 
 # Third Party
-from invoke import run
+from wger.tasks import make_program
 
 
 """
 This simple wrapper script is used as a console entry point in the packaged
-version of the application. It simply redirects all arguments to the invoke
-command, which does all the work.
+version of the application. It takes all the tasks from tasks.py, and runs
+invoke, which does all the work.
 """
-
-invoke_cmd = 'invoke '
 
 
 def main():
-    # Change the working directory so that invoke can find the tasks file
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
-    args = sys.argv[1:]
-    if len(args):
-        run(invoke_cmd + ' '.join(args), pty=True)
-    else:
-        run(invoke_cmd + '--list')
+    make_program().run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
