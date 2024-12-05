@@ -15,13 +15,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">{{ image.date }}</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <a href="{{ image.image.url }}">
-                            <img src="{{ image.image.url }}" class="img-fluid">
+                            <img src="{{ image.image.url }}" class="img-fluid" alt="">
                         </a>
                         {% if image.description %}
                             <p> {{ image.description }}</p>
@@ -29,10 +30,18 @@
 
                     </div>
                     <div class="modal-footer">
-                        <a href="{% url 'gallery:images:delete' image.id %}"
-                           class="btn btn-primary">
+                        {% url 'gallery:images:delete' image.id as url %}
+                        <a
+                            href="{{ url }}"
+                            class="btn btn-primary"
+                            hx-get="{{ url }}"
+                            hx-target="#ajax-info-content"
+                            data-bs-toggle="modal"
+                            data-bs-target="#wger-ajax-info"
+                        >
                             <span class="{% fa_class 'trash' %}"></span>
                         </a>
+
                         <a href="{% url 'gallery:images:edit' image.id %}" class="btn btn-primary">
                             <span class="{% fa_class 'edit' %}"></span>
                         </a>
@@ -47,7 +56,8 @@
             <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modalImage{{ image.id }}">
-                        <img class="card-img-top" src="{{ image.image.url }}" alt="{{ image.description }}">
+                        <img class="card-img-top" src="{{ image.image.url }}"
+                             alt="{{ image.description }}">
                     </a>
                 </div>
             </div>
