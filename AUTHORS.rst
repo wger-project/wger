@@ -81,6 +81,7 @@ Developers
 * Jonathan La Field - https://github.com/JLaField
 * Kevin Moy - https://github.com/kmoy1
 * Taylor Fuller - https://github.com/taylor-fuller
+* eyJhb - https://github.com/eyJhb
 
 
 Translators
