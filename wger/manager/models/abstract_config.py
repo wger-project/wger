@@ -89,7 +89,13 @@ class AbstractChangeConfig(models.Model):
         default=None,
         null=True,
     )
-    """Requirements for the application of this rule as JSON"""
+    """
+    Requirements for the application of this rule as JSON
+
+    Currently supported:
+    * list of rules to apply
+    * respect/ignore maximum
+    """
 
     @property
     def replace(self) -> bool:

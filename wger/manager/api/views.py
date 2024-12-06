@@ -31,7 +31,8 @@ from rest_framework.response import Response
 
 # wger
 from wger.exercises.models import Exercise
-from wger.manager.api.consts import CONFIG_FIELDS
+from wger.manager.api.consts import BASE_CONFIG_FIELDS
+from wger.manager.api.filtersets import BaseConfigFilterSet
 from wger.manager.api.serializers import (
     DaySerializer,
     LogDisplaySerializer,
@@ -595,7 +596,7 @@ class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
 
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = CONFIG_FIELDS
+    filterset_fields = BASE_CONFIG_FIELDS
 
     def get_owner_objects(self):
         """
@@ -610,6 +611,7 @@ class WeightConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = WeightConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -628,6 +630,7 @@ class MaxWeightConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxWeightConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -648,6 +651,7 @@ class RepsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = RepsConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -666,6 +670,7 @@ class MaxRepsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxRepsConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -684,6 +689,7 @@ class SetsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = SetNrConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -702,6 +708,7 @@ class MaxSetsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxSetNrConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -720,6 +727,7 @@ class RestConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = RestConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -738,6 +746,7 @@ class MaxRestConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxRestConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -756,6 +765,7 @@ class RiRConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = RiRConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -774,6 +784,7 @@ class MaxRiRConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxRiRConfigSerializer
+    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,11 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+
 # Third Party
 from rest_framework import serializers
 
 # wger
-from wger.manager.api.consts import CONFIG_FIELDS
+from wger.manager.api.consts import (
+    BASE_CONFIG_FIELDS,
+    BASE_CONFIG_FILTER_FIELDS,
+)
+from wger.manager.api.validators import validate_requirements
 from wger.manager.models import (
     Day,
     MaxRepsConfig,
@@ -81,104 +84,112 @@ class DaySerializer(serializers.ModelSerializer):
         )
 
 
-class WeightConfigSerializer(serializers.ModelSerializer):
+class BaseConfigSerializer(serializers.ModelSerializer):
+    """
+    Base Config serializer
+    """
+
+    requirements = serializers.JSONField(validators=[validate_requirements])
+
+
+class WeightConfigSerializer(BaseConfigSerializer):
     """
     Weight Config serializer
     """
 
     class Meta:
         model = WeightConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class MaxWeightConfigSerializer(serializers.ModelSerializer):
+class MaxWeightConfigSerializer(BaseConfigSerializer):
     """
     Max Weight Config serializer
     """
 
     class Meta:
         model = MaxWeightConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class RepsConfigSerializer(serializers.ModelSerializer):
+class RepsConfigSerializer(BaseConfigSerializer):
     """
     Repetition Config serializer
     """
 
     class Meta:
         model = RepsConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class MaxRepsConfigSerializer(serializers.ModelSerializer):
+class MaxRepsConfigSerializer(BaseConfigSerializer):
     """
     Max Repetition Config serializer
     """
 
     class Meta:
         model = MaxRepsConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class SetNrConfigSerializer(serializers.ModelSerializer):
+class SetNrConfigSerializer(BaseConfigSerializer):
     """
     Set Nr config serializer
     """
 
     class Meta:
         model = SetsConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class MaxSetNrConfigSerializer(serializers.ModelSerializer):
+class MaxSetNrConfigSerializer(BaseConfigSerializer):
     """
     Max Set Nr config serializer
     """
 
     class Meta:
         model = MaxSetsConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class RiRConfigSerializer(serializers.ModelSerializer):
+class RiRConfigSerializer(BaseConfigSerializer):
     """
     RiR Config serializer
     """
 
     class Meta:
         model = RiRConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class MaxRiRConfigSerializer(serializers.ModelSerializer):
+class MaxRiRConfigSerializer(BaseConfigSerializer):
     """
     RiR Config serializer
     """
 
     class Meta:
         model = MaxRiRConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class RestConfigSerializer(serializers.ModelSerializer):
+class RestConfigSerializer(BaseConfigSerializer):
     """
     Rest Config serializer
     """
 
     class Meta:
         model = RestConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
-class MaxRestConfigSerializer(serializers.ModelSerializer):
+class MaxRestConfigSerializer(BaseConfigSerializer):
     """
     Rest Config serializer
     """
 
     class Meta:
         model = MaxRestConfig
-        fields = CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS
 
 
 class SlotEntryStructureSerializer(serializers.ModelSerializer):

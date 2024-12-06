@@ -412,7 +412,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -467,7 +467,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -528,7 +528,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -588,7 +588,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -643,7 +643,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -698,7 +698,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -753,7 +753,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -808,7 +808,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -863,7 +863,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],
@@ -917,7 +917,7 @@ class Migration(migrations.Migration):
                 (
                     'requirements',
                     models.JSONField(default=None, null=True),
-                )
+                ),
             ],
             options={
                 'ordering': ['slot_entry', 'iteration'],

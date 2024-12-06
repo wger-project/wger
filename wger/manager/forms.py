@@ -14,10 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
-
 # Django
 from django.forms import (
     BooleanField,
@@ -32,6 +28,10 @@ from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # wger
 from wger.manager.models import Workout

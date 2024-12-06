@@ -18,6 +18,7 @@
 from django.db import models
 
 # wger
+from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import AbstractChangeConfig
 
 
@@ -29,6 +30,7 @@ class RiRConfig(AbstractChangeConfig):
     value = models.DecimalField(
         decimal_places=1,
         max_digits=2,
+        # choices=RIR_OPTIONS
     )
 
 
@@ -40,4 +42,5 @@ class MaxRiRConfig(AbstractChangeConfig):
     value = models.DecimalField(
         decimal_places=1,
         max_digits=2,
+        # choices=RIR_OPTIONS
     )
