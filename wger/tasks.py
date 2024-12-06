@@ -31,7 +31,11 @@ from django.utils.crypto import get_random_string
 
 # Third Party
 import requests
-from invoke import task
+from invoke import (
+    Collection,
+    Program,
+    task,
+)
 from tqdm import tqdm
 
 
@@ -106,7 +110,11 @@ def bootstrap(context, settings_path=None, database_path=None, process_static=Tr
     }
 )
 def create_settings(
-    context, settings_path=None, database_path=None, database_type='sqlite3', key_length=50
+    context,
+    settings_path=None,
+    database_path=None,
+    database_type='sqlite3',
+    key_length=50,
 ):
     """
     Creates a local settings file
@@ -358,3 +366,17 @@ def database_exists():
         sys.exit(0)
     else:
         return True
+
+
+def make_program():
+    ns = Collection(
+        start,
+        bootstrap,
+        create_settings,
+        create_or_reset_admin,
+        migrate_db,
+        load_fixtures,
+        load_online_fixtures,
+    )
+    return Program(namespace=ns)
+    # program.run()

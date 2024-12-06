@@ -67,6 +67,12 @@ class Image(models.Model):
         blank=True,
     )
 
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f'Gallery image #{self.pk}'
+
     def get_owner_object(self):
         """
         Returns the object that has owner information
