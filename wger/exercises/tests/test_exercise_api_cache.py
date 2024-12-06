@@ -20,8 +20,8 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Alias,
     Exercise,
-    ExerciseBase,
     ExerciseComment,
+    Translation,
 )
 from wger.utils.cache import cache_mapper
 
@@ -45,7 +45,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.category_id = 1
         exercise.save()
 
@@ -59,7 +59,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.delete()
 
         self.assertFalse(cache.get(self.cache_key))
@@ -72,7 +72,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         translation.name = 'something else'
         translation.save()
 
@@ -86,7 +86,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         translation.delete()
 
         self.assertFalse(cache.get(self.cache_key))

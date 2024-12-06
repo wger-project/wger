@@ -51,18 +51,6 @@ def get_current_settings(exercise, set_id):
     return exercise.exercise_base.setting_set.filter(set_id=set_id)
 
 
-@register.inclusion_tag('tags/render_day.html')
-def render_day(day: Day, editable=True):
-    """
-    Renders a day as it will be displayed in the workout overview
-    """
-    return {
-        'day': day,
-        'workout': day.training,
-        'editable': editable,
-    }
-
-
 @register.inclusion_tag('tags/pagination.html')
 def pagination(paginator, page):
     """

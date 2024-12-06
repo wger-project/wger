@@ -48,7 +48,6 @@ from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
-from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -63,10 +62,8 @@ router = routers.DefaultRouter()
 #
 
 # Manager app
-router.register(r'day', manager_api_views.DayViewSet, basename='day')
-router.register(r'set', manager_api_views.SetViewSet, basename='Set')
-router.register(r'setting', manager_api_views.SettingViewSet, basename='Setting')
 router.register(r'workout', manager_api_views.WorkoutViewSet, basename='workout')
+router.register(r'routine', manager_api_views.RoutineViewSet, basename='routine')
 router.register(r'templates', manager_api_views.UserWorkoutTemplateViewSet, basename='templates')
 router.register(
     r'public-templates',
@@ -74,8 +71,67 @@ router.register(
     basename='public-templates',
 )
 router.register(
-    r'workoutsession', manager_api_views.WorkoutSessionViewSet, basename='workoutsession'
+    r'workoutsession',
+    manager_api_views.WorkoutSessionViewSet,
+    basename='workoutsession',
 )
+router.register(
+    r'day',
+    manager_api_views.RoutineDayViewSet,
+    basename='day',
+)
+router.register(
+    r'slot',
+    manager_api_views.SlotViewSet,
+    basename='slot',
+)
+router.register(
+    r'slot-entry',
+    manager_api_views.SlotEntryViewSet,
+    basename='slot-entry',
+)
+router.register(
+    r'weight-config',
+    manager_api_views.WeightConfigViewSet,
+    basename='weight-config',
+)
+router.register(
+    r'max-weight-config',
+    manager_api_views.MaxWeightConfigViewSet,
+    basename='max-weight-config',
+)
+router.register(
+    r'reps-config',
+    manager_api_views.RepsConfigViewSet,
+    basename='reps-config',
+)
+router.register(
+    r'max-reps-config',
+    manager_api_views.MaxRepsConfigViewSet,
+    basename='max-reps-config',
+)
+router.register(
+    r'sets-config',
+    manager_api_views.SetsConfigViewSet,
+    basename='sets-config',
+)
+router.register(
+    r'max-sets-config',
+    manager_api_views.MaxSetsConfigViewSet,
+    basename='max-sets-config',
+)
+router.register(
+    r'rest-config',
+    manager_api_views.RestConfigViewSet,
+    basename='rest-config',
+)
+router.register(
+    r'max-rest-config',
+    manager_api_views.MaxRestConfigViewSet,
+    basename='max-rest-config',
+)
+router.register(r'rir-config', manager_api_views.RiRConfigViewSet, basename='rir-config')
+router.register(r'max-rir-config', manager_api_views.MaxRiRConfigViewSet, basename='max-rir-config')
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='workoutlog')
 router.register(r'schedulestep', manager_api_views.ScheduleStepViewSet, basename='schedulestep')
 router.register(r'schedule', manager_api_views.ScheduleViewSet, basename='schedule')

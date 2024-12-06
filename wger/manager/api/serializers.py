@@ -19,23 +19,372 @@
 from rest_framework import serializers
 
 # wger
-from wger.core.api.serializers import DaysOfWeekSerializer
-from wger.core.models import DaysOfWeek
-from wger.exercises.api.serializers import (
-    ExerciseBaseInfoSerializer,
-    ExerciseSerializer,
-    MuscleSerializer,
-)
+from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.models import (
     Day,
+    MaxRepsConfig,
+    MaxRestConfig,
+    MaxRiRConfig,
+    MaxSetsConfig,
+    MaxWeightConfig,
+    RepsConfig,
+    RestConfig,
+    RiRConfig,
+    Routine,
     Schedule,
     ScheduleStep,
-    Set,
-    Setting,
+    SetsConfig,
+    Slot,
+    SlotEntry,
+    WeightConfig,
     Workout,
     WorkoutLog,
     WorkoutSession,
 )
+
+
+class RoutineSerializer(serializers.ModelSerializer):
+    """
+    Routine serializer
+    """
+
+    class Meta:
+        model = Routine
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created',
+            'start',
+            'end',
+            'fit_in_week',
+        )
+
+
+class DaySerializer(serializers.ModelSerializer):
+    """
+    Day serializer
+    """
+
+    class Meta:
+        model = Day
+        fields = (
+            'id',
+            'routine',
+            'order',
+            'name',
+            'description',
+            'is_rest',
+            'need_logs_to_advance',
+            'type',
+            'config',
+        )
+
+
+class WeightConfigSerializer(serializers.ModelSerializer):
+    """
+    Weight Config serializer
+    """
+
+    class Meta:
+        model = WeightConfig
+        fields = CONFIG_FIELDS
+
+
+class MaxWeightConfigSerializer(serializers.ModelSerializer):
+    """
+    Max Weight Config serializer
+    """
+
+    class Meta:
+        model = MaxWeightConfig
+        fields = CONFIG_FIELDS
+
+
+class RepsConfigSerializer(serializers.ModelSerializer):
+    """
+    Repetition Config serializer
+    """
+
+    class Meta:
+        model = RepsConfig
+        fields = CONFIG_FIELDS
+
+
+class MaxRepsConfigSerializer(serializers.ModelSerializer):
+    """
+    Max Repetition Config serializer
+    """
+
+    class Meta:
+        model = MaxRepsConfig
+        fields = CONFIG_FIELDS
+
+
+class SetNrConfigSerializer(serializers.ModelSerializer):
+    """
+    Set Nr config serializer
+    """
+
+    class Meta:
+        model = SetsConfig
+        fields = CONFIG_FIELDS
+
+
+class MaxSetNrConfigSerializer(serializers.ModelSerializer):
+    """
+    Max Set Nr config serializer
+    """
+
+    class Meta:
+        model = MaxSetsConfig
+        fields = CONFIG_FIELDS
+
+
+class RiRConfigSerializer(serializers.ModelSerializer):
+    """
+    RiR Config serializer
+    """
+
+    class Meta:
+        model = RiRConfig
+        fields = CONFIG_FIELDS
+
+
+class MaxRiRConfigSerializer(serializers.ModelSerializer):
+    """
+    RiR Config serializer
+    """
+
+    class Meta:
+        model = MaxRiRConfig
+        fields = CONFIG_FIELDS
+
+
+class RestConfigSerializer(serializers.ModelSerializer):
+    """
+    Rest Config serializer
+    """
+
+    class Meta:
+        model = RestConfig
+        fields = CONFIG_FIELDS
+
+
+class MaxRestConfigSerializer(serializers.ModelSerializer):
+    """
+    Rest Config serializer
+    """
+
+    class Meta:
+        model = MaxRestConfig
+        fields = CONFIG_FIELDS
+
+
+class SlotEntryStructureSerializer(serializers.ModelSerializer):
+    """
+    Slot entry
+    """
+
+    weight_configs = WeightConfigSerializer(source='weightconfig_set', many=True)
+    max_weight_configs = WeightConfigSerializer(source='maxweightconfig_set', many=True)
+    reps_configs = RepsConfigSerializer(source='repsconfig_set', many=True)
+    max_reps_configs = RepsConfigSerializer(source='maxrepsconfig_set', many=True)
+    set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
+    max_set_nr_configs = MaxSetNrConfigSerializer(source='maxsetsconfig_set', many=True)
+    rir_configs = RiRConfigSerializer(source='rirconfig_set', many=True)
+    max_rir_configs = MaxRiRConfigSerializer(source='maxrirconfig_set', many=True)
+    rest_configs = RestConfigSerializer(source='restconfig_set', many=True)
+    max_rest_configs = RestConfigSerializer(source='maxrestconfig_set', many=True)
+
+    class Meta:
+        model = SlotEntry
+        fields = (
+            'id',
+            'slot',
+            'exercise',
+            'order',
+            'comment',
+            'type',
+            'class_name',
+            'config',
+            'repetition_unit',
+            'repetition_rounding',
+            'reps_configs',
+            'max_reps_configs',
+            'weight_unit',
+            'weight_rounding',
+            'weight_configs',
+            'max_weight_configs',
+            'set_nr_configs',
+            'max_set_nr_configs',
+            'rir_configs',
+            'max_rir_configs',
+            'rest_configs',
+            'max_rest_configs',
+        )
+
+
+class SlotStructureSerializer(serializers.ModelSerializer):
+    """
+    Slot
+    """
+
+    entries = SlotEntryStructureSerializer(many=True)
+
+    class Meta:
+        model = Slot
+        fields = (
+            'id',
+            'day',
+            'order',
+            'comment',
+            'entries',
+            'config',
+        )
+
+
+class SlotSerializer(serializers.ModelSerializer):
+    """
+    Slot
+    """
+
+    class Meta:
+        model = Slot
+        fields = (
+            'id',
+            'day',
+            'order',
+            'comment',
+            'config',
+        )
+
+
+class DayStructureSerializer(serializers.ModelSerializer):
+    """
+    Day serializer
+    """
+
+    slots = SlotStructureSerializer(many=True)
+
+    class Meta:
+        model = Day
+        fields = (
+            'id',
+            'routine',
+            'order',
+            'name',
+            'description',
+            'is_rest',
+            'need_logs_to_advance',
+            'type',
+            'config',
+            'slots',
+        )
+
+
+class RoutineStructureSerializer(serializers.ModelSerializer):
+    """
+    Routine structure serializer
+    """
+
+    days = DayStructureSerializer(many=True)
+
+    class Meta:
+        model = Routine
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created',
+            'start',
+            'end',
+            'fit_in_week',
+            'days',
+        )
+
+
+class SlotEntrySerializer(serializers.ModelSerializer):
+    """
+    Slot entry serializer
+    """
+
+    class Meta:
+        model = SlotEntry
+        fields = (
+            'id',
+            'slot',
+            'exercise',
+            'type',
+            'repetition_unit',
+            'repetition_rounding',
+            'weight_unit',
+            'weight_rounding',
+            'order',
+            'comment',
+            'config',
+        )
+
+
+class SetConfigDataSerializer(serializers.Serializer):
+    """
+    SetConfigData serializer
+    """
+
+    slot_entry_id = serializers.IntegerField()
+    exercise = serializers.IntegerField()
+    sets = serializers.IntegerField()
+    max_sets = serializers.IntegerField()
+    weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    max_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    weight_unit = serializers.IntegerField()
+    weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
+    reps = serializers.DecimalField(max_digits=5, decimal_places=2)
+    max_reps = serializers.DecimalField(max_digits=5, decimal_places=2)
+    reps_unit = serializers.IntegerField()
+    reps_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
+    rir = serializers.DecimalField(max_digits=5, decimal_places=2)
+    rpe = serializers.DecimalField(max_digits=5, decimal_places=2)
+    rest = serializers.DecimalField(max_digits=5, decimal_places=2)
+    max_rest = serializers.DecimalField(max_digits=5, decimal_places=2)
+    type = serializers.CharField()
+    text_repr = serializers.CharField()
+    comment = serializers.CharField()
+
+
+class SlotDataSerializer(serializers.Serializer):
+    """
+    Slot Data serializer
+    """
+
+    comment = serializers.CharField()
+    is_superset = serializers.BooleanField()
+    exercises = serializers.ListSerializer(child=serializers.IntegerField())
+    sets = SetConfigDataSerializer(many=True)
+
+
+class WorkoutDayDataDisplayModeSerializer(serializers.Serializer):
+    """
+    WorkoutDayData serializer - display mode
+    """
+
+    iteration = serializers.IntegerField()
+    date = serializers.DateField()
+    label = serializers.CharField()
+    day = DaySerializer()
+    slots = SlotDataSerializer(many=True, source='slots_display_mode')
+
+
+class WorkoutDayDataGymModeSerializer(serializers.Serializer):
+    """
+    WorkoutDayData serializer - gym mode
+    """
+
+    iteration = serializers.IntegerField()
+    date = serializers.DateField()
+    label = serializers.CharField()
+    day = DaySerializer()
+    slots = SlotDataSerializer(many=True, source='slots_gym_mode')
 
 
 class WorkoutSerializer(serializers.ModelSerializer):
@@ -63,13 +412,18 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    user = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
-    )
-
     class Meta:
         model = WorkoutSession
-        fields = ['id', 'user', 'workout', 'date', 'notes', 'impression', 'time_start', 'time_end']
+        fields = [
+            'id',
+            'routine',
+            'day',
+            'date',
+            'notes',
+            'impression',
+            'time_start',
+            'time_end',
+        ]
 
 
 class WorkoutLogSerializer(serializers.ModelSerializer):
@@ -79,7 +433,64 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('user',)
+        fields = [
+            'id',
+            'date',
+            'session',
+            'routine',
+            'slot_entry',
+            'next_log',
+            'exercise',
+            'reps',
+            'repetition_unit',
+            'weight',
+            'weight_unit',
+            'rir',
+            'iteration',
+        ]
+
+
+class LogDisplaySerializer(serializers.Serializer):
+    """
+    Log Display Data serializer
+    """
+
+    session = WorkoutSessionSerializer()
+    logs = WorkoutLogSerializer(many=True)
+
+
+class LogDataSerializer(serializers.Serializer):
+    """
+    Log Stats Data serializer
+    """
+
+    exercises = serializers.DictField()
+    muscle = serializers.DictField()
+    upper_body = serializers.DecimalField(max_digits=10, decimal_places=2)
+    lower_body = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+
+class GroupedLogDataSerializer(serializers.Serializer):
+    """
+    Log Stats Data serializer
+    """
+
+    iteration = serializers.DictField(child=LogDataSerializer())
+    weekly = serializers.DictField(child=LogDataSerializer())
+    daily = serializers.DictField(child=LogDataSerializer())
+    mesocycle = LogDataSerializer()
+
+
+class LogStatsDataSerializer(serializers.Serializer):
+    """
+    Log Stats Data serializer
+    """
+
+    intensity = GroupedLogDataSerializer()
+    # tonnage = GroupedLogDataSerializer()
+    sets = GroupedLogDataSerializer()
+    volume = GroupedLogDataSerializer()
 
 
 class ScheduleStepSerializer(serializers.ModelSerializer):
@@ -100,130 +511,3 @@ class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         exclude = ('user',)
-
-
-class DaySerializer(serializers.ModelSerializer):
-    """
-    Workout day serializer
-    """
-
-    training = serializers.PrimaryKeyRelatedField(queryset=Workout.objects.all())
-    day = serializers.PrimaryKeyRelatedField(queryset=DaysOfWeek.objects.all(), many=True)
-
-    class Meta:
-        model = Day
-        fields = ['id', 'training', 'description', 'day']
-
-
-class SetSerializer(serializers.ModelSerializer):
-    """
-    Workout setting serializer
-    """
-
-    exerciseday = serializers.PrimaryKeyRelatedField(queryset=Day.objects.all())
-
-    class Meta:
-        model = Set
-        fields = ['id', 'exerciseday', 'sets', 'order', 'comment']
-
-
-class SettingSerializer(serializers.ModelSerializer):
-    """
-    Workout setting serializer
-    """
-
-    class Meta:
-        model = Setting
-        fields = [
-            'id',
-            'set',
-            'exercise_base',
-            'repetition_unit',
-            'reps',
-            'weight',
-            'weight_unit',
-            'rir',
-            'order',
-            'comment',
-        ]
-
-
-#
-# Custom helper serializers for the canonical form of a workout
-#
-class MusclesCanonicalFormSerializer(serializers.Serializer):
-    """
-    Serializer for the muscles in the canonical form of a day/workout
-    """
-
-    front = serializers.ListField(child=MuscleSerializer())
-    back = serializers.ListField(child=MuscleSerializer())
-    frontsecondary = serializers.ListField(child=MuscleSerializer())
-    backsecondary = serializers.ListField(child=MuscleSerializer())
-
-
-class WorkoutCanonicalFormExerciseImagesListSerializer(serializers.Serializer):
-    """
-    Serializer for settings in the canonical form of a workout
-    """
-
-    image = serializers.ReadOnlyField()
-    is_main = serializers.ReadOnlyField()
-
-
-class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
-    """
-    Serializer for settings in the canonical form of a workout
-    """
-
-    setting_obj_list = SettingSerializer(many=True)
-    setting_list = serializers.ReadOnlyField()
-    setting_text = serializers.ReadOnlyField()
-    reps_list = serializers.ReadOnlyField()
-    has_weight = serializers.ReadOnlyField()
-    weight_list = serializers.ReadOnlyField()
-    comment_list = serializers.ReadOnlyField()
-    image_list = WorkoutCanonicalFormExerciseImagesListSerializer(many=True)
-    obj = ExerciseBaseInfoSerializer()
-
-
-class WorkoutCanonicalFormExerciseSerializer(serializers.Serializer):
-    """
-    Serializer for an exercise in the canonical form of a workout
-    """
-
-    obj = SetSerializer()
-    exercise_list = WorkoutCanonicalFormExerciseListSerializer(many=True)
-    is_superset = serializers.BooleanField()
-    settings_computed = SettingSerializer(many=True)
-    muscles = MusclesCanonicalFormSerializer()
-
-
-class DaysOfWeekCanonicalFormSerializer(serializers.Serializer):
-    """
-    Serializer for a days of week in the canonical form of a workout
-    """
-
-    text = serializers.ReadOnlyField()
-    day_list = serializers.ListField(child=DaysOfWeekSerializer())
-
-
-class DayCanonicalFormSerializer(serializers.Serializer):
-    """
-    Serializer for a day in the canonical form of a workout
-    """
-
-    obj = DaySerializer()
-    set_list = WorkoutCanonicalFormExerciseSerializer(many=True)
-    days_of_week = DaysOfWeekCanonicalFormSerializer()
-    muscles = MusclesCanonicalFormSerializer()
-
-
-class WorkoutCanonicalFormSerializer(serializers.Serializer):
-    """
-    Serializer for the canonical form of a workout
-    """
-
-    obj = WorkoutSerializer()
-    day_list = DayCanonicalFormSerializer(many=True)
-    muscles = MusclesCanonicalFormSerializer()

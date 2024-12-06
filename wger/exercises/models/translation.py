@@ -31,20 +31,17 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
-from wger.exercises.models import ExerciseBase
-from wger.utils.cache import (
-    reset_exercise_api_cache,
-    reset_workout_canonical_form,
-)
+from wger.exercises.models import Exercise
+from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
 )
 
 
-class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
+class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
-    Model for an exercise
+    Model for an exercise translation
     """
 
     description = models.TextField(
@@ -88,12 +85,12 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """Globally unique ID, to identify the exercise across installations"""
 
     exercise_base = models.ForeignKey(
-        ExerciseBase,
+        Exercise,
         verbose_name='ExerciseBase',
         on_delete=models.CASCADE,
         default=None,
         null=False,
-        related_name='exercises',
+        related_name='translations',
     )
     """ Refers to the base exercise with non translated information """
 
@@ -130,17 +127,10 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         # Api cache
         reset_exercise_api_cache(self.exercise_base.uuid)
 
-        # Cached workouts
-        for setting in self.exercise_base.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training_id)
-
     def delete(self, *args, **kwargs):
         """
         Reset all cached infos
         """
-        # Cached workouts
-        for setting in self.exercise_base.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         # Api cache
         reset_exercise_api_cache(self.exercise_base.uuid)
@@ -187,8 +177,8 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         out = []
         if self.exercise_base.variations:
-            for variation in self.exercise_base.variations.exercisebase_set.all():
-                for exercise in variation.exercises.filter(language=self.language).all():
+            for variation in self.exercise_base.variations.exercise_set.all():
+                for exercise in variation.translations.filter(language=self.language).all():
                     out.append(exercise)
         return out
 

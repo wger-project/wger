@@ -37,7 +37,7 @@ except ImportError:
     ffmpeg = None
 
 # wger
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -94,7 +94,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """Globally unique ID, to identify the image across installations"""
 
     exercise_base = models.ForeignKey(
-        ExerciseBase,
+        Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )

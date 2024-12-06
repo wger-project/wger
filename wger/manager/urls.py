@@ -17,7 +17,6 @@
 
 # Django
 from django.conf.urls import include
-from django.contrib.auth.decorators import login_required
 from django.urls import (
     path,
     re_path,
@@ -26,15 +25,12 @@ from django.urls import (
 # wger
 from wger.core.views.react import ReactView
 from wger.manager.views import (
-    day,
     ical,
-    log,
     pdf,
+    routine,
     schedule,
     schedule_step,
-    set,
     workout,
-    workout_session,
 )
 
 
@@ -44,16 +40,6 @@ patterns_log = [
         '<int:pk>/view',
         ReactView.as_view(login_required=True),
         name='log',
-    ),
-    path(
-        '<int:pk>/edit',  # JS
-        log.WorkoutLogUpdateView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        log.WorkoutLogDeleteView.as_view(),
-        name='delete',
     ),
 ]
 
@@ -81,43 +67,21 @@ patterns_templates = [
     ),
 ]
 
-# sub patterns for workouts
-patterns_workout = [
+# sub patterns for days
+patterns_days = [
     path(
-        'overview',
-        ReactView.as_view(login_required=True),
+        '<int:day_pk>/add-logs',
+        ReactView.as_view(),
         name='overview',
     ),
-    path(
-        'add',
-        workout.add,
-        name='add',
-    ),
-    path(
-        '<int:pk>/copy',
-        workout.copy_workout,
-        name='copy',
-    ),
-    path(
-        '<int:pk>/edit',
-        workout.WorkoutEditView.as_view(),
-        name='edit',
-    ),
+]
+
+# sub patterns for workouts
+patterns_workout = [
     path(
         '<int:pk>/make-template',
         workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
-    ),
-    path(
-        '<int:pk>/delete',
-        workout.WorkoutDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/view',
-        # ReactView.as_view(login_required=True),
-        workout.view,
-        name='view',
     ),
     path(
         'calendar',
@@ -134,112 +98,39 @@ patterns_workout = [
         ical.export,
         name='ical',
     ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),  # JS!
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    path(
-        '<int:id>/pdf/log',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),  # JS!
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
-    path(
-        '<int:id>/pdf/table',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
 ]
 
-# sub patterns for workout sessions
-patterns_session = [
-    re_path(
-        r'^(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
-        workout_session.WorkoutSessionAddView.as_view(),
+# sub patterns for workouts
+patterns_routine = [
+    path(
+        'overview',
+        ReactView.as_view(login_required=True),
+        name='overview',
+    ),
+    path(
+        'add',
+        ReactView.as_view(login_required=True),
         name='add',
     ),
     path(
-        '<int:pk>/edit',
-        workout_session.WorkoutSessionUpdateView.as_view(),
-        name='edit',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/delete/(?P<logs>session|logs)?$',
-        workout_session.WorkoutSessionDeleteView.as_view(),
-        name='delete',
-    ),
-]
-
-# sub patterns for workout days
-patterns_day = [
-    path(
-        '<int:pk>/edit',
-        login_required(day.DayEditView.as_view()),
-        name='edit',
+        '<int:pk>/view',
+        ReactView.as_view(login_required=True),
+        name='view',
     ),
     path(
-        '<int:workout_pk>/add',
-        login_required(day.DayCreateView.as_view()),
-        name='add',
+        '<int:pk>/copy',
+        routine.copy_routine,
+        name='copy',
     ),
     path(
-        '<int:pk>/delete',
-        day.delete,
-        name='delete',
+        '<int:pk>/pdf/log',
+        pdf.workout_log,
+        name='pdf-log',
     ),
     path(
-        '<int:pk>/log/add',
-        log.add,
-        name='log',
-    ),
-]
-
-# sub patterns for workout sets
-patterns_set = [
-    path(
-        '<int:day_pk>/add',
-        set.create,
-        name='add',
-    ),
-    path(
-        'get-formset/<int:base_pk>/<int:reps>',
-        set.get_formset,
-        name='get-formset',
-    ),  # Used by JS
-    path(
-        '<int:pk>/delete',
-        set.delete,
-        name='delete',
-    ),
-    path(
-        '<int:pk>/edit',
-        set.edit,
-        name='edit',
+        '<int:pk>/pdf/table',
+        pdf.workout_view,
+        name='pdf-table',
     ),
 ]
 
@@ -348,11 +239,10 @@ patterns_step = [
 
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace='workout')),
+    path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
+    path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
-    path('day/', include((patterns_day, 'day'), namespace='day')),
-    path('set/', include((patterns_set, 'set'), namespace='set')),
-    path('session/', include((patterns_session, 'session'), namespace='session')),
     path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
     path('schedule/step/', include((patterns_step, 'step'), namespace='step')),
 ]

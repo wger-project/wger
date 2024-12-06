@@ -30,9 +30,9 @@ from wger.exercises.models import (
     Alias,
     Equipment,
     Exercise,
-    ExerciseBase,
     ExerciseCategory,
     ExerciseVideo,
+    Translation,
     Variation,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
@@ -121,12 +121,12 @@ class Command(BaseCommand):
                 continue
 
             base = (
-                ExerciseBase.objects.get_or_create(
+                Exercise.objects.get_or_create(
                     uuid=base_uuid,
                     defaults={'category': ExerciseCategory.objects.get(name=base_category)},
                 )[0]
                 if not new_base
-                else ExerciseBase()
+                else Exercise()
             )
 
             # Update the base data
@@ -204,11 +204,11 @@ class Command(BaseCommand):
                     continue
 
                 translation = (
-                    Exercise.objects.get_or_create(
+                    Translation.objects.get_or_create(
                         uuid=exercise_uuid, defaults={'exercise_base': base, 'language': language}
                     )[0]
                     if not new_translation
-                    else Exercise()
+                    else Translation()
                 )
                 translation.exercise_base = base
                 translation.language = language
@@ -274,22 +274,22 @@ class Command(BaseCommand):
 
             if base_uuid:
                 try:
-                    ExerciseBase.objects.filter(uuid=base_uuid).delete()
+                    Exercise.objects.filter(uuid=base_uuid).delete()
                     self.stdout.write(f'* Deleted base {base_uuid}')
-                except ExerciseBase.DoesNotExist:
+                except Exercise.DoesNotExist:
                     pass
 
             if translation_uuid:
                 try:
-                    Exercise.objects.filter(uuid=translation_uuid).delete()
+                    Translation.objects.filter(uuid=translation_uuid).delete()
                     self.stdout.write(f'* Deleted translation {translation_uuid}')
-                except Exercise.DoesNotExist:
+                except Translation.DoesNotExist:
                     pass
 
             if variation_id:
                 try:
                     Variation.objects.filter(id=variation_id).delete()
                     self.stdout.write(f'* Deleted variation {variation_id}')
-                except Exercise.DoesNotExist:
+                except Translation.DoesNotExist:
                     pass
         csv_file.close()

@@ -24,6 +24,7 @@ from django.utils import translation
 # Third Party
 from reportlab.lib import colors
 from reportlab.lib.colors import HexColor
+from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.styles import (
     ParagraphStyle,
     StyleSheet1,
@@ -73,11 +74,17 @@ def render_footer(url, date=None):
     if not date:
         date = datetime.date.today().strftime('%d.%m.%Y')
 
+    style = ParagraphStyle(
+        'FooterStyle',
+        parent=styleSheet['Normal'],
+        alignment=TA_CENTER,
+    )
+
     p = Paragraph(
         f"""<para>
-                {date} - <a href="{url}">{url}</a> - wger Workout Manager {get_version()}
+                {date} - <a href="{url}">{url}</a> - wger {get_version()}
             </para>""",
-        styleSheet['Normal'],
+        style,
     )
     return p
 
@@ -147,6 +154,15 @@ styleSheet.add(
     ParagraphStyle(
         parent=styleSheet['Normal'],
         name='SubHeader',
+        fontName='OpenSans-Bold',
+        textColor=colors.white,
+    )
+)
+styleSheet.add(
+    ParagraphStyle(
+        parent=styleSheet['Normal'],
+        fontSize=7,
+        name='SubHeaderSmall',
         fontName='OpenSans-Bold',
         textColor=colors.white,
     )

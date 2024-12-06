@@ -73,12 +73,12 @@ from wger.exercises.models import (
     DeletionLog,
     Equipment,
     Exercise,
-    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     ExerciseVideo,
     Muscle,
+    Translation,
     Variation,
 )
 from wger.exercises.views.helper import StreamVerbs
@@ -103,7 +103,7 @@ class ExerciseBaseViewSet(ModelViewSet):
     For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
 
-    queryset = ExerciseBase.translations.all()
+    queryset = Exercise.with_translations.all()
     serializer_class = ExerciseBaseSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
@@ -136,7 +136,7 @@ class ExerciseBaseViewSet(ModelViewSet):
             action_object=serializer.instance,
         )
 
-    def perform_destroy(self, instance: ExerciseBase):
+    def perform_destroy(self, instance: Exercise):
         """Manually delete the exercise and set the replacement, if any"""
 
         uuid = self.request.query_params.get('replaced_by', '')
@@ -153,7 +153,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     API endpoint for editing or adding exercise translation objects.
     """
 
-    queryset = Exercise.objects.all()
+    queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
@@ -223,7 +223,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     This is only kept for backwards compatibility and will be removed in the future
     """
 
-    queryset = Exercise.objects.all()
+    queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
@@ -251,7 +251,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
 
-        qs = Exercise.objects.all()
+        qs = Translation.objects.all()
 
         category = self.request.query_params.get('category')
         muscles = self.request.query_params.get('muscles')
@@ -350,9 +350,9 @@ def search(request):
     # Filter the appropriate languages
     languages = [load_language(l) for l in language_codes.split(',')]
     if language_codes == SEARCH_ALL_LANGUAGES:
-        query = Exercise.objects.all()
+        query = Translation.objects.all()
     else:
-        query = Exercise.objects.filter(language__in=languages)
+        query = Translation.objects.filter(language__in=languages)
 
     query = query.only('name')
 
@@ -402,7 +402,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
     """
 
-    queryset = Exercise.objects.all()
+    queryset = Translation.objects.all()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -434,7 +434,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     is the recommended way to access the exercise data.
     """
 
-    queryset = ExerciseBase.objects.all()
+    queryset = Exercise.objects.all()
     serializer_class = ExerciseBaseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -611,7 +611,7 @@ class ExerciseCommentViewSet(ModelViewSet):
         qs = ExerciseComment.objects.all()
         language = self.request.query_params.get('language')
         if language:
-            exercises = Exercise.objects.filter(language=language)
+            exercises = Translation.objects.filter(language=language)
             qs = ExerciseComment.objects.filter(exercise__in=exercises)
         return qs
 
