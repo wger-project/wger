@@ -15,17 +15,17 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2022-05-24 21:14+0000\n"
-"Last-Translator: Konstantin <konstantin.photo@gmx.com>\n"
+"PO-Revision-Date: 2024-12-11 21:00+0000\n"
+"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.13-dev\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -237,10 +237,8 @@ msgid "Language full name"
 msgstr "Полное обозночение языка"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Полное обозночение языка"
+msgstr "Полное название языка на английском"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -478,7 +476,7 @@ msgstr "Запрещено!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "Вы не можете получить доступ к этой странице"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -558,6 +556,8 @@ msgstr "Календарь для %(username)s"
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Пожалуйста, нажмите <a href=\"%(link)s\"> здесь </a>, чтобы подтвердить вашу "
+"электронную почту"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
@@ -574,6 +574,8 @@ msgstr ""
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"Пожалуйста, перейдите по ссылке, чтобы подтвердить вашу электронную почту: "
+"%(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:432
 msgid "Dashboard"
@@ -1425,7 +1427,6 @@ msgid "Alias for an exercise"
 msgstr "Исправить упражнение"
 
 #: exercises/models/image.py:57
-#, fuzzy
 msgid "Line"
 msgstr "Линия"
 
@@ -1479,20 +1480,17 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Латинское название (например: \"Pectoralis major\")"
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "название упражнения"
+msgstr "Альтернативное название"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
 msgstr ""
 
 #: exercises/models/video.py:52
-#, fuzzy, python-format
-#| msgid "Maximum file size is 100MB."
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Максимальный размер файла - 100 МБ."
+msgstr "Максимальный размер файла - %(size)s МБ."
 
 #: exercises/models/video.py:59 exercises/models/video.py:67
 msgid "File type is not supported"
@@ -1545,10 +1543,8 @@ msgid "Exercise admin history"
 msgstr "День упражнений"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Действия"
+msgstr "Действие"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:46
 #: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
@@ -1562,11 +1558,8 @@ msgid "User"
 msgstr "Пользователь"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Тема"
+msgstr "Объект"
 
 #: exercises/templates/history/overview.html:31
 #, fuzzy
@@ -1960,14 +1953,10 @@ msgid "Bench"
 msgstr "Скамейка"
 
 #: i18n.tpl:7
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
 msgstr "Бицепс"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
 msgstr "Вес тела"
 
@@ -1977,7 +1966,7 @@ msgstr "Икры"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Кардио"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -2015,10 +2004,8 @@ msgid "Kilometers"
 msgstr "Километров"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Километров"
+msgstr "Километров в час"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2042,7 +2029,7 @@ msgstr "Миль"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Миль в час"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2082,8 +2069,6 @@ msgid "Swiss Ball"
 msgstr "Фитбол"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
 msgstr "Трицепс"
 
@@ -2788,7 +2773,6 @@ msgid "This will delete all weight logs for this day as well."
 msgstr "Это приведет также к удалению всех записей весов за этот день."
 
 #: measurements/models/measurement.py:52
-#, fuzzy
 msgid "Value"
 msgstr "Значение"
 
@@ -2799,10 +2783,8 @@ msgid "Height (in)"
 msgstr "Рост (см)"
 
 #: nutrition/forms.py:121
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "Регистрация веса"
+msgstr "Вес (кг)"
 
 #: nutrition/forms.py:121
 #, fuzzy
@@ -3175,7 +3157,7 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
@@ -3247,17 +3229,15 @@ msgstr ""
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Мобильное приложение"
 
 #: software/templates/features.html:68
 msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:455
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Комментарий"
+msgstr "Сообщество"
 
 #: software/templates/features.html:107
 msgid "Track your <br> way to your <br> ideal body"
@@ -3346,10 +3326,8 @@ msgid "Add custom notes"
 msgstr "Добавить пользовательскую запись в дневник"
 
 #: software/templates/features.html:248
-#, fuzzy
-#| msgid "Body weight"
 msgid "Record your weight"
-msgstr "Вес тела"
+msgstr "Запишите свой вес"
 
 #: software/templates/features.html:251
 msgid "Keep a photo log to see your progress"
@@ -3453,15 +3431,13 @@ msgstr ""
 
 #: software/templates/features.html:485
 msgid "Software"
-msgstr ""
+msgstr "Программное обеспечение"
 
 #: software/templates/features.html:491
 msgid "Report an issue"
-msgstr ""
+msgstr "Сообщить о проблеме"
 
 #: software/templates/features.html:497
-#, fuzzy
-#| msgid "Source code"
 msgid "Source Code"
 msgstr "Исходный код"
 
@@ -3478,10 +3454,8 @@ msgid "Link to original object, if available"
 msgstr ""
 
 #: utils/models.py:63
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
-msgstr "Автор"
+msgstr "Автор(ы)"
 
 #: utils/models.py:67
 #, fuzzy
