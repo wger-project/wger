@@ -8,6 +8,7 @@ from datetime import timedelta
 
 def migrate_forward(apps, schema_editor):
     workouts_to_routines = migrate_routines(apps)
+    migrate_sessions(apps, workouts_to_routines)
     migrate_logs(apps, workouts_to_routines)
 
 
@@ -41,7 +42,7 @@ def migrate_routines(apps) -> dict[int, Any]:
             user=workout.user,
             created=workout.creation_date,
             start=next_monday,
-            end=next_monday + timedelta(weeks=4 * 6),
+            end=next_monday + timedelta(weeks=16),
             is_template=workout.is_template,
             is_public=workout.is_public,
             fit_in_week=False,
@@ -139,6 +140,14 @@ def migrate_routines(apps) -> dict[int, Any]:
     return workouts_to_routines
 
 
+def migrate_sessions(apps, workout_to_routine: dict[int, Any]) -> None:
+    Session = apps.get_model('manager', 'WorkoutSession')
+    for session in Session.objects.all():
+        if session.workout:
+            session.routine = workout_to_routine[session.workout.id]
+            session.save()
+
+
 def migrate_logs(apps, workout_to_routine: dict[int, Any]) -> None:
     """
     Migrates all logs to the new data model (basically setting the routine and session)
@@ -147,20 +156,18 @@ def migrate_logs(apps, workout_to_routine: dict[int, Any]) -> None:
     Log = apps.get_model('manager', 'WorkoutLog')
     Session = apps.get_model('manager', 'WorkoutSession')
 
-    session_dict = {}
-
     for log in Log.objects.all():
-        session = session_dict.get(log.date, None)
-        if not session:
-            session, created = Session.objects.get_or_create(
-                user=log.user,
-                date=log.date.date(),
-                defaults={
-                    'workout': log.workout,
-                    'routine': workout_to_routine[log.workout.id],
-                },
-            )
-            session_dict[log.date] = session
+        if not log.workout:
+            continue
+
+        session, created = Session.objects.get_or_create(
+            user=log.user,
+            date=log.date.date(),
+            routine=workout_to_routine[log.workout.id],
+            defaults={
+                'workout': log.workout,
+            },
+        )
 
         log.routine = workout_to_routine[log.workout.id]
         log.session = session

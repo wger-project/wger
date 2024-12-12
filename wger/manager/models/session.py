@@ -132,7 +132,7 @@ class WorkoutSession(models.Model):
         ordering = [
             'date',
         ]
-        unique_together = ('date', 'user')
+        unique_together = ('date', 'user', 'routine')
 
     def clean(self):
         """

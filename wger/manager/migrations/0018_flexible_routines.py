@@ -409,6 +409,10 @@ class Migration(migrations.Migration):
                 to='manager.routine',
             ),
         ),
+        migrations.AlterUniqueTogether(
+            name='workoutsession',
+            unique_together={('date', 'user', 'routine')},
+        ),
         migrations.CreateModel(
             name='WeightConfig',
             fields=[
