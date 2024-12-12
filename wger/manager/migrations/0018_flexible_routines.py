@@ -6,6 +6,8 @@ import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
 
+import wger.manager.validators
+
 
 class Migration(migrations.Migration):
     dependencies = [
@@ -102,6 +104,48 @@ class Migration(migrations.Migration):
             model_name='workoutlog',
             name='date',
             field=models.DateTimeField(default=datetime.datetime.now, verbose_name='Date'),
+        ),
+        migrations.AddField(
+            model_name='workoutlog',
+            name='reps_target',
+            field=models.IntegerField(
+                null=True,
+                validators=[wger.manager.validators.NullMinValueValidator(0)],
+                verbose_name='Repetitions',
+            ),
+        ),
+        migrations.AddField(
+            model_name='workoutlog',
+            name='rir_target',
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    (None, '------'),
+                    ('0', 0),
+                    ('0.5', 0.5),
+                    ('1', 1),
+                    ('1.5', 1.5),
+                    ('2', 2),
+                    ('2.5', 2.5),
+                    ('3', 3),
+                    ('3.5', 3.5),
+                    ('4', 4),
+                ],
+                max_length=3,
+                null=True,
+                verbose_name='RiR',
+            ),
+        ),
+        migrations.AddField(
+            model_name='workoutlog',
+            name='weight_target',
+            field=models.DecimalField(
+                decimal_places=2,
+                max_digits=5,
+                null=True,
+                validators=[wger.manager.validators.NullMinValueValidator(0)],
+                verbose_name='Weight',
+            ),
         ),
         migrations.AlterField(
             model_name='workoutsession',

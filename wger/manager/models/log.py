@@ -32,6 +32,7 @@ from wger.exercises.models import Exercise
 from wger.manager.consts import RIR_OPTIONS
 from wger.manager.managers import WorkoutLogManager
 from wger.manager.models.session import WorkoutSession
+from wger.manager.validators import NullMinValueValidator
 from wger.utils.cache import reset_workout_log
 
 
@@ -109,7 +110,7 @@ class WorkoutLog(models.Model):
         on_delete=models.CASCADE,
     )
     """
-    The unit of the log. This can be e.g. a repetition, a minute, etc.
+    The repetition unit of the log. This can be e.g. a repetition, a minute, etc.
     """
 
     reps = models.IntegerField(
@@ -117,18 +118,17 @@ class WorkoutLog(models.Model):
         validators=[MinValueValidator(0)],
     )
     """
-    Amount of repetitions, minutes, etc.
-
-    Note that since adding the unit field, the name is no longer correct, but is
-    kept for compatibility reasons (specially for the REST API).
+    Logged amount of repetitions
     """
 
-    weight = models.DecimalField(
-        decimal_places=2,
-        max_digits=5,
-        verbose_name=_('Weight'),
-        validators=[MinValueValidator(0)],
+    reps_target = models.IntegerField(
+        verbose_name=_('Repetitions'),
+        validators=[NullMinValueValidator(0)],
+        null=True,
     )
+    """
+    Target amount of repetitions
+    """
 
     weight_unit = models.ForeignKey(
         WeightUnit,
@@ -140,6 +140,27 @@ class WorkoutLog(models.Model):
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
     """
 
+    weight = models.DecimalField(
+        decimal_places=2,
+        max_digits=5,
+        verbose_name=_('Weight'),
+        validators=[MinValueValidator(0)],
+    )
+    """
+    Logged amount of weight
+    """
+
+    weight_target = models.DecimalField(
+        decimal_places=2,
+        max_digits=5,
+        verbose_name=_('Weight'),
+        validators=[NullMinValueValidator(0)],
+        null=True,
+    )
+    """
+    Target amount of weight
+    """
+
     rir = models.CharField(
         verbose_name=_('RiR'),
         max_length=3,
@@ -148,8 +169,19 @@ class WorkoutLog(models.Model):
         choices=RIR_OPTIONS,
     )
     """
-    Reps in reserve, RiR. The amount of reps that could realistically still be
+    Reps in Reserve, RiR. The amount of reps that could realistically still be
     done in the set.
+    """
+
+    rir_target = models.CharField(
+        verbose_name=_('RiR'),
+        max_length=3,
+        blank=True,
+        null=True,
+        choices=RIR_OPTIONS,
+    )
+    """
+    Target Reps in Reserve
     """
 
     # Metaclass to set some other properties

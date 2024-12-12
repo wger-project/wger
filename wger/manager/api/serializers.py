@@ -452,11 +452,14 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'slot_entry',
             'next_log',
             'exercise',
-            'reps',
             'repetition_unit',
-            'weight',
+            'reps',
+            'reps_target',
             'weight_unit',
+            'weight',
+            'weight_target',
             'rir',
+            'rir_target',
             'iteration',
         ]
 
