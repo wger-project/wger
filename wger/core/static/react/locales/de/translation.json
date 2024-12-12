@@ -180,7 +180,7 @@
         "ofWhichSugars": "davon Zucker",
         "fat": "Fett",
         "others": "Sonstige",
-        "fibres": "Ballastoffe",
+        "fibres": "Ballaststoffe",
         "sodium": "Natrium",
         "planDeleteInfo": "Dies wird ebenfalls alle Nahrungstagebucheinträge löschen",
         "mealDeleteInfo": "Ernährungstagebucheinträge zu dieser Mahlzeit werden nicht gelöscht und erscheinen unter \"andere Protokolle\"",
@@ -225,5 +225,20 @@
     "filters": "Filter",
     "calendar": "Kalender",
     "entries": "Einträge",
-    "no_entries_for_day": "Keine Einträge für diesen Tag"
+    "no_entries_for_day": "Keine Einträge für diesen Tag",
+    "height": "Grösse",
+    "cm": "cm",
+    "all": "Alle",
+    "lastYear": "Letztes Jahr",
+    "lastHalfYear": "In den letzten 6 Monate",
+    "lastMonth": "Letzter Monat",
+    "lastWeek": "Letzte Woche",
+    "bmi": {
+        "overweight": "Übergewicht",
+        "obese": "Fettleibig",
+        "normal": "Normales Gewicht",
+        "calculator": "BMI Rechner",
+        "underweight": "Untergewicht",
+        "result": "Dein BMI ist {{value}}"
+    }
 }
