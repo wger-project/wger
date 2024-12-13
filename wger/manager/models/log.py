@@ -209,17 +209,12 @@ class WorkoutLog(models.Model):
         if self.routine and self.routine.user != self.user:
             return
 
-        # If the user of session is not this user, remove foreign key
-        if self.session and self.session.user != self.user:
-            self.session = None
-
         # If there is no session for this date and routine, create one
-        if not self.session:
-            self.session = WorkoutSession.objects.get_or_create(
-                user=self.user,
-                date=self.date,
-                routine=self.routine,
-            )[0]
+        self.session = WorkoutSession.objects.get_or_create(
+            user=self.user,
+            date=self.date,
+            routine=self.routine,
+        )[0]
 
         # Reset cache
         reset_workout_log(
