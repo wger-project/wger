@@ -23,7 +23,7 @@ from django.core.management import call_command
 # wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.manager.models import Workout
+from wger.manager.models import Routine
 
 
 class EmailReminderTestCase(WgerTestCase):
@@ -33,11 +33,19 @@ class EmailReminderTestCase(WgerTestCase):
     User 2 has setting in profile active
     """
 
+    def setUp(self):
+        super().setUp()
+
+        routine = Routine.objects.get(pk=2)
+        routine.start = datetime.date.today() - datetime.timedelta(weeks=10)
+        routine.end = datetime.date.today() - datetime.timedelta(days=3)
+        routine.save()
+
     def test_reminder_no_workouts(self):
         """
         Test with no schedules or workouts
         """
-        Workout.objects.all().delete()
+        Routine.objects.all().delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)
@@ -45,11 +53,8 @@ class EmailReminderTestCase(WgerTestCase):
     def test_reminder_one_workout(self):
         """
         Test user with no schedules but one workout
-
-        User 2, workout created 2012-11-20
         """
-
-        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+        Routine.objects.exclude(user_id=2).delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 1)
@@ -57,15 +62,13 @@ class EmailReminderTestCase(WgerTestCase):
     def test_reminder_skip_if_no_email(self):
         """
         Tests that no emails are sent if the user has provided no email
-
-        User 2, workout created 2012-11-20
         """
 
         user = User.objects.get(pk=2)
         user.email = ''
         user.save()
 
-        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+        Routine.objects.exclude(user_id=2).delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)
@@ -74,15 +77,13 @@ class EmailReminderTestCase(WgerTestCase):
         """
         Test that no emails are sent if the last notification field is more
         recent than one week.
-
-        User 2, workout created 2012-11-20
         """
 
         profile = UserProfile.objects.get(user=2)
         profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=3)
         profile.save()
 
-        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+        Routine.objects.exclude(user_id=2).delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)
@@ -91,15 +92,13 @@ class EmailReminderTestCase(WgerTestCase):
         """
         Test that no emails are sent if the last notification field is more
         than one week away.
-
-        User 2, workout created 2012-11-20
         """
 
         profile = UserProfile.objects.get(user=2)
         profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=10)
         profile.save()
 
-        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+        Routine.objects.exclude(user_id=2).delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 1)
@@ -115,20 +114,20 @@ class EmailReminderTestCase(WgerTestCase):
         profile.last_workout_notification = None
         profile.save()
 
-        Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
+        Routine.objects.exclude(user_id=2).delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 1)
 
     def test_reminder_setting_off(self):
         """
-        Test user with no schedules, one workout but setting in profile off
+        Test user with one routine but setting in profile off
         """
 
         user = User.objects.get(pk=2)
         user.userprofile.workout_reminder_active = False
         user.userprofile.save()
-        Workout.objects.exclude(user=user).delete()
+        Routine.objects.exclude(user=user).delete()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)

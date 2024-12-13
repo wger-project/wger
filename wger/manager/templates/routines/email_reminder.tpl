@@ -1,8 +1,8 @@
 {% spaceless %}{% load i18n %}
 {% if expired %}
-    {% blocktranslate %}Your current workout '{{workout}}' expired {{days}} days ago.{% endblocktranslate %}
+    {% blocktranslate %}Your current workout '{{routine}}' expired {{days}} days ago.{% endblocktranslate %}
 {% else %}
-    {% blocktranslate %}Your current workout '{{workout}}' is about to expire in {{days}} days.{% endblocktranslate %}
+    {% blocktranslate %}Your current workout '{{routine}}' is about to expire in {{days}} days.{% endblocktranslate %}
 {% endif %}
 {% endspaceless %}
 
@@ -15,6 +15,6 @@ option in your settings.{% endblocktranslate %}
 — {% blocktranslate %}The {{ site }} team{% endblocktranslate %}
 
 
-* https://{{site}}{{workout.get_absolute_url}}
-* https://{{site}}{% url 'manager:workout:add' %}
+* https://{{site}}{{routine.get_absolute_url}}
+* https://{{site}}{% url 'manager:routine:overview' %}
 * https://{{site}}{% url 'core:user:preferences' %}
