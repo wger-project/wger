@@ -42,7 +42,6 @@ from reportlab.platypus import (
 # wger
 from wger.nutrition.consts import MEALITEM_WEIGHT_GRAM
 from wger.nutrition.models import NutritionPlan
-from wger.utils.helpers import check_token
 from wger.utils.pdf import (
     get_logo,
     header_colour,
@@ -50,7 +49,6 @@ from wger.utils.pdf import (
     row_color,
     styleSheet,
 )
-
 
 logger = logging.getLogger(__name__)
 

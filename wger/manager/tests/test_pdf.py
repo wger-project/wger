@@ -18,7 +18,6 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.utils.helpers import make_token
 
 
 class RoutinePdfLogExportTestCase(WgerTestCase):
