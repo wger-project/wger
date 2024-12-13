@@ -107,7 +107,6 @@ def export(request, pk):
 
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
-    response['Content-Disposition'] = f'attachment; filename=Calendar-workout-{routine.pk}.ics'
     response.write(calendar.to_ical())
     response['Content-Length'] = len(response.content)
     return response

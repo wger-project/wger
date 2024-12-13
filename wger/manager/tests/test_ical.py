@@ -39,9 +39,6 @@ class WorkoutICalExportTestCase(WgerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'text/calendar')
-            self.assertEqual(
-                response['Content-Disposition'], 'attachment; filename=Calendar-workout-3.ics'
-            )
 
             # Approximate size
             self.assertGreater(len(response.content), 50)
