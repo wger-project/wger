@@ -31,7 +31,6 @@ from wger.manager.views import (
     workout,
 )
 
-
 # sub patterns for workout logs
 patterns_log = [
     path(
@@ -85,11 +84,6 @@ patterns_workout = [
         'calendar',
         ReactView.as_view(login_required=True),
         name='calendar',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        ical.export,
-        name='ical',
     ),
     path(
         '<int:pk>/ical',
