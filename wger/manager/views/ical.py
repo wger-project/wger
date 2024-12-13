@@ -37,6 +37,7 @@ from icalendar.tools import UIDGenerator
 from wger import get_version
 from wger.manager.models import Routine
 
+
 logger = logging.getLogger(__name__)
 """
 Exports workouts and schedules as an iCal file that can be imported to a
@@ -75,14 +76,13 @@ def get_events_workout(calendar, routine: Routine):
     site = Site.objects.get_current()
 
     for day_data in routine.date_sequence:
-
         if day_data.day.is_rest:
             continue
 
         event = Event()
         event.add('summary', day_data.day.name)
         event.add('description', day_data.day.description)
-        event.add('dtstart', day_data.date),
+        event.add('dtstart', day_data.date)
         event.add('dtend', day_data.date)
         event['uid'] = generator.uid(host_name=site.domain)
         event.add('priority', 5)

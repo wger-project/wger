@@ -16,22 +16,9 @@
 import datetime
 import logging
 
-# Django
-from django.core.cache import cache
-from django.urls import (
-    reverse,
-    reverse_lazy,
-)
-
 # wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import (
-    WgerDeleteTestCase,
-    WgerTestCase,
-)
 from wger.manager.models import WorkoutLog
-from wger.utils.cache import cache_mapper
-
 
 logger = logging.getLogger(__name__)
 
@@ -45,8 +32,8 @@ class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = WorkoutLog
     private_resource = True
     data = {
-        'exercise_base': 1,
-        'workout': 3,
+        'exercise': 1,
+        'routine': 3,
         'reps': 3,
         'repetition_unit': 1,
         'weight_unit': 2,

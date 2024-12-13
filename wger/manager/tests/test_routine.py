@@ -325,10 +325,17 @@ class RoutineApiTestCase(ApiBaseResourceTestCase):
     Tests the routine api endpoint
     """
 
-    pk = 1
+    pk = 2
     resource = Routine
     private_resource = True
-    # special_endpoints = ('day-sequence',)
+    special_endpoints = (
+        'day-sequence',
+        'date-sequence-gym',
+        'current-day-display',
+        'current-day-gym',
+        'current-iteration-display',
+        'current-iteration-gym',
+    )
     data = {
         'name': 'A new comment',
         'start': '2024-03-11',

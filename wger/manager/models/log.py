@@ -240,10 +240,14 @@ class WorkoutLog(models.Model):
         """
         Reset cache
         """
-        reset_workout_log(
-            self.user_id,
-            self.session.date.year,
-            self.session.date.month,
-            self.session.date.day,
-        )
+        try:
+            reset_workout_log(
+                self.user_id,
+                self.session.date.year,
+                self.session.date.month,
+                self.session.date.day,
+            )
+        # Catch case when there is no session -> RelatedObjectDoesNotExist
+        except WorkoutSession.DoesNotExist:
+            pass
         super(WorkoutLog, self).delete(*args, **kwargs)
