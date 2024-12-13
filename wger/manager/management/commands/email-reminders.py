@@ -26,7 +26,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import UserProfile
-from wger.manager.models import Schedule
+from wger.manager.models import Routine
 
 
 class Command(BaseCommand):
@@ -55,12 +55,12 @@ class Command(BaseCommand):
             ):
                 continue
 
-            (current_workout, schedule) = Schedule.objects.get_current_workout(profile.user)
+            current_workout = Routine.objects.last()
 
             # No schedules, use the default workout length in user profile
-            if not schedule and current_workout:
+            if current_workout:
                 delta = (
-                    current_workout.creation_date
+                    current_workout.created
                     + datetime.timedelta(weeks=profile.workout_duration)
                     - datetime.date.today()
                 )
@@ -75,22 +75,6 @@ class Command(BaseCommand):
                         current_workout,
                         delta,
                     )
-
-            # non-loop schedule, take the step's duration
-            elif schedule and not schedule.is_loop:
-                schedule_step = schedule.get_current_scheduled_workout()
-
-                # Only notify if the step is the last one in the schedule
-                if schedule_step == schedule.schedulestep_set.last():
-                    delta = schedule.get_end_date() - datetime.date.today()
-                    if datetime.timedelta(days=profile.workout_reminder) > delta:
-                        if int(options['verbosity']) >= 3:
-                            self.stdout.write(
-                                f"* Workout '{schedule_step.workout}' overdue - schedule"
-                            )
-
-                        counter += 1
-                        self.send_email(profile.user, current_workout, delta)
 
         if counter and int(options['verbosity']) >= 2:
             self.stdout.write(f'Sent {counter} email reminders')

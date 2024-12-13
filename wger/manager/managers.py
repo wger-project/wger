@@ -15,7 +15,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 # wger
@@ -24,51 +23,6 @@ from wger.manager.consts import (
     ID_UNIT_LB,
     ID_UNIT_REPS,
 )
-
-
-class ScheduleManager(models.Manager):
-    """
-    Custom manager for workout schedules
-    """
-
-    def get_current_workout(self, user):
-        """
-        Finds the currently active workout for the user, by checking the schedules
-        and the workouts
-        :rtype : list
-        """
-        # wger
-        from wger.manager.models import (
-            Schedule,
-            Workout,
-        )
-
-        # Try first to find an active schedule that has steps
-        try:
-            schedule = Schedule.objects.filter(user=user).get(is_active=True)
-            if schedule.schedulestep_set.count():
-                # The schedule might exist and have steps, but if it's too far in
-                # the past and is not a loop, we won't use it. Doing it like this
-                # is kind of wrong, but lets us continue to the correct place
-                if not schedule.get_current_scheduled_workout():
-                    raise ObjectDoesNotExist
-
-                active_workout = schedule.get_current_scheduled_workout().workout
-            else:
-                # same as above
-                raise ObjectDoesNotExist
-
-        # there are no active schedules, just return the last workout
-        except ObjectDoesNotExist:
-            schedule = False
-            try:
-                active_workout = Workout.objects.filter(user=user).latest('creation_date')
-
-            # no luck, there aren't even workouts for the user
-            except ObjectDoesNotExist:
-                active_workout = False
-
-        return active_workout, schedule
 
 
 class WorkoutLogQuerySet(models.QuerySet):

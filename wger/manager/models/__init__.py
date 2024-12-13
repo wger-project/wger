@@ -32,8 +32,6 @@ from .rir_config import (
     RiRConfig,
 )
 from .routine import Routine
-from .schedule import Schedule
-from .schedule_step import ScheduleStep
 from .session import WorkoutSession
 from .sets_config import (
     MaxSetsConfig,

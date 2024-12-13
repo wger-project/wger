@@ -23,10 +23,7 @@ from django.core.management import call_command
 # wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.manager.models import (
-    Schedule,
-    Workout,
-)
+from wger.manager.models import Workout
 
 
 class EmailReminderTestCase(WgerTestCase):
@@ -40,7 +37,6 @@ class EmailReminderTestCase(WgerTestCase):
         """
         Test with no schedules or workouts
         """
-        Schedule.objects.all().delete()
         Workout.objects.all().delete()
 
         call_command('email-reminders')
@@ -53,7 +49,6 @@ class EmailReminderTestCase(WgerTestCase):
         User 2, workout created 2012-11-20
         """
 
-        Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
 
         call_command('email-reminders')
@@ -70,7 +65,6 @@ class EmailReminderTestCase(WgerTestCase):
         user.email = ''
         user.save()
 
-        Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
 
         call_command('email-reminders')
@@ -88,7 +82,6 @@ class EmailReminderTestCase(WgerTestCase):
         profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=3)
         profile.save()
 
-        Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
 
         call_command('email-reminders')
@@ -106,7 +99,6 @@ class EmailReminderTestCase(WgerTestCase):
         profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=10)
         profile.save()
 
-        Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
 
         call_command('email-reminders')
@@ -123,7 +115,6 @@ class EmailReminderTestCase(WgerTestCase):
         profile.last_workout_notification = None
         profile.save()
 
-        Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
 
         call_command('email-reminders')
@@ -137,103 +128,7 @@ class EmailReminderTestCase(WgerTestCase):
         user = User.objects.get(pk=2)
         user.userprofile.workout_reminder_active = False
         user.userprofile.save()
-        Schedule.objects.all().delete()
         Workout.objects.exclude(user=user).delete()
-
-        call_command('email-reminders')
-        self.assertEqual(len(mail.outbox), 0)
-
-    def test_reminder_empty_schedule(self):
-        """
-        Test user with emtpy schedules and no workouts
-        """
-
-        user = User.objects.get(pk=2)
-        user.userprofile.workout_reminder_active = False
-        user.userprofile.save()
-        Schedule.objects.all().delete()
-        Workout.objects.all().delete()
-
-        schedule = Schedule()
-        schedule.user = user
-        schedule.is_active = True
-        schedule.is_loop = False
-        schedule.name = 'test schedule'
-        schedule.start_date = datetime.date(2013, 1, 10)
-
-        call_command('email-reminders')
-        self.assertEqual(len(mail.outbox), 0)
-
-    def test_reminder_schedule(self):
-        """
-        Test user with a schedule and a workout
-        """
-
-        user = User.objects.get(pk=2)
-        Workout.objects.exclude(user=user).delete()
-        Schedule.objects.exclude(user=user).delete()
-        call_command('email-reminders')
-        self.assertEqual(len(mail.outbox), 1)
-
-    def test_reminder_schedule_recent(self):
-        """
-        Test user with a schedule that has not finished
-        """
-
-        user = User.objects.get(pk=1)
-        user.userprofile.workout_reminder_active = True
-        user.userprofile.save()
-        Workout.objects.exclude(user=user).delete()
-        Schedule.objects.exclude(user=user).delete()
-
-        schedule = Schedule.objects.get(pk=2)
-        schedule.start_date = datetime.date.today() - datetime.timedelta(weeks=4)
-        schedule.is_active = True
-        schedule.is_loop = False
-        schedule.save()
-
-        call_command('email-reminders')
-        self.assertEqual(len(mail.outbox), 0)
-
-    def test_reminder_schedule_recent_2(self):
-        """
-        Test user with a schedule that is about to finish
-        """
-
-        user = User.objects.get(pk=1)
-        user.userprofile.workout_reminder_active = True
-        user.userprofile.save()
-        Workout.objects.exclude(user=user).delete()
-        Schedule.objects.exclude(user=user).delete()
-
-        # Schedule: 3, 5 and 2 weeks
-        schedule = Schedule.objects.get(pk=2)
-        schedule.start_date = datetime.date.today() - datetime.timedelta(weeks=9)
-        schedule.is_active = True
-        schedule.is_loop = False
-        schedule.save()
-
-        call_command('email-reminders')
-        self.assertEqual(len(mail.outbox), 1)
-
-    def test_reminder_schedule_recent_3(self):
-        """
-        Test user with a schedule that is about to finish
-        """
-
-        user = User.objects.get(pk=1)
-        user.userprofile.workout_reminder_active = True
-        user.userprofile.workout_reminder = 5
-        user.userprofile.save()
-        Workout.objects.exclude(user=user).delete()
-        Schedule.objects.exclude(user=user).delete()
-
-        # Schedule: 3, 5 and 2 weeks
-        schedule = Schedule.objects.get(pk=2)
-        schedule.start_date = datetime.date.today() - datetime.timedelta(weeks=9)
-        schedule.is_active = True
-        schedule.is_loop = False
-        schedule.save()
 
         call_command('email-reminders')
         self.assertEqual(len(mail.outbox), 0)

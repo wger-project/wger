@@ -28,8 +28,6 @@ from wger.manager.views import (
     ical,
     pdf,
     routine,
-    schedule,
-    schedule_step,
     workout,
 )
 
@@ -134,115 +132,10 @@ patterns_routine = [
     ),
 ]
 
-# sub patterns for schedules
-patterns_schedule = [
-    path(
-        'overview',
-        schedule.overview,
-        name='overview',
-    ),
-    path(
-        'add',
-        schedule.ScheduleCreateView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/view',
-        schedule.view,
-        name='view',
-    ),
-    path(
-        '<int:pk>/start',
-        schedule.start,
-        name='start',
-    ),
-    path(
-        '<int:pk>/edit',
-        schedule.ScheduleEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        schedule.ScheduleDeleteView.as_view(),
-        name='delete',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        ical.export_schedule,
-        name='ical',
-    ),
-    path(
-        '<int:pk>/ical',
-        ical.export_schedule,
-        name='ical',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),  # JS!
-    re_path(
-        r'^(?P<pk>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),
-    path(
-        '<int:pk>/pdf/log',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_table,
-        name='pdf-table',
-    ),  # JS!
-    re_path(
-        r'^(?P<pk>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_table,
-        name='pdf-table',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        schedule.export_pdf_table,
-        name='pdf-table',
-    ),
-    path(
-        '<int:pk>/pdf/table',
-        schedule.export_pdf_table,
-        name='pdf-table',
-    ),
-]
-
-# sub patterns for schedule steps
-patterns_step = [
-    path(
-        '<int:schedule_pk>/step/add',
-        schedule_step.StepCreateView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit',
-        schedule_step.StepEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        schedule_step.StepDeleteView.as_view(),
-        name='delete',
-    ),
-]
-
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace='workout')),
     path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
     path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
-    path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
-    path('schedule/step/', include((patterns_step, 'step'), namespace='step')),
 ]

@@ -47,8 +47,6 @@ from wger.manager.api.serializers import (
     RiRConfigSerializer,
     RoutineSerializer,
     RoutineStructureSerializer,
-    ScheduleSerializer,
-    ScheduleStepSerializer,
     SetNrConfigSerializer,
     SlotEntrySerializer,
     SlotSerializer,
@@ -71,8 +69,6 @@ from wger.manager.models import (
     RestConfig,
     RiRConfig,
     Routine,
-    Schedule,
-    ScheduleStep,
     SetsConfig,
     Slot,
     SlotEntry,
@@ -380,70 +376,6 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(Routine, 'workout')]
-
-
-class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
-    """
-    API endpoint for schedule step objects
-    """
-
-    serializer_class = ScheduleStepSerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'schedule',
-        'workout',
-        'duration',
-        'order',
-    )
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return ScheduleStep.objects.none()
-
-        return ScheduleStep.objects.filter(schedule__user=self.request.user)
-
-    def get_owner_objects(self):
-        """
-        Return objects to check for ownership permission
-        """
-        return [(Routine, 'workout'), (Schedule, 'schedule')]
-
-
-class ScheduleViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint for schedule objects
-    """
-
-    serializer_class = ScheduleSerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'is_active',
-        'is_loop',
-        'start_date',
-        'name',
-    )
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return Schedule.objects.none()
-
-        return Schedule.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):

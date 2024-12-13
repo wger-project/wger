@@ -35,10 +35,7 @@ from icalendar.tools import UIDGenerator
 
 # wger
 from wger import get_version
-from wger.manager.models import (
-    Schedule,
-    Workout,
-)
+from wger.manager.models import Workout
 from wger.utils.helpers import (
     check_token,
     next_weekday,
@@ -137,39 +134,6 @@ def export(request, pk, uidb64=None, token=None):
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
     response['Content-Disposition'] = f'attachment; filename=Calendar-workout-{workout.pk}.ics'
-    response.write(calendar.to_ical())
-    response['Content-Length'] = len(response.content)
-    return response
-
-
-def export_schedule(request, pk, uidb64=None, token=None):
-    """
-    Export the current schedule as an iCal file
-    """
-
-    # Load the schedule
-    if uidb64 is not None and token is not None:
-        if check_token(uidb64, token):
-            schedule = get_object_or_404(Schedule, pk=pk)
-        else:
-            return HttpResponseForbidden()
-    else:
-        if request.user.is_anonymous:
-            return HttpResponseForbidden()
-        schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
-
-    # Create the calendar
-    calendar = get_calendar()
-
-    # Create the events and add them to the calendar
-    start_date = datetime.date.today()
-    for step in schedule.schedulestep_set.all():
-        get_events_workout(calendar, step.workout, step.duration, start_date)
-        start_date = start_date + datetime.timedelta(weeks=step.duration)
-
-    # Send the file to the user
-    response = HttpResponse(content_type='text/calendar')
-    response['Content-Disposition'] = f'attachment; filename=Calendar-schedule-{schedule.pk}.ics'
     response.write(calendar.to_ical())
     response['Content-Length'] = len(response.content)
     return response

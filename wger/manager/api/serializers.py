@@ -34,8 +34,6 @@ from wger.manager.models import (
     RestConfig,
     RiRConfig,
     Routine,
-    Schedule,
-    ScheduleStep,
     SetsConfig,
     Slot,
     SlotEntry,
@@ -502,26 +500,5 @@ class LogStatsDataSerializer(serializers.Serializer):
     """
 
     intensity = GroupedLogDataSerializer()
-    # tonnage = GroupedLogDataSerializer()
     sets = GroupedLogDataSerializer()
     volume = GroupedLogDataSerializer()
-
-
-class ScheduleStepSerializer(serializers.ModelSerializer):
-    """
-    ScheduleStep serializer
-    """
-
-    class Meta:
-        model = ScheduleStep
-        fields = ['id', 'schedule', 'workout', 'duration']
-
-
-class ScheduleSerializer(serializers.ModelSerializer):
-    """
-    Schedule serializer
-    """
-
-    class Meta:
-        model = Schedule
-        exclude = ('user',)
