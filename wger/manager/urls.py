@@ -17,10 +17,7 @@
 
 # Django
 from django.conf.urls import include
-from django.urls import (
-    path,
-    re_path,
-)
+from django.urls import path
 
 # wger
 from wger.core.views.react import ReactView
@@ -80,16 +77,7 @@ patterns_workout = [
         workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
     ),
-    path(
-        'calendar',
-        ReactView.as_view(login_required=True),
-        name='calendar',
-    ),
-    path(
-        '<int:pk>/ical',
-        ical.export,
-        name='ical',
-    ),
+
 ]
 
 # sub patterns for workouts
@@ -123,6 +111,16 @@ patterns_routine = [
         '<int:pk>/pdf/table',
         pdf.workout_view,
         name='pdf-table',
+    ),
+    path(
+        '<int:pk>/ical',
+        ical.export,
+        name='ical',
+    ),
+    path(
+        'calendar',
+        ReactView.as_view(login_required=True),
+        name='calendar',
     ),
 ]
 

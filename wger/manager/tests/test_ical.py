@@ -32,10 +32,10 @@ class WorkoutICalExportTestCase(WgerTestCase):
         Helper function
         """
 
-        response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:routine:ical', kwargs={'pk': 3}))
 
         if fail:
-            self.assertIn(response.status_code, (403, 404, 302))
+            self.assertIn(response.status_code, (403, 404))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'text/calendar')

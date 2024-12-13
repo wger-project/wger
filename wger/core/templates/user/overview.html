@@ -67,7 +67,7 @@
 
 <h4>{% translate "Log" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-light btn-sm">{% translate "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:routine:calendar' %}" class="btn btn-light btn-sm">{% translate "Calendar" %}</a>
 {% endif %}
 
 <table class="table">
@@ -217,7 +217,7 @@
             {% endif %}
         <a
             data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}"
-            data-bs-toggle="modal" 
+            data-bs-toggle="modal"
             data-bs-target="#confirmation-modal"
             class="dropdown-item">
             {% translate "Reset user password" %}
