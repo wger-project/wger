@@ -28,6 +28,7 @@ from wger.manager.views import (
     workout,
 )
 
+
 # sub patterns for workout logs
 patterns_log = [
     path(
@@ -77,7 +78,6 @@ patterns_workout = [
         workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
     ),
-
 ]
 
 # sub patterns for workouts

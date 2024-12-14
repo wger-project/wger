@@ -92,4 +92,4 @@ class Command(BaseCommand):
         # Write to output
         with open('screenshots_exercises.dart', 'w') as f:
             f.write('\n'.join(out))
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to screenshots_exercises.dart'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to screenshots_exercises.dart'))

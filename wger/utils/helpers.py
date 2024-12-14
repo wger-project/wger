@@ -27,16 +27,13 @@ from functools import wraps
 
 # Django
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
-from django.utils.http import (
-    urlsafe_base64_decode,
-    urlsafe_base64_encode,
-)
+from django.utils.http import urlsafe_base64_encode
+
 
 logger = logging.getLogger(__name__)
 

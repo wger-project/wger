@@ -28,7 +28,6 @@ from django.utils.translation import (
 
 # wger
 from wger.core.tests.base_testcase import get_reverse
-from wger.manager.models import Day
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT,

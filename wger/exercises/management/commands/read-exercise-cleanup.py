@@ -117,7 +117,7 @@ class Command(BaseCommand):
             #
             new_base = base_uuid == UUID_NEW
             if not options['create_on_new'] and new_base:
-                self.stdout.write(f'    Skipping creating new exercise base...\n')
+                self.stdout.write('    Skipping creating new exercise base...\n')
                 continue
 
             base = (
@@ -237,7 +237,7 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.SUCCESS(message))
 
                 if '(imported from Feeel)' in exercise_author:
-                    exercise_author = re.sub('\(imported from Feeel\)', '', exercise_author)
+                    exercise_author = re.sub(r'\(imported from Feeel\)', '', exercise_author)
                     for author in exercise_author.split(','):
                         author = author.strip()
                         author = f'{author} (imported from Feeel)'
@@ -245,7 +245,7 @@ class Command(BaseCommand):
                         if len(author) >= 60:
                             self.stdout.write(
                                 self.style.WARNING(
-                                    f'      Author name is longer than 60 characters, skipping...'
+                                    '      Author name is longer than 60 characters, skipping...'
                                 )
                             )
                             continue
@@ -264,7 +264,7 @@ class Command(BaseCommand):
         csv_file = open('exercises_cleanup_duplicates.csv', 'r', newline='')
         file_reader = csv.DictReader(csv_file)
         self.stdout.write(
-            self.style.WARNING(f'---> Deleting duplicate bases and translations now...')
+            self.style.WARNING('---> Deleting duplicate bases and translations now...')
         )
 
         for row in file_reader:

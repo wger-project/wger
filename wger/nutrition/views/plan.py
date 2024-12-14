@@ -50,6 +50,7 @@ from wger.utils.pdf import (
     styleSheet,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

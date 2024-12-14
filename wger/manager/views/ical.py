@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 import logging
 
 # Django

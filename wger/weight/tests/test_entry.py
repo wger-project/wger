@@ -16,9 +16,6 @@
 import datetime
 import decimal
 
-# Django
-from django.urls import reverse
-
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (

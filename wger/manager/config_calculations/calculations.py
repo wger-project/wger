@@ -19,7 +19,6 @@ from abc import (
     ABC,
     abstractmethod,
 )
-from decimal import Decimal
 
 # wger
 from wger.manager.dataclasses import SetConfigData

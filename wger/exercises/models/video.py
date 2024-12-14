@@ -68,7 +68,7 @@ def validate_video(value):
 
     try:
         ffmpeg.probe(value.file.temporary_file_path())
-    except ffmpeg.Error as e:
+    except ffmpeg.Error:
         raise ValidationError(_('File is not a valid video'))
 
 

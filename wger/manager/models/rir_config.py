@@ -18,7 +18,6 @@
 from django.db import models
 
 # wger
-from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import AbstractChangeConfig
 
 

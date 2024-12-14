@@ -16,7 +16,6 @@
 
 # Django
 from django.contrib.auth.models import User
-from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse

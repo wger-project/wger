@@ -21,10 +21,7 @@ from django.core.management.base import (
 )
 
 # wger
-from wger.manager.models import (
-    Workout,
-    WorkoutLog,
-)
+from wger.manager.models import WorkoutLog
 from wger.utils.cache import reset_workout_log
 
 

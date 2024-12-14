@@ -23,7 +23,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.core.models import DaysOfWeek
 from wger.manager.dataclasses import SlotData
 
 

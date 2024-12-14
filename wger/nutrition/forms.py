@@ -45,7 +45,6 @@ from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     LogItem,
-    Meal,
     MealItem,
 )
 from wger.utils.widgets import Html5NumberInput

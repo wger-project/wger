@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import copy
 import logging
-from typing import List
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -36,9 +34,7 @@ from django.views.generic import UpdateView
 # wger
 from wger.manager.forms import WorkoutMakeTemplateForm
 from wger.manager.models import (
-    AbstractChangeConfig,
     Routine,
-    SlotEntry,
     Workout,
 )
 from wger.utils.generic_views import WgerFormMixin

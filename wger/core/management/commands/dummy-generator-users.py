@@ -92,7 +92,7 @@ class Command(BaseCommand):
 
             # Even with the uuid part, usernames are not guaranteed to be unique,
             # in this case, just ignore and continue
-            except IntegrityError as e:
+            except IntegrityError:
                 continue
 
             if gym_list:

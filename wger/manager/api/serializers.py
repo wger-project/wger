@@ -18,10 +18,7 @@
 from rest_framework import serializers
 
 # wger
-from wger.manager.api.consts import (
-    BASE_CONFIG_FIELDS,
-    BASE_CONFIG_FILTER_FIELDS,
-)
+from wger.manager.api.consts import BASE_CONFIG_FIELDS
 from wger.manager.api.validators import validate_requirements
 from wger.manager.models import (
     Day,

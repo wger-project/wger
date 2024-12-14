@@ -39,7 +39,6 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.utils.helpers import normalize_decimal
 
 
 @dataclass
