@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2022-08-31 10:16+0000\n"
-"Last-Translator: Juuso Haapanen <juuso@haapanen.biz>\n"
+"PO-Revision-Date: 2024-12-11 21:00+0000\n"
+"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -126,7 +126,7 @@ msgstr ""
 #: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Syntymäpäivä"
 
 #: core/forms.py:149
 msgid "Personal data"
@@ -3343,7 +3343,7 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
-msgstr ""
+msgstr "Tuo"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"

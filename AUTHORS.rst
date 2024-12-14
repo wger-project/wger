@@ -82,6 +82,7 @@ Developers
 * Kevin Moy - https://github.com/kmoy1
 * Taylor Fuller - https://github.com/taylor-fuller
 * eyJhb - https://github.com/eyJhb
+* Joshua Shelley - https://github.com/navyjosh
 
 
 Translators

@@ -222,10 +222,20 @@
     "filters": "Filtros",
     "lastYear": "El año pasado",
     "lastHalfYear": "Últimos 6 meses",
-    "lastMonth": "Mes pasado",
+    "lastMonth": "Último mes",
     "all": "Todo",
-    "lastWeek": "Mes semana",
+    "lastWeek": "Última semana",
     "calendar": "Calendario",
     "entries": "Entradas",
-    "no_entries_for_day": "No hay entradas para este día"
+    "no_entries_for_day": "No hay entradas para este día",
+    "height": "Altura",
+    "cm": "cm",
+    "bmi": {
+        "calculator": "Calculadora de IMC",
+        "overweight": "Sobrepeso",
+        "obese": "Obeso",
+        "normal": "En tu peso ideal",
+        "underweight": "Bajo peso",
+        "result": "Su IMC es {{value}}"
+    }
 }

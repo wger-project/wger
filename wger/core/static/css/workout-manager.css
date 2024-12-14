@@ -400,3 +400,7 @@ table.month td.session-good:hover {
     color: black;
     font-weight: bold;
 }
+
+.dt-container {
+    margin-bottom: 1.5rem;
+}
