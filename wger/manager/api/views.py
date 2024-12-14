@@ -32,7 +32,10 @@ from rest_framework.response import Response
 # wger
 from wger.exercises.models import Exercise
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
-from wger.manager.api.filtersets import BaseConfigFilterSet
+from wger.manager.api.filtersets import (
+    BaseConfigFilterSet,
+    WorkoutLogFilterSet,
+)
 from wger.manager.api.serializers import (
     DaySerializer,
     LogDisplaySerializer,
@@ -386,15 +389,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = WorkoutLogSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = (
-        'date',
-        'exercise',
-        'reps',
-        'weight',
-        'routine',
-        'repetition_unit',
-        'weight_unit',
-    )
+    filterset_class = WorkoutLogFilterSet
 
     def get_queryset(self):
         """

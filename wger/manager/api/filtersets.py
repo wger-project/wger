@@ -21,9 +21,30 @@ from django_filters import (
 
 # wger
 from wger.manager.api.consts import BASE_CONFIG_FILTER_FIELDS
+from wger.manager.models import WorkoutLog
 
 
 class BaseConfigFilterSet(filters.FilterSet):
     class Meta:
         fields = BASE_CONFIG_FILTER_FIELDS
         unknown_field_behavior = UnknownFieldBehavior.IGNORE
+
+
+class WorkoutLogFilterSet(filters.FilterSet):
+    class Meta:
+        model = WorkoutLog
+        fields = {
+            'routine': ['exact'],
+            'session': ['exact'],
+            'date': ['exact', 'date', 'gt', 'lt'],
+            'exercise': ['exact', 'in'],
+            'iteration': ['exact', 'in'],
+            'repetition_unit': ['exact', 'in'],
+            'reps': ['exact', 'gt', 'lt'],
+            'reps_target': ['exact', 'gt', 'lt'],
+            'weight_unit': ['exact', 'in'],
+            'weight': ['exact', 'gt', 'lt'],
+            'weight_target': ['exact', 'gt', 'lt'],
+            'rir': ['exact', 'in', 'gt', 'lt'],
+            'rir_target': ['exact', 'in', 'gt', 'lt'],
+        }
