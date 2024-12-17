@@ -70,7 +70,7 @@ class Command(ImportProductCommand):
         for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
             try:
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
-            except (KeyError, ValueError) as e:
+            except (KeyError, ValueError):
                 # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
                 self.counter['skipped'] += 1
             else:
@@ -141,11 +141,11 @@ class Command(ImportProductCommand):
         self.stdout.write('Importing entries from Open Food Facts')
         self.stdout.write(f' - {self.mode}')
         if options['delta_updates']:
-            self.stdout.write(f' - importing only delta updates')
+            self.stdout.write(' - importing only delta updates')
         elif options['use_jsonl']:
-            self.stdout.write(f' - importing the full dump')
+            self.stdout.write(' - importing the full dump')
         else:
-            self.stdout.write(f' - importing from mongo')
+            self.stdout.write(' - importing from mongo')
         self.stdout.write('')
 
         languages = {lang.short_name: lang.pk for lang in Language.objects.all()}

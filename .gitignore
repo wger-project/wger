@@ -76,5 +76,6 @@ venv-wger
 /coverage.lcov
 /media/
 /static/
+/db/
 /extras/docker/open-food-facts/dump/*.tar.gz
 /extras/docker/open-food-facts/dump/off/*

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.db import migrations, models
+from django.db import migrations
 
 
 def update_permission_names(apps, schema_editor):
