@@ -28,16 +28,6 @@ from wger.manager.views import (
     workout,
 )
 
-
-# sub patterns for workout logs
-patterns_log = [
-    path(
-        '<int:pk>/view',
-        ReactView.as_view(login_required=True),
-        name='log',
-    ),
-]
-
 # sub patterns for templates
 patterns_templates = [
     path(
@@ -93,6 +83,16 @@ patterns_routine = [
         name='add',
     ),
     path(
+        '<int:pk>/statistics',
+        ReactView.as_view(login_required=True),
+        name='statistics',
+    ),
+    path(
+        '<int:pk>/logs',
+        ReactView.as_view(login_required=True),
+        name='logs',
+    ),
+    path(
         '<int:pk>/view',
         ReactView.as_view(login_required=True),
         name='view',
@@ -129,5 +129,4 @@ urlpatterns = [
     path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
     path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
-    path('log/', include((patterns_log, 'log'), namespace='log')),
 ]
