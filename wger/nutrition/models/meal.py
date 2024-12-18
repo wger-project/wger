@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+import uuid
 
 # Django
 from django.db import models
@@ -42,6 +43,13 @@ class Meal(models.Model):
         ordering = [
             'time',
         ]
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
+    )
 
     plan = models.ForeignKey(
         NutritionPlan,
