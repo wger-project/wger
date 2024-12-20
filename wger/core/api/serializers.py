@@ -59,6 +59,8 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'is_trustworthy',
             'date_joined',
             'gym',
+            'weight_rounding',
+            'reps_rounding',
             'is_temporary',
             'show_comments',
             'show_english_ingredients',

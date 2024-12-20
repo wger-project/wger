@@ -58,8 +58,8 @@ class SetConfigData:
     sets: int = 1
     weight_unit: int | None = 1
     reps_unit: int | None = 1
-    weight_rounding: Decimal | int | None = 1.25
-    reps_rounding: Decimal | int | None = 1
+    weight_rounding: Decimal | int | None = None
+    reps_rounding: Decimal | int | None = None
 
     comment: str = ''
     type: str = 'normal'
@@ -225,14 +225,18 @@ def round_value(
     """
     Rounds a value to the nearest base
 
-    If the base is None, the value will be returned as a Decimal object.
+    If the base is None, the value will be returned as-is
     """
 
-    if x is None or base == 0:
+    if x is None:
         return x
 
     # If the result is an integer, remove the decimal part
-    result = Decimal(x) if base is None else Decimal(base * round(Decimal(x) / Decimal(base)))
+    result = (
+        Decimal(x)
+        if base is None or base == 0
+        else Decimal(base * round(Decimal(x) / Decimal(base)))
+    )
     if result == result.to_integral_value():
         result = result.quantize(1, ROUND_DOWN)
 

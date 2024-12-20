@@ -147,6 +147,19 @@ class SlotEntry(models.Model):
             'id',
         ]
 
+    def save(self, *args, **kwargs):
+        """
+        Save the object to the database
+        """
+
+        # For new entries add default rounding if available
+        if not self.id:
+            if not self.repetition_rounding:
+                self.repetition_rounding = self.slot.day.routine.user.userprofile.reps_rounding
+            if not self.weight_rounding:
+                self.weight_rounding = self.slot.day.routine.user.userprofile.weight_rounding
+        return super().save(*args, **kwargs)
+
     def get_owner_object(self):
         """
         Returns the object that has owner information
