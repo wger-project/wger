@@ -129,7 +129,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             serializer.save()
 
             # New email, update the user and reset the email verification flag
-            if request.user.email != data['email']:
+            if data.get('email') and request.user.email != data['email']:
                 request.user.email = data['email']
                 request.user.save()
                 request.user.userprofile.email_verified = False
