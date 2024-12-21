@@ -84,7 +84,10 @@ class BaseConfigSerializer(serializers.ModelSerializer):
     Base Config serializer
     """
 
-    requirements = serializers.JSONField(validators=[validate_requirements])
+    requirements = serializers.JSONField(
+        validators=[validate_requirements],
+        allow_null=True,
+    )
 
 
 class WeightConfigSerializer(BaseConfigSerializer):
