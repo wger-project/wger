@@ -31,13 +31,10 @@ from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
-from django.views.generic import (
-    DeleteView,
-    TemplateView,
-)
+from django.views.generic import DeleteView
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 from wger.utils.generic_views import WgerDeleteMixin
 
 
@@ -48,7 +45,7 @@ def view(request, id, slug=None):
     """
     Detail view for an exercise translation
     """
-    exercise = get_object_or_404(Exercise, pk=id)
+    exercise = get_object_or_404(Translation, pk=id)
 
     return HttpResponsePermanentRedirect(
         reverse(
@@ -67,7 +64,7 @@ class ExerciseDeleteView(
     Generic view to delete an existing exercise
     """
 
-    model = Exercise
+    model = Translation
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
     messages = gettext_lazy('Successfully deleted')

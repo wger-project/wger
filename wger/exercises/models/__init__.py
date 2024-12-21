@@ -15,14 +15,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Local
-from .base import ExerciseBase
+from .base import Exercise
 from .category import ExerciseCategory
 from .comment import ExerciseComment
 from .deletion_log import DeletionLog
 from .equipment import Equipment
-from .exercise import Exercise
 from .exercise_alias import Alias
 from .image import ExerciseImage
 from .muscle import Muscle
+from .translation import Translation
 from .variation import Variation
 from .video import ExerciseVideo

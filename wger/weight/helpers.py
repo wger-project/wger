@@ -129,14 +129,14 @@ def group_log_entries(user, year, month, day=None):
                 out[entry.date] = {
                     'date': entry.date,
                     'workout': entry.workout,
-                    'session': entry.get_workout_session(),
+                    'session': entry.session,
                     'logs': OrderedDict(),
                 }
 
-            if not out[entry.date]['logs'].get(entry.exercise_base):
-                out[entry.date]['logs'][entry.exercise_base] = []
+            if not out[entry.date]['logs'].get(entry.exercise):
+                out[entry.date]['logs'][entry.exercise] = []
 
-            out[entry.date]['logs'][entry.exercise_base].append(entry)
+            out[entry.date]['logs'][entry.exercise].append(entry)
 
         # Sessions
         for entry in sessions:

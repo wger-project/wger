@@ -18,7 +18,6 @@ from django.core.management import call_command
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.gym.models import Gym
 
 
 class UserGeneratorTestCase(WgerTestCase):
