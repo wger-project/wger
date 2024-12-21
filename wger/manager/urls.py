@@ -83,6 +83,11 @@ patterns_routine = [
         name='add',
     ),
     path(
+        'edit',
+        ReactView.as_view(login_required=True),
+        name='edit',
+    ),
+    path(
         '<int:pk>/statistics',
         ReactView.as_view(login_required=True),
         name='statistics',
