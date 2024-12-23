@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-05-24 13:09+0000\n"
-"Last-Translator: Tsz Hong CHAN <tomyan112@yahoo.com.hk>\n"
+"PO-Revision-Date: 2024-12-24 13:06+0000\n"
+"Last-Translator: shlomi assaf <shlomiasaf@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -52,23 +52,23 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:209
 #: nutrition/templates/units/list.html:19
 msgid "Edit"
-msgstr ""
+msgstr "עריכה"
 
 #: core/demo.py:96
 msgid "Sample workout"
-msgstr ""
+msgstr "אימון לדוגמא"
 
 #: core/demo.py:100
 msgid "Sample day"
-msgstr ""
+msgstr "יום לדוגמא"
 
 #: core/demo.py:104
 msgid "Another sample day"
-msgstr ""
+msgstr "יום לדוגמא נוסף"
 
 #: core/demo.py:212
 msgid "Sample nutritional plan"
-msgstr ""
+msgstr "דיאטה לדוגמא"
 
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
 #, python-brace-format
