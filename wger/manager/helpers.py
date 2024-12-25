@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -14,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
+# Standard Library
+from decimal import Decimal
 
 # Django
 from django.core.cache import cache
@@ -188,3 +189,12 @@ def reset_routine_cache(instance: Routine):
     cache.delete(CacheKeyMapper.get_routine_api_current_iteration_display_key(instance.id))
     cache.delete(CacheKeyMapper.get_routine_api_structure_key(instance.id))
     cache.delete(CacheKeyMapper.get_routine_api_stats(instance.id))
+
+
+def brzycki_one_rm(weight: float | None, reps: float | None) -> Decimal:
+    return Decimal(weight) / (Decimal(1.0278) - Decimal(0.0278) * Decimal(reps))
+
+
+def brzycki_intensity(weight, reps) -> Decimal:
+    one_rm = brzycki_one_rm(weight, reps)
+    return Decimal(weight / one_rm if one_rm != 0 else 0)

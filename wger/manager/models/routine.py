@@ -30,7 +30,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.exercises.models import Muscle
+from wger.exercises.models import Exercise
 from wger.manager.dataclasses import (
     GroupedLogData,
     RoutineLogData,
@@ -284,37 +284,131 @@ class Routine(models.Model):
         Returns:
             RoutineLogData: An object containing the calculated statistics.
         """
+        # wger
+        from wger.manager.helpers import brzycki_intensity
+
         result = RoutineLogData()
+        intensity_counter = GroupedLogData()
 
         def update_grouped_log_data(
             entry: GroupedLogData,
             date: datetime.date,
             week_nr: int,
-            iteration: int,
-            muscles: List[Muscle],
+            iter: int,
+            exercise: Exercise,
             value: Decimal | int,
         ):
             """
             Updates grouped log data
 
-            This method always just adds the value to the corresponding entries
+            This method just adds the value to the corresponding entries
             """
+            muscles = exercise.muscles.all()
 
             entry.daily[date].exercises[exercise.id] += value
             entry.weekly[week_nr].exercises[exercise.id] += value
-            entry.iteration[iteration].exercises[exercise.id] += value
+            entry.iteration[iter].exercises[exercise.id] += value
             entry.mesocycle.exercises[exercise.id] += value
 
             entry.daily[date].total += value
             entry.weekly[week_nr].total += value
-            entry.iteration[iteration].total += value
+            entry.iteration[iter].total += value
             entry.mesocycle.total += value
 
             for muscle in muscles:
-                entry.daily[date].muscle[muscle.id] += value
-                entry.weekly[week_number].muscle[muscle.id] += value
-                entry.iteration[iteration].muscle[muscle.id] += value
-                entry.mesocycle.muscle[muscle.id] += value
+                pk = muscle.id
+
+                entry.daily[date].muscle[pk] += value
+                entry.weekly[week_number].muscle[pk] += value
+                entry.iteration[iter].muscle[pk] += value
+                entry.mesocycle.muscle[pk] += value
+
+        def safe_divide(numerator, denominator):
+            return numerator / denominator if denominator != 0 else numerator
+
+        def calculate_average_intensity(result: GroupedLogData, counters: GroupedLogData) -> None:
+            result.mesocycle.total = safe_divide(
+                result.mesocycle.total,
+                counters.mesocycle.total,
+            )
+
+            for key in result.daily.keys():
+                result.daily[key].total = safe_divide(
+                    result.daily[key].total,
+                    counters.daily[key].total,
+                )
+                result.daily[key].upper_body = safe_divide(
+                    result.daily[key].upper_body,
+                    counters.daily[key].upper_body,
+                )
+                result.daily[key].lower_body = safe_divide(
+                    result.daily[key].lower_body,
+                    counters.daily[key].lower_body,
+                )
+
+                for j in result.daily[key].muscle.keys():
+                    result.daily[key].muscle[j] = safe_divide(
+                        result.daily[key].muscle[j],
+                        counters.daily[key].muscle[j],
+                    )
+
+                for j in result.daily[key].exercises.keys():
+                    result.daily[key].exercises[j] = safe_divide(
+                        result.daily[key].exercises[j],
+                        counters.daily[key].exercises[j],
+                    )
+
+            for key in result.weekly.keys():
+                result.weekly[key].total = safe_divide(
+                    result.weekly[key].total,
+                    counters.weekly[key].total,
+                )
+                result.weekly[key].upper_body = safe_divide(
+                    result.weekly[key].upper_body,
+                    counters.weekly[key].upper_body,
+                )
+                result.weekly[key].lower_body = safe_divide(
+                    result.weekly[key].lower_body,
+                    counters.weekly[key].lower_body,
+                )
+
+                for j in result.weekly[key].muscle.keys():
+                    result.weekly[key].muscle[j] = safe_divide(
+                        result.weekly[key].muscle[j],
+                        counters.weekly[key].muscle[j],
+                    )
+
+                for j in result.weekly[key].exercises.keys():
+                    result.weekly[key].exercises[j] = safe_divide(
+                        result.weekly[key].exercises[j],
+                        counters.weekly[key].exercises[j],
+                    )
+
+            for key in result.iteration.keys():
+                result.iteration[key].total = safe_divide(
+                    result.iteration[key].total,
+                    counters.iteration[key].total,
+                )
+                result.iteration[key].upper_body = safe_divide(
+                    result.iteration[key].upper_body,
+                    counters.iteration[key].upper_body,
+                )
+                result.iteration[key].lower_body = safe_divide(
+                    result.iteration[key].lower_body,
+                    counters.iteration[key].lower_body,
+                )
+
+                for j in result.iteration[key].muscle.keys():
+                    result.iteration[key].muscle[j] = safe_divide(
+                        result.iteration[key].muscle[j],
+                        counters.iteration[key].muscle[j],
+                    )
+
+                for j in result.iteration[key].exercises.keys():
+                    result.iteration[key].exercises[j] = safe_divide(
+                        result.iteration[key].exercises[j],
+                        counters.iteration[key].exercises[j],
+                    )
 
         # Iterate over each workout session associated with the routine
         for session in self.sessions.all():
@@ -329,21 +423,45 @@ class Routine(models.Model):
                 iteration = log.iteration
                 exercise_volume = weight * reps
 
+                calculate_intensity = reps is not None and weight is not None
+                exercise_intensity = brzycki_intensity(weight, reps)
+
                 update_grouped_log_data(
                     entry=result.volume,
-                    iteration=iteration,
+                    iter=iteration,
                     week_nr=week_number,
                     date=session_date,
-                    muscles=exercise.muscles.all(),
+                    exercise=exercise,
                     value=exercise_volume,
                 )
                 update_grouped_log_data(
                     entry=result.sets,
-                    iteration=iteration,
+                    iter=iteration,
                     week_nr=week_number,
                     date=session_date,
-                    muscles=exercise.muscles.all(),
+                    exercise=exercise,
                     value=1,
                 )
+
+                if calculate_intensity:
+                    update_grouped_log_data(
+                        entry=intensity_counter,
+                        iter=iteration,
+                        week_nr=week_number,
+                        date=session_date,
+                        exercise=exercise,
+                        value=1,
+                    )
+
+                    update_grouped_log_data(
+                        entry=result.intensity,
+                        iter=iteration,
+                        week_nr=week_number,
+                        date=session_date,
+                        exercise=exercise,
+                        value=exercise_intensity,
+                    )
+
+        calculate_average_intensity(result.intensity, intensity_counter)
 
         return result
