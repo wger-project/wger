@@ -13,19 +13,13 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-"""
-This file contains forms used in the application
-"""
 
 # Django
 from django.forms import (
     BooleanField,
     CharField,
     ChoiceField,
-    DecimalField,
     Form,
-    IntegerField,
-    ModelChoiceField,
     ModelForm,
     ModelMultipleChoiceField,
     widgets,
@@ -37,35 +31,10 @@ from django.utils.translation import (
 
 # Third Party
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    Column,
-    Layout,
-    Row,
-    Submit,
-)
+from crispy_forms.layout import Submit
 
 # wger
-from wger.core.models import (
-    RepetitionUnit,
-    WeightUnit,
-)
-from wger.exercises.models import (
-    Exercise,
-    ExerciseBase,
-)
-from wger.manager.consts import RIR_OPTIONS
-from wger.manager.models import (
-    Day,
-    Set,
-    Setting,
-    Workout,
-    WorkoutLog,
-    WorkoutSession,
-)
-from wger.utils.widgets import (
-    ExerciseAjaxSelect,
-    TranslatedSelectMultiple,
-)
+from wger.manager.models import Workout
 
 
 class WorkoutForm(ModelForm):
@@ -99,21 +68,6 @@ class WorkoutCopyForm(Form):
     )
 
 
-class DayForm(ModelForm):
-    class Meta:
-        model = Day
-        exclude = ('training',)
-        widgets = {'day': TranslatedSelectMultiple()}
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'description',
-            'day',
-        )
-
-
 class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
     """Ordered multiple choice field"""
 
@@ -121,153 +75,6 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
         int_list = [int(i) for i in value]
         qs = super(OrderedModelMultipleChoiceField, self).clean(int_list)
         return sorted(qs, key=lambda x: int_list.index(x.pk))
-
-
-class SetForm(ModelForm):
-    exercises = OrderedModelMultipleChoiceField(
-        queryset=ExerciseBase.objects.all(),
-        label=_('Exercises'),
-        required=False,
-        widget=ExerciseAjaxSelect,
-        help_text=_(
-            'You can search for more than one '
-            'exercise, they will be grouped '
-            'together for a superset.'
-        ),
-    )
-
-    english_results = BooleanField(
-        label=gettext_lazy('Also search for names in English'),
-        initial=True,
-        required=False,
-    )
-
-    class Meta:
-        model = Set
-        exclude = ('order', 'exerciseday')
-
-
-class SettingForm(ModelForm):
-    class Meta:
-        model = Setting
-        exclude = ('set', 'exercise', 'order', 'name')
-
-
-class WorkoutLogForm(ModelForm):
-    """
-    Helper form for a WorkoutLog.
-
-    These fields are re-defined here only to make them optional. Otherwise
-    all the entries in the formset would be required, which is not really what
-    we want. This form is one prime candidate to rework with some modern JS
-    framework, there is a ton of ugly logic like this just to make it work.
-    """
-
-    repetition_unit = ModelChoiceField(
-        queryset=RepetitionUnit.objects.all(),
-        label=_('Unit'),
-        required=False,
-    )
-    weight_unit = ModelChoiceField(
-        queryset=WeightUnit.objects.all(),
-        label=_('Unit'),
-        required=False,
-    )
-    exercise_base = ModelChoiceField(
-        queryset=ExerciseBase.objects.all(),
-        label=_('Exercise'),
-        required=False,
-    )
-    reps = IntegerField(
-        label=_('Repetitions'),
-        required=False,
-    )
-    weight = DecimalField(
-        label=_('Weight'),
-        initial=0,
-        required=False,
-    )
-    rir = ChoiceField(
-        label=_('RiR'),
-        choices=RIR_OPTIONS,
-        required=False,
-    )
-
-    class Meta:
-        model = WorkoutLog
-        exclude = ('workout',)
-
-
-class WorkoutLogFormHelper(FormHelper):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.form_method = 'post'
-        self.layout = Layout(
-            'id',
-            Row(
-                Column('reps', css_class='col-2'),
-                Column('repetition_unit', css_class='col-3'),
-                Column('weight', css_class='col-2'),
-                Column('weight_unit', css_class='col-3'),
-                Column('rir', css_class='col-2'),
-                css_class='form-row',
-            ),
-        )
-        self.form_show_labels = False
-        self.form_tag = False
-        self.disable_csrf = True
-        self.render_required_fields = True
-
-
-class HelperWorkoutSessionForm(ModelForm):
-    """
-    A helper form used in the workout log view
-    """
-
-    class Meta:
-        model = WorkoutSession
-        exclude = ('user', 'workout')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('date', css_class='col-6'),
-                Column('impression', css_class='col-6'),
-                css_class='form-row',
-            ),
-            'notes',
-            Row(
-                Column('time_start', css_class='col-6'),
-                Column('time_end', css_class='col-6'),
-                css_class='form-row',
-            ),
-        )
-        self.helper.form_tag = False
-
-
-class WorkoutSessionForm(ModelForm):
-    """
-    Workout Session form
-    """
-
-    class Meta:
-        model = WorkoutSession
-        exclude = ('user', 'workout', 'date')
-
-    def __init__(self, *args, **kwargs):
-        super(WorkoutSessionForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'impression',
-            'notes',
-            Row(
-                Column('time_start', css_class='col-6'),
-                Column('time_end', css_class='col-6'),
-                css_class='form-row',
-            ),
-        )
 
 
 class WorkoutScheduleDownloadForm(Form):

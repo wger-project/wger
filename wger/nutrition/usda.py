@@ -91,7 +91,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
 
     # License and author info
     source_name = Source.USDA.value
-    source_url = f'https://fdc.nal.usda.gov/'
+    source_url = 'https://fdc.nal.usda.gov/'
     author = (
         'U.S. Department of Agriculture, Agricultural Research Service, '
         'Beltsville Human Nutrition Research Center. FoodData Central.'
