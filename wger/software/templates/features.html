@@ -418,11 +418,13 @@
                         <li class="list-group-item bg-transparent border-0 text-light ps-0">
                             <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
                         </li>
+                        {% if allow_registration %}
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:registration' %}">
                                 {% translate "Register" %}
                             </a>
                         </li>
+                        {% endif %}
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:login' %}">
                                 {% translate "Login" %}
