@@ -19,6 +19,7 @@ import logging
 
 # Django
 from django.contrib.auth.decorators import login_required
+from django.forms import model_to_dict
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
@@ -41,7 +42,11 @@ from reportlab.platypus import (
 
 # wger
 from wger.nutrition.consts import MEALITEM_WEIGHT_GRAM
-from wger.nutrition.models import NutritionPlan, Meal, MealItem
+from wger.nutrition.models import (
+    Meal,
+    MealItem,
+    NutritionPlan,
+)
 from wger.utils.pdf import (
     get_logo,
     header_colour,
@@ -64,37 +69,35 @@ def copy(request, pk):
     """
     Copy the nutrition plan
     """
-
     orig_plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
-    # make new Plan, Meal, and MealItem objects using the values for the fields from the original object
-    plan_copy = NutritionPlan(
-        user=orig_plan.user,
-        description=orig_plan.description,
-        has_goal_calories=orig_plan.has_goal_calories
-    )
-    plan_copy.save()
+    # Convert the original plan to a dictionary and remove the primary key
+    plan_data = model_to_dict(orig_plan)
+    plan_data.pop('id')
 
+    plan_copy = NutritionPlan.objects.create(user=request.user, **plan_data)
+
+    # Copy meals and meal items
     orig_meals = orig_plan.meal_set.all()
     for orig_meal in orig_meals:
-        meal_copy = Meal(
-            plan=plan_copy,
-            name=orig_meal.name,
-            time=orig_meal.time,
-            order=orig_meal.order
-        )
-        meal_copy.save()
+        meal_data = model_to_dict(orig_meal)
+        meal_data.pop('id')
+        meal_data['plan'] = plan_copy
+        # setting manually due to "editable" False
+        meal_data['order'] = orig_meal.order
+
+        meal_copy = Meal.objects.create(**meal_data)
 
         orig_meal_items = orig_meal.mealitem_set.all()
         for orig_meal_item in orig_meal_items:
-            meal_item_copy = MealItem(
-                meal=meal_copy,
-                ingredient=orig_meal_item.ingredient,
-                weight_unit=orig_meal_item.weight_unit,
-                order=orig_meal_item.order,
-                amount=orig_meal_item.amount
-            )
-            meal_item_copy.save()
+            meal_item_data = model_to_dict(orig_meal_item)
+            meal_item_data.pop('id')
+            meal_item_data.pop('ingredient')
+            meal_item_data['meal'] = meal_copy
+            meal_item_data['ingredient_id'] = orig_meal_item.ingredient_id
+            # setting manually due to "editable" False
+            meal_item_data['order'] = orig_meal_item.order
+            MealItem.objects.create(**meal_item_data)
 
     # Redirect
     return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan_copy.id}))
