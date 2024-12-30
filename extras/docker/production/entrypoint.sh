@@ -2,7 +2,7 @@
 
 # Copy a settings file if nothing's found (e.g. when mounting a fresh checkout)
 # This is a bit ugly, but it's needed since we use this image for development
-# and "production".
+# and production.
 if [ ! -f /home/wger/src/settings.py ]; then
    cp /tmp/settings.py /home/wger/src
 fi
@@ -13,15 +13,22 @@ fi
 # after a first checkout), repeat the process.
 if [ ! -d "/home/wger/src/wger.egg-info" ];
 then
-    pip3 install -e .
+    pip3 install --break-system-packages -e .
 fi
 
 # Bootstrap the application
 #   * Load the fixtures with exercises, ingredients, etc
 #   * Create an admin user
-#   * Download JS and CSS files
-#   * Compile custom bootstrap theme
-wger bootstrap
+#   * (optionally) Download JS and CSS files
+#   * (optionally) Compile custom bootstrap theme
+
+if [ "$YARN_PROCESS_STATIC" == "True" ]; then
+    yarn_static=""
+else
+    yarn_static="--no-process-static"
+fi
+
+wger bootstrap $yarn_static
 
 # Collect static files
 if [ "$DJANGO_CLEAR_STATIC_FIRST" == "False" ]; then
@@ -57,6 +64,26 @@ then
     python3 manage.py download-exercise-images
 fi
 
+# Download exercise videos
+if [[ "$DOWNLOAD_EXERCISE_VIDEOS_ON_STARTUP" == "True" ]];
+then
+    echo "Downloading exercise videos"
+    python3 manage.py download-exercise-videos
+fi
+
+# Load online fixtures
+if [[ "$LOAD_ONLINE_FIXTURES_ON_STARTUP" == "True" ]];
+then
+    echo "Loading online fixtures"
+    wger load-online-fixtures
+fi
+
+# Sync ingredients
+if [[ "$SYNC_INGREDIENTS_ON_STARTUP" == "True" ]];
+then
+    echo "Syncing ingredients"
+    python3 manage.py sync-ingredients
+fi
 
 # Set the site URL
 python3 manage.py set-site-url

@@ -9,14 +9,18 @@
         {% for license in license_list %}
             <li class="list-group-item list-group-item-action">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu" role="menu">
-                        <a href="{% url 'core:license:edit' license.id %}"
-                           class="dropdown-item wger-modal-dialog">{% translate 'Edit' %}</a>
-                        <a href="{% url 'core:license:delete' license.id %}"
-                           class="dropdown-item wger-modal-dialog">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'core:license:edit' license.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete' as text %}
+                        {% url 'core:license:delete' license.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
                 {{ license }}
@@ -36,8 +40,7 @@
 {#         #}
 {% block options %}
     {% if perms.core.add_license %}
-        <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% translate "Add" %}
-        </a>
+        {% translate 'Add' as text %}
+        {% modal_link url='core:license:add' text=text %}
     {% endif %}
 {% endblock %}

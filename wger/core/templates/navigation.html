@@ -49,7 +49,7 @@
                             {% if user.is_authenticated %}
                                 <li>
                                     <a class="dropdown-item"
-                                       href="{% url 'manager:workout:calendar' user.username %}"
+                                       href="{% url 'manager:workout:calendar' %}"
                                        rel="nofollow">
                                         {% translate "Calendar" %}
                                     </a>
@@ -175,7 +175,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">
+                                <a class="dropdown-item"
+                                   href="{% url 'nutrition:ingredient:list' %}">
                                     {% translate "Ingredient overview" %}
                                 </a>
                             </li>
@@ -183,7 +184,8 @@
                                 <li class="dropdown-divider"></li>
                                 <li class="dropdown-header">{% translate "Administration" %}</li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'nutrition:weight_unit:list' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'nutrition:weight_unit:list' %}">
                                         {% translate "Ingredient weight units" %}
                                     </a>
                                 </li>
@@ -211,11 +213,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item"
-                                       href="{% url 'weight:add' %}"
-                                       rel="nofollow">
-                                        {% translate "Add weight entry" %}
-                                    </a>
+                                    {% translate 'Add weight entry' as text %}
+                                    {% modal_link url='weight:add' text=text css_class='dropdown-item' %}
                                 </li>
                             </ul>
                         </li>
@@ -282,7 +281,7 @@
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link text-white"
                                data-bs-toggle="dropdown">
-                                {% translate "Login" %} / {% translate "Register" %}
+                                {% translate "Login" %}{% if allow_registration %} / {% translate "Register" %}{% endif %}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -291,12 +290,14 @@
                                         {% translate "Login" %}
                                     </a>
                                 </li>
+                                {% if allow_registration %}
                                 <li>
                                     <a class="dropdown-item"
                                        href="{% url 'core:user:registration' %}">
                                         {% translate "Register" %}
                                     </a>
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a class="dropdown-item"
                                        href="{% url 'core:user:password_reset' %}">

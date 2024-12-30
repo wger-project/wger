@@ -55,24 +55,29 @@
     {% endcompress %}
 
     {# this needs to be outside of the compress block! #}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/react-simple-wysiwyg.css' %}"
-          id="react-css">
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/react-simple-wysiwyg.css' %}"
+        id="react-css"
+    >
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
         <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
         <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
-        <script src="{% static 'yarn/d3/dist/d3.js' %}"></script>
+        <script src="{% static 'yarn/htmx.org/dist/htmx.min.js' %}"></script>
         <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
-        <script
-            src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}">
+        </script>
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
-        <script src="{% static 'react/main.js' %}" defer="defer"></script>
     {% endcompress %}
+
+    {# this needs to be outside of the compress block! #}
+    <script src="{% static 'react/main.js' %}" type="module" defer="defer"></script>
 
     {% block header %}{% endblock %}
 
@@ -82,12 +87,6 @@
             if (typeof wgerCustomPageInit !== "undefined") {
                 wgerCustomPageInit();
             }
-
-            // Init the modal dialog for editing forms
-            wgerFormModalDialog();
-
-            // Initialise the hook to reload the main-content
-            wgerLoadMaincontent();
         });
     </script>
 
@@ -110,7 +109,6 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>

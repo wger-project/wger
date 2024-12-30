@@ -16,10 +16,13 @@
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'gym:gym:edit' gym.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                        <a href="{% url 'gym:gym:delete' gym.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'gym:gym:edit' gym.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete' as text %}
+                        {% url 'gym:gym:delete' gym.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
                 <a href="{% url 'gym:gym:user-list' gym.pk %}">{{ gym }}</a>
@@ -42,8 +45,8 @@
                 {% translate "Actions" %} <span class="caret"></span>
             </button>
             <div class="dropdown-menu" role="menu">
-                <a href="{% url 'config:gym_config:edit' %}"
-                   class="wger-modal-dialog dropdown-item">{% translate "Edit" %}</a>
+                {% translate 'Edit' as text %}
+                {% modal_link url='config:gym_config:edit' text=text css_class='dropdown-item' %}
             </div>
         </div>
     {% endif %}
@@ -62,9 +65,8 @@
 {# Options #}
 {#         #}
 {% block options %}
-    {% if perms.gym.add_gym %}
-        <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% translate "Add new gym" %}
-        </a>
-    {% endif %}
+{% if perms.gym.add_gym %}
+    {% translate 'Add new gym' as text %}
+    {% modal_link url='gym:gym:add' text=text  %}
+{% endif %}
 {% endblock %}

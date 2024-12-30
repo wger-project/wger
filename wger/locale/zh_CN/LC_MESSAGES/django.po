@@ -14,19 +14,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2024-06-05 08:09+0000\n"
-"Last-Translator: Yi-Han Hsiung <hsiungyi@oregonstate.edu>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"wger/web/zh_Hans/>\n"
+"POT-Creation-Date: 2024-11-14 19:23+0100\n"
+"PO-Revision-Date: 2024-11-20 18:22+0000\n"
+"Last-Translator: Herb Huang <Ranger0801@live.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 
-#: config/models/gym_config.py:46 gym/templates/gym/list.html:53
+#: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
 msgstr "默认健身房"
 
@@ -38,28 +38,28 @@ msgstr ""
 "选择默认健身房。所有新注册用户及没有添加健身房的已注册用户会加入此默认健身"
 "房。"
 
-#: config/views/gym_config.py:42 core/templates/language/view.html:67
-#: core/templates/license/list.html:17 core/templates/misc/license/list.html:18
+#: config/views/gym_config.py:42 core/templates/language/view.html:64
+#: core/templates/license/list.html:17
 #: core/templates/repetition_unit/list.html:18
-#: core/templates/tags/render_day.html:39
-#: core/templates/tags/render_day.html:75 core/templates/user/overview.html:204
-#: core/templates/user/overview.html:445
+#: core/templates/user/overview.html:204 core/templates/user/overview.html:467
 #: core/templates/weight_unit/list.html:18
 #: exercises/templates/categories/admin-overview.html:17
 #: exercises/templates/equipment/admin-overview.html:17
-#: exercises/templates/muscles/admin-overview.html:17
-#: gallery/views/images.py:98 gym/templates/admin_notes/list.html:32
-#: gym/templates/contract/list.html:31 gym/templates/contract/view.html:107
-#: gym/templates/contract_option/list.html:32
-#: gym/templates/contract_type/list.html:32 gym/templates/document/list.html:38
-#: gym/templates/gym/list.html:20 gym/templates/gym/list.html:46
-#: gym/templates/gym/member_list.html:87 gym/templates/gym/member_list.html:140
-#: gym/templates/gym/member_list.html:176
-#: manager/templates/calendar/day.html:68
-#: manager/templates/calendar/month.html:85
-#: manager/templates/calendar/partial_overview_table.html:18
-#: manager/templates/schedule/view.html:118
-#: nutrition/templates/ingredient/view.html:165
+#: exercises/templates/muscles/admin-overview.html:16
+#: gallery/views/images.py:98 gym/templates/admin_notes/list.html:31
+#: gym/templates/contract/list.html:30 gym/templates/contract/view.html:106
+#: gym/templates/contract_option/list.html:29
+#: gym/templates/contract_type/list.html:30 gym/templates/document/list.html:38
+#: gym/templates/gym/list.html:19 gym/templates/gym/list.html:48
+#: gym/templates/gym/member_list.html:94 gym/templates/gym/member_list.html:152
+#: gym/templates/gym/member_list.html:190
+#: manager/templates/calendar/day.html:67
+#: manager/templates/calendar/month.html:84
+#: manager/templates/calendar/partial_overview_table.html:16
+#: manager/templates/schedule/view.html:271
+#: manager/templates/workout/view.html:181
+#: nutrition/templates/ingredient/view.html:164
+#: nutrition/templates/ingredient/view.html:209
 #: nutrition/templates/units/list.html:19
 msgid "Edit"
 msgstr "编辑"
@@ -93,25 +93,25 @@ msgstr "我酷酷的健身日程"
 msgid "Empty placeholder schedule"
 msgstr "空的时间表"
 
-#: core/forms.py:69 core/templates/navigation.html:285
-#: core/templates/navigation.html:291 core/templates/user/login.html:4
+#: core/forms.py:69 core/templates/navigation.html:284
+#: core/templates/navigation.html:290 core/templates/user/login.html:4
 #: software/templates/features.html:82 software/templates/features.html:427
 msgid "Login"
 msgstr "登录"
 
-#: core/forms.py:108 core/forms.py:214 gym/views/export.py:61
+#: core/forms.py:108 core/forms.py:216 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
 msgstr "名字"
 
-#: core/forms.py:109 core/forms.py:215 core/templates/user/overview.html:266
+#: core/forms.py:109 core/forms.py:217 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
 msgstr "姓氏"
 
-#: core/forms.py:111 core/forms.py:180 core/templates/user/overview.html:270
+#: core/forms.py:111 core/forms.py:182 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
-#: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:104
+#: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:116
 #: gym/templates/gym/new_user.html:30 gym/views/export.py:60
 #: mailer/templates/mailer/gym/form.html:4
 #: mailer/templates/mailer/gym/overview.html:4
@@ -128,94 +128,93 @@ msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 msgid "Date of Birth"
 msgstr "生日"
 
-#: core/forms.py:148
+#: core/forms.py:149
 msgid "Personal data"
 msgstr "个人数据"
 
-#: core/forms.py:159
+#: core/forms.py:161
 msgid "Workout reminders"
 msgstr "健身提醒"
 
-#: core/forms.py:166
+#: core/forms.py:168
 msgid "Other settings"
 msgstr "其它设置"
 
-#: core/forms.py:174 core/views/user.py:624 core/views/user.py:639
-#: core/views/user.py:651 gym/forms.py:73 manager/templates/log/add.html:65
+#: core/forms.py:176 core/views/user.py:623 core/views/user.py:638
+#: core/views/user.py:650 gym/forms.py:73 manager/templates/log/add.html:65
 #: manager/templates/set/add.html:70 manager/views/workout.py:203
 #: utils/generic_views.py:143
 msgid "Save"
 msgstr "保存"
 
-#: core/forms.py:181
+#: core/forms.py:183
 msgid "Used for password resets and, optionally, email reminders."
 msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 
-#: core/forms.py:210
+#: core/forms.py:212
 msgid "This e-mail address is already in use."
 msgstr "这个邮件地址已经被注册过了。"
 
-#: core/forms.py:231 gym/templates/gym/new_user.html:26
+#: core/forms.py:233 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
 msgstr "密码"
 
-#: core/forms.py:233
+#: core/forms.py:235
 msgid "Please enter your current password."
 msgstr "请输入你的原密码。"
 
-#: core/forms.py:242 core/templates/language/view.html:73
-#: core/templates/license/list.html:19 core/templates/misc/license/list.html:22
-#: core/templates/repetition_unit/list.html:20
-#: core/templates/tags/render_day.html:45
-#: core/templates/tags/render_day.html:81 core/templates/user/overview.html:217
-#: core/templates/weight_unit/list.html:20
-#: exercises/templates/categories/admin-overview.html:19
-#: exercises/templates/equipment/admin-overview.html:19
-#: exercises/templates/muscles/admin-overview.html:19
-#: gym/templates/admin_notes/list.html:40
-#: gym/templates/contract_option/list.html:41
-#: gym/templates/contract_type/list.html:41 gym/templates/document/list.html:46
-#: gym/templates/gym/list.html:22 manager/templates/calendar/day.html:73
-#: manager/templates/calendar/month.html:89
-#: manager/templates/calendar/partial_overview_table.html:23
-#: manager/templates/schedule/view.html:122
-#: manager/templates/workout/view.html:188
-#: nutrition/templates/ingredient/view.html:166
+#: core/forms.py:244 core/templates/language/view.html:70
+#: core/templates/license/list.html:21
+#: core/templates/repetition_unit/list.html:22
+#: core/templates/user/overview.html:233
+#: core/templates/weight_unit/list.html:22
+#: exercises/templates/categories/admin-overview.html:21
+#: exercises/templates/equipment/admin-overview.html:21
+#: exercises/templates/muscles/admin-overview.html:20
+#: gym/templates/admin_notes/list.html:37
+#: gym/templates/contract_option/list.html:35
+#: gym/templates/contract_type/list.html:36 gym/templates/document/list.html:46
+#: gym/templates/gym/list.html:23 manager/templates/calendar/day.html:73
+#: manager/templates/calendar/month.html:88
+#: manager/templates/calendar/partial_overview_table.html:22
+#: manager/templates/schedule/view.html:277
+#: manager/templates/workout/view.html:202
+#: nutrition/templates/ingredient/view.html:168
 #: nutrition/templates/ingredient/view.html:215
-#: nutrition/templates/units/list.html:22
+#: nutrition/templates/units/list.html:25
 msgid "Delete"
 msgstr "删除"
 
-#: core/forms.py:251
+#: core/forms.py:253
 msgid "Invalid password"
 msgstr "密码无效"
 
-#: core/forms.py:263 core/forms.py:338
+#: core/forms.py:265 core/forms.py:340
 msgid "The form is secured with reCAPTCHA"
 msgstr "该表格由 reCAPTCHA 保护"
 
-#: core/forms.py:279 core/forms.py:301 core/templates/navigation.html:285
-#: core/templates/navigation.html:297 core/templates/template.html:149
-#: core/templates/user/login.html:20 core/views/user.py:298
+#: core/forms.py:281 core/forms.py:303 core/templates/navigation.html:284
+#: core/templates/navigation.html:296 core/templates/template.html:150
+#: core/templates/user/login.html:20 core/views/user.py:297
 #: software/templates/features.html:87 software/templates/features.html:422
 msgid "Register"
 msgstr "注册"
 
-#: core/forms.py:315 software/templates/features.html:45
+#: core/forms.py:317 software/templates/features.html:45
 msgid "Contact"
 msgstr "联系"
 
-#: core/forms.py:316
+#: core/forms.py:318
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "回复你问题的方式(邮件等)"
 
-#: core/forms.py:324 exercises/models/comment.py:58 manager/models/set.py:61
+#: core/forms.py:326 exercises/models/comment.py:58 manager/models/set.py:61
 #: manager/models/setting.py:114 nutrition/models/log.py:77
 msgid "Comment"
 msgstr "评论"
 
-#: core/forms.py:325
+#: core/forms.py:327
 msgid "What do you want to say?"
 msgstr "你怎么看?"
 
@@ -232,10 +231,8 @@ msgid "Language full name"
 msgstr "语言全称"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "语言全称"
+msgstr "语言 全拼姓名"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -444,18 +441,18 @@ msgid "The sum of all hours has to be 24"
 msgstr "所有时长的和应该是24"
 
 #: core/models/rep_unit.py:36 core/models/weight_unit.py:36
-#: core/templates/user/overview.html:262 core/views/user.py:599
+#: core/templates/user/overview.html:280 core/views/user.py:598
 #: exercises/models/category.py:29 exercises/models/equipment.py:29
 #: exercises/models/exercise.py:59 exercises/models/muscle.py:36
 #: gym/models/contract.py:52 gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
-#: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:96
+#: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
 #: gym/views/gym.py:158 manager/models/schedule.py:55
 #: manager/models/workout.py:57 measurements/models/category.py:36
 #: nutrition/models/ingredient.py:111
-#: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:67
+#: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:65
 #: nutrition/models/weight_unit.py:38
-#: nutrition/templates/ingredient/view.html:152
+#: nutrition/templates/ingredient/view.html:151
 msgid "Name"
 msgstr "名称"
 
@@ -505,7 +502,7 @@ msgstr ""
 msgid "Back to \"%(target)s\""
 msgstr "返回到\"%(target)s\""
 
-#: core/templates/delete.html:15
+#: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "你确定要删除这条记录？删除动作是不可撤销的。"
 
@@ -551,15 +548,13 @@ msgstr "维格小组"
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
-msgstr ""
-"请点击以下连接以确认您的邮箱：\n"
-"%(link)s"
+msgstr "请点击以下连接以确认您的邮箱：%(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:432
 msgid "Dashboard"
 msgstr "管理面板"
 
-#: core/templates/language/overview.html:4 core/templates/navigation.html:345
+#: core/templates/language/overview.html:4 core/templates/navigation.html:344
 msgid "Languages"
 msgstr "语言"
 
@@ -569,80 +564,71 @@ msgstr "未找到匹配项。"
 
 #: core/templates/language/overview.html:22
 #: manager/templates/calendar/month.html:132
-#: manager/templates/schedule/overview.html:28
-#: manager/templates/schedule/view.html:144
+#: manager/templates/schedule/view.html:107
 #: manager/templates/workout/overview.html:28
 #: nutrition/templates/ingredient/overview.html:38
 msgid "Add one now."
 msgstr "现在就新增一个。"
 
-#: core/templates/language/overview.html:35 core/templates/license/list.html:40
-#: core/templates/misc/license/list.html:43
-#: core/templates/repetition_unit/list.html:43
-#: core/templates/user/overview.html:326 core/templates/user/overview.html:365
-#: core/templates/user/overview.html:401
-#: core/templates/weight_unit/list.html:43 core/views/languages.py:74
+#: core/templates/language/overview.html:34 core/templates/license/list.html:43
+#: core/templates/repetition_unit/list.html:46
+#: core/templates/user/overview.html:344 core/templates/user/overview.html:384
+#: core/templates/user/overview.html:422
+#: core/templates/weight_unit/list.html:46 core/views/languages.py:74
 #: core/views/license.py:66 core/views/repetition_units.py:66
 #: core/views/weight_units.py:66
-#: exercises/templates/categories/admin-overview.html:38
-#: gallery/views/images.py:63 gym/templates/admin_notes/list.html:67
-#: gym/templates/contract/list.html:73
-#: gym/templates/contract_option/list.html:72
-#: gym/templates/contract_type/list.html:72 gym/templates/document/list.html:79
-#: gym/templates/gym/member_list.html:211
-#: gym/templates/gym/member_list.html:244
-#: gym/templates/gym/member_list.html:281
+#: exercises/templates/categories/admin-overview.html:40
+#: exercises/templates/equipment/admin-overview.html:39
+#: exercises/templates/muscles/admin-overview.html:40
+#: gallery/views/images.py:63 gym/templates/admin_notes/list.html:64
+#: gym/templates/contract/list.html:69
+#: gym/templates/contract_option/list.html:65
+#: gym/templates/contract_type/list.html:66 gym/templates/document/list.html:78
+#: gym/templates/gym/member_list.html:228
+#: gym/templates/gym/member_list.html:264
+#: gym/templates/gym/member_list.html:303
 #: mailer/templates/mailer/gym/overview.html:43
+#: nutrition/templates/ingredient/overview.html:60
 msgid "Add"
 msgstr "新增"
 
 #: core/templates/language/view.html:61 core/templates/user/api_key.html:44
-#: core/templates/user/preferences.html:45 gym/models/contract.py:203
-#: gym/templates/contract/view.html:41 gym/templates/contract/view.html:106
-#: gym/templates/gym/member_list.html:248
-#: manager/templates/schedule/view.html:285
-#: manager/templates/workout/view.html:163
-#: nutrition/templates/ingredient/view.html:202
+#: core/templates/user/preferences.html:50 gym/models/contract.py:203
+#: gym/templates/contract/view.html:41 gym/templates/gym/member_list.html:270
+#: manager/templates/schedule/view.html:257
+#: manager/templates/workout/view.html:177
+#: nutrition/templates/ingredient/view.html:206
 msgid "Options"
 msgstr "选项"
 
-#: core/templates/license/list.html:4 core/templates/misc/license/list.html:4
+#: core/templates/license/list.html:4
 msgid "License list"
 msgstr "许可协议列表"
 
-#: core/templates/license/list.html:26 core/templates/misc/license/list.html:30
-#: core/templates/repetition_unit/list.html:28
+#: core/templates/license/list.html:30
+#: core/templates/repetition_unit/list.html:32
 #: core/templates/user/overview.html:104 core/templates/user/overview.html:136
-#: core/templates/user/overview.html:185 core/templates/user/overview.html:347
-#: core/templates/user/overview.html:383 core/templates/user/overview.html:427
-#: core/templates/weight_unit/list.html:28
-#: exercises/templates/categories/admin-overview.html:26
-#: exercises/templates/equipment/admin-overview.html:26
-#: exercises/templates/muscles/admin-overview.html:26
-#: gym/templates/admin_notes/list.html:52 gym/templates/contract/list.html:60
-#: gym/templates/contract_option/list.html:58
-#: gym/templates/contract_type/list.html:58 gym/templates/document/list.html:64
-#: gym/templates/gym/list.html:29 gym/templates/gym/member_list.html:229
-#: gym/templates/gym/member_list.html:262
-#: gym/templates/gym/member_list.html:299
+#: core/templates/user/overview.html:185 core/templates/user/overview.html:365
+#: core/templates/user/overview.html:404 core/templates/user/overview.html:448
+#: core/templates/weight_unit/list.html:32
+#: exercises/templates/categories/admin-overview.html:30
+#: exercises/templates/equipment/admin-overview.html:30
+#: exercises/templates/muscles/admin-overview.html:29
+#: gym/templates/admin_notes/list.html:50 gym/templates/contract/list.html:57
+#: gym/templates/contract_option/list.html:52
+#: gym/templates/contract_type/list.html:53 gym/templates/document/list.html:64
+#: gym/templates/gym/list.html:32 gym/templates/gym/member_list.html:248
+#: gym/templates/gym/member_list.html:284
+#: gym/templates/gym/member_list.html:321
 #: mailer/templates/mailer/gym/overview.html:30
-#: manager/templates/calendar/day.html:87
-#: nutrition/templates/units/list.html:29
+#: manager/templates/calendar/day.html:88
+#: nutrition/templates/units/list.html:34
 msgid "Nothing found"
 msgstr "没有找到任何内容"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:175
+#: core/templates/misc/about.html:4 core/templates/template.html:187
 msgid "Imprint"
 msgstr "版本说明"
-
-#: core/templates/misc/license/list.html:47
-msgid ""
-"If a license has been localized, e.g. the Creative Commons\n"
-"            licenses for the different countries, add them as separate "
-"entries here."
-msgstr ""
-"如果一个许可证已经本地化，例如，不同国家的 \"知识共享 \"\n"
-"许可证，请将它们作为单独的条目添加到这里。"
 
 #: core/templates/navigation.html:28 software/templates/features.html:437
 msgid "Training"
@@ -688,8 +674,8 @@ msgstr "公共模板"
 msgid "Exercises"
 msgstr "练习"
 
-#: core/templates/navigation.html:111 core/templates/navigation.html:184
-#: core/templates/navigation.html:340
+#: core/templates/navigation.html:111 core/templates/navigation.html:185
+#: core/templates/navigation.html:339
 msgid "Administration"
 msgstr "管理"
 
@@ -718,7 +704,7 @@ msgstr "营养"
 msgid "Nutrition plans"
 msgstr "营养计划"
 
-#: core/templates/navigation.html:165 nutrition/templates/bmi/form.html:50
+#: core/templates/navigation.html:165
 msgid "BMI calculator"
 msgstr "体重指数计算器"
 
@@ -726,87 +712,87 @@ msgstr "体重指数计算器"
 msgid "Daily calories calculator"
 msgstr "每日卡路里计算器"
 
-#: core/templates/navigation.html:179
+#: core/templates/navigation.html:180
 #: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
 msgstr "食谱总览"
 
-#: core/templates/navigation.html:187 nutrition/templates/units/list.html:6
+#: core/templates/navigation.html:189 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
 msgstr "食谱计量单位"
 
-#: core/templates/navigation.html:203 software/templates/features.html:442
+#: core/templates/navigation.html:205 software/templates/features.html:442
 msgid "Body weight"
 msgstr "体重"
 
-#: core/templates/navigation.html:210 core/templates/user/overview.html:114
+#: core/templates/navigation.html:212 core/templates/user/overview.html:114
 msgid "Weight overview"
 msgstr "体重总览"
 
-#: core/templates/navigation.html:217 weight/views.py:65
+#: core/templates/navigation.html:216 weight/views.py:65
 msgid "Add weight entry"
 msgstr "新增体重记录"
 
-#: core/templates/navigation.html:231
+#: core/templates/navigation.html:230
 msgid "About this software"
 msgstr "关于软件"
 
-#: core/templates/navigation.html:237 software/templates/about_us.html:5
+#: core/templates/navigation.html:236 software/templates/about_us.html:5
 msgid "About us"
 msgstr "关于我们"
 
-#: core/templates/navigation.html:243 software/templates/features.html:507
+#: core/templates/navigation.html:242 software/templates/features.html:507
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:249 utils/models.py:45
+#: core/templates/navigation.html:248 utils/models.py:45
 msgid "License"
 msgstr "许可协议"
 
-#: core/templates/navigation.html:255
+#: core/templates/navigation.html:254
 msgid "Developer documentation"
 msgstr "开发者文档"
 
-#: core/templates/navigation.html:262
+#: core/templates/navigation.html:261
 msgid "Get the code"
 msgstr "获取源码"
 
-#: core/templates/navigation.html:269 core/templates/template.html:214
+#: core/templates/navigation.html:268 core/templates/template.html:226
 #: software/templates/features.html:582
 msgid "Translate"
 msgstr "翻译"
 
-#: core/templates/navigation.html:303 core/templates/user/login.html:28
+#: core/templates/navigation.html:302 core/templates/user/login.html:28
 msgid "Reset password"
 msgstr "重设密码"
 
-#: core/templates/navigation.html:321
+#: core/templates/navigation.html:320
 msgid "My preferences"
 msgstr "我的首选项"
 
-#: core/templates/navigation.html:330
+#: core/templates/navigation.html:329
 msgid "Logout"
 msgstr "退出"
 
-#: core/templates/navigation.html:353
+#: core/templates/navigation.html:352
 msgid "Licenses"
 msgstr "许可协议"
 
-#: core/templates/navigation.html:361
+#: core/templates/navigation.html:360
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "重复单元"
 
-#: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:368 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
 msgstr "重量单位"
 
-#: core/templates/navigation.html:377 core/templates/user/list.html:4
+#: core/templates/navigation.html:376 core/templates/user/list.html:4
 msgid "User list"
 msgstr "用户列表"
 
-#: core/templates/navigation.html:383
+#: core/templates/navigation.html:382
 msgid "Gyms"
 msgstr "健身房"
 
@@ -860,62 +846,35 @@ msgstr "%(site_name)s 团队"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:12
 msgid "previous"
-msgstr "前一页"
+msgstr "前"
 
 #: core/templates/tags/pagination.html:33
 #: core/templates/tags/pagination.html:38
 msgid "next"
-msgstr "后一页"
+msgstr "后"
 
-#: core/templates/tags/render_day.html:34
-msgid "Add weight log"
-msgstr "新增体重记录"
+#: core/templates/tags/render_day.html:44
+msgid "Placeholder image for translation"
+msgstr "图片占位符"
 
-#: core/templates/tags/render_day.html:116
-msgid "Placeholder image for exercise"
-msgstr "健身图片占位符"
-
-#: core/templates/tags/render_day.html:133
-msgid "This exercise has no repetitions."
-msgstr "这个健身项目没有重复次数."
-
-#: core/templates/tags/render_day.html:136
-msgid "Edit them now."
-msgstr "现在编辑它们."
-
-#: core/templates/tags/render_day.html:162
-msgid "Add exercises to this workout day"
-msgstr "新增健身项目到这个健身日"
-
-#: core/templates/tags/render_weight_log.html:17 manager/helpers.py:86
-#: manager/models/setting.py:72 manager/templates/set/formset.html:9
-msgid "Reps"
-msgstr "重复次数"
-
-#: core/templates/tags/render_weight_log.html:30 manager/forms.py:191
-#: manager/models/log.py:103 manager/models/setting.py:102
-#: manager/templates/log/add.html:56 manager/templates/set/formset.html:13
-msgid "RiR"
-msgstr "力竭之前的剩余次数"
-
-#: core/templates/template.html:122 manager/templates/calendar/month.html:138
-#: manager/templates/schedule/view.html:248
-#: manager/templates/schedule/view.html:269
-#: manager/templates/workout/view.html:84
-#: manager/templates/workout/view.html:137
+#: core/templates/template.html:123 manager/templates/calendar/month.html:138
+#: manager/templates/schedule/view.html:215
+#: manager/templates/schedule/view.html:240
+#: manager/templates/workout/view.html:89
+#: manager/templates/workout/view.html:149
 msgid "Close"
 msgstr "关闭"
 
-#: core/templates/template.html:138
+#: core/templates/template.html:139
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr "你正在以访客模式浏览,输入的数据会在一周后删除."
 
-#: core/templates/template.html:143
+#: core/templates/template.html:144
 msgid "Create some demo entries"
 msgstr "创建一些示例项"
 
-#: core/templates/template.html:180 software/templates/features.html:547
+#: core/templates/template.html:192 software/templates/features.html:547
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "服务条款"
@@ -924,7 +883,7 @@ msgstr "服务条款"
 msgid "Features"
 msgstr "特色"
 
-#: core/templates/user/api_key.html:4 core/templates/user/preferences.html:54
+#: core/templates/user/api_key.html:4 core/templates/user/preferences.html:59
 msgid "API key"
 msgstr "API密钥"
 
@@ -967,17 +926,17 @@ msgstr "生成一个新的API密钥"
 msgid "Documentation"
 msgstr "文档"
 
-#: core/templates/user/delete_account.html:4
-#: core/templates/user/preferences.html:59
+#: core/templates/user/delete_account.html:3
+#: core/templates/user/preferences.html:62
 msgid "Delete account"
 msgstr "删除账户"
 
-#: core/templates/user/delete_account.html:17
+#: core/templates/user/delete_account.html:9
 #: exercises/templates/history/overview.html:93
 msgid "Are you sure?"
 msgstr "你确定吗？"
 
-#: core/templates/user/delete_account.html:22
+#: core/templates/user/delete_account.html:14
 #, python-format
 msgid ""
 "This action will delete the user account \"%(username)s\".\n"
@@ -987,7 +946,7 @@ msgid ""
 msgstr ""
 "这会删除\"%(username)s\"的用户账户。\n"
 "同时也会删除所有和该账户关联的数据(健身，日志等)，\n"
-"并且不可撤销"
+"并且不可撤销。 "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -999,22 +958,22 @@ msgstr "忘记密码？"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
-#: core/templates/user/overview.html:330 core/templates/user/overview.html:369
-#: core/templates/user/overview.html:405
+#: core/templates/user/overview.html:348 core/templates/user/overview.html:390
+#: core/templates/user/overview.html:426
 #, python-format
 msgid "last %(number)s"
 msgstr "最后%(number)s"
 
 #: core/templates/user/overview.html:27 core/templates/user/overview.html:146
-#: core/templates/user/overview.html:325 core/templates/user/overview.html:364
-#: core/templates/user/overview.html:400 gym/templates/gym/member_list.html:210
-#: gym/templates/gym/member_list.html:243
-#: gym/templates/gym/member_list.html:280
+#: core/templates/user/overview.html:343 core/templates/user/overview.html:382
+#: core/templates/user/overview.html:421 gym/templates/gym/member_list.html:226
+#: gym/templates/gym/member_list.html:262
+#: gym/templates/gym/member_list.html:302
 msgid "Overview"
 msgstr "总览"
 
 #: core/templates/user/overview.html:28
-#: manager/templates/schedule/view.html:163
+#: manager/templates/schedule/view.html:125
 #: manager/templates/workout/overview.html:39 manager/views/schedule_step.py:60
 msgid "Add workout"
 msgstr "新增健身"
@@ -1046,38 +1005,36 @@ msgstr "目标"
 msgid "Number of logs (days)"
 msgstr "日志数（天）"
 
-#: core/templates/user/overview.html:37 core/views/user.py:600
+#: core/templates/user/overview.html:37 core/views/user.py:599
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
 msgstr "最后一次活动"
 
 #: core/templates/user/overview.html:58
 #: manager/templates/calendar/month.html:128
-#: manager/templates/schedule/view.html:144
 #: manager/templates/workout/overview.html:28
 msgid "No workouts found."
 msgstr "没有健身记录。"
 
 #: core/templates/user/overview.html:68 manager/forms.py:280
-#: manager/templates/workout/view.html:106
+#: manager/templates/workout/view.html:114
 msgid "Log"
 msgstr "日志"
 
 #: core/templates/user/overview.html:77 manager/models/session.py:83
-#: manager/templates/calendar/partial_overview_table.html:52
+#: manager/templates/calendar/partial_overview_table.html:54
 msgid "General impression"
 msgstr "总体印象"
 
-#: core/templates/user/overview.html:78 core/templates/user/overview.html:369
+#: core/templates/user/overview.html:78 core/templates/user/overview.html:390
 #: manager/models/session.py:73
-#: manager/templates/calendar/partial_overview_table.html:56
-#: manager/templates/workout/log.html:89
+#: manager/templates/calendar/partial_overview_table.html:58
 msgid "Notes"
 msgstr "备注"
 
 #: core/templates/user/overview.html:79
 #: exercises/templates/history/overview.html:30
-#: manager/templates/calendar/partial_overview_table.html:42
+#: manager/templates/calendar/partial_overview_table.html:44
 msgid "Time"
 msgstr "时间"
 
@@ -1088,7 +1045,7 @@ msgstr "时间"
 #: weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:144
 msgid "Weight"
-msgstr "体重"
+msgstr "重量"
 
 #: core/templates/user/overview.html:154 nutrition/models/ingredient.py:116
 #: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:237
@@ -1113,123 +1070,123 @@ msgstr "脂肪"
 #: core/templates/user/overview.html:170
 #: nutrition/templates/ingredient/view.html:53
 msgid "kcal"
-msgstr "大卡"
+msgstr "千卡"
 
-#: core/templates/user/overview.html:201 core/templates/user/overview.html:322
-#: core/templates/user/overview.html:361 core/templates/user/overview.html:397
-#: core/templates/user/overview.html:442 gym/templates/gym/list.html:42
-#: gym/templates/gym/member_list.html:84 gym/templates/gym/member_list.html:137
-#: gym/templates/gym/member_list.html:173
-#: gym/templates/gym/member_list.html:207
-#: gym/templates/gym/member_list.html:240
-#: gym/templates/gym/member_list.html:277
-#: manager/templates/schedule/view.html:100
+#: core/templates/user/overview.html:201 core/templates/user/overview.html:340
+#: core/templates/user/overview.html:379 core/templates/user/overview.html:418
+#: core/templates/user/overview.html:463 gym/templates/gym/list.html:45
+#: gym/templates/gym/member_list.html:91 gym/templates/gym/member_list.html:149
+#: gym/templates/gym/member_list.html:187
+#: gym/templates/gym/member_list.html:223
+#: gym/templates/gym/member_list.html:259
+#: gym/templates/gym/member_list.html:299
+#: manager/templates/schedule/view.html:54
 msgid "Actions"
 msgstr "操作"
 
-#: core/templates/user/overview.html:207
+#: core/templates/user/overview.html:210
 msgid "Deactivate user"
 msgstr "非活跃用户"
 
-#: core/templates/user/overview.html:209
+#: core/templates/user/overview.html:214
 msgid "Activate user"
 msgstr "活跃用户"
 
-#: core/templates/user/overview.html:211
+#: core/templates/user/overview.html:223
 msgid "Reset user password"
 msgstr "重置用户密码"
 
-#: core/templates/user/overview.html:214 gym/templates/gym/member_list.html:30
+#: core/templates/user/overview.html:227 gym/templates/gym/member_list.html:30
 msgid "Roles"
 msgstr "角色"
 
-#: core/templates/user/overview.html:225
+#: core/templates/user/overview.html:243
 msgid "Password reset confirmation"
 msgstr "密码重置确认"
 
-#: core/templates/user/overview.html:229
+#: core/templates/user/overview.html:247
 msgid "Do you really want to change this user&#39;s password?"
 msgstr "真的要修改用户&#39;的密码？"
 
-#: core/templates/user/overview.html:232
+#: core/templates/user/overview.html:250
 #: exercises/templates/history/overview.html:106
 msgid "No"
 msgstr "否"
 
-#: core/templates/user/overview.html:233
+#: core/templates/user/overview.html:251
 #: exercises/templates/history/overview.html:99
 msgid "Yes"
 msgstr "是"
 
-#: core/templates/user/overview.html:254 gym/templates/gym/member_list.html:93
+#: core/templates/user/overview.html:272 gym/templates/gym/member_list.html:105
 msgid "Details"
 msgstr "详细"
 
-#: core/templates/user/overview.html:258 gym/views/export.py:57
-#: manager/helpers.py:86 manager/templates/schedule/view.html:98
+#: core/templates/user/overview.html:276 gym/views/export.py:57
+#: manager/helpers.py:86 manager/templates/schedule/view.html:52
 msgid "Nr."
 msgstr "序号"
 
-#: core/templates/user/overview.html:280 gym/models/contract.py:287
+#: core/templates/user/overview.html:298 gym/models/contract.py:287
 #: gym/models/gym.py:50 gym/templates/contract/view.html:75
-#: gym/templates/gym/member_list.html:100 gym/views/export.py:68
+#: gym/templates/gym/member_list.html:112 gym/views/export.py:68
 msgid "Phone"
 msgstr "手机"
 
-#: core/templates/user/overview.html:284 gym/templates/contract/view.html:87
-#: gym/templates/gym/member_list.html:118
+#: core/templates/user/overview.html:302 gym/templates/contract/view.html:87
+#: gym/templates/gym/member_list.html:130
 msgid "Address"
 msgstr "地址"
 
-#: core/templates/user/overview.html:295
+#: core/templates/user/overview.html:313
 msgid "Registered"
 msgstr "注册时间"
 
-#: core/templates/user/overview.html:299
+#: core/templates/user/overview.html:317
 msgid "Last login"
 msgstr "最后登录"
 
-#: core/templates/user/overview.html:304
+#: core/templates/user/overview.html:322
 msgid "Status"
 msgstr "状态"
 
-#: core/templates/user/overview.html:307
+#: core/templates/user/overview.html:325
 msgid "Active"
 msgstr "活跃"
 
-#: core/templates/user/overview.html:309
+#: core/templates/user/overview.html:327
 msgid "Inactive"
 msgstr "非活跃"
 
-#: core/templates/user/overview.html:330 gym/templates/contract/list.html:4
-#: gym/templates/gym/member_list.html:202
+#: core/templates/user/overview.html:348 gym/templates/contract/list.html:4
+#: gym/templates/gym/member_list.html:218
 msgid "Contracts"
 msgstr "合同"
 
-#: core/templates/user/overview.html:405 gym/templates/document/list.html:4
+#: core/templates/user/overview.html:426 gym/templates/document/list.html:4
 msgid "Documents"
 msgstr "文档"
 
-#: core/templates/user/overview.html:412 gym/templates/document/list.html:32
-#: manager/forms.py:292 manager/templates/workout/view.html:132
+#: core/templates/user/overview.html:433 gym/templates/document/list.html:33
+#: manager/forms.py:292 manager/templates/workout/view.html:143
 msgid "Download"
 msgstr "下载"
 
-#: core/templates/user/overview.html:450 gym/views/admin_config.py:44
+#: core/templates/user/overview.html:474 gym/views/admin_config.py:44
 #: gym/views/admin_config.py:58 gym/views/user_config.py:46
 msgid "Configuration"
 msgstr "配置"
 
-#: core/templates/user/overview.html:453 gym/models/user_config.py:92
+#: core/templates/user/overview.html:477 gym/models/user_config.py:92
 msgid "Include in inactive overview"
 msgstr "包含在非活动概览中"
 
-#: core/templates/user/overview.html:486
+#: core/templates/user/overview.html:510
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr "管理员登录权限只对%(gym_name)s的用户开放"
 
-#: core/templates/user/overview.html:490
+#: core/templates/user/overview.html:514
 msgid "Log in as this user"
 msgstr "以该用户登录"
 
@@ -1249,19 +1206,19 @@ msgstr "未验证的邮箱"
 msgid "Send verification email"
 msgstr "发送验证邮件"
 
-#: core/templates/user/preferences.html:30
+#: core/templates/user/preferences.html:31
 msgid "You need to verify your email to contribute exercises"
 msgstr "您需要验证您的邮箱来添加锻炼项目"
 
-#: core/templates/user/preferences.html:50 core/views/user.py:611
+#: core/templates/user/preferences.html:55 core/views/user.py:610
 msgid "Change password"
 msgstr "修改密码"
 
-#: core/templatetags/wger_extras.py:205 i18n.tpl:37
+#: core/templatetags/wger_extras.py:197 i18n.tpl:37
 msgid "kg"
 msgstr "千克"
 
-#: core/templatetags/wger_extras.py:207
+#: core/templatetags/wger_extras.py:199
 #: nutrition/templates/ingredient/view.html:60
 #: nutrition/templates/ingredient/view.html:66
 #: nutrition/templates/ingredient/view.html:73
@@ -1273,11 +1230,11 @@ msgctxt "weight unit, i.e. grams"
 msgid "g"
 msgstr "克"
 
-#: core/templatetags/wger_extras.py:210 i18n.tpl:38
+#: core/templatetags/wger_extras.py:202 i18n.tpl:38
 msgid "lb"
 msgstr "磅"
 
-#: core/templatetags/wger_extras.py:212
+#: core/templatetags/wger_extras.py:204
 msgctxt "weight unit, i.e. ounces"
 msgid "oz"
 msgstr "盎司"
@@ -1304,13 +1261,13 @@ msgid "Delete {0}?"
 msgstr "删除 {0}?"
 
 #: core/views/languages.py:111 core/views/license.py:85
-#: core/views/repetition_units.py:86 core/views/user.py:474
+#: core/views/repetition_units.py:86 core/views/user.py:473
 #: core/views/weight_units.py:86 exercises/views/categories.py:98
 #: exercises/views/equipment.py:81 exercises/views/muscles.py:87
 #: gym/views/admin_notes.py:161 gym/views/config.py:68
 #: gym/views/contract.py:186 gym/views/contract_option.py:123
 #: gym/views/contract_type.py:123 gym/views/document.py:171
-#: gym/views/gym.py:463 manager/views/day.py:100 manager/views/schedule.py:333
+#: gym/views/gym.py:463 manager/views/day.py:96 manager/views/schedule.py:333
 #: manager/views/workout.py:267 nutrition/views/ingredient.py:145
 #: nutrition/views/unit.py:143
 #, python-brace-format
@@ -1323,9 +1280,9 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
-"我们已经创建了健身示例，健身日程，体重日志，(体)重和营养计划条目等，通过这"
-"些，你可以更加深入了解到这个网站可以做到什么。你可以随意编辑或者删除这些数"
-"据。"
+"我们已经创建了健身示例，健身日程，体重日志，(体)重和营养计划条目等，通过这些"
+"，你可以更加深入了解到这个网站可以做到什么    "
+"你可以随意编辑或者删除这些数据！"
 
 #: core/views/misc.py:127
 msgid "Feedback"
@@ -1339,48 +1296,48 @@ msgstr "提交"
 msgid "Your feedback was successfully sent. Thank you!"
 msgstr "你的反馈已经成功发送.非常感谢!"
 
-#: core/views/user.py:156
+#: core/views/user.py:155
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
 msgstr "账户\"{0}\"已经被成功删除"
 
-#: core/views/user.py:292
+#: core/views/user.py:291
 msgid "You were successfully registered"
 msgstr "你已成功注册"
 
-#: core/views/user.py:351
+#: core/views/user.py:350
 msgid "Settings successfully updated"
 msgstr "设置更新成功"
 
-#: core/views/user.py:390
+#: core/views/user.py:389
 msgid "The user was successfully deactivated"
 msgstr "该用户已经被成功置为非活跃"
 
-#: core/views/user.py:427
+#: core/views/user.py:426
 msgid "The user was successfully activated"
 msgstr "该用户已经被成功置为活跃"
 
-#: core/views/user.py:442
+#: core/views/user.py:441
 msgid "Edit user"
 msgstr "编辑用户"
 
-#: core/views/user.py:597 gym/templates/gym/member_list.html:26
+#: core/views/user.py:596 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:158
 msgid "ID"
 msgstr "ID"
 
-#: core/views/user.py:598 gym/forms.py:95 gym/templates/contract/view.html:55
+#: core/views/user.py:597 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
 #: gym/views/gym.py:158 gym/views/gym.py:217
 msgid "Username"
 msgstr "用户名"
 
-#: core/views/user.py:601 gym/templates/gym/new_user.html:34
+#: core/views/user.py:600 gym/templates/gym/new_user.html:34
 #: gym/views/export.py:58 gym/views/gym.py:217
 msgid "Gym"
 msgstr "健身房"
 
-#: core/views/user.py:660
+#: core/views/user.py:659
 #, python-format
 msgid "A verification email was sent to %(email)s"
 msgstr "一封验证邮箱已发送至 %(email)s"
@@ -1532,20 +1489,11 @@ msgstr "编解码器的全称"
 msgid "Equipment list"
 msgstr "器材列表"
 
-#: exercises/templates/equipment/admin-overview.html:39
-#: exercises/views/equipment.py:92
-msgid "Add new equipment"
-msgstr "新增器材"
-
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "训练日"
+msgstr "训练管理历史"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
 msgstr "操作"
 
@@ -1565,10 +1513,8 @@ msgid "Object"
 msgstr "对象"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgid "Change password"
 msgid "Changes"
-msgstr "修改密码"
+msgstr "修改"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
@@ -1590,11 +1536,6 @@ msgstr "还原更改"
 msgid "Muscle overview"
 msgstr "肌肉总览"
 
-#: exercises/templates/muscles/admin-overview.html:38
-#: exercises/views/muscles.py:68
-msgid "Add muscle"
-msgstr "新增肌肉"
-
 #: exercises/views/categories.py:72
 msgid "Add category"
 msgstr "新增类别"
@@ -1603,6 +1544,10 @@ msgstr "新增类别"
 msgid "This will also delete all exercises in this category."
 msgstr "这也会删除该类别下的所有健身项目."
 
+#: exercises/views/equipment.py:92
+msgid "Add new equipment"
+msgstr "新增器材"
+
 #: exercises/views/equipment.py:104 exercises/views/equipment.py:115
 msgid "Delete equipment?"
 msgstr "删除器材?"
@@ -1610,6 +1555,10 @@ msgstr "删除器材?"
 #: exercises/views/exercises.py:72
 msgid "This will delete the exercise from all workouts."
 msgstr "这会从所有的健身中删除该健身项目."
+
+#: exercises/views/muscles.py:68
+msgid "Add muscle"
+msgstr "新增肌肉"
 
 #: gallery/templates/images/overview.html:62
 msgid "Add image"
@@ -1629,11 +1578,11 @@ msgstr "总经理"
 
 #: gym/forms.py:98
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "不超过30个字符.只允许字母,数字和@/./+/-/_"
+msgstr "不超过30个字符.只允许字母,数字和@/./+/-/_。"
 
 #: gym/forms.py:100
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr "这个值只能包含字母,数字和@/.//-/_"
+msgstr "这个值只能包含字母,数字和@/.//-/_。"
 
 #: gym/forms.py:114
 msgid "A user with that username already exists."
@@ -1696,7 +1645,7 @@ msgid "Contract is active"
 msgstr "合同已激活"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
-#: manager/models/schedule.py:61 manager/templates/schedule/view.html:67
+#: manager/models/schedule.py:61 manager/templates/schedule/view.html:21
 msgid "Start date"
 msgstr "开始时间"
 
@@ -1732,7 +1681,7 @@ msgstr "管理员:可以管理健身房的用户"
 msgid "Admin: can administrate the different gyms"
 msgstr "管理员:可以管理不同的健身房"
 
-#: gym/models/gym.py:65 gym/templates/gym/member_list.html:114
+#: gym/models/gym.py:65 gym/templates/gym/member_list.html:126
 msgid "Owner"
 msgstr "所有者"
 
@@ -1742,7 +1691,7 @@ msgid ""
 "considered inactive"
 msgstr "周数,设定一个用户最后一次上传他的表现所过的周数来认定为非活跃"
 
-#: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:152
+#: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
 msgid "Show name in header"
 msgstr "在标题中显示名称"
 
@@ -1751,12 +1700,11 @@ msgid "Show the name of the gym in the site header"
 msgstr "在网站标题中显示健身房的名称"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "{}的配置"
+msgstr "{self.gym.name}配置"
 
-#: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
+#: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
 msgstr "非活跃会员的总览"
 
@@ -1780,7 +1728,7 @@ msgstr "如果什么都不填写将使用文件名"
 msgid "User notes"
 msgstr "用户备注"
 
-#: gym/templates/contract/list.html:36
+#: gym/templates/contract/list.html:34
 msgid "Show"
 msgstr "展示"
 
@@ -1806,11 +1754,11 @@ msgstr "下面的用户在过去的%(weeks)s 周内没有访问健身房"
 msgid "Gym list"
 msgstr "健身房列表"
 
-#: gym/templates/gym/list.html:50
+#: gym/templates/gym/list.html:53
 msgid "Global gym configuration"
 msgstr "健身房全局配置"
 
-#: gym/templates/gym/list.html:67 gym/views/gym.py:171
+#: gym/templates/gym/list.html:69 gym/views/gym.py:171
 msgid "Add new gym"
 msgstr "新增健身房"
 
@@ -1822,43 +1770,43 @@ msgstr "管理员和教练员"
 msgid "Gym manager"
 msgstr "健身房经理"
 
-#: gym/templates/gym/member_list.html:69
+#: gym/templates/gym/member_list.html:76
 msgid "This gym has no administrators or trainers"
 msgstr "这个健身房没有管理员或者教练员"
 
-#: gym/templates/gym/member_list.html:88
+#: gym/templates/gym/member_list.html:98
 msgid "Export"
 msgstr "导出"
 
-#: gym/templates/gym/member_list.html:125
+#: gym/templates/gym/member_list.html:137
 msgid "Members"
 msgstr "会员数"
 
-#: gym/templates/gym/member_list.html:145
+#: gym/templates/gym/member_list.html:159
 msgid "Gym configuration"
 msgstr "健身房配置"
 
-#: gym/templates/gym/member_list.html:148
+#: gym/templates/gym/member_list.html:162
 msgid "Inactive members"
 msgstr "非活跃会员"
 
-#: gym/templates/gym/member_list.html:149
+#: gym/templates/gym/member_list.html:163
 msgid "weeks"
 msgstr "周"
 
-#: gym/templates/gym/member_list.html:181
+#: gym/templates/gym/member_list.html:197
 msgid "My configuration"
 msgstr "我的配置"
 
-#: gym/templates/gym/member_list.html:215
+#: gym/templates/gym/member_list.html:234
 msgid "Types"
 msgstr "类型"
 
-#: gym/templates/gym/member_list.html:285
+#: gym/templates/gym/member_list.html:307
 msgid "Emails"
 msgstr "邮件"
 
-#: gym/templates/gym/member_list.html:315
+#: gym/templates/gym/member_list.html:336
 msgid "Add member"
 msgstr "新增会员"
 
@@ -1874,8 +1822,9 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"请写下用户密码或者保存包含所有用户数据的导出文件,并把它放到一个安全的位置.\n"
-"以后,无法恢复密码了."
+"请写下用户密码或者保存包含所有用户数据的导出文件，\n"
+"并把它放到一个安全的位置。\n"
+"此密码永远没有办法被找回。"
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -1941,14 +1890,10 @@ msgid "Bench"
 msgstr "长凳"
 
 #: i18n.tpl:7
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
 msgstr "肱二头肌"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
 msgstr "体重"
 
@@ -2128,7 +2073,7 @@ msgstr "健身计划的名称"
 msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
-msgstr "一个健身的简短描述或者目标.像'专注于背部训练'或者'某某教程第1周'等"
+msgstr "这个健身的简介或者目标，例如“专注练背”或者“健身大计某某某的第一周”。"
 
 #: manager/forms.py:133
 msgid ""
@@ -2137,10 +2082,8 @@ msgid ""
 msgstr "你可以搜索多个健身项目,它们将会被聚合成一个超集."
 
 #: manager/forms.py:140 nutrition/forms.py:253
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "使用食谱时用英文显示"
+msgstr "且以英文名字搜索"
 
 #: manager/forms.py:168 manager/forms.py:173 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:62
@@ -2151,28 +2094,38 @@ msgstr "使用食谱时用英文显示"
 msgid "Unit"
 msgstr "单元"
 
+#: manager/forms.py:191 manager/models/log.py:103 manager/models/setting.py:102
+#: manager/templates/log/add.html:56 manager/templates/set/formset.html:13
+msgid "RiR"
+msgstr "力竭之前的剩余次数"
+
 #: manager/forms.py:279
 msgid "Type"
 msgstr "类型"
 
-#: manager/forms.py:280 manager/templates/workout/view.html:113
+#: manager/forms.py:280 manager/templates/workout/view.html:122
 msgid "Table"
 msgstr "表格"
 
-#: manager/forms.py:282 manager/templates/workout/view.html:119
+#: manager/forms.py:282 manager/templates/workout/view.html:129
 msgid "with images"
 msgstr "带有图片"
 
-#: manager/forms.py:283 manager/templates/workout/view.html:125
+#: manager/forms.py:283 manager/templates/workout/view.html:136
 msgid "with comments"
 msgstr "带有评论"
+
+#: manager/helpers.py:86 manager/models/setting.py:72
+#: manager/templates/set/formset.html:9
+msgid "Reps"
+msgstr "重复次数"
 
 #: manager/management/commands/email-reminders.py:121
 msgid "Workout will expire soon"
 msgstr "安排的健身很快就要过期了"
 
 #: manager/models/day.py:34 manager/models/log.py:58
-#: manager/models/session.py:60 manager/templates/schedule/view.html:102
+#: manager/models/session.py:60 manager/templates/schedule/view.html:56
 #: manager/templates/workout/view.html:9 manager/templates/workout/view.html:17
 #: manager/views/pdf.py:85 manager/views/pdf.py:161
 #: manager/views/schedule.py:151 manager/views/schedule.py:221
@@ -2192,9 +2145,9 @@ msgstr "天"
 
 #: manager/models/schedule.py:57
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
-msgstr "日程的名称或者简短描述,像'某某某训练日程'"
+msgstr "日程表的名字或简介，例如“快速增重增肌”。"
 
-#: manager/models/schedule.py:65 manager/templates/schedule/view.html:71
+#: manager/models/schedule.py:65 manager/templates/schedule/view.html:25
 msgid "Schedule active"
 msgstr "日程活跃"
 
@@ -2203,11 +2156,10 @@ msgid ""
 "Tick the box if you want to mark this schedule as your active one (will be "
 "shown e.g. on your dashboard). All other schedules will then be marked as "
 "inactive"
-msgstr ""
-"勾选方格,如果你想把这个日程设置为活跃日程(会在管理面板等地方显示).然后,其他的"
-"日程会被自动标记为非活跃."
+msgstr "如果你想把这个日程表标注为活动的（也就是说让它显示在你的主页面），可以选定此"
+"项。与此同时，其他日程表将被标注为非活动的"
 
-#: manager/models/schedule.py:77 manager/templates/schedule/view.html:81
+#: manager/models/schedule.py:77 manager/templates/schedule/view.html:35
 msgid "Is a loop"
 msgstr "是一个循环"
 
@@ -2226,7 +2178,7 @@ msgid "The duration in weeks"
 msgstr "每周持续时间"
 
 #: manager/models/schedule_step.py:64 manager/models/set.py:53
-#: manager/models/setting.py:113 nutrition/models/meal.py:55
+#: manager/models/setting.py:113 nutrition/models/meal.py:53
 #: nutrition/models/meal_item.py:66
 msgid "Order"
 msgstr "順序"
@@ -2362,7 +2314,7 @@ msgstr "日志概述"
 msgid "Workout session"
 msgstr "锻炼课程"
 
-#: manager/templates/calendar/partial_overview_table.html:27
+#: manager/templates/calendar/partial_overview_table.html:26
 msgid "Delete with logs"
 msgstr "删除日志"
 
@@ -2385,20 +2337,24 @@ msgstr ""
 "则将创建一个新的锻炼课程。如果已经存在，\n"
 "则将对其进行编辑。始终会添加体重条目。"
 
-#: manager/templates/schedule/overview.html:5
+#: manager/templates/schedule/overview.html:4
 msgid "Your schedules"
 msgstr "你的日程安排"
 
 #: manager/templates/schedule/overview.html:19
-#: manager/templates/schedule/view.html:131
-#: manager/templates/schedule/view.html:183
+#: manager/templates/schedule/view.html:96
+#: manager/templates/schedule/view.html:146
 #: manager/templates/workout/overview.html:16
 msgid "active"
 msgstr "活跃"
 
-#: manager/templates/schedule/overview.html:28
+#: manager/templates/schedule/overview.html:27
 msgid "No schedules found."
 msgstr "未找到任何时刻表。"
+
+#: manager/templates/schedule/overview.html:28
+msgid "Add one now"
+msgstr "立刻加一"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2414,13 +2370,15 @@ msgid ""
 "        before jumping to the next. It is also possible to create a loop, so "
 "you\n"
 "        always do the same workouts in succession, e.g. A > B > C > A > B > "
-"C and so on."
+"C and so\n"
+"        on."
 msgstr ""
 "您可以指定每次锻炼的时间，然后再跳到下一个锻炼。\n"
 "        也可以创建一个循环，这样您总是连续进行相同的锻炼，\n"
-"        例如 A > B > C > A > B > C 等等。"
+"        例如 A > B > C > A > B > C\n"
+"        诸如此类。"
 
-#: manager/templates/schedule/overview.html:43
+#: manager/templates/schedule/overview.html:44
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
@@ -2439,25 +2397,21 @@ msgstr "添加行程"
 msgid "Schedule"
 msgstr "行程表"
 
-#: manager/templates/schedule/view.html:85
+#: manager/templates/schedule/view.html:39
 msgid ""
 "This schedule is a loop and will go through the workouts above till you "
 "deactivate it"
 msgstr "此计划是一个循环，将执行上述锻炼，直到你停用它"
 
-#: manager/templates/schedule/view.html:103
+#: manager/templates/schedule/view.html:57
 msgid "Weeks"
 msgstr "周数"
 
-#: manager/templates/schedule/view.html:115
-msgid "Move me"
-msgstr "移开我"
-
-#: manager/templates/schedule/view.html:156
+#: manager/templates/schedule/view.html:121
 msgid "Start schedule"
 msgstr "开始日程"
 
-#: manager/templates/schedule/view.html:187
+#: manager/templates/schedule/view.html:150
 #, python-format
 msgid ""
 "%(weeks)s Week\n"
@@ -2466,61 +2420,63 @@ msgid_plural ""
 "%(weeks)s Weeks\n"
 "                                "
 msgstr[0] ""
+"%(weeks)s 周\n"
+"                                "
 
-#: manager/templates/schedule/view.html:221
+#: manager/templates/schedule/view.html:184
 msgid "Adding workouts"
 msgstr "新增健身中"
 
-#: manager/templates/schedule/view.html:223
+#: manager/templates/schedule/view.html:186
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "            edit the order by dragging and dropping them. It's also possible "
 "to add one workout more\n"
 "            than once."
 msgstr ""
+"在计划表里任意添加训练。你可以\n"
+"            拖拽他们来改变顺序；也可以多次添加\n"
+"            某一个训练。"
 
-#: manager/templates/schedule/view.html:232
-#: manager/templates/schedule/view.html:243
-#: manager/templates/schedule/view.html:290
+#: manager/templates/schedule/view.html:195
+#: manager/templates/schedule/view.html:209
+#: manager/templates/schedule/view.html:263
 #: manager/templates/workout/view.html:69
-#: manager/templates/workout/view.html:79
-#: manager/templates/workout/view.html:178
+#: manager/templates/workout/view.html:83
+#: manager/templates/workout/view.html:192
 msgid "Export calendar file"
 msgstr "导出日历文件"
 
-#: manager/templates/schedule/view.html:236
+#: manager/templates/schedule/view.html:201
 msgid "Export this schedule as a calendar file."
 msgstr "将此日程表导出为日历文件。"
 
-#: manager/templates/schedule/view.html:237
-#: manager/templates/workout/view.html:74
+#: manager/templates/schedule/view.html:202
+#: manager/templates/workout/view.html:76
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
 "iCal. This will create\n"
 "                        an appointment for each training day with the "
-"appropriate exercises."
+"appropriate\n"
+"                        exercises."
 msgstr ""
+"你可以把文件导入进\n"
+"                        例如谷歌日历、Outlook 或 iCal 内。\n"
+"                        这会在每一个训练日生成一个合适的\n"
+"                        训练安排。"
 
-#: manager/templates/schedule/view.html:258
-#: manager/templates/schedule/view.html:294
-#: manager/templates/workout/view.html:94
-#: manager/templates/workout/view.html:174
+#: manager/templates/schedule/view.html:225
+#: manager/templates/schedule/view.html:268
+#: manager/templates/workout/view.html:99
+#: manager/templates/workout/view.html:188
 msgid "Download as PDF"
 msgstr "下载为PDF"
-
-#: manager/templates/schedule/view.html:299
-msgid "Edit schedule"
-msgstr ""
-
-#: manager/templates/schedule/view.html:304
-msgid "Delete schedule"
-msgstr ""
 
 #: manager/templates/set/add.html:9
 #, python-format
 msgid "Add exercises to day \"%(day_name)s\""
-msgstr ""
+msgstr "把训练添加到%(day_name)s日"
 
 #: manager/templates/set/add.html:56
 msgid ""
@@ -2529,24 +2485,27 @@ msgid ""
 "repetitions, this\n"
 "automatically becomes \"4 x 10\"."
 msgstr ""
+"如果你每一组都做相同的次数，\n"
+"你仅需要一个值：例如，对于四组，你只需要输入一个“10”，\n"
+"它就自动会变成“四乘十”。"
 
 #: manager/templates/set/edit.html:10
 msgid "Edit set"
-msgstr ""
+msgstr "编辑组"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(workout)s' expired %(days)s days ago."
-msgstr ""
+msgstr "你当前的训练%(workout)s已经在%(days)s前过期。"
 
 #: manager/templates/workout/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr ""
+msgstr "你当前的训练%(workout)s将在%(days)s天后过期。"
 
 #: manager/templates/workout/email_reminder.tpl:9
 msgid ""
@@ -2554,6 +2513,9 @@ msgid ""
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
 "never produce reminders."
 msgstr ""
+"你会定期收到提醒，直到你添加新的训练。\n"
+"或者你自行添加一个循环训练，\n"
+"这样日程表就不会发出提醒。"
 
 #: manager/templates/workout/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2561,6 +2523,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
+"如果你不想再收到邮件提醒，\n"
+"在设置中关闭这一项。"
 
 #: manager/templates/workout/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
@@ -2575,52 +2539,13 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
+"你最后一次输入体重已是%(date)s%(days)s。\n"
+"请点击链接，进入应用，添加新的记录。"
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
-msgstr ""
-
-#: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
-msgid "Weight log"
-msgstr "体重日志"
-
-#: manager/templates/workout/log.html:29
-msgid "Weight log for workout"
-msgstr "健身的体重日志"
-
-#: manager/templates/workout/log.html:49
-msgid "Add weight log to this day"
-msgstr "添加体重日志到该训练日"
-
-#: manager/templates/workout/log.html:69
-msgid "No weight entries here."
-msgstr ""
-
-#: manager/templates/workout/log.html:77
-msgid "No exercises for this day."
-msgstr ""
-
-#: manager/templates/workout/log.html:90
-msgid ""
-"This page shows the weight logs belonging to this workout\n"
-"only. Click on an exercise to see all the historical data for\n"
-"it."
-msgstr ""
-
-#: manager/templates/workout/log.html:94
-msgid ""
-"If on a single day there is more than one entry with the\n"
-"same number of repetitions, but different weights, only the entry with the\n"
-"higher weight is shown in the diagram."
-msgstr ""
-
-#: manager/templates/workout/log.html:98
-msgid ""
-"Note that only entries with a weight unit (kg or lb) and\n"
-"repetitions are charted, other combinations such as time or until failure\n"
-"are ignored here."
-msgstr ""
+msgstr "你会定期收到此类提醒，直到你输入当前体重。"
 
 #: manager/templates/workout/overview.html:25
 msgid "No templates found."
@@ -2633,7 +2558,7 @@ msgstr "标记此健身计划"
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:49
 msgid "Muscles trained"
-msgstr ""
+msgstr "练出的肌肉"
 
 #: manager/templates/workout/template_view.html:68
 #: manager/templates/workout/view.html:52
@@ -2647,7 +2572,7 @@ msgstr "使用此模板"
 
 #: manager/templates/workout/view.html:43
 msgid "Add training days"
-msgstr ""
+msgstr "添加训练日"
 
 #: manager/templates/workout/view.html:44
 msgid "Add workout sets to days"
@@ -2655,29 +2580,25 @@ msgstr "新增健身项目组到健身日"
 
 #: manager/templates/workout/view.html:45
 msgid "Set the repetitions for each set"
-msgstr ""
+msgstr "为每一组设置次数"
 
-#: manager/templates/workout/view.html:73
+#: manager/templates/workout/view.html:75
 msgid "Export this workout as a calendar file."
-msgstr ""
+msgstr "将该训练导出为日历文件。"
 
-#: manager/templates/workout/view.html:144
+#: manager/templates/workout/view.html:156
 msgid "Logs"
-msgstr ""
+msgstr "记录"
 
-#: manager/templates/workout/view.html:146
+#: manager/templates/workout/view.html:159
 msgid "View logs"
-msgstr ""
+msgstr "查看记录"
 
-#: manager/templates/workout/view.html:169 manager/views/schedule_step.py:99
-msgid "Edit workout"
-msgstr "编辑健身"
-
-#: manager/templates/workout/view.html:182 manager/views/workout.py:281
+#: manager/templates/workout/view.html:195 manager/views/workout.py:281
 msgid "Mark as template"
-msgstr ""
+msgstr "标记为模板"
 
-#: manager/views/day.py:109
+#: manager/views/day.py:105
 msgid "Add workout day"
 msgstr "新增健身日"
 
@@ -2688,11 +2609,15 @@ msgstr "删除健身日志"
 #: manager/views/pdf.py:87 manager/views/pdf.py:163
 #, python-format
 msgid "Workout for %s"
-msgstr ""
+msgstr "训练%s"
 
 #: manager/views/schedule.py:291
 msgid "Create schedule"
-msgstr ""
+msgstr "创建规划"
+
+#: manager/views/schedule_step.py:99
+msgid "Edit workout"
+msgstr "编辑健身"
 
 #: manager/views/workout.py:209
 msgid "Copy workout"
@@ -2700,7 +2625,7 @@ msgstr "拷贝健身"
 
 #: manager/views/workout.py:212
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 #: manager/views/workout_session.py:70
 #, python-brace-format
@@ -2714,29 +2639,23 @@ msgstr "{0}的新的健身印象"
 
 #: manager/views/workout_session.py:158
 msgid "This will delete all weight logs for this day as well."
-msgstr ""
+msgstr "这还会删除此日的全部重量记录。"
 
 #: measurements/models/measurement.py:52
 msgid "Value"
-msgstr ""
+msgstr "值"
 
 #: nutrition/forms.py:118
-#, fuzzy
-#| msgid "Height (cm)"
 msgid "Height (in)"
-msgstr "身高(cm)"
+msgstr "身高（英寸）"
 
 #: nutrition/forms.py:121
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "体重日志"
+msgstr "体重（千克）"
 
 #: nutrition/forms.py:121
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "体重日志"
+msgstr "体重（磅）"
 
 #: nutrition/forms.py:134
 msgid "Calculate"
@@ -2744,11 +2663,11 @@ msgstr "计算"
 
 #: nutrition/forms.py:208 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
-msgstr ""
+msgstr "基础热量摄入"
 
 #: nutrition/forms.py:209
 msgid "Your basic caloric intake as calculated for your data"
-msgstr ""
+msgstr "根据你的数据算得的基础热量摄入"
 
 #: nutrition/forms.py:214
 msgid "Additional calories"
@@ -2758,7 +2677,7 @@ msgstr "额外卡路里"
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
-msgstr ""
+msgstr "基础热量外额外的卡路里（若有缺口，则输入负数）"
 
 #: nutrition/forms.py:249 nutrition/models/ingredient_weight_unit.py:39
 #: nutrition/models/log.py:87 nutrition/models/meal_item.py:54
@@ -2767,29 +2686,29 @@ msgstr "食谱"
 
 #: nutrition/models/ingredient.py:117
 msgid "In kcal per 100g"
-msgstr ""
+msgstr "以千卡/100克"
 
 #: nutrition/models/ingredient.py:124 nutrition/models/ingredient.py:132
 #: nutrition/models/ingredient.py:142 nutrition/models/ingredient.py:150
 #: nutrition/models/ingredient.py:160 nutrition/models/ingredient.py:170
 #: nutrition/models/ingredient.py:180
 msgid "In g per 100g of product"
-msgstr ""
+msgstr "以克计/100克的产品"
 
 #: nutrition/models/ingredient.py:141
 #: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:259
 msgid "Sugar content in carbohydrates"
-msgstr ""
+msgstr "碳水中的糖含量"
 
 #: nutrition/models/ingredient.py:159
 #: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:273
 msgid "Saturated fat content in fats"
-msgstr ""
+msgstr "脂肪中的饱和脂肪含量"
 
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "纤维素"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -2798,122 +2717,68 @@ msgstr "钠"
 
 #: nutrition/models/ingredient.py:209
 msgid "Link to product"
-msgstr ""
+msgstr "产品链接"
 
 #: nutrition/models/ingredient.py:238
 msgid "Brand name of product"
-msgstr ""
+msgstr "产品品牌"
 
 #: nutrition/models/ingredient.py:305
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
-msgstr ""
+msgstr "总热量（{self.energy}千卡）并非加总 "
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "成分类别"
 
 #: nutrition/models/ingredient_weight_unit.py:49
 msgid "Amount in grams"
-msgstr ""
+msgstr "以克记的重量"
 
 #: nutrition/models/ingredient_weight_unit.py:55
 msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
-msgstr ""
+msgstr "容量（例如一杯或半勺）"
 
-#: nutrition/models/log.py:52 nutrition/models/meal.py:50
+#: nutrition/models/log.py:52 nutrition/models/meal.py:48
 #: nutrition/models/meal_item.py:48 nutrition/models/plan.py:108
 msgid "Nutrition plan"
 msgstr "营养计划"
 
 #: nutrition/models/log.py:61
 msgid "Meal"
-msgstr ""
+msgstr "一餐"
 
 #: nutrition/models/log.py:71
 msgid "Date and Time (Approx.)"
-msgstr ""
+msgstr "日期和时间（估计）"
 
-#: nutrition/models/meal.py:62
+#: nutrition/models/meal.py:60
 msgid "Time (approx)"
-msgstr ""
+msgstr "时间（估计）"
 
-#: nutrition/models/meal.py:69
+#: nutrition/models/meal.py:67
 msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
-msgstr ""
+msgstr "为这一餐添加名字或文本描述（例如早餐或健身后）"
 
 #: nutrition/models/plan.py:69
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
-msgstr ""
+msgstr "描述这个计划的目标（例如“增重”或者“为夏天做准备”）"
 
 #: nutrition/models/plan.py:90
 msgid "Use daily calories"
-msgstr ""
+msgstr "使用日常卡路里"
 
 #: nutrition/models/plan.py:93
 msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
-msgstr ""
-
-#: nutrition/templates/bmi/form.html:62
-msgid "Results"
-msgstr "结果"
-
-#: nutrition/templates/bmi/form.html:63
-msgid "Your BMI is: "
-msgstr "你的体重指数是："
-
-#: nutrition/templates/bmi/form.html:71
-msgid "Legend"
-msgstr "说明"
-
-#: nutrition/templates/bmi/form.html:75
-msgid "Adipositas III"
-msgstr "三级肥胖"
-
-#: nutrition/templates/bmi/form.html:79
-msgid "Adipositas II"
-msgstr "二级肥胖"
-
-#: nutrition/templates/bmi/form.html:83
-msgid "Adipositas I"
-msgstr "一级肥胖"
-
-#: nutrition/templates/bmi/form.html:87
-msgid "Overweight"
-msgstr "超重"
-
-#: nutrition/templates/bmi/form.html:91
-msgid "Normal weight"
-msgstr "正常体重"
-
-#: nutrition/templates/bmi/form.html:95
-msgid "Slight underweight"
-msgstr "稍微偏瘦"
-
-#: nutrition/templates/bmi/form.html:99
-msgid "Moderate underweight"
-msgstr "中等偏瘦"
-
-#: nutrition/templates/bmi/form.html:103
-msgid "Strong underweight"
-msgstr "严重偏瘦"
-
-#: nutrition/templates/bmi/form.html:117
-msgid ""
-"Use the form to calculate your BMI (Body Mass Index).\n"
-"If you have entered data in the weight section, the last entry will\n"
-"be used automatically. Otherwise the weight you enter here will be saved\n"
-"in a new entry."
-msgstr ""
-"使用左边的表格来计算你的体重指数(Body Mass Index)。\n"
-"如果你已经在体重区域输入过你的体重，那么体重一栏会自动填充你的数据。\n"
-"否则，你输入的体重数据将会被保存为新的体重记录。"
+msgstr "如果你想标记一个有目标热量的计划，请勾选此项。你可以使用热量计算器或自己输入"
+"一个值。"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2921,26 +2786,32 @@ msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
 msgstr ""
+"成分%(ingredient)s已经\n"
+"成功添加到总数据库中。"
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
+"它现在可以在成分概览中可用，且能被加到\n"
+"营养计划内。你可以通过这个地址来访问："
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
-msgstr "谢谢你的贡献让网站越来越好."
+msgstr "感谢你的贡献，另这个网站越来越好！"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
-msgstr ""
+msgstr "提交成分"
 
 #: nutrition/templates/ingredient/form.html:5
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
 msgstr ""
+"感谢你提交成分\n"
+"社区有你会更好！"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -2951,18 +2822,18 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
+"在你提交这个表格后，管理员会收到提醒\n"
+"表格会在被审阅后加入到数据库中，在此之前，\n"
+"它在概览或搜索中都是不可见的。如果你注册\n"
+"的时候留了邮箱，流程结束后，你会收到提醒。"
 
 #: nutrition/templates/ingredient/overview.html:38
 msgid "No ingredients."
-msgstr ""
+msgstr "没有成分。"
 
 #: nutrition/templates/ingredient/overview.html:49
 msgid "Search"
 msgstr "搜索"
-
-#: nutrition/templates/ingredient/overview.html:62
-msgid "Add ingredient"
-msgstr "新增食谱"
 
 #: nutrition/templates/ingredient/view.html:45 nutrition/views/plan.py:229
 msgid "Macronutrients"
@@ -2970,32 +2841,23 @@ msgstr "常量营养物"
 
 #: nutrition/templates/ingredient/view.html:54
 msgid "kJ"
-msgstr ""
+msgstr "千焦"
 
 #: nutrition/templates/ingredient/view.html:75
 #: nutrition/templates/ingredient/view.html:91
 #: nutrition/templates/ingredient/view.html:113
 #: nutrition/templates/ingredient/view.html:123
 msgid "n.A."
-msgstr ""
+msgstr "不可用"
 
 #: nutrition/templates/ingredient/view.html:102
 msgid "Others"
 msgstr "其它"
 
-#: nutrition/templates/ingredient/view.html:144
-#: nutrition/templates/units/list.html:46 nutrition/views/unit.py:86
+#: nutrition/templates/ingredient/view.html:143
+#: nutrition/templates/units/list.html:50 nutrition/views/unit.py:86
 msgid "Add new weight unit"
 msgstr "新增计量单位"
-
-#: nutrition/templates/ingredient/view.html:206
-#: nutrition/templates/ingredient/view.html:209
-msgid "Edit ingredient"
-msgstr "编辑食谱"
-
-#: nutrition/templates/ingredient/view.html:213
-msgid "Delete ingredient"
-msgstr "删除食谱"
 
 #: nutrition/templates/rate/form.html:25
 msgid "Basal metabolic rate"
@@ -3008,10 +2870,13 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
+"基础代谢率是你静息状态下每日消耗的能量。\n"
+"这个量用以维持你最基础的身体需要，不包含\n"
+"任何额外的身体活动。"
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "你的基础代谢率是（卡路里/天）："
+msgstr "你的基础代谢率是： "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -3023,22 +2888,25 @@ msgid ""
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
 msgstr ""
-"身体活动量(PAL)是一个用来体现额外身体活动的因素，\n"
-"并且会被用来计算每日所需的总能量。"
+"身体活动量（PAL）是一个用来体现\n"
+"额外身体活动的因素，并且会被用来\n"
+"计算每日所需的总能量。"
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "每日身体活动指数"
+msgstr "每日身体活动指数： "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
+"基础热量摄入是你不同运动\n"
+"水平下代谢所需的热量。"
 
 #: nutrition/templates/rate/form.html:81
 msgid "Calculate basic caloric intake"
-msgstr ""
+msgstr "计算基础热量摄入"
 
 #: nutrition/templates/rate/form.html:88
 msgid ""
@@ -3061,7 +2929,7 @@ msgstr "增加额外卡路里到每日总卡路里"
 
 #: nutrition/templates/rate/form.html:110
 msgid "Save total calories to profile"
-msgstr ""
+msgstr "保存总热量到资料"
 
 #: nutrition/templates/rate/form.html:121
 msgid ""
@@ -3069,18 +2937,9 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-
-#: nutrition/views/bmi.py:89
-msgid "Please make sure your height is within the appropriate range."
-msgstr ""
-
-#: nutrition/views/bmi.py:92
-msgid "140 to 230"
-msgstr ""
-
-#: nutrition/views/bmi.py:94
-msgid "56 to 90"
-msgstr ""
+"请注意这些计算仅仅是一个估计值。\n"
+"如果你要参考你的热量计划，请一定\n"
+"观察自己几个星期，按需变更。"
 
 #: nutrition/views/ingredient.py:157
 msgid "Add a new ingredient"
@@ -3088,16 +2947,16 @@ msgstr "新增一个食谱"
 
 #: nutrition/views/plan.py:120
 msgid "Nutritional plan"
-msgstr ""
+msgstr "营养计划"
 
 #: nutrition/views/plan.py:122
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "%s的计划"
 
 #: nutrition/views/plan.py:194
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
-msgstr ""
+msgstr "<i>这是一个空的计划，你希望在 PDF 上有什么？</i>"
 
 #: nutrition/views/plan.py:230
 msgid "Total"
@@ -3105,11 +2964,11 @@ msgstr "总量"
 
 #: nutrition/views/plan.py:231
 msgid "Percent of energy"
-msgstr ""
+msgstr "能量比例"
 
 #: nutrition/views/plan.py:232
 msgid "g per body kg"
-msgstr ""
+msgstr "克（以每1千克体重记）"
 
 #: nutrition/views/unit_ingredient.py:69
 msgid "Add a new weight unit"
@@ -3127,37 +2986,35 @@ msgstr "删除?"
 msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
-msgstr ""
+msgstr "感谢你使用wger！wger是一个协作开源项目，由全世界健身爱好者共同维护。"
 
 #: software/templates/about_us.html:18
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "遇到什么问题或有什么想法？"
 
 #: software/templates/about_us.html:20
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
-msgstr ""
+msgstr "如果有什么不对劲儿或者你希望添加什么功能，请联系我们。"
 
 #: software/templates/about_us.html:26
 msgid "Say hi!"
-msgstr ""
+msgstr "泥嚎！"
 
 #: software/templates/about_us.html:28
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
-msgstr ""
+msgstr "如果你想要和我们聊天，加入我们的 Discord 群组吧"
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "长毛象"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
-msgstr ""
+msgstr "在长毛象上关注我们，以获得最新资讯"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
 msgstr "翻译"
 
@@ -3165,37 +3022,31 @@ msgstr "翻译"
 msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
-msgstr ""
+msgstr "这个应用是在Weblate上翻译的。如果你想要提供帮助，请点击这个链接着手翻译"
 
 #: software/templates/about_us.html:47
 msgid "Source code"
-msgstr ""
+msgstr "源代码"
 
 #: software/templates/about_us.html:49
 msgid "Get the source code of this application and its server on github"
-msgstr ""
+msgstr "在Github上获取这个应用和服务器的源代码"
 
 #: software/templates/about_us.html:54 software/templates/features.html:63
 #: software/templates/features.html:319
 msgid "Donate"
-msgstr ""
+msgstr "捐赠"
 
 #: software/templates/about_us.html:56
 msgid ""
 "Buy us a coffee to help the project, pay for server costs, and keep us fueled"
-msgstr ""
+msgstr "打赏我们来支持这个项目！"
 
 #: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr "目标"
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3203,222 +3054,197 @@ msgid ""
 "                exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"目标是为了在免费许可协议下,建立一个灵活有效的健康管理软件.\n"
-"这个软件会包括关于健身和食谱以及其他相关的综合全面的内容."
+"我们希望开发一个\n"
+"                好用灵活的健身管理软件，\n"
+"                同时里面有完整的动作和营养成分，\n"
+"                并且以免费的许可证发行。"
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
-msgstr ""
-"wger 健身经理是一个免费的,开源的网络应用,它可以帮助管理和计划你练习和健身的过"
-"程."
+msgstr "wger 健身管理器是一个免费的开源网络应用。"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "手机应用"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "开发"
 
 #: software/templates/features.html:73 software/templates/features.html:455
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "评论"
+msgstr "社区"
 
 #: software/templates/features.html:107
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "记录<br> 完美身材 <br> 之路"
 
 #: software/templates/features.html:110
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
-msgstr ""
+msgstr "加入wger，一个社区驱动的<b>免费开源健身记录软件</b>"
 
 #: software/templates/features.html:120
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "获取源码"
+msgstr "从这里开始"
 
 #: software/templates/features.html:130
 msgid "people <br> using wger"
-msgstr ""
+msgstr "使用wger<br> 的人"
 
 #: software/templates/features.html:134
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "新增健身项目到这个健身日"
+msgstr "动作<br> 健身安排"
 
 #: software/templates/features.html:138
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "食物<br> 备营养餐"
 
 #: software/templates/features.html:142
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "赞我<br> 在GitHub上"
 
 #: software/templates/features.html:166
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "打造你完美 <span>健身计划</span>"
 
 #: software/templates/features.html:170
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "从超过100个动作里设计每周健身计划"
 
 #: software/templates/features.html:173
 msgid "Set reps and sets, duration, or distance goals for each exercise"
-msgstr ""
+msgstr "为各种动作设置次数、组数、时长或距离目标"
 
 #: software/templates/features.html:176
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "一步一步指导你的健身"
 
 #: software/templates/features.html:179
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
-msgstr ""
+msgstr "记录你所有的健身，以及当时的表现"
 
 #: software/templates/features.html:200
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "安排<span>每日健身餐</span>"
 
 #: software/templates/features.html:204
 msgid "Fill your week with nutritious meals that help you perform better"
-msgstr ""
+msgstr "打造一周营养餐，帮助你更好表现"
 
 #: software/templates/features.html:207
 msgid "Build meals from a database of more than 2 million foods"
-msgstr ""
+msgstr "从包含超200万的数据库中构建你的营养餐"
 
 #: software/templates/features.html:210
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
-msgstr ""
+msgstr "为单独一餐和整周计划自动计算营养价值（能量、蛋白质、碳水等等）"
 
 #: software/templates/features.html:237
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "记录<span>你的进度</span>"
 
 #: software/templates/features.html:242
 msgid "Track and annotate everything about your meals and workouts"
-msgstr ""
+msgstr "记录和标注你的每一餐每一次健身的点点滴滴"
 
 #: software/templates/features.html:245
-#, fuzzy
-#| msgid "Add custom diary entry"
 msgid "Add custom notes"
-msgstr "添加自定义日记条目"
+msgstr "添加自定义条目"
 
 #: software/templates/features.html:248
-#, fuzzy
-#| msgid "Body weight"
 msgid "Record your weight"
-msgstr "体重"
+msgstr "记录你的体重"
 
 #: software/templates/features.html:251
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "拍照记录展现进度"
 
 #: software/templates/features.html:254
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "使用日历模式检查过去的项目"
 
 #: software/templates/features.html:273
-#, fuzzy
-#| msgid "Try it now"
 msgid "Try wger now"
-msgstr "试一试"
+msgstr "现在来试试 wger 吧"
 
 #: software/templates/features.html:290
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "社区<span>驱动</span>"
 
 #: software/templates/features.html:293
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
-msgstr ""
+msgstr "wger 是开源社区创造和资助的：你我共同翻译、添加动作和营养信息、开发，以及一切"
+"一切。"
 
 #: software/templates/features.html:299
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
-msgstr ""
+msgstr "我们没有广告，也不会出售你的个人信息，我们以免费和开源的许可证共享代码。"
 
 #: software/templates/features.html:304
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "加入我们，让 wger 一起变得更好！"
 
 #: software/templates/features.html:313
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "贡献！"
+msgstr "贡献"
 
 #: software/templates/features.html:337
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "免费注册"
 
 #: software/templates/features.html:350
 msgid "Web version not enough?"
-msgstr ""
+msgstr "浏览器版本还不够吗？"
 
 #: software/templates/features.html:352
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "获取源码"
+msgstr "且获取代码！"
 
 #: software/templates/features.html:363
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "为你的健身室搭建一个私人服务器"
 
 #: software/templates/features.html:366
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
-msgstr ""
+msgstr "不想要在云端存放数据？你可以在自己的服务器搭建一个wger实例！"
 
 #: software/templates/features.html:380
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "和你自己的软件整合起来"
 
 #: software/templates/features.html:383
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "wger提供了开放的API供你的软件使用。"
 
 #: software/templates/features.html:394
-#, fuzzy
-#| msgid "Current version"
 msgid "Create your own version"
-msgstr "当前版本"
+msgstr "开发专属版本"
 
 #: software/templates/features.html:397
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
-msgstr ""
+msgstr "源代码以 GNU ALPLv3 许可证发行！你可以从 GitHub 上开发分支。"
 
 #: software/templates/features.html:418
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "数量"
+msgstr "账户"
 
 #: software/templates/features.html:464
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "健身提醒"
+msgstr "例行健身"
 
 #: software/templates/features.html:470
 msgid "Discord"
@@ -3454,7 +3280,7 @@ msgstr "作者"
 
 #: utils/models.py:67
 msgid "If you are not the author, enter the name or source here."
-msgstr "如果你不是作者,请在这儿输入作者的名字或者来源"
+msgstr "如果你不是作者，请在此处输入原作者或来源。"
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
@@ -3498,8 +3324,8 @@ msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
-"使用此导入字段将您的体重日志导入\n"
-"锻炼管理器"
+"使用这个导入字段来将你的体重记录\n"
+"导入到管理器中。"
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3520,8 +3346,8 @@ msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
-"如果有错误，您可以在第二步中更正或\n"
-"丢弃它们"
+"如果存在错误，你可以在\n"
+"第二步，纠正或删去它们。"
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
@@ -3555,8 +3381,9 @@ msgid ""
 "    and try to import the list again."
 msgstr ""
 "这些值无法转换为体重日志条目。\n"
-"    原因可能是日期或数字格式无法识别、编码问题或其他原因。请检查\n"
-"    列表中没有明显错误（如果有，请更正！）\n"
+"    原因可能是日期或数字格式无法识别、\n"
+"    编码问题或其他原因。请检查\n"
+"    列表中没有明显错误（若有请更正！）\n"
 "    并尝试再次导入列表。"
 
 #: weight/templates/import_csv_preview.html:37
@@ -3564,6 +3391,8 @@ msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
+"请记住我们希望的结构：第一列是 <strong>日期</strong>\n"
+"    第二行是 <strong>重量</strong> 。"
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
@@ -3619,6 +3448,90 @@ msgstr "已成功删除。"
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr "删除 %s 的体重条目"
+
+#~ msgid "Move me"
+#~ msgstr "移开我"
+
+#~ msgid "Results"
+#~ msgstr "结果"
+
+#~ msgid "Your BMI is: "
+#~ msgstr "你的体重指数是："
+
+#~ msgid "Legend"
+#~ msgstr "说明"
+
+#~ msgid "Adipositas III"
+#~ msgstr "三级肥胖"
+
+#~ msgid "Adipositas II"
+#~ msgstr "二级肥胖"
+
+#~ msgid "Adipositas I"
+#~ msgstr "一级肥胖"
+
+#~ msgid "Overweight"
+#~ msgstr "超重"
+
+#~ msgid "Normal weight"
+#~ msgstr "正常体重"
+
+#~ msgid "Slight underweight"
+#~ msgstr "稍微偏瘦"
+
+#~ msgid "Moderate underweight"
+#~ msgstr "中等偏瘦"
+
+#~ msgid "Strong underweight"
+#~ msgstr "严重偏瘦"
+
+#~ msgid ""
+#~ "Use the form to calculate your BMI (Body Mass Index).\n"
+#~ "If you have entered data in the weight section, the last entry will\n"
+#~ "be used automatically. Otherwise the weight you enter here will be saved\n"
+#~ "in a new entry."
+#~ msgstr ""
+#~ "使用左边的表格来计算你的体重指数(Body Mass Index)。\n"
+#~ "如果你已经在体重区域输入过你的体重，那么体重一栏会自动填充你的数据。\n"
+#~ "否则，你输入的体重数据将会被保存为新的体重记录。"
+
+#~ msgid ""
+#~ "If a license has been localized, e.g. the Creative Commons\n"
+#~ "            licenses for the different countries, add them as separate "
+#~ "entries here."
+#~ msgstr ""
+#~ "如果一个许可证已经本地化，例如，不同国家的 \"知识共享 \"\n"
+#~ "许可证，请将它们作为单独的条目添加到这里。"
+
+#~ msgid "Add weight log"
+#~ msgstr "新增体重记录"
+
+#~ msgid "This exercise has no repetitions."
+#~ msgstr "这个健身项目没有重复次数."
+
+#~ msgid "Edit them now."
+#~ msgstr "现在编辑它们."
+
+#~ msgid "Add exercises to this workout day"
+#~ msgstr "新增健身项目到这个健身日"
+
+#~ msgid "Weight log"
+#~ msgstr "体重日志"
+
+#~ msgid "Weight log for workout"
+#~ msgstr "健身的体重日志"
+
+#~ msgid "Add weight log to this day"
+#~ msgstr "添加体重日志到该训练日"
+
+#~ msgid "Add ingredient"
+#~ msgstr "新增食谱"
+
+#~ msgid "Edit ingredient"
+#~ msgstr "编辑食谱"
+
+#~ msgid "Delete ingredient"
+#~ msgstr "删除食谱"
 
 #~ msgid "Ingredients pending review"
 #~ msgstr "食谱审核"

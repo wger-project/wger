@@ -11,22 +11,20 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
+from django_filters import rest_framework as filters
 
 # wger
-from wger.tasks import make_program
+from wger.weight.models import WeightEntry
 
 
-"""
-This simple wrapper script is used as a console entry point in the packaged
-version of the application. It takes all the tasks from tasks.py, and runs
-invoke, which does all the work.
-"""
-
-
-def main():
-    make_program().run()
-
-
-if __name__ == '__main__':
-    main()
+class WeightEntryFilterSet(filters.FilterSet):
+    class Meta:
+        model = WeightEntry
+        fields = {
+            'id': ['exact', 'in'],
+            'weight': ['exact', 'gt', 'gte', 'lt', 'lte'],
+            'date': ['exact', 'gt', 'gte', 'lt', 'lte'],
+        }

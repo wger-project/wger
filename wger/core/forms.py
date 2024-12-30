@@ -137,6 +137,7 @@ class UserPreferencesForm(forms.ModelForm):
             'ro_access',
             'num_days_weight_reminder',
             'birthdate',
+            'height',
         )
 
     def __init__(self, *args, **kwargs):
@@ -153,6 +154,7 @@ class UserPreferencesForm(forms.ModelForm):
                     css_class='form-row',
                 ),
                 'birthdate',
+                'height',
                 HTML('<hr>'),
             ),
             Fieldset(

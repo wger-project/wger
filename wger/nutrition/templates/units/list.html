@@ -11,15 +11,20 @@
         {% for unit in unit_list %}
             <li class="list-group-item ">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'nutrition:weight_unit:edit' unit.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'nutrition:weight_unit:edit' unit.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
                         <div class="dropdown-divider"></div>
-                        <a href="{% url 'nutrition:weight_unit:delete' unit.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+
+                        {% translate 'Delete' as text %}
+                        {% url 'nutrition:weight_unit:delete' unit.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
                 {{ unit.name }}
@@ -42,7 +47,6 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'nutrition:weight_unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add new weight unit" %}
-    </a>
+    {% translate 'Add new weight unit' as text %}
+    {% modal_link url='nutrition:weight_unit:add' text=text %}
 {% endblock %}
