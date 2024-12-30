@@ -34,7 +34,6 @@ from easy_thumbnails.signals import saved_file
 from wger.exercises.models import (
     DeletionLog,
     Exercise,
-    ExerciseBase,
     ExerciseImage,
     ExerciseVideo,
 )
@@ -82,7 +81,6 @@ def auto_delete_video_on_delete(sender, instance: ExerciseVideo, **kwargs):
     Deletes file from filesystem when corresponding ExerciseVideo object is deleted
     """
     if instance.video:
-
         path = pathlib.Path(instance.video.path)
         if path.exists():
             path.unlink()
@@ -108,19 +106,18 @@ def delete_exercise_video_on_update(sender, instance: ExerciseVideo, **kwargs):
             path.unlink()
 
 
-@receiver(pre_delete, sender=ExerciseBase)
-def add_deletion_log_base(sender, instance: ExerciseBase, **kwargs):
-    log = DeletionLog(
-        model_type=DeletionLog.MODEL_BASE,
-        uuid=instance.uuid,
-    )
-    log.save()
+# Deletion log for exercise bases is handled in the model
+# @receiver(pre_delete, sender=ExerciseBase)
+# def add_deletion_log_base(sender, instance: ExerciseBase, **kwargs):
+#     pass
 
 
 @receiver(pre_delete, sender=Exercise)
 def add_deletion_log_translation(sender, instance: Exercise, **kwargs):
     log = DeletionLog(
-        model_type=DeletionLog.MODEL_TRANSLATION, uuid=instance.uuid, comment=instance.name
+        model_type=DeletionLog.MODEL_TRANSLATION,
+        uuid=instance.uuid,
+        comment=instance.name,
     )
     log.save()
 

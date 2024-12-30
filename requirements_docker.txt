@@ -5,6 +5,6 @@
 # Regular packages
 -r requirements.txt
 
-gunicorn~=20.1
-psycopg2==2.9.6
-django-redis==5.3.0
+django-redis==5.4.0
+gunicorn==23.0.0
+psycopg==3.2.3

@@ -30,7 +30,7 @@ from wger.nutrition.sync import download_ingredient_images
 
 class Command(BaseCommand):
     """
-    Download ingredient images from wger.de and updates the local database
+    Download ingredient images from a wger instance and updates the local database
 
     Both the ingredients and the images are identified by their UUID, which can't
     be modified via the GUI.
@@ -52,11 +52,10 @@ class Command(BaseCommand):
             dest='remote_url',
             default=settings.WGER_SETTINGS['WGER_INSTANCE'],
             help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
+            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
         )
 
     def handle(self, **options):
-
         if not settings.MEDIA_ROOT:
             raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
 

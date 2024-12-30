@@ -21,29 +21,23 @@
         {% for contract_type in contracttype_list %}
             <li class="list-group-item list-group-item-action">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <div class="dropdown-menu" role="menu">
                         {% if perms.gym.change_contracttype %}
-                            <li>
-                                <a href="{% url 'gym:contract_type:edit' contract_type.pk %}"
-                                   class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Edit' %}
-                                </a>
-                            </li>
+                            {% translate 'Edit' as text %}
+                            {% url 'gym:contract_type:edit' contract_type.pk as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
                         {% endif %}
 
                         {% if perms.gym.delete_contracttype %}
-                            <li>
-                                <a href="{% url 'gym:contract_type:delete' contract_type.pk %}"
-                                   class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Delete' %}
-                                </a>
-                            </li>
+                            {% translate 'Delete' as text %}
+                            {% url 'gym:contract_type:delete' contract_type.pk as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
                         {% endif %}
-
-                    </ul>
+                    </div>
                 </div>
 
 
@@ -51,7 +45,8 @@
                     {{ contract_type.name }}
                 </h4>
 
-                <p class="list-group-item-text" style="white-space: pre-line;">{{ contract_type.description }}</p>
+                <p class="list-group-item-text"
+                   style="white-space: pre-line;">{{ contract_type.description }}</p>
             </li>
             {% empty %}
             <li class="list-group-item">
@@ -68,7 +63,7 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'gym:contract_type:add' gym.id %}" class="wger-modal-dialog btn btn-sm btn-success">
-        {% translate "Add" %}
-    </a>
+    {% translate 'Add' as text %}
+    {% url 'gym:contract_type:add' gym.id as url %}
+    {% modal_link url=url text=text %}
 {% endblock %}

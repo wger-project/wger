@@ -29,7 +29,7 @@ from wger.exercises.models import (
     Muscle,
 )
 from wger.exercises.sync import (
-    delete_entries,
+    handle_deleted_entries,
     sync_categories,
     sync_equipment,
     sync_exercises,
@@ -37,11 +37,14 @@ from wger.exercises.sync import (
     sync_licenses,
     sync_muscles,
 )
+from wger.manager.models import (
+    Setting,
+    WorkoutLog,
+)
 from wger.utils.requests import wger_headers
 
 
 class MockLanguageResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -57,27 +60,32 @@ class MockLanguageResponse:
                 {
                     "id": 1,
                     "short_name": "de",
-                    "full_name": "Daitsch"
+                    "full_name": "Daitsch",
+                    "full_name_en": "Kraut"
                 },
                 {
                     "id": 2,
                     "short_name": "en",
-                    "full_name": "English"
+                    "full_name": "English",
+                    "full_name_en": "English"
                 },
                 {
                     "id": 3,
                     "short_name": "fr",
-                    "full_name": "Français"
+                    "full_name": "Français",
+                    "full_name_en": "French"
                 },
                 {
                     "id": 4,
                     "short_name": "es",
-                    "full_name": "Español"
+                    "full_name": "Español",
+                    "full_name_en": "Spanish"
                 },
                 {
                     "id": 19,
                     "short_name": "eo",
-                    "full_name": "Esperanto"
+                    "full_name": "Esperanto",
+                    "full_name_en": "Esperanto"
                 }
             ]
         }
@@ -85,7 +93,6 @@ class MockLanguageResponse:
 
 
 class MockLicenseResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -128,7 +135,6 @@ class MockLicenseResponse:
 
 
 class MockCategoryResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -171,7 +177,6 @@ class MockCategoryResponse:
 
 
 class MockMuscleResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -222,7 +227,6 @@ class MockMuscleResponse:
 
 
 class MockEquipmentResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -257,7 +261,6 @@ class MockEquipmentResponse:
 
 
 class MockDeletionLogResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -272,43 +275,50 @@ class MockDeletionLogResponse:
             "results": [
                 {
                     "model_type": "base",
-                    "uuid": "acad394936fb44819a72be2ddae2bc05",
+                    "uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
+                    "replaced_by": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
                     "timestamp": "2023-01-30T19:32:56.761426+01:00",
                     "comment": "Exercise base with ID 1"
                 },
                 {
                     "model_type": "base",
                     "uuid": "577ee012-70c6-4517-b0fe-dcf340926ae7",
+                    "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.761426+01:00",
                     "comment": "Unknown Exercise base"
                 },
                 {
                     "model_type": "translation",
                     "uuid": "0ef4cec8-d9c9-464f-baf9-3dbdf20083cb",
+                    "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.764582+01:00",
                     "comment": "Translation that is not in this DB"
                 },
                 {
                     "model_type": "translation",
-                    "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
+                    "uuid": "946afe7b-54a6-44a6-9c36-c3e31e6b4c3b",
+                    "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.765350+01:00",
                     "comment": "Translation with ID 3"
                 },
                 {
                     "model_type": "image",
                     "uuid": "c72b4463-48ae-4c7d-8093-2c347c38e05a",
+                    "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.765350+01:00",
                     "comment": "Unknown image"
                 },
                 {
                     "model_type": "video",
                     "uuid": "e0d25624-348b-4a23-adcd-17190f96f005",
+                    "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.765350+01:00",
                     "comment": "Unknown video"
                 },
                 {
                     "model_type": "foobar",
-                    "uuid": "37b5813c76bd4658820a572d9dd93f31",
+                    "uuid": "37b5813c-76bd-4658-820a-572d9dd93f31",
+                    "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.765350+01:00",
                     "comment": "UUID of existing translation but other model type"
                 },
@@ -318,7 +328,6 @@ class MockDeletionLogResponse:
 
 
 class MockExerciseResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -334,7 +343,9 @@ class MockExerciseResponse:
                 {
                     "id": 123,
                     "uuid": "1b020b3a-3732-4c7e-92fd-a0cec90ed69b",
-                    "creation_date": "2022-10-11",
+                    "created": "2022-10-11T19:45:01.914000+01:00",
+                    "last_update": "2023-02-05T19:45:01.914000+01:00",
+                    "last_update_global": "2023-02-05T19:45:01.914000+01:00",
                     "category": {
                         "id": 2,
                         "name": "Another category"
@@ -380,14 +391,19 @@ class MockExerciseResponse:
                             "name": "Zweihandiges Kettlebell",
                             "exercise_base": 123,
                             "description": "Hier könnte Ihre Werbung stehen!",
-                            "creation_date": "2015-08-03",
+                            "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
-                                "Kettlebell mit zwei Händen"
+                                {
+                                    "id": 1,
+                                    "uuid": "9a9ab323-5f47-431f-9289-cc21ad1de171",
+                                    "alias": "Kettlebell mit zwei Händen"
+                                }
                             ],
                             "notes": [
                                 {
                                     "id": 1,
+                                    "uuid": "f46e1610-b729-4948-b80a-c5ae52672c6a",
                                     "exercise": 100,
                                     "comment": "Wichtig die Übung richtig zu machen"
                                 },
@@ -406,7 +422,7 @@ class MockExerciseResponse:
                             "name": "2 Handed Kettlebell Swing",
                             "exercise_base": 123,
                             "description": "TBD",
-                            "creation_date": "2023-08-03",
+                            "created": "2023-08-03",
                             "language": 2,
                             "aliases": [],
                             "notes": [],
@@ -434,7 +450,9 @@ class MockExerciseResponse:
                 {
                     "id": 2,
                     "uuid": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
-                    "creation_date": "2022-10-11",
+                    "created": "2022-10-11T13:11:01.779000+01:00",
+                    "last_update": "2023-02-05T19:45:01.779000+01:00",
+                    "last_update_global": "2023-08-15T23:33:11.779000+01:00",
                     "category": {
                         "id": 3,
                         "name": "Yet another category"
@@ -480,15 +498,24 @@ class MockExerciseResponse:
                             "name": "A new, better, updated name",
                             "exercise_base": 2,
                             "description": "Two Handed Russian Style Kettlebell swing",
-                            "creation_date": "2015-08-03",
+                            "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
-                                "A new alias here",
-                                "yet another name"
+                                {
+                                    "id": 2,
+                                    "uuid": "65250c7c-d02e-4f3d-be01-beb39ff5ef0f",
+                                    "alias": "A new alias here"
+                                },
+                                {
+                                    "id": 500,
+                                    "uuid": "6544ce61-69a8-413e-9662-189d3aadd1b9",
+                                    "alias": "yet another name"
+                                },
                             ],
                             "notes": [
                                 {
                                     "id": 147,
+                                    "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
                                     "exercise": 123,
                                     "comment": "Foobar"
                                 },
@@ -505,7 +532,7 @@ class MockExerciseResponse:
                             "name": "Balançoire Kettlebell à 2 mains",
                             "exercise_base": 2,
                             "description": "Balançoire Kettlebell à deux mains de style russe",
-                            "creation_date": "2015-08-03",
+                            "created": "2015-08-03",
                             "language": 3,
                             "aliases": [],
                             "notes": [],
@@ -533,18 +560,24 @@ class MockExerciseResponse:
 
 
 class TestSyncMethods(WgerTestCase):
-
     @patch('requests.get', return_value=MockLanguageResponse())
     def test_language_sync(self, mock_request):
+        language1 = Language.objects.get(pk=1)
         self.assertEqual(Language.objects.count(), 3)
-        self.assertEqual(Language.objects.get(pk=1).full_name, 'Deutsch')
+        self.assertEqual(language1.full_name, 'Deutsch')
+        self.assertEqual(language1.full_name_en, 'German')
 
+        # Act
         sync_languages(lambda x: x)
         mock_request.assert_called_with(
             'https://wger.de/api/v2/language/',
             headers=wger_headers(),
         )
-        self.assertEqual(Language.objects.get(pk=1).full_name, 'Daitsch')
+
+        # Assert
+        language1 = Language.objects.get(pk=1)
+        self.assertEqual(language1.full_name, 'Daitsch')
+        self.assertEqual(language1.full_name_en, 'Kraut')
         self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
 
@@ -616,7 +649,16 @@ class TestSyncMethods(WgerTestCase):
     def test_deletion_log(self, mock_request):
         self.assertEqual(ExerciseBase.objects.count(), 8)
         self.assertEqual(Exercise.objects.count(), 11)
-        delete_entries(lambda x: x)
+
+        base = ExerciseBase.objects.get(pk=1)
+        base2 = ExerciseBase.objects.get(pk=3)
+        self.assertFalse(Setting.objects.filter(exercise_base=base2).count())
+        self.assertFalse(WorkoutLog.objects.filter(exercise_base=base2).count())
+
+        settings = Setting.objects.filter(exercise_base=base)
+        logs = WorkoutLog.objects.filter(exercise_base=base)
+
+        handle_deleted_entries(print)
 
         mock_request.assert_called_with(
             'https://wger.de/api/v2/deletion-log/?limit=100',
@@ -626,6 +668,12 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(Exercise.objects.count(), 8)
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=3)
         self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
+
+        # Workouts and logs have been moved
+        for setting_pk in settings:
+            self.assertEqual(Setting.objects.get(pk=setting_pk).exercise_base_id, 2)
+        for setting_pk in logs:
+            self.assertEqual(WorkoutLog.objects.get(pk=setting_pk).exercise_base_id, 2)
 
     @patch('requests.get', return_value=MockExerciseResponse())
     def test_exercise_sync(self, mock_request):
@@ -650,7 +698,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual([m.id for m in new_base.muscles.all()], [2])
         self.assertEqual([m.id for m in new_base.muscles_secondary.all()], [4])
 
-        translation_de = new_base.get_exercise('de')
+        translation_de = new_base.get_translation('de')
         self.assertEqual(translation_de.language_id, 1)
         self.assertEqual(translation_de.name, 'Zweihandiges Kettlebell')
         self.assertEqual(translation_de.description, 'Hier könnte Ihre Werbung stehen!')
@@ -660,7 +708,7 @@ class TestSyncMethods(WgerTestCase):
             'Wichtig die Übung richtig zu machen',
         )
 
-        translation_en = new_base.get_exercise('en')
+        translation_en = new_base.get_translation('en')
         self.assertEqual(translation_en.language_id, 2)
         self.assertEqual(translation_en.name, '2 Handed Kettlebell Swing')
         self.assertEqual(translation_en.description, 'TBD')
@@ -669,15 +717,15 @@ class TestSyncMethods(WgerTestCase):
         base = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
         self.assertEqual(base.category_id, 3)
 
-        translation_de = base.get_exercise('de')
+        translation_de = base.get_translation('de')
         self.assertEqual(translation_de.name, 'A new, better, updated name')
         self.assertEqual(translation_de.pk, 2)
         self.assertEqual(translation_de.alias_set.count(), 2)
-        self.assertEqual(translation_de.alias_set.all()[0].alias, 'yet another name')
-        self.assertEqual(translation_de.alias_set.all()[1].alias, 'A new alias here')
+        self.assertEqual(translation_de.alias_set.all()[0].alias, 'A new alias here')
+        self.assertEqual(translation_de.alias_set.all()[1].alias, 'yet another name')
 
         self.assertEqual(translation_de.exercisecomment_set.count(), 1)
         self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
 
-        translation_fr = base.get_exercise('fr')
+        translation_fr = base.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')

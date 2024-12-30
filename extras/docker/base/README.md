@@ -14,9 +14,9 @@ didn't behave as you expected. We can't fix what we don't know about, so please
 report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
-* discord: <https://discord.gg/rPWFv6W>
-* issue tracker: <https://github.com/wger-project/wger/issues>
-* twitter: <https://twitter.com/wger_project>
+* Discord: <https://discord.gg/rPWFv6W>
+* Issue tracker: <https://github.com/wger-project/wger/issues>
+* Mastodon: <https://fosstodon.org/@wger>
 
 Sources
 -------

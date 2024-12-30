@@ -5,7 +5,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0004_auto_20170404_0114'),
     ]
@@ -13,16 +12,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='exercise',
-            options={
-                'base_manager_name': 'objects',
-                'ordering': ['name']
-            },
+            options={'base_manager_name': 'objects', 'ordering': ['name']},
         ),
         migrations.AlterModelOptions(
             name='exerciseimage',
-            options={
-                'base_manager_name': 'objects',
-                'ordering': ['-is_main', 'id']
-            },
+            options={'base_manager_name': 'objects', 'ordering': ['-is_main', 'id']},
         ),
     ]

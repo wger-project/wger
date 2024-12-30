@@ -20,12 +20,14 @@
         <tr>
             <th>{% translate "Language short name" %}</th>
             <th>{% translate "Language full name" %}</th>
+            <th>{% translate "Language full name in English" %}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>{{ view_language.short_name }}</td>
             <td>{{ view_language.full_name }}</td>
+            <td>{{ view_language.full_name_en }}</td>
         </tr>
         </tbody>
     </table>
@@ -52,21 +54,22 @@
 {% block options %}
     <div class="btn-group">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                    data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}
             </button>
             <div class="dropdown-menu">
-                <a href="{% url 'core:language:edit' view_language.id %}" class="wger-modal-dialog dropdown-item">
-                    <span class="{% fa_class 'edit' %}"></span>
-                    {% translate "Edit" %}
-                </a>
+                {% translate 'Edit' as text %}
+                {% url 'core:language:edit' view_language.id as url %}
+                {% modal_link url=url text=text css_class="dropdown-item" %}
+
                 <div role="separator" class="dropdown-divider"></div>
-                <a href="{% url 'core:language:delete' view_language.id %}" class="wger-modal-dialog dropdown-item">
-                    <span class="{% fa_class 'trash' %}"></span>
-                    {% translate "Delete" %}
-                </a>
+
+                {% translate 'Delete' as text %}
+                {% url 'core:language:delete' view_language.id as url %}
+                {% modal_link url=url text=text css_class="dropdown-item" %}
             </div>
         </div>
     </div>

@@ -37,7 +37,6 @@ def _build_mock_user(gym_name, is_trainer=False):
 
 @mock.patch('wger.core.views.user.django_login')
 class TrainerLoginTestCase(WgerTestCase):
-
     def test_trainer_is_allowed_to_login_to_non_trainer_in_same_gym(self, _):
         request_user = _build_mock_user('same-gym', is_trainer=True)
         request = _build_mock_request(request_user)
@@ -92,10 +91,7 @@ class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_login_username_success(self):
         response = self.client.post(
             self.url,
-            {
-                'username': 'admin',
-                'password': 'adminadmin'
-            },
+            {'username': 'admin', 'password': 'adminadmin'},
         )
         result = response.data
 
@@ -109,16 +105,13 @@ class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             result['non_field_errors'],
-            [ErrorDetail(string='Username or password unknown', code='invalid')]
+            [ErrorDetail(string='Username or password unknown', code='invalid')],
         )
 
     def test_login_email_success(self):
         response = self.client.post(
             self.url,
-            {
-                'email': 'admin@example.com',
-                'password': 'adminadmin'
-            },
+            {'email': 'admin@example.com', 'password': 'adminadmin'},
         )
         result = response.data
 
@@ -127,17 +120,14 @@ class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
 
     def test_login_email_fail(self):
         response = self.client.post(
-            self.url, {
-                'email': 'admin@example.com',
-                'password': 'adminadmin123'
-            }
+            self.url, {'email': 'admin@example.com', 'password': 'adminadmin123'}
         )
         result = response.data
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             result['non_field_errors'],
-            [ErrorDetail(string='Username or password unknown', code='invalid')]
+            [ErrorDetail(string='Username or password unknown', code='invalid')],
         )
 
     def test_no_parameters(self):
@@ -147,5 +137,5 @@ class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             result['non_field_errors'],
-            [ErrorDetail(string='Please provide an "email" or a "username"', code='invalid')]
+            [ErrorDetail(string='Please provide an "email" or a "username"', code='invalid')],
         )

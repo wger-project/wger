@@ -1,0 +1,154 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wger"
+version = "2.3.0a2"
+dynamic = ["dependencies"]
+authors = [
+    { name = "Roland Geider", email = "roland@geider.net" },
+]
+description = "FLOSS workout, fitness and weight manager/tracker"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    # http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Web Environment',
+    'Intended Audience :: Other Audience',
+    'Framework :: Django',
+    'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+]
+
+[project.urls]
+Homepage = "https://wger.de/"
+Documentation = "https://wger.readthedocs.io/en/latest/"
+Repository = "https://github.com/wger-project/wger"
+Issues = "https://github.com/wger-project/wger/issues"
+Changelog = "https://wger.readthedocs.io/en/latest/changelog.html"
+
+[project.scripts]
+wger = "wger.__main__:main"
+
+[tool.setuptools]
+include-package-data = false
+packages = ["wger"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.distutils.bdist_wheel]
+universal = 1
+
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+line-length = 100
+indent-width = 4
+src = ["wger", "extras"]
+
+[tool.ruff.lint]
+select = [
+    "F", # Pyflakes
+    "E", # Pycodestyle
+    "W",
+]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false # Like Black, respect magic trailing commas.
+line-ending = "auto"
+
+[tool.isort]
+src_paths = ["wger", "extras"]
+
+sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+skip = ["extras", "build", "dist", "node_modules", "migrations", "docs", "settings.py", "apps.py"]
+# If set to true - ensures that if a star import is present, nothing else is
+# imported from that namespace.
+combine_star = false
+# If set to true - imports will be sorted by their length instead of
+# alphabetically.
+length_sort = false
+# An integer that represents the longest line-length you want a single import to
+# take. Defaults to 80.
+line_length = 119
+# A comment to consistently place directly above future imports.
+import_heading_future = "Future"
+# A comment to consistently place directly above django imports.
+import_heading_django = "Django"
+# A comment to consistently place directly above imports from the standard library.
+import_heading_stdlib = "Standard Library"
+# A comment to consistently place directly above third-party imports.
+import_heading_thirdparty = "Third Party"
+# A comment to consistently place directly above wger imports.
+import_heading_firstparty = "wger"
+# A comment to consistently place directly above imports that start with '.'.
+import_heading_localfolder = "Local"
+# An integer that represents the number of spaces you would like to indent by or
+# Tab to indent by a single tab.
+indent = "'    '"
+# A list of imports that will be forced to display within the first party
+# category.
+known_first_party = ["wger"]
+known_django = ["django"]
+# An integer that represents how you want imports to be displayed if they're long
+# enough to span multiple lines. A full definition of all possible modes can be
+# found in isort's README.
+multi_line_output = 3
+force_grid_wrap = 2
+# If set to true - isort will create separate sections within "from" imports
+# for CONSTANTS, Classes, and modules/functions.
+order_by_type = true
+# Forces a certain number of lines after the imports and before the first line
+# of functional code. By default, this is 2 lines if the first line of code is a
+# class or function. Otherwise, it's 1.
+lines_after_imports = 2
+
+# If set to true - isort will combine as imports on the same line within for
+# import statements. By default, isort forces all as imports to display on their
+# own lines.
+combine_as_imports = true
+
+# If set to true - isort will add imports even if the file specified is
+# currently completely empty.
+force_adds = false
+# Include a trailing comma after the imports. This ensures that yapf doesn't
+# reformat the code
+include_trailing_comma = true

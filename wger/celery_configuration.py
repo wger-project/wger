@@ -21,8 +21,8 @@ import os
 from celery import Celery
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-app = Celery("wger")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+app = Celery('wger')
 
 # read config from Django settings, the CELERY namespace would make celery
 # config keys has `CELERY` prefix

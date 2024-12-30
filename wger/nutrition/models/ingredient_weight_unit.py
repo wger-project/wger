@@ -66,8 +66,4 @@ class IngredientWeightUnit(models.Model):
         Return a more human-readable representation
         """
 
-        return "{0}{1} ({2}g)".format(
-            self.amount if self.amount > 1 else '',
-            self.unit.name,
-            self.gram,
-        )
+        return f'{self.amount if self.amount > 1 else ""}{self.unit.name} ({self.gram}g)'

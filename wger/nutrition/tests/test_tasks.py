@@ -15,7 +15,10 @@
 # Standard Library
 
 # Standard Library
-from unittest.mock import patch
+from unittest.mock import (
+    ANY,
+    patch,
+)
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -32,9 +35,9 @@ from wger.utils.requests import wger_headers
 
 
 class MockOffResponse:
-
     def __init__(self):
         self.status_code = 200
+        self.ok = True
         self.content = b'2000'
 
     # yapf: disable
@@ -58,7 +61,6 @@ class MockOffResponse:
 
 
 class MockWgerApiResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'2000'
@@ -149,8 +151,6 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ):
             result = fetch_ingredient_image(1)
 
-            # log1 = mock_logger.mock_calls[0]
-            # print(log1)
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
                 'Trying to fetch image from OFF for Test ingredient 1 (UUID: '
@@ -158,13 +158,15 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
             mock_logger.assert_any_call('Image successfully saved')
 
+            # print(mock_request.mock_calls)
             mock_request.assert_any_call(
                 'https://world.openfoodfacts.org/api/v2/product/5055365635003.json?fields=images,image_front_url',
-                headers=wger_headers()
+                headers=wger_headers(),
+                timeout=ANY,
             )
             mock_request.assert_any_call(
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
-                headers=wger_headers()
+                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987654321/12345.jpg',
+                headers=wger_headers(),
             )
             mock_from_json.assert_called()
 
@@ -199,7 +201,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
             mock_request.assert_any_call(
                 'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
-                headers=wger_headers()
+                headers=wger_headers(),
             )
             mock_from_json.assert_called()
 

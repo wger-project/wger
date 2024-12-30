@@ -55,10 +55,11 @@ class FeedbackTestCase(WgerTestCase):
 
             # Correctly filled in reCaptcha
             response = self.client.post(
-                reverse('core:feedback'), {
+                reverse('core:feedback'),
+                {
                     'comment': 'A very long and interesting comment',
-                    'g-recaptcha-response': 'PASSED'
-                }
+                    'g-recaptcha-response': 'PASSED',
+                },
             )
 
             self.assertEqual(response.status_code, 302)
@@ -82,7 +83,7 @@ class FeedbackTestCase(WgerTestCase):
         self.user_login('test')
         self.send_feedback()
 
-    @skip("Failing due to recaptcha issues")
+    @skip('Failing due to recaptcha issues')
     def test_send_feedback_logged_out(self):
         """
         Tests the feedback form as a logged out user

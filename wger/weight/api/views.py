@@ -19,6 +19,7 @@
 from rest_framework import viewsets
 
 # wger
+from wger.weight.api.filtersets import WeightEntryFilterSet
 from wger.weight.api.serializers import WeightEntrySerializer
 from wger.weight.models import WeightEntry
 
@@ -27,18 +28,19 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     """
     API endpoint for nutrition plan objects
     """
+
     serializer_class = WeightEntrySerializer
 
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('date', 'weight')
+    filterset_class = WeightEntryFilterSet
 
     def get_queryset(self):
         """
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return WeightEntry.objects.none()
 
         return WeightEntry.objects.filter(user=self.request.user)

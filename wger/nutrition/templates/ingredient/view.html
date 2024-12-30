@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
+{% load i18n l10n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -22,32 +22,6 @@ $(document).ready(function() {
 
 {% block content %}
 
-{% if ingredient.status == ingredient.STATUS_PENDING %}
-<div class="alert">
-<h4>{% translate "Ingredient is pending review" %}</h4>
-<p>{% blocktranslate %}This user submitted ingredient is pending a decision to be
-included in the database. Till then, it will not be shown in the overview or
-the search.{% endblocktranslate %}
-{% if perms.nutrition.add_ingredient %}{% translate "Please select one of the options below." %}{% endif %}
-</p>
-
-{% if perms.nutrition.add_ingredient %}
-<div class="btn-group btn-group-justified" role="group">
-    <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-light">
-        <span class="{% fa_class 'check' %}"></span>
-        {% translate "Accept" %}
-    </a>
-    <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-light">
-        <span class="{% fa_class 'times' %}"></span>
-        {% translate "Decline" %}
-    </a>
-</div>
-{% endif %} {# end check permissions #}
-
-</div>
-{% endif %} {# end ingredient is pending review #}
-
-
 
 
 <div itemscope itemtype="http://schema.org/NutritionInformation">
@@ -59,7 +33,7 @@ the search.{% endblocktranslate %}
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
     <div id="calculator-errors"></div>
-    <input type="hidden" value="{{ingredient.id}}" name="ingredient">
+    <input type="hidden" value="{{ingredient.id|unlocalize}}" name="ingredient">
 
     {% crispy form %}
 </form>
@@ -131,10 +105,10 @@ the search.{% endblocktranslate %}
     </thead>
     <tbody>
         <tr>
-            <td>{% translate "Fibres" %}</td>
+            <td>{% translate "Fiber" %}</td>
             <td itemprop="fiberContent" class="text-right">
-                {% if ingredient.fibres %}
-                    <span id="value-fibres">{{ingredient.fibres|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
+                {% if ingredient.fiber %}
+                    <span id="value-fiber">{{ingredient.fiber|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% translate "n.A." %}
                 {% endif %}
@@ -165,11 +139,10 @@ the search.{% endblocktranslate %}
 
 {% if perms.nutrition.delete_ingredient %}
 <h4>{% translate "Weight units" %}</h4>
-<p>
-    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add new weight unit" %}
-    </a>
-</p>
+
+{% translate 'Add new weight unit' as text %}
+{% url 'nutrition:unit_ingredient:add' ingredient.id as url %}
+{% modal_link url=url text=text  %}
 
 {% if ingredient.ingredientweightunit_set.exists %}
     <table class="table">
@@ -188,8 +161,13 @@ the search.{% endblocktranslate %}
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                        <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'nutrition:unit_ingredient:edit' unit.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete' as text %}
+                        {% url 'nutrition:unit_ingredient:delete' unit.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
             </td>
@@ -228,17 +206,15 @@ the search.{% endblocktranslate %}
             {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
-            <a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
-               title="{% translate 'Edit ingredient' %}"
-               class="dropdown-item">
-                <span class="{% fa_class 'edit' %}"></span>
-                {% translate 'Edit ingredient' %}
-            </a>
+            {% translate 'Edit' as text %}
+            {% url 'nutrition:ingredient:edit' ingredient.id as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
+
             <div role="separator" class="dropdown-divider"></div>
-            <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
-               title="{% translate 'Delete ingredient' %}" class="wger-modal-dialog dropdown-item" >
-                <span class="{% fa_class 'trash' %}"></span>
-                {% translate 'Delete' %}
+
+            {% translate 'Delete' as text %}
+            {% url 'nutrition:ingredient:delete' ingredient.id as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
             </a>
         </div>
     </div>

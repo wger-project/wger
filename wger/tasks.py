@@ -31,7 +31,12 @@ from django.utils.crypto import get_random_string
 
 # Third Party
 import requests
-from invoke import task
+from invoke import (
+    Collection,
+    Program,
+    task,
+)
+from tqdm import tqdm
 
 
 logger = logging.getLogger(__name__)
@@ -40,15 +45,11 @@ FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
 @task(
     help={
-        'address':
-        'Address to bind to. Default: localhost',
-        'port':
-        'Port to use. Default: 8000',
-        'settings-path':
-        'Path to settings file (absolute path). Leave empty for default',
-        'extra-args':
-        'Additional arguments to pass to the builtin server. Pass as string: '
-        '"--arg1 --arg2=value". Default: none'
+        'address': 'Address to bind to. Default: localhost',
+        'port': 'Port to use. Default: 8000',
+        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
+        'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: '
+        '"--arg1 --arg2=value". Default: none',
     }
 )
 def start(context, address='localhost', port=8000, settings_path=None, extra_args=''):
@@ -59,23 +60,21 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
-    argv = ["", "runserver", '--noreload']
+    argv = ['', 'runserver', '--noreload']
     if extra_args != '':
         for argument in extra_args.split(' '):
             argv.append(argument)
-    argv.append("{0}:{1}".format(address, port))
+    argv.append(f'{address}:{port}')
     execute_from_command_line(argv)
 
 
 @task(
     help={
-        'settings-path': 'Path to settings file (absolute path). Leave empty for '
-        'default',
-        'database-path': 'Path to sqlite database (absolute path). Leave empty '
-        'for default'
+        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
+        'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
     }
 )
-def bootstrap(context, settings_path=None, database_path=None):
+def bootstrap(context, settings_path=None, database_path=None, process_static=True):
     """
     Performs all steps necessary to bootstrap the application
     """
@@ -97,23 +96,25 @@ def bootstrap(context, settings_path=None, database_path=None):
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS and CSS libraries
-    context.run("yarn install")
-    context.run("yarn build:css:sass")
+    if process_static:
+        context.run('yarn install')
+        context.run('yarn build:css:sass')
 
 
 @task(
     help={
-        'settings-path': 'Path to settings file (absolute path). Leave empty for '
-        'default',
-        'database-path': 'Path to sqlite database (absolute path). Leave empty '
-        'for default',
-        'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: '
-        'sqlite3',
-        'key-length': 'Length of the generated secret key. Default: 50'
+        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
+        'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
+        'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
+        'key-length': 'Length of the generated secret key. Default: 50',
     }
 )
 def create_settings(
-    context, settings_path=None, database_path=None, database_type='sqlite3', key_length=50
+    context,
+    settings_path=None,
+    database_path=None,
+    database_type='sqlite3',
+    key_length=50,
 ):
     """
     Creates a local settings file
@@ -122,7 +123,7 @@ def create_settings(
         settings_path = get_path('settings.py')
 
     settings_module = os.path.dirname(settings_path)
-    print("*** Creating settings file at {0}".format(settings_module))
+    print(f'*** Creating settings file at {settings_module}')
 
     if database_path is None:
         database_path = get_path('database.sqlite').as_posix()
@@ -167,7 +168,7 @@ def create_settings(
         dbport=dbport,
         default_key=secret_key,
         siteurl=url,
-        media_folder_path=media_folder_path
+        media_folder_path=media_folder_path,
     )
 
     if not os.path.exists(settings_module):
@@ -180,8 +181,7 @@ def create_settings(
         settings_file.write(settings_content)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def create_or_reset_admin(context, settings_path=None):
     """
     Creates an admin user or resets the password for an existing one
@@ -194,20 +194,20 @@ def create_or_reset_admin(context, settings_path=None):
     # the settings module during import
     # Django
     from django.contrib.auth.models import User
+
     try:
-        User.objects.get(username="admin")
+        User.objects.get(username='admin')
         print("*** Password for user admin was reset to 'adminadmin'")
     except User.DoesNotExist:
-        print("*** Created default admin user")
+        print('*** Created default admin user')
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(current_dir, 'core', 'fixtures/')
 
-    call_command("loaddata", path + "users.json")
+    call_command('loaddata', path + 'users.json')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def migrate_db(context, settings_path=None):
     """
     Run all database migrations
@@ -216,11 +216,10 @@ def migrate_db(context, settings_path=None):
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
-    call_command("migrate")
+    call_command('migrate')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def load_fixtures(context, settings_path=None):
     """
     Loads all fixtures
@@ -230,43 +229,42 @@ def load_fixtures(context, settings_path=None):
     setup_django_environment(settings_path)
 
     # Gym
-    call_command("loaddata", "gym.json")
+    call_command('loaddata', 'gym.json')
 
     # Core
-    call_command("loaddata", "languages.json")
-    call_command("loaddata", "groups.json")
-    call_command("loaddata", "users.json")
-    call_command("loaddata", "licenses.json")
-    call_command("loaddata", "days_of_week.json")
-    call_command("loaddata", "setting_repetition_units.json")
-    call_command("loaddata", "setting_weight_units.json")
+    call_command('loaddata', 'languages.json')
+    call_command('loaddata', 'groups.json')
+    call_command('loaddata', 'users.json')
+    call_command('loaddata', 'licenses.json')
+    call_command('loaddata', 'days_of_week.json')
+    call_command('loaddata', 'setting_repetition_units.json')
+    call_command('loaddata', 'setting_weight_units.json')
 
     # Config
-    call_command("loaddata", "gym_config.json")
+    call_command('loaddata', 'gym_config.json')
 
     # Manager
 
     # Exercises
-    call_command("loaddata", "equipment.json")
-    call_command("loaddata", "muscles.json")
-    call_command("loaddata", "categories.json")
-    call_command("loaddata", "exercise-base-data.json")
-    call_command("loaddata", "exercises.json")
+    call_command('loaddata', 'equipment.json')
+    call_command('loaddata', 'muscles.json')
+    call_command('loaddata', 'categories.json')
+    call_command('loaddata', 'exercise-base-data.json')
+    call_command('loaddata', 'translations.json')
 
     # Gym
-    call_command("loaddata", "gym.json")
-    call_command("loaddata", "gym-config.json")
-    call_command("loaddata", "gym-adminconfig.json")
+    call_command('loaddata', 'gym.json')
+    call_command('loaddata', 'gym-config.json')
+    call_command('loaddata', 'gym-adminconfig.json')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
     """
 
-    # Find the path to the settings and setup the django environment
+    # Find the path to the settings and set up the django environment
     setup_django_environment(settings_path)
 
     # Prepare the download
@@ -275,15 +273,20 @@ def load_online_fixtures(context, settings_path=None):
 
         print(f'Downloading fixture data from {url}...')
         response = requests.get(url, stream=True)
-        size = int(response.headers["content-length"]) / (1024 * 1024)
+        total_size = int(response.headers.get('content-length', 0))
+        size = int(response.headers['content-length']) / (1024 * 1024)
         print(f'-> fixture size: {size:.3} MB')
 
         # Save to temporary file and load the data
-        f = tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip')
-        print(f'-> saving to temp file {f.name}')
-        f.write(response.content)
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip') as f:
+            print(f'-> saving to temp file {f.name}')
+            with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
+                for data in response.iter_content(chunk_size=1024):
+                    f.write(data)
+                    pbar.update(len(data))
         f.close()
-        call_command("loaddata", f.name)
+        print('Loading downloaded data, this may take a while...')
+        call_command('loaddata', f.name, '--verbosity=3')
         print('-> removing temp file')
         print('')
         os.unlink(f.name)
@@ -295,9 +298,9 @@ def config_location(context):
     Returns the default location for the settings file and the data folder
     """
     print('Default locations:')
-    print('* settings:      {0}'.format(get_path('settings.py')))
-    print('* media folder:  {0}'.format(get_path('media')))
-    print('* database path: {0}'.format(get_path('database.sqlite')))
+    print(f'* settings:      {get_path("settings.py")}')
+    print(f'* media folder:  {get_path("media")}')
+    print(f'* database path: {get_path("database.sqlite")}')
 
 
 #
@@ -310,7 +313,7 @@ def config_location(context):
 #
 
 
-def get_path(file="settings.py") -> pathlib.Path:
+def get_path(file='settings.py') -> pathlib.Path:
     """
     Return the path of the given file relatively to the wger source folder
 
@@ -329,11 +332,11 @@ def setup_django_environment(settings_path):
     # Use default settings if the user didn't specify something else
     if settings_path is None:
         settings_path = get_path('settings.py').as_posix()
-        print('*** No settings given, using {0}'.format(settings_path))
+        print(f'*** No settings given, using {settings_path}')
 
     # Find out file path and fine name of settings and setup django
     settings_file = os.path.basename(settings_path)
-    settings_module_name = "".join(settings_file.split('.')[:-1])
+    settings_module_name = ''.join(settings_file.split('.')[:-1])
     if '.' in settings_module_name:
         print("'.' is not an allowed character in the settings-file")
         sys.exit(1)
@@ -359,7 +362,21 @@ def database_exists():
     except DatabaseError:
         return False
     except ImproperlyConfigured:
-        print("Your settings file seems broken")
+        print('Your settings file seems broken')
         sys.exit(0)
     else:
         return True
+
+
+def make_program():
+    ns = Collection(
+        start,
+        bootstrap,
+        create_settings,
+        create_or_reset_admin,
+        migrate_db,
+        load_fixtures,
+        load_online_fixtures,
+    )
+    return Program(namespace=ns)
+    # program.run()

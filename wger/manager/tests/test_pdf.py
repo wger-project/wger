@@ -34,11 +34,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         user = User.objects.get(username='test')
         uid, token = make_token(user)
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={
-                'id': 3,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 200)
@@ -57,11 +53,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         uid = 'AB'
         token = 'abc-11223344556677889900'
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={
-                'id': 3,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 403)
@@ -93,10 +85,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={
-                'id': 3,
-                'comments': 0
-            })
+            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'comments': 0})
         )
 
         if fail:
@@ -119,10 +108,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={
-                'id': 3,
-                'images': 1
-            })
+            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'images': 1})
         )
 
         if fail:
@@ -145,11 +131,7 @@ class WorkoutPdfLogExportTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('manager:workout:pdf-log', kwargs={
-                'id': 3,
-                'images': 1,
-                'comments': 1
-            })
+            reverse('manager:workout:pdf-log', kwargs={'id': 3, 'images': 1, 'comments': 1})
         )
 
         if fail:
@@ -208,11 +190,7 @@ class WorkoutPdfTableExportTestCase(WgerTestCase):
         user = User.objects.get(username='test')
         uid, token = make_token(user)
         response = self.client.get(
-            reverse('manager:workout:pdf-table', kwargs={
-                'id': 3,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:workout:pdf-table', kwargs={'id': 3, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 200)
@@ -234,11 +212,7 @@ class WorkoutPdfTableExportTestCase(WgerTestCase):
         uid = 'AB'
         token = 'abc-11223344556677889900'
         response = self.client.get(
-            reverse('manager:workout:pdf-table', kwargs={
-                'id': 3,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:workout:pdf-table', kwargs={'id': 3, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 403)

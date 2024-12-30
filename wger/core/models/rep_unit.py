@@ -28,8 +28,9 @@ class RepetitionUnit(models.Model):
         """
         Set Meta options
         """
+
         ordering = [
-            "name",
+            'name',
         ]
 
     name = models.CharField(max_length=100, verbose_name=_('Name'))

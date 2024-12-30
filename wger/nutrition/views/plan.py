@@ -24,23 +24,9 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect,
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render,
-)
-from django.template.context_processors import csrf
-from django.urls import (
-    reverse,
-    reverse_lazy,
-)
-from django.utils.translation import (
-    gettext as _,
-    gettext_lazy,
-)
-from django.views.generic import (
-    DeleteView,
-    UpdateView,
-)
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from django.utils.translation import gettext as _
 
 # Third Party
 from reportlab.lib import colors
@@ -54,20 +40,8 @@ from reportlab.platypus import (
 )
 
 # wger
-from wger.nutrition.consts import (
-    MEALITEM_WEIGHT_GRAM,
-    MEALITEM_WEIGHT_UNIT,
-)
+from wger.nutrition.consts import MEALITEM_WEIGHT_GRAM
 from wger.nutrition.models import NutritionPlan, Meal, MealItem
-from wger.utils.generic_views import (
-    WgerDeleteMixin,
-    WgerFormMixin,
-)
-from wger.utils.helpers import (
-    check_token,
-    make_token,
-)
-from wger.utils.language import load_language
 from wger.utils.pdf import (
     get_logo,
     header_colour,
@@ -79,122 +53,10 @@ from wger.utils.pdf import (
 
 logger = logging.getLogger(__name__)
 
+
 # ************************
 # Plan functions
 # ************************
-
-
-@login_required
-def overview(request):
-    template_data = {}
-    template_data.update(csrf(request))
-
-    plans = NutritionPlan.objects.filter(user=request.user)
-    template_data['plans'] = plans
-
-    return render(request, 'plan/overview.html', template_data)
-
-
-@login_required
-def add(request):
-    """
-    Add a new nutrition plan and redirect to its page
-    """
-
-    plan = NutritionPlan()
-    plan.user = request.user
-    plan.language = load_language()
-    plan.save()
-
-    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
-
-
-class PlanDeleteView(WgerDeleteMixin, DeleteView):
-    """
-    Generic view to delete a nutritional plan
-    """
-
-    model = NutritionPlan
-    success_url = reverse_lazy('nutrition:plan:overview')
-    messages = gettext_lazy('Successfully deleted')
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(PlanDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _('Delete {0}?').format(self.object)
-        return context
-
-
-class PlanEditView(WgerFormMixin, UpdateView):
-    """
-    Generic view to update an existing nutritional plan
-    """
-
-    model = NutritionPlan
-    fields = ('description', 'has_goal_calories')
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(PlanEditView, self).get_context_data(**kwargs)
-        context['title'] = _('Edit {0}').format(self.object)
-        return context
-
-
-def view(request, id):
-    """
-    Show the nutrition plan with the given ID
-    """
-    template_data = {}
-
-    plan = get_object_or_404(NutritionPlan, pk=id)
-    user = plan.user
-    is_owner = request.user == user
-
-    if not is_owner and not user.userprofile.ro_access:
-        return HttpResponseForbidden()
-
-    uid, token = make_token(user)
-
-    # Process and show the last 5 diary entries
-    log_data = []
-    planned_calories = plan.get_nutritional_values()['total']['energy']
-    for item in plan.get_log_overview()[:5]:
-        log_data.append(
-            {
-                'date': item['date'],
-                'planned_calories': planned_calories,
-                'logged_calories': item['energy'],
-                'difference': item['energy'] - planned_calories
-            }
-        )
-
-    # Load the language and pass it to the template
-    language = load_language()
-    template_data['language'] = language
-    template_data['MEALITEM_WEIGHT_GRAM'] = MEALITEM_WEIGHT_GRAM
-    template_data['MEALITEM_WEIGHT_UNIT'] = MEALITEM_WEIGHT_UNIT
-
-    # Get the nutritional info
-    template_data['plan'] = plan
-    template_data['nutritional_data'] = \
-        plan.get_nutritional_values()
-
-    # Get the weight entry used
-    template_data['weight_entry'] = plan.get_closest_weight_entry()
-
-    # Tokens for the links
-    template_data['uid'] = uid
-    template_data['log_data'] = log_data
-    template_data['token'] = token
-    template_data['owner_user'] = user
-    template_data['is_owner'] = is_owner
-    template_data['show_shariff'] = is_owner
-
-    return render(request, 'plan/view.html', template_data)
 
 
 @login_required
@@ -208,7 +70,6 @@ def copy(request, pk):
     # make new Plan, Meal, and MealItem objects using the values for the fields from the original object
     plan_copy = NutritionPlan(
         user=orig_plan.user,
-        language=orig_plan.language,
         description=orig_plan.description,
         has_goal_calories=orig_plan.has_goal_calories
     )
@@ -239,7 +100,7 @@ def copy(request, pk):
     return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan_copy.id}))
 
 
-def export_pdf(request, id, uidb64=None, token=None):
+def export_pdf(request, id: int):
     """
     Generates a PDF with the contents of a nutrition plan
 
@@ -247,17 +108,10 @@ def export_pdf(request, id, uidb64=None, token=None):
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
-
     # Load the plan
-    if uidb64 is not None and token is not None:
-        if check_token(uidb64, token):
-            plan = get_object_or_404(NutritionPlan, pk=id)
-        else:
-            return HttpResponseForbidden()
-    else:
-        if request.user.is_anonymous:
-            return HttpResponseForbidden()
-        plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    if request.user.is_anonymous:
+        return HttpResponseForbidden()
+    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
 
     plan_data = plan.get_nutritional_values()
 
@@ -291,17 +145,15 @@ def export_pdf(request, id, uidb64=None, token=None):
 
         if not meal.time:
             p = Paragraph(
-                '<para align="center"><strong>{nr} {meal_nr}</strong></para>'.format(
-                    nr=_('Nr.'), meal_nr=i
-                ), styleSheet["SubHeader"]
+                f'<para align="center"><strong>{_("Nr.")} {i}</strong></para>',
+                styleSheet['SubHeader'],
             )
         else:
             p = Paragraph(
-                '<para align="center"><strong>'
-                '{nr} {meal_nr} - {meal_time}'
-                '</strong></para>'.format(
-                    nr=_('Nr.'), meal_nr=i, meal_time=meal.time.strftime("%H:%M")
-                ), styleSheet["SubHeader"]
+                f'<para align="center"><strong>'
+                f'{_("Nr.")} {i} - {meal.time.strftime("%H:%M")}'
+                f'</strong></para>',
+                styleSheet['SubHeader'],
             )
         data.append([p])
 
@@ -309,14 +161,14 @@ def export_pdf(request, id, uidb64=None, token=None):
         for item in meal.mealitem_set.select_related():
             ingredient_markers.append(len(data))
 
-            p = Paragraph('<para>{0}</para>'.format(item.ingredient.name), styleSheet["Normal"])
+            p = Paragraph(f'<para>{item.ingredient.name}</para>', styleSheet['Normal'])
             if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                 unit_name = 'g'
             else:
                 unit_name = ' × ' + item.weight_unit.unit.name
 
             data.append(
-                [Paragraph("{0:.0f}{1}".format(item.amount, unit_name), styleSheet["Normal"]), p]
+                [Paragraph('{0:.0f}{1}'.format(item.amount, unit_name), styleSheet['Normal']), p]
             )
 
         # Add filler
@@ -344,7 +196,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     # There is nothing to output
     else:
         t = Paragraph(
-            _('<i>This is an empty plan, what did you expect on the PDF?</i>'), styleSheet["Normal"]
+            _('<i>This is an empty plan, what did you expect on the PDF?</i>'), styleSheet['Normal']
         )
 
     # Add site logo
@@ -353,10 +205,10 @@ def export_pdf(request, id, uidb64=None, token=None):
 
     # Set the title (if available)
     if plan.description:
-
         p = Paragraph(
-            '<para align="center"><strong>%(description)s</strong></para>' %
-            {'description': plan.description}, styleSheet["HeaderBold"]
+            '<para align="center"><strong>%(description)s</strong></para>'
+            % {'description': plan.description},
+            styleSheet['HeaderBold'],
         )
         elements.append(p)
 
@@ -365,78 +217,78 @@ def export_pdf(request, id, uidb64=None, token=None):
 
     # append the table to the document
     elements.append(t)
-    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet["Normal"]))
+    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet['Normal']))
 
     # Create table with nutritional calculations
     data = []
     data.append(
         [
             Paragraph(
-                '<para align="center">{0}</para>'.format(_('Nutritional data')),
-                styleSheet["SubHeaderBlack"]
+                f'<para align="center">{_("Nutritional data")}</para>',
+                styleSheet['SubHeaderBlack'],
             )
         ]
     )
     data.append(
         [
-            Paragraph(_('Macronutrients'), styleSheet["Normal"]),
-            Paragraph(_('Total'), styleSheet["Normal"]),
-            Paragraph(_('Percent of energy'), styleSheet["Normal"]),
-            Paragraph(_('g per body kg'), styleSheet["Normal"])
+            Paragraph(_('Macronutrients'), styleSheet['Normal']),
+            Paragraph(_('Total'), styleSheet['Normal']),
+            Paragraph(_('Percent of energy'), styleSheet['Normal']),
+            Paragraph(_('g per body kg'), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Energy'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['energy']), styleSheet["Normal"])
+            Paragraph(_('Energy'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].energy), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Protein'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['protein']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['percent']['protein']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['per_kg']['protein']), styleSheet["Normal"])
+            Paragraph(_('Protein'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].protein), styleSheet['Normal']),
+            Paragraph(str(plan_data['percent']['protein']), styleSheet['Normal']),
+            Paragraph(str(plan_data['per_kg']['protein']), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['carbohydrates']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['percent']['carbohydrates']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['per_kg']['carbohydrates']), styleSheet["Normal"])
+            Paragraph(_('Carbohydrates'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].carbohydrates), styleSheet['Normal']),
+            Paragraph(str(plan_data['percent']['carbohydrates']), styleSheet['Normal']),
+            Paragraph(str(plan_data['per_kg']['carbohydrates']), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph("    " + _('Sugar content in carbohydrates'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['carbohydrates_sugar']), styleSheet["Normal"])
+            Paragraph('    ' + _('Sugar content in carbohydrates'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].carbohydrates_sugar), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Fat'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['fat']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['percent']['fat']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['per_kg']['fat']), styleSheet["Normal"])
+            Paragraph(_('Fat'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fat), styleSheet['Normal']),
+            Paragraph(str(plan_data['percent']['fat']), styleSheet['Normal']),
+            Paragraph(str(plan_data['per_kg']['fat']), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['fat_saturated']), styleSheet["Normal"])
+            Paragraph(_('Saturated fat content in fats'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fat_saturated), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Fibres'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['fibres']), styleSheet["Normal"])
+            Paragraph(_('Fiber'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fiber), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Sodium'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['sodium']), styleSheet["Normal"])
+            Paragraph(_('Sodium'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].sodium), styleSheet['Normal']),
         ]
     )
 
@@ -452,7 +304,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     table_style.append(('BACKGROUND', (0, 6), (-1, 6), row_color))  # Fats
     table_style.append(('SPAN', (1, 7), (-1, 7)))  # Saturated fats
     table_style.append(('LEFTPADDING', (0, 7), (0, 7), 15))
-    table_style.append(('SPAN', (1, 8), (-1, 8)))  # Fibres
+    table_style.append(('SPAN', (1, 8), (-1, 8)))  # Fiber
     table_style.append(('SPAN', (1, 9), (-1, 9)))  # Sodium
     t = Table(data, style=table_style)
     t._argW[0] = 6 * cm

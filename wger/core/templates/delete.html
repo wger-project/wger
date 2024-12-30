@@ -1,23 +1,10 @@
-{% extends extend_template %}
 {% load i18n crispy_forms_tags %}
 
-<!--
-        Title
--->
-{% block title %}{{title}}{% endblock %}
+<h4>{{ title }}</h4>
+<p>{% translate "Are you sure you want to delete this? This action cannot be undone." %}</p>
+{% if delete_message %}
+    <p>{{ delete_message }}</p>
+{% endif %}
+{% crispy form %}
 
-
-<!--
-        Main Content
--->
-{% block content %}
-    <div class="wger-form">
-    <p>{% translate "Are you sure you want to delete this? This action cannot be undone." %}</p>
-    {% if delete_message %}
-        <p>{{ delete_message }}</p>
-    {% endif %}
-    {% crispy form %}
-    </div>
-
-{% endblock %}
 

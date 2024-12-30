@@ -33,8 +33,9 @@ class Equipment(models.Model):
         """
         Set default ordering
         """
+
         ordering = [
-            "name",
+            'name',
         ]
 
     def __str__(self):

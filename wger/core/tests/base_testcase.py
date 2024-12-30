@@ -100,6 +100,8 @@ class BaseTestCase:
     REST API tests
     """
 
+    media_root = None
+
     fixtures = (
         'days_of_week',
         'gym_config',
@@ -151,10 +153,6 @@ class BaseTestCase:
         # Set logging level
         logging.disable(logging.INFO)
 
-        # Set MEDIA_ROOT
-        self.media_root = tempfile.mkdtemp()
-        settings.MEDIA_ROOT = self.media_root
-
         # Disable django-axes
         # https://django-axes.readthedocs.io/en/latest/3_usage.html#authenticating-users
         settings.AXES_ENABLED = False
@@ -170,7 +168,33 @@ class BaseTestCase:
         cache.clear()
 
         # Clear MEDIA_ROOT folder
-        shutil.rmtree(self.media_root)
+        if self.media_root:
+            shutil.rmtree(self.media_root)
+
+    def init_media_root(self):
+        """
+        Init the media root and copy the used images to it
+
+        This is error-prone and ugly, but it's probably ok for the time being
+        """
+        self.media_root = tempfile.mkdtemp()
+        settings.MEDIA_ROOT = self.media_root
+
+        os.makedirs(self.media_root + '/exercise-images/1/')
+        os.makedirs(self.media_root + '/exercise-images/2/')
+
+        shutil.copy(
+            'wger/exercises/tests/protestschwein.jpg',
+            self.media_root + '/exercise-images/1/protestschwein.jpg',
+        )
+        shutil.copy(
+            'wger/exercises/tests/wildschwein.jpg',
+            self.media_root + '/exercise-images/1/wildschwein.jpg',
+        )
+        shutil.copy(
+            'wger/exercises/tests/wildschwein.jpg',
+            self.media_root + '/exercise-images/2/wildschwein.jpg',
+        )
 
 
 class WgerTestCase(BaseTestCase, TestCase):
@@ -229,7 +253,6 @@ class WgerTestCase(BaseTestCase, TestCase):
 
         # Uploaded image or file, compare the filename
         elif current_field_class in ('ImageFieldFile', 'FieldFile'):
-
             # We can only compare the extensions, since the names can be changed
             # Ideally we would check that the byte length is the same
             self.assertEqual(pathlib.Path(field.name).suffix, pathlib.Path(value.name).suffix)
@@ -540,7 +563,6 @@ class WgerAccessTestCase(WgerTestCase):
     anonymous_fail = True
 
     def access(self, fail=True):
-
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WgerAccessTestCase':
             return

@@ -11,7 +11,7 @@ def delete_pending_bases(apps, schema_editor):
     Note that we can't access STATUS_PENDING here because we are not using
     a real model.
     """
-    Base = apps.get_model("exercises", "ExerciseBase")
+    Base = apps.get_model('exercises', 'ExerciseBase')
     Base.objects.filter(status='1').delete()
 
 
@@ -22,12 +22,11 @@ def delete_pending_translations(apps, schema_editor):
     Note that we can't access STATUS_PENDING here because we are not using
     a real model.
     """
-    Exercise = apps.get_model("exercises", "Exercise")
+    Exercise = apps.get_model('exercises', 'Exercise')
     Exercise.objects.filter(status='1').delete()
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0014_merge_20210818_1735'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),

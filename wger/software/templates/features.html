@@ -41,8 +41,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item mx-2 my-1">
-                            <a class="nav-link active fw-bolder" aria-current="page"
-                               href="{% url 'software:about-us' %}">{% translate "About" %}    </a>
+                            <a class="nav-link fw-semibold" aria-current="page"
+                               href="{% url 'software:about-us' %}">{% translate "Contact" %}
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2 my-1">
+                            <a class="nav-link fw-semibold"
+                               href="{% url 'exercise:exercise:overview' %}">
+                                {% translate "Exercises" %}
+                            </a>
                         </li>
                         <li class="nav-item mx-2 my-1">
                             <a class="nav-link fw-semibold"
@@ -519,10 +526,19 @@
                                    rel="noopener noreferrer">
                                     <i class="fab fa-discord px-2"></i>
                                 </a>
-                                <a href="https://twitter.com/wger_project" target="_blank"
-                                   rel="noopener noreferrer">
-                                    <i class="fab fa-twitter px-2" aria-hidden="true"></i>
-                                </a>
+                                {% if twitter %}
+                                    <a href="https://twitter.com/{{ twitter }}" target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i class="fab fa-twitter px-2" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if mastodon %}
+                                    <a href="{{ mastodon }}" target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i class="fab fa-mastodon px-2" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                             </h1>
                         </li>
                         <li class="list-group-item bg-transparent border-0">
@@ -570,9 +586,32 @@
                 </div>
 
                 <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                    <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}"
-                         alt="google play logo"
-                         height="55"/>
+                    <img
+                        src="{% static 'images/logos/play-store/badge.svg' %}"
+                        alt="google play logo"
+                        height="55"
+                    />
+                </a>
+                <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792">
+                    <img
+                        src="{% static 'images/logos/app-store/black.svg' %}"
+                        alt="app store logo"
+                        height="55"
+                    />
+                </a>
+                <a href="https://flathub.org/apps/de.wger.flutter">
+                    <img
+                        src="{% static 'images/logos/flathub/black.svg' %}"
+                        alt="flathub logo"
+                        height="55"
+                    />
+                </a>
+                <a href="https://f-droid.org/de/packages/de.wger.flutter/">
+                    <img
+                        src="{% static 'images/logos/fdroid/get-it-on.png' %}"
+                        alt="fdroid logo"
+                        height="55"
+                    />
                 </a>
             </div>
         </div>

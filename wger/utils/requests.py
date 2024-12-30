@@ -24,10 +24,10 @@ def wger_user_agent():
 
 
 def wger_headers():
-    return {'User-agent': wger_user_agent()}
+    return {'User-Agent': wger_user_agent()}
 
 
-def get_paginated(url: str, headers=None):
+def get_all_paginated(url: str, headers=None):
     """
     Fetch all results from a paginated endpoint.
 
@@ -49,7 +49,7 @@ def get_paginated(url: str, headers=None):
     return results
 
 
-def get_paginated_generator(url: str, headers=None):
+def get_paginated(url: str, headers=None):
     """
     Generator that iterates over a paginated endpoint
 
@@ -62,7 +62,9 @@ def get_paginated_generator(url: str, headers=None):
 
     while True:
         response = requests.get(url, headers=headers).json()
-        yield response['results']
+
+        for result in response['results']:
+            yield result
 
         url = response['next']
         if not url:

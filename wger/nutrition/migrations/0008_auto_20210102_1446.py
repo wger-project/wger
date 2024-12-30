@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0007_auto_20201214_0013'),
     ]
@@ -32,7 +31,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
                 to='nutrition.nutritionplan',
-                verbose_name='Nutrition plan'
+                verbose_name='Nutrition plan',
             ),
         ),
     ]

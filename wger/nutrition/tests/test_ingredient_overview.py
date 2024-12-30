@@ -21,28 +21,27 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
-class OverviewPlanTestCase(WgerTestCase):
+class IngredientOverviewTestCase(WgerTestCase):
     """
     Tests the ingredient overview
     """
 
     def test_overview(self):
-
         # Add more ingredients so we can test the pagination
         self.user_login('admin')
         data = {
-            "name": "Test ingredient",
-            "language": 2,
-            "sodium": 10.54,
-            "energy": 176,
-            "fat": 8.19,
-            "carbohydrates_sugar": 0.0,
-            "fat_saturated": 3.24,
-            "fibres": 0.0,
-            "protein": 25.63,
-            "carbohydrates": 0.0,
+            'name': 'Test ingredient',
+            'language': 2,
+            'sodium': 10.54,
+            'energy': 176,
+            'fat': 8.19,
+            'carbohydrates_sugar': 0.0,
+            'fat_saturated': 3.24,
+            'fiber': 0.0,
+            'protein': 25.63,
+            'carbohydrates': 0.0,
             'license': 1,
-            'license_author': 'internet'
+            'license_author': 'internet',
         }
         for i in range(0, 50):
             self.client.post(reverse('nutrition:ingredient:add'), data)
@@ -57,7 +56,7 @@ class OverviewPlanTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        rest_ingredients = 13
+        rest_ingredients = 11
         response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)
@@ -74,7 +73,7 @@ class OverviewPlanTestCase(WgerTestCase):
         response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 'foobar'})
         self.assertEqual(response.status_code, 404)
 
-    def ingredient_overview(self, logged_in=True, demo=False, admin=False):
+    def ingredient_overview(self):
         """
         Helper function to test the ingredient overview page
         """
@@ -83,30 +82,17 @@ class OverviewPlanTestCase(WgerTestCase):
         response = self.client.get(reverse('nutrition:ingredient:list'))
         self.assertEqual(response.status_code, 200)
 
-        # No ingredients pending review
-        if admin:
-            self.assertContains(response, 'Ingredients pending review')
-        else:
-            self.assertNotContains(response, 'Ingredients pending review')
-
-        # Only authorized users see the edit links
-        if logged_in and not demo:
-            self.assertNotContains(response, 'Only registered users can do this')
-
-        if logged_in and demo:
-            self.assertContains(response, 'Only registered users can do this')
-
     def test_ingredient_index_editor(self):
         """
-        Tests the ingredient overview page as a logged in user with editor rights
+        Tests the ingredient overview page as a logged-in user with editor rights
         """
 
         self.user_login('admin')
-        self.ingredient_overview(admin=True)
+        self.ingredient_overview()
 
     def test_ingredient_index_non_editor(self):
         """
-        Tests the overview overview page as a logged in user without editor rights
+        Tests the overview page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -114,15 +100,15 @@ class OverviewPlanTestCase(WgerTestCase):
 
     def test_ingredient_index_demo_user(self):
         """
-        Tests the overview overview page as a logged in demo user
+        Tests the overview page as a logged in demo user
         """
 
         self.user_login('demo')
-        self.ingredient_overview(demo=True)
+        self.ingredient_overview()
 
     def test_ingredient_index_logged_out(self):
         """
-        Tests the overview overview page as an anonymous (logged out) user
+        Tests the overview page as an anonymous (logged out) user
         """
 
-        self.ingredient_overview(logged_in=False)
+        self.ingredient_overview()

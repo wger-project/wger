@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0009_meal_name'),
     ]
@@ -20,7 +19,7 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name='log_items',
                 to='nutrition.meal',
-                verbose_name='Meal'
+                verbose_name='Meal',
             ),
         ),
     ]

@@ -164,6 +164,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available contract options
     """
+
     model = ContractType
     permission_required = 'gym.add_contracttype'
     template_name = 'contract_type/list.html'

@@ -34,7 +34,7 @@ class RepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(f"{RepetitionUnit.objects.get(pk=1)}", 'Repetitions')
+        self.assertEqual(f'{RepetitionUnit.objects.get(pk=1)}', 'Repetitions')
 
 
 class OverviewTest(WgerAccessTestCase):
@@ -54,7 +54,7 @@ class AddTestCase(WgerAddTestCase):
     object_class = RepetitionUnit
     url = 'core:repetition-unit:add'
     data = {'name': 'Furlongs'}
-    user_success = 'admin',
+    user_success = ('admin',)
     user_fail = (
         'general_manager1',
         'general_manager2',
@@ -75,7 +75,7 @@ class DeleteTestCase(WgerDeleteTestCase):
     pk = 1
     object_class = RepetitionUnit
     url = 'core:repetition-unit:delete'
-    user_success = 'admin',
+    user_success = ('admin',)
     user_fail = (
         'general_manager1',
         'general_manager2',
@@ -97,7 +97,7 @@ class EditTestCase(WgerEditTestCase):
     object_class = RepetitionUnit
     url = 'core:repetition-unit:edit'
     data = {'name': 'Furlongs'}
-    user_success = 'admin',
+    user_success = ('admin',)
     user_fail = (
         'general_manager1',
         'general_manager2',
@@ -114,6 +114,7 @@ class ApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the unit resource
     """
+
     pk = 1
     resource = RepetitionUnit
     private_resource = False

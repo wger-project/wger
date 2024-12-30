@@ -27,6 +27,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.exercises.models import ExerciseBase
+from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.helpers import BaseImage
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -39,7 +40,7 @@ def exercise_image_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     ext = pathlib.Path(filename).suffix
-    return f"exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}"
+    return f'exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}'
 
 
 class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, BaseImage):
@@ -86,11 +87,11 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         verbose_name=_('Main picture'),
         default=False,
         help_text=_(
-            "Tick the box if you want to set this image as the "
-            "main one for the exercise (will be shown e.g. in "
-            "the search). The first image is automatically "
-            "marked by the system."
-        )
+            'Tick the box if you want to set this image as the '
+            'main one for the exercise (will be shown e.g. in '
+            'the search). The first image is automatically '
+            'marked by the system.'
+        ),
     )
     """A flag indicating whether the image is the exercise's main image"""
 
@@ -101,6 +102,18 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         default=PHOTO,
     )
     """The art style of the image"""
+
+    created = models.DateTimeField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The creation time"""
+
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
+    """Datetime of last modification"""
 
     history = HistoricalRecords()
     """Edit history"""
@@ -115,6 +128,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         """
         Set default ordering
         """
+
         ordering = ['-is_main', 'id']
         base_manager_name = 'objects'
 
@@ -126,29 +140,39 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
             ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.all() \
-                .filter(exercise_base=self.exercise_base).count() == 0 \
-                or not ExerciseImage.objects.all() \
-                .filter(exercise_base=self.exercise_base, is_main=True) \
-                .count():
+            if (
+                ExerciseImage.objects.all().filter(exercise_base=self.exercise_base).count() == 0
+                or not ExerciseImage.objects.all()
+                .filter(exercise_base=self.exercise_base, is_main=True)
+                .count()
+            ):
                 self.is_main = True
 
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
         # And go on
-        super(ExerciseImage, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
         Reset all cached infos
         """
-        super(ExerciseImage, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.all().filter(exercise_base=self.exercise_base, is_main=True
-                                                  ).count() and ExerciseImage.objects.all().filter(
-                                                      exercise_base=self.exercise_base
-                                                  ).filter(is_main=False).count():
-            image = ExerciseImage.objects.all() \
-                .filter(exercise_base=self.exercise_base, is_main=False)[0]
+        if (
+            not ExerciseImage.objects.all()
+            .filter(exercise_base=self.exercise_base, is_main=True)
+            .count()
+            and ExerciseImage.objects.all()
+            .filter(exercise_base=self.exercise_base)
+            .filter(is_main=False)
+            .count()
+        ):
+            image = ExerciseImage.objects.all().filter(
+                exercise_base=self.exercise_base, is_main=False
+            )[0]
             image.is_main = True
             image.save()
 

@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import datetime
 import uuid
 from typing import (
     List,
@@ -41,6 +42,7 @@ from wger.exercises.managers import (
     ExerciseBaseManagerNoTranslations,
     ExerciseBaseManagerTranslations,
 )
+from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -60,9 +62,9 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     Model for an exercise base
     """
 
-    objects = ExerciseBaseManagerTranslations()
+    objects = ExerciseBaseManagerAll()
     no_translations = ExerciseBaseManagerNoTranslations()
-    all = ExerciseBaseManagerAll()
+    translations = ExerciseBaseManagerTranslations()
     """
     Custom Query Manager
     """
@@ -112,35 +114,26 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Variations of this exercise"""
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
     )
-    """The submission date"""
+    """The submission datetime"""
 
-    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
     """Datetime of last modification"""
 
     history = HistoricalRecords()
     """Edit history"""
 
-    @property
-    def total_authors_history(self):
-        """
-        All athors history related to the BaseExercise.
-        """
-        collect_for_models = [
-            *self.exercises.all(),
-            *self.exercisevideo_set.all(),
-            *self.exerciseimage_set.all(),
-        ]
-        return self.author_history.union(collect_models_author_history(collect_for_models))
-
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return f"base {self.uuid} ({self.get_exercise().name})"
+        return f'base {self.uuid} ({self.get_translation()})'
 
     def get_absolute_url(self):
         """
@@ -159,7 +152,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                     'exercises without translations',
                     hint=f'There are {no_translations} exercises without translations, this will '
                     'cause problems! You can output or delete them with "python manage.py '
-                    'exercises-health-check"',
+                    'exercises-health-check --help"',
                     id='wger.W002',
                 )
             )
@@ -171,6 +164,31 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     #
 
     @property
+    def total_authors_history(self):
+        """
+        All authors history related to the BaseExercise.
+        """
+        collect_for_models = [
+            *self.exercises.all(),
+            *self.exercisevideo_set.all(),
+            *self.exerciseimage_set.all(),
+        ]
+        return self.author_history.union(collect_models_author_history(collect_for_models))
+
+    @property
+    def last_update_global(self):
+        """
+        The latest update datetime of all exercises, videos and images.
+        """
+        return max(
+            self.last_update,
+            *[image.last_update for image in self.exerciseimage_set.all()],
+            *[video.last_update for video in self.exercisevideo_set.all()],
+            *[translation.last_update for translation in self.exercises.all()],
+            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc),
+        )
+
+    @property
     def main_image(self):
         """
         Return the main image for the exercise or None if nothing is found
@@ -178,7 +196,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         return self.exerciseimage_set.all().filter(is_main=True).first()
 
     @property
-    def get_languages(self) -> List[Language]:
+    def languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base
         """
@@ -193,7 +211,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             return []
         return self.variations.exercisebase_set.filter(~Q(id=self.id))
 
-    def get_exercise(self, language: Optional[str] = None):
+    def get_translation(self, language: Optional[str] = None):
         """
         Returns the exercise for the given language. If the language is not
         available, return the English translation.
@@ -209,13 +227,43 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         language = language or get_language()
 
         try:
-            exercise = self.exercises.get(language__short_name=language)
+            translation = self.exercises.get(language__short_name=language)
         except Exercise.DoesNotExist:
             try:
-                exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
+                translation = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
             except Exercise.DoesNotExist:
-                exercise = self.exercises.first()
+                translation = self.exercises.first()
         except Exercise.MultipleObjectsReturned:
-            exercise = self.exercises.filter(language__short_name=language).first()
+            translation = self.exercises.filter(language__short_name=language).first()
 
-        return exercise
+        return translation
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        reset_exercise_api_cache(self.uuid)
+
+    def delete(self, using=None, keep_parents=False, replace_by: str = None):
+        """
+        Save entry to log
+        """
+        # wger
+        from wger.exercises.models import DeletionLog
+
+        if replace_by:
+            try:
+                ExerciseBase.objects.get(uuid=replace_by)
+            except ExerciseBase.DoesNotExist:
+                replace_by = None
+
+        log = DeletionLog(
+            model_type=DeletionLog.MODEL_BASE,
+            uuid=self.uuid,
+            comment=f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
+            replaced_by=replace_by,
+        )
+        log.save()
+
+        reset_exercise_api_cache(self.uuid)
+
+        return super().delete(using, keep_parents)

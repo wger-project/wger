@@ -22,11 +22,11 @@ from wger.exercises.models import Exercise
 
 
 class ExercisesSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = 'monthly'
     priority = 0.5
 
     def items(self):
         return Exercise.objects.all()
 
     def lastmod(self, obj):
-        return obj.creation_date
+        return obj.last_update

@@ -35,7 +35,7 @@ class DayRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Day.objects.get(pk=1)), 'A day')
+        self.assertEqual(str(Day.objects.get(pk=1)), 'A day')
 
 
 class AddWorkoutDayTestCase(WgerAddTestCase):
@@ -110,51 +110,6 @@ class EditWorkoutDayTestCase(WgerEditTestCase):
     user_success = 'test'
     user_fail = 'admin'
     data = {'description': 'a different description', 'day': [1, 4]}
-
-
-class RenderWorkoutDayTestCase(WgerTestCase):
-    """
-    Tests rendering a single workout day
-    """
-
-    def render_day(self, fail=False):
-        """
-        Helper function to test rendering a single workout day
-        """
-
-        # Fetch the day edit page
-        response = self.client.get(reverse('manager:day:view', kwargs={'id': 5}))
-
-        if fail:
-            self.assertIn(response.status_code, (302, 404))
-            self.assertTemplateUsed('login.html')
-
-        else:
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed('day/view.html')
-
-    def test_render_day_anonymous(self):
-        """
-        Test rendering a single workout day as an anonymous user
-        """
-
-        self.render_day(fail=True)
-
-    def test_render_workout_owner(self):
-        """
-        Test rendering a single workout day as the owner user
-        """
-
-        self.user_login('test')
-        self.render_day(fail=False)
-
-    def test_render_workout_other(self):
-        """
-        Test rendering a single workout day as a different logged in user
-        """
-
-        self.user_login('admin')
-        self.render_day(fail=True)
 
 
 class WorkoutCacheTestCase(WgerTestCase):

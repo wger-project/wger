@@ -22,11 +22,11 @@ from wger.nutrition.models import Ingredient
 
 
 class NutritionSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = 'monthly'
     priority = 0.5
 
     def items(self):
-        return Ingredient.objects.accepted()
+        return Ingredient.objects.all()
 
     def lastmod(self, obj):
-        return obj.update_date
+        return obj.last_update

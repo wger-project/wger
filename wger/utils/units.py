@@ -140,7 +140,7 @@ class AbstractHeight(object):
         height = self.normalize(height)
 
         self.height = height
-        self.is_cm = (mode == 'cm')
+        self.is_cm = mode == 'cm'
 
     @staticmethod
     def normalize(value):

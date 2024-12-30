@@ -20,7 +20,7 @@ from django.apps import AppConfig
 
 class NutritionConfig(AppConfig):
     name = 'wger.nutrition'
-    verbose_name = "Nutrition"
+    verbose_name = 'Nutrition'
 
     def ready(self):
         import wger.nutrition.signals

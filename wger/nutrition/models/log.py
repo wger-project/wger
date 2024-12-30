@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from decimal import Decimal
+
 # Django
 from django.core.validators import (
     MaxValueValidator,
@@ -41,7 +44,7 @@ class LogItem(BaseMealItem, models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "datetime",
+            '-datetime',
         ]
 
     plan = models.ForeignKey(
@@ -49,17 +52,20 @@ class LogItem(BaseMealItem, models.Model):
         verbose_name=_('Nutrition plan'),
         on_delete=models.CASCADE,
     )
+    """
+    The plan this log belongs to
+    """
 
     meal = models.ForeignKey(
         Meal,
         verbose_name=_('Meal'),
-        on_delete=models.CASCADE,
-        related_name="log_items",
+        on_delete=models.SET_NULL,
+        related_name='log_items',
         blank=True,
-        null=True
+        null=True,
     )
     """
-    The plan this log belongs to
+    The meal this log belongs to (optional)
     """
 
     datetime = models.DateTimeField(verbose_name=_('Date and Time (Approx.)'), default=timezone.now)
@@ -100,7 +106,7 @@ class LogItem(BaseMealItem, models.Model):
         decimal_places=2,
         max_digits=6,
         verbose_name=_('Amount'),
-        validators=[MinValueValidator(1), MaxValueValidator(1000)],
+        validators=[MinValueValidator(Decimal(1)), MaxValueValidator(Decimal(1000))],
     )
     """
     The amount of units
@@ -110,7 +116,7 @@ class LogItem(BaseMealItem, models.Model):
         """
         Return a more human-readable representation
         """
-        return "Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
+        return f'Diary entry for {self.datetime}, plan {self.plan.pk}'
 
     def get_owner_object(self):
         """

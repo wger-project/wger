@@ -43,7 +43,7 @@ class EmailLogListView(PermissionRequiredMixin, generic.ListView):
     """
 
     model = Log
-    context_object_name = "email_list"
+    context_object_name = 'email_list'
     template_name = 'mailer/gym/overview.html'
     permission_required = 'mailer.add_log'
     gym = None
@@ -95,9 +95,11 @@ class EmailListFormPreview(FormPreview):
         Also, check for permissions here. While it is ugly and doesn't really
         belong here, it seems it's the best way to do it in a FormPreview
         """
-        if not request.user.is_authenticated or\
-                request.user.userprofile.gym_id != self.gym.id or \
-                not request.user.has_perm('mailer.change_log'):
+        if (
+            not request.user.is_authenticated
+            or request.user.userprofile.gym_id != self.gym.id
+            or not request.user.has_perm('mailer.change_log')
+        ):
             return HttpResponseForbidden()
 
         context = super(EmailListFormPreview, self).get_context(request, form)
@@ -113,8 +115,9 @@ class EmailListFormPreview(FormPreview):
                 mail.send_mail(
                     form.cleaned_data['subject'],
                     form.cleaned_data['body'],
-                    settings.WGER_SETTINGS['EMAIL_FROM'], [admin.email],
-                    fail_silently=False
+                    settings.WGER_SETTINGS['EMAIL_FROM'],
+                    [admin.email],
+                    fail_silently=False,
                 )
         return context
 

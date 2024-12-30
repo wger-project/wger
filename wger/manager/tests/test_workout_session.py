@@ -57,8 +57,8 @@ class AddWorkoutSessionTestCase(WgerAddTestCase):
             'workout_pk': 1,
             'year': datetime.date.today().year,
             'month': datetime.date.today().month,
-            'day': datetime.date.today().day
-        }
+            'day': datetime.date.today().day,
+        },
     )
     data = {
         'user': 1,
@@ -67,7 +67,7 @@ class AddWorkoutSessionTestCase(WgerAddTestCase):
         'notes': 'Some interesting and deep insights',
         'impression': '3',
         'time_start': datetime.time(10, 0),
-        'time_end': datetime.time(13, 0)
+        'time_end': datetime.time(13, 0),
     }
 
 
@@ -86,7 +86,7 @@ class EditWorkoutSessionTestCase(WgerEditTestCase):
         'notes': 'My new insights',
         'impression': '3',
         'time_start': datetime.time(10, 0),
-        'time_end': datetime.time(13, 0)
+        'time_end': datetime.time(13, 0),
     }
 
 
@@ -104,8 +104,8 @@ class WorkoutSessionModelTestCase(WgerTestCase):
         session.workout = Workout.objects.get(pk=1)
         session.date = datetime.date.today()
         self.assertEqual(
-            '{0}'.format(session),
-            '{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today())
+            str(session),
+            f'{Workout.objects.get(pk=1)} - {datetime.date.today()}',
         )
 
 
@@ -136,10 +136,7 @@ class WorkoutSessionDeleteLogsTestCase(WgerTestCase):
         self.assertEqual(count_before, 1)
 
         response = self.client.post(
-            reverse('manager:session:delete', kwargs={
-                'pk': 1,
-                'logs': 'logs'
-            })
+            reverse('manager:session:delete', kwargs={'pk': 1, 'logs': 'logs'})
         )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(WorkoutSession.objects.all().count(), 3)
@@ -194,71 +191,11 @@ class WorkoutSessionTestCase(WgerTestCase):
         self.assertRaises(ValidationError, session.full_clean)
 
 
-class WorkoutLogCacheTestCase(WgerTestCase):
-    """
-    Workout log cache test case
-    """
-
-    def test_cache_update_session(self):
-        """
-        Test that the caches are cleared when updating a workout session
-        """
-        log_hash = hash((1, 2012, 10))
-        self.user_login('admin')
-        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
-
-        session = WorkoutSession.objects.get(pk=1)
-        session.notes = 'Lorem ipsum'
-        session.save()
-
-        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
-
-    def test_cache_update_session_2(self):
-        """
-        Test that the caches are only cleared for a the session's month
-        """
-        log_hash = hash((1, 2012, 10))
-        self.user_login('admin')
-        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
-
-        # Session is from 2014
-        session = WorkoutSession.objects.get(pk=2)
-        session.notes = 'Lorem ipsum'
-        session.save()
-
-        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
-
-    def test_cache_delete_session(self):
-        """
-        Test that the caches are cleared when deleting a workout session
-        """
-        log_hash = hash((1, 2012, 10))
-        self.user_login('admin')
-        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
-
-        session = WorkoutSession.objects.get(pk=1)
-        session.delete()
-
-        self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
-
-    def test_cache_delete_session_2(self):
-        """
-        Test that the caches are only cleared for a the session's month
-        """
-        log_hash = hash((1, 2012, 10))
-        self.user_login('admin')
-        self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
-
-        session = WorkoutSession.objects.get(pk=2)
-        session.delete()
-
-        self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
-
-
 class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the workout overview resource
     """
+
     pk = 4
     resource = WorkoutSession
     private_resource = True
@@ -268,5 +205,5 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
         'notes': 'My new insights',
         'impression': '3',
         'time_start': datetime.time(10, 0),
-        'time_end': datetime.time(13, 0)
+        'time_end': datetime.time(13, 0),
     }

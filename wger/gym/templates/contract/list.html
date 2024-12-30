@@ -21,24 +21,21 @@
         {% for contract in contract_list %}
             <li class="list-group-item list-group-item-action">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <div class="dropdown-menu" role="menu">
                         {% if perms.gym.change_contract %}
-                            <li>
-                                <a href="{% url 'gym:contract:edit' contract.pk %}">
-                                    {% translate 'Edit' %}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'gym:contract:view' contract.pk %}">
-                                    {% translate 'Show' %}
-                                </a>
-                            </li>
-                        {% endif %}
+                            {% translate 'Edit' as text %}
+                            {% url 'gym:contract:edit' contract.pk as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
 
-                    </ul>
+                            {% translate 'Show' as text %}
+                            {% url 'gym:contract:view' contract.pk as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
+                        {% endif %}
+                    </div>
                 </div>
 
 
@@ -69,6 +66,7 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'gym:contract:add' member.pk %}"
-       class="wger-modal-dialog btn btn-sm btn-success">{% translate "Add" %}</a>
+    {% translate 'Add' as text %}
+    {% url 'gym:contract:add' member.pk as url %}
+    {% modal_link url=url text=text %}
 {% endblock %}

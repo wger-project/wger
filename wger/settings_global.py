@@ -41,14 +41,13 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-    'django_extensions',
     'storages',
 
     # Uncomment the next line to enable the admin:
@@ -69,7 +68,7 @@ INSTALLED_APPS = (
     'wger.measurements',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
-    'captcha',
+    'django_recaptcha',
 
     # The sitemaps app
     'django.contrib.sitemaps',
@@ -112,9 +111,15 @@ INSTALLED_APPS = (
 
     # Fontawesome
     'fontawesomefree',
-)
 
-MIDDLEWARE = (
+    # Prometheus
+    'django_prometheus',
+]
+
+MIDDLEWARE = [
+    # Prometheus
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,9 +143,12 @@ MIDDLEWARE = (
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
 
+    # Prometheus
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+
     # Django Axes
     'axes.middleware.AxesMiddleware',  # should be the last one in the list
-)
+]
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
@@ -171,8 +179,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-            False
+            'debug': False
         },
     },
 ]
@@ -206,6 +213,7 @@ LOGIN_REDIRECT_URL = '/'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -238,6 +246,7 @@ AVAILABLE_LANGUAGES = (
     ('es-ni', 'Nicaraguan Spanish'),
     ('es-ve', 'Venezuelan Spanish'),
     ('fr', 'French'),
+    ('hr', 'Croatian'),
     ('it', 'Italian'),
     ('nl', 'Dutch'),
     ('nb', 'Norwegian'),
@@ -249,13 +258,14 @@ AVAILABLE_LANGUAGES = (
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
     ('zh-hans', 'Chinese simplified'),
+    ('zh-hant', 'Traditional Chinese'),
 )
 
 # Default language code for this installation.
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -283,6 +293,11 @@ LOGGING = {
         'wger': {
             'handlers': ['console'],
             'level': 'DEBUG',
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         }
     }
 }
@@ -446,7 +461,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '10/min'
+        'login': '10/min',
+        'registration': '5/min'
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
@@ -491,7 +507,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
@@ -525,15 +541,25 @@ WGER_SETTINGS = {
     'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'INGREDIENT_CACHE_TTL': 604800,  # one week
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'SYNC_EXERCISES_CELERY': False,
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
+    'SYNC_INGREDIENTS_CELERY': False,
+    'SYNC_OFF_DAILY_DELTA_CELERY': False,
     'TWITTER': False,
+    'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
 }
+
+#
+# Prometheus metrics
+#
+EXPOSE_PROMETHEUS_METRICS = False
+PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #
@@ -544,7 +570,7 @@ def email_verified_callback(user):
     user.userprofile.save()
 
 
-EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_MAIL_CALLBACK = email_verified_callback
 EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
@@ -554,7 +580,7 @@ EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
-# Django activity stream
+# Django-activity stream
 #
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,

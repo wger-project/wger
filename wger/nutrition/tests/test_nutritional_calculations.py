@@ -32,7 +32,7 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
     """
 
     def test_calculations(self):
-        plan = models.NutritionPlan(user_id=1, language_id=1)
+        plan = models.NutritionPlan(user_id=1)
         plan.save()
 
         meal = models.Meal(order=1)
@@ -52,16 +52,21 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         item.order = 1
         item.save()
 
-        result_item = item.get_nutritional_values()
+        item_values = item.get_nutritional_values()
 
-        for i in result_item:
-            self.assertEqual(result_item[i], Decimal(getattr(ingredient, i)).quantize(TWOPLACES))
+        self.assertAlmostEqual(item_values.energy, ingredient.energy, 2)
+        self.assertAlmostEqual(item_values.carbohydrates, ingredient.carbohydrates, 2)
+        self.assertAlmostEqual(item_values.carbohydrates_sugar, None, 2)
+        self.assertAlmostEqual(item_values.fat, ingredient.fat, 2)
+        self.assertAlmostEqual(item_values.fat_saturated, ingredient.fat_saturated, 2)
+        self.assertAlmostEqual(item_values.sodium, ingredient.sodium, 2)
+        self.assertAlmostEqual(item_values.fiber, None, 2)
 
-        result_meal = meal.get_nutritional_values()
-        self.assertEqual(result_item, result_meal)
+        meal_nutritional_values = meal.get_nutritional_values()
+        self.assertEqual(item_values, meal_nutritional_values)
 
-        result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan['total'])
+        plan_nutritional_values = plan.get_nutritional_values()
+        self.assertEqual(meal_nutritional_values.energy, plan_nutritional_values['total'].energy)
 
         # One ingredient, 1 x unit 3
         item.delete()
@@ -73,19 +78,15 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         item.weight_unit_id = 3
         item.save()
 
-        result_item = item.get_nutritional_values()
+        item_values = item.get_nutritional_values()
 
-        for i in result_item:
-            self.assertEqual(
-                result_item[i],
-                (getattr(ingredient, i) * Decimal(12.0) / 100).quantize(TWOPLACES),
-            )
+        self.assertAlmostEqual(item_values.energy, ingredient.energy * Decimal(12.0) / 100, 2)
 
-        result_meal = meal.get_nutritional_values()
-        self.assertEqual(result_item, result_meal)
+        meal_nutritional_values = meal.get_nutritional_values()
+        self.assertEqual(item_values, meal_nutritional_values)
 
-        result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan['total'])
+        plan_nutritional_values = plan.get_nutritional_values()
+        self.assertEqual(meal_nutritional_values, plan_nutritional_values['total'])
 
         # Add another ingredient, 200 gr
         item2 = models.MealItem()
@@ -96,18 +97,18 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         item2.order = 1
         item2.save()
 
-        result_item2 = item2.get_nutritional_values()
+        item2_values = item2.get_nutritional_values()
 
-        result_total = {}
-        for i in result_item2:
-            self.assertEqual(result_item2[i], 2 * getattr(ingredient2, i))
-            result_total[i] = result_item[i] + result_item2[i]
+        # result_total = {}
+        self.assertAlmostEqual(item2_values.energy, 2 * ingredient2.energy)
+        self.assertAlmostEqual(item2_values.carbohydrates, 2 * ingredient2.carbohydrates)
+        self.assertAlmostEqual(item2_values.fat, 2 * ingredient2.fat)
+        self.assertAlmostEqual(item2_values.protein, 2 * ingredient2.protein)
 
-        result_meal = meal.get_nutritional_values()
-        self.assertEqual(result_total, result_meal)
+        meal_nutritional_values = meal.get_nutritional_values()
 
-        result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan['total'])
+        plan_nutritional_values = plan.get_nutritional_values()
+        self.assertEqual(meal_nutritional_values, plan_nutritional_values['total'])
 
         # Add another ingredient, 20 gr
         item3 = models.MealItem()
@@ -118,20 +119,20 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         item3.order = 1
         item3.save()
 
-        result_item3 = item3.get_nutritional_values()
+        item3_values = item3.get_nutritional_values()
+        self.assertAlmostEqual(item3_values.energy, ingredient3.energy * Decimal(20.0) / 100, 2)
+        self.assertAlmostEqual(item3_values.protein, ingredient3.protein * Decimal(20.0) / 100, 2)
+        self.assertAlmostEqual(
+            item3_values.carbohydrates,
+            ingredient3.carbohydrates * Decimal(20.0) / 100,
+            2,
+        )
+        self.assertAlmostEqual(item3_values.fat, ingredient3.fat * Decimal(20.0) / 100, 2)
 
-        for i in result_item3:
-            self.assertEqual(
-                result_item3[i],
-                (getattr(ingredient3, i) * Decimal(20.0) / 100).quantize(TWOPLACES),
-            )
-            result_total[i] = result_total[i] + result_item3[i]
+        meal_nutritional_values = meal.get_nutritional_values()
 
-        result_meal = meal.get_nutritional_values()
-        self.assertEqual(result_total, result_meal)
-
-        result_plan = plan.get_nutritional_values()
-        self.assertEqual(result_meal, result_plan['total'])
+        plan_nutritional_values = plan.get_nutritional_values()
+        self.assertEqual(meal_nutritional_values, plan_nutritional_values['total'])
 
     def test_calculations_user(self):
         """
@@ -142,10 +143,10 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         plan = models.NutritionPlan.objects.get(pk=4)
         values = plan.get_nutritional_values()
 
-        self.assertEqual(values['percent']['carbohydrates'], Decimal(29.79).quantize(TWOPLACES))
-        self.assertEqual(values['percent']['fat'], Decimal(20.36).quantize(TWOPLACES))
-        self.assertEqual(values['percent']['protein'], Decimal(26.06).quantize(TWOPLACES))
+        self.assertAlmostEqual(values['percent']['carbohydrates'], Decimal(29.79), 2)
+        self.assertAlmostEqual(values['percent']['fat'], Decimal(20.36), 2)
+        self.assertAlmostEqual(values['percent']['protein'], Decimal(26.06), 2)
 
-        self.assertEqual(values['per_kg']['carbohydrates'], Decimal(4.96).quantize(TWOPLACES))
-        self.assertEqual(values['per_kg']['fat'], Decimal(1.51).quantize(TWOPLACES))
-        self.assertEqual(values['per_kg']['protein'], Decimal(4.33).quantize(TWOPLACES))
+        self.assertAlmostEqual(values['per_kg']['carbohydrates'], Decimal(4.96), 2)
+        self.assertAlmostEqual(values['per_kg']['fat'], Decimal(1.51), 2)
+        self.assertAlmostEqual(values['per_kg']['protein'], Decimal(4.33), 2)

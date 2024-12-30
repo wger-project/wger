@@ -26,7 +26,6 @@ from wger.exercises.models import (
 
 
 class ExerciseImageForm(forms.ModelForm):
-
     class Meta:
         model = ExerciseImage
         fields = (
@@ -39,7 +38,6 @@ class ExerciseImageForm(forms.ModelForm):
 
 
 class ExerciseVideoForm(forms.ModelForm):
-
     class Meta:
         model = ExerciseVideo
         fields = (
@@ -50,7 +48,6 @@ class ExerciseVideoForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-
     class Meta:
         model = ExerciseComment
-        exclude = ('exercise', )
+        exclude = ('exercise',)

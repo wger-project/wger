@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0011_alter_logitem_datetime'),
     ]
@@ -15,11 +14,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
     ]

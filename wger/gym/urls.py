@@ -247,22 +247,22 @@ patterns_export = [
 # All patterns for this app
 #
 urlpatterns = [
-    path('', include((patterns_gym, 'gym'), namespace="gym")),
-    path('config/', include((patterns_gymconfig, 'config'), namespace="config")),
+    path('', include((patterns_gym, 'gym'), namespace='gym')),
+    path('config/', include((patterns_gymconfig, 'config'), namespace='config')),
     path(
-        'admin-config/', include((patterns_adminconfig, 'admin_config'), namespace="admin_config")
+        'admin-config/', include((patterns_adminconfig, 'admin_config'), namespace='admin_config')
     ),
-    path('user-config/', include((patterns_userconfig, 'user_config'), namespace="user_config")),
-    path('notes/', include((patterns_admin_notes, 'admin_note'), namespace="admin_note")),
-    path('document/', include((patterns_documents, 'document'), namespace="document")),
-    path('contract/', include((patterns_contracts, 'contract'), namespace="contract")),
+    path('user-config/', include((patterns_userconfig, 'user_config'), namespace='user_config')),
+    path('notes/', include((patterns_admin_notes, 'admin_note'), namespace='admin_note')),
+    path('document/', include((patterns_documents, 'document'), namespace='document')),
+    path('contract/', include((patterns_contracts, 'contract'), namespace='contract')),
     path(
         'contract-type/',
-        include((patterns_contract_types, 'contract_type'), namespace="contract_type")
+        include((patterns_contract_types, 'contract_type'), namespace='contract_type'),
     ),
     path(
         'contract-option/',
-        include((patterns_contract_options, 'contract-option'), namespace="contract-option")
+        include((patterns_contract_options, 'contract-option'), namespace='contract-option'),
     ),
-    path('export/', include((patterns_export, 'export'), namespace="export")),
+    path('export/', include((patterns_export, 'export'), namespace='export')),
 ]

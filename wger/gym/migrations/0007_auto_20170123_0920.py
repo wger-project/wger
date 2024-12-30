@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('gym', '0006_auto_20160214_1013'),
     ]
@@ -18,8 +17,8 @@ class Migration(migrations.Migration):
                 'permissions': (
                     ('gym_trainer', 'Trainer: can see the users for a gym'),
                     ('manage_gym', 'Admin: can manage users for a gym'),
-                    ('manage_gyms', 'Admin: can administrate the different gyms')
-                )
+                    ('manage_gyms', 'Admin: can administrate the different gyms'),
+                ),
             },
         ),
         migrations.AddField(
@@ -42,7 +41,7 @@ class Migration(migrations.Migration):
             field=models.BooleanField(
                 default=True,
                 help_text='Receive email overviews of inactive members',
-                verbose_name='Overview of inactive members'
+                verbose_name='Overview of inactive members',
             ),
         ),
         migrations.AlterField(
@@ -50,9 +49,8 @@ class Migration(migrations.Migration):
             name='weeks_inactive',
             field=models.PositiveIntegerField(
                 default=4,
-                help_text=
-                'Number of weeks since the last time a user logged his presence to be considered inactive',
-                verbose_name='Reminder of inactive members'
+                help_text='Number of weeks since the last time a user logged his presence to be considered inactive',
+                verbose_name='Reminder of inactive members',
             ),
         ),
     ]

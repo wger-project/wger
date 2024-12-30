@@ -27,6 +27,7 @@ from django.utils.translation import (
 )
 
 # wger
+from wger.core.tests.base_testcase import get_reverse
 from wger.manager.models import Day
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
@@ -72,7 +73,6 @@ def pagination(paginator, page):
     # we muck around here to remove the pages not inmediately 'around' the current
     # one, otherwise we end up with a useless block with 300 pages.
     if paginator.num_pages > PAGINATION_MAX_TOTAL_PAGES:
-
         start_page = page.number - PAGINATION_PAGES_AROUND_CURRENT
         for i in range(page.number - PAGINATION_PAGES_AROUND_CURRENT, page.number + 1):
             if i > 0:
@@ -93,25 +93,12 @@ def pagination(paginator, page):
     return {'page': page, 'page_range': page_range}
 
 
-@register.inclusion_tag('tags/render_weight_log.html')
-def render_weight_log(log, div_uuid, user=None):
-    """
-    Renders a weight log series
-    """
-
-    return {
-        'log': log,
-        'div_uuid': div_uuid,
-        'user': user,
-    }
-
-
 @register.inclusion_tag('tags/muscles.html')
 def render_muscles(muscles=None, muscles_sec=None):
     """
     Renders the given muscles
     """
-    out = {"backgrounds": []}
+    out = {'backgrounds': []}
     if not muscles and not muscles_sec:
         return out
 
@@ -124,13 +111,15 @@ def render_muscles(muscles=None, muscles_sec=None):
         out_secondary = muscles_sec if isinstance(muscles_sec, Iterable) else [muscles_sec]
 
     if out_main:
-        front_back = "front" if out_main[0].is_front else "back"
+        front_back = 'front' if out_main[0].is_front else 'back'
     else:
-        front_back = "front" if out_secondary[0].is_front else "back"
+        front_back = 'front' if out_secondary[0].is_front else 'back'
 
-    out['backgrounds'] = [i.image_url_main for i in out_main] \
-                         + [i.image_url_secondary for i in out_secondary] \
-                         + [static(f"images/muscles/muscular_system_{front_back}.svg")]
+    out['backgrounds'] = (
+        [i.image_url_main for i in out_main]
+        + [i.image_url_secondary for i in out_secondary]
+        + [static(f'images/muscles/muscular_system_{front_back}.svg')]
+    )
 
     return out
 
@@ -189,6 +178,11 @@ def fa_class(class_name='', icon_type='fas', fixed_width=True):
     return mark_safe(css)
 
 
+@register.inclusion_tag('tags/modal_link.html')
+def modal_link(url: str, text: str, css_class='btn btn-success btn-sm'):
+    return {'url': get_reverse(url), 'text': text, 'css_class': css_class}
+
+
 @register.simple_tag
 def trans_weight_unit(unit, user=None):
     """
@@ -203,12 +197,12 @@ def trans_weight_unit(unit, user=None):
         if unit == 'kg':
             return _('kg')
         if unit == 'g':
-            return pgettext("weight unit, i.e. grams", "g")
+            return pgettext('weight unit, i.e. grams', 'g')
     else:
         if unit == 'kg':
             return _('lb')
         if unit == 'g':
-            return pgettext("weight unit, i.e. ounces", "oz")
+            return pgettext('weight unit, i.e. ounces', 'oz')
 
 
 @register.filter

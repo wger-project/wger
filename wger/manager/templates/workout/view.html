@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load static %}
-{% load wger_extras %}
+{% load i18n l10n static wger_extras %}
 
 {#           #}
 {# Opengraph #}
@@ -30,7 +28,7 @@
 {# Content #}
 {#         #}
 {% block content %}
-    <div id="react-routine-detail"></div>
+    <div id="react-page"></div>
 {% endblock %}
 
 
@@ -69,21 +67,26 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">{% translate "Export calendar file" %}</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>{% translate "Export this workout as a calendar file." %}</p>
                     <p>{% blocktranslate %}You can then import the file it into your calendar
                         application for example google calendar, outlook or iCal. This will create
-                        an appointment for each training day with the appropriate exercises.{% endblocktranslate %}</p>
+                        an appointment for each training day with the appropriate
+                        exercises.{% endblocktranslate %}</p>
                     <p>
-                        <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
+                        <a href="{% url 'manager:workout:ical' workout.id uid token %}"
+                           class="btn btn-block btn-light">
                             {% translate "Export calendar file" %}
                         </a>
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">{% translate "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -94,35 +97,41 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">{% translate "Download as PDF" %}</h4>
-                    <button type="button" class="close float-end" data-bs-dismiss="modal" aria-hidden="true">&times;
+                    <button type="button" class="close float-end" data-bs-dismiss="modal"
+                            aria-hidden="true">&times;
                     </button>
                 </div>
                 <div class="modal-body">
                     <form class="wger-form">
-                        <div id="pdf-download-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}"
+                        <div id="pdf-download-info" data-workout-id="{{ workout.id|unlocalize }}"
+                             data-uid="{{ uid }}"
                              data-token="{{ token }}"></div>
                         <div class="form-group form-check-inline">
-                            <input type="radio" name="pdf_type" class="form-check-input" id="id_type_log" value="log"
+                            <input type="radio" name="pdf_type" class="form-check-input"
+                                   id="id_type_log" value="log"
                                    checked>
                             <label class="form-check-label" for="id_type_log">
                                 {% translate "Log" %}
                             </label>
                         </div>
                         <div class="form-group form-check-inline">
-                            <input type="radio" name="pdf_type" id="id_type_table" class="form-check-input"
+                            <input type="radio" name="pdf_type" id="id_type_table"
+                                   class="form-check-input"
                                    value="table">
                             <label class="form-check-label" for="id_type_table">
                                 {% translate "Table" %}
                             </label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" name="images" id="id_images" checked>
+                            <input type="checkbox" class="form-check-input" name="images"
+                                   id="id_images" checked>
                             <label for="id_images" class="form-check-label">
                                 {% translate "with images" %}
                             </label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" name="comments" id="id_comments" checked>
+                            <input type="checkbox" class="form-check-input" name="comments"
+                                   id="id_comments" checked>
                             <label for="id_comments" class="form-check-label">
                                 {% translate "with comments" %}
                             </label>
@@ -136,7 +145,8 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">{% translate "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -145,7 +155,8 @@
     {% if workout.canonical_representation.day_list %}
         <h4>{% translate "Logs" %}</h4>
         <p>
-            <a href="{% url 'manager:log:log' workout.id %}">{% translate 'View logs' %}</a>
+            <a class="btn btn-primary btn-sm"
+               href="{% url 'manager:log:log' workout.id %}">{% translate 'View logs' %}</a>
         </p>
     {% endif %}
 
@@ -159,19 +170,20 @@
 {% block options %}
     <div class="btn-group" role="group">
         <div class="btn-group" role="group">
-            <button id="btnGroupWorkout" type="button" class="btn btn-primary btn-sm dropdown-toggle"
+            <button id="btnGroupWorkout" type="button"
+                    class="btn btn-primary btn-sm dropdown-toggle"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupWorkout">
                 {% if is_owner %}
-                    <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
-                        <span class="{% fa_class 'edit' %}"></span>
-                        {% translate "Edit workout" %}
-                    </a>
+                    {% translate 'Edit' as text %}
+                    {% url 'manager:workout:edit' workout.id as url %}
+                    {% modal_link url=url text=text css_class='dropdown-item' %}
                 {% endif %}
-                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#download-pdf-popup">
+                <a class="dropdown-item" data-bs-toggle="modal"
+                   data-bs-target="#download-pdf-popup">
                     <span class="{% fa_class 'download' %}"></span>
                     {% translate "Download as PDF" %}
                 </a>
@@ -179,16 +191,17 @@
                     <span class="{% fa_class 'calendar' %}"></span>
                     {% translate "Export calendar file" %}
                 </a>
-                <a href="{% url 'manager:workout:make-template' workout.id %}" class="dropdown-item wger-modal-dialog">
-                    <span class="{% fa_class 'clone' %}"></span>
-                    {% translate "Mark as template" %}
-                </a>
+
+                {% translate 'Mark as template' as text %}
+                {% url 'manager:workout:make-template' workout.id as url %}
+                {% modal_link url=url text=text css_class='dropdown-item' %}
+
                 {% if is_owner %}
                     <div class="dropdown-divider"></div>
-                    <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
-                        <span class="{% fa_class 'trash' %}"></span>
-                        {% translate "Delete" %}
-                    </a>
+
+                    {% translate 'Delete' as text %}
+                    {% url 'manager:workout:delete' workout.id as url %}
+                    {% modal_link url=url text=text css_class='dropdown-item' %}
                 {% endif %}
             </div>
         </div>

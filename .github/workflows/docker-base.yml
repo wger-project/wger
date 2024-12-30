@@ -1,9 +1,12 @@
 name: Build and push base Docker images
 
+# Only build when the dockerfile has changed, otherwise scheduled on the first
+# of each month
 on:
+  workflow_dispatch:
   push:
     branches:
-      - "master"
+      - master
     paths:
       - 'extras/docker/base/Dockerfile'
       - '.github/workflows/docker-base.yml'
@@ -15,25 +18,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2.2.0
+        uses: docker/setup-qemu-action@v3.2.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2.7.0
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to DockerHub
-        uses: docker/login-action@v2.2.0
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build base image
-        uses: docker/build-push-action@v4.1.0
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           file: extras/docker/base/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: wger/base:latest,wger/base:2.2-dev
+          tags: ${{ vars.REGISTRY_REPO }}/base:latest,${{ vars.REGISTRY_REPO }}/base:2.3-dev

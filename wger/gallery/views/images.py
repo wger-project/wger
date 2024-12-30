@@ -57,9 +57,11 @@ class ImageAddView(WgerFormMixin, CreateView):
     """
     Generic view to add a new weight entry
     """
+
     model = Image
     form_class = ImageForm
     title = _('Add')
+    template_name = 'form_content.html'
 
     def get_initial(self):
         """
@@ -88,8 +90,10 @@ class ImageUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
+
     model = Image
     form_class = ImageForm
+    template_name = 'form_content.html'
 
     def get_context_data(self, **kwargs):
         context = super(ImageUpdateView, self).get_context_data(**kwargs)

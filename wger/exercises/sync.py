@@ -53,7 +53,12 @@ from wger.exercises.models import (
     ExerciseVideo,
     Muscle,
 )
+from wger.manager.models import (
+    Setting,
+    WorkoutLog,
+)
 from wger.utils.requests import (
+    get_all_paginated,
     get_paginated,
     wger_headers,
 )
@@ -69,12 +74,9 @@ def sync_exercises(
     print_fn('*** Synchronizing exercises...')
 
     url = make_uri(EXERCISE_ENDPOINT, server_url=remote_url, query={'limit': 100})
-    headers = wger_headers()
-    result = get_paginated(url, headers=headers)
-
-    for data in result:
-
+    for data in get_paginated(url, headers=wger_headers()):
         uuid = data['uuid']
+        created = data['created']
         license_id = data['license']['id']
         category_id = data['category']['id']
         license_author = data['license_author']
@@ -82,9 +84,9 @@ def sync_exercises(
         muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
         muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-        base, base_created = ExerciseBase.all.update_or_create(
+        base, base_created = ExerciseBase.objects.update_or_create(
             uuid=uuid,
-            defaults={'category_id': category_id},
+            defaults={'category_id': category_id, 'created': created},
         )
         print_fn(f"{'created' if base_created else 'updated'} exercise {uuid}")
 
@@ -110,18 +112,42 @@ def sync_exercises(
                     'language_id': language_id,
                 },
             )
-            out = f"- {'created' if translation_created else 'updated'} translation " \
-                  f"{translation.language.short_name} {trans_uuid} - {name}"
+            out = (
+                f"- {'created' if translation_created else 'updated'} translation "
+                f"{translation.language.short_name} {trans_uuid} - {name}"
+            )
             print_fn(out)
 
+            # TODO: currently (2024-01-06) we always delete all the comments and the aliases
+            #       when synchronizing the data, even though we could identify them via the
+            #       UUID. However, the UUID created when running the database migrations will
+            #       be unique as well, so we will never update. We need to wait a while till
+            #       most local instances have run the sync script so that the UUID is the same
+            #       locally as well.
+            #
+            #       -> remove the `.delete()` after the 2024-06-01
+
+            ExerciseComment.objects.filter(exercise=translation).delete()
             for note in translation_data['notes']:
-                ExerciseComment.objects.get_or_create(
-                    exercise=translation,
-                    comment=note['comment'],
+                ExerciseComment.objects.update_or_create(
+                    uuid=note['uuid'],
+                    defaults={
+                        'uuid': note['uuid'],
+                        'exercise': translation,
+                        'comment': note['comment'],
+                    },
                 )
 
+            Alias.objects.filter(exercise=translation).delete()
             for alias in translation_data['aliases']:
-                Alias.objects.get_or_create(exercise=translation, alias=alias)
+                Alias.objects.update_or_create(
+                    uuid=alias['uuid'],
+                    defaults={
+                        'uuid': alias['uuid'],
+                        'exercise': translation,
+                        'alias': alias['alias'],
+                    },
+                )
 
         print_fn('')
 
@@ -137,14 +163,15 @@ def sync_languages(
     print_fn('*** Synchronizing languages...')
     headers = wger_headers()
     url = make_uri(LANGUAGE_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
-    for data in result:
+
+    for data in get_all_paginated(url, headers=headers):
         short_name = data['short_name']
         full_name = data['full_name']
+        full_name_en = data['full_name_en']
 
         language, created = Language.objects.update_or_create(
             short_name=short_name,
-            defaults={'full_name': full_name},
+            defaults={'full_name': full_name, 'full_name_en': full_name_en},
         )
 
         if created:
@@ -158,22 +185,18 @@ def sync_licenses(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
-    """Synchronize the lincenses from the remote server"""
+    """Synchronize the licenses from the remote server"""
     print_fn('*** Synchronizing licenses...')
-    headers = wger_headers()
     url = make_uri(LICENSE_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
-    for data in result:
+
+    for data in get_all_paginated(url, headers=wger_headers()):
         short_name = data['short_name']
         full_name = data['full_name']
         license_url = data['url']
 
         language, created = License.objects.update_or_create(
             short_name=short_name,
-            defaults={
-                'full_name': full_name,
-                'url': license_url
-            },
+            defaults={'full_name': full_name, 'url': license_url},
         )
 
         if created:
@@ -190,10 +213,9 @@ def sync_categories(
     """Synchronize the categories from the remote server"""
 
     print_fn('*** Synchronizing categories...')
-    headers = wger_headers()
     url = make_uri(CATEGORY_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
-    for data in result:
+
+    for data in get_all_paginated(url, headers=wger_headers()):
         category_id = data['id']
         category_name = data['name']
 
@@ -216,11 +238,9 @@ def sync_muscles(
     """Synchronize the muscles from the remote server"""
 
     print_fn('*** Synchronizing muscles...')
-    headers = wger_headers()
     url = make_uri(MUSCLE_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
 
-    for data in result:
+    for data in get_all_paginated(url, headers=wger_headers()):
         muscle_id = data['id']
         muscle_name = data['name']
         muscle_is_front = data['is_front']
@@ -253,11 +273,9 @@ def sync_equipment(
     """Synchronize the equipment from the remote server"""
     print_fn('*** Synchronizing equipment...')
 
-    headers = wger_headers()
     url = make_uri(EQUIPMENT_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
 
-    for data in result:
+    for data in get_all_paginated(url, headers=wger_headers()):
         equipment_id = data['id']
         equipment_name = data['name']
 
@@ -272,27 +290,53 @@ def sync_equipment(
     print_fn(style_fn('done!\n'))
 
 
-def delete_entries(
-    print_fn,
+def handle_deleted_entries(
+    print_fn=None,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
+    if not print_fn:
+
+        def print_fn(_):
+            return None
+
     """Delete exercises that were removed on the server"""
-    print_fn('*** Deleting exercises data that was removed on the server...')
+    print_fn('*** Deleting exercise data that was removed on the server...')
 
-    headers = wger_headers()
     url = make_uri(DELETION_LOG_ENDPOINT, server_url=remote_url, query={'limit': 100})
-    result = get_paginated(url, headers=headers)
 
-    for data in result:
+    for data in get_paginated(url, headers=wger_headers()):
         uuid = data['uuid']
+        replaced_by_uuid = data['replaced_by']
         model_type = data['model_type']
 
         if model_type == DeletionLog.MODEL_BASE:
+            obj_replaced = None
+            nr_settings = None
+            nr_logs = None
+            try:
+                obj_replaced = ExerciseBase.objects.get(uuid=replaced_by_uuid)
+            except ExerciseBase.DoesNotExist:
+                pass
+
             try:
                 obj = ExerciseBase.objects.get(uuid=uuid)
+
+                # Replace exercise in workouts and logs
+                if obj_replaced:
+                    nr_settings = Setting.objects.filter(exercise_base=obj).update(
+                        exercise_base=obj_replaced
+                    )
+                    nr_logs = WorkoutLog.objects.filter(exercise_base=obj).update(
+                        exercise_base=obj_replaced
+                    )
+
                 obj.delete()
                 print_fn(f'Deleted exercise base {uuid}')
+                if nr_settings:
+                    print_fn(f'- replaced {nr_settings} time(s) in workouts by {replaced_by_uuid}')
+                if nr_logs:
+                    print_fn(f'- replaced {nr_logs} time(s) in workout logs by {replaced_by_uuid}')
             except ExerciseBase.DoesNotExist:
                 pass
 
@@ -328,7 +372,6 @@ def download_exercise_images(
 ):
     headers = wger_headers()
     url = make_uri(IMAGE_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
 
     print_fn('*** Processing images ***')
 
@@ -342,13 +385,13 @@ def download_exercise_images(
     if deleted:
         print_fn(f'Deleted {deleted} images without associated image files')
 
-    for image_data in result:
+    for image_data in get_paginated(url, headers=headers):
         image_uuid = image_data['uuid']
 
         print_fn(f'Processing image {image_uuid}')
 
         try:
-            exercise_base = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
+            exercise = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
         except ExerciseBase.DoesNotExist:
             print_fn('    Remote exercise base not found in local DB, skipping...')
             continue
@@ -360,7 +403,7 @@ def download_exercise_images(
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(image_data['image'], headers=headers)
-            image = ExerciseImage.from_json(exercise_base, retrieved_image, image_data)
+            image = ExerciseImage.from_json(exercise, retrieved_image, image_data)
 
         print_fn(style_fn('    successfully saved'))
 
@@ -372,16 +415,15 @@ def download_exercise_videos(
 ):
     headers = wger_headers()
     url = make_uri(VIDEO_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
 
     print_fn('*** Processing videos ***')
 
-    for video_data in result:
+    for video_data in get_paginated(url, headers=headers):
         video_uuid = video_data['uuid']
         print_fn(f'Processing video {video_uuid}')
 
         try:
-            exercise_base = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
+            exercise = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
         except ExerciseBase.DoesNotExist:
             print_fn('    Remote exercise base not found in local DB, skipping...')
             continue
@@ -393,7 +435,7 @@ def download_exercise_videos(
         except ExerciseVideo.DoesNotExist:
             print_fn('    Video not found in local DB, creating now...')
             video = ExerciseVideo()
-            video.exercise_base = exercise_base
+            video.exercise_base = exercise
             video.uuid = video_uuid
             video.is_main = video_data['is_main']
             video.license_id = video_data['license']

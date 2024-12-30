@@ -19,6 +19,7 @@
 {% translate "Kilometers Per Hour" %}
 {% translate "Lats" %}
 {% translate "Legs" %}
+{% translate "Lower back" %}
 {% translate "Max Reps" %}
 {% translate "Miles" %}
 {% translate "Miles Per Hour" %}

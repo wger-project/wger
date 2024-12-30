@@ -46,9 +46,9 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    email = serializers.EmailField(source="user.email", read_only=True)
-    username = serializers.EmailField(source="user.username", read_only=True)
-    date_joined = serializers.EmailField(source="user.date_joined", read_only=True)
+    email = serializers.EmailField(source='user.email', read_only=True)
+    username = serializers.EmailField(source='user.username', read_only=True)
+    date_joined = serializers.EmailField(source='user.date_joined', read_only=True)
 
     class Meta:
         model = UserProfile
@@ -86,7 +86,8 @@ class UserprofileSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
-    """ Serializer to map to User model in relation to api user"""
+    """Serializer to map to User model in relation to api user"""
+
     email = serializers.CharField(required=False)
     username = serializers.CharField(required=False)
     password = serializers.CharField(required=True, min_length=8)
@@ -102,9 +103,9 @@ class UserLoginSerializer(serializers.ModelSerializer):
         super().__init__(instance, data, **kwargs)
 
     def validate(self, data):
-        email = data.get("email", None)
-        username = data.get("username", None)
-        password = data.get("password", None)
+        email = data.get('email', None)
+        username = data.get('username', None)
+        password = data.get('password', None)
 
         if email is None and username is None:
             raise serializers.ValidationError('Please provide an "email" or a "username"')
@@ -122,9 +123,10 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-        required=False, validators=[
+        required=False,
+        validators=[
             UniqueValidator(queryset=User.objects.all()),
-        ]
+        ],
     )
     username = serializers.CharField(
         required=True,
@@ -153,7 +155,12 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = ['id', 'short_name', 'full_name']
+        fields = [
+            'id',
+            'short_name',
+            'full_name',
+            'full_name_en',
+        ]
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):

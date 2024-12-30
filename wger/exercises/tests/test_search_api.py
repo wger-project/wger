@@ -24,6 +24,10 @@ from wger.core.tests.base_testcase import BaseTestCase
 class SearchExerciseApiTestCase(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/exercise/search/'
 
+    def setUp(self):
+        super().setUp()
+        self.init_media_root()
+
     def test_basic_search_logged_out(self):
         """
         Logged-out users are also allowed to use the search
@@ -32,9 +36,9 @@ class SearchExerciseApiTestCase(BaseTestCase, ApiBaseTestCase):
         result1 = response.data['suggestions'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 1)
-        self.assertEqual(result1['value'], 'Very cool exercise')
-        self.assertEqual(result1['data']['id'], 2)
+        self.assertEqual(len(response.data['suggestions']), 4)
+        self.assertEqual(result1['value'], 'An exercise')
+        self.assertEqual(result1['data']['id'], 1)
 
     def test_basic_search_logged_in(self):
         """
@@ -45,9 +49,9 @@ class SearchExerciseApiTestCase(BaseTestCase, ApiBaseTestCase):
         result1 = response.data['suggestions'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 1)
-        self.assertEqual(result1['value'], 'Very cool exercise')
-        self.assertEqual(result1['data']['id'], 2)
+        self.assertEqual(len(response.data['suggestions']), 4)
+        self.assertEqual(result1['value'], 'An exercise')
+        self.assertEqual(result1['data']['id'], 1)
 
     def test_search_language_code_en(self):
         """
@@ -57,9 +61,9 @@ class SearchExerciseApiTestCase(BaseTestCase, ApiBaseTestCase):
         result1 = response.data['suggestions'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 1)
-        self.assertEqual(result1['value'], 'Very cool exercise')
-        self.assertEqual(result1['data']['id'], 2)
+        self.assertEqual(len(response.data['suggestions']), 4)
+        self.assertEqual(result1['value'], 'An exercise')
+        self.assertEqual(result1['data']['id'], 1)
 
     def test_search_language_code_en_no_results(self):
         """
@@ -87,6 +91,15 @@ class SearchExerciseApiTestCase(BaseTestCase, ApiBaseTestCase):
         Passing different language codes works correctly
         """
         response = self.client.get(self.url + '?term=demo&language=en,de')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['suggestions']), 4)
+
+    def test_search_all_languages(self):
+        """
+        Passing different language codes works correctly
+        """
+        response = self.client.get(self.url + '?term=demo&language=*')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['suggestions']), 4)

@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+from decimal import Decimal
 
 # Django
 from django.core.validators import (
@@ -70,14 +71,14 @@ class MealItem(BaseMealItem, models.Model):
         decimal_places=2,
         max_digits=6,
         verbose_name=_('Amount'),
-        validators=[MinValueValidator(1), MaxValueValidator(1000)],
+        validators=[MinValueValidator(Decimal(1)), MaxValueValidator(Decimal(1000))],
     )
 
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return "{0}g ingredient {1}".format(self.amount, self.ingredient_id)
+        return f'{self.amount}g ingredient {self.ingredient_id}'
 
     def get_owner_object(self):
         """

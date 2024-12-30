@@ -29,7 +29,7 @@ from wger.software import views
 urlpatterns = [
     path(
         'terms-of-service',
-        TemplateView.as_view(template_name="tos.html"),
+        TemplateView.as_view(template_name='tos.html'),
         name='tos',
     ),
     path(
@@ -45,13 +45,13 @@ urlpatterns = [
     path(
         'about-us',
         TemplateView.as_view(
-            template_name="about_us.html", extra_context={'version': get_version()}
+            template_name='about_us.html', extra_context={'version': get_version()}
         ),
         name='about-us',
     ),
     path(
         'api',
-        TemplateView.as_view(template_name="api.html"),
+        TemplateView.as_view(template_name='api.html'),
         name='api',
     ),
 ]

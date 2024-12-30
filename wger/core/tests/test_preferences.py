@@ -51,7 +51,8 @@ class PreferencesTestCase(WgerTestCase):
 
         # Change some preferences
         response = self.client.post(
-            reverse('core:user:preferences'), {
+            reverse('core:user:preferences'),
+            {
                 'show_comments': True,
                 'show_english_ingredients': True,
                 'email': 'my-new-email@example.com',
@@ -62,7 +63,8 @@ class PreferencesTestCase(WgerTestCase):
                 'num_days_weight_reminder': 10,
                 'weight_unit': 'kg',
                 'birthdate': '02/25/1987',
-            }
+                'height': 180,
+            },
         )
 
         self.assertEqual(response.status_code, 302)
@@ -76,7 +78,8 @@ class PreferencesTestCase(WgerTestCase):
 
         # Change some preferences
         response = self.client.post(
-            reverse('core:user:preferences'), {
+            reverse('core:user:preferences'),
+            {
                 'show_comments': False,
                 'show_english_ingredients': True,
                 'email': '',
@@ -87,7 +90,8 @@ class PreferencesTestCase(WgerTestCase):
                 'num_days_weight_reminder': 10,
                 'weight_unit': 'lb',
                 'birthdate': '02/25/1987',
-            }
+                'height': 170,
+            },
         )
 
         self.assertEqual(response.status_code, 302)
@@ -105,23 +109,25 @@ class PreferencesTestCase(WgerTestCase):
         # Member2 has a contract
         user = User.objects.get(username='member2')
         self.assertEqual(
-            user.userprofile.address, {
+            user.userprofile.address,
+            {
                 'phone': '01234-567890',
                 'zip_code': '00000',
                 'street': 'Gassenstr. 14',
                 'city': 'The City',
-            }
+            },
         )
 
         # Test has no contracts
         user = User.objects.get(username='test')
         self.assertEqual(
-            user.userprofile.address, {
+            user.userprofile.address,
+            {
                 'phone': '',
                 'zip_code': '',
                 'street': '',
                 'city': '',
-            }
+            },
         )
 
 
@@ -246,8 +252,8 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         bmi = user.userprofile.calculate_bmi()
         self.assertEqual(
             bmi,
-            user.userprofile.weight.quantize(TWOPLACES) /
-            decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES)
+            user.userprofile.weight.quantize(TWOPLACES)
+            / decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES),
         )
 
     def test_basal_metabolic_rate(self):
@@ -263,7 +269,7 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         self.assertEqual(bmr, 1860)
 
         # Female
-        user.userprofile.gender = "2"
+        user.userprofile.gender = '2'
         bmr = user.userprofile.calculate_basal_metabolic_rate()
         self.assertEqual(bmr, 1694)
 
@@ -281,29 +287,25 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         user = User.objects.get(pk=2)
 
         self.assertEqual(
-            user.userprofile.calculate_activities(),
-            decimal.Decimal(1.57).quantize(TWOPLACES)
+            user.userprofile.calculate_activities(), decimal.Decimal(1.57).quantize(TWOPLACES)
         )
 
         # Gender has no influence
-        user.userprofile.gender = "2"
+        user.userprofile.gender = '2'
         self.assertEqual(
-            user.userprofile.calculate_activities(),
-            decimal.Decimal(1.57).quantize(TWOPLACES)
+            user.userprofile.calculate_activities(), decimal.Decimal(1.57).quantize(TWOPLACES)
         )
 
         # Change some of the parameters
         user.userprofile.work_intensity = '3'
         self.assertEqual(
-            user.userprofile.calculate_activities(),
-            decimal.Decimal(1.80).quantize(TWOPLACES)
+            user.userprofile.calculate_activities(), decimal.Decimal(1.80).quantize(TWOPLACES)
         )
 
         user.userprofile.work_intensity = '2'
         user.userprofile.sport_intensity = '2'
         self.assertEqual(
-            user.userprofile.calculate_activities(),
-            decimal.Decimal(1.52).quantize(TWOPLACES)
+            user.userprofile.calculate_activities(), decimal.Decimal(1.52).quantize(TWOPLACES)
         )
 
 

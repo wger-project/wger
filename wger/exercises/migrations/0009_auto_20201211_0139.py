@@ -8,7 +8,9 @@ def copy_columns(apps, schema_editor):
     ExerciseBase = apps.get_model('exercises', 'ExerciseBase')
 
     for exercise in Exercise.objects.all():
-        exercise_base = ExerciseBase.objects.create(category=exercise.category, )
+        exercise_base = ExerciseBase.objects.create(
+            category=exercise.category,
+        )
         exercise_base.equipment.set(exercise.equipment.all())
         exercise_base.muscles.set(exercise.muscles.all())
         exercise_base.muscles_secondary.set(exercise.muscles_secondary.all())
@@ -24,7 +26,6 @@ def copy_columns(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0008_exercisebase'),
     ]

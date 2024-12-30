@@ -39,8 +39,9 @@ class ContractType(m.Model):
         """
         Order by name
         """
+
         ordering = [
-            "name",
+            'name',
         ]
 
     gym = m.ForeignKey(Gym, editable=False, on_delete=m.CASCADE)
@@ -66,7 +67,7 @@ class ContractType(m.Model):
         """
         Return a more human-readable representation
         """
-        return "{}".format(self.name)
+        return self.name
 
     def get_owner_object(self):
         """
@@ -89,8 +90,9 @@ class ContractOption(m.Model):
         """
         Order by name
         """
+
         ordering = [
-            "name",
+            'name',
         ]
 
     gym = m.ForeignKey(Gym, editable=False, on_delete=m.CASCADE)
@@ -116,7 +118,7 @@ class ContractOption(m.Model):
         """
         Return a more human-readable representation
         """
-        return "{}".format(self.name)
+        return self.name
 
     def get_owner_object(self):
         """
@@ -138,7 +140,7 @@ class Contract(m.Model):
     AMOUNT_TYPE_DAILY = '6'
 
     AMOUNT_TYPE = (
-        (AMOUNT_TYPE_YEARLY, _("Yearly")),
+        (AMOUNT_TYPE_YEARLY, _('Yearly')),
         (AMOUNT_TYPE_HALFYEARLY, _('Half yearly')),
         (AMOUNT_TYPE_MONTHLY, _('Monthly')),
         (AMOUNT_TYPE_BIWEEKLY, _('Biweekly')),
@@ -150,8 +152,9 @@ class Contract(m.Model):
         """
         Order by time
         """
+
         ordering = [
-            "-date_start",
+            '-date_start',
         ]
 
     user = m.ForeignKey(
@@ -219,7 +222,7 @@ class Contract(m.Model):
         max_length=2,
         choices=AMOUNT_TYPE,
         default=AMOUNT_TYPE_MONTHLY,
-        help_text=_('How often the amount will be charged to the member')
+        help_text=_('How often the amount will be charged to the member'),
     )
     """
     How often the amount will be charged to the member
@@ -311,7 +314,7 @@ class Contract(m.Model):
         """
         Return a more human-readable representation
         """
-        return "#{}".format(self.id)
+        return f'#{self.id}'
 
     def get_absolute_url(self):
         """

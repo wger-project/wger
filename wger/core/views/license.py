@@ -49,6 +49,7 @@ class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available licenses
     """
+
     model = License
     permission_required = 'core.add_license'
     template_name = 'license/list.html'

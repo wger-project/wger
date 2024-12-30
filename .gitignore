@@ -77,6 +77,9 @@ venv-wger
 /wger/app_en.arb
 /coverage.lcov
 /media/
+/static/
+/extras/docker/open-food-facts/dump/*.tar.gz
+/extras/docker/open-food-facts/dump/off/*
 
 # macOS
 .DS_Store

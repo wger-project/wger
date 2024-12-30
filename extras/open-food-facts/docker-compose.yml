@@ -1,0 +1,20 @@
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - $PWD/dump/dump:/dump
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: off
+      MONGO_INITDB_ROOT_PASSWORD: off-wger
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: off
+      ME_CONFIG_MONGODB_ADMINPASSWORD: off-wger
+      ME_CONFIG_MONGODB_URL: mongodb://off:off-wger@mongodb:27017/

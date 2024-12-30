@@ -30,6 +30,7 @@ class AdminNoteOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the admin notes overview page
     """
+
     url = reverse_lazy('gym:admin_note:list', kwargs={'user_pk': 14})
     anonymous_fail = True
     user_success = (
@@ -51,6 +52,7 @@ class AddAdminNoteTestCase(WgerAddTestCase):
     """
     Tests adding a new admin note
     """
+
     object_class = AdminUserNote
     url = reverse_lazy('gym:admin_note:add', kwargs={'user_pk': 14})
     data = {'note': 'The note text goes here'}

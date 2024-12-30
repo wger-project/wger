@@ -8,7 +8,6 @@ import django.core.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('exercises', '0001_initial'),
@@ -23,21 +22,20 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'description',
                     models.CharField(
-                        help_text=
-                        'Ususally a description about what parts are trained, like "Arms" or "Pull Day"',
+                        help_text='Ususally a description about what parts are trained, like "Arms" or "Pull Day"',
                         max_length=100,
-                        verbose_name='Description'
-                    )
+                        verbose_name='Description',
+                    ),
                 ),
                 ('day', models.ManyToManyField(to='core.DaysOfWeek', verbose_name='Day')),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Schedule',
@@ -46,40 +44,37 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'name',
                     models.CharField(
-                        help_text=
-                        "Name or short description of the schedule. For example 'Program XYZ'.",
+                        help_text="Name or short description of the schedule. For example 'Program XYZ'.",
                         max_length=100,
-                        verbose_name='Name'
-                    )
+                        verbose_name='Name',
+                    ),
                 ),
                 (
                     'start_date',
                     wger.utils.fields.Html5DateField(
                         default=datetime.date.today, verbose_name='Start date'
-                    )
+                    ),
                 ),
                 (
                     'is_active',
                     models.BooleanField(
                         default=True,
-                        help_text=
-                        'Tick the box if you want to mark this schedule as your active one (will be shown e.g. on your dashboard). All other schedules will then be marked as inactive',
-                        verbose_name='Schedule active'
-                    )
+                        help_text='Tick the box if you want to mark this schedule as your active one (will be shown e.g. on your dashboard). All other schedules will then be marked as inactive',
+                        verbose_name='Schedule active',
+                    ),
                 ),
                 (
                     'is_loop',
                     models.BooleanField(
                         default=False,
-                        help_text=
-                        'Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, B, C, and so on)',
-                        verbose_name='Is loop'
-                    )
+                        help_text='Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, B, C, and so on)',
+                        verbose_name='Is loop',
+                    ),
                 ),
                 (
                     'user',
@@ -87,12 +82,12 @@ class Migration(migrations.Migration):
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         verbose_name='User',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ScheduleStep',
@@ -101,7 +96,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'duration',
@@ -111,22 +106,22 @@ class Migration(migrations.Migration):
                         verbose_name='Duration',
                         validators=[
                             django.core.validators.MinValueValidator(1),
-                            django.core.validators.MaxValueValidator(25)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(25),
+                        ],
+                    ),
                 ),
                 ('order', models.IntegerField(default=1, max_length=1, verbose_name='Order')),
                 (
                     'schedule',
                     models.ForeignKey(
                         verbose_name='schedule', to='manager.Schedule', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
             ],
             options={
                 'ordering': ['order'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Set',
@@ -135,7 +130,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 ('order', models.IntegerField(null=True, verbose_name='Order', blank=True)),
                 (
@@ -145,25 +140,25 @@ class Migration(migrations.Migration):
                         verbose_name='Number of sets',
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(10)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(10),
+                        ],
+                    ),
                 ),
                 (
                     'exerciseday',
                     models.ForeignKey(
                         verbose_name='Exercise day', to='manager.Day', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
                 (
                     'exercises',
-                    models.ManyToManyField(to='exercises.Exercise', verbose_name='Exercises')
+                    models.ManyToManyField(to='exercises.Exercise', verbose_name='Exercises'),
                 ),
             ],
             options={
                 'ordering': ['order'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Setting',
@@ -172,7 +167,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'reps',
@@ -180,9 +175,9 @@ class Migration(migrations.Migration):
                         verbose_name='Repetitions',
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(100),
+                        ],
+                    ),
                 ),
                 ('order', models.IntegerField(verbose_name='Order', blank=True)),
                 ('comment', models.CharField(max_length=100, verbose_name='Comment', blank=True)),
@@ -190,19 +185,19 @@ class Migration(migrations.Migration):
                     'exercise',
                     models.ForeignKey(
                         verbose_name='Exercises', to='exercises.Exercise', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
                 (
                     'set',
                     models.ForeignKey(
                         verbose_name='Sets', to='manager.Set', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
             ],
             options={
                 'ordering': ['order', 'id'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Workout',
@@ -211,33 +206,32 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'creation_date',
-                    models.DateField(auto_now_add=True, verbose_name='Creation date')
+                    models.DateField(auto_now_add=True, verbose_name='Creation date'),
                 ),
                 (
                     'comment',
                     models.CharField(
-                        help_text=
-                        "A short description or goal of the workout. For example 'Focus on back' or 'Week 1 of program xy'.",
+                        help_text="A short description or goal of the workout. For example 'Focus on back' or 'Week 1 of program xy'.",
                         max_length=100,
                         verbose_name='Description',
-                        blank=True
-                    )
+                        blank=True,
+                    ),
                 ),
                 (
                     'user',
                     models.ForeignKey(
                         verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-                    )
+                    ),
                 ),
             ],
             options={
                 'ordering': ['-creation_date'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='WorkoutLog',
@@ -246,14 +240,14 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'reps',
                     models.IntegerField(
                         verbose_name='Repetitions',
-                        validators=[django.core.validators.MinValueValidator(0)]
-                    )
+                        validators=[django.core.validators.MinValueValidator(0)],
+                    ),
                 ),
                 (
                     'weight',
@@ -261,15 +255,15 @@ class Migration(migrations.Migration):
                         verbose_name='Weight',
                         max_digits=5,
                         decimal_places=2,
-                        validators=[django.core.validators.MinValueValidator(0)]
-                    )
+                        validators=[django.core.validators.MinValueValidator(0)],
+                    ),
                 ),
                 ('date', wger.utils.fields.Html5DateField(verbose_name='Date')),
                 (
                     'exercise',
                     models.ForeignKey(
                         verbose_name='Exercise', to='exercises.Exercise', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
                 (
                     'user',
@@ -277,20 +271,20 @@ class Migration(migrations.Migration):
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         verbose_name='User',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
                 (
                     'workout',
                     models.ForeignKey(
                         verbose_name='Workout', to='manager.Workout', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
             ],
             options={
                 'ordering': ['date', 'reps'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='WorkoutSession',
@@ -299,7 +293,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 ('date', wger.utils.fields.Html5DateField(verbose_name='Date')),
                 (
@@ -308,19 +302,18 @@ class Migration(migrations.Migration):
                         help_text='Any notes you might want to save about this workout session.',
                         null=True,
                         verbose_name='Notes',
-                        blank=True
-                    )
+                        blank=True,
+                    ),
                 ),
                 (
                     'impression',
                     models.CharField(
                         default=b'2',
-                        help_text=
-                        'Your impression about this workout session. Did you exercise as well as you could?',
+                        help_text='Your impression about this workout session. Did you exercise as well as you could?',
                         max_length=2,
                         verbose_name='General impression',
-                        choices=[(b'1', 'Bad'), (b'2', 'Neutral'), (b'3', 'Good')]
-                    )
+                        choices=[(b'1', 'Bad'), (b'2', 'Neutral'), (b'3', 'Good')],
+                    ),
                 ),
                 ('time_start', models.TimeField(null=True, verbose_name='Start time', blank=True)),
                 ('time_end', models.TimeField(null=True, verbose_name='Finish time', blank=True)),
@@ -328,19 +321,19 @@ class Migration(migrations.Migration):
                     'user',
                     models.ForeignKey(
                         verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-                    )
+                    ),
                 ),
                 (
                     'workout',
                     models.ForeignKey(
                         verbose_name='Workout', to='manager.Workout', on_delete=models.CASCADE
-                    )
+                    ),
                 ),
             ],
             options={
                 'ordering': ['date'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
             name='workoutsession',

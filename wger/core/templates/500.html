@@ -4,5 +4,11 @@
 {% block title %}{% translate "An error occurred" %}{% endblock %}
 
 {% block content %}
-<p>{% translate "Something happened that caused an error." %}</p>
+    <p>
+        {% blocktranslate trimmed %}
+            There was an error on the server while processing your request. Try refreshing your
+            browser and if that doesn't help, please try again at a later time. If the problem
+            persists, you can seek help in ways listed below:
+        {% endblocktranslate %}
+    </p>
 {% endblock %}

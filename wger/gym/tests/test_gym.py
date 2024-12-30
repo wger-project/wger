@@ -38,13 +38,14 @@ class GymRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Gym.objects.get(pk=1)), 'Test 123')
+        self.assertEqual(str(Gym.objects.get(pk=1)), 'Test 123')
 
 
 class GymOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the gym overview page
     """
+
     url = 'gym:gym:list'
     anonymous_fail = True
     user_success = (
@@ -66,6 +67,7 @@ class GymUserOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the gym user overview page
     """
+
     url = reverse_lazy('gym:gym:user-list', kwargs={'pk': 1})
     anonymous_fail = True
     user_success = (
@@ -88,6 +90,7 @@ class AddGymTestCase(WgerAddTestCase):
     """
     Tests adding a new gym
     """
+
     object_class = Gym
     url = 'gym:gym:add'
     data = {'name': 'The name here'}

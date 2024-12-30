@@ -49,28 +49,35 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'fontawesomefree/css/all.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'react/main.css' %}" id="react-css">
     {% endcompress %}
+
+    {# this needs to be outside of the compress block! #}
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/react-simple-wysiwyg.css' %}"
+        id="react-css"
+    >
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
         <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
         <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
-        <script src="{% static 'yarn/d3/dist/d3.js' %}"></script>
-        <script src="{% static 'yarn/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
+        <script src="{% static 'yarn/htmx.org/dist/htmx.min.js' %}"></script>
         <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
-        <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}">
+        </script>
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
-        <script src="{% static 'react/main.js' %}" defer="defer"></script>
     {% endcompress %}
+
+    {# this needs to be outside of the compress block! #}
+    <script src="{% static 'react/main.js' %}" type="module" defer="defer"></script>
 
     {% block header %}{% endblock %}
 
@@ -80,15 +87,6 @@
             if (typeof wgerCustomPageInit !== "undefined") {
                 wgerCustomPageInit();
             }
-
-            // Init the modal dialog for editing forms
-            wgerFormModalDialog();
-
-            // Initialise the hook to reload the main-content
-            wgerLoadMaincontent();
-
-            // Check for RO-access before allowing sharing
-            wgerToggleReadOnlyAccess();
         });
     </script>
 
@@ -111,8 +109,8 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="ajax-info-content">
                     </div>
@@ -140,7 +138,8 @@
                 {% translate "You are using a guest account, data entered will be deleted after a week." %}
                 {% if not has_demo_data %}
                     <br>
-                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-link btn-sm">
+                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow"
+                       class="btn btn-link btn-sm">
                         {% translate "Create some demo entries" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
@@ -161,15 +160,26 @@
 <footer id="main-footer" class="bg-light border-top">
     <div class="container bg-wger-light">
         <div class="row">
-            <div class="col-xl-2 col-md-3">
+            <div class="col-xl-4 col-md-7 mt-2">
                 <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                    <img src="{% static 'images/logos/play-store/google-play-badge.png' %}"
-                         height="60"
-                         alt="Get it on Google Play"
-                         title="Get it on Google Play">
-                </a>
+                    <img
+                        src="{% static 'images/logos/play-store/badge.svg' %}"
+                        alt="google play logo"
+                        height="40"
+                    /></a>
+                <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792">
+                    <img
+                        src="{% static 'images/logos/app-store/black.svg' %}"
+                        alt="app store logo"
+                        height="40"/></a>
+                <a href="https://flathub.org/apps/de.wger.flutter">
+                    <img
+                        src="{% static 'images/logos/flathub/black.svg' %}"
+                        alt="flathub logo"
+                        height="40"
+                    /></a>
             </div>
-            <div class="col-xl-6 col-md-5">
+            <div class="col-xl-6 col-md-3">
                 <ul class="list-unstyled mb-0 pt-2">
                     <li>
                         <a href="{% url 'core:imprint' %}" class="text-muted small">
@@ -187,7 +197,7 @@
             {#                                         #}
             {# Render the links to the other languages #}
             {#                                         #}
-            <div class="col-md-4">
+            <div class="col-md-2">
                 {% if not is_api_path %}
                     {# Don't show language switcher in the generated API views #}
                     <div class="btn-group dropup">
@@ -224,6 +234,5 @@
     </div>
 </footer>
 
-<script src="{% static 'yarn/shariff/dist/shariff.min.js' %}"></script>
 </body>
 </html>

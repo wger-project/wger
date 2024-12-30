@@ -41,11 +41,11 @@ $(document).ready(function () {
     {% crispy session_form %}
 
     {% for set in day.set_set.select_related %}
-        {% for base in set.exercise_bases %}
-            {% with value=bases|get_item:base.id %}
+        {% for exercise in set.exercise_bases %}
+            {% with value=exercise_list|get_item:exercise.id %}
                 <div class="row">
                     <label class="col-md-12 font-weight-bold">
-                        {{value.obj.get_exercise.name}}
+                        <b>{{ value.obj.get_translation.name }}</b>
                     </label>
                 </div>
                 <div class="row">

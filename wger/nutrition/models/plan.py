@@ -27,8 +27,8 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.core.models import Language
 from wger.nutrition.consts import ENERGY_FACTOR
+from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
@@ -44,10 +44,9 @@ class NutritionPlan(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-
         # Order by creation_date, descending (oldest first)
         ordering = [
-            "-creation_date",
+            '-creation_date',
         ]
 
     user = models.ForeignKey(
@@ -56,30 +55,45 @@ class NutritionPlan(models.Model):
         editable=False,
         on_delete=models.CASCADE,
     )
-    language = models.ForeignKey(
-        Language,
-        verbose_name=_('Language'),
-        editable=False,
-        on_delete=models.CASCADE,
+
+    creation_date = models.DateField(
+        _('Creation date'),
+        auto_now_add=True,
     )
-    creation_date = models.DateField(_('Creation date'), auto_now_add=True)
+
     description = models.CharField(
         max_length=80,
         blank=True,
         verbose_name=_('Description'),
         help_text=_(
-            'A description of the goal of the plan, e.g. '
-            '"Gain mass" or "Prepare for summer"'
+            'A description of the goal of the plan, e.g. ' '"Gain mass" or "Prepare for summer"'
         ),
     )
+
+    only_logging = models.BooleanField(
+        verbose_name='Only logging',
+        default=False,
+    )
+    """Flag to indicate that the nutritional plan will only used for logging"""
+
+    goal_energy = models.IntegerField(null=True, default=None)
+
+    goal_protein = models.IntegerField(null=True, default=None)
+
+    goal_carbohydrates = models.IntegerField(null=True, default=None)
+
+    goal_fiber = models.IntegerField(null=True, default=None)
+
+    goal_fat = models.IntegerField(null=True, default=None)
+
     has_goal_calories = models.BooleanField(
         verbose_name=_('Use daily calories'),
         default=False,
         help_text=_(
-            "Tick the box if you want to mark this "
-            "plan as having a goal amount of calories. "
-            "You can use the calculator or enter the "
-            "value yourself."
+            'Tick the box if you want to mark this '
+            'plan as having a goal amount of calories. '
+            'You can use the calculator or enter the '
+            'value yourself.'
         ),
     )
     """A flag indicating whether the plan has a goal amount of calories"""
@@ -89,9 +103,9 @@ class NutritionPlan(models.Model):
         Return a more human-readable representation
         """
         if self.description:
-            return "{0}".format(self.description)
+            return self.description
         else:
-            return "{0}".format(_("Nutrition plan"))
+            return str(_('Nutrition plan'))
 
     def get_absolute_url(self):
         """
@@ -105,56 +119,46 @@ class NutritionPlan(models.Model):
         """
         nutritional_representation = cache.get(cache_mapper.get_nutrition_cache_by_key(self.pk))
         if not nutritional_representation:
+            nutritional_values = NutritionalValues()
             use_metric = self.user.userprofile.use_metric
             unit = 'kg' if use_metric else 'lb'
             result = {
-                'total': {
-                    'energy': 0,
-                    'protein': 0,
-                    'carbohydrates': 0,
-                    'carbohydrates_sugar': 0,
-                    'fat': 0,
-                    'fat_saturated': 0,
-                    'fibres': 0,
-                    'sodium': 0
-                },
-                'percent': {
-                    'protein': 0,
-                    'carbohydrates': 0,
-                    'fat': 0
-                },
-                'per_kg': {
-                    'protein': 0,
-                    'carbohydrates': 0,
-                    'fat': 0
-                },
+                'total': NutritionalValues(),
+                'percent': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
+                'per_kg': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
             }
 
             # Energy
             for meal in self.meal_set.select_related():
-                values = meal.get_nutritional_values(use_metric=use_metric)
-                for key in result['total'].keys():
-                    result['total'][key] += values[key]
+                nutritional_values += meal.get_nutritional_values(use_metric=use_metric)
+            result['total'] = nutritional_values
 
-            energy = result['total']['energy']
-            result['total']['energy_kilojoule'] = result['total']['energy'] * Decimal(4.184)
+            energy = nutritional_values.energy
 
             # In percent
             if energy:
-                for key in result['percent'].keys():
-                    result['percent'][key] = \
-                        result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
+                result['percent']['protein'] = (
+                    nutritional_values.protein * ENERGY_FACTOR['protein'][unit] / energy * 100
+                )
+                result['percent']['carbohydrates'] = (
+                    nutritional_values.carbohydrates
+                    * ENERGY_FACTOR['carbohydrates'][unit]
+                    / energy
+                    * 100
+                )
+                result['percent']['fat'] = (
+                    nutritional_values.fat * ENERGY_FACTOR['fat'][unit] / energy * 100
+                )
 
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
             if weight_entry and weight_entry.weight:
-                for key in result['per_kg'].keys():
-                    result['per_kg'][key] = result['total'][key] / weight_entry.weight
+                result['per_kg']['protein'] = nutritional_values.protein / weight_entry.weight
+                result['per_kg']['carbohydrates'] = (
+                    nutritional_values.carbohydrates / weight_entry.weight
+                )
+                result['per_kg']['fat'] = nutritional_values.fat / weight_entry.weight
 
-            # Only 2 decimal places, anything else doesn't make sense
-            for key in result.keys():
-                for i in result[key]:
-                    result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
             nutritional_representation = result
             cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)
         return nutritional_representation
@@ -165,10 +169,18 @@ class NutritionPlan(models.Model):
         Returns None if there are no entries.
         """
         target = self.creation_date
-        closest_entry_gte = WeightEntry.objects.filter(user=self.user) \
-            .filter(date__gte=target).order_by('date').first()
-        closest_entry_lte = WeightEntry.objects.filter(user=self.user) \
-            .filter(date__lte=target).order_by('-date').first()
+        closest_entry_gte = (
+            WeightEntry.objects.filter(user=self.user)
+            .filter(date__gte=target)
+            .order_by('date')
+            .first()
+        )
+        closest_entry_lte = (
+            WeightEntry.objects.filter(user=self.user)
+            .filter(date__lte=target)
+            .order_by('-date')
+            .first()
+        )
         if closest_entry_gte is None or closest_entry_lte is None:
             return closest_entry_gte or closest_entry_lte
         if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
@@ -204,19 +216,6 @@ class NutritionPlan(models.Model):
         else:
             return 4
 
-    def get_log_overview(self):
-        """
-        Returns an overview for all logs available for this plan
-        """
-        result = []
-        for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
-            # TODO: in python 3.5 this can be simplified as z = {**x, **y}
-            tmp = self.get_log_summary(date=date).copy()
-            tmp.update({'date': date.date()})
-            result.append(tmp)
-
-        return result
-
     def get_log_entries(self, date=None):
         """
         Convenience function that returns the log entries for a given date
@@ -225,26 +224,3 @@ class NutritionPlan(models.Model):
             date = datetime.date.today()
 
         return self.logitem_set.filter(datetime__date=date).select_related()
-
-    def get_log_summary(self, date=None):
-        """
-        Sums the nutritional info of the items logged for the given date
-        """
-        use_metric = self.user.userprofile.use_metric
-        result = {
-            'energy': 0,
-            'protein': 0,
-            'carbohydrates': 0,
-            'carbohydrates_sugar': 0,
-            'fat': 0,
-            'fat_saturated': 0,
-            'fibres': 0,
-            'sodium': 0
-        }
-
-        # Perform the sums
-        for item in self.get_log_entries(date):
-            values = item.get_nutritional_values(use_metric=use_metric)
-            for key in result.keys():
-                result[key] += values[key]
-        return result

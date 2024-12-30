@@ -25,9 +25,9 @@ from celery.schedules import crontab
 # wger
 from wger.celery_configuration import app
 from wger.exercises.sync import (
-    delete_entries,
     download_exercise_images,
     download_exercise_videos,
+    handle_deleted_entries,
     sync_categories,
     sync_equipment,
     sync_exercises,
@@ -51,7 +51,7 @@ def sync_exercises_task():
     sync_muscles(logger.info)
     sync_equipment(logger.info)
     sync_exercises(logger.info)
-    delete_entries(logger.info)
+    handle_deleted_entries(logger.info)
 
 
 @app.task
@@ -75,9 +75,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISES_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=random.randint(0, 23),
-                minute=random.randint(0, 59),
-                day_of_week=random.randint(0, 6),
+                hour=str(random.randint(0, 23)),
+                minute=str(random.randint(0, 59)),
+                day_of_week=str(random.randint(0, 6)),
             ),
             sync_exercises_task.s(),
             name='Sync exercises',
@@ -86,9 +86,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISE_IMAGES_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=random.randint(0, 23),
-                minute=random.randint(0, 59),
-                day_of_week=random.randint(0, 6),
+                hour=str(random.randint(0, 23)),
+                minute=str(random.randint(0, 59)),
+                day_of_week=str(random.randint(0, 6)),
             ),
             sync_images_task.s(),
             name='Sync exercise images',
@@ -97,9 +97,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISE_VIDEOS_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=random.randint(0, 23),
-                minute=random.randint(0, 59),
-                day_of_week=random.randint(0, 6),
+                hour=str(random.randint(0, 23)),
+                minute=str(random.randint(0, 59)),
+                day_of_week=str(random.randint(0, 6)),
             ),
             sync_videos_task.s(),
             name='Sync exercise videos',

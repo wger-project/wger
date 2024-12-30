@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0021_deletionlog'),
     ]
@@ -15,11 +14,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -27,11 +25,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -39,11 +36,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -51,11 +47,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -63,11 +58,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -75,11 +69,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -87,11 +80,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -99,11 +91,10 @@ class Migration(migrations.Migration):
             name='license_author',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                 max_length=60,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
     ]

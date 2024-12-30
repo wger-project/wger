@@ -1,2 +1,2 @@
-LANGUAGE_ENDPOINT = "language"
-LICENSE_ENDPOINT = "license"
+LANGUAGE_ENDPOINT = 'language'
+LICENSE_ENDPOINT = 'license'

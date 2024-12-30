@@ -20,7 +20,7 @@ from django.apps import AppConfig
 
 class GymConfig(AppConfig):
     name = 'wger.gym'
-    verbose_name = "Gym"
+    verbose_name = 'Gym'
 
     def ready(self):
         import wger.gym.signals

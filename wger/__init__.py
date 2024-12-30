@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    :copyright: 2011, 2012 by OpenSlides team, see AUTHORS.
-    :license: GNU GPL, see LICENSE for more details.
+:copyright: 2011, 2012 by OpenSlides team, see AUTHORS.
+:license: GNU GPL, see LICENSE for more details.
 """
+
 # Local
 from .celery_configuration import app
 
 
-MIN_APP_VERSION = (1, 5, 0, 'final', 1)
+MIN_APP_VERSION = (1, 7, 4, 'final', 1)
 
-VERSION = (2, 2, 0, 'alpha', 3)
+VERSION = (2, 3, 0, 'alpha', 3)
 RELEASE = True
 
 

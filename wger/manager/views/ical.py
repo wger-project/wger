@@ -91,12 +91,11 @@ def get_events_workout(calendar, workout, duration, start_date=None):
     site = Site.objects.get_current()
 
     for day in workout.day_set.all():
-
         # Make the description of the event with the day's exercises
         description_list = []
         for set_obj in day.set_set.all():
             for base in set_obj.exercise_bases:
-                description_list.append(str(base.get_exercise()))
+                description_list.append(str(base.get_translation()))
         description = ', '.join(description_list) if description_list else day.description
 
         # Make an event for each weekday
@@ -137,8 +136,7 @@ def export(request, pk, uidb64=None, token=None):
 
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
-    response['Content-Disposition'] = \
-        'attachment; filename=Calendar-workout-{0}.ics'.format(workout.pk)
+    response['Content-Disposition'] = f'attachment; filename=Calendar-workout-{workout.pk}.ics'
     response.write(calendar.to_ical())
     response['Content-Length'] = len(response.content)
     return response
@@ -171,8 +169,7 @@ def export_schedule(request, pk, uidb64=None, token=None):
 
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
-    response['Content-Disposition'] = \
-        'attachment; filename=Calendar-schedule-{0}.ics'.format(schedule.pk)
+    response['Content-Disposition'] = f'attachment; filename=Calendar-schedule-{schedule.pk}.ics'
     response.write(calendar.to_ical())
     response['Content-Length'] = len(response.content)
     return response
