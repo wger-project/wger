@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n static crispy_forms_tags %}
+
+{% block header %}
+    {{ form.media }}
+    {% if custom_js %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                {{ custom_js|safe }}
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    {% if form %}
+        {% crispy form %}
+    {% else %}
+        Looks like you clicked on an invalid link. Please try again.
+    {% endif %}
+{% endblock %}
+
+
+<!--
+        Sidebar
+-->
+{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}

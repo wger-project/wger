@@ -1,18 +1,24 @@
 {% load i18n static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'yarn/datatables/media/css/dataTables.bootstrap4.min.css' %}">
-<script src="{% static 'yarn/datatables/media/js/jquery.datatables.min.js' %}" ></script>
-<script src="{% static 'yarn/datatables/media/js/dataTables.bootstrap4.min.js' %}" ></script>
+<link rel="stylesheet" type="text/css" href="{% static 'yarn/datatables.net-bs5/css/dataTables.bootstrap5.css' %}">
+<script src="{% static 'yarn/datatables.net/js/dataTables.js' %}" ></script>
+<script src="{% static 'yarn/datatables.net-bs5/js/dataTables.bootstrap5.js' %}" ></script>
 <script>
-$(document).ready( function () {
-    /* Make table sortable */
-    $('#main_member_list').DataTable({
-        paging: false,
-        bFilter: true,
-        bInfo : false
+    $(document).ready(function () {
+        $('#main_member_list').DataTable({
+            paging: false,
+            bFilter: true,
+            bInfo: false,
+            dom: '<"datatable-header d-flex justify-content-between align-items-center"f>t<"datatable-footer"ip>', // Layout of elements
+            initComplete: function () {
+                const title = $('<div class="datatable-title"><h4>Members</h4></div>');
+                $(".datatable-header").prepend(title);
+            }
+        });
     });
-});
 </script>
+    
+
 
 <table class="table table-hover table-responsive" id="main_member_list">
 <thead>

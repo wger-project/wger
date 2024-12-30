@@ -297,7 +297,7 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
 
-    return render(request, 'form.html', template_data)
+    return render(request, 'form_content.html', template_data)
 
 
 @login_required
@@ -606,7 +606,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class WgerPasswordChangeView(PasswordChangeView):
-    template_name = 'form.html'
+    template_name = 'form_content.html'
     success_url = reverse_lazy('core:user:preferences')
     title = gettext_lazy('Change password')
 
@@ -627,7 +627,7 @@ class WgerPasswordChangeView(PasswordChangeView):
 
 
 class WgerPasswordResetView(PasswordResetView):
-    template_name = 'form.html'
+    template_name = 'form_content.html'
     email_template_name = 'registration/password_reset_email.html'
     success_url = reverse_lazy('core:user:password_reset_done')
     from_email = settings.WGER_SETTINGS['EMAIL_FROM']
@@ -641,7 +641,7 @@ class WgerPasswordResetView(PasswordResetView):
 
 
 class WgerPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'form.html'
+    template_name = 'form_content.html'
     success_url = reverse_lazy('core:user:login')
 
     def get_form(self, form_class=None):

@@ -139,11 +139,10 @@ $(document).ready(function() {
 
 {% if perms.nutrition.delete_ingredient %}
 <h4>{% translate "Weight units" %}</h4>
-<p>
-    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add new weight unit" %}
-    </a>
-</p>
+
+{% translate 'Add new weight unit' as text %}
+{% url 'nutrition:unit_ingredient:add' ingredient.id as url %}
+{% modal_link url=url text=text  %}
 
 {% if ingredient.ingredientweightunit_set.exists %}
     <table class="table">
@@ -162,8 +161,13 @@ $(document).ready(function() {
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                        <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'nutrition:unit_ingredient:edit' unit.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete' as text %}
+                        {% url 'nutrition:unit_ingredient:delete' unit.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
             </td>
@@ -202,17 +206,15 @@ $(document).ready(function() {
             {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
-            <a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
-               title="{% translate 'Edit ingredient' %}"
-               class="dropdown-item">
-                <span class="{% fa_class 'edit' %}"></span>
-                {% translate 'Edit ingredient' %}
-            </a>
+            {% translate 'Edit' as text %}
+            {% url 'nutrition:ingredient:edit' ingredient.id as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
+
             <div role="separator" class="dropdown-divider"></div>
-            <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
-               title="{% translate 'Delete ingredient' %}" class="wger-modal-dialog dropdown-item" >
-                <span class="{% fa_class 'trash' %}"></span>
-                {% translate 'Delete' %}
+
+            {% translate 'Delete' as text %}
+            {% url 'nutrition:ingredient:delete' ingredient.id as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
             </a>
         </div>
     </div>

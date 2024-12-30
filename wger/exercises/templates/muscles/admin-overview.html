@@ -13,10 +13,13 @@
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'exercise:muscle:edit' muscle.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                        <a href="{% url 'exercise:muscle:delete' muscle.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'exercise:muscle:edit' muscle.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+                        
+                        {% translate 'Delete' as text %}
+                        {% url 'exercise:muscle:delete' muscle.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
                 {{ muscle }}
@@ -34,8 +37,7 @@
 
 {% block options %}
     {% if perms.exercises.add_equipment %}
-        <a href="{% url 'exercise:muscle:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% translate "Add muscle" %}
-        </a>
+        {% translate 'Add' as text %}
+        {% modal_link url='exercise:muscle:add' text=text %}
     {% endif %}
 {% endblock %}

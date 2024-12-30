@@ -61,6 +61,7 @@ class ImageAddView(WgerFormMixin, CreateView):
     model = Image
     form_class = ImageForm
     title = _('Add')
+    template_name = 'form_content.html'
 
     def get_initial(self):
         """
@@ -92,6 +93,7 @@ class ImageUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
     model = Image
     form_class = ImageForm
+    template_name = 'form_content.html'
 
     def get_context_data(self, **kwargs):
         context = super(ImageUpdateView, self).get_context_data(**kwargs)

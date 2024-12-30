@@ -1,15 +1,7 @@
-{% extends "base.html" %}
 {% load i18n static wger_extras crispy_forms_tags %}
 
-{% block title %}{% translate "Delete account" %}{% endblock %}
+<h4>{% translate "Delete account" %}</h4>
 
-
-{% block header %}
-{% endblock %}
-
-{% block content %}
-
-<div class="wger-form">
     <div class="card bg-light">
         <div class="card-header">
             <h4 class="card-title">
@@ -26,9 +18,3 @@ and can't be undone. {% endblocktranslate %}{% endwith %}</p>
     </div>
     <div class="mt-2"></div>
     {% crispy form %}
-</div>
-{% endblock %}
-
-
-{% block sidebar %}
-{% endblock %}

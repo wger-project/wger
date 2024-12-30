@@ -18,6 +18,7 @@
 import logging
 
 # Django
+from django import forms
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.forms.models import (
@@ -35,6 +36,10 @@ from django.shortcuts import (
 from django.urls import reverse
 
 # wger
+from wger.core.models import (
+    UserProfile,
+    WeightUnit,
+)
 from wger.exercises.models import ExerciseBase
 from wger.manager.forms import (
     SetForm,
@@ -132,9 +137,24 @@ def get_formset(request, base_pk, reps=Set.DEFAULT_SETS):
     Returns a formset. This is then rendered inside the new set template
     """
     exercise = ExerciseBase.objects.get(pk=base_pk)
+    # Get preferred weight unit persisted in user profile
+    pref_weight_unit = UserProfile.objects.get(user=request.user).weight_unit
+    pref_weight_unit_num = WeightUnit.objects.get(name=pref_weight_unit).id
+
+    # Need to override weight_unit to preferred weight unit
+    class SettingFormOverride(forms.ModelForm):
+        class Meta:
+            model = Setting
+            fields = SETTING_FORMSET_FIELDS
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['weight_unit'].initial = pref_weight_unit_num
+
     SettingFormSet = inlineformset_factory(
         Set,
         Setting,
+        form=SettingFormOverride,
         can_delete=False,
         extra=int(reps),
         fields=SETTING_FORMSET_FIELDS,

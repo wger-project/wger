@@ -218,5 +218,18 @@
     "copyToClipboard": "複製到剪貼簿",
     "filters": "過濾器",
     "continue": "繼續",
-    "goBack": "後退"
+    "goBack": "後退",
+    "lastMonth": "上個月",
+    "lastYear": "去年",
+    "height": "身高",
+    "cm": "公分",
+    "lastWeek": "上週",
+    "bmi": {
+        "calculator": "BMI計算器",
+        "underweight": "過輕",
+        "normal": "正常",
+        "overweight": "過重",
+        "obese": "肥胖",
+        "result": "你的BMI是{{value}}"
+    }
 }

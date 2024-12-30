@@ -205,11 +205,11 @@ class IngredientDetailTestCase(WgerTestCase):
 
         # Only authorized users see the edit links
         if editor:
-            self.assertContains(response, 'Edit ingredient')
-            self.assertContains(response, 'Delete ingredient')
+            self.assertContains(response, 'Edit')
+            self.assertContains(response, 'Delete')
         else:
-            self.assertNotContains(response, 'Edit ingredient')
-            self.assertNotContains(response, 'Delete ingredient')
+            self.assertNotContains(response, 'Edit')
+            self.assertNotContains(response, 'Delete')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))
@@ -237,6 +237,48 @@ class IngredientDetailTestCase(WgerTestCase):
         """
 
         self.ingredient_detail(editor=False)
+
+
+class IngredientSearchTestCase(WgerTestCase):
+    """
+    Tests the ingredient search functions
+    """
+
+    def search_ingredient(self, fail=True):
+        """
+        Helper function
+        """
+
+        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertEqual(len(result['suggestions']), 2)
+        self.assertEqual(result['suggestions'][0]['value'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result['suggestions'][0]['data']['id'], 2)
+        suggestion_0_name = 'Ingredient, test, 2, organic, raw'
+        self.assertEqual(result['suggestions'][0]['data']['name'], suggestion_0_name)
+        self.assertEqual(result['suggestions'][0]['data']['image'], None)
+        self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
+        self.assertEqual(result['suggestions'][1]['value'], 'Test ingredient 1')
+        self.assertEqual(result['suggestions'][1]['data']['id'], 1)
+        self.assertEqual(result['suggestions'][1]['data']['name'], 'Test ingredient 1')
+        self.assertEqual(result['suggestions'][1]['data']['image'], None)
+        self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
+
+    def test_search_ingredient_anonymous(self):
+        """
+        Test searching for an ingredient by an anonymous user
+        """
+
+        self.search_ingredient()
+
+    def test_search_ingredient_logged_in(self):
+        """
+        Test searching for an ingredient by a logged-in user
+        """
+
+        self.user_login('test')
+        self.search_ingredient()
 
 
 class IngredientValuesTestCase(WgerTestCase):

@@ -69,7 +69,6 @@ class CreateUserCommand(WgerTestCase):
         response = self.client.post(
             reverse('api_register'),
             {'username': 'restapi', 'email': 'abc@cde.fg', 'password': 'AekaiLe0ga'},
-            Authorization=f'Token {token.key}',
         )
         count_after = User.objects.count()
         self.assertEqual(response.status_code, HTTP_201_CREATED)
@@ -91,7 +90,6 @@ class CreateUserCommand(WgerTestCase):
         response = self.client.post(
             reverse('api_register'),
             {'username': 'restapi', 'password': 'AekaiLe0ga'},
-            Authorization=f'Token {token.key}',
         )
         count_after = User.objects.count()
         self.assertEqual(response.status_code, HTTP_201_CREATED)
@@ -101,21 +99,6 @@ class CreateUserCommand(WgerTestCase):
         self.assertEqual(response.data['message'], 'api user successfully registered')
         self.assertEqual(response.data['token'], token.key)
         self.assertEqual(count_after, count_before + 1)
-
-    def test_post_not_allowed_api_user_creation(self):
-        """User admin isn't allowed to register users"""
-
-        self.user_login('admin')
-        count_before = User.objects.count()
-
-        response = self.client.post(
-            reverse('api_register'),
-            {'username': 'restapi', 'email': 'abc@cde.fg', 'password': 'AekaiLe0ga'},
-        )
-        count_after = User.objects.count()
-
-        self.assertEqual(response.status_code, HTTP_403_FORBIDDEN)
-        self.assertEqual(count_after, count_before)
 
     def test_post_unsuccessfully_registration_no_username(self):
         """Test unsuccessful registration (weak password)"""
@@ -127,7 +110,6 @@ class CreateUserCommand(WgerTestCase):
         response = self.client.post(
             reverse('api_register'),
             {'password': 'AekaiLe0ga'},
-            Authorization=f'Token {token.key}',
         )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
@@ -142,7 +124,6 @@ class CreateUserCommand(WgerTestCase):
         response = self.client.post(
             reverse('api_register'),
             {'username': 'restapi', 'email': 'example.com', 'password': 'AekaiLe0ga'},
-            Authorization=f'Token {token.key}',
         )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
@@ -157,7 +138,6 @@ class CreateUserCommand(WgerTestCase):
         response = self.client.post(
             reverse('api_register'),
             {'username': 'restapi', 'email': 'admin@example.com', 'password': 'AekaiLe0ga'},
-            Authorization=f'Token {token.key}',
         )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)

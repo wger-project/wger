@@ -218,5 +218,8 @@
     "cancel": "Zrušit",
     "noResults": "Žádné výsledky",
     "noResultsDescription": "Nenalezeny žádné výsledky pro tento dotaz, zvažte snížení počtu filtrů.",
-    "filters": "Filtry"
+    "filters": "Filtry",
+    "calendar": "Kalendář",
+    "entries": "Záznamy",
+    "no_entries_for_day": "Žádné záznamy pro tento den"
 }

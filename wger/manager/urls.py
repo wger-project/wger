@@ -119,30 +119,10 @@ patterns_workout = [
         workout.view,
         name='view',
     ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)$',
-        log.calendar,
-        name='calendar',
-    ),
     path(
         'calendar',
-        log.calendar,
+        ReactView.as_view(login_required=True),
         name='calendar',
-    ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)/(?P<year>\d{4})/(?P<month>\d{1,2})$',
-        log.calendar,
-        name='calendar',
-    ),
-    re_path(
-        r'^calendar/(?P<year>\d{4})/(?P<month>\d{1,2})$',
-        log.calendar,
-        name='calendar',
-    ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$',
-        log.day,
-        name='calendar-day',
     ),
     re_path(
         r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
@@ -231,11 +211,6 @@ patterns_day = [
         '<int:pk>/delete',
         day.delete,
         name='delete',
-    ),
-    path(
-        '<int:id>/view',
-        day.view,
-        name='view',
     ),
     path(
         '<int:pk>/log/add',

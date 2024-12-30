@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load static %}
+{% load i18n static wger_extras %}
 
 {% block title %}{% translate "Your schedules" %}{% endblock %}
 
@@ -11,7 +10,8 @@
 {% block content %}
     <div class="list-group">
         {% for schedule in schedules %}
-            <a href="{% url 'manager:schedule:view' schedule.id %}" class="list-group-item list-group-item-action">
+            <a href="{% url 'manager:schedule:view' schedule.id %}"
+               class="list-group-item list-group-item-action">
                 <span class="glyphicon glyphicon-chevron-right float-end"></span>
 
                 {% if schedule.is_active %}
@@ -24,9 +24,9 @@
                 <p class="list-group-item-text">{{ schedule.start_date }}</p>
             </a>
             {% empty %}
-            <a href="{% url 'manager:schedule:add' %}" class="list-group-item list-group-item-action wger-modal-dialog">
-                {% translate "No schedules found." %}<br>{% translate "Add one now." %}
-            </a>
+            {% translate "No schedules found." %}
+            {% translate 'Add one now' as text %}
+            {% modal_link url='manager:schedule:add' text=text css_class='dropdown-item' %}
         {% endfor %}
     </div>
 {% endblock %}
@@ -38,7 +38,8 @@
 
     <p>{% blocktranslate %}You can indicate how long you want to do each workout
         before jumping to the next. It is also possible to create a loop, so you
-        always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.{% endblocktranslate %}</p>
+        always do the same workouts in succession, e.g. A > B > C > A > B > C and so
+        on.{% endblocktranslate %}</p>
 
     <p>{% blocktranslate %}The currently active schedule will remain active (and be
         shown e.g. in your dashboard) till it reaches the last workout or till you
@@ -47,7 +48,6 @@
 
 
 {% block options %}
-    <a href="{% url 'manager:schedule:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add schedule" %}
-    </a>
+    {% translate 'Add schedule' as text %}
+    {% modal_link url='manager:schedule:add' text=text %}
 {% endblock %}
