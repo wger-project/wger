@@ -158,6 +158,8 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         """
         Reset all cached infos
         """
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
         super().delete(*args, **kwargs)
 
         # Make sure there is always a main image
