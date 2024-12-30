@@ -13,6 +13,7 @@
 
 
 {% block sidebar %}
+{% if allow_registration %}
 <h4>{% translate "No account?" %}</h4>
 <p>
     <a href="{% url 'core:user:registration' %}">
@@ -20,6 +21,7 @@
         {% translate "Register" %}
     </a>
 </p>
+{% endif %}
 
 <h4>{% translate "Forgot password?" %}</h4>
 <p>

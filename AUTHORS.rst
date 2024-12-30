@@ -84,6 +84,7 @@ Developers
 * Taylor Fuller - https://github.com/taylor-fuller
 * eyJhb - https://github.com/eyJhb
 * Joshua Shelley - https://github.com/navyjosh
+* Matt Harrison - https://github.com/Maralai
 
 
 Translators
