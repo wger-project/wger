@@ -88,6 +88,11 @@ patterns_routine = [
         name='edit',
     ),
     path(
+        '<int:pk>/edit/progression/<int:progression_pk>',
+        ReactView.as_view(login_required=True),
+        name='edit-progression',
+    ),
+    path(
         '<int:pk>/statistics',
         ReactView.as_view(login_required=True),
         name='statistics',
