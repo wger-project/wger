@@ -14,6 +14,8 @@
 
 # Standard Library
 import datetime
+from dataclasses import asdict
+from decimal import Decimal
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -42,7 +44,9 @@ class DaySlotTestCase(WgerTestCase):
             slot_entry_id=1,
             exercise=1,
             weight=80,
+            weight_rounding=Decimal('1.25'),
             reps=4,
+            reps_rounding=Decimal('1.00'),
             rir=None,
             rest=None,
             sets=1,
@@ -51,7 +55,9 @@ class DaySlotTestCase(WgerTestCase):
             slot_entry_id=2,
             exercise=2,
             weight=20,
+            weight_rounding=Decimal('1.25'),
             reps=5,
+            reps_rounding=Decimal('1.00'),
             rir=None,
             rest=None,
             sets=1,
@@ -59,7 +65,7 @@ class DaySlotTestCase(WgerTestCase):
 
         # Sets are returned interleaved from the supersets
         self.assertEqual(len(set_configs), 7)
-        self.assertEqual(set_configs[0], config_1)
+        self.assertDictEqual(asdict(set_configs[0]), asdict(config_1))
         self.assertEqual(set_configs[1], config_2)
         self.assertEqual(set_configs[2], config_1)
         self.assertEqual(set_configs[3], config_2)
@@ -85,28 +91,36 @@ class DaySlotTestCase(WgerTestCase):
         self.assertEqual(slot1.comment, 'test comment 123')
         self.assertEqual(slot1.exercises, [1, 2])
         self.assertEqual(len(set_configs_1), 2)
-        self.assertEqual(
-            set_configs_1[0],
-            SetConfigData(
-                slot_entry_id=1,
-                exercise=1,
-                weight=80,
-                reps=4,
-                rir=None,
-                rest=None,
-                sets=5,
+        self.assertDictEqual(
+            asdict(set_configs_1[0]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=1,
+                    exercise=1,
+                    weight=80,
+                    weight_rounding=Decimal('1.25'),
+                    reps=Decimal(4),
+                    reps_rounding=Decimal('1.00'),
+                    rir=None,
+                    rest=None,
+                    sets=5,
+                )
             ),
         )
-        self.assertEqual(
-            set_configs_1[1],
-            SetConfigData(
-                slot_entry_id=2,
-                exercise=2,
-                weight=20,
-                reps=5,
-                rir=None,
-                rest=None,
-                sets=2,
+        self.assertDictEqual(
+            asdict(set_configs_1[1]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=2,
+                    exercise=2,
+                    weight=20,
+                    weight_rounding=Decimal('1.25'),
+                    reps=5,
+                    reps_rounding=Decimal('1.00'),
+                    rir=None,
+                    rest=None,
+                    sets=2,
+                )
             ),
         )
 
@@ -114,29 +128,37 @@ class DaySlotTestCase(WgerTestCase):
         self.assertEqual(slot2.comment, 'test comment 456')
         self.assertEqual(slot2.exercises, [3])
         self.assertEqual(len(set_configs_2), 2)
-        self.assertEqual(
-            set_configs_2[0],
-            SetConfigData(
-                slot_entry_id=3,
-                exercise=3,
-                weight=80,
-                reps=6,
-                rir=None,
-                rest=None,
-                sets=5,
+        self.assertDictEqual(
+            asdict(set_configs_2[0]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=3,
+                    exercise=3,
+                    weight=80,
+                    weight_rounding=Decimal('1.25'),
+                    reps=6,
+                    reps_rounding=Decimal('1.00'),
+                    rir=None,
+                    rest=None,
+                    sets=5,
+                )
             ),
         )
 
-        self.assertEqual(
-            set_configs_2[1],
-            SetConfigData(
-                slot_entry_id=4,
-                exercise=3,
-                weight=50,
-                reps=4,
-                rir=None,
-                rest=None,
-                sets=3,
+        self.assertDictEqual(
+            asdict(set_configs_2[1]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=4,
+                    exercise=3,
+                    weight=50,
+                    weight_rounding=Decimal('1.25'),
+                    reps=4,
+                    reps_rounding=Decimal('1.00'),
+                    rir=None,
+                    rest=None,
+                    sets=3,
+                )
             ),
         )
 

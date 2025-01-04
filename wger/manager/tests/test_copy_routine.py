@@ -41,8 +41,8 @@ class CopyRoutineTestCase(WgerTestCase):
         self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         count_after = Routine.objects.count()
 
-        self.assertGreater(count_after, count_before)
-        self.assertEqual(count_after, 4)
+        self.assertEqual(count_after, count_before + 1)
+        self.assertEqual(count_after, 6)
 
         routine_original = Routine.objects.get(pk=3)
         routine_copy = Routine.objects.get(pk=4)
@@ -133,7 +133,7 @@ class CopyRoutineTestCase(WgerTestCase):
 
         self.user_login('test')
         response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_copy_template_public_other_user(self):
         """
@@ -146,4 +146,4 @@ class CopyRoutineTestCase(WgerTestCase):
 
         self.user_login('admin')
         response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
