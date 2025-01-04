@@ -9,7 +9,9 @@
       "created": "2024-03-01T23:34:30+01:00",
       "start": "2024-03-01",
       "end": "2024-06-01",
-      "fit_in_week": false
+      "fit_in_week": false,
+      "is_template": false,
+      "is_public": false
     }
   },
   {
@@ -22,7 +24,9 @@
       "created": "2024-03-01T23:34:30+01:00",
       "start": "2024-03-01",
       "end": "2024-03-01",
-      "fit_in_week": false
+      "fit_in_week": false,
+      "is_template": false,
+      "is_public": false
     }
   },
   {
@@ -35,7 +39,39 @@
       "created": "2024-03-01T23:34:30+01:00",
       "start": "2024-03-01",
       "end": "2024-03-01",
-      "fit_in_week": false
+      "fit_in_week": false,
+      "is_template": false,
+      "is_public": false
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.routine",
+    "fields": {
+      "user": 2,
+      "name": "Private template",
+      "description": "",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-03-01",
+      "fit_in_week": false,
+      "is_template": true,
+      "is_public": false
+    }
+  },
+  {
+    "pk": 5,
+    "model": "manager.routine",
+    "fields": {
+      "user": 5,
+      "name": "Public template",
+      "description": "",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-03-01",
+      "fit_in_week": false,
+      "is_template": true,
+      "is_public": true
     }
   },
   {

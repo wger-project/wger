@@ -58,16 +58,16 @@ class WorkoutLogManager(models.Manager):
         return self.get_queryset().reps()
 
 
-class WorkoutManager(models.Manager):
+class RoutineManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_template=False)
+        return super().get_queryset()
 
 
-class WorkoutTemplateManager(models.Manager):
+class RoutineTemplateManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_template=True)
 
 
-class WorkoutAndTemplateManager(models.Manager):
+class PublicRoutineTemplateManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset()
+        return super().get_queryset().filter(is_template=True, is_public=True)

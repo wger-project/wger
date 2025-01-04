@@ -22,6 +22,7 @@ from datetime import datetime
 # Django
 from django.conf import settings
 from django.core.cache import cache
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 # Third Party
@@ -36,6 +37,7 @@ from wger.manager.api.filtersets import (
     BaseConfigFilterSet,
     WorkoutLogFilterSet,
 )
+from wger.manager.api.permissions import RoutinePermission
 from wger.manager.api.serializers import (
     DaySerializer,
     LogDisplaySerializer,
@@ -90,7 +92,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
     """
 
     serializer_class = RoutineSerializer
-    is_private = True
+    permission_classes = [RoutinePermission]
     ordering_fields = '__all__'
     filterset_fields = (
         'name',
@@ -98,6 +100,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
         'created',
         'start',
         'end',
+        'is_public',
+        'is_template',
     )
 
     def get_queryset(self):
@@ -108,7 +112,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Routine.objects.none()
 
-        return Routine.objects.filter(user=self.request.user)
+        return Routine.objects.filter(Q(user=self.request.user) | Q(is_public=True))
 
     def perform_create(self, serializer):
         """
@@ -287,15 +291,15 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         return Response({'chart_data': json.loads(chart_data), 'logs': serialized_logs})
 
 
-class UserWorkoutTemplateViewSet(viewsets.ReadOnlyModelViewSet):
+class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for routine template objects
     """
 
-    serializer_class = WorkoutTemplateSerializer
+    serializer_class = RoutineSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('name', 'description', 'creation_date')
+    filterset_fields = ('name', 'description', 'created')
 
     def get_queryset(self):
         """
@@ -307,34 +311,22 @@ class UserWorkoutTemplateViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Routine.templates.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
 
-
-class PublicWorkoutTemplateViewSet(viewsets.ModelViewSet):
+class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for public workout templates objects
+    API endpoint for public routine templates objects
     """
 
-    serializer_class = WorkoutSerializer
+    serializer_class = RoutineSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('name', 'description', 'creation_date')
+    filterset_fields = ('name', 'description', 'created')
 
     def get_queryset(self):
         """
         Only allow access to appropriate objects
         """
-        return Routine.templates.filter(is_public=True)
-
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
+        return Routine.public.all()
 
 
 class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):

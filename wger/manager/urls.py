@@ -28,6 +28,7 @@ from wger.manager.views import (
     workout,
 )
 
+
 # sub patterns for templates
 patterns_templates = [
     path(

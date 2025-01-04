@@ -56,6 +56,8 @@ class RoutineSerializer(serializers.ModelSerializer):
             'start',
             'end',
             'fit_in_week',
+            'is_template',
+            'is_public',
         )
 
 

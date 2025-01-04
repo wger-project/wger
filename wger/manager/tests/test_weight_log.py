@@ -20,6 +20,7 @@ import logging
 from wger.core.tests import api_base_test
 from wger.manager.models import WorkoutLog
 
+
 logger = logging.getLogger(__name__)
 
 

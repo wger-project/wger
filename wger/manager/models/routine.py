@@ -36,6 +36,11 @@ from wger.manager.dataclasses import (
     RoutineLogData,
     WorkoutDayData,
 )
+from wger.manager.managers import (
+    PublicRoutineTemplateManager,
+    RoutineManager,
+    RoutineTemplateManager,
+)
 from wger.utils.cache import CacheKeyMapper
 
 
@@ -44,9 +49,9 @@ class Routine(models.Model):
     Model for a routine
     """
 
-    # objects = WorkoutManager()
-    # templates = WorkoutTemplateManager()
-    # both = WorkoutAndTemplateManager()
+    objects = RoutineManager()
+    templates = RoutineTemplateManager()
+    public = PublicRoutineTemplateManager()
 
     class Meta:
         ordering = [
@@ -94,6 +99,7 @@ class Routine(models.Model):
         default=False,
         null=False,
     )
+    """Marking a workout as a template will freeze it and allow you to make copies of it"""
 
     is_public = models.BooleanField(
         verbose_name=_('Public template'),
@@ -101,6 +107,7 @@ class Routine(models.Model):
         default=False,
         null=False,
     )
+    """A public template is available to other users"""
 
     fit_in_week = models.BooleanField(
         default=False,
@@ -135,6 +142,13 @@ class Routine(models.Model):
 
         if self.end and self.start and self.start > self.end:
             raise ValidationError(_('The start time cannot be after the end time.'))
+
+    def save(self, *args, **kwargs):
+        """The is_public flag cannot be set if the routine is not a template"""
+        if self.is_public and not self.is_template:
+            self.is_public = False
+
+        super().save(*args, **kwargs)
 
     @property
     def day_sequence(self):

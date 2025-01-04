@@ -45,7 +45,7 @@ def copy_routine(request, pk):
     """
     routine = get_object_or_404(Routine, pk=pk)
 
-    if request.user != routine.user:
+    if request.user != routine.user and not routine.is_public:
         return HttpResponseForbidden()
 
     def copy_config(configs: List[AbstractChangeConfig], slot_entry: SlotEntry):
