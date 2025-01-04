@@ -62,7 +62,6 @@ router = routers.DefaultRouter()
 #
 
 # Manager app
-router.register(r'workout', manager_api_views.WorkoutViewSet, basename='workout')
 router.register(r'routine', manager_api_views.RoutineViewSet, basename='routine')
 router.register(r'templates', manager_api_views.UserRoutineTemplateViewSet, basename='templates')
 router.register(

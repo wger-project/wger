@@ -27,6 +27,7 @@ from wger.manager.views import (
     routine,
 )
 
+
 # sub patterns for templates
 patterns_templates = [
     path(

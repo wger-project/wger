@@ -59,9 +59,7 @@ from wger.manager.api.serializers import (
     WorkoutDayDataDisplayModeSerializer,
     WorkoutDayDataGymModeSerializer,
     WorkoutLogSerializer,
-    WorkoutSerializer,
     WorkoutSessionSerializer,
-    WorkoutTemplateSerializer,
 )
 from wger.manager.models import (
     Day,
@@ -235,60 +233,6 @@ class RoutineViewSet(viewsets.ModelViewSet):
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
         return Response(out)
-
-
-class WorkoutViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint for routine objects
-    """
-
-    serializer_class = WorkoutSerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = ('name', 'description', 'creation_date')
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return Routine.objects.none()
-
-        return Routine.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
-
-    @action(detail=True)
-    def log_data(self, request, pk):
-        """
-        Returns processed log data for graphing
-
-        Basically, these are the logs for the workout and for a specific exercise base.
-
-        If on a day there are several entries with the same number of repetitions,
-        but different weights, only the entry with the higher weight is shown in the chart
-        """
-        base_id = request.GET.get('id')
-        if not base_id:
-            return Response("Please provide an base ID in the 'id' GET parameter")
-
-        base = get_object_or_404(Exercise, pk=base_id)
-        logs = base.workoutlog_set.filter(
-            user=self.request.user,
-            weight_unit__in=(1, 2),
-            repetition_unit=1,
-            workout=self.get_object(),
-        )
-        entry_logs, chart_data = process_log_entries(logs)
-        serialized_logs = {}
-        for key, values in entry_logs.items():
-            serialized_logs[str(key)] = [WorkoutLogSerializer(entry).data for entry in values]
-        return Response({'chart_data': json.loads(chart_data), 'logs': serialized_logs})
 
 
 class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):

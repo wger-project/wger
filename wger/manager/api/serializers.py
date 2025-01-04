@@ -35,7 +35,6 @@ from wger.manager.models import (
     Slot,
     SlotEntry,
     WeightConfig,
-    Workout,
     WorkoutLog,
     WorkoutSession,
 )
@@ -396,26 +395,6 @@ class WorkoutDayDataGymModeSerializer(serializers.Serializer):
     label = serializers.CharField()
     day = DaySerializer()
     slots = SlotDataSerializer(many=True, source='slots_gym_mode')
-
-
-class WorkoutSerializer(serializers.ModelSerializer):
-    """
-    Workout serializer
-    """
-
-    class Meta:
-        model = Workout
-        fields = ('id', 'name', 'creation_date', 'description')
-
-
-class WorkoutTemplateSerializer(serializers.ModelSerializer):
-    """
-    Workout template serializer
-    """
-
-    class Meta:
-        model = Workout
-        fields = ('id', 'name', 'creation_date', 'description', 'is_public')
 
 
 class WorkoutSessionSerializer(serializers.ModelSerializer):

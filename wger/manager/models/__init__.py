@@ -43,4 +43,3 @@ from .weight_config import (
     MaxWeightConfig,
     WeightConfig,
 )
-from .workout import Workout
