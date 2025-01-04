@@ -25,31 +25,24 @@ from wger.manager.views import (
     ical,
     pdf,
     routine,
-    workout,
 )
-
 
 # sub patterns for templates
 patterns_templates = [
     path(
-        'overview',
-        workout.template_overview,
+        'overview/private',
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     path(
-        'public',
-        workout.public_template_overview,
+        'overview/public',
+        ReactView.as_view(login_required=True),
         name='public',
     ),
     path(
         '<int:pk>/view',
-        workout.template_view,
+        ReactView.as_view(login_required=True),
         name='view',
-    ),
-    path(
-        '<int:pk>/make-workout',
-        workout.make_workout,
-        name='make-workout',
     ),
 ]
 
@@ -62,16 +55,7 @@ patterns_days = [
     ),
 ]
 
-# sub patterns for workouts
-patterns_workout = [
-    path(
-        '<int:pk>/make-template',
-        workout.WorkoutMarkAsTemplateView.as_view(),
-        name='make-template',
-    ),
-]
-
-# sub patterns for workouts
+# sub patterns for routines
 patterns_routine = [
     path(
         'overview',
@@ -136,8 +120,7 @@ patterns_routine = [
 ]
 
 urlpatterns = [
-    path('', include((patterns_workout, 'workout'), namespace='workout')),
     path('', include((patterns_routine, 'routine'), namespace='routine')),
-    path('template/', include((patterns_templates, 'template'), namespace='template')),
+    path('templates/', include((patterns_templates, 'template'), namespace='template')),
     path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
 ]
