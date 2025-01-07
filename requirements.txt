@@ -19,7 +19,7 @@ django-recaptcha~=4.0.0
 django-simple-history~=3.7
 django-storages~=1.14
 django-compressor~=4.5
-drf-spectacular[sidecar]==0.27.2
+drf-spectacular[sidecar]==0.28.0
 easy-thumbnails==2.10
 flower==2.0.1
 fontawesomefree~=6.6.0
