@@ -13,12 +13,18 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.core.management.base import BaseCommand
+from wger.nutrition.tasks import sync_all_ingredients_task
 
 
 class Command(BaseCommand):
 
-    help = "Synchronize all ingredients from a remote wger instance to the local database"
+    help = "Asynchronously synchronize all ingredients from another wger instance."
 
     def handle(self, *args, **options):
 
-        self.stdout.write("Synchronizing all ingredients...")
+        self.stdout.write("Triggering the Celery task to synchronize all ingredients...")
+
+        # Trigger the task asynchronously
+        sync_all_ingredients_task.delay()
+
+        self.stdout.write("Synchronization task has been triggered. Check the Celery worker logs for progress.")
