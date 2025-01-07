@@ -12,3 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from django.core.management.base import BaseCommand
+
+
+class Command(BaseCommand):
+
+    help = "Synchronize all ingredients from a remote wger instance to the local database"
+
+    def handle(self, *args, **options):
+
+        self.stdout.write("Synchronizing all ingredients...")
