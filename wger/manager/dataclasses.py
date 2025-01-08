@@ -48,6 +48,7 @@ class SetConfigData:
     weight: Decimal | int | None
     reps: Decimal | int | None
     rir: Decimal | int | None
+    max_rir: Decimal | int | None
     rest: int | None
 
     max_weight: Decimal | int | None = None
@@ -219,8 +220,8 @@ class RoutineLogData:
 
 
 def round_value(
-    x: int | float | Decimal | None,
-    base: int | float | Decimal | None = None,
+        x: int | float | Decimal | None,
+        base: int | float | Decimal | None = None,
 ) -> Decimal | None:
     """
     Rounds a value to the nearest base

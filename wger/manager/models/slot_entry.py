@@ -308,6 +308,7 @@ class SlotEntry(models.Model):
             # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.get_rir(iteration),
+            max_rir=self.get_max_rir(iteration),
             rest=round_value(rest, 1),
             max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
             type=str(self.type),
@@ -366,6 +367,14 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 list(self.rirconfig_set.filter(iteration__lte=iteration)),
+            )
+        )
+
+    def get_max_rir(self, iteration: int) -> Decimal | None:
+        return self.calculate_config_value(
+            self.duplicate_configs(
+                iteration,
+                list(self.maxrirconfig_set.filter(iteration__lte=iteration)),
             )
         )
 

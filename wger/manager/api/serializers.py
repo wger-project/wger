@@ -354,6 +354,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     reps_unit = serializers.IntegerField()
     reps_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     rir = serializers.DecimalField(max_digits=5, decimal_places=2)
+    max_rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     rpe = serializers.DecimalField(max_digits=5, decimal_places=2)
     rest = serializers.DecimalField(max_digits=5, decimal_places=2)
     max_rest = serializers.DecimalField(max_digits=5, decimal_places=2)
