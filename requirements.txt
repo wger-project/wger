@@ -8,7 +8,7 @@ bleach[css]~=6.2
 celery[redis]==5.4.0
 crispy-bootstrap5==2024.10
 django-activity-stream==2.0.0
-django-axes[ipware]==7.0.0
+django-axes[ipware]==7.0.1
 django-bootstrap-breadcrumbs2==1.0.0 # fork of django-bootstrap-breadcrumbs, we might need to migrate away completely
 django-crispy-forms~=2.3
 django-email-verification~=0.3.3
@@ -19,7 +19,7 @@ django-recaptcha~=4.0.0
 django-simple-history~=3.7
 django-storages~=1.14
 django-compressor~=4.5
-drf-spectacular[sidecar]==0.27.2
+drf-spectacular[sidecar]==0.28.0
 easy-thumbnails==2.10
 flower==2.0.1
 fontawesomefree~=6.6.0
@@ -39,7 +39,7 @@ tzdata==2024.2
 django-cors-headers==4.6.0
 django-filter==24.3
 djangorestframework==3.15.2
-djangorestframework-simplejwt[crypto]==5.3.1
+djangorestframework-simplejwt[crypto]==5.4.0
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files

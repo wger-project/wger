@@ -231,5 +231,6 @@
         "overweight": "過重",
         "obese": "肥胖",
         "result": "你的BMI是{{value}}"
-    }
+    },
+    "all": "所有"
 }

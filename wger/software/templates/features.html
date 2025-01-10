@@ -325,13 +325,13 @@
         </section>
 
         <!-- sign up section -->
-        <section class="main-section  ">
+        {% if allow_registration %}
+        <section class="main-section">
             <div class="container d-flex align-items-center justify-content-center sign-up-bg">
-
                 <!-- form -->
                 <form method="post"
-                      action="{% url 'core:user:registration' %}"
-                      class="row justify-content-center">
+                    action="{% url 'core:user:registration' %}"
+                    class="row justify-content-center">
                     {% csrf_token %}
                     <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
                         {% translate "Sign Up Now For Free" %}
@@ -342,6 +342,7 @@
                 </form>
             </div>
         </section>
+        {% endif %}
 
         <!-- not enough section  -->
         <section class="bg-bottom-menu p-5">
@@ -417,11 +418,13 @@
                         <li class="list-group-item bg-transparent border-0 text-light ps-0">
                             <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
                         </li>
+                        {% if allow_registration %}
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:registration' %}">
                                 {% translate "Register" %}
                             </a>
                         </li>
+                        {% endif %}
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:login' %}">
                                 {% translate "Login" %}

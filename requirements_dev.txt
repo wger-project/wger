@@ -12,12 +12,12 @@ wheel==0.45.1
 pymongo==4.10.1
 
 # for running the dummy entry generators
-faker==26.0.0
+faker==33.3.0
 
 # Development packages
 django-extensions~=3.2
-coverage==7.6.7
-django-debug-toolbar==4.4.5
+coverage==7.6.10
+django-debug-toolbar==4.4.6
 isort==5.13.2
-ruff==0.8.2
+ruff==0.9.0
 tblib==3.0.0

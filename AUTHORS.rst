@@ -74,6 +74,7 @@ Developers
 * Bernardo Koen - https://github.com/BernardoKoen
 * Gabriel Liss - https://github.com/gabeliss
 * Alexandra Rhodes - https://github.com/arhodes130
+* Ben Southcott - https://github.com/blsouthcott
 * Jayanth Bontha - https://github.com/JayanthBontha
 * Roelof Rietbroek  https://github.com/strawpants
 * Ethan Winters - https://github.com/ebwinters
@@ -83,6 +84,7 @@ Developers
 * Taylor Fuller - https://github.com/taylor-fuller
 * eyJhb - https://github.com/eyJhb
 * Joshua Shelley - https://github.com/navyjosh
+* Matt Harrison - https://github.com/Maralai
 
 
 Translators

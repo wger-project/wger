@@ -19,6 +19,7 @@ import logging
 
 # Django
 from django.contrib.auth.decorators import login_required
+from django.forms import model_to_dict
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
@@ -41,7 +42,11 @@ from reportlab.platypus import (
 
 # wger
 from wger.nutrition.consts import MEALITEM_WEIGHT_GRAM
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import (
+    Meal,
+    MealItem,
+    NutritionPlan,
+)
 from wger.utils.pdf import (
     get_logo,
     header_colour,
@@ -64,34 +69,38 @@ def copy(request, pk):
     """
     Copy the nutrition plan
     """
+    orig_plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
-    plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+    # Convert the original plan to a dictionary and remove the primary key
+    plan_data = model_to_dict(orig_plan)
+    plan_data.pop('id')
 
-    # Copy plan
-    meals = plan.meal_set.select_related()
+    plan_copy = NutritionPlan.objects.create(user=request.user, **plan_data)
 
-    plan_copy = plan
-    plan_copy.pk = None
-    plan_copy.save()
+    # Copy meals and meal items
+    orig_meals = orig_plan.meal_set.all()
+    for orig_meal in orig_meals:
+        meal_data = model_to_dict(orig_meal)
+        meal_data.pop('id')
+        meal_data['plan'] = plan_copy
+        # setting manually due to "editable" False
+        meal_data['order'] = orig_meal.order
 
-    # Copy the meals
-    for meal in meals:
-        meal_items = meal.mealitem_set.select_related()
+        meal_copy = Meal.objects.create(**meal_data)
 
-        meal_copy = meal
-        meal_copy.pk = None
-        meal_copy.plan = plan_copy
-        meal_copy.save()
-
-        # Copy the individual meal entries
-        for item in meal_items:
-            item_copy = item
-            item_copy.pk = None
-            item_copy.meal = meal_copy
-            item_copy.save()
+        orig_meal_items = orig_meal.mealitem_set.all()
+        for orig_meal_item in orig_meal_items:
+            meal_item_data = model_to_dict(orig_meal_item)
+            meal_item_data.pop('id')
+            meal_item_data.pop('ingredient')
+            meal_item_data['meal'] = meal_copy
+            meal_item_data['ingredient_id'] = orig_meal_item.ingredient_id
+            # setting manually due to "editable" False
+            meal_item_data['order'] = orig_meal_item.order
+            MealItem.objects.create(**meal_item_data)
 
     # Redirect
-    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan_copy.id}))
 
 
 def export_pdf(request, id: int):

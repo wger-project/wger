@@ -272,7 +272,7 @@
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link text-white"
                                data-bs-toggle="dropdown">
-                                {% translate "Login" %} / {% translate "Register" %}
+                                {% translate "Login" %}{% if allow_registration %} / {% translate "Register" %}{% endif %}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -281,12 +281,14 @@
                                         {% translate "Login" %}
                                     </a>
                                 </li>
+                                {% if allow_registration %}
                                 <li>
                                     <a class="dropdown-item"
                                        href="{% url 'core:user:registration' %}">
                                         {% translate "Register" %}
                                     </a>
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a class="dropdown-item"
                                        href="{% url 'core:user:password_reset' %}">
