@@ -217,7 +217,7 @@ class Routine(models.Model):
 
             # If we reach the end of the available days, check whether we want to fill up the
             # week with empty days, unless the routine already consists of 7 training days
-            if nr_days % 7 != 0 and index == 0 and self.fit_in_week:
+            if self.fit_in_week and nr_days % 7 != 0 and index == 0:
                 days_til_monday = 7 - current_date.weekday()
                 skip_til_date = current_date + datetime.timedelta(days=days_til_monday)
 
@@ -305,12 +305,12 @@ class Routine(models.Model):
         intensity_counter = GroupedLogData()
 
         def update_grouped_log_data(
-            entry: GroupedLogData,
-            date: datetime.date,
-            week_nr: int,
-            iter: int,
-            exercise: Exercise,
-            value: Decimal | int,
+                entry: GroupedLogData,
+                date: datetime.date,
+                week_nr: int,
+                iter: int,
+                exercise: Exercise,
+                value: Decimal | int,
         ):
             """
             Updates grouped log data
