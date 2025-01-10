@@ -26,7 +26,7 @@ fontawesomefree~=6.6.0
 icalendar==6.1.0
 invoke==2.2.0
 openfoodfacts==2.2.0
-pillow==11.0.0
+pillow==11.1.0
 reportlab==4.2.5
 requests==2.32.3
 tqdm==4.67.1
