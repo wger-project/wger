@@ -48,9 +48,9 @@ class SetConfigData:
     weight: Decimal | int | None
     reps: Decimal | int | None
     rir: Decimal | int | None
-    max_rir: Decimal | int | None
     rest: int | None
 
+    max_rir: Decimal | int | None = None
     max_weight: Decimal | int | None = None
     max_reps: Decimal | int | None = None
     max_rest: int | None = None
