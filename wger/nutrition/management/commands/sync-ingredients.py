@@ -43,15 +43,25 @@ class Command(BaseCommand):
             help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
             f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
         )
+        parser.add_argument(
+            '-l',
+            '--languages',
+            action='store',
+            dest='languages',
+            default=None,
+            help='Specify a comma-separated subset of languages to sync. Example: en,fr,es'
+        )
 
     def handle(self, **options):
         remote_url = options['remote_url']
+        languages = options['languages']
 
         try:
             val = URLValidator()
             val(remote_url)
-            self.remote_url = remote_url
+            self.remote_url = remote_url     
         except ValidationError:
             raise CommandError('Please enter a valid URL')
+        self.languages = languages
 
-        sync_ingredients(self.stdout.write, self.remote_url, self.style.SUCCESS)
+        sync_ingredients(self.stdout.write, self.remote_url, self.languages, self.style.SUCCESS)
