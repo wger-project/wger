@@ -14,7 +14,7 @@
 
 # Django
 from django.contrib.auth.models import User
-from django.core.cache.backends import locmem
+from django.core.cache import cache
 
 # Third Party
 from rest_framework import status
@@ -179,18 +179,16 @@ class ApiGetTestCase:
             return
 
         # Ensure the wger cache is empty.
-        cache_length = len(locmem._caches['wger-cache'])
-        self.assertEqual(cache_length, 0)
+
+        self.assertFalse(cache.keys('*'))
 
         self.test_get_overview()
 
         # If the overview is cached. Then ensure the cache isn't empty.
         if self.overview_cached:
-            cache_length = len(locmem._caches['wger-cache'])
-            self.assertNotEqual(cache_length, 0)
+            self.assertTrue(cache.keys('*'))
         else:
-            cache_length = len(locmem._caches['wger-cache'])
-            self.assertEqual(cache_length, 0)
+            self.assertFalse(cache.keys('*'))
 
     def test_special_endpoints(self):
         """
