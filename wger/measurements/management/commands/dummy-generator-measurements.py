@@ -63,7 +63,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f"** Generating {options['nr_measurements']} dummy measurements per user")
+        self.stdout.write(f'** Generating {options["nr_measurements"]} dummy measurements per user')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()

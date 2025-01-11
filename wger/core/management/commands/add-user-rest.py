@@ -32,14 +32,14 @@ class Command(BaseCommand):
                 user.userprofile.can_add_user = False
                 self.stdout.write(
                     self.style.SUCCESS(
-                        f"{options['name']} is now DISABLED from adding users via the API"
+                        f'{options["name"]} is now DISABLED from adding users via the API'
                     )
                 )
 
             else:
                 user.userprofile.can_add_user = True
                 self.stdout.write(
-                    self.style.SUCCESS(f"{options['name']} is now ALLOWED to add users via the API")
+                    self.style.SUCCESS(f'{options["name"]} is now ALLOWED to add users via the API')
                 )
             user.userprofile.save()
 

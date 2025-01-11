@@ -15,7 +15,10 @@
 # Standard Library
 import logging
 import os
-from typing import List, Optional
+from typing import (
+    List,
+    Optional,
+)
 
 # Django
 from django.conf import settings
@@ -45,11 +48,11 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
+from wger.utils.language import load_language
 from wger.utils.requests import (
     get_paginated,
     wger_headers,
 )
-from wger.utils.language import load_language
 from wger.utils.url import make_uri
 
 
@@ -215,20 +218,21 @@ def download_ingredient_images(
         print_fn(style_fn('    successfully saved'))
 
 
-
-
-
 def sync_ingredients(
     print_fn,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
-    languages: Optional[str]=None,
-    style_fn=lambda x: x,    
+    languages: Optional[str] = None,
+    style_fn=lambda x: x,
 ):
-    """Synchronize the ingredients from the remote server"""    
-    
-    def _sync_ingredients(language_id: Optional[int]=None):
+    """Synchronize the ingredients from the remote server"""
+
+    def _sync_ingredients(language_id: Optional[int] = None):
         if language_id is not None:
-            url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query={'limit': API_MAX_ITEMS, 'language': language_id})
+            url = make_uri(
+                INGREDIENTS_ENDPOINT,
+                server_url=remote_url,
+                query={'limit': API_MAX_ITEMS, 'language': language_id},
+            )
         for data in get_paginated(url, headers=wger_headers()):
             uuid = data['uuid']
             name = data['name']
@@ -257,10 +261,10 @@ def sync_ingredients(
                 },
             )
 
-            print_fn(f"{'created' if created else 'updated'} ingredient {uuid} - {name}")
+            print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')
 
     print_fn('*** Synchronizing ingredients...')
-    
+
     if languages is not None:
         language_ids: List[str] = []
         language_codes: List[str] = languages.split(',')
@@ -269,13 +273,14 @@ def sync_ingredients(
                 lang = load_language(language_code, default_to_english=False)
                 language_ids.append(lang.id)
             except Language.DoesNotExist as e:
-                print_fn(f'Error: The language code you provided ("{language_code}") does not exist in this database. Please try again.')
+                print_fn(
+                    f'Error: The language code you provided ("{language_code}") does not exist in this database. Please try again.'
+                )
                 return 0
-        
+
         for language_id in language_ids:
             _sync_ingredients(language_id)
     else:
         _sync_ingredients()
 
-    
     print_fn(style_fn('done!\n'))
