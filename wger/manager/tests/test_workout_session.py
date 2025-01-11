@@ -25,7 +25,7 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the workout overview resource
     """
 
-    pk = 4
+    pk = 5
     resource = WorkoutSession
     private_resource = True
     data = {

@@ -3,11 +3,12 @@
     "pk": 1,
     "model": "manager.workoutlog",
     "fields": {
-      "weight": 30,
       "routine": 1,
+      "session": 1,
+      "weight": 30,
       "reps": 8,
       "user": 1,
-      "date": "2012-10-01T00:00:00+01:00",
+      "date": "2025-10-01T00:00:00+01:00",
       "exercise": 1
     }
   },
@@ -15,11 +16,12 @@
     "pk": 2,
     "model": "manager.workoutlog",
     "fields": {
-      "weight": 32,
       "routine": 1,
+      "session": 2,
+      "weight": 32,
       "reps": 8,
       "user": 1,
-      "date": "2012-10-10T00:00:00+01:00",
+      "date": "2025-10-20T00:00:00+01:00",
       "exercise": 1
     }
   },
@@ -27,11 +29,12 @@
     "pk": 3,
     "model": "manager.workoutlog",
     "fields": {
-      "weight": 38,
       "routine": 1,
+      "session": 3,
+      "weight": 38,
       "reps": 8,
       "user": 1,
-      "date": "2013-10-30T00:00:00+01:00",
+      "date": "2025-10-30T00:00:00+01:00",
       "exercise": 1
     }
   },
@@ -39,11 +42,12 @@
     "pk": 4,
     "model": "manager.workoutlog",
     "fields": {
-      "weight": 30,
       "routine": 1,
+      "session": 4,
+      "weight": 30,
       "reps": 8,
       "user": 1,
-      "date": "2012-11-01T00:00:00+01:00",
+      "date": "2025-11-01T00:00:00+01:00",
       "exercise": 1
     }
   },
@@ -52,10 +56,11 @@
     "model": "manager.workoutlog",
     "fields": {
       "weight": 30,
-      "routine": 3,
+      "session": 5,
+      "routine": 5,
       "reps": 8,
       "user": 2,
-      "date": "2012-11-01T00:00:00+01:00",
+      "date": "2025-11-01T00:00:00+01:00",
       "exercise": 2
     }
   }

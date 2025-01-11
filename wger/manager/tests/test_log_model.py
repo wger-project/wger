@@ -22,7 +22,6 @@ from wger.manager.models import (
     WorkoutSession,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -55,28 +54,28 @@ class LogModelTestCase(WgerTestCase):
         Test that no session is created if the log already has one
         """
 
-        self.assertEqual(WorkoutSession.objects.count(), 4)
+        self.assertEqual(WorkoutSession.objects.count(), 5)
 
         log = WorkoutLog.objects.get(pk=1)
         log.session_id = 1
 
-        self.assertEqual(WorkoutSession.objects.count(), 4)
+        self.assertEqual(WorkoutSession.objects.count(), 5)
 
     def test_session_ownership(self):
         """
         Test that the session foreign key checks ownership
         """
         session1 = WorkoutSession.objects.get(pk=1)
-        session4 = WorkoutSession.objects.get(pk=4)
+        session5 = WorkoutSession.objects.get(pk=5)
 
         self.assertEqual(session1.user_id, 1)
-        self.assertEqual(session4.user_id, 2)
+        self.assertEqual(session5.user_id, 2)
 
         log = WorkoutLog.objects.get(pk=1)
-        log.session = session4
+        log.session = session5
         log.save()
 
-        self.assertNotEquals(log.session_id, 4)
+        self.assertNotEqual(log.session_id, 4)
 
     def test_routine_ownership(self):
         """
