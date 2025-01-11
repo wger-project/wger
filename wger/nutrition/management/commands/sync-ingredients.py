@@ -65,8 +65,9 @@ class Command(BaseCommand):
             raise CommandError('Please enter a valid URL')
         try:
             self.languages = languages
-            for language in self.languages.split(','):
-                validate_language_code(language)
+            if self.languages is not None:
+                for language in self.languages.split(','):
+                    validate_language_code(language)
         except ValidationError as e:
             raise CommandError('\n'.join([str(arg) for arg in e.args if arg is not None]))
 
