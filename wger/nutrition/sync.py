@@ -233,6 +233,12 @@ def sync_ingredients(
                 server_url=remote_url,
                 query={'limit': API_MAX_ITEMS, 'language': language_id},
             )
+        else:
+            url = make_uri(
+                INGREDIENTS_ENDPOINT,
+                server_url=remote_url,
+                query={'limit': API_MAX_ITEMS},
+                )
         for data in get_paginated(url, headers=wger_headers()):
             uuid = data['uuid']
             name = data['name']
