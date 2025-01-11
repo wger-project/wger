@@ -68,7 +68,7 @@ class Command(BaseCommand):
             for i in data:
                 out += f'{{% translate "{i}" %}}\n'
             f.write(out)
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to wger/i18n.tpl'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to wger/i18n.tpl'))
 
         #
         # React - copy the file to src/i18n.tsx in the React repo
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 return (<p></p>);
                 };"""
             f.write(out)
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to wger/i18n.tsx'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to wger/i18n.tsx'))
 
         #
         # Flutter - copy content to the end of lib/l10n/app_en.arb in the flutter repo
@@ -102,10 +102,10 @@ class Command(BaseCommand):
             for i in data:
                 out += f'"{cleanup_name(i.__str__())}": "{i}",\n'
                 out += f'"@{cleanup_name(i.__str__())}": {{ \n'
-                out += f'"description": "Generated entry for translation for server strings"\n'
+                out += '"description": "Generated entry for translation for server strings"\n'
                 out += '},\n'
             f.write(out)
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to app_en.arb'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to app_en.arb'))
 
         # Copy to lib/helpers/i18n.dart in the flutter repo
         with open('wger/i18n.dart', 'w') as f:

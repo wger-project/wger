@@ -20,7 +20,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     DeletionLog,
     Exercise,
-    ExerciseBase,
+    Translation,
 )
 
 
@@ -29,25 +29,25 @@ class DeletionLogTestCase(WgerTestCase):
     Test that the deletion log entries are correctly generated
     """
 
-    def test_base(self):
+    def test_exercise(self):
         """
         Test that an entry is generated when a base is deleted
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
-        base = ExerciseBase.objects.get(pk=1)
-        base.delete()
+        exercise = Exercise.objects.get(pk=1)
+        exercise.delete()
 
-        # Base is deleted
-        count_base_logs = DeletionLog.objects.filter(
-            model_type=DeletionLog.MODEL_BASE,
-            uuid=base.uuid,
+        # Exercise is deleted
+        count_exercise_logs = DeletionLog.objects.filter(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=exercise.uuid,
         ).count()
         log = DeletionLog.objects.get(pk=1)
 
-        self.assertEqual(count_base_logs, 1)
-        self.assertEqual(log.model_type, 'base')
-        self.assertEqual(log.uuid, base.uuid)
+        self.assertEqual(count_exercise_logs, 1)
+        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
+        self.assertEqual(log.uuid, exercise.uuid)
         self.assertEqual(log.comment, 'Exercise base of An exercise')
         self.assertEqual(log.replaced_by, None)
 
@@ -57,49 +57,49 @@ class DeletionLogTestCase(WgerTestCase):
 
         # First translation
         log2 = DeletionLog.objects.get(pk=4)
-        self.assertEqual(log2.model_type, 'translation')
+        self.assertEqual(log2.model_type, DeletionLog.MODEL_TRANSLATION)
         self.assertEqual(log2.uuid, UUID('9838235c-e38f-4ca6-921e-9d237d8e0813'))
         self.assertEqual(log2.comment, 'An exercise')
         self.assertEqual(log2.replaced_by, None)
 
         # Second translation
         log3 = DeletionLog.objects.get(pk=5)
-        self.assertEqual(log3.model_type, 'translation')
+        self.assertEqual(log3.model_type, DeletionLog.MODEL_TRANSLATION)
         self.assertEqual(log3.uuid, UUID('13b532f9-d208-462e-a000-7b9982b2b53e'))
         self.assertEqual(log3.comment, 'Test exercise 123')
         self.assertEqual(log3.replaced_by, None)
 
-    def test_base_with_replaced_by(self):
+    def test_exercise_with_replaced_by(self):
         """
-        Test that an entry is generated when a base is deleted and the replaced by is
+        Test that an entry is generated when a exercise is deleted and the replaced by is
         set correctly
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.delete(replace_by='ae3328ba-9a35-4731-bc23-5da50720c5aa')
 
-        # Base is deleted
+        # Exercise is deleted
         log = DeletionLog.objects.get(pk=1)
 
-        self.assertEqual(log.model_type, 'base')
+        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
         self.assertEqual(log.uuid, exercise.uuid)
         self.assertEqual(log.replaced_by, UUID('ae3328ba-9a35-4731-bc23-5da50720c5aa'))
 
-    def test_base_with_nonexistent_replaced_by(self):
+    def test_exercise_with_nonexistent_replaced_by(self):
         """
-        Test that an entry is generated when a base is deleted and the replaced by is
+        Test that an entry is generated when an exercise is deleted and the replaced by is
         set correctly. If the UUID is not found in the DB, it's set to None
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.delete(replace_by='12345678-1234-1234-1234-1234567890ab')
 
-        # Base is deleted
+        # Exercise is deleted
         log = DeletionLog.objects.get(pk=1)
 
-        self.assertEqual(log.model_type, 'base')
+        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
         self.assertEqual(log.replaced_by, None)
 
     def test_translation(self):
@@ -108,11 +108,12 @@ class DeletionLogTestCase(WgerTestCase):
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         translation.delete()
 
         # Translation is deleted
         count = DeletionLog.objects.filter(
-            model_type=DeletionLog.MODEL_TRANSLATION, uuid=translation.uuid
+            model_type=DeletionLog.MODEL_TRANSLATION,
+            uuid=translation.uuid,
         ).count()
         self.assertEqual(count, 1)

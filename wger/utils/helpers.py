@@ -22,20 +22,17 @@ import logging
 import os
 import random
 import string
+from decimal import Decimal
 from functools import wraps
 
 # Django
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
-from django.utils.http import (
-    urlsafe_base64_decode,
-    urlsafe_base64_encode,
-)
+from django.utils.http import urlsafe_base64_encode
 
 
 logger = logging.getLogger(__name__)
@@ -91,71 +88,12 @@ def disable_for_loaddata(signal_handler):
     return wrapper
 
 
-def next_weekday(date, weekday):
-    """
-    Helper function to find the next weekday after a given date,
-    e.g. the first Monday after the 2013-12-05
-
-    See link for more details:
-    * http://stackoverflow.com/questions/6558535/python-find-the-date-for-the-first-monday-after-a
-
-    :param date: the start date
-    :param weekday: weekday (0, Monday, 1 Tuesday, 2 Wednesday)
-    :type date: datetime.date
-    :type weekday int
-    :return: datetime.date
-    """
-    days_ahead = weekday - date.weekday()
-    if days_ahead <= 0:
-        days_ahead += 7
-    return date + datetime.timedelta(days_ahead)
-
-
 def make_uid(input):
     """
     Small wrapper to generate a UID, usually used in URLs to allow for
     anonymous access
     """
     return urlsafe_base64_encode(force_bytes(input))
-
-
-def make_token(user):
-    """
-    Convenience function that generates the UID and token for a user
-
-    :param user: a user object
-    :return: the uid and the token
-    """
-    uid = make_uid(user.pk)
-    token = default_token_generator.make_token(user)
-
-    return uid, token
-
-
-def check_token(uidb64, token):
-    """
-    Checks that the user token is correct.
-
-    :param uidb:
-    :param token:
-    :return: True on success, False in all other situations
-    """
-    if uidb64 is not None and token is not None:
-        try:
-            uid = int(urlsafe_base64_decode(uidb64))
-        except ValueError as e:
-            logger.info(f'Could not decode UID: {e}')
-            return False
-
-        try:
-            user = User.objects.get(pk=uid)
-            if user is not None and default_token_generator.check_token(user, token):
-                return True
-
-        except User.DoesNotExist:
-            return False
-
-    return False
 
 
 def password_generator(length=15):
@@ -203,7 +141,7 @@ def check_access(request_user, username=None):
     return is_owner, user
 
 
-def normalize_decimal(d):
+def normalize_decimal(d: Decimal):
     """
     Normalizes a decimal input
 
@@ -214,10 +152,13 @@ def normalize_decimal(d):
     :param d: decimal to convert
     :return: normalized decimal
     """
+    if not d:
+        return d
+
     normalized = d.normalize()
     sign, digits, exponent = normalized.as_tuple()
     if exponent > 0:
-        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
+        return Decimal((sign, digits + (0,) * exponent, 0))
     else:
         return normalized
 

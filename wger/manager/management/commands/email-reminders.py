@@ -26,7 +26,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import UserProfile
-from wger.manager.models import Schedule
+from wger.manager.models import Routine
 
 
 class Command(BaseCommand):
@@ -42,84 +42,56 @@ class Command(BaseCommand):
         """
         profile_list = UserProfile.objects.filter(workout_reminder_active=True)
         counter = 0
+        today = datetime.date.today()
+
         for profile in profile_list:
-            # Only continue if the user has provided an email address.
-            # Checking it here so we check for NULL values and emtpy strings
             if not profile.user.email:
                 continue
 
-            # Check if we already notified the user and update the profile otherwise
-            if profile.last_workout_notification and (
-                datetime.date.today() - profile.last_workout_notification
-                < datetime.timedelta(weeks=1)
-            ):
+            routine = Routine.objects.filter(user=profile.user).last()
+            if not routine:
                 continue
 
-            (current_workout, schedule) = Schedule.objects.get_current_workout(profile.user)
+            delta = routine.end - datetime.date.today()
 
-            # No schedules, use the default workout length in user profile
-            if not schedule and current_workout:
-                delta = (
-                    current_workout.creation_date
-                    + datetime.timedelta(weeks=profile.workout_duration)
-                    - datetime.date.today()
-                )
+            if delta.days < 0:
+                # Skip if notified this week:
+                if profile.last_workout_notification and (
+                    today - profile.last_workout_notification < datetime.timedelta(weeks=1)
+                ):
+                    continue
 
-                if datetime.timedelta(days=profile.workout_reminder) > delta:
-                    if int(options['verbosity']) >= 3:
-                        self.stdout.write(f"* Workout '{current_workout}' overdue")
-                    counter += 1
+                if int(options['verbosity']) >= 3:
+                    self.stdout.write(f"* Routine '{routine}' overdue")
 
-                    self.send_email(
-                        profile.user,
-                        current_workout,
-                        delta,
-                    )
-
-            # non-loop schedule, take the step's duration
-            elif schedule and not schedule.is_loop:
-                schedule_step = schedule.get_current_scheduled_workout()
-
-                # Only notify if the step is the last one in the schedule
-                if schedule_step == schedule.schedulestep_set.last():
-                    delta = schedule.get_end_date() - datetime.date.today()
-                    if datetime.timedelta(days=profile.workout_reminder) > delta:
-                        if int(options['verbosity']) >= 3:
-                            self.stdout.write(
-                                f"* Workout '{schedule_step.workout}' overdue - schedule"
-                            )
-
-                        counter += 1
-                        self.send_email(profile.user, current_workout, delta)
+                self.send_email(profile.user, routine, delta)
+                profile.last_workout_notification = today
+                profile.save()
 
         if counter and int(options['verbosity']) >= 2:
             self.stdout.write(f'Sent {counter} email reminders')
 
     @staticmethod
-    def send_email(user, workout, delta):
+    def send_email(user, routine: Routine, delta: datetime.timedelta):
         """
         Notify a user that a workout is about to expire
-
-        :type user User
-        :type workout Workout
-        :type delta datetime.timedelta
         """
-
-        # Update the last notification date field
-        user.userprofile.last_workout_notification = datetime.date.today()
-        user.userprofile.save()
 
         # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)
         context = {
             'site': Site.objects.get_current(),
-            'workout': workout,
-            'expired': True if delta.days < 0 else False,
+            'routine': routine,
+            'expired': delta.days < 0,
             'days': abs(delta.days),
         }
 
-        subject = _('Workout will expire soon')
-        message = loader.render_to_string('workout/email_reminder.tpl', context)
+        subject = _('Routine will expire soon')
+        message = loader.render_to_string('routines/email_reminder.tpl', context)
         mail.send_mail(
-            subject, message, settings.WGER_SETTINGS['EMAIL_FROM'], [user.email], fail_silently=True
+            subject,
+            message,
+            settings.WGER_SETTINGS['EMAIL_FROM'],
+            [user.email],
+            fail_silently=True,
         )

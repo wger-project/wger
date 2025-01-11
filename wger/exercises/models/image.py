@@ -26,7 +26,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.helpers import BaseImage
 from wger.utils.models import (
@@ -70,7 +70,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     """Globally unique ID, to identify the image across installations"""
 
     exercise_base = models.ForeignKey(
-        ExerciseBase,
+        Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
@@ -187,7 +187,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     @classmethod
     def from_json(
         cls,
-        connect_to: ExerciseBase,
+        connect_to: Exercise,
         retrieved_image,
         json_data: dict,
         generate_uuid: bool = False,

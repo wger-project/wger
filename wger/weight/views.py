@@ -26,7 +26,6 @@ from django.http import (
     HttpResponse,
     HttpResponseRedirect,
 )
-from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
@@ -46,7 +45,6 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
 )
-from wger.utils.helpers import check_access
 from wger.weight import helpers
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
