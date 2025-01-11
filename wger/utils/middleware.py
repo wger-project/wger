@@ -22,6 +22,7 @@ import logging
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth import login as django_login
+from django.contrib.auth.models import User
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import SimpleLazyObject
 
@@ -62,8 +63,25 @@ def get_user(request):
         if not request.session.get('has_demo_data'):
             request.session['has_demo_data'] = False
 
+        # if auth proxy header is setup, then create the user
+        # as authentication has already happened.
+        auth_proxy_header = settings.WGER_SETTINGS.get("AUTH_PROXY_HEADER")
+        if auth_proxy_header:
+            auth_proxy_header_django = "HTTP_" + auth_proxy_header.replace("-", "_").upper()
+            username = request.META.get(auth_proxy_header_django)
+            logger.debug(f'using auth_proxy_header "{auth_proxy_header}" got username "{username}"')
+
+            if username:
+                user_query = User.objects.filter(username=username)
+                if user_query.exists():
+                    user = user_query.first()
+                else:
+                    user = User.objects.create_user(username)
+                    user.save()
+
+                django_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         # Django didn't find a user, so create one now
-        if (
+        elif (
             settings.WGER_SETTINGS['ALLOW_GUEST_USERS']
             and request.method == 'GET'
             and create_user
