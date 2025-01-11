@@ -23,6 +23,7 @@ from django.core.validators import URLValidator
 
 # wger
 from wger.nutrition.sync import sync_ingredients
+from wger.utils.validators import validate_language_code
 
 
 class Command(BaseCommand):
@@ -62,6 +63,11 @@ class Command(BaseCommand):
             self.remote_url = remote_url
         except ValidationError:
             raise CommandError('Please enter a valid URL')
-        self.languages = languages
+        try:
+            self.languages = languages
+            for language in self.languages.split(','):
+                validate_language_code(language)
+        except ValidationError as e:
+            raise CommandError('\n'.join([str(arg) for arg in e.args if arg is not None]))
 
         sync_ingredients(self.stdout.write, self.remote_url, self.languages, self.style.SUCCESS)
