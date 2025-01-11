@@ -88,7 +88,7 @@ def sync_exercises(
             uuid=uuid,
             defaults={'category_id': category_id, 'created': created},
         )
-        print_fn(f"{'created' if base_created else 'updated'} exercise {uuid}")
+        print_fn(f'{"created" if base_created else "updated"} exercise {uuid}')
 
         base.muscles.set(muscles)
         base.muscles_secondary.set(muscles_sec)
@@ -113,8 +113,8 @@ def sync_exercises(
                 },
             )
             out = (
-                f"- {'created' if translation_created else 'updated'} translation "
-                f"{translation.language.short_name} {trans_uuid} - {name}"
+                f'- {"created" if translation_created else "updated"} translation '
+                f'{translation.language.short_name} {trans_uuid} - {name}'
             )
             print_fn(out)
 
@@ -344,7 +344,7 @@ def handle_deleted_entries(
             try:
                 obj = Exercise.objects.get(uuid=uuid)
                 obj.delete()
-                print_fn(f"Deleted translation {uuid} ({data['comment']})")
+                print_fn(f'Deleted translation {uuid} ({data["comment"]})')
             except Exercise.DoesNotExist:
                 pass
 

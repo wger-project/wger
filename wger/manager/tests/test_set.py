@@ -483,7 +483,7 @@ class SetSmartReprTestCase(WgerTestCase):
         setting_text = set_obj.reps_smart_text(ExerciseBase.objects.get(pk=1))
         self.assertEqual(
             setting_text,
-            '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – ' '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)',
+            '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – 10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)',
         )
 
     def test_synthetic_settings(self):

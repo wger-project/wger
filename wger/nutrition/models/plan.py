@@ -66,7 +66,7 @@ class NutritionPlan(models.Model):
         blank=True,
         verbose_name=_('Description'),
         help_text=_(
-            'A description of the goal of the plan, e.g. ' '"Gain mass" or "Prepare for summer"'
+            'A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"'
         ),
     )
 

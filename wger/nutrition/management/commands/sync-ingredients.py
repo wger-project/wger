@@ -23,6 +23,7 @@ from django.core.validators import URLValidator
 
 # wger
 from wger.nutrition.sync import sync_ingredients
+from wger.utils.validators import validate_language_code
 
 
 class Command(BaseCommand):
@@ -43,9 +44,18 @@ class Command(BaseCommand):
             help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
             f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
         )
+        parser.add_argument(
+            '-l',
+            '--languages',
+            action='store',
+            dest='languages',
+            default=None,
+            help='Specify a comma-separated subset of languages to sync. Example: en,fr,es',
+        )
 
     def handle(self, **options):
         remote_url = options['remote_url']
+        languages = options['languages']
 
         try:
             val = URLValidator()
@@ -53,5 +63,12 @@ class Command(BaseCommand):
             self.remote_url = remote_url
         except ValidationError:
             raise CommandError('Please enter a valid URL')
+        try:
+            self.languages = languages
+            if self.languages is not None:
+                for language in self.languages.split(','):
+                    validate_language_code(language)
+        except ValidationError as e:
+            raise CommandError('\n'.join([str(arg) for arg in e.args if arg is not None]))
 
-        sync_ingredients(self.stdout.write, self.remote_url, self.style.SUCCESS)
+        sync_ingredients(self.stdout.write, self.remote_url, self.languages, self.style.SUCCESS)
