@@ -221,7 +221,7 @@ def download_ingredient_images(
 def sync_ingredients(
     print_fn,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
-    languages: Optional[str] = None,
+    language_codes: Optional[str] = None,
     style_fn=lambda x: x,
 ):
     """Synchronize the ingredients from the remote server"""
@@ -265,16 +265,17 @@ def sync_ingredients(
 
     print_fn('*** Synchronizing ingredients...')
 
-    if languages is not None:
-        language_ids: List[str] = []
-        language_codes: List[str] = languages.split(',')
-        for language_code in language_codes:
+    if language_codes is not None:
+        language_ids: List[int] = []
+        for code in language_codes.split(','):
+            # Leaving the try except in here even though we've already validated on the sync-ingredients command itself.
+            # This is in case we ever want to re-use this function for anything else where user can input language codes.
             try:
-                lang = load_language(language_code, default_to_english=False)
+                lang = load_language(code, default_to_english=False)
                 language_ids.append(lang.id)
             except Language.DoesNotExist as e:
                 print_fn(
-                    f'Error: The language code you provided ("{language_code}") does not exist in this database. Please try again.'
+                    f'Error: The language code you provided ("{code}") does not exist in this database. Please try again.'
                 )
                 return 0
 
