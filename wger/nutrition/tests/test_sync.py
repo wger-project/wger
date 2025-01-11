@@ -101,9 +101,9 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ingredient.code, '1234567890987654321')
 
         # Act
-        sync_ingredients(lambda x: x)
+        sync_ingredients(lambda x: x, language_codes='en')
         mock_request.assert_called_with(
-            'https://wger.de/api/v2/ingredient/?limit=999',
+            'https://wger.de/api/v2/ingredient/?limit=999&language=2',
             headers=wger_headers(),
         )
 
