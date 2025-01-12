@@ -19,6 +19,7 @@ from random import (
     randint,
 )
 
+from celery import shared_task
 # Django
 from django.conf import settings
 from django.core.management import call_command
@@ -58,7 +59,7 @@ def fetch_all_ingredient_images_task():
     download_ingredient_images(logger.info)
 
 
-@app.task
+@shared_task
 def sync_all_ingredients_task():
     """
     Fetches the current ingredients from the default wger instance
