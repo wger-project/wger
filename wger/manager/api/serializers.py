@@ -88,6 +88,7 @@ class BaseConfigSerializer(serializers.ModelSerializer):
     requirements = serializers.JSONField(
         validators=[validate_requirements],
         allow_null=True,
+        required=False
     )
 
 
