@@ -184,6 +184,22 @@ class WorkoutLog(models.Model):
     Target Reps in Reserve
     """
 
+    rest = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+    """
+    Logged rest time
+    """
+
+    rest_target = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+    """
+    Target rest time
+    """
+
     # Metaclass to set some other properties
     class Meta:
         ordering = ['date', 'reps']

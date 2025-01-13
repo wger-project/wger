@@ -429,6 +429,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'date',
             'session',
             'routine',
+            'iteration',
             'slot_entry',
             'next_log',
             'exercise',
@@ -440,7 +441,8 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'weight_target',
             'rir',
             'rir_target',
-            'iteration',
+            'rest',
+            'rest_target'
         ]
 
 

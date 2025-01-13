@@ -147,6 +147,16 @@ class Migration(migrations.Migration):
                 verbose_name='Weight',
             ),
         ),
+        migrations.AddField(
+            model_name="workoutlog",
+            name="rest",
+            field=models.PositiveIntegerField(blank=True, null=True),
+        ),
+        migrations.AddField(
+            model_name="workoutlog",
+            name="rest_target",
+            field=models.PositiveIntegerField(blank=True, null=True),
+        ),
         migrations.AlterField(
             model_name='workoutsession',
             name='date',
