@@ -58,7 +58,6 @@ def create_demo_entries(user):
     )
     call_command(
         'dummy-generator-workout-diary',
-        '--diary-entries=5',
         f'--user-id={user.id}',
     )
     call_command(
