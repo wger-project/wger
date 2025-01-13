@@ -88,7 +88,7 @@ class BaseConfigSerializer(serializers.ModelSerializer):
     requirements = serializers.JSONField(
         validators=[validate_requirements],
         allow_null=True,
-        required=False
+        required=False,
     )
 
 
@@ -443,7 +443,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rir',
             'rir_target',
             'rest',
-            'rest_target'
+            'rest_target',
         ]
 
 

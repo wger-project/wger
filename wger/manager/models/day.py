@@ -108,7 +108,6 @@ class Day(models.Model):
         return self.description
 
     def save(self, *args, **kwargs):
-
         # Rest days have no exercises
         if self.pk and self.is_rest:
             for slot in self.slots.all():

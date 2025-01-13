@@ -220,8 +220,8 @@ class RoutineLogData:
 
 
 def round_value(
-        x: int | float | Decimal | None,
-        base: int | float | Decimal | None = None,
+    x: int | float | Decimal | None,
+    base: int | float | Decimal | None = None,
 ) -> Decimal | None:
     """
     Rounds a value to the nearest base

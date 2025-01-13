@@ -67,8 +67,7 @@ def get_calendar():
 def get_events_workout(calendar, routine: Routine):
     """
     Creates all necessary events from the given workout and adds them to
-    the calendar. Each event's occurrence ist set to weekly (one event for
-    each training day).
+    the calendar.
     """
 
     generator = UIDGenerator()
@@ -96,6 +95,7 @@ def export(request, pk):
 
     if request.user.is_anonymous:
         return HttpResponseForbidden()
+
     routine = get_object_or_404(Routine, pk=pk, user=request.user)
 
     # Create the calendar

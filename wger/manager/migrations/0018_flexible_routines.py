@@ -148,13 +148,13 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AddField(
-            model_name="workoutlog",
-            name="rest",
+            model_name='workoutlog',
+            name='rest',
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name="workoutlog",
-            name="rest_target",
+            model_name='workoutlog',
+            name='rest_target',
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
         migrations.AlterField(

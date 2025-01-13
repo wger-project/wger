@@ -305,12 +305,12 @@ class Routine(models.Model):
         intensity_counter = GroupedLogData()
 
         def update_grouped_log_data(
-                entry: GroupedLogData,
-                date: datetime.date,
-                week_nr: int,
-                iter: int,
-                exercise: Exercise,
-                value: Decimal | int,
+            entry: GroupedLogData,
+            date: datetime.date,
+            week_nr: int,
+            iter: int,
+            exercise: Exercise,
+            value: Decimal | int,
         ):
             """
             Updates grouped log data
