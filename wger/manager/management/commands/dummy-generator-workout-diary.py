@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 import logging
 import random
 
@@ -22,6 +21,7 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 # wger
+from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
     Routine,
     WorkoutLog,
@@ -40,14 +40,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--diary-entries',
-            action='store',
-            default=5,
-            dest='nr_diary_entries',
-            type=int,
-            help='The number of workout logs to create per day (default: 5)',
-        )
-        parser.add_argument(
             '--user-id',
             action='store',
             dest='user_id',
@@ -56,33 +48,63 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f"** Generating {options['nr_diary_entries']} dummy diary entries")
+        self.stdout.write(f'** Generating dummy workout log entries')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
         )
 
-        weight_log = []
         for user in users:
             self.stdout.write(f'- processing user {user.username}')
 
-            # Create a log for each workout day, set, setting, reps, weight, date
             for routine in Routine.objects.filter(user=user):
-                for day in routine.days.all():
-                    for slot in day.slots.all():
-                        for entry in slot.entries.all():
-                            for reps in (8, 10, 12):
-                                for i in range(options['nr_diary_entries']):
-                                    date = datetime.date.today() - datetime.timedelta(weeks=i)
-                                    log = WorkoutLog(
-                                        user=user,
-                                        exercise=entry.exercise,
-                                        routine=routine,
-                                        reps=reps,
-                                        weight=50 - reps + random.randint(1, 30),
-                                        date=date,
-                                    )
-                                    weight_log.append(log)
+                for day_data in routine.date_sequence:
+                    if day_data.day is None:
+                        continue
 
-        # Bulk-create the logs
-        WorkoutLog.objects.bulk_create(weight_log)
+                    for slot_data in day_data.day.get_slots_gym_mode(day_data.iteration):
+                        for exercise_id in slot_data.exercises:
+                            for set_data in slot_data.sets:
+                                reps = (
+                                    set_data.reps + random.randint(-1, 2)
+                                    if set_data.reps
+                                    else random.randint(3, 12)
+                                )
+                                weight = (
+                                    set_data.weight + random.randint(-4, 10)
+                                    if set_data.weight
+                                    else random.randint(30, 50)
+                                )
+                                rir = (
+                                    set_data.rir + random.randint(0, 1)
+                                    if set_data.rir
+                                    else random.choice(RIR_OPTIONS)[0]
+                                )
+
+                                rest = (
+                                    set_data.rest + random.randint(-10, 40)
+                                    if set_data.rest
+                                    else random.randint(120, 180)
+                                )
+
+                                # Note that we directly save each entry because we need to set the
+                                # session and that happens in the save method which is not called
+                                # when using WorkoutLog.objects.bulk_create
+                                WorkoutLog(
+                                    slot_entry_id=set_data.slot_entry_id,
+                                    iteration=day_data.iteration,
+                                    user=user,
+                                    exercise_id=exercise_id,
+                                    routine=routine,
+                                    reps=reps,
+                                    reps_target=set_data.reps,
+                                    repetition_unit_id=set_data.reps_unit,
+                                    weight=weight,
+                                    weight_target=set_data.weight,
+                                    weight_unit_id=set_data.weight_unit,
+                                    date=day_data.date,
+                                    rir=rir,
+                                    rir_target=set_data.rir,
+                                    rest=rest,
+                                    rest_target=set_data.rest,
+                                ).save()
