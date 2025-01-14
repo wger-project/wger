@@ -27,6 +27,7 @@ from wger.manager.models import (
     WorkoutLog,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

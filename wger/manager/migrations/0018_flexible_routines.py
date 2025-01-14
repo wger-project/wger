@@ -84,7 +84,6 @@ class Migration(migrations.Migration):
                 'ordering': ['order'],
             },
         ),
-
         #
         # Workout log changes
         #
@@ -112,7 +111,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workoutlog',
             name='repetitions_target',
-            field=models.IntegerField(
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                max_digits=5,
                 null=True,
                 validators=[wger.manager.validators.NullMinValueValidator(0)],
                 verbose_name='Repetitions',
@@ -123,10 +125,32 @@ class Migration(migrations.Migration):
             old_name='reps',
             new_name='repetitions',
         ),
+        migrations.AlterField(
+            model_name='workoutlog',
+            name='repetitions',
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                max_digits=5,
+                null=True,
+                validators=[wger.manager.validators.NullMinValueValidator(0)],
+            ),
+        ),
+        migrations.AlterField(
+            model_name='workoutlog',
+            name='weight',
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                max_digits=5,
+                null=True,
+                validators=[wger.manager.validators.NullMinValueValidator(0)],
+            ),
+        ),
         migrations.RenameField(
-            model_name="workoutlog",
-            old_name="repetition_unit",
-            new_name="repetitions_unit",
+            model_name='workoutlog',
+            old_name='repetition_unit',
+            new_name='repetitions_unit',
         ),
         migrations.AddField(
             model_name='workoutlog',
@@ -154,6 +178,7 @@ class Migration(migrations.Migration):
             model_name='workoutlog',
             name='weight_target',
             field=models.DecimalField(
+                blank=True,
                 decimal_places=2,
                 max_digits=5,
                 null=True,
@@ -172,10 +197,9 @@ class Migration(migrations.Migration):
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
         migrations.AlterModelOptions(
-            name="workoutlog",
-            options={"ordering": ["date", "repetitions", "weight"]},
+            name='workoutlog',
+            options={'ordering': ['date', 'repetitions', 'weight']},
         ),
-
         migrations.AlterField(
             model_name='workoutsession',
             name='date',

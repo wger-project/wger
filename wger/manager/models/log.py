@@ -19,6 +19,7 @@ import datetime
 
 # Django
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -29,7 +30,11 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import Exercise
-from wger.manager.consts import RIR_OPTIONS
+from wger.manager.consts import (
+    ID_UNIT_KG,
+    ID_UNIT_REPS,
+    RIR_OPTIONS,
+)
 from wger.manager.managers import WorkoutLogManager
 from wger.manager.models.session import WorkoutSession
 from wger.manager.validators import NullMinValueValidator
@@ -106,25 +111,31 @@ class WorkoutLog(models.Model):
     repetitions_unit = models.ForeignKey(
         RepetitionUnit,
         verbose_name=_('Unit'),
-        default=1,
+        default=ID_UNIT_REPS,
         on_delete=models.CASCADE,
     )
     """
     The repetition unit of the log. This can be e.g. a repetition, a minute, etc.
     """
 
-    repetitions = models.IntegerField(
-        verbose_name=_('Repetitions'),
-        validators=[MinValueValidator(0)],
+    repetitions = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        validators=[NullMinValueValidator(0)],
+        blank=True,
+        null=True,
     )
     """
     Logged amount of repetitions
     """
 
-    repetitions_target = models.IntegerField(
+    repetitions_target = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
         verbose_name=_('Repetitions'),
         validators=[NullMinValueValidator(0)],
         null=True,
+        blank=True,
     )
     """
     Target amount of repetitions
@@ -133,7 +144,7 @@ class WorkoutLog(models.Model):
     weight_unit = models.ForeignKey(
         WeightUnit,
         verbose_name=_('Unit'),
-        default=1,
+        default=ID_UNIT_KG,
         on_delete=models.CASCADE,
     )
     """
@@ -141,21 +152,23 @@ class WorkoutLog(models.Model):
     """
 
     weight = models.DecimalField(
-        decimal_places=2,
         max_digits=5,
-        verbose_name=_('Weight'),
-        validators=[MinValueValidator(0)],
+        decimal_places=2,
+        validators=[NullMinValueValidator(0)],
+        blank=True,
+        null=True,
     )
     """
     Logged amount of weight
     """
 
     weight_target = models.DecimalField(
-        decimal_places=2,
         max_digits=5,
+        decimal_places=2,
         verbose_name=_('Weight'),
         validators=[NullMinValueValidator(0)],
         null=True,
+        blank=True,
     )
     """
     Target amount of weight
@@ -216,10 +229,16 @@ class WorkoutLog(models.Model):
         """
         return self
 
+    def clean(self):
+        super().clean()
+        if self.repetitions is None and self.weight is None:
+            raise ValidationError('Both repetitions and weight cannot be null at the same time.')
+
     def save(self, *args, **kwargs):
         """
         Plumbing
         """
+        self.clean()
 
         # If the routine does not belong to this user, do not save
         if self.routine and self.routine.user != self.user:
