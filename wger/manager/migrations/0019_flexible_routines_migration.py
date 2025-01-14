@@ -157,6 +157,7 @@ def migrate_logs(apps, workout_to_routine: dict[int, Any]) -> None:
     Session = apps.get_model('manager', 'WorkoutSession')
 
     for log in Log.objects.all():
+        pass
         if not log.workout:
             continue
 
@@ -168,7 +169,6 @@ def migrate_logs(apps, workout_to_routine: dict[int, Any]) -> None:
                 'workout': log.workout,
             },
         )
-
         log.routine = workout_to_routine[log.workout.id]
         log.session = session
         log.save()

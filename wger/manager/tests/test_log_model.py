@@ -22,7 +22,6 @@ from wger.manager.models import (
     WorkoutSession,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -45,7 +44,7 @@ class LogModelTestCase(WgerTestCase):
             user_id=1,
             exercise_id=1,
             weight=10,
-            reps=10,
+            repetitions=10,
         ).save()
 
         self.assertEqual(WorkoutSession.objects.count(), 1)

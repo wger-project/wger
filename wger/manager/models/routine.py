@@ -305,12 +305,12 @@ class Routine(models.Model):
         intensity_counter = GroupedLogData()
 
         def update_grouped_log_data(
-            entry: GroupedLogData,
-            date: datetime.date,
-            week_nr: int,
-            iter: int,
-            exercise: Exercise,
-            value: Decimal | int,
+                entry: GroupedLogData,
+                date: datetime.date,
+                week_nr: int,
+                iter: int,
+                exercise: Exercise,
+                value: Decimal | int,
         ):
             """
             Updates grouped log data
@@ -433,7 +433,7 @@ class Routine(models.Model):
             for log in session.logs.kg().reps():
                 exercise = log.exercise
                 weight = log.weight
-                reps = log.reps
+                reps = log.repetitions
                 iteration = log.iteration
                 exercise_volume = weight * reps
 

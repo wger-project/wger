@@ -265,7 +265,7 @@ class SlotEntry(models.Model):
                 # If any of the entries in last log is greater than the last config data,
                 # proceed. Otherwise, the weight won't change
                 for log in log_data:
-                    if log.weight >= weight and log.reps >= reps:
+                    if log.weight >= weight and log.repetitions >= reps:
                         max_iter_weight = i
                         max_iter_max_weight = i
                         max_iter_reps = i

@@ -103,7 +103,7 @@ class WorkoutLog(models.Model):
         null=True,
     )
 
-    repetition_unit = models.ForeignKey(
+    repetitions_unit = models.ForeignKey(
         RepetitionUnit,
         verbose_name=_('Unit'),
         default=1,
@@ -113,7 +113,7 @@ class WorkoutLog(models.Model):
     The repetition unit of the log. This can be e.g. a repetition, a minute, etc.
     """
 
-    reps = models.IntegerField(
+    repetitions = models.IntegerField(
         verbose_name=_('Repetitions'),
         validators=[MinValueValidator(0)],
     )
@@ -121,7 +121,7 @@ class WorkoutLog(models.Model):
     Logged amount of repetitions
     """
 
-    reps_target = models.IntegerField(
+    repetitions_target = models.IntegerField(
         verbose_name=_('Repetitions'),
         validators=[NullMinValueValidator(0)],
         null=True,
@@ -202,7 +202,7 @@ class WorkoutLog(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        ordering = ['date', 'reps']
+        ordering = ['date', 'repetitions', 'weight']
 
     def __str__(self):
         """
@@ -246,7 +246,7 @@ class WorkoutLog(models.Model):
 
         # If the user selected "Until Failure", do only 1 "repetition",
         # anything else doesn't make sense.
-        if self.repetition_unit == 2:
+        if self.repetitions_unit == 2:
             self.reps = 1
 
         # Save to db

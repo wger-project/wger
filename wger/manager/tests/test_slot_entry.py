@@ -159,7 +159,7 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=2,
             weight=82.5,
-            reps=4,
+            repetitions=4,
         ).save()
 
         # Did 5x82.5 at iteration 3
@@ -170,7 +170,7 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=3,
             weight=82.5,
-            reps=5,
+            repetitions=5,
         ).save()
 
         self.assertEqual(
@@ -296,7 +296,7 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=2,
             weight=82.5,
-            reps=4,
+            repetitions=4,
         ).save()
 
         # 5x80 at iteration 3
@@ -307,7 +307,7 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=3,
             weight=80,
-            reps=5,
+            repetitions=5,
         ).save()
 
         self.assertEqual(

@@ -6,7 +6,7 @@
       "routine": 1,
       "session": 1,
       "weight": 30,
-      "reps": 8,
+      "repetitions": 8,
       "user": 1,
       "date": "2025-10-01T00:00:00+01:00",
       "exercise": 1
@@ -19,7 +19,7 @@
       "routine": 1,
       "session": 2,
       "weight": 32,
-      "reps": 8,
+      "repetitions": 8,
       "user": 1,
       "date": "2025-10-20T00:00:00+01:00",
       "exercise": 1
@@ -32,7 +32,7 @@
       "routine": 1,
       "session": 3,
       "weight": 38,
-      "reps": 8,
+      "repetitions": 8,
       "user": 1,
       "date": "2025-10-30T00:00:00+01:00",
       "exercise": 1
@@ -45,7 +45,7 @@
       "routine": 1,
       "session": 4,
       "weight": 30,
-      "reps": 8,
+      "repetitions": 8,
       "user": 1,
       "date": "2025-11-01T00:00:00+01:00",
       "exercise": 1
@@ -58,7 +58,7 @@
       "weight": 30,
       "session": 5,
       "routine": 5,
-      "reps": 8,
+      "repetitions": 8,
       "user": 2,
       "date": "2025-11-01T00:00:00+01:00",
       "exercise": 2

@@ -228,9 +228,9 @@ class DayModelTestCase(WgerTestCase):
         WorkoutLog.objects.create(
             date=datetime.datetime.now(),
             weight_unit_id=1,
-            repetition_unit_id=1,
+            repetitions_unit_id=1,
             user=day.routine.user,
-            reps=1,
+            repetitions=1,
             weight=1,
             exercise_id=1,
         )

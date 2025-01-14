@@ -27,7 +27,6 @@ from wger.manager.models import (
     WorkoutLog,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -96,9 +95,9 @@ class Command(BaseCommand):
                                     user=user,
                                     exercise_id=exercise_id,
                                     routine=routine,
-                                    reps=reps,
-                                    reps_target=set_data.reps,
-                                    repetition_unit_id=set_data.reps_unit,
+                                    repetitions=reps,
+                                    repetitions_target=set_data.reps,
+                                    repetitions_unit_id=set_data.reps_unit,
                                     weight=weight,
                                     weight_target=set_data.weight,
                                     weight_unit_id=set_data.weight_unit,

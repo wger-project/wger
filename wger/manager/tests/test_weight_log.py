@@ -20,7 +20,6 @@ import logging
 from wger.core.tests import api_base_test
 from wger.manager.models import WorkoutLog
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -35,8 +34,8 @@ class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     data = {
         'exercise': 1,
         'routine': 3,
-        'reps': 3,
-        'repetition_unit': 1,
+        'repetitions': 3,
+        'repetitions_unit': 1,
         'weight_unit': 2,
         'weight': 2,
         'date': datetime.date.today(),

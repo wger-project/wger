@@ -36,7 +36,7 @@ class WorkoutLogQuerySet(models.QuerySet):
 
     def reps(self):
         """Return all entries with reps as unit"""
-        return self.filter(repetition_unit_id=ID_UNIT_REPS)
+        return self.filter(repetitions_unit_id=ID_UNIT_REPS)
 
 
 class WorkoutLogManager(models.Manager):

@@ -84,6 +84,10 @@ class Migration(migrations.Migration):
                 'ordering': ['order'],
             },
         ),
+
+        #
+        # Workout log changes
+        #
         migrations.AddField(
             model_name='workoutlog',
             name='iteration',
@@ -107,12 +111,22 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='workoutlog',
-            name='reps_target',
+            name='repetitions_target',
             field=models.IntegerField(
                 null=True,
                 validators=[wger.manager.validators.NullMinValueValidator(0)],
                 verbose_name='Repetitions',
             ),
+        ),
+        migrations.RenameField(
+            model_name='workoutlog',
+            old_name='reps',
+            new_name='repetitions',
+        ),
+        migrations.RenameField(
+            model_name="workoutlog",
+            old_name="repetition_unit",
+            new_name="repetitions_unit",
         ),
         migrations.AddField(
             model_name='workoutlog',
@@ -157,6 +171,11 @@ class Migration(migrations.Migration):
             name='rest_target',
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
+        migrations.AlterModelOptions(
+            name="workoutlog",
+            options={"ordering": ["date", "repetitions", "weight"]},
+        ),
+
         migrations.AlterField(
             model_name='workoutsession',
             name='date',
