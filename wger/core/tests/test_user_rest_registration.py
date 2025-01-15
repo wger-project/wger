@@ -11,7 +11,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
-    HTTP_403_FORBIDDEN,
 )
 
 # wger

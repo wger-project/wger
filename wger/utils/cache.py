@@ -31,10 +31,6 @@ def delete_template_fragment_cache(fragment_name='', vary_on=None):
     cache.delete(make_template_fragment_key(fragment_name, out))
 
 
-def reset_workout_canonical_form(workout_id):
-    cache.delete(cache_mapper.get_workout_canonical(workout_id))
-
-
 def reset_exercise_api_cache(uuid: str):
     cache.delete(CacheKeyMapper.get_exercise_api_key(uuid))
 
@@ -56,13 +52,16 @@ class CacheKeyMapper:
     Simple class for mapping the cache keys of different objects
     """
 
-    # Keys used by the cache
     LANGUAGE_CACHE_KEY = 'language-{0}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
-    WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
     WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
     NUTRITION_CACHE_KEY = 'nutrition-cache-log-{0}'
     EXERCISE_API_KEY = 'base-uuid-{0}'
+    ROUTINE_DATE_SEQUENCE_KEY = 'routine-date-sequence-{0}'
+    ROUTINE_API_DATE_SEQUENCE_DISPLAY_KEY = 'routine-api-date-sequence-display-{0}'
+    ROUTINE_API_CURRENT_ITERATION_DISPLAY_KEY = 'routine-api-current-iteration-sequence-display-{0}'
+    ROUTINE_API_STATS_KEY = 'routine-api-stats-{0}'
+    ROUTINE_API_STRUCTURE_KEY = 'routine-api-structure-{0}'
 
     def get_pk(self, param):
         """
@@ -82,12 +81,6 @@ class CacheKeyMapper:
         """
         return self.INGREDIENT_CACHE_KEY.format(self.get_pk(param))
 
-    def get_workout_canonical(self, param):
-        """
-        Return the workout canonical representation
-        """
-        return self.WORKOUT_CANONICAL_REPRESENTATION.format(self.get_pk(param))
-
     def get_workout_log_list(self, hash_value):
         """
         Return the workout canonical representation
@@ -106,6 +99,26 @@ class CacheKeyMapper:
         get the exercise base cache key used in the API
         """
         return cls.EXERCISE_API_KEY.format(base_uuid)
+
+    @classmethod
+    def get_routine_date_sequence_key(cls, id: int):
+        return cls.ROUTINE_DATE_SEQUENCE_KEY.format(id)
+
+    @classmethod
+    def get_routine_api_date_sequence_key(cls, id: int):
+        return cls.ROUTINE_API_DATE_SEQUENCE_DISPLAY_KEY.format(id)
+
+    @classmethod
+    def get_routine_api_current_iteration_display_key(cls, id: int):
+        return cls.ROUTINE_API_CURRENT_ITERATION_DISPLAY_KEY.format(id)
+
+    @classmethod
+    def get_routine_api_stats(cls, id: int):
+        return cls.ROUTINE_API_STATS_KEY.format(id)
+
+    @classmethod
+    def get_routine_api_structure_key(cls, id: int):
+        return cls.ROUTINE_API_STRUCTURE_KEY.format(id)
 
 
 cache_mapper = CacheKeyMapper()

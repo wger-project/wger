@@ -20,7 +20,6 @@ from django.urls import reverse
 from wger.core.models import Language
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import NutritionPlan
-from wger.utils.helpers import make_token
 
 
 class NutritionalPlanPdfExportTestCase(WgerTestCase):
