@@ -31,28 +31,43 @@ from wger.manager.models import (
 class AbstractSetCalculations(ABC):
     iteration: int
     sets_configs: list[AbstractChangeConfig]
+    max_sets_configs: list[AbstractChangeConfig]
     weight_configs: list[AbstractChangeConfig]
+    max_weight_configs: list[AbstractChangeConfig]
     reps_configs: list[AbstractChangeConfig]
+    max_reps_configs: list[AbstractChangeConfig]
     rir_configs: list[AbstractChangeConfig]
+    max_rir_configs: list[AbstractChangeConfig]
     rest_configs: list[AbstractChangeConfig]
+    max_rest_configs: list[AbstractChangeConfig]
     logs: list[WorkoutLog]
 
     def __init__(
         self,
         iteration: int,
         sets_configs: list[AbstractChangeConfig],
+        max_sets_configs: list[AbstractChangeConfig],
         weight_configs: list[AbstractChangeConfig],
+        max_weight_configs: list[AbstractChangeConfig],
         reps_configs: list[AbstractChangeConfig],
+        max_reps_configs: list[AbstractChangeConfig],
         rir_configs: list[AbstractChangeConfig],
+        max_rir_configs: list[AbstractChangeConfig],
         rest_configs: list[AbstractChangeConfig],
+        max_rest_configs: list[AbstractChangeConfig],
         logs: list[WorkoutLog],
     ):
         self.iteration = iteration
         self.sets_configs = sets_configs
+        self.max_sets_configs = sets_configs
         self.weight_configs = weight_configs
+        self.max_weight_configs = weight_configs
         self.reps_configs = reps_configs
+        self.max_reps_configs = reps_configs
         self.rir_configs = rir_configs
+        self.max_rir_configs = rir_configs
         self.rest_configs = rest_configs
+        self.max_rest_configs = rest_configs
         self.logs = logs
 
     @abstractmethod

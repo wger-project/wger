@@ -221,10 +221,15 @@ class SlotEntry(models.Model):
             custom_logic = module.SetCalculations(
                 iteration=iteration,
                 sets_configs=self.setsconfig_set.filter(iteration__lte=iteration),
+                max_sets_configs=self.maxsetsconfig_set.filter(iteration__lte=iteration),
                 weight_configs=self.weightconfig_set.filter(iteration__lte=iteration),
+                max_weight_configs=self.maxweightconfig_set.filter(iteration__lte=iteration),
                 reps_configs=self.repsconfig_set.filter(iteration__lte=iteration),
+                max_reps_configs=self.maxrepsconfig_set.filter(iteration__lte=iteration),
                 rir_configs=self.rirconfig_set.filter(iteration__lte=iteration),
+                max_rir_configs=self.maxrirconfig_set.filter(iteration__lte=iteration),
                 rest_configs=self.restconfig_set.filter(iteration__lte=iteration),
+                max_rest_configs=self.maxrestconfig_set.filter(iteration__lte=iteration),
                 logs=self.workoutlog_set.filter(iteration__lte=iteration),
             )
 
