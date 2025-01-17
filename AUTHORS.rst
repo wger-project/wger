@@ -85,6 +85,7 @@ Developers
 * eyJhb - https://github.com/eyJhb
 * Joshua Shelley - https://github.com/navyjosh
 * Matt Harrison - https://github.com/Maralai
+* Ali Rahbar - https://github.com/crypto-a
 
 
 Translators
