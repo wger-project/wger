@@ -72,7 +72,7 @@ class Workout(models.Model):
     is_template = models.BooleanField(
         verbose_name=_('Workout template'),
         help_text=_(
-            'Marking a workout as a template will freeze it and allow you to ' 'make copies of it'
+            'Marking a workout as a template will freeze it and allow you to make copies of it'
         ),
         default=False,
         null=False,

@@ -19,12 +19,12 @@ from random import (
     randint,
 )
 
-from celery import shared_task
 # Django
 from django.conf import settings
 from django.core.management import call_command
 
 # Third Party
+from celery import shared_task
 from celery.schedules import crontab
 
 # wger

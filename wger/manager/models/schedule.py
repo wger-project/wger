@@ -54,7 +54,7 @@ class Schedule(models.Model):
     name = models.CharField(
         verbose_name=_('Name'),
         max_length=100,
-        help_text=_('Name or short description of the schedule. ' "For example 'Program XYZ'."),
+        help_text=_("Name or short description of the schedule. For example 'Program XYZ'."),
     )
     """Name or short description of the schedule."""
 

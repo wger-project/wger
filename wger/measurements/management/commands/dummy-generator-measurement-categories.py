@@ -67,7 +67,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         self.stdout.write(
-            f"** Generating {options['nr_categories']} dummy measurement categories per user"
+            f'** Generating {options["nr_categories"]} dummy measurement categories per user'
         )
 
         users = (

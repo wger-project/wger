@@ -374,7 +374,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
                     ~Q(id=self.instance.pk), language=value['language']
                 ).exists():
                     raise serializers.ValidationError(
-                        f"There is already a translation for this exercise in {value['language']}"
+                        f'There is already a translation for this exercise in {value["language"]}'
                     )
             # Creating a new object
             # -> Check if the language already exists
@@ -383,7 +383,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
                     exercise_base=value['exercise_base'], language=value['language']
                 ).exists():
                     raise serializers.ValidationError(
-                        f"There is already a translation for this exercise in {value['language']}"
+                        f'There is already a translation for this exercise in {value["language"]}'
                     )
 
         return super().validate(value)
