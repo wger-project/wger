@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2025-01-17 23:00+0000\n"
+"PO-Revision-Date: 2025-01-18 10:15+0000\n"
 "Last-Translator: Christijan <c.mulder@concepts.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
@@ -2411,10 +2411,8 @@ msgid "No schedules found."
 msgstr "Geen schema's gevonden."
 
 #: manager/templates/schedule/overview.html:28
-#, fuzzy
-#| msgid "Add one now."
 msgid "Add one now"
-msgstr "Voeg er een toe."
+msgstr "Voeg er een toe"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2425,13 +2423,6 @@ msgstr ""
 "na elkaar uitvoert."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "        before jumping to the next. It is also possible to create a loop, "
-#| "so you\n"
-#| "        always do the same workouts in succession, e.g. A > B > C > A > B "
-#| "> C and so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2441,21 +2432,22 @@ msgid ""
 "        on."
 msgstr ""
 "Je kan aangeven hoe lang je elke workout wil doen\n"
-"alvorens naar de volgende te gaan. het is ook mogelijk een lus te creëren, "
-"zodat\n"
-"je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > B > C enz."
+"        alvorens naar de volgende te gaan. het is ook mogelijk een lus te "
+"creëren, zodat\n"
+"        je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > B "
+"> C enz."
 
 #: manager/templates/schedule/overview.html:44
-#, fuzzy
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
 "till you\n"
 "        deactivate it, if it is a loop."
 msgstr ""
-"Het huidige actieve schema zal actief blijven (en getoond worden bvb. in je "
-"dashboard) tot de laatste workout is bereikt of, als het een lus betreft, "
-"tot je het deactiveert."
+"Het huidige actieve schema zal actief blijven \n"
+"(en getoond worden bvb. in je dashboard) \n"
+"tot de laatste workout is bereikt of, als het een lus betreft, tot je het "
+"deactiveert."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
@@ -2471,7 +2463,7 @@ msgid ""
 "deactivate it"
 msgstr ""
 "Dit schema is een lus en zal door de workouts hierboven gaan totdat je het "
-"deactiveert."
+"deactiveert"
 
 #: manager/templates/schedule/view.html:57
 msgid "Weeks"
@@ -2523,7 +2515,6 @@ msgstr "Exporteer dit schema als een kalenderbestand."
 
 #: manager/templates/schedule/view.html:202
 #: manager/templates/workout/view.html:76
-#, fuzzy
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2532,9 +2523,12 @@ msgid ""
 "appropriate\n"
 "                        exercises."
 msgstr ""
-"Hierna kan je het bestand importeren in je kalender-applicatie, bijvoorbeeld "
-"Google Calendar, Outlook of iCal. Dit zal een afspraak creëren op elke "
-"trainingdag met de geschikte oefeningen."
+"Hierna kan je het bestand importeren in je kalender-applicatie\n"
+"                        bijvoorbeeld Google Calendar, Outlook of iCal. Dit "
+"zal een\n"
+"                        afspraak creëren op elke trainingdag met de "
+"geschikte\n"
+"                        oefeningen."
 
 #: manager/templates/schedule/view.html:225
 #: manager/templates/schedule/view.html:268
