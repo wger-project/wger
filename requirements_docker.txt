@@ -7,4 +7,4 @@
 
 django-redis==5.4.0
 gunicorn==23.0.0
-psycopg==3.2.3
+psycopg==3.2.4
