@@ -101,14 +101,14 @@ class SlotEntryTestCase(WgerTestCase):
             step=StepChoices.PERCENT,
         ).save()
 
-        self.assertEqual(self.slot_entry.get_weight(1), 80)
-        self.assertEqual(self.slot_entry.get_weight(2), 80)
-        self.assertEqual(self.slot_entry.get_weight(3), 82.5)
-        self.assertEqual(self.slot_entry.get_weight(4), 82.5)
-        self.assertEqual(self.slot_entry.get_weight(5), 82.5)
-        self.assertEqual(self.slot_entry.get_weight(6), 42)
-        self.assertEqual(self.slot_entry.get_weight(7), 40)
-        self.assertEqual(self.slot_entry.get_weight(8), 44)
+        self.assertEqual(self.slot_entry.calculate_weight(1), 80)
+        self.assertEqual(self.slot_entry.calculate_weight(2), 80)
+        self.assertEqual(self.slot_entry.calculate_weight(3), 82.5)
+        self.assertEqual(self.slot_entry.calculate_weight(4), 82.5)
+        self.assertEqual(self.slot_entry.calculate_weight(5), 82.5)
+        self.assertEqual(self.slot_entry.calculate_weight(6), 42)
+        self.assertEqual(self.slot_entry.calculate_weight(7), 40)
+        self.assertEqual(self.slot_entry.calculate_weight(8), 44)
 
     def test_weight_config_with_logs(self):
         """

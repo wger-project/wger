@@ -240,8 +240,8 @@ class SlotEntry(models.Model):
         max_iter_reps = 1
         max_iter_max_reps = 1
 
-        weight = self.get_weight(max_iter_weight)
-        reps = self.get_reps(max_iter_reps)
+        weight = self.calculate_weight(max_iter_weight)
+        reps = self.calculate_reps(max_iter_reps)
 
         # Calculate the weights and reps. Note that we can't just take the configs
         # and calculate it like with the other values since these might depend on
@@ -279,23 +279,27 @@ class SlotEntry(models.Model):
                         # As soon as we find a matching log, stop
                         break
 
-        sets = self.get_sets(iteration)
-        max_sets = self.get_max_sets(iteration)
+        sets = self.calculate_sets(iteration)
+        max_sets = self.calculate_max_sets(iteration)
 
-        weight = self.get_weight(max_iter_weight)
-        max_weight = self.get_max_weight(max_iter_max_weight)
+        weight = self.calculate_weight(max_iter_weight)
+        max_weight = self.calculate_max_weight(max_iter_max_weight)
 
-        reps = self.get_reps(max_iter_reps)
-        max_reps = self.get_max_reps(max_iter_max_reps)
+        reps = self.calculate_reps(max_iter_reps)
+        max_reps = self.calculate_max_reps(max_iter_max_reps)
 
-        rest = self.get_rest(iteration)
-        max_rest = self.get_max_rest(iteration)
+        rest = self.calculate_rest(iteration)
+        max_rest = self.calculate_max_rest(iteration)
 
         return SetConfigData(
             slot_entry_id=self.id,
             exercise=self.exercise.id,
+            type=str(self.type),
+            comment=self.comment,
+            
             sets=sets if sets is not None else 1,
             max_sets=round_value(max_sets, 1),
+
             weight=round_value(weight, self.weight_rounding),
             max_weight=round_value(max_weight, self.weight_rounding)
             if max_weight and weight and max_weight > weight
@@ -304,6 +308,7 @@ class SlotEntry(models.Model):
             # TODO: decide on whether to return None or always the unit
             # weight_unit=self.weight_unit.pk if weight is not None else None,
             weight_unit=self.weight_unit.pk,
+
             reps=round_value(reps, self.repetition_rounding),
             max_reps=round_value(max_reps, self.repetition_rounding)
             if max_reps and reps and max_reps > reps
@@ -312,15 +317,15 @@ class SlotEntry(models.Model):
             reps_unit=self.repetition_unit.pk,
             # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
-            rir=self.get_rir(iteration),
-            max_rir=self.get_max_rir(iteration),
+
+            rir=self.calculate_rir(iteration),
+            max_rir=self.calculate_max_rir(iteration),
+
             rest=round_value(rest, 1),
             max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
-            type=str(self.type),
-            comment=self.comment,
         )
 
-    def get_sets(self, iteration: int) -> Decimal | None:
+    def calculate_sets(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -328,7 +333,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_max_sets(self, iteration: int) -> Decimal | None:
+    def calculate_max_sets(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -336,14 +341,14 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_weight(self, iteration: int) -> Decimal | None:
+    def calculate_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration, list(self.weightconfig_set.filter(iteration__lte=iteration))
             )
         )
 
-    def get_max_weight(self, iteration: int) -> Decimal | None:
+    def calculate_max_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -351,7 +356,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_reps(self, iteration: int) -> Decimal | None:
+    def calculate_reps(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -359,7 +364,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_max_reps(self, iteration: int) -> Decimal | None:
+    def calculate_max_reps(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -367,7 +372,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_rir(self, iteration: int) -> Decimal | None:
+    def calculate_rir(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -375,7 +380,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_max_rir(self, iteration: int) -> Decimal | None:
+    def calculate_max_rir(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -383,7 +388,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_rest(self, iteration: int) -> Decimal | None:
+    def calculate_rest(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -391,7 +396,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def get_max_rest(self, iteration: int) -> Decimal | None:
+    def calculate_max_rest(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
