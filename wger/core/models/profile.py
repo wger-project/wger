@@ -116,7 +116,7 @@ class UserProfile(models.Model):
 
     show_comments = models.BooleanField(
         verbose_name=_('Show exercise comments'),
-        help_text=_('Check to show exercise comments on the ' 'workout view'),
+        help_text=_('Check to show exercise comments on the workout view'),
         default=True,
     )
     """
@@ -149,7 +149,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
     workout_reminder = IntegerField(
         verbose_name=_('Remind before expiration'),
-        help_text=_('The number of days you want to be reminded ' 'before a workout expires.'),
+        help_text=_('The number of days you want to be reminded before a workout expires.'),
         default=14,
         validators=[MinValueValidator(1), MaxValueValidator(30)],
     )
@@ -348,8 +348,8 @@ by the US Department of Agriculture. It is extremely complete, with around
     """Allow anonymous read-only access"""
 
     num_days_weight_reminder = models.IntegerField(
-        verbose_name=_('Automatic reminders for weight ' 'entries'),
-        help_text=_('Number of days after the last ' 'weight entry (enter 0 to ' 'deactivate)'),
+        verbose_name=_('Automatic reminders for weight entries'),
+        help_text=_('Number of days after the last weight entry (enter 0 to deactivate)'),
         validators=[MinValueValidator(0), MaxValueValidator(30)],
         default=0,
     )

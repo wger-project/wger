@@ -81,7 +81,7 @@ class WorkoutSession(models.Model):
         verbose_name=_('Notes'),
         null=True,
         blank=True,
-        help_text=_('Any notes you might want to save about this workout ' 'session.'),
+        help_text=_('Any notes you might want to save about this workout session.'),
     )
     """
     User notes about the workout
@@ -93,7 +93,7 @@ class WorkoutSession(models.Model):
         choices=IMPRESSION,
         default=IMPRESSION_NEUTRAL,
         help_text=_(
-            'Your impression about this workout session. ' 'Did you exercise as well as you could?'
+            'Your impression about this workout session. Did you exercise as well as you could?'
         ),
     )
     """

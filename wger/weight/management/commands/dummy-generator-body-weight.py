@@ -53,7 +53,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f"** Generating {options['nr_entries']} weight entries per user")
+        self.stdout.write(f'** Generating {options["nr_entries"]} weight entries per user')
 
         base_weight = 80
 
@@ -61,7 +61,7 @@ class Command(BaseCommand):
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
         )
 
-        print(f"** Generating {options['nr_entries']} weight entries per user")
+        print(f'** Generating {options["nr_entries"]} weight entries per user')
 
         for user in users:
             new_entries = []

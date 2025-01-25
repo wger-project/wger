@@ -113,8 +113,8 @@ def sync_exercises(
                 },
             )
             out = (
-                f"- {'created' if translation_created else 'updated'} translation "
-                f"{translation.language.short_name} {trans_uuid} - {name}"
+                f'- {"created" if translation_created else "updated"} translation '
+                f'{translation.language.short_name} {trans_uuid} - {name}'
             )
             print_fn(out)
 

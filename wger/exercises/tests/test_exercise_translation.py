@@ -113,7 +113,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=2)})
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/', rendered_template)
@@ -125,7 +125,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=2), 'muscles_sec': []})
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/', rendered_template)
@@ -137,7 +137,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=1)})
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles_sec=muscles %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles_sec=muscles %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/', rendered_template)
@@ -149,7 +149,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles_sec': Muscle.objects.get(pk=1), 'muscles': []})
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/', rendered_template)
@@ -161,7 +161,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles_sec': Muscle.objects.filter(is_front=True), 'muscles': []})
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/muscle-2.svg', rendered_template)
@@ -180,7 +180,7 @@ class MuscleTemplateTagTest(WgerTestCase):
                 'muscles': Muscle.objects.filter(id__in=[1, 4]),
             }
         )
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/muscle-2.svg', rendered_template)
@@ -197,7 +197,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': [], 'muscles_sec': []})
-        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertEqual(rendered_template, '\n\n')
 
@@ -206,7 +206,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when given no parameters
         """
 
-        template = Template('{% load wger_extras %}' '{% render_muscles %}')
+        template = Template('{% load wger_extras %}{% render_muscles %}')
         rendered_template = template.render(Context({}))
         self.assertEqual(rendered_template, '\n\n')
 

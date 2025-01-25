@@ -250,6 +250,6 @@ def sync_ingredients(
             },
         )
 
-        print_fn(f"{'created' if created else 'updated'} ingredient {uuid} - {name}")
+        print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')
 
     print_fn(style_fn('done!\n'))

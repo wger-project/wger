@@ -46,7 +46,7 @@ class CategoryOverviewTestCase(WgerAccessTestCase):
     user_success = 'admin'
     user_fail = (
         'manager1',
-        'manager2' 'general_manager1',
+        'manager2general_manager1',
         'manager3',
         'manager4',
         'test',

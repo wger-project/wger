@@ -205,16 +205,14 @@ class DailyCaloriesForm(forms.ModelForm):
 
     base_calories = forms.IntegerField(
         label=_('Basic caloric intake'),
-        help_text=_('Your basic caloric intake as calculated for ' 'your data'),
+        help_text=_('Your basic caloric intake as calculated for your data'),
         required=False,
         widget=Html5NumberInput(),
     )
     additional_calories = forms.IntegerField(
         label=_('Additional calories'),
         help_text=_(
-            'Additional calories to add to the base '
-            'rate (to substract, enter a negative '
-            'number)'
+            'Additional calories to add to the base rate (to substract, enter a negative number)'
         ),
         initial=0,
         required=False,
