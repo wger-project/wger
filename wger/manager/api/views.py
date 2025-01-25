@@ -81,7 +81,6 @@ from wger.manager.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
-from wger.weight.helpers import process_log_entries
 
 
 class RoutineViewSet(viewsets.ModelViewSet):
