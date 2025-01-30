@@ -27,11 +27,9 @@ from wger.core.views.react import ReactView
 from wger.exercises.views import (
     categories,
     equipment,
-    exercises,
     history,
     muscles,
 )
-
 
 # sub patterns for history
 patterns_history = [
@@ -124,12 +122,7 @@ patterns_exercise = [
     ),
     path(
         '<int:id>/view/',
-        exercises.view,
-        name='view',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
-        exercises.view,
+        ReactView.as_view(div_id='react-exercise-detail'),
         name='view',
     ),
     path(
