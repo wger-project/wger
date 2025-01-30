@@ -44,7 +44,7 @@ class ExerciseTestCase(WgerTestCase):
         Test that the properties return the correct data
         """
         translation = Translation.objects.get(pk=1)
-        exercise = translation.exercise_base
+        exercise = translation.exercise
         self.assertEqual(exercise.category, translation.category)
         self.assertListEqual(self.get_ids(exercise.equipment), self.get_ids(translation.equipment))
         self.assertListEqual(self.get_ids(exercise.muscles), self.get_ids(translation.muscles))
@@ -91,7 +91,7 @@ class ExerciseTestCase(WgerTestCase):
     def test_images(self):
         """Test that the correct images are returned for the exercises"""
         translation = Translation.objects.get(pk=1)
-        exercise = translation.exercise_base
+        exercise = translation.exercise
         self.assertListEqual(
             self.get_ids(translation.images), self.get_ids(exercise.exerciseimage_set)
         )

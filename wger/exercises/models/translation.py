@@ -84,9 +84,8 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Globally unique ID, to identify the exercise across installations"""
 
-    exercise_base = models.ForeignKey(
+    exercise = models.ForeignKey(
         Exercise,
-        verbose_name='ExerciseBase',
         on_delete=models.CASCADE,
         default=None,
         null=False,
@@ -112,7 +111,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         Returns the canonical URL to view an exercise
         """
         slug_name = slugify(self.name)
-        kwargs = {'pk': self.exercise_base_id}
+        kwargs = {'pk': self.exercise_id}
         if slug_name:
             kwargs['slug'] = slug_name
 
@@ -125,7 +124,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         super().save(*args, **kwargs)
 
         # Api cache
-        reset_exercise_api_cache(self.exercise_base.uuid)
+        reset_exercise_api_cache(self.exercise.uuid)
 
     def delete(self, *args, **kwargs):
         """
@@ -133,7 +132,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
 
         # Api cache
-        reset_exercise_api_cache(self.exercise_base.uuid)
+        reset_exercise_api_cache(self.exercise.uuid)
 
         super().delete(*args, **kwargs)
 
@@ -148,27 +147,27 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     #
     @property
     def category(self):
-        return self.exercise_base.category
+        return self.exercise.category
 
     @property
     def muscles(self):
-        return self.exercise_base.muscles
+        return self.exercise.muscles
 
     @property
     def muscles_secondary(self):
-        return self.exercise_base.muscles_secondary
+        return self.exercise.muscles_secondary
 
     @property
     def equipment(self):
-        return self.exercise_base.equipment
+        return self.exercise.equipment
 
     @property
     def images(self):
-        return self.exercise_base.exerciseimage_set
+        return self.exercise.exerciseimage_set
 
     @property
     def videos(self):
-        return self.exercise_base.exercisevideo_set
+        return self.exercise.exercisevideo_set
 
     @property
     def variations(self):
@@ -176,8 +175,8 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         Returns the variations for this exercise in the same language
         """
         out = []
-        if self.exercise_base.variations:
-            for variation in self.exercise_base.variations.exercise_set.all():
+        if self.exercise.variations:
+            for variation in self.exercise.variations.exercise_set.all():
                 for exercise in variation.translations.filter(language=self.language).all():
                     out.append(exercise)
         return out

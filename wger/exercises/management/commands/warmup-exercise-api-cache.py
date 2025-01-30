@@ -28,9 +28,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--exercise-base-id',
+            '--exercise-id',
             action='store',
-            dest='exercise_base_id',
+            dest='exercise_id',
             help='The ID of the exercise base, otherwise all exercises will be updated',
         )
 
@@ -43,11 +43,11 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        exercise_base_id = options['exercise_base_id']
+        exercise_id = options['exercise_id']
         force = options['force']
 
-        if exercise_base_id:
-            exercise = Exercise.objects.get(pk=exercise_base_id)
+        if exercise_id:
+            exercise = Exercise.objects.get(pk=exercise_id)
             self.handle_cache(exercise, force)
             return
 

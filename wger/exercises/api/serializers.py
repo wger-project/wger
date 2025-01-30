@@ -90,15 +90,15 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
 
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
-    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+    exercise_uuid = serializers.ReadOnlyField(source='exercise.uuid')
 
     class Meta:
         model = ExerciseImage
         fields = [
             'id',
             'uuid',
-            'exercise_base',
-            'exercise_base_uuid',
+            'exercise',
+            'exercise_uuid',
             'image',
             'is_main',
             'style',
@@ -117,7 +117,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     ExerciseVideo serializer
     """
 
-    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+    exercise_uuid = serializers.ReadOnlyField(source='exercise.uuid')
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
 
     class Meta:
@@ -125,8 +125,8 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'exercise_base',
-            'exercise_base_uuid',
+            'exercise',
+            'exercise_uuid',
             'video',
             'is_main',
             'size',
@@ -157,7 +157,7 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'exercise_base',
+            'exercise',
             'video',
             'is_main',
             'size',
@@ -188,7 +188,7 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'exercise',
+            'translation',
             'comment',
         ]
 
@@ -203,7 +203,7 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'exercise',
+            'translation',
             'alias',
         ]
 
@@ -264,9 +264,9 @@ class MuscleSerializer(serializers.ModelSerializer):
         ]
 
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class TranslationSerializer(serializers.ModelSerializer):
     """
-    Exercise serializer
+    Translation serializer
 
     The fields from the new ExerciseBase are retrieved here as to retain
     compatibility with the old model where all the fields where in Exercise.
@@ -285,7 +285,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             'id',
             'uuid',
             'name',
-            'exercise_base',
+            'exercise',
             'description',
             'created',
             'category',
@@ -307,7 +307,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
-    exercise_base = serializers.PrimaryKeyRelatedField(
+    exercise = serializers.PrimaryKeyRelatedField(
         queryset=Exercise.objects.all(),
         required=True,
     )
@@ -321,7 +321,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             'id',
             'uuid',
             'name',
-            'exercise_base',
+            'exercise',
             'description',
             'created',
             'language',
@@ -344,7 +344,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
-    exercise_base = serializers.PrimaryKeyRelatedField(
+    exercise = serializers.PrimaryKeyRelatedField(
         queryset=Exercise.objects.all(),
         required=True,
     )
@@ -355,7 +355,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             'id',
             'uuid',
             'name',
-            'exercise_base',
+            'exercise',
             'description',
             'created',
             'language',
@@ -370,7 +370,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             # Editing an existing object
             # -> Check if the language already exists, excluding the current object
             if self.instance:
-                if self.instance.exercise_base.translations.filter(
+                if self.instance.exercise.translations.filter(
                     ~Q(id=self.instance.pk),
                     language=value['language'],
                 ).exists():
@@ -381,7 +381,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             # -> Check if the language already exists
             else:
                 if Translation.objects.filter(
-                    exercise_base=value['exercise_base'],
+                    exercise=value['exercise'],
                     language=value['language'],
                 ).exists():
                     raise serializers.ValidationError(
@@ -415,7 +415,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             'name',
             'aliases',
             'uuid',
-            'exercise_base_id',
+            'exercise_id',
             'description',
             'created',
             'category',

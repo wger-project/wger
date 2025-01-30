@@ -51,7 +51,6 @@ from wger.nutrition.api import views as nutrition_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 #
 # REST API
 #
@@ -150,7 +149,7 @@ router.register(
 # Exercises app
 router.register(
     r'exerciseinfo',
-    exercises_api_views.ExerciseInfoViewset,
+    exercises_api_views.TranslationInfoViewset,
     basename='exerciseinfo',
 )
 router.register(
@@ -160,7 +159,7 @@ router.register(
 )
 router.register(
     r'exercise',
-    exercises_api_views.ExerciseViewSet,
+    exercises_api_views.TranslationViewSet,
     basename='exercise',
 )
 router.register(

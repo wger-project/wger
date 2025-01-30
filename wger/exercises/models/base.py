@@ -26,6 +26,7 @@ from typing import (
 from django.core.checks import Warning
 from django.db import (
     OperationalError,
+    ProgrammingError,
     models,
 )
 from django.db.models import Q
@@ -160,7 +161,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                         id='wger.W002',
                     )
                 )
-        except OperationalError:
+        except (OperationalError, ProgrammingError):
             # This check runs before the migrations that rename the table "exercise"
             # to "translations" so if there are any errors, just ignore them
             pass

@@ -42,7 +42,7 @@ class Command(BaseCommand):
             self.stdout.write(f'Extracting translations for {exercise_key}')
 
             uuid = self.uuids[exercise_key]
-            translations = Translation.objects.filter(exercise_base__uuid=uuid)
+            translations = Translation.objects.filter(exercise__uuid=uuid)
 
             variables = []
 
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                           created: DateTime(2021, 1, 15),
                           name: '{translation.name}',
                           description: '''{translation.description}''',
-                          baseId: {translation.exercise_base_id},
+                          baseId: {translation.exercise_id},
                           language: tLanguage{translation.language.id},
                         );
                     """

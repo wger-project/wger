@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
             field=models.DecimalField(
                 blank=True,
                 decimal_places=2,
-                max_digits=5,
+                max_digits=6,
                 null=True,
                 validators=[wger.manager.validators.NullMinValueValidator(0)],
                 verbose_name='Repetitions',
@@ -131,7 +131,7 @@ class Migration(migrations.Migration):
             field=models.DecimalField(
                 blank=True,
                 decimal_places=2,
-                max_digits=5,
+                max_digits=6,
                 null=True,
                 validators=[wger.manager.validators.NullMinValueValidator(0)],
             ),
@@ -142,7 +142,7 @@ class Migration(migrations.Migration):
             field=models.DecimalField(
                 blank=True,
                 decimal_places=2,
-                max_digits=5,
+                max_digits=6,
                 null=True,
                 validators=[wger.manager.validators.NullMinValueValidator(0)],
             ),
@@ -180,7 +180,7 @@ class Migration(migrations.Migration):
             field=models.DecimalField(
                 blank=True,
                 decimal_places=2,
-                max_digits=5,
+                max_digits=6,
                 null=True,
                 validators=[wger.manager.validators.NullMinValueValidator(0)],
                 verbose_name='Weight',

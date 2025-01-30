@@ -45,7 +45,7 @@ class Alias(models.Model):
     )
     """Globally unique ID, to identify the alias across installations"""
 
-    exercise = models.ForeignKey(
+    translation = models.ForeignKey(
         Translation,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
@@ -73,7 +73,7 @@ class Alias(models.Model):
         Reset cached workouts
         """
         # Api cache
-        reset_exercise_api_cache(self.exercise.exercise_base.uuid)
+        reset_exercise_api_cache(self.translation.exercise.uuid)
 
         super().save(*args, **kwargs)
 
@@ -83,7 +83,7 @@ class Alias(models.Model):
         """
 
         # Api cache
-        reset_exercise_api_cache(self.exercise.exercise_base.uuid)
+        reset_exercise_api_cache(self.translation.exercise.uuid)
 
         super().delete(*args, **kwargs)
 

@@ -389,7 +389,7 @@ class MockExerciseResponse:
                             "id": 100,
                             "uuid": "c788d643-150a-4ac7-97ef-84643c6419bf",
                             "name": "Zweihandiges Kettlebell",
-                            "exercise_base": 123,
+                            "exercise": 123,
                             "description": "Hier könnte Ihre Werbung stehen!",
                             "created": "2015-08-03",
                             "language": 1,
@@ -404,7 +404,7 @@ class MockExerciseResponse:
                                 {
                                     "id": 1,
                                     "uuid": "f46e1610-b729-4948-b80a-c5ae52672c6a",
-                                    "exercise": 100,
+                                    "translation": 100,
                                     "comment": "Wichtig die Übung richtig zu machen"
                                 },
                             ],
@@ -420,7 +420,7 @@ class MockExerciseResponse:
                             "id": 101,
                             "uuid": "ab4185dd-2e68-4579-af1f-0c03957c0a9e",
                             "name": "2 Handed Kettlebell Swing",
-                            "exercise_base": 123,
+                            "exercise": 123,
                             "description": "TBD",
                             "created": "2023-08-03",
                             "language": 2,
@@ -496,7 +496,7 @@ class MockExerciseResponse:
                             "id": 123,
                             "uuid": "7524ca8d-032e-482d-ab18-40e8a97851f6",
                             "name": "A new, better, updated name",
-                            "exercise_base": 2,
+                            "exercise": 2,
                             "description": "Two Handed Russian Style Kettlebell swing",
                             "created": "2015-08-03",
                             "language": 1,
@@ -516,7 +516,7 @@ class MockExerciseResponse:
                                 {
                                     "id": 147,
                                     "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
-                                    "exercise": 123,
+                                    "translation": 123,
                                     "comment": "Foobar"
                                 },
                             ],
@@ -530,7 +530,7 @@ class MockExerciseResponse:
                             "id": 345,
                             "uuid": "581338a1-8e52-405b-99eb-f0724c528bc8",
                             "name": "Balançoire Kettlebell à 2 mains",
-                            "exercise_base": 2,
+                            "exercise": 2,
                             "description": "Balançoire Kettlebell à deux mains de style russe",
                             "created": "2015-08-03",
                             "language": 3,

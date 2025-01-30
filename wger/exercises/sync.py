@@ -104,7 +104,7 @@ def sync_exercises(
             translation, translation_created = Translation.objects.update_or_create(
                 uuid=trans_uuid,
                 defaults={
-                    'exercise_base': exercise,
+                    'exercise': exercise,
                     'name': name,
                     'description': description,
                     'license_id': license_id,
@@ -127,24 +127,24 @@ def sync_exercises(
             #
             #       -> remove the `.delete()` after the 2024-06-01
 
-            ExerciseComment.objects.filter(exercise=translation).delete()
+            ExerciseComment.objects.filter(translation=translation).delete()
             for note in translation_data['notes']:
                 ExerciseComment.objects.update_or_create(
                     uuid=note['uuid'],
                     defaults={
                         'uuid': note['uuid'],
-                        'exercise': translation,
+                        'translation': translation,
                         'comment': note['comment'],
                     },
                 )
 
-            Alias.objects.filter(exercise=translation).delete()
+            Alias.objects.filter(translation=translation).delete()
             for alias in translation_data['aliases']:
                 Alias.objects.update_or_create(
                     uuid=alias['uuid'],
                     defaults={
                         'uuid': alias['uuid'],
-                        'exercise': translation,
+                        'translation': translation,
                         'alias': alias['alias'],
                     },
                 )
@@ -296,7 +296,6 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
-
         def print_fn(_):
             return None
 
@@ -393,7 +392,7 @@ def download_exercise_images(
         print_fn(f'Processing image {image_uuid}')
 
         try:
-            exercise = Exercise.objects.get(uuid=image_data['exercise_base_uuid'])
+            exercise = Exercise.objects.get(uuid=image_data['exercise_uuid'])
         except Exercise.DoesNotExist:
             print_fn('    Remote exercise not found in local DB, skipping...')
             continue
@@ -425,7 +424,7 @@ def download_exercise_videos(
         print_fn(f'Processing video {video_uuid}')
 
         try:
-            exercise = Exercise.objects.get(uuid=video_data['exercise_base_uuid'])
+            exercise = Exercise.objects.get(uuid=video_data['exercise_uuid'])
         except Exercise.DoesNotExist:
             print_fn('    Remote exercise not found in local DB, skipping...')
             continue
@@ -437,7 +436,7 @@ def download_exercise_videos(
         except ExerciseVideo.DoesNotExist:
             print_fn('    Video not found in local DB, creating now...')
             video = ExerciseVideo()
-            video.exercise_base = exercise
+            video.exercise = exercise
             video.uuid = video_uuid
             video.is_main = video_data['is_main']
             video.license_id = video_data['license']

@@ -62,7 +62,7 @@ from wger.exercises.api.serializers import (
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
-    ExerciseSerializer,
+    TranslationSerializer,
     ExerciseTranslationSerializer,
     ExerciseVariationSerializer,
     ExerciseVideoSerializer,
@@ -91,7 +91,6 @@ from wger.utils.constants import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
-
 
 logger = logging.getLogger(__name__)
 
@@ -160,7 +159,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     filterset_fields = (
         'uuid',
         'created',
-        'exercise_base',
+        'exercise',
         'description',
         'name',
     )
@@ -192,8 +191,8 @@ class ExerciseTranslationViewSet(ModelViewSet):
         """
 
         # Don't allow to change the base or the language over the API
-        if serializer.validated_data.get('exercise_base'):
-            del serializer.validated_data['exercise_base']
+        if serializer.validated_data.get('exercise'):
+            del serializer.validated_data['exercise']
 
         if serializer.validated_data.get('language'):
             del serializer.validated_data['language']
@@ -216,7 +215,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
         )
 
 
-class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
+class TranslationViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
 
@@ -225,12 +224,12 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
-    serializer_class = ExerciseSerializer
+    serializer_class = TranslationSerializer
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
         'created',
-        'exercise_base',
+        'exercise',
         'description',
         'language',
         'name',
@@ -261,32 +260,32 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
 
         if category:
             try:
-                qs = qs.filter(exercise_base__category_id=int(category))
+                qs = qs.filter(exercise__category_id=int(category))
             except ValueError:
                 logger.info(f'Got {category} as category ID')
 
         if muscles:
             try:
-                qs = qs.filter(exercise_base__muscles__in=[int(m) for m in muscles.split(',')])
+                qs = qs.filter(exercise__muscles__in=[int(m) for m in muscles.split(',')])
             except ValueError:
                 logger.info(f'Got {muscles} as muscle IDs')
 
         if muscles_secondary:
             try:
                 muscle_ids = [int(m) for m in muscles_secondary.split(',')]
-                qs = qs.filter(exercise_base__muscles_secondary__in=muscle_ids)
+                qs = qs.filter(exercise__muscles_secondary__in=muscle_ids)
             except ValueError:
                 logger.info(f"Got '{muscles_secondary}' as secondary muscle IDs")
 
         if equipment:
             try:
-                qs = qs.filter(exercise_base__equipment__in=[int(e) for e in equipment.split(',')])
+                qs = qs.filter(exercise__equipment__in=[int(e) for e in equipment.split(',')])
             except ValueError:
                 logger.info(f'Got {equipment} as equipment IDs')
 
         if license:
             try:
-                qs = qs.filter(exercise_base__license_id=int(license))
+                qs = qs.filter(exercise__license_id=int(license))
             except ValueError:
                 logger.info(f'Got {license} as license ID')
 
@@ -385,7 +384,7 @@ def search(request):
             'value': translation.name,
             'data': {
                 'id': translation.id,
-                'base_id': translation.exercise_base_id,
+                'base_id': translation.exercise_id,
                 'name': translation.name,
                 'category': _(translation.category.name),
                 'image': image,
@@ -397,7 +396,7 @@ def search(request):
     return Response(response)
 
 
-class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
+class TranslationInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
     """
@@ -409,7 +408,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'created',
         'description',
         'name',
-        'exercise_base',
+        'exercise',
         'license',
         'license_author',
     )
@@ -505,7 +504,7 @@ class ExerciseImageViewSet(ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
-        'exercise_base',
+        'exercise',
         'license',
         'license_author',
     )
@@ -568,7 +567,7 @@ class ExerciseVideoViewSet(ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
-        'exercise_base',
+        'exercise',
         'license',
         'license_author',
     )
@@ -604,7 +603,7 @@ class ExerciseCommentViewSet(ModelViewSet):
     serializer_class = ExerciseCommentSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
-    filterset_fields = ('comment', 'exercise')
+    filterset_fields = ('comment', 'translation')
 
     def get_queryset(self):
         """Filter by language for exercise comments"""
@@ -647,7 +646,7 @@ class ExerciseAliasViewSet(ModelViewSet):
     queryset = Alias.objects.all()
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
-    filterset_fields = ('alias', 'exercise')
+    filterset_fields = ('alias', 'translation')
 
     def perform_create(self, serializer):
         """

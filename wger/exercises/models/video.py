@@ -29,7 +29,6 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.utils.cache import reset_exercise_api_cache
 
-
 try:
     # Third Party
     import ffmpeg
@@ -42,7 +41,6 @@ from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
 )
-
 
 MAX_FILE_SIZE_MB = 100
 
@@ -77,7 +75,7 @@ def exercise_video_upload_dir(instance, filename):
     Returns the upload target for exercise videos
     """
     ext = pathlib.Path(filename).suffix
-    return f'exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}'
+    return f'exercise-video/{instance.exercise.id}/{instance.uuid}{ext}'
 
 
 class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -93,7 +91,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Globally unique ID, to identify the image across installations"""
 
-    exercise_base = models.ForeignKey(
+    exercise = models.ForeignKey(
         Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
@@ -214,6 +212,6 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 self.codec_long = stream['codec_long_name']
 
         # Api cache
-        reset_exercise_api_cache(self.exercise_base.uuid)
+        reset_exercise_api_cache(self.exercise.uuid)
 
         super().save(*args, **kwargs)

@@ -66,21 +66,21 @@ class Command(BaseCommand):
 
         if exercise_id is not None:
             try:
-                exercise_base = Exercise.objects.get(id=exercise_id)
+                exercise = Exercise.objects.get(id=exercise_id)
             except Exercise.DoesNotExist:
                 self.print_error('Failed to find exercise base')
                 return
-            exercise_base.license_author = author_name
-            exercise_base.save()
+            exercise.license_author = author_name
+            exercise.save()
 
         if translation_id is not None:
             try:
-                exercise = Translation.objects.get(id=translation_id)
-            except Exercise.DoesNotExist:
+                translation = Translation.objects.get(id=translation_id)
+            except Translation.DoesNotExist:
                 self.print_error('Failed to find exercise')
                 return
-            exercise.license_author = author_name
-            exercise.save()
+            translation.license_author = author_name
+            translation.save()
 
         self.stdout.write(self.style.SUCCESS('Exercise and/or translation has been updated'))
 

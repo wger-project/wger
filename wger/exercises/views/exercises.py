@@ -37,7 +37,6 @@ from django.views.generic import DeleteView
 from wger.exercises.models import Translation
 from wger.utils.generic_views import WgerDeleteMixin
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -45,11 +44,11 @@ def view(request, id, slug=None):
     """
     Detail view for an exercise translation
     """
-    exercise = get_object_or_404(Translation, pk=id)
+    translation = get_object_or_404(Translation, pk=id)
 
     return HttpResponsePermanentRedirect(
         reverse(
-            'exercise:exercise:view-base', kwargs={'pk': exercise.exercise_base_id, 'slug': slug}
+            'exercise:exercise:view-base', kwargs={'pk': translation.exercise_id, 'slug': slug}
         )
     )
 

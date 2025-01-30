@@ -296,10 +296,8 @@ class SlotEntry(models.Model):
             exercise=self.exercise.id,
             type=str(self.type),
             comment=self.comment,
-            
             sets=sets if sets is not None else 1,
             max_sets=round_value(max_sets, 1),
-
             weight=round_value(weight, self.weight_rounding),
             max_weight=round_value(max_weight, self.weight_rounding)
             if max_weight and weight and max_weight > weight
@@ -308,7 +306,6 @@ class SlotEntry(models.Model):
             # TODO: decide on whether to return None or always the unit
             # weight_unit=self.weight_unit.pk if weight is not None else None,
             weight_unit=self.weight_unit.pk,
-
             reps=round_value(reps, self.repetition_rounding),
             max_reps=round_value(max_reps, self.repetition_rounding)
             if max_reps and reps and max_reps > reps
@@ -317,10 +314,8 @@ class SlotEntry(models.Model):
             reps_unit=self.repetition_unit.pk,
             # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
-
             rir=self.calculate_rir(iteration),
             max_rir=self.calculate_max_rir(iteration),
-
             rest=round_value(rest, 1),
             max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
         )

@@ -99,7 +99,7 @@ class ExercisesTestCase(WgerTestCase):
 
         translation.name = 'Very cool exercise 2'
         translation.description = 'New description'
-        translation.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
+        translation.exercise.muscles_secondary.add(Muscle.objects.get(pk=2))
         translation.save()
 
         translation = Translation.objects.get(pk=2)
@@ -269,7 +269,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         'name': 'A new name',
         'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
         'language': 1,
-        'exercise_base': 2,
+        'exercise': 2,
     }
 
     def get_resource_name(self):
@@ -281,14 +281,14 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         translation.
         """
         translation = Translation.objects.get(pk=self.pk)
-        self.assertEqual(translation.exercise_base_id, 1)
+        self.assertEqual(translation.exercise_id, 1)
 
         self.authenticate('trainer1')
-        response = self.client.patch(self.url_detail, data={'exercise_base': 2})
+        response = self.client.patch(self.url_detail, data={'exercise': 2})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         translation = Translation.objects.get(pk=self.pk)
-        self.assertEqual(translation.exercise_base_id, 1)
+        self.assertEqual(translation.exercise_id, 1)
 
     def test_cant_change_language(self):
         """
