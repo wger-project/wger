@@ -15,6 +15,7 @@
 # Standard Library
 import logging
 import random
+from datetime import time
 
 # Django
 from django.contrib.auth.models import User
@@ -25,8 +26,8 @@ from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
     Routine,
     WorkoutLog,
+    WorkoutSession,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +58,7 @@ class Command(BaseCommand):
         for user in users:
             self.stdout.write(f'- processing user {user.username}')
 
+            logs = []
             for routine in Routine.objects.filter(user=user):
                 for day_data in routine.date_sequence:
                     if day_data.day is None:
@@ -87,13 +89,38 @@ class Command(BaseCommand):
                                     else random.randint(120, 180)
                                 )
 
-                                # Note that we directly save each entry because we need to set the
-                                # session and that happens in the save method which is not called
-                                # when using WorkoutLog.objects.bulk_create
-                                WorkoutLog(
+                                hour_start = random.randint(8, 20)
+                                time_start = time(
+                                    hour_start,
+                                    random.randint(0, 59),
+                                    random.randint(0, 59),
+                                )
+                                time_end = time(
+                                    hour_start + random.randint(1, 3),
+                                    random.randint(0, 59),
+                                    random.randint(0, 59),
+                                )
+
+                                session = WorkoutSession.objects.get_or_create(
+                                    user=user,
+                                    date=day_data.date,
+                                    routine=routine,
+                                    defaults={
+                                        'impression': random.choice([
+                                            WorkoutSession.IMPRESSION_GOOD,
+                                            WorkoutSession.IMPRESSION_BAD,
+                                            WorkoutSession.IMPRESSION_NEUTRAL,
+                                        ]),
+                                        'time_start': time_start,
+                                        'time_end': time_end,
+                                    },
+                                )[0]
+
+                                logs.append(WorkoutLog(
                                     slot_entry_id=set_data.slot_entry_id,
                                     iteration=day_data.iteration,
                                     user=user,
+                                    session=session,
                                     exercise_id=exercise_id,
                                     routine=routine,
                                     repetitions=reps,
@@ -107,4 +134,6 @@ class Command(BaseCommand):
                                     rir_target=set_data.rir,
                                     rest=rest,
                                     rest_target=set_data.rest,
-                                ).save()
+                                ))
+
+            WorkoutLog.objects.bulk_create(logs)
