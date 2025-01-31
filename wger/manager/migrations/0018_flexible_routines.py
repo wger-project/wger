@@ -349,7 +349,7 @@ class Migration(migrations.Migration):
                     'name',
                     models.CharField(
                         blank=True,
-                        max_length=50,
+                        max_length=25,
                         verbose_name='Name',
                     ),
                 ),

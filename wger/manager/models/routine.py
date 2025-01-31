@@ -67,7 +67,7 @@ class Routine(models.Model):
 
     name = models.CharField(
         verbose_name=_('Name'),
-        max_length=50,
+        max_length=25,
         blank=True,
     )
 

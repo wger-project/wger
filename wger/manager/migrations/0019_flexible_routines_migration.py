@@ -37,7 +37,7 @@ def migrate_routines(apps) -> dict[int, Any]:
         next_monday = workout.creation_date + timedelta(days=7 - workout.creation_date.weekday())
 
         routine = Routine(
-            name=workout.name[:50],
+            name=workout.name[:25],
             description=workout.description,
             user=workout.user,
             created=workout.creation_date,
@@ -65,8 +65,8 @@ def migrate_routines(apps) -> dict[int, Any]:
 
             day = workout.day_set.filter(day__id=i).first()
             if day:
-                current_day.name = day.description if len(day.description) <= 50 else f'Day {i}'
-                current_day.description = day.description if len(day.description) > 50 else ''
+                current_day.name = day.description[:20]
+                current_day.description = day.description
                 current_day.is_rest = False
                 current_day.need_logs_to_advance = False
                 current_day.save()
