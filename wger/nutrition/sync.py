@@ -50,7 +50,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -81,6 +80,8 @@ def fetch_ingredient_image(pk: int):
         fetch_image_from_off(ingredient)
     elif settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_WGER:
         fetch_image_from_wger_instance(ingredient)
+    else:
+        logger.info('No image backend configured, skipping...')
 
 
 def fetch_image_from_wger_instance(ingredient):
