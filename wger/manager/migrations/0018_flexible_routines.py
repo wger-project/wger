@@ -400,7 +400,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                'ordering': ['-created'],
+                'ordering': ['-start', '-created'],
             },
         ),
         migrations.AddField(

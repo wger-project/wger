@@ -55,6 +55,7 @@ class Routine(models.Model):
 
     class Meta:
         ordering = [
+            '-start',
             '-created',
         ]
 
