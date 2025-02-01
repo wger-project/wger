@@ -129,23 +129,6 @@ class ExerciseInfoApiTestCase(
     api_base_test.ApiGetTestCase,
 ):
     """
-    Tests the exercise info resource
-    """
-
-    pk = 1
-    private_resource = False
-    overview_cached = True
-
-    def get_resource_name(self):
-        return 'exerciseinfo'
-
-
-class ExerciseBaseInfoApiTestCase(
-    api_base_test.BaseTestCase,
-    api_base_test.ApiBaseTestCase,
-    api_base_test.ApiGetTestCase,
-):
-    """
     Tests the exercise base info resource
     """
 
@@ -154,7 +137,7 @@ class ExerciseBaseInfoApiTestCase(
     overview_cached = True
 
     def get_resource_name(self):
-        return 'exercisebaseinfo'
+        return 'exerciseinfo'
 
 
 class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):

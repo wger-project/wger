@@ -28,12 +28,12 @@ from wger.utils.cache import cache_mapper
 
 class ExerciseApiCacheTestCase(WgerTestCase):
     """
-    Tests the API cache for the exercisebaseinfo endpoint
+    Tests the API cache for the exerciseinfo endpoint
     """
 
     exercise_id = 1
     exercise_uuid = 'acad3949-36fb-4481-9a72-be2ddae2bc05'
-    url = '/api/v2/exercisebaseinfo/1/'
+    url = '/api/v2/exerciseinfo/1/'
 
     cache_key = cache_mapper.get_exercise_api_key('acad3949-36fb-4481-9a72-be2ddae2bc05')
 

@@ -56,13 +56,11 @@ from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
-    ExerciseBaseInfoSerializer,
+    ExerciseInfoSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
-    ExerciseInfoSerializer,
-    TranslationSerializer,
     ExerciseTranslationSerializer,
     ExerciseVariationSerializer,
     ExerciseVideoSerializer,
@@ -95,11 +93,11 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-class ExerciseBaseViewSet(ModelViewSet):
+class ExerciseViewSet(ModelViewSet):
     """
-    API endpoint for exercise base objects.
+    API endpoint for exercise objects.
 
-    For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
+    For a read-only endpoint with all the information of an exercise, see /api/v2/exerciseinfo/
     """
 
     queryset = Exercise.with_translations.all()
@@ -215,83 +213,6 @@ class ExerciseTranslationViewSet(ModelViewSet):
         )
 
 
-class TranslationViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
-
-    This is only kept for backwards compatibility and will be removed in the future
-    """
-
-    queryset = Translation.objects.all()
-    permission_classes = (CanContributeExercises,)
-    serializer_class = TranslationSerializer
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'uuid',
-        'created',
-        'exercise',
-        'description',
-        'language',
-        'name',
-    )
-
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    @extend_schema(deprecated=True)
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
-    @extend_schema(deprecated=True)
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
-
-    def get_queryset(self):
-        """Add additional filters for fields from exercise base"""
-
-        qs = Translation.objects.all()
-
-        category = self.request.query_params.get('category')
-        muscles = self.request.query_params.get('muscles')
-        muscles_secondary = self.request.query_params.get('muscles_secondary')
-        equipment = self.request.query_params.get('equipment')
-        license = self.request.query_params.get('license')
-
-        if category:
-            try:
-                qs = qs.filter(exercise__category_id=int(category))
-            except ValueError:
-                logger.info(f'Got {category} as category ID')
-
-        if muscles:
-            try:
-                qs = qs.filter(exercise__muscles__in=[int(m) for m in muscles.split(',')])
-            except ValueError:
-                logger.info(f'Got {muscles} as muscle IDs')
-
-        if muscles_secondary:
-            try:
-                muscle_ids = [int(m) for m in muscles_secondary.split(',')]
-                qs = qs.filter(exercise__muscles_secondary__in=muscle_ids)
-            except ValueError:
-                logger.info(f"Got '{muscles_secondary}' as secondary muscle IDs")
-
-        if equipment:
-            try:
-                qs = qs.filter(exercise__equipment__in=[int(e) for e in equipment.split(',')])
-            except ValueError:
-                logger.info(f'Got {equipment} as equipment IDs')
-
-        if license:
-            try:
-                qs = qs.filter(exercise__license_id=int(license))
-            except ValueError:
-                logger.info(f'Got {license} as license ID')
-
-        return qs
-
-
 @extend_schema(
     parameters=[
         OpenApiParameter(
@@ -396,37 +317,7 @@ def search(request):
     return Response(response)
 
 
-class TranslationInfoViewset(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
-    """
-
-    queryset = Translation.objects.all()
-    serializer_class = ExerciseInfoSerializer
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'created',
-        'description',
-        'name',
-        'exercise',
-        'license',
-        'license_author',
-    )
-
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    @extend_schema(deprecated=True)
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
-    @extend_schema(deprecated=True)
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
-
-
-class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
+class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     Read-only info API endpoint for exercise objects, grouped by the exercise
     base. Returns nested data structures for more easy and faster parsing and
@@ -434,7 +325,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
 
     queryset = Exercise.objects.all()
-    serializer_class = ExerciseBaseInfoSerializer
+    serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',

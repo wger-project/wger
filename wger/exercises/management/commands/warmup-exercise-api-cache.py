@@ -16,7 +16,7 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.api.serializers import ExerciseBaseInfoSerializer
+from wger.exercises.api.serializers import ExerciseInfoSerializer
 from wger.exercises.models import Exercise
 from wger.utils.cache import reset_exercise_api_cache
 
@@ -63,5 +63,5 @@ class Command(BaseCommand):
         if force:
             reset_exercise_api_cache(exercise.uuid)
 
-        serializer = ExerciseBaseInfoSerializer(exercise)
+        serializer = ExerciseInfoSerializer(exercise)
         serializer.data

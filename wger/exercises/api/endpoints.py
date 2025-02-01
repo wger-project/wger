@@ -1,4 +1,4 @@
-EXERCISE_ENDPOINT = 'exercisebaseinfo'
+EXERCISE_ENDPOINT = 'exerciseinfo'
 DELETION_LOG_ENDPOINT = 'deletion-log'
 CATEGORY_ENDPOINT = 'exercisecategory'
 MUSCLE_ENDPOINT = 'muscle'

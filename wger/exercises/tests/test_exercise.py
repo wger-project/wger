@@ -109,7 +109,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
     }
 
     def get_resource_name(self):
-        return 'exercise-base'
+        return 'exercise'
 
     def test_delete_replace_by(self):
         """Test that setting the replaced_by attribute works"""

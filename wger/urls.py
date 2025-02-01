@@ -149,28 +149,19 @@ router.register(
 # Exercises app
 router.register(
     r'exerciseinfo',
-    exercises_api_views.TranslationInfoViewset,
+    exercises_api_views.ExerciseInfoViewset,
     basename='exerciseinfo',
 )
-router.register(
-    r'exercisebaseinfo',
-    exercises_api_views.ExerciseBaseInfoViewset,
-    basename='exercisebaseinfo',
-)
-router.register(
-    r'exercise',
-    exercises_api_views.TranslationViewSet,
-    basename='exercise',
-)
+
 router.register(
     r'exercise-translation',
     exercises_api_views.ExerciseTranslationViewSet,
     basename='exercise-translation',
 )
 router.register(
-    r'exercise-base',
-    exercises_api_views.ExerciseBaseViewSet,
-    basename='exercise-base',
+    r'exercise',
+    exercises_api_views.ExerciseViewSet,
+    basename='exercise',
 )
 router.register(
     r'equipment',

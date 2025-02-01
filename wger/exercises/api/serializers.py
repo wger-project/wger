@@ -396,48 +396,6 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     Exercise info serializer
     """
 
-    images = ExerciseImageSerializer(many=True, read_only=True)
-    videos = ExerciseVideoSerializer(many=True, read_only=True)
-    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
-    category = ExerciseCategorySerializer(read_only=True)
-    muscles = MuscleSerializer(many=True, read_only=True)
-    muscles_secondary = MuscleSerializer(many=True, read_only=True)
-    equipment = EquipmentSerializer(many=True, read_only=True)
-    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
-    author_history = serializers.ListSerializer(child=serializers.CharField())
-
-    class Meta:
-        model = Translation
-        depth = 1
-        fields = [
-            'id',
-            'name',
-            'aliases',
-            'uuid',
-            'exercise_id',
-            'description',
-            'created',
-            'category',
-            'muscles',
-            'muscles_secondary',
-            'equipment',
-            'language',
-            'license',
-            'license_author',
-            'images',
-            'videos',
-            'comments',
-            'variations',
-            'author_history',
-        ]
-
-
-class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
-    """
-    Exercise base info serializer
-    """
-
     images = ExerciseImageSerializer(source='exerciseimage_set', many=True, read_only=True)
     category = ExerciseCategorySerializer(read_only=True)
     muscles = MuscleSerializer(many=True, read_only=True)

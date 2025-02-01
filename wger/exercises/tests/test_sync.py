@@ -685,7 +685,7 @@ class TestSyncMethods(WgerTestCase):
         sync_exercises(lambda x: x)
 
         mock_request.assert_called_with(
-            'https://wger.de/api/v2/exercisebaseinfo/?limit=100',
+            'https://wger.de/api/v2/exerciseinfo/?limit=100',
             headers=wger_headers(),
         )
         self.assertEqual(Exercise.objects.count(), 9)
