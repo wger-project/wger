@@ -37,7 +37,6 @@ from wger.core.models import (
     WeightUnit,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -60,7 +59,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'date_joined',
             'gym',
             'weight_rounding',
-            'reps_rounding',
+            'repetitions_rounding',
             'is_temporary',
             'show_comments',
             'show_english_ingredients',

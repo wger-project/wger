@@ -196,7 +196,7 @@ by the US Department of Agriculture. It is extremely complete, with around
     Default rounding for weight
     """
 
-    reps_rounding = models.DecimalField(
+    repetitions_rounding = models.DecimalField(
         default=None,
         null=True,
         max_digits=4,

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='userprofile',
-            name='reps_rounding',
+            name='repetitions_rounding',
             field=models.DecimalField(decimal_places=2, default=None, max_digits=4, null=True),
         ),
         migrations.AddField(

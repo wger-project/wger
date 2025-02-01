@@ -155,7 +155,7 @@ class SlotEntry(models.Model):
         # For new entries add default rounding if available
         if not self.id:
             if not self.repetition_rounding:
-                self.repetition_rounding = self.slot.day.routine.user.userprofile.reps_rounding
+                self.repetition_rounding = self.slot.day.routine.user.userprofile.repetitions_rounding
             if not self.weight_rounding:
                 self.weight_rounding = self.slot.day.routine.user.userprofile.weight_rounding
         return super().save(*args, **kwargs)
