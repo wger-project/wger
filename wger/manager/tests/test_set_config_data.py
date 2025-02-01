@@ -31,8 +31,8 @@ class SetConfigDataTestCase(WgerTestCase):
             exercise=1,
             type='normal',
             sets=1,
-            reps=4,
-            reps_unit=1,
+            repetitions=4,
+            repetitions_unit=1,
             weight=20,
             weight_unit=1,
             rir=3,
@@ -73,19 +73,19 @@ class SetConfigDataTestCase(WgerTestCase):
         self.assertEqual(self.config.text_repr, '4 × 20 kg @ 3 RiR')
 
     def test_text_repr_reps_unit(self):
-        self.config.reps = 90
-        self.config.reps_unit = 3
+        self.config.repetitions = 90
+        self.config.repetitions_unit = 3
         self.assertEqual(self.config.text_repr, '90 Seconds × 20 kg @ 3 RiR')
 
     def test_text_repr_reps_unit_no_weight(self):
-        self.config.reps = 90
-        self.config.reps_unit = 3
+        self.config.repetitions = 90
+        self.config.repetitions_unit = 3
         self.config.weight = None
         self.assertEqual(self.config.text_repr, '90 Seconds @ 3 RiR')
 
     def test_text_repr_reps_rounding(self):
-        self.config.reps = 4.72
-        self.config.reps_rounding = 2.5
+        self.config.repetitions = 4.72
+        self.config.repetitions_rounding = 2.5
         self.assertEqual(self.config.text_repr, '5 × 20 kg @ 3 RiR')
 
     def test_text_repr_rir_rounding(self):
@@ -93,11 +93,11 @@ class SetConfigDataTestCase(WgerTestCase):
         self.assertEqual(self.config.text_repr, '4 × 20 kg @ 2.5 RiR')
 
     def test_text_repr_amrap(self):
-        self.config.reps_unit = 2
+        self.config.repetitions_unit = 2
         self.assertEqual(self.config.text_repr, '∞ × 20 kg @ 3 RiR')
 
     def test_text_repr_reps_range(self):
-        self.config.max_reps = 6
+        self.config.max_repetitions = 6
         self.assertEqual(self.config.text_repr, '4-6 × 20 kg @ 3 RiR')
 
     def test_text_repr_weight_range(self):
@@ -125,8 +125,8 @@ class SetConfigDataTestCase(WgerTestCase):
         self.config.sets = 3
         self.config.weight = None
         self.config.max_weight = None
-        self.config.max_reps = None
-        self.config.reps = None
+        self.config.max_repetitions = None
+        self.config.repetitions = None
         self.config.rir = None
         self.assertEqual(self.config.text_repr, '3 Sets')
 

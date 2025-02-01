@@ -20,7 +20,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.consts import (
     ID_UNIT_KG,
     ID_UNIT_LB,
-    ID_UNIT_REPS,
+    ID_UNIT_REPETITIONS,
 )
 from wger.manager.dataclasses import LogData
 from wger.manager.models import WorkoutLog
@@ -51,7 +51,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             user_id=1,
             routine=self.routine,
             date=datetime.date(2024, 2, 1),
-            repetitions_unit_id=ID_UNIT_REPS,
+            repetitions_unit_id=ID_UNIT_REPETITIONS,
             repetitions=5,
             weight_unit_id=ID_UNIT_KG,
             weight=10,
@@ -64,7 +64,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             user_id=1,
             routine=self.routine,
             date=datetime.date(2024, 2, 2),
-            repetitions_unit_id=ID_UNIT_REPS,
+            repetitions_unit_id=ID_UNIT_REPETITIONS,
             repetitions=1,
             weight_unit_id=ID_UNIT_KG,
             weight=10,
@@ -77,7 +77,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             user_id=1,
             routine=self.routine,
             date=datetime.date(2024, 2, 10),
-            repetitions_unit_id=ID_UNIT_REPS,
+            repetitions_unit_id=ID_UNIT_REPETITIONS,
             repetitions=1,
             weight_unit_id=ID_UNIT_KG,
             weight=10,
@@ -90,7 +90,7 @@ class RoutineStatisticsTestCase(WgerTestCase):
             user_id=1,
             routine=self.routine,
             date=datetime.date(2024, 2, 10),
-            repetitions_unit_id=ID_UNIT_REPS,
+            repetitions_unit_id=ID_UNIT_REPETITIONS,
             repetitions=1,
             weight_unit_id=ID_UNIT_LB,
             weight=10,

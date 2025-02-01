@@ -68,8 +68,8 @@ class Command(BaseCommand):
                         for exercise_id in slot_data.exercises:
                             for set_data in slot_data.sets:
                                 reps = (
-                                    set_data.reps + random.randint(-1, 2)
-                                    if set_data.reps
+                                    set_data.repetitions + random.randint(-1, 2)
+                                    if set_data.repetitions
                                     else random.randint(3, 12)
                                 )
                                 weight = (
@@ -124,8 +124,8 @@ class Command(BaseCommand):
                                     exercise_id=exercise_id,
                                     routine=routine,
                                     repetitions=reps,
-                                    repetitions_target=set_data.reps,
-                                    repetitions_unit_id=set_data.reps_unit,
+                                    repetitions_target=set_data.repetitions,
+                                    repetitions_unit_id=set_data.repetitions_unit,
                                     weight=weight,
                                     weight_target=set_data.weight,
                                     weight_unit_id=set_data.weight_unit,

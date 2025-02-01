@@ -46,21 +46,21 @@ class SetConfigData:
     exercise: int
 
     weight: Decimal | int | None
-    reps: Decimal | int | None
+    repetitions: Decimal | int | None
     rir: Decimal | int | None
     rest: int | None
 
     max_rir: Decimal | int | None = None
     max_weight: Decimal | int | None = None
-    max_reps: Decimal | int | None = None
+    max_repetitions: Decimal | int | None = None
     max_rest: int | None = None
     max_sets: int | None = None
 
     sets: int = 1
     weight_unit: int | None = 1
-    reps_unit: int | None = 1
+    repetitions_unit: int | None = 1
     weight_rounding: Decimal | int | None = None
-    reps_rounding: Decimal | int | None = None
+    repetitions_rounding: Decimal | int | None = None
 
     comment: str = ''
     type: str = 'normal'
@@ -96,23 +96,24 @@ class SetConfigData:
 
             out.append(f'{sets} {_("Sets")},')
 
-        if self.reps:
-            reps = round_value(self.reps, self.reps_rounding)
+        if self.repetitions:
+            reps = round_value(self.repetitions, self.repetitions_rounding)
             max_reps = (
-                round_value(self.max_reps, self.reps_rounding) if self.max_reps else self.max_reps
+                round_value(self.max_repetitions,
+                            self.repetitions_rounding) if self.max_repetitions else self.max_repetitions
             )
 
             if max_reps:
                 reps = f'{reps}-{max_reps}'
 
             unit = ''
-            if self.reps_unit in (1, 2) and not self.weight:
+            if self.repetitions_unit in (1, 2) and not self.weight:
                 unit = _('Reps')
-            elif self.reps_unit == 2:
+            elif self.repetitions_unit == 2:
                 unit = '∞'
                 reps = ''
-            elif self.reps_unit not in (1, 2):
-                unit = _(RepetitionUnit.objects.get(pk=self.reps_unit).name)
+            elif self.repetitions_unit not in (1, 2):
+                unit = _(RepetitionUnit.objects.get(pk=self.repetitions_unit).name)
 
             out.append(f'{reps} {unit}'.strip())
 

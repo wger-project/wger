@@ -21,7 +21,7 @@ from django.db import models
 from wger.manager.consts import (
     ID_UNIT_KG,
     ID_UNIT_LB,
-    ID_UNIT_REPS,
+    ID_UNIT_REPETITIONS,
 )
 
 
@@ -36,7 +36,7 @@ class WorkoutLogQuerySet(models.QuerySet):
 
     def reps(self):
         """Return all entries with reps as unit"""
-        return self.filter(repetitions_unit_id=ID_UNIT_REPS)
+        return self.filter(repetitions_unit_id=ID_UNIT_REPETITIONS)
 
 
 class WorkoutLogManager(models.Manager):

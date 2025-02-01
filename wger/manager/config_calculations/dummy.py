@@ -26,7 +26,7 @@ class SetCalculations(AbstractSetCalculations):
                 exercise=1,
                 sets=2,
                 weight=24,
-                reps=1,
+                repetitions=1,
                 rir=2,
                 rest=120,
             )
@@ -35,7 +35,7 @@ class SetCalculations(AbstractSetCalculations):
                 exercise=2,
                 sets=4,
                 weight=42,
-                reps=10,
+                repetitions=10,
                 rir=1,
                 rest=90,
             )

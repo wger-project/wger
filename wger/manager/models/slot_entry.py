@@ -306,12 +306,12 @@ class SlotEntry(models.Model):
             # TODO: decide on whether to return None or always the unit
             # weight_unit=self.weight_unit.pk if weight is not None else None,
             weight_unit=self.weight_unit.pk,
-            reps=round_value(reps, self.repetition_rounding),
-            max_reps=round_value(max_reps, self.repetition_rounding)
+            repetitions=round_value(reps, self.repetition_rounding),
+            max_repetitions=round_value(max_reps, self.repetition_rounding)
             if max_reps and reps and max_reps > reps
             else None,
-            reps_rounding=self.repetition_rounding if reps is not None else None,
-            reps_unit=self.repetition_unit.pk,
+            repetitions_rounding=self.repetition_rounding if reps is not None else None,
+            repetitions_unit=self.repetition_unit.pk,
             # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.calculate_rir(iteration),

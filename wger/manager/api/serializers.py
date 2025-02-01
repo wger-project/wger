@@ -201,7 +201,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
     max_weight_configs = WeightConfigSerializer(source='maxweightconfig_set', many=True)
     repetitions_configs = RepetitionsConfigSerializer(source='repetitionsconfig_set', many=True)
     max_repetitions_configs = RepetitionsConfigSerializer(
-        source='maxrepetitionssconfig_set',
+        source='maxrepetitionsconfig_set',
         many=True
     )
     set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
@@ -353,10 +353,10 @@ class SetConfigDataSerializer(serializers.Serializer):
     max_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
     weight_unit = serializers.IntegerField()
     weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
-    reps = serializers.DecimalField(max_digits=5, decimal_places=2)
-    max_reps = serializers.DecimalField(max_digits=5, decimal_places=2)
-    reps_unit = serializers.IntegerField()
-    reps_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
+    repetitions = serializers.DecimalField(max_digits=5, decimal_places=2)
+    max_repetitions = serializers.DecimalField(max_digits=5, decimal_places=2)
+    repetitions_unit = serializers.IntegerField()
+    repetitions_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     max_rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     rpe = serializers.DecimalField(max_digits=5, decimal_places=2)
