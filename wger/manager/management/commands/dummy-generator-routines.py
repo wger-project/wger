@@ -26,7 +26,7 @@ from django.core.management.base import BaseCommand
 from wger.exercises.models import Exercise
 from wger.manager.models import (
     Day,
-    RepsConfig,
+    RepetitionsConfig,
     Routine,
     SetsConfig,
     Slot,
@@ -34,7 +34,6 @@ from wger.manager.models import (
     WeightConfig,
 )
 from wger.manager.models.abstract_config import OperationChoices
-
 
 logger = logging.getLogger(__name__)
 
@@ -121,7 +120,7 @@ class Command(BaseCommand):
                             operation=OperationChoices.REPLACE,
                         ).save()
 
-                        RepsConfig(
+                        RepetitionsConfig(
                             slot_entry=slot_entry,
                             value=reps,
                             iteration=1,

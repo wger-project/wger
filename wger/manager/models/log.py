@@ -221,7 +221,7 @@ class WorkoutLog(models.Model):
         """
         Return a more human-readable representation
         """
-        return f'Log entry: {self.reps} - {self.weight} kg on {self.date}'
+        return f'Log entry: {self.repetitions} - {self.weight} kg on {self.date}'
 
     def get_owner_object(self):
         """

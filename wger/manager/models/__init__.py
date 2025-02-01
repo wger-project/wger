@@ -19,9 +19,9 @@ from .abstract_config import AbstractChangeConfig
 from .day import Day
 from .label import Label
 from .log import WorkoutLog
-from .reps_config import (
-    MaxRepsConfig,
-    RepsConfig,
+from .repetitions_config import (
+    MaxRepetitionsConfig,
+    RepetitionsConfig,
 )
 from .rest_config import (
     MaxRestConfig,

@@ -24,7 +24,7 @@ def migrate_routines(apps) -> dict[int, Any]:
     SlotEntry = apps.get_model('manager', 'SlotEntry')
     SetsConfig = apps.get_model('manager', 'SetsConfig')
     WeightConfig = apps.get_model('manager', 'WeightConfig')
-    RepsConfig = apps.get_model('manager', 'RepsConfig')
+    RepetitionsConfig = apps.get_model('manager', 'RepetitionsConfig')
     RiRConfig = apps.get_model('manager', 'RiRConfig')
     RestConfig = apps.get_model('manager', 'RestConfig')
 
@@ -102,7 +102,7 @@ def migrate_routines(apps) -> dict[int, Any]:
                             ).save()
 
                         if setting.reps:
-                            RepsConfig(
+                            RepetitionsConfig(
                                 slot_entry=slot_entry,
                                 value=setting.reps,
                                 iteration=1,

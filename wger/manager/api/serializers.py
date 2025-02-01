@@ -22,12 +22,12 @@ from wger.manager.api.consts import BASE_CONFIG_FIELDS
 from wger.manager.api.validators import validate_requirements
 from wger.manager.models import (
     Day,
-    MaxRepsConfig,
+    MaxRepetitionsConfig,
     MaxRestConfig,
     MaxRiRConfig,
     MaxSetsConfig,
     MaxWeightConfig,
-    RepsConfig,
+    RepetitionsConfig,
     RestConfig,
     RiRConfig,
     Routine,
@@ -112,23 +112,23 @@ class MaxWeightConfigSerializer(BaseConfigSerializer):
         fields = BASE_CONFIG_FIELDS
 
 
-class RepsConfigSerializer(BaseConfigSerializer):
+class RepetitionsConfigSerializer(BaseConfigSerializer):
     """
     Repetition Config serializer
     """
 
     class Meta:
-        model = RepsConfig
+        model = RepetitionsConfig
         fields = BASE_CONFIG_FIELDS
 
 
-class MaxRepsConfigSerializer(BaseConfigSerializer):
+class MaxRepetitionsConfigSerializer(BaseConfigSerializer):
     """
     Max Repetition Config serializer
     """
 
     class Meta:
-        model = MaxRepsConfig
+        model = MaxRepetitionsConfig
         fields = BASE_CONFIG_FIELDS
 
 
@@ -199,8 +199,11 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
 
     weight_configs = WeightConfigSerializer(source='weightconfig_set', many=True)
     max_weight_configs = WeightConfigSerializer(source='maxweightconfig_set', many=True)
-    reps_configs = RepsConfigSerializer(source='repsconfig_set', many=True)
-    max_reps_configs = RepsConfigSerializer(source='maxrepsconfig_set', many=True)
+    repetitions_configs = RepetitionsConfigSerializer(source='repetitionsconfig_set', many=True)
+    max_repetitions_configs = RepetitionsConfigSerializer(
+        source='maxrepetitionssconfig_set',
+        many=True
+    )
     set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
     max_set_nr_configs = MaxSetNrConfigSerializer(source='maxsetsconfig_set', many=True)
     rir_configs = RiRConfigSerializer(source='rirconfig_set', many=True)

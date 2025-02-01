@@ -298,7 +298,7 @@
   },
   {
     "pk": 1,
-    "model": "manager.repsconfig",
+    "model": "manager.repetitionsconfig",
     "fields": {
       "slot_entry_id": 1,
       "iteration": 1,
@@ -311,7 +311,7 @@
   },
   {
     "pk": 2,
-    "model": "manager.repsconfig",
+    "model": "manager.repetitionsconfig",
     "fields": {
       "slot_entry_id": 2,
       "iteration": 1,
@@ -324,7 +324,7 @@
   },
   {
     "pk": 3,
-    "model": "manager.repsconfig",
+    "model": "manager.repetitionsconfig",
     "fields": {
       "slot_entry_id": 3,
       "iteration": 1,
@@ -337,7 +337,7 @@
   },
   {
     "pk": 4,
-    "model": "manager.repsconfig",
+    "model": "manager.repetitionsconfig",
     "fields": {
       "slot_entry_id": 4,
       "iteration": 1,

@@ -224,8 +224,8 @@ class SlotEntry(models.Model):
                 max_sets_configs=self.maxsetsconfig_set.filter(iteration__lte=iteration),
                 weight_configs=self.weightconfig_set.filter(iteration__lte=iteration),
                 max_weight_configs=self.maxweightconfig_set.filter(iteration__lte=iteration),
-                reps_configs=self.repsconfig_set.filter(iteration__lte=iteration),
-                max_reps_configs=self.maxrepsconfig_set.filter(iteration__lte=iteration),
+                reps_configs=self.repetitionsconfig_set.filter(iteration__lte=iteration),
+                max_reps_configs=self.maxrepetitionsconfig_set.filter(iteration__lte=iteration),
                 rir_configs=self.rirconfig_set.filter(iteration__lte=iteration),
                 max_rir_configs=self.maxrirconfig_set.filter(iteration__lte=iteration),
                 rest_configs=self.restconfig_set.filter(iteration__lte=iteration),
@@ -249,7 +249,7 @@ class SlotEntry(models.Model):
         # up to the current iteration if the weights and reps can be increased.
         for i in range(1, iteration + 1):
             weight_config = self.weightconfig_set.filter(iteration__lte=i).last()
-            reps_config = self.repsconfig_set.filter(iteration__lte=i).last()
+            reps_config = self.repetitionsconfig_set.filter(iteration__lte=i).last()
 
             # No configs, return None
             if not weight_config or not reps_config:
@@ -355,7 +355,7 @@ class SlotEntry(models.Model):
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.repsconfig_set.filter(iteration__lte=iteration)),
+                list(self.repetitionsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -363,7 +363,7 @@ class SlotEntry(models.Model):
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.maxrepsconfig_set.filter(iteration__lte=iteration)),
+                list(self.maxrepetitionsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 

@@ -808,7 +808,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='RepsConfig',
+            name='RepetitionsConfig',
             fields=[
                 (
                     'id',
@@ -863,7 +863,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='MaxRepsConfig',
+            name='MaxRepetitionsConfig',
             fields=[
                 (
                     'id',

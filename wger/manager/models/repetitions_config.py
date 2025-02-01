@@ -18,7 +18,7 @@
 from wger.manager.models import AbstractChangeConfig
 
 
-class RepsConfig(AbstractChangeConfig):
+class RepetitionsConfig(AbstractChangeConfig):
     """
     Configuration model for the number of reps for a workout set
     """
@@ -26,7 +26,7 @@ class RepsConfig(AbstractChangeConfig):
     pass
 
 
-class MaxRepsConfig(AbstractChangeConfig):
+class MaxRepetitionsConfig(AbstractChangeConfig):
     """
     Configuration model for the upper limit of the reps for a workout set
     """

@@ -99,14 +99,14 @@ router.register(
     basename='max-weight-config',
 )
 router.register(
-    r'reps-config',
-    manager_api_views.RepsConfigViewSet,
-    basename='reps-config',
+    r'repetitions-config',
+    manager_api_views.RepetitionsConfigViewSet,
+    basename='repetitions-config',
 )
 router.register(
-    r'max-reps-config',
-    manager_api_views.MaxRepsConfigViewSet,
-    basename='max-reps-config',
+    r'max-repetitions-config',
+    manager_api_views.MaxRepetitionsConfigViewSet,
+    basename='max-repetitions-config',
 )
 router.register(
     r'sets-config',

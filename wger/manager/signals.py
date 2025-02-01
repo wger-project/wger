@@ -26,10 +26,10 @@ from wger.gym.helpers import get_user_last_activity
 from wger.manager.helpers import reset_routine_cache
 from wger.manager.models import (
     Day,
-    MaxRepsConfig,
+    MaxRepetitionsConfig,
     MaxRestConfig,
     MaxWeightConfig,
-    RepsConfig,
+    RepetitionsConfig,
     RestConfig,
     RiRConfig,
     Routine,
@@ -76,11 +76,11 @@ def update_cache_max_weight_config(sender, instance: MaxWeightConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
 
 
-def update_cache_reps_config(sender, instance: RepsConfig, **kwargs):
+def update_cache_repetitions_config(sender, instance: RepetitionsConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
 
 
-def update_cache_max_reps_config(sender, instance: MaxRepsConfig, **kwargs):
+def update_cache_max_repetitions_config(sender, instance: MaxRepetitionsConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
 
 
@@ -114,8 +114,8 @@ pre_save.connect(update_cache_slot, sender=Slot)
 pre_save.connect(update_cache_slot_entry, sender=SlotEntry)
 pre_save.connect(update_cache_weight_config, sender=WeightConfig)
 pre_save.connect(update_cache_max_weight_config, sender=MaxWeightConfig)
-pre_save.connect(update_cache_reps_config, sender=RepsConfig)
-pre_save.connect(update_cache_max_reps_config, sender=MaxRepsConfig)
+pre_save.connect(update_cache_repetitions_config, sender=RepetitionsConfig)
+pre_save.connect(update_cache_max_repetitions_config, sender=MaxRepetitionsConfig)
 pre_save.connect(update_cache_sets_config, sender=SetsConfig)
 pre_save.connect(update_cache_rest_config, sender=RestConfig)
 pre_save.connect(update_cache_max_rest_config, sender=MaxRestConfig)
@@ -128,8 +128,8 @@ pre_delete.connect(update_cache_slot, sender=Slot)
 pre_delete.connect(update_cache_slot_entry, sender=SlotEntry)
 pre_delete.connect(update_cache_weight_config, sender=WeightConfig)
 pre_delete.connect(update_cache_max_weight_config, sender=MaxWeightConfig)
-pre_delete.connect(update_cache_reps_config, sender=RepsConfig)
-pre_delete.connect(update_cache_max_reps_config, sender=MaxRepsConfig)
+pre_delete.connect(update_cache_repetitions_config, sender=RepetitionsConfig)
+pre_delete.connect(update_cache_max_repetitions_config, sender=MaxRepetitionsConfig)
 pre_delete.connect(update_cache_sets_config, sender=SetsConfig)
 pre_delete.connect(update_cache_rest_config, sender=RestConfig)
 pre_delete.connect(update_cache_max_rest_config, sender=MaxRestConfig)

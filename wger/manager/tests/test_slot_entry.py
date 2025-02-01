@@ -22,9 +22,9 @@ from django.test import SimpleTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import SetConfigData
 from wger.manager.models import (
-    MaxRepsConfig,
+    MaxRepetitionsConfig,
     MaxWeightConfig,
-    RepsConfig,
+    RepetitionsConfig,
     RestConfig,
     RiRConfig,
     SetsConfig,
@@ -122,7 +122,7 @@ class SlotEntryTestCase(WgerTestCase):
 
         # Initial value
         SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4).save()
-        RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
         RestConfig(slot_entry=self.slot_entry, iteration=1, value=120).save()
         RiRConfig(slot_entry=self.slot_entry, iteration=1, value=2).save()
         WeightConfig(
@@ -274,8 +274,8 @@ class SlotEntryTestCase(WgerTestCase):
         self.slot_entry.save()
 
         # Initial value: 5-6 reps x 80-100 kg
-        RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
-        MaxRepsConfig(slot_entry=self.slot_entry, iteration=1, value=6).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=6).save()
         WeightConfig(
             slot_entry=self.slot_entry,
             iteration=1,
@@ -360,7 +360,7 @@ class SlotEntryTestCase(WgerTestCase):
             value=100,
             operation=OperationChoices.REPLACE,
         ).save()
-        RepsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
         RestConfig(slot_entry=self.slot_entry, iteration=1, value=120).save()
         RiRConfig(slot_entry=self.slot_entry, iteration=1, value=2).save()
 

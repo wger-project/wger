@@ -42,12 +42,12 @@ from wger.manager.api.serializers import (
     DaySerializer,
     LogDisplaySerializer,
     LogStatsDataSerializer,
-    MaxRepsConfigSerializer,
+    MaxRepetitionsConfigSerializer,
     MaxRestConfigSerializer,
     MaxRiRConfigSerializer,
     MaxSetNrConfigSerializer,
     MaxWeightConfigSerializer,
-    RepsConfigSerializer,
+    RepetitionsConfigSerializer,
     RestConfigSerializer,
     RiRConfigSerializer,
     RoutineSerializer,
@@ -63,12 +63,12 @@ from wger.manager.api.serializers import (
 )
 from wger.manager.models import (
     Day,
-    MaxRepsConfig,
+    MaxRepetitionsConfig,
     MaxRestConfig,
     MaxRiRConfig,
     MaxSetsConfig,
     MaxWeightConfig,
-    RepsConfig,
+    RepetitionsConfig,
     RestConfig,
     RiRConfig,
     Routine,
@@ -507,12 +507,12 @@ class MaxWeightConfigViewSet(AbstractConfigViewSet):
         )
 
 
-class RepsConfigViewSet(AbstractConfigViewSet):
+class RepetitionsConfigViewSet(AbstractConfigViewSet):
     """
     API endpoint for reps config objects
     """
 
-    serializer_class = RepsConfigSerializer
+    serializer_class = RepetitionsConfigSerializer
     filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
@@ -521,17 +521,17 @@ class RepsConfigViewSet(AbstractConfigViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return RepsConfig.objects.none()
+            return RepetitionsConfig.objects.none()
 
-        return RepsConfig.objects.all()
+        return RepetitionsConfig.objects.all()
 
 
-class MaxRepsConfigViewSet(AbstractConfigViewSet):
+class MaxRepetitionsConfigViewSet(AbstractConfigViewSet):
     """
     API endpoint for max reps config objects
     """
 
-    serializer_class = MaxRepsConfigSerializer
+    serializer_class = MaxRepetitionsConfigSerializer
     filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
@@ -540,9 +540,9 @@ class MaxRepsConfigViewSet(AbstractConfigViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return MaxRepsConfig.objects.none()
+            return MaxRepetitionsConfig.objects.none()
 
-        return MaxRepsConfig.objects.all()
+        return MaxRepetitionsConfig.objects.all()
 
 
 class SetsConfigViewSet(AbstractConfigViewSet):
