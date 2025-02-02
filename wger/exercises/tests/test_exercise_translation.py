@@ -16,10 +16,6 @@
 import json
 
 # Django
-from django.template import (
-    Context,
-    Template,
-)
 from django.urls import reverse
 
 # Third Party
@@ -32,6 +28,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Muscle,
     Translation,
+    Exercise,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
 
@@ -115,12 +112,29 @@ class ExerciseApiTestCase(
     """
 
     pk = 1
-    resource = Translation
+    resource = Exercise
     private_resource = False
-    overview_cached = True
+    overview_cached = False
 
     def get_resource_name(self):
         return 'exercise'
+
+
+# TODO: fix test, all registered users can upload exercises
+class ExerciseTranslationApiTestCase(
+    api_base_test.BaseTestCase, api_base_test.ApiBaseTestCase, api_base_test.ApiGetTestCase
+):
+    """
+    Tests the exercise overview resource
+    """
+
+    pk = 1
+    resource = Translation
+    private_resource = False
+    overview_cached = False
+
+    def get_resource_name(self):
+        return 'exercise-translation'
 
 
 class ExerciseInfoApiTestCase(
@@ -140,7 +154,7 @@ class ExerciseInfoApiTestCase(
         return 'exerciseinfo'
 
 
-class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
+class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
     pk = 1
 
     data = {
