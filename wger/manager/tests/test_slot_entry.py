@@ -315,10 +315,10 @@ class SlotEntryTestCase(WgerTestCase):
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
-                sets=1,
+                sets=5,
                 weight=Decimal(50),
                 weight_rounding=Decimal(2.5),
-                rest=90,
+                rest=Decimal(90),
             ).__dict__,
         )
 
@@ -331,7 +331,7 @@ class SlotEntryTestCase(WgerTestCase):
                 sets=6,
                 weight=Decimal(50),
                 weight_rounding=Decimal(2.5),
-                rest=90,
+                rest=Decimal(90),
             ).__dict__,
         )
 

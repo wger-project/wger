@@ -47,21 +47,23 @@ class SetConfigData:
     exercise: int
 
     weight: Decimal | int | None = None
-    repetitions: Decimal | int | None = None
-    rir: Decimal | int | None = None
-    rest: int | None = None
-
-    max_rir: Decimal | int | None = None
     max_weight: Decimal | int | None = None
+    weight_unit: int | None = 1
+    weight_rounding: Decimal | int | None = None
+
+    repetitions: Decimal | int | None = None
     max_repetitions: Decimal | int | None = None
-    max_rest: int | None = None
-    max_sets: int | None = None
+    repetitions_unit: int | None = 1
+    repetitions_rounding: Decimal | int | None = None
+
+    rir: Decimal | int | None = None
+    max_rir: Decimal | int | None = None
+
+    rest: Decimal | int | None = None
+    max_rest: Decimal | int | None = None
 
     sets: int = 1
-    weight_unit: int | None = 1
-    repetitions_unit: int | None = 1
-    weight_rounding: Decimal | int | None = None
-    repetitions_rounding: Decimal | int | None = None
+    max_sets: int | None = None
 
     comment: str = ''
     type: str = 'normal'
