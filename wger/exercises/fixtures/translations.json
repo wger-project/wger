@@ -24609,7 +24609,7 @@
     "pk": 6,
     "fields": {
       "uuid": "6dc8fa67-6359-4e7d-8773-fe146bd08f3c",
-      "exercise": 33,
+      "translation": 33,
       "comment": "Nach innen drehen, die Ellenbogen zeigen zum Knie"
     }
   },
@@ -24618,7 +24618,7 @@
     "pk": 7,
     "fields": {
       "uuid": "2fbe2c7e-0e96-4eaf-8c6f-cabfb030072e",
-      "exercise": 10,
+      "translation": 10,
       "comment": "Brust raus, Kopf nach hinten"
     }
   },
@@ -24627,7 +24627,7 @@
     "pk": 8,
     "fields": {
       "uuid": "ee29e75f-30d0-45c4-a7f8-d04a6407a244",
-      "exercise": 10,
+      "translation": 10,
       "comment": "Mit Schwung nach unten ziehen"
     }
   },
@@ -24636,7 +24636,7 @@
     "pk": 9,
     "fields": {
       "uuid": "c835264a-74c5-4e53-8846-9b413ae16c26",
-      "exercise": 7,
+      "translation": 7,
       "comment": "Unten 1 Sekunde Pause, oben, 3"
     }
   },
@@ -24645,7 +24645,7 @@
     "pk": 10,
     "fields": {
       "uuid": "289c6deb-5a10-4695-8060-487f459197d1",
-      "exercise": 36,
+      "translation": 36,
       "comment": "Kopf in Nacken"
     }
   },
@@ -24654,7 +24654,7 @@
     "pk": 11,
     "fields": {
       "uuid": "da5044a1-bfc4-4792-8756-aebaaf7f7f23",
-      "exercise": 36,
+      "translation": 36,
       "comment": "Brust raus"
     }
   },
@@ -24663,7 +24663,7 @@
     "pk": 12,
     "fields": {
       "uuid": "e904dbce-ac17-4204-9aff-fa23b81a1da0",
-      "exercise": 36,
+      "translation": 36,
       "comment": "Ellenbogen nach hinten"
     }
   },
@@ -24672,7 +24672,7 @@
     "pk": 13,
     "fields": {
       "uuid": "e8e8380c-f20e-42c9-b04b-330b74ab4067",
-      "exercise": 59,
+      "translation": 59,
       "comment": "Brust raus"
     }
   },
@@ -24681,7 +24681,7 @@
     "pk": 14,
     "fields": {
       "uuid": "45e8828e-e6df-4bfc-beda-a3b34254e484",
-      "exercise": 59,
+      "translation": 59,
       "comment": "Keinen Bucken machen!"
     }
   },
@@ -24690,7 +24690,7 @@
     "pk": 15,
     "fields": {
       "uuid": "2b655e51-5f28-49ce-8b57-c7f4da2f72e7",
-      "exercise": 59,
+      "translation": 59,
       "comment": "Schnell nach oben ziehen"
     }
   },
@@ -24699,7 +24699,7 @@
     "pk": 16,
     "fields": {
       "uuid": "f1d7b0f6-8ebb-417d-981d-e1b5af66b704",
-      "exercise": 10,
+      "translation": 10,
       "comment": "Gerade sitzen"
     }
   },
@@ -24708,7 +24708,7 @@
     "pk": 19,
     "fields": {
       "uuid": "b6384d24-7b6b-4076-a7b6-f35f10601d49",
-      "exercise": 6,
+      "translation": 6,
       "comment": "Knie nach au\u00dfen"
     }
   },
@@ -24717,7 +24717,7 @@
     "pk": 20,
     "fields": {
       "uuid": "406784c3-80f3-4853-8c53-34b7bc5519db",
-      "exercise": 46,
+      "translation": 46,
       "comment": "Ellenbogen am K\u00f6rper, nicht bewegen"
     }
   },
@@ -24726,7 +24726,7 @@
     "pk": 21,
     "fields": {
       "uuid": "ea75e3c7-0ce4-4003-9e26-820c4e8b0ae4",
-      "exercise": 46,
+      "translation": 46,
       "comment": "Beine ausstrecken, F\u00fc\u00dfe zusammen"
     }
   },
@@ -24735,7 +24735,7 @@
     "pk": 22,
     "fields": {
       "uuid": "63249b59-b87a-47c5-986c-47334ed46538",
-      "exercise": 15,
+      "translation": 15,
       "comment": "Arme oben nicht ganz ausstrecken"
     }
   },
@@ -24744,7 +24744,7 @@
     "pk": 23,
     "fields": {
       "uuid": "fb144573-cdf9-4be6-a4e7-cb91aaed7630",
-      "exercise": 7,
+      "translation": 7,
       "comment": "Nach unten gehen, bis die Schenkel parallel zum Boden sind"
     }
   },
@@ -24753,7 +24753,7 @@
     "pk": 24,
     "fields": {
       "uuid": "ca2c614f-7527-4e57-a743-ca0dae5bc43b",
-      "exercise": 72,
+      "translation": 72,
       "comment": "Vorderen Fu\u00df ca 50% drau\u00dfen (schwebend)"
     }
   },
@@ -24762,7 +24762,7 @@
     "pk": 25,
     "fields": {
       "uuid": "7340e5d5-16b2-446a-a2c1-e9ac7099b225",
-      "exercise": 72,
+      "translation": 72,
       "comment": "Brust raus"
     }
   },
@@ -24771,7 +24771,7 @@
     "pk": 28,
     "fields": {
       "uuid": "20778f4b-af36-46f5-bb63-024d58b14ed8",
-      "exercise": 6,
+      "translation": 6,
       "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten"
     }
   },
@@ -24780,7 +24780,7 @@
     "pk": 29,
     "fields": {
       "uuid": "632b02fc-3762-4805-a162-d098f4c12976",
-      "exercise": 66,
+      "translation": 66,
       "comment": "Ellenbogen nach au\u00dfen"
     }
   },
@@ -24789,7 +24789,7 @@
     "pk": 30,
     "fields": {
       "uuid": "869a960d-fee1-46c1-a4e0-7aa8f293d5ba",
-      "exercise": 35,
+      "translation": 35,
       "comment": "Beine nicht ganz ausstrecken"
     }
   },
@@ -24798,7 +24798,7 @@
     "pk": 31,
     "fields": {
       "uuid": "d695e4c8-40c7-46b3-9f35-d8e5c94f2991",
-      "exercise": 73,
+      "translation": 73,
       "comment": "Arme angewinkelt"
     }
   },
@@ -24807,7 +24807,7 @@
     "pk": 32,
     "fields": {
       "uuid": "5ee42fb3-c793-48b2-a662-35c7a4f583e7",
-      "exercise": 73,
+      "translation": 73,
       "comment": "Arme nicht zu weit nach unten"
     }
   },
@@ -24816,7 +24816,7 @@
     "pk": 33,
     "fields": {
       "uuid": "6ab1ba4a-cca2-4e4a-a660-08caec98315c",
-      "exercise": 68,
+      "translation": 68,
       "comment": "Arme nicht durchstrecken"
     }
   },
@@ -24825,7 +24825,7 @@
     "pk": 34,
     "fields": {
       "uuid": "d2d50385-a89b-42ff-913b-66f8d58e6bea",
-      "exercise": 68,
+      "translation": 68,
       "comment": "Ellenbogen nach hinten"
     }
   },
@@ -24834,7 +24834,7 @@
     "pk": 36,
     "fields": {
       "uuid": "b6fd498a-9117-499f-a762-07f5e4138518",
-      "exercise": 62,
+      "translation": 62,
       "comment": "Arme hochziehen bis zum Kinn"
     }
   },
@@ -24843,7 +24843,7 @@
     "pk": 37,
     "fields": {
       "uuid": "a6f05cb7-899d-4113-8a2b-95aebbc53e59",
-      "exercise": 62,
+      "translation": 62,
       "comment": "Eher einen engen Griff machen"
     }
   },
@@ -24852,7 +24852,7 @@
     "pk": 38,
     "fields": {
       "uuid": "8feef4c5-65af-418a-8ee5-cc780f85e005",
-      "exercise": 20,
+      "translation": 20,
       "comment": "Wenn oben, drehe die H\u00e4nde etwas nach unten"
     }
   },
@@ -24861,7 +24861,7 @@
     "pk": 39,
     "fields": {
       "uuid": "605aeed3-4beb-49e9-85c5-4411b0407c2c",
-      "exercise": 48,
+      "translation": 48,
       "comment": "Brust raus, Kopf nach hinten"
     }
   },
@@ -24870,7 +24870,7 @@
     "pk": 40,
     "fields": {
       "uuid": "d70cac10-7db9-4072-af11-28e4011a93bd",
-      "exercise": 48,
+      "translation": 48,
       "comment": "R\u00fccken gerade"
     }
   },
@@ -24879,7 +24879,7 @@
     "pk": 41,
     "fields": {
       "uuid": "a1d23592-31ce-4af9-b486-0c25b6fb65da",
-      "exercise": 70,
+      "translation": 70,
       "comment": "Brust raus"
     }
   },
@@ -24888,7 +24888,7 @@
     "pk": 42,
     "fields": {
       "uuid": "951decd4-68f9-4a9d-827b-13eac39ef435",
-      "exercise": 70,
+      "translation": 70,
       "comment": "Fast horizontal vorgebeugt"
     }
   },
@@ -24897,7 +24897,7 @@
     "pk": 43,
     "fields": {
       "uuid": "6c7b5075-a03a-48ff-a804-5e866019be06",
-      "exercise": 70,
+      "translation": 70,
       "comment": "Zum Bauchnabel ziehen, nicht weiter oben"
     }
   },
@@ -24906,7 +24906,7 @@
     "pk": 44,
     "fields": {
       "uuid": "01083e31-3789-462b-a278-6cb3b8bdb39a",
-      "exercise": 60,
+      "translation": 60,
       "comment": "Oben 1-2 Sekunden halten"
     }
   },
@@ -24915,7 +24915,7 @@
     "pk": 45,
     "fields": {
       "uuid": "e9a5b0b5-6af8-4059-8c1f-9d043b1e80b6",
-      "exercise": 37,
+      "translation": 37,
       "comment": "Brust raus"
     }
   },
@@ -24924,7 +24924,7 @@
     "pk": 46,
     "fields": {
       "uuid": "5322c5f5-21a1-4630-a10a-742f9fc82a80",
-      "exercise": 37,
+      "translation": 37,
       "comment": "Zum Bauchnabel ziehen, nicht weiter oben"
     }
   },
@@ -24933,7 +24933,7 @@
     "pk": 47,
     "fields": {
       "uuid": "8fdb1672-c2c9-47ca-a3f7-72afa28e4e5f",
-      "exercise": 24,
+      "translation": 24,
       "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten"
     }
   },
@@ -24942,7 +24942,7 @@
     "pk": 49,
     "fields": {
       "uuid": "b32407f2-7758-4c34-ab7a-eb67654077e3",
-      "exercise": 28,
+      "translation": 28,
       "comment": "F\u00fc\u00dfe zusammen, nicht wie beim Ausfallschritt"
     }
   },
@@ -24951,7 +24951,7 @@
     "pk": 50,
     "fields": {
       "uuid": "27432aa5-7e25-4e90-af72-2590386b1519",
-      "exercise": 28,
+      "translation": 28,
       "comment": "Arme eher zusammen, direkt unter dem Ellenbogen auf die Bank"
     }
   },
@@ -24960,7 +24960,7 @@
     "pk": 51,
     "fields": {
       "uuid": "8688cdb4-3b40-4984-842e-1c5c5d65cb3e",
-      "exercise": 28,
+      "translation": 28,
       "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten"
     }
   },
@@ -24969,7 +24969,7 @@
     "pk": 52,
     "fields": {
       "uuid": "fa624d49-115e-4c36-81ff-9e83862a00c9",
-      "exercise": 28,
+      "translation": 28,
       "comment": "Arme ganz ausstrecken"
     }
   },
@@ -24978,7 +24978,7 @@
     "pk": 54,
     "fields": {
       "uuid": "bdce7d62-567f-4f7e-91be-0ae0dd3c49d5",
-      "exercise": 76,
+      "translation": 76,
       "comment": "R\u00fccken gerade, keinen Buckel machen!"
     }
   },
@@ -24987,7 +24987,7 @@
     "pk": 55,
     "fields": {
       "uuid": "790ccdc4-0343-4378-a6ef-25fc056eb273",
-      "exercise": 55,
+      "translation": 55,
       "comment": "Oben keine Pause, sofort wieder runter."
     }
   },
@@ -24996,7 +24996,7 @@
     "pk": 56,
     "fields": {
       "uuid": "343a5215-f2cb-425e-87e9-974f31995376",
-      "exercise": 76,
+      "translation": 76,
       "comment": "Etwas in die Knie gehen und nach hinten ziehen"
     }
   },
@@ -25005,7 +25005,7 @@
     "pk": 57,
     "fields": {
       "uuid": "37ce183f-35ce-4fea-a09a-428f34aeaf9c",
-      "exercise": 33,
+      "translation": 33,
       "comment": "Schnell nach untern ziehen."
     }
   },
@@ -25014,7 +25014,7 @@
     "pk": 58,
     "fields": {
       "uuid": "dec78fab-8bfa-4fb6-8729-6d3d6206d235",
-      "exercise": 29,
+      "translation": 29,
       "comment": "Arme oben nicht ganz ausstrecken"
     }
   },
@@ -25023,7 +25023,7 @@
     "pk": 59,
     "fields": {
       "uuid": "1109caf9-e951-4c0b-9978-d32fe8b5c22f",
-      "exercise": 44,
+      "translation": 44,
       "comment": "Fl\u00fcssige Bewegung, keine Pausen oben oder unten"
     }
   },
@@ -25032,7 +25032,7 @@
     "pk": 60,
     "fields": {
       "uuid": "d35ad9c9-b022-40b6-853c-a80b2c68e830",
-      "exercise": 54,
+      "translation": 54,
       "comment": "Fl\u00fcssige Bewegung, keine Pausen machen"
     }
   },
@@ -25041,7 +25041,7 @@
     "pk": 61,
     "fields": {
       "uuid": "da3ad4ef-b2ba-42d9-95a3-1790e81948f9",
-      "exercise": 47,
+      "translation": 47,
       "comment": "Arme immer im rechten Winkel zum K\u00f6rper"
     }
   },
@@ -25050,7 +25050,7 @@
     "pk": 62,
     "fields": {
       "uuid": "19bc1993-4a0d-4de6-b01c-bc25497f6779",
-      "exercise": 8,
+      "translation": 8,
       "comment": "Arme w\u00e4hrend der \u00dcbung nicht beugen."
     }
   },
@@ -25059,7 +25059,7 @@
     "pk": 63,
     "fields": {
       "uuid": "c30235b4-8680-48be-92d0-5da3a0d6a05c",
-      "exercise": 137,
+      "translation": 137,
       "comment": "Arme w\u00e4hrend der \u00dcbung nicht beugen."
     }
   },
@@ -25068,7 +25068,7 @@
     "pk": 64,
     "fields": {
       "uuid": "723b1ed3-6e0f-48e4-bcfe-eca2bf586cbf",
-      "exercise": 92,
+      "translation": 92,
       "comment": "Bend yourself inwards, the elbows point to the knees"
     }
   },
@@ -25077,7 +25077,7 @@
     "pk": 65,
     "fields": {
       "uuid": "f078f066-172f-496a-833c-78c19939e49d",
-      "exercise": 92,
+      "translation": 92,
       "comment": "Make a fast movement when going down"
     }
   },
@@ -25086,7 +25086,7 @@
     "pk": 66,
     "fields": {
       "uuid": "1afd8a5a-a595-4d7a-b569-6d4c7a6f0036",
-      "exercise": 80,
+      "translation": 80,
       "comment": "Fluid movements with no pauses at the top or the bottom"
     }
   },
@@ -25095,7 +25095,7 @@
     "pk": 67,
     "fields": {
       "uuid": "17e2f36d-49f7-402e-a1d7-3fdcd4ce9d04",
-      "exercise": 81,
+      "translation": 81,
       "comment": "Fluid movements with no pauses at the top or the bottom"
     }
   },
@@ -25104,7 +25104,7 @@
     "pk": 68,
     "fields": {
       "uuid": "2bb484b6-3d36-4441-9e40-66586bd3a0fa",
-      "exercise": 74,
+      "translation": 74,
       "comment": "Fluid movements with no pauses at the top or the bottom"
     }
   },
@@ -25113,7 +25113,7 @@
     "pk": 70,
     "fields": {
       "uuid": "c9b02b86-a6ba-4031-bfd5-f09a05412563",
-      "exercise": 83,
+      "translation": 83,
       "comment": "Don't stretch your amrs completly"
     }
   },
@@ -25122,7 +25122,7 @@
     "pk": 71,
     "fields": {
       "uuid": "74d53057-e9c0-4b95-b59f-6ec038099f6d",
-      "exercise": 83,
+      "translation": 83,
       "comment": "The elbows always point back, don't let them open sidewards"
     }
   },
@@ -25131,7 +25131,7 @@
     "pk": 72,
     "fields": {
       "uuid": "4bc730cb-a5db-446c-8fc9-0c8fcf0e2d4d",
-      "exercise": 84,
+      "translation": 84,
       "comment": "Don't move the elbows during the exercise"
     }
   },
@@ -25140,7 +25140,7 @@
     "pk": 73,
     "fields": {
       "uuid": "73d76d65-9807-4d37-a81a-84ded5a0efd9",
-      "exercise": 85,
+      "translation": 85,
       "comment": "Don't move the elbows during the exercise"
     }
   },
@@ -25149,7 +25149,7 @@
     "pk": 74,
     "fields": {
       "uuid": "9f9ce250-40d8-4330-8455-bbbb2cee2793",
-      "exercise": 86,
+      "translation": 86,
       "comment": "Keep the elbows right next to the body and don't move them"
     }
   },
@@ -25158,7 +25158,7 @@
     "pk": 75,
     "fields": {
       "uuid": "454bab2d-f208-4232-a0ba-633b6c1a07f2",
-      "exercise": 109,
+      "translation": 109,
       "comment": "Keep your chest out"
     }
   },
@@ -25167,7 +25167,7 @@
     "pk": 76,
     "fields": {
       "uuid": "0a243dd4-42fa-439c-af3a-a9506571a2ee",
-      "exercise": 109,
+      "translation": 109,
       "comment": "Don't arch your back!"
     }
   },
@@ -25176,7 +25176,7 @@
     "pk": 77,
     "fields": {
       "uuid": "55593750-9572-4e0f-8275-7670104acd80",
-      "exercise": 109,
+      "translation": 109,
       "comment": "Pull the weight fast"
     }
   },
@@ -25185,7 +25185,7 @@
     "pk": 78,
     "fields": {
       "uuid": "73dde1ab-64b6-47fc-99e4-721849bbf7f5",
-      "exercise": 109,
+      "translation": 109,
       "comment": "Pull the weight towards your belly button, not further up"
     }
   },
@@ -25194,7 +25194,7 @@
     "pk": 79,
     "fields": {
       "uuid": "132c88f5-de53-4292-bbe5-a847582ab9e5",
-      "exercise": 59,
+      "translation": 59,
       "comment": "Zum Bauchnabel ziehen, nicht weiter oben"
     }
   },
@@ -25203,7 +25203,7 @@
     "pk": 80,
     "fields": {
       "uuid": "7f9a82e3-b5e5-4023-ac63-3a7087cd4a51",
-      "exercise": 70,
+      "translation": 70,
       "comment": "Schnell nach oben ziehen"
     }
   },
@@ -25212,7 +25212,7 @@
     "pk": 81,
     "fields": {
       "uuid": "4384545d-0da9-438f-a70b-a28c6b55183c",
-      "exercise": 110,
+      "translation": 110,
       "comment": "Keep your chest out"
     }
   },
@@ -25221,7 +25221,7 @@
     "pk": 82,
     "fields": {
       "uuid": "40b028c5-8034-42ba-a343-6b45035c25e0",
-      "exercise": 110,
+      "translation": 110,
       "comment": "Don't arch your back!"
     }
   },
@@ -25230,7 +25230,7 @@
     "pk": 83,
     "fields": {
       "uuid": "709b65a2-4afb-44b1-a16f-55f54f97bab7",
-      "exercise": 110,
+      "translation": 110,
       "comment": "Pull the weight fast"
     }
   },
@@ -25239,7 +25239,7 @@
     "pk": 84,
     "fields": {
       "uuid": "f010a7df-6beb-408d-8660-edf34c204328",
-      "exercise": 110,
+      "translation": 110,
       "comment": "Pull the weight towards your belly button, not further up"
     }
   },
@@ -25248,7 +25248,7 @@
     "pk": 85,
     "fields": {
       "uuid": "b097ed1d-63bf-44ff-85df-df835d16ebb0",
-      "exercise": 105,
+      "translation": 105,
       "comment": "Don't arch your back!"
     }
   },
@@ -25257,7 +25257,7 @@
     "pk": 86,
     "fields": {
       "uuid": "66c886bf-744b-4691-bb12-67841e7ea8cd",
-      "exercise": 128,
+      "translation": 128,
       "comment": "Make a 1-2 sec. pause at the top"
     }
   },
@@ -25266,7 +25266,7 @@
     "pk": 87,
     "fields": {
       "uuid": "ca41d23c-2d53-477e-a672-7f45a6810312",
-      "exercise": 107,
+      "translation": 107,
       "comment": "Keep your head up"
     }
   },
@@ -25275,7 +25275,7 @@
     "pk": 88,
     "fields": {
       "uuid": "75ccc607-8a36-4022-958e-01dc86ccfa95",
-      "exercise": 107,
+      "translation": 107,
       "comment": "Keep your chest out"
     }
   },
@@ -25284,7 +25284,7 @@
     "pk": 89,
     "fields": {
       "uuid": "577d31f2-2f08-4881-b12a-7918db1bb673",
-      "exercise": 107,
+      "translation": 107,
       "comment": "The elbows always point back, don't let them open sidewards"
     }
   },
@@ -25293,7 +25293,7 @@
     "pk": 90,
     "fields": {
       "uuid": "32a01c49-3dfa-41fa-9293-84eed97a9293",
-      "exercise": 106,
+      "translation": 106,
       "comment": "Don't arch your back!"
     }
   },
@@ -25302,7 +25302,7 @@
     "pk": 91,
     "fields": {
       "uuid": "3c3f3282-4acf-4e24-9c09-0565c82739ff",
-      "exercise": 106,
+      "translation": 106,
       "comment": "Go somewhat down in your knees and pull back"
     }
   },
@@ -25311,7 +25311,7 @@
     "pk": 92,
     "fields": {
       "uuid": "5dc4dd52-78d1-4829-bbb6-a1c8e8ff480e",
-      "exercise": 108,
+      "translation": 108,
       "comment": "Keep your chest out"
     }
   },
@@ -25320,7 +25320,7 @@
     "pk": 93,
     "fields": {
       "uuid": "4f01d84a-c492-4d4d-91a0-33b200ff9d0e",
-      "exercise": 108,
+      "translation": 108,
       "comment": "Pull the weight towards your belly button, not further up"
     }
   },
@@ -25329,7 +25329,7 @@
     "pk": 95,
     "fields": {
       "uuid": "cddb3fc4-876b-4490-a367-b7f8f5f2b8a8",
-      "exercise": 112,
+      "translation": 112,
       "comment": "Make no pauses, go immediately down"
     }
   },
@@ -25338,7 +25338,7 @@
     "pk": 96,
     "fields": {
       "uuid": "27fd90a9-3855-4629-b8b0-fbb6638450d7",
-      "exercise": 115,
+      "translation": 115,
       "comment": "Fluid movements with no pauses at the top or the bottom"
     }
   },
@@ -25347,7 +25347,7 @@
     "pk": 97,
     "fields": {
       "uuid": "dcf6517f-c095-4575-ab0f-7f7a3201b22b",
-      "exercise": 114,
+      "translation": 114,
       "comment": "Fluid movements with no pauses at the top or the bottom"
     }
   },
@@ -25356,7 +25356,7 @@
     "pk": 98,
     "fields": {
       "uuid": "1cd41439-34ae-4f76-9d1e-057b75c8d50e",
-      "exercise": 114,
+      "translation": 114,
       "comment": "The knees point slightly outwards"
     }
   },
@@ -25365,7 +25365,7 @@
     "pk": 99,
     "fields": {
       "uuid": "1fbe4ede-681d-4ae6-9e9b-5aefef3edd47",
-      "exercise": 111,
+      "translation": 111,
       "comment": "Make a pause at the bottom of 1sec, at the top, 3"
     }
   },
@@ -25374,7 +25374,7 @@
     "pk": 100,
     "fields": {
       "uuid": "ee1e8488-5f28-4c5f-bbb5-1d218a114e67",
-      "exercise": 111,
+      "translation": 111,
       "comment": "Go down till your thighs are parallel to the floor"
     }
   },
@@ -25383,7 +25383,7 @@
     "pk": 102,
     "fields": {
       "uuid": "2f7d8f8d-bc05-4dc0-8ae5-7692ead257cc",
-      "exercise": 127,
+      "translation": 127,
       "comment": "Pull the weight till your chin"
     }
   },
@@ -25392,7 +25392,7 @@
     "pk": 103,
     "fields": {
       "uuid": "ce3f9f40-4b2f-43ae-84e4-a7cc2200c767",
-      "exercise": 127,
+      "translation": 127,
       "comment": "Make a rather narrow grip"
     }
   },
@@ -25401,7 +25401,7 @@
     "pk": 104,
     "fields": {
       "uuid": "badd57c4-7347-4dbd-8e86-8dcf8234253d",
-      "exercise": 140,
+      "translation": 140,
       "comment": "Keep your head up"
     }
   },
@@ -25410,7 +25410,7 @@
     "pk": 105,
     "fields": {
       "uuid": "a3e4b604-ffd1-413f-b07a-fff15739f084",
-      "exercise": 140,
+      "translation": 140,
       "comment": "Keep your chest out"
     }
   },
@@ -25419,7 +25419,7 @@
     "pk": 108,
     "fields": {
       "uuid": "f8a75102-ceda-4849-9e49-a722c865f5c8",
-      "exercise": 3,
+      "translation": 3,
       "comment": "Ellenbogen am K\u00f6rper, nicht bewegen"
     }
   },
@@ -25428,7 +25428,7 @@
     "pk": 109,
     "fields": {
       "uuid": "d6d37797-f924-4efa-b14c-96759309116e",
-      "exercise": 129,
+      "translation": 129,
       "comment": "Don't move the elbows during the exercise"
     }
   },
@@ -25437,7 +25437,7 @@
     "pk": 110,
     "fields": {
       "uuid": "db48a16f-0b54-4abe-a82b-aa802a3b3e86",
-      "exercise": 192,
+      "translation": 192,
       "comment": "Don't stretch your arms completly"
     }
   },
@@ -25446,7 +25446,7 @@
     "pk": 111,
     "fields": {
       "uuid": "b863eaf3-932d-495c-96d1-74e3a6cbf864",
-      "exercise": 230,
+      "translation": 230,
       "comment": "Beine gestreckt und gerade halten, nicht knicken"
     }
   },
@@ -25455,7 +25455,7 @@
     "pk": 114,
     "fields": {
       "uuid": "70c2d3bb-b5c5-42d7-966c-4f600aea02ad",
-      "exercise": 232,
+      "translation": 232,
       "comment": "Ellenbogen eng am K\u00f6rper, nicht bewegen"
     }
   },
@@ -25464,7 +25464,7 @@
     "pk": 115,
     "fields": {
       "uuid": "b21e0b05-29ac-4d51-8a42-795d492c5718",
-      "exercise": 232,
+      "translation": 232,
       "comment": "Nicht zu hohe Gewichte nehmen"
     }
   },
@@ -25473,7 +25473,7 @@
     "pk": 116,
     "fields": {
       "uuid": "08fa0e59-0554-4eb9-b885-14cc6b98d298",
-      "exercise": 386,
+      "translation": 386,
       "comment": "Always keep your elbows close to your head "
     }
   },
@@ -25482,7 +25482,7 @@
     "pk": 117,
     "fields": {
       "uuid": "ca491e6f-5dc5-44c8-8e44-49064229b5d1",
-      "exercise": 386,
+      "translation": 386,
       "comment": "Move only the forearms"
     }
   },
@@ -25491,7 +25491,7 @@
     "pk": 118,
     "fields": {
       "uuid": "60e27e25-263a-402e-963f-33d7db1d7f4d",
-      "exercise": 74,
+      "translation": 74,
       "comment": "Keep your upper body straight"
     }
   },
@@ -25500,7 +25500,7 @@
     "pk": 119,
     "fields": {
       "uuid": "fdba5747-2f9f-42db-9e1e-c4720f0eb560",
-      "exercise": 195,
+      "translation": 195,
       "comment": "Keep your body straight"
     }
   },
@@ -25509,7 +25509,7 @@
     "pk": 120,
     "fields": {
       "uuid": "92162b57-00c0-43ed-98cc-2d197d889adf",
-      "exercise": 195,
+      "translation": 195,
       "comment": "Go as low as you can"
     }
   },
@@ -25518,7 +25518,7 @@
     "pk": 121,
     "fields": {
       "uuid": "7f900a5a-97a4-4543-9e38-05685956a59e",
-      "exercise": 249,
+      "translation": 249,
       "comment": "It's a swing from the hip, not a squat!"
     }
   },
@@ -25527,7 +25527,7 @@
     "pk": 122,
     "fields": {
       "uuid": "36bc1453-a43a-452f-b153-3be3b03a5881",
-      "exercise": 402,
+      "translation": 402,
       "comment": "Beine nicht ausstrecken, Knie sollten immer angewinkelt bleiben"
     }
   },
@@ -25536,7 +25536,7 @@
     "pk": 124,
     "fields": {
       "uuid": "7f8da2a9-7a90-4bf0-88ad-5ca6c293b008",
-      "exercise": 854,
+      "translation": 854,
       "comment": "Hold for a second at the top"
     }
   },
@@ -25545,7 +25545,7 @@
     "pk": 125,
     "fields": {
       "uuid": "cead38fe-1551-4f1e-ab9c-b78c5f3b893a",
-      "exercise": 854,
+      "translation": 854,
       "comment": "Slow, controlled movements"
     }
   },
@@ -25554,7 +25554,7 @@
     "pk": 126,
     "fields": {
       "uuid": "adcd40a9-f589-42be-89a2-d6fc5262b410",
-      "exercise": 810,
+      "translation": 810,
       "comment": "Stretch your arms out and over your head as you jump"
     }
   },
@@ -25563,7 +25563,7 @@
     "pk": 127,
     "fields": {
       "uuid": "9007480a-c82e-4399-ad16-c1351730f2a3",
-      "exercise": 771,
+      "translation": 771,
       "comment": "Don't swing, all the work is done by the arms"
     }
   },
@@ -25572,7 +25572,7 @@
     "pk": 129,
     "fields": {
       "uuid": "681c1e7f-717f-4e9c-8d4b-13eb28e7a371",
-      "exercise": 238,
+      "translation": 238,
       "comment": "Keep your body straight at all times"
     }
   },
@@ -25581,7 +25581,7 @@
     "pk": 130,
     "fields": {
       "uuid": "f409ff91-3fb5-45bc-9b8a-167b095f7203",
-      "exercise": 15,
+      "translation": 15,
       "comment": "Handgelenke m\u00f6glichst gerade halten"
     }
   },
@@ -25590,7 +25590,7 @@
     "pk": 131,
     "fields": {
       "uuid": "db612a17-34f7-4486-bf73-f6608dc5795f",
-      "exercise": 77,
+      "translation": 77,
       "comment": "Explosive Bewegung nach oben"
     }
   },
@@ -25599,7 +25599,7 @@
     "pk": 132,
     "fields": {
       "uuid": "deeeebfc-62c9-4128-a24e-93ef0e9ffa5d",
-      "exercise": 77,
+      "translation": 77,
       "comment": "Der K\u00f6rper bildet mit Arme und Schultern kein \"T\""
     }
   },
@@ -25608,7 +25608,7 @@
     "pk": 133,
     "fields": {
       "uuid": "3ce23c64-51b3-4374-bdf1-5494c6e0c912",
-      "exercise": 1071,
+      "translation": 1071,
       "comment": "get your hands on the holds of the fingerboard"
     }
   },
@@ -25617,7 +25617,7 @@
     "pk": 134,
     "fields": {
       "uuid": "9e35d0b4-42c2-4c46-8103-8881f7bc7e73",
-      "exercise": 1071,
+      "translation": 1071,
       "comment": "now angling your legs up to hang on it"
     }
   },
@@ -25626,7 +25626,7 @@
     "pk": 135,
     "fields": {
       "uuid": "6ee4451f-59e3-4ddf-a750-9f715a0f5896",
-      "exercise": 1072,
+      "translation": 1072,
       "comment": "Greife die Griffe mit den H\u00e4nden"
     }
   },
@@ -25635,7 +25635,7 @@
     "pk": 136,
     "fields": {
       "uuid": "3a71ea79-429e-4acc-b794-6d65023a47b2",
-      "exercise": 1072,
+      "translation": 1072,
       "comment": "H\u00e4nge dich mit angewinkelten Beinen an das Fingerboard"
     }
   },
@@ -25644,7 +25644,7 @@
     "pk": 137,
     "fields": {
       "uuid": "32185920-5336-4dd7-afd1-ac7c3406cffd",
-      "exercise": 1079,
+      "translation": 1079,
       "comment": "make sure that you do not swing the weight or bend at the elbows. Your torso should remain stationary throughout the movement as well."
     }
   },
@@ -25653,7 +25653,7 @@
     "pk": 138,
     "fields": {
       "uuid": "8cba38fb-70fa-4473-a92d-6cc46006f090",
-      "exercise": 1163,
+      "translation": 1163,
       "comment": "Keep your body straight"
     }
   },
@@ -25662,7 +25662,7 @@
     "pk": 139,
     "fields": {
       "uuid": "2b513b4d-e471-42ec-8187-eb00b03ae65c",
-      "exercise": 1188,
+      "translation": 1188,
       "comment": "Open your knees shoulder apart"
     }
   },
@@ -25671,7 +25671,7 @@
     "pk": 140,
     "fields": {
       "uuid": "963a06c5-90ce-4b8c-b2b5-37e8c18467ca",
-      "exercise": 1188,
+      "translation": 1188,
       "comment": "Squeeze the glutes and posterior pelvic tlit"
     }
   },
@@ -25680,7 +25680,7 @@
     "pk": 141,
     "fields": {
       "uuid": "3ed621cc-0aaa-4628-88d5-869feeeb88d9",
-      "exercise": 1188,
+      "translation": 1188,
       "comment": "Activate abs and keep the upper body straight."
     }
   },
@@ -25689,7 +25689,7 @@
     "pk": 142,
     "fields": {
       "uuid": "9361ddcb-75d5-4802-ae67-88fb1eef0352",
-      "exercise": 1189,
+      "translation": 1189,
       "comment": "Open your knees shoulder apart"
     }
   },
@@ -25698,7 +25698,7 @@
     "pk": 143,
     "fields": {
       "uuid": "41f46462-1a41-4827-b1b4-6e3aea0451ae",
-      "exercise": 1189,
+      "translation": 1189,
       "comment": "Squeeze the glutes and posterior pelvic tlit"
     }
   },
@@ -25707,7 +25707,7 @@
     "pk": 144,
     "fields": {
       "uuid": "3cfa68b4-476e-441d-a997-3fe072853264",
-      "exercise": 1189,
+      "translation": 1189,
       "comment": "Activate abs and keep the upper body straight."
     }
   },
@@ -25716,7 +25716,7 @@
     "pk": 145,
     "fields": {
       "uuid": "54c3010c-28eb-419c-a6fb-2d2d928fec5a",
-      "exercise": 1973,
+      "translation": 1973,
       "comment": "Place a foam roller between your knees to help maintain the right posture."
     }
   },
@@ -25725,7 +25725,7 @@
     "pk": 146,
     "fields": {
       "uuid": "75606ccf-85db-4bbd-b5c1-ebbb403e0fed",
-      "exercise": 1974,
+      "translation": 1974,
       "comment": "Place a foam roller between your knees to help maintain the right posture."
     }
   },
@@ -25734,7 +25734,7 @@
     "pk": 147,
     "fields": {
       "uuid": "51834304-9a2c-42bd-a4b0-0069d5b3e06c",
-      "exercise": 2035,
+      "translation": 2035,
       "comment": "Hold your dumbbells at your sides and hinge at the hips until your chest is parallel to the floor, dumbbells hanging below your knees (picture 1)."
     }
   },
@@ -25743,7 +25743,7 @@
     "pk": 148,
     "fields": {
       "uuid": "95e2d009-9661-4cc9-a81f-5032d3edebbc",
-      "exercise": 2035,
+      "translation": 2035,
       "comment": "Keeping your elbows close to your body, row both dumbbells towards your hips (picture 2)."
     }
   },
@@ -25752,7 +25752,7 @@
     "pk": 149,
     "fields": {
       "uuid": "806ba818-f887-4421-a07a-02d08040beb4",
-      "exercise": 2035,
+      "translation": 2035,
       "comment": "Squeeze your shoulder blades down and together and lower under control to the start before repeating. Avoid using momentum from your torso and focus on squeezing your back, hard."
     }
   },
@@ -25761,7 +25761,7 @@
     "pk": 150,
     "fields": {
       "uuid": "15fe45fa-5a87-476c-8020-7d632c5c98fe",
-      "exercise": 2039,
+      "translation": 2039,
       "comment": "Exercise can also be performed without a medicine ball"
     }
   },
@@ -25770,7 +25770,7 @@
     "pk": 151,
     "fields": {
       "uuid": "148c83c9-4218-40ec-b241-59aafc58b232",
-      "exercise": 2055,
+      "translation": 2055,
       "comment": "stabiler Oberk\u00f6rper"
     }
   },
@@ -25779,7 +25779,7 @@
     "pk": 152,
     "fields": {
       "uuid": "f6bb1a56-a1b6-4c98-b5c9-25abbea5e951",
-      "exercise": 2056,
+      "translation": 2056,
       "comment": "stabiler Oberk\u00f6rper"
     }
   },
@@ -25788,7 +25788,7 @@
     "pk": 153,
     "fields": {
       "uuid": "e3f50461-ad89-47d3-8da0-39953e764be4",
-      "exercise": 2141,
+      "translation": 2141,
       "comment": "Triceps pushdown on cable"
     }
   },
@@ -25797,7 +25797,7 @@
     "pk": 154,
     "fields": {
       "uuid": "2254cd69-ad2c-4f12-9be4-947a4dee5822",
-      "exercise": 2149,
+      "translation": 2149,
       "comment": "Maintain a proper form. Keep weight as chest level or touch the floor on each side."
     }
   },
@@ -25806,7 +25806,7 @@
     "pk": 155,
     "fields": {
       "uuid": "2e5b1782-e8f5-4d6d-93e7-9669f4cb585e",
-      "exercise": 2149,
+      "translation": 2149,
       "comment": "Only move your torso during the exercise. Reduce weight if necessary."
     }
   },
@@ -25815,7 +25815,7 @@
     "pk": 156,
     "fields": {
       "uuid": "48fcd4e0-2964-442a-b357-87054259d32b",
-      "exercise": 2152,
+      "translation": 2152,
       "comment": "Side Slide: https://youtu.be/ek79Rsc9ClU"
     }
   },
@@ -25824,7 +25824,7 @@
     "pk": 157,
     "fields": {
       "uuid": "3f34818d-cbab-4f46-8cfa-0cebeb21b864",
-      "exercise": 2152,
+      "translation": 2152,
       "comment": "Squat: https://youtu.be/cyJFiJOrTpY"
     }
   }
