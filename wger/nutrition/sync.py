@@ -50,6 +50,7 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
+
 logger = logging.getLogger(__name__)
 
 

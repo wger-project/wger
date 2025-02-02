@@ -29,6 +29,7 @@ from wger.manager.models import (
     WorkoutSession,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -106,34 +107,38 @@ class Command(BaseCommand):
                                     date=day_data.date,
                                     routine=routine,
                                     defaults={
-                                        'impression': random.choice([
-                                            WorkoutSession.IMPRESSION_GOOD,
-                                            WorkoutSession.IMPRESSION_BAD,
-                                            WorkoutSession.IMPRESSION_NEUTRAL,
-                                        ]),
+                                        'impression': random.choice(
+                                            [
+                                                WorkoutSession.IMPRESSION_GOOD,
+                                                WorkoutSession.IMPRESSION_BAD,
+                                                WorkoutSession.IMPRESSION_NEUTRAL,
+                                            ]
+                                        ),
                                         'time_start': time_start,
                                         'time_end': time_end,
                                     },
                                 )[0]
 
-                                logs.append(WorkoutLog(
-                                    slot_entry_id=set_data.slot_entry_id,
-                                    iteration=day_data.iteration,
-                                    user=user,
-                                    session=session,
-                                    exercise_id=exercise_id,
-                                    routine=routine,
-                                    repetitions=reps,
-                                    repetitions_target=set_data.repetitions,
-                                    repetitions_unit_id=set_data.repetitions_unit,
-                                    weight=weight,
-                                    weight_target=set_data.weight,
-                                    weight_unit_id=set_data.weight_unit,
-                                    date=day_data.date,
-                                    rir=rir,
-                                    rir_target=set_data.rir,
-                                    rest=rest,
-                                    rest_target=set_data.rest,
-                                ))
+                                logs.append(
+                                    WorkoutLog(
+                                        slot_entry_id=set_data.slot_entry_id,
+                                        iteration=day_data.iteration,
+                                        user=user,
+                                        session=session,
+                                        exercise_id=exercise_id,
+                                        routine=routine,
+                                        repetitions=reps,
+                                        repetitions_target=set_data.repetitions,
+                                        repetitions_unit_id=set_data.repetitions_unit,
+                                        weight=weight,
+                                        weight_target=set_data.weight,
+                                        weight_unit_id=set_data.weight_unit,
+                                        date=day_data.date,
+                                        rir=rir,
+                                        rir_target=set_data.rir,
+                                        rest=rest,
+                                        rest_target=set_data.rest,
+                                    )
+                                )
 
             WorkoutLog.objects.bulk_create(logs)

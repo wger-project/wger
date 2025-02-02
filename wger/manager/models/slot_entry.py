@@ -155,7 +155,9 @@ class SlotEntry(models.Model):
         # For new entries add default rounding if available
         if not self.id:
             if not self.repetition_rounding:
-                self.repetition_rounding = self.slot.day.routine.user.userprofile.repetitions_rounding
+                self.repetition_rounding = (
+                    self.slot.day.routine.user.userprofile.repetitions_rounding
+                )
             if not self.weight_rounding:
                 self.weight_rounding = self.slot.day.routine.user.userprofile.weight_rounding
         return super().save(*args, **kwargs)
@@ -210,6 +212,17 @@ class SlotEntry(models.Model):
         return out
 
     def get_config(self, iteration: int) -> SetConfigData:
+        """
+        This method calculates the configuration for a given iteration of a slot entry.
+
+        It processes each field (weight, repetitions, rir, rest, sets, etc.) individually
+        and for each one it checks if there are any requirements set (minimum values for other
+        fields) and checks if they are met by the logs of the previous iterations.
+
+        E.g. the weight could have the requirements of weight and weight. Only if these are
+        met, the weight will be increased.
+        """
+
         # If there is a custom class set, pass all responsibilities to it
         if self.class_name:
             try:
@@ -235,61 +248,65 @@ class SlotEntry(models.Model):
 
             return custom_logic.calculate()
 
-        max_iter_weight = 1
-        max_iter_max_weight = 1
-        max_iter_reps = 1
-        max_iter_max_reps = 1
+        max_iterations = {
+            'weight': 1,
+            'max_weight': 1,
+            'repetitions': 1,
+            'max_repetitions': 1,
+            'rir': 1,
+            'max_rir': 1,
+            'rest': 1,
+            'max_rest': 1,
+            'sets': 1,
+            'max_sets': 1,
+        }
 
-        weight = self.calculate_weight(max_iter_weight)
-        reps = self.calculate_reps(max_iter_reps)
-
-        # Calculate the weights and reps. Note that we can't just take the configs
-        # and calculate it like with the other values since these might depend on
-        # logged values to continue. Because of this, we need to check step by step
-        # up to the current iteration if the weights and reps can be increased.
         for i in range(1, iteration + 1):
-            weight_config = self.weightconfig_set.filter(iteration__lte=i).last()
-            reps_config = self.repetitionsconfig_set.filter(iteration__lte=i).last()
+            configs = {
+                'weight': self.weightconfig_set.filter(iteration__lte=i).last(),
+                'repetitions': self.repetitionsconfig_set.filter(iteration__lte=i).last(),
+                'rir': self.rirconfig_set.filter(iteration__lte=i).last(),
+                'rest': self.restconfig_set.filter(iteration__lte=i).last(),
+                'sets': self.setsconfig_set.filter(iteration__lte=i).last(),
+                'max_sets': self.maxsetsconfig_set.filter(iteration__lte=i).last(),
+            }
+            log_data = self.workoutlog_set.filter(slot_entry_id=self.id, iteration=i - 1)
 
-            # No configs, return None
-            if not weight_config or not reps_config:
-                break
+            for field, config in configs.items():
+                if not config:
+                    continue
 
-            # If we don't need to consider any log values, just calculate the value
-            elif not weight_config.need_log_to_apply and not reps_config.need_log_to_apply:
-                max_iter_weight = i
-                max_iter_max_weight = i
-                max_iter_reps = i
-                max_iter_max_reps = i
+                if not config.requirements:
+                    max_iterations[field] = i
+                    continue
 
-            # We do need to check the logs, iterate over them and check that we
-            # matched the planned values and continue or
-            elif weight_config.need_log_to_apply or reps_config.need_log_to_apply:
-                log_data = self.workoutlog_set.filter(slot_entry_id=self.id, iteration=i - 1)
+                requirements = config.requirements_object
 
-                # If any of the entries in last log is greater than the last config data,
-                # proceed. Otherwise, the weight won't change
                 for log in log_data:
-                    if log.weight >= weight and log.repetitions >= reps:
-                        max_iter_weight = i
-                        max_iter_max_weight = i
-                        max_iter_reps = i
-                        max_iter_max_reps = i
+                    all_fields_met = all(
+                        getattr(log, req_field) is not None
+                        and getattr(log, req_field)
+                        >= getattr(self, f'calculate_{req_field}')(max_iterations[req_field])
+                        for req_field in requirements.rules
+                    )
 
-                        # As soon as we find a matching log, stop
-                        break
+                    if all_fields_met:
+                        max_iterations[field] = i
 
-        sets = self.calculate_sets(iteration)
-        max_sets = self.calculate_max_sets(iteration)
+        sets = self.calculate_sets(max_iterations['sets'])
+        max_sets = self.calculate_max_sets(max_iterations['max_sets'])
 
-        weight = self.calculate_weight(max_iter_weight)
-        max_weight = self.calculate_max_weight(max_iter_max_weight)
+        weight = self.calculate_weight(max_iterations['weight'])
+        max_weight = self.calculate_max_weight(max_iterations['max_weight'])
 
-        reps = self.calculate_reps(max_iter_reps)
-        max_reps = self.calculate_max_reps(max_iter_max_reps)
+        repetitions = self.calculate_repetitions(max_iterations['repetitions'])
+        max_repetitions = self.calculate_max_repetitions(max_iterations['max_repetitions'])
 
-        rest = self.calculate_rest(iteration)
-        max_rest = self.calculate_max_rest(iteration)
+        rir = self.calculate_rir(max_iterations['rir'])
+        max_rir = self.calculate_max_rir(max_iterations['max_rir'])
+
+        rest = self.calculate_rest(max_iterations['rest'])
+        max_rest = self.calculate_max_rest(max_iterations['max_rest'])
 
         return SetConfigData(
             slot_entry_id=self.id,
@@ -306,20 +323,23 @@ class SlotEntry(models.Model):
             # TODO: decide on whether to return None or always the unit
             # weight_unit=self.weight_unit.pk if weight is not None else None,
             weight_unit=self.weight_unit.pk,
-            repetitions=round_value(reps, self.repetition_rounding),
-            max_repetitions=round_value(max_reps, self.repetition_rounding)
-            if max_reps and reps and max_reps > reps
+            repetitions=round_value(repetitions, self.repetition_rounding),
+            max_repetitions=round_value(max_repetitions, self.repetition_rounding)
+            if max_repetitions and repetitions and max_repetitions > repetitions
             else None,
-            repetitions_rounding=self.repetition_rounding if reps is not None else None,
+            repetitions_rounding=self.repetition_rounding if repetitions is not None else None,
             repetitions_unit=self.repetition_unit.pk,
             # TODO: decide on whether to return None or always the unit
             # reps_unit=self.repetition_unit.pk if reps is not None else None,
-            rir=self.calculate_rir(iteration),
-            max_rir=self.calculate_max_rir(iteration),
+            rir=round_value(rir, 0.5),
+            max_rir=round_value(max_rir, 0.5) if max_rir and rir and max_rir > rir else None,
             rest=round_value(rest, 1),
             max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
         )
 
+    #
+    # Note: don't rename these methods, they are accessed in get_config via getattr
+    #
     def calculate_sets(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
@@ -351,7 +371,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def calculate_reps(self, iteration: int) -> Decimal | None:
+    def calculate_repetitions(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
@@ -359,7 +379,7 @@ class SlotEntry(models.Model):
             )
         )
 
-    def calculate_max_reps(self, iteration: int) -> Decimal | None:
+    def calculate_max_repetitions(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,

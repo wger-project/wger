@@ -35,6 +35,7 @@ from wger.manager.models import (
 )
 from wger.manager.models.abstract_config import OperationChoices
 
+
 logger = logging.getLogger(__name__)
 
 

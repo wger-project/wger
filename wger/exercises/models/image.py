@@ -164,17 +164,13 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
 
         # Make sure there is always a main image
         if (
-            not ExerciseImage.objects.all()
-                .filter(exercise=self.exercise, is_main=True)
-                .count()
+            not ExerciseImage.objects.all().filter(exercise=self.exercise, is_main=True).count()
             and ExerciseImage.objects.all()
             .filter(exercise=self.exercise)
             .filter(is_main=False)
             .count()
         ):
-            image = ExerciseImage.objects.all().filter(
-                exercise=self.exercise, is_main=False
-            )[0]
+            image = ExerciseImage.objects.all().filter(exercise=self.exercise, is_main=False)[0]
             image.is_main = True
             image.save()
 

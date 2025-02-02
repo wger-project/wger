@@ -136,9 +136,9 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=2,
             value=2.5,
-            need_log_to_apply=True,
             operation=OperationChoices.PLUS,
             step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['weight', 'repetitions']},
         ).save()
 
         # Replace weight with 42 at iteration 5, no logs needed
@@ -146,7 +146,6 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=5,
             value=42,
-            need_log_to_apply=False,
             operation=OperationChoices.REPLACE,
             step=StepChoices.ABSOLUTE,
         ).save()
@@ -260,6 +259,152 @@ class SlotEntryTestCase(WgerTestCase):
                 repetitions_rounding=2,
                 rir=Decimal(2),
                 rest=120,
+            ),
+        )
+
+    def test_requirements_sets_met(self):
+        """
+        Test that the sets are correctly calculated if there are requirements
+        """
+
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 2
+        self.slot_entry.save()
+
+        # Initial value
+        SetsConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=5,
+        ).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=50,
+        ).save()
+        RestConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=90,
+        ).save()
+
+        # Increase sets by 1 at iteration 2
+        SetsConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=1,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['weight', 'rest']},
+        ).save()
+
+        # Rest is ok
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_entry=self.slot_entry,
+            iteration=1,
+            weight=50,
+            rest=100,
+            repetitions=4,
+        ).save()
+
+        self.assertDictEqual(
+            self.slot_entry.get_config(1).__dict__,
+            SetConfigData(
+                slot_entry_id=self.slot_entry.pk,
+                exercise=1,
+                sets=1,
+                weight=Decimal(50),
+                weight_rounding=Decimal(2.5),
+                rest=90,
+            ).__dict__,
+        )
+
+        # Sets did increase
+        self.assertDictEqual(
+            self.slot_entry.get_config(2).__dict__,
+            SetConfigData(
+                slot_entry_id=self.slot_entry.pk,
+                exercise=1,
+                sets=6,
+                weight=Decimal(50),
+                weight_rounding=Decimal(2.5),
+                rest=90,
+            ).__dict__,
+        )
+
+    def test_requirements_sets_unmet(self):
+        """
+        Test that the sets are correctly calculated if there are requirements
+        """
+
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 2
+        self.slot_entry.save()
+
+        # Initial value
+        SetsConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=5,
+        ).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=50,
+        ).save()
+        RestConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=90,
+        ).save()
+
+        # Increase sets by 1 at iteration 2
+        SetsConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=1,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['weight', 'rest']},
+        ).save()
+
+        # Rest too low
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_entry=self.slot_entry,
+            iteration=1,
+            weight=50,
+            rest=80,
+            repetitions=4,
+        ).save()
+
+        self.assertEqual(
+            self.slot_entry.get_config(1),
+            SetConfigData(
+                slot_entry_id=self.slot_entry.pk,
+                exercise=1,
+                sets=5,
+                weight=Decimal(50),
+                weight_rounding=Decimal(2.5),
+                rest=90,
+            ),
+        )
+
+        # Sets don't increase
+        self.assertEqual(
+            self.slot_entry.get_config(2),
+            SetConfigData(
+                slot_entry_id=self.slot_entry.pk,
+                exercise=1,
+                sets=5,
+                weight=Decimal(50),
+                weight_rounding=Decimal(2.5),
+                rest=90,
             ),
         )
 

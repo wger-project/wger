@@ -28,6 +28,7 @@ from decimal import (
 )
 from typing import (
     Any,
+    Dict,
     List,
 )
 
@@ -45,10 +46,10 @@ from wger.core.models import (
 class SetConfigData:
     exercise: int
 
-    weight: Decimal | int | None
-    repetitions: Decimal | int | None
-    rir: Decimal | int | None
-    rest: int | None
+    weight: Decimal | int | None = None
+    repetitions: Decimal | int | None = None
+    rir: Decimal | int | None = None
+    rest: int | None = None
 
     max_rir: Decimal | int | None = None
     max_weight: Decimal | int | None = None
@@ -99,8 +100,9 @@ class SetConfigData:
         if self.repetitions:
             reps = round_value(self.repetitions, self.repetitions_rounding)
             max_reps = (
-                round_value(self.max_repetitions,
-                            self.repetitions_rounding) if self.max_repetitions else self.max_repetitions
+                round_value(self.max_repetitions, self.repetitions_rounding)
+                if self.max_repetitions
+                else self.max_repetitions
             )
 
             if max_reps:
@@ -243,3 +245,11 @@ def round_value(
         result = result.quantize(1, ROUND_DOWN)
 
     return result
+
+
+@dataclass(init=False)
+class ConfigRequirements:
+    rules: List[str] = field(default_factory=list)
+
+    def __init__(self, data: Dict[str, Any]):
+        self.rules = data.get('rules', [])

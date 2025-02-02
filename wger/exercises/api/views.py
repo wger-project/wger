@@ -56,11 +56,11 @@ from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
-    ExerciseInfoSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
+    ExerciseInfoSerializer,
     ExerciseTranslationSerializer,
     ExerciseVariationSerializer,
     ExerciseVideoSerializer,
@@ -89,6 +89,7 @@ from wger.utils.constants import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
+
 
 logger = logging.getLogger(__name__)
 

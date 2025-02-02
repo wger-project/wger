@@ -17,6 +17,17 @@
 from rest_framework import serializers
 
 
+REQUIREMENTS_REQUIRED_KEYS = [
+    'rules',
+]
+REQUIREMENTS_RULES_KEYS = [
+    'weight',
+    'repetitions',
+    'rir',
+    'rest',
+]
+
+
 def validate_requirements(value: dict | None):
     """Validates the requirements field."""
 
@@ -26,9 +37,12 @@ def validate_requirements(value: dict | None):
     if not isinstance(value, dict):
         raise serializers.ValidationError('Requirements must be a JSON object.')
 
-    required_keys = {'rules'}  # Set of required keys
-    if not all(key in value for key in required_keys):
-        raise serializers.ValidationError("Missing required keys: 'rules'")  # More specific
+    if not all(key in value for key in REQUIREMENTS_REQUIRED_KEYS):
+        raise serializers.ValidationError("Missing required keys: 'rules'")
 
     if 'rules' in value and not isinstance(value['rules'], list):
         raise serializers.ValidationError("'rules' must be a list.")
+
+    for rule in value['rules']:
+        if rule not in REQUIREMENTS_RULES_KEYS:
+            raise serializers.ValidationError(f'Invalid rule: {rule}')

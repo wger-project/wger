@@ -201,8 +201,7 @@ class SlotEntryStructureSerializer(serializers.ModelSerializer):
     max_weight_configs = WeightConfigSerializer(source='maxweightconfig_set', many=True)
     repetitions_configs = RepetitionsConfigSerializer(source='repetitionsconfig_set', many=True)
     max_repetitions_configs = RepetitionsConfigSerializer(
-        source='maxrepetitionsconfig_set',
-        many=True
+        source='maxrepetitionsconfig_set', many=True
     )
     set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
     max_set_nr_configs = MaxSetNrConfigSerializer(source='maxsetsconfig_set', many=True)

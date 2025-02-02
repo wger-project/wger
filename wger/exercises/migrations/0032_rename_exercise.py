@@ -12,7 +12,6 @@ class Migration(migrations.Migration):
 
     operations = [
         # Rename exercise base to exercise and exercise to translation
-
         migrations.RenameModel(
             old_name='Exercise',
             new_name='Translation',
@@ -29,80 +28,73 @@ class Migration(migrations.Migration):
             old_name='HistoricalExerciseBase',
             new_name='HistoricalExercise',
         ),
-
         migrations.AlterModelOptions(
-            name="historicalexercise",
+            name='historicalexercise',
             options={
-                "get_latest_by": ("history_date", "history_id"),
-                "ordering": ("-history_date", "-history_id"),
-                "verbose_name": "historical exercise",
-                "verbose_name_plural": "historical exercises",
+                'get_latest_by': ('history_date', 'history_id'),
+                'ordering': ('-history_date', '-history_id'),
+                'verbose_name': 'historical exercise',
+                'verbose_name_plural': 'historical exercises',
             },
         ),
         migrations.AlterModelOptions(
-            name="historicaltranslation",
+            name='historicaltranslation',
             options={
-                "get_latest_by": ("history_date", "history_id"),
-                "ordering": ("-history_date", "-history_id"),
-                "verbose_name": "historical translation",
-                "verbose_name_plural": "historical translations",
+                'get_latest_by': ('history_date', 'history_id'),
+                'ordering': ('-history_date', '-history_id'),
+                'verbose_name': 'historical translation',
+                'verbose_name_plural': 'historical translations',
             },
         ),
-
         # Rename exercise base foreign keys
         migrations.RenameField(
-            model_name="exercisevideo",
-            old_name="exercise_base",
-            new_name="exercise",
+            model_name='exercisevideo',
+            old_name='exercise_base',
+            new_name='exercise',
         ),
         migrations.RenameField(
-            model_name="historicalexercisevideo",
-            old_name="exercise_base",
-            new_name="exercise",
-        ),
-
-        migrations.RenameField(
-            model_name="exerciseimage",
-            old_name="exercise_base",
-            new_name="exercise",
+            model_name='historicalexercisevideo',
+            old_name='exercise_base',
+            new_name='exercise',
         ),
         migrations.RenameField(
-            model_name="historicalexerciseimage",
-            old_name="exercise_base",
-            new_name="exercise",
-        ),
-
-        migrations.RenameField(
-            model_name="translation",
-            old_name="exercise_base",
-            new_name="exercise",
+            model_name='exerciseimage',
+            old_name='exercise_base',
+            new_name='exercise',
         ),
         migrations.RenameField(
-            model_name="historicaltranslation",
-            old_name="exercise_base",
-            new_name="exercise",
-        ),
-
-        migrations.RenameField(
-            model_name="alias",
-            old_name="exercise",
-            new_name="translation",
+            model_name='historicalexerciseimage',
+            old_name='exercise_base',
+            new_name='exercise',
         ),
         migrations.RenameField(
-            model_name="historicalalias",
-            old_name="exercise",
-            new_name="translation",
-        ),
-
-        migrations.RenameField(
-            model_name="exercisecomment",
-            old_name="exercise",
-            new_name="translation",
+            model_name='translation',
+            old_name='exercise_base',
+            new_name='exercise',
         ),
         migrations.RenameField(
-            model_name="historicalexercisecomment",
-            old_name="exercise",
-            new_name="translation",
+            model_name='historicaltranslation',
+            old_name='exercise_base',
+            new_name='exercise',
         ),
-
+        migrations.RenameField(
+            model_name='alias',
+            old_name='exercise',
+            new_name='translation',
+        ),
+        migrations.RenameField(
+            model_name='historicalalias',
+            old_name='exercise',
+            new_name='translation',
+        ),
+        migrations.RenameField(
+            model_name='exercisecomment',
+            old_name='exercise',
+            new_name='translation',
+        ),
+        migrations.RenameField(
+            model_name='historicalexercisecomment',
+            old_name='exercise',
+            new_name='translation',
+        ),
     ]

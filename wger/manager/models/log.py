@@ -32,7 +32,7 @@ from wger.core.models import (
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
     ID_UNIT_KG,
-    ID_UNIT_REPS,
+    ID_UNIT_REPETITIONS,
     RIR_OPTIONS,
 )
 from wger.manager.managers import WorkoutLogManager
@@ -111,7 +111,7 @@ class WorkoutLog(models.Model):
     repetitions_unit = models.ForeignKey(
         RepetitionUnit,
         verbose_name=_('Unit'),
-        default=ID_UNIT_REPS,
+        default=ID_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
     )
     """
@@ -119,7 +119,7 @@ class WorkoutLog(models.Model):
     """
 
     repetitions = models.DecimalField(
-        max_digits=5,
+        max_digits=6,
         decimal_places=2,
         validators=[NullMinValueValidator(0)],
         blank=True,
@@ -130,7 +130,7 @@ class WorkoutLog(models.Model):
     """
 
     repetitions_target = models.DecimalField(
-        max_digits=5,
+        max_digits=6,
         decimal_places=2,
         verbose_name=_('Repetitions'),
         validators=[NullMinValueValidator(0)],
@@ -152,7 +152,7 @@ class WorkoutLog(models.Model):
     """
 
     weight = models.DecimalField(
-        max_digits=5,
+        max_digits=6,
         decimal_places=2,
         validators=[NullMinValueValidator(0)],
         blank=True,
@@ -163,7 +163,7 @@ class WorkoutLog(models.Model):
     """
 
     weight_target = models.DecimalField(
-        max_digits=5,
+        max_digits=6,
         decimal_places=2,
         verbose_name=_('Weight'),
         validators=[NullMinValueValidator(0)],

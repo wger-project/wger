@@ -19,8 +19,9 @@ from django.core.files import File
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
+    Exercise,
     ExerciseImage,
-    Translation, Exercise,
+    Translation,
 )
 
 

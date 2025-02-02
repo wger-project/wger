@@ -51,6 +51,7 @@ from wger.nutrition.api import views as nutrition_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
+
 #
 # REST API
 #

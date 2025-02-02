@@ -17,6 +17,9 @@
 # Django
 from django.db import models
 
+# wger
+from wger.manager.dataclasses import ConfigRequirements
+
 
 class OperationChoices(models.TextChoices):
     PLUS = '+'
@@ -70,12 +73,6 @@ class AbstractChangeConfig(models.Model):
     )
     """The step by which the change will happen"""
 
-    need_log_to_apply = models.BooleanField(default=False)
-    """
-    Only apply the change if the user logged the last weight, otherwise
-    apply the rules anyway
-    """
-
     repeat = models.BooleanField(default=False)
     """
     This setting makes the current rule repeat for subsequent iterations until a
@@ -92,9 +89,11 @@ class AbstractChangeConfig(models.Model):
     """
     Requirements for the application of this rule as JSON
 
-    Currently supported:
-    * list of rules to apply
-    * respect/ignore maximum
+    Currently supported is only a list of fields that must be met in the logs in
+    order to continue.
+
+    See the `ConfigRequirements` class and `validate_requirements` for more
+    information on the structure.
     """
 
     @property
@@ -104,6 +103,16 @@ class AbstractChangeConfig(models.Model):
         be replaced with the new one
         """
         return self.operation == OperationChoices.REPLACE
+
+    @property
+    def requirements_object(self) -> ConfigRequirements | None:
+        """
+        Get the requirements as an object
+        """
+        if not self.requirements:
+            return None
+
+        return ConfigRequirements(self.requirements)
 
     def save(self, **kwargs):
         """
@@ -117,7 +126,6 @@ class AbstractChangeConfig(models.Model):
 
         # Override values for replace
         if self.replace:
-            self.need_log_to_apply = False
             self.step = StepChoices.NOT_APPLICABLE
 
         super().save(**kwargs)

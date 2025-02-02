@@ -5,7 +5,6 @@ BASE_CONFIG_FILTER_FIELDS = (
     'value',
     'operation',
     'step',
-    'need_log_to_apply',
     'repeat',
 )
 
