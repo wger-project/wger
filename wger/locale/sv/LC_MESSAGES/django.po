@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2023-01-18 17:47+0000\n"
-"Last-Translator: tygyh <jonis9898@hotmail.com>\n"
+"PO-Revision-Date: 2025-02-04 20:01+0000\n"
+"Last-Translator: Kevin Gregard <kevin@gregard.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -121,7 +121,7 @@ msgstr "E-post"
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Används för återställning av lösenord och eventuellt e-postpåminnelser."
+"Används för återställning av lösenord och e-postpåminnelser (Frivilligt)."
 
 #: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
@@ -467,7 +467,7 @@ msgstr "Förbjudet!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "Du har inte tillstånd att visa denna sida"
 
 #: core/templates/404.html:4
 msgid "Page not found"
