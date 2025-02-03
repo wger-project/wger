@@ -5,5 +5,5 @@
 # Regular packages
 -r requirements.txt
 
-psycopg[binary]==3.2.3
+psycopg[binary]==3.2.4
 django-redis==5.4.0
