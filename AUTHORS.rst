@@ -79,6 +79,7 @@ Developers
 * Roelof Rietbroek  https://github.com/strawpants
 * Ethan Winters - https://github.com/ebwinters
 * Dieter Plaetinck - https://github.com/Dieterbe
+* Victor Nacher - https://github.com/Victorivus
 * Jonathan La Field - https://github.com/JLaField
 * Kevin Moy - https://github.com/kmoy1
 * Taylor Fuller - https://github.com/taylor-fuller
