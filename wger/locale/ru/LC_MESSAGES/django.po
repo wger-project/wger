@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-12-11 21:00+0000\n"
-"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
+"PO-Revision-Date: 2025-02-07 10:14+0000\n"
+"Last-Translator: Kira <kiren1187@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -82,7 +82,7 @@ msgstr "Другой пример дня"
 #, fuzzy
 #| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
-msgstr "Пример плана питания"
+msgstr "Примерный план питания"
 
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
 #, python-brace-format
@@ -491,11 +491,16 @@ msgid "An error occurred"
 msgstr "Произошла ошибка"
 
 #: core/templates/500.html:8
+#, fuzzy
 msgid ""
 "There was an error on the server while processing your request. Try "
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"При обработке вашего запроса на сервере произошла ошибка. Попробуйте "
+"обновить браузер. Если это не поможет, повторите попытку позже. Если "
+"проблема остается, вы можете обратиться за помощью способами, перечисленными "
+"ниже:"
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
 #, fuzzy, python-format
@@ -525,10 +530,8 @@ msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "Вы уверены что хотите это удалить? Это действие необратимо."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email verification"
-msgstr "Конфигурация"
+msgstr "Подтверждение электронного адреса"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
