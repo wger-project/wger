@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2025-01-18 10:15+0000\n"
-"Last-Translator: Christijan <c.mulder@concepts.nl>\n"
+"PO-Revision-Date: 2025-02-11 11:02+0000\n"
+"Last-Translator: Christijan Mulder <zeecowboy@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -305,7 +305,7 @@ msgstr "Toon opmerkingen oefening"
 
 #: core/models/profile.py:119
 msgid "Check to show exercise comments on the workout view"
-msgstr "Vink aan om oefeningopmerkingen te tonen in de workout view."
+msgstr "Vink aan om begeleiding voor de oefeningen te tonen in de workout view."
 
 #: core/models/profile.py:129
 msgid "Also use ingredients in English"
@@ -669,7 +669,7 @@ msgstr "Kalender"
 
 #: core/templates/navigation.html:64
 msgid "Measurements"
-msgstr "Afmetingen"
+msgstr "Metingen"
 
 #: core/templates/navigation.html:75 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -2587,7 +2587,7 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Als je nooit e-mailherinneringen wenst te ontvangen, deactiveer je de optie "
+"Als je geen e-mailherinneringen wenst te ontvangen, deactiveer dan de optie "
 "in je instellingen."
 
 #: manager/templates/workout/email_reminder.tpl:15
@@ -2651,7 +2651,7 @@ msgstr "Stel de herhalingen in voor elke set"
 
 #: manager/templates/workout/view.html:75
 msgid "Export this workout as a calendar file."
-msgstr "Exporteer deze workout als kalenderbestand"
+msgstr "Exporteer deze workout als kalenderbestand."
 
 #: manager/templates/workout/view.html:156
 msgid "Logs"
@@ -2663,7 +2663,7 @@ msgstr "Bekijk logs"
 
 #: manager/templates/workout/view.html:195 manager/views/workout.py:281
 msgid "Mark as template"
-msgstr ""
+msgstr "Markeer als template"
 
 #: manager/views/day.py:105
 msgid "Add workout day"
