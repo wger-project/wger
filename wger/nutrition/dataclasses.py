@@ -19,6 +19,9 @@ from dataclasses import (
 )
 from typing import Optional
 
+# wger
+from wger.nutrition.consts import ENERGY_FACTOR
+
 
 @dataclass
 class IngredientData:
@@ -50,6 +53,7 @@ class IngredientData:
         self.brand = self.brand[:200]
         self.common_name = self.common_name[:200]
 
+        # Mass checks (not more than 100g of something per 100g of product etc)
         macros = [
             'protein',
             'fat',
@@ -64,8 +68,44 @@ class IngredientData:
             if value and value > 100:
                 raise ValueError(f'Value for {macro} is greater than 100: {value}')
 
+        if self.fat_saturated and self.fat_saturated > self.fat:
+            raise ValueError(
+                f'Saturated fat is greater than fat: {self.fat_saturated} > {self.fat}'
+            )
+
+        if self.carbohydrates_sugar and self.carbohydrates_sugar > self.carbohydrates:
+            raise ValueError(
+                f'Sugar is greater than carbohydrates: {self.carbohydrates_sugar} > {self.carbohydrates}'
+            )
+
         if self.carbohydrates + self.protein + self.fat > 100:
             raise ValueError(f'Total of carbohydrates, protein and fat is greater than 100!')
+
+        # Energy approximations
+        energy_protein = self.protein * ENERGY_FACTOR['protein']['metric']
+        energy_carbohydrates = self.carbohydrates * ENERGY_FACTOR['carbohydrates']['metric']
+        energy_fat = self.fat * ENERGY_FACTOR['fat']['metric']
+        energy_calculated = energy_protein + energy_carbohydrates + energy_fat
+
+        if energy_fat > self.energy:
+            raise ValueError(
+                f'Energy calculated from fat is greater than total energy: {energy_fat} > {self.energy}'
+            )
+
+        if energy_carbohydrates > self.energy:
+            raise ValueError(
+                f'Energy calculated from carbohydrates is greater than total energy: {energy_carbohydrates} > {self.energy}'
+            )
+
+        if energy_protein > self.energy:
+            raise ValueError(
+                f'Energy calculated from protein is greater than total energy: {energy_protein} > {self.energy}'
+            )
+
+        if energy_calculated > self.energy:
+            raise ValueError(
+                f'Total energy calculated is greater than energy: {energy_calculated} > {self.energy}'
+            )
 
     def dict(self):
         return asdict(self)
