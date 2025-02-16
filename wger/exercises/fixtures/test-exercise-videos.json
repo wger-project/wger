@@ -4,7 +4,7 @@
     "model": "exercises.exercisevideo",
     "fields": {
       "image": "exercise-images/1/protestschwein.jpg",
-      "exercise_base": 1,
+      "exercise": 1,
       "is_main": true,
       "license": "1",
       "license_author": "",
@@ -21,7 +21,7 @@
     "model": "exercises.exercisevideo",
     "fields": {
       "image": "exercise-images/1/wildschwein.jpg",
-      "exercise_base": 1,
+      "exercise": 1,
       "is_main": false,
       "license": "2",
       "height": 640,
@@ -37,7 +37,7 @@
     "model": "exercises.exercisevideo",
     "fields": {
       "image": "exercise-images/1/wildschwein.jpg",
-      "exercise_base": 2,
+      "exercise": 2,
       "is_main": false,
       "license": "2",
       "height": 640,

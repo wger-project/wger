@@ -228,5 +228,12 @@
     "downloadAsPdf": "Télécharger en PDF",
     "calendar": "Calendrier",
     "entries": "Entrées",
-    "no_entries_for_day": "Aucune entrée pour ce jour"
+    "no_entries_for_day": "Aucune entrée pour ce jour",
+    "height": "Poids",
+    "cm": "cm",
+    "lastHalfYear": "6 Derniers Mois",
+    "lastMonth": "Dernier Mois",
+    "all": "Tout",
+    "lastYear": "Dernière Année",
+    "lastWeek": "Dernière Semaine"
 }

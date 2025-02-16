@@ -30,13 +30,13 @@ class DeletionLog(models.Model):
     different DBs, without any way of cleaning them up.
     """
 
-    MODEL_BASE = 'base'
+    MODEL_EXERCISE = 'base'
     MODEL_TRANSLATION = 'translation'
     MODEL_IMAGE = 'image'
     MODEL_VIDEO = 'video'
 
     MODELS = [
-        (MODEL_BASE, 'base'),
+        (MODEL_EXERCISE, 'base'),
         (MODEL_TRANSLATION, 'translation'),
         (MODEL_IMAGE, 'image'),
         (MODEL_VIDEO, 'video'),
@@ -61,7 +61,7 @@ class DeletionLog(models.Model):
         null=True,
         verbose_name='Replaced by',
         help_text='UUID of the object replaced by the deleted one. At the moment only available '
-        'for exercise bases',
+        'for exercises',
     )
 
     timestamp = models.DateTimeField(auto_now=True)

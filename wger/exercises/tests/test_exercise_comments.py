@@ -39,6 +39,6 @@ class ExerciseCommentApiTestCase(ExerciseCrudApiTestCase):
     resource = ExerciseComment
     data = {
         'comment': 'a cool comment',
-        'exercise': '1',
+        'translation': '1',
         'id': 1,
     }

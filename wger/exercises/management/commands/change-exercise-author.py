@@ -16,8 +16,10 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import ExerciseBase
-from wger.exercises.models.exercise import Exercise
+from wger.exercises.models import (
+    Exercise,
+    Translation,
+)
 
 
 class Command(BaseCommand):
@@ -37,47 +39,50 @@ class Command(BaseCommand):
             '--author-name', action='store', dest='author_name', help='The name of the new author'
         )
         parser.add_argument(
-            '--exercise-base-id',
+            '--exercise-id',
             action='store',
-            dest='exercise_base_id',
+            dest='exercise_id',
             help='The ID of the exercise base',
         )
         parser.add_argument(
-            '--exercise-id', action='store', dest='exercise_id', help='The ID of the exercise'
+            '--translation-id',
+            action='store',
+            dest='translation_id',
+            help='The ID of the exercise',
         )
 
     def handle(self, **options):
         author_name = options['author_name']
-        exercise_base_id = options['exercise_base_id']
         exercise_id = options['exercise_id']
+        translation_id = options['translation_id']
 
         if author_name is None:
             self.print_error('Please enter an author name')
             return
 
-        if exercise_base_id is None and exercise_id is None:
-            self.print_error('Please enter an exercise base or exercise ID')
+        if exercise_id is None and translation_id is None:
+            self.print_error('Please enter an exercise or translation ID')
             return
-
-        if exercise_base_id is not None:
-            try:
-                exercise_base = ExerciseBase.objects.get(id=exercise_base_id)
-            except ExerciseBase.DoesNotExist:
-                self.print_error('Failed to find exercise base')
-                return
-            exercise_base.license_author = author_name
-            exercise_base.save()
 
         if exercise_id is not None:
             try:
                 exercise = Exercise.objects.get(id=exercise_id)
-            except ExerciseBase.DoesNotExist:
-                self.print_error('Failed to find exercise')
+            except Exercise.DoesNotExist:
+                self.print_error('Failed to find exercise base')
                 return
             exercise.license_author = author_name
             exercise.save()
 
-        self.stdout.write(self.style.SUCCESS(f'Exercise and/or exercise base has been updated'))
+        if translation_id is not None:
+            try:
+                translation = Translation.objects.get(id=translation_id)
+            except Translation.DoesNotExist:
+                self.print_error('Failed to find exercise')
+                return
+            translation.license_author = author_name
+            translation.save()
+
+        self.stdout.write(self.style.SUCCESS('Exercise and/or translation has been updated'))
 
     def print_error(self, error_message):
         self.stdout.write(self.style.WARNING(f'{error_message}'))
