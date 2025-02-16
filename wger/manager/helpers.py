@@ -187,7 +187,6 @@ def reset_routine_cache(instance: Routine):
 
     cache.delete(CacheKeyMapper.get_routine_date_sequence_key(instance.id))
     cache.delete(CacheKeyMapper.get_routine_api_date_sequence_key(instance.id))
-    cache.delete(CacheKeyMapper.get_routine_api_current_iteration_display_key(instance.id))
     cache.delete(CacheKeyMapper.get_routine_api_structure_key(instance.id))
     cache.delete(CacheKeyMapper.get_routine_api_stats(instance.id))
 

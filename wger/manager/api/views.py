@@ -156,33 +156,6 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         return Response(WorkoutDayDataGymModeSerializer(self.get_object().data_for_day()).data)
 
-    @action(detail=True, url_path='current-iteration-display')
-    def current_iteration_display_mode(self, request, pk):
-        """
-        Return current day of the routine
-        """
-        cache_key = CacheKeyMapper.get_routine_api_current_iteration_display_key(pk)
-        cached_data = cache.get(cache_key)
-        if cached_data is not None:
-            return Response(cached_data)
-
-        out = WorkoutDayDataDisplayModeSerializer(
-            self.get_object().data_for_iteration(),
-            many=True,
-        ).data
-
-        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
-        return Response(out)
-
-    @action(detail=True, url_path='current-iteration-gym')
-    def current_iteration_gym_mode(self, request, pk):
-        """
-        Return current day of the routine
-        """
-        return Response(
-            WorkoutDayDataGymModeSerializer(self.get_object().data_for_iteration(), many=True).data
-        )
-
     @action(detail=True)
     def structure(self, request, pk):
         """

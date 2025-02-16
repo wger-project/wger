@@ -19,7 +19,6 @@ import logging
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -59,7 +58,6 @@ class CacheKeyMapper:
     EXERCISE_API_KEY = 'base-uuid-{0}'
     ROUTINE_DATE_SEQUENCE_KEY = 'routine-date-sequence-{0}'
     ROUTINE_API_DATE_SEQUENCE_DISPLAY_KEY = 'routine-api-date-sequence-display-{0}'
-    ROUTINE_API_CURRENT_ITERATION_DISPLAY_KEY = 'routine-api-current-iteration-sequence-display-{0}'
     ROUTINE_API_STATS_KEY = 'routine-api-stats-{0}'
     ROUTINE_API_STRUCTURE_KEY = 'routine-api-structure-{0}'
     SLOT_ENTRY_CONFIGS_KEY = 'slot-entry-configs-{0}'
@@ -109,10 +107,6 @@ class CacheKeyMapper:
     @classmethod
     def get_routine_api_date_sequence_key(cls, id: int):
         return cls.ROUTINE_API_DATE_SEQUENCE_DISPLAY_KEY.format(id)
-
-    @classmethod
-    def get_routine_api_current_iteration_display_key(cls, id: int):
-        return cls.ROUTINE_API_CURRENT_ITERATION_DISPLAY_KEY.format(id)
 
     @classmethod
     def get_routine_api_stats(cls, id: int):
