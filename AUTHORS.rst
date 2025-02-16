@@ -91,6 +91,10 @@ Developers
 Translators
 -----------
 
+* Arabic:
+
+  - Ahmed Osama
+
 * Bulgarian:
 
   - Lyuboslav Petrov
