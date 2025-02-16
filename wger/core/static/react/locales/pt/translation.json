@@ -240,5 +240,13 @@
         "originalTitle": "Titulo",
         "derivativeSourceUrlHelper": "Observe que uma obra derivada é aquela que não apenas se baseia em uma obra anterior, mas que também contém conteúdo novo e criativo suficiente para lhe garantir seu próprio direito autoral.",
         "originalObjectUrl": "Link para o site de origem, se disponível"
-    }
+    },
+    "filters": "Filtros",
+    "height": "Altura",
+    "cm": "cm",
+    "all": "Todos",
+    "lastYear": "Ano passado",
+    "lastHalfYear": "Últimos 6 meses",
+    "lastMonth": "Último mês",
+    "lastWeek": "Última semana"
 }
