@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+import logging
 from collections import Counter
 from decimal import Decimal
 from typing import List
@@ -41,7 +42,14 @@ from wger.manager.managers import (
     RoutineManager,
     RoutineTemplateManager,
 )
+from wger.manager.models import (
+    Day,
+    WorkoutLog,
+)
 from wger.utils.cache import CacheKeyMapper
+
+
+logger = logging.getLogger(__name__)
 
 
 class Routine(models.Model):
@@ -152,13 +160,6 @@ class Routine(models.Model):
         super().save(*args, **kwargs)
 
     @property
-    def day_sequence(self):
-        """
-        Return a sequence of days.
-        """
-        return list(self.days.all())
-
-    @property
     def label_dict(self) -> dict[datetime.date, str]:
         out = {}
         labels = self.labels.all()
@@ -176,7 +177,6 @@ class Routine(models.Model):
 
         If a day needs logs to continue it will be repeated until the user adds one.
         """
-
         cache_key = CacheKeyMapper.get_routine_date_sequence_key(self.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
@@ -186,17 +186,22 @@ class Routine(models.Model):
         delta = datetime.timedelta(days=1)
         current_date = self.start
         days = list(self.days.all())
-        current_day = self.days.first()
-        nr_days = self.days.count()
+        nr_days = len(days)
         counter = Counter()
         skip_til_date = None
 
         out = []
 
-        if current_day is None:
+        logs = {}
+        for day in self.days.all():
+            # logger.debug(f'fetching log data for day {day.pk}')
+            logs[day.id] = list(WorkoutLog.objects.filter(slot_entry__slot__day=day))
+
+        if not days:
             return out
 
         index = 0
+        current_day: Day = days[0]
         while current_date <= self.end:
             # Fill all days till the end of the week with empty workout days
             if skip_til_date:

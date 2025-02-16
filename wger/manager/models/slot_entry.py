@@ -16,12 +16,20 @@
 
 # Standard Library
 import copy
+import enum
 import importlib
+import logging
 from decimal import Decimal
-from typing import List
+from typing import (
+    Dict,
+    List,
+)
 
 # Django
+from django.conf import settings
+from django.core.cache import cache
 from django.db import models
+from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -34,11 +42,26 @@ from wger.manager.dataclasses import (
     SetConfigData,
     round_value,
 )
+from wger.manager.models import WorkoutLog
 from wger.manager.models.abstract_config import (
     AbstractChangeConfig,
     OperationChoices,
     StepChoices,
 )
+from wger.utils.cache import CacheKeyMapper
+
+
+class ConfigType(enum.Enum):
+    WEIGHT = enum.auto()
+    MAXWEIGHT = enum.auto()
+    REPETITIONS = enum.auto()
+    MAXREPETITIONS = enum.auto()
+    RIR = enum.auto()
+    MAXRIR = enum.auto()
+    REST = enum.auto()
+    MAXREST = enum.auto()
+    SETS = enum.auto()
+    MAXSETS = enum.auto()
 
 
 class ExerciseType(models.TextChoices):
@@ -50,6 +73,9 @@ class ExerciseType(models.TextChoices):
     TUT = 'tut'
     ISO_HOLD = 'iso'
     JUMP = 'jump'
+
+
+logger = logging.getLogger(__name__)
 
 
 class SlotEntry(models.Model):
@@ -109,6 +135,7 @@ class SlotEntry(models.Model):
 
     order = models.PositiveIntegerField(
         blank=True,
+        db_index=True,
     )
 
     comment = models.CharField(
@@ -140,12 +167,22 @@ class SlotEntry(models.Model):
     )
     """JSON configuration field for custom behaviour"""
 
+    has_progression = models.BooleanField(
+        default=False,
+        editable=False,
+    )
+    """
+    Flag indicating if this entry should be used for progression.
+    """
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [
             'order',
             'id',
         ]
+
+    config_entries = {}
 
     def save(self, *args, **kwargs):
         """
@@ -167,6 +204,47 @@ class SlotEntry(models.Model):
         Returns the object that has owner information
         """
         return self.slot.day.routine
+
+    def load_all_configs(
+        self, iteration: int
+    ) -> Dict[str, Dict[str, List[AbstractChangeConfig] | AbstractChangeConfig]]:
+        key = CacheKeyMapper.slot_entry_configs_objects_key(self.pk, iteration)
+        configs = cache.get(key)
+        if configs is None:
+            data = {
+                'weight': list(self.weightconfig_set.filter(iteration__lte=iteration)),
+                'maxweight': list(self.maxweightconfig_set.filter(iteration__lte=iteration)),
+                'repetitions': list(self.repetitionsconfig_set.filter(iteration__lte=iteration)),
+                'maxrepetitions': list(
+                    self.maxrepetitionsconfig_set.filter(iteration__lte=iteration)
+                ),
+                'rir': list(self.rirconfig_set.filter(iteration__lte=iteration)),
+                'maxrir': list(self.maxrirconfig_set.filter(iteration__lte=iteration)),
+                'rest': list(self.restconfig_set.filter(iteration__lte=iteration)),
+                'maxrest': list(self.maxrestconfig_set.filter(iteration__lte=iteration)),
+                'sets': list(self.setsconfig_set.filter(iteration__lte=iteration)),
+                'maxsets': list(self.maxsetsconfig_set.filter(iteration__lte=iteration)),
+            }
+
+            last_entries = {key: data[key][-1] if data[key] else None for key in data}
+
+            configs = {
+                'all': data,
+                'last': last_entries,
+            }
+
+            cache.set(
+                key,
+                configs,
+                settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'],
+            )
+
+        return configs
+
+    def get_configuration_entries(
+        self, config_type: ConfigType, iteration
+    ) -> List[AbstractChangeConfig]:
+        return self.load_all_configs(iteration)['all'][config_type.name.lower()]
 
     @staticmethod
     def calculate_config_value(configs: List[AbstractChangeConfig]) -> Decimal | None:
@@ -211,7 +289,7 @@ class SlotEntry(models.Model):
 
         return out
 
-    def get_config(self, iteration: int) -> SetConfigData:
+    def get_config_data(self, iteration: int) -> SetConfigData:
         """
         This method calculates the configuration for a given iteration of a slot entry.
 
@@ -222,6 +300,14 @@ class SlotEntry(models.Model):
         E.g. the weight could have the requirements of weight and weight. Only if these are
         met, the weight will be increased.
         """
+
+        # If there are no progressions, the value will be always the same
+        key = CacheKeyMapper.slot_entry_configs_key(self.pk)
+        result = cache.get(key)
+        if result and not self.has_progression:
+            return result
+
+        logs = list(self.workoutlog_set.all())
 
         # If there is a custom class set, pass all responsibilities to it
         if self.class_name:
@@ -262,15 +348,11 @@ class SlotEntry(models.Model):
         }
 
         for i in range(1, iteration + 1):
-            configs = {
-                'weight': self.weightconfig_set.filter(iteration__lte=i).last(),
-                'repetitions': self.repetitionsconfig_set.filter(iteration__lte=i).last(),
-                'rir': self.rirconfig_set.filter(iteration__lte=i).last(),
-                'rest': self.restconfig_set.filter(iteration__lte=i).last(),
-                'sets': self.setsconfig_set.filter(iteration__lte=i).last(),
-                'max_sets': self.maxsetsconfig_set.filter(iteration__lte=i).last(),
-            }
-            log_data = self.workoutlog_set.filter(slot_entry_id=self.id, iteration=i - 1)
+            configs = self.load_all_configs(i)['last']
+
+            log_data = [
+                log for log in logs if log.iteration == i - 1 and log.slot_entry_id == self.id
+            ]
 
             for field, config in configs.items():
                 if not config:
@@ -278,6 +360,7 @@ class SlotEntry(models.Model):
 
                 if not config.requirements:
                     max_iterations[field] = i
+                    # logger.debug(f'No requirements for {field} in iteration {i}')
                     continue
 
                 requirements = config.requirements_object
@@ -289,28 +372,30 @@ class SlotEntry(models.Model):
                         >= getattr(self, f'calculate_{req_field}')(max_iterations[req_field])
                         for req_field in requirements.rules
                     )
+                    # logger.debug(f'all_fields_met for {field} in iteration {i}: {all_fields_met}')
 
                     if all_fields_met:
                         max_iterations[field] = i
+                        continue
 
         sets = self.calculate_sets(max_iterations['sets'])
-        max_sets = self.calculate_max_sets(max_iterations['max_sets'])
+        max_sets = self.calculate_maxsets(max_iterations['max_sets'])
 
         weight = self.calculate_weight(max_iterations['weight'])
-        max_weight = self.calculate_max_weight(max_iterations['max_weight'])
+        max_weight = self.calculate_maxweight(max_iterations['max_weight'])
 
         repetitions = self.calculate_repetitions(max_iterations['repetitions'])
-        max_repetitions = self.calculate_max_repetitions(max_iterations['max_repetitions'])
+        max_repetitions = self.calculate_maxrepetitions(max_iterations['max_repetitions'])
 
         rir = self.calculate_rir(max_iterations['rir'])
-        max_rir = self.calculate_max_rir(max_iterations['max_rir'])
+        max_rir = self.calculate_maxrir(max_iterations['max_rir'])
 
         rest = self.calculate_rest(max_iterations['rest'])
-        max_rest = self.calculate_max_rest(max_iterations['max_rest'])
+        max_rest = self.calculate_maxrest(max_iterations['max_rest'])
 
-        return SetConfigData(
+        result = SetConfigData(
             slot_entry_id=self.id,
-            exercise=self.exercise.id,
+            exercise=self.exercise_id,
             type=str(self.type),
             comment=self.comment,
             sets=sets if sets is not None else 1,
@@ -321,53 +406,67 @@ class SlotEntry(models.Model):
             else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
             # TODO: decide on whether to return None or always the unit
-            # weight_unit=self.weight_unit.pk if weight is not None else None,
-            weight_unit=self.weight_unit.pk,
+            # weight_unit=self.weight_unit_id if weight is not None else None,
+            weight_unit=self.weight_unit_id,
             repetitions=round_value(repetitions, self.repetition_rounding),
             max_repetitions=round_value(max_repetitions, self.repetition_rounding)
             if max_repetitions and repetitions and max_repetitions > repetitions
             else None,
             repetitions_rounding=self.repetition_rounding if repetitions is not None else None,
-            repetitions_unit=self.repetition_unit.pk,
+            repetitions_unit=self.repetition_unit_id,
             # TODO: decide on whether to return None or always the unit
-            # reps_unit=self.repetition_unit.pk if reps is not None else None,
+            # reps_unit=self.repetition_unit_id if reps is not None else None,
             rir=round_value(rir, 0.5),
             max_rir=round_value(max_rir, 0.5) if max_rir and rir and max_rir > rir else None,
             rest=round_value(rest, 1),
             max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
         )
 
+        cache.set(
+            key,
+            result,
+            settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'],
+        )
+        return result
+
     #
     # Note: don't rename these methods, they are accessed in get_config via getattr
     #
     def calculate_sets(self, iteration: int) -> Decimal | None:
+        logger.debug(f'calculate_sets for slot entry {self.id} and iteration {iteration}')
+
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.setsconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.SETS, iteration),
+                # list(self.setsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
-    def calculate_max_sets(self, iteration: int) -> Decimal | None:
+    def calculate_maxsets(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.maxsetsconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.MAXSETS, iteration),
+                # list(self.maxsetsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
     def calculate_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
-                iteration, list(self.weightconfig_set.filter(iteration__lte=iteration))
+                iteration,
+                self.get_configuration_entries(ConfigType.WEIGHT, iteration),
+                # list(self.weightconfig_set.filter(iteration__lte=iteration))
             )
         )
 
-    def calculate_max_weight(self, iteration: int) -> Decimal | None:
+    def calculate_maxweight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.maxweightconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.MAXWEIGHT, iteration),
+                # list(self.maxweightconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -375,15 +474,17 @@ class SlotEntry(models.Model):
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.repetitionsconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.REPETITIONS, iteration),
+                # list(self.repetitionsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
-    def calculate_max_repetitions(self, iteration: int) -> Decimal | None:
+    def calculate_maxrepetitions(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.maxrepetitionsconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.MAXREPETITIONS, iteration),
+                # list(self.maxrepetitionsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -391,15 +492,17 @@ class SlotEntry(models.Model):
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.rirconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.RIR, iteration),
+                # list(self.rirconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
-    def calculate_max_rir(self, iteration: int) -> Decimal | None:
+    def calculate_maxrir(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.maxrirconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.MAXRIR, iteration),
+                # list(self.maxrirconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -407,14 +510,16 @@ class SlotEntry(models.Model):
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.restconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.REST, iteration),
+                # list(self.restconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
-    def calculate_max_rest(self, iteration: int) -> Decimal | None:
+    def calculate_maxrest(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
-                list(self.maxrestconfig_set.filter(iteration__lte=iteration)),
+                self.get_configuration_entries(ConfigType.MAXREST, iteration),
+                # list(self.maxrestconfig_set.filter(iteration__lte=iteration)),
             )
         )

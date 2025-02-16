@@ -32,6 +32,7 @@ class Slot(models.Model):
         default=1,
         null=False,
         verbose_name=_('Order'),
+        db_index=True,
     )
 
     comment = models.CharField(
@@ -74,9 +75,13 @@ class Slot(models.Model):
     def set_data(self, iteration: int) -> List[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
 
-        return [SetExerciseData(data=s.get_config(iteration), config=s) for s in self.entries.all()]
+        result = [
+            SetExerciseData(data=s.get_config_data(iteration), config=s) for s in self.entries.all()
+        ]
 
-    def get_sets(self, iteration: int) -> list[SetConfigData]:
+        return result
+
+    def set_data_gym(self, iteration: int) -> list[SetConfigData]:
         """
         Calculates the sets as they would be performed in the gym
 
@@ -130,9 +135,3 @@ class Slot(models.Model):
                     result.append(slot.data)
                     sets[i] -= 1
         return result
-
-    def get_exercises(self) -> List[int]:
-        """
-        Returns the list of distinct exercises in the configs
-        """
-        return [slot.exercise.id for slot in self.entries.all()]

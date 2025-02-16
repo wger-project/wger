@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+from dataclasses import asdict
 from decimal import Decimal
 
 # Django
+from django.core.cache import cache
 from django.test import SimpleTestCase
 
 # wger
@@ -36,6 +38,7 @@ from wger.manager.models.abstract_config import (
     OperationChoices,
     StepChoices,
 )
+from wger.utils.cache import CacheKeyMapper
 
 
 class SlotEntryTestCase(WgerTestCase):
@@ -173,7 +176,7 @@ class SlotEntryTestCase(WgerTestCase):
         ).save()
 
         self.assertEqual(
-            self.slot_entry.get_config(1),
+            self.slot_entry.get_config_data(1),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -188,7 +191,7 @@ class SlotEntryTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_entry.get_config(2),
+            self.slot_entry.get_config_data(2),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -203,7 +206,7 @@ class SlotEntryTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_entry.get_config(3),
+            self.slot_entry.get_config_data(3),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -218,7 +221,7 @@ class SlotEntryTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_entry.get_config(4),
+            self.slot_entry.get_config_data(4),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -233,7 +236,7 @@ class SlotEntryTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_entry.get_config(5),
+            self.slot_entry.get_config_data(5),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -248,7 +251,7 @@ class SlotEntryTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_entry.get_config(6),
+            self.slot_entry.get_config_data(6),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -311,7 +314,7 @@ class SlotEntryTestCase(WgerTestCase):
         ).save()
 
         self.assertDictEqual(
-            self.slot_entry.get_config(1).__dict__,
+            self.slot_entry.get_config_data(1).__dict__,
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -324,7 +327,7 @@ class SlotEntryTestCase(WgerTestCase):
 
         # Sets did increase
         self.assertDictEqual(
-            self.slot_entry.get_config(2).__dict__,
+            self.slot_entry.get_config_data(2).__dict__,
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -384,7 +387,7 @@ class SlotEntryTestCase(WgerTestCase):
         ).save()
 
         self.assertEqual(
-            self.slot_entry.get_config(1),
+            self.slot_entry.get_config_data(1),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -397,7 +400,7 @@ class SlotEntryTestCase(WgerTestCase):
 
         # Sets don't increase
         self.assertEqual(
-            self.slot_entry.get_config(2),
+            self.slot_entry.get_config_data(2),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -456,7 +459,7 @@ class SlotEntryTestCase(WgerTestCase):
         ).save()
 
         self.assertEqual(
-            self.slot_entry.get_config(1),
+            self.slot_entry.get_config_data(1),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -473,7 +476,7 @@ class SlotEntryTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            self.slot_entry.get_config(2),
+            self.slot_entry.get_config_data(2),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -510,15 +513,15 @@ class SlotEntryTestCase(WgerTestCase):
         RiRConfig(slot_entry=self.slot_entry, iteration=1, value=2).save()
 
         self.assertEqual(
-            self.slot_entry.get_config(1),
+            self.slot_entry.get_config_data(1),
             SetConfigData(exercise=1, sets=2, weight=24, repetitions=1, rir=2, rest=120),
         )
         self.assertEqual(
-            self.slot_entry.get_config(2),
+            self.slot_entry.get_config_data(2),
             SetConfigData(exercise=2, sets=4, weight=42, repetitions=10, rir=1, rest=90),
         )
         self.assertEqual(
-            self.slot_entry.get_config(3),
+            self.slot_entry.get_config_data(3),
             SetConfigData(exercise=2, sets=4, weight=42, repetitions=10, rir=1, rest=90),
         )
 
@@ -528,7 +531,7 @@ class SlotEntryTestCase(WgerTestCase):
         """
 
         self.assertEqual(
-            self.slot_entry.get_config(1),
+            self.slot_entry.get_config_data(1),
             SetConfigData(
                 slot_entry_id=self.slot_entry.pk,
                 exercise=1,
@@ -544,6 +547,47 @@ class SlotEntryTestCase(WgerTestCase):
                 rest=None,
             ),
         )
+
+    def test_has_progression_flag(self):
+        """Tests that the has_progression flag is automatically set"""
+
+        self.assertFalse(self.slot_entry.has_progression)
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4).save()
+        SetsConfig(slot_entry=self.slot_entry, iteration=2, value=6).save()
+
+        self.assertTrue(self.slot_entry.has_progression)
+
+    def test_cache_load_all_configs(self):
+        """Tests that cache used in load_all_configs is correctly (re)set"""
+
+        key = CacheKeyMapper.slot_entry_configs_objects_key(self.slot_entry.pk, 1)
+
+        set_config = SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4)
+        set_config.save()
+
+        self.assertIsNone(cache.get(key))
+        self.slot_entry.load_all_configs(1)
+        self.assertTrue(cache.get(key))
+
+        set_config.value = 5
+        set_config.save()
+        self.assertIsNone(cache.get(key))
+
+    def test_cache_get_config_data(self):
+        """Tests that cache used in get_config_data is correctly (re)set"""
+
+        key = CacheKeyMapper.slot_entry_configs_key(self.slot_entry.pk)
+
+        set_config = SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4)
+        set_config.save()
+
+        self.assertIsNone(cache.get(key))
+        self.slot_entry.get_config_data(1)
+        self.assertTrue(cache.get(key))
+
+        set_config.value = 5
+        set_config.save()
+        self.assertIsNone(cache.get(key))
 
 
 class SlotEntryDuplicateConfigTestCase(SimpleTestCase):

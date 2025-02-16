@@ -66,12 +66,6 @@ class RoutineTestCase(WgerTestCase):
         Label(routine=self.routine, start_offset=0, end_offset=3, label='First label').save()
         Label(routine=self.routine, start_offset=4, end_offset=5, label='Second label').save()
 
-    def test_day_sequences(self):
-        self.assertListEqual(
-            self.routine.day_sequence,
-            [self.day1, self.day2, self.day3],
-        )
-
     def test_date_sequences(self):
         """
         Test that the days are correctly outputted in a sequence

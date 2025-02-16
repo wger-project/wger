@@ -52,7 +52,7 @@ class SlotTestCase(WgerTestCase):
         Test that the correct sets are returned for supersets
         """
 
-        result = self.slot.get_sets(1)
+        result = self.slot.set_data_gym(1)
 
         self.assertEqual(len(result), 9)
 
@@ -71,24 +71,13 @@ class SlotTestCase(WgerTestCase):
         self.assertEqual(result[7].exercise, 2)
         self.assertEqual(result[8].exercise, 1)
 
-    def test_get_exercises(self):
-        """
-        Test that the correct exercises are returned for supersets
-        """
-
-        result = self.slot.get_exercises()
-
-        self.assertEqual(result[0], 1)
-        self.assertEqual(result[1], 2)
-        self.assertEqual(result[2], 3)
-
     def test_get_sets_one_exercise(self):
         """
         Test that the correct sets are returned for regular sets
         """
         SlotEntry.objects.filter(id__in=(101, 102)).delete()
 
-        result = self.slot.get_sets(1)
+        result = self.slot.set_data_gym(1)
 
         self.assertEqual(len(result), 4)
         for i in range(0, 3):

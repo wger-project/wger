@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.core.cache import cache
 from django.db.models.signals import (
     post_save,
     pre_delete,
@@ -25,9 +24,12 @@ from django.db.models.signals import (
 from wger.gym.helpers import get_user_last_activity
 from wger.manager.helpers import reset_routine_cache
 from wger.manager.models import (
+    AbstractChangeConfig,
     Day,
     MaxRepetitionsConfig,
     MaxRestConfig,
+    MaxRiRConfig,
+    MaxSetsConfig,
     MaxWeightConfig,
     RepetitionsConfig,
     RestConfig,
@@ -40,6 +42,7 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+from wger.utils.cache import CacheKeyMapper
 
 
 def update_activity_cache(sender, instance, **kwargs):
@@ -68,36 +71,42 @@ def update_cache_slot_entry(sender, instance: SlotEntry, **kwargs):
     reset_routine_cache(instance.slot.day.routine)
 
 
-def update_cache_weight_config(sender, instance: WeightConfig, **kwargs):
+def handle_config_change(sender, instance: AbstractChangeConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
+    update_has_progression_flag(instance)
+    update_object_cache(instance)
 
 
-def update_cache_max_weight_config(sender, instance: MaxWeightConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
+def update_has_progression_flag(instance: AbstractChangeConfig):
+    """
+    Update the has_progression flag on the slot entry
+    """
+    slot_entry = instance.slot_entry
+
+    slot_entry.has_progression = any(
+        config_set.count() > 1
+        for config_set in [
+            slot_entry.weightconfig_set.all(),
+            slot_entry.maxweightconfig_set.all(),
+            slot_entry.repetitionsconfig_set.all(),
+            slot_entry.maxrepetitionsconfig_set.all(),
+            slot_entry.setsconfig_set.all(),
+            slot_entry.maxsetsconfig_set.all(),
+            slot_entry.restconfig_set.all(),
+            slot_entry.maxrestconfig_set.all(),
+            slot_entry.rirconfig_set.all(),
+            slot_entry.maxrirconfig_set.all(),
+        ]
+    )
 
 
-def update_cache_repetitions_config(sender, instance: RepetitionsConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
+def update_object_cache(instance: AbstractChangeConfig):
+    """
+    Update the has_progression flag on the slot entry
+    """
 
-
-def update_cache_max_repetitions_config(sender, instance: MaxRepetitionsConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
-
-
-def update_cache_sets_config(sender, instance: SetsConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
-
-
-def update_cache_rest_config(sender, instance: RestConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
-
-
-def update_cache_max_rest_config(sender, instance: MaxRestConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
-
-
-def update_cache_rir_config(sender, instance: RiRConfig, **kwargs):
-    reset_routine_cache(instance.slot_entry.slot.day.routine)
+    slot_entry = instance.slot_entry
+    cache.delete(CacheKeyMapper.slot_entry_configs_objects_key(slot_entry.id, instance.iteration))
 
 
 def update_cache_log(sender, instance: WorkoutLog, **kwargs):
@@ -112,26 +121,33 @@ pre_save.connect(update_cache_routine, sender=Routine)
 pre_save.connect(update_cache_day, sender=Day)
 pre_save.connect(update_cache_slot, sender=Slot)
 pre_save.connect(update_cache_slot_entry, sender=SlotEntry)
-pre_save.connect(update_cache_weight_config, sender=WeightConfig)
-pre_save.connect(update_cache_max_weight_config, sender=MaxWeightConfig)
-pre_save.connect(update_cache_repetitions_config, sender=RepetitionsConfig)
-pre_save.connect(update_cache_max_repetitions_config, sender=MaxRepetitionsConfig)
-pre_save.connect(update_cache_sets_config, sender=SetsConfig)
-pre_save.connect(update_cache_rest_config, sender=RestConfig)
-pre_save.connect(update_cache_max_rest_config, sender=MaxRestConfig)
-pre_save.connect(update_cache_rir_config, sender=RiRConfig)
 pre_save.connect(update_cache_log, sender=WorkoutLog)
+
+post_save.connect(handle_config_change, sender=WeightConfig)
+post_save.connect(handle_config_change, sender=MaxWeightConfig)
+post_save.connect(handle_config_change, sender=RepetitionsConfig)
+post_save.connect(handle_config_change, sender=MaxRepetitionsConfig)
+post_save.connect(handle_config_change, sender=SetsConfig)
+post_save.connect(handle_config_change, sender=MaxSetsConfig)
+post_save.connect(handle_config_change, sender=RestConfig)
+post_save.connect(handle_config_change, sender=MaxRestConfig)
+post_save.connect(handle_config_change, sender=RiRConfig)
+post_save.connect(handle_config_change, sender=MaxRiRConfig)
 
 pre_delete.connect(update_cache_routine, sender=Routine)
 pre_delete.connect(update_cache_day, sender=Day)
 pre_delete.connect(update_cache_slot, sender=Slot)
 pre_delete.connect(update_cache_slot_entry, sender=SlotEntry)
-pre_delete.connect(update_cache_weight_config, sender=WeightConfig)
-pre_delete.connect(update_cache_max_weight_config, sender=MaxWeightConfig)
-pre_delete.connect(update_cache_repetitions_config, sender=RepetitionsConfig)
-pre_delete.connect(update_cache_max_repetitions_config, sender=MaxRepetitionsConfig)
-pre_delete.connect(update_cache_sets_config, sender=SetsConfig)
-pre_delete.connect(update_cache_rest_config, sender=RestConfig)
-pre_delete.connect(update_cache_max_rest_config, sender=MaxRestConfig)
-pre_delete.connect(update_cache_rir_config, sender=RiRConfig)
+
+pre_delete.connect(handle_config_change, sender=WeightConfig)
+pre_delete.connect(handle_config_change, sender=MaxWeightConfig)
+pre_delete.connect(handle_config_change, sender=RepetitionsConfig)
+pre_delete.connect(handle_config_change, sender=MaxRepetitionsConfig)
+pre_delete.connect(handle_config_change, sender=SetsConfig)
+pre_delete.connect(handle_config_change, sender=MaxSetsConfig)
+pre_delete.connect(handle_config_change, sender=RestConfig)
+pre_delete.connect(handle_config_change, sender=MaxRestConfig)
+pre_delete.connect(handle_config_change, sender=RiRConfig)
+pre_delete.connect(handle_config_change, sender=MaxRiRConfig)
+
 pre_delete.connect(update_cache_log, sender=WorkoutLog)

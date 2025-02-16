@@ -26,9 +26,9 @@ from wger.core.tests import api_base_test
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
+    Exercise,
     Muscle,
     Translation,
-    Exercise,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
 

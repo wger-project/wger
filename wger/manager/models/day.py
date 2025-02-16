@@ -58,6 +58,7 @@ class Day(models.Model):
         default=1,
         null=False,
         verbose_name=_('Order'),
+        db_index=True,
     )
 
     type = models.CharField(
@@ -144,8 +145,7 @@ class Day(models.Model):
         Return the sets for this day
         """
         return [
-            SlotData(comment=s.comment, exercises=s.get_exercises(), sets=s.get_sets(iteration))
-            for s in self.slots.all()
+            SlotData(comment=s.comment, sets=s.set_data_gym(iteration)) for s in self.slots.all()
         ]
 
     def get_slots_display_mode(self, iteration: int) -> List[SlotData]:
@@ -170,29 +170,37 @@ class Day(models.Model):
         out = []
         last_exercise_id = None
         current_slot = None
-        for slot in self.slots.all():
-            if slot.is_superset:
-                out.append(
-                    SlotData(
-                        comment=slot.comment,
-                        exercises=slot.get_exercises(),
-                        sets=[s.data for s in slot.set_data(iteration)],
-                    )
-                )
+        # slots = self.slots.prefetch_related(
+        #     Prefetch('entries', to_attr='prefetched_entries')
+        # ).all()
+
+        slots = self.slots.all()
+
+        for slot in slots:
+            # for slot in self.slots.all():
+            slot_data = SlotData(
+                comment=slot.comment,
+                sets=[s.data for s in slot.set_data(iteration)],
+            )
+            exercises = slot_data.exercises
+
+            # slot is superset
+            if len(exercises) > 1:
+                out.append(slot_data)
                 current_slot = None
-            elif not slot.get_exercises():
+
+            # empty slot
+            elif not exercises:
                 continue
+
+            # one exercise
             else:
-                exercise_id = slot.get_exercises()[0]
+                exercise_id = exercises[0]
                 if exercise_id != last_exercise_id:
-                    current_slot = SlotData(
-                        comment=slot.comment,
-                        exercises=[exercise_id],
-                        sets=[s.data for s in slot.set_data(iteration)],
-                    )
-                    out.append(current_slot)
+                    current_slot = slot_data
+                    out.append(slot_data)
                     last_exercise_id = exercise_id
                 else:
-                    current_slot.sets.extend([s.data for s in slot.set_data(iteration)])
+                    current_slot.sets.extend(slot_data.sets)
 
         return out

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -16,14 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import json
 from datetime import datetime
 
 # Django
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 
 # Third Party
 from rest_framework import viewsets
@@ -31,7 +27,6 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.models import Exercise
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
 from wger.manager.api.filtersets import (
     BaseConfigFilterSet,
@@ -117,18 +112,14 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    @action(detail=True, url_path='day-sequence')
-    def day_sequence(self, request, pk):
-        """
-        Return the day sequence of the routine
-        """
-        return Response(DaySerializer(self.get_object().day_sequence, many=True).data)
-
     @action(detail=True, url_path='date-sequence-display')
     def date_sequence_display_mode(self, request, pk):
         """
         Return the day sequence of the routine
         """
+        # profiler = cProfile.Profile()
+        # profiler.enable()
+
         cache_key = CacheKeyMapper.get_routine_api_date_sequence_key(pk)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
@@ -136,6 +127,9 @@ class RoutineViewSet(viewsets.ModelViewSet):
 
         out = WorkoutDayDataDisplayModeSerializer(self.get_object().date_sequence, many=True).data
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+
+        # profiler.disable()
+        # profiler.dump_stats("profile_results.prof")
 
         return Response(out)
 

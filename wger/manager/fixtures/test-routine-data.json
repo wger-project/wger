@@ -141,7 +141,8 @@
       "order": 1,
       "comment": "",
       "type": "normal",
-      "class_name": null
+      "class_name": null,
+      "has_progression": false
     }
   },
   {
@@ -157,7 +158,8 @@
       "order": 1,
       "comment": "",
       "type": "normal",
-      "class_name": null
+      "class_name": null,
+      "has_progression": false
     }
   },
   {
@@ -173,7 +175,8 @@
       "order": 1,
       "comment": "",
       "type": "normal",
-      "class_name": null
+      "class_name": null,
+      "has_progression": false
     }
   },
   {
@@ -189,7 +192,8 @@
       "order": 1,
       "comment": "",
       "type": "normal",
-      "class_name": null
+      "class_name": null,
+      "has_progression": false
     }
   },
   {

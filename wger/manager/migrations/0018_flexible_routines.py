@@ -73,7 +73,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'order',
-                    models.PositiveIntegerField(default=1, verbose_name='Order'),
+                    models.PositiveIntegerField(default=1, verbose_name='Order', db_index=True),
                 ),
                 (
                     'config',
@@ -219,7 +219,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'order',
-                    models.PositiveIntegerField(default=1, verbose_name='Order'),
+                    models.PositiveIntegerField(default=1, verbose_name='Order', db_index=True),
                 ),
                 (
                     'comment',
@@ -255,7 +255,7 @@ class Migration(migrations.Migration):
                         verbose_name='ID',
                     ),
                 ),
-                ('order', models.PositiveIntegerField(blank=True)),
+                ('order', models.PositiveIntegerField(blank=True, db_index=True)),
                 (
                     'type',
                     models.CharField(

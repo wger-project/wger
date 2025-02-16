@@ -168,8 +168,16 @@ class SetExerciseData:
 @dataclass
 class SlotData:
     comment: str
-    exercises: List[int] = field(default_factory=list)
     sets: List[SetConfigData] = field(default_factory=list)
+
+    @property
+    def exercises(self) -> List[int]:
+        out = set()
+
+        for set_config in self.sets:
+            out.add(set_config.exercise)
+
+        return list(out)
 
     @property
     def is_superset(self) -> bool:

@@ -62,6 +62,8 @@ class CacheKeyMapper:
     ROUTINE_API_CURRENT_ITERATION_DISPLAY_KEY = 'routine-api-current-iteration-sequence-display-{0}'
     ROUTINE_API_STATS_KEY = 'routine-api-stats-{0}'
     ROUTINE_API_STRUCTURE_KEY = 'routine-api-structure-{0}'
+    SLOT_ENTRY_CONFIGS_KEY = 'slot-entry-configs-{0}'
+    SLOT_ENTRY_CONFIG_DICT_KEY = 'slot-entry-configs-dict-{0}-{1}'
 
     def get_pk(self, param):
         """
@@ -119,6 +121,14 @@ class CacheKeyMapper:
     @classmethod
     def get_routine_api_structure_key(cls, id: int):
         return cls.ROUTINE_API_STRUCTURE_KEY.format(id)
+
+    @classmethod
+    def slot_entry_configs_key(cls, id: int):
+        return cls.SLOT_ENTRY_CONFIGS_KEY.format(id)
+
+    @classmethod
+    def slot_entry_configs_objects_key(cls, slot_entry_id: int, iteration: int):
+        return cls.SLOT_ENTRY_CONFIG_DICT_KEY.format(slot_entry_id, iteration)
 
 
 cache_mapper = CacheKeyMapper()

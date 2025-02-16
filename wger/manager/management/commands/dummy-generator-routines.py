@@ -64,7 +64,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f"** Generating {options['nr_plans']} dummy routine(s) per user")
+        self.stdout.write(f'** Generating {options["nr_plans"]} dummy routine(s) per user')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
@@ -83,6 +83,7 @@ class Command(BaseCommand):
                     name=f'Dummy routine - {uid[0]}',
                     start=start_date,
                     end=start_date + datetime.timedelta(weeks=6),
+                    fit_in_week=True,
                 )
                 routine.save()
 
