@@ -433,13 +433,12 @@ class SlotEntry(models.Model):
     # Note: don't rename these methods, they are accessed in get_config via getattr
     #
     def calculate_sets(self, iteration: int) -> Decimal | None:
-        logger.debug(f'calculate_sets for slot entry {self.id} and iteration {iteration}')
+        # logger.debug(f'calculate_sets for slot entry {self.id} and iteration {iteration}')
 
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.SETS, iteration),
-                # list(self.setsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -448,7 +447,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.MAXSETS, iteration),
-                # list(self.maxsetsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -457,7 +455,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.WEIGHT, iteration),
-                # list(self.weightconfig_set.filter(iteration__lte=iteration))
             )
         )
 
@@ -466,7 +463,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.MAXWEIGHT, iteration),
-                # list(self.maxweightconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -475,7 +471,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.REPETITIONS, iteration),
-                # list(self.repetitionsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -484,7 +479,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.MAXREPETITIONS, iteration),
-                # list(self.maxrepetitionsconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -493,7 +487,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.RIR, iteration),
-                # list(self.rirconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -502,7 +495,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.MAXRIR, iteration),
-                # list(self.maxrirconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -511,7 +503,6 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.REST, iteration),
-                # list(self.restconfig_set.filter(iteration__lte=iteration)),
             )
         )
 
@@ -520,6 +511,5 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.MAXREST, iteration),
-                # list(self.maxrestconfig_set.filter(iteration__lte=iteration)),
             )
         )
