@@ -51,18 +51,6 @@ class CacheKeyMapper:
     Simple class for mapping the cache keys of different objects
     """
 
-    LANGUAGE_CACHE_KEY = 'language-{0}'
-    INGREDIENT_CACHE_KEY = 'ingredient-{0}'
-    WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
-    NUTRITION_CACHE_KEY = 'nutrition-cache-log-{0}'
-    EXERCISE_API_KEY = 'base-uuid-{0}'
-    ROUTINE_DATE_SEQUENCE_KEY = 'routine-date-sequence-{0}'
-    ROUTINE_API_DATE_SEQUENCE_DISPLAY_KEY = 'routine-api-date-sequence-display-{0}'
-    ROUTINE_API_STATS_KEY = 'routine-api-stats-{0}'
-    ROUTINE_API_STRUCTURE_KEY = 'routine-api-structure-{0}'
-    SLOT_ENTRY_CONFIGS_KEY = 'slot-entry-configs-{0}'
-    SLOT_ENTRY_CONFIG_DICT_KEY = 'slot-entry-configs-dict-{0}-{1}'
-
     def get_pk(self, param):
         """
         Small helper function that returns the PK for the given parameter
@@ -73,56 +61,56 @@ class CacheKeyMapper:
         """
         Return the language cache key
         """
-        return self.LANGUAGE_CACHE_KEY.format(self.get_pk(param))
+        return f'language-{self.get_pk(param)}'
 
     def get_ingredient_key(self, param):
         """
         Return the ingredient cache key
         """
-        return self.INGREDIENT_CACHE_KEY.format(self.get_pk(param))
+        return f'ingredient-{self.get_pk(param)}'
 
     def get_workout_log_list(self, hash_value):
         """
         Return the workout canonical representation
         """
-        return self.WORKOUT_LOG_LIST.format(hash_value)
+        return f'workout-log-hash-{hash_value}'
 
     def get_nutrition_cache_by_key(self, params):
         """
         get nutritional info values canonical representation  using primary key.
         """
-        return self.NUTRITION_CACHE_KEY.format(self.get_pk(params))
+        return f'nutrition-cache-log-{self.get_pk(params)}'
 
     @classmethod
     def get_exercise_api_key(cls, base_uuid: str):
         """
         get the exercise base cache key used in the API
         """
-        return cls.EXERCISE_API_KEY.format(base_uuid)
+        return f'base-uuid-{base_uuid}'
 
     @classmethod
     def get_routine_date_sequence_key(cls, id: int):
-        return cls.ROUTINE_DATE_SEQUENCE_KEY.format(id)
+        return f'routine-date-sequence-{id}'
 
     @classmethod
     def get_routine_api_date_sequence_key(cls, id: int):
-        return cls.ROUTINE_API_DATE_SEQUENCE_DISPLAY_KEY.format(id)
+        return f'routine-api-date-sequence-display-{id}'
 
     @classmethod
     def get_routine_api_stats(cls, id: int):
-        return cls.ROUTINE_API_STATS_KEY.format(id)
+        return f'routine-api-stats-{id}'
 
     @classmethod
     def get_routine_api_structure_key(cls, id: int):
-        return cls.ROUTINE_API_STRUCTURE_KEY.format(id)
+        return f'routine-api-structure-{id}'
 
     @classmethod
     def slot_entry_configs_key(cls, id: int):
-        return cls.SLOT_ENTRY_CONFIGS_KEY.format(id)
+        return f'slot-entry-configs-{id}'
 
     @classmethod
     def slot_entry_configs_objects_key(cls, slot_entry_id: int, iteration: int):
-        return cls.SLOT_ENTRY_CONFIG_DICT_KEY.format(slot_entry_id, iteration)
+        return f'slot-entry-configs-dict-{slot_entry_id}-{iteration}'
 
 
 cache_mapper = CacheKeyMapper()
