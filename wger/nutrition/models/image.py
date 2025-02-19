@@ -23,7 +23,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.core.models import License
 from wger.utils.helpers import BaseImage
 from wger.utils.models import AbstractLicenseModel
 

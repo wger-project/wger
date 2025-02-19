@@ -19,7 +19,6 @@ import logging
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -29,10 +28,6 @@ def delete_template_fragment_cache(fragment_name='', vary_on=None):
     """
     out = vary_on if isinstance(vary_on, (list, tuple)) else [vary_on]
     cache.delete(make_template_fragment_key(fragment_name, out))
-
-
-def reset_workout_canonical_form(workout_id):
-    cache.delete(cache_mapper.get_workout_canonical(workout_id))
 
 
 def reset_exercise_api_cache(uuid: str):
@@ -56,14 +51,6 @@ class CacheKeyMapper:
     Simple class for mapping the cache keys of different objects
     """
 
-    # Keys used by the cache
-    LANGUAGE_CACHE_KEY = 'language-{0}'
-    INGREDIENT_CACHE_KEY = 'ingredient-{0}'
-    WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
-    WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
-    NUTRITION_CACHE_KEY = 'nutrition-cache-log-{0}'
-    EXERCISE_API_KEY = 'base-uuid-{0}'
-
     def get_pk(self, param):
         """
         Small helper function that returns the PK for the given parameter
@@ -74,38 +61,56 @@ class CacheKeyMapper:
         """
         Return the language cache key
         """
-        return self.LANGUAGE_CACHE_KEY.format(self.get_pk(param))
+        return f'language-{self.get_pk(param)}'
 
     def get_ingredient_key(self, param):
         """
         Return the ingredient cache key
         """
-        return self.INGREDIENT_CACHE_KEY.format(self.get_pk(param))
-
-    def get_workout_canonical(self, param):
-        """
-        Return the workout canonical representation
-        """
-        return self.WORKOUT_CANONICAL_REPRESENTATION.format(self.get_pk(param))
+        return f'ingredient-{self.get_pk(param)}'
 
     def get_workout_log_list(self, hash_value):
         """
         Return the workout canonical representation
         """
-        return self.WORKOUT_LOG_LIST.format(hash_value)
+        return f'workout-log-hash-{hash_value}'
 
     def get_nutrition_cache_by_key(self, params):
         """
         get nutritional info values canonical representation  using primary key.
         """
-        return self.NUTRITION_CACHE_KEY.format(self.get_pk(params))
+        return f'nutrition-cache-log-{self.get_pk(params)}'
 
     @classmethod
     def get_exercise_api_key(cls, base_uuid: str):
         """
         get the exercise base cache key used in the API
         """
-        return cls.EXERCISE_API_KEY.format(base_uuid)
+        return f'base-uuid-{base_uuid}'
+
+    @classmethod
+    def get_routine_date_sequence_key(cls, id: int):
+        return f'routine-date-sequence-{id}'
+
+    @classmethod
+    def get_routine_api_date_sequence_key(cls, id: int):
+        return f'routine-api-date-sequence-display-{id}'
+
+    @classmethod
+    def get_routine_api_stats(cls, id: int):
+        return f'routine-api-stats-{id}'
+
+    @classmethod
+    def get_routine_api_structure_key(cls, id: int):
+        return f'routine-api-structure-{id}'
+
+    @classmethod
+    def slot_entry_configs_key(cls, id: int):
+        return f'slot-entry-configs-{id}'
+
+    @classmethod
+    def slot_entry_configs_objects_key(cls, slot_entry_id: int, iteration: int):
+        return f'slot-entry-configs-dict-{slot_entry_id}-{iteration}'
 
 
 cache_mapper = CacheKeyMapper()

@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # Standard Library
 import datetime
-from unittest import TestCase
 
 # Django
 from django.contrib.auth.models import User

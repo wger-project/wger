@@ -2,7 +2,6 @@
 
 from django.db import models, migrations
 from django.conf import settings
-import datetime
 
 
 class Migration(migrations.Migration):
