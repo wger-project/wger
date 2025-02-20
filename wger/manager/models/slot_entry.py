@@ -323,8 +323,10 @@ class SlotEntry(models.Model):
                 max_sets_configs=self.maxsetsconfig_set.filter(iteration__lte=iteration),
                 weight_configs=self.weightconfig_set.filter(iteration__lte=iteration),
                 max_weight_configs=self.maxweightconfig_set.filter(iteration__lte=iteration),
-                reps_configs=self.repetitionsconfig_set.filter(iteration__lte=iteration),
-                max_reps_configs=self.maxrepetitionsconfig_set.filter(iteration__lte=iteration),
+                repetition_configs=self.repetitionsconfig_set.filter(iteration__lte=iteration),
+                max_repetition_configs=self.maxrepetitionsconfig_set.filter(
+                    iteration__lte=iteration
+                ),
                 rir_configs=self.rirconfig_set.filter(iteration__lte=iteration),
                 max_rir_configs=self.maxrirconfig_set.filter(iteration__lte=iteration),
                 rest_configs=self.restconfig_set.filter(iteration__lte=iteration),

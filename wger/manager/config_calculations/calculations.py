@@ -34,8 +34,8 @@ class AbstractSetCalculations(ABC):
     max_sets_configs: list[AbstractChangeConfig]
     weight_configs: list[AbstractChangeConfig]
     max_weight_configs: list[AbstractChangeConfig]
-    reps_configs: list[AbstractChangeConfig]
-    max_reps_configs: list[AbstractChangeConfig]
+    repetition_configs: list[AbstractChangeConfig]
+    max_repetition_configs: list[AbstractChangeConfig]
     rir_configs: list[AbstractChangeConfig]
     max_rir_configs: list[AbstractChangeConfig]
     rest_configs: list[AbstractChangeConfig]
@@ -49,8 +49,8 @@ class AbstractSetCalculations(ABC):
         max_sets_configs: list[AbstractChangeConfig],
         weight_configs: list[AbstractChangeConfig],
         max_weight_configs: list[AbstractChangeConfig],
-        reps_configs: list[AbstractChangeConfig],
-        max_reps_configs: list[AbstractChangeConfig],
+        repetition_configs: list[AbstractChangeConfig],
+        max_repetition_configs: list[AbstractChangeConfig],
         rir_configs: list[AbstractChangeConfig],
         max_rir_configs: list[AbstractChangeConfig],
         rest_configs: list[AbstractChangeConfig],
@@ -59,15 +59,15 @@ class AbstractSetCalculations(ABC):
     ):
         self.iteration = iteration
         self.sets_configs = sets_configs
-        self.max_sets_configs = sets_configs
+        self.max_sets_configs = max_sets_configs
         self.weight_configs = weight_configs
-        self.max_weight_configs = weight_configs
-        self.reps_configs = reps_configs
-        self.max_reps_configs = reps_configs
+        self.max_weight_configs = max_weight_configs
+        self.repetition_configs = repetition_configs
+        self.max_repetition_configs = max_repetition_configs
         self.rir_configs = rir_configs
-        self.max_rir_configs = rir_configs
+        self.max_rir_configs = max_rir_configs
         self.rest_configs = rest_configs
-        self.max_rest_configs = rest_configs
+        self.max_rest_configs = max_rest_configs
         self.logs = logs
 
     @abstractmethod
