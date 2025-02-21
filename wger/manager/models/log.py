@@ -112,6 +112,8 @@ class WorkoutLog(models.Model):
         verbose_name=_('Unit'),
         default=REP_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     """
     The repetition unit of the log. This can be e.g. a repetition, a minute, etc.
@@ -145,6 +147,8 @@ class WorkoutLog(models.Model):
         verbose_name=_('Unit'),
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     """
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
@@ -232,6 +236,12 @@ class WorkoutLog(models.Model):
         super().clean()
         if self.repetitions is None and self.weight is None:
             raise ValidationError('Both repetitions and weight cannot be null at the same time.')
+
+        if self.repetitions is not None and self.repetitions_unit is None:
+            raise ValidationError('Repetitions unit must be present if repetitions have a value.')
+
+        if self.weight is not None and self.weight_unit is None:
+            raise ValidationError('Weight unit must be present if weight has a value.')
 
     def save(self, *args, **kwargs):
         """

@@ -100,6 +100,8 @@ class SlotEntry(models.Model):
         RepetitionUnit,
         default=REP_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     """
     The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
@@ -120,6 +122,8 @@ class SlotEntry(models.Model):
         verbose_name=_('Unit'),
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     """
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.

@@ -196,6 +196,30 @@ class Migration(migrations.Migration):
             name='rest_target',
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
+        migrations.AlterField(
+            model_name='workoutlog',
+            name='repetitions_unit',
+            field=models.ForeignKey(
+                blank=True,
+                default=1,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='core.repetitionunit',
+                verbose_name='Unit',
+            ),
+        ),
+        migrations.AlterField(
+            model_name='workoutlog',
+            name='weight_unit',
+            field=models.ForeignKey(
+                blank=True,
+                default=1,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='core.weightunit',
+                verbose_name='Unit',
+            ),
+        ),
         migrations.AlterModelOptions(
             name='workoutlog',
             options={'ordering': ['date', 'repetitions', 'weight']},
@@ -287,6 +311,8 @@ class Migration(migrations.Migration):
                         default=1,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='core.repetitionunit',
+                        blank=True,
+                        null=True,
                     ),
                 ),
                 (
@@ -313,6 +339,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.CASCADE,
                         to='core.weightunit',
                         verbose_name='Unit',
+                        blank=True,
+                        null=True,
                     ),
                 ),
                 (
