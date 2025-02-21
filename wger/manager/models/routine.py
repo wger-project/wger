@@ -181,7 +181,7 @@ class Routine(models.Model):
 
         If a day needs logs to continue it will be repeated until the user adds one.
         """
-        cache_key = CacheKeyMapper.get_routine_date_sequence_key(self.id)
+        cache_key = CacheKeyMapper.routine_date_sequence_key(self.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return cached_data

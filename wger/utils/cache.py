@@ -90,7 +90,7 @@ class CacheKeyMapper:
         return f'base-uuid-{base_uuid}'
 
     @classmethod
-    def get_routine_date_sequence_key(cls, id: int):
+    def routine_date_sequence_key(cls, id: int):
         return f'routine-date-sequence-{id}'
 
     @classmethod
@@ -102,11 +102,11 @@ class CacheKeyMapper:
         return f'routine-api-date-sequence-gym-{pk}'
 
     @classmethod
-    def get_routine_api_stats(cls, pk: int):
+    def routine_api_stats(cls, pk: int):
         return f'routine-api-stats-{pk}'
 
     @classmethod
-    def get_routine_api_structure_key(cls, pk: int):
+    def routine_api_structure_key(cls, pk: int):
         return f'routine-api-structure-{pk}'
 
     @classmethod

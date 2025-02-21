@@ -157,7 +157,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return full object structure of the routine.
         """
-        cache_key = CacheKeyMapper.get_routine_api_structure_key(pk)
+        cache_key = CacheKeyMapper.routine_api_structure_key(pk)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
@@ -186,7 +186,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Returns the logs for the routine
         """
-        cache_key = CacheKeyMapper.get_routine_api_stats(pk)
+        cache_key = CacheKeyMapper.routine_api_stats(pk)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
