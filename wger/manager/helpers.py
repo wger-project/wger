@@ -182,14 +182,16 @@ def render_workout_day(
     return KeepTogether(t)
 
 
-def reset_routine_cache(instance: Routine):
+def reset_routine_cache(instance: Routine, structure: bool = True):
     """Resets all caches related to a routine"""
 
     cache.delete(CacheKeyMapper.routine_date_sequence_key(instance.id))
     cache.delete(CacheKeyMapper.routine_api_date_sequence_display_key(instance.id))
     cache.delete(CacheKeyMapper.routine_api_date_sequence_gym_key(instance.id))
-    cache.delete(CacheKeyMapper.routine_api_structure_key(instance.id))
     cache.delete(CacheKeyMapper.routine_api_stats(instance.id))
+
+    if structure:
+        cache.delete(CacheKeyMapper.routine_api_structure_key(instance.id))
 
     if instance.pk:
         for day in instance.days.all():

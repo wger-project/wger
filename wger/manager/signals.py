@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.core.cache import cache
 from django.db.models.signals import (
     post_save,
     pre_delete,
@@ -77,7 +76,7 @@ def handle_config_change(sender, instance: AbstractChangeConfig, **kwargs):
 
 def update_cache_log(sender, instance: WorkoutLog, **kwargs):
     if instance.routine:
-        reset_routine_cache(instance.routine)
+        reset_routine_cache(instance.routine, structure=False)
 
 
 post_save.connect(update_activity_cache, sender=WorkoutSession)
