@@ -133,6 +133,7 @@ class WorkoutSession(models.Model):
             'date',
         ]
         unique_together = ('date', 'user', 'routine')
+        indexes = [models.Index(fields=['routine', 'date'])]
 
     def clean(self):
         """

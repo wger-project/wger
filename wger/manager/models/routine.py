@@ -17,7 +17,10 @@
 # Standard Library
 import datetime
 import logging
-from collections import Counter
+from collections import (
+    Counter,
+    defaultdict,
+)
 from decimal import Decimal
 from typing import List
 
@@ -27,6 +30,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Prefetch
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -182,67 +186,126 @@ class Routine(models.Model):
         if cached_data is not None:
             return cached_data
 
-        labels = self.label_dict
+        # wger
+        from wger.manager.models import (
+            Slot,
+            SlotEntry,
+        )
+
+        # Prefetch all config relationships to avoid N+1 queries
+        days = (
+            Day.objects.filter(routine=self)
+            .prefetch_related(
+                Prefetch(
+                    'slots',
+                    queryset=Slot.objects.prefetch_related(
+                        Prefetch(
+                            'entries',
+                            queryset=SlotEntry.objects.prefetch_related(
+                                'repetition_unit',
+                                'weight_unit',
+                                'weightconfig_set',
+                                'maxweightconfig_set',
+                                'repetitionsconfig_set',
+                                'maxrepetitionsconfig_set',
+                                'rirconfig_set',
+                                'maxrirconfig_set',
+                                'restconfig_set',
+                                'maxrestconfig_set',
+                                'setsconfig_set',
+                                'maxsetsconfig_set',
+                                # Prefetch logs with sessions
+                                Prefetch(
+                                    'workoutlog_set',
+                                    queryset=WorkoutLog.objects.select_related('session'),
+                                    # to_attr='prefetched_logs'
+                                ),
+                            ),
+                            to_attr='prefetched_entries',
+                        )
+                    ),
+                    to_attr='prefetched_slots',
+                ),
+                'workoutsession_set',
+            )
+            .order_by('order')
+        )
+
+        # Precompute session dates from prefetched logs
+        day_session_map = defaultdict(set)
+        for day in days:
+            for session in day.workoutsession_set.all():
+                day_session_map[day.id].add(session.date)
+
+        # Main sequence generation logic
         delta = datetime.timedelta(days=1)
         current_date = self.start
-        days = list(self.days.all())
-        nr_days = len(days)
+        days_list = list(days)
+        days_count = len(days_list)
         counter = Counter()
-        skip_til_date = None
+        skip_until = None
+        sequence = []
 
-        out = []
+        if not days_list:
+            return []
 
-        logs = {}
-        for day in self.days.all():
-            # logger.debug(f'fetching log data for day {day.pk}')
-            logs[day.id] = list(WorkoutLog.objects.filter(slot_entry__slot__day=day))
-
-        if not days:
-            return out
-
+        current_day = days_list[0]
         index = 0
-        current_day: Day = days[0]
+
+        # Precompute label dates
+        label_dates = defaultdict(str)
+        for label in self.labels.all():
+            for i in range(label.start_offset, label.end_offset + 1):
+                label_dates[self.start + datetime.timedelta(days=i)] = label.label
+
         while current_date <= self.end:
-            # Fill all days till the end of the week with empty workout days
-            if skip_til_date:
-                out.append(
-                    WorkoutDayData(
-                        iteration=counter[current_day],
-                        date=current_date,
-                        day=None,
-                        label=labels.get(current_date),
+            if skip_until:
+                if current_date >= skip_until:
+                    skip_until = None
+                else:
+                    sequence.append(
+                        WorkoutDayData(
+                            iteration=counter[current_day],
+                            date=current_date,
+                            day=None,
+                            label=label_dates.get(current_date),
+                        )
                     )
-                )
-                current_date += delta
-                if current_date == skip_til_date:
-                    skip_til_date = None
-                continue
+                    current_date += delta
+                    continue
 
             counter[current_day] += 1
-            index = (index + 1) % nr_days
+            index = (index + 1) % days_count
 
-            # If we reach the end of the available days, check whether we want to fill up the
-            # week with empty days, unless the routine already consists of 7 training days
-            if self.fit_in_week and nr_days % 7 != 0 and index == 0:
-                days_til_monday = 7 - current_date.weekday()
-                skip_til_date = current_date + datetime.timedelta(days=days_til_monday)
+            # Handle week filling logic
+            if self.fit_in_week and days_count % 7 != 0 and index == 0:
+                days_to_monday = 7 - current_date.weekday()
+                skip_until = current_date + datetime.timedelta(days=days_to_monday)
 
-            out.append(
+            # Check if day can proceed using prefetched session dates
+            has_session = current_date in day_session_map[current_day.id]
+            can_proceed = (
+                not current_day.need_logs_to_advance
+                or has_session
+                or current_date > datetime.date.today()
+            )
+
+            sequence.append(
                 WorkoutDayData(
                     iteration=counter[current_day],
                     date=current_date,
                     day=current_day,
-                    label=labels.get(current_date),
+                    label=label_dates.get(current_date),
                 )
             )
 
-            if current_day.can_proceed(current_date):
-                current_day = days[index]
+            if can_proceed:
+                current_day = days_list[index]
 
             current_date += delta
 
-        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
-        return out
+        cache.set(cache_key, sequence, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+        return sequence
 
     def data_for_day(self, date=None) -> WorkoutDayData | None:
         """

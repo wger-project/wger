@@ -19,24 +19,24 @@ from django.db import models
 
 # wger
 from wger.manager.consts import (
-    ID_UNIT_KG,
-    ID_UNIT_LB,
-    ID_UNIT_REPETITIONS,
+    REP_UNIT_REPETITIONS,
+    WEIGHT_UNIT_KG,
+    WEIGHT_UNIT_LB,
 )
 
 
 class WorkoutLogQuerySet(models.QuerySet):
     def kg(self):
         """Return all entries with kg as weight"""
-        return self.filter(weight_unit_id=ID_UNIT_KG)
+        return self.filter(weight_unit_id=WEIGHT_UNIT_KG)
 
     def lb(self):
         """Return all entries with lb as weight"""
-        return self.filter(weight_unit_id=ID_UNIT_LB)
+        return self.filter(weight_unit_id=WEIGHT_UNIT_LB)
 
     def reps(self):
         """Return all entries with reps as unit"""
-        return self.filter(repetitions_unit_id=ID_UNIT_REPETITIONS)
+        return self.filter(repetitions_unit_id=REP_UNIT_REPETITIONS)
 
 
 class WorkoutLogManager(models.Manager):

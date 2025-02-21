@@ -40,6 +40,10 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
+from wger.manager.consts import (
+    REP_UNIT_REPETITIONS,
+    REP_UNIT_TILL_FAILURE,
+)
 
 
 @dataclass
@@ -48,12 +52,14 @@ class SetConfigData:
 
     weight: Decimal | int | None = None
     max_weight: Decimal | int | None = None
-    weight_unit: int | None = 1
+    weight_unit: int | None = None
+    weight_unit_name: str | None = None
     weight_rounding: Decimal | int | None = None
 
     repetitions: Decimal | int | None = None
     max_repetitions: Decimal | int | None = None
-    repetitions_unit: int | None = 1
+    repetitions_unit: int | None = None
+    repetitions_unit_name: str | None = None
     repetitions_rounding: Decimal | int | None = None
 
     rir: Decimal | int | None = None
@@ -111,13 +117,19 @@ class SetConfigData:
                 reps = f'{reps}-{max_reps}'
 
             unit = ''
-            if self.repetitions_unit in (1, 2) and not self.weight:
+            if (
+                self.repetitions_unit in (REP_UNIT_REPETITIONS, REP_UNIT_TILL_FAILURE)
+                and not self.weight
+            ):
                 unit = _('Reps')
-            elif self.repetitions_unit == 2:
+            elif self.repetitions_unit == REP_UNIT_TILL_FAILURE:
                 unit = '∞'
                 reps = ''
-            elif self.repetitions_unit not in (1, 2):
-                unit = _(RepetitionUnit.objects.get(pk=self.repetitions_unit).name)
+            elif self.repetitions_unit is not None and self.repetitions_unit not in (
+                REP_UNIT_REPETITIONS,
+                REP_UNIT_TILL_FAILURE,
+            ):
+                unit = _(self.repetitions_unit_name)
 
             out.append(f'{reps} {unit}'.strip())
 
@@ -137,7 +149,7 @@ class SetConfigData:
 
             unit = ''
             if self.weight_unit:
-                unit = _(WeightUnit.objects.get(pk=self.weight_unit).name)
+                unit = _(self.weight_unit_name)
 
             out.append(f'{weight} {unit}'.strip())
 

@@ -35,6 +35,7 @@ class SetConfigDataTestCase(WgerTestCase):
             repetitions_unit=1,
             weight=20,
             weight_unit=1,
+            weight_unit_name='kg',
             rir=3,
             rest=None,
         )
@@ -48,6 +49,7 @@ class SetConfigDataTestCase(WgerTestCase):
 
     def test_text_repr_weight_unit(self):
         self.config.weight_unit = 2
+        self.config.weight_unit_name = 'lb'
         self.assertEqual(self.config.text_repr, '4 × 20 lb @ 3 RiR')
 
     def test_text_repr_no_rir(self):
@@ -75,11 +77,13 @@ class SetConfigDataTestCase(WgerTestCase):
     def test_text_repr_reps_unit(self):
         self.config.repetitions = 90
         self.config.repetitions_unit = 3
+        self.config.repetitions_unit_name = 'Seconds'
         self.assertEqual(self.config.text_repr, '90 Seconds × 20 kg @ 3 RiR')
 
     def test_text_repr_reps_unit_no_weight(self):
         self.config.repetitions = 90
         self.config.repetitions_unit = 3
+        self.config.repetitions_unit_name = 'Seconds'
         self.config.weight = None
         self.assertEqual(self.config.text_repr, '90 Seconds @ 3 RiR')
 

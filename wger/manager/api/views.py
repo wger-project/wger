@@ -120,12 +120,16 @@ class RoutineViewSet(viewsets.ModelViewSet):
         # profiler = cProfile.Profile()
         # profiler.enable()
 
-        cache_key = CacheKeyMapper.get_routine_api_date_sequence_key(pk)
+        cache_key = CacheKeyMapper.routine_api_date_sequence_display_key(pk)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
 
-        out = WorkoutDayDataDisplayModeSerializer(self.get_object().date_sequence, many=True).data
+        out = WorkoutDayDataDisplayModeSerializer(
+            self.get_object().date_sequence,
+            # generate_sequence(self.get_object()),
+            many=True,
+        ).data
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
         # profiler.disable()
@@ -138,23 +142,15 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        return Response(
-            WorkoutDayDataGymModeSerializer(self.get_object().date_sequence, many=True).data
-        )
+        cache_key = CacheKeyMapper.routine_api_date_sequence_gym_key(pk)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
 
-    @action(detail=True, url_path='current-day-display')
-    def current_day_display_mode(self, request, pk):
-        """
-        Return current day of the routine
-        """
-        return Response(WorkoutDayDataDisplayModeSerializer(self.get_object().data_for_day()).data)
+        out = WorkoutDayDataGymModeSerializer(self.get_object().date_sequence, many=True).data
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
-    @action(detail=True, url_path='current-day-gym')
-    def current_day_gym_mode(self, request, pk):
-        """
-        Return current day of the routine
-        """
-        return Response(WorkoutDayDataGymModeSerializer(self.get_object().data_for_day()).data)
+        return Response(out)
 
     @action(detail=True)
     def structure(self, request, pk):

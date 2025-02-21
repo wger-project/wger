@@ -462,6 +462,13 @@ class Migration(migrations.Migration):
                 to='manager.routine',
             ),
         ),
+        migrations.AddIndex(
+            model_name='workoutsession',
+            index=models.Index(
+                fields=['routine', 'date'],
+                name='manager_wor_routine_224494_idx',
+            ),
+        ),
         migrations.AlterUniqueTogether(
             name='workoutsession',
             unique_together={('date', 'user', 'routine')},

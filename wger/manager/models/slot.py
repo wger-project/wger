@@ -70,14 +70,14 @@ class Slot(models.Model):
         """
         Checks whether this slot is a superset or not
         """
-        return self.entries.count() > 1
+        entries = getattr(self, 'prefetched_entries', self.entries.all())
+        return len(entries) > 1
 
     def set_data(self, iteration: int) -> List[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
+        entries = getattr(self, 'prefetched_entries', self.entries.all())
 
-        result = [
-            SetExerciseData(data=s.get_config_data(iteration), config=s) for s in self.entries.all()
-        ]
+        result = [SetExerciseData(data=e.get_config_data(iteration), config=e) for e in entries]
 
         return result
 

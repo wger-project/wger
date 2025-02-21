@@ -175,93 +175,129 @@ class SlotEntryTestCase(WgerTestCase):
             repetitions=5,
         ).save()
 
-        self.assertEqual(
-            self.slot_entry.get_config_data(1),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=4,
-                weight=Decimal(80),
-                weight_rounding=Decimal(2.5),
-                repetitions=Decimal(4),
-                repetitions_rounding=2,
-                rir=Decimal(2),
-                rest=120,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(1)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=4,
+                    weight=Decimal(80),
+                    weight_rounding=Decimal(2.5),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    repetitions_rounding=2,
+                    rir=Decimal(2),
+                    rest=120,
+                )
             ),
         )
 
-        self.assertEqual(
-            self.slot_entry.get_config_data(2),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=4,
-                weight=Decimal(80),
-                weight_rounding=Decimal(2.5),
-                repetitions=Decimal(4),
-                repetitions_rounding=2,
-                rir=Decimal(2),
-                rest=120,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(2)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=4,
+                    weight=Decimal(80),
+                    weight_rounding=Decimal(2.5),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    repetitions_rounding=2,
+                    rir=Decimal(2),
+                    rest=120,
+                )
             ),
         )
 
-        self.assertEqual(
-            self.slot_entry.get_config_data(3),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=4,
-                weight=Decimal(80),
-                weight_rounding=Decimal('2.5'),
-                repetitions=Decimal(4),
-                repetitions_rounding=2,
-                rir=Decimal(2),
-                rest=120,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(3)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=4,
+                    weight=Decimal(80),
+                    weight_rounding=Decimal('2.5'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    repetitions_rounding=2,
+                    rir=Decimal(2),
+                    rest=120,
+                )
             ),
         )
 
-        self.assertEqual(
-            self.slot_entry.get_config_data(4),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=4,
-                weight=Decimal(82.5),
-                weight_rounding=Decimal('2.5'),
-                repetitions=Decimal(4),
-                repetitions_rounding=2,
-                rir=Decimal(2),
-                rest=120,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(4)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=4,
+                    weight=Decimal(82.5),
+                    weight_rounding=Decimal('2.5'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_rounding=2,
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=Decimal(2),
+                    rest=120,
+                )
             ),
         )
 
-        self.assertEqual(
-            self.slot_entry.get_config_data(5),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=4,
-                weight=Decimal('42.5'),
-                weight_rounding=Decimal('2.5'),
-                repetitions=Decimal(4),
-                repetitions_rounding=2,
-                rir=Decimal(2),
-                rest=120,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(5)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=4,
+                    weight=Decimal('42.5'),
+                    weight_rounding=Decimal('2.5'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_rounding=2,
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=Decimal(2),
+                    rest=120,
+                )
             ),
         )
 
-        self.assertEqual(
-            self.slot_entry.get_config_data(6),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=4,
-                weight=Decimal(42.5),
-                weight_rounding=Decimal('2.5'),
-                repetitions=Decimal(4),
-                repetitions_rounding=2,
-                rir=Decimal(2),
-                rest=120,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(6)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=4,
+                    weight=Decimal(42.5),
+                    weight_rounding=Decimal('2.5'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_rounding=2,
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=Decimal(2),
+                    rest=120,
+                )
             ),
         )
 
@@ -269,7 +305,6 @@ class SlotEntryTestCase(WgerTestCase):
         """
         Test that the sets are correctly calculated if there are requirements
         """
-
         self.slot_entry.weight_rounding = 2.5
         self.slot_entry.repetition_rounding = 2
         self.slot_entry.save()
@@ -314,28 +349,36 @@ class SlotEntryTestCase(WgerTestCase):
         ).save()
 
         self.assertDictEqual(
-            self.slot_entry.get_config_data(1).__dict__,
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=5,
-                weight=Decimal(50),
-                weight_rounding=Decimal(2.5),
-                rest=Decimal(90),
-            ).__dict__,
+            asdict(self.slot_entry.get_config_data(1)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=5,
+                    weight=Decimal(50),
+                    weight_rounding=Decimal(2.5),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    rest=Decimal(90),
+                )
+            ),
         )
 
         # Sets did increase
         self.assertDictEqual(
-            self.slot_entry.get_config_data(2).__dict__,
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=6,
-                weight=Decimal(50),
-                weight_rounding=Decimal(2.5),
-                rest=Decimal(90),
-            ).__dict__,
+            asdict(self.slot_entry.get_config_data(2)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=6,
+                    weight=Decimal(50),
+                    weight_rounding=Decimal(2.5),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    rest=Decimal(90),
+                )
+            ),
         )
 
     def test_requirements_sets_unmet(self):
@@ -394,6 +437,8 @@ class SlotEntryTestCase(WgerTestCase):
                 sets=5,
                 weight=Decimal(50),
                 weight_rounding=Decimal(2.5),
+                weight_unit=1,
+                weight_unit_name='kg',
                 rest=90,
             ),
         )
@@ -407,6 +452,8 @@ class SlotEntryTestCase(WgerTestCase):
                 sets=5,
                 weight=Decimal(50),
                 weight_rounding=Decimal(2.5),
+                weight_unit=1,
+                weight_unit_name='kg',
                 rest=90,
             ),
         )
@@ -465,11 +512,15 @@ class SlotEntryTestCase(WgerTestCase):
                 exercise=1,
                 sets=1,
                 weight=Decimal(80),
+                weight_unit=1,
+                weight_unit_name='kg',
                 max_weight=Decimal(100),
                 weight_rounding=Decimal('2.5'),
                 repetitions=Decimal(4),
-                max_repetitions=Decimal(6),
                 repetitions_rounding=2,
+                repetitions_unit=1,
+                repetitions_unit_name='Repetitions',
+                max_repetitions=Decimal(6),
                 rir=None,
                 rest=None,
             ),
@@ -482,11 +533,15 @@ class SlotEntryTestCase(WgerTestCase):
                 exercise=1,
                 sets=1,
                 weight=Decimal(80),
+                weight_unit=1,
+                weight_unit_name='kg',
                 max_weight=Decimal(100),
                 weight_rounding=Decimal('2.5'),
                 repetitions=Decimal(4),
-                max_repetitions=Decimal(6),
+                repetitions_unit=1,
+                repetitions_unit_name='Repetitions',
                 repetitions_rounding=2,
+                max_repetitions=Decimal(6),
                 rir=None,
                 rest=None,
             ),
@@ -529,22 +584,23 @@ class SlotEntryTestCase(WgerTestCase):
         """
         Test that the correct config is calculated if there are no configs at all
         """
-
-        self.assertEqual(
-            self.slot_entry.get_config_data(1),
-            SetConfigData(
-                slot_entry_id=self.slot_entry.pk,
-                exercise=1,
-                sets=1,
-                max_sets=None,
-                weight=None,
-                weight_rounding=None,
-                weight_unit=1,
-                repetitions=None,
-                repetitions_rounding=None,
-                repetitions_unit=1,
-                rir=None,
-                rest=None,
+        self.assertDictEqual(
+            asdict(self.slot_entry.get_config_data(1)),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=self.slot_entry.pk,
+                    exercise=1,
+                    sets=1,
+                    max_sets=None,
+                    weight=None,
+                    weight_rounding=None,
+                    weight_unit=None,
+                    repetitions=None,
+                    repetitions_rounding=None,
+                    repetitions_unit=None,
+                    rir=None,
+                    rest=None,
+                )
             ),
         )
 
@@ -556,22 +612,6 @@ class SlotEntryTestCase(WgerTestCase):
         SetsConfig(slot_entry=self.slot_entry, iteration=2, value=6).save()
 
         self.assertTrue(self.slot_entry.has_progression)
-
-    def test_cache_load_all_configs(self):
-        """Tests that cache used in load_all_configs is correctly (re)set"""
-
-        key = CacheKeyMapper.slot_entry_configs_objects_key(self.slot_entry.pk, 1)
-
-        set_config = SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4)
-        set_config.save()
-
-        self.assertIsNone(cache.get(key))
-        self.slot_entry.load_all_configs(1)
-        self.assertTrue(cache.get(key))
-
-        set_config.value = 5
-        set_config.save()
-        self.assertIsNone(cache.get(key))
 
     def test_cache_get_config_data(self):
         """Tests that cache used in get_config_data is correctly (re)set"""

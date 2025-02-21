@@ -133,7 +133,7 @@ class Day(models.Model):
         """
         if (
             not self.need_logs_to_advance
-            or self.workoutsession_set.filter(date=date).exists()
+            # or self.workoutsession_set.filter(date=date).exists()
             or date > datetime.date.today()
         ):
             return True
@@ -144,9 +144,9 @@ class Day(models.Model):
         """
         Return the sets for this day
         """
-        return [
-            SlotData(comment=s.comment, sets=s.set_data_gym(iteration)) for s in self.slots.all()
-        ]
+        slots = getattr(self, 'prefetched_slots', self.slots.all())
+
+        return [SlotData(comment=s.comment, sets=s.set_data_gym(iteration)) for s in slots]
 
     def get_slots_display_mode(self, iteration: int) -> List[SlotData]:
         """
@@ -170,11 +170,8 @@ class Day(models.Model):
         out = []
         last_exercise_id = None
         current_slot = None
-        # slots = self.slots.prefetch_related(
-        #     Prefetch('entries', to_attr='prefetched_entries')
-        # ).all()
 
-        slots = self.slots.all()
+        slots = getattr(self, 'prefetched_slots', self.slots.all())
 
         for slot in slots:
             # for slot in self.slots.all():

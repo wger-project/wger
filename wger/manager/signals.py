@@ -73,40 +73,6 @@ def update_cache_slot_entry(sender, instance: SlotEntry, **kwargs):
 
 def handle_config_change(sender, instance: AbstractChangeConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
-    update_has_progression_flag(instance)
-    update_object_cache(instance)
-
-
-def update_has_progression_flag(instance: AbstractChangeConfig):
-    """
-    Update the has_progression flag on the slot entry
-    """
-    slot_entry = instance.slot_entry
-
-    slot_entry.has_progression = any(
-        config_set.count() > 1
-        for config_set in [
-            slot_entry.weightconfig_set.all(),
-            slot_entry.maxweightconfig_set.all(),
-            slot_entry.repetitionsconfig_set.all(),
-            slot_entry.maxrepetitionsconfig_set.all(),
-            slot_entry.setsconfig_set.all(),
-            slot_entry.maxsetsconfig_set.all(),
-            slot_entry.restconfig_set.all(),
-            slot_entry.maxrestconfig_set.all(),
-            slot_entry.rirconfig_set.all(),
-            slot_entry.maxrirconfig_set.all(),
-        ]
-    )
-
-
-def update_object_cache(instance: AbstractChangeConfig):
-    """
-    Update the has_progression flag on the slot entry
-    """
-
-    slot_entry = instance.slot_entry
-    cache.delete(CacheKeyMapper.slot_entry_configs_objects_key(slot_entry.id, instance.iteration))
 
 
 def update_cache_log(sender, instance: WorkoutLog, **kwargs):

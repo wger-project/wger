@@ -29,7 +29,6 @@ from typing import (
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
-from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -38,11 +37,14 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import Exercise
+from wger.manager.consts import (
+    REP_UNIT_REPETITIONS,
+    WEIGHT_UNIT_KG,
+)
 from wger.manager.dataclasses import (
     SetConfigData,
     round_value,
 )
-from wger.manager.models import WorkoutLog
 from wger.manager.models.abstract_config import (
     AbstractChangeConfig,
     OperationChoices,
@@ -96,7 +98,7 @@ class SlotEntry(models.Model):
 
     repetition_unit = models.ForeignKey(
         RepetitionUnit,
-        default=1,
+        default=REP_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
     )
     """
@@ -116,7 +118,7 @@ class SlotEntry(models.Model):
     weight_unit = models.ForeignKey(
         WeightUnit,
         verbose_name=_('Unit'),
-        default=1,
+        default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
     )
     """
@@ -167,14 +169,6 @@ class SlotEntry(models.Model):
     )
     """JSON configuration field for custom behaviour"""
 
-    has_progression = models.BooleanField(
-        default=False,
-        editable=False,
-    )
-    """
-    Flag indicating if this entry should be used for progression.
-    """
-
     # Metaclass to set some other properties
     class Meta:
         ordering = [
@@ -182,7 +176,26 @@ class SlotEntry(models.Model):
             'id',
         ]
 
-    config_entries = {}
+    @property
+    def has_progression(self) -> bool:
+        """
+        Returns true if any config set has more than one entry (is a progression)
+        """
+        return any(
+            len(getattr(self, f'{field}config_set').all()) > 1
+            for field in [
+                'weight',
+                'maxweight',
+                'repetitions',
+                'maxrepetitions',
+                'rir',
+                'maxrir',
+                'rest',
+                'maxrest',
+                'sets',
+                'maxsets',
+            ]
+        )
 
     def save(self, *args, **kwargs):
         """
@@ -208,43 +221,48 @@ class SlotEntry(models.Model):
     def load_all_configs(
         self, iteration: int
     ) -> Dict[str, Dict[str, List[AbstractChangeConfig] | AbstractChangeConfig]]:
-        key = CacheKeyMapper.slot_entry_configs_objects_key(self.pk, iteration)
-        configs = cache.get(key)
-        if configs is None:
-            data = {
-                'weight': list(self.weightconfig_set.filter(iteration__lte=iteration)),
-                'maxweight': list(self.maxweightconfig_set.filter(iteration__lte=iteration)),
-                'repetitions': list(self.repetitionsconfig_set.filter(iteration__lte=iteration)),
-                'maxrepetitions': list(
-                    self.maxrepetitionsconfig_set.filter(iteration__lte=iteration)
-                ),
-                'rir': list(self.rirconfig_set.filter(iteration__lte=iteration)),
-                'maxrir': list(self.maxrirconfig_set.filter(iteration__lte=iteration)),
-                'rest': list(self.restconfig_set.filter(iteration__lte=iteration)),
-                'maxrest': list(self.maxrestconfig_set.filter(iteration__lte=iteration)),
-                'sets': list(self.setsconfig_set.filter(iteration__lte=iteration)),
-                'maxsets': list(self.maxsetsconfig_set.filter(iteration__lte=iteration)),
-            }
+        data = {
+            'weight': [c for c in self.weightconfig_set.all() if c.iteration <= iteration],
+            'maxweight': [c for c in self.maxweightconfig_set.all() if c.iteration <= iteration],
+            'repetitions': [
+                c for c in self.repetitionsconfig_set.all() if c.iteration <= iteration
+            ],
+            'maxrepetitions': [
+                c for c in self.maxrepetitionsconfig_set.all() if c.iteration <= iteration
+            ],
+            'rir': [c for c in self.rirconfig_set.all() if c.iteration <= iteration],
+            'maxrir': [c for c in self.maxrirconfig_set.all() if c.iteration <= iteration],
+            'rest': [c for c in self.restconfig_set.all() if c.iteration <= iteration],
+            'maxrest': [c for c in self.maxrestconfig_set.all() if c.iteration <= iteration],
+            'sets': [c for c in self.setsconfig_set.all() if c.iteration <= iteration],
+            'maxsets': [c for c in self.maxsetsconfig_set.all() if c.iteration <= iteration],
+        }
+        last_entries = {key: data[key][-1] if data[key] else None for key in data}
 
-            last_entries = {key: data[key][-1] if data[key] else None for key in data}
-
-            configs = {
-                'all': data,
-                'last': last_entries,
-            }
-
-            cache.set(
-                key,
-                configs,
-                settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'],
-            )
+        configs = {
+            'all': data,
+            'last': last_entries,
+        }
 
         return configs
 
     def get_configuration_entries(
         self, config_type: ConfigType, iteration
     ) -> List[AbstractChangeConfig]:
-        return self.load_all_configs(iteration)['all'][config_type.name.lower()]
+        configs = {
+            ConfigType.WEIGHT: self.weightconfig_set.all(),
+            ConfigType.MAXWEIGHT: self.maxweightconfig_set.all(),
+            ConfigType.REPETITIONS: self.repetitionsconfig_set.all(),
+            ConfigType.MAXREPETITIONS: self.maxrepetitionsconfig_set.all(),
+            ConfigType.RIR: self.rirconfig_set.all(),
+            ConfigType.MAXRIR: self.maxrirconfig_set.all(),
+            ConfigType.REST: self.restconfig_set.all(),
+            ConfigType.MAXREST: self.maxrestconfig_set.all(),
+            ConfigType.SETS: self.setsconfig_set.all(),
+            ConfigType.MAXSETS: self.maxsetsconfig_set.all(),
+        }[config_type]
+
+        return [c for c in configs if c.iteration <= iteration]
 
     @staticmethod
     def calculate_config_value(configs: List[AbstractChangeConfig]) -> Decimal | None:
@@ -407,17 +425,15 @@ class SlotEntry(models.Model):
             if max_weight and weight and max_weight > weight
             else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
-            # TODO: decide on whether to return None or always the unit
-            # weight_unit=self.weight_unit_id if weight is not None else None,
-            weight_unit=self.weight_unit_id,
+            weight_unit=self.weight_unit_id if weight is not None else None,
+            weight_unit_name=self.weight_unit.name if weight is not None else None,
             repetitions=round_value(repetitions, self.repetition_rounding),
             max_repetitions=round_value(max_repetitions, self.repetition_rounding)
             if max_repetitions and repetitions and max_repetitions > repetitions
             else None,
             repetitions_rounding=self.repetition_rounding if repetitions is not None else None,
-            repetitions_unit=self.repetition_unit_id,
-            # TODO: decide on whether to return None or always the unit
-            # reps_unit=self.repetition_unit_id if reps is not None else None,
+            repetitions_unit=self.repetition_unit_id if repetitions is not None else None,
+            repetitions_unit_name=self.repetition_unit.name if repetitions is not None else None,
             rir=round_value(rir, 0.5),
             max_rir=round_value(max_rir, 0.5) if max_rir and rir and max_rir > rir else None,
             rest=round_value(rest, 1),

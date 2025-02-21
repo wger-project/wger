@@ -19,6 +19,7 @@ import logging
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -93,24 +94,24 @@ class CacheKeyMapper:
         return f'routine-date-sequence-{id}'
 
     @classmethod
-    def get_routine_api_date_sequence_key(cls, id: int):
-        return f'routine-api-date-sequence-display-{id}'
+    def routine_api_date_sequence_display_key(cls, pk: int):
+        return f'routine-api-date-sequence-display-{pk}'
 
     @classmethod
-    def get_routine_api_stats(cls, id: int):
-        return f'routine-api-stats-{id}'
+    def routine_api_date_sequence_gym_key(cls, pk: int):
+        return f'routine-api-date-sequence-gym-{pk}'
 
     @classmethod
-    def get_routine_api_structure_key(cls, id: int):
-        return f'routine-api-structure-{id}'
+    def get_routine_api_stats(cls, pk: int):
+        return f'routine-api-stats-{pk}'
 
     @classmethod
-    def slot_entry_configs_key(cls, id: int):
-        return f'slot-entry-configs-{id}'
+    def get_routine_api_structure_key(cls, pk: int):
+        return f'routine-api-structure-{pk}'
 
     @classmethod
-    def slot_entry_configs_objects_key(cls, slot_entry_id: int, iteration: int):
-        return f'slot-entry-configs-dict-{slot_entry_id}-{iteration}'
+    def slot_entry_configs_key(cls, pk: int):
+        return f'slot-entry-configs-{pk}'
 
 
 cache_mapper = CacheKeyMapper()

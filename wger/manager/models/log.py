@@ -20,7 +20,6 @@ import datetime
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -31,9 +30,9 @@ from wger.core.models import (
 )
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
-    ID_UNIT_KG,
-    ID_UNIT_REPETITIONS,
+    REP_UNIT_REPETITIONS,
     RIR_OPTIONS,
+    WEIGHT_UNIT_KG,
 )
 from wger.manager.managers import WorkoutLogManager
 from wger.manager.models.session import WorkoutSession
@@ -111,7 +110,7 @@ class WorkoutLog(models.Model):
     repetitions_unit = models.ForeignKey(
         RepetitionUnit,
         verbose_name=_('Unit'),
-        default=ID_UNIT_REPETITIONS,
+        default=REP_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
     )
     """
@@ -144,7 +143,7 @@ class WorkoutLog(models.Model):
     weight_unit = models.ForeignKey(
         WeightUnit,
         verbose_name=_('Unit'),
-        default=ID_UNIT_KG,
+        default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
     )
     """
