@@ -101,9 +101,9 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ingredient.code, '1234567890987654321')
 
         # Act
-        sync_ingredients(lambda x: x, language_codes='en')
+        sync_ingredients(lambda x: x)
         mock_request.assert_called_with(
-            'https://wger.de/api/v2/ingredient/?limit=999&language=2',
+            'https://wger.de/api/v2/ingredient/?limit=999',
             headers=wger_headers(),
         )
 
@@ -123,3 +123,12 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(new_ingredient.energy, 256)
         self.assertAlmostEqual(new_ingredient.protein, Decimal(11), 2)
         self.assertEqual(new_ingredient.code, '3181238941963')
+
+    @patch('requests.get', return_value=MockIngredientResponse())
+    def test_ingredient_sync_languages(self, mock_request):
+        # Ensure correct URL is called when language codes are provided
+        sync_ingredients(lambda x: x, language_codes='en')
+        mock_request.assert_called_with(
+            'https://wger.de/api/v2/ingredient/?limit=999&language=2',
+            headers=wger_headers(),
+        )

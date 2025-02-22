@@ -231,7 +231,7 @@ def sync_ingredients(
             url = make_uri(
                 INGREDIENTS_ENDPOINT,
                 server_url=remote_url,
-                query={'limit': API_MAX_ITEMS, 'language': language_id},
+                query={'limit': API_MAX_ITEMS, 'language__in': language_id},
             )
         else:
             url = make_uri(
