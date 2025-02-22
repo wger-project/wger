@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-05-29 22:09+0000\n"
-"Last-Translator: SilverServerT <silver@silverserver.nl>\n"
+"PO-Revision-Date: 2025-02-11 11:02+0000\n"
+"Last-Translator: Christijan Mulder <zeecowboy@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -84,11 +84,11 @@ msgstr "Voorbeeld voedingsplan"
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
 #, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr "Tijdelijke workout nr {0} voor schema"
+msgstr "Plaatsaanduiding training nr {0} voor schema"
 
 #: core/demo.py:353
 msgid "My cool workout schedule"
-msgstr "Mijn hip workoutschema"
+msgstr "Mijn hippe workoutschema"
 
 #: core/demo.py:392 core/demo.py:407
 msgid "Empty placeholder schedule"
@@ -305,7 +305,7 @@ msgstr "Toon opmerkingen oefening"
 
 #: core/models/profile.py:119
 msgid "Check to show exercise comments on the workout view"
-msgstr "Vink aan om oefeningopmerkingen te tonen in de workout view."
+msgstr "Vink aan om begeleiding voor de oefeningen te tonen in de workout view."
 
 #: core/models/profile.py:129
 msgid "Also use ingredients in English"
@@ -551,7 +551,7 @@ msgstr "Je bent er bijna, %(username)s"
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
-msgstr "Klik  <a href=\"%(link)s\">hier</a> om je email te bevestigen"
+msgstr "Klik <a href=\"%(link)s\">hier</a> om je e-mail te bevestigen"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
@@ -669,7 +669,7 @@ msgstr "Kalender"
 
 #: core/templates/navigation.html:64
 msgid "Measurements"
-msgstr "Afmetingen"
+msgstr "Metingen"
 
 #: core/templates/navigation.html:75 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -677,7 +677,7 @@ msgstr "Gallerij"
 
 #: core/templates/navigation.html:81
 msgid "Workout templates"
-msgstr "Workout  schemas"
+msgstr "Training schema's"
 
 #: core/templates/navigation.html:88 manager/views/workout.py:84
 msgid "Your templates"
@@ -1953,7 +1953,6 @@ msgid "Dumbbell"
 msgstr "Vrije halter"
 
 #: i18n.tpl:13
-#, fuzzy
 msgid "Glutes"
 msgstr "Bilspieren"
 
@@ -2011,7 +2010,7 @@ msgstr "Minuten"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Schijven"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2412,10 +2411,8 @@ msgid "No schedules found."
 msgstr "Geen schema's gevonden."
 
 #: manager/templates/schedule/overview.html:28
-#, fuzzy
-#| msgid "Add one now."
 msgid "Add one now"
-msgstr "Voeg er een toe."
+msgstr "Voeg er een toe"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2426,13 +2423,6 @@ msgstr ""
 "na elkaar uitvoert."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "        before jumping to the next. It is also possible to create a loop, "
-#| "so you\n"
-#| "        always do the same workouts in succession, e.g. A > B > C > A > B "
-#| "> C and so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2442,21 +2432,22 @@ msgid ""
 "        on."
 msgstr ""
 "Je kan aangeven hoe lang je elke workout wil doen\n"
-"alvorens naar de volgende te gaan. het is ook mogelijk een lus te creëren, "
-"zodat\n"
-"je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > B > C enz."
+"        alvorens naar de volgende te gaan. het is ook mogelijk een lus te "
+"creëren, zodat\n"
+"        je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > B "
+"> C enz."
 
 #: manager/templates/schedule/overview.html:44
-#, fuzzy
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
 "till you\n"
 "        deactivate it, if it is a loop."
 msgstr ""
-"Het huidige actieve schema zal actief blijven (en getoond worden bvb. in je "
-"dashboard) tot de laatste workout is bereikt of, als het een lus betreft, "
-"tot je het deactiveert."
+"Het huidige actieve schema zal actief blijven \n"
+"(en getoond worden bvb. in je dashboard) \n"
+"tot de laatste workout is bereikt of, als het een lus betreft, tot je het "
+"deactiveert."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
@@ -2472,7 +2463,7 @@ msgid ""
 "deactivate it"
 msgstr ""
 "Dit schema is een lus en zal door de workouts hierboven gaan totdat je het "
-"deactiveert."
+"deactiveert"
 
 #: manager/templates/schedule/view.html:57
 msgid "Weeks"
@@ -2524,7 +2515,6 @@ msgstr "Exporteer dit schema als een kalenderbestand."
 
 #: manager/templates/schedule/view.html:202
 #: manager/templates/workout/view.html:76
-#, fuzzy
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2533,9 +2523,12 @@ msgid ""
 "appropriate\n"
 "                        exercises."
 msgstr ""
-"Hierna kan je het bestand importeren in je kalender-applicatie, bijvoorbeeld "
-"Google Calendar, Outlook of iCal. Dit zal een afspraak creëren op elke "
-"trainingdag met de geschikte oefeningen."
+"Hierna kan je het bestand importeren in je kalender-applicatie\n"
+"                        bijvoorbeeld Google Calendar, Outlook of iCal. Dit "
+"zal een\n"
+"                        afspraak creëren op elke trainingdag met de "
+"geschikte\n"
+"                        oefeningen."
 
 #: manager/templates/schedule/view.html:225
 #: manager/templates/schedule/view.html:268
@@ -2594,7 +2587,7 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Als je nooit e-mailherinneringen wenst te ontvangen, deactiveer je de optie "
+"Als je geen e-mailherinneringen wenst te ontvangen, deactiveer dan de optie "
 "in je instellingen."
 
 #: manager/templates/workout/email_reminder.tpl:15
@@ -2658,7 +2651,7 @@ msgstr "Stel de herhalingen in voor elke set"
 
 #: manager/templates/workout/view.html:75
 msgid "Export this workout as a calendar file."
-msgstr "Exporteer deze workout als kalenderbestand"
+msgstr "Exporteer deze workout als kalenderbestand."
 
 #: manager/templates/workout/view.html:156
 msgid "Logs"
@@ -2670,7 +2663,7 @@ msgstr "Bekijk logs"
 
 #: manager/templates/workout/view.html:195 manager/views/workout.py:281
 msgid "Mark as template"
-msgstr ""
+msgstr "Markeer als template"
 
 #: manager/views/day.py:105
 msgid "Add workout day"
