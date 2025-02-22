@@ -290,36 +290,4 @@ def sync_ingredients(
     else:
         _sync_ingredients()
 
-    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query={'limit': API_MAX_ITEMS})
-    for data in get_paginated(url, headers=wger_headers()):
-        uuid = data['uuid']
-        name = data['name']
-
-        ingredient, created = Ingredient.objects.update_or_create(
-            uuid=uuid,
-            defaults={
-                'name': name,
-                'code': data['code'],
-                'language_id': data['language'],
-                'created': data['created'],
-                'license_id': data['license'],
-                'license_object_url': data['license_object_url'],
-                'license_author': data['license_author_url'],
-                'license_author_url': data['license_author_url'],
-                'license_title': data['license_title'],
-                'license_derivative_source_url': data['license_derivative_source_url'],
-                'energy': data['energy'],
-                'carbohydrates': data['carbohydrates'],
-                'carbohydrates_sugar': data['carbohydrates_sugar'],
-                'fat': data['fat'],
-                'fat_saturated': data['fat_saturated'],
-                'protein': data['protein'],
-                'fiber': data['fiber'],
-                'sodium': data['sodium'],
-            },
-        )
-
-        print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')
-
-
     print_fn(style_fn('done!\n'))
