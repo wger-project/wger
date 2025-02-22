@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2022-01-21 19:55+0000\n"
-"Last-Translator: namong79 <airmedic79@naver.com>\n"
+"PO-Revision-Date: 2025-02-18 12:40+0000\n"
+"Last-Translator: Gyu-sun Youm <omniavinco@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/wger/web/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -191,7 +191,7 @@ msgstr "유효하지 않은 비밀번호"
 
 #: core/forms.py:265 core/forms.py:340
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "양식은 reCAPTCHA로 보호됩니다"
 
 #: core/forms.py:281 core/forms.py:303 core/templates/navigation.html:284
 #: core/templates/navigation.html:296 core/templates/template.html:150
@@ -221,7 +221,7 @@ msgstr ""
 
 #: core/models/days_of_week.py:29
 msgid "Day of the week"
-msgstr ""
+msgstr "요일"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -239,30 +239,31 @@ msgstr "언어명"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "풀 네임"
 
 #: core/models/license.py:31
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
-msgstr ""
+msgstr "라이선스가 지역화된 경우(예: 각 국가별 크리에이티브 커먼즈 라이선스) 여기 "
+"별도의 항목으로 추가하세요."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr ""
+msgstr "짧은 이름, 예: CC-BY-SA 3"
 
 #: core/models/license.py:45 nutrition/models/ingredient.py:208
 msgid "Link"
-msgstr ""
+msgstr "링크"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
-msgstr ""
+msgstr "라이선스 문서 또는 기타 정보 링크"
 
 #: core/models/profile.py:56
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "%(birthdate)s은 유효하지 않은 생년월일입니다."
+msgstr "%(birthdate)s은 유효하지 않은 생년월일입니다"
 
 #: core/models/profile.py:65
 msgid "Male"
@@ -274,15 +275,15 @@ msgstr "여성"
 
 #: core/models/profile.py:73
 msgid "Low"
-msgstr ""
+msgstr "낮음"
 
 #: core/models/profile.py:74
 msgid "Medium"
-msgstr ""
+msgstr "중간"
 
 #: core/models/profile.py:75
 msgid "High"
-msgstr ""
+msgstr "높음"
 
 #: core/models/profile.py:81
 msgid "Metric (kilogram)"
@@ -294,15 +295,15 @@ msgstr "야드파운드법 (pound)"
 
 #: core/models/profile.py:118
 msgid "Show exercise comments"
-msgstr ""
+msgstr "운동 코멘트 표시"
 
 #: core/models/profile.py:119
 msgid "Check to show exercise comments on the workout view"
-msgstr ""
+msgstr "workout 보기에 운동 코멘트를 표시하려면 이 항목을 선택하세요"
 
 #: core/models/profile.py:129
 msgid "Also use ingredients in English"
-msgstr ""
+msgstr "원료를 영어로도 함께 표기하세요"
 
 #: core/models/profile.py:131
 msgid ""

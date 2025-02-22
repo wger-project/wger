@@ -86,6 +86,7 @@ Developers
 * Joshua Shelley - https://github.com/navyjosh
 * Matt Harrison - https://github.com/Maralai
 * Cam Cecil - https://github.com/scrapcode
+* Ali Rahbar - https://github.com/crypto-a
 
 
 Translators
