@@ -10,4 +10,4 @@ def validate_language_code(value):
     try:
         language = Language.objects.get(short_name=value)
     except Language.DoesNotExist:
-        raise ValidationError(_(f'{value} does not exist in this wger database.'))
+        raise ValidationError(f'The language "{value}" does not exist in this wger database.')

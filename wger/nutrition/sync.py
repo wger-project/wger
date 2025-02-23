@@ -55,7 +55,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -226,19 +225,19 @@ def sync_ingredients(
 ):
     """Synchronize the ingredients from the remote server"""
 
-    def _sync_ingredients(language_id: Optional[int] = None):
-        if language_id is not None:
+    def _sync_ingredients(language_codes: Optional[int] = None):
+        if language_codes is not None:
             url = make_uri(
                 INGREDIENTS_ENDPOINT,
                 server_url=remote_url,
-                query={'limit': API_MAX_ITEMS, 'language__in': language_id},
+                query={'limit': API_MAX_ITEMS, 'language__in': language_codes},
             )
         else:
             url = make_uri(
                 INGREDIENTS_ENDPOINT,
                 server_url=remote_url,
                 query={'limit': API_MAX_ITEMS},
-                )
+            )
         for data in get_paginated(url, headers=wger_headers()):
             uuid = data['uuid']
             name = data['name']
