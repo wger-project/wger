@@ -37,6 +37,7 @@ from wger.exercises.models import (
 )
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
+
 UUID_NEW = 'NEW'
 VIDEO_AUTHOR = 'Goulart'
 VIDEO_PATH = pathlib.Path('videos-tmp')

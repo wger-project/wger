@@ -59,6 +59,7 @@ from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
 
+
 logger = logging.getLogger(__name__)
 
 

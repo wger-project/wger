@@ -152,7 +152,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             WGER_SETTINGS={
                 'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF,
                 'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
-            }
+            },
         ):
             result = fetch_ingredient_image(1)
             mock_from_json.assert_not_called()
@@ -176,7 +176,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             WGER_SETTINGS={
                 'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF,
                 'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
-            }
+            },
         ):
             result = fetch_ingredient_image(1)
             mock_from_json.assert_called()

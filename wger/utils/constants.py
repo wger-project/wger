@@ -15,6 +15,7 @@
 # Standard Library
 from decimal import Decimal
 
+
 # Navigation
 WORKOUT_TAB = 'workout'
 EXERCISE_TAB = 'exercises'

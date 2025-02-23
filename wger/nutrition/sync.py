@@ -56,6 +56,7 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -81,8 +82,8 @@ def fetch_ingredient_image(pk: int):
     if (
         ingredient.last_image_check
         and (
-        ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
-    )
+            ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
+        )
         > timezone.now()
     ):
         return
