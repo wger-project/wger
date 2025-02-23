@@ -23,6 +23,7 @@ from typing import (
 # Django
 from django.conf import settings
 from django.db import IntegrityError
+from django.utils import timezone
 
 # Third Party
 import requests
@@ -55,7 +56,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -76,6 +76,15 @@ def fetch_ingredient_image(pk: int):
         return
 
     if not ingredient.source_url:
+        return
+
+    if (
+        ingredient.last_image_check
+        and (
+        ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
+    )
+        > timezone.now()
+    ):
         return
 
     if settings.TESTING:
@@ -181,6 +190,8 @@ def fetch_image_from_off(ingredient: Ingredient):
     except IntegrityError:
         logger.info('Ingredient has already an image, skipping...')
         return
+    ingredient.last_image_check = timezone.now()
+    ingredient.save()
     logger.info('Image successfully saved')
 
 

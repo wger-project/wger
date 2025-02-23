@@ -26,7 +26,7 @@ from wger.exercises.models import (
     Exercise,
     ExerciseBase,
 )
-from wger.utils.constants import CC_BY_SA_4_ID
+from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
 class ExerciseBaseTestCase(WgerTestCase):
@@ -153,4 +153,4 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         exercise = ExerciseBase.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, CC_BY_SA_4_ID)
+        self.assertEqual(exercise.license_id, CC_BY_SA_4_LICENSE_ID)

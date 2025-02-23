@@ -59,7 +59,6 @@ from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -96,6 +95,21 @@ class Ingredient(AbstractLicenseModel, models.Model):
         editable=False,
     )
     """Last update time"""
+
+    last_image_check = models.DateTimeField(
+        blank=True,
+        editable=False,
+        default=None,
+        null=True,
+    )
+    """
+    Last time we checked for an image.
+
+    This is used to prevent trying to fetch images over and over again from an
+    ingredient that does not have any.
+
+    In the future, this field can be used to renew existing images.
+    """
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
