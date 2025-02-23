@@ -168,11 +168,11 @@ class ImportProductCommand(BaseCommand):
             for line in gzid:
                 try:
                     product = json.loads(line)
-                    if not product.get('lang') in languages:
+                    if product.get('lang') not in languages:
                         continue
                     yield product
                 except JSONDecodeError:
-                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
+                    self.stdout.write(' Error parsing and/or filtering  json record, skipping')
                     continue
 
     def download_file(self, url: str, destination: str) -> None:

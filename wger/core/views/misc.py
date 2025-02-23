@@ -47,8 +47,6 @@ from wger.core.forms import (
     FeedbackAnonymousForm,
     FeedbackRegisteredForm,
 )
-from wger.core.models import DaysOfWeek
-from wger.manager.models import Schedule
 
 
 logger = logging.getLogger(__name__)

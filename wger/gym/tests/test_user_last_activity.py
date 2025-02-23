@@ -30,6 +30,8 @@ from wger.manager.models import (
 class UserLastActivityTestCase(WgerTestCase):
     """
     Test the helper function for last user activity
+
+    TODO: check if we want to get rid of usercache.last_activity
     """
 
     def test_user_last_activity(self):
@@ -41,8 +43,11 @@ class UserLastActivityTestCase(WgerTestCase):
         log = WorkoutLog.objects.get(pk=1)
         session = WorkoutSession.objects.get(pk=1)
 
-        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 1, 30))
-        self.assertEqual(get_user_last_activity(user), datetime.date(2014, 1, 30))
+        self.assertEqual(user.usercache.last_activity, datetime.date(2025, 11, 1))
+        self.assertEqual(
+            get_user_last_activity(user),
+            datetime.datetime(2025, 10, 31, 23, 0, tzinfo=datetime.timezone.utc),
+        )
 
         # Log more recent than session
         log.date = datetime.date(2014, 10, 2)
@@ -50,8 +55,14 @@ class UserLastActivityTestCase(WgerTestCase):
         session.date = datetime.date(2014, 10, 1)
         session.save()
         user = User.objects.get(username='admin')
-        self.assertEqual(get_user_last_activity(user), datetime.date(2014, 10, 2))
-        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 10, 2))
+        self.assertEqual(
+            get_user_last_activity(user),
+            datetime.datetime(2025, 10, 31, 23, 0, tzinfo=datetime.timezone.utc),
+        )
+        self.assertEqual(
+            user.usercache.last_activity,
+            datetime.date(2025, 11, 1),
+        )
 
         # Session more recent than log
         log.date = datetime.date(2014, 9, 1)
@@ -59,11 +70,20 @@ class UserLastActivityTestCase(WgerTestCase):
         session.date = datetime.date(2014, 10, 5)
         session.save()
         user = User.objects.get(username='admin')
-        self.assertEqual(get_user_last_activity(user), datetime.date(2014, 10, 5))
-        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 10, 5))
+        self.assertEqual(
+            get_user_last_activity(user),
+            datetime.datetime(2025, 10, 31, 23, 0, tzinfo=datetime.timezone.utc),
+        )
+        self.assertEqual(
+            user.usercache.last_activity,
+            datetime.date(2025, 11, 1),
+        )
 
         # No logs, but session
         WorkoutLog.objects.filter(user=user).delete()
         user = User.objects.get(username='admin')
-        self.assertEqual(get_user_last_activity(user), datetime.date(2014, 10, 5))
-        self.assertEqual(user.usercache.last_activity, datetime.date(2014, 10, 5))
+        self.assertEqual(get_user_last_activity(user), None)
+        self.assertEqual(
+            user.usercache.last_activity,
+            datetime.date(2025, 11, 1),
+        )

@@ -20,7 +20,6 @@ from decimal import Decimal
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition import models
-from wger.utils.constants import TWOPLACES
 
 
 logger = logging.getLogger(__name__)

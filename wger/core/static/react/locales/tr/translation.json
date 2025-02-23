@@ -224,5 +224,15 @@
     "total": "Toplam",
     "deleteConfirmation": "\"{{name}}\" silmek istediğinizden emin misiniz?",
     "downloadAsPdf": "PDF olarak indir",
-    "filters": "Filtreler"
+    "filters": "Filtreler",
+    "all": "Hepsi",
+    "lastYear": "Geçen Yıl",
+    "lastHalfYear": "Son 6 Ay",
+    "lastMonth": "Geçen Ay",
+    "height": "Boy",
+    "cm": "cm",
+    "lastWeek": "Geçen Hafta",
+    "bmi": {
+        "calculator": "VKE Hesaplayıcı"
+    }
 }

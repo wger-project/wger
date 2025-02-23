@@ -14,16 +14,27 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+from typing import List
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.core.models import DaysOfWeek
-from wger.utils.cache import reset_workout_canonical_form
+from wger.manager.dataclasses import SlotData
 
-# Local
-from .workout import Workout
+
+class DayType(models.TextChoices):
+    CUSTOM = 'custom'
+    ENOM = 'enom'
+    AMRAP = 'amrap'
+    HIIT = 'hiit'
+    TABATA = 'tabata'
+    EDT = 'edt'
+    RFT = 'rft'
+    AFAP = 'afap'
 
 
 class Day(models.Model):
@@ -31,17 +42,65 @@ class Day(models.Model):
     Model for a training day
     """
 
-    training = models.ForeignKey(Workout, verbose_name=_('Workout'), on_delete=models.CASCADE)
-    description = models.CharField(
-        max_length=100,
-        verbose_name=_('Description'),
-        help_text=_(
-            'A description of what is done on this day (e.g. '
-            '"Pull day") or what body parts are trained (e.g. '
-            '"Arms and abs")'
-        ),
+    class Meta:
+        ordering = [
+            'order',
+        ]
+
+    routine = models.ForeignKey(
+        'Routine',
+        verbose_name=_('Routine'),
+        on_delete=models.CASCADE,
+        related_name='days',
     )
-    day = models.ManyToManyField(DaysOfWeek, verbose_name=_('Day'))
+
+    order = models.PositiveIntegerField(
+        default=1,
+        null=False,
+        verbose_name=_('Order'),
+        db_index=True,
+    )
+
+    type = models.CharField(
+        choices=DayType.choices,
+        max_length=10,
+        default=DayType.CUSTOM,
+        null=False,
+    )
+
+    name = models.CharField(
+        max_length=20,
+        verbose_name=_('Name'),
+        blank=True,  # needed for rest days
+    )
+
+    description = models.CharField(
+        max_length=1000,
+        verbose_name=_('Description'),
+        blank=True,
+    )
+
+    is_rest = models.BooleanField(
+        default=False,
+    )
+    """
+    Flag indicating that this day is a rest day.
+
+    Rest days have no exercises
+    """
+
+    need_logs_to_advance = models.BooleanField(
+        default=False,
+    )
+    """
+    Needs logs to advance to the next day
+    """
+
+    config = models.JSONField(
+        default=None,
+        null=True,
+    )
+    """JSON configuration field for custom behaviour"""
 
     def __str__(self):
         """
@@ -49,174 +108,96 @@ class Day(models.Model):
         """
         return self.description
 
+    def save(self, *args, **kwargs):
+        # Rest days have no exercises
+        if self.pk and self.is_rest:
+            for slot in self.slots.all():
+                slot.delete()
+
+        return super().save(*args, **kwargs)
+
     def get_owner_object(self):
         """
         Returns the object that has owner information
         """
-        return self.training
+        return self.routine
 
-    @property
-    def days_txt(self):
-        return ', '.join([str(_(i.day_of_week)) for i in self.day.all()])
-
-    @property
-    def get_first_day_id(self):
+    def can_proceed(self, date: datetime.date) -> bool:
         """
-        Return the PK of the first day of the week, this is used in the template
-        to order the days in the template
+        Checks whether the user can proceed to the next day in the sequence
+
+        This is possible if
+        - the day doesn't require logs
+        - the day requires logs, and they exist
+        - the date is in the future (used e.g. for calendars where we assume we will proceed)
         """
-        return self.day.all()[0].pk
+        if (
+            not self.need_logs_to_advance
+            # or self.workoutsession_set.filter(date=date).exists()
+            or date > datetime.date.today()
+        ):
+            return True
 
-    def save(self, *args, **kwargs):
+        return False
+
+    def get_slots_gym_mode(self, iteration: int) -> List[SlotData]:
         """
-        Reset all cached infos
+        Return the sets for this day
         """
+        slots = getattr(self, 'prefetched_slots', self.slots.all())
 
-        reset_workout_canonical_form(self.training_id)
-        super(Day, self).save(*args, **kwargs)
+        return [SlotData(comment=s.comment, sets=s.set_data_gym(iteration)) for s in slots]
 
-    def delete(self, *args, **kwargs):
+    def get_slots_display_mode(self, iteration: int) -> List[SlotData]:
         """
-        Reset all cached infos
+        Return the sets for this day.
+
+        The difference to get_slots above is that here some data massaging happens
+        so that we can better display the data in the template. Specially, we
+        collect the sets for the same exercise in the same slot.
+
+        This only happens for slots that have only one exercise.
+
+        Instead of
+        * Slot1 -> Exercise1, [Config1]
+        * Slot2 -> Exercise1, [Config2]
+        * Slot3 -> Exercise1, [Config3]
+
+        We return
+        * Slot1 -> Exercise1, [Config1, Config2, Config3]
+
         """
+        out = []
+        last_exercise_id = None
+        current_slot = None
 
-        reset_workout_canonical_form(self.training_id)
-        super(Day, self).delete(*args, **kwargs)
+        slots = getattr(self, 'prefetched_slots', self.slots.all())
 
-    @property
-    def canonical_representation(self):
-        """
-        Return the canonical representation for this day
-
-        This is extracted from the workout representation because that one is cached
-        and this isn't.
-        """
-        for i in self.training.canonical_representation['day_list']:
-            if int(i['obj'].pk) == int(self.pk):
-                return i
-
-    def get_canonical_representation(self):
-        """
-        Creates a canonical representation for this day
-        """
-        # Local
-        from .setting import Setting
-
-        canonical_repr = []
-        muscles_front = []
-        muscles_back = []
-        muscles_front_secondary = []
-        muscles_back_secondary = []
-
-        for set_obj in self.set_set.select_related():
-            exercise_tmp = []
-
-            for base in set_obj.exercise_bases:
-                setting_tmp = []
-                exercise_images_tmp = []
-
-                # Muscles for this set
-                for muscle in base.muscles.all():
-                    if muscle.is_front and muscle not in muscles_front:
-                        muscles_front.append(muscle)
-                    elif not muscle.is_front and muscle not in muscles_back:
-                        muscles_back.append(muscle)
-
-                for muscle in base.muscles_secondary.all():
-                    if muscle.is_front and muscle not in muscles_front:
-                        muscles_front_secondary.append(muscle)
-                    elif not muscle.is_front and muscle.id not in muscles_back:
-                        muscles_back_secondary.append(muscle)
-
-                for setting in Setting.objects.filter(set=set_obj, exercise_base=base).order_by(
-                    'order', 'id'
-                ):
-                    setting_tmp.append(setting)
-
-                # "Smart" textual representation
-                setting_text = set_obj.reps_smart_text(base)
-
-                # Exercise comments
-                comment_list = []
-                # for i in base.exercisecomment_set.all():
-                #    comment_list.append(i.comment)
-
-                # Flag indicating whether any of the settings has saved weight
-                has_weight = False
-                for i in setting_tmp:
-                    if i.weight:
-                        has_weight = True
-                        break
-
-                # Collect exercise images
-                for image in base.exerciseimage_set.all():
-                    exercise_images_tmp.append(
-                        {
-                            'image': image.image.url,
-                            'is_main': image.is_main,
-                        }
-                    )
-
-                # Put it all together
-                exercise_tmp.append(
-                    {
-                        'obj': base,
-                        'setting_obj_list': setting_tmp,
-                        'setting_text': setting_text,
-                        'has_weight': has_weight,
-                        'comment_list': comment_list,
-                        'image_list': exercise_images_tmp,
-                    }
-                )
-
-            # If it's a superset, check that all exercises have the same repetitions.
-            # If not, just take the smallest number and drop the rest, because otherwise
-            # it doesn't make sense
-
-            # if len(exercise_tmp) > 1:
-            #     common_reps = 100
-            #     for exercise in exercise_tmp:
-            #         if len(exercise['setting_list']) < common_reps:
-            #             common_reps = len(exercise['setting_list'])
-
-            #     for exercise in exercise_tmp:
-            #         if len(exercise['setting_list']) > common_reps:
-            #             exercise['setting_list'].pop(-1)
-            #             exercise['setting_obj_list'].pop(-1)
-            #             setting_text, setting_list = set_obj.reps_smart_text(exercise)
-            #             exercise['setting_text'] = setting_text
-
-            canonical_repr.append(
-                {
-                    'obj': set_obj,
-                    'exercise_list': exercise_tmp,
-                    'is_superset': True if len(exercise_tmp) > 1 else False,
-                    'settings_computed': set_obj.compute_settings,
-                    'muscles': {
-                        'back': muscles_back,
-                        'front': muscles_front,
-                        'frontsecondary': muscles_front_secondary,
-                        'backsecondary': muscles_front_secondary,
-                    },
-                }
+        for slot in slots:
+            # for slot in self.slots.all():
+            slot_data = SlotData(
+                comment=slot.comment,
+                sets=[s.data for s in slot.set_data(iteration)],
             )
+            exercises = slot_data.exercises
 
-        # Days of the week
-        tmp_days_of_week = []
-        for day_of_week in self.day.select_related():
-            tmp_days_of_week.append(day_of_week)
+            # slot is superset
+            if len(exercises) > 1:
+                out.append(slot_data)
+                current_slot = None
 
-        return {
-            'obj': self,
-            'days_of_week': {
-                'text': ', '.join([str(_(i.day_of_week)) for i in tmp_days_of_week]),
-                'day_list': tmp_days_of_week,
-            },
-            'muscles': {
-                'back': muscles_back,
-                'front': muscles_front,
-                'frontsecondary': muscles_front_secondary,
-                'backsecondary': muscles_front_secondary,
-            },
-            'set_list': canonical_repr,
-        }
+            # empty slot
+            elif not exercises:
+                continue
+
+            # one exercise
+            else:
+                exercise_id = exercises[0]
+                if exercise_id != last_exercise_id:
+                    current_slot = slot_data
+                    out.append(slot_data)
+                    last_exercise_id = exercise_id
+                else:
+                    current_slot.sets.extend(slot_data.sets)
+
+        return out
