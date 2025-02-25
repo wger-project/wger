@@ -13,7 +13,7 @@
     "htmx.org": "^2.0.4",
     "bootstrap": "5.3.3",
     "components-font-awesome": "5.9.0",
-    "datatables.net-bs5": "^2.1.8",
+    "datatables.net-bs5": "^2.2.2",
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
