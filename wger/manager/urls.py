@@ -27,7 +27,6 @@ from wger.manager.views import (
     routine,
 )
 
-
 # sub patterns for templates
 patterns_templates = [
     path(
@@ -92,6 +91,11 @@ patterns_routine = [
         '<int:pk>/view',
         ReactView.as_view(login_required=True),
         name='view',
+    ),
+    path(
+        '<int:pk>/table',
+        ReactView.as_view(login_required=True),
+        name='table',
     ),
     path(
         '<int:pk>/copy',
