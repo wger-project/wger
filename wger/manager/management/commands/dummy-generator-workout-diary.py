@@ -68,7 +68,7 @@ class Command(BaseCommand):
                     for slot_data in day_data.day.get_slots_gym_mode(day_data.iteration):
                         for exercise_id in slot_data.exercises:
                             for set_data in slot_data.sets:
-                                reps = (
+                                repetitions = (
                                     set_data.repetitions + random.randint(-1, 2)
                                     if set_data.repetitions
                                     else random.randint(3, 12)
@@ -127,7 +127,7 @@ class Command(BaseCommand):
                                         session=session,
                                         exercise_id=exercise_id,
                                         routine=routine,
-                                        repetitions=reps,
+                                        repetitions=repetitions,
                                         repetitions_target=set_data.repetitions,
                                         repetitions_unit_id=set_data.repetitions_unit,
                                         weight=weight,

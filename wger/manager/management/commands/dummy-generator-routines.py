@@ -24,9 +24,15 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.exercises.models import Exercise
+from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
     Day,
+    MaxRepetitionsConfig,
+    MaxSetsConfig,
+    MaxWeightConfig,
     RepetitionsConfig,
+    RestConfig,
+    RiRConfig,
     Routine,
     SetsConfig,
     Slot,
@@ -51,7 +57,7 @@ class Command(BaseCommand):
             '--routines',
             action='store',
             default=10,
-            dest='nr_plans',
+            dest='nr_routines',
             type=int,
             help='The number of routines to create per user (default: 10)',
         )
@@ -64,17 +70,19 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f'** Generating {options["nr_plans"]} dummy routine(s) per user')
+        self.stdout.write(f'** Generating {options["nr_routines"]} dummy routine(s) per user')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
         )
 
+        exercise_list = [i for i in Exercise.objects.all()]
+
         for user in users:
             self.stdout.write(f'- processing user {user.username}')
 
             # Add plan
-            for _ in range(options['nr_plans']):
+            for _ in range(options['nr_routines']):
                 uid = str(uuid.uuid4()).split('-')
                 start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
 
@@ -97,8 +105,6 @@ class Command(BaseCommand):
                     day.save()
                     day_list.append(day)
 
-                # Add exercises (no supersets, all very simple)
-                exercise_list = [i for i in Exercise.objects.all()]
                 for day in day_list:
                     nr_of_exercises = random.randint(3, 6)
                     exercises = random.choices(exercise_list, k=nr_of_exercises)
@@ -108,30 +114,77 @@ class Command(BaseCommand):
                         slot.save()
                         order += 1
 
-                        slot_entry = SlotEntry(exercise=exercise, order=order, slot=slot)
+                        slot_entry = SlotEntry(
+                            exercise=exercise,
+                            order=order,
+                            slot=slot,
+                            weight_rounding=2.5,
+                        )
                         slot_entry.save()
 
                         reps = random.choice([1, 3, 5, 8, 10, 12, 15])
                         sets = random.randint(2, 4)
                         weight = random.randint(20, 100)
+                        rest = random.choice(range(100, 201, 10))
+                        rir = random.choice(RIR_OPTIONS)[0]
 
-                        SetsConfig(
-                            slot_entry=slot_entry,
-                            value=sets,
-                            iteration=1,
-                            operation=OperationChoices.REPLACE,
-                        ).save()
+                        if random.random() < 0.9:
+                            SetsConfig(
+                                slot_entry=slot_entry,
+                                value=sets,
+                                iteration=1,
+                                operation=OperationChoices.REPLACE,
+                            ).save()
+                            if random.random() < 0.3:
+                                MaxSetsConfig(
+                                    slot_entry=slot_entry,
+                                    value=sets + random.randint(1, 3),
+                                    iteration=1,
+                                    operation=OperationChoices.REPLACE,
+                                ).save()
 
-                        RepetitionsConfig(
-                            slot_entry=slot_entry,
-                            value=reps,
-                            iteration=1,
-                            operation=OperationChoices.REPLACE,
-                        ).save()
+                        if random.random() < 0.8:
+                            RepetitionsConfig(
+                                slot_entry=slot_entry,
+                                value=reps,
+                                iteration=1,
+                                operation=OperationChoices.REPLACE,
+                            ).save()
+                            if random.random() < 0.3:
+                                MaxRepetitionsConfig(
+                                    slot_entry=slot_entry,
+                                    value=reps + random.randint(1, 3),
+                                    iteration=1,
+                                    operation=OperationChoices.REPLACE,
+                                ).save()
 
-                        WeightConfig(
-                            slot_entry=slot_entry,
-                            value=weight,
-                            iteration=1,
-                            operation=OperationChoices.REPLACE,
-                        ).save()
+                        if random.random() < 0.8:
+                            WeightConfig(
+                                slot_entry=slot_entry,
+                                value=weight,
+                                iteration=1,
+                                operation=OperationChoices.REPLACE,
+                            ).save()
+                            if random.random() < 0.3:
+                                MaxWeightConfig(
+                                    slot_entry=slot_entry,
+                                    value=weight + random.randint(1, 5),
+                                    iteration=1,
+                                    operation=OperationChoices.REPLACE,
+                                ).save()
+
+                        if random.random() < 0.3 and rir:
+                            RiRConfig(
+                                slot_entry=slot_entry,
+                                value=rir,
+                                iteration=1,
+                                operation=OperationChoices.REPLACE,
+                            ).save()
+
+                        if random.random() < 0.3:
+                            RestConfig(
+                                slot_entry=slot_entry,
+                                value=rest,
+                                iteration=1,
+                                operation=OperationChoices.REPLACE,
+                            ).save()
