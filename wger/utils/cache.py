@@ -106,6 +106,10 @@ class CacheKeyMapper:
         return f'routine-api-stats-{pk}'
 
     @classmethod
+    def routine_api_logs(cls, pk: int):
+        return f'routine-api-logs-{pk}'
+
+    @classmethod
     def routine_api_structure_key(cls, pk: int):
         return f'routine-api-structure-{pk}'
 

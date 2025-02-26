@@ -163,7 +163,6 @@ class RoutineViewSet(viewsets.ModelViewSet):
             return Response(cached_data)
 
         out = RoutineStructureSerializer(self.get_object()).data
-
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
         return Response(out)
 
@@ -172,14 +171,14 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Returns the logs for the routine
         """
-        date = request.GET.get('date')
-        if date:
-            try:
-                date = datetime.strptime(date, '%Y-%m-%d')
-            except ValueError:
-                pass
+        cache_key = CacheKeyMapper.routine_api_logs(pk)
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
 
-        return Response(LogDisplaySerializer(self.get_object().logs_display(date), many=True).data)
+        out = LogDisplaySerializer(self.get_object().logs_display(), many=True).data
+        cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
+        return Response(out)
 
     @action(detail=True, url_path='stats')
     def stats(self, request, pk):

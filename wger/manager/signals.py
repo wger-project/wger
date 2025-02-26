@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.core.cache import cache
 from django.db.models.signals import (
     post_save,
     pre_delete,
-    pre_save,
 )
 
 # wger
@@ -74,19 +74,27 @@ def handle_config_change(sender, instance: AbstractChangeConfig, **kwargs):
     reset_routine_cache(instance.slot_entry.slot.day.routine)
 
 
-def update_cache_log(sender, instance: WorkoutLog, **kwargs):
+def handle_workout_log_change(sender, instance: WorkoutLog, **kwargs):
+    update_activity_cache(sender, instance, **kwargs)
+    cache.delete(CacheKeyMapper.routine_api_logs(instance.routine.id))
     if instance.routine:
         reset_routine_cache(instance.routine, structure=False)
 
 
-post_save.connect(update_activity_cache, sender=WorkoutSession)
-post_save.connect(update_activity_cache, sender=WorkoutLog)
+def handle_workout_session_change(sender, instance: WorkoutSession, **kwargs):
+    update_activity_cache(sender, instance, **kwargs)
+    cache.delete(CacheKeyMapper.routine_api_logs(instance.routine.id))
+    if instance.routine:
+        reset_routine_cache(instance.routine, structure=False)
 
-pre_save.connect(update_cache_routine, sender=Routine)
-pre_save.connect(update_cache_day, sender=Day)
-pre_save.connect(update_cache_slot, sender=Slot)
-pre_save.connect(update_cache_slot_entry, sender=SlotEntry)
-pre_save.connect(update_cache_log, sender=WorkoutLog)
+
+post_save.connect(handle_workout_session_change, sender=WorkoutSession)
+post_save.connect(handle_workout_log_change, sender=WorkoutLog)
+
+post_save.connect(update_cache_routine, sender=Routine)
+post_save.connect(update_cache_day, sender=Day)
+post_save.connect(update_cache_slot, sender=Slot)
+post_save.connect(update_cache_slot_entry, sender=SlotEntry)
 
 post_save.connect(handle_config_change, sender=WeightConfig)
 post_save.connect(handle_config_change, sender=MaxWeightConfig)
@@ -115,4 +123,5 @@ pre_delete.connect(handle_config_change, sender=MaxRestConfig)
 pre_delete.connect(handle_config_change, sender=RiRConfig)
 pre_delete.connect(handle_config_change, sender=MaxRiRConfig)
 
-pre_delete.connect(update_cache_log, sender=WorkoutLog)
+pre_delete.connect(handle_workout_log_change, sender=WorkoutLog)
+pre_delete.connect(handle_workout_session_change, sender=WorkoutSession)
