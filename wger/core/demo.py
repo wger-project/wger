@@ -25,6 +25,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.utils.translation import gettext as _
+from django.utils import timezone
 
 # wger
 from wger.core.models import DaysOfWeek
@@ -191,16 +192,16 @@ def create_demo_entries(user):
     # (Body) weight entries
     #
     temp = []
-    existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
     for i in range(1, 20):
-        creation_date = datetime.date.today() - datetime.timedelta(days=i)
-        if creation_date not in existing_entries:
-            entry = WeightEntry(
-                user=user,
-                weight=80 + 0.5 * i + random.randint(1, 3),
-                date=creation_date,
-            )
-            temp.append(entry)
+        creation_date = timezone.now() - datetime.timedelta(days=i)
+
+        entry = WeightEntry(
+            user=user,
+            weight=80 + 0.5 * i + random.randint(1, 3),
+            date=creation_date,
+        )
+        temp.append(entry)
+
     WeightEntry.objects.bulk_create(temp)
 
     #
