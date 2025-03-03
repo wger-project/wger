@@ -1,7 +1,12 @@
 {% extends "base_wide.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% translate "Dashboard" %}{% endblock %}
+{% block title %}
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user }}</p>
+{% endif %}
+{% translate "Dashboard" %}
+{% endblock %}
 
 {#        #}
 {# Header #}
