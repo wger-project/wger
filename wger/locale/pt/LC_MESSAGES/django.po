@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-03-23 17:01+0000\n"
-"Last-Translator: Wilton Rodrigues <wiltonf.rodrigues@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"PO-Revision-Date: 2025-03-06 18:16+0000\n"
+"Last-Translator: Luiz Felipe Guidorizzi de Oliveira <guiluizf222@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -234,10 +234,8 @@ msgid "Language full name"
 msgstr "Nome completo idioma"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Nome completo idioma"
+msgstr "Nome completo do idioma em Inglês"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -2790,7 +2788,7 @@ msgstr "Gordura saturada contida nas gorduras"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Fibra"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3111,6 +3109,7 @@ msgstr ""
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
 msgstr ""
+"Nos siga no mastodon para receber atualizações e novidades sobre o projeto"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3141,6 +3140,8 @@ msgstr "Doar"
 msgid ""
 "Buy us a coffee to help the project, pay for server costs, and keep us fueled"
 msgstr ""
+"Pague um café para ajudar o projeto, pagar o custo dos servidores e nos "
+"manter empolgados"
 
 #: software/templates/about_us.html:68
 msgid "Our goal"
