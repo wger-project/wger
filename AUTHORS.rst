@@ -87,6 +87,7 @@ Developers
 * Matt Harrison - https://github.com/Maralai
 * Ali Rahbar - https://github.com/crypto-a
 * Cam Cecil - https://github.com/scrapcode
+* Peter Dave Hello - https://github.com/PeterDaveHello
 
 
 Translators
