@@ -31,7 +31,6 @@ from wger.exercises.views import (
     muscles,
 )
 
-
 # sub patterns for history
 patterns_history = [
     path('admin-control', history.control, name='overview'),
@@ -118,27 +117,27 @@ patterns_equipment = [
 patterns_exercise = [
     path(
         'overview/',
-        ReactView.as_view(div_id='react-exercise-overview'),
+        ReactView.as_view(),
         name='overview',
     ),
     path(
         '<int:id>/view/',
-        ReactView.as_view(div_id='react-exercise-detail'),
+        ReactView.as_view(),
         name='view',
     ),
     path(
         '<int:pk>/view-base',
-        ReactView.as_view(div_id='react-exercise-overview'),
+        ReactView.as_view(),
         name='view-base',
     ),
     path(
         '<int:pk>/view-base/<slug:slug>',
-        ReactView.as_view(div_id='react-exercise-detail'),
+        ReactView.as_view(),
         name='view-base',
     ),
     path(
         'contribute',
-        ReactView.as_view(div_id='react-exercise-contribute'),
+        ReactView.as_view(),
         name='contribute',
     ),
 ]
