@@ -48,7 +48,7 @@ class WeightEntry(models.Model):
     Model for a weight point
     """
 
-    date = models.DateField(verbose_name=_('Date'))
+    date = models.DateTimeField(verbose_name=_('Date'))
     weight = models.DecimalField(
         verbose_name=_('Weight'),
         max_digits=5,
@@ -80,7 +80,6 @@ class WeightEntry(models.Model):
             'date',
         ]
         get_latest_by = 'date'
-        unique_together = ('date', 'user')
 
     def __str__(self):
         """
