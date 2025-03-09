@@ -275,3 +275,6 @@ class ConfigRequirements:
 
     def __init__(self, data: Dict[str, Any]):
         self.rules = data.get('rules', [])
+
+    def __bool__(self):
+        return bool(self.rules)

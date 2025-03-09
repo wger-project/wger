@@ -382,13 +382,15 @@ class SlotEntry(models.Model):
                 if not config:
                     continue
 
-                if not config.requirements:
+                requirements = config.requirements_object
+
+                if not requirements:
                     max_iterations[field] = i
                     # logger.debug(f'No requirements for {field} in iteration {i}')
                     continue
 
-                requirements = config.requirements_object
-
+                # Field has requirements, check if they are met
+                # logger.debug(f'Requirements for {field} in iteration {i}: {requirements.rules}')
                 for log in log_data:
                     all_fields_met = all(
                         getattr(log, req_field) is not None
@@ -449,6 +451,7 @@ class SlotEntry(models.Model):
             result,
             settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'],
         )
+
         return result
 
     #

@@ -201,7 +201,10 @@
       "value": 5,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": {
+        "rules": []
+      }
     }
   },
   {
@@ -213,7 +216,10 @@
       "value": 2,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": {
+        "rules": []
+      }
     }
   },
   {
@@ -225,7 +231,8 @@
       "value": 5,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -237,7 +244,8 @@
       "value": 3,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -249,7 +257,8 @@
       "value": 80,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -261,7 +270,8 @@
       "value": 20,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -273,7 +283,8 @@
       "value": 80,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -285,7 +296,8 @@
       "value": 50,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -297,7 +309,8 @@
       "value": 4,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -309,7 +322,8 @@
       "value": 5,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -321,7 +335,8 @@
       "value": 6,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   },
   {
@@ -333,7 +348,8 @@
       "value": 4,
       "operation": "r",
       "step": "abs",
-      "repeat": false
+      "repeat": false,
+      "requirements": null
     }
   }
 ]

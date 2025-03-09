@@ -41,3 +41,23 @@ class ChangeConfigTestCase(WgerTestCase):
             config.requirements_object,
             ConfigRequirements(data={'rules': ['weight', 'repetitions']}),
         )
+
+    def test_bool_false(self):
+        """
+        Test the __bool__ method in ConfigRequirements
+        """
+
+        config = SetsConfig.objects.get(pk=1)
+
+        self.assertEqual(config.requirements, {'rules': []})
+        self.assertFalse(config.requirements_object)
+
+    def test_bool_true(self):
+        """
+        Test the __bool__ method in ConfigRequirements
+        """
+
+        config = SetsConfig.objects.get(pk=1)
+        config.requirements = {'rules': ['weight', 'repetitions']}
+
+        self.assertTrue(config.requirements_object)
