@@ -12,46 +12,23 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.conf import settings
-from django.core.exceptions import ValidationError
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
-
 # wger
+from wger.core.api.min_server_version import check_min_server_version
+from wger.core.management.wger_command import WgerCommand
 from wger.nutrition.sync import sync_ingredients
 
 
-class Command(BaseCommand):
+class Command(WgerCommand):
     """
     Synchronizes ingredient data from a wger instance to the local database
     """
 
-    remote_url = settings.WGER_SETTINGS['WGER_INSTANCE']
-
     help = """Synchronizes ingredient data from a wger instance to the local database"""
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--remote-url',
-            action='store',
-            dest='remote_url',
-            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
-            help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
-        )
-
     def handle(self, **options):
-        remote_url = options['remote_url']
+        super().handle(**options)
 
-        try:
-            val = URLValidator()
-            val(remote_url)
-            self.remote_url = remote_url
-        except ValidationError:
-            raise CommandError('Please enter a valid URL')
+        remote_url = options['remote_url']
+        check_min_server_version(remote_url)
 
         sync_ingredients(self.stdout.write, self.remote_url, self.style.SUCCESS)

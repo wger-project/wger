@@ -51,6 +51,7 @@ from rest_framework.response import Response
 # wger
 from wger import (
     MIN_APP_VERSION,
+    MIN_SERVER_VERSION,
     get_version,
 )
 from wger.core.api.serializers import (
@@ -227,8 +228,7 @@ class PermissionView(viewsets.ViewSet):
 
 class RequiredApplicationVersionView(viewsets.ViewSet):
     """
-    Returns the minimum required version of flutter app to access this server
-    such as 1.4.2 or 3.0.0
+    Returns the minimum required version of flutter app to access this server.
     """
 
     permission_classes = (AllowAny,)
@@ -241,7 +241,25 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
         },
     )
     def get(request):
-        return Response(get_version(MIN_APP_VERSION, True))
+        return Response(str(MIN_APP_VERSION))
+
+
+class RequiredServerVersionView(viewsets.ViewSet):
+    """
+    Returns the minimum required version of the server to perform sync requests
+    """
+
+    permission_classes = (AllowAny,)
+
+    @staticmethod
+    @extend_schema(
+        parameters=[],
+        responses={
+            200: OpenApiTypes.STR,
+        },
+    )
+    def get(request):
+        return Response(str(MIN_SERVER_VERSION))
 
 
 class UserAPILoginView(viewsets.ViewSet):

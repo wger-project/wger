@@ -321,6 +321,11 @@ urlpatterns += [
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version',
     ),
+    path(
+        'api/v2/min-server-version/',
+        core_api_views.RequiredServerVersionView.as_view({'get': 'get'}),
+        name='min_server_version',
+    ),
     # Api documentation
     path(
         'api/v2/schema',

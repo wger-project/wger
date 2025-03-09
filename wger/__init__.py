@@ -1,45 +1,36 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-:copyright: 2011, 2012 by OpenSlides team, see AUTHORS.
-:license: GNU GPL, see LICENSE for more details.
-"""
+# This file is part of wger Workout Manager.
+#
+# wger Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wger Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+
+# Third Party
+from packaging.version import Version
 
 # Local
 from .celery_configuration import app
 
-MIN_APP_VERSION = (1, 8, 0, 'final', 1)
 
-VERSION = (2, 3, 0, 'beta', 1)
-RELEASE = True
+MIN_APP_VERSION = Version('1.8.0')
+"""Minimum version of the mobile app required to access this server"""
+
+MIN_SERVER_VERSION = Version('2.4.0')
+"""Minimum version of the server required to run sync commands on this server"""
+
+VERSION = Version('2.3.0beta1')
+"""Current version of the app"""
 
 
-def get_version(version=None, release=None):
-    """Derives a PEP386-compliant version number from VERSION."""
-
+def get_version(version: Version = None) -> str:
     if version is None:
         version = VERSION
-    if release is None:
-        release = RELEASE
-    assert len(version) == 5
-    assert version[3] in ('alpha', 'beta', 'rc', 'final')
 
-    # Now build the two parts of the version number:
-    # main = X.Y[.Z]
-    # sub = .devN - for pre-alpha releases
-    #     | {a|b|c}N - for alpha, beta and rc releases
-
-    # Always use all three parts, otherwise we might get problems in the version
-    # parser on the flutter side of things
-    main_parts = 3
-    main = '.'.join(str(x) for x in version[:main_parts])
-
-    if version[3] != 'final':
-        mapping = {'alpha': 'a', 'beta': 'b', 'rc': 'rc'}
-        sub = mapping[version[3]] + str(version[4])
-    else:
-        sub = ''
-    if not release:
-        sub += '.dev0'
-
-    return main + sub
+    return str(version)

@@ -55,16 +55,20 @@ class TestSyncManagementCommands(SimpleTestCase):
         mock_sync_muscles.assert_called()
         mock_delete_entries.assert_called()
 
+    @patch('wger.core.api.min_server_version.check_min_server_version')
     @patch('wger.exercises.sync.download_exercise_images')
-    def test_download_exercise_images(self, mock_download_exercise_images):
+    def test_download_exercise_images(self, mock_download_exercise_images, mock_check_min_version):
         call_command('download-exercise-images')
 
+        mock_check_min_version.assert_called()
         mock_download_exercise_images.assert_called()
 
+    @patch('wger.core.api.min_server_version.check_min_server_version')
     @patch('wger.exercises.sync.download_exercise_videos')
-    def test_download_exercise_videos(self, mock_download_exercise_videos):
+    def test_download_exercise_videos(self, mock_download_exercise_videos, mock_check_min_version):
         call_command('download-exercise-videos')
 
+        # mock_check_min_version.assert_called()
         mock_download_exercise_videos.assert_called()
 
 
