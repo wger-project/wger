@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2023-11-24 01:08+0000\n"
-"Last-Translator: dimii27 <dimitrieietcu@gmail.com>\n"
+"PO-Revision-Date: 2025-02-24 11:37+0000\n"
+"Last-Translator: B Sebastian <absolve-vest-yeah@duck.com>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/wger/web/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -371,11 +371,11 @@ msgstr ""
 
 #: core/models/profile.py:214 gym/views/export.py:64
 msgid "Age"
-msgstr ""
+msgstr "Vârstă"
 
 #: core/models/profile.py:230 nutrition/forms.py:118
 msgid "Height (cm)"
-msgstr ""
+msgstr "Înălțime (cm)"
 
 #: core/models/profile.py:247
 msgid "Hours of sleep"
@@ -484,7 +484,7 @@ msgstr ""
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:37
 msgid "An error occurred"
-msgstr ""
+msgstr "A apărut o eroare"
 
 #: core/templates/500.html:8
 msgid ""

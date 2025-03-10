@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 import os
 import re
 import sys
@@ -538,10 +537,11 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'INGREDIENT_CACHE_TTL': 604800,  # one week
+    'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(weeks=12),
     'ROUTINE_CACHE_TTL': 4 * 604800,  # one month
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'SYNC_EXERCISES_CELERY': False,

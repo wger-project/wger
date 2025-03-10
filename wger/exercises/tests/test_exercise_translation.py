@@ -30,7 +30,7 @@ from wger.exercises.models import (
     Muscle,
     Translation,
 )
-from wger.utils.constants import CC_BY_SA_4_ID
+from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -224,7 +224,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         translation = Translation.objects.get(pk=self.pk)
-        self.assertEqual(translation.license_id, CC_BY_SA_4_ID)
+        self.assertEqual(translation.license_id, CC_BY_SA_4_LICENSE_ID)
 
     def test_patch_clean_html(self):
         """

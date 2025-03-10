@@ -35,7 +35,7 @@ from wger.exercises.models import (
     Translation,
     Variation,
 )
-from wger.utils.constants import CC_BY_SA_4_ID
+from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
 UUID_NEW = 'NEW'
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 name = f'{language}:{column}'
                 assert name in file_reader.fieldnames, f'{name} not in {file_reader.fieldnames}'
 
-        default_license = License.objects.get(pk=CC_BY_SA_4_ID)
+        default_license = License.objects.get(pk=CC_BY_SA_4_LICENSE_ID)
 
         #
         # Process the exercises

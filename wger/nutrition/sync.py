@@ -15,11 +15,15 @@
 # Standard Library
 import logging
 import os
-from typing import Optional
+from typing import (
+    List,
+    Optional,
+)
 
 # Django
 from django.conf import settings
 from django.db import IntegrityError
+from django.utils import timezone
 
 # Third Party
 import requests
@@ -29,6 +33,7 @@ from openfoodfacts.images import (
 )
 
 # wger
+from wger.core.models.language import Language
 from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
     INGREDIENTS_ENDPOINT,
@@ -44,6 +49,7 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
+from wger.utils.language import load_language
 from wger.utils.requests import (
     get_paginated,
     wger_headers,
@@ -71,6 +77,15 @@ def fetch_ingredient_image(pk: int):
         return
 
     if not ingredient.source_url:
+        return
+
+    if (
+        ingredient.last_image_check
+        and (
+            ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
+        )
+        > timezone.now()
+    ):
         return
 
     if settings.TESTING:
@@ -178,6 +193,8 @@ def fetch_image_from_off(ingredient: Ingredient):
     except IntegrityError:
         logger.info('Ingredient has already an image, skipping...')
         return
+    ingredient.last_image_check = timezone.now()
+    ingredient.save()
     logger.info('Image successfully saved')
 
 
@@ -218,40 +235,73 @@ def download_ingredient_images(
 def sync_ingredients(
     print_fn,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    language_codes: Optional[str] = None,
     style_fn=lambda x: x,
 ):
     """Synchronize the ingredients from the remote server"""
+
+    def _sync_ingredients(language_codes: Optional[int] = None):
+        if language_codes is not None:
+            url = make_uri(
+                INGREDIENTS_ENDPOINT,
+                server_url=remote_url,
+                query={'limit': API_MAX_ITEMS, 'language__in': language_codes},
+            )
+        else:
+            url = make_uri(
+                INGREDIENTS_ENDPOINT,
+                server_url=remote_url,
+                query={'limit': API_MAX_ITEMS},
+            )
+        for data in get_paginated(url, headers=wger_headers()):
+            uuid = data['uuid']
+            name = data['name']
+
+            ingredient, created = Ingredient.objects.update_or_create(
+                uuid=uuid,
+                defaults={
+                    'name': name,
+                    'code': data['code'],
+                    'language_id': data['language'],
+                    'created': data['created'],
+                    'license_id': data['license'],
+                    'license_object_url': data['license_object_url'],
+                    'license_author': data['license_author_url'],
+                    'license_author_url': data['license_author_url'],
+                    'license_title': data['license_title'],
+                    'license_derivative_source_url': data['license_derivative_source_url'],
+                    'energy': data['energy'],
+                    'carbohydrates': data['carbohydrates'],
+                    'carbohydrates_sugar': data['carbohydrates_sugar'],
+                    'fat': data['fat'],
+                    'fat_saturated': data['fat_saturated'],
+                    'protein': data['protein'],
+                    'fiber': data['fiber'],
+                    'sodium': data['sodium'],
+                },
+            )
+
+            print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')
+
     print_fn('*** Synchronizing ingredients...')
 
-    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query={'limit': API_MAX_ITEMS})
-    for data in get_paginated(url, headers=wger_headers()):
-        uuid = data['uuid']
-        name = data['name']
+    if language_codes is not None:
+        language_ids: List[int] = []
+        for code in language_codes.split(','):
+            # Leaving the try except in here even though we've already validated on the sync-ingredients command itself.
+            # This is in case we ever want to re-use this function for anything else where user can input language codes.
+            try:
+                lang = load_language(code, default_to_english=False)
+                language_ids.append(lang.id)
+            except Language.DoesNotExist as e:
+                print_fn(
+                    f'Error: The language code you provided ("{code}") does not exist in this database. Please try again.'
+                )
+                return 0
 
-        ingredient, created = Ingredient.objects.update_or_create(
-            uuid=uuid,
-            defaults={
-                'name': name,
-                'code': data['code'],
-                'language_id': data['language'],
-                'created': data['created'],
-                'license_id': data['license'],
-                'license_object_url': data['license_object_url'],
-                'license_author': data['license_author_url'],
-                'license_author_url': data['license_author_url'],
-                'license_title': data['license_title'],
-                'license_derivative_source_url': data['license_derivative_source_url'],
-                'energy': data['energy'],
-                'carbohydrates': data['carbohydrates'],
-                'carbohydrates_sugar': data['carbohydrates_sugar'],
-                'fat': data['fat'],
-                'fat_saturated': data['fat_saturated'],
-                'protein': data['protein'],
-                'fiber': data['fiber'],
-                'sodium': data['sodium'],
-            },
-        )
-
-        print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')
+        for language_id in language_ids:
+            _sync_ingredients(language_id)
+    else:
+        _sync_ingredients()
 
     print_fn(style_fn('done!\n'))

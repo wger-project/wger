@@ -18,7 +18,6 @@ import os
 
 # Third Party
 import requests
-from pymongo import MongoClient
 
 # wger
 from wger.core.models import Language
@@ -65,6 +64,13 @@ class Command(ImportProductCommand):
         )
 
     def import_mongo(self, languages: dict[str:int]):
+        try:
+            # Third Party
+            from pymongo import MongoClient
+        except ImportError:
+            self.stdout.write('Please install pymongo, `pip install pymongo`')
+            return
+
         client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
         db = client.admin
         for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
@@ -128,13 +134,6 @@ class Command(ImportProductCommand):
             tmp_folder.cleanup()
 
     def handle(self, **options):
-        try:
-            # Third Party
-            from pymongo import MongoClient
-        except ImportError:
-            self.stdout.write('Please install pymongo, `pip install pymongo`')
-            return
-
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 

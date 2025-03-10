@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-14 19:23+0100\n"
-"PO-Revision-Date: 2024-07-31 17:09+0000\n"
+"PO-Revision-Date: 2025-02-08 19:39+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -859,10 +859,8 @@ msgid "next"
 msgstr "dalje"
 
 #: core/templates/tags/render_day.html:44
-#, fuzzy
-#| msgid "Placeholder image for exercise"
 msgid "Placeholder image for translation"
-msgstr "Primjer slike za vježbu"
+msgstr "Primjer slike za prevođenje"
 
 #: core/templates/template.html:123 manager/templates/calendar/month.html:138
 #: manager/templates/schedule/view.html:215
@@ -2380,10 +2378,8 @@ msgid "No schedules found."
 msgstr "Nijedan raspored nije pronađen."
 
 #: manager/templates/schedule/overview.html:28
-#, fuzzy
-#| msgid "Add one now."
 msgid "Add one now"
-msgstr "Dodaj jedan sada."
+msgstr "Dodaj jedan sada"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2394,13 +2390,6 @@ msgstr ""
 "        u nizu."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "        before jumping to the next. It is also possible to create a loop, "
-#| "so you\n"
-#| "        always do the same workouts in succession, e.g. A > B > C > A > B "
-#| "> C and so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2498,13 +2487,6 @@ msgstr "Izvezi ovaj raspored kao datoteku kalendara."
 
 #: manager/templates/schedule/view.html:202
 #: manager/templates/workout/view.html:76
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "                        application for example google calendar, outlook "
-#| "or iCal. This will create\n"
-#| "                        an appointment for each training day with the "
-#| "appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
