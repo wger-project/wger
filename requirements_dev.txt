@@ -18,6 +18,6 @@ faker==35.0.0
 django-extensions~=3.2
 coverage==7.6.12
 django-debug-toolbar==5.0.1
-isort==5.13.2
+isort==6.0.1
 ruff==0.9.0
 tblib==3.0.0
