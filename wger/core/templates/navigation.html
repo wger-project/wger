@@ -212,10 +212,6 @@
                                         {% translate "Weight overview" %}
                                     </a>
                                 </li>
-                                <li>
-                                    {% translate 'Add weight entry' as text %}
-                                    {% modal_link url='weight:add' text=text css_class='dropdown-item' %}
-                                </li>
                             </ul>
                         </li>
                     {% endif %}
@@ -281,7 +277,8 @@
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link text-white"
                                data-bs-toggle="dropdown">
-                                {% translate "Login" %}{% if allow_registration %} / {% translate "Register" %}{% endif %}
+                                {% translate "Login" %}{% if allow_registration %} /
+                                    {% translate "Register" %}{% endif %}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -291,12 +288,12 @@
                                     </a>
                                 </li>
                                 {% if allow_registration %}
-                                <li>
-                                    <a class="dropdown-item"
-                                       href="{% url 'core:user:registration' %}">
-                                        {% translate "Register" %}
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           href="{% url 'core:user:registration' %}">
+                                            {% translate "Register" %}
+                                        </a>
+                                    </li>
                                 {% endif %}
                                 <li>
                                     <a class="dropdown-item"

@@ -14,27 +14,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django import forms
-from django.forms import (
-    CharField,
-    DateField,
-    Form,
-    ModelForm,
-    Textarea,
-    widgets,
-)
-from django.utils.translation import gettext as _
-
 # Third Party
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
 
-# wger
-from wger.utils.constants import DATE_FORMATS
-from wger.utils.widgets import Html5DateInput
-from wger.weight.models import WeightEntry
+# Django
+from django import forms
+from django.forms import (
+    CharField,
+    Form,
+    Textarea,
+)
+from django.utils.translation import gettext as _
 
+# wger
 
 CSV_DATE_FORMAT = (
     ('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
@@ -63,14 +56,3 @@ class WeightCsvImportForm(Form):
             'date_format',
         )
         self.helper.form_tag = False
-
-
-class WeightForm(ModelForm):
-    date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
-
-    class Meta:
-        model = WeightEntry
-        exclude = []
-        widgets = {
-            'user': widgets.HiddenInput(),
-        }
