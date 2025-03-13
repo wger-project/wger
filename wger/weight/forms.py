@@ -14,10 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
-
 # Django
 from django import forms
 from django.forms import (
@@ -27,7 +23,10 @@ from django.forms import (
 )
 from django.utils.translation import gettext as _
 
-# wger
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout
+
 
 CSV_DATE_FORMAT = (
     ('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
