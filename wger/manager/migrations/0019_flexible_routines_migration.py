@@ -75,7 +75,11 @@ def migrate_routines(apps) -> dict[int, Any]:
                 for set_obj in day.set_set.all():
                     slot = Slot(day=current_day, comment=set_obj.comment, order=set_obj.order)
                     slot.save()
+                    one_setting = set_obj.setting_set.count() == 1
+
                     for setting in set_obj.setting_set.all():
+                        nr_sets = set_obj.sets if one_setting else 1
+
                         slot_entry = SlotEntry(
                             slot=slot,
                             exercise=setting.exercise_base,
@@ -129,7 +133,7 @@ def migrate_routines(apps) -> dict[int, Any]:
 
                         SetsConfig(
                             slot_entry=slot_entry,
-                            value=set_obj.sets,
+                            value=nr_sets,
                             iteration=1,
                             operation=REPLACE_OP,
                             step=ABS_STEP,
