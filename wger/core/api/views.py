@@ -55,7 +55,6 @@ from wger import (
     get_version,
 )
 from wger.core.api.serializers import (
-    DaysOfWeekSerializer,
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
@@ -66,7 +65,6 @@ from wger.core.api.serializers import (
 )
 from wger.core.forms import UserLoginForm
 from wger.core.models import (
-    DaysOfWeek,
     Language,
     License,
     RepetitionUnit,
@@ -371,19 +369,6 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-
-class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint for the days of the week (monday, tuesday, etc.).
-
-    This has historical reasons, and it's better and easier to just define a simple enum
-    """
-
-    queryset = DaysOfWeek.objects.all()
-    serializer_class = DaysOfWeekSerializer
-    ordering_fields = '__all__'
-    filterset_fields = ('day_of_week',)
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):

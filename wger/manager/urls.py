@@ -27,6 +27,7 @@ from wger.manager.views import (
     routine,
 )
 
+
 # sub patterns for templates
 patterns_templates = [
     path(
@@ -67,7 +68,6 @@ patterns_routine = [
         ReactView.as_view(login_required=True),
         name='add',
     ),
-
     # Note that this needs to be the no-shadow-dom variant till this issue is fixed:
     # https://github.com/hello-pangea/dnd/issues/425
     path(

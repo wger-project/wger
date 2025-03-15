@@ -103,7 +103,6 @@ class BaseTestCase:
     media_root = None
 
     fixtures = (
-        'days_of_week',
         'gym_config',
         'groups',
         'setting_repetition_units',

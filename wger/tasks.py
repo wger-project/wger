@@ -236,7 +236,6 @@ def load_fixtures(context, settings_path=None):
     call_command('loaddata', 'groups.json')
     call_command('loaddata', 'users.json')
     call_command('loaddata', 'licenses.json')
-    call_command('loaddata', 'days_of_week.json')
     call_command('loaddata', 'setting_repetition_units.json')
     call_command('loaddata', 'setting_weight_units.json')
 

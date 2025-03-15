@@ -134,7 +134,6 @@ router.register(r'max-rir-config', manager_api_views.MaxRiRConfigViewSet, basena
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='workoutlog')
 
 # Core app
-router.register(r'daysofweek', core_api_views.DaysOfWeekViewSet, basename='daysofweek')
 router.register(r'language', core_api_views.LanguageViewSet, basename='language')
 router.register(r'license', core_api_views.LicenseViewSet, basename='license')
 router.register(r'userprofile', core_api_views.UserProfileViewSet, basename='userprofile')

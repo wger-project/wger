@@ -29,7 +29,6 @@ from rest_framework.validators import UniqueValidator
 
 # wger
 from wger.core.models import (
-    DaysOfWeek,
     Language,
     License,
     RepetitionUnit,
@@ -163,16 +162,6 @@ class LanguageSerializer(serializers.ModelSerializer):
             'full_name',
             'full_name_en',
         ]
-
-
-class DaysOfWeekSerializer(serializers.ModelSerializer):
-    """
-    DaysOfWeek serializer
-    """
-
-    class Meta:
-        model = DaysOfWeek
-        fields = ['day_of_week']
 
 
 class LicenseSerializer(serializers.ModelSerializer):
