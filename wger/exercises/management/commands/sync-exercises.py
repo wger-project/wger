@@ -14,14 +14,9 @@
 
 # Django
 from django.conf import settings
-from django.core.exceptions import ValidationError
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
 
 # wger
+from wger.core.management.wger_command import WgerCommand
 from wger.exercises.sync import (
     handle_deleted_entries,
     sync_categories,
@@ -33,7 +28,7 @@ from wger.exercises.sync import (
 )
 
 
-class Command(BaseCommand):
+class Command(WgerCommand):
     """
     Synchronizes exercise data from a wger instance to the local database
     """
@@ -53,14 +48,7 @@ class Command(BaseCommand):
             """
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            '--remote-url',
-            action='store',
-            dest='remote_url',
-            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
-            help=f'Remote URL to fetch the exercises from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
-        )
+        super().add_arguments(parser)
 
         parser.add_argument(
             '--dont-delete',
@@ -71,14 +59,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        remote_url = options['remote_url']
-
-        try:
-            val = URLValidator()
-            val(remote_url)
-            self.remote_url = remote_url
-        except ValidationError:
-            raise CommandError('Please enter a valid URL')
+        super().handle(**options)
 
         # Process everything
         sync_languages(self.stdout.write, self.remote_url, self.style.SUCCESS)

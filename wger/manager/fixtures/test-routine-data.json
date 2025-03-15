@@ -1,0 +1,355 @@
+[
+  {
+    "pk": 1,
+    "model": "manager.routine",
+    "fields": {
+      "user": 1,
+      "name": "A test routine",
+      "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-06-01",
+      "fit_in_week": false,
+      "is_template": false,
+      "is_public": false
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.routine",
+    "fields": {
+      "user": 2,
+      "name": "Empty routine",
+      "description": "",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-03-01",
+      "fit_in_week": false,
+      "is_template": false,
+      "is_public": false
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.routine",
+    "fields": {
+      "user": 2,
+      "name": "Another empty routine",
+      "description": "",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-03-01",
+      "fit_in_week": false,
+      "is_template": false,
+      "is_public": false
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.routine",
+    "fields": {
+      "user": 2,
+      "name": "Private template",
+      "description": "",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-03-01",
+      "fit_in_week": false,
+      "is_template": true,
+      "is_public": false
+    }
+  },
+  {
+    "pk": 5,
+    "model": "manager.routine",
+    "fields": {
+      "user": 5,
+      "name": "Public template",
+      "description": "",
+      "created": "2024-03-01T23:34:30+01:00",
+      "start": "2024-03-01",
+      "end": "2024-03-01",
+      "fit_in_week": false,
+      "is_template": true,
+      "is_public": true
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.day",
+    "fields": {
+      "routine": 1,
+      "order": 1,
+      "is_rest": false
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.day",
+    "fields": {
+      "routine": 1,
+      "order": 3,
+      "is_rest": false
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.day",
+    "fields": {
+      "routine": 1,
+      "order": 2,
+      "is_rest": false
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.slot",
+    "fields": {
+      "day": 1,
+      "order": 1,
+      "comment": "test comment 123"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.slot",
+    "fields": {
+      "day": 1,
+      "order": 2,
+      "comment": "test comment 456"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.slot",
+    "fields": {
+      "day": 1,
+      "order": 2,
+      "comment": "test comment 789"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.slotentry",
+    "fields": {
+      "slot_id": 1,
+      "exercise_id": 1,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.slotentry",
+    "fields": {
+      "slot_id": 1,
+      "exercise_id": 2,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.slotentry",
+    "fields": {
+      "slot_id": 2,
+      "exercise_id": 3,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.slotentry",
+    "fields": {
+      "slot_id": 3,
+      "exercise_id": 3,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_entry_id": 1,
+      "iteration": 1,
+      "value": 5,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": {
+        "rules": []
+      }
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_entry_id": 2,
+      "iteration": 1,
+      "value": 2,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": {
+        "rules": []
+      }
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_entry_id": 3,
+      "iteration": 1,
+      "value": 5,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_entry_id": 4,
+      "iteration": 1,
+      "value": 3,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_entry_id": 1,
+      "iteration": 1,
+      "value": 80,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_entry_id": 2,
+      "iteration": 1,
+      "value": 20,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_entry_id": 3,
+      "iteration": 1,
+      "value": 80,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_entry_id": 4,
+      "iteration": 1,
+      "value": 50,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.repetitionsconfig",
+    "fields": {
+      "slot_entry_id": 1,
+      "iteration": 1,
+      "value": 4,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.repetitionsconfig",
+    "fields": {
+      "slot_entry_id": 2,
+      "iteration": 1,
+      "value": 5,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.repetitionsconfig",
+    "fields": {
+      "slot_entry_id": 3,
+      "iteration": 1,
+      "value": 6,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.repetitionsconfig",
+    "fields": {
+      "slot_entry_id": 4,
+      "iteration": 1,
+      "value": 4,
+      "operation": "r",
+      "step": "abs",
+      "repeat": false,
+      "requirements": null
+    }
+  }
+]

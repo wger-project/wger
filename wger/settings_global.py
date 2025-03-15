@@ -23,7 +23,6 @@ from datetime import timedelta
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -291,13 +290,8 @@ LOGGING = {
     'loggers': {
         'wger': {
             'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        '': {
-            'handlers': ['console'],
             'level': 'INFO',
-            'propagate': False,
-        }
+        },
     }
 }
 
@@ -542,6 +536,7 @@ WGER_SETTINGS = {
     'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'INGREDIENT_CACHE_TTL': 604800,  # one week
     'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(weeks=12),
+    'ROUTINE_CACHE_TTL': 4 * 604800,  # one month
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'SYNC_EXERCISES_CELERY': False,
     'SYNC_EXERCISE_IMAGES_CELERY': False,

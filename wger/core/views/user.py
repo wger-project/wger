@@ -91,7 +91,7 @@ from wger.gym.models import (
     GymUserConfig,
 )
 from wger.manager.models import (
-    Workout,
+    Routine,
     WorkoutLog,
     WorkoutSession,
 )
@@ -537,17 +537,17 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         """
         context = super(UserDetailView, self).get_context_data(**kwargs)
         out = []
-        workouts = Workout.objects.filter(user=self.object).all()
-        for workout in workouts:
-            logs = WorkoutLog.objects.filter(workout=workout)
+        routines = Routine.objects.filter(user=self.object).all()
+        for routine in routines:
+            logs = WorkoutLog.objects.filter(routine=routine)
             out.append(
                 {
-                    'workout': workout,
+                    'routine': routine,
                     'logs': logs.dates('date', 'day').count(),
                     'last_log': logs.last(),
                 }
             )
-        context['workouts'] = out
+        context['routine_data'] = out
         context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
             :5
         ]

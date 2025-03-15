@@ -92,7 +92,8 @@ python3 manage.py set-site-url
 if [[ "$WGER_USE_GUNICORN" == "True" ]];
 then
     echo "Using gunicorn..."
-    gunicorn wger.wsgi:application --reload --bind 0.0.0.0:8000
+    WORKERS=${GUNICORN_WORKERS:-4}
+    gunicorn wger.wsgi:application --workers $WORKERS --threads 2 --preload --bind 0.0.0.0:8000
 else
     echo "Using django's development server..."
     python3 manage.py runserver 0.0.0.0:8000

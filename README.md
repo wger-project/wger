@@ -38,25 +38,10 @@ For a live system, refer to the project's site: <https://wger.de/>
 
 ## Installation
 
-### Production with docker compose
-
 If you want to host your own instance, take a look at the provided docker
-compose file. This config will persist your database and uploaded images:
+compose file:
 
 <https://github.com/wger-project/docker>
-
-### Demo
-
-If you just want to try it out:
-
-```shell script
-    docker run -ti --name wger.demo --publish 8000:80 wger/demo
-```
-
-Then just open <http://localhost:8000> and log in as **admin**, password **adminadmin**
-
-Please note that this image will not persist any data and overwrite your database
-when you pull a new version, it is only intended as an easy to setup demo
 
 ## Documentation
 

@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 class ReactView(TemplateView):
     """
     ReactView is a TemplateView that renders a React page.
+
+    To get the corresponding React component, check "src/routes.tsx"
     """
 
     template_name = 'react/react-page.html'
@@ -29,6 +31,7 @@ class ReactView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['div_id'] = self.div_id
+        context['hide_title_and_options'] = True
         return context
 
     def dispatch(self, request, *args, **kwargs):

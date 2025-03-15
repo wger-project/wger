@@ -14,21 +14,14 @@
 
 # Django
 from django.conf import settings
-from django.core.exceptions import (
-    ImproperlyConfigured,
-    ValidationError,
-)
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
+from django.core.exceptions import ImproperlyConfigured
 
 # wger
+from wger.core.management.wger_command import WgerCommand
 from wger.exercises.sync import download_exercise_images
 
 
-class Command(BaseCommand):
+class Command(WgerCommand):
     """
     Download exercise images from wger.de and updates the local database
 
@@ -45,25 +38,10 @@ class Command(BaseCommand):
         '           the script will not be able to match them.'
     )
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--remote-url',
-            action='store',
-            dest='remote_url',
-            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
-            help=f'Remote URL to fetch the images from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
-        )
-
     def handle(self, **options):
         if not settings.MEDIA_ROOT:
             raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
 
-        remote_url = options['remote_url']
-        try:
-            val = URLValidator()
-            val(remote_url)
-        except ValidationError:
-            raise CommandError('Please enter a valid URL')
+        super().handle(**options)
 
-        download_exercise_images(self.stdout.write, remote_url, self.style.SUCCESS)
+        download_exercise_images(self.stdout.write, options['remote_url'], self.style.SUCCESS)

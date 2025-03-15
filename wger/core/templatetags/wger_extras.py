@@ -28,7 +28,6 @@ from django.utils.translation import (
 
 # wger
 from wger.core.tests.base_testcase import get_reverse
-from wger.manager.models import Day
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT,
@@ -37,30 +36,6 @@ from wger.utils.language import get_language_data
 
 
 register = template.Library()
-
-
-@register.filter(name='get_current_settings')
-def get_current_settings(exercise, set_id):
-    """
-    Does a filter on the sets
-
-    We need to do this here because it's not possible to pass arguments to function in
-    the template, and we are only interested on the settings that belong to the current
-    set
-    """
-    return exercise.exercise_base.setting_set.filter(set_id=set_id)
-
-
-@register.inclusion_tag('tags/render_day.html')
-def render_day(day: Day, editable=True):
-    """
-    Renders a day as it will be displayed in the workout overview
-    """
-    return {
-        'day': day,
-        'workout': day.training,
-        'editable': editable,
-    }
 
 
 @register.inclusion_tag('tags/pagination.html')
@@ -91,37 +66,6 @@ def pagination(paginator, page):
 
     # Set the template variables
     return {'page': page, 'page_range': page_range}
-
-
-@register.inclusion_tag('tags/muscles.html')
-def render_muscles(muscles=None, muscles_sec=None):
-    """
-    Renders the given muscles
-    """
-    out = {'backgrounds': []}
-    if not muscles and not muscles_sec:
-        return out
-
-    out_main = []
-    if muscles:
-        out_main = muscles if isinstance(muscles, Iterable) else [muscles]
-
-    out_secondary = []
-    if muscles_sec:
-        out_secondary = muscles_sec if isinstance(muscles_sec, Iterable) else [muscles_sec]
-
-    if out_main:
-        front_back = 'front' if out_main[0].is_front else 'back'
-    else:
-        front_back = 'front' if out_secondary[0].is_front else 'back'
-
-    out['backgrounds'] = (
-        [i.image_url_main for i in out_main]
-        + [i.image_url_secondary for i in out_secondary]
-        + [static(f'images/muscles/muscular_system_{front_back}.svg')]
-    )
-
-    return out
 
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)
