@@ -37,7 +37,7 @@ def migrate_routines(apps) -> dict[int, Any]:
         next_monday = workout.creation_date + timedelta(days=7 - workout.creation_date.weekday())
 
         routine = Routine(
-            name=workout.name[:25],
+            name=workout.name[:25] if workout.name else 'Routine',
             description=workout.description,
             user=workout.user,
             created=workout.creation_date,
@@ -83,14 +83,14 @@ def migrate_routines(apps) -> dict[int, Any]:
                         slot_entry = SlotEntry(
                             slot=slot,
                             exercise=setting.exercise_base,
-                            # default "reps"
                             repetition_unit_id=setting.repetition_unit_id
-                            if setting.repetition_unit_id is not None
-                            else 1,
-                            # default "kg"
+                            if setting.reps is not None
+                            else None,
+
                             weight_unit_id=setting.weight_unit_id
-                            if setting.weight_unit_id is not None
-                            else 1,
+                            if setting.weight is not None
+                            else None,
+
                             order=setting.order,
                             comment=setting.comment,
                         )
@@ -122,14 +122,6 @@ def migrate_routines(apps) -> dict[int, Any]:
                                 operation=REPLACE_OP,
                                 step=ABS_STEP,
                             ).save()
-
-                        RestConfig(
-                            slot_entry=slot_entry,
-                            value=120,
-                            iteration=1,
-                            operation=REPLACE_OP,
-                            step=ABS_STEP,
-                        ).save()
 
                         SetsConfig(
                             slot_entry=slot_entry,
