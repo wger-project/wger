@@ -51,46 +51,37 @@ def migrate_routines(apps) -> dict[int, Any]:
 
         workouts_to_routines[workout.id] = routine
 
-        day_dict = {}
-
         # To simulate a hard coded week, we will create exactly seven day entries (since
-        # we know the routine starts on a monday).
+        # we make the routine start on a monday).
         for i in range(1, 8):
-            current_day = DayNg(routine=routine, order=i, is_rest=True)
-            current_day.save()
-            day_dict[i] = current_day
+            day_ng = DayNg(routine=routine, order=i, is_rest=True)
+            day_ng.save()
 
-        for i in range(1, 8):
-            current_day = day_dict[i]
-
+            # Note that day__id refers to the DaysOfWeek model, aka weekdays
             day = workout.day_set.filter(day__id=i).first()
             if day:
-                current_day.name = day.description[:20]
-                current_day.description = day.description
-                current_day.is_rest = False
-                current_day.need_logs_to_advance = False
-                current_day.save()
+                day_ng.name = day.description[:20]
+                day_ng.description = day.description if len(day.description) > 20 else ''
+                day_ng.is_rest = False
+                day_ng.need_logs_to_advance = False
+                day_ng.save()
 
                 # Set the exercises and repetitions
                 for set_obj in day.set_set.all():
-                    slot = Slot(day=current_day, comment=set_obj.comment, order=set_obj.order)
+                    slot = Slot(day=day_ng, comment=set_obj.comment, order=set_obj.order)
                     slot.save()
                     one_setting = set_obj.setting_set.count() == 1
 
                     for setting in set_obj.setting_set.all():
                         nr_sets = set_obj.sets if one_setting else 1
+                        rep_unit = setting.repetition_unit_id if setting.reps is not None else None
+                        weight_unit = setting.weight_unit_id if setting.weight is not None else None
 
                         slot_entry = SlotEntry(
                             slot=slot,
                             exercise=setting.exercise_base,
-                            repetition_unit_id=setting.repetition_unit_id
-                            if setting.reps is not None
-                            else None,
-
-                            weight_unit_id=setting.weight_unit_id
-                            if setting.weight is not None
-                            else None,
-
+                            repetition_unit_id=rep_unit,
+                            weight_unit_id=weight_unit,
                             order=setting.order,
                             comment=setting.comment,
                         )
@@ -131,7 +122,6 @@ def migrate_routines(apps) -> dict[int, Any]:
                             step=ABS_STEP,
                         ).save()
 
-        routine.first_day = day_dict[1]
         routine.save()
     return workouts_to_routines
 
