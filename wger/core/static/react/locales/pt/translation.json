@@ -224,7 +224,8 @@
         "difference": "Diferença",
         "7dayAvg": "Média de 7 dias",
         "logThisMealItem": "Registrar este ingrediente como está no diário nutricional",
-        "mealDeleteInfo": "As entradas do diário nutricional para esta refeição não serão excluídas e aparecerão em 'outros registros'"
+        "mealDeleteInfo": "As entradas do diário nutricional para esta refeição não serão excluídas e aparecerão em 'outros registros'",
+        "goalFiber": "Meta de fibra"
     },
     "downloadAsPdf": "Download como PDF",
     "nothingHereYet": "Nada aqui por enquanto...",
@@ -248,5 +249,16 @@
     "lastYear": "Ano passado",
     "lastHalfYear": "Últimos 6 meses",
     "lastMonth": "Último mês",
-    "lastWeek": "Última semana"
+    "lastWeek": "Última semana",
+    "bmi": {
+        "calculator": "Calculadora de IMC",
+        "overweight": "Sobrepeso",
+        "obese": "Obeso",
+        "normal": "Peso normal",
+        "underweight": "Subpeso",
+        "result": "Seu IMC é {{value}}"
+    },
+    "entries": "Entradas",
+    "calendar": "Calendário",
+    "no_entries_for_day": "Não há entradas para este dia"
 }
