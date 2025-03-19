@@ -19,6 +19,7 @@ from rest_framework import serializers
 
 # wger
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
+from wger.manager.api.fields import DecimalOrIntegerField
 from wger.manager.api.validators import validate_requirements
 from wger.manager.models import (
     Day,
@@ -348,19 +349,19 @@ class SetConfigDataSerializer(serializers.Serializer):
     exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
     max_sets = serializers.IntegerField()
-    weight = serializers.DecimalField(max_digits=5, decimal_places=2)
-    max_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    weight = DecimalOrIntegerField(max_digits=5, decimal_places=2)
+    max_weight = DecimalOrIntegerField(max_digits=5, decimal_places=2)
     weight_unit = serializers.IntegerField()
     weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
-    repetitions = serializers.DecimalField(max_digits=5, decimal_places=2)
-    max_repetitions = serializers.DecimalField(max_digits=5, decimal_places=2)
+    repetitions = DecimalOrIntegerField(max_digits=5, decimal_places=2)
+    max_repetitions = DecimalOrIntegerField(max_digits=5, decimal_places=2)
     repetitions_unit = serializers.IntegerField()
     repetitions_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
-    rir = serializers.DecimalField(max_digits=5, decimal_places=2)
-    max_rir = serializers.DecimalField(max_digits=5, decimal_places=2)
-    rpe = serializers.DecimalField(max_digits=5, decimal_places=2)
-    rest = serializers.DecimalField(max_digits=5, decimal_places=2)
-    max_rest = serializers.DecimalField(max_digits=5, decimal_places=2)
+    rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
+    max_rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
+    rpe = DecimalOrIntegerField(max_digits=2, decimal_places=1)
+    rest = DecimalOrIntegerField(max_digits=5, decimal_places=2)
+    max_rest = DecimalOrIntegerField(max_digits=5, decimal_places=2)
     type = serializers.CharField()
     text_repr = serializers.CharField()
     comment = serializers.CharField()
