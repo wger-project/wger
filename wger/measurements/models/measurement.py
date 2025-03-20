@@ -18,7 +18,6 @@
 import datetime
 
 # Django
-from django.contrib.auth.models import User
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,

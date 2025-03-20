@@ -18,10 +18,7 @@
 # Django
 from django.conf.urls import include
 from django.contrib.auth.decorators import login_required
-from django.urls import (
-    path,
-    re_path,
-)
+from django.urls import path
 
 # wger
 from wger.core.views.react import ReactView

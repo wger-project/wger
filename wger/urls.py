@@ -48,7 +48,6 @@ from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
-from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -63,25 +62,78 @@ router = routers.DefaultRouter()
 #
 
 # Manager app
-router.register(r'day', manager_api_views.DayViewSet, basename='day')
-router.register(r'set', manager_api_views.SetViewSet, basename='Set')
-router.register(r'setting', manager_api_views.SettingViewSet, basename='Setting')
-router.register(r'workout', manager_api_views.WorkoutViewSet, basename='workout')
-router.register(r'templates', manager_api_views.UserWorkoutTemplateViewSet, basename='templates')
+router.register(r'routine', manager_api_views.RoutineViewSet, basename='routine')
+router.register(r'templates', manager_api_views.UserRoutineTemplateViewSet, basename='templates')
 router.register(
     r'public-templates',
-    manager_api_views.PublicWorkoutTemplateViewSet,
+    manager_api_views.PublicRoutineTemplateViewSet,
     basename='public-templates',
 )
 router.register(
-    r'workoutsession', manager_api_views.WorkoutSessionViewSet, basename='workoutsession'
+    r'workoutsession',
+    manager_api_views.WorkoutSessionViewSet,
+    basename='workoutsession',
 )
+router.register(
+    r'day',
+    manager_api_views.RoutineDayViewSet,
+    basename='day',
+)
+router.register(
+    r'slot',
+    manager_api_views.SlotViewSet,
+    basename='slot',
+)
+router.register(
+    r'slot-entry',
+    manager_api_views.SlotEntryViewSet,
+    basename='slot-entry',
+)
+router.register(
+    r'weight-config',
+    manager_api_views.WeightConfigViewSet,
+    basename='weight-config',
+)
+router.register(
+    r'max-weight-config',
+    manager_api_views.MaxWeightConfigViewSet,
+    basename='max-weight-config',
+)
+router.register(
+    r'repetitions-config',
+    manager_api_views.RepetitionsConfigViewSet,
+    basename='repetitions-config',
+)
+router.register(
+    r'max-repetitions-config',
+    manager_api_views.MaxRepetitionsConfigViewSet,
+    basename='max-repetitions-config',
+)
+router.register(
+    r'sets-config',
+    manager_api_views.SetsConfigViewSet,
+    basename='sets-config',
+)
+router.register(
+    r'max-sets-config',
+    manager_api_views.MaxSetsConfigViewSet,
+    basename='max-sets-config',
+)
+router.register(
+    r'rest-config',
+    manager_api_views.RestConfigViewSet,
+    basename='rest-config',
+)
+router.register(
+    r'max-rest-config',
+    manager_api_views.MaxRestConfigViewSet,
+    basename='max-rest-config',
+)
+router.register(r'rir-config', manager_api_views.RiRConfigViewSet, basename='rir-config')
+router.register(r'max-rir-config', manager_api_views.MaxRiRConfigViewSet, basename='max-rir-config')
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='workoutlog')
-router.register(r'schedulestep', manager_api_views.ScheduleStepViewSet, basename='schedulestep')
-router.register(r'schedule', manager_api_views.ScheduleViewSet, basename='schedule')
 
 # Core app
-router.register(r'daysofweek', core_api_views.DaysOfWeekViewSet, basename='daysofweek')
 router.register(r'language', core_api_views.LanguageViewSet, basename='language')
 router.register(r'license', core_api_views.LicenseViewSet, basename='license')
 router.register(r'userprofile', core_api_views.UserProfileViewSet, basename='userprofile')
@@ -100,25 +152,16 @@ router.register(
     exercises_api_views.ExerciseInfoViewset,
     basename='exerciseinfo',
 )
-router.register(
-    r'exercisebaseinfo',
-    exercises_api_views.ExerciseBaseInfoViewset,
-    basename='exercisebaseinfo',
-)
-router.register(
-    r'exercise',
-    exercises_api_views.ExerciseViewSet,
-    basename='exercise',
-)
+
 router.register(
     r'exercise-translation',
     exercises_api_views.ExerciseTranslationViewSet,
     basename='exercise-translation',
 )
 router.register(
-    r'exercise-base',
-    exercises_api_views.ExerciseBaseViewSet,
-    basename='exercise-base',
+    r'exercise',
+    exercises_api_views.ExerciseViewSet,
+    basename='exercise',
 )
 router.register(
     r'equipment',
@@ -277,6 +320,11 @@ urlpatterns += [
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version',
     ),
+    path(
+        'api/v2/min-server-version/',
+        core_api_views.RequiredServerVersionView.as_view({'get': 'get'}),
+        name='min_server_version',
+    ),
     # Api documentation
     path(
         'api/v2/schema',
@@ -301,7 +349,7 @@ urlpatterns += [
 #
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
+    # urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
 
 if settings.EXPOSE_PROMETHEUS_METRICS:
     urlpatterns += [

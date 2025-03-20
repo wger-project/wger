@@ -16,7 +16,6 @@
 
 # Local
 from .cache import UserCache
-from .days_of_week import DaysOfWeek
 from .language import Language
 from .license import License
 from .profile import UserProfile

@@ -14,19 +14,14 @@
 
 # Django
 from django.core.files import File
-from django.urls import reverse
 
 # wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import (
-    WgerAddTestCase,
-    WgerDeleteTestCase,
-    WgerEditTestCase,
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
     ExerciseImage,
+    Translation,
 )
 
 
@@ -35,7 +30,7 @@ class MainImageTestCase(WgerTestCase):
     Tests the methods to make sure there is always a main image per picture
     """
 
-    def save_image(self, exercise, filename, db_filename=None) -> int:
+    def save_image(self, exercise: Exercise, filename, db_filename=None) -> int:
         """
         Helper function to save an image to an exercise
         """
@@ -43,7 +38,7 @@ class MainImageTestCase(WgerTestCase):
             if not db_filename:
                 db_filename = filename
             image = ExerciseImage()
-            image.exercise_base = exercise.exercise_base
+            image.exercise = exercise
             image.image.save(db_filename, File(inFile))
             image.save()
             return image.pk
@@ -53,8 +48,8 @@ class MainImageTestCase(WgerTestCase):
         Tests that the first uploaded image is automatically a main image
         """
 
-        exercise = Exercise.objects.get(pk=2)
-        pk = self.save_image(exercise, 'protestschwein.jpg')
+        translation = Translation.objects.get(pk=2)
+        pk = self.save_image(translation.exercise, 'protestschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk)
         self.assertTrue(image.is_main)
@@ -64,9 +59,9 @@ class MainImageTestCase(WgerTestCase):
         Tests that there is always a main image after deleting one
         """
 
-        exercise = Exercise.objects.get(pk=2)
-        pk1 = self.save_image(exercise, 'protestschwein.jpg')
-        pk2 = self.save_image(exercise, 'wildschwein.jpg')
+        translation = Translation.objects.get(pk=2)
+        pk1 = self.save_image(translation.exercise, 'protestschwein.jpg')
+        pk2 = self.save_image(translation.exercise, 'wildschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk1)
         self.assertTrue(image.is_main)
@@ -79,12 +74,12 @@ class MainImageTestCase(WgerTestCase):
         Tests that there is always a main image after deleting one
         """
 
-        exercise = Exercise.objects.get(pk=2)
-        pk1 = self.save_image(exercise, 'protestschwein.jpg')
-        pk2 = self.save_image(exercise, 'protestschwein.jpg')
-        pk3 = self.save_image(exercise, 'wildschwein.jpg')
-        pk4 = self.save_image(exercise, 'wildschwein.jpg')
-        pk5 = self.save_image(exercise, 'wildschwein.jpg')
+        translation = Translation.objects.get(pk=2)
+        pk1 = self.save_image(translation.exercise, 'protestschwein.jpg')
+        pk2 = self.save_image(translation.exercise, 'protestschwein.jpg')
+        pk3 = self.save_image(translation.exercise, 'wildschwein.jpg')
+        pk4 = self.save_image(translation.exercise, 'wildschwein.jpg')
+        pk5 = self.save_image(translation.exercise, 'wildschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk1)
         self.assertTrue(image.is_main)

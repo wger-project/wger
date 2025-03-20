@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "wger"
-version = "2.3.0a2"
+version = "2.3.0a3"
 dynamic = ["dependencies"]
 authors = [
     { name = "Roland Geider", email = "roland@geider.net" },
@@ -77,6 +77,7 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
+    ".venv",
 ]
 line-length = 100
 indent-width = 4

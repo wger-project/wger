@@ -30,9 +30,9 @@ from wger.exercises.models import (
     Alias,
     Equipment,
     Exercise,
-    ExerciseBase,
     ExerciseCategory,
     ExerciseVideo,
+    Translation,
     Variation,
 )
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
@@ -117,16 +117,16 @@ class Command(BaseCommand):
             #
             new_base = base_uuid == UUID_NEW
             if not options['create_on_new'] and new_base:
-                self.stdout.write(f'    Skipping creating new exercise base...\n')
+                self.stdout.write('    Skipping creating new exercise base...\n')
                 continue
 
             base = (
-                ExerciseBase.objects.get_or_create(
+                Exercise.objects.get_or_create(
                     uuid=base_uuid,
                     defaults={'category': ExerciseCategory.objects.get(name=base_category)},
                 )[0]
                 if not new_base
-                else ExerciseBase()
+                else Exercise()
             )
 
             # Update the base data
@@ -204,11 +204,11 @@ class Command(BaseCommand):
                     continue
 
                 translation = (
-                    Exercise.objects.get_or_create(
+                    Translation.objects.get_or_create(
                         uuid=exercise_uuid, defaults={'exercise_base': base, 'language': language}
                     )[0]
                     if not new_translation
-                    else Exercise()
+                    else Translation()
                 )
                 translation.exercise_base = base
                 translation.language = language
@@ -237,7 +237,7 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.SUCCESS(message))
 
                 if '(imported from Feeel)' in exercise_author:
-                    exercise_author = re.sub('\(imported from Feeel\)', '', exercise_author)
+                    exercise_author = re.sub(r'\(imported from Feeel\)', '', exercise_author)
                     for author in exercise_author.split(','):
                         author = author.strip()
                         author = f'{author} (imported from Feeel)'
@@ -245,7 +245,7 @@ class Command(BaseCommand):
                         if len(author) >= 60:
                             self.stdout.write(
                                 self.style.WARNING(
-                                    f'      Author name is longer than 60 characters, skipping...'
+                                    '      Author name is longer than 60 characters, skipping...'
                                 )
                             )
                             continue
@@ -264,7 +264,7 @@ class Command(BaseCommand):
         csv_file = open('exercises_cleanup_duplicates.csv', 'r', newline='')
         file_reader = csv.DictReader(csv_file)
         self.stdout.write(
-            self.style.WARNING(f'---> Deleting duplicate bases and translations now...')
+            self.style.WARNING('---> Deleting duplicate bases and translations now...')
         )
 
         for row in file_reader:
@@ -274,22 +274,22 @@ class Command(BaseCommand):
 
             if base_uuid:
                 try:
-                    ExerciseBase.objects.filter(uuid=base_uuid).delete()
+                    Exercise.objects.filter(uuid=base_uuid).delete()
                     self.stdout.write(f'* Deleted base {base_uuid}')
-                except ExerciseBase.DoesNotExist:
+                except Exercise.DoesNotExist:
                     pass
 
             if translation_uuid:
                 try:
-                    Exercise.objects.filter(uuid=translation_uuid).delete()
+                    Translation.objects.filter(uuid=translation_uuid).delete()
                     self.stdout.write(f'* Deleted translation {translation_uuid}')
-                except Exercise.DoesNotExist:
+                except Translation.DoesNotExist:
                     pass
 
             if variation_id:
                 try:
                     Variation.objects.filter(id=variation_id).delete()
                     self.stdout.write(f'* Deleted variation {variation_id}')
-                except Exercise.DoesNotExist:
+                except Translation.DoesNotExist:
                     pass
         csv_file.close()

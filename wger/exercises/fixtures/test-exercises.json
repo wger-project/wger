@@ -25,7 +25,7 @@
   },
   {
     "pk": 1,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
       "category": 2,
@@ -43,7 +43,7 @@
   },
   {
     "pk": 2,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
       "category": 2,
@@ -61,7 +61,7 @@
   },
   {
     "pk": 3,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "c2dc11e9-b14a-49cb-9d11-d1b9441f16f4",
       "category": 3,
@@ -75,7 +75,7 @@
   },
   {
     "pk": 4,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "a2f5b6ef-b780-49c0-8d96-fdaff23e27ce",
       "category": 3,
@@ -90,7 +90,7 @@
   },
   {
     "pk": 5,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "1ae6a28d-10e7-4ecf-af4f-905f8193e2c6",
       "category": 1,
@@ -102,7 +102,7 @@
   },
   {
     "pk": 6,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "95a7e546-e8f8-4521-a76b-983d94161b25",
       "category": 1,
@@ -114,7 +114,7 @@
   },
   {
     "pk": 7,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "b186f1f8-4957-44dc-bf30-d0b00064ce6f",
       "category": 1,
@@ -126,7 +126,7 @@
   },
   {
     "pk": 8,
-    "model": "exercises.exercisebase",
+    "model": "exercises.exercise",
     "fields": {
       "uuid": "c2078aac-e4e2-4103-a845-6252a3eb795e",
       "category": 1,
@@ -138,11 +138,11 @@
   },
   {
     "pk": 1,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "9838235c-e38f-4ca6-921e-9d237d8e0813",
       "language": 2,
-      "exercise_base": 1,
+      "exercise": 1,
       "description": "Lorem ipsum dolor sit amet",
       "name": "An exercise",
       "created": "2002-08-15T00:00:00+01:00",
@@ -151,11 +151,11 @@
   },
   {
     "pk": 2,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "7524ca8d-032e-482d-ab18-40e8a97851f6",
       "language": 2,
-      "exercise_base": 2,
+      "exercise": 2,
       "description": "",
       "name": "Very cool exercise",
       "created": "2022-01-10T00:00:00+01:00",
@@ -164,11 +164,11 @@
   },
   {
     "pk": 3,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "946afe7b-54a6-44a6-9c36-c3e31e6b4c3b",
       "language": 2,
-      "exercise_base": 3,
+      "exercise": 3,
       "description": "",
       "name": "Boring exercise",
       "created": "2022-01-10T00:00:00+01:00",
@@ -177,12 +177,12 @@
   },
   {
     "pk": 4,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "5e80d257-3ece-43a1-b01d-2b28c6c288be",
       "language": 2,
       "description": "",
-      "exercise_base": 4,
+      "exercise": 4,
       "license_author": "test",
       "name": "Pending exercise",
       "created": "2022-01-10T00:00:00+01:00",
@@ -191,12 +191,12 @@
   },
   {
     "pk": 5,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "13b532f9-d208-462e-a000-7b9982b2b53e",
       "language": 3,
       "description": "",
-      "exercise_base": 1,
+      "exercise": 1,
       "license_author": "test",
       "name": "Test exercise 123",
       "created": "2022-01-10T00:00:00+01:00",
@@ -205,12 +205,12 @@
   },
   {
     "pk": 6,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "e75335be-5177-4475-b17b-8d833c2aadf1",
       "language": 3,
       "description": "",
-      "exercise_base": 3,
+      "exercise": 3,
       "license_author": "test",
       "name": "Some other exercise",
       "created": "2022-01-10T00:00:00+01:00",
@@ -219,11 +219,11 @@
   },
   {
     "pk": 7,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "3362115b-5743-4896-9bdd-4abc17b8cc86",
       "language": 1,
-      "exercise_base": 4,
+      "exercise": 4,
       "description": "",
       "name": "Weitere Testübung",
       "created": "2022-01-10T00:00:00+01:00",
@@ -232,11 +232,11 @@
   },
   {
     "pk": 8,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "e75c421a-6839-4c14-b89a-bd2023818089",
       "language": 2,
-      "exercise_base": 5,
+      "exercise": 5,
       "description": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
@@ -245,11 +245,11 @@
   },
   {
     "pk": 9,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "c6286b86-026e-4fdb-9223-c8b011073678",
       "language": 2,
-      "exercise_base": 6,
+      "exercise": 6,
       "description": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
@@ -258,11 +258,11 @@
   },
   {
     "pk": 10,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "a2c9fac1-6d2c-4564-9300-0719d12a7ed1",
       "language": 2,
-      "exercise_base": 7,
+      "exercise": 7,
       "description": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
@@ -271,11 +271,11 @@
   },
   {
     "pk": 11,
-    "model": "exercises.exercise",
+    "model": "exercises.translation",
     "fields": {
       "uuid": "b589657e-5a8d-468a-9dc2-4d5b2237b394",
       "language": 2,
-      "exercise_base": 8,
+      "exercise": 8,
       "description": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
@@ -288,7 +288,7 @@
     "fields": {
       "uuid": "2275a647-4185-431c-87a8-2992c2d30cc6",
       "comment": "test 123",
-      "exercise": 1
+      "translation": 1
     }
   },
   {
@@ -297,7 +297,7 @@
     "fields": {
       "uuid": "a0271147-faca-4a08-af5e-0c02e8ae1310",
       "comment": "Foobar",
-      "exercise": 2
+      "translation": 2
     }
   },
   {
@@ -306,7 +306,7 @@
     "fields": {
       "uuid": "48694b73-6cb8-4c34-a602-f0566c1ccb7c",
       "alias": "a different name",
-      "exercise": 1
+      "translation": 1
     }
   },
   {
@@ -315,7 +315,7 @@
     "fields": {
       "uuid": "cdee2830-a0b6-4a23-ab8c-46c53e0c9722",
       "alias": "yet another name",
-      "exercise": 2
+      "translation": 2
     }
   }
 ]

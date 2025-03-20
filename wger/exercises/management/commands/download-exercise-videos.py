@@ -14,21 +14,14 @@
 
 # Django
 from django.conf import settings
-from django.core.exceptions import (
-    ImproperlyConfigured,
-    ValidationError,
-)
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
+from django.core.exceptions import ImproperlyConfigured
 
 # wger
+from wger.core.management.wger_command import WgerCommand
 from wger.exercises.sync import download_exercise_videos
 
 
-class Command(BaseCommand):
+class Command(WgerCommand):
     """
     Download exercise videos from wger.de and updates the local database
 
@@ -38,24 +31,10 @@ class Command(BaseCommand):
 
     help = 'Download exercise videos from wger.de and update the local database'
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--remote-url',
-            action='store',
-            dest='remote_url',
-            default='https://wger.de',
-            help='Remote URL to fetch the exercises from (default: https://wger.de)',
-        )
-
     def handle(self, **options):
         if not settings.MEDIA_ROOT:
             raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
 
-        remote_url = options['remote_url']
-        try:
-            val = URLValidator()
-            val(remote_url)
-        except ValidationError:
-            raise CommandError('Please enter a valid URL')
+        super().handle(**options)
 
-        download_exercise_videos(self.stdout.write, remote_url)
+        download_exercise_videos(self.stdout.write, options['remote_url'], self.style.SUCCESS)

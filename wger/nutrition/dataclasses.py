@@ -45,7 +45,7 @@ class IngredientData:
 
     def sanity_checks(self):
         if not self.name:
-            raise ValueError(f'Name is empty!')
+            raise ValueError('Name is empty!')
         self.name = self.name[:200]
         self.brand = self.brand[:200]
         self.common_name = self.common_name[:200]
@@ -65,7 +65,7 @@ class IngredientData:
                 raise ValueError(f'Value for {macro} is greater than 100: {value}')
 
         if self.carbohydrates + self.protein + self.fat > 100:
-            raise ValueError(f'Total of carbohydrates, protein and fat is greater than 100!')
+            raise ValueError('Total of carbohydrates, protein and fat is greater than 100!')
 
     def dict(self):
         return asdict(self)
