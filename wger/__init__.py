@@ -16,8 +16,7 @@
 from packaging.version import Version
 
 # Local
-from .celery_configuration import app
-
+from wger.celery_configuration import app
 
 MIN_APP_VERSION = Version('1.8.0')
 """Minimum version of the mobile app required to access this server"""
