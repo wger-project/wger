@@ -1,5 +1,8 @@
-from rest_framework import serializers
+# Standard Library
 from decimal import Decimal
+
+# Third Party
+from rest_framework import serializers
 
 
 class DecimalOrIntegerField(serializers.DecimalField):
