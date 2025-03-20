@@ -3,7 +3,7 @@
 #
 
 # Application
-Django==4.2.16
+Django==4.2.20
 bleach[css]~=6.2
 celery[redis]==5.4.0
 crispy-bootstrap5==2024.10
