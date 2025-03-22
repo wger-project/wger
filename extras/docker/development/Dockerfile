@@ -1,8 +1,8 @@
 #
-# Installs some additional packages needed for development
+# Docker file for the development environment
 #
-# Note that this dockerfile is built from the corresponding docker-compose file
-#
+# Please consult https://wger.readthedocs.io/en/latest/development/backend.html
+# on how to use and start it.
 
 FROM wger/server:latest
 
