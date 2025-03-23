@@ -11,5 +11,5 @@
 
 ### Other questions
 
-* Do users need to run some commmands in their local instances due to this PR
+* Do users need to run some commands in their local instances due to this PR
   (e.g. database migration)?
