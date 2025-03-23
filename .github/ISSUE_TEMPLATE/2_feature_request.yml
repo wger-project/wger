@@ -1,6 +1,6 @@
 name: Feature request
 description: Suggest a new idea for wger
-type: [ "enhancement" ]
+type: enhancement
 body:
   - type: textarea
     id: description

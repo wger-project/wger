@@ -3,7 +3,7 @@
 
 name: Bug report
 description: Report an error or unexpected behavior
-type: [ "bug" ]
+type: bug
 body:
   - type: dropdown
     id: priority
@@ -18,35 +18,35 @@ body:
   - type: textarea
     id: description
     attributes:
-    label: Description
-    description: |
-      A clear and concise description of the bug.
-    placeholder: |
-      Please include any information you think is relevant to the issue you are experiencing.
-      This could include any steps to reproduce it (if it happens consistently), expected vs.
-      actual behavior, logs, screenshots, links to related issues, etc.
+      label: Description
+      description: |
+        A clear and concise description of the bug.
+      placeholder: |
+        Please include any information you think is relevant to the issue you are experiencing.
+        This could include any steps to reproduce it (if it happens consistently), expected vs.
+        actual behavior, logs, screenshots, links to related issues, etc.
     validations:
     required: true
 
   - type: input
     id: server-version
     attributes:
-    label: Server version
-    description: |
-      What version of wger are you using and how did you install it?
-    placeholder: |
-      Check https://<server>/software/about-us or the git sha1 of the last commit you pulled /
-      you use our server, docker compose, manual installation, etc
+      label: Server version
+      description: |
+        What version of wger are you using and how did you install it?
+      placeholder: |
+        Check https://<server>/software/about-us or the git sha1 of the last commit you pulled /
+        you use our server, docker compose, manual installation, etc
     validations:
     required: false
 
   - type: input
     id: app-version
     attributes:
-    label: Mobile app version
-    description: |
-      If applicable, what version of the mobile app are you using and how did you install it?
-    placeholder: |
-      Check the "about wger" dialog / Play Store, App Store, Flathub, self compiled, etc.
+      label: Mobile app version
+      description: |
+        If applicable, what version of the mobile app are you using and how did you install it?
+      placeholder: |
+        Check the "about wger" dialog / Play Store, App Store, Flathub, self compiled, etc.
     validations:
     required: false
