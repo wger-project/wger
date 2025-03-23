@@ -26,7 +26,7 @@ body:
         This could include any steps to reproduce it (if it happens consistently), expected vs.
         actual behavior, logs, screenshots, links to related issues, etc.
     validations:
-    required: true
+      required: true
 
   - type: input
     id: server-version
@@ -38,7 +38,7 @@ body:
         Check https://<server>/software/about-us or the git sha1 of the last commit you pulled /
         you use our server, docker compose, manual installation, etc
     validations:
-    required: false
+      required: false
 
   - type: input
     id: app-version
@@ -49,4 +49,4 @@ body:
       placeholder: |
         Check the "about wger" dialog / Play Store, App Store, Flathub, self compiled, etc.
     validations:
-    required: false
+      required: false
