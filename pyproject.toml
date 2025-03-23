@@ -4,7 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "wger"
-dynamic = ["version", "dependencies"]
+version = "2.3.0b1"
+# dynamic = ["version", "dependencies"]
+dynamic = ["dependencies"]
 authors = [
     { name = "Roland Geider", email = "roland@geider.net" },
 ]
@@ -46,10 +48,10 @@ dependencies = { file = ["requirements.txt"] }
 [tool.distutils.bdist_wheel]
 universal = 1
 
-[tool.hatch.version]
-source = "code"
-path = "wger/__init__.py"
-expression = "get_version()"
+# [tool.hatch.version]
+# source = "code"
+# path = "wger/__init__.py"
+# expression = "get_version()"
 
 
 [tool.ruff]
