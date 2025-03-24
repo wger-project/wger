@@ -20,19 +20,9 @@ import datetime
 import decimal
 import io
 import logging
-from collections import OrderedDict
-
-# Django
-from django.core.cache import cache
 
 # wger
-from wger.manager.models import (
-    WorkoutLog,
-    WorkoutSession,
-)
-from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 
@@ -82,99 +72,4 @@ def parse_weight_csv(request, cleaned_data):
     for date, weight in distinct_weight_entries:
         weight_list.append(WeightEntry(date=date, weight=weight, user=request.user))
 
-    return (weight_list, error_list)
-
-
-def group_log_entries(user, year, month, day=None):
-    """
-    Processes and regroups a list of log entries so they can be more easily
-    used in the different calendar pages
-
-    :param user: the user to filter the logs for
-    :param year: year
-    :param month: month
-    :param day: optional, day
-
-    :return: a dictionary with grouped logs by date and exercise
-    """
-    if day:
-        log_hash = hash((user.pk, year, month, day))
-    else:
-        log_hash = hash((user.pk, year, month))
-
-    # There can be workout sessions without any associated log entries, so it is
-    # not enough so simply iterate through the logs
-    if day:
-        filter_date = datetime.date(year, month, day)
-        logs = WorkoutLog.objects.filter(user=user, date=filter_date)
-        sessions = WorkoutSession.objects.filter(user=user, date=filter_date)
-
-    else:
-        logs = WorkoutLog.objects.filter(user=user, date__year=year, date__month=month)
-
-        sessions = WorkoutSession.objects.filter(user=user, date__year=year, date__month=month)
-
-    logs = logs.order_by('date', 'id')
-    out = cache.get(cache_mapper.get_workout_log_list(log_hash))
-    # out = OrderedDict()
-
-    if not out:
-        out = OrderedDict()
-
-        # Logs
-        for entry in logs:
-            if not out.get(entry.date):
-                out[entry.date] = {
-                    'date': entry.date,
-                    'workout': entry.workout,
-                    'session': entry.session,
-                    'logs': OrderedDict(),
-                }
-
-            if not out[entry.date]['logs'].get(entry.exercise):
-                out[entry.date]['logs'][entry.exercise] = []
-
-            out[entry.date]['logs'][entry.exercise].append(entry)
-
-        # Sessions
-        for entry in sessions:
-            if not out.get(entry.date):
-                out[entry.date] = {
-                    'date': entry.date,
-                    'workout': entry.workout,
-                    'session': entry,
-                    'logs': {},
-                }
-
-        cache.set(cache_mapper.get_workout_log_list(log_hash), out)
-    return out
-
-
-def get_last_entries(user, amount=5):
-    """
-    Get the last weight entries as well as the difference to the last
-
-    This can be used e.g. to present a list where the last entries and
-    their changes are presented.
-    """
-
-    last_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
-    last_entries_details = []
-
-    for index, entry in enumerate(last_entries):
-        curr_entry = entry
-        prev_entry_index = index + 1
-
-        if prev_entry_index < len(last_entries):
-            prev_entry = last_entries[prev_entry_index]
-        else:
-            prev_entry = None
-
-        if prev_entry and curr_entry:
-            weight_diff = curr_entry.weight - prev_entry.weight
-            day_diff = (curr_entry.date - prev_entry.date).days
-        else:
-            weight_diff = day_diff = None
-        last_entries_details.append((curr_entry, weight_diff, day_diff))
-
-    return last_entries_details
+    return weight_list, error_list
