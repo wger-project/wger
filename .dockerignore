@@ -1,4 +1,9 @@
+.venv
 venv
 node_modules
+media
+static
+db
+*.sqlite3
 **/__pycache__
 *.egg-info
