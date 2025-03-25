@@ -108,19 +108,6 @@ from wger.weight.models import WeightEntry
 logger = logging.getLogger(__name__)
 
 
-def login(request):
-    """
-    Small wrapper around the django login view
-    """
-
-    next_url = '?next=' + request.GET.get('next') if request.GET.get('next') else ''
-
-    form = UserLoginForm
-    form.helper.form_action = reverse('core:user:login') + next_url
-
-    return LoginView.as_view(template_name='user/login.html', authentication_form=form)
-
-
 @login_required()
 def delete(request, user_pk=None):
     """
