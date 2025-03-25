@@ -299,3 +299,35 @@ class RoutineStatisticsTestCase(WgerTestCase):
                 total=10,
             ),
         )
+
+    def test_handle_null_weight(self):
+        WorkoutLog(
+            user_id=1,
+            routine=self.routine,
+            date=datetime.date(2024, 2, 12),
+            repetitions_unit_id=REP_UNIT_REPETITIONS,
+            repetitions=5,
+            weight_unit_id=WEIGHT_UNIT_KG,
+            weight=None,
+            exercise_id=1,
+            iteration=1,
+        ).save()
+
+        # No exception happens
+        self.routine.calculate_log_statistics()
+
+    def test_handle_null_repetitions(self):
+        WorkoutLog(
+            user_id=1,
+            routine=self.routine,
+            date=datetime.date(2024, 2, 12),
+            repetitions_unit_id=REP_UNIT_REPETITIONS,
+            repetitions=None,
+            weight_unit_id=WEIGHT_UNIT_KG,
+            weight=4,
+            exercise_id=1,
+            iteration=1,
+        ).save()
+
+        # No exception happens
+        self.routine.calculate_log_statistics()

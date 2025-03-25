@@ -52,7 +52,6 @@ from wger.manager.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -379,13 +378,16 @@ class Routine(models.Model):
             week_nr: int,
             iter: int,
             exercise: Exercise,
-            value: Decimal | int,
+            value: Decimal | int | None,
         ):
             """
             Updates grouped log data
 
             This method just adds the value to the corresponding entries
             """
+            if value is None:
+                return
+
             muscles = exercise.muscles.all()
 
             entry.daily[date].exercises[exercise.id] += value
@@ -500,14 +502,13 @@ class Routine(models.Model):
 
             # TODO: filter for lb
             for log in session.logs.kg().reps():
+                iteration = log.iteration
                 exercise = log.exercise
                 weight = log.weight
                 reps = log.repetitions
-                iteration = log.iteration
-                exercise_volume = weight * reps
 
-                calculate_intensity = reps is not None and weight is not None
-                exercise_intensity = brzycki_intensity(weight, reps)
+                values_not_none = reps is not None and weight is not None
+                exercise_volume = weight * reps if values_not_none else 0
 
                 update_grouped_log_data(
                     entry=result.volume,
@@ -517,6 +518,8 @@ class Routine(models.Model):
                     exercise=exercise,
                     value=exercise_volume,
                 )
+
+                # Each log always corresponds to one set
                 update_grouped_log_data(
                     entry=result.sets,
                     iter=iteration,
@@ -526,7 +529,7 @@ class Routine(models.Model):
                     value=1,
                 )
 
-                if calculate_intensity:
+                if values_not_none:
                     update_grouped_log_data(
                         entry=intensity_counter,
                         iter=iteration,
@@ -542,7 +545,7 @@ class Routine(models.Model):
                         week_nr=week_number,
                         date=session_date,
                         exercise=exercise,
-                        value=exercise_intensity,
+                        value=brzycki_intensity(weight, reps),
                     )
 
         calculate_average_intensity(result.intensity, intensity_counter)
