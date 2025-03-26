@@ -38,13 +38,16 @@ class RiRApiTestCase(WgerTestCase):
                 'iteration': 1,
                 'slot_entry': 1,
                 'value': 1.4,
-                "operation": "r",
-                "step": "abs",
-            }
+                'operation': 'r',
+                'step': 'abs',
+            },
         )
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('1.4 is not a valid RiR option', data['value'][0], )
+        self.assertIn(
+            '1.4 is not a valid RiR option',
+            data['value'][0],
+        )
 
     def test_rir_config_2(self):
         response = self.client.post(
@@ -53,9 +56,9 @@ class RiRApiTestCase(WgerTestCase):
                 'iteration': 1,
                 'slot_entry': 1,
                 'value': -1,
-                "operation": "r",
-                "step": "abs",
-            }
+                'operation': 'r',
+                'step': 'abs',
+            },
         )
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -71,17 +74,16 @@ class RiRApiTestCase(WgerTestCase):
                 'iteration': 1,
                 'slot_entry': 1,
                 'value': -1.4,
-                "operation": "r",
-                "step": "abs",
-            }
+                'operation': 'r',
+                'step': 'abs',
+            },
         )
         data = response.json()
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('-1.4 is not a valid RiR option', data['value'][1])
         self.assertIn(
-            'Ensure this value is either NULL or greater than or equal to 0.',
-            data['value'][0]
+            'Ensure this value is either NULL or greater than or equal to 0.', data['value'][0]
         )
 
     def test_log_1(self):
@@ -93,7 +95,7 @@ class RiRApiTestCase(WgerTestCase):
                 'slot_entry': 1,
                 'rir': 1.3,
                 'rir_target': 1.6,
-            }
+            },
         )
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

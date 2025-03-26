@@ -32,7 +32,6 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
         Check for creation (PUT, POST)
         """
         for entry in self.get_owner_objects():
-
             if not isinstance(request.data, dict):
                 raise exceptions.ValidationError('Request data is not a dictionary')
 
@@ -49,7 +48,6 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
         Check for updates (PUT, PATCH)
         """
         for entry in self.get_owner_objects():
-
             if not isinstance(request.data, dict):
                 raise exceptions.ValidationError('Request data is not a dictionary')
 

@@ -24,6 +24,7 @@ import logging
 # wger
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 
