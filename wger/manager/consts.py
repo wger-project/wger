@@ -15,16 +15,16 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 RIR_OPTIONS = [
-    (None, '------'),
-    ('0', 0),
-    ('0.5', 0.5),
-    ('1', 1),
-    ('1.5', 1.5),
-    ('2', 2),
-    ('2.5', 2.5),
-    ('3', 3),
-    ('3.5', 3.5),
-    ('4', 4),
+    None,
+    0,
+    0.5,
+    1,
+    1.5,
+    2,
+    2.5,
+    3,
+    3.5,
+    4,
 ]
 
 REP_UNIT_REPETITIONS = 1

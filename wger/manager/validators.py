@@ -14,8 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+from django.core.exceptions import ValidationError
 from django.core.validators import BaseValidator
 from django.utils.deconstruct import deconstructible
+
+# wger
+from wger.manager.consts import RIR_OPTIONS
 
 
 @deconstructible
@@ -28,3 +32,8 @@ class NullMinValueValidator(BaseValidator):
             return True
 
         return a < b
+
+
+def validate_rir(value):
+    if value not in RIR_OPTIONS:
+        raise ValidationError(f'{value} is not a valid RiR option: {RIR_OPTIONS}')

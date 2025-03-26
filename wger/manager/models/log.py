@@ -31,12 +31,14 @@ from wger.core.models import (
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
     REP_UNIT_REPETITIONS,
-    RIR_OPTIONS,
     WEIGHT_UNIT_KG,
 )
 from wger.manager.managers import WorkoutLogManager
 from wger.manager.models.session import WorkoutSession
-from wger.manager.validators import NullMinValueValidator
+from wger.manager.validators import (
+    NullMinValueValidator,
+    validate_rir,
+)
 from wger.utils.cache import reset_workout_log
 
 
@@ -177,24 +179,24 @@ class WorkoutLog(models.Model):
     Target amount of weight
     """
 
-    rir = models.CharField(
-        verbose_name=_('RiR'),
-        max_length=3,
-        blank=True,
+    rir = models.DecimalField(
+        max_digits=2,
+        decimal_places=1,
+        validators=[NullMinValueValidator(0), validate_rir],
         null=True,
-        choices=RIR_OPTIONS,
+        blank=True,
     )
     """
     Reps in Reserve, RiR. The amount of reps that could realistically still be
     done in the set.
     """
 
-    rir_target = models.CharField(
-        verbose_name=_('RiR'),
-        max_length=3,
-        blank=True,
+    rir_target = models.DecimalField(
+        max_digits=2,
+        decimal_places=1,
+        validators=[NullMinValueValidator(0), validate_rir],
         null=True,
-        choices=RIR_OPTIONS,
+        blank=True,
     )
     """
     Target Reps in Reserve

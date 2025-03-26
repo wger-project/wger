@@ -81,7 +81,7 @@ class Command(BaseCommand):
                                 rir = (
                                     set_data.rir + random.randint(0, 1)
                                     if set_data.rir
-                                    else random.choice(RIR_OPTIONS)[0]
+                                    else random.choice(RIR_OPTIONS)
                                 )
 
                                 rest = (

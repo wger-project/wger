@@ -126,7 +126,7 @@ class Command(BaseCommand):
                         sets = random.randint(2, 4)
                         weight = random.randint(20, 100)
                         rest = random.choice(range(100, 201, 10))
-                        rir = random.choice(RIR_OPTIONS)[0]
+                        rir = random.choice(RIR_OPTIONS)
 
                         if random.random() < 0.9:
                             SetsConfig(

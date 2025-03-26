@@ -19,6 +19,10 @@ from django.db import models
 
 # wger
 from wger.manager.models import AbstractChangeConfig
+from wger.manager.validators import (
+    NullMinValueValidator,
+    validate_rir,
+)
 
 
 class RiRConfig(AbstractChangeConfig):
@@ -29,7 +33,7 @@ class RiRConfig(AbstractChangeConfig):
     value = models.DecimalField(
         decimal_places=1,
         max_digits=2,
-        # choices=RIR_OPTIONS
+        validators=[NullMinValueValidator(0), validate_rir],
     )
 
 
@@ -41,5 +45,5 @@ class MaxRiRConfig(AbstractChangeConfig):
     value = models.DecimalField(
         decimal_places=1,
         max_digits=2,
-        # choices=RIR_OPTIONS
+        validators=[NullMinValueValidator(0), validate_rir],
     )
