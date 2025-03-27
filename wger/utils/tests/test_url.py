@@ -35,7 +35,7 @@ class TestMakeUri(unittest.TestCase):
 
         # Test with id
         self.assertEqual(
-            make_uri('test', id=123),
+            make_uri('test', object_id=123),
             'https://wger.de/api/v2/test/123/',
         )
 
@@ -53,7 +53,7 @@ class TestMakeUri(unittest.TestCase):
 
         # Test with all parameters
         self.assertEqual(
-            make_uri('test', id=123, object_method='create', query={'key1': 'value1'}),
+            make_uri('test', object_id=123, object_method='create', query={'key1': 'value1'}),
             'https://wger.de/api/v2/test/123/create/?key1=value1',
         )
 
