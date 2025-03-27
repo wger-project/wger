@@ -4,390 +4,390 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 
 ## Contributors
 
-- [Github-actions](https://github.com/invalid-email-address) - (github-actions@github.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- [Peter Dave Hello](https://github.com/PeterDaveHello) - (hsu@peterdavehello.org)
-- [Cam Cecil](https://github.com/scrapcode) - (ctcecil@gmail.com)
-- [Ali Rahbar](https://github.com/crypto-a) - (72822222+crypto-a@users.noreply.github.com)
-- [Joshua Shelley](https://github.com/navyjosh) - (navyjosh@gmail.com)
-- [Joshua](https://github.com/navyjosh) - (navyjosh@users.noreply.github.com)
-- [Ali Rahbar](https://github.com/crypto-a) - (alirahbar2005@gmail.com)
-- [Matthew Harrison](https://github.com/Maralai) - (matt@harrison.consulting)
-- [Josh](https://github.com/FlyingNimbusCloud) - (code@flynimbus.cloud)
-- [eyjhb](https://github.com/eyJhb) - (eyjhbb@gmail.com)
-- [kmoy1](https://github.com/kmoy1) - (54646969+kmoy1@users.noreply.github.com)
-- [Kevin Moy](https://github.com/kmoy1) - (kevinmoy@berkeley.edu)
-- [Victor B](https://github.com/victorbmlabs) - (146788256+victorbmlabs@users.noreply.github.com)
-- [Dieter Plaetinck](https://github.com/Dieterbe) - (dieter@plaetinck.be)
-- [Taylor Fuller](https://github.com/taylor-fuller) - (thfuller@proton.me)
-- [JLaField](https://github.com/JLaField) - (132795194+JLaField@users.noreply.github.com)
-- [JLaField](https://github.com/JLaField) - (jonathanclafield@gmail.com)
-- [bbk](https://github.com/bbkz) - (bbk@nocloud.ch)
-- [Maniues](https://github.com/Maniues) - (66561397+Maniues@users.noreply.github.com)
-- [ebwinters@comcast.net](https://github.com/ebwinters) - (ebwinters@comcast.net)
-- [Roelof Rietbroek](https://github.com/strawpants) - (roelof@wobbly.earth)
-- [bbkz](https://github.com/bbkz) - (bbkz@users.noreply.github.com)
-- [Jayanth Bontha](https://github.com/JayanthBontha) - (112277163+JayanthBontha@users.noreply.github.com)
-- [JayanthBontha](https://github.com/JayanthBontha) - (Jayanth2921@gmail.com)
-- [Brandon-Lu737](https://github.com/Brandon-z-lu) - (107624116+Brandon-Lu737@users.noreply.github.com)
-- [Ben Southcott](https://github.com/blsouthcott) - (64614884+blsouthcott@users.noreply.github.com)
-- [Ben Southcott](https://github.com/blsouthcott) - (benjamin.southcott@gmail.com)
-- [bingyingchu](https://github.com/bingyingchu) - (chubi@oregonstate.edu)
-- [Alexandra Rhodes](https://github.com/arhodes130) - (jarhodeswed@gmail.com)
-- [koenb](https://github.com/berniekoen) - (koenb@umich.edu)
-- [Bernardo Koen](https://github.com/bernardokoen) - (75961256+bernardokoen@users.noreply.github.com)
-- [Mohammad Rafigh](https://github.com/mohammadrafigh) - (mohammad.rafigh@gmail.com)
-- [saket2001](https://github.com/saket2001) - (saketchandorkar123@gmail.com)
-- [Rohan Karan](https://github.com/RohanKaran) - (rohankaran001@gmail.com)
-- [Adam Petík](https://github.com/AdamPetik) - (petikadam@gmail.com)
-- [Tom Bowyer](https://github.com/ImTheTom) - (tom4310@gmail.com)
-- [Tom Bowyer](https://github.com/ImTheTom) - (Tom4310@gmail.com)
-- Ingo Terpelle - (info@ingo-terpelle.de)
-- [olijzenga](https://github.com/olijzenga) - (oebelelijzenga@gmail.com)
-- [kade](https://github.com/kp5431) - (kp5431@g.rit.edu)
-- [Sopo](https://github.com/sophiamartelli) - (sofiko247@gmail.com)
-- [João Goulart](https://github.com/usehalter) - (joaofgoulart1@gmail.com)
-- Nikita Epifanov - (nikgreens@protonmail.com)
-- [jaspreetsd902](https://github.com/jaspreetsd902) - (80788763+jaspreetsd902@users.noreply.github.com)
-- [absolutely-not-bot](https://github.com/absolutely-not-bot) - (44127072+absolutely-not-bot@users.noreply.github.com)
-- [Milo Ivir](https://github.com/milotype) - (mail@milotype.de)
-- Mohammed Ali Zubair - (ali@Mohammeds-MacBook-Pro.local)
-- [Kyle Chesney](https://github.com/ChemiKyle) - (kyle.2493@gmail.com)
-- [Sergio](https://github.com/MrPointcut95) - (salvarher95@gmail.com)
-- [LucasSD](https://github.com/LucasSD) - (lucas.stonedrake@gmail.com)
-- [grkm](https://github.com/gorkemarslan) - (garslan13@gmail.com)
-- Oğuz Ersen - (oguzersen@protonmail.com)
-- [Ayush Kumar](https://github.com/Gr8ayu) - (anonymouskmr@gmail.com)
-- [Ayush Kumar](https://github.com/Gr8ayu) - (ayushk830@gmail.com)
-- J. Lavoie - (j.lavoie@net-c.ca)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
-- [Leninux](https://github.com/RedRudeBoy) - (redrudeboy@gmail.com)
-- [colout](https://github.com/colout) - (choughto@gmail.com)
-- [Kristopher Newsome](https://github.com/sysadmin75) - (krisnewsome@gmail.com)
-- [Jack Mulligan](https://github.com/jackmulligan-ire) - (81098668+jackmulligan-ire@users.noreply.github.com)
-- [Calvin Walden](https://github.com/calvinrw) - (calvinrwalden@protonmail.com)
-- [emuth](https://github.com/emmaamuth) - (emuth@umich.edu)
-- [Sidrah-Madiha](https://github.com/Sidrah-Madiha) - (sidrahsms@yahoo.com)
-- [Brad Johnson](https://github.com/bradsk88) - (bradsk88@gmail.com)
-- [Will Pearson](https://github.com/anonygoose) - (will.s.pearson@gmail.com)
-- [Rachael Wright-Munn](https://github.com/ChaelCodes) - (rachaellw5.1@gmail.com)
-- [Karmen Lu](https://github.com/karmenlu) - (lukarm3n@gmail.com)
-- [Angelina Subeska](https://github.com/Lyra1806) - (a.subeska@hotmail.de)
-- [Kevin Geng](https://github.com/gengkev) - (khg@andrew.cmu.edu)
-- [Aaron Kimbrell](https://github.com/aronwk-aaron) - (aronwk.aaron@gmail.com)
-- [Lydia Xing](https://github.com/lydiaxing) - (xinglydia@gmail.com)
-- [nikithamurikinati](https://github.com/nikithamurikinati) - (nikitham99@gmail.com)
-- [nikithamurikinati](https://github.com/nikithamurikinati) - (44553822+nikithamurikinati@users.noreply.github.com)
-- [Noah Pinter](https://github.com/nopinter) - (37446499+nopinter@users.noreply.github.com)
-- [Harlene Samra](https://github.com/harlenesamra) - (hsamra@andrew.cmu.edu)
-- [Noah Pinter](https://github.com/nopinter) - (nopinter@umich.edu)
-- [justinec@unix.andrew.cmu.edu](https://github.com/jcho17) - (minseo1117@gmail.com)
-- [derekli](https://github.com/derekli17) - (derekli@umich.edu)
-- [Austin Leung](https://github.com/austin-leung) - (austinle@andrew.cmu.edu)
-- [ryowright](https://github.com/ryowright) - (ryow.college@gmail.com)
-- [sandilsranasinghe](https://github.com/sandilsranasinghe) - (sandilsranasinghe@gmail.com)
-- [Rkamath2](https://github.com/Rkamath2) - (57260471+Rkamath2@users.noreply.github.com)
-- Rashmi Kamath - (rashmi@MacBook-Pro.attlocal.net)
-- Tony - (Stark)
-- [beingbiplov](https://github.com/beingbiplov) - (beingbiplov@gmail.com)
-- [Rasmus Storm](https://github.com/CoderCamel) - (stillrooney@gmail.com)
-- [Christopher O'Connell](https://github.com/oconnelc) - (coconnell84@gmail.com)
-- Simon Tang - (SIMON@Simons-MacBook-Pro-4.local)
-- Svn-Sp - (svn-sp@email)
-- [Kevin Antonio Rateni Iatauro](https://github.com/WalkingPizza) - (34224657+WalkingPizza@users.noreply.github.com)
-- [snappy45](https://github.com/louicoder) - (musanje2010@gmail.com)
-- [Zoe](https://github.com/VicFinistere) - (zoebelleton@gmail.com)
-- [Sven](https://github.com/Svn-Sp) - (69042800+Svn-Sp@users.noreply.github.com)
-- [Scott Peshak](https://github.com/speshak) - (scott@peshak.net)
-- [Peter van der Does](https://github.com/petervanderdoes) - (peter@avirtualhome.com)
-- Aerex - (nanaus13@yahoo.com)
-- Withnale - (withnale@users.github.com)
-- [Veltarn](https://github.com/Veltarn) - (dante161@gmail.com)
-- Anjalie Kini - (askmac@Anjalies-MBP.andover.edu)
--  - (roland@YOGA910.fritz.box)
-- [gmmoraes](https://github.com/gmmoraes) - (gabrielgmmoraes@gmail.com)
-- [Peter van der Does](https://github.com/petervanderdoes) - (github@avirtualhome.com)
-- [Daniel Topal](https://github.com/dtopal) - (dtopal@gmail.com)
-- [Mbarak Mbigo](https://github.com/Mbarak-Mbigo) - (mbarak.mbigo@andela.com)
-- alois - (mail@aloispaulus.be)
-- pythonGeek - (stephen.kanyi@andela.com)
-- [Ryan Marvin](https://github.com/RyanSept) - (marvinryan@ymail.com)
-- Boniface Mwenda - (boniface.mwenda@andela.com)
-- [Malcolm Jones](https://github.com/DeveloperMal) - (developermalj@gmail.com)
-- Jacob Stoebel - (stoebelj@berea.edu)
-- Roland Geider - (Roland Geider roland@intevation.de)
-- alelevinas - (alevis32)
-- [ywecur](https://github.com/ywecur) - (ywecur@wunderkinder.io)
-- [Verdi R-D](https://github.com/azend) - (verdi@azend.org)
-- [Alexandre Murphy-Gonthier](https://github.com/murphyalexandre) - (murphyalexandre@gmail.com)
-- [James Simas](https://github.com/jamessimas) - (xierox@gmail.com)
-- purplebird - (ryanalexanderhughes@gmail.com)
-- [Colin](https://github.com/cthare) - (cthare@users.noreply.github.com)
-- Roman Pavlov - (romanpavlv@gmail.com)
-- [Mihail Burduja](https://github.com/warchildmd) - (warchildmd@gmail.com)
-- tranbenny - (tran.benny123@gmail.com)
-- [Laszlo Ratsko](https://github.com/rlaszlo) - (laszlo.ratsko@gmail.com)
-- [Yuyu Aung](https://github.com/yuyu-aung) - (yuyuaung991@gmail.com)
-- [matheus](https://github.com/marchiore) - (marchiore.matheus@gmail.com)
-- [Tushar Gupta](https://github.com/Tushar-Gupta) - (tushar13113@iiitd.ac.in)
-- [Tushar Gupta](https://github.com/Tushar-Gupta) - (tushar18121994@gmail.com)
-- [Helen Sherwood-Taylor](https://github.com/helenst) - (helenst@gmail.com)
-- [Sean Hussey](https://github.com/seanhussey) - (sean@seanhussey.com)
-- Roland Geider - (hello@wger.de)
-- [dashdrum](https://github.com/dashdrum) - (dan@dashdrum.com)
-- Roland Geider - (roland.geider@intevation.de)
+- Github-actions - [https://github.com/invalid-email-address](https://github.com/invalid-email-address)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Peter Dave Hello - [https://github.com/PeterDaveHello](https://github.com/PeterDaveHello)
+- Cam Cecil - [https://github.com/scrapcode](https://github.com/scrapcode)
+- Ali Rahbar - [https://github.com/crypto-a](https://github.com/crypto-a)
+- Joshua Shelley - [https://github.com/navyjosh](https://github.com/navyjosh)
+- Joshua - [https://github.com/navyjosh](https://github.com/navyjosh)
+- Ali Rahbar - [https://github.com/crypto-a](https://github.com/crypto-a)
+- Matthew Harrison - [https://github.com/Maralai](https://github.com/Maralai)
+- Josh - [https://github.com/FlyingNimbusCloud](https://github.com/FlyingNimbusCloud)
+- eyjhb - [https://github.com/eyJhb](https://github.com/eyJhb)
+- kmoy1 - [https://github.com/kmoy1](https://github.com/kmoy1)
+- Kevin Moy - [https://github.com/kmoy1](https://github.com/kmoy1)
+- Victor B - [https://github.com/victorbmlabs](https://github.com/victorbmlabs)
+- Dieter Plaetinck - [https://github.com/Dieterbe](https://github.com/Dieterbe)
+- Taylor Fuller - [https://github.com/taylor-fuller](https://github.com/taylor-fuller)
+- JLaField - [https://github.com/JLaField](https://github.com/JLaField)
+- JLaField - [https://github.com/JLaField](https://github.com/JLaField)
+- bbk - [https://github.com/bbkz](https://github.com/bbkz)
+- Maniues - [https://github.com/Maniues](https://github.com/Maniues)
+- ebwinters@comcast.net - [https://github.com/ebwinters](https://github.com/ebwinters)
+- Roelof Rietbroek - [https://github.com/strawpants](https://github.com/strawpants)
+- bbkz - [https://github.com/bbkz](https://github.com/bbkz)
+- Jayanth Bontha - [https://github.com/JayanthBontha](https://github.com/JayanthBontha)
+- JayanthBontha - [https://github.com/JayanthBontha](https://github.com/JayanthBontha)
+- Brandon-Lu737 - [https://github.com/Brandon-z-lu](https://github.com/Brandon-z-lu)
+- Ben Southcott - [https://github.com/blsouthcott](https://github.com/blsouthcott)
+- Ben Southcott - [https://github.com/blsouthcott](https://github.com/blsouthcott)
+- bingyingchu - [https://github.com/bingyingchu](https://github.com/bingyingchu)
+- Alexandra Rhodes - [https://github.com/arhodes130](https://github.com/arhodes130)
+- koenb - [https://github.com/berniekoen](https://github.com/berniekoen)
+- Bernardo Koen - [https://github.com/bernardokoen](https://github.com/bernardokoen)
+- Mohammad Rafigh - [https://github.com/mohammadrafigh](https://github.com/mohammadrafigh)
+- saket2001 - [https://github.com/saket2001](https://github.com/saket2001)
+- Rohan Karan - [https://github.com/RohanKaran](https://github.com/RohanKaran)
+- Adam Petík - [https://github.com/AdamPetik](https://github.com/AdamPetik)
+- Tom Bowyer - [https://github.com/ImTheTom](https://github.com/ImTheTom)
+- Tom Bowyer - [https://github.com/ImTheTom](https://github.com/ImTheTom)
+- Ingo Terpelle
+- olijzenga - [https://github.com/olijzenga](https://github.com/olijzenga)
+- kade - [https://github.com/kp5431](https://github.com/kp5431)
+- Sopo - [https://github.com/sophiamartelli](https://github.com/sophiamartelli)
+- João Goulart - [https://github.com/usehalter](https://github.com/usehalter)
+- Nikita Epifanov
+- jaspreetsd902 - [https://github.com/jaspreetsd902](https://github.com/jaspreetsd902)
+- absolutely-not-bot - [https://github.com/absolutely-not-bot](https://github.com/absolutely-not-bot)
+- Milo Ivir - [https://github.com/milotype](https://github.com/milotype)
+- Mohammed Ali Zubair
+- Kyle Chesney - [https://github.com/ChemiKyle](https://github.com/ChemiKyle)
+- Sergio - [https://github.com/MrPointcut95](https://github.com/MrPointcut95)
+- LucasSD - [https://github.com/LucasSD](https://github.com/LucasSD)
+- grkm - [https://github.com/gorkemarslan](https://github.com/gorkemarslan)
+- Oğuz Ersen
+- Ayush Kumar - [https://github.com/Gr8ayu](https://github.com/Gr8ayu)
+- Ayush Kumar - [https://github.com/Gr8ayu](https://github.com/Gr8ayu)
+- J. Lavoie
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Leninux - [https://github.com/RedRudeBoy](https://github.com/RedRudeBoy)
+- colout - [https://github.com/colout](https://github.com/colout)
+- Kristopher Newsome - [https://github.com/sysadmin75](https://github.com/sysadmin75)
+- Jack Mulligan - [https://github.com/jackmulligan-ire](https://github.com/jackmulligan-ire)
+- Calvin Walden - [https://github.com/calvinrw](https://github.com/calvinrw)
+- emuth - [https://github.com/emmaamuth](https://github.com/emmaamuth)
+- Sidrah-Madiha - [https://github.com/Sidrah-Madiha](https://github.com/Sidrah-Madiha)
+- Brad Johnson - [https://github.com/bradsk88](https://github.com/bradsk88)
+- Will Pearson - [https://github.com/anonygoose](https://github.com/anonygoose)
+- Rachael Wright-Munn - [https://github.com/ChaelCodes](https://github.com/ChaelCodes)
+- Karmen Lu - [https://github.com/karmenlu](https://github.com/karmenlu)
+- Angelina Subeska - [https://github.com/Lyra1806](https://github.com/Lyra1806)
+- Kevin Geng - [https://github.com/gengkev](https://github.com/gengkev)
+- Aaron Kimbrell - [https://github.com/aronwk-aaron](https://github.com/aronwk-aaron)
+- Lydia Xing - [https://github.com/lydiaxing](https://github.com/lydiaxing)
+- nikithamurikinati - [https://github.com/nikithamurikinati](https://github.com/nikithamurikinati)
+- nikithamurikinati - [https://github.com/nikithamurikinati](https://github.com/nikithamurikinati)
+- Noah Pinter - [https://github.com/nopinter](https://github.com/nopinter)
+- Harlene Samra - [https://github.com/harlenesamra](https://github.com/harlenesamra)
+- Noah Pinter - [https://github.com/nopinter](https://github.com/nopinter)
+- justinec@unix.andrew.cmu.edu - [https://github.com/jcho17](https://github.com/jcho17)
+- derekli - [https://github.com/derekli17](https://github.com/derekli17)
+- Austin Leung - [https://github.com/austin-leung](https://github.com/austin-leung)
+- ryowright - [https://github.com/ryowright](https://github.com/ryowright)
+- sandilsranasinghe - [https://github.com/sandilsranasinghe](https://github.com/sandilsranasinghe)
+- Rkamath2 - [https://github.com/Rkamath2](https://github.com/Rkamath2)
+- Rashmi Kamath
+- Tony
+- beingbiplov - [https://github.com/beingbiplov](https://github.com/beingbiplov)
+- Rasmus Storm - [https://github.com/CoderCamel](https://github.com/CoderCamel)
+- Christopher O'Connell - [https://github.com/oconnelc](https://github.com/oconnelc)
+- Simon Tang
+- Svn-Sp
+- Kevin Antonio Rateni Iatauro - [https://github.com/WalkingPizza](https://github.com/WalkingPizza)
+- snappy45 - [https://github.com/louicoder](https://github.com/louicoder)
+- Zoe - [https://github.com/VicFinistere](https://github.com/VicFinistere)
+- Sven - [https://github.com/Svn-Sp](https://github.com/Svn-Sp)
+- Scott Peshak - [https://github.com/speshak](https://github.com/speshak)
+- Peter van der Does - [https://github.com/petervanderdoes](https://github.com/petervanderdoes)
+- Aerex
+- Withnale
+- Veltarn - [https://github.com/Veltarn](https://github.com/Veltarn)
+- Anjalie Kini
+- 
+- gmmoraes - [https://github.com/gmmoraes](https://github.com/gmmoraes)
+- Peter van der Does - [https://github.com/petervanderdoes](https://github.com/petervanderdoes)
+- Daniel Topal - [https://github.com/dtopal](https://github.com/dtopal)
+- Mbarak Mbigo - [https://github.com/Mbarak-Mbigo](https://github.com/Mbarak-Mbigo)
+- alois
+- pythonGeek
+- Ryan Marvin - [https://github.com/RyanSept](https://github.com/RyanSept)
+- Boniface Mwenda
+- Malcolm Jones - [https://github.com/DeveloperMal](https://github.com/DeveloperMal)
+- Jacob Stoebel
+- Roland Geider
+- alelevinas
+- ywecur - [https://github.com/ywecur](https://github.com/ywecur)
+- Verdi R-D - [https://github.com/azend](https://github.com/azend)
+- Alexandre Murphy-Gonthier - [https://github.com/murphyalexandre](https://github.com/murphyalexandre)
+- James Simas - [https://github.com/jamessimas](https://github.com/jamessimas)
+- purplebird
+- Colin - [https://github.com/cthare](https://github.com/cthare)
+- Roman Pavlov
+- Mihail Burduja - [https://github.com/warchildmd](https://github.com/warchildmd)
+- tranbenny
+- Laszlo Ratsko - [https://github.com/rlaszlo](https://github.com/rlaszlo)
+- Yuyu Aung - [https://github.com/yuyu-aung](https://github.com/yuyu-aung)
+- matheus - [https://github.com/marchiore](https://github.com/marchiore)
+- Tushar Gupta - [https://github.com/Tushar-Gupta](https://github.com/Tushar-Gupta)
+- Tushar Gupta - [https://github.com/Tushar-Gupta](https://github.com/Tushar-Gupta)
+- Helen Sherwood-Taylor - [https://github.com/helenst](https://github.com/helenst)
+- Sean Hussey - [https://github.com/seanhussey](https://github.com/seanhussey)
+- Roland Geider
+- dashdrum - [https://github.com/dashdrum](https://github.com/dashdrum)
+- Roland Geider
 
 ## Translators
 
 
 ### Portuguese
 
-- [Luiz Felipe Guidorizzi de Oliveira](https://github.com/EvilMonark) - (guiluizf222@gmail.com)
-- Wilton Rodrigues - (wiltonf.rodrigues@gmail.com)
-- [Guilherme Salomão](https://github.com/salomaoparkour) - (gmsalomao2@gmail.com)
-- [Douglas Gabriel Ochner](https://github.com/dochner) - (douglas.ochner@gmail.com)
-- [Guilherme G. Schardong](https://github.com/schardong) - (schardong.gg@gmail.com)
-- Dalton Scavassa - (daltux@users.noreply.hosted.weblate.org)
-- [Felipe Nogueira](https://github.com/fnogcps) - (contato.fnog@gmail.com)
-- [Eduardo Menges Mattje](https://github.com/EduMenges) - (eduardomattje@gmail.com)
-- [João Goulart](https://github.com/usehalter) - (joaofgoulart1@gmail.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- [Ricardo Bezerra da Silva](https://github.com/jeovajireh) - (camalau@gmail.com)
-- Raphael Marques de Barros - (rmbarros@protonmail.com)
-- [ssantos](https://github.com/SantosSi) - (ssantos@web.de)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Luiz Felipe Guidorizzi de Oliveira - [https://github.com/EvilMonark](https://github.com/EvilMonark)
+- Wilton Rodrigues
+- Guilherme Salomão - [https://github.com/salomaoparkour](https://github.com/salomaoparkour)
+- Douglas Gabriel Ochner - [https://github.com/dochner](https://github.com/dochner)
+- Guilherme G. Schardong - [https://github.com/schardong](https://github.com/schardong)
+- Dalton Scavassa
+- Felipe Nogueira - [https://github.com/fnogcps](https://github.com/fnogcps)
+- Eduardo Menges Mattje - [https://github.com/EduMenges](https://github.com/EduMenges)
+- João Goulart - [https://github.com/usehalter](https://github.com/usehalter)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Ricardo Bezerra da Silva - [https://github.com/jeovajireh](https://github.com/jeovajireh)
+- Raphael Marques de Barros
+- ssantos - [https://github.com/SantosSi](https://github.com/SantosSi)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Korean
 
-- [고수처럼](https://github.com/rrrmaster) - (dudgus9101@gmail.com)
-- [Gyu-sun Youm](https://github.com/Perlmint) - (omniavinco@gmail.com)
-- [성동하](https://github.com/tomjovi) - (tomjovi.com@gmail.com)
-- [namong79](https://github.com/namong79) - (airmedic79@naver.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- 고수처럼 - [https://github.com/rrrmaster](https://github.com/rrrmaster)
+- Gyu-sun Youm - [https://github.com/Perlmint](https://github.com/Perlmint)
+- 성동하 - [https://github.com/tomjovi](https://github.com/tomjovi)
+- namong79 - [https://github.com/namong79](https://github.com/namong79)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Finnish
 
-- [Ricky Tigg](https://github.com/Ricky-Tigg) - (ricky.tigg@gmail.com)
-- [Nikolay Korotkiy](https://github.com/sikmir) - (sikmir@gmail.com)
-- [Juuso Haapanen](https://github.com/juusohaapanen) - (juuso@haapanen.biz)
-- J. Lavoie - (j.lavoie@net-c.ca)
+- Ricky Tigg - [https://github.com/Ricky-Tigg](https://github.com/Ricky-Tigg)
+- Nikolay Korotkiy - [https://github.com/sikmir](https://github.com/sikmir)
+- Juuso Haapanen - [https://github.com/juusohaapanen](https://github.com/juusohaapanen)
+- J. Lavoie
 
 ### Polish
 
-- [Karol Solecki](https://github.com/karolsol) - (karolsol203@gmail.com)
-- Dawid Panyło - (wampir5000@o2.pl)
-- Marcin Schoenknecht - (marcinschoenknecht@gmail.com)
-- gnu-ewm - (gnu.ewm@protonmail.com)
-- [A M](https://github.com/AugiAugi44) - (augim3@gmail.com)
-- [Jacob](https://github.com/devzom) - (dev.zomerfeld@gmail.com)
-- [Henio Szewczyk](https://github.com/hszewczyk) - (henryk.szewczyk09@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Karol Solecki - [https://github.com/karolsol](https://github.com/karolsol)
+- Dawid Panyło
+- Marcin Schoenknecht
+- gnu-ewm
+- A M - [https://github.com/AugiAugi44](https://github.com/AugiAugi44)
+- Jacob - [https://github.com/devzom](https://github.com/devzom)
+- Henio Szewczyk - [https://github.com/hszewczyk](https://github.com/hszewczyk)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Romanian
 
-- B Sebastian - (absolve-vest-yeah@duck.com)
-- [Daniel Vigaru](https://github.com/danielvigaru) - (22689627+danielvigaru@users.noreply.github.com)
-- [dimii27](https://github.com/dimii27) - (dimitrieietcu@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- B Sebastian
+- Daniel Vigaru - [https://github.com/danielvigaru](https://github.com/danielvigaru)
+- dimii27 - [https://github.com/dimii27](https://github.com/dimii27)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Swedish
 
-- [PNS11](https://github.com/cess11) - (pontus@pontusnaslund.se)
-- [Kevin Gregard](https://github.com/Kladdiskakan) - (kevin@gregard.se)
-- [tygyh](https://github.com/tygyh) - (jonis9898@hotmail.com)
-- [stefan](https://github.com/clint1337) - (stefan.isacsson@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- PNS11 - [https://github.com/cess11](https://github.com/cess11)
+- Kevin Gregard - [https://github.com/Kladdiskakan](https://github.com/Kladdiskakan)
+- tygyh - [https://github.com/tygyh](https://github.com/tygyh)
+- stefan - [https://github.com/clint1337](https://github.com/clint1337)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Russian
 
-- [Алексей Курышко](https://github.com/alexkuryshko) - (alexkuryshko@gmail.com)
-- [Kira](https://github.com/Balalaika87) - (kiren1187@gmail.com)
-- [Nikolay Korotkiy](https://github.com/sikmir) - (sikmir@gmail.com)
-- Konstantin - (konstantin.photo@gmx.com)
-- gudvinr - (gudvinr+weblate@gmail.com)
-- Nikita Epifanov - (nikgreens@protonmail.com)
-- [Ryeori](https://github.com/daniqshu) - (gagawin99@gmail.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Алексей Курышко - [https://github.com/alexkuryshko](https://github.com/alexkuryshko)
+- Kira - [https://github.com/Balalaika87](https://github.com/Balalaika87)
+- Nikolay Korotkiy - [https://github.com/sikmir](https://github.com/sikmir)
+- Konstantin
+- gudvinr
+- Nikita Epifanov
+- Ryeori - [https://github.com/daniqshu](https://github.com/daniqshu)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Dutch
 
-- Christijan Mulder - (zeecowboy@gmail.com)
-- [Christijan](https://github.com/ChrispyM) - (c.mulder@concepts.nl)
-- [SilverServerT](https://github.com/SilverServerT) - (silver@silverserver.nl)
-- [Coen Visser](https://github.com/verluci) - (coen254@gmail.com)
-- Nick - (weblate@b00m.eu)
-- [Dieter Verbeken](https://github.com/NimdaBE) - (dieter.verbeken@gmail.com)
-- [Remco Schrijver](https://github.com/RemcoSchrijver) - (remcoschrijv3r@gmail.com)
-- Rick - (rickeits153@gmail.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- [David](https://github.com/DMachiels) - (david@davidmachiels.be)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Christijan Mulder
+- Christijan - [https://github.com/ChrispyM](https://github.com/ChrispyM)
+- SilverServerT - [https://github.com/SilverServerT](https://github.com/SilverServerT)
+- Coen Visser - [https://github.com/verluci](https://github.com/verluci)
+- Nick
+- Dieter Verbeken - [https://github.com/NimdaBE](https://github.com/NimdaBE)
+- Remco Schrijver - [https://github.com/RemcoSchrijver](https://github.com/RemcoSchrijver)
+- Rick
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- David - [https://github.com/DMachiels](https://github.com/DMachiels)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Croatian
 
-- [Milo Ivir](https://github.com/milotype) - (mail@milotype.de)
+- Milo Ivir - [https://github.com/milotype](https://github.com/milotype)
 
 ### Hebrew
 
-- [shlomi assaf](https://github.com/shlomiassaf) - (shlomiasaf@gmail.com)
-- [Tsz Hong CHAN](https://github.com/tomyan112) - (tomyan112@yahoo.com.hk)
-- n,rdo - (ifhiwy0kjc@gonetor.com)
+- shlomi assaf - [https://github.com/shlomiassaf](https://github.com/shlomiassaf)
+- Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
+- n,rdo
 
 ### Ukrainian
 
-- Максим Горпиніч - (mgorpinic2005@gmail.com)
-- [kvinto](https://github.com/badsystem) - (badsystem@ukr.net)
-- [Dan](https://github.com/Kefir2105) - (jonweblin2205@protonmail.com)
-- Dan - (denqwerta@gmail.com)
-- Tymofii Lytvynenko - (till.svit@gmail.com)
-- [Artem](https://github.com/defaultpage) - (artem@molotov.work)
+- Максим Горпиніч
+- kvinto - [https://github.com/badsystem](https://github.com/badsystem)
+- Dan - [https://github.com/Kefir2105](https://github.com/Kefir2105)
+- Dan
+- Tymofii Lytvynenko
+- Artem - [https://github.com/defaultpage](https://github.com/defaultpage)
 
 ### Spanish
 
-- [gallegonovato](https://github.com/gallegonovato) - (fran-carro@hotmail.es)
-- [hhugoac](https://github.com/hhugoac) - (hhugoac@gmail.com)
-- [Sergio Varela](https://github.com/IngrownMink4) - (sergitroll9@gmail.com)
-- [Javier](https://github.com/dysk0zero) - (javiroldan98@gmail.com)
-- [Biologia Libros](https://github.com/bio201922) - (biologialibros2019@gmail.com)
-- [G. Buendía](https://github.com/gbuendia) - (gbuendia@gmx.net)
-- [Sergio](https://github.com/MrPointcut95) - (salvarher95@gmail.com)
-- abraham - (acastrovargas@pm.me)
-- [Santiago Persico](https://github.com/spersico) - (santiagopersico@gmail.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- [Alex Hidalgo](https://github.com/alexjhidalgo) - (alexjhidalgo@icloud.com)
-- J. Lavoie - (j.lavoie@net-c.ca)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- gallegonovato - [https://github.com/gallegonovato](https://github.com/gallegonovato)
+- hhugoac - [https://github.com/hhugoac](https://github.com/hhugoac)
+- Sergio Varela - [https://github.com/IngrownMink4](https://github.com/IngrownMink4)
+- Javier - [https://github.com/dysk0zero](https://github.com/dysk0zero)
+- Biologia Libros - [https://github.com/bio201922](https://github.com/bio201922)
+- G. Buendía - [https://github.com/gbuendia](https://github.com/gbuendia)
+- Sergio - [https://github.com/MrPointcut95](https://github.com/MrPointcut95)
+- abraham
+- Santiago Persico - [https://github.com/spersico](https://github.com/spersico)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Alex Hidalgo - [https://github.com/alexjhidalgo](https://github.com/alexjhidalgo)
+- J. Lavoie
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Chinese (Simplified Han script)
 
-- Herb Huang - (Ranger0801@live.com)
+- Herb Huang
 
 ### German
 
-- [kvnrmnn](https://github.com/rmnn92) - (kvnrmnn@proton.me)
-- [Tobias Lechner](https://github.com/Lxchnxr) - (me@tobias-lechner.com)
-- [becothas](https://github.com/becothas) - (lukas.jedinger@gmail.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- m4skedbyte - (weblate@m4skedbyte.xyz)
-- [StefMe](https://github.com/StefMe) - (steffenmenk@gmail.com)
-- Axel Steinbrecher - (mail@axelsteinbrecher.de)
-- [KneeClass03](https://github.com/KneeClass03) - (nisipa@web.de)
-- [Christoph Suesser](https://github.com/TheFitzZZ) - (fitzzz@fitzzz.de)
-- J. Lavoie - (j.lavoie@net-c.ca)
-- mondstern - (mondstern@snopyta.org)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- kvnrmnn - [https://github.com/rmnn92](https://github.com/rmnn92)
+- Tobias Lechner - [https://github.com/Lxchnxr](https://github.com/Lxchnxr)
+- becothas - [https://github.com/becothas](https://github.com/becothas)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- m4skedbyte
+- StefMe - [https://github.com/StefMe](https://github.com/StefMe)
+- Axel Steinbrecher
+- KneeClass03 - [https://github.com/KneeClass03](https://github.com/KneeClass03)
+- Christoph Suesser - [https://github.com/TheFitzZZ](https://github.com/TheFitzZZ)
+- J. Lavoie
+- mondstern
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Hindi
 
-- [Ritik Sharma](https://github.com/RitikSharma02) - (pandatritik47@gmail.com)
-- [Ritish Bhardwaj](https://github.com/levidroid) - (ritishbhardwajratan@gmail.com)
+- Ritik Sharma - [https://github.com/RitikSharma02](https://github.com/RitikSharma02)
+- Ritish Bhardwaj - [https://github.com/levidroid](https://github.com/levidroid)
 
 ### French
 
-- [MrSniikyz](https://github.com/BabyGeek) - (babygeek83bis@gmail.com)
-- [florent4014](https://github.com/florent4014) - (florent.touzet@gmail.com)
-- [Lucas Batier](https://github.com/lucas-batier) - (lucas.batier@hotmail.fr)
-- [yoyomax80400](https://github.com/yoyomax80400) - (archie.maxime80@gmail.com)
-- Célian - (gallcelian@gmail.com)
-- J. Lavoie - (j.lavoie@net-c.ca)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- [Antoine Vibien](https://github.com/r1llettes) - (avibien@protonmail.ch)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- MrSniikyz - [https://github.com/BabyGeek](https://github.com/BabyGeek)
+- florent4014 - [https://github.com/florent4014](https://github.com/florent4014)
+- Lucas Batier - [https://github.com/lucas-batier](https://github.com/lucas-batier)
+- yoyomax80400 - [https://github.com/yoyomax80400](https://github.com/yoyomax80400)
+- Célian
+- J. Lavoie
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Antoine Vibien - [https://github.com/r1llettes](https://github.com/r1llettes)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Persian
 
-- [m93n pk](https://github.com/m93n) - (mohsen.k9731@gmail.com)
-- anyBlackSoul - (anyblacksoul@gmail.com)
-- [keyvanmj](https://github.com/keyvanmj) - (keyvanmj5@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- m93n pk - [https://github.com/m93n](https://github.com/m93n)
+- anyBlackSoul
+- keyvanmj - [https://github.com/keyvanmj](https://github.com/keyvanmj)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Norwegian Bokmål
 
-- GS Bacon - (gs@gsvoren.no)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
+- GS Bacon
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 
 ### Catalan
 
-- [Zixu Sun](https://github.com/ziixu) - (zixu233@gmail.com)
-- [guillem](https://github.com/gbuendia) - (gbuendia@gmx.net)
+- Zixu Sun - [https://github.com/ziixu](https://github.com/ziixu)
+- guillem - [https://github.com/gbuendia](https://github.com/gbuendia)
 
 ### Turkish
 
-- [Oğuz Ersen](https://github.com/oersen) - (oguz@ersen.moe)
-- [Cem Avcı](https://github.com/cem256) - (cemo99@gmail.com)
-- Oğuz Ersen - (oguzersen@protonmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Oğuz Ersen - [https://github.com/oersen](https://github.com/oersen)
+- Cem Avcı - [https://github.com/cem256](https://github.com/cem256)
+- Oğuz Ersen
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Chinese (Simplified)
 
-- [Yi-Han Hsiung](https://github.com/AaronHsiung) - (hsiungyi@oregonstate.edu)
-- [Tsz Hong CHAN](https://github.com/tomyan112) - (tomyan112@yahoo.com.hk)
-- [Bingo_Yan](https://github.com/ygbingo) - (yanhuibin315@163.com)
-- [Scotee007](https://github.com/Scotee007) - (huangzhenjiao@gmail.com)
-- [cld4h](https://github.com/cld4h) - (hao@24601.xyz)
-- [yzqzss](https://github.com/yzqzss) - (yzqzss@othing.xyz)
-- [Jing](https://github.com/jingcheng16) - (cynthiacheng-jing@outlook.com)
-- [sr-c](https://github.com/sr-c) - (shuruihao@outlook.com)
-- [tony](https://github.com/tonyxxliu) - (tony198586@hotmail.com)
-- freeair zhao - (izhaoget@gmail.com)
-- [猫猫头](https://github.com/Lirosty) - (914766662@qq.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Yi-Han Hsiung - [https://github.com/AaronHsiung](https://github.com/AaronHsiung)
+- Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
+- Bingo_Yan - [https://github.com/ygbingo](https://github.com/ygbingo)
+- Scotee007 - [https://github.com/Scotee007](https://github.com/Scotee007)
+- cld4h - [https://github.com/cld4h](https://github.com/cld4h)
+- yzqzss - [https://github.com/yzqzss](https://github.com/yzqzss)
+- Jing - [https://github.com/jingcheng16](https://github.com/jingcheng16)
+- sr-c - [https://github.com/sr-c](https://github.com/sr-c)
+- tony - [https://github.com/tonyxxliu](https://github.com/tonyxxliu)
+- freeair zhao
+- 猫猫头 - [https://github.com/Lirosty](https://github.com/Lirosty)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Italian
 
-- [Federico Pierantoni](https://github.com/F3FFO) - (federico.pieranton@gmail.com)
-- [oarion](https://github.com/oarion) - (michaelgalati@protonmail.com)
-- [Alessandro Faucci](https://github.com/Dhy19971) - (silenzio.canguro@gmail.com)
-- [Marco Accorinti](https://github.com/accodev) - (accosk8@gmail.com)
-- [Armando La Placa](https://github.com/a-lp) - (armando.laplaca@gmail.com)
-- [clafalco](https://github.com/clafalco) - (claudio.falco1973@libero.it)
-- DT - (semperpeppe@tracciabi.li)
-- [MARCO ACORTE](https://github.com/marco-acorte) - (macorte@gmail.com)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
-- J. Lavoie - (j.lavoie@net-c.ca)
-- [Stefano Rossi](https://github.com/stefanorossiti) - (stefanorossi.ti@gmail.com)
+- Federico Pierantoni - [https://github.com/F3FFO](https://github.com/F3FFO)
+- oarion - [https://github.com/oarion](https://github.com/oarion)
+- Alessandro Faucci - [https://github.com/Dhy19971](https://github.com/Dhy19971)
+- Marco Accorinti - [https://github.com/accodev](https://github.com/accodev)
+- Armando La Placa - [https://github.com/a-lp](https://github.com/a-lp)
+- clafalco - [https://github.com/clafalco](https://github.com/clafalco)
+- DT
+- MARCO ACORTE - [https://github.com/marco-acorte](https://github.com/marco-acorte)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- J. Lavoie
+- Stefano Rossi - [https://github.com/stefanorossiti](https://github.com/stefanorossiti)
 
 ### Czech
 
-- [Fjuro](https://github.com/Fjuro) - (fjuro@alius.cz)
-- Fjuro - (ifjuro@proton.me)
-- [CaptainDolphy](https://github.com/CaptainDolphy) - (captain.x.dolphy@gmail.com)
-- [Roman Kalivoda](https://github.com/RKCZ) - (kalivodaroman@gmail.com)
-- [Zrnek](https://github.com/TomasZmek) - (perteus@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Fjuro - [https://github.com/Fjuro](https://github.com/Fjuro)
+- Fjuro
+- CaptainDolphy - [https://github.com/CaptainDolphy](https://github.com/CaptainDolphy)
+- Roman Kalivoda - [https://github.com/RKCZ](https://github.com/RKCZ)
+- Zrnek - [https://github.com/TomasZmek](https://github.com/TomasZmek)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Hungarian
 
-- Adam Cool - (anthony.kek21@gmail.com)
-- [László Mócsy](https://github.com/LamaxStudio) - (studiolamax@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Adam Cool
+- László Mócsy - [https://github.com/LamaxStudio](https://github.com/LamaxStudio)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Japanese
 
-- [sasukeiscool](https://github.com/sasukeiscool) - (jaflagasd@gmail.com)
-- [yuki chi](https://github.com/kumo2kumo) - (cgbk10@gmail.com)
+- sasukeiscool - [https://github.com/sasukeiscool](https://github.com/sasukeiscool)
+- yuki chi - [https://github.com/kumo2kumo](https://github.com/kumo2kumo)
 
 ### Greek
 
-- [Antonis-geo](https://github.com/Antonis-geo) - (antgeoath@csd.auth.gr)
-- George Koikas - (gkoi2000@hotmail.gr)
-- [Eugenia Russell](https://github.com/eugenia-russell) - (eugenia.russell2019@gmail.com)
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
-- Michalis - (michalisntovas@yahoo.gr)
+- Antonis-geo - [https://github.com/Antonis-geo](https://github.com/Antonis-geo)
+- George Koikas
+- Eugenia Russell - [https://github.com/eugenia-russell](https://github.com/eugenia-russell)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Michalis
 
 ### Danish
 
-- [Tomasz Cielecki](https://github.com/Cheesebaron) - (tomasz@ostebaronen.dk)
-- [Roland Geider](https://github.com/rolandgeider) - (roland@geider.net)
+- Tomasz Cielecki - [https://github.com/Cheesebaron](https://github.com/Cheesebaron)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 
 ### Arabic (Saudi Arabia)
 
-- [SlyBat](https://github.com/AW-G) - (aw9gm3@gmail.com)
-- [Hissabat Manager](https://github.com/Chinguetti-Quizz) - (hissabatmanager@gmail.com)
-- [My Google](https://github.com/ahmedtahraoui90) - (ahmedtahraoui90@gmail.com)
+- SlyBat - [https://github.com/AW-G](https://github.com/AW-G)
+- Hissabat Manager - [https://github.com/Chinguetti-Quizz](https://github.com/Chinguetti-Quizz)
+- My Google - [https://github.com/ahmedtahraoui90](https://github.com/ahmedtahraoui90)
 
 ### Bulgarian
 
-- [Allan Nordhøy](https://github.com/comradekingu) - (epost@anotheragency.no)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
