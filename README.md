@@ -65,6 +65,9 @@ reporting issues and ideas, check out our
 [contribution guide](https://wger.readthedocs.io/en/latest/contributing.html)
 to get started.
 
+A huge thank you to everyone who has contributed so far! ❤️ See the full list
+in [AUTHORS.md](AUTHORS.md).
+
 ## Documentation
 
 Consult the online documentation at

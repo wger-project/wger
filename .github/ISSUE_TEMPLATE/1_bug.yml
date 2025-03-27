@@ -33,10 +33,10 @@ body:
     attributes:
       label: Server version
       description: |
-        What version of wger are you using and how did you install it?
+        What version of wger are you using and how did you install it (our server, docker
+        compose, manual installation, etc)?
       placeholder: |
-        Check https://<server>/software/about-us or the git sha1 of the last commit you pulled /
-        you use our server, docker compose, manual installation, etc
+        Check e.g. https://<server>/software/about-us
     validations:
       required: false
 
@@ -45,8 +45,9 @@ body:
     attributes:
       label: Mobile app version
       description: |
-        If applicable, what version of the mobile app are you using and how did you install it?
+        If applicable, what version of the mobile app are you using and how did you install it
+        (Play Store, App Store, Flathub, self compiled, etc.)?
       placeholder: |
-        Check the "about wger" dialog / Play Store, App Store, Flathub, self compiled, etc.
+        Check e.g. the "about wger" dialog
     validations:
       required: false
