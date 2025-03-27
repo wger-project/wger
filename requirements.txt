@@ -31,7 +31,7 @@ packaging==24.2
 reportlab==4.3.1
 requests==2.32.3
 tqdm==4.67.1
-tzdata==2025.1
+tzdata==2025.2
 
 # AWS
 #boto3
