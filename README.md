@@ -77,6 +77,38 @@ Consult the online documentation at
 for installation instructions, API documentation, development guidelines, and
 other information
 
+#### Beginner's guide to contributing to this project- See steps below with tips
+
+Step 1. Create GitHub account if you don't already have one.
+
+https://github.com/join
+
+Step 2. CLone repository you wish to make changes to.
+
+https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+
+Step 3. Open in editor of your choosing (example: VScode).
+
+https://www.hostinger.com/tutorials/best-code-editors
+
+Step 4. Make desired changes in editor
+
+Step 5. Save changes and stage changes (see turorial below)
+
+https://www.youtube.com/watch?v=-dI00g5KdD4
+
+Step 6. Commit to local repository and "Push" to remote repository(see turorial below).
+
+https://www.youtube.com/watch?v=B8RSMBSzFuA
+
+Step 7. Log into GitHub, check commits are there.
+
+Step 8. Create pull request to original repository on Github.
+
+https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request
+
+
+
 ## Contact
 
 Feel free to contact us if you found this useful or if there was something that
