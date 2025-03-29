@@ -25,14 +25,14 @@ class TranslationModelTestCase(WgerTestCase):
     def test_absolute_url_name(self):
         """Test that the get_absolute_url returns the correct URL"""
         translation = Translation(exercise_id=1, description='abc', name='foo')
-        self.assertEqual(translation.get_absolute_url(), '/en/exercise/1/view-base/foo')
+        self.assertEqual(translation.get_absolute_url(), '/en/exercise/1/view/foo')
 
     def test_absolute_url_no_name(self):
         """Test that the get_absolute_url returns the correct URL"""
         translation = Translation(exercise_id=2, description='abc', name='')
-        self.assertEqual(translation.get_absolute_url(), '/en/exercise/2/view-base')
+        self.assertEqual(translation.get_absolute_url(), '/en/exercise/2/view')
 
     def test_absolute_url_no_name2(self):
         """Test that the get_absolute_url returns the correct URL"""
         translation = Translation(exercise_id=42, description='abc', name='@@@@@')
-        self.assertEqual(translation.get_absolute_url(), '/en/exercise/42/view-base')
+        self.assertEqual(translation.get_absolute_url(), '/en/exercise/42/view')

@@ -143,7 +143,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Returns the canonical URL to view an exercise
         """
-        return reverse('exercise:exercise:view-base', kwargs={'pk': self.id})
+        return reverse('exercise:exercise:view', kwargs={'pk': self.id})
 
     @classmethod
     def check(cls, **kwargs):

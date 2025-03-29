@@ -122,19 +122,14 @@ patterns_exercise = [
         name='overview',
     ),
     path(
-        '<int:id>/view/',
+        '<int:pk>/view/',
         ReactView.as_view(),
         name='view',
     ),
     path(
-        '<int:pk>/view-base',
+        '<int:pk>/view/<slug:slug>',
         ReactView.as_view(),
-        name='view-base',
-    ),
-    path(
-        '<int:pk>/view-base/<slug:slug>',
-        ReactView.as_view(),
-        name='view-base',
+        name='view',
     ),
     path(
         'contribute',
