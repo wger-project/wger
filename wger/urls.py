@@ -16,6 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
@@ -260,6 +261,8 @@ sitemaps = {
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
+    path('oidc/', include('mozilla_django_oidc.urls')),
+    path('admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
     path('routine/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
@@ -294,7 +297,7 @@ urlpatterns += [
     path('api/v2/', include(router.urls)),
     # The api user login
     path(
-        'api/v2/login/', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
+        'api/v2/    /', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
     ),
     path(
         'api/v2/register/',
