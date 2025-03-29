@@ -13,13 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
+from django.core.management.base import CommandError
 
 # wger
 from wger.core.api.min_server_version import check_min_server_version

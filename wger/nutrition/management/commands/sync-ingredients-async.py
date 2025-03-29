@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 # wger
@@ -26,7 +27,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Triggering the Celery task to synchronize all ingredients...')
 
-        check_min_server_version(remote_url)
+        check_min_server_version(settings.WGER_SETTINGS['WGER_INSTANCE'])
 
         # Trigger the task asynchronously
         sync_all_ingredients_task.delay()
