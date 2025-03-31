@@ -57,7 +57,8 @@
         "imageStyleLine": "Ligne",
         "imageDetails": "Détail des images",
         "imageStyleOther": "Autre",
-        "imageStyleLowPoly": "Low-Poly"
+        "imageStyleLowPoly": "Low-Poly",
+        "swapExercise": "Changer d'exercice"
     },
     "server": {
         "arms": "Bras",
@@ -123,14 +124,18 @@
         "minLength": "Veuillez saisir plus de {{chars}} caractères",
         "maxLength": "Veuillez saisir moins de {{chars}} caractères",
         "maxValue": "La valeur de ce champ doit être inférieure à {{value}}",
-        "minValue": "La valeur de ce champ doit être supérieure à {{value}}"
+        "minValue": "La valeur de ce champ doit être supérieure à {{value}}",
+        "enterNumber": "Veuillez entrer un nombre valide",
+        "maxLessThanMin": "La valeur maximale doit être plus grande que la valeur minimale",
+        "endBeforeStart": "La valeur de fin ne peut être avant le début",
+        "enterInteger": "Veuillez entrer un nombre entier"
     },
     "name": "Nom",
     "category": "Catégorie",
     "English": "Anglais",
     "save": "Sauvegarder",
     "cancel": "Annuler",
-    "success": "Succès !",
+    "success": "Succès!",
     "videos": "Vidéos",
     "cannotBeUndone": "Cette action ne peux pas être annulée.",
     "translation": "Traduction",
@@ -145,7 +150,8 @@
         "routine": "Routine",
         "routines": "Routines",
         "logsHeader": "Journal de poids pour cet entraînement",
-        "rir": "ReR"
+        "rir": "ReR",
+        "reps": "Répétitions"
     },
     "value": "Valeur",
     "deleteConfirmation": "Êtes-vous certain de vouloir supprimer \"{{name}}\" ?",
@@ -229,11 +235,29 @@
     "calendar": "Calendrier",
     "entries": "Entrées",
     "no_entries_for_day": "Aucune entrée pour ce jour",
-    "height": "Poids",
+    "height": "taille",
     "cm": "cm",
     "lastHalfYear": "6 Derniers Mois",
     "lastMonth": "Dernier Mois",
     "all": "Tout",
     "lastYear": "Dernière Année",
-    "lastWeek": "Dernière Semaine"
+    "lastWeek": "Dernière Semaine",
+    "start": "Démarrer",
+    "end": "Terminer",
+    "min": "Minimum",
+    "max": "Maximum",
+    "durationWeeks": "{{number}} semaines",
+    "successfullyDeleted": "Suppression effectuée",
+    "durationWeeksDays": "{{nrWeeks}} semaines, {{nrDays}} jours",
+    "undo": "Annuler les modifications",
+    "bmi": {
+        "calculator": "Calculateur BMI",
+        "overweight": "Surpoids",
+        "obese": "Obèse",
+        "normal": "Poids normal",
+        "underweight": "Poids insuffisant",
+        "result": "Votre BMI est {{value}}"
+    },
+    "editName": "Editer {{name}}",
+    "comment": "Commentaire"
 }

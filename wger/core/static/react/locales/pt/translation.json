@@ -83,7 +83,8 @@
         "imageStyleLine": "Linha",
         "imageStyleLowPoly": "Baixa Poligonalidade",
         "imageStyleOther": "Outro",
-        "imageDetails": "Detalhes da Imagem"
+        "imageDetails": "Detalhes da Imagem",
+        "swapExercise": "Trocar exercício"
     },
     "noResults": "Sem resultados",
     "noResultsDescription": "Nenhum resultado encontrado para essa consulta, considere reduzir o número de filtros.",
@@ -100,7 +101,10 @@
         "minValue": "O valor para esse campo deve ser maior que {{value}}",
         "maxLength": "Por favor, entre com menos de {{chars}} caracteres",
         "minLength": "Por favor, use mais que {{chars}} caracteres",
-        "maxValue": "O valor para esse campo deve ser menor que {{value}}"
+        "maxValue": "O valor para esse campo deve ser menor que {{value}}",
+        "enterNumber": "Favor inserir um número válido",
+        "enterInteger": "Favor inserir um número inteiro",
+        "maxLessThanMin": "O valor máximo deve ser maior que o mínimo"
     },
     "cannotBeUndone": "Essa ação é irreversível.",
     "server": {
@@ -162,7 +166,15 @@
         "routines": "Rotinas",
         "logsFilterNote": "Note que apenas entradas com uma unidade de massa de kg ou lb e repetições aparecem no gráfico. Outras combinações tais como tempo ou até falha são ignoradas aqui",
         "logsHeader": "Registro de peso para treino",
-        "rir": "ReR"
+        "rir": "ReR",
+        "sets": "Séries",
+        "intensity": "Intensidade",
+        "currentRoutine": "Rotina atual",
+        "weekly": "Semanal",
+        "daily": "Diária",
+        "restTime": "Tempo de repouso",
+        "backToRoutine": "Voltar para rotina",
+        "reps": "Repetições"
     },
     "measurements": {
         "measurements": "Medidas",
@@ -260,5 +272,10 @@
     },
     "entries": "Entradas",
     "calendar": "Calendário",
-    "no_entries_for_day": "Não há entradas para este dia"
+    "no_entries_for_day": "Não há entradas para este dia",
+    "start": "Iniciar",
+    "comment": "Comentário",
+    "editName": "Editar {{name}}",
+    "undo": "Desfazer",
+    "successfullyDeleted": "Apagado com sucesso"
 }
