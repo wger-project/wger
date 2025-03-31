@@ -27,7 +27,6 @@ from wger.nutrition.management.products import (
 )
 from wger.nutrition.off import extract_info_from_off
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -137,23 +136,20 @@ class Command(ImportProductCommand):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
+        languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
+
         self.stdout.write('Importing entries from Open Food Facts')
         self.stdout.write(f' - {self.mode}')
         if options['delta_updates']:
             self.stdout.write(' - importing only delta updates')
-        elif options['use_jsonl']:
-            self.stdout.write(' - importing the full dump')
-        else:
-            self.stdout.write(' - importing from mongo')
-        self.stdout.write('')
-
-        languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
-        if options['delta_updates']:
             self.import_daily_delta(languages, options['folder'])
         elif options['use_jsonl']:
+            self.stdout.write(' - importing the full dump')
             self.import_full_dump(languages, options['folder'])
         else:
+            self.stdout.write(' - importing from mongo')
             self.import_mongo(languages)
+        self.stdout.write('')
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
         self.stdout.write(self.style.SUCCESS(str(self.counter)))
