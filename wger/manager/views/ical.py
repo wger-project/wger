@@ -74,7 +74,7 @@ def get_events_workout(calendar, routine: Routine):
     site = Site.objects.get_current()
 
     for day_data in routine.date_sequence:
-        if day_data.day.is_rest:
+        if day_data.day is None or day_data.day.is_rest:
             continue
 
         event = Event()
