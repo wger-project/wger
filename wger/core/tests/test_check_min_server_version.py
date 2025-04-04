@@ -26,8 +26,8 @@ from django.core.management import CommandError
 from packaging.version import Version
 
 # wger
-from wger import VERSION
 from wger.core.api.min_server_version import check_min_server_version
+from wger.version import VERSION
 
 
 class TestCheckMinServerVersion(unittest.TestCase):

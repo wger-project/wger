@@ -38,8 +38,8 @@ from reportlab.platypus import (
 )
 
 # wger
-from wger import get_version
 from wger.core.models import Language
+from wger.version import get_version
 
 
 # ************************

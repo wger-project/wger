@@ -127,7 +127,6 @@ class RoutineViewSet(viewsets.ModelViewSet):
 
         out = WorkoutDayDataDisplayModeSerializer(
             self.get_object().date_sequence,
-            # generate_sequence(self.get_object()),
             many=True,
         ).data
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])

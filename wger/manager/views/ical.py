@@ -33,8 +33,8 @@ from icalendar import (
 from icalendar.tools import UIDGenerator
 
 # wger
-from wger import get_version
 from wger.manager.models import Routine
+from wger.version import get_version
 
 
 logger = logging.getLogger(__name__)

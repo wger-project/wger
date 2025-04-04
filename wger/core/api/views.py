@@ -49,11 +49,6 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 # wger
-from wger import (
-    MIN_APP_VERSION,
-    MIN_SERVER_VERSION,
-    get_version,
-)
 from wger.core.api.serializers import (
     LanguageSerializer,
     LicenseSerializer,
@@ -73,6 +68,11 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
+from wger.version import (
+    MIN_APP_VERSION,
+    MIN_SERVER_VERSION,
+    get_version,
+)
 
 
 logger = logging.getLogger(__name__)

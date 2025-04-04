@@ -20,8 +20,8 @@ import sys
 from datetime import timedelta
 
 # wger
-from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
+from wger.version import get_version
 
 
 """

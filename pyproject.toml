@@ -4,15 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "wger"
-version = "2.3.0b1"
-# dynamic = ["version", "dependencies"]
-dynamic = ["dependencies"]
+dynamic = ["version", "dependencies"]
 authors = [
     { name = "Roland Geider", email = "roland@geider.net" },
 ]
 description = "FLOSS workout, fitness and weight manager/tracker"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
     # http://pypi.python.org/pypi?%3Aaction=list_classifiers
     'Development Status :: 5 - Production/Stable',
@@ -30,10 +28,11 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://wger.de/"
-Documentation = "https://wger.readthedocs.io/en/latest/"
+Documentation = "https://wger.readthedocs.io"
 Repository = "https://github.com/wger-project/wger"
 Issues = "https://github.com/wger-project/wger/issues"
 Changelog = "https://wger.readthedocs.io/en/latest/changelog.html"
+Funding = "https://buymeacoffee.com/wger"
 
 [project.scripts]
 wger = "wger.__main__:main"
@@ -48,10 +47,10 @@ dependencies = { file = ["requirements.txt"] }
 [tool.distutils.bdist_wheel]
 universal = 1
 
-# [tool.hatch.version]
-# source = "code"
-# path = "wger/__init__.py"
-# expression = "get_version()"
+[tool.hatch.version]
+source = "code"
+path = "wger/version.py"
+expression = "get_version()"
 
 
 [tool.ruff]

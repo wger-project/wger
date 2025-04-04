@@ -20,9 +20,9 @@ import requests
 from packaging.version import parse
 
 # wger
-from wger import VERSION
 from wger.core.api.endpoints import MIN_SERVER_VERSION_ENDPOINT
 from wger.utils.url import make_uri
+from wger.version import VERSION
 
 
 def check_min_server_version(remote_url):
