@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-
 # Third Party
 from rest_framework import serializers
 
@@ -349,19 +348,19 @@ class SetConfigDataSerializer(serializers.Serializer):
     exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
     max_sets = serializers.IntegerField(allow_null=True)
-    weight = DecimalOrIntegerField(max_digits=5, decimal_places=2)
-    max_weight = DecimalOrIntegerField(max_digits=5, decimal_places=2)
+    weight = DecimalOrIntegerField(max_digits=6, decimal_places=2)
+    max_weight = DecimalOrIntegerField(max_digits=6, decimal_places=2)
     weight_unit = serializers.IntegerField(allow_null=True)
     weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
-    repetitions = DecimalOrIntegerField(max_digits=5, decimal_places=2)
-    max_repetitions = DecimalOrIntegerField(max_digits=5, decimal_places=2)
+    repetitions = DecimalOrIntegerField(max_digits=6, decimal_places=2)
+    max_repetitions = DecimalOrIntegerField(max_digits=6, decimal_places=2)
     repetitions_unit = serializers.IntegerField(allow_null=True)
     repetitions_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
     max_rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
     rpe = DecimalOrIntegerField(max_digits=2, decimal_places=1)
-    rest = DecimalOrIntegerField(max_digits=5, decimal_places=2)
-    max_rest = DecimalOrIntegerField(max_digits=5, decimal_places=2)
+    rest = DecimalOrIntegerField(max_digits=6, decimal_places=2)
+    max_rest = DecimalOrIntegerField(max_digits=6, decimal_places=2)
     type = serializers.CharField()
     text_repr = serializers.CharField()
     comment = serializers.CharField()
