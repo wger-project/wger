@@ -14,7 +14,6 @@
 
 # Standard Library
 import logging
-import subprocess
 
 # Third Party
 from packaging.version import Version
