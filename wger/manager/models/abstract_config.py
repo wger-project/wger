@@ -15,6 +15,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+)
 from django.db import models
 
 # wger
@@ -56,6 +60,7 @@ class AbstractChangeConfig(models.Model):
     value = models.DecimalField(
         decimal_places=2,
         max_digits=6,
+        validators=[MinValueValidator(0), MaxValueValidator(3000)],
     )
     """The actual increment"""
 

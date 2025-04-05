@@ -15,6 +15,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+)
 from django.db import models
 
 # wger
@@ -26,7 +30,7 @@ class SetsConfig(AbstractChangeConfig):
     Configuration model for the number of sets for a workout set
     """
 
-    value = models.PositiveIntegerField()
+    value = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(50)])
     """Sets are always positive integers"""
 
 
@@ -35,5 +39,5 @@ class MaxSetsConfig(AbstractChangeConfig):
     Configuration model for the maximum number of sets for a workout set
     """
 
-    value = models.PositiveIntegerField()
+    value = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(50)])
     """Sets are always positive integers"""

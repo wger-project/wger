@@ -13,8 +13,11 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # Django
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+)
 from django.db import models
 
 # wger
@@ -26,7 +29,9 @@ class RestConfig(AbstractChangeConfig):
     Configuration model for the rest time for a workout set
     """
 
-    value = models.PositiveIntegerField()
+    value = models.PositiveIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(1800)],
+    )
     """Rest times are always in seconds, so always positive integers"""
 
 
@@ -35,5 +40,7 @@ class MaxRestConfig(AbstractChangeConfig):
     Configuration model for the upper limit of the rest time for a workout set
     """
 
-    value = models.PositiveIntegerField()
+    value = models.PositiveIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(600)],
+    )
     """Rest times are always in seconds, so always positive integers"""
