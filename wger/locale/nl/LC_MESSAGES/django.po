@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-14 19:23+0100\n"
+"POT-Creation-Date: 2025-04-05 14:10+0200\n"
 "PO-Revision-Date: 2025-02-11 11:02+0000\n"
 "Last-Translator: Christijan Mulder <zeecowboy@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
@@ -46,57 +46,22 @@ msgstr ""
 #: exercises/templates/categories/admin-overview.html:17
 #: exercises/templates/equipment/admin-overview.html:17
 #: exercises/templates/muscles/admin-overview.html:16
-#: gallery/views/images.py:98 gym/templates/admin_notes/list.html:31
+#: gallery/views/images.py:100 gym/templates/admin_notes/list.html:31
 #: gym/templates/contract/list.html:30 gym/templates/contract/view.html:106
 #: gym/templates/contract_option/list.html:29
 #: gym/templates/contract_type/list.html:30 gym/templates/document/list.html:38
 #: gym/templates/gym/list.html:19 gym/templates/gym/list.html:48
 #: gym/templates/gym/member_list.html:94 gym/templates/gym/member_list.html:152
 #: gym/templates/gym/member_list.html:190
-#: manager/templates/calendar/day.html:67
-#: manager/templates/calendar/month.html:84
-#: manager/templates/calendar/partial_overview_table.html:16
-#: manager/templates/schedule/view.html:271
-#: manager/templates/workout/view.html:181
 #: nutrition/templates/ingredient/view.html:164
 #: nutrition/templates/ingredient/view.html:209
 #: nutrition/templates/units/list.html:19
 msgid "Edit"
 msgstr "Bewerk"
 
-#: core/demo.py:96
-msgid "Sample workout"
-msgstr "Voorbeeldworkout"
-
-#: core/demo.py:100
-msgid "Sample day"
-msgstr "Voorbeelddag"
-
-#: core/demo.py:104
-msgid "Another sample day"
-msgstr "Nog een voorbeelddag"
-
-#: core/demo.py:212
-#, fuzzy
-msgid "Sample nutritional plan"
-msgstr "Voorbeeld voedingsplan"
-
-#: core/demo.py:344 core/demo.py:346 core/demo.py:348
-#, python-brace-format
-msgid "Placeholder workout nr {0} for schedule"
-msgstr "Plaatsaanduiding training nr {0} voor schema"
-
-#: core/demo.py:353
-msgid "My cool workout schedule"
-msgstr "Mijn hippe workoutschema"
-
-#: core/demo.py:392 core/demo.py:407
-msgid "Empty placeholder schedule"
-msgstr "Leeg tijdelijk schema"
-
-#: core/forms.py:69 core/templates/navigation.html:284
-#: core/templates/navigation.html:290 core/templates/user/login.html:4
-#: software/templates/features.html:82 software/templates/features.html:427
+#: core/forms.py:69 core/templates/navigation.html:271
+#: core/templates/navigation.html:278 core/templates/user/login.html:4
+#: software/templates/features.html:82 software/templates/features.html:430
 msgid "Login"
 msgstr "Aanmelden"
 
@@ -126,7 +91,7 @@ msgstr ""
 "Gebruikt voor het her-instellen van wachtwoorden en, optioneel, voor e-"
 "mailherinneringen."
 
-#: core/forms.py:116 core/models/profile.py:222
+#: core/forms.py:116 core/models/profile.py:221
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr "Geboortedatum"
@@ -143,10 +108,8 @@ msgstr "Workout-herinneringen"
 msgid "Other settings"
 msgstr "Overige instellingen"
 
-#: core/forms.py:176 core/views/user.py:623 core/views/user.py:638
-#: core/views/user.py:650 gym/forms.py:73 manager/templates/log/add.html:65
-#: manager/templates/set/add.html:70 manager/views/workout.py:203
-#: utils/generic_views.py:143
+#: core/forms.py:176 core/views/user.py:611 core/views/user.py:626
+#: core/views/user.py:638 gym/forms.py:73 utils/generic_views.py:143
 msgid "Save"
 msgstr "Opslaan"
 
@@ -180,12 +143,7 @@ msgstr "Gelieve je huidige wachtwoord in te geven."
 #: gym/templates/admin_notes/list.html:37
 #: gym/templates/contract_option/list.html:35
 #: gym/templates/contract_type/list.html:36 gym/templates/document/list.html:46
-#: gym/templates/gym/list.html:23 manager/templates/calendar/day.html:73
-#: manager/templates/calendar/month.html:88
-#: manager/templates/calendar/partial_overview_table.html:22
-#: manager/templates/schedule/view.html:277
-#: manager/templates/workout/view.html:202
-#: nutrition/templates/ingredient/view.html:168
+#: gym/templates/gym/list.html:23 nutrition/templates/ingredient/view.html:168
 #: nutrition/templates/ingredient/view.html:215
 #: nutrition/templates/units/list.html:25
 msgid "Delete"
@@ -199,10 +157,10 @@ msgstr "Ongeldig wachtwoord"
 msgid "The form is secured with reCAPTCHA"
 msgstr "Dit formulier is beveiligd met reCAPTCHA"
 
-#: core/forms.py:281 core/forms.py:303 core/templates/navigation.html:284
-#: core/templates/navigation.html:296 core/templates/template.html:150
-#: core/templates/user/login.html:20 core/views/user.py:297
-#: software/templates/features.html:87 software/templates/features.html:422
+#: core/forms.py:281 core/forms.py:303 core/templates/navigation.html:272
+#: core/templates/navigation.html:285 core/templates/template.html:148
+#: core/templates/user/login.html:21 core/views/user.py:285
+#: software/templates/features.html:87 software/templates/features.html:424
 msgid "Register"
 msgstr "Registreer"
 
@@ -214,18 +172,14 @@ msgstr "Contact"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Een manier om je te beantwoorden (e-mail, etc.)"
 
-#: core/forms.py:326 exercises/models/comment.py:58 manager/models/set.py:61
-#: manager/models/setting.py:114 nutrition/models/log.py:77
+#: core/forms.py:326 exercises/models/comment.py:55 manager/models/slot.py:40
+#: nutrition/models/log.py:77
 msgid "Comment"
 msgstr "Opmerking"
 
 #: core/forms.py:327
 msgid "What do you want to say?"
 msgstr "Wat wil je zeggen?"
-
-#: core/models/days_of_week.py:29
-msgid "Day of the week"
-msgstr "Weekdag"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -258,7 +212,7 @@ msgstr ""
 msgid "Short name, e.g. CC-BY-SA 3"
 msgstr "Korte naam, bvb. CC-BY-SA 3"
 
-#: core/models/license.py:45 nutrition/models/ingredient.py:208
+#: core/models/license.py:45 nutrition/models/ingredient.py:223
 msgid "Link"
 msgstr "Link"
 
@@ -305,7 +259,8 @@ msgstr "Toon opmerkingen oefening"
 
 #: core/models/profile.py:119
 msgid "Check to show exercise comments on the workout view"
-msgstr "Vink aan om begeleiding voor de oefeningen te tonen in de workout view."
+msgstr ""
+"Vink aan om begeleiding voor de oefeningen te tonen in de workout view."
 
 #: core/models/profile.py:129
 msgid "Also use ingredients in English"
@@ -345,11 +300,11 @@ msgid "The number of days you want to be reminded before a workout expires."
 msgstr ""
 "Het aantal dagen dat je wil herinnerd worden vooraleer een workout vervalt."
 
-#: core/models/profile.py:157
+#: core/models/profile.py:158
 msgid "Default duration of workouts"
 msgstr "Standaard duurtijd van workouts"
 
-#: core/models/profile.py:159
+#: core/models/profile.py:160
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
@@ -357,11 +312,11 @@ msgstr ""
 "Standaard duurtijd in weken voor workouts die geen deel uitmaken van een "
 "schema. Gebruikt voor e-mailherinneringen."
 
-#: core/models/profile.py:176
+#: core/models/profile.py:178
 msgid "Notification language"
 msgstr "Taal meldingen"
 
-#: core/models/profile.py:178
+#: core/models/profile.py:180
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
@@ -370,70 +325,70 @@ msgstr ""
 "herinneringen voor workouts. Dit beïnvloedt niet de taal die wordt gebruikt "
 "op de website."
 
-#: core/models/profile.py:214 gym/views/export.py:64
+#: core/models/profile.py:213 gym/views/export.py:64
 msgid "Age"
 msgstr "Leeftijd"
 
-#: core/models/profile.py:230 nutrition/forms.py:118
+#: core/models/profile.py:229 nutrition/forms.py:117
 msgid "Height (cm)"
 msgstr "Hoogte (cm)"
 
-#: core/models/profile.py:247
+#: core/models/profile.py:246
 msgid "Hours of sleep"
 msgstr "Uren slaap"
 
-#: core/models/profile.py:248
+#: core/models/profile.py:247
 msgid "The average hours of sleep per day"
 msgstr "De gemiddelde uren slaap per dag"
 
-#: core/models/profile.py:257
+#: core/models/profile.py:256
 msgid "Work"
 msgstr "Werk"
 
-#: core/models/profile.py:258 core/models/profile.py:300
+#: core/models/profile.py:257 core/models/profile.py:299
 msgid "Average hours per day"
 msgstr "Gemiddelde uren per dag"
 
-#: core/models/profile.py:267 core/models/profile.py:288
-#: core/models/profile.py:309
+#: core/models/profile.py:266 core/models/profile.py:287
+#: core/models/profile.py:308
 msgid "Physical intensity"
 msgstr "Fysieke intensiteit"
 
-#: core/models/profile.py:268 core/models/profile.py:289
-#: core/models/profile.py:310
+#: core/models/profile.py:267 core/models/profile.py:288
+#: core/models/profile.py:309
 msgid "Approximately"
 msgstr "Ongeveer"
 
-#: core/models/profile.py:278
+#: core/models/profile.py:277
 msgid "Sport"
 msgstr "Sport"
 
-#: core/models/profile.py:279
+#: core/models/profile.py:278
 msgid "Average hours per week"
 msgstr "Gemiddeld aantal uren per week"
 
-#: core/models/profile.py:299
+#: core/models/profile.py:298
 msgid "Free time"
 msgstr "Vrije tijd"
 
-#: core/models/profile.py:320 nutrition/templates/rate/form.html:66
+#: core/models/profile.py:319 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
 msgstr "Totale dagelijkse calorieën"
 
-#: core/models/profile.py:321
+#: core/models/profile.py:320
 msgid "Total caloric intake, including e.g. any surplus"
 msgstr "Totale calorie-inname, inclusief bvb. enige surplus"
 
-#: core/models/profile.py:333 nutrition/models/ingredient_weight_unit.py:45
+#: core/models/profile.py:332 nutrition/models/ingredient_weight_unit.py:45
 #: nutrition/models/log.py:96 nutrition/models/meal_item.py:59
 msgid "Weight unit"
 msgstr "Gewichteenheid"
 
-#: core/models/profile.py:341
+#: core/models/profile.py:340
 msgid "Allow external access"
 msgstr "Externe toegang toestaan"
 
-#: core/models/profile.py:343
+#: core/models/profile.py:342
 msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
@@ -442,29 +397,28 @@ msgstr ""
 "lezen modus. Je moet dit instellen voordat je links kan delen in "
 "bijvoorbeeld social media."
 
-#: core/models/profile.py:352
+#: core/models/profile.py:351
 msgid "Automatic reminders for weight entries"
 msgstr "Automatische herinneringen voor gewichtsingave"
 
-#: core/models/profile.py:353
+#: core/models/profile.py:352
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
 "Aantal dagen na de laatste gewichtsingave ( geef 0 in om te deactiveren )"
 
-#: core/models/profile.py:416
+#: core/models/profile.py:438
 msgid "The sum of all hours has to be 24"
 msgstr "Het toaal van alle uren moet 24 zijn"
 
-#: core/models/rep_unit.py:36 core/models/weight_unit.py:36
-#: core/templates/user/overview.html:280 core/views/user.py:598
+#: core/models/rep_unit.py:36 core/models/weight_unit.py:42
+#: core/templates/user/overview.html:280 core/views/user.py:586
 #: exercises/models/category.py:29 exercises/models/equipment.py:29
-#: exercises/models/exercise.py:59 exercises/models/muscle.py:36
+#: exercises/models/muscle.py:36 exercises/models/translation.py:56
 #: gym/models/contract.py:52 gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
-#: gym/views/gym.py:158 manager/models/schedule.py:55
-#: manager/models/workout.py:57 measurements/models/category.py:36
-#: nutrition/models/ingredient.py:111
+#: gym/views/gym.py:158 manager/models/day.py:73 manager/models/routine.py:81
+#: measurements/models/category.py:36 nutrition/models/ingredient.py:126
 #: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:65
 #: nutrition/models/weight_unit.py:38
 #: nutrition/templates/ingredient/view.html:151
@@ -501,7 +455,7 @@ msgstr ""
 "Als dat niet helpt, probeer het dan later nog eens. Als het probleem blijft "
 "voorkomen, bezoek een van de onderstaande links:"
 
-#: core/templates/base.html:10 core/templates/base_wide.html:7
+#: core/templates/base.html:10
 #, python-format
 msgid ""
 "You are\n"
@@ -514,9 +468,36 @@ msgstr ""
 "uitgevoerd op eigen data\n"
 "            "
 
-#: core/templates/base.html:14 core/templates/base_wide.html:11
+#: core/templates/base.html:14
 #, python-format
 msgid "Back to \"%(target)s\""
+msgstr "Terug naar \"%(target)s\""
+
+#: core/templates/base_wide.html:7
+#, fuzzy, python-format
+#| msgid ""
+#| "You are\n"
+#| "                browsing the site as the user \"%(current_user)s\", all "
+#| "actions are performed on their data.\n"
+#| "            "
+msgid ""
+"You are\n"
+"                browsing the site as the user \"%(current_user)s\", all "
+"actions are performed on\n"
+"                their data.\n"
+"            "
+msgstr ""
+"Je bezoekt \n"
+"    de website als gebruiker \"%(current_user)s\", alle acties worden "
+"uitgevoerd op eigen data\n"
+"            "
+
+#: core/templates/base_wide.html:12
+#, fuzzy, python-format
+#| msgid "Back to \"%(target)s\""
+msgid ""
+"Back to \"%(target)s\n"
+"                    \""
 msgstr "Terug naar \"%(target)s\""
 
 #: core/templates/delete.html:4
@@ -569,11 +550,11 @@ msgstr "het wger Team"
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr "Aub, klik op de volgende link om je email te bevestigen %(link)s"
 
-#: core/templates/index.html:4 software/templates/features.html:432
+#: core/templates/index.html:4 software/templates/features.html:435
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: core/templates/language/overview.html:4 core/templates/navigation.html:344
+#: core/templates/language/overview.html:4 core/templates/navigation.html:334
 msgid "Languages"
 msgstr "Talen"
 
@@ -582,9 +563,6 @@ msgid "Nothing found."
 msgstr "Niets gevonden."
 
 #: core/templates/language/overview.html:22
-#: manager/templates/calendar/month.html:132
-#: manager/templates/schedule/view.html:107
-#: manager/templates/workout/overview.html:28
 #: nutrition/templates/ingredient/overview.html:38
 msgid "Add one now."
 msgstr "Voeg er een toe."
@@ -611,11 +589,9 @@ msgstr "Voeg er een toe."
 msgid "Add"
 msgstr "Aanmaken"
 
-#: core/templates/language/view.html:61 core/templates/user/api_key.html:44
+#: core/templates/language/view.html:61 core/templates/user/api_key.html:41
 #: core/templates/user/preferences.html:50 gym/models/contract.py:203
 #: gym/templates/contract/view.html:41 gym/templates/gym/member_list.html:270
-#: manager/templates/schedule/view.html:257
-#: manager/templates/workout/view.html:177
 #: nutrition/templates/ingredient/view.html:206
 msgid "Options"
 msgstr "Opties"
@@ -640,179 +616,167 @@ msgstr "Licentielijst"
 #: gym/templates/gym/member_list.html:284
 #: gym/templates/gym/member_list.html:321
 #: mailer/templates/mailer/gym/overview.html:30
-#: manager/templates/calendar/day.html:88
 #: nutrition/templates/units/list.html:34
 msgid "Nothing found"
 msgstr "Niets gevonden"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:187
+#: core/templates/misc/about.html:4 core/templates/template.html:185
 msgid "Imprint"
 msgstr "Afdruk"
 
-#: core/templates/navigation.html:28 software/templates/features.html:437
+#: core/templates/navigation.html:28 software/templates/features.html:440
 msgid "Training"
 msgstr "Training"
 
-#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+#: core/templates/navigation.html:37
 msgid "Workouts"
 msgstr "Workouts"
 
-#: core/templates/navigation.html:46
-msgid "Workouts schedules"
-msgstr "Workout-schema's"
-
-#: core/templates/navigation.html:54 core/templates/user/overview.html:70
-#: manager/templates/calendar/month.html:10
-#: manager/templates/calendar/month.html:21
+#: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
 msgstr "Kalender"
 
-#: core/templates/navigation.html:64
+#: core/templates/navigation.html:55
 msgid "Measurements"
 msgstr "Metingen"
 
-#: core/templates/navigation.html:75 gallery/templates/images/overview.html:6
+#: core/templates/navigation.html:66 gallery/templates/images/overview.html:6
 msgid "Gallery"
 msgstr "Gallerij"
 
-#: core/templates/navigation.html:81
+#: core/templates/navigation.html:72
 msgid "Workout templates"
 msgstr "Training schema's"
 
-#: core/templates/navigation.html:88 manager/views/workout.py:84
+#: core/templates/navigation.html:79
 msgid "Your templates"
 msgstr "Je sjablonen"
 
-#: core/templates/navigation.html:97 manager/views/workout.py:98
+#: core/templates/navigation.html:88
 msgid "Public templates"
 msgstr "Publieke schemas"
 
-#: core/templates/navigation.html:105 manager/forms.py:129
-#: manager/models/setting.py:57 software/templates/features.html:51
-#: software/templates/features.html:459
+#: core/templates/navigation.html:96 software/templates/features.html:51
+#: software/templates/features.html:462
 msgid "Exercises"
 msgstr "Oefeningen"
 
-#: core/templates/navigation.html:111 core/templates/navigation.html:185
-#: core/templates/navigation.html:339
+#: core/templates/navigation.html:102 core/templates/navigation.html:176
+#: core/templates/navigation.html:329
 msgid "Administration"
 msgstr "Administratie"
 
-#: core/templates/navigation.html:115
+#: core/templates/navigation.html:106
 #, fuzzy
 msgid "Exercise edit history"
 msgstr "Oefeningdag"
 
-#: core/templates/navigation.html:121 exercises/models/base.py:103
+#: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
 msgstr "Materiaal"
 
-#: core/templates/navigation.html:127
+#: core/templates/navigation.html:118
 msgid "Muscles"
 msgstr "Spieren"
 
-#: core/templates/navigation.html:133
+#: core/templates/navigation.html:124
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
 msgstr "Categorieën"
 
-#: core/templates/navigation.html:148 software/templates/features.html:447
+#: core/templates/navigation.html:139 software/templates/features.html:450
 msgid "Nutrition"
 msgstr "Voeding"
 
-#: core/templates/navigation.html:156 core/templates/user/overview.html:144
+#: core/templates/navigation.html:147 core/templates/user/overview.html:144
 msgid "Nutrition plans"
 msgstr "Voedingsplannen"
 
-#: core/templates/navigation.html:165
+#: core/templates/navigation.html:156
 msgid "BMI calculator"
 msgstr "BMI-calculator"
 
-#: core/templates/navigation.html:174 nutrition/templates/rate/form.html:17
+#: core/templates/navigation.html:165 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
 msgstr "Dagelijkse calorieëncalculator"
 
-#: core/templates/navigation.html:180
+#: core/templates/navigation.html:171
 #: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
 msgstr "Ingrediëntenoverzicht"
 
-#: core/templates/navigation.html:189 nutrition/templates/units/list.html:6
+#: core/templates/navigation.html:180 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
 msgstr "Gewichteenheden ingrediënt"
 
-#: core/templates/navigation.html:205 software/templates/features.html:442
+#: core/templates/navigation.html:196 software/templates/features.html:445
 msgid "Body weight"
 msgstr "Lichaamsgewicht"
 
-#: core/templates/navigation.html:212 core/templates/user/overview.html:114
+#: core/templates/navigation.html:203 core/templates/user/overview.html:114
 msgid "Weight overview"
 msgstr "Gewichtsoverzicht"
 
-#: core/templates/navigation.html:216 weight/views.py:65
-msgid "Add weight entry"
-msgstr "Voeg gewichtmeting toe"
-
-#: core/templates/navigation.html:230
+#: core/templates/navigation.html:217
 msgid "About this software"
 msgstr "Over deze software"
 
-#: core/templates/navigation.html:236 software/templates/about_us.html:5
+#: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "About us"
 msgstr "Over ons"
 
-#: core/templates/navigation.html:242 software/templates/features.html:507
+#: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:248 utils/models.py:45
+#: core/templates/navigation.html:235 utils/models.py:45
 msgid "License"
 msgstr "Licentie"
 
-#: core/templates/navigation.html:254
+#: core/templates/navigation.html:241
 msgid "Developer documentation"
 msgstr "Developer documentatie"
 
-#: core/templates/navigation.html:261
+#: core/templates/navigation.html:248
 msgid "Get the code"
 msgstr "Download de code"
 
-#: core/templates/navigation.html:268 core/templates/template.html:226
-#: software/templates/features.html:582
+#: core/templates/navigation.html:255 core/templates/template.html:224
+#: software/templates/features.html:585
 msgid "Translate"
 msgstr "Vertaal"
 
-#: core/templates/navigation.html:302 core/templates/user/login.html:28
+#: core/templates/navigation.html:292 core/templates/user/login.html:30
 msgid "Reset password"
 msgstr "Reset wachtwoord"
 
-#: core/templates/navigation.html:320
+#: core/templates/navigation.html:310
 msgid "My preferences"
 msgstr "Mijn voorkeuren"
 
-#: core/templates/navigation.html:329
+#: core/templates/navigation.html:319
 msgid "Logout"
 msgstr "Afmelden"
 
-#: core/templates/navigation.html:352
+#: core/templates/navigation.html:342
 msgid "Licenses"
 msgstr "Licenties"
 
-#: core/templates/navigation.html:360
+#: core/templates/navigation.html:350
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Herhalingen"
 
-#: core/templates/navigation.html:368 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:358 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
 msgstr "Gewichteenheden"
 
-#: core/templates/navigation.html:376 core/templates/user/list.html:4
+#: core/templates/navigation.html:366 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Gebruikerslijst"
 
-#: core/templates/navigation.html:382
+#: core/templates/navigation.html:372
 msgid "Gyms"
 msgstr "Gyms"
 
@@ -876,31 +840,21 @@ msgstr "vorige"
 msgid "next"
 msgstr "volgende"
 
-#: core/templates/tags/render_day.html:44
-#, fuzzy
-#| msgid "Placeholder image for exercise"
-msgid "Placeholder image for translation"
-msgstr "Aanduiding afbeelding voor oefening"
-
-#: core/templates/template.html:123 manager/templates/calendar/month.html:138
-#: manager/templates/schedule/view.html:215
-#: manager/templates/schedule/view.html:240
-#: manager/templates/workout/view.html:89
-#: manager/templates/workout/view.html:149
+#: core/templates/template.html:121
 msgid "Close"
 msgstr "Sluit"
 
-#: core/templates/template.html:139
+#: core/templates/template.html:137
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Je gebruikt een gastaccount, ingevoerde data wordt verwijderd na een week."
 
-#: core/templates/template.html:144
+#: core/templates/template.html:142
 msgid "Create some demo entries"
 msgstr "Maak wat demo-ingaven aan"
 
-#: core/templates/template.html:192 software/templates/features.html:547
+#: core/templates/template.html:190 software/templates/features.html:550
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Algemene voorwaarden"
@@ -913,44 +867,23 @@ msgstr "Functies"
 msgid "API key"
 msgstr "API sleutel"
 
-#: core/templates/user/api_key.html:9
-#, python-format
-msgid ""
-"Generate an API key if you want to interact with wger via\n"
-"the <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> it provides (for\n"
-"public resources such as the exercises or ingredients, you don't need to "
-"provide\n"
-"anything). You must pass this information in the header in the format shown "
-"below."
-msgstr ""
-"Genereer een API-sleutel als je wil interageren met wger via de <a "
-"href=\"%(url)s\" rel=\"nofollow\">REST API</a> die ter beschikking wordt "
-"gesteld (voor publieke bronnen als oefeningen of ingrediënten moet je niets "
-"invullen). Je moet deze informatie doorgeven in de header."
-
 #: core/templates/user/api_key.html:15
-msgid "For security reasons, you should only access the API via HTTPS."
-msgstr ""
-"Voor veiligheidsredenen zou je de API in principe enkel mogen aanspreken via "
-"HTTPS."
-
-#: core/templates/user/api_key.html:18
 msgid "Your API key"
 msgstr "Je API-sleutel"
 
-#: core/templates/user/api_key.html:24
+#: core/templates/user/api_key.html:21
 msgid "You have no API key yet"
 msgstr "Je hebt nog geen API-sleutel"
 
-#: core/templates/user/api_key.html:48
+#: core/templates/user/api_key.html:46
 msgid "Delete current API key and generate new one"
 msgstr "Verwijder huidige API-sleutel en genereer een nieuwe"
 
-#: core/templates/user/api_key.html:50
+#: core/templates/user/api_key.html:49
 msgid "Generate new API key"
 msgstr "Genereer nieuwe API-sleutel"
 
-#: core/templates/user/api_key.html:55 software/templates/features.html:512
+#: core/templates/user/api_key.html:55 software/templates/features.html:515
 msgid "Documentation"
 msgstr "Documentatie"
 
@@ -975,13 +908,17 @@ msgstr ""
 "Deze actie zal de gebruikersaccount \"%(username)s\" verwijderen. Alle "
 "gerelateerde data (workouts, logs, etc.) zullen onomkeerbaar worden gewist. "
 
-#: core/templates/user/login.html:16
+#: core/templates/user/login.html:17
 msgid "No account?"
 msgstr "Geen account?"
 
-#: core/templates/user/login.html:24
+#: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "Wachtwoord vergeten?"
+
+#: core/templates/user/overview.html:25
+msgid "Routines"
+msgstr ""
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -999,32 +936,26 @@ msgstr "laatste %(number)s"
 msgid "Overview"
 msgstr "Overzicht"
 
-#: core/templates/user/overview.html:28
-#: manager/templates/schedule/view.html:125
-#: manager/templates/workout/overview.html:39 manager/views/schedule_step.py:60
-msgid "Add workout"
-msgstr "Workout toevoegen"
-
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:152
-#: exercises/models/base.py:118 exercises/models/base.py:124
-#: exercises/models/exercise.py:64 exercises/models/exercise.py:70
+#: exercises/models/base.py:122 exercises/models/base.py:128
 #: exercises/models/image.py:107 exercises/models/image.py:113
+#: exercises/models/translation.py:61 exercises/models/translation.py:67
 #: exercises/models/video.py:163 exercises/models/video.py:169
-#: gallery/models/image.py:42 manager/helpers.py:85 manager/models/log.py:100
-#: manager/models/session.py:67 measurements/models/measurement.py:47
+#: gallery/models/image.py:42 manager/helpers.py:88 manager/models/log.py:53
+#: manager/models/session.py:73 measurements/models/measurement.py:46
 #: nutrition/models/ingredient.py:87 nutrition/models/ingredient.py:93
-#: nutrition/models/ingredient.py:216 weight/models.py:51
+#: nutrition/models/ingredient.py:231 weight/models.py:51
 #: weight/templates/import_csv_preview.html:13
-#: weight/templates/import_csv_preview.html:42 weight/views.py:144
+#: weight/templates/import_csv_preview.html:42 weight/views.py:54
 msgid "Date"
 msgstr "Datum"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
-#: exercises/models/exercise.py:52 gallery/models/image.py:65
+#: exercises/models/translation.py:49 gallery/models/image.py:65
 #: gym/models/contract.py:58 gym/models/contract.py:109
-#: manager/models/day.py:37 manager/models/workout.py:63
-#: measurements/models/measurement.py:62 nutrition/models/plan.py:67
+#: manager/models/day.py:79 manager/models/routine.py:87
+#: measurements/models/measurement.py:61 nutrition/models/plan.py:65
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -1032,65 +963,57 @@ msgstr "Beschrijving"
 msgid "Number of logs (days)"
 msgstr "Aantal logs (dagen)"
 
-#: core/templates/user/overview.html:37 core/views/user.py:599
+#: core/templates/user/overview.html:37 core/views/user.py:587
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
 msgstr "Laatste activiteit"
 
 #: core/templates/user/overview.html:58
-#: manager/templates/calendar/month.html:128
-#: manager/templates/workout/overview.html:28
 msgid "No workouts found."
 msgstr "Geen workouts gevonden."
 
-#: core/templates/user/overview.html:68 manager/forms.py:280
-#: manager/templates/workout/view.html:114
+#: core/templates/user/overview.html:68
 msgid "Log"
 msgstr "Log"
 
-#: core/templates/user/overview.html:77 manager/models/session.py:83
-#: manager/templates/calendar/partial_overview_table.html:54
+#: core/templates/user/overview.html:77 manager/models/session.py:91
 msgid "General impression"
 msgstr "Algemene indruk"
 
 #: core/templates/user/overview.html:78 core/templates/user/overview.html:390
-#: manager/models/session.py:73
-#: manager/templates/calendar/partial_overview_table.html:58
+#: manager/models/session.py:81
 msgid "Notes"
 msgstr "Notities"
 
 #: core/templates/user/overview.html:79
 #: exercises/templates/history/overview.html:30
-#: manager/templates/calendar/partial_overview_table.html:44
 msgid "Time"
 msgstr "Tijd"
 
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:121
-#: manager/forms.py:186 manager/helpers.py:86 manager/models/log.py:86
-#: manager/models/setting.py:82 manager/templates/log/add.html:54
-#: manager/templates/set/formset.html:11 weight/models.py:53
+#: manager/helpers.py:89 manager/models/log.py:173 weight/models.py:53
 #: weight/templates/import_csv_preview.html:14
-#: weight/templates/import_csv_preview.html:43 weight/views.py:144
+#: weight/templates/import_csv_preview.html:43 weight/views.py:54
 msgid "Weight"
 msgstr "Gewicht"
 
-#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:116
-#: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:237
+#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:131
+#: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:245
 msgid "Energy"
 msgstr "Energie"
 
-#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:123
-#: nutrition/templates/ingredient/view.html:58 nutrition/views/plan.py:243
+#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:138
+#: nutrition/templates/ingredient/view.html:58 nutrition/views/plan.py:251
 msgid "Protein"
 msgstr "Proteïnen"
 
-#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:131
-#: nutrition/templates/ingredient/view.html:64 nutrition/views/plan.py:251
+#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:146
+#: nutrition/templates/ingredient/view.html:64 nutrition/views/plan.py:259
 msgid "Carbohydrates"
 msgstr "Koolhydraten"
 
-#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:149
-#: nutrition/templates/ingredient/view.html:80 nutrition/views/plan.py:265
+#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:164
+#: nutrition/templates/ingredient/view.html:80 nutrition/views/plan.py:273
 msgid "Fat"
 msgstr "Vet"
 
@@ -1107,7 +1030,6 @@ msgstr "kcal"
 #: gym/templates/gym/member_list.html:223
 #: gym/templates/gym/member_list.html:259
 #: gym/templates/gym/member_list.html:299
-#: manager/templates/schedule/view.html:54
 msgid "Actions"
 msgstr "Acties"
 
@@ -1150,7 +1072,8 @@ msgid "Details"
 msgstr "Details"
 
 #: core/templates/user/overview.html:276 gym/views/export.py:57
-#: manager/helpers.py:86 manager/templates/schedule/view.html:52
+#: manager/helpers.py:89 nutrition/views/plan.py:151
+#: nutrition/views/plan.py:157
 msgid "Nr."
 msgstr "Nr."
 
@@ -1195,7 +1118,6 @@ msgid "Documents"
 msgstr "Documenten"
 
 #: core/templates/user/overview.html:433 gym/templates/document/list.html:33
-#: manager/forms.py:292 manager/templates/workout/view.html:143
 msgid "Download"
 msgstr "Download"
 
@@ -1237,15 +1159,15 @@ msgstr "Verstuur bevestigingsemail"
 msgid "You need to verify your email to contribute exercises"
 msgstr "Je moet jouw email bevestigen om bij te dragen aan oefeningen"
 
-#: core/templates/user/preferences.html:55 core/views/user.py:610
+#: core/templates/user/preferences.html:55 core/views/user.py:598
 msgid "Change password"
 msgstr "Verander wachtwoord"
 
-#: core/templatetags/wger_extras.py:197 i18n.tpl:37
+#: core/templatetags/wger_extras.py:142 i18n.tpl:37
 msgid "kg"
 msgstr "kg"
 
-#: core/templatetags/wger_extras.py:199
+#: core/templatetags/wger_extras.py:144
 #: nutrition/templates/ingredient/view.html:60
 #: nutrition/templates/ingredient/view.html:66
 #: nutrition/templates/ingredient/view.html:73
@@ -1257,51 +1179,45 @@ msgctxt "weight unit, i.e. grams"
 msgid "g"
 msgstr "g"
 
-#: core/templatetags/wger_extras.py:202 i18n.tpl:38
+#: core/templatetags/wger_extras.py:147 i18n.tpl:38
 msgid "lb"
 msgstr "lb"
 
-#: core/templatetags/wger_extras.py:204
+#: core/templatetags/wger_extras.py:149
 msgctxt "weight unit, i.e. ounces"
 msgid "oz"
 msgstr "oz"
 
 #: core/views/languages.py:85 exercises/views/categories.py:122
-#: exercises/views/equipment.py:103 exercises/views/exercises.py:73
-#: exercises/views/muscles.py:99 manager/views/schedule.py:309
-#: manager/views/schedule_step.py:128 manager/views/workout.py:249
-#: manager/views/workout_session.py:142 nutrition/views/ingredient.py:119
-#: nutrition/views/unit.py:110
+#: exercises/views/equipment.py:103 exercises/views/muscles.py:99
+#: nutrition/views/ingredient.py:119 nutrition/views/unit.py:110
 msgid "Successfully deleted"
 msgstr "Met succes verwijderd"
 
 #: core/views/languages.py:93 core/views/license.py:103
 #: core/views/repetition_units.py:115 core/views/weight_units.py:115
-#: exercises/views/categories.py:128 exercises/views/exercises.py:81
-#: exercises/views/muscles.py:106 gallery/views/images.py:122
-#: gym/views/admin_notes.py:196 gym/views/document.py:206 gym/views/gym.py:481
-#: manager/views/schedule.py:316 manager/views/schedule_step.py:138
-#: manager/views/workout.py:253 manager/views/workout_session.py:156
+#: exercises/views/categories.py:128 exercises/views/muscles.py:106
+#: gallery/views/images.py:124 gym/views/admin_notes.py:196
+#: gym/views/document.py:206 gym/views/gym.py:481
 #: nutrition/views/ingredient.py:126 nutrition/views/unit.py:117
 #, python-brace-format
 msgid "Delete {0}?"
 msgstr "Verwijder {0}?"
 
 #: core/views/languages.py:111 core/views/license.py:85
-#: core/views/repetition_units.py:86 core/views/user.py:473
+#: core/views/repetition_units.py:86 core/views/user.py:461
 #: core/views/weight_units.py:86 exercises/views/categories.py:98
 #: exercises/views/equipment.py:81 exercises/views/muscles.py:87
 #: gym/views/admin_notes.py:161 gym/views/config.py:68
 #: gym/views/contract.py:186 gym/views/contract_option.py:123
 #: gym/views/contract_type.py:123 gym/views/document.py:171
-#: gym/views/gym.py:463 manager/views/day.py:96 manager/views/schedule.py:333
-#: manager/views/workout.py:267 nutrition/views/ingredient.py:145
+#: gym/views/gym.py:463 nutrition/views/ingredient.py:145
 #: nutrition/views/unit.py:143
 #, python-brace-format
 msgid "Edit {0}"
 msgstr "Bewerk {0}"
 
-#: core/views/misc.py:92
+#: core/views/misc.py:90
 msgid ""
 "We have created sample workout, workout schedules, weight logs, (body) "
 "weight and nutrition plan entries so you can better see what  this site can "
@@ -1311,77 +1227,77 @@ msgstr ""
 "(lichaam)gewicht en voedingsplannen aangemaakt zodat je beter kan zien wat "
 "deze site allemaal kan. Voel je vrij om ze te bewerken of verwijderen!"
 
-#: core/views/misc.py:127
+#: core/views/misc.py:125
 msgid "Feedback"
 msgstr "Feedback"
 
-#: core/views/misc.py:146 weight/templates/import_csv_form.html:9
+#: core/views/misc.py:144 weight/templates/import_csv_form.html:9
 msgid "Submit"
 msgstr "Insturen"
 
-#: core/views/misc.py:154
+#: core/views/misc.py:152
 msgid "Your feedback was successfully sent. Thank you!"
 msgstr "Je feedback werd met succes verzonden. Bedankt!"
 
-#: core/views/user.py:155
+#: core/views/user.py:143
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
 msgstr "Account \"{0}\" werd met succes verwijderd"
 
-#: core/views/user.py:291
+#: core/views/user.py:279
 msgid "You were successfully registered"
 msgstr "Je bent met succes geregistreerd"
 
-#: core/views/user.py:350
+#: core/views/user.py:338
 msgid "Settings successfully updated"
 msgstr "Instellingen met succes aangepast"
 
-#: core/views/user.py:389
+#: core/views/user.py:377
 msgid "The user was successfully deactivated"
 msgstr "De gebruiker werd met succes gedeactiveerd"
 
-#: core/views/user.py:426
+#: core/views/user.py:414
 msgid "The user was successfully activated"
 msgstr "De gebruiker werd met succes geactiveerd"
 
-#: core/views/user.py:441
+#: core/views/user.py:429
 msgid "Edit user"
 msgstr "Bewerk gebruiker"
 
-#: core/views/user.py:596 gym/templates/gym/member_list.html:26
+#: core/views/user.py:584 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:158
 msgid "ID"
 msgstr "ID"
 
-#: core/views/user.py:597 gym/forms.py:95 gym/templates/contract/view.html:55
+#: core/views/user.py:585 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
 #: gym/views/gym.py:158 gym/views/gym.py:217
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: core/views/user.py:600 gym/templates/gym/new_user.html:34
+#: core/views/user.py:588 gym/templates/gym/new_user.html:34
 #: gym/views/export.py:58 gym/views/gym.py:217
 msgid "Gym"
 msgstr "Gym"
 
-#: core/views/user.py:659
+#: core/views/user.py:647
 #, python-format
 msgid "A verification email was sent to %(email)s"
 msgstr "Een bevestigingsmail is verstuurd naar %(email)s"
 
-#: exercises/models/base.py:82 nutrition/models/ingredient.py:230
+#: exercises/models/base.py:86 nutrition/models/ingredient.py:245
 msgid "Category"
 msgstr "Categorie"
 
-#: exercises/models/base.py:89
+#: exercises/models/base.py:93
 msgid "Primary muscles"
 msgstr "Primaire spieren"
 
-#: exercises/models/base.py:95
+#: exercises/models/base.py:99
 msgid "Secondary muscles"
 msgstr "Secundaire spieren"
 
-#: exercises/models/base.py:110
+#: exercises/models/base.py:114
 msgid "Variations"
 msgstr "Variaties"
 
@@ -1389,22 +1305,17 @@ msgstr "Variaties"
 msgid "Exercise Categories"
 msgstr "Oefeningcategorieën"
 
-#: exercises/models/comment.py:52 exercises/models/exercise_alias.py:53
+#: exercises/models/comment.py:49 exercises/models/exercise_alias.py:50
 #: exercises/models/image.py:74 exercises/models/video.py:98
-#: manager/forms.py:178 manager/helpers.py:86 manager/models/log.py:52
+#: manager/helpers.py:89 manager/models/log.py:91
 msgid "Exercise"
 msgstr "Oefening"
 
-#: exercises/models/comment.py:59
+#: exercises/models/comment.py:56
 msgid "A comment about how to correctly do this exercise."
 msgstr "Een opmerking over hoe je deze oefening correct kan uitvoeren."
 
-#: exercises/models/exercise.py:77 nutrition/models/ingredient.py:81
-#: nutrition/models/weight_unit.py:32
-msgid "Language"
-msgstr "Taal"
-
-#: exercises/models/exercise_alias.py:59
+#: exercises/models/exercise_alias.py:56
 msgid "Alias for an exercise"
 msgstr "Andere naam voor een oefening"
 
@@ -1429,12 +1340,12 @@ msgid "Other"
 msgstr "Andere"
 
 #: exercises/models/image.py:80 gallery/models/image.py:51
-#: nutrition/models/image.py:60
+#: nutrition/models/image.py:59
 msgid "Image"
 msgstr "Afbeelding"
 
 #: exercises/models/image.py:81 gallery/models/image.py:52
-#: nutrition/models/image.py:61
+#: nutrition/models/image.py:60
 msgid "Only PNG and JPEG formats are supported"
 msgstr "Enkel PNG en JPEG-formaten worden ondersteund"
 
@@ -1468,6 +1379,11 @@ msgstr "Alternatieve naam"
 msgid "A more basic name for the muscle"
 msgstr "Een bekendere naam voor deze spier"
 
+#: exercises/models/translation.py:74 nutrition/models/ingredient.py:81
+#: nutrition/models/weight_unit.py:32
+msgid "Language"
+msgstr "Taal"
+
 #: exercises/models/video.py:52
 #, python-format
 msgid "Maximum file size is %(size)sMB."
@@ -1495,7 +1411,7 @@ msgstr "Video"
 msgid "Size"
 msgstr "Grootte"
 
-#: exercises/models/video.py:124 manager/models/schedule_step.py:57
+#: exercises/models/video.py:124
 msgid "Duration"
 msgstr "Duur"
 
@@ -1532,11 +1448,10 @@ msgstr "Acties"
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:46
 #: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
 #: gym/templates/gym/new_user.html:22
-#: gym/templates/gym/reset_user_password.html:20 manager/models/log.py:45
-#: manager/models/schedule.py:44 manager/models/session.py:49
-#: manager/models/workout.py:89 measurements/models/category.py:31
-#: measurements/models/measurement.py:42 nutrition/models/plan.py:54
-#: weight/models.py:60
+#: gym/templates/gym/reset_user_password.html:20 manager/models/log.py:59
+#: manager/models/routine.py:76 manager/models/session.py:47
+#: measurements/models/category.py:31 measurements/models/measurement.py:41
+#: nutrition/models/plan.py:52 weight/models.py:60
 msgid "User"
 msgstr "Gebruiker"
 
@@ -1585,15 +1500,11 @@ msgstr "Materiaal toevoegen"
 msgid "Delete equipment?"
 msgstr "Materiaal verwijderen?"
 
-#: exercises/views/exercises.py:72
-msgid "This will delete the exercise from all workouts."
-msgstr "Dit zal de oefening van alle workouts verwijderen."
-
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
 msgstr "Creëer spier"
 
-#: gallery/templates/images/overview.html:62
+#: gallery/templates/images/overview.html:72
 #, fuzzy
 msgid "Add image"
 msgstr "Voeg afbeelding toe"
@@ -1661,9 +1572,8 @@ msgid "Contract type"
 msgstr "Contracttype"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
-#: manager/templates/log/add.html:52 nutrition/forms.py:63
-#: nutrition/models/ingredient_weight_unit.py:54 nutrition/models/log.py:108
-#: nutrition/models/meal_item.py:73
+#: nutrition/forms.py:62 nutrition/models/ingredient_weight_unit.py:54
+#: nutrition/models/log.py:108 nutrition/models/meal_item.py:73
 msgid "Amount"
 msgstr "Hoeveelheid"
 
@@ -1680,11 +1590,12 @@ msgid "Contract is active"
 msgstr "Contract is actief"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
-#: manager/models/schedule.py:61 manager/templates/schedule/view.html:21
+#: manager/models/routine.py:100
 msgid "Start date"
 msgstr "Startdatum"
 
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
+#: manager/models/routine.py:104
 msgid "End date"
 msgstr "Einddatum"
 
@@ -1735,11 +1646,6 @@ msgstr "Toon naam in hoofding"
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
 msgstr "Toon de naam van de gym in de hoofding van de site"
-
-#: gym/models/gym_config.py:68
-#, python-brace-format
-msgid "Configuration for {self.gym.name}"
-msgstr "Configuratie voor {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
@@ -1847,8 +1753,7 @@ msgstr "E-mails"
 msgid "Add member"
 msgstr "Lid toevoegen"
 
-#: gym/templates/gym/new_user.html:48 manager/templates/calendar/month.html:144
-#: manager/templates/log/add.html:75 nutrition/templates/rate/form.html:120
+#: gym/templates/gym/new_user.html:48 nutrition/templates/rate/form.html:120
 msgid "Info"
 msgstr "Info"
 
@@ -2020,8 +1925,7 @@ msgstr "Optrekstaaf"
 msgid "Quads"
 msgstr "Quads"
 
-#: i18n.tpl:30 manager/forms.py:182 manager/models/log.py:73
-#: manager/templates/set/add.html:54
+#: i18n.tpl:30 manager/models/log.py:138
 msgid "Repetitions"
 msgstr "Herhalingen"
 
@@ -2069,7 +1973,6 @@ msgstr "Genereer proefweergave"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
-#: manager/templates/workout/view.html:40
 msgid "Steps"
 msgstr "Stappen"
 
@@ -2106,196 +2009,66 @@ msgstr "Verzend e-mails"
 msgid "Correction"
 msgstr "Verbetering"
 
-#: manager/forms.py:90 manager/models/workout.py:60
-msgid "The name of the workout"
-msgstr "Naam van de training"
-
-#: manager/forms.py:94 manager/models/workout.py:67
-msgid ""
-"A short description or goal of the workout. For example 'Focus on back' or "
-"'Week 1 of program xy'."
-msgstr ""
-"Een korte beschrijving of doel van de workout. Bijvoorbeeld \"Focus op rug\" "
-"of \"Week 1 van programma X\"."
-
-#: manager/forms.py:133
-msgid ""
-"You can search for more than one exercise, they will be grouped together for "
-"a superset."
-msgstr ""
-"Je kan zoeken naar meer dan één oefening, ze zullen gegroepeerd worden in "
-"een supserset."
-
-#: manager/forms.py:140 nutrition/forms.py:253
-msgid "Also search for names in English"
-msgstr "Zoek ook in Engelse namen"
-
-#: manager/forms.py:168 manager/forms.py:173 manager/models/log.py:64
-#: manager/models/log.py:92 manager/models/setting.py:62
-#: manager/models/setting.py:93 manager/templates/log/add.html:53
-#: manager/templates/log/add.html:55 manager/templates/set/formset.html:10
-#: manager/templates/set/formset.html:12 measurements/models/category.py:41
-#: nutrition/forms.py:67
-msgid "Unit"
-msgstr "Eenheid"
-
-#: manager/forms.py:191 manager/models/log.py:103 manager/models/setting.py:102
-#: manager/templates/log/add.html:56 manager/templates/set/formset.html:13
-msgid "RiR"
-msgstr "RiR"
-
-#: manager/forms.py:279
-msgid "Type"
-msgstr "Type"
-
-#: manager/forms.py:280 manager/templates/workout/view.html:122
-msgid "Table"
-msgstr "Tabel"
-
-#: manager/forms.py:282 manager/templates/workout/view.html:129
-msgid "with images"
-msgstr "met afbeelding"
-
-#: manager/forms.py:283 manager/templates/workout/view.html:136
-msgid "with comments"
-msgstr "met reacties"
-
-#: manager/helpers.py:86 manager/models/setting.py:72
-#: manager/templates/set/formset.html:9
-msgid "Reps"
-msgstr "Herhalingen"
-
-#: manager/management/commands/email-reminders.py:121
-msgid "Workout will expire soon"
-msgstr "Workout zal spoedig vervallen"
-
-#: manager/models/day.py:34 manager/models/log.py:58
-#: manager/models/session.py:60 manager/templates/schedule/view.html:56
-#: manager/templates/workout/view.html:9 manager/templates/workout/view.html:17
-#: manager/views/pdf.py:85 manager/views/pdf.py:161
-#: manager/views/schedule.py:151 manager/views/schedule.py:221
-msgid "Workout"
-msgstr "Workout"
-
-#: manager/models/day.py:39
-msgid ""
-"A description of what is done on this day (e.g. \"Pull day\") or what body "
-"parts are trained (e.g. \"Arms and abs\")"
-msgstr ""
-"Een beschrijving van wat deze dag gebeurt (bvb. \"Pull day\") of welk "
-"lichaamsdeel wordt getraind (bvb. \"Armen en buikspieren\")."
-
-#: manager/models/day.py:44
-msgid "Day"
-msgstr "Dag"
-
-#: manager/models/schedule.py:57
-msgid "Name or short description of the schedule. For example 'Program XYZ'."
-msgstr ""
-"Naam of korte beschrijving van het schema. Bijvoorbeeld \"Programma X\"."
-
-#: manager/models/schedule.py:65 manager/templates/schedule/view.html:25
-msgid "Schedule active"
-msgstr "Schema actief"
-
-#: manager/models/schedule.py:68
-msgid ""
-"Tick the box if you want to mark this schedule as your active one (will be "
-"shown e.g. on your dashboard). All other schedules will then be marked as "
-"inactive"
-msgstr ""
-"Vink het vakje aan om dit schema als actief te markeren (zal getoond worden "
-"op o.a. je dashboard). Alle andere schema's zullen dan worden gemarkeerd als "
-"inactief."
-
-#: manager/models/schedule.py:77 manager/templates/schedule/view.html:35
-msgid "Is a loop"
-msgstr "Is een herhaling"
-
-#: manager/models/schedule.py:80
-msgid ""
-"Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
-"B, C, and so on)"
-msgstr ""
-"Duid het veld aan als je de schema's in een lus (bvb. A, B, C, A, B, C enz.) "
-"wil herhalen."
-
-#: manager/models/schedule_step.py:50
-msgid "schedule"
-msgstr "schema"
-
-#: manager/models/schedule_step.py:58
-msgid "The duration in weeks"
-msgstr "De duurtijd in weken"
-
-#: manager/models/schedule_step.py:64 manager/models/set.py:53
-#: manager/models/setting.py:113 nutrition/models/meal.py:53
-#: nutrition/models/meal_item.py:66
-msgid "Order"
-msgstr "Volgorde"
-
-#: manager/models/session.py:42
-msgid "Bad"
-msgstr "Slecht"
-
-#: manager/models/session.py:43
-msgid "Neutral"
-msgstr "Neutraal"
-
-#: manager/models/session.py:44
-msgid "Good"
-msgstr "Goed"
-
-#: manager/models/session.py:76
-msgid "Any notes you might want to save about this workout session."
-msgstr "Eenderwelke opmerking die je wil bewarne over deze workout-sessie."
-
-#: manager/models/session.py:88
-msgid ""
-"Your impression about this workout session. Did you exercise as well as you "
-"could?"
-msgstr ""
-"Je indruk over deze workout-sessie. Voerde je de oefening even goed uit als "
-"je kon?"
-
-#: manager/models/session.py:95
-msgid "Start time"
-msgstr "Starttijd"
-
-#: manager/models/session.py:100
-msgid "Finish time"
-msgstr "Eindtijd"
-
-#: manager/models/session.py:127
-msgid "If you enter a time, you must enter both start and end time."
-msgstr "Als je een tijd ingeeft, moet je zowel start- als eindtijd ingeven."
-
-#: manager/models/session.py:130
-msgid "The start time cannot be after the end time."
-msgstr "De startijd kan niet na de eindtijd liggen."
-
-#: manager/models/set.py:47
-msgid "Exercise day"
-msgstr "Oefeningdag"
-
-#: manager/models/set.py:57
-msgid "Number of sets"
-msgstr "Aantal sets"
-
-#: manager/models/setting.py:51
+#: manager/dataclasses.py:106
 msgid "Sets"
 msgstr "Sets"
 
-#: manager/models/workout.py:55 nutrition/models/plan.py:60
+#: manager/dataclasses.py:124 manager/helpers.py:89
+msgid "Reps"
+msgstr "Herhalingen"
+
+#: manager/dataclasses.py:158
+msgid "RiR"
+msgstr "RiR"
+
+#: manager/dataclasses.py:165
+msgid "rest"
+msgstr ""
+
+#: manager/helpers.py:80
+msgid "Rest day"
+msgstr "Rustdag"
+
+#: manager/management/commands/email-reminders.py:89
+#, fuzzy
+#| msgid "Workout will expire soon"
+msgid "Routine will expire soon"
+msgstr "Workout zal spoedig vervallen"
+
+#: manager/models/day.py:52
+msgid "Routine"
+msgstr ""
+
+#: manager/models/day.py:60 manager/models/slot.py:34
+#: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
+msgid "Order"
+msgstr "Volgorde"
+
+#: manager/models/log.py:78
+#, fuzzy
+#| msgid "Profession"
+msgid "Session"
+msgstr "Beroep"
+
+#: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
+msgid "Workout"
+msgstr "Workout"
+
+#: manager/models/log.py:114 manager/models/log.py:149
+#: manager/models/slot_entry.py:122 measurements/models/category.py:41
+#: nutrition/forms.py:66
+msgid "Unit"
+msgstr "Eenheid"
+
+#: manager/models/routine.py:95 nutrition/models/plan.py:58
 msgid "Creation date"
 msgstr "Creatiedatum"
 
-#: manager/models/workout.py:73 manager/templates/workout/template_view.html:11
-#: manager/templates/workout/template_view.html:19
+#: manager/models/routine.py:108
 msgid "Workout template"
 msgstr "Workout template"
 
-#: manager/models/workout.py:75
+#: manager/models/routine.py:110
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
@@ -2303,275 +2076,72 @@ msgstr ""
 "Een training markeren als een sjabloon zal het bevriezen en je toelaten om "
 "er kopieën van te maken"
 
-#: manager/models/workout.py:81
+#: manager/models/routine.py:118
 msgid "Public template"
 msgstr "Publieke sjabloon"
 
-#: manager/models/workout.py:82
+#: manager/models/routine.py:119
 msgid "A public template is available to other users"
 msgstr "Een publieke sjabloon is beschikbaar voor andere gebruikers"
 
-#: manager/models/workout.py:114
-msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
-"Je moet deze training markeren als een sjabloon voordat je het publiek kunt "
-"verklaren"
+#: manager/models/routine.py:157 manager/models/session.py:147
+msgid "The start time cannot be after the end time."
+msgstr "De startijd kan niet na de eindtijd liggen."
 
-#: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:32
-msgid "Workout log"
-msgstr "Workout-log"
+#: manager/models/session.py:40
+msgid "Bad"
+msgstr "Slecht"
 
-#: manager/templates/calendar/day.html:13
-#, python-format
-msgid "Workout log for %(username)s for %(date)s"
-msgstr "Workout-log voor %(username)s op %(date)s"
+#: manager/models/session.py:41
+msgid "Neutral"
+msgstr "Neutraal"
 
-#: manager/templates/calendar/month.html:13
-#, python-format
-msgid "Calendar for %(username)s"
-msgstr "Kalender voor %(username)s"
+#: manager/models/session.py:42
+msgid "Good"
+msgstr "Goed"
 
-#: manager/templates/calendar/month.html:53
-msgid "Detail page"
-msgstr "Detailpagina"
+#: manager/models/session.py:84
+msgid "Any notes you might want to save about this workout session."
+msgstr "Eenderwelke opmerking die je wil bewarne over deze workout-sessie."
 
-#: manager/templates/calendar/month.html:115
-msgid "Add log to day"
-msgstr "Log aan dag toevoegen"
-
-#: manager/templates/calendar/month.html:120
+#: manager/models/session.py:96
 msgid ""
-"Click to add weight logs to a training\n"
-"day in your current workout:"
+"Your impression about this workout session. Did you exercise as well as you "
+"could?"
 msgstr ""
-"Klik om gewichtingaven toe te voegen aan een\n"
-"trainingdag in je huidige workout:"
+"Je indruk over deze workout-sessie. Voerde je de oefening even goed uit als "
+"je kon?"
 
-#: manager/templates/calendar/month.html:145
-msgid ""
-"The coloured days in the calendar have weight logs,\n"
-"you can click on them to see the details."
-msgstr ""
-"De gekleurde dagen in de kalender hebben gewichtingaven,\n"
-"je kan erop klikken op de details te bekijken."
+#: manager/models/session.py:104
+msgid "Start time"
+msgstr "Starttijd"
 
-#: manager/templates/calendar/month.html:157
-msgid "Go to current month"
-msgstr "Naar huidige maand"
+#: manager/models/session.py:113
+msgid "Finish time"
+msgstr "Eindtijd"
 
-#: manager/templates/calendar/month.html:190
-msgid "Add new log"
-msgstr "Nieuw log toevoegen"
+#: manager/models/session.py:144
+msgid "If you enter a time, you must enter both start and end time."
+msgstr "Als je een tijd ingeeft, moet je zowel start- als eindtijd ingeven."
 
-#: manager/templates/calendar/partial_overview_table.html:5
-msgid "Log overview"
-msgstr "Logoverzicht"
+#: manager/models/slot.py:26
+msgid "Exercise day"
+msgstr "Oefeningdag"
 
-#: manager/templates/calendar/partial_overview_table.html:12
-msgid "Workout session"
-msgstr "Trainingssessie"
-
-#: manager/templates/calendar/partial_overview_table.html:26
-msgid "Delete with logs"
-msgstr ""
-
-#: manager/templates/calendar/partial_overview_table.html:33
-msgid "Add workout impression"
-msgstr "Voeg workout-sessie toe"
-
-#: manager/templates/log/add.html:20
-msgid "New weight log"
-msgstr "Nieuw gewichtlog"
-
-#: manager/templates/log/add.html:76
-msgid ""
-"A new workout session (impression, notes, time) will\n"
-"be created if there isn't already one for the selected date. If there is, "
-"it\n"
-"will simply be edited. Weight entries are always added."
-msgstr ""
-"En nieuwe workout-sessie (indruk, notities, tijd) zal\n"
-"worden aangemaakt als er nog geen bestaat voor de geselecteerde datum.\n"
-"Als er een is, zal deze worden bewerkt. Gewichtingaven worden altijd "
-"toegevoegd."
-
-#: manager/templates/schedule/overview.html:4
-msgid "Your schedules"
-msgstr "Je schema's"
-
-#: manager/templates/schedule/overview.html:19
-#: manager/templates/schedule/view.html:96
-#: manager/templates/schedule/view.html:146
-#: manager/templates/workout/overview.html:16
-msgid "active"
-msgstr "Actief"
-
-#: manager/templates/schedule/overview.html:27
-msgid "No schedules found."
-msgstr "Geen schema's gevonden."
-
-#: manager/templates/schedule/overview.html:28
-msgid "Add one now"
-msgstr "Voeg er een toe"
-
-#: manager/templates/schedule/overview.html:36
-msgid ""
-"Schedules are collections of workouts that you do in\n"
-"        succession."
-msgstr ""
-"Schema's zijn verzamelingen van oefeningen die je\n"
-"na elkaar uitvoert."
-
-#: manager/templates/schedule/overview.html:39
-msgid ""
-"You can indicate how long you want to do each workout\n"
-"        before jumping to the next. It is also possible to create a loop, so "
-"you\n"
-"        always do the same workouts in succession, e.g. A > B > C > A > B > "
-"C and so\n"
-"        on."
-msgstr ""
-"Je kan aangeven hoe lang je elke workout wil doen\n"
-"        alvorens naar de volgende te gaan. het is ook mogelijk een lus te "
-"creëren, zodat\n"
-"        je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > B "
-"> C enz."
-
-#: manager/templates/schedule/overview.html:44
-msgid ""
-"The currently active schedule will remain active (and be\n"
-"        shown e.g. in your dashboard) till it reaches the last workout or "
-"till you\n"
-"        deactivate it, if it is a loop."
-msgstr ""
-"Het huidige actieve schema zal actief blijven \n"
-"(en getoond worden bvb. in je dashboard) \n"
-"tot de laatste workout is bereikt of, als het een lus betreft, tot je het "
-"deactiveert."
-
-#: manager/templates/schedule/overview.html:51
-msgid "Add schedule"
-msgstr "Schema toevoegen"
-
-#: manager/templates/schedule/view.html:9
-msgid "Schedule"
-msgstr "Planning"
-
-#: manager/templates/schedule/view.html:39
-msgid ""
-"This schedule is a loop and will go through the workouts above till you "
-"deactivate it"
-msgstr ""
-"Dit schema is een lus en zal door de workouts hierboven gaan totdat je het "
-"deactiveert"
-
-#: manager/templates/schedule/view.html:57
-msgid "Weeks"
-msgstr "Weken"
-
-#: manager/templates/schedule/view.html:121
-msgid "Start schedule"
-msgstr "Start schema"
-
-#: manager/templates/schedule/view.html:150
-#, python-format
-msgid ""
-"%(weeks)s Week\n"
-"                                    "
-msgid_plural ""
-"%(weeks)s Weeks\n"
-"                                "
-msgstr[0] ""
-"%(weeks)s Week\n"
-"                                    "
-msgstr[1] ""
-"%(weeks)s Weken\n"
-"                                "
-
-#: manager/templates/schedule/view.html:184
-msgid "Adding workouts"
-msgstr "Workouts toevoegen"
-
-#: manager/templates/schedule/view.html:186
-msgid ""
-"Add as many workouts to the schedule as you want. You can\n"
-"            edit the order by dragging and dropping them. It's also possible "
-"to add one workout more\n"
-"            than once."
-msgstr ""
-
-#: manager/templates/schedule/view.html:195
-#: manager/templates/schedule/view.html:209
-#: manager/templates/schedule/view.html:263
-#: manager/templates/workout/view.html:69
-#: manager/templates/workout/view.html:83
-#: manager/templates/workout/view.html:192
-msgid "Export calendar file"
-msgstr "Exporteer kalenderbestand"
-
-#: manager/templates/schedule/view.html:201
-msgid "Export this schedule as a calendar file."
-msgstr "Exporteer dit schema als een kalenderbestand."
-
-#: manager/templates/schedule/view.html:202
-#: manager/templates/workout/view.html:76
-msgid ""
-"You can then import the file it into your calendar\n"
-"                        application for example google calendar, outlook or "
-"iCal. This will create\n"
-"                        an appointment for each training day with the "
-"appropriate\n"
-"                        exercises."
-msgstr ""
-"Hierna kan je het bestand importeren in je kalender-applicatie\n"
-"                        bijvoorbeeld Google Calendar, Outlook of iCal. Dit "
-"zal een\n"
-"                        afspraak creëren op elke trainingdag met de "
-"geschikte\n"
-"                        oefeningen."
-
-#: manager/templates/schedule/view.html:225
-#: manager/templates/schedule/view.html:268
-#: manager/templates/workout/view.html:99
-#: manager/templates/workout/view.html:188
-msgid "Download as PDF"
-msgstr "Download als PDF"
-
-#: manager/templates/set/add.html:9
-#, python-format
-msgid "Add exercises to day \"%(day_name)s\""
-msgstr "Voeg schema toe aan dagen \"%(day_name)s\""
-
-#: manager/templates/set/add.html:56
-msgid ""
-"If you do the same repetitions for all sets,\n"
-"you can just enter one value: e.g. for 4 sets just enter one \"10\" for the "
-"repetitions, this\n"
-"automatically becomes \"4 x 10\"."
-msgstr ""
-"Als je dezelfde herhaling doet voor alle sets, kan je slechts één waarde "
-"invullen: bvb. voor 4 sets slechts éénmaal 10 invoeren voor de herhalingen. "
-"Dit wordt dan automatisch 4 x 10."
-
-#: manager/templates/set/edit.html:10
-msgid "Edit set"
-msgstr "Bewerk set"
-
-#: manager/templates/set/edit.html:25
-msgid "Update"
-msgstr "Bijwerken"
-
-#: manager/templates/workout/email_reminder.tpl:3
-#, python-format
-msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#: manager/templates/routines/email_reminder.tpl:3
+#, fuzzy, python-format
+#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+msgid "Your current workout '%(routine)s' expired %(days)s days ago."
 msgstr "Je huidige workout '%(workout)s' verviel %(days)s dagen geleden."
 
-#: manager/templates/workout/email_reminder.tpl:5
-#, python-format
-msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#: manager/templates/routines/email_reminder.tpl:5
+#, fuzzy, python-format
+#| msgid ""
+#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
 msgstr "Je huidige workout '%(workout)s' zal verlopen binnen %(days)s dagen."
 
-#: manager/templates/workout/email_reminder.tpl:9
+#: manager/templates/routines/email_reminder.tpl:9
 msgid ""
 "You will regularly receive such reminders till you add a new workout.\n"
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
@@ -2581,7 +2151,7 @@ msgstr ""
 "toevoegt. Je kan ook workouts toevoegen in een lus-schema, zulke schema's "
 "produceren nooit herinneringen."
 
-#: manager/templates/workout/email_reminder.tpl:12
+#: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
 msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
@@ -2590,7 +2160,7 @@ msgstr ""
 "Als je geen e-mailherinneringen wenst te ontvangen, deactiveer dan de optie "
 "in je instellingen."
 
-#: manager/templates/workout/email_reminder.tpl:15
+#: manager/templates/routines/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
@@ -2609,141 +2179,47 @@ msgid ""
 "You will regularly receive such reminders till you enter your current weight."
 msgstr ""
 
-#: manager/templates/workout/overview.html:25
-#, fuzzy
-msgid "No templates found."
-msgstr "Geen schema's gevonden."
-
-#: manager/templates/workout/template_view.html:53
-#, fuzzy
-msgid "Mark as workout"
-msgstr "Kopieer deze workout"
-
-#: manager/templates/workout/template_view.html:65
-#: manager/templates/workout/view.html:49
-msgid "Muscles trained"
-msgstr "Spieren getraind"
-
-#: manager/templates/workout/template_view.html:68
-#: manager/templates/workout/view.html:52
-msgid ""
-"Images show combined muscles as trained by the exercises on the workout."
-msgstr ""
-"Afbeeldingen tonen de gecombineerde spieren getraind door de oefeningen op "
-"de workout."
-
-#: manager/templates/workout/template_view.html:89
-#, fuzzy
-msgid "Use this template"
-msgstr "Deze pagina delen"
-
-#: manager/templates/workout/view.html:43
-msgid "Add training days"
-msgstr "Voeg trainingsdagen toe"
-
-#: manager/templates/workout/view.html:44
-msgid "Add workout sets to days"
-msgstr "Voeg workout-sets toe aan daen"
-
-#: manager/templates/workout/view.html:45
-msgid "Set the repetitions for each set"
-msgstr "Stel de herhalingen in voor elke set"
-
-#: manager/templates/workout/view.html:75
-msgid "Export this workout as a calendar file."
-msgstr "Exporteer deze workout als kalenderbestand."
-
-#: manager/templates/workout/view.html:156
-msgid "Logs"
-msgstr "Logs"
-
-#: manager/templates/workout/view.html:159
-msgid "View logs"
-msgstr "Bekijk logs"
-
-#: manager/templates/workout/view.html:195 manager/views/workout.py:281
-msgid "Mark as template"
-msgstr "Markeer als template"
-
-#: manager/views/day.py:105
-msgid "Add workout day"
-msgstr "Voeg workout-dag toe"
-
-#: manager/views/log.py:100
-msgid "Delete workout log"
-msgstr "Verwijder workout-log"
-
-#: manager/views/pdf.py:87 manager/views/pdf.py:163
+#: manager/views/pdf.py:77 manager/views/pdf.py:146
 #, python-format
 msgid "Workout for %s"
 msgstr "Workout voor %s"
 
-#: manager/views/schedule.py:291
-msgid "Create schedule"
-msgstr "Schema aanmaken"
-
-#: manager/views/schedule_step.py:99
-msgid "Edit workout"
-msgstr "Bewerk workout"
-
-#: manager/views/workout.py:209
-msgid "Copy workout"
-msgstr "Kopieer workout"
-
-#: manager/views/workout.py:212
-msgid "Copy"
-msgstr "Kopieer"
-
-#: manager/views/workout_session.py:70
-#, python-brace-format
-msgid "Edit workout impression for {0}"
-msgstr "Bewerk workout-indruk voor {0}"
-
-#: manager/views/workout_session.py:117
-#, python-brace-format
-msgid "New workout impression for the {0}"
-msgstr "Nieuwe workout-impressie voor de {0}"
-
-#: manager/views/workout_session.py:158
-msgid "This will delete all weight logs for this day as well."
-msgstr ""
-
-#: measurements/models/measurement.py:52
+#: measurements/models/measurement.py:51
 msgid "Value"
 msgstr ""
 
-#: nutrition/forms.py:118
+#: nutrition/forms.py:117
 #, fuzzy
 msgid "Height (in)"
 msgstr "Hoogte (cm)"
 
-#: nutrition/forms.py:121
+#: nutrition/forms.py:120
 #, fuzzy
 msgid "Weight (kg)"
 msgstr "Gewichtlog"
 
-#: nutrition/forms.py:121
+#: nutrition/forms.py:120
 #, fuzzy
 msgid "Weight (lbs)"
 msgstr "Gewichtlog"
 
-#: nutrition/forms.py:134
+#: nutrition/forms.py:133
 msgid "Calculate"
 msgstr "Bereken"
 
-#: nutrition/forms.py:208 nutrition/templates/rate/form.html:76
+#: nutrition/forms.py:207 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
 msgstr "Basis calorie-inname"
 
-#: nutrition/forms.py:209
+#: nutrition/forms.py:208
 msgid "Your basic caloric intake as calculated for your data"
 msgstr "Je basis calorie-inname zoals berekend voor je data"
 
-#: nutrition/forms.py:214
+#: nutrition/forms.py:213
 msgid "Additional calories"
 msgstr "Bijkomende calorieën"
 
-#: nutrition/forms.py:216
+#: nutrition/forms.py:215
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
@@ -2751,53 +2227,52 @@ msgstr ""
 "Bijkomende calorieën om toe te voegen aan het basisaantal (om af te trekken, "
 "voer een negatief cijfer in)"
 
-#: nutrition/forms.py:249 nutrition/models/ingredient_weight_unit.py:39
+#: nutrition/forms.py:246 nutrition/models/ingredient_weight_unit.py:39
 #: nutrition/models/log.py:87 nutrition/models/meal_item.py:54
 msgid "Ingredient"
 msgstr "Ingrediënt"
 
-#: nutrition/models/ingredient.py:117
+#: nutrition/forms.py:250
+msgid "Also search for names in English"
+msgstr "Zoek ook in Engelse namen"
+
+#: nutrition/models/ingredient.py:132
 msgid "In kcal per 100g"
 msgstr "In kcal per 100g"
 
-#: nutrition/models/ingredient.py:124 nutrition/models/ingredient.py:132
-#: nutrition/models/ingredient.py:142 nutrition/models/ingredient.py:150
-#: nutrition/models/ingredient.py:160 nutrition/models/ingredient.py:170
-#: nutrition/models/ingredient.py:180
+#: nutrition/models/ingredient.py:139 nutrition/models/ingredient.py:147
+#: nutrition/models/ingredient.py:157 nutrition/models/ingredient.py:165
+#: nutrition/models/ingredient.py:175 nutrition/models/ingredient.py:185
+#: nutrition/models/ingredient.py:195
 msgid "In g per 100g of product"
 msgstr "In g per 100g product"
 
-#: nutrition/models/ingredient.py:141
-#: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:259
+#: nutrition/models/ingredient.py:156
+#: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:267
 msgid "Sugar content in carbohydrates"
 msgstr "Suikerinhoud in koolhydraten"
 
-#: nutrition/models/ingredient.py:159
-#: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:273
+#: nutrition/models/ingredient.py:174
+#: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
 msgstr "Verzadigde vetinhoud in vetten"
 
-#: nutrition/models/ingredient.py:169
-#: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
+#: nutrition/models/ingredient.py:184
+#: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
 msgid "Fiber"
 msgstr ""
 
-#: nutrition/models/ingredient.py:179
-#: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
+#: nutrition/models/ingredient.py:194
+#: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
 msgid "Sodium"
 msgstr "Natrium"
 
-#: nutrition/models/ingredient.py:209
+#: nutrition/models/ingredient.py:224
 msgid "Link to product"
 msgstr ""
 
-#: nutrition/models/ingredient.py:238
+#: nutrition/models/ingredient.py:253
 msgid "Brand name of product"
-msgstr ""
-
-#: nutrition/models/ingredient.py:305
-#, python-brace-format
-msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
 msgstr ""
 
 #: nutrition/models/ingredient_category.py:31
@@ -2813,7 +2288,7 @@ msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
 msgstr "Eenheidshoeveelheid, bvb. \"1 kopje\" of \"1/2 lepel\""
 
 #: nutrition/models/log.py:52 nutrition/models/meal.py:48
-#: nutrition/models/meal_item.py:48 nutrition/models/plan.py:108
+#: nutrition/models/meal_item.py:48 nutrition/models/plan.py:106
 msgid "Nutrition plan"
 msgstr "Voedingsplan"
 
@@ -2836,7 +2311,7 @@ msgid ""
 "workout\""
 msgstr ""
 
-#: nutrition/models/plan.py:69
+#: nutrition/models/plan.py:67
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
@@ -2844,11 +2319,11 @@ msgstr ""
 "Een omschrijving van het doel van je plan, bvb \"Massa verhogen\" of "
 "\"Klaarstomen voor de zomer\""
 
-#: nutrition/models/plan.py:90
+#: nutrition/models/plan.py:88
 msgid "Use daily calories"
 msgstr "Gebruik dagelijkse calorieën"
 
-#: nutrition/models/plan.py:93
+#: nutrition/models/plan.py:91
 msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
@@ -2915,7 +2390,7 @@ msgstr "Geen ingrediënten."
 msgid "Search"
 msgstr "Zoek"
 
-#: nutrition/templates/ingredient/view.html:45 nutrition/views/plan.py:229
+#: nutrition/templates/ingredient/view.html:45 nutrition/views/plan.py:237
 msgid "Macronutrients"
 msgstr "Macrovoedingstoffen"
 
@@ -3028,28 +2503,32 @@ msgstr ""
 msgid "Add a new ingredient"
 msgstr "Nieuw ingrediënt toevoegen"
 
-#: nutrition/views/plan.py:120
+#: nutrition/views/plan.py:128
 msgid "Nutritional plan"
 msgstr "Voedingsplan"
 
-#: nutrition/views/plan.py:122
+#: nutrition/views/plan.py:130
 #, python-format
 msgid "Nutritional plan for %s"
 msgstr "Voedingsplan voor %s"
 
-#: nutrition/views/plan.py:194
+#: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr "<i>Dit is een leeg plan, wat had je verwacht op de PDF?</i>"
 
 #: nutrition/views/plan.py:230
+msgid "Nutritional data"
+msgstr "Voedingsgegevens"
+
+#: nutrition/views/plan.py:238
 msgid "Total"
 msgstr "Taal"
 
-#: nutrition/views/plan.py:231
+#: nutrition/views/plan.py:239
 msgid "Percent of energy"
 msgstr "Percentage energie"
 
-#: nutrition/views/plan.py:232
+#: nutrition/views/plan.py:240
 msgid "g per body kg"
 msgstr "g per kg lichaamsgewicht"
 
@@ -3097,7 +2576,7 @@ msgstr ""
 msgid "Follow us on mastodon for updates and news about the project"
 msgstr ""
 
-#: software/templates/about_us.html:40 software/templates/features.html:503
+#: software/templates/about_us.html:40 software/templates/features.html:506
 #, fuzzy
 msgid "Translation"
 msgstr "Vertaal"
@@ -3158,7 +2637,7 @@ msgstr ""
 msgid "Develop"
 msgstr ""
 
-#: software/templates/features.html:73 software/templates/features.html:455
+#: software/templates/features.html:73 software/templates/features.html:458
 #, fuzzy
 msgid "Community"
 msgstr "Opmerking"
@@ -3293,67 +2772,67 @@ msgstr "Draag bij!"
 msgid "Sign Up Now For Free"
 msgstr ""
 
-#: software/templates/features.html:350
+#: software/templates/features.html:351
 msgid "Web version not enough?"
 msgstr ""
 
-#: software/templates/features.html:352
+#: software/templates/features.html:353
 #, fuzzy
 msgid "Get the code, too!"
 msgstr "Download de code"
 
-#: software/templates/features.html:363
+#: software/templates/features.html:364
 msgid "Set up a private server for your gym"
 msgstr ""
 
-#: software/templates/features.html:366
+#: software/templates/features.html:367
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
 
-#: software/templates/features.html:380
+#: software/templates/features.html:381
 msgid "Integrate with your own app"
 msgstr ""
 
-#: software/templates/features.html:383
+#: software/templates/features.html:384
 msgid "wger offers an open API that you can use for your app."
 msgstr ""
 
-#: software/templates/features.html:394
+#: software/templates/features.html:395
 #, fuzzy
 msgid "Create your own version"
 msgstr "Huidige versie"
 
-#: software/templates/features.html:397
+#: software/templates/features.html:398
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
 
-#: software/templates/features.html:418
+#: software/templates/features.html:419
 #, fuzzy
 msgid "Account"
 msgstr "Hoeveelheid"
 
-#: software/templates/features.html:464
+#: software/templates/features.html:467
 #, fuzzy
 msgid "Workout routines"
 msgstr "Workout-herinneringen"
 
-#: software/templates/features.html:470
+#: software/templates/features.html:473
 msgid "Discord"
 msgstr "Discord"
 
-#: software/templates/features.html:485
+#: software/templates/features.html:488
 msgid "Software"
 msgstr ""
 
-#: software/templates/features.html:491
+#: software/templates/features.html:494
 msgid "Report an issue"
 msgstr ""
 
-#: software/templates/features.html:497
+#: software/templates/features.html:500
 msgid "Source Code"
 msgstr ""
 
@@ -3396,11 +2875,11 @@ msgid ""
 "to its own copyright."
 msgstr ""
 
-#: weight/forms.py:54
+#: weight/forms.py:46
 msgid "Input"
 msgstr "Ingave"
 
-#: weight/forms.py:55
+#: weight/forms.py:47
 msgid "Date format"
 msgstr "Datumformaat"
 
@@ -3528,19 +3007,414 @@ msgstr ""
 msgid "Re-Submit"
 msgstr "Her-indienen"
 
-#: weight/views.py:100
-#, python-format
-msgid "Edit weight entry for the %s"
-msgstr "Bewerkt gewichtingave voor %s"
+#~ msgid "Sample workout"
+#~ msgstr "Voorbeeldworkout"
 
-#: weight/views.py:117
-msgid "Successfully deleted."
-msgstr "Met succes verwijderd."
+#~ msgid "Sample day"
+#~ msgstr "Voorbeelddag"
 
-#: weight/views.py:121
+#~ msgid "Another sample day"
+#~ msgstr "Nog een voorbeelddag"
+
+#, fuzzy
+#~ msgid "Sample nutritional plan"
+#~ msgstr "Voorbeeld voedingsplan"
+
+#, python-brace-format
+#~ msgid "Placeholder workout nr {0} for schedule"
+#~ msgstr "Plaatsaanduiding training nr {0} voor schema"
+
+#~ msgid "My cool workout schedule"
+#~ msgstr "Mijn hippe workoutschema"
+
+#~ msgid "Empty placeholder schedule"
+#~ msgstr "Leeg tijdelijk schema"
+
+#~ msgid "Day of the week"
+#~ msgstr "Weekdag"
+
+#~ msgid "Workouts schedules"
+#~ msgstr "Workout-schema's"
+
+#~ msgid "Add weight entry"
+#~ msgstr "Voeg gewichtmeting toe"
+
+#, fuzzy
+#~| msgid "Placeholder image for exercise"
+#~ msgid "Placeholder image for translation"
+#~ msgstr "Aanduiding afbeelding voor oefening"
+
 #, python-format
-msgid "Delete weight entry for the %s"
-msgstr "Verwijder gewichtsingave voor de %s"
+#~ msgid ""
+#~ "Generate an API key if you want to interact with wger via\n"
+#~ "the <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> it provides (for\n"
+#~ "public resources such as the exercises or ingredients, you don't need to "
+#~ "provide\n"
+#~ "anything). You must pass this information in the header in the format "
+#~ "shown below."
+#~ msgstr ""
+#~ "Genereer een API-sleutel als je wil interageren met wger via de <a "
+#~ "href=\"%(url)s\" rel=\"nofollow\">REST API</a> die ter beschikking wordt "
+#~ "gesteld (voor publieke bronnen als oefeningen of ingrediënten moet je "
+#~ "niets invullen). Je moet deze informatie doorgeven in de header."
+
+#~ msgid "For security reasons, you should only access the API via HTTPS."
+#~ msgstr ""
+#~ "Voor veiligheidsredenen zou je de API in principe enkel mogen aanspreken "
+#~ "via HTTPS."
+
+#~ msgid "Add workout"
+#~ msgstr "Workout toevoegen"
+
+#~ msgid "This will delete the exercise from all workouts."
+#~ msgstr "Dit zal de oefening van alle workouts verwijderen."
+
+#, python-brace-format
+#~ msgid "Configuration for {self.gym.name}"
+#~ msgstr "Configuratie voor {self.gym.name}"
+
+#~ msgid "The name of the workout"
+#~ msgstr "Naam van de training"
+
+#~ msgid ""
+#~ "A short description or goal of the workout. For example 'Focus on back' "
+#~ "or 'Week 1 of program xy'."
+#~ msgstr ""
+#~ "Een korte beschrijving of doel van de workout. Bijvoorbeeld \"Focus op "
+#~ "rug\" of \"Week 1 van programma X\"."
+
+#~ msgid ""
+#~ "You can search for more than one exercise, they will be grouped together "
+#~ "for a superset."
+#~ msgstr ""
+#~ "Je kan zoeken naar meer dan één oefening, ze zullen gegroepeerd worden in "
+#~ "een supserset."
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Table"
+#~ msgstr "Tabel"
+
+#~ msgid "with images"
+#~ msgstr "met afbeelding"
+
+#~ msgid "with comments"
+#~ msgstr "met reacties"
+
+#~ msgid ""
+#~ "A description of what is done on this day (e.g. \"Pull day\") or what "
+#~ "body parts are trained (e.g. \"Arms and abs\")"
+#~ msgstr ""
+#~ "Een beschrijving van wat deze dag gebeurt (bvb. \"Pull day\") of welk "
+#~ "lichaamsdeel wordt getraind (bvb. \"Armen en buikspieren\")."
+
+#~ msgid "Day"
+#~ msgstr "Dag"
+
+#~ msgid ""
+#~ "Name or short description of the schedule. For example 'Program XYZ'."
+#~ msgstr ""
+#~ "Naam of korte beschrijving van het schema. Bijvoorbeeld \"Programma X\"."
+
+#~ msgid "Schedule active"
+#~ msgstr "Schema actief"
+
+#~ msgid ""
+#~ "Tick the box if you want to mark this schedule as your active one (will "
+#~ "be shown e.g. on your dashboard). All other schedules will then be marked "
+#~ "as inactive"
+#~ msgstr ""
+#~ "Vink het vakje aan om dit schema als actief te markeren (zal getoond "
+#~ "worden op o.a. je dashboard). Alle andere schema's zullen dan worden "
+#~ "gemarkeerd als inactief."
+
+#~ msgid "Is a loop"
+#~ msgstr "Is een herhaling"
+
+#~ msgid ""
+#~ "Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, "
+#~ "A, B, C, and so on)"
+#~ msgstr ""
+#~ "Duid het veld aan als je de schema's in een lus (bvb. A, B, C, A, B, C "
+#~ "enz.) wil herhalen."
+
+#~ msgid "schedule"
+#~ msgstr "schema"
+
+#~ msgid "The duration in weeks"
+#~ msgstr "De duurtijd in weken"
+
+#~ msgid "Number of sets"
+#~ msgstr "Aantal sets"
+
+#~ msgid "You must mark this workout as a template before declaring it public"
+#~ msgstr ""
+#~ "Je moet deze training markeren als een sjabloon voordat je het publiek "
+#~ "kunt verklaren"
+
+#~ msgid "Workout log"
+#~ msgstr "Workout-log"
+
+#, python-format
+#~ msgid "Workout log for %(username)s for %(date)s"
+#~ msgstr "Workout-log voor %(username)s op %(date)s"
+
+#, python-format
+#~ msgid "Calendar for %(username)s"
+#~ msgstr "Kalender voor %(username)s"
+
+#~ msgid "Detail page"
+#~ msgstr "Detailpagina"
+
+#~ msgid "Add log to day"
+#~ msgstr "Log aan dag toevoegen"
+
+#~ msgid ""
+#~ "Click to add weight logs to a training\n"
+#~ "day in your current workout:"
+#~ msgstr ""
+#~ "Klik om gewichtingaven toe te voegen aan een\n"
+#~ "trainingdag in je huidige workout:"
+
+#~ msgid ""
+#~ "The coloured days in the calendar have weight logs,\n"
+#~ "you can click on them to see the details."
+#~ msgstr ""
+#~ "De gekleurde dagen in de kalender hebben gewichtingaven,\n"
+#~ "je kan erop klikken op de details te bekijken."
+
+#~ msgid "Go to current month"
+#~ msgstr "Naar huidige maand"
+
+#~ msgid "Add new log"
+#~ msgstr "Nieuw log toevoegen"
+
+#~ msgid "Log overview"
+#~ msgstr "Logoverzicht"
+
+#~ msgid "Workout session"
+#~ msgstr "Trainingssessie"
+
+#~ msgid "Add workout impression"
+#~ msgstr "Voeg workout-sessie toe"
+
+#~ msgid "New weight log"
+#~ msgstr "Nieuw gewichtlog"
+
+#~ msgid ""
+#~ "A new workout session (impression, notes, time) will\n"
+#~ "be created if there isn't already one for the selected date. If there is, "
+#~ "it\n"
+#~ "will simply be edited. Weight entries are always added."
+#~ msgstr ""
+#~ "En nieuwe workout-sessie (indruk, notities, tijd) zal\n"
+#~ "worden aangemaakt als er nog geen bestaat voor de geselecteerde datum.\n"
+#~ "Als er een is, zal deze worden bewerkt. Gewichtingaven worden altijd "
+#~ "toegevoegd."
+
+#~ msgid "Your schedules"
+#~ msgstr "Je schema's"
+
+#~ msgid "active"
+#~ msgstr "Actief"
+
+#~ msgid "No schedules found."
+#~ msgstr "Geen schema's gevonden."
+
+#~ msgid "Add one now"
+#~ msgstr "Voeg er een toe"
+
+#~ msgid ""
+#~ "Schedules are collections of workouts that you do in\n"
+#~ "        succession."
+#~ msgstr ""
+#~ "Schema's zijn verzamelingen van oefeningen die je\n"
+#~ "na elkaar uitvoert."
+
+#~ msgid ""
+#~ "You can indicate how long you want to do each workout\n"
+#~ "        before jumping to the next. It is also possible to create a loop, "
+#~ "so you\n"
+#~ "        always do the same workouts in succession, e.g. A > B > C > A > B "
+#~ "> C and so\n"
+#~ "        on."
+#~ msgstr ""
+#~ "Je kan aangeven hoe lang je elke workout wil doen\n"
+#~ "        alvorens naar de volgende te gaan. het is ook mogelijk een lus te "
+#~ "creëren, zodat\n"
+#~ "        je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > "
+#~ "B > C enz."
+
+#~ msgid ""
+#~ "The currently active schedule will remain active (and be\n"
+#~ "        shown e.g. in your dashboard) till it reaches the last workout or "
+#~ "till you\n"
+#~ "        deactivate it, if it is a loop."
+#~ msgstr ""
+#~ "Het huidige actieve schema zal actief blijven \n"
+#~ "(en getoond worden bvb. in je dashboard) \n"
+#~ "tot de laatste workout is bereikt of, als het een lus betreft, tot je het "
+#~ "deactiveert."
+
+#~ msgid "Add schedule"
+#~ msgstr "Schema toevoegen"
+
+#~ msgid "Schedule"
+#~ msgstr "Planning"
+
+#~ msgid ""
+#~ "This schedule is a loop and will go through the workouts above till you "
+#~ "deactivate it"
+#~ msgstr ""
+#~ "Dit schema is een lus en zal door de workouts hierboven gaan totdat je "
+#~ "het deactiveert"
+
+#~ msgid "Weeks"
+#~ msgstr "Weken"
+
+#~ msgid "Start schedule"
+#~ msgstr "Start schema"
+
+#, python-format
+#~ msgid ""
+#~ "%(weeks)s Week\n"
+#~ "                                    "
+#~ msgid_plural ""
+#~ "%(weeks)s Weeks\n"
+#~ "                                "
+#~ msgstr[0] ""
+#~ "%(weeks)s Week\n"
+#~ "                                    "
+#~ msgstr[1] ""
+#~ "%(weeks)s Weken\n"
+#~ "                                "
+
+#~ msgid "Adding workouts"
+#~ msgstr "Workouts toevoegen"
+
+#~ msgid "Export calendar file"
+#~ msgstr "Exporteer kalenderbestand"
+
+#~ msgid "Export this schedule as a calendar file."
+#~ msgstr "Exporteer dit schema als een kalenderbestand."
+
+#~ msgid ""
+#~ "You can then import the file it into your calendar\n"
+#~ "                        application for example google calendar, outlook "
+#~ "or iCal. This will create\n"
+#~ "                        an appointment for each training day with the "
+#~ "appropriate\n"
+#~ "                        exercises."
+#~ msgstr ""
+#~ "Hierna kan je het bestand importeren in je kalender-applicatie\n"
+#~ "                        bijvoorbeeld Google Calendar, Outlook of iCal. "
+#~ "Dit zal een\n"
+#~ "                        afspraak creëren op elke trainingdag met de "
+#~ "geschikte\n"
+#~ "                        oefeningen."
+
+#~ msgid "Download as PDF"
+#~ msgstr "Download als PDF"
+
+#, python-format
+#~ msgid "Add exercises to day \"%(day_name)s\""
+#~ msgstr "Voeg schema toe aan dagen \"%(day_name)s\""
+
+#~ msgid ""
+#~ "If you do the same repetitions for all sets,\n"
+#~ "you can just enter one value: e.g. for 4 sets just enter one \"10\" for "
+#~ "the repetitions, this\n"
+#~ "automatically becomes \"4 x 10\"."
+#~ msgstr ""
+#~ "Als je dezelfde herhaling doet voor alle sets, kan je slechts één waarde "
+#~ "invullen: bvb. voor 4 sets slechts éénmaal 10 invoeren voor de "
+#~ "herhalingen. Dit wordt dan automatisch 4 x 10."
+
+#~ msgid "Edit set"
+#~ msgstr "Bewerk set"
+
+#~ msgid "Update"
+#~ msgstr "Bijwerken"
+
+#, fuzzy
+#~ msgid "No templates found."
+#~ msgstr "Geen schema's gevonden."
+
+#, fuzzy
+#~ msgid "Mark as workout"
+#~ msgstr "Kopieer deze workout"
+
+#~ msgid "Muscles trained"
+#~ msgstr "Spieren getraind"
+
+#~ msgid ""
+#~ "Images show combined muscles as trained by the exercises on the workout."
+#~ msgstr ""
+#~ "Afbeeldingen tonen de gecombineerde spieren getraind door de oefeningen "
+#~ "op de workout."
+
+#, fuzzy
+#~ msgid "Use this template"
+#~ msgstr "Deze pagina delen"
+
+#~ msgid "Add training days"
+#~ msgstr "Voeg trainingsdagen toe"
+
+#~ msgid "Add workout sets to days"
+#~ msgstr "Voeg workout-sets toe aan daen"
+
+#~ msgid "Set the repetitions for each set"
+#~ msgstr "Stel de herhalingen in voor elke set"
+
+#~ msgid "Export this workout as a calendar file."
+#~ msgstr "Exporteer deze workout als kalenderbestand."
+
+#~ msgid "Logs"
+#~ msgstr "Logs"
+
+#~ msgid "View logs"
+#~ msgstr "Bekijk logs"
+
+#~ msgid "Mark as template"
+#~ msgstr "Markeer als template"
+
+#~ msgid "Add workout day"
+#~ msgstr "Voeg workout-dag toe"
+
+#~ msgid "Delete workout log"
+#~ msgstr "Verwijder workout-log"
+
+#~ msgid "Create schedule"
+#~ msgstr "Schema aanmaken"
+
+#~ msgid "Edit workout"
+#~ msgstr "Bewerk workout"
+
+#~ msgid "Copy workout"
+#~ msgstr "Kopieer workout"
+
+#~ msgid "Copy"
+#~ msgstr "Kopieer"
+
+#, python-brace-format
+#~ msgid "Edit workout impression for {0}"
+#~ msgstr "Bewerk workout-indruk voor {0}"
+
+#, python-brace-format
+#~ msgid "New workout impression for the {0}"
+#~ msgstr "Nieuwe workout-impressie voor de {0}"
+
+#, python-format
+#~ msgid "Edit weight entry for the %s"
+#~ msgstr "Bewerkt gewichtingave voor %s"
+
+#~ msgid "Successfully deleted."
+#~ msgstr "Met succes verwijderd."
+
+#, python-format
+#~ msgid "Delete weight entry for the %s"
+#~ msgstr "Verwijder gewichtsingave voor de %s"
 
 #~ msgid "Move me"
 #~ msgstr "Verplaats me"
@@ -3674,8 +3548,8 @@ msgstr "Verwijder gewichtsingave voor de %s"
 
 #, fuzzy, python-brace-format
 #~ msgid ""
-#~ "The user {request.user.username} submitted a new ingredient \"{self."
-#~ "name}\"."
+#~ "The user {request.user.username} submitted a new ingredient \"{self.name}"
+#~ "\"."
 #~ msgstr "Gebruiker {0} diende een nieuw ingrediënt \"{1}\" in."
 
 #~ msgid "Submission date"
@@ -3752,17 +3626,11 @@ msgstr "Verwijder gewichtsingave voor de %s"
 #~ msgid "That's done here"
 #~ msgstr "Dat gebeurt hier"
 
-#~ msgid "Rest day"
-#~ msgstr "Rustdag"
-
 #~ msgid "ingredient name"
 #~ msgstr "Naam ingrediënt"
 
 #~ msgid "Only registered users can do this"
 #~ msgstr "Enkel geregistreerde gebruikers kunnen dit"
-
-#~ msgid "Nutritional data"
-#~ msgstr "Voedingsgegevens"
 
 #~ msgid "Export as CSV"
 #~ msgstr "Exporteer als CSV"
@@ -4231,10 +4099,10 @@ msgstr "Verwijder gewichtsingave voor de %s"
 #~ "Bedankt voor je interesse. Voel je vrij om één\n"
 #~ "van de manieren hieronder te gebruiken om feedback te sturen over eender "
 #~ "welk aspect van de site.\n"
-#~ "Voor ondersteuning kan je hallo zeggen in het <a "
-#~ "href=\"%(discord)s\">Discord-kanaal</a>,\n"
-#~ "om een fout te melden kan je dit doen in onze <a "
-#~ "href=\"%(issues)s\">issue tracker</a>."
+#~ "Voor ondersteuning kan je hallo zeggen in het <a href=\"%"
+#~ "(discord)s\">Discord-kanaal</a>,\n"
+#~ "om een fout te melden kan je dit doen in onze <a href=\"%"
+#~ "(issues)s\">issue tracker</a>."
 
 #~ msgid ""
 #~ "If you want to further help and improve this project,\n"
@@ -4292,17 +4160,17 @@ msgstr "Verwijder gewichtsingave voor de %s"
 #~ "the development process is open and freely accessible to anybody "
 #~ "interested.\n"
 #~ "If you are new to the free software world, we recommend to take a\n"
-#~ "look <a href=\"http://schlitt.info/opensource/"
-#~ "blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+#~ "look <a href=\"http://schlitt.info/opensource/blog/"
+#~ "0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
 #~ "article</a> which summarizes they way open source projects work very "
 #~ "well. "
 #~ msgstr ""
 #~ "wger Workout Manager is gebouwd door vrijwilligers. Het ontwikkelproces "
 #~ "is transparant en vrij toegankelijk voor alle geïnteresseerden. Als je "
 #~ "nieuw bent in de wereld van gratis software, raden we je aan een kijkje "
-#~ "te nemen naar <a href=\"http://schlitt.info/opensource/"
-#~ "blog/0541_10_golden_rules_for_starting_with_open_source.html\">dit "
-#~ "artikel</a>\n"
+#~ "te nemen naar <a href=\"http://schlitt.info/opensource/blog/"
+#~ "0541_10_golden_rules_for_starting_with_open_source.html\">dit artikel</"
+#~ "a>\n"
 #~ "waarin wordt samengevat hoe het ontwikkelen van een open-source project "
 #~ "goed kan verlopen."
 
