@@ -1,6 +1,6 @@
 # Contributors and translators to this repository
 
-Thank you all for contributing to the project, you are true heroes! 🫶 
+Thank you all for contributing to the project, you are true heroes! 🫶
 
 ## Contributors
 
@@ -104,7 +104,6 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Withnale
 - Veltarn - [https://github.com/Veltarn](https://github.com/Veltarn)
 - Anjalie Kini
-- 
 - gmmoraes - [https://github.com/gmmoraes](https://github.com/gmmoraes)
 - Peter van der Does - [https://github.com/petervanderdoes](https://github.com/petervanderdoes)
 - Daniel Topal - [https://github.com/dtopal](https://github.com/dtopal)
@@ -138,7 +137,6 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Roland Geider
 
 ## Translators
-
 
 ### Portuguese
 
