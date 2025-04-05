@@ -21,6 +21,9 @@ from packaging.version import Version
 
 logger = logging.getLogger(__name__)
 
+# For more details and possibilities, see:
+# https://packaging.python.org/en/latest/specifications/version-specifiers/
+
 MIN_APP_VERSION = Version('1.8.0')
 """
 Minimum version of the mobile app required to access this server.
@@ -28,10 +31,10 @@ Minimum version of the mobile app required to access this server.
 Always use versions in the x.y.z format, without any suffixes like "beta1" or such.
 """
 
-MIN_SERVER_VERSION = Version(f'2.3.0beta2')
+MIN_SERVER_VERSION = Version('2.3.0-beta2')
 """Minimum version of the server required to run sync commands on this server"""
 
-VERSION = Version(f'2.3.0beta2')
+VERSION = Version('2.4.0-alpha1')
 """Current version of the app"""
 
 

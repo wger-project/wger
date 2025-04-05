@@ -38,7 +38,7 @@ jobs:
           # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
-            type=raw,value=2.3-dev
+            type=raw,value=2.4-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
@@ -121,7 +121,7 @@ jobs:
         with:
           tags: |
             type=raw,value=latest
-            type=raw,value=2.3-dev
+            type=raw,value=2.4-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
