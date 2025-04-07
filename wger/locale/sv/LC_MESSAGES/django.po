@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-05 14:10+0200\n"
-"PO-Revision-Date: 2025-02-14 11:20+0000\n"
-"Last-Translator: PNS11 <pontus@pontusnaslund.se>\n"
+"PO-Revision-Date: 2025-04-08 08:05+0000\n"
+"Last-Translator: wonnock <janemilgustafsson@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -463,12 +463,13 @@ msgid ""
 msgstr ""
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "Tillbaka till \"%(target)s\""
+msgstr ""
+"Tillbaka till \"%(target)s\n"
+"                                                  \""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -476,32 +477,27 @@ msgstr ""
 "Är du säkes på att du vill ta bort detta? Denna handilng kan ej ångras."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email verification"
-msgstr "Konfiguration"
+msgstr "E-post verifiering"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, din e-post har verifierats"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
 msgstr ""
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Konfiguration"
+msgstr "E-post Bekräftelse"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Kalender för %(username)s"
+msgstr "Du är nästan där, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -600,7 +596,7 @@ msgstr ""
 
 #: core/templates/navigation.html:28 software/templates/features.html:440
 msgid "Training"
-msgstr ""
+msgstr "Träning"
 
 #: core/templates/navigation.html:37
 msgid "Workouts"
@@ -690,7 +686,7 @@ msgstr "Ingrediens viktenheter"
 
 #: core/templates/navigation.html:196 software/templates/features.html:445
 msgid "Body weight"
-msgstr ""
+msgstr "Kroppsvikt"
 
 #: core/templates/navigation.html:203 core/templates/user/overview.html:114
 msgid "Weight overview"
@@ -897,7 +893,7 @@ msgstr "Glömt ditt lösenord?"
 
 #: core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Rutiner"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -1278,7 +1274,7 @@ msgstr "Sekundära muskler"
 
 #: exercises/models/base.py:114
 msgid "Variations"
-msgstr ""
+msgstr "Variationer"
 
 #: exercises/models/category.py:34
 msgid "Exercise Categories"
@@ -1302,11 +1298,11 @@ msgstr "Korrigera en övning"
 
 #: exercises/models/image.py:57
 msgid "Line"
-msgstr ""
+msgstr "Linje"
 
 #: exercises/models/image.py:58
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:59
 msgid "Low-poly"
