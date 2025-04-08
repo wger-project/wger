@@ -432,14 +432,18 @@ class SlotEntry(models.Model):
             else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
             weight_unit=self.weight_unit_id if weight is not None else None,
-            weight_unit_name=self.weight_unit.name if weight is not None else None,
+            weight_unit_name=self.weight_unit.name
+            if weight is not None and self.weight_unit is not None
+            else None,
             repetitions=round_value(repetitions, self.repetition_rounding),
             max_repetitions=round_value(max_repetitions, self.repetition_rounding)
             if max_repetitions and repetitions and max_repetitions > repetitions
             else None,
             repetitions_rounding=self.repetition_rounding if repetitions is not None else None,
             repetitions_unit=self.repetition_unit_id if repetitions is not None else None,
-            repetitions_unit_name=self.repetition_unit.name if repetitions is not None else None,
+            repetitions_unit_name=self.repetition_unit.name
+            if repetitions is not None and self.repetition_unit is not None
+            else None,
             rir=round_value(rir, 0.5),
             max_rir=round_value(max_rir, 0.5) if max_rir and rir and max_rir > rir else None,
             rest=round_value(rest, 1),
