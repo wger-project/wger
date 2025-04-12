@@ -352,6 +352,4 @@ if settings.DEBUG:
     # urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
 
 if settings.EXPOSE_PROMETHEUS_METRICS:
-    urlpatterns += [
-        path(f'prometheus/', include('django_prometheus.urls'))
-    ]
+    urlpatterns += [path(f'prometheus/', include('django_prometheus.urls'))]
