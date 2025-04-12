@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-05 14:10+0200\n"
-"PO-Revision-Date: 2024-12-02 18:00+0000\n"
-"Last-Translator: Максим Горпиніч <mgorpinic2005@gmail.com>\n"
+"PO-Revision-Date: 2025-04-06 17:11+0000\n"
+"Last-Translator: Максим Горпиніч <maksimgorpinic2005a@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.9-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -468,12 +468,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Назад до \"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -481,18 +476,20 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Ви\n"
-"    переглядаєте сайт як користувач \"%(current_user)s\", усі дії "
-"виконуються з їх даними.\n"
+"Ви є\n"
+"                переглядаючи сайт як користувач \"%(current_user)s\", усі "
+"дії виконуються на\n"
+"                їхні дані.\n"
 "            "
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "Назад до \"%(target)s\""
+msgstr ""
+"Назад до \"%(target)s\n"
+"                    \""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -915,7 +912,7 @@ msgstr "Забули пароль?"
 
 #: core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Рутини"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -2015,21 +2012,19 @@ msgstr "Повторів можете зробити"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "відпочинок"
 
 #: manager/helpers.py:80
 msgid "Rest day"
 msgstr "День відпочинку"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Тренування скоро завершиться"
+msgstr "Термін дії процедури скоро закінчиться"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Рутина"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2037,10 +2032,8 @@ msgid "Order"
 msgstr "Порядок"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Професія"
+msgstr "Сесія"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2119,17 +2112,17 @@ msgid "Exercise day"
 msgstr "День тренування"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Ваше поточне тренування %(workout)s минуло %(days)s днів тому."
+msgstr ""
+"Термін дії вашого поточного тренування \"%(routine)s\" закінчився %(days)s "
+"днів тому."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Ваше поточне тренування %(workout)s закінчиться через %(days)s днів."
+msgstr ""
+"Ваше поточне тренування \"%(routine)s\" закінчується через %(days)s днів."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
