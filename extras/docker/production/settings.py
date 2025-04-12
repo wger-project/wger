@@ -188,3 +188,31 @@ CELERY_RESULT_BACKEND = env.str("CELERY_BACKEND", "redis://cache:6379/2")
 #
 EXPOSE_PROMETHEUS_METRICS = env.bool('EXPOSE_PROMETHEUS_METRICS', False)
 PROMETHEUS_URL_PATH = env.str('PROMETHEUS_URL_PATH', 'super-secret-path')
+
+#
+# Logging
+#
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': 'level={levelname} ts={asctime} module={module} path={pathname} line={lineno} message={message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': env.str('LOG_LEVEL_PYTHON', 'INFO').upper(),
+            'propagate': True,
+        },
+    }
+}

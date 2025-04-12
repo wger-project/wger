@@ -353,5 +353,5 @@ if settings.DEBUG:
 
 if settings.EXPOSE_PROMETHEUS_METRICS:
     urlpatterns += [
-        path(f'prometheus/{settings.PROMETHEUS_URL_PATH}/', include('django_prometheus.urls'))
+        path(f'prometheus/', include('django_prometheus.urls'))
     ]
