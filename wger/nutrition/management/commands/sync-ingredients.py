@@ -13,45 +13,48 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
+from django.core.management.base import CommandError
 
 # wger
+from wger.core.api.min_server_version import check_min_server_version
+from wger.core.management.wger_command import WgerCommand
 from wger.nutrition.sync import sync_ingredients
+from wger.utils.validators import validate_language_code
 
 
-class Command(BaseCommand):
+class Command(WgerCommand):
     """
     Synchronizes ingredient data from a wger instance to the local database
     """
 
-    remote_url = settings.WGER_SETTINGS['WGER_INSTANCE']
-
     help = """Synchronizes ingredient data from a wger instance to the local database"""
 
     def add_arguments(self, parser):
+        super().add_arguments(parser)
+
         parser.add_argument(
-            '--remote-url',
+            '-l',
+            '--languages',
             action='store',
-            dest='remote_url',
-            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
-            help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
+            dest='languages',
+            default=None,
+            help='Specify a comma-separated subset of languages to sync. Example: en,fr,es',
         )
 
     def handle(self, **options):
+        super().handle(**options)
+
         remote_url = options['remote_url']
+        languages = options['languages']
 
+        check_min_server_version(remote_url)
         try:
-            val = URLValidator()
-            val(remote_url)
-            self.remote_url = remote_url
-        except ValidationError:
-            raise CommandError('Please enter a valid URL')
+            self.languages = languages
+            if self.languages is not None:
+                for language in self.languages.split(','):
+                    validate_language_code(language)
+        except ValidationError as e:
+            raise CommandError('\n'.join([str(arg) for arg in e.args if arg is not None]))
 
-        sync_ingredients(self.stdout.write, self.remote_url, self.style.SUCCESS)
+        sync_ingredients(self.stdout.write, self.remote_url, self.languages, self.style.SUCCESS)

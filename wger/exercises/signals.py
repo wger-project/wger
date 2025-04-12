@@ -33,9 +33,9 @@ from easy_thumbnails.signals import saved_file
 # wger
 from wger.exercises.models import (
     DeletionLog,
-    Exercise,
     ExerciseImage,
     ExerciseVideo,
+    Translation,
 )
 
 
@@ -112,29 +112,26 @@ def delete_exercise_video_on_update(sender, instance: ExerciseVideo, **kwargs):
 #     pass
 
 
-@receiver(pre_delete, sender=Exercise)
-def add_deletion_log_translation(sender, instance: Exercise, **kwargs):
-    log = DeletionLog(
+@receiver(pre_delete, sender=Translation)
+def add_deletion_log_translation(sender, instance: Translation, **kwargs):
+    DeletionLog(
         model_type=DeletionLog.MODEL_TRANSLATION,
         uuid=instance.uuid,
         comment=instance.name,
-    )
-    log.save()
+    ).save()
 
 
 @receiver(pre_delete, sender=ExerciseImage)
 def add_deletion_log_image(sender, instance: ExerciseImage, **kwargs):
-    log = DeletionLog(
+    DeletionLog(
         model_type=DeletionLog.MODEL_IMAGE,
         uuid=instance.uuid,
-    )
-    log.save()
+    ).save()
 
 
 @receiver(pre_delete, sender=ExerciseVideo)
 def add_deletion_log_video(sender, instance: ExerciseVideo, **kwargs):
-    log = DeletionLog(
+    DeletionLog(
         model_type=DeletionLog.MODEL_VIDEO,
         uuid=instance.uuid,
-    )
-    log.save()
+    ).save()

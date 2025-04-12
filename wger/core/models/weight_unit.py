@@ -18,6 +18,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# wger
+from wger.manager.consts import (
+    WEIGHT_UNIT_KG,
+    WEIGHT_UNIT_LB,
+)
+
 
 class WeightUnit(models.Model):
     """
@@ -52,9 +58,4 @@ class WeightUnit(models.Model):
 
     @property
     def is_weight(self):
-        """
-        Checks that the unit is a weight proper
-
-        This is done basically to not litter the code with magic IDs
-        """
-        return self.id in (1, 2)
+        return self.id in (WEIGHT_UNIT_KG, WEIGHT_UNIT_LB)

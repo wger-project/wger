@@ -26,7 +26,10 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
 # Third Party
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import (
+    A4,
+    landscape,
+)
 from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
@@ -36,8 +39,7 @@ from reportlab.platypus import (
 
 # wger
 from wger.manager.helpers import render_workout_day
-from wger.manager.models import Workout
-from wger.utils.helpers import check_token
+from wger.manager.models import Routine
 from wger.utils.pdf import (
     get_logo,
     render_footer,
@@ -48,27 +50,15 @@ from wger.utils.pdf import (
 logger = logging.getLogger(__name__)
 
 
-def workout_log(request, id, images=False, comments=False, uidb64=None, token=None):
+def workout_log(request, pk: int):
     """
-    Generates a PDF with the contents of the given workout
-
-    See also
-    * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
-    * http://www.reportlab.com/apis/reportlab/dev/platypus.html
+    Generates a PDF with the contents of the given routine
     """
-    comments = bool(int(comments))
-    images = bool(int(images))
 
     # Load the workout
-    if uidb64 is not None and token is not None:
-        if check_token(uidb64, token):
-            workout = get_object_or_404(Workout, pk=id)
-        else:
-            return HttpResponseForbidden()
-    else:
-        if request.user.is_anonymous:
-            return HttpResponseForbidden()
-        workout = get_object_or_404(Workout, pk=id, user=request.user)
+    if request.user.is_anonymous:
+        return HttpResponseForbidden()
+    routine = get_object_or_404(Routine, pk=pk, user=request.user)
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
@@ -76,7 +66,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     # Create the PDF object, using the response object as its "file."
     doc = SimpleDocTemplate(
         response,
-        pagesize=A4,
+        pagesize=landscape(A4),
         # pagesize = landscape(A4),
         leftMargin=cm,
         rightMargin=cm,
@@ -96,34 +86,35 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
 
     # Set the title
     p = Paragraph(
-        f'<para align="center"><strong>{workout.name}</strong></para>', styleSheet['HeaderBold']
+        f'<para align="center"><strong>{routine.name}</strong></para>', styleSheet['HeaderBold']
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
-    if workout.description:
-        p = Paragraph(f'<para align="center">{workout.description}</para>')
+    if routine.description:
+        p = Paragraph(f'<para align="center">{routine.description}</para>')
         elements.append(p)
         elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
-    for day in workout.day_set.all():
-        elements.append(render_workout_day(day, images=images, comments=comments))
+    for day_data in routine.data_for_iteration():
+        if day_data.day is None:
+            continue
+        elements.append(render_workout_day(day_data))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
     elements.append(Spacer(10 * cm, 0.5 * cm))
-    elements.append(render_footer(request.build_absolute_uri(workout.get_absolute_url())))
+    elements.append(render_footer(request.build_absolute_uri(routine.get_absolute_url())))
 
     # write the document and send the response to the browser
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = f'attachment; filename=Workout-{id}-log.pdf'
     response['Content-Length'] = len(response.content)
     return response
 
 
-def workout_view(request, id, images=False, comments=False, uidb64=None, token=None):
+def workout_view(request, pk):
     """
     Generates a PDF with the contents of the workout, without table for logs
     """
@@ -133,19 +124,11 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
-    comments = bool(int(comments))
-    images = bool(int(images))
 
-    # Load the workout
-    if uidb64 is not None and token is not None:
-        if check_token(uidb64, token):
-            workout = get_object_or_404(Workout, pk=id)
-        else:
-            return HttpResponseForbidden()
-    else:
-        if request.user.is_anonymous:
-            return HttpResponseForbidden()
-        workout = get_object_or_404(Workout, pk=id, user=request.user)
+    if request.user.is_anonymous:
+        return HttpResponseForbidden()
+
+    routine = get_object_or_404(Routine, pk=pk, user=request.user)
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
@@ -172,25 +155,26 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
 
     # Set the title
     p = Paragraph(
-        '<para align="center"><strong>%(description)s</strong></para>' % {'description': workout},
+        '<para align="center"><strong>%(description)s</strong></para>' % {'description': routine},
         styleSheet['HeaderBold'],
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
-    for day in workout.day_set.all():
-        elements.append(render_workout_day(day, images=images, comments=comments, only_table=True))
+    for day_data in routine.data_for_iteration():
+        if day_data.day is None:
+            continue
+        elements.append(render_workout_day(day_data, only_table=True))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
     elements.append(Spacer(10 * cm, 0.5 * cm))
-    elements.append(render_footer(request.build_absolute_uri(workout.get_absolute_url())))
+    elements.append(render_footer(request.build_absolute_uri(routine.get_absolute_url())))
 
     # write the document and send the response to the browser
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = f'attachment; filename=Workout-{id}-table.pdf'
     response['Content-Length'] = len(response.content)
     return response

@@ -17,7 +17,6 @@
 # Standard Library
 import datetime
 import logging
-from decimal import Decimal
 
 # Django
 from django.contrib.auth.models import User
@@ -30,7 +29,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
@@ -66,7 +64,7 @@ class NutritionPlan(models.Model):
         blank=True,
         verbose_name=_('Description'),
         help_text=_(
-            'A description of the goal of the plan, e.g. ' '"Gain mass" or "Prepare for summer"'
+            'A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"'
         ),
     )
 

@@ -26,13 +26,10 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.utils.cache import (
-    reset_exercise_api_cache,
-    reset_workout_canonical_form,
-)
+from wger.utils.cache import reset_exercise_api_cache
 
 # Local
-from .exercise import Exercise
+from .translation import Translation
 
 
 class Alias(models.Model):
@@ -48,8 +45,8 @@ class Alias(models.Model):
     )
     """Globally unique ID, to identify the alias across installations"""
 
-    exercise = models.ForeignKey(
-        Exercise,
+    translation = models.ForeignKey(
+        Translation,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
@@ -76,7 +73,7 @@ class Alias(models.Model):
         Reset cached workouts
         """
         # Api cache
-        reset_exercise_api_cache(self.exercise.exercise_base.uuid)
+        reset_exercise_api_cache(self.translation.exercise.uuid)
 
         super().save(*args, **kwargs)
 
@@ -84,11 +81,9 @@ class Alias(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.exercise_base.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         # Api cache
-        reset_exercise_api_cache(self.exercise.exercise_base.uuid)
+        reset_exercise_api_cache(self.translation.exercise.uuid)
 
         super().delete(*args, **kwargs)
 

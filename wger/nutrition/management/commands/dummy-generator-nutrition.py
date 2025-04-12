@@ -80,7 +80,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f"** Generating {options['nr_plans']} dummy nutritional plan(s) per user")
+        self.stdout.write(f'** Generating {options["nr_plans"]} dummy nutritional plan(s) per user')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
@@ -147,6 +147,6 @@ class Command(BaseCommand):
                         diary_entries.append(log)
 
                 if int(options['verbosity']) >= 2:
-                    self.stdout.write(f"  created {options['nr_diary_dates']} diary entries")
+                    self.stdout.write(f'  created {options["nr_diary_dates"]} diary entries')
 
             LogItem.objects.bulk_create(diary_entries)

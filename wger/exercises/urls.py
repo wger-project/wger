@@ -27,7 +27,6 @@ from wger.core.views.react import ReactView
 from wger.exercises.views import (
     categories,
     equipment,
-    exercises,
     history,
     muscles,
 )
@@ -119,32 +118,22 @@ patterns_equipment = [
 patterns_exercise = [
     path(
         'overview/',
-        ReactView.as_view(div_id='react-exercise-overview'),
+        ReactView.as_view(),
         name='overview',
     ),
     path(
-        '<int:id>/view/',
-        exercises.view,
-        name='view',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
-        exercises.view,
+        '<int:pk>/view',
+        ReactView.as_view(),
         name='view',
     ),
     path(
-        '<int:pk>/view-base',
-        ReactView.as_view(div_id='react-exercise-overview'),
-        name='view-base',
-    ),
-    path(
-        '<int:pk>/view-base/<slug:slug>',
-        ReactView.as_view(div_id='react-exercise-detail'),
-        name='view-base',
+        '<int:pk>/view/<slug:slug>',
+        ReactView.as_view(),
+        name='view',
     ),
     path(
         'contribute',
-        ReactView.as_view(div_id='react-exercise-contribute'),
+        ReactView.as_view(),
         name='contribute',
     ),
 ]

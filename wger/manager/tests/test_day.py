@@ -12,159 +12,250 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.core.cache import cache
-from django.urls import reverse
+# Standard Library
+import datetime
+from dataclasses import asdict
+from decimal import Decimal
 
 # wger
-from wger.core.tests.base_testcase import (
-    WgerAddTestCase,
-    WgerEditTestCase,
-    WgerTestCase,
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.dataclasses import SetConfigData
+from wger.manager.models import (
+    Day,
+    WorkoutLog,
 )
-from wger.manager.models import Day
-from wger.utils.cache import cache_mapper
 
 
-class DayRepresentationTestCase(WgerTestCase):
+class DaySlotTestCase(WgerTestCase):
     """
-    Test the representation of a model
+    Test that the correct slots are calculated
     """
 
-    def test_representation(self):
+    def test_slots_gym_mode(self):
         """
-        Test that the representation of an object is correct
-        """
-        self.assertEqual(str(Day.objects.get(pk=1)), 'A day')
-
-
-class AddWorkoutDayTestCase(WgerAddTestCase):
-    """
-    Tests adding a day to a workout
-    """
-
-    object_class = Day
-    url = reverse('manager:day:add', kwargs={'workout_pk': 3})
-    user_success = 'test'
-    user_fail = 'admin'
-    data = {'description': 'a new day', 'day': [1, 4]}
-
-
-class DeleteWorkoutDayTestCase(WgerTestCase):
-    """
-    Tests deleting a day
-    """
-
-    def delete_day(self, fail=False):
-        """
-        Helper function to test deleting a day
+        Test that the correct slots are returned - gym mode
         """
 
-        # Fetch the day edit page
-        count_before = Day.objects.count()
-        response = self.client.get(reverse('manager:day:delete', kwargs={'pk': 5}))
-        count_after = Day.objects.count()
-
-        if fail:
-            self.assertIn(response.status_code, (302, 404))
-            self.assertTemplateUsed('login.html')
-            self.assertEqual(count_before, count_after)
-
-        else:
-            self.assertRaises(Day.DoesNotExist, Day.objects.get, pk=5)
-            self.assertEqual(response.status_code, 302)
-            self.assertEqual(count_before - 1, count_after)
-
-    def test_delete_day_anonymous(self):
-        """
-        Test deleting a day as an anonymous user
-        """
-
-        self.delete_day(fail=True)
-
-    def test_delete_workout_owner(self):
-        """
-        Test deleting a day as the owner user
-        """
-
-        self.user_login('test')
-        self.delete_day(fail=False)
-
-    def test_delete_workout_other(self):
-        """
-        Test deleting a day as a different logged in user
-        """
-
-        self.user_login('admin')
-        self.delete_day(fail=True)
-
-
-class EditWorkoutDayTestCase(WgerEditTestCase):
-    """
-    Tests editing the day of a Workout
-    """
-
-    object_class = Day
-    url = 'manager:day:edit'
-    pk = 5
-    user_success = 'test'
-    user_fail = 'admin'
-    data = {'description': 'a different description', 'day': [1, 4]}
-
-
-class WorkoutCacheTestCase(WgerTestCase):
-    """
-    Workout cache test case
-    """
-
-    def test_canonical_form_cache_save(self):
-        """
-        Tests the workout cache when saving
-        """
         day = Day.objects.get(pk=1)
-        day.canonical_representation
-        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+        slots = day.get_slots_gym_mode(1)
+        set_configs = slots[0].sets
 
+        config_1 = SetConfigData(
+            slot_entry_id=1,
+            exercise=1,
+            weight=80,
+            weight_rounding=Decimal('1.25'),
+            weight_unit=1,
+            weight_unit_name='kg',
+            repetitions=4,
+            repetitions_rounding=Decimal('1.00'),
+            repetitions_unit=1,
+            repetitions_unit_name='Repetitions',
+            rir=None,
+            rest=None,
+            sets=1,
+        )
+        config_2 = SetConfigData(
+            slot_entry_id=2,
+            exercise=2,
+            weight=20,
+            weight_rounding=Decimal('1.25'),
+            weight_unit=1,
+            weight_unit_name='kg',
+            repetitions=5,
+            repetitions_rounding=Decimal('1.00'),
+            repetitions_unit=1,
+            repetitions_unit_name='Repetitions',
+            rir=None,
+            rest=None,
+            sets=1,
+        )
+
+        # Sets are returned interleaved from the supersets
+        self.assertEqual(len(set_configs), 7)
+        self.assertDictEqual(asdict(set_configs[0]), asdict(config_1))
+        self.assertEqual(set_configs[1], config_2)
+        self.assertEqual(set_configs[2], config_1)
+        self.assertEqual(set_configs[3], config_2)
+        self.assertEqual(set_configs[4], config_1)
+        self.assertEqual(set_configs[5], config_1)
+        self.assertEqual(set_configs[6], config_1)
+
+    def test_slots_display_mode(self):
+        """
+        Test that the correct slots are returned - display mode
+        """
+
+        day = Day.objects.get(pk=1)
+        slots = day.get_slots_display_mode(1)
+
+        slot1 = slots[0]
+        set_configs_1 = slot1.sets
+
+        slot2 = slots[1]
+        set_configs_2 = slot2.sets
+
+        # Exercises in superset are returned individually, not interleaved
+        self.assertEqual(slot1.comment, 'test comment 123')
+        self.assertEqual(slot1.exercises, [1, 2])
+        self.assertEqual(len(set_configs_1), 2)
+        self.assertDictEqual(
+            asdict(set_configs_1[0]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=1,
+                    exercise=1,
+                    weight=80,
+                    weight_rounding=Decimal('1.25'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=Decimal(4),
+                    repetitions_rounding=Decimal('1.00'),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=None,
+                    rest=None,
+                    sets=5,
+                )
+            ),
+        )
+        self.assertDictEqual(
+            asdict(set_configs_1[1]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=2,
+                    exercise=2,
+                    weight=20,
+                    weight_rounding=Decimal('1.25'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=5,
+                    repetitions_rounding=Decimal('1.00'),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=None,
+                    rest=None,
+                    sets=2,
+                )
+            ),
+        )
+
+        # If there are consecutive slots with the same exercise, group them
+        self.assertEqual(slot2.comment, 'test comment 456')
+        self.assertEqual(slot2.exercises, [3])
+        self.assertEqual(len(set_configs_2), 2)
+        self.assertDictEqual(
+            asdict(set_configs_2[0]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=3,
+                    exercise=3,
+                    weight=80,
+                    weight_rounding=Decimal('1.25'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=6,
+                    repetitions_rounding=Decimal('1.00'),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=None,
+                    rest=None,
+                    sets=5,
+                )
+            ),
+        )
+
+        self.assertDictEqual(
+            asdict(set_configs_2[1]),
+            asdict(
+                SetConfigData(
+                    slot_entry_id=4,
+                    exercise=3,
+                    weight=50,
+                    weight_rounding=Decimal('1.25'),
+                    weight_unit=1,
+                    weight_unit_name='kg',
+                    repetitions=4,
+                    repetitions_rounding=Decimal('1.00'),
+                    repetitions_unit=1,
+                    repetitions_unit_name='Repetitions',
+                    rir=None,
+                    rest=None,
+                    sets=3,
+                )
+            ),
+        )
+
+
+class DayModelTestCase(WgerTestCase):
+    """
+    Tests the day model
+    """
+
+    def test_rest_day(self):
+        """
+        Test that a day marked as a rest day deletes all slots
+        """
+
+        day = Day.objects.get(pk=1)
+        self.assertEqual(day.slots.count(), 3)
+
+        day.is_rest = True
         day.save()
-        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+        self.assertEqual(day.slots.count(), 0)
 
-    def test_canonical_form_cache_delete(self):
+    def test_no_rest_day(self):
         """
-        Tests the workout cache when deleting
+        Test that a regular day does not delete any slots
         """
+
         day = Day.objects.get(pk=1)
-        day.canonical_representation
-        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+        self.assertEqual(day.slots.count(), 3)
 
-        day.delete()
-        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+        day.name = 'foo'
+        day.save()
+        self.assertEqual(day.slots.count(), 3)
 
-
-class DayTestCase(WgerTestCase):
-    """
-    Other tests
-    """
-
-    def test_day_id_property(self):
+    def test_can_proceed_future(self):
         """
-        Test that the attribute get_first_day_id works correctly
+        Test that can_proceed returns true when the date is in the future
         """
 
-        day = Day.objects.get(pk=5)
-        self.assertEqual(day.get_first_day_id, 3)
+        day = Day.objects.get(pk=1)
+        self.assertTrue(day.can_proceed(date=datetime.date.today() + datetime.timedelta(days=1)))
 
-        day = Day.objects.get(pk=3)
-        self.assertEqual(day.get_first_day_id, 1)
+    def test_can_proceed_present(self):
+        """
+        Test that can_proceed returns true when need_logs_to_advance is false
+        """
 
+        day = Day.objects.get(pk=1)
+        day.need_logs_to_advance = False
+        self.assertTrue(day.can_proceed(date=datetime.date.today()))
 
-# class DayApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     """
-#     Tests the day API resource
-#     """
-#     pk = 5
-#     resource = Day
-#     private_resource = True
-#     data = {"training": 3,
-#             "description": "API update",
-#             "day": [1, 4]
-#             }
+    def test_can_proceed_no_logs(self):
+        """
+        Test that can_proceed returns false when need_logs_to_advance is true and there are no logs
+        """
+
+        day = Day.objects.get(pk=1)
+        day.need_logs_to_advance = True
+        self.assertFalse(day.can_proceed(date=datetime.date.today()))
+
+    def test_can_proceed(self):
+        """
+        Test that can_proceed returns true when need_logs_to_advance is true and there are logs
+        """
+
+        day = Day.objects.get(pk=1)
+        day.need_logs_to_advance = True
+        WorkoutLog.objects.create(
+            date=datetime.datetime.now(),
+            weight_unit_id=1,
+            repetitions_unit_id=1,
+            user=day.routine.user,
+            repetitions=1,
+            weight=1,
+            exercise_id=1,
+        )
+        self.assertFalse(day.can_proceed(date=datetime.date.today()))

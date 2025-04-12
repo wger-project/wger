@@ -116,7 +116,7 @@ class UserProfile(models.Model):
 
     show_comments = models.BooleanField(
         verbose_name=_('Show exercise comments'),
-        help_text=_('Check to show exercise comments on the ' 'workout view'),
+        help_text=_('Check to show exercise comments on the workout view'),
         default=True,
     )
     """
@@ -149,10 +149,11 @@ by the US Department of Agriculture. It is extremely complete, with around
 
     workout_reminder = IntegerField(
         verbose_name=_('Remind before expiration'),
-        help_text=_('The number of days you want to be reminded ' 'before a workout expires.'),
+        help_text=_('The number of days you want to be reminded before a workout expires.'),
         default=14,
         validators=[MinValueValidator(1), MaxValueValidator(30)],
     )
+
     workout_duration = IntegerField(
         verbose_name=_('Default duration of workouts'),
         help_text=_(
@@ -163,6 +164,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(30)],
     )
+
     last_workout_notification = models.DateField(editable=False, blank=False, null=True)
     """
     The last time the user got a workout reminder email
@@ -184,28 +186,25 @@ by the US Department of Agriculture. It is extremely complete, with around
         on_delete=models.CASCADE,
     )
 
-    @property
-    def is_trustworthy(self) -> bool:
-        """
-        Flag indicating whether the user "is trustworthy" and can submit or edit exercises
+    weight_rounding = models.DecimalField(
+        default=None,
+        null=True,
+        max_digits=4,
+        decimal_places=2,
+    )
+    """
+    Default rounding for weight
+    """
 
-        At the moment the criteria are:
-        - the account has existed for 3 weeks
-        - the email address has been verified
-        """
-
-        # Superusers are always trustworthy
-        if self.user.is_superuser:
-            return True
-
-        # Temporary users are never trustworthy
-        if self.is_temporary:
-            return False
-
-        days_since_joined = datetime.date.today() - self.user.date_joined.date()
-        minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
-
-        return days_since_joined.days > minimum_account_age and self.email_verified
+    repetitions_rounding = models.DecimalField(
+        default=None,
+        null=True,
+        max_digits=4,
+        decimal_places=2,
+    )
+    """
+    Default rounding for repetitions
+    """
 
     #
     # User statistics
@@ -349,8 +348,8 @@ by the US Department of Agriculture. It is extremely complete, with around
     """Allow anonymous read-only access"""
 
     num_days_weight_reminder = models.IntegerField(
-        verbose_name=_('Automatic reminders for weight ' 'entries'),
-        help_text=_('Number of days after the last ' 'weight entry (enter 0 to ' 'deactivate)'),
+        verbose_name=_('Automatic reminders for weight entries'),
+        help_text=_('Number of days after the last weight entry (enter 0 to deactivate)'),
         validators=[MinValueValidator(0), MaxValueValidator(30)],
         default=0,
     )
@@ -373,6 +372,29 @@ by the US Department of Agriculture. It is extremely complete, with around
     Flag to indicate whether the (app) user can register other users on his
     behalf over the REST API
     """
+
+    @property
+    def is_trustworthy(self) -> bool:
+        """
+        Flag indicating whether the user "is trustworthy" and can submit or edit exercises
+
+        At the moment the criteria are:
+        - the account has existed for 3 weeks
+        - the email address has been verified
+        """
+
+        # Superusers are always trustworthy
+        if self.user.is_superuser:
+            return True
+
+        # Temporary users are never trustworthy
+        if self.is_temporary:
+            return False
+
+        days_since_joined = datetime.date.today() - self.user.date_joined.date()
+        minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
+
+        return days_since_joined.days > minimum_account_age and self.email_verified
 
     @property
     def weight(self):

@@ -29,7 +29,7 @@ from wger.core.forms import (
     RegistrationForm,
     RegistrationFormNoCaptcha,
 )
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.nutrition.models import Ingredient
 
 
@@ -48,7 +48,7 @@ def features(request):
         result_github_api = requests.get('https://api.github.com/repos/wger-project/wger').json()
         context = {
             'nr_users': User.objects.count(),
-            'nr_exercises': ExerciseBase.objects.count(),
+            'nr_exercises': Exercise.objects.count(),
             'nr_ingredients': Ingredient.objects.count(),
             'nr_stars': result_github_api.get('stargazers_count', '2000'),
         }

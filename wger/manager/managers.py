@@ -15,65 +15,59 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
-
-class ScheduleManager(models.Manager):
-    """
-    Custom manager for workout schedules
-    """
-
-    def get_current_workout(self, user):
-        """
-        Finds the currently active workout for the user, by checking the schedules
-        and the workouts
-        :rtype : list
-        """
-        # wger
-        from wger.manager.models import (
-            Schedule,
-            Workout,
-        )
-
-        # Try first to find an active schedule that has steps
-        try:
-            schedule = Schedule.objects.filter(user=user).get(is_active=True)
-            if schedule.schedulestep_set.count():
-                # The schedule might exist and have steps, but if it's too far in
-                # the past and is not a loop, we won't use it. Doing it like this
-                # is kind of wrong, but lets us continue to the correct place
-                if not schedule.get_current_scheduled_workout():
-                    raise ObjectDoesNotExist
-
-                active_workout = schedule.get_current_scheduled_workout().workout
-            else:
-                # same as above
-                raise ObjectDoesNotExist
-
-        # there are no active schedules, just return the last workout
-        except ObjectDoesNotExist:
-            schedule = False
-            try:
-                active_workout = Workout.objects.filter(user=user).latest('creation_date')
-
-            # no luck, there aren't even workouts for the user
-            except ObjectDoesNotExist:
-                active_workout = False
-
-        return active_workout, schedule
+# wger
+from wger.manager.consts import (
+    REP_UNIT_REPETITIONS,
+    WEIGHT_UNIT_KG,
+    WEIGHT_UNIT_LB,
+)
 
 
-class WorkoutManager(models.Manager):
+class WorkoutLogQuerySet(models.QuerySet):
+    def kg(self):
+        """Return all entries with kg as weight"""
+        return self.filter(weight_unit_id=WEIGHT_UNIT_KG)
+
+    def lb(self):
+        """Return all entries with lb as weight"""
+        return self.filter(weight_unit_id=WEIGHT_UNIT_LB)
+
+    def reps(self):
+        """Return all entries with reps as unit"""
+        return self.filter(repetitions_unit_id=REP_UNIT_REPETITIONS)
+
+
+class WorkoutLogManager(models.Manager):
+    """Custom manager for log entries"""
+
     def get_queryset(self):
-        return super().get_queryset().filter(is_template=False)
+        return WorkoutLogQuerySet(self.model, using=self._db)
+
+    def kg(self):
+        """Return all entries with kg as weight"""
+        return self.get_queryset().kg()
+
+    def lb(self):
+        """Return all entries with lb as weight"""
+        return self.get_queryset().lb()
+
+    def reps(self):
+        """Return all entries with reps as unit"""
+        return self.get_queryset().reps()
 
 
-class WorkoutTemplateManager(models.Manager):
+class RoutineManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()
+
+
+class RoutineTemplateManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_template=True)
 
 
-class WorkoutAndTemplateManager(models.Manager):
+class PublicRoutineTemplateManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset()
+        return super().get_queryset().filter(is_template=True, is_public=True)

@@ -60,7 +60,8 @@
         "deleteExerciseBody": "你要删除“ {{name}}”训练吗？你可以删除当前{{language}}翻译或带有翻译，图像等的完整的训练。",
         "newNote": "新笔记",
         "notesHelpText": "笔记是关于如何训练的简短评论，例如「保持身体挺直」",
-        "imageStyleOther": "其它"
+        "imageStyleOther": "其它",
+        "swapExercise": "切换练习"
     },
     "server": {
         "arms": "手臂",
@@ -194,7 +195,11 @@
         "maxLength": "请勿超过{{chars}}字",
         "minLength": "请勿少于{{chars}}字",
         "maxValue": "此项必须小于{{value}}",
-        "minValue": "此项必须大于{{value}}"
+        "minValue": "此项必须大于{{value}}",
+        "enterInteger": "请输入全数字",
+        "maxLessThanMin": "最大值应大于最小值",
+        "enterNumber": "请输入有效数值",
+        "endBeforeStart": "结束数值必须大于开始数值"
     },
     "routines": {
         "addDay": "添加训练日",
@@ -204,7 +209,26 @@
         "routines": "日常",
         "logsFilterNote": "注意仅有带有重量及次数的项目能被可视化，诸如时间和力竭的组合则不然",
         "addWeightLog": "添加训练记录",
-        "routine": "日常"
+        "routine": "日常",
+        "intensity": "强度",
+        "currentRoutine": "当前计划",
+        "volume": "卷",
+        "iteration": "重复次数",
+        "daily": "日",
+        "weekNr": "周 {{number}}",
+        "backToRoutine": "返回 routine",
+        "minLengthRoutine": "此计划至少需要持续 {{number}} 周",
+        "maxLengthRoutine": "此计划最多持续 {{number}} 周",
+        "deleteDayConfirmation": "这将移除所有训练计划、训练内容与训练进度信息",
+        "routineHasNoDays": "此计划不包含任何日期",
+        "setHasNoExercises": "此计划没有任何练习",
+        "fitDaysInWeek": "每周练习天数",
+        "weekly": "周",
+        "restTime": "休息时间",
+        "sets": "组",
+        "workoutNr": "训练计划 Nr. {{number}}",
+        "fitDaysInWeekHelpText": "此设置可控制例程天数在多个星期内的安排方式。如果启用，工作日将以周为周期重复。例如，在周一、周三和周五进行锻炼的例程，将在下周的周一、周三和周五继续这种模式。如果禁用，则各天将按顺序进行，而不考虑新一周的开始。这对于没有严格周计划的例程非常有用。",
+        "reps": "重复次数"
     },
     "language": "语言",
     "cannotBeUndone": "此操作无法撤回。",
@@ -240,5 +264,15 @@
     "continue": "继续",
     "calendar": "日历",
     "entries": "项目",
-    "no_entries_for_day": "今日无项目"
+    "no_entries_for_day": "今日无项目",
+    "editName": "编辑 {{name}}",
+    "start": "开始",
+    "comment": "评论",
+    "min": "分钟",
+    "max": "最大",
+    "durationWeeks": "{{number}} 周",
+    "durationWeeksDays": "{{nrWeeks}} 周, {{nrDays}} 天",
+    "undo": "撤销",
+    "successfullyDeleted": "成功删除",
+    "end": "结束"
 }

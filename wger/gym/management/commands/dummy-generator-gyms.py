@@ -92,7 +92,7 @@ class Command(BaseCommand):
         faker.add_provider(gym_names_1)
         faker.add_provider(gym_names_2)
 
-        self.stdout.write(f"** Generating {options['number_gyms']} gyms")
+        self.stdout.write(f'** Generating {options["number_gyms"]} gyms')
 
         gym_list = []
         for i in range(options['number_gyms']):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.db import migrations, models
+from django.db import migrations
 
 
 def insert_data(apps, schema_editor):

@@ -21,7 +21,7 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.core.models import Language
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
 
@@ -88,16 +88,16 @@ class Command(BaseCommand):
 
         self.english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
-        for base in ExerciseBase.objects.all():
+        for base in Exercise.objects.all():
             self.handle_untranslated(base, delete_untranslated)
             self.handle_no_english(base, delete_no_english)
             self.handle_duplicate_translations(base, delete_duplicates)
 
-    def handle_untranslated(self, base: ExerciseBase, delete: bool):
+    def handle_untranslated(self, base: Exercise, delete: bool):
         """
         Delete exercises without translations
         """
-        if not base.pk or base.exercises.count():
+        if not base.pk or base.translations.count():
             return
 
         self.stdout.write(self.style.WARNING(f'Exercise {base.uuid} has no translations!'))
@@ -105,8 +105,8 @@ class Command(BaseCommand):
             base.delete()
             self.stdout.write('  -> deleted')
 
-    def handle_no_english(self, base: ExerciseBase, delete: bool):
-        if not base.pk or base.exercises.filter(language=self.english).exists():
+    def handle_no_english(self, base: Exercise, delete: bool):
+        if not base.pk or base.translations.filter(language=self.english).exists():
             return
 
         self.stdout.write(self.style.WARNING(f'Exercise {base.uuid} has no English translation!'))
@@ -114,11 +114,11 @@ class Command(BaseCommand):
             base.delete()
             self.stdout.write('  -> deleted')
 
-    def handle_duplicate_translations(self, base: ExerciseBase, delete: bool):
+    def handle_duplicate_translations(self, base: Exercise, delete: bool):
         if not base.pk:
             return
 
-        exercise_languages = base.exercises.values_list('language', flat=True)
+        exercise_languages = base.translations.values_list('language', flat=True)
         duplicates = [
             Language.objects.get(pk=item)
             for item, count in collections.Counter(exercise_languages).items()
@@ -133,7 +133,7 @@ class Command(BaseCommand):
 
         # Output the duplicates
         for language in duplicates:
-            translations = base.exercises.filter(language=language)
+            translations = base.translations.filter(language=language)
             self.stdout.write(f'language {language.short_name}:')
             for translation in translations:
                 self.stdout.write(f'  * {translation.name} {translation.uuid}')

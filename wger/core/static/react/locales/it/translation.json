@@ -223,5 +223,7 @@
     "videos": "Video",
     "calendar": "Calendario",
     "entries": "Voci",
-    "no_entries_for_day": "Nessuna voce per questo giorno"
+    "no_entries_for_day": "Nessuna voce per questo giorno",
+    "height": "Altezza",
+    "cm": "cm"
 }

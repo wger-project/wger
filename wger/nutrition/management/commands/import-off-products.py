@@ -18,7 +18,6 @@ import os
 
 # Third Party
 import requests
-from pymongo import MongoClient
 
 # wger
 from wger.core.models import Language
@@ -65,12 +64,19 @@ class Command(ImportProductCommand):
         )
 
     def import_mongo(self, languages: dict[str:int]):
+        try:
+            # Third Party
+            from pymongo import MongoClient
+        except ImportError:
+            self.stdout.write('Please install pymongo, `pip install pymongo`')
+            return
+
         client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
         db = client.admin
         for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
             try:
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
-            except (KeyError, ValueError) as e:
+            except (KeyError, ValueError):
                 # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
                 self.counter['skipped'] += 1
             else:
@@ -128,33 +134,23 @@ class Command(ImportProductCommand):
             tmp_folder.cleanup()
 
     def handle(self, **options):
-        try:
-            # Third Party
-            from pymongo import MongoClient
-        except ImportError:
-            self.stdout.write('Please install pymongo, `pip install pymongo`')
-            return
-
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
+
+        languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
 
         self.stdout.write('Importing entries from Open Food Facts')
         self.stdout.write(f' - {self.mode}')
         if options['delta_updates']:
-            self.stdout.write(f' - importing only delta updates')
-        elif options['use_jsonl']:
-            self.stdout.write(f' - importing the full dump')
-        else:
-            self.stdout.write(f' - importing from mongo')
-        self.stdout.write('')
-
-        languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
-        if options['delta_updates']:
+            self.stdout.write(' - importing only delta updates')
             self.import_daily_delta(languages, options['folder'])
         elif options['use_jsonl']:
+            self.stdout.write(' - importing the full dump')
             self.import_full_dump(languages, options['folder'])
         else:
+            self.stdout.write(' - importing from mongo')
             self.import_mongo(languages)
+        self.stdout.write('')
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
         self.stdout.write(self.style.SUCCESS(str(self.counter)))

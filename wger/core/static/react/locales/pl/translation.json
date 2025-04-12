@@ -226,5 +226,20 @@
     "total": "Całkowite",
     "calendar": "Kalendarz",
     "entries": "Wpisy",
-    "no_entries_for_day": "Brak wpisów na ten dzień"
+    "no_entries_for_day": "Brak wpisów na ten dzień",
+    "lastYear": "Ostatni rok",
+    "all": "Wszystko",
+    "bmi": {
+        "calculator": "Kalkulator BMI",
+        "overweight": "Nadwaga",
+        "obese": "Otyłość",
+        "normal": "Normalna waga",
+        "underweight": "Niedowaga",
+        "result": "Twoje BMI wynosi"
+    },
+    "height": "Wysokość",
+    "cm": "cm",
+    "lastHalfYear": "Ostatnie 6 miesięcy",
+    "lastMonth": "Ostatni miesiąc",
+    "lastWeek": "Ostatni tydzień"
 }

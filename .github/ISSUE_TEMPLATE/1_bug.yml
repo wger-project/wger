@@ -1,0 +1,53 @@
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema
+
+name: Bug report
+description: Report an error or unexpected behavior
+type: bug
+body:
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority/Impact
+      description: How severe is the issue?
+      options:
+        - Low (minor inconvenience)
+        - Medium (affects some functionality)
+        - High (critical issue, blocks workflow)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A clear and concise description of the bug.
+      placeholder: |
+        Please include any information you think is relevant to the issue you are experiencing.
+        This could include any steps to reproduce it (if it happens consistently), expected vs.
+        actual behavior, logs, screenshots, links to related issues, etc.
+    validations:
+      required: true
+
+  - type: input
+    id: server-version
+    attributes:
+      label: Server version
+      description: |
+        What version of wger are you using and how did you install it (our server, docker
+        compose, manual installation, etc)?
+      placeholder: |
+        Check e.g. https://<server>/software/about-us
+    validations:
+      required: false
+
+  - type: input
+    id: app-version
+    attributes:
+      label: Mobile app version
+      description: |
+        If applicable, what version of the mobile app are you using and how did you install it
+        (Play Store, App Store, Flathub, self compiled, etc.)?
+      placeholder: |
+        Check e.g. the "about wger" dialog
+    validations:
+      required: false

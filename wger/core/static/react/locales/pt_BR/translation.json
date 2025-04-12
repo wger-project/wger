@@ -4,7 +4,7 @@
         "routine": "Rotina",
         "routines": "Rotinas",
         "addDay": "Adicionar dia de treinamento",
-        "addWeightLog": "Adicionar registro de peso",
+        "addWeightLog": "Adicionar registro de treino",
         "logsHeader": "Registro de exercícios para treino",
         "logsFilterNote": "Observe que somente as entradas com uma unidade de peso de kg ou lb e repetições são registradas; outras combinações, como tempo ou até a falha, são ignoradas aqui",
         "addLogToDay": "Adicionar registro a este dia"
@@ -68,7 +68,7 @@
         "deleteInfo": "Isso excluirá a categoria, bem como todas as suas entradas"
     },
     "category": "Categoria",
-    "success": "Sucesso",
+    "success": "Sucesso!",
     "English": "Inglês",
     "save": "Salvar",
     "videos": "Vídeos",
@@ -128,7 +128,7 @@
         "imageStyleOther": "Outros",
         "imageDetails": "Detalhes da Imagem",
         "replacementsInfoText": "Opcionalmente, você pode também selecionar um exercício que pode substituir esse (ex: porque foi substituído duas vezes, or similar). Isso irá substituir o exercício em rotinas e também logs de treinos, ao invés de apenas excluí-lo. Essas mudanças irão também ser propagadas para qualquer instancia que sincroniza os exercícios a partir desse.",
-        "deleteExerciseReplace": "Delete e substitua."
+        "deleteExerciseReplace": "Delete e substitua"
     },
     "notes": "Notas",
     "value": "Valor",
@@ -214,9 +214,27 @@
         "logThisMeal": "Log esta alimentação sem alterações para o diário nutricional",
         "copyPlan": "Faça uma cópia deste plano",
         "onlyLoggingHelpText": "Apenas acompanha calorias. Selecione o box se você apenas quer logar suas calorias e não que iniciar um plano de nutrição detalhado com alimentação específica",
-        "useGoalsHelpTextLong": "Isto permite que você defina objetivos gerais para energia, proteína, carboidratos ou gorduras para o plano. Note que se você iniciar um plano alimentar detalhado, estes valores tem precedência",
+        "useGoalsHelpTextLong": "Isto permite que você defina objetivos gerais para energia, proteína, carboidratos ou gorduras para o plano. Note que se você iniciar um plano alimentar detalhado, estes valores tem precedência.",
         "protein": "Proteína",
         "meal": "Alimentação"
     },
-    "downloadAsPdf": "Baixar como PDF"
+    "downloadAsPdf": "Baixar como PDF",
+    "height": "Altura",
+    "cm": "cm",
+    "all": "Tudo",
+    "lastYear": "Ano Passado",
+    "lastHalfYear": "Últimos 6 meses",
+    "lastMonth": "Mês passado",
+    "lastWeek": "Semana passada",
+    "bmi": {
+        "calculator": "Calculadora IMC",
+        "overweight": "Sobrepeso",
+        "obese": "Obeso",
+        "normal": "Peso Normal",
+        "underweight": "Abaixo do peso",
+        "result": "Seu IMC é {{value}}"
+    },
+    "calendar": "Calendário",
+    "entries": "Registros",
+    "no_entries_for_day": "Sem registros para este dia"
 }

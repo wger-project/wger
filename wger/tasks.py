@@ -236,7 +236,6 @@ def load_fixtures(context, settings_path=None):
     call_command('loaddata', 'groups.json')
     call_command('loaddata', 'users.json')
     call_command('loaddata', 'licenses.json')
-    call_command('loaddata', 'days_of_week.json')
     call_command('loaddata', 'setting_repetition_units.json')
     call_command('loaddata', 'setting_weight_units.json')
 
@@ -258,7 +257,7 @@ def load_fixtures(context, settings_path=None):
     call_command('loaddata', 'gym-adminconfig.json')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
