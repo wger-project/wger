@@ -19,6 +19,11 @@ import re
 import sys
 from datetime import timedelta
 
+# OIDC
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
@@ -41,6 +46,8 @@ ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
 INSTALLED_APPS = [
+    'mozilla_django_oidc',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -116,6 +123,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     # Prometheus
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
 
@@ -126,6 +134,9 @@ MIDDLEWARE = [
 
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    # middleware involving session and authentication must come first
+    'mozilla_django_oidc.middleware.SessionRefresh',
 
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
@@ -150,9 +161,10 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = (
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend',
+    'wger.utils.helpers.EmailAuthBackend'
 )
 
 TEMPLATES = [
@@ -205,6 +217,7 @@ EMAIL_SUBJECT_PREFIX = '[wger] '
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+
 
 #
 # Internationalization
@@ -584,3 +597,12 @@ ACTSTREAM_SETTINGS = {
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+
+# OIDC
+OIDC_RP_CLIENT_ID = env("OIDC_RP_CLIENT_ID")
+OIDC_RP_CLIENT_SECRET = env("OIDC_RP_CLIENT_SECRET")
+OIDC_OP_AUTHORIZATION_ENDPOINT = env("OIDC_OP_AUTHORIZATION_ENDPOINT")
+OIDC_OP_USER_ENDPOINT = env("OIDC_OP_USER_ENDPOINT")
+OIDC_OP_TOKEN_ENDPOINT = env("OIDC_OP_TOKEN_ENDPOINT")
+OIDC_RP_SIGN_ALGO = env('OIDC_RP_SIGN_ALGO')
+OIDC_OP_JWKS_ENDPOINT = env('OIDC_OP_JWKS_ENDPOINT')
