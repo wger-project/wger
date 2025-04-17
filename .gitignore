@@ -82,6 +82,9 @@ venv-wger
 /db/
 /extras/docker/open-food-facts/dump/*.tar.gz
 /extras/docker/open-food-facts/dump/off/*
+/extras/authors/commits_cache/
+/extras/authors/*.md
+/extras/scripts/*.json
 
 # macOS
 .DS_Store
