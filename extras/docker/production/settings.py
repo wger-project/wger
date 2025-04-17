@@ -101,7 +101,13 @@ WGER_SETTINGS["SYNC_INGREDIENTS_CELERY"] = env.bool("SYNC_INGREDIENTS_CELERY", F
 WGER_SETTINGS["SYNC_OFF_DAILY_DELTA_CELERY"] = env.bool("SYNC_OFF_DAILY_DELTA_CELERY", False)
 WGER_SETTINGS["USE_RECAPTCHA"] = env.bool("USE_RECAPTCHA", False)
 WGER_SETTINGS["USE_CELERY"] = env.bool("USE_CELERY", False)
-WGER_SETTINGS["AUTH_PROXY_HEADER"] = env.str("AUTH_PROXY_HEADER", '')
+
+#
+# Auth Proxy Authentication
+# https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
+AUTH_PROXY_HEADER = env.str("AUTH_PROXY_HEADER", '')
+AUTH_PROXY_TRUSTED_IPS = env.list("AUTH_PROXY_TRUSTED_IPS", default=[])
+AUTH_PROXY_CREATE_UNKNOWN_USER = env.bool("AUTH_PROXY_CREATE_UNKNOWN_USER", False)
 
 # Cache
 if os.environ.get("DJANGO_CACHE_BACKEND"):
