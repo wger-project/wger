@@ -88,6 +88,7 @@ class AuthProxyMiddlewareTests(TestCase):
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
     )
     def test_failure_untrusted_ip_header_present(self):
         """Should redirect to login because the middleware shouldn't authenticate"""
@@ -101,6 +102,7 @@ class AuthProxyMiddlewareTests(TestCase):
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
     )
     def test_failure_trusted_ip_header_missing(self):
         """Should redirect to login"""
@@ -114,6 +116,7 @@ class AuthProxyMiddlewareTests(TestCase):
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
         AUTH_PROXY_CREATE_UNKNOWN_USER=False,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
     )
     def test_failure_trusted_ip_new_user_creation_disabled(self):
         self.assertFalse(User.objects.filter(username=NEW_USER_VALUE).exists())
@@ -130,6 +133,7 @@ class AuthProxyMiddlewareTests(TestCase):
     @override_settings(
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
         AUTH_PROXY_HEADER='HTTP_X_DIFFERENT_USER',
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
     )
     def test_alternate_header_name(self):
         # Request using the *correctly* configured header name
