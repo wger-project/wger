@@ -562,6 +562,8 @@ WGER_SETTINGS = {
 # https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
 #
 AUTH_PROXY_HEADER = ''
+AUTH_PROXY_USER_EMAIL_HEADER = ''
+AUTH_PROXY_USER_NAME_HEADER = ''
 AUTH_PROXY_TRUSTED_IPS = []
 AUTH_PROXY_CREATE_UNKNOWN_USER = False
 

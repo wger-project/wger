@@ -28,6 +28,8 @@ TRUSTED_IP = '192.0.2.1'
 UNTRUSTED_IP = '198.51.100.5'
 
 PROXY_HEADER_KEY = 'HTTP_X_REMOTE_USER'
+PROXY_EMAIL_HEADER_KEY = 'HTTP_X_REMOTE_USER_EMAIL'
+PROXY_NAME_HEADER_KEY = 'HTTP_X_REMOTE_USER_NAME'
 USERNAME = 'admin'
 NEW_USER_VALUE = 'auth_proxy_user'
 
@@ -48,10 +50,22 @@ class AuthProxyMiddlewareTests(TestCase):
         self.login_url = reverse('core:user:login')
 
     # Helper to make requests with specific IP and header
-    def make_request(self, ip_addr, header_value=None):
+    def make_request(
+        self,
+        ip_addr: str,
+        proxy_header_value: str | None = None,
+        email_header_value: str | None = None,
+        name_header_value: str | None = None,
+    ):
         headers = {}
-        if header_value:
-            headers[PROXY_HEADER_KEY] = header_value
+        if proxy_header_value:
+            headers[PROXY_HEADER_KEY] = proxy_header_value
+
+        if email_header_value:
+            headers[PROXY_EMAIL_HEADER_KEY] = email_header_value
+
+        if name_header_value:
+            headers[PROXY_NAME_HEADER_KEY] = name_header_value
 
         return self.client.get(self.protected_url, REMOTE_ADDR=ip_addr, follow=True, **headers)
 
@@ -71,16 +85,25 @@ class AuthProxyMiddlewareTests(TestCase):
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_CREATE_UNKNOWN_USER=True,
+        AUTH_PROXY_USER_EMAIL_HEADER=PROXY_EMAIL_HEADER_KEY,
+        AUTH_PROXY_USER_NAME_HEADER=PROXY_NAME_HEADER_KEY,
     )
     def test_success_trusted_ip_new_user_created(self):
         self.assertFalse(User.objects.filter(username=NEW_USER_VALUE).exists())
-        response = self.make_request(TRUSTED_IP, NEW_USER_VALUE)
+        response = self.make_request(
+            TRUSTED_IP,
+            proxy_header_value=NEW_USER_VALUE,
+            email_header_value='admin@google.com',
+            name_header_value='Admin User',
+        )
         self.assertEqual(response.status_code, 200)
 
-        # Verify user was created
-        newly_created_user = User.objects.filter(username=NEW_USER_VALUE).first()
-        self.assertIsNotNone(newly_created_user)
-        self.assertEqual(int(self.client.session['_auth_user_id']), newly_created_user.pk)
+        # Verify the user was created with the correct values
+        new_user = User.objects.filter(username=NEW_USER_VALUE).first()
+        self.assertIsNotNone(new_user)
+        self.assertEqual(new_user.email, 'admin@google.com')
+        self.assertEqual(new_user.first_name, 'Admin User')
+        self.assertEqual(int(self.client.session['_auth_user_id']), new_user.pk)
 
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
@@ -102,7 +125,7 @@ class AuthProxyMiddlewareTests(TestCase):
     )
     def test_failure_trusted_ip_header_missing(self):
         """Should redirect to login"""
-        response = self.make_request(TRUSTED_IP, header_value=None)
+        response = self.make_request(TRUSTED_IP, proxy_header_value=None)
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.request['PATH_INFO'].startswith(self.login_url))

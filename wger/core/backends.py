@@ -20,7 +20,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
 
-
 logger = logging.getLogger(__name__)
 User = get_user_model()
 
@@ -31,7 +30,13 @@ class AuthProxyUserBackend(BaseBackend):
     Relies on the middleware to ensure the header comes from a trusted source.
     """
 
-    def authenticate(self, request, username=None):
+    def authenticate(
+        self,
+        request,
+        username: str | None = None,
+        email: str | None = None,
+        name: str | None = None,
+    ):
         """
         Authenticate the user based on the username provided.
         The middleware ensures this is only called when the source is trusted.
@@ -40,7 +45,7 @@ class AuthProxyUserBackend(BaseBackend):
             # This backend requires a username passed explicitly
             return None
 
-        create_unknown_user = getattr(settings, 'AUTH_PROXY_CREATE_UNKNOWN_USER', True)
+        create_unknown_user = getattr(settings, 'AUTH_PROXY_CREATE_UNKNOWN_USER', False)
 
         user = None
         try:
@@ -49,7 +54,7 @@ class AuthProxyUserBackend(BaseBackend):
         except User.DoesNotExist:
             if create_unknown_user:
                 try:
-                    user = User.objects.create_user(username=username)
+                    user = User.objects.create_user(username=username, email=email, first_name=name)
                     logger.info(f"AuthProxy: Created new user '{username}'")
                 except Exception as e:
                     logger.error(f"AuthProxy: Failed to create user '{username}': {e}")

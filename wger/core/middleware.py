@@ -48,6 +48,8 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         header_key = getattr(settings, 'AUTH_PROXY_HEADER', None)
+        user_email_key = getattr(settings, 'AUTH_PROXY_USER_EMAIL_HEADER', None)
+        user_name_key = getattr(settings, 'AUTH_PROXY_USER_NAME_HEADER', None)
         trusted_ips = set(getattr(settings, 'AUTH_PROXY_TRUSTED_IPS', []))
 
         # Skip processing if not configured
@@ -80,6 +82,8 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             return None
 
         username = request.META.get(header_key)
+        email = request.META.get(user_email_key, '') if user_email_key else None
+        name = request.META.get(user_name_key, '') if user_name_key else None
         if not username:
             # Trusted IP, but no header. Could mean proxy auth failed upstream.
             # Log, but otherwise do nothing.
@@ -106,7 +110,7 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
                 logout(request)
 
         # Authenticate using our custom backend
-        user = authenticate(request, username=username)
+        user = authenticate(request, username=username, email=email, name=name)
 
         if user:
             # Authentication successful, log the user in.
