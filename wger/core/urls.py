@@ -34,7 +34,6 @@ from wger.core.views import (
     weight_units,
 )
 
-
 # sub patterns for languages
 patterns_language = [
     path(
@@ -68,7 +67,10 @@ patterns_language = [
 patterns_user = [
     path(
         'login',
-        views.LoginView.as_view(template_name='user/login.html', authentication_form=UserLoginForm),
+        user.WgerLoginView.as_view(
+            template_name='user/login.html',
+            authentication_form=UserLoginForm,
+        ),
         name='login',
     ),
     path('logout', user.logout, name='logout'),

@@ -30,7 +30,6 @@ from wger.nutrition.views import (
     unit_ingredient,
 )
 
-
 # sub patterns for nutritional plans
 patterns_plan = [
     path(
@@ -136,7 +135,7 @@ patterns_unit_ingredient = [
 patterns_bmi = [
     path(
         '',
-        ReactView.as_view(),
+        ReactView.as_view(login_required=True),
         name='view',
     ),
 ]

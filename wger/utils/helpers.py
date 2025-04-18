@@ -21,6 +21,7 @@ import json
 import logging
 import os
 import random
+import re
 import string
 from decimal import Decimal
 from functools import wraps
@@ -33,7 +34,6 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
 
 logger = logging.getLogger(__name__)
 
@@ -192,3 +192,12 @@ class BaseImage:
         if not generate_uuid:
             image.uuid = json_data['uuid']
         return image
+
+
+def remove_language_code(path):
+    """
+    Removes optional language code at the start of a path
+    """
+
+    pattern = r'^/[a-z]{2}(?=/)'
+    return re.sub(pattern, '', path)
