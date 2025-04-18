@@ -23,7 +23,11 @@ from django.contrib.auth import (
     login,
     logout,
 )
+from django.urls import reverse
 from django.utils.deprecation import MiddlewareMixin
+
+# wger
+from wger.utils.helpers import remove_language_code
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -38,6 +42,10 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
     - AUTH_PROXY_TRUSTED_IPS: List of IPs allowed to set the header.
     """
 
+    def __init__(self, get_response=None):
+        super().__init__(get_response)
+        self.login_url_path = remove_language_code(reverse('core:user:login'))
+
     def process_request(self, request):
         header_key = getattr(settings, 'AUTH_PROXY_HEADER', None)
         trusted_ips = set(getattr(settings, 'AUTH_PROXY_TRUSTED_IPS', []))
@@ -47,6 +55,12 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             # logger.debug(
             #     'AuthProxyMiddleware: AUTH_PROXY_HEADER or AUTH_PROXY_TRUSTED_IPS not configured.'
             # )
+            return None
+
+        # Only handle requests to the login page.
+        # Here the user will be logged in using the proxy headers and redirected to the original page.
+        if remove_language_code(request.path_info) != self.login_url_path:
+            # logger.debug(f'AuthProxyMiddleware: not request to login page. Skipping.')
             return None
 
         # Get the client IP address.
@@ -78,7 +92,6 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
 
         # If user is already authenticated and matches the header, do nothing.
         if request.user.is_authenticated:
-
             if request.user.get_username() == username:
                 return None
 

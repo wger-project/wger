@@ -45,9 +45,7 @@ class AuthProxyMiddlewareTests(TestCase):
             password='password123',
         )
         self.protected_url = reverse('core:dashboard')
-
-        self.login_url = reverse('core:user:login')[3:]
-        """Login URL without the /en/ part"""
+        self.login_url = reverse('core:user:login')
 
     # Helper to make requests with specific IP and header
     def make_request(self, ip_addr, header_value=None):
@@ -55,20 +53,19 @@ class AuthProxyMiddlewareTests(TestCase):
         if header_value:
             headers[PROXY_HEADER_KEY] = header_value
 
-        # Use REMOTE_ADDR to spoof the IP
-        self.client.get(self.protected_url, REMOTE_ADDR=ip_addr, **headers)
-        return self.client.get(self.protected_url)
+        return self.client.get(self.protected_url, REMOTE_ADDR=ip_addr, follow=True, **headers)
 
     @override_settings(
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
     )
     def test_success_trusted_ip_existing_user(self):
         response = self.make_request(TRUSTED_IP, USERNAME)
         self.assertEqual(response.status_code, 200)
 
         # Check if the correct user is logged into the session
-        self.assertEqual(int(self.client.session['_auth_user_id']), self.existing_user.pk)
+        self.assertEqual(int(self.client.session.get('_auth_user_id', 0)), self.existing_user.pk)
 
     @override_settings(
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
@@ -88,43 +85,42 @@ class AuthProxyMiddlewareTests(TestCase):
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
-        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
     )
     def test_failure_untrusted_ip_header_present(self):
         """Should redirect to login because the middleware shouldn't authenticate"""
-
         response = self.make_request(UNTRUSTED_IP, USERNAME)
 
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith(self.login_url))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.request['PATH_INFO'].startswith(self.login_url))
         self.assertNotIn('_auth_user_id', self.client.session)
 
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
-        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
     )
     def test_failure_trusted_ip_header_missing(self):
         """Should redirect to login"""
         response = self.make_request(TRUSTED_IP, header_value=None)
 
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith(self.login_url))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.request['PATH_INFO'].startswith(self.login_url))
         self.assertNotIn('_auth_user_id', self.client.session)
 
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
         AUTH_PROXY_CREATE_UNKNOWN_USER=False,
-        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
     )
     def test_failure_trusted_ip_new_user_creation_disabled(self):
         self.assertFalse(User.objects.filter(username=NEW_USER_VALUE).exists())
         response = self.make_request(TRUSTED_IP, NEW_USER_VALUE)
 
         # Should redirect to login
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith(self.login_url))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.request['PATH_INFO'].startswith(self.login_url))
 
         # Verify user was NOT created
         self.assertFalse(User.objects.filter(username=NEW_USER_VALUE).exists())
@@ -133,17 +129,17 @@ class AuthProxyMiddlewareTests(TestCase):
     @override_settings(
         AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
         AUTH_PROXY_HEADER='HTTP_X_DIFFERENT_USER',
-        WGER_SETTINGS={'ALLOW_GUEST_USERS': False}
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
     )
     def test_alternate_header_name(self):
         # Request using the *correctly* configured header name
-        self.client.get(
+        response = self.client.get(
             self.protected_url,
             REMOTE_ADDR=TRUSTED_IP,
             HTTP_X_DIFFERENT_USER=USERNAME,
+            follow=True,
         )
-        response_correct = self.client.get(self.protected_url)
-        self.assertEqual(response_correct.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(int(self.client.session['_auth_user_id']), self.existing_user.pk)
 
         # Clear session before next request
@@ -154,8 +150,9 @@ class AuthProxyMiddlewareTests(TestCase):
             self.protected_url,
             REMOTE_ADDR=TRUSTED_IP,
             HTTP_X_REMOTE_USER=USERNAME,
+            follow=True,
         )
-        response_wrong2 = self.client.get(self.protected_url)
-        self.assertEqual(response_wrong1.status_code, 302)
-        self.assertEqual(response_wrong2.status_code, 302)
+        response_wrong2 = self.client.get(self.protected_url, follow=True)
+        self.assertEqual(response_wrong1.status_code, 200)
+        self.assertEqual(response_wrong2.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
