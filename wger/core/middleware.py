@@ -23,6 +23,7 @@ from django.contrib.auth import (
     login,
     logout,
 )
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.deprecation import MiddlewareMixin
 
@@ -119,6 +120,9 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
                 f"AuthProxyMiddleware: User '{username}' authenticated via header from "
                 f"trusted IP '{client_ip}'."
             )
+            next_url = request.GET.get('next', reverse('core:dashboard'))
+            if request.user.is_authenticated:
+                return redirect(next_url)
         else:
             # Authentication failed (e.g., user couldn't be found/created by backend)
             logger.error(

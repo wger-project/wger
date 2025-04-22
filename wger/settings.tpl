@@ -15,10 +15,6 @@ WGER_SETTINGS["ALLOW_GUEST_USERS"] = True
 WGER_SETTINGS["ALLOW_UPLOAD_VIDEOS"] = False
 WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = 21  # in days
 WGER_SETTINGS["EXERCISE_CACHE_TTL"] = 3600  # in seconds
-# can be used if there is authentication in front of wger, e.g.
-# if authelia is used to authenticate the users. Users will be 
-# created with this username.
-# WGER_SETTINGS["AUTH_PROXY_HEADER"] = "Remote-User"
 
 DATABASES = {{
     'default': {{

@@ -21,7 +21,6 @@ from django.test import (
 )
 from django.urls import reverse
 
-
 User = get_user_model()
 
 TRUSTED_IP = '192.0.2.1'
@@ -87,6 +86,7 @@ class AuthProxyMiddlewareTests(TestCase):
         AUTH_PROXY_CREATE_UNKNOWN_USER=True,
         AUTH_PROXY_USER_EMAIL_HEADER=PROXY_EMAIL_HEADER_KEY,
         AUTH_PROXY_USER_NAME_HEADER=PROXY_NAME_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
     )
     def test_success_trusted_ip_new_user_created(self):
         self.assertFalse(User.objects.filter(username=NEW_USER_VALUE).exists())
