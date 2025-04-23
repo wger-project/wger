@@ -225,5 +225,12 @@
     "entries": "Voci",
     "no_entries_for_day": "Nessuna voce per questo giorno",
     "height": "Altezza",
-    "cm": "cm"
+    "cm": "cm",
+    "all": "Tutto",
+    "lastYear": "Ultimo Anno",
+    "lastHalfYear": "Ultimi 6 mesi",
+    "lastMonth": "Ultimo mese",
+    "lastWeek": "Ultima settimana",
+    "start": "Inizia",
+    "end": "Fine"
 }
