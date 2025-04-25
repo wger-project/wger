@@ -23,6 +23,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 # wger
+from wger.measurements.api.filtersets import MeasurementEntryFilterSet
 from wger.measurements.api.serializers import (
     MeasurementSerializer,
     UnitSerializer,
@@ -31,7 +32,6 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -73,12 +73,7 @@ class MeasurementViewSet(viewsets.ModelViewSet):
     serializer_class = MeasurementSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = [
-        'id',
-        'category',
-        'date',
-        'value',
-    ]
+    filterset_class = MeasurementEntryFilterSet
 
     def get_queryset(self):
         """

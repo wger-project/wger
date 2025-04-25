@@ -12,7 +12,7 @@ class LogItemFilterSet(filters.FilterSet):
     class Meta:
         model = LogItem
         fields = {
-            'datetime': ['exact', 'date'],
+            'datetime': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
             'amount': ['exact'],
             'ingredient': ['exact'],
             'plan': ['exact'],
