@@ -113,7 +113,7 @@ def extract_contributors(repo_name, github_token):
             continue
 
         if '@' in author_name:
-            author_name = f"<{author_name.replace('@', ' [at] ')}>"
+            author_name = f'<{author_name.replace("@", " [at] ")}>'
 
         if 'Translated using Weblate' in commit_message:
             language_match = re.search(r'Translated using Weblate \((.+)\)', commit_message)
