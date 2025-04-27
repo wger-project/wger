@@ -59,7 +59,7 @@ dependencies = [
     "openfoodfacts==2.5.1",
     "packaging==25.0",
     "pillow==11.2.1",
-    "psycopg[binary]==3.2.6",
+    "psycopg==3.2.6",
     "reportlab==4.4.0",
     "requests==2.32.3",
     "tqdm==4.67.1",
