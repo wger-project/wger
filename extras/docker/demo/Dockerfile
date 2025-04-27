@@ -1,17 +1,17 @@
 #
-# A wger installation under apache with WSGI
+# A demo wger installation under apache with WSGI
 #
 # Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/demo/Dockerfile --tag wger/demo .
 #
 # Please consult the documentation for usage
-# docker run -ti --name wger.demo --publish 8000:80 wger/demo
+# docker run --rm --name wger.demo --publish 8000:80 wger/demo
 #
 # To stop the container:
-# sudo docker container stop wger.demo
+# docker container stop wger.demo
 #
 # To start again
-# sudo docker container start --attach wger.demo
+# docker container start --attach wger.demo
 #
 
 ##########
@@ -33,26 +33,29 @@ RUN apt update \
       rustc \
       cargo \
       yarnpkg \
-      sassc
+      sassc \
+    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
+    && ln -s /usr/bin/sassc /usr/bin/sass
 
 # Build the necessary python wheels
 # Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
-COPY requirements* ./
-RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt \
+COPY pyproject.toml .
+COPY wger/version.py ./wger/version.py
+COPY wger/__init__.py ./wger/__init__.py
+COPY README.md ./README.md
+RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker . \
   && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
 
 COPY . /home/wger/src
 WORKDIR /home/wger/src
-RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
-    && ln -s /usr/bin/sassc /usr/bin/sass \
-    && yarn install \
+RUN yarn install \
     && yarn build:css:sass
 
 
 ########
 # Final
 ########
-FROM wger/base:latest
+FROM wger/base:latest AS final
 LABEL maintainer="Roland Geider <roland@geider.net>"
 ENV TERM=xterm
 ARG DOCKER_DIR=./extras/docker/demo
@@ -60,12 +63,15 @@ EXPOSE 80
 
 
 # Install dependencies
-RUN apt-get install --no-install-recommends -y \
-    apache2 \
-    cron \
-    python3-venv \
-    libapache2-mod-wsgi-py3 \
-    python3-wheel
+RUN apt update \
+    && apt install --no-install-recommends -y \
+        apache2 \
+        cron \
+        python3-venv \
+        libapache2-mod-wsgi-py3 \
+        python3-wheel \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
 COPY ${DOCKER_DIR}/wger.conf /etc/apache2/sites-available/
@@ -113,7 +119,6 @@ RUN . /home/wger/venv/bin/activate \
     && wger load-online-fixtures \
     && python3 manage.py download-exercise-images \
     && python3 manage.py collectstatic --no-input
-
 
 
 USER root
