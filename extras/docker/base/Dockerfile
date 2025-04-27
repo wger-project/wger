@@ -16,15 +16,19 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update \
   && apt install --no-install-recommends -y \
+      ca-certificates \
+      python3 \
       adduser \
       locales \
-      python3-pip \
       sqlite3 \
       wget \
       tzdata \
       libpq5 \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-  && locale-gen en_US.UTF-8
+  && locale-gen en_US.UTF-8 \
+  && wget https://bootstrap.pypa.io/get-pip.py \
+  && python3 get-pip.py --no-warn-script-location --break-system-packages
 
 # Environmental variables
 ENV LANG=en_US.UTF-8

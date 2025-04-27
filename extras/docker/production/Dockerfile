@@ -30,25 +30,43 @@ RUN apt update \
       cargo
 
 # Build the necessary python wheels
-# Note that the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
-COPY requirements* ./
+#
+# PS: the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
+#
+# PPS: actually only pyproject.toml is needed here, but it seems there is no way
+# to tell pip to only build the dependencies and not the project itself as well,
+# so we copy enough to make this is possible
+COPY pyproject.toml .
+COPY wger/version.py ./wger/version.py
+COPY wger/__init__.py ./wger/__init__.py
+COPY README.md ./README.md
+
 RUN --mount=type=tmpfs,target=/root/.cargo \
-    pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt \
-    && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
+    pip3 wheel \
+      --no-cache-dir \
+      --wheel-dir /wheels \
+      --group docker . \
+    && pip3 install \
+      --break-system-packages \
+      --no-warn-script-location \
+      --root-user-action ignore \
+      --user \
+      --no-cache-dir /wheels/* \
+    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
+    && ln -s /usr/bin/sassc /usr/bin/sass
+
 
 # Download and copy js and css files
 COPY . /home/wger/src
 WORKDIR /home/wger/src
-RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
-    && ln -s /usr/bin/sassc /usr/bin/sass \
-    && yarn install \
+RUN yarn install \
     && yarn build:css:sass
 
 
 ########
 # Final
 ########
-FROM wger/base:latest
+FROM wger/base:latest AS final
 LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/production
 ENV PATH="/home/wger/.local/bin:$PATH"
@@ -57,9 +75,10 @@ EXPOSE 8000
 
 
 # Set up the application
+COPY --from=builder --chown=wger:wger /root/.local /home/wger/.local
+
 WORKDIR /home/wger/src
 COPY --chown=wger:wger . /home/wger/src
-COPY --from=builder --chown=wger:wger /root/.local /home/wger/.local
 COPY --from=builder --chown=wger:wger /home/wger/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/

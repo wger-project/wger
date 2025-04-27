@@ -10,18 +10,20 @@ USER root
 
 WORKDIR /home/wger/src
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install --no-install-recommends -y \
         git \
         vim \
         yarnpkg \
-        sassc
-
-COPY ../../../requirements.txt /tmp/requirements.txt
-COPY ../../../requirements_dev.txt /tmp/requirements_dev.txt
-
-RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
+        sassc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
+COPY ./pyproject.toml /tmp/pyproject.toml
+COPY ./wger/version.py /tmp/wger/version.py
+COPY ./wger/__init__.py /tmp/wger/__init__.py
+COPY ./README.md /tmp/README.md
+
 USER wger
-RUN pip3 install --break-system-packages --user -r /tmp/requirements.txt \
-    && pip3 install --break-system-packages --user -r /tmp/requirements_dev.txt
+RUN pip3 install --break-system-packages --user --group dev /tmp/
