@@ -89,10 +89,11 @@ COPY ${DOCKER_DIR}/celery/start-flower /start-flower
 RUN chmod +x /home/wger/entrypoint.sh \
     && chmod +x /start-beat \
     && chmod +x /start-worker \
-    && chmod +x /start-flower
+    && chmod +x /start-flower \
+    && chown wger:wger /home/wger/src
 
 USER wger
-RUN pip3 install --break-system-packages --user -e . \
+RUN pip3 install --break-system-packages --user --editable . \
     && mkdir ~/media \
     && mkdir ~/static \
     && mkdir ~/beat \

@@ -20,10 +20,5 @@ RUN apt-get update && \
     && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
-COPY ./pyproject.toml /tmp/pyproject.toml
-COPY ./wger/version.py /tmp/wger/version.py
-COPY ./wger/__init__.py /tmp/wger/__init__.py
-COPY ./README.md /tmp/README.md
-
 USER wger
-RUN pip3 install --break-system-packages --user --group dev /tmp/
+RUN pip3 install --break-system-packages --user --group dev --editable .
