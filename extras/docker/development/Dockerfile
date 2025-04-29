@@ -21,4 +21,7 @@ RUN apt-get update && \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
 USER wger
-RUN pip3 install --break-system-packages --user --group dev --editable .
+COPY --chown=wger:wger . /home/wger/src
+RUN yarn install \
+    && yarn build:css:sass \
+    && pip3 install --break-system-packages --user --group dev --editable .
