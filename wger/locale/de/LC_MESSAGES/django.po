@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 14:10+0200\n"
+"POT-Creation-Date: 2025-05-03 21:24+0200\n"
 "PO-Revision-Date: 2024-10-08 16:16+0000\n"
 "Last-Translator: kvnrmnn <kvnrmnn@proton.me>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
@@ -627,9 +627,9 @@ msgstr "Impressum"
 msgid "Training"
 msgstr "Training"
 
-#: core/templates/navigation.html:37
-msgid "Workouts"
-msgstr "Trainingspläne"
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+msgid "Routines"
+msgstr ""
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -720,8 +720,8 @@ msgid "About this software"
 msgstr "Über diese Software"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
-msgid "About us"
-msgstr "Über uns"
+msgid "Support & Get Involved"
+msgstr ""
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -915,10 +915,6 @@ msgstr "Kein Konto?"
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
-
-#: core/templates/user/overview.html:25
-msgid "Routines"
-msgstr ""
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -1995,7 +1991,7 @@ msgstr ""
 "verschickt werden"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:79
+#: software/templates/about_us.html:167
 msgid "Current version"
 msgstr "Aktuelle Version"
 
@@ -2548,86 +2544,150 @@ msgstr "Löschen?"
 
 #: software/templates/about_us.html:9
 msgid ""
-"Thank you for using wger! wger is a collaborative open source project, made "
-"by fitness enthusiasts from around the world."
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
 msgstr ""
-"Danke, dass du wger verwendest! wger ist ein gemeinschaftliches quelloffenes "
-"Projekt, das von Fitness-Enthusiasten aus der ganzen Welt entwickelt wurde."
 
 #: software/templates/about_us.html:18
-msgid "Have a problem or idea?"
-msgstr "Hast du ein Problem oder eine Idee?"
+msgid "Open Source & free to use ❤️"
+msgstr ""
 
 #: software/templates/about_us.html:20
 msgid ""
-"Get in touch if something didn't behave as expected or if there is a feature "
-"that you feel is missing."
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
 msgstr ""
-"Setze dich mit uns in Verbindung, wenn sich etwas nicht wie erwartet "
-"verhalten hat oder wenn es eine Funktion gibt, die du vermisst."
 
-#: software/templates/about_us.html:26
-msgid "Say hi!"
-msgstr "Sag Hallo!"
-
-#: software/templates/about_us.html:28
-msgid "If you want to chat with us, hop on the Discord server and get in touch"
+#: software/templates/about_us.html:30
+msgid "How you can help"
 msgstr ""
-"Wenn du mit uns chatten möchtest, komm auf den Discord-Server und sag hallo"
 
-#: software/templates/about_us.html:33
-msgid "Mastodon"
-msgstr "Mastodon"
+#: software/templates/about_us.html:40
+#, fuzzy
+#| msgid "Community"
+msgid "Join the Community"
+msgstr "Community"
 
-#: software/templates/about_us.html:35
-msgid "Follow us on mastodon for updates and news about the project"
-msgstr "Folge uns auf Mastodon für Updates und Neuigkeiten über das Projekt"
-
-#: software/templates/about_us.html:40 software/templates/features.html:506
-msgid "Translation"
-msgstr "Übersetzung"
-
-#: software/templates/about_us.html:42
-msgid ""
-"This application is translated on weblate. If you also want to help, click "
-"the link and start translating"
-msgstr ""
-"Diese Anwendung wird auf weblate übersetzt. Wenn du auch helfen möchtest, "
-"klicke auf den Link und beginne zu übersetzen"
+#: software/templates/about_us.html:46
+#, fuzzy
+#| msgid "Go to the discord server"
+msgid "Join the Discord server"
+msgstr "Zum Discord-Server gehen"
 
 #: software/templates/about_us.html:47
-msgid "Source code"
-msgstr "Quelltext"
-
-#: software/templates/about_us.html:49
-msgid "Get the source code of this application and its server on github"
-msgstr ""
-"Hole dir den Quellcode dieser Anwendung und des dazugehörigen Servers auf "
-"Github"
-
-#: software/templates/about_us.html:54 software/templates/features.html:63
-#: software/templates/features.html:319
-msgid "Donate"
-msgstr "Spenden"
-
-#: software/templates/about_us.html:56
 msgid ""
-"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
 msgstr ""
-"Kaufe uns einen Kaffee, um das Projekt zu unterstützen, die Serverkosten zu "
-"bezahlen und uns mit Energie zu versorgen"
 
-#: software/templates/about_us.html:68
+#: software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: software/templates/about_us.html:71
+#, fuzzy
+#| msgid "Contribute"
+msgid "Contribute your skills"
+msgstr "Mach mit!"
+
+#: software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: software/templates/about_us.html:78
+#, fuzzy
+#| msgid "Have a problem or idea?"
+msgid "Have a problem or idea? Let us know!"
+msgstr "Hast du ein Problem oder eine Idee?"
+
+#: software/templates/about_us.html:81
+#, fuzzy
+#| msgid "Submit exercises"
+msgid "Improve the exercises"
+msgstr "Reiche Übungen ein"
+
+#: software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: software/templates/about_us.html:85
+#, fuzzy
+#| msgid "Translate with Transifex"
+msgid "Translate the application"
+msgstr "Mit Transifex übersetzen"
+
+#: software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: software/templates/about_us.html:89
+#, fuzzy
+#| msgid "Developer documentation"
+msgid "Contribute code or documentation"
+msgstr "Entwickler-Dokumentation"
+
+#: software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: software/templates/about_us.html:135
+#, fuzzy
+#| msgid "stars <br> on GitHub"
+msgid "Sponsor on GitHub"
+msgstr "Sterne <br> auf GitHub"
+
+#: software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Unser Ziel"
 
-#: software/templates/about_us.html:71
+#: software/templates/about_us.html:158
+#, fuzzy
+#| msgid ""
+#| "The goal is to build an awesome\n"
+#| "                and flexible fitness manager, along with a comprehensive "
+#| "and complete list of\n"
+#| "                exercises and\n"
+#| "                ingredients, all released under a free license."
 msgid ""
-"The goal is to build an awesome\n"
-"                and flexible fitness manager, along with a comprehensive and "
-"complete list of\n"
-"                exercises and\n"
-"                ingredients, all released under a free license."
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
 msgstr ""
 "Das Ziel ist es, einen großartigen und flexiblen Fitnessmanager zu "
 "entwickeln, \n"
@@ -2646,6 +2706,10 @@ msgstr ""
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "Mobile app"
+
+#: software/templates/features.html:63 software/templates/features.html:319
+msgid "Donate"
+msgstr "Spenden"
 
 #: software/templates/features.html:68
 msgid "Develop"
@@ -2858,6 +2922,10 @@ msgstr "Ein Problem melden"
 msgid "Source Code"
 msgstr "Quelltext"
 
+#: software/templates/features.html:506
+msgid "Translation"
+msgstr "Übersetzung"
+
 #: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "Löschen bestätigen"
@@ -3035,6 +3103,64 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "Wieder abschicken"
+
+#~ msgid "Workouts"
+#~ msgstr "Trainingspläne"
+
+#~ msgid "About us"
+#~ msgstr "Über uns"
+
+#~ msgid ""
+#~ "Thank you for using wger! wger is a collaborative open source project, "
+#~ "made by fitness enthusiasts from around the world."
+#~ msgstr ""
+#~ "Danke, dass du wger verwendest! wger ist ein gemeinschaftliches "
+#~ "quelloffenes Projekt, das von Fitness-Enthusiasten aus der ganzen Welt "
+#~ "entwickelt wurde."
+
+#~ msgid ""
+#~ "Get in touch if something didn't behave as expected or if there is a "
+#~ "feature that you feel is missing."
+#~ msgstr ""
+#~ "Setze dich mit uns in Verbindung, wenn sich etwas nicht wie erwartet "
+#~ "verhalten hat oder wenn es eine Funktion gibt, die du vermisst."
+
+#~ msgid "Say hi!"
+#~ msgstr "Sag Hallo!"
+
+#~ msgid ""
+#~ "If you want to chat with us, hop on the Discord server and get in touch"
+#~ msgstr ""
+#~ "Wenn du mit uns chatten möchtest, komm auf den Discord-Server und sag "
+#~ "hallo"
+
+#~ msgid "Mastodon"
+#~ msgstr "Mastodon"
+
+#~ msgid "Follow us on mastodon for updates and news about the project"
+#~ msgstr "Folge uns auf Mastodon für Updates und Neuigkeiten über das Projekt"
+
+#~ msgid ""
+#~ "This application is translated on weblate. If you also want to help, "
+#~ "click the link and start translating"
+#~ msgstr ""
+#~ "Diese Anwendung wird auf weblate übersetzt. Wenn du auch helfen möchtest, "
+#~ "klicke auf den Link und beginne zu übersetzen"
+
+#~ msgid "Source code"
+#~ msgstr "Quelltext"
+
+#~ msgid "Get the source code of this application and its server on github"
+#~ msgstr ""
+#~ "Hole dir den Quellcode dieser Anwendung und des dazugehörigen Servers auf "
+#~ "Github"
+
+#~ msgid ""
+#~ "Buy us a coffee to help the project, pay for server costs, and keep us "
+#~ "fueled"
+#~ msgstr ""
+#~ "Kaufe uns einen Kaffee, um das Projekt zu unterstützen, die Serverkosten "
+#~ "zu bezahlen und uns mit Energie zu versorgen"
 
 #~ msgid "Sample workout"
 #~ msgstr "Beispiel Trainingsplan"
@@ -4346,9 +4472,6 @@ msgstr "Wieder abschicken"
 #~ msgid "tweet to @wger_project"
 #~ msgstr "Tweet an @wger_project"
 
-#~ msgid "Go to the discord server"
-#~ msgstr "Zum Discord-Server gehen"
-
 #~ msgid "Problems and wishes"
 #~ msgstr "Probleme und Wünsche"
 
@@ -4397,9 +4520,6 @@ msgstr "Wieder abschicken"
 #~ "könnte oder gar nicht funktioniert, sag Bescheid! Das klingt vielleicht "
 #~ "nicht\n"
 #~ "nach viel, ist aber extrem wichtig!"
-
-#~ msgid "Submit exercises"
-#~ msgstr "Reiche Übungen ein"
 
 #~ msgid ""
 #~ "Submit those cool exercises that you absolutely\n"
@@ -4590,6 +4710,3 @@ msgstr "Wieder abschicken"
 
 #~ msgid "Edit weight"
 #~ msgstr "Gewicht bearbeiten"
-
-#~ msgid "Translate with Transifex"
-#~ msgstr "Mit Transifex übersetzen"

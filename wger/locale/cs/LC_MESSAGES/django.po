@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 14:10+0200\n"
+"POT-Creation-Date: 2025-05-03 21:24+0200\n"
 "PO-Revision-Date: 2024-02-21 11:02+0000\n"
 "Last-Translator: Fjuro <fjuro@alius.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
@@ -619,9 +619,9 @@ msgstr "Tiráž"
 msgid "Training"
 msgstr "Trénink"
 
-#: core/templates/navigation.html:37
-msgid "Workouts"
-msgstr "Tréninky"
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+msgid "Routines"
+msgstr ""
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -712,8 +712,8 @@ msgid "About this software"
 msgstr "O aplikaci"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
-msgid "About us"
-msgstr "O nás"
+msgid "Support & Get Involved"
+msgstr ""
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -905,10 +905,6 @@ msgstr "Nemáte účet?"
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "Zapomenuté heslo?"
-
-#: core/templates/user/overview.html:25
-msgid "Routines"
-msgstr ""
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -1983,7 +1979,7 @@ msgstr ""
 "potřebujete"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:79
+#: software/templates/about_us.html:167
 msgid "Current version"
 msgstr "Aktuální verze"
 
@@ -2531,77 +2527,139 @@ msgstr "Smazat?"
 
 #: software/templates/about_us.html:9
 msgid ""
-"Thank you for using wger! wger is a collaborative open source project, made "
-"by fitness enthusiasts from around the world."
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
 msgstr ""
-"Děkujeme Vám za použití wger! wger je komunitní open source projekt, který "
-"je tvořen fitness nadšenci z celého světa."
 
 #: software/templates/about_us.html:18
-msgid "Have a problem or idea?"
-msgstr "Máte problém nebo nápad?"
+msgid "Open Source & free to use ❤️"
+msgstr ""
 
 #: software/templates/about_us.html:20
 msgid ""
-"Get in touch if something didn't behave as expected or if there is a feature "
-"that you feel is missing."
-msgstr ""
-"Kontaktujte nás, pokud se něco nechovalo podle očekávání nebo pokud existuje "
-"funkce, o které se domníváte, že chybí."
-
-#: software/templates/about_us.html:26
-msgid "Say hi!"
-msgstr "Ahoj!"
-
-#: software/templates/about_us.html:28
-msgid "If you want to chat with us, hop on the Discord server and get in touch"
-msgstr ""
-"Pokud si s námi chcete popovídat, přejděte na Discord server a kontaktujte "
-"nás"
-
-#: software/templates/about_us.html:33
-msgid "Mastodon"
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
 msgstr ""
 
-#: software/templates/about_us.html:35
-msgid "Follow us on mastodon for updates and news about the project"
+#: software/templates/about_us.html:30
+msgid "How you can help"
 msgstr ""
 
-#: software/templates/about_us.html:40 software/templates/features.html:506
-msgid "Translation"
-msgstr "Překlad"
+#: software/templates/about_us.html:40
+#, fuzzy
+#| msgid "Community"
+msgid "Join the Community"
+msgstr "Komunita"
 
-#: software/templates/about_us.html:42
-msgid ""
-"This application is translated on weblate. If you also want to help, click "
-"the link and start translating"
-msgstr ""
-"Tato aplikace je překládána na Weblate. Chcete-li také pomoci, klikněte na "
-"odkaz a začněte překládat"
+#: software/templates/about_us.html:46
+#, fuzzy
+#| msgid "Go to the discord server"
+msgid "Join the Discord server"
+msgstr "Jít na Discord server"
 
 #: software/templates/about_us.html:47
-msgid "Source code"
-msgstr "Zdrojový kód"
-
-#: software/templates/about_us.html:49
-msgid "Get the source code of this application and its server on github"
-msgstr "Získejte zdrojový kód této aplikace a jejího serveru na GitHubu"
-
-#: software/templates/about_us.html:54 software/templates/features.html:63
-#: software/templates/features.html:319
-msgid "Donate"
-msgstr "Přispět"
-
-#: software/templates/about_us.html:56
 msgid ""
-"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
 msgstr ""
 
-#: software/templates/about_us.html:68
+#: software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: software/templates/about_us.html:71
+#, fuzzy
+#| msgid "Contribute"
+msgid "Contribute your skills"
+msgstr "Přispějte"
+
+#: software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: software/templates/about_us.html:78
+#, fuzzy
+#| msgid "Have a problem or idea?"
+msgid "Have a problem or idea? Let us know!"
+msgstr "Máte problém nebo nápad?"
+
+#: software/templates/about_us.html:81
+#, fuzzy
+#| msgid "Submit exercises"
+msgid "Improve the exercises"
+msgstr "Odeslat cvikya"
+
+#: software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: software/templates/about_us.html:85
+#, fuzzy
+#| msgid "Translate with Transifex"
+msgid "Translate the application"
+msgstr "Přeložit s Transifex"
+
+#: software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: software/templates/about_us.html:89
+#, fuzzy
+#| msgid "Developer documentation"
+msgid "Contribute code or documentation"
+msgstr "Dokumentace vývojáře"
+
+#: software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: software/templates/about_us.html:135
+#, fuzzy
+#| msgid "stars <br> on GitHub"
+msgid "Sponsor on GitHub"
+msgstr "hvězdiček <br> na GitHubu"
+
+#: software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Váš cíl"
 
-#: software/templates/about_us.html:71
+#: software/templates/about_us.html:158
 #, fuzzy
 #| msgid ""
 #| "The goal is to build an awesome\n"
@@ -2609,11 +2667,9 @@ msgstr "Váš cíl"
 #| "and complete list of exercises and\n"
 #| "                ingredients, all released under a free license."
 msgid ""
-"The goal is to build an awesome\n"
-"                and flexible fitness manager, along with a comprehensive and "
-"complete list of\n"
-"                exercises and\n"
-"                ingredients, all released under a free license."
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
 msgstr ""
 "Cílem je vytvořit úžasnou\n"
 "                a flexibilní fitness manager aplikaci, spolu s komplexním a "
@@ -2631,6 +2687,10 @@ msgstr ""
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "Mobilní aplikace"
+
+#: software/templates/features.html:63 software/templates/features.html:319
+msgid "Donate"
+msgstr "Přispět"
 
 #: software/templates/features.html:68
 msgid "Develop"
@@ -2842,6 +2902,10 @@ msgstr "Nahlásit problém"
 msgid "Source Code"
 msgstr "Zdrojový kód"
 
+#: software/templates/features.html:506
+msgid "Translation"
+msgstr "Překlad"
+
 #: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -3018,6 +3082,48 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "Znovu poslat"
+
+#~ msgid "Workouts"
+#~ msgstr "Tréninky"
+
+#~ msgid "About us"
+#~ msgstr "O nás"
+
+#~ msgid ""
+#~ "Thank you for using wger! wger is a collaborative open source project, "
+#~ "made by fitness enthusiasts from around the world."
+#~ msgstr ""
+#~ "Děkujeme Vám za použití wger! wger je komunitní open source projekt, "
+#~ "který je tvořen fitness nadšenci z celého světa."
+
+#~ msgid ""
+#~ "Get in touch if something didn't behave as expected or if there is a "
+#~ "feature that you feel is missing."
+#~ msgstr ""
+#~ "Kontaktujte nás, pokud se něco nechovalo podle očekávání nebo pokud "
+#~ "existuje funkce, o které se domníváte, že chybí."
+
+#~ msgid "Say hi!"
+#~ msgstr "Ahoj!"
+
+#~ msgid ""
+#~ "If you want to chat with us, hop on the Discord server and get in touch"
+#~ msgstr ""
+#~ "Pokud si s námi chcete popovídat, přejděte na Discord server a "
+#~ "kontaktujte nás"
+
+#~ msgid ""
+#~ "This application is translated on weblate. If you also want to help, "
+#~ "click the link and start translating"
+#~ msgstr ""
+#~ "Tato aplikace je překládána na Weblate. Chcete-li také pomoci, klikněte "
+#~ "na odkaz a začněte překládat"
+
+#~ msgid "Source code"
+#~ msgstr "Zdrojový kód"
+
+#~ msgid "Get the source code of this application and its server on github"
+#~ msgstr "Získejte zdrojový kód této aplikace a jejího serveru na GitHubu"
 
 #~ msgid "Sample workout"
 #~ msgstr "Ukázkový trénink"
@@ -4314,9 +4420,6 @@ msgstr "Znovu poslat"
 #~ msgid "tweet to @wger_project"
 #~ msgstr "tweetnout @wger_project"
 
-#~ msgid "Go to the discord server"
-#~ msgstr "Jít na Discord server"
-
 #~ msgid "Problems and wishes"
 #~ msgstr "Přání a stížnosti"
 
@@ -4360,9 +4463,6 @@ msgstr "Znovu poslat"
 #~ "jak užitečné jsou! ;-) Když zjistíte, že byste tu něco rád uvítal, nebo \n"
 #~ "vás napadne nějaké vylepšení, řekněte nám to! Nezní to jako moc, ale pro "
 #~ "nás je to důležité!"
-
-#~ msgid "Submit exercises"
-#~ msgstr "Odeslat cvikya"
 
 #~ msgid ""
 #~ "Submit those cool exercises that you absolutely\n"
@@ -4565,6 +4665,3 @@ msgstr "Znovu poslat"
 
 #~ msgid "Edit weight"
 #~ msgstr "Upravit váhu"
-
-#~ msgid "Translate with Transifex"
-#~ msgstr "Přeložit s Transifex"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 14:10+0200\n"
+"POT-Creation-Date: 2025-05-03 21:24+0200\n"
 "PO-Revision-Date: 2025-04-06 17:11+0000\n"
 "Last-Translator: Максим Горпиніч <maksimgorpinic2005a@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
@@ -20,10 +20,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
-"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
-"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
-"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 "X-Generator: Weblate 5.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
@@ -621,9 +621,9 @@ msgstr "Відбиток"
 msgid "Training"
 msgstr "Тренування"
 
-#: core/templates/navigation.html:37
-msgid "Workouts"
-msgstr "Тренування"
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+msgid "Routines"
+msgstr "Рутини"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -714,8 +714,8 @@ msgid "About this software"
 msgstr "Про це програмне забезпечення"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
-msgid "About us"
-msgstr "Про нас"
+msgid "Support & Get Involved"
+msgstr ""
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -909,10 +909,6 @@ msgstr "Немає облікового запису?"
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "Забули пароль?"
-
-#: core/templates/user/overview.html:25
-msgid "Routines"
-msgstr "Рутини"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -1985,7 +1981,7 @@ msgstr ""
 "надсилати електронні листи"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:79
+#: software/templates/about_us.html:167
 msgid "Current version"
 msgstr "Поточна версія"
 
@@ -2532,85 +2528,148 @@ msgstr "Видалити?"
 
 #: software/templates/about_us.html:9
 msgid ""
-"Thank you for using wger! wger is a collaborative open source project, made "
-"by fitness enthusiasts from around the world."
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
 msgstr ""
-"Дякуємо за використання wger! wger - це спільний проєкт з відкритим кодом, "
-"створений ентузіастами фітнесу з усього світу."
 
 #: software/templates/about_us.html:18
-msgid "Have a problem or idea?"
-msgstr "У вас є проблема чи ідея?"
+msgid "Open Source & free to use ❤️"
+msgstr ""
 
 #: software/templates/about_us.html:20
 msgid ""
-"Get in touch if something didn't behave as expected or if there is a feature "
-"that you feel is missing."
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
 msgstr ""
-"Зв'яжіться з нами, якщо щось відбувається не так, як очікувалося, або якщо є "
-"функція, яка, на вашу думку, відсутня."
 
-#: software/templates/about_us.html:26
-msgid "Say hi!"
-msgstr "Привітайтеся!"
-
-#: software/templates/about_us.html:28
-msgid "If you want to chat with us, hop on the Discord server and get in touch"
+#: software/templates/about_us.html:30
+msgid "How you can help"
 msgstr ""
-"Якщо ви хочете поспілкуватися з нами, зайдіть на сервер Discord і зв'яжіться "
-"з нами"
 
-#: software/templates/about_us.html:33
-msgid "Mastodon"
-msgstr "Mastodon"
+#: software/templates/about_us.html:40
+#, fuzzy
+#| msgid "Community"
+msgid "Join the Community"
+msgstr "Спільнота"
 
-#: software/templates/about_us.html:35
-msgid "Follow us on mastodon for updates and news about the project"
-msgstr "Слідкуйте за оновленнями та новинами про проект на Mastodon"
-
-#: software/templates/about_us.html:40 software/templates/features.html:506
-msgid "Translation"
-msgstr "Перекладання"
-
-#: software/templates/about_us.html:42
-msgid ""
-"This application is translated on weblate. If you also want to help, click "
-"the link and start translating"
+#: software/templates/about_us.html:46
+msgid "Join the Discord server"
 msgstr ""
-"Цей застосунок перекладено на Weblate. Якщо ви також хочете допомогти, "
-"клацніть на посилання та почніть переклад"
 
 #: software/templates/about_us.html:47
-msgid "Source code"
-msgstr "Джерельний код"
-
-#: software/templates/about_us.html:49
-msgid "Get the source code of this application and its server on github"
-msgstr "Отримайте джерельний код цього застосунку та його сервера на github"
-
-#: software/templates/about_us.html:54 software/templates/features.html:63
-#: software/templates/features.html:319
-msgid "Donate"
-msgstr "Підтримка проєкту"
-
-#: software/templates/about_us.html:56
 msgid ""
-"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
 msgstr ""
-"Купіть нам каву, щоб допомогти проекту, оплатити витрати на сервер і "
-"підтримати нас"
 
-#: software/templates/about_us.html:68
+#: software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: software/templates/about_us.html:71
+#, fuzzy
+#| msgid "Contribute"
+msgid "Contribute your skills"
+msgstr "Зробити внесок"
+
+#: software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: software/templates/about_us.html:78
+#, fuzzy
+#| msgid "Have a problem or idea?"
+msgid "Have a problem or idea? Let us know!"
+msgstr "У вас є проблема чи ідея?"
+
+#: software/templates/about_us.html:81
+#, fuzzy
+#| msgid "Submit exercises"
+msgid "Improve the exercises"
+msgstr "Надіслати вправи"
+
+#: software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: software/templates/about_us.html:85
+#, fuzzy
+#| msgid "Translate with Transifex"
+msgid "Translate the application"
+msgstr "Перекласти за допомогою Transifex"
+
+#: software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: software/templates/about_us.html:89
+#, fuzzy
+#| msgid "Developer documentation"
+msgid "Contribute code or documentation"
+msgstr "Документація для розробників"
+
+#: software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: software/templates/about_us.html:135
+#, fuzzy
+#| msgid "stars <br> on GitHub"
+msgid "Sponsor on GitHub"
+msgstr "зірки <br> на GitHub"
+
+#: software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Наша мета"
 
-#: software/templates/about_us.html:71
+#: software/templates/about_us.html:158
+#, fuzzy
+#| msgid ""
+#| "The goal is to build an awesome\n"
+#| "                and flexible fitness manager, along with a comprehensive "
+#| "and complete list of\n"
+#| "                exercises and\n"
+#| "                ingredients, all released under a free license."
 msgid ""
-"The goal is to build an awesome\n"
-"                and flexible fitness manager, along with a comprehensive and "
-"complete list of\n"
-"                exercises and\n"
-"                ingredients, all released under a free license."
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
 msgstr ""
 "Мета полягає в тому, щоб побудувати дивовижний і гнучкий фітнес-менеджер, а "
 "також\n"
@@ -2629,6 +2688,10 @@ msgstr ""
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "Мобільний застосунок"
+
+#: software/templates/features.html:63 software/templates/features.html:319
+msgid "Donate"
+msgstr "Підтримка проєкту"
 
 #: software/templates/features.html:68
 msgid "Develop"
@@ -2842,6 +2905,10 @@ msgstr "Повідомити про проблему"
 msgid "Source Code"
 msgstr "Вихідний код"
 
+#: software/templates/features.html:506
+msgid "Translation"
+msgstr "Перекладання"
+
 #: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "Так, вилучити"
@@ -3020,6 +3087,61 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "Повторно подати"
+
+#~ msgid "Workouts"
+#~ msgstr "Тренування"
+
+#~ msgid "About us"
+#~ msgstr "Про нас"
+
+#~ msgid ""
+#~ "Thank you for using wger! wger is a collaborative open source project, "
+#~ "made by fitness enthusiasts from around the world."
+#~ msgstr ""
+#~ "Дякуємо за використання wger! wger - це спільний проєкт з відкритим "
+#~ "кодом, створений ентузіастами фітнесу з усього світу."
+
+#~ msgid ""
+#~ "Get in touch if something didn't behave as expected or if there is a "
+#~ "feature that you feel is missing."
+#~ msgstr ""
+#~ "Зв'яжіться з нами, якщо щось відбувається не так, як очікувалося, або "
+#~ "якщо є функція, яка, на вашу думку, відсутня."
+
+#~ msgid "Say hi!"
+#~ msgstr "Привітайтеся!"
+
+#~ msgid ""
+#~ "If you want to chat with us, hop on the Discord server and get in touch"
+#~ msgstr ""
+#~ "Якщо ви хочете поспілкуватися з нами, зайдіть на сервер Discord і "
+#~ "зв'яжіться з нами"
+
+#~ msgid "Mastodon"
+#~ msgstr "Mastodon"
+
+#~ msgid "Follow us on mastodon for updates and news about the project"
+#~ msgstr "Слідкуйте за оновленнями та новинами про проект на Mastodon"
+
+#~ msgid ""
+#~ "This application is translated on weblate. If you also want to help, "
+#~ "click the link and start translating"
+#~ msgstr ""
+#~ "Цей застосунок перекладено на Weblate. Якщо ви також хочете допомогти, "
+#~ "клацніть на посилання та почніть переклад"
+
+#~ msgid "Source code"
+#~ msgstr "Джерельний код"
+
+#~ msgid "Get the source code of this application and its server on github"
+#~ msgstr "Отримайте джерельний код цього застосунку та його сервера на github"
+
+#~ msgid ""
+#~ "Buy us a coffee to help the project, pay for server costs, and keep us "
+#~ "fueled"
+#~ msgstr ""
+#~ "Купіть нам каву, щоб допомогти проекту, оплатити витрати на сервер і "
+#~ "підтримати нас"
 
 #~ msgid "Sample workout"
 #~ msgstr "Пробне тренування"
@@ -4333,9 +4455,6 @@ msgstr "Повторно подати"
 #~ "потребує поліпшення або просто не працює, скажіть нам! Це може здатися "
 #~ "незначним, але це неймовірно важливо!"
 
-#~ msgid "Submit exercises"
-#~ msgstr "Надіслати вправи"
-
 #~ msgid ""
 #~ "Submit those cool exercises that you absolutely\n"
 #~ "love and do every week but are not in the list yet. If you think some "
@@ -4516,6 +4635,3 @@ msgstr "Повторно подати"
 
 #~ msgid "Days"
 #~ msgstr "Дні"
-
-#~ msgid "Translate with Transifex"
-#~ msgstr "Перекласти за допомогою Transifex"

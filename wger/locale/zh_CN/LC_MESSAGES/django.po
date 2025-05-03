@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 14:10+0200\n"
+"POT-Creation-Date: 2025-05-03 21:24+0200\n"
 "PO-Revision-Date: 2024-11-20 18:22+0000\n"
 "Last-Translator: Herb Huang <Ranger0801@live.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -608,9 +608,9 @@ msgstr "版本说明"
 msgid "Training"
 msgstr "训练"
 
-#: core/templates/navigation.html:37
-msgid "Workouts"
-msgstr "健身"
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+msgid "Routines"
+msgstr ""
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -701,8 +701,8 @@ msgid "About this software"
 msgstr "关于软件"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
-msgid "About us"
-msgstr "关于我们"
+msgid "Support & Get Involved"
+msgstr ""
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -891,10 +891,6 @@ msgstr "没有账户？"
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "忘记密码？"
-
-#: core/templates/user/overview.html:25
-msgid "Routines"
-msgstr ""
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -1958,7 +1954,7 @@ msgid ""
 msgstr "你可以按照你的需要在邮件发送之前随时更新或修正邮件的内容"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:79
+#: software/templates/about_us.html:167
 msgid "Current version"
 msgstr "当前版本"
 
@@ -2491,76 +2487,149 @@ msgstr "删除?"
 
 #: software/templates/about_us.html:9
 msgid ""
-"Thank you for using wger! wger is a collaborative open source project, made "
-"by fitness enthusiasts from around the world."
-msgstr "感谢你使用wger！wger是一个协作开源项目，由全世界健身爱好者共同维护。"
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
+msgstr ""
 
 #: software/templates/about_us.html:18
-msgid "Have a problem or idea?"
-msgstr "遇到什么问题或有什么想法？"
+msgid "Open Source & free to use ❤️"
+msgstr ""
 
 #: software/templates/about_us.html:20
 msgid ""
-"Get in touch if something didn't behave as expected or if there is a feature "
-"that you feel is missing."
-msgstr "如果有什么不对劲儿或者你希望添加什么功能，请联系我们。"
-
-#: software/templates/about_us.html:26
-msgid "Say hi!"
-msgstr "泥嚎！"
-
-#: software/templates/about_us.html:28
-msgid "If you want to chat with us, hop on the Discord server and get in touch"
-msgstr "如果你想要和我们聊天，加入我们的 Discord 群组吧"
-
-#: software/templates/about_us.html:33
-msgid "Mastodon"
-msgstr "长毛象"
-
-#: software/templates/about_us.html:35
-msgid "Follow us on mastodon for updates and news about the project"
-msgstr "在长毛象上关注我们，以获得最新资讯"
-
-#: software/templates/about_us.html:40 software/templates/features.html:506
-msgid "Translation"
-msgstr "翻译"
-
-#: software/templates/about_us.html:42
-msgid ""
-"This application is translated on weblate. If you also want to help, click "
-"the link and start translating"
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
 msgstr ""
-"这个应用是在Weblate上翻译的。如果你想要提供帮助，请点击这个链接着手翻译"
+
+#: software/templates/about_us.html:30
+msgid "How you can help"
+msgstr ""
+
+#: software/templates/about_us.html:40
+#, fuzzy
+#| msgid "Community"
+msgid "Join the Community"
+msgstr "社区"
+
+#: software/templates/about_us.html:46
+#, fuzzy
+msgid "Join the Discord server"
+msgstr "前往Discord服务器"
 
 #: software/templates/about_us.html:47
-msgid "Source code"
-msgstr "源代码"
-
-#: software/templates/about_us.html:49
-msgid "Get the source code of this application and its server on github"
-msgstr "在Github上获取这个应用和服务器的源代码"
-
-#: software/templates/about_us.html:54 software/templates/features.html:63
-#: software/templates/features.html:319
-msgid "Donate"
-msgstr "捐赠"
-
-#: software/templates/about_us.html:56
 msgid ""
-"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
-msgstr "打赏我们来支持这个项目！"
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
+msgstr ""
 
-#: software/templates/about_us.html:68
+#: software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: software/templates/about_us.html:71
+#, fuzzy
+#| msgid "Contribute"
+msgid "Contribute your skills"
+msgstr "贡献"
+
+#: software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: software/templates/about_us.html:78
+#, fuzzy
+#| msgid "Have a problem or idea?"
+msgid "Have a problem or idea? Let us know!"
+msgstr "遇到什么问题或有什么想法？"
+
+#: software/templates/about_us.html:81
+#, fuzzy
+#| msgid "Submit exercises"
+msgid "Improve the exercises"
+msgstr "提交健身项目"
+
+#: software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: software/templates/about_us.html:85
+#, fuzzy
+#| msgid "Translate with Transifex"
+msgid "Translate the application"
+msgstr "在Transifex上翻译"
+
+#: software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: software/templates/about_us.html:89
+#, fuzzy
+#| msgid "Developer documentation"
+msgid "Contribute code or documentation"
+msgstr "开发者文档"
+
+#: software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: software/templates/about_us.html:135
+#, fuzzy
+#| msgid "stars <br> on GitHub"
+msgid "Sponsor on GitHub"
+msgstr "赞我<br> 在GitHub上"
+
+#: software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "目标"
 
-#: software/templates/about_us.html:71
+#: software/templates/about_us.html:158
+#, fuzzy
+#| msgid ""
+#| "The goal is to build an awesome\n"
+#| "                and flexible fitness manager, along with a comprehensive "
+#| "and complete list of\n"
+#| "                exercises and\n"
+#| "                ingredients, all released under a free license."
 msgid ""
-"The goal is to build an awesome\n"
-"                and flexible fitness manager, along with a comprehensive and "
-"complete list of\n"
-"                exercises and\n"
-"                ingredients, all released under a free license."
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
 msgstr ""
 "我们希望开发一个\n"
 "                好用灵活的健身管理软件，\n"
@@ -2576,6 +2645,10 @@ msgstr "wger 健身管理器是一个免费的开源网络应用。"
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "手机应用"
+
+#: software/templates/features.html:63 software/templates/features.html:319
+msgid "Donate"
+msgstr "捐赠"
 
 #: software/templates/features.html:68
 msgid "Develop"
@@ -2772,6 +2845,10 @@ msgstr "报告问题"
 msgid "Source Code"
 msgstr "源代码"
 
+#: software/templates/features.html:506
+msgid "Translation"
+msgstr "翻译"
+
 #: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "是,删除"
@@ -2944,6 +3021,53 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "重新提交"
+
+#~ msgid "Workouts"
+#~ msgstr "健身"
+
+#~ msgid "About us"
+#~ msgstr "关于我们"
+
+#~ msgid ""
+#~ "Thank you for using wger! wger is a collaborative open source project, "
+#~ "made by fitness enthusiasts from around the world."
+#~ msgstr ""
+#~ "感谢你使用wger！wger是一个协作开源项目，由全世界健身爱好者共同维护。"
+
+#~ msgid ""
+#~ "Get in touch if something didn't behave as expected or if there is a "
+#~ "feature that you feel is missing."
+#~ msgstr "如果有什么不对劲儿或者你希望添加什么功能，请联系我们。"
+
+#~ msgid "Say hi!"
+#~ msgstr "泥嚎！"
+
+#~ msgid ""
+#~ "If you want to chat with us, hop on the Discord server and get in touch"
+#~ msgstr "如果你想要和我们聊天，加入我们的 Discord 群组吧"
+
+#~ msgid "Mastodon"
+#~ msgstr "长毛象"
+
+#~ msgid "Follow us on mastodon for updates and news about the project"
+#~ msgstr "在长毛象上关注我们，以获得最新资讯"
+
+#~ msgid ""
+#~ "This application is translated on weblate. If you also want to help, "
+#~ "click the link and start translating"
+#~ msgstr ""
+#~ "这个应用是在Weblate上翻译的。如果你想要提供帮助，请点击这个链接着手翻译"
+
+#~ msgid "Source code"
+#~ msgstr "源代码"
+
+#~ msgid "Get the source code of this application and its server on github"
+#~ msgstr "在Github上获取这个应用和服务器的源代码"
+
+#~ msgid ""
+#~ "Buy us a coffee to help the project, pay for server costs, and keep us "
+#~ "fueled"
+#~ msgstr "打赏我们来支持这个项目！"
 
 #~ msgid "Sample workout"
 #~ msgstr "健身示例"
@@ -3877,10 +4001,6 @@ msgstr "重新提交"
 #~ msgid "tweet to @wger_project"
 #~ msgstr "发推给@wger_project"
 
-#, fuzzy
-#~ msgid "Go to the discord server"
-#~ msgstr "前往Discord服务器"
-
 #~ msgid "Problems and wishes"
 #~ msgstr "问题和期望"
 
@@ -3900,9 +4020,6 @@ msgstr "重新提交"
 #~ "一下<a href=\"http://schlitt.info/opensource/blog/"
 #~ "0541_10_golden_rules_for_starting_with_open_source.html\">这篇文章</a>, \n"
 #~ "它会告诉您开源项目是如何良好运作的."
-
-#~ msgid "Submit exercises"
-#~ msgstr "提交健身项目"
 
 #, fuzzy
 #~| msgid ""
@@ -4019,6 +4136,3 @@ msgstr "重新提交"
 
 #~ msgid "Your workout today"
 #~ msgstr "你今天的健身"
-
-#~ msgid "Translate with Transifex"
-#~ msgstr "在Transifex上翻译"

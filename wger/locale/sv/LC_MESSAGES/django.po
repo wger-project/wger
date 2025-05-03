@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 14:10+0200\n"
+"POT-Creation-Date: 2025-05-03 21:24+0200\n"
 "PO-Revision-Date: 2025-04-08 08:05+0000\n"
 "Last-Translator: wonnock <janemilgustafsson@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
@@ -598,9 +598,9 @@ msgstr ""
 msgid "Training"
 msgstr "Träning"
 
-#: core/templates/navigation.html:37
-msgid "Workouts"
-msgstr "Träningspass"
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+msgid "Routines"
+msgstr "Rutiner"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -697,8 +697,8 @@ msgid "About this software"
 msgstr "Om programvaran"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
-msgid "About us"
-msgstr "Om oss"
+msgid "Support & Get Involved"
+msgstr ""
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -890,10 +890,6 @@ msgstr "Inget konto?"
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "Glömt ditt lösenord?"
-
-#: core/templates/user/overview.html:25
-msgid "Routines"
-msgstr "Rutiner"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -2001,7 +1997,7 @@ msgstr ""
 "mailen"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:79
+#: software/templates/about_us.html:167
 msgid "Current version"
 msgstr "Aktuell version"
 
@@ -2550,71 +2546,133 @@ msgstr "Ta bort?"
 
 #: software/templates/about_us.html:9
 msgid ""
-"Thank you for using wger! wger is a collaborative open source project, made "
-"by fitness enthusiasts from around the world."
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
 msgstr ""
 
 #: software/templates/about_us.html:18
-msgid "Have a problem or idea?"
+msgid "Open Source & free to use ❤️"
 msgstr ""
 
 #: software/templates/about_us.html:20
 msgid ""
-"Get in touch if something didn't behave as expected or if there is a feature "
-"that you feel is missing."
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
 msgstr ""
 
-#: software/templates/about_us.html:26
-msgid "Say hi!"
+#: software/templates/about_us.html:30
+msgid "How you can help"
 msgstr ""
 
-#: software/templates/about_us.html:28
-msgid "If you want to chat with us, hop on the Discord server and get in touch"
-msgstr ""
-
-#: software/templates/about_us.html:33
-msgid "Mastodon"
-msgstr ""
-
-#: software/templates/about_us.html:35
-msgid "Follow us on mastodon for updates and news about the project"
-msgstr ""
-
-#: software/templates/about_us.html:40 software/templates/features.html:506
+#: software/templates/about_us.html:40
 #, fuzzy
-#| msgid "Translate"
-msgid "Translation"
-msgstr "Översätt"
+#| msgid "Comment"
+msgid "Join the Community"
+msgstr "Kommentar"
 
-#: software/templates/about_us.html:42
-msgid ""
-"This application is translated on weblate. If you also want to help, click "
-"the link and start translating"
+#: software/templates/about_us.html:46
+msgid "Join the Discord server"
 msgstr ""
 
 #: software/templates/about_us.html:47
-msgid "Source code"
-msgstr ""
-
-#: software/templates/about_us.html:49
-msgid "Get the source code of this application and its server on github"
-msgstr ""
-
-#: software/templates/about_us.html:54 software/templates/features.html:63
-#: software/templates/features.html:319
-msgid "Donate"
-msgstr ""
-
-#: software/templates/about_us.html:56
 msgid ""
-"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
 msgstr ""
 
-#: software/templates/about_us.html:68
+#: software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: software/templates/about_us.html:71
+#, fuzzy
+#| msgid "Contribute!"
+msgid "Contribute your skills"
+msgstr "Bidra!"
+
+#: software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: software/templates/about_us.html:78
+msgid "Have a problem or idea? Let us know!"
+msgstr ""
+
+#: software/templates/about_us.html:81
+#, fuzzy
+#| msgid "Submit exercises"
+msgid "Improve the exercises"
+msgstr "Ladda upp övningar"
+
+#: software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: software/templates/about_us.html:85
+#, fuzzy
+#| msgid "Translate with Transifex"
+msgid "Translate the application"
+msgstr "Översätt med Transifex"
+
+#: software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: software/templates/about_us.html:89
+#, fuzzy
+#| msgid "Developer documentation"
+msgid "Contribute code or documentation"
+msgstr "Dokument för utvecklare"
+
+#: software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: software/templates/about_us.html:135
+msgid "Sponsor on GitHub"
+msgstr ""
+
+#: software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Vårt mål"
 
-#: software/templates/about_us.html:71
+#: software/templates/about_us.html:158
 #, fuzzy
 #| msgid ""
 #| "The goal is to build an awesome\n"
@@ -2622,11 +2680,9 @@ msgstr "Vårt mål"
 #| "list of exercises and\n"
 #| "ingredients, all released under a free license."
 msgid ""
-"The goal is to build an awesome\n"
-"                and flexible fitness manager, along with a comprehensive and "
-"complete list of\n"
-"                exercises and\n"
-"                ingredients, all released under a free license."
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
 msgstr ""
 "Målet är att bygga en fantastisk och flexibel fitness manager tillsammans "
 "med en omfattande och fullständig lista av övningar och ingredienser, allt "
@@ -2646,6 +2702,10 @@ msgstr ""
 
 #: software/templates/features.html:57
 msgid "Mobile app"
+msgstr ""
+
+#: software/templates/features.html:63 software/templates/features.html:319
+msgid "Donate"
 msgstr ""
 
 #: software/templates/features.html:68
@@ -2862,6 +2922,12 @@ msgstr ""
 msgid "Source Code"
 msgstr ""
 
+#: software/templates/features.html:506
+#, fuzzy
+#| msgid "Translate"
+msgid "Translation"
+msgstr "Översätt"
+
 #: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "Ja, ta bort"
@@ -3036,6 +3102,12 @@ msgstr "Du kan korrigera listan här och skicka om den så ofta du vill."
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "Skicka igen"
+
+#~ msgid "Workouts"
+#~ msgstr "Träningspass"
+
+#~ msgid "About us"
+#~ msgstr "Om oss"
 
 #~ msgid "Sample workout"
 #~ msgstr "Exempelpass"
@@ -4220,9 +4292,6 @@ msgstr "Skicka igen"
 #~ "inte att berätta för oss! Detta kanske inte låter som mycket, men är "
 #~ "otroligt viktigt!"
 
-#~ msgid "Submit exercises"
-#~ msgstr "Ladda upp övningar"
-
 #~ msgid ""
 #~ "Submit those cool exercises that you absolutely\n"
 #~ "love and do every week but are not in the list yet. If you think some "
@@ -4398,6 +4467,3 @@ msgstr "Skicka igen"
 
 #~ msgid "Days"
 #~ msgstr "Dagar"
-
-#~ msgid "Translate with Transifex"
-#~ msgstr "Översätt med Transifex"

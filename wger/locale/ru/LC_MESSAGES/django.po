@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 14:10+0200\n"
+"POT-Creation-Date: 2025-05-03 21:24+0200\n"
 "PO-Revision-Date: 2025-02-14 11:20+0000\n"
 "Last-Translator: Алексей Курышко <alexkuryshko@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
@@ -637,9 +637,9 @@ msgstr "Отпечаток"
 msgid "Training"
 msgstr "Тренировка"
 
-#: core/templates/navigation.html:37
-msgid "Workouts"
-msgstr "Тренировки"
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
+msgid "Routines"
+msgstr ""
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -734,8 +734,8 @@ msgid "About this software"
 msgstr "Об этой программе"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
-msgid "About us"
-msgstr "О нас"
+msgid "Support & Get Involved"
+msgstr ""
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -930,10 +930,6 @@ msgstr "Нет аккаунта?"
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
-
-#: core/templates/user/overview.html:25
-msgid "Routines"
-msgstr ""
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -2023,7 +2019,7 @@ msgstr ""
 "перед отправкой писем"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:79
+#: software/templates/about_us.html:167
 msgid "Current version"
 msgstr "Текущая версия"
 
@@ -2574,77 +2570,137 @@ msgstr "Удалить?"
 
 #: software/templates/about_us.html:9
 msgid ""
-"Thank you for using wger! wger is a collaborative open source project, made "
-"by fitness enthusiasts from around the world."
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
 msgstr ""
-"Спасибо за использование wger! wger - это совместный проект с открытым "
-"исходным кодом, созданный фитнес энтузиастами со всего мира."
 
 #: software/templates/about_us.html:18
-msgid "Have a problem or idea?"
-msgstr "Есть проблема или идея?"
+msgid "Open Source & free to use ❤️"
+msgstr ""
 
 #: software/templates/about_us.html:20
 msgid ""
-"Get in touch if something didn't behave as expected or if there is a feature "
-"that you feel is missing."
-msgstr ""
-"Свяжитесь с нами, если что-то пошло не так или если вам кажется, что какой-"
-"то функции не хватает."
-
-#: software/templates/about_us.html:26
-msgid "Say hi!"
-msgstr "Скажите привет!"
-
-#: software/templates/about_us.html:28
-msgid "If you want to chat with us, hop on the Discord server and get in touch"
-msgstr ""
-"Если вы хотите пообщаться с нами, зайдите на сервер Discord и свяжитесь с "
-"нами"
-
-#: software/templates/about_us.html:33
-msgid "Mastodon"
-msgstr "Mastodon"
-
-#: software/templates/about_us.html:35
-msgid "Follow us on mastodon for updates and news about the project"
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
 msgstr ""
 
-#: software/templates/about_us.html:40 software/templates/features.html:506
-msgid "Translation"
-msgstr "Перевод"
-
-#: software/templates/about_us.html:42
-msgid ""
-"This application is translated on weblate. If you also want to help, click "
-"the link and start translating"
+#: software/templates/about_us.html:30
+msgid "How you can help"
 msgstr ""
-"Это приложение переведено на weblate. Если вы тоже хотите помочь, нажмите на "
-"ссылку и начните переводить"
+
+#: software/templates/about_us.html:40
+#, fuzzy
+#| msgid "Community"
+msgid "Join the Community"
+msgstr "Сообщество"
+
+#: software/templates/about_us.html:46
+#, fuzzy
+#| msgid "Go to the discord server"
+msgid "Join the Discord server"
+msgstr "Перейти в Discord сервер"
 
 #: software/templates/about_us.html:47
-msgid "Source code"
-msgstr "Исходный код"
-
-#: software/templates/about_us.html:49
-msgid "Get the source code of this application and its server on github"
-msgstr "Получите исходный код этого приложения и его сервера на github"
-
-#: software/templates/about_us.html:54 software/templates/features.html:63
-#: software/templates/features.html:319
-msgid "Donate"
-msgstr ""
-
-#: software/templates/about_us.html:56
 msgid ""
-"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
 msgstr ""
 
-#: software/templates/about_us.html:68
+#: software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: software/templates/about_us.html:71
+#, fuzzy
+#| msgid "Contribute!"
+msgid "Contribute your skills"
+msgstr "Способствуйте!"
+
+#: software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: software/templates/about_us.html:78
+#, fuzzy
+#| msgid "Have a problem or idea?"
+msgid "Have a problem or idea? Let us know!"
+msgstr "Есть проблема или идея?"
+
+#: software/templates/about_us.html:81
+#, fuzzy
+#| msgid "Submit exercises"
+msgid "Improve the exercises"
+msgstr "Представить упражнения"
+
+#: software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: software/templates/about_us.html:85
+#, fuzzy
+#| msgid "Translate with Transifex"
+msgid "Translate the application"
+msgstr "Перевести с помощью Transifex"
+
+#: software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: software/templates/about_us.html:89
+#, fuzzy
+#| msgid "Developer documentation"
+msgid "Contribute code or documentation"
+msgstr "Документация для разработчиков"
+
+#: software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: software/templates/about_us.html:135
+msgid "Sponsor on GitHub"
+msgstr ""
+
+#: software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Наша цель"
 
-#: software/templates/about_us.html:71
+#: software/templates/about_us.html:158
 #, fuzzy
 #| msgid ""
 #| "The goal is to build an awesome\n"
@@ -2652,11 +2708,9 @@ msgstr "Наша цель"
 #| "list of exercises and\n"
 #| "ingredients, all released under a free license."
 msgid ""
-"The goal is to build an awesome\n"
-"                and flexible fitness manager, along with a comprehensive and "
-"complete list of\n"
-"                exercises and\n"
-"                ingredients, all released under a free license."
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
 msgstr ""
 "Цель - создать удивительный и гибкий фитнес-менеджер, наряду с всесторонним "
 "и полным списком упражнений и\n"
@@ -2677,6 +2731,10 @@ msgstr ""
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "Мобильное приложение"
+
+#: software/templates/features.html:63 software/templates/features.html:319
+msgid "Donate"
+msgstr ""
 
 #: software/templates/features.html:68
 msgid "Develop"
@@ -2888,6 +2946,10 @@ msgstr "Сообщить о проблеме"
 msgid "Source Code"
 msgstr "Исходный код"
 
+#: software/templates/features.html:506
+msgid "Translation"
+msgstr "Перевод"
+
 #: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "Да, удалить"
@@ -3068,6 +3130,51 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "Повторно отправить"
+
+#~ msgid "Workouts"
+#~ msgstr "Тренировки"
+
+#~ msgid "About us"
+#~ msgstr "О нас"
+
+#~ msgid ""
+#~ "Thank you for using wger! wger is a collaborative open source project, "
+#~ "made by fitness enthusiasts from around the world."
+#~ msgstr ""
+#~ "Спасибо за использование wger! wger - это совместный проект с открытым "
+#~ "исходным кодом, созданный фитнес энтузиастами со всего мира."
+
+#~ msgid ""
+#~ "Get in touch if something didn't behave as expected or if there is a "
+#~ "feature that you feel is missing."
+#~ msgstr ""
+#~ "Свяжитесь с нами, если что-то пошло не так или если вам кажется, что "
+#~ "какой-то функции не хватает."
+
+#~ msgid "Say hi!"
+#~ msgstr "Скажите привет!"
+
+#~ msgid ""
+#~ "If you want to chat with us, hop on the Discord server and get in touch"
+#~ msgstr ""
+#~ "Если вы хотите пообщаться с нами, зайдите на сервер Discord и свяжитесь с "
+#~ "нами"
+
+#~ msgid "Mastodon"
+#~ msgstr "Mastodon"
+
+#~ msgid ""
+#~ "This application is translated on weblate. If you also want to help, "
+#~ "click the link and start translating"
+#~ msgstr ""
+#~ "Это приложение переведено на weblate. Если вы тоже хотите помочь, нажмите "
+#~ "на ссылку и начните переводить"
+
+#~ msgid "Source code"
+#~ msgstr "Исходный код"
+
+#~ msgid "Get the source code of this application and its server on github"
+#~ msgstr "Получите исходный код этого приложения и его сервера на github"
 
 #~ msgid "Sample workout"
 #~ msgstr "Пример тренировки"
@@ -4364,9 +4471,6 @@ msgstr "Повторно отправить"
 #~ msgid "Open feedback form"
 #~ msgstr "Открытая форма отзыва"
 
-#~ msgid "Go to the discord server"
-#~ msgstr "Перейти в Discord сервер"
-
 #~ msgid "Problems and wishes"
 #~ msgstr "Проблемы и пожелания"
 
@@ -4411,9 +4515,6 @@ msgstr "Повторно отправить"
 #~ "классный! ;) . Если вы найдете что-то, что вам особенно нравится,\n"
 #~ "что нуждается в улучшении или просто не работает, скажите нам! Это может "
 #~ "показаться незначительным, но это невероятно важно!"
-
-#~ msgid "Submit exercises"
-#~ msgstr "Представить упражнения"
 
 #~ msgid ""
 #~ "Submit those cool exercises that you absolutely\n"
@@ -4597,6 +4698,3 @@ msgstr "Повторно отправить"
 
 #~ msgid "Days"
 #~ msgstr "Дни"
-
-#~ msgid "Translate with Transifex"
-#~ msgstr "Перевести с помощью Transifex"

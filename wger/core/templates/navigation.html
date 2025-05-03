@@ -34,7 +34,7 @@
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
-                                    {% translate "Workouts" %}
+                                    {% translate "Routines" %}
                                 </a>
                             </li>
                             {% if user.is_authenticated %}
@@ -220,7 +220,7 @@
                             <li>
                                 <a class="dropdown-item"
                                    href="{% url 'software:about-us' %}">
-                                    {% translate "About us" %}
+                                    {% translate "Support & Get Involved" %}
                                 </a>
                             </li>
                             <li class="dropdown-divider"></li>
