@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:24+0200\n"
-"PO-Revision-Date: 2025-04-06 17:11+0000\n"
-"Last-Translator: Максим Горпиніч <maksimgorpinic2005a@gmail.com>\n"
+"PO-Revision-Date: 2025-05-05 05:32+0000\n"
+"Last-Translator: Максим Горпиніч <maksimgorpinic4@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -715,7 +715,7 @@ msgstr "Про це програмне забезпечення"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Підтримайте та долучайтеся"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -2533,10 +2533,15 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger допомагає вам відстежувати тренування, керувати харчуванням і досягати "
+"своїх фітнес-цілей. Ми пропонуємо його як безкоштовне програмне забезпечення "
+"з відкритим вихідним кодом, яке ви можете розмістити самостійно, а також "
+"надаємо зручну, безкоштовну та розміщену на хостингу версію для легкого "
+"доступу."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Відкритий код та безкоштовний у використанні ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2546,87 +2551,88 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger побудований на принципах відкритого коду. Його код знаходиться у "
+"відкритому доступі, розроблений нашою спільнотою, що забезпечує прозорість і "
+"дає вам можливість контролювати свої дані (особливо у випадку самостійного "
+"хостингу). Безкоштовний хостинг повністю працює на цій основі з відкритим "
+"кодом. Ми вважаємо, що потужні фітнес-інструменти повинні бути доступні "
+"кожному."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Як ви можете допомогти"
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "Спільнота"
+msgstr "Приєднуйтесь до спільноти"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Приєднатися до сервера Discord"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Заходьте на сервер Discord, щоб поспілкуватися з розробниками та іншими "
+"користувачами, поставити запитання або обговорити нові функції."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Отримуйте новини, оновлення та оголошення про проєкт на Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Поширте інформацію: Розкажіть своїм друзям, товаришам по спортзалу або "
+"поділіться в соціальних мережах! Ваш ентузіазм допомагає нам зростати та "
+"охоплювати більше людей."
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute"
 msgid "Contribute your skills"
-msgstr "Зробити внесок"
+msgstr "Зробіть свій внесок у навички"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Повідомляйте про помилки або пропонуйте функції"
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "У вас є проблема чи ідея?"
+msgstr "Маєте проблему чи ідею? Повідомте нас!"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Надіслати вправи"
+msgstr "Удосконалюйте вправи"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Створюйте нові вправи та редагуйте або перекладайте існуючі."
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Перекласти за допомогою Transifex"
+msgstr "Перекласти програму"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Допоможіть зробити застосунок доступним більшою кількістю мов для "
+"користувачів з усього світу."
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Документація для розробників"
+msgstr "Надайте код або документацію"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Перегляньте вихідний код і допоможіть нам створити наступну версію."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Зробіть пожертву"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2637,45 +2643,42 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Хоча проект є безкоштовним і завжди ним залишатиметься, робота сервера не є "
+"такою! Надання хостингової версії wger передбачає реальні постійні витрати "
+"на хостинг сервера, пропускну здатність, резервне копіювання тощо. Розробка "
+"також вимагає значного часу та зусиль від волонтерів. Ваш внесок "
+"безпосередньо підтримує ці важливі витрати, допомагаючи підтримувати сервіс "
+"надійним, вдосконаленим і безкоштовним для всіх."
 
 #: software/templates/about_us.html:135
-#, fuzzy
-#| msgid "stars <br> on GitHub"
 msgid "Sponsor on GitHub"
-msgstr "зірки <br> на GitHub"
+msgstr "Спонсор на GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Дякую вам!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Дякуємо, що ви є частиною спільноти! Ми цінуємо ваше використання, відгуки "
+"та будь-яку підтримку, яку ви можете запропонувати."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Наша мета"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of\n"
-#| "                exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"Мета полягає в тому, щоб побудувати дивовижний і гнучкий фітнес-менеджер, а "
-"також\n"
-"                всебічний і повний перелік\n"
-"                вправ і\n"
-"                інгредієнтів, випущений під вільною ліцензією."
+"Мета полягає в тому, щоб створити чудовий та гнучкий фітнес-менеджер, а "
+"також вичерпний та повний список вправ та інгредієнтів, і все це випущено за "
+"безкоштовною ліцензією."
 
 #: software/templates/features.html:11
 msgid ""
