@@ -78,6 +78,16 @@ from wger.utils.cache import CacheKeyMapper
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
+def request_user_or_trainer_q(request):
+    """
+    Helper function to build a Q object for filtering objects by user or trainer.
+    """
+    trainer_identity_pk = request.session.get('trainer.identity', None)
+    if trainer_identity_pk:
+        return Q(user=request.user) | Q(user_id=trainer_identity_pk)
+    return Q(user=request.user)
+
+
 class RoutineViewSet(viewsets.ModelViewSet):
     """
     API endpoint for routine objects
@@ -104,7 +114,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Routine.objects.none()
 
-        return Routine.objects.filter(Q(user=self.request.user) | Q(is_public=True))
+        return Routine.objects.filter(request_user_or_trainer_q(request=self.request) | Q(is_public=True))
 
     def perform_create(self, serializer):
         """
@@ -213,7 +223,8 @@ class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Routine.objects.none()
 
-        return Routine.templates.filter(user=self.request.user)
+        # If the current user is a trainer, also return their templates.
+        return Routine.templates.filter(request_user_or_trainer_q(request=self.request))
 
 
 class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
