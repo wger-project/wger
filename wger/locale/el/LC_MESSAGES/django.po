@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 21:24+0200\n"
+"POT-Creation-Date: 2025-05-03 21:57+0200\n"
 "PO-Revision-Date: 2023-10-01 07:01+0000\n"
 "Last-Translator: Antonis-geo <antgeoath@csd.auth.gr>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/wger/web/el/>\n"
@@ -450,19 +450,22 @@ msgid ""
 msgstr ""
 
 #: core/templates/base.html:10
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "You are\n"
+#| "                browsing the site as the user \"%(current_user)s\", all "
+#| "actions are performed on their data.\n"
+#| "            "
 msgid ""
-"You are\n"
-"                browsing the site as the user \"%(current_user)s\", all "
-"actions are performed on their data.\n"
-"            "
+"You are browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data."
 msgstr ""
 "Περιηγείστε\n"
 "στον ιστότοπο ως χρήστης «%(current_user)s», όλες οι ενέργειες εκτελούνται "
 "στα δεδομένα τους.\n"
 "            "
 
-#: core/templates/base.html:14
+#: core/templates/base.html:15
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "Πίσω στο \"%(target)s\""

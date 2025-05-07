@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 21:24+0200\n"
+"POT-Creation-Date: 2025-05-03 21:57+0200\n"
 "PO-Revision-Date: 2024-02-21 11:02+0000\n"
 "Last-Translator: Fjuro <fjuro@alius.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
@@ -449,19 +449,22 @@ msgstr ""
 "Pokud problém přetrvává, můžete získat pomoc následujícími způsoby:"
 
 #: core/templates/base.html:10
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "You are\n"
+#| "                browsing the site as the user \"%(current_user)s\", all "
+#| "actions are performed on their data.\n"
+#| "            "
 msgid ""
-"You are\n"
-"                browsing the site as the user \"%(current_user)s\", all "
-"actions are performed on their data.\n"
-"            "
+"You are browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data."
 msgstr ""
 "Prohlížíš web\n"
 "jako uživatel \"%(current_user)s\". Všechny akce jsou prováděny na jeho "
 "datech.\n"
 "            "
 
-#: core/templates/base.html:14
+#: core/templates/base.html:15
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "Zpět na \"%(target)s\""

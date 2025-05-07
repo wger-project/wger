@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 21:24+0200\n"
+"POT-Creation-Date: 2025-05-03 21:57+0200\n"
 "PO-Revision-Date: 2023-12-29 22:12+0000\n"
 "Last-Translator: Adam Cool <anthony.kek21@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/wger/web/hu/>\n"
@@ -432,13 +432,11 @@ msgstr ""
 #: core/templates/base.html:10
 #, python-format
 msgid ""
-"You are\n"
-"                browsing the site as the user \"%(current_user)s\", all "
-"actions are performed on their data.\n"
-"            "
+"You are browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data."
 msgstr ""
 
-#: core/templates/base.html:14
+#: core/templates/base.html:15
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "Vissza \"%(target)s\""

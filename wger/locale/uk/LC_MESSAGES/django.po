@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 21:24+0200\n"
+"POT-Creation-Date: 2025-05-03 21:57+0200\n"
 "PO-Revision-Date: 2025-05-05 05:32+0000\n"
 "Last-Translator: Максим Горпиніч <maksimgorpinic4@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
@@ -450,19 +450,22 @@ msgstr ""
 "не зникає, Ви можете звернутися за допомогою зазначеними нижче способами:"
 
 #: core/templates/base.html:10
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "You are\n"
+#| "                browsing the site as the user \"%(current_user)s\", all "
+#| "actions are performed on their data.\n"
+#| "            "
 msgid ""
-"You are\n"
-"                browsing the site as the user \"%(current_user)s\", all "
-"actions are performed on their data.\n"
-"            "
+"You are browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data."
 msgstr ""
 "Ви\n"
 "    переглядаєте сайт як користувач \"%(current_user)s\", усі дії "
 "виконуються з їх даними.\n"
 "            "
 
-#: core/templates/base.html:14
+#: core/templates/base.html:15
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "Назад до \"%(target)s\""

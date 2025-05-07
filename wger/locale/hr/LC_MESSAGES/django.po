@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 21:24+0200\n"
+"POT-Creation-Date: 2025-05-03 21:57+0200\n"
 "PO-Revision-Date: 2025-02-08 19:39+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
@@ -440,19 +440,22 @@ msgstr ""
 "problem ustraje, potraži pomoć na dolje navedene načine:"
 
 #: core/templates/base.html:10
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "You are\n"
+#| "                browsing the site as the user \"%(current_user)s\", all "
+#| "actions are performed on their data.\n"
+#| "            "
 msgid ""
-"You are\n"
-"                browsing the site as the user \"%(current_user)s\", all "
-"actions are performed on their data.\n"
-"            "
+"You are browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data."
 msgstr ""
 "Pregledavaš\n"
 "                stranicu kao korisnik „%(current_user)s”, sve radnje se "
 "izvode s njegovim podacima.\n"
 "            "
 
-#: core/templates/base.html:14
+#: core/templates/base.html:15
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "Natrag na „%(target)s”"
