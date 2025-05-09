@@ -52,7 +52,6 @@ from wger.manager.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -89,8 +88,6 @@ class Routine(models.Model):
         blank=True,
     )
 
-    # TODO: remove the auto_now_add during migration so we can set this to a custom
-    #       value and then set it back to auto_now_add
     created = models.DateTimeField(
         _('Creation date'),
         auto_now_add=True,
