@@ -46,10 +46,7 @@ from requests import (
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.consts import (
-    ENERGY_FACTOR,
-    KJ_PER_KCAL,
-)
+from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.managers import ApproximateCountManager
 from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
@@ -279,49 +276,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id})
         else:
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
-
-    def clean(self):
-        """
-        Do a very broad sanity check on the nutritional values according to
-        the following rules:
-        - 1g of protein: 4kcal
-        - 1g of carbohydrates: 4kcal
-        - 1g of fat: 9kcal
-
-        The sum is then compared to the given total energy, with ENERGY_APPROXIMATION
-        percent tolerance.
-        """
-
-        # Note: calculations in 100 grams, to save us the '/100' everywhere
-        energy_protein = 0
-        if self.protein:
-            energy_protein = self.protein * ENERGY_FACTOR['protein']['kg']
-
-        energy_carbohydrates = 0
-        if self.carbohydrates:
-            energy_carbohydrates = self.carbohydrates * ENERGY_FACTOR['carbohydrates']['kg']
-
-        energy_fat = 0
-        if self.fat:
-            # TODO: for some reason, during the tests the fat value is not
-            #       converted to decimal (django 1.9)
-            energy_fat = Decimal(self.fat * ENERGY_FACTOR['fat']['kg'])
-
-        energy_calculated = energy_protein + energy_carbohydrates + energy_fat
-
-        # Compare the values, but be generous
-        if self.energy:
-            energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / Decimal(100.0)))
-            energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
-
-            if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-                raise ValidationError(
-                    _(
-                        f'The total energy ({self.energy}kcal) is not the approximate sum of the '
-                        f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
-                        f' +/-{self.ENERGY_APPROXIMATION}%)'
-                    )
-                )
 
     def save(self, *args, **kwargs):
         """
