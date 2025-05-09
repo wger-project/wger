@@ -39,6 +39,7 @@ from django.utils.translation import gettext as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
+    Button,
     ButtonHolder,
     Column,
     Fieldset,
@@ -51,6 +52,10 @@ from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
+
+#OIDC
+from django.urls import reverse
+from django.shortcuts import redirect
 
 
 class UserLoginForm(AuthenticationForm):
@@ -67,6 +72,14 @@ class UserLoginForm(AuthenticationForm):
 
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', _('Login'), css_class='btn-success btn-block'))
+        self.helper.add_input(
+            Button(
+                'authentik_login',
+                _('Login with Authentik'),
+                css_class='btn btn-primary btn-block',
+                onclick=f"window.location.href='{reverse('oidc_authentication_init')}'"
+            )
+        )
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
             Row(
@@ -84,6 +97,7 @@ class UserLoginForm(AuthenticationForm):
 
         See https://github.com/wger-project/wger/issues/1163
         """
+
         if self.authenticate_on_clean:
             self.authenticate(self.request)
         return self.cleaned_data

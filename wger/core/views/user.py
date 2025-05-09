@@ -194,8 +194,8 @@ def trainer_login(request, user_pk):
     # authentication backend
     if own:
         del request.session['trainer.identity']
+    # django_login(request, user, 'django.contrib.auth.backends.ModelBackend')
     django_login(request, user, 'django.contrib.auth.backends.ModelBackend')
-
     if not own:
         request.session['trainer.identity'] = orig_user_pk
         if request.GET.get('next'):
