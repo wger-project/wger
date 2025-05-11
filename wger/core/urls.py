@@ -34,6 +34,7 @@ from wger.core.views import (
     weight_units,
 )
 
+
 # sub patterns for languages
 patterns_language = [
     path(

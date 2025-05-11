@@ -17,15 +17,6 @@
 # Standard Library
 import logging
 
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    ButtonHolder,
-    Column,
-    Layout,
-    Row,
-    Submit,
-)
 # Django
 from django.conf import settings
 from django.contrib import messages
@@ -72,6 +63,16 @@ from django.views.generic import (
     RedirectView,
     UpdateView,
 )
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Column,
+    Layout,
+    Row,
+    Submit,
+)
 from django_email_verification import send_email
 from rest_framework.authtoken.models import Token
 
@@ -102,6 +103,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 
@@ -534,8 +536,8 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
             )
         context['routine_data'] = out
         context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
-                                    :5
-                                    ]
+            :5
+        ]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]

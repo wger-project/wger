@@ -23,6 +23,7 @@ from datetime import timedelta
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
 
+
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:

@@ -20,6 +20,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
 
+
 logger = logging.getLogger(__name__)
 User = get_user_model()
 

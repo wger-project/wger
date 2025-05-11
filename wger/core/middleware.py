@@ -30,6 +30,7 @@ from django.utils.deprecation import MiddlewareMixin
 # wger
 from wger.utils.helpers import remove_language_code
 
+
 logger = logging.getLogger(__name__)
 User = get_user_model()
 

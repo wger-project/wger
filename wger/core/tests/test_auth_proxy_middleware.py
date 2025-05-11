@@ -21,6 +21,7 @@ from django.test import (
 )
 from django.urls import reverse
 
+
 User = get_user_model()
 
 TRUSTED_IP = '192.0.2.1'
