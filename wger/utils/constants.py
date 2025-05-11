@@ -77,3 +77,68 @@ UUID_CURLS = '1ae6a28d-10e7-4ecf-af4f-905f8193e2c6'
 UUID_FRENCH_PRESS = '95a7e546-e8f8-4521-a76b-983d94161b25'
 UUID_CRUNCHES = 'b186f1f8-4957-44dc-bf30-d0b00064ce6f'
 UUID_LEG_RAISES = 'c2078aac-e4e2-4103-a845-6252a3eb795e'
+
+CHARACTERS_GROUPS_TO_REMOVE: dict = {
+    "control_characters": [
+        "\x8a",
+        "\x83",
+        "\x8f",
+        "\x8d",
+        "\x82",
+        "\x9a",
+        "\x89",
+        "\x99",
+        "\x87",
+        "\x9c",
+        "\x80",
+        "\x96",
+        "\t",
+        "\x92",
+        "\x8c",
+        "\x90",
+        "\x9f",
+        "\x84",
+        "\x97",
+        "\x93",
+        "\x98",
+        "\x85",
+    ],
+    "format_characters": [],
+    "space_separators": [],
+    "quotation_or_parenthesis": [],
+    "symbols_and_emoji": [],
+}
+
+CHARACTERS_TO_REMOVE_FROM_INGREDIENT_NAME: set[str] = {
+    char for group in CHARACTERS_GROUPS_TO_REMOVE.values() for char in group
+}
+
+HTML_ENTITY_TO_HUMAN_READABLE_MAP = {
+    "&quot;": '"',
+    "&gt;": ">",
+    "&lt;": "<",
+    "&amp;": "&",
+    "&deg;": "°",
+    "&euro;": "€",
+    "&oelig;": "œ",
+    "&lsquo;": "‘",
+    "&#40;": "(", "&#040;": "(",
+    "&#41;": ")", "&#041;": ")",
+    "&#34;": '"', "&#034;": '"',
+    "&#39;": "'", "&#039;": "'",
+    "&#47;": "/", "&#047;": "/",
+    "&#37;": "%", "&#037;": "%",
+    "&#38;": "&", "&#038;": "&",
+    "&#322;": "ł",
+    "&#347;": "ś",
+    "&#324;": "ń",
+    "&#261;": "ą",
+    "&#281;": "ę",
+    "&#231;": "ç",
+    "&#180;": "´",
+    "&#91;": "[", "&#091;": "[",
+    "&#93;": "]", "&#093;": "]",
+    "&#x27;": "'"
+}
+
+HTML_ENTITY_PATTERN = r"&[a-zA-Z0-9#x]+;"

@@ -21,7 +21,7 @@ from dataclasses import (
 )
 from decimal import Decimal
 from typing import Union
-
+import re
 # wger
 from wger.nutrition.consts import (
     KJ_PER_KCAL,
@@ -29,6 +29,11 @@ from wger.nutrition.consts import (
     MEALITEM_WEIGHT_UNIT,
 )
 
+from wger.utils.constants import (
+    CHARACTERS_TO_REMOVE_FROM_INGREDIENT_NAME,
+    HTML_ENTITY_TO_HUMAN_READABLE_MAP,
+    HTML_ENTITY_PATTERN,
+)
 
 class BaseMealItem:
     """
@@ -143,3 +148,19 @@ class NutritionalValues:
     @property
     def to_dict(self):
         return asdict(self)
+
+
+
+def remove_problematic_characters(
+    string: str, characters_to_be_removed: set[str] = CHARACTERS_TO_REMOVE_FROM_INGREDIENT_NAME
+) -> str:
+    string = "".join(c for c in string if c not in characters_to_be_removed)
+    return string
+
+
+def change_html_entities_to_human_readable(
+    string, html_entity_map: dict[str, str] = HTML_ENTITY_TO_HUMAN_READABLE_MAP
+) -> str:
+    pattern = re.compile(HTML_ENTITY_PATTERN)
+    string = pattern.sub(lambda m: html_entity_map.get(m.group(0), m.group(0)), string)
+    return string
