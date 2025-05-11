@@ -113,7 +113,6 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         self.assertEqual(result.fat_saturated, None)
 
     def test_ingredient_clean_name(self):
-        
         data = IngredientData(
             name='Stonebaked Pizza &quot;the amer\x96ican \x99pepperoni&quot;',
             remote_id='1234',

@@ -19,7 +19,11 @@ from dataclasses import (
 )
 from typing import Optional
 
-from wger.nutrition.helpers import change_html_entities_to_human_readable, remove_problematic_characters
+# wger
+from wger.nutrition.helpers import (
+    change_html_entities_to_human_readable,
+    remove_problematic_characters,
+)
 
 
 @dataclass

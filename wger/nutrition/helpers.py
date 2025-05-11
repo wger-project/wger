@@ -15,25 +15,26 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import re
 from dataclasses import (
     asdict,
     dataclass,
 )
 from decimal import Decimal
 from typing import Union
-import re
+
 # wger
 from wger.nutrition.consts import (
     KJ_PER_KCAL,
     MEALITEM_WEIGHT_GRAM,
     MEALITEM_WEIGHT_UNIT,
 )
-
 from wger.utils.constants import (
     CHARACTERS_TO_REMOVE_FROM_INGREDIENT_NAME,
-    HTML_ENTITY_TO_HUMAN_READABLE_MAP,
     HTML_ENTITY_PATTERN,
+    HTML_ENTITY_TO_HUMAN_READABLE_MAP,
 )
+
 
 class BaseMealItem:
     """
@@ -150,11 +151,10 @@ class NutritionalValues:
         return asdict(self)
 
 
-
 def remove_problematic_characters(
     string: str, characters_to_be_removed: set[str] = CHARACTERS_TO_REMOVE_FROM_INGREDIENT_NAME
 ) -> str:
-    string = "".join(c for c in string if c not in characters_to_be_removed)
+    string = ''.join(c for c in string if c not in characters_to_be_removed)
     return string
 
 

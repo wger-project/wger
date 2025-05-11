@@ -18,38 +18,38 @@ from django.test import SimpleTestCase
 
 # wger
 from wger.nutrition.dataclasses import IngredientData
-from wger.nutrition.helpers import remove_problematic_characters, change_html_entities_to_human_readable
+from wger.nutrition.helpers import (
+    change_html_entities_to_human_readable,
+    remove_problematic_characters,
+)
+
 
 class HelperFunctionsTestCase(SimpleTestCase):
-
-
     def test_change_html_entities_to_human_readable(self):
-        
-        string = "Proper Corn Sweet &amp; Salty"
+        string = 'Proper Corn Sweet &amp; Salty'
         result = change_html_entities_to_human_readable(string)
-        correct_result = "Proper Corn Sweet & Salty"
+        correct_result = 'Proper Corn Sweet & Salty'
         self.assertEqual(result, correct_result)
 
-        string = "Stonebaked Pizza &quot;the american pepperoni&quot;"
+        string = 'Stonebaked Pizza &quot;the american pepperoni&quot;'
         result = change_html_entities_to_human_readable(string)
         correct_result = 'Stonebaked Pizza "the american pepperoni"'
         self.assertEqual(result, correct_result)
 
-        string = "Van Houten VH10 Kakao &#40;12,1&#37;&#41; 1KG"
+        string = 'Van Houten VH10 Kakao &#40;12,1&#37;&#41; 1KG'
         result = change_html_entities_to_human_readable(string)
-        correct_result = "Van Houten VH10 Kakao (12,1%) 1KG"
+        correct_result = 'Van Houten VH10 Kakao (12,1%) 1KG'
         self.assertEqual(result, correct_result)
 
-        string = "String with not existing html entitiy &#999;"
+        string = 'String with not existing html entitiy &#999;'
         result = change_html_entities_to_human_readable(string)
-        correct_result = "String with not existing html entitiy &#999;"
+        correct_result = 'String with not existing html entitiy &#999;'
         self.assertEqual(result, correct_result)
 
     def test_remove_problematic_characters(self):
-        
-        string = "Danone Danette Mousse Liégeoise Schokolade 2x(2x80g) 320g"
+        string = 'Danone Danette Mousse Liégeoise Schokolade 2x(2x80g) 320g'
         result = remove_problematic_characters(string)
-        correct_result = "Danone Danette Mousse Liégeoise Schokolade 2x(2x80g) 320g"
+        correct_result = 'Danone Danette Mousse Liégeoise Schokolade 2x(2x80g) 320g'
         self.assertEqual(result, correct_result)
 
         string = "POM'POTES Compotes Gourdes BIO Pomme Framboise 4x90g"
@@ -57,7 +57,7 @@ class HelperFunctionsTestCase(SimpleTestCase):
         correct_result = "POM'POTES Compotes Gourdes BIO Pomme Framboise 4x90g"
         self.assertEqual(result, correct_result)
 
-        string = "String with \x9a control characters \t \x85"
+        string = 'String with \x9a control characters \t \x85'
         result = remove_problematic_characters(string)
-        correct_result = "String with  control characters  "
+        correct_result = 'String with  control characters  '
         self.assertEqual(result, correct_result)
