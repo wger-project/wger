@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.http import HttpResponseForbidden
+from django.contrib.auth.views import redirect_to_login
 from django.views.generic import TemplateView
 
 
@@ -39,6 +39,6 @@ class ReactView(TemplateView):
         Only logged-in users are allowed to access this page
         """
         if self.login_required and not request.user.is_authenticated:
-            return HttpResponseForbidden('You are not allowed to access this page')
+            return redirect_to_login(request.path)
 
         return super().dispatch(request, *args, **kwargs)

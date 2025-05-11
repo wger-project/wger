@@ -23,7 +23,6 @@ from datetime import timedelta
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -127,6 +126,9 @@ MIDDLEWARE = [
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
+    # Auth proxy middleware
+    'wger.core.middleware.AuthProxyHeaderMiddleware',
+
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
 
@@ -151,6 +153,8 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
+
+    'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
@@ -550,6 +554,18 @@ WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
 }
+
+#
+# Auth Proxy Authentication
+#
+# Please read the documentation before enabling this feature:
+# https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
+#
+AUTH_PROXY_HEADER = ''
+AUTH_PROXY_USER_EMAIL_HEADER = ''
+AUTH_PROXY_USER_NAME_HEADER = ''
+AUTH_PROXY_TRUSTED_IPS = []
+AUTH_PROXY_CREATE_UNKNOWN_USER = False
 
 #
 # Prometheus metrics
