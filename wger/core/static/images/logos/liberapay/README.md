@@ -1,3 +1,3 @@
 # Sources
 
-https://liberapay.com/about/logos
+<https://liberapay.com/about/logos>
