@@ -223,7 +223,8 @@
         "operation": "Операція",
         "publicTemplates": "Публічні шаблони",
         "repeat": "Правило повторення",
-        "publicTemplateHelpText": "Публічні шаблони доступні всім користувачам."
+        "publicTemplateHelpText": "Публічні шаблони доступні всім користувачам.",
+        "workoutSession": "Сеанс тренування"
     },
     "seeDetails": "Дивітити подробиці",
     "actions": "Дії",
