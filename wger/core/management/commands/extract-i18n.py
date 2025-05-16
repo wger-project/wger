@@ -120,10 +120,12 @@ class Command(BaseCommand):
             import 'dart:developer';
 
             import 'package:flutter/widgets.dart';
-            import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+            import 'package:wger/l10n/generated/app_localizations.dart';
             import 'package:logging/logging.dart';
 
             String getTranslation(String value, BuildContext context) {
+                  final logger = Logger('getTranslation');
+
                   switch (value) {"""
             for i in data:
                 out += f"""
@@ -132,10 +134,10 @@ class Command(BaseCommand):
                 """
 
             out += """
-                default:
-                    log('Could not translate the server string $value', level: Level.WARNING.value);
-                    return value;
-                }
+            default:
+                logger.warning('Could not translate the server string $value');
+                return value;
+            }
             }"""
 
             f.write(out)
