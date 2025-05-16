@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-05-16 16:27+0000\n"
+"PO-Revision-Date: 2025-05-17 17:01+0000\n"
 "Last-Translator: Richard Mrosk <richardmrosk@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
@@ -1283,7 +1283,7 @@ msgstr "Primärmuskeln"
 
 #: exercises/models/base.py:99
 msgid "Secondary muscles"
-msgstr "Sekundärmuskeln"
+msgstr "Sekundäre Muskeln"
 
 #: exercises/models/base.py:114
 msgid "Variations"
@@ -2936,7 +2936,7 @@ msgstr "Wenn du nicht der Urheber bist, gebe den Namen hier ein."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr "Link zum Autorenprofil, falls vorhanden"
+msgstr "Link zum Profil des Authors, falls vorhanden"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
