@@ -395,38 +395,6 @@ class IngredientTestCase(WgerTestCase):
         meal = Meal.objects.get(pk=1)
         self.assertFalse(ingredient1 == meal)
 
-    def test_total_energy(self):
-        """
-        Tests the custom clean() method
-        """
-        self.user_login('admin')
-
-        # Values OK
-        ingredient = Ingredient()
-        ingredient.name = 'FooBar, cooked, with salt'
-        ingredient.energy = 50
-        ingredient.protein = 0.5
-        ingredient.carbohydrates = 12
-        ingredient.fat = Decimal('0.1')
-        ingredient.language_id = 1
-        self.assertFalse(ingredient.full_clean())
-
-        # Values wrong
-        ingredient.protein = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.protein = 0.5
-        ingredient.fat = 5
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.fat = 0.1
-        ingredient.carbohydrates = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.fat = 5
-        ingredient.carbohydrates = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
 
 class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
@@ -450,15 +418,16 @@ class IngredientModelTestCase(WgerTestCase):
         self.off_response = {
             'code': '1234',
             'lang': 'de',
+            'name': 'Foo with chocolate',
             'product_name': 'Foo with chocolate',
             'generic_name': 'Foo with chocolate, 250g package',
             'brands': 'The bar company',
             'editors_tags': ['open food facts', 'MrX'],
             'nutriments': {
-                'energy-kcal_100g': 120,
+                'energy-kcal_100g': 600,
                 'proteins_100g': 10,
-                'carbohydrates_100g': 20,
-                'sugars_100g': 30,
+                'carbohydrates_100g': 30,
+                'sugars_100g': 20,
                 'fat_100g': 40,
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
@@ -479,9 +448,9 @@ class IngredientModelTestCase(WgerTestCase):
 
         self.assertEqual(ingredient.name, 'Foo with chocolate')
         self.assertEqual(ingredient.code, '1234')
-        self.assertEqual(ingredient.energy, 120)
+        self.assertEqual(ingredient.energy, 600)
         self.assertEqual(ingredient.protein, 10)
-        self.assertEqual(ingredient.carbohydrates, 20)
+        self.assertEqual(ingredient.carbohydrates, 30)
         self.assertEqual(ingredient.fat, 40)
         self.assertEqual(ingredient.fat_saturated, 11)
         self.assertEqual(ingredient.sodium, 5)
