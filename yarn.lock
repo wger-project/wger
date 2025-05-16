@@ -17,18 +17,18 @@ components-font-awesome@5.9.0:
   resolved "https://registry.yarnpkg.com/components-font-awesome/-/components-font-awesome-5.9.0.tgz#02242f85946f0a6ab46870547f4c54d11e94ef75"
   integrity sha512-AjY5WwmKripvroQ1oYpCC4eK8efavSKUGN/ATgwcbyz/kRmojslH8l6Mrlxq071bdzBrZvCxi+RKgU5ao3bU+A==
 
-datatables.net-bs5@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/datatables.net-bs5/-/datatables.net-bs5-2.3.0.tgz#36344ee116d8ad644476d47974eb7b26cfe256e5"
-  integrity sha512-JvcYrf2kEVzHY7NKsJxV132kehhc5+iRIpZAYmYqSW52yCcMiQYWtw1Z4+Wb/FMbJDQwP9exCtTwroLYPKwkeQ==
+datatables.net-bs5@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/datatables.net-bs5/-/datatables.net-bs5-2.3.1.tgz#167a86c4ab138fe6eb7f653fb4c64e3ade0d3d7a"
+  integrity sha512-bUwsW7cIR8EDyiedQv6OKGF5ouxkFjaODmtEd7NRtpoZixAZDScmIrxe9cddjS0EybpC2gYslKs+o03E8tkCEA==
   dependencies:
-    datatables.net "2.3.0"
+    datatables.net "2.3.1"
     jquery ">=1.7"
 
-datatables.net@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.3.0.tgz#2d9a040dbbf03b8fe6afb6134f57a94fa7744982"
-  integrity sha512-IX5Dsc7bTNqI3RyT4B7imtFicLMCg7ZLwwx/gvR6cbwYgfG+mLX2KAVm7BNmnwOhUdMMcGSGSE19RpTn31TTGQ==
+datatables.net@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.3.1.tgz#fcb61efd42fe64627fb9042637f1d93872268e70"
+  integrity sha512-pRXZuk3oR7P5kTl/CRvopcTihlvmZiY+xSBjbNI6e8MjYtgZQodWEqLUUOrIZeLH8CfxapPR/Bmb0NKAvILP5g==
   dependencies:
     jquery ">=1.7"
 
