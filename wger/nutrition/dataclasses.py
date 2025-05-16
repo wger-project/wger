@@ -19,6 +19,12 @@ from dataclasses import (
 )
 from typing import Optional
 
+# wger
+from wger.nutrition.helpers import (
+    change_html_entities_to_human_readable,
+    remove_problematic_characters,
+)
+
 
 @dataclass
 class IngredientData:
@@ -69,3 +75,7 @@ class IngredientData:
 
     def dict(self):
         return asdict(self)
+
+    def clean_name(self):
+        self.name = remove_problematic_characters(self.name)
+        self.name = change_html_entities_to_human_readable(self.name)

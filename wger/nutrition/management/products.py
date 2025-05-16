@@ -99,6 +99,7 @@ class ImportProductCommand(BaseCommand):
     def process_ingredient(self, ingredient_data: IngredientData):
         #
         # Add entries as new products
+        ingredient_data.clean_name()
         if self.mode == Mode.INSERT:
             self.bulk_update_bucket.append(Ingredient(**ingredient_data.dict()))
             if len(self.bulk_update_bucket) > self.bulk_size:
