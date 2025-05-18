@@ -106,6 +106,7 @@ def fetch_image_from_wger_instance(ingredient):
     result = requests.get(url, headers=wger_headers()).json()
     if result['count'] == 0:
         logger.info('No ingredient matches UUID in the remote server')
+        return
 
     image_data = result['results'][0]
     image_uuid = image_data['uuid']
