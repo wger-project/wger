@@ -79,5 +79,4 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
         license_author_url=license_author_url,
         license_derivative_source_url=license_derivative_source_url,
     )
-    ingredient_data.sanity_checks()
     return ingredient_data
