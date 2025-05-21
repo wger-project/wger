@@ -73,10 +73,6 @@ def fetch_ingredient_image(pk: int):
         # logger.debug(f'Ingredient {pk} already has an image, skipping...')
         return
 
-    if ingredient.source_name != Source.OPEN_FOOD_FACTS.value:
-        # logger.debug(f'Ingredient {pk} is not from Open Food Facts, skipping...')
-        return
-
     if not ingredient.source_url:
         # logger.debug(f'Ingredient {pk} does not have a source URL, skipping...')
         return
@@ -98,6 +94,10 @@ def fetch_ingredient_image(pk: int):
 
     logger.info(f'Fetching image for ingredient {pk}')
     if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_OFF:
+        if ingredient.source_name != Source.OPEN_FOOD_FACTS.value:
+            # logger.debug(f'Ingredient {pk} is not from Open Food Facts, skipping...')
+            return
+
         fetch_image_from_off(ingredient)
     elif settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_WGER:
         fetch_image_from_wger_instance(ingredient)
