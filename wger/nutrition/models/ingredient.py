@@ -35,6 +35,7 @@ from django.http import HttpRequest
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+
 # Third Party
 from openfoodfacts import API
 from requests import (
@@ -57,6 +58,7 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
+
 
 logger = logging.getLogger(__name__)
 
@@ -344,16 +346,16 @@ class Ingredient(AbstractLicenseModel, models.Model):
         equal = True
         if isinstance(other, self.__class__):
             for i in (
-                    'carbohydrates',
-                    'carbohydrates_sugar',
-                    'creation_date',
-                    'energy',
-                    'fat',
-                    'fat_saturated',
-                    'fiber',
-                    'name',
-                    'protein',
-                    'sodium',
+                'carbohydrates',
+                'carbohydrates_sugar',
+                'creation_date',
+                'energy',
+                'fat',
+                'fat_saturated',
+                'fiber',
+                'name',
+                'protein',
+                'sodium',
             ):
                 if (
                     hasattr(self, i)

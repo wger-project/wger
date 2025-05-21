@@ -27,6 +27,7 @@ from wger.nutrition.management.products import (
     Mode,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

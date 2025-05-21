@@ -20,12 +20,13 @@ from typing import (
     Optional,
 )
 
-# Third Party
-import requests
 # Django
 from django.conf import settings
 from django.db import IntegrityError
 from django.utils import timezone
+
+# Third Party
+import requests
 from openfoodfacts.images import (
     AWS_S3_BASE_URL,
     generate_image_path,
@@ -56,6 +57,7 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -80,8 +82,8 @@ def fetch_ingredient_image(pk: int):
     if (
         ingredient.last_image_check
         and (
-        ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
-    )
+            ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
+        )
         > timezone.now()
     ):
         # logger.debug(
