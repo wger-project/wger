@@ -20,13 +20,12 @@ from typing import (
     Optional,
 )
 
+# Third Party
+import requests
 # Django
 from django.conf import settings
 from django.db import IntegrityError
 from django.utils import timezone
-
-# Third Party
-import requests
 from openfoodfacts.images import (
     AWS_S3_BASE_URL,
     generate_image_path,
@@ -38,6 +37,7 @@ from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
     INGREDIENTS_ENDPOINT,
 )
+from wger.nutrition.extract_info.wger import extract_info_from_wger_api
 from wger.nutrition.models import (
     Image,
     Ingredient,
@@ -56,7 +56,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -67,25 +66,31 @@ def fetch_ingredient_image(pk: int):
     try:
         ingredient = Ingredient.objects.get(pk=pk)
     except Ingredient.DoesNotExist:
-        logger.info(f'Ingredient with ID {pk} does not exist')
+        logger.debug(f'Ingredient with ID {pk} does not exist')
         return
 
     if hasattr(ingredient, 'image'):
+        # logger.debug(f'Ingredient {pk} already has an image, skipping...')
         return
 
     if ingredient.source_name != Source.OPEN_FOOD_FACTS.value:
+        # logger.debug(f'Ingredient {pk} is not from Open Food Facts, skipping...')
         return
 
     if not ingredient.source_url:
+        # logger.debug(f'Ingredient {pk} does not have a source URL, skipping...')
         return
 
     if (
         ingredient.last_image_check
         and (
-            ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
-        )
+        ingredient.last_image_check + settings.WGER_SETTINGS['INGREDIENT_IMAGE_CHECK_INTERVAL']
+    )
         > timezone.now()
     ):
+        # logger.debug(
+        #     f'Last image check for ingredient {pk} is too recent'
+        #     f' ({ingredient.last_image_check}), skipping...')
         return
 
     if settings.TESTING:
@@ -105,7 +110,7 @@ def fetch_image_from_wger_instance(ingredient):
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     if result['count'] == 0:
-        logger.info('No ingredient matches UUID in the remote server')
+        logger.info('No image for ingredient found in the remote server')
         return
 
     image_data = result['results'][0]
@@ -116,7 +121,9 @@ def fetch_image_from_wger_instance(ingredient):
         return
     except Image.DoesNotExist:
         retrieved_image = requests.get(image_data['image'], headers=wger_headers())
-        Image.from_json(ingredient, retrieved_image, image_data)
+        image = Image.from_json(ingredient, retrieved_image, image_data)
+        image.ingredient.last_image_check = timezone.now()
+        image.ingredient.save()
 
 
 def fetch_image_from_off(ingredient: Ingredient):
@@ -258,28 +265,11 @@ def sync_ingredients(
             uuid = data['uuid']
             name = data['name']
 
+            ingredient_data = extract_info_from_wger_api(data).dict()
+            ingredient_data['uuid'] = uuid
+
             ingredient, created = Ingredient.objects.update_or_create(
-                uuid=uuid,
-                defaults={
-                    'name': name,
-                    'code': data['code'],
-                    'language_id': data['language'],
-                    'created': data['created'],
-                    'license_id': data['license'],
-                    'license_object_url': data['license_object_url'],
-                    'license_author': data['license_author_url'],
-                    'license_author_url': data['license_author_url'],
-                    'license_title': data['license_title'],
-                    'license_derivative_source_url': data['license_derivative_source_url'],
-                    'energy': data['energy'],
-                    'carbohydrates': data['carbohydrates'],
-                    'carbohydrates_sugar': data['carbohydrates_sugar'],
-                    'fat': data['fat'],
-                    'fat_saturated': data['fat_saturated'],
-                    'protein': data['protein'],
-                    'fiber': data['fiber'],
-                    'sodium': data['sodium'],
-                },
+                uuid=uuid, defaults=ingredient_data
             )
 
             print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')

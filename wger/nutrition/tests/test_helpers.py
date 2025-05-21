@@ -17,7 +17,6 @@
 from django.test import SimpleTestCase
 
 # wger
-from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.helpers import (
     change_html_entities_to_human_readable,
     remove_problematic_characters,

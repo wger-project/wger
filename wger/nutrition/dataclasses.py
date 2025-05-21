@@ -48,6 +48,8 @@ class IngredientData:
     license_author: str
     license_title: str
     license_object_url: str
+    license_derivative_source_url: str = ''
+    license_author_url: str = ''
 
     def sanity_checks(self):
         if not self.name:
