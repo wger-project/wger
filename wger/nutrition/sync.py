@@ -286,10 +286,7 @@ def sync_ingredients(
     ingredient_nr = 1
     page_nr = 1
     pbar = tqdm(
-        total=total_ingredients,
-        unit='ingredients',
-        desc='Syncing progress',
-        unit_scale=True
+        total=total_ingredients, unit='ingredients', desc='Syncing progress', unit_scale=True
     )
     for data in get_paginated(url, headers=wger_headers()):
         uuid = data['uuid']
@@ -297,10 +294,7 @@ def sync_ingredients(
         ingredient_data = extract_info_from_wger_api(data).dict()
         ingredient_data['uuid'] = uuid
 
-        Ingredient.objects.update_or_create(
-            uuid=uuid,
-            defaults=ingredient_data
-        )
+        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
 
         if show_progress_bar:
             pbar.update(1)

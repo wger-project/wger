@@ -61,5 +61,5 @@ class Command(WgerCommand):
             self.remote_url,
             languages,
             self.style.SUCCESS,
-            show_progress_bar=True
+            show_progress_bar=True,
         )
