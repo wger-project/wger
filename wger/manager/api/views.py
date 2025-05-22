@@ -14,13 +14,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-from datetime import datetime
 
 # Django
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
-
 # Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -114,7 +112,9 @@ class RoutineViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Routine.objects.none()
 
-        return Routine.objects.filter(request_user_or_trainer_q(request=self.request) | Q(is_public=True))
+        return Routine.objects.filter(
+            request_user_or_trainer_q(request=self.request) | Q(is_public=True)
+        )
 
     def perform_create(self, serializer):
         """
