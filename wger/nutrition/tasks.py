@@ -19,13 +19,12 @@ from random import (
     randint,
 )
 
-# Django
-from django.conf import settings
-from django.core.management import call_command
-
 # Third Party
 from celery import shared_task
 from celery.schedules import crontab
+# Django
+from django.conf import settings
+from django.core.management import call_command
 
 # wger
 from wger.celery_configuration import app
@@ -34,7 +33,6 @@ from wger.nutrition.sync import (
     fetch_ingredient_image,
     sync_ingredients,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +62,10 @@ def sync_all_ingredients_task():
     """
     Fetches the current ingredients from the default wger instance
     """
-    sync_ingredients(logger.info)
+    sync_ingredients(
+        logger.info,
+        show_progress_bar=False
+    )
 
 
 @app.task
