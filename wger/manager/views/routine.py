@@ -46,7 +46,11 @@ def copy_routine(request, pk):
     routine = get_object_or_404(Routine, pk=pk)
 
     if request.user != routine.user and not routine.is_public:
-        return HttpResponseForbidden()
+        # Check if the user is a trainer and the routine belongs to a client, only if it does not
+        # belong to the user.
+        trainer_identity_pk = request.session.get('trainer.identity', None)
+        if not trainer_identity_pk or routine.user.pk != trainer_identity_pk:
+            return HttpResponseForbidden()
 
     def copy_config(configs: List[AbstractChangeConfig], slot_entry: SlotEntry):
         for config in configs:
