@@ -16,10 +16,8 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.api.serializers import ExerciseInfoSerializer
 from wger.exercises.models import Exercise
-from wger.utils.cache import reset_exercise_api_cache
-
+from wger.exercises.cache import cache_exercise
 
 class Command(BaseCommand):
     """
@@ -48,20 +46,9 @@ class Command(BaseCommand):
 
         if exercise_id:
             exercise = Exercise.objects.get(pk=exercise_id)
-            self.handle_cache(exercise, force)
+            cache_exercise(exercise, force, self.stdout.write)
             return
 
         for exercise in Exercise.with_translations.all():
-            self.handle_cache(exercise, force)
+            cache_exercise(exercise, force, self.stdout.write)
 
-    def handle_cache(self, exercise: Exercise, force: bool):
-        if force:
-            self.stdout.write(f'Force updating cache for exercise base {exercise.uuid}')
-        else:
-            self.stdout.write(f'Warming cache for exercise base {exercise.uuid}')
-
-        if force:
-            reset_exercise_api_cache(exercise.uuid)
-
-        serializer = ExerciseInfoSerializer(exercise)
-        serializer.data

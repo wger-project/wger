@@ -549,6 +549,8 @@ WGER_SETTINGS = {
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'SYNC_INGREDIENTS_CELERY': False,
     'SYNC_OFF_DAILY_DELTA_CELERY': False,
+    'CACHE_API_EXERCISES_CELERY': True,
+    'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': True,
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
