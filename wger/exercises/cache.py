@@ -12,24 +12,26 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from typing import Callable
 # Standard Library
-from wger.exercises.models import (
-    Exercise,
-)
-from wger.utils.cache import reset_exercise_api_cache
+from typing import Callable
+
+# wger
 from wger.exercises.api.serializers import ExerciseInfoSerializer
+from wger.exercises.models import Exercise
+from wger.utils.cache import reset_exercise_api_cache
 
 
-def cache_exercise(exercise: Exercise, force=False, print_fn: Callable=print, style_fn: Callable=lambda x: x):
+def cache_exercise(
+    exercise: Exercise, force=False, print_fn: Callable = print, style_fn: Callable = lambda x: x
+):
     """
     Caches a provided exercise.
     """
     if force:
-        print_fn(f"Force updating cache for exercise base {exercise.uuid}")
+        print_fn(f'Force updating cache for exercise base {exercise.uuid}')
         reset_exercise_api_cache(exercise.uuid)
     else:
-        print_fn(f"Warming cache for exercise base {exercise.uuid}")
+        print_fn(f'Warming cache for exercise base {exercise.uuid}')
 
     serializer = ExerciseInfoSerializer(exercise)
     serializer.data
@@ -38,9 +40,9 @@ def cache_exercise(exercise: Exercise, force=False, print_fn: Callable=print, st
 def cache_api_exercises(
     print_fn: Callable,
     force: bool,
-    style_fn: Callable=lambda x: x,
+    style_fn: Callable = lambda x: x,
 ):
-    print_fn("*** Caching API exercises ***")
+    print_fn('*** Caching API exercises ***')
     for exercise in Exercise.with_translations.all():
         cache_exercise(exercise, force, print_fn, style_fn)
-    print_fn(style_fn("Exercises cached!\n"))
+    print_fn(style_fn('Exercises cached!\n'))

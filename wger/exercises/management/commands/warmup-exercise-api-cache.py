@@ -16,8 +16,9 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import Exercise
 from wger.exercises.cache import cache_exercise
+from wger.exercises.models import Exercise
+
 
 class Command(BaseCommand):
     """
@@ -51,4 +52,3 @@ class Command(BaseCommand):
 
         for exercise in Exercise.with_translations.all():
             cache_exercise(exercise, force, self.stdout.write)
-
