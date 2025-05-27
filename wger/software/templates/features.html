@@ -98,9 +98,12 @@
             <section
                 class="row px-3 mb-5 d-flex align-items-center justify-content-center gap-2 flex-row-reverse">
                 <div class="col-lg-7 col-sm-6 col-12 d-flex px-5 flex-column align-items-center">
-                    <img src="{% static 'images/hero.png' %}"
-                         alt="a man with a dumbbell"
-                         class="header-hero-image">
+                    <picture>
+                        <source srcset="{% static 'images/hero.avif' %}" type="image/avif">
+                        <img src="{% static 'images/hero.png' %}"
+                            alt="a man with a dumbbell"
+                            class="header-hero-image">
+                    </picture>
                 </div>
                 <div class="col-lg-3 col-sm-5 col-11 d-flex py-3 flex-column align-items-start">
                     <h1 class="font-bebas-neue display-3 uppercase">
@@ -155,9 +158,13 @@
                     class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                        <img src="{% static 'images/screens-1.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="img-fluid">
+                        <picture>
+                            <source srcset="{% static 'images/screens-1.avif' %}" type="image/avif">
+                            <img src="{% static 'images/screens-1.png' %}"
+                                alt="mobile screen showing wger feature"
+                                class="img-fluid"
+                                loading="lazy">
+                        </picture>
                     </div>
 
                     <div
@@ -190,9 +197,13 @@
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
                         style="overflow: hidden;">
-                        <img src="{% static 'images/screens-2.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="img-fluid">
+                        <picture>
+                            <source srcset="{% static 'images/screens-2.avif' %}" type="image/avif">
+                            <img src="{% static 'images/screens-2.png' %}"
+                                alt="mobile screen showing wger feature"
+                                class="img-fluid"
+                                loading="lazy">
+                        </picture>
                     </div>
                     <div
                         class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center">
@@ -226,10 +237,13 @@
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
                         style="overflow: hidden;">
-                        <img src="{% static 'images/screens-3.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="img-fluid">
-
+                        <picture>
+                            <source srcset="{% static 'images/screens-3.avif' %}" type="image/avif">
+                            <img src="{% static 'images/screens-3.png' %}"
+                                alt="mobile screen showing wger feature"
+                                class="img-fluid"
+                                loading="lazy">
+                        </picture>
                     </div>
                     <div
                         class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center py-2">
@@ -280,10 +294,14 @@
                 <div class="row w-100 gy-3">
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
-                        <img src="{% static 'images/community.png' %}"
-                             width="500"
-                             alt="list of human faces"
-                             class="img-fluid">
+                        <picture>
+                            <source srcset="{% static 'images/community.avif' %}" type="image/avif">
+                            <img src="{% static 'images/community.png' %}"
+                                 width="500"
+                                 alt="list of human faces"
+                                 class="img-fluid"
+                                 loading="lazy">
+                        </picture>
                     </div>
                     <div class="col-lg-5 col-sm-12">
                         <h1 class="display-3 uppercase font-bebas-neue header-community">
