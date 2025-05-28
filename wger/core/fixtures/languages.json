@@ -232,5 +232,14 @@
       "full_name": "Slovenski jezik",
       "full_name_en": "Slovenian"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 27,
+    "fields": {
+      "short_name": "ko",
+      "full_name": "한국어",
+      "full_name_en": "Korean"
+    }
   }
 ]
