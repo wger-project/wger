@@ -8,25 +8,27 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2024-12-24 13:06+0000\n"
-"Last-Translator: shlomi assaf <shlomiasaf@gmail.com>\n"
+"PO-Revision-Date: 2025-06-01 11:35+0000\n"
+"Last-Translator: DR <weblate-kavita.snowflake668@slmail.me>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
-msgstr ""
+msgstr "מכון כושר ברירת מחדל"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"בחר את מכון הכושר ברירת המחדל להתקנה זו. פעלה זו תשייך למכון זה את כל "
+"המשתמשים הרשומים ותעדכן את כל המשתמשים הקיימים שלא משויכים למכון."
 
 #: config/views/gym_config.py:42 core/templates/language/view.html:64
 #: core/templates/license/list.html:17
