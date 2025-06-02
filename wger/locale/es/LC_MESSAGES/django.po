@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-05-04 02:48+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2025-06-03 09:01+0000\n"
+"Last-Translator: Oscar González <ogrydc@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -459,20 +459,14 @@ msgstr ""
 "a continuación:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
 "Estás \n"
-"                navegando por la página como el usuario "
-"\"%(current_user)s\", todas las acciones se realizan sobre tus datos.\n"
-"            "
+"                navegando por la página como el usuario \"%(current_user)s\""
+", todas las acciones se realizan sobre tus datos."
 
 #: core/templates/base.html:15
 #, python-format
