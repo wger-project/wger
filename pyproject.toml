@@ -61,7 +61,7 @@ dependencies = [
     "pillow==11.2.1",
     "psycopg==3.2.9",
     "reportlab==4.4.1",
-    "requests==2.32.3",
+    "requests==2.32.4",
     "tqdm==4.67.1",
     "tzdata==2025.2",
 ]
