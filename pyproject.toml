@@ -29,9 +29,9 @@ classifiers = [
 
 dependencies = [
     "bleach[css]~=6.2",
-    "celery[redis]==5.5.2",
-    "crispy-bootstrap5==2025.4",
-    "django==5.2.1",
+    "celery[redis]==5.5.3",
+    "crispy-bootstrap5==2025.6",
+    "django==5.2.3",
     "django-activity-stream==2.0.0",
     "django-axes[ipware]==8.0.0",
     "django-bootstrap-breadcrumbs2==1.0.0",
@@ -56,24 +56,24 @@ dependencies = [
     "fontawesomefree~=6.6.0",
     "icalendar==6.3.1",
     "invoke==2.2.0",
-    "openfoodfacts==2.5.2",
+    "openfoodfacts==2.6.1",
     "packaging==25.0",
     "pillow==11.2.1",
     "psycopg==3.2.9",
     "reportlab==4.4.1",
-    "requests==2.32.3",
+    "requests==2.32.4",
     "tqdm==4.67.1",
     "tzdata==2025.2",
 ]
 
 [dependency-groups]
 dev = [
-    "coverage==7.8.0",
-    "django-debug-toolbar==5.1.0",
+    "coverage==7.9.1",
+    "django-debug-toolbar==5.2.0",
     "django-extensions==4.1",
-    "faker==37.1.0",
+    "faker==37.4.0",
     "isort==6.0.1",
-    "ruff==0.11.7",
+    "ruff==0.11.13",
     "tblib==3.1.0",
     "wheel==0.45.1",
 ]
