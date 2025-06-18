@@ -147,7 +147,7 @@
     "notes": "Notatki",
     "value": "Wartość",
     "unit": "Jednostka",
-    "copyToClipboard": "Skopiuj do schowka",
+    "copyToClipboard": "Skopiuj do schowku (clipboard)",
     "nutrition": {
         "goalEnergy": "Cel energii",
         "macronutrient": "Makroskładnik",
@@ -208,7 +208,10 @@
         "addWeightLog": "Dodaj dziennik treningu",
         "logsFilterNote": "Pamiętaj, że na wykresie prezentowane są tylko wpisy z wagą w kg, lb lub z liczbą powtórzeń, a wszystkie inne kombinacje takie jak określony czas lub opcja do upadku mięśniowego są pomijane",
         "rir": "Liczba powtórzeń w rezerwie",
-        "logsHeader": "Dziennik treningu"
+        "logsHeader": "Dziennik treningu",
+        "reps": "Powtórzenia",
+        "intensity": "Intensywność",
+        "currentRoutine": "Aktualna rutyna"
     },
     "filters": "Filtry",
     "close": "Zamknij",
@@ -241,5 +244,12 @@
     "cm": "cm",
     "lastHalfYear": "Ostatnie 6 miesięcy",
     "lastMonth": "Ostatni miesiąc",
-    "lastWeek": "Ostatni tydzień"
+    "lastWeek": "Ostatni tydzień",
+    "comment": "Komentarz",
+    "durationWeeksDays": "{{nrWeeks}} tygodni, {{nrDays}} dni",
+    "undo": "Cofnij",
+    "successfullyDeleted": "Usunięto",
+    "editName": "Edytować {{name}}",
+    "min": "Min",
+    "max": "Max"
 }

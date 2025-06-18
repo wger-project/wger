@@ -7,7 +7,7 @@
     "lastYear": "Vorig jaar",
     "cm": "cm",
     "date": "Datum",
-    "weight": "Lichaam gewicht",
+    "weight": "Trainings Gewicht",
     "timeOfDay": "Tijd vandaag",
     "licenses": {
         "authorProfile": "Link naar de auteur website of profiel, indien beschikbaar",
@@ -236,5 +236,7 @@
     },
     "entries": "Invoer",
     "no_entries_for_day": "Geen items voor deze dag",
-    "calendar": "Kalender"
+    "calendar": "Kalender",
+    "start": "Start",
+    "end": "Einde"
 }

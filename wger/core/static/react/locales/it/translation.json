@@ -232,5 +232,6 @@
     "lastMonth": "Ultimo mese",
     "lastWeek": "Ultima settimana",
     "start": "Inizia",
-    "end": "Fine"
+    "end": "Fine",
+    "editName": "Modifica {{name}}"
 }

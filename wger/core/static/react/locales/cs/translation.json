@@ -47,7 +47,8 @@
         "exercises": "Cvičení",
         "changeExerciseLanguage": "Změnit jazyk tohoto cvičení",
         "missingExerciseDescription": "Pomozte komunitě jeho přidáním!",
-        "newNote": "Nová poznámka"
+        "newNote": "Nová poznámka",
+        "swapExercise": "Změna cvičení"
     },
     "nutrition": {
         "plans": "Výživové plány",
@@ -146,7 +147,9 @@
         "addWeightLog": "Přidat tréninkový záznam",
         "routine": "Rutina",
         "routines": "Rutiny",
-        "rir": "OvR"
+        "rir": "OvR",
+        "reps": "Repetice",
+        "currentRoutine": "Současná trasa"
     },
     "measurements": {
         "measurements": "Měření",
@@ -206,7 +209,11 @@
         "maxLength": "Zadejte prosím méně než {{chars}} znaků",
         "minLength": "Zadejte prosím více než {{chars}} znaků",
         "minValue": "Hodnota tohoto pole musí být vyšší než {{value}}",
-        "maxValue": "Hodnota tohoto pole musí být nižší než {{value}}"
+        "maxValue": "Hodnota tohoto pole musí být nižší než {{value}}",
+        "enterNumber": "Zadejte prosím platné číslo",
+        "enterInteger": "Zadejte prosím celé číslo",
+        "maxLessThanMin": "Maximální hodnota musí být větší než minimální",
+        "endBeforeStart": "Konečná hodnota nemůže být předcházející počáteční hodnotě"
     },
     "name": "Název",
     "category": "Kategorie",
@@ -221,5 +228,30 @@
     "filters": "Filtry",
     "calendar": "Kalendář",
     "entries": "Záznamy",
-    "no_entries_for_day": "Žádné záznamy pro tento den"
+    "no_entries_for_day": "Žádné záznamy pro tento den",
+    "editName": "Upravit {{name}}",
+    "start": "Start",
+    "end": "Konec",
+    "comment": "Komentář",
+    "min": "Min",
+    "max": "Max",
+    "durationWeeks": "{{number}} týdnů",
+    "durationWeeksDays": "{{nrWeeks}} týdnů, {{nrDays}} dní",
+    "undo": "Vrátit",
+    "successfullyDeleted": "Úspěšně smazáno",
+    "height": "Výška",
+    "cm": "cm",
+    "all": "Vše",
+    "lastYear": "Minulý rok",
+    "lastHalfYear": "Posledních 6 měsíců",
+    "lastMonth": "Poslední měsíc",
+    "lastWeek": "Poslední Týden",
+    "bmi": {
+        "overweight": "Nadváha",
+        "normal": "Normální váha",
+        "calculator": "BMI kalkulačka",
+        "obese": "Obezita",
+        "underweight": "Podváha",
+        "result": "Vaše BMI je {{value}}"
+    }
 }
