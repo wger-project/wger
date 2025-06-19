@@ -25,61 +25,72 @@ RUN apt update \
       libwebp-dev \
       libpq-dev \
       rustc \
-      yarnpkg \
       sassc \
-      cargo
+      cargo \
+      unzip \
+    && rm -rf /var/lib/apt/lists/*
 
-# Build the necessary python wheels
-#
-# PS: the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
-#
-# PPS: actually only pyproject.toml is needed here, but it seems there is no way
-# to tell pip to only build the dependencies and not the project itself as well,
-# so we copy enough to make this is possible
-COPY pyproject.toml .
-COPY wger/version.py ./wger/version.py
-COPY wger/__init__.py ./wger/__init__.py
-COPY README.md ./README.md
+# Need a newer node than what's in ubuntu
+RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /etc/apt/keyrings \
+    && corepack enable \
+    && mkdir -p /root/src/wger/core/static
 
+#
+# Build the python wheels
+#
+WORKDIR /root/src
+
+# Copy necessary files to build the application
+COPY pyproject.toml /root/src
+COPY wger/version.py /root/src/wger/
+COPY wger/__init__.py /root/src/wger/
+COPY README.md /root/src
+COPY package.json /root/src
+COPY yarn.lock /root/src
+COPY wger/core/static /root/src/wger/core/static
+
+# NB: the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
 RUN --mount=type=tmpfs,target=/root/.cargo \
     pip3 wheel \
       --no-cache-dir \
       --wheel-dir /wheels \
       --group docker . \
-    && pip3 install \
-      --break-system-packages \
-      --no-warn-script-location \
-      --root-user-action ignore \
-      --user \
-      --no-cache-dir /wheels/* \
-    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
-
-# Download and copy js and css files
-COPY . /home/wger/src
-WORKDIR /home/wger/src
-RUN yarn install \
-    && yarn build:css:sass
+#
+# Build the JS and CSS files
+#
+RUN yarn config set nodeLinker node-modules \
+    && yarn install \
+    && yarn build:css:sass \
+    && cd .. \
+    && wget https://github.com/wger-project/react/archive/refs/heads/master.zip \
+    && unzip master.zip \
+    && cd react-master \
+    && yarn config set --home enableTelemetry 0 \
+    && yarn config set nodeLinker node-modules \
+    && yarn install \
+    && WGER_STATIC_FOLDER="/root/src/wger/core/static/react" yarn build
 
 
 ########
 # Final
 ########
 FROM wger/base:latest AS final
-LABEL maintainer="Roland Geider <roland@geider.net>"
+LABEL org.opencontainers.image.authors="wger team <hello@wger.de>"
 ARG DOCKER_DIR=./extras/docker/production
 ENV PATH="/home/wger/.local/bin:$PATH"
-
+WORKDIR /home/wger/src
 EXPOSE 8000
 
-
 # Set up the application
-COPY --from=builder --chown=wger:wger /root/.local /home/wger/.local
-
-WORKDIR /home/wger/src
 COPY --chown=wger:wger . /home/wger/src
-COPY --from=builder --chown=wger:wger /home/wger/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
+COPY --chown=wger:wger --from=builder /root/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
+COPY --chown=wger:wger --from=builder /root/src/wger/core/static/react /home/wger/src/wger/core/static/react
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
@@ -93,11 +104,10 @@ RUN chmod +x /home/wger/entrypoint.sh \
     && chown wger:wger /home/wger/src
 
 USER wger
-RUN pip3 install --break-system-packages --user --editable . \
-    && mkdir ~/media \
-    && mkdir ~/static \
-    && mkdir ~/beat \
-    && mkdir ~/db \
+RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
+    pip3 install --break-system-packages --no-cache-dir --user /wheels/* \
+    && pip3 install --break-system-packages --user . \
+    && mkdir -p ~/media ~/static ~/beat ~/db \
     && cd wger \
     && django-admin compilemessages
 

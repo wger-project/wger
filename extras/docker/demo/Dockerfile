@@ -56,7 +56,7 @@ RUN yarn install \
 # Final
 ########
 FROM wger/base:latest AS final
-LABEL maintainer="Roland Geider <roland@geider.net>"
+LABEL org.opencontainers.image.authors="wger team <hello@wger.de>"
 ENV TERM=xterm
 ARG DOCKER_DIR=./extras/docker/demo
 EXPOSE 80
