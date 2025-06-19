@@ -24,6 +24,7 @@ RUN apt update \
       wget \
       tzdata \
       libpq5 \
+      gettext \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && locale-gen en_US.UTF-8 \
