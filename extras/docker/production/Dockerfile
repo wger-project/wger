@@ -97,6 +97,8 @@ RUN pip3 install --break-system-packages --user --editable . \
     && mkdir ~/media \
     && mkdir ~/static \
     && mkdir ~/beat \
-    && mkdir ~/db
+    && mkdir ~/db \
+    && cd wger \
+    && django-admin compilemessages
 
 CMD ["/home/wger/entrypoint.sh"]
