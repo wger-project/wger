@@ -19,15 +19,6 @@ import logging
 from datetime import datetime
 from decimal import Decimal
 
-# Django
-from django import forms
-from django.forms import BooleanField
-from django.urls import reverse
-from django.utils.translation import (
-    gettext as _,
-    gettext_lazy,
-)
-
 # Third Party
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
@@ -37,6 +28,14 @@ from crispy_forms.layout import (
     Layout,
     Row,
     Submit,
+)
+# Django
+from django import forms
+from django.forms import BooleanField
+from django.urls import reverse
+from django.utils.translation import (
+    gettext as _,
+    gettext_lazy,
 )
 
 # wger
@@ -48,7 +47,6 @@ from wger.nutrition.models import (
     MealItem,
 )
 from wger.utils.widgets import Html5NumberInput
-
 
 logger = logging.getLogger(__name__)
 
@@ -335,6 +333,7 @@ class IngredientForm(forms.ModelForm):
         fields = [
             'name',
             'brand',
+            'code',
             'energy',
             'protein',
             'carbohydrates',
@@ -345,6 +344,8 @@ class IngredientForm(forms.ModelForm):
             'sodium',
             'license',
             'license_author',
+            'source_name',
+            'source_url',
         ]
         widgets = {'category': forms.TextInput}
 
@@ -357,6 +358,7 @@ class IngredientForm(forms.ModelForm):
                 Column('brand', css_class='col-6'),
                 css_class='form-row',
             ),
+            'code',
             'energy',
             'protein',
             Row(
@@ -371,9 +373,11 @@ class IngredientForm(forms.ModelForm):
             ),
             'fiber',
             'sodium',
+            'license',
+            'license_author',
             Row(
-                Column('license', css_class='col-6'),
-                Column('license_author', css_class='col-6'),
+                Column('source_name', css_class='col-6'),
+                Column('source_url', css_class='col-6'),
                 css_class='form-row',
             ),
         )
