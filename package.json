@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "htmx.org": "^2.0.4",
+    "htmx.org": "^2.0.5",
     "bootstrap": "5.3.7",
     "components-font-awesome": "5.9.0",
     "datatables.net-bs5": "^2.3.1",
