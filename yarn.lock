@@ -62,10 +62,10 @@ get-size@^2.0.2:
   resolved "https://registry.yarnpkg.com/get-size/-/get-size-2.0.3.tgz#54a1d0256b20ea7ac646516756202769941ad2ef"
   integrity sha512-lXNzT/h/dTjTxRbm9BXb+SGxxzkm97h/PCIKtlN/CBCxxmkkIVV21udumMS93MuVTDX583gqc94v3RjuHmI+2Q==
 
-htmx.org@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-2.0.4.tgz#74fce66b177eb59c6d251ecf1052a2478743bec9"
-  integrity sha512-HLxMCdfXDOJirs3vBZl/ZLoY+c7PfM4Ahr2Ad4YXh6d22T5ltbTXFFkpx9Tgb2vvmWFMbIc3LqN2ToNkZJvyYQ==
+htmx.org@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-2.0.5.tgz#88e8d89078b3059d74ac4eb653d80451c144820c"
+  integrity sha512-ocgvtHCShWFW0DvSV1NbJC7Y5EzUMy2eo5zeWvGj2Ac4LOr7sv9YKg4jzCZJdXN21fXACmCViwKSy+cm6i2dWQ==
 
 jquery@>=1.7, jquery@^3.7.1:
   version "3.7.1"
