@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-03-06 18:16+0000\n"
-"Last-Translator: Luiz Felipe Guidorizzi de Oliveira <guiluizf222@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"PO-Revision-Date: 2025-06-24 11:01+0000\n"
+"Last-Translator: Ninguém Mesmo <weblate@rasparta.org>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -450,20 +450,14 @@ msgstr ""
 "problema persistir, você pode buscar ajuda das maneiras listadas abaixo:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
 "Você está\n"
-"                navegando no site como o usuário \"%(current_user)s\", todas "
-"as ações são realizadas nos dados dele(a).\n"
-"            "
+"                navegando no site como o utilizador \"%(current_user)\", "
+"todas as ações são realizadas nos dados dele(a)."
 
 #: core/templates/base.html:15
 #, python-format
@@ -626,7 +620,7 @@ msgstr "Treinamento"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Rotinas"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -718,7 +712,7 @@ msgstr "Sobre este software"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Suporte e envolver-se"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
