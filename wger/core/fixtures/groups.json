@@ -552,21 +552,6 @@
       "name": "exercises_admin",
       "permissions": [
         [
-          "add_equipment",
-          "exercises",
-          "equipment"
-        ],
-        [
-          "change_equipment",
-          "exercises",
-          "equipment"
-        ],
-        [
-          "delete_equipment",
-          "exercises",
-          "equipment"
-        ],
-        [
           "add_translation",
           "exercises",
           "translation"
@@ -597,21 +582,6 @@
           "exercise"
         ],
         [
-          "add_exercisecategory",
-          "exercises",
-          "exercisecategory"
-        ],
-        [
-          "change_exercisecategory",
-          "exercises",
-          "exercisecategory"
-        ],
-        [
-          "delete_exercisecategory",
-          "exercises",
-          "exercisecategory"
-        ],
-        [
           "add_exercisecomment",
           "exercises",
           "exercisecomment"
@@ -627,6 +597,36 @@
           "exercisecomment"
         ],
         [
+          "add_equipment",
+          "exercises",
+          "equipment"
+        ],
+        [
+          "change_equipment",
+          "exercises",
+          "equipment"
+        ],
+        [
+          "delete_equipment",
+          "exercises",
+          "equipment"
+        ],
+        [
+          "add_exercisecategory",
+          "exercises",
+          "exercisecategory"
+        ],
+        [
+          "change_exercisecategory",
+          "exercises",
+          "exercisecategory"
+        ],
+        [
+          "delete_exercisecategory",
+          "exercises",
+          "exercisecategory"
+        ],
+        [
           "add_exerciseimage",
           "exercises",
           "exerciseimage"
@@ -640,6 +640,21 @@
           "delete_exerciseimage",
           "exercises",
           "exerciseimage"
+        ],
+        [
+          "add_exercisevideo",
+          "exercises",
+          "exercisevideo"
+        ],
+        [
+          "change_exercisevideo",
+          "exercises",
+          "exercisevideo"
+        ],
+        [
+          "delete_exercisevideo",
+          "exercises",
+          "exercisevideo"
         ],
         [
           "add_muscle",
