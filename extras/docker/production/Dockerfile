@@ -35,7 +35,6 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get update \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /etc/apt/keyrings \
     && corepack enable \
     && mkdir -p /root/src/wger/core/static
 
