@@ -18,11 +18,12 @@
     "htmx.org": "^2.0.5",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
-    "popper.js": "^1.16.1",
-    "yarn": "^1.22.22"
+    "popper.js": "^1.16.1"
   },
   "scripts": {
-    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css"
+    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css",
+    "install": "yarn install && yarn run postinstall",
+    "postinstall": "rm -rf wger/core/static/yarn/ && mkdir -p wger/core/static/yarn/ && cp -r node_modules/* wger/core/static/yarn/"
   },
   "engines": {
     "yarn": ">= 1.0.0"
