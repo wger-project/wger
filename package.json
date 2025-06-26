@@ -3,7 +3,7 @@
   "version": "2.4.alpha1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "repository": "github:wger-project/wger",
-  "author": "",
+  "author": "wger team <hello@wger.de>",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/wger-project/wger/issues"
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css",
-    "install": "yarn install && yarn run postinstall",
+    "install:force": "yarn install && yarn run postinstall",
     "postinstall": "rm -rf wger/core/static/yarn/ && mkdir -p wger/core/static/yarn/ && cp -r node_modules/* wger/core/static/yarn/"
   },
   "engines": {

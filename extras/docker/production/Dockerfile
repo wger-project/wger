@@ -41,14 +41,11 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
 #
 WORKDIR /root/src
 
-# Copy necessary files to build the application
+# Build the application
 COPY pyproject.toml /root/src
 COPY wger/version.py /root/src/wger/
 COPY wger/__init__.py /root/src/wger/
 COPY README.md /root/src
-COPY package.json /root/src
-COPY yarn.lock /root/src
-COPY wger/core/static /root/src/wger/core/static
 
 # NB: the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
 RUN --mount=type=tmpfs,target=/root/.cargo \
@@ -58,11 +55,10 @@ RUN --mount=type=tmpfs,target=/root/.cargo \
       --group docker . \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
-#
 # Build the JS and CSS files
-#
-RUN yarn config set nodeLinker node-modules \
-    && yarn install \
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY wger/core/static /root/src/wger/core/static
+RUN yarn install \
     && yarn build:css:sass \
     && cd .. \
     && wget https://github.com/wger-project/react/archive/refs/heads/master.zip \
