@@ -316,6 +316,8 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'creation_date',
+            'start',
+            'end',
             'description',
             'only_logging',
             'goal_energy',
