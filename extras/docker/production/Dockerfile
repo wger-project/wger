@@ -14,7 +14,9 @@
 FROM wger/base:latest AS builder
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt update \
+# Need a newer node than what's in ubuntu
+RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
+    && apt update \
     && apt install --no-install-recommends -y \
       build-essential \
       python3-dev \
@@ -28,15 +30,11 @@ RUN apt update \
       sassc \
       cargo \
       unzip \
-    && rm -rf /var/lib/apt/lists/*
-
-# Need a newer node than what's in ubuntu
-RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
-    && apt-get update \
-    && apt-get install -y nodejs \
+      nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && corepack enable \
     && mkdir -p /root/src/wger/core/static
+
 
 #
 # Build the python wheels

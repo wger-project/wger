@@ -20,7 +20,8 @@
 FROM wger/base:latest AS builder
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt update \
+RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
+  && apt update \
   && apt install --no-install-recommends -y \
       build-essential \
       python3-dev \
@@ -33,18 +34,13 @@ RUN apt update \
       rustc \
       cargo \
       sassc \
-    && ln -s /usr/bin/sassc /usr/bin/sass
-
-# Need a newer node than what's in ubuntu
-RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
-    && apt-get update \
-    && apt-get install -y nodejs \
+      nodejs \
+    && ln -s /usr/bin/sassc /usr/bin/sass \
     && rm -rf /var/lib/apt/lists/* \
     && corepack enable
 
 # Build the necessary python wheels
 # Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
-#COPY . /home/wger/src
 WORKDIR /home/wger/src
 
 COPY pyproject.toml /home/wger/src
