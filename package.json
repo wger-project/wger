@@ -13,7 +13,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.7",
     "components-font-awesome": "5.9.0",
-    "datatables.net-bs5": "^2.3.1",
+    "datatables.net-bs5": "^2.3.2",
     "devbridge-autocomplete": "^1.4.11",
     "htmx.org": "^2.0.5",
     "jquery": "^3.7.1",

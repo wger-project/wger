@@ -35,22 +35,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-bs5@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "datatables.net-bs5@npm:2.3.1"
+"datatables.net-bs5@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "datatables.net-bs5@npm:2.3.2"
   dependencies:
-    datatables.net: "npm:2.3.1"
+    datatables.net: "npm:2.3.2"
     jquery: "npm:>=1.7"
-  checksum: 10c0/5c6b0af1002dc4125506cd7b7de7b0bfdc01aff9e7aec0329b58fb91b471a27390968c16434607abd30d15e025d26a689e06ce7ac8c3310ba495c682f436ae01
+  checksum: 10c0/d3429180af81948101b04f13af95f8ae6eceef3c82aa99ce1233dc5ed2368100f07210748764ddac838ac7747e3978c3dcd815002981d1824ef82beb43e2f4a1
   languageName: node
   linkType: hard
 
-"datatables.net@npm:2.3.1":
-  version: 2.3.1
-  resolution: "datatables.net@npm:2.3.1"
+"datatables.net@npm:2.3.2":
+  version: 2.3.2
+  resolution: "datatables.net@npm:2.3.2"
   dependencies:
     jquery: "npm:>=1.7"
-  checksum: 10c0/a44625d67621176b2acd108a1541b56f548af67e99364fcf05356f0d5d191a4930fe4f26bc87bfb2e7ffd18d79ab055b0ebca6149b7e2d4df23b7230a8f6909c
+  checksum: 10c0/da40a7c47580a673b185d94592088bab264e64328b4b818440c026739236fe1133bb6800cd6029c181b1b971f1ac236a48439934ff6b560efef93da3083d06df
   languageName: node
   linkType: hard
 
@@ -143,7 +143,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.8"
     bootstrap: "npm:5.3.7"
     components-font-awesome: "npm:5.9.0"
-    datatables.net-bs5: "npm:^2.3.1"
+    datatables.net-bs5: "npm:^2.3.2"
     devbridge-autocomplete: "npm:^1.4.11"
     htmx.org: "npm:^2.0.5"
     jquery: "npm:^3.7.1"
