@@ -170,15 +170,6 @@ wheels = [
 ]
 
 [[package]]
-name = "chardet"
-version = "5.2.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f3/0d/f7b6ab21ec75897ed80c17d79b15951a719226b9fababf1e40ea74d69079/chardet-5.2.0.tar.gz", hash = "sha256:1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7", size = 2069618, upload-time = "2023-08-01T19:23:02.662Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47dcc38cbf/chardet-5.2.0-py3-none-any.whl", hash = "sha256:e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970", size = 199385, upload-time = "2023-08-01T19:23:00.661Z" },
-]
-
-[[package]]
 name = "charset-normalizer"
 version = "3.4.1"
 source = { registry = "https://pypi.org/simple" }
@@ -621,14 +612,15 @@ wheels = [
 
 [[package]]
 name = "django-prometheus"
-version = "2.3.1"
+version = "2.4.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "django" },
     { name = "prometheus-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e1/51/485b4122e00f2b8efec8a6d718ef4ce6b150231e49398e554ce1151f65c3/django-prometheus-2.3.1.tar.gz", hash = "sha256:f9c8b6c780c9419ea01043c63a437d79db2c33353451347894408184ad9c3e1e", size = 24718, upload-time = "2023-05-02T19:53:58.42Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/98/f4/cb39ddd2a41e07a274c4e162c076e906ae232d63b66bbabdea0300878877/django_prometheus-2.4.1.tar.gz", hash = "sha256:073628243d2a6de6a8a8c20e5b512872dfb85d66e1b60b28bcf1eca0155dad95", size = 24464, upload-time = "2025-06-25T15:45:37.149Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/75/fb3d4f056f9ed4f8848817d5afd7a1d949632ab117452ccd179e3839cfc4/django_prometheus-2.3.1-py2.py3-none-any.whl", hash = "sha256:cf9b26f7ba2e4568f08f8f91480a2882023f5908579681bcf06a4d2465f12168", size = 29081, upload-time = "2023-05-02T19:53:20.421Z" },
+    { url = "https://files.pythonhosted.org/packages/01/50/9c5e022fa92574e5d20606687f15a2aa255e10512a17d11a8216fa117f72/django_prometheus-2.4.1-py2.py3-none-any.whl", hash = "sha256:7fe5af7f7c9ad9cd8a429fe0f3f1bf651f0e244f77162147869eab7ec09cc5e7", size = 29541, upload-time = "2025-06-25T15:45:35.433Z" },
 ]
 
 [[package]]
@@ -645,27 +637,27 @@ wheels = [
 
 [[package]]
 name = "django-redis"
-version = "5.4.0"
+version = "6.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "redis" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/83/9d/2272742fdd9d0a9f0b28cd995b0539430c9467a2192e4de2cea9ea6ad38c/django-redis-5.4.0.tar.gz", hash = "sha256:6a02abaa34b0fea8bf9b707d2c363ab6adc7409950b2db93602e6cb292818c42", size = 52567, upload-time = "2023-10-01T20:22:01.221Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/08/53/dbcfa1e528e0d6c39947092625b2c89274b5d88f14d357cee53c4d6dbbd4/django_redis-6.0.0.tar.gz", hash = "sha256:2d9cb12a20424a4c4dde082c6122f486628bae2d9c2bee4c0126a4de7fda00dd", size = 56904, upload-time = "2025-06-17T18:15:46.376Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b7/f1/63caad7c9222c26a62082f4f777de26389233b7574629996098bf6d25a4d/django_redis-5.4.0-py3-none-any.whl", hash = "sha256:ebc88df7da810732e2af9987f7f426c96204bf89319df4c6da6ca9a2942edd5b", size = 31119, upload-time = "2023-10-01T20:21:33.009Z" },
+    { url = "https://files.pythonhosted.org/packages/7e/79/055dfcc508cfe9f439d9f453741188d633efa9eab90fc78a67b0ab50b137/django_redis-6.0.0-py3-none-any.whl", hash = "sha256:20bf0063a8abee567eb5f77f375143c32810c8700c0674ced34737f8de4e36c0", size = 33687, upload-time = "2025-06-17T18:15:34.165Z" },
 ]
 
 [[package]]
 name = "django-simple-history"
-version = "3.8.0"
+version = "3.10.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6c/46/4cbf411f9a8e426ed721785beb2cfd37c47cd5462697d92ff29dc6943d38/django_simple_history-3.8.0.tar.gz", hash = "sha256:e70d70fb4cc2af60a50904f1420d5a6440d24efddceba3daeff8b02d269ebdf0", size = 233906, upload-time = "2025-01-23T20:54:49.974Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/16/2b/8d43eed1f9de32e890e0f5780e6d623a5a7e645e0e77a515edd427029f3c/django_simple_history-3.10.1.tar.gz", hash = "sha256:040f0c2286bed730312aa15f0acee9e7e6f839c4bcd721693251aa7ec5b65d95", size = 233649, upload-time = "2025-06-20T20:22:32.722Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e2/f0/f09f87199a0b4e21a10314b02e04472a8cc601ead4990e813a0b3cc43f09/django_simple_history-3.8.0-py3-none-any.whl", hash = "sha256:7f8bbdaa5b2c4c1c9a48c89a95ff3389eda6c82cf9de9b09ae99b558205d132f", size = 142593, upload-time = "2025-01-23T20:54:15.024Z" },
+    { url = "https://files.pythonhosted.org/packages/01/c3/d4ba265feb7b8bad3cf0730a3a8d82bb40d14551f8c53c88895ec06fa51c/django_simple_history-3.10.1-py3-none-any.whl", hash = "sha256:e12c27abfcd7e801a9d274d94542549ce8c617b0b384ae69afb161b56cd02ba4", size = 78611, upload-time = "2025-06-20T20:22:30.878Z" },
 ]
 
 [[package]]
@@ -1287,15 +1279,15 @@ wheels = [
 
 [[package]]
 name = "reportlab"
-version = "4.4.1"
+version = "4.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "chardet" },
+    { name = "charset-normalizer" },
     { name = "pillow" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7b/d8/c3366bf10a5a5fcc3467eefa9504f6aa24fcda5817b5b147eabd37a385e1/reportlab-4.4.1.tar.gz", hash = "sha256:5f9b9fc0b7a48e8912c25ccf69d26b82980ab0da718e4f583fa720e8f8f5073f", size = 3509107, upload-time = "2025-05-15T08:07:02.539Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ec/9b/3483c7e4ad33d15f22d528872439e5bc92485814d7e7d10dbc3130368a83/reportlab-4.4.2.tar.gz", hash = "sha256:fc6283048ddd0781a9db1d671715990e6aa059c8d40ec9baf34294c4bd583a36", size = 3509063, upload-time = "2025-06-18T12:20:19.526Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a1/2e/7994a139150abf11c8dd258feb091ad654823a83cfd9720bfdded27185c3/reportlab-4.4.1-py3-none-any.whl", hash = "sha256:9217a1c8c1917217f819718b24972a96ad0c485a1c494749562d097b58d974b7", size = 1953615, upload-time = "2025-05-15T08:06:59.248Z" },
+    { url = "https://files.pythonhosted.org/packages/9f/74/ed990bc9586605d4e46f6b0e0b978a5b8e757aa599e39664bee26d6dc666/reportlab-4.4.2-py3-none-any.whl", hash = "sha256:58e11be387457928707c12153b7e41e52533a5da3f587b15ba8f8fd0805c6ee2", size = 1953624, upload-time = "2025-06-18T12:20:16.152Z" },
 ]
 
 [[package]]
@@ -1663,10 +1655,10 @@ requires-dist = [
     { name = "django-environ", specifier = "==0.12.0" },
     { name = "django-filter", specifier = "==25.1" },
     { name = "django-formtools", specifier = "~=2.5" },
-    { name = "django-prometheus", specifier = "==2.3.1" },
+    { name = "django-prometheus", specifier = "==2.4.1" },
     { name = "django-recaptcha", specifier = "==4.1.0" },
-    { name = "django-redis", specifier = "==5.4.0" },
-    { name = "django-simple-history", specifier = "==3.8.0" },
+    { name = "django-redis", specifier = "==6.0.0" },
+    { name = "django-simple-history", specifier = "==3.10.1" },
     { name = "django-sortedm2m", specifier = "==4.0.0" },
     { name = "django-storages", specifier = "==1.14.6" },
     { name = "djangorestframework", specifier = "==3.16.0" },
@@ -1681,7 +1673,7 @@ requires-dist = [
     { name = "packaging", specifier = "==25.0" },
     { name = "pillow", specifier = "==11.2.1" },
     { name = "psycopg", specifier = "==3.2.9" },
-    { name = "reportlab", specifier = "==4.4.1" },
+    { name = "reportlab", specifier = "==4.4.2" },
     { name = "requests", specifier = "==2.32.4" },
     { name = "tqdm", specifier = "==4.67.1" },
     { name = "tzdata", specifier = "==2025.2" },
