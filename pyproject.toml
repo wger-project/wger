@@ -58,7 +58,7 @@ dependencies = [
     "invoke==2.2.0",
     "openfoodfacts==2.6.1",
     "packaging==25.0",
-    "pillow==11.2.1",
+    "pillow==11.3.0",
     "psycopg==3.2.9",
     "reportlab==4.4.2",
     "requests==2.32.4",
