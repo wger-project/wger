@@ -58,7 +58,7 @@ dependencies = [
     "invoke==2.2.0",
     "openfoodfacts==2.6.1",
     "packaging==25.0",
-    "pillow==11.2.1",
+    "pillow==11.3.0",
     "psycopg==3.2.9",
     "reportlab==4.4.2",
     "requests==2.32.4",
@@ -73,7 +73,7 @@ dev = [
     "django-extensions==4.1",
     "faker==37.4.0",
     "isort==6.0.1",
-    "ruff==0.11.13",
+    "ruff==0.12.1",
     "tblib==3.1.0",
     "wheel==0.45.1",
 ]
