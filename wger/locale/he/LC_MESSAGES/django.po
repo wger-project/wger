@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-06-01 11:35+0000\n"
-"Last-Translator: DR <weblate-kavita.snowflake668@slmail.me>\n"
+"PO-Revision-Date: 2025-07-06 03:47+0000\n"
+"Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -55,17 +55,17 @@ msgstr "עריכה"
 #: core/templates/navigation.html:278 core/templates/user/login.html:4
 #: software/templates/features.html:82 software/templates/features.html:430
 msgid "Login"
-msgstr ""
+msgstr "כניסה"
 
 #: core/forms.py:108 core/forms.py:216 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
-msgstr ""
+msgstr "שם פרטי"
 
 #: core/forms.py:109 core/forms.py:217 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
-msgstr ""
+msgstr "שם משפחה"
 
 #: core/forms.py:111 core/forms.py:182 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
@@ -75,7 +75,7 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr ""
+msgstr "דואר אלקטרוני"
 
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
@@ -84,24 +84,24 @@ msgstr ""
 #: core/forms.py:116 core/models/profile.py:221
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "תאריך לידה"
 
 #: core/forms.py:149
 msgid "Personal data"
-msgstr ""
+msgstr "נתונים אישיים"
 
 #: core/forms.py:161
 msgid "Workout reminders"
-msgstr ""
+msgstr "תזכורות לאימונים"
 
 #: core/forms.py:168
 msgid "Other settings"
-msgstr ""
+msgstr "הגדרות אחרות"
 
 #: core/forms.py:176 core/views/user.py:611 core/views/user.py:626
 #: core/views/user.py:638 gym/forms.py:73 utils/generic_views.py:143
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: core/forms.py:183
 msgid "Used for password resets and, optionally, email reminders."
@@ -109,16 +109,16 @@ msgstr ""
 
 #: core/forms.py:212
 msgid "This e-mail address is already in use."
-msgstr ""
+msgstr "כתובת דוא״ל זו כבר נמצאת בשימוש."
 
 #: core/forms.py:233 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
-msgstr ""
+msgstr "סיסמה"
 
 #: core/forms.py:235
 msgid "Please enter your current password."
-msgstr ""
+msgstr "נא להקליד את סיסמתך הנוכחית."
 
 #: core/forms.py:244 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
@@ -135,11 +135,11 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:215
 #: nutrition/templates/units/list.html:25
 msgid "Delete"
-msgstr ""
+msgstr "מחיקה"
 
 #: core/forms.py:253
 msgid "Invalid password"
-msgstr ""
+msgstr "סיסמה שגויה"
 
 #: core/forms.py:265 core/forms.py:340
 msgid "The form is secured with reCAPTCHA"
@@ -150,11 +150,11 @@ msgstr ""
 #: core/templates/user/login.html:21 core/views/user.py:285
 #: software/templates/features.html:87 software/templates/features.html:424
 msgid "Register"
-msgstr ""
+msgstr "הרשמה"
 
 #: core/forms.py:317 software/templates/features.html:45
 msgid "Contact"
-msgstr ""
+msgstr "יצירת קשר"
 
 #: core/forms.py:318
 msgid "Some way of answering you (e-mail, etc.)"
@@ -163,27 +163,27 @@ msgstr ""
 #: core/forms.py:326 exercises/models/comment.py:55 manager/models/slot.py:40
 #: nutrition/models/log.py:77
 msgid "Comment"
-msgstr ""
+msgstr "הערה"
 
 #: core/forms.py:327
 msgid "What do you want to say?"
-msgstr ""
+msgstr "מה ברצונך לומר?"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
-msgstr ""
+msgstr "שם שפה מקוצר"
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
-msgstr ""
+msgstr "שם שפה מלא"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
 msgid "Language full name in English"
-msgstr ""
+msgstr "שם השפה המלא באנגלית"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "שם מלא"
 
 #: core/models/license.py:31
 msgid ""
@@ -197,7 +197,7 @@ msgstr ""
 
 #: core/models/license.py:45 nutrition/models/ingredient.py:223
 msgid "Link"
-msgstr ""
+msgstr "קישור"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
@@ -206,35 +206,35 @@ msgstr ""
 #: core/models/profile.py:56
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s אינו תאריך לידה תקין"
 
 #: core/models/profile.py:65
 msgid "Male"
-msgstr ""
+msgstr "זכר"
 
 #: core/models/profile.py:66
 msgid "Female"
-msgstr ""
+msgstr "נקבה"
 
 #: core/models/profile.py:73
 msgid "Low"
-msgstr ""
+msgstr "נמוך"
 
 #: core/models/profile.py:74
 msgid "Medium"
-msgstr ""
+msgstr "בינוני"
 
 #: core/models/profile.py:75
 msgid "High"
-msgstr ""
+msgstr "גבוה"
 
 #: core/models/profile.py:81
 msgid "Metric (kilogram)"
-msgstr ""
+msgstr "השיטה המטרית (קילוגרמים)"
 
 #: core/models/profile.py:82
 msgid "Imperial (pound)"
-msgstr ""
+msgstr "השיטה האימפריאליסטית (פאונד)"
 
 #: core/models/profile.py:118
 msgid "Show exercise comments"
@@ -500,16 +500,16 @@ msgstr ""
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:334
 msgid "Languages"
-msgstr ""
+msgstr "שפות"
 
 #: core/templates/language/overview.html:22
 msgid "Nothing found."
-msgstr ""
+msgstr "אין תוצאות."
 
 #: core/templates/language/overview.html:22
 #: nutrition/templates/ingredient/overview.html:38
 msgid "Add one now."
-msgstr ""
+msgstr "להוסיף כעת."
 
 #: core/templates/language/overview.html:34 core/templates/license/list.html:43
 #: core/templates/repetition_unit/list.html:46
@@ -531,14 +531,14 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:43
 #: nutrition/templates/ingredient/overview.html:60
 msgid "Add"
-msgstr ""
+msgstr "הוספה"
 
 #: core/templates/language/view.html:61 core/templates/user/api_key.html:41
 #: core/templates/user/preferences.html:50 gym/models/contract.py:203
 #: gym/templates/contract/view.html:41 gym/templates/gym/member_list.html:270
 #: nutrition/templates/ingredient/view.html:206
 msgid "Options"
-msgstr ""
+msgstr "אפשרויות"
 
 #: core/templates/license/list.html:4
 msgid "License list"
@@ -603,7 +603,7 @@ msgstr ""
 #: core/templates/navigation.html:96 software/templates/features.html:51
 #: software/templates/features.html:462
 msgid "Exercises"
-msgstr ""
+msgstr "תרגילים"
 
 #: core/templates/navigation.html:102 core/templates/navigation.html:176
 #: core/templates/navigation.html:329
@@ -1055,7 +1055,7 @@ msgstr "הורדה"
 #: core/templates/user/overview.html:474 gym/views/admin_config.py:44
 #: gym/views/admin_config.py:58 gym/views/user_config.py:46
 msgid "Configuration"
-msgstr ""
+msgstr "הגדרה"
 
 #: core/templates/user/overview.html:477 gym/models/user_config.py:92
 msgid "Include in inactive overview"
@@ -1589,7 +1589,7 @@ msgstr ""
 
 #: gym/templates/contract/list.html:34
 msgid "Show"
-msgstr ""
+msgstr "הצגה"
 
 #: gym/templates/contract/view.html:4
 msgid "Contract"
