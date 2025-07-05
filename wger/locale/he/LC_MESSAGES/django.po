@@ -234,7 +234,7 @@ msgstr "השיטה המטרית (קילוגרמים)"
 
 #: core/models/profile.py:82
 msgid "Imperial (pound)"
-msgstr "השיטה האימפריאליסטית (פאונד)"
+msgstr "השיטה האימפריאליסטית (פאונדים)"
 
 #: core/models/profile.py:118
 msgid "Show exercise comments"
@@ -258,7 +258,7 @@ msgstr ""
 
 #: core/models/profile.py:140
 msgid "Activate workout reminders"
-msgstr ""
+msgstr "תזכורות פעילוֹת לאימונים"
 
 #: core/models/profile.py:142
 msgid ""
@@ -276,7 +276,7 @@ msgstr ""
 
 #: core/models/profile.py:158
 msgid "Default duration of workouts"
-msgstr ""
+msgstr "משך ברירת מחדל לאימונים"
 
 #: core/models/profile.py:160
 msgid ""
@@ -286,7 +286,7 @@ msgstr ""
 
 #: core/models/profile.py:178
 msgid "Notification language"
-msgstr ""
+msgstr "שפת ההתראות"
 
 #: core/models/profile.py:180
 msgid ""
@@ -296,19 +296,19 @@ msgstr ""
 
 #: core/models/profile.py:213 gym/views/export.py:64
 msgid "Age"
-msgstr ""
+msgstr "גיל"
 
 #: core/models/profile.py:229 nutrition/forms.py:117
 msgid "Height (cm)"
-msgstr ""
+msgstr "גובה (ס״מ)"
 
 #: core/models/profile.py:246
 msgid "Hours of sleep"
-msgstr ""
+msgstr "שעות שינה"
 
 #: core/models/profile.py:247
 msgid "The average hours of sleep per day"
-msgstr ""
+msgstr "הכמות הממוצעת של שעות השינה ליום"
 
 #: core/models/profile.py:256
 msgid "Work"
