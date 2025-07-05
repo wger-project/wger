@@ -308,15 +308,15 @@ msgstr "שעות שינה"
 
 #: core/models/profile.py:247
 msgid "The average hours of sleep per day"
-msgstr "הכמות הממוצעת של שעות השינה ליום"
+msgstr "הכמות הממוצעת של שעות השינה ליממה"
 
 #: core/models/profile.py:256
 msgid "Work"
-msgstr ""
+msgstr "עבודה"
 
 #: core/models/profile.py:257 core/models/profile.py:299
 msgid "Average hours per day"
-msgstr ""
+msgstr "ממוצע שעות ביום"
 
 #: core/models/profile.py:266 core/models/profile.py:287
 #: core/models/profile.py:308
@@ -326,23 +326,23 @@ msgstr ""
 #: core/models/profile.py:267 core/models/profile.py:288
 #: core/models/profile.py:309
 msgid "Approximately"
-msgstr ""
+msgstr "בערך"
 
 #: core/models/profile.py:277
 msgid "Sport"
-msgstr ""
+msgstr "ספורט"
 
 #: core/models/profile.py:278
 msgid "Average hours per week"
-msgstr ""
+msgstr "ממוצע שעות בשבוע"
 
 #: core/models/profile.py:298
 msgid "Free time"
-msgstr ""
+msgstr "זמן פנוי"
 
 #: core/models/profile.py:319 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
-msgstr ""
+msgstr "סה״כ קלוריות ביום"
 
 #: core/models/profile.py:320
 msgid "Total caloric intake, including e.g. any surplus"
@@ -351,7 +351,7 @@ msgstr ""
 #: core/models/profile.py:332 nutrition/models/ingredient_weight_unit.py:45
 #: nutrition/models/log.py:96 nutrition/models/meal_item.py:59
 msgid "Weight unit"
-msgstr ""
+msgstr "יחידת משקל"
 
 #: core/models/profile.py:340
 msgid "Allow external access"
@@ -388,11 +388,11 @@ msgstr ""
 #: nutrition/models/weight_unit.py:38
 #: nutrition/templates/ingredient/view.html:151
 msgid "Name"
-msgstr ""
+msgstr "שם"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
-msgstr ""
+msgstr "פעולה אסורה!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
