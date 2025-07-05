@@ -725,7 +725,7 @@ msgstr "מכוני כושר"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr "איפוס הסיסמה צלח"
+msgstr "איפוס הסיסמה הושלם"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
@@ -1838,7 +1838,7 @@ msgstr ""
 
 #: i18n.tpl:30 manager/models/log.py:138
 msgid "Repetitions"
-msgstr ""
+msgstr "חזרות"
 
 #: i18n.tpl:31
 msgid "SZ-Bar"
