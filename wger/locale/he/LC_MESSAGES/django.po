@@ -392,23 +392,23 @@ msgstr "שם"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
-msgstr "פעולה אסורה!"
+msgstr "מחוץ לתחום!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "אין לך הרשאה לגשת לעמוד זה"
 
 #: core/templates/404.html:4
 msgid "Page not found"
-msgstr ""
+msgstr "העמוד לא נמצא"
 
 #: core/templates/404.html:7
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "העמוד שביקשת אינו קיים."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:37
 msgid "An error occurred"
-msgstr ""
+msgstr "אירעה שגיאה"
 
 #: core/templates/500.html:8
 msgid ""
@@ -427,7 +427,7 @@ msgstr ""
 #: core/templates/base.html:15
 #, python-format
 msgid "Back to \"%(target)s\""
-msgstr ""
+msgstr "חזרה לעמוד \"%(target)s\""
 
 #: core/templates/base_wide.html:7
 #, python-format
@@ -452,12 +452,12 @@ msgstr ""
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verification"
-msgstr ""
+msgstr "אימות כתובת דוא״ל"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "‏%(username)s, כתובת הדוא״ל שלך מאומתת"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
@@ -487,7 +487,7 @@ msgstr ""
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "צוות wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
@@ -542,7 +542,7 @@ msgstr "אפשרויות"
 
 #: core/templates/license/list.html:4
 msgid "License list"
-msgstr ""
+msgstr "רשימת רישיונות"
 
 #: core/templates/license/list.html:30
 #: core/templates/repetition_unit/list.html:32
@@ -562,7 +562,7 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:30
 #: nutrition/templates/units/list.html:34
 msgid "Nothing found"
-msgstr ""
+msgstr "לא נמצא דבר"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:185
 msgid "Imprint"
@@ -570,15 +570,15 @@ msgstr ""
 
 #: core/templates/navigation.html:28 software/templates/features.html:440
 msgid "Training"
-msgstr ""
+msgstr "אימון"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "שגרות"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
-msgstr ""
+msgstr "לוח שנה"
 
 #: core/templates/navigation.html:55
 msgid "Measurements"
@@ -586,19 +586,19 @@ msgstr ""
 
 #: core/templates/navigation.html:66 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "גלריה"
 
 #: core/templates/navigation.html:72
 msgid "Workout templates"
-msgstr ""
+msgstr "תבניות אימונים"
 
 #: core/templates/navigation.html:79
 msgid "Your templates"
-msgstr ""
+msgstr "האימונים שלך"
 
 #: core/templates/navigation.html:88
 msgid "Public templates"
-msgstr ""
+msgstr "אימונים ציבוריים"
 
 #: core/templates/navigation.html:96 software/templates/features.html:51
 #: software/templates/features.html:462
@@ -608,7 +608,7 @@ msgstr "תרגילים"
 #: core/templates/navigation.html:102 core/templates/navigation.html:176
 #: core/templates/navigation.html:329
 msgid "Administration"
-msgstr ""
+msgstr "ניהול"
 
 #: core/templates/navigation.html:106
 msgid "Exercise edit history"
@@ -616,32 +616,32 @@ msgstr ""
 
 #: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
-msgstr ""
+msgstr "ציוד"
 
 #: core/templates/navigation.html:118
 msgid "Muscles"
-msgstr ""
+msgstr "שרירים"
 
 #: core/templates/navigation.html:124
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
-msgstr ""
+msgstr "קטגוריות"
 
 #: core/templates/navigation.html:139 software/templates/features.html:450
 msgid "Nutrition"
-msgstr ""
+msgstr "תזונה"
 
 #: core/templates/navigation.html:147 core/templates/user/overview.html:144
 msgid "Nutrition plans"
-msgstr ""
+msgstr "תכנונים תזונתיים"
 
 #: core/templates/navigation.html:156
 msgid "BMI calculator"
-msgstr ""
+msgstr "מחשבון BMI"
 
 #: core/templates/navigation.html:165 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
-msgstr ""
+msgstr "מחשבון קלוריות יומיות"
 
 #: core/templates/navigation.html:171
 #: nutrition/templates/ingredient/overview.html:10
@@ -654,7 +654,7 @@ msgstr ""
 
 #: core/templates/navigation.html:196 software/templates/features.html:445
 msgid "Body weight"
-msgstr ""
+msgstr "משקל גוף"
 
 #: core/templates/navigation.html:203 core/templates/user/overview.html:114
 msgid "Weight overview"
@@ -662,11 +662,11 @@ msgstr ""
 
 #: core/templates/navigation.html:217
 msgid "About this software"
-msgstr ""
+msgstr "מידע כללי על תוכנה זו"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "תמיכה ולקיחת חלק"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -674,7 +674,7 @@ msgstr ""
 
 #: core/templates/navigation.html:235 utils/models.py:45
 msgid "License"
-msgstr ""
+msgstr "רישיון"
 
 #: core/templates/navigation.html:241
 msgid "Developer documentation"
@@ -687,23 +687,23 @@ msgstr ""
 #: core/templates/navigation.html:255 core/templates/template.html:224
 #: software/templates/features.html:585
 msgid "Translate"
-msgstr ""
+msgstr "תרגום"
 
 #: core/templates/navigation.html:292 core/templates/user/login.html:30
 msgid "Reset password"
-msgstr ""
+msgstr "איפוס סיסמה"
 
 #: core/templates/navigation.html:310
 msgid "My preferences"
-msgstr ""
+msgstr "ההעדפות שלי"
 
 #: core/templates/navigation.html:319
 msgid "Logout"
-msgstr ""
+msgstr "התנתקות"
 
 #: core/templates/navigation.html:342
 msgid "Licenses"
-msgstr ""
+msgstr "רישיונות"
 
 #: core/templates/navigation.html:350
 #: core/templates/repetition_unit/list.html:4
@@ -721,11 +721,11 @@ msgstr ""
 
 #: core/templates/navigation.html:372
 msgid "Gyms"
-msgstr ""
+msgstr "מכוני כושר"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr ""
+msgstr "איפוס הסיסמה צלח"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
@@ -733,11 +733,11 @@ msgstr ""
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
-msgstr ""
+msgstr "כניסה"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr ""
+msgstr "איפוס הסיסמה צלח"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
@@ -767,7 +767,7 @@ msgstr ""
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr ""
+msgstr "צוות %(site_name)s"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:12
 msgid "previous"
@@ -780,7 +780,7 @@ msgstr ""
 
 #: core/templates/template.html:121
 msgid "Close"
-msgstr ""
+msgstr "סגירה"
 
 #: core/templates/template.html:137
 msgid ""
@@ -794,7 +794,7 @@ msgstr ""
 #: core/templates/template.html:190 software/templates/features.html:550
 #: software/templates/tos.html:7
 msgid "Terms of service"
-msgstr ""
+msgstr "תנאי השימוש"
 
 #: core/templates/template_features.html:60 software/templates/features.html:9
 msgid "Features"
@@ -802,11 +802,11 @@ msgstr ""
 
 #: core/templates/user/api_key.html:4 core/templates/user/preferences.html:59
 msgid "API key"
-msgstr ""
+msgstr "מפתח API"
 
 #: core/templates/user/api_key.html:15
 msgid "Your API key"
-msgstr ""
+msgstr "מפתח ה־API שלך"
 
 #: core/templates/user/api_key.html:21
 msgid "You have no API key yet"
@@ -822,17 +822,17 @@ msgstr ""
 
 #: core/templates/user/api_key.html:55 software/templates/features.html:515
 msgid "Documentation"
-msgstr ""
+msgstr "תיעוד"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:62
 msgid "Delete account"
-msgstr ""
+msgstr "מחיקת חשבון"
 
 #: core/templates/user/delete_account.html:9
 #: exercises/templates/history/overview.html:93
 msgid "Are you sure?"
-msgstr ""
+msgstr "לבצע פעולה זו?"
 
 #: core/templates/user/delete_account.html:14
 #, python-format
@@ -845,11 +845,11 @@ msgstr ""
 
 #: core/templates/user/login.html:17
 msgid "No account?"
-msgstr ""
+msgstr "אין חשבון?"
 
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
-msgstr ""
+msgstr "שכחת את הסיסמה?"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -880,7 +880,7 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:13
 #: weight/templates/import_csv_preview.html:42 weight/views.py:54
 msgid "Date"
-msgstr ""
+msgstr "תאריך"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
 #: exercises/models/translation.py:49 gallery/models/image.py:65
@@ -888,7 +888,7 @@ msgstr ""
 #: manager/models/day.py:79 manager/models/routine.py:87
 #: measurements/models/measurement.py:61 nutrition/models/plan.py:65
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #: core/templates/user/overview.html:36
 msgid "Number of logs (days)"
@@ -897,11 +897,11 @@ msgstr ""
 #: core/templates/user/overview.html:37 core/views/user.py:587
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
-msgstr ""
+msgstr "פעילות אחרונה"
 
 #: core/templates/user/overview.html:58
 msgid "No workouts found."
-msgstr ""
+msgstr "לא נמצאו אימונים."
 
 #: core/templates/user/overview.html:68
 msgid "Log"
@@ -914,29 +914,29 @@ msgstr ""
 #: core/templates/user/overview.html:78 core/templates/user/overview.html:390
 #: manager/models/session.py:81
 msgid "Notes"
-msgstr ""
+msgstr "הערות"
 
 #: core/templates/user/overview.html:79
 #: exercises/templates/history/overview.html:30
 msgid "Time"
-msgstr ""
+msgstr "זמן"
 
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:121
 #: manager/helpers.py:89 manager/models/log.py:173 weight/models.py:53
 #: weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:54
 msgid "Weight"
-msgstr ""
+msgstr "משקל"
 
 #: core/templates/user/overview.html:154 nutrition/models/ingredient.py:131
 #: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:245
 msgid "Energy"
-msgstr ""
+msgstr "אנרגיה"
 
 #: core/templates/user/overview.html:155 nutrition/models/ingredient.py:138
 #: nutrition/templates/ingredient/view.html:58 nutrition/views/plan.py:251
 msgid "Protein"
-msgstr ""
+msgstr "חלבונים"
 
 #: core/templates/user/overview.html:156 nutrition/models/ingredient.py:146
 #: nutrition/templates/ingredient/view.html:64 nutrition/views/plan.py:259
@@ -946,12 +946,12 @@ msgstr ""
 #: core/templates/user/overview.html:157 nutrition/models/ingredient.py:164
 #: nutrition/templates/ingredient/view.html:80 nutrition/views/plan.py:273
 msgid "Fat"
-msgstr ""
+msgstr "שומנים"
 
 #: core/templates/user/overview.html:170
 #: nutrition/templates/ingredient/view.html:53
 msgid "kcal"
-msgstr ""
+msgstr "ק׳ קלוריות"
 
 #: core/templates/user/overview.html:201 core/templates/user/overview.html:340
 #: core/templates/user/overview.html:379 core/templates/user/overview.html:418
@@ -962,15 +962,15 @@ msgstr ""
 #: gym/templates/gym/member_list.html:259
 #: gym/templates/gym/member_list.html:299
 msgid "Actions"
-msgstr ""
+msgstr "פעולו"
 
 #: core/templates/user/overview.html:210
 msgid "Deactivate user"
-msgstr ""
+msgstr "נטרול חשבון"
 
 #: core/templates/user/overview.html:214
 msgid "Activate user"
-msgstr ""
+msgstr "הפעלת חשבון"
 
 #: core/templates/user/overview.html:223
 msgid "Reset user password"
@@ -991,16 +991,16 @@ msgstr ""
 #: core/templates/user/overview.html:250
 #: exercises/templates/history/overview.html:106
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: core/templates/user/overview.html:251
 #: exercises/templates/history/overview.html:99
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: core/templates/user/overview.html:272 gym/templates/gym/member_list.html:105
 msgid "Details"
-msgstr ""
+msgstr "פרטים"
 
 #: core/templates/user/overview.html:276 gym/views/export.py:57
 #: manager/helpers.py:89 nutrition/views/plan.py:151
@@ -1012,12 +1012,12 @@ msgstr ""
 #: gym/models/gym.py:50 gym/templates/contract/view.html:75
 #: gym/templates/gym/member_list.html:112 gym/views/export.py:68
 msgid "Phone"
-msgstr ""
+msgstr "טלפון"
 
 #: core/templates/user/overview.html:302 gym/templates/contract/view.html:87
 #: gym/templates/gym/member_list.html:130
 msgid "Address"
-msgstr ""
+msgstr "כתובת"
 
 #: core/templates/user/overview.html:313
 msgid "Registered"
@@ -1025,19 +1025,19 @@ msgstr ""
 
 #: core/templates/user/overview.html:317
 msgid "Last login"
-msgstr ""
+msgstr "כניסה אחרונה"
 
 #: core/templates/user/overview.html:322
 msgid "Status"
-msgstr ""
+msgstr "סטטוס"
 
 #: core/templates/user/overview.html:325
 msgid "Active"
-msgstr ""
+msgstr "פעיל"
 
 #: core/templates/user/overview.html:327
 msgid "Inactive"
-msgstr ""
+msgstr "לא פעיל"
 
 #: core/templates/user/overview.html:348 gym/templates/contract/list.html:4
 #: gym/templates/gym/member_list.html:218
@@ -1072,7 +1072,7 @@ msgstr ""
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
-msgstr ""
+msgstr "העדפות"
 
 #: core/templates/user/preferences.html:19
 msgid "Verified email"
@@ -1924,11 +1924,11 @@ msgstr ""
 
 #: manager/dataclasses.py:124 manager/helpers.py:89
 msgid "Reps"
-msgstr ""
+msgstr "חזרות"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr ""
+msgstr "מנוחה בין סטים"
 
 #: manager/dataclasses.py:165
 msgid "rest"
