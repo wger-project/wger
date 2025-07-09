@@ -105,7 +105,7 @@ msgstr "שמירה"
 
 #: core/forms.py:183
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "משמש לשחזור סיסמה ולתזכורות אופציונליות."
+msgstr "משמש לשחזור הסיסמה ולתזכורות אופציונליות."
 
 #: core/forms.py:212
 msgid "This e-mail address is already in use."
