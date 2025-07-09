@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-07-06 03:47+0000\n"
+"PO-Revision-Date: 2025-07-10 11:01+0000\n"
 "Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
@@ -105,7 +105,7 @@ msgstr "שמירה"
 
 #: core/forms.py:183
 msgid "Used for password resets and, optionally, email reminders."
-msgstr ""
+msgstr "משמש לשחזור סיסמה ולתזכורות אופציונליות."
 
 #: core/forms.py:212
 msgid "This e-mail address is already in use."
@@ -355,7 +355,7 @@ msgstr "יחידת משקל"
 
 #: core/models/profile.py:340
 msgid "Allow external access"
-msgstr ""
+msgstr "לאפשר גישה חיצונית"
 
 #: core/models/profile.py:342
 msgid ""
@@ -448,7 +448,7 @@ msgstr ""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
-msgstr ""
+msgstr "האם למחוק? לא ניתן לבטל פעולה זו."
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verification"
@@ -465,13 +465,13 @@ msgstr ""
 
 #: core/templates/email_verification/email_body_html.tpl:6
 msgid "Email Confirmation"
-msgstr ""
+msgstr "אימות דוא״ל"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
 #, python-format
 msgid "You are almost there, %(username)s!"
-msgstr ""
+msgstr "כמעט שם, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -496,7 +496,7 @@ msgstr ""
 
 #: core/templates/index.html:4 software/templates/features.html:435
 msgid "Dashboard"
-msgstr ""
+msgstr "לוח מחוונים"
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:334
 msgid "Languages"
@@ -612,7 +612,7 @@ msgstr "ניהול"
 
 #: core/templates/navigation.html:106
 msgid "Exercise edit history"
-msgstr ""
+msgstr "היסטוריית עריכת התרגיל"
 
 #: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
