@@ -51,7 +51,7 @@ dependencies = [
     "djangorestframework==3.16.1",
     "djangorestframework-simplejwt[crypto]==5.5.1",
     "drf-spectacular[sidecar]==0.28.0",
-    "easy-thumbnails==2.10",
+    "easy-thumbnails==2.10.1",
     "flower==2.0.1",
     "fontawesomefree~=6.6.0",
     "icalendar==6.3.1",
@@ -61,19 +61,20 @@ dependencies = [
     "pillow==11.3.0",
     "psycopg==3.2.9",
     "reportlab==4.4.3",
-    "requests==2.32.4",
+    "requests==2.32.5",
     "tqdm==4.67.1",
     "tzdata==2025.2",
 ]
 
 [dependency-groups]
 dev = [
-    "coverage==7.10.3",
+    "coverage==7.10.4",
     "django-debug-toolbar==6.0.0",
     "django-extensions==4.1",
     "faker==37.5.3",
+    "hatchling==1.27.0",
     "isort==6.0.1",
-    "ruff==0.12.8",
+    "ruff==0.12.9",
     "tblib==3.1.0",
     "wheel==0.45.1",
 ]
