@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2024-04-05 23:01+0000\n"
-"Last-Translator: Federico Pierantoni <federico.pieranton@gmail.com>\n"
+"PO-Revision-Date: 2025-08-26 06:02+0000\n"
+"Last-Translator: clafalco <claudio.falco1973@libero.it>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -191,10 +191,8 @@ msgid "Language full name"
 msgstr "Nome completo Lingua"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Nome completo Lingua"
+msgstr "Nome completo della lingua in ingleseNome completo Lingua"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -728,7 +726,7 @@ msgstr "Informazioni su questo software"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Sostieni e partecipa"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -2046,10 +2044,8 @@ msgid "Order"
 msgstr "Ordine"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Professione"
+msgstr "Sessione"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2268,7 +2264,7 @@ msgstr "Grassi saturi contenuti nei grassi"
 #: nutrition/models/ingredient.py:184
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Fibra"
 
 #: nutrition/models/ingredient.py:194
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
@@ -2563,6 +2559,10 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"Wger ti aiuta a monitorare i tuoi allenamenti, gestire la tua alimentazione "
+"e raggiungere i tuoi obiettivi di fitness. Lo offriamo come software "
+"gratuito e open source che puoi ospitare tu stesso, e forniamo anche una "
+"comoda versione gratuita e ospitata per un facile accesso."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
@@ -2576,16 +2576,20 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"Wger si basa sui principi dell'open source. Il suo codice è disponibile al "
+"pubblico, sviluppato dalla nostra community, garantendo trasparenza e "
+"dandoti il controllo sui tuoi dati (soprattutto se in modalità self-hosting)"
+". Il servizio di hosting gratuito si basa interamente su questa base open "
+"source. Crediamo che strumenti di fitness efficaci debbano essere "
+"accessibili a tutti."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Come puoi aiutare"
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "Community"
+msgstr "Unisciti alla comunità"
 
 #: software/templates/about_us.html:46
 #, fuzzy
@@ -2598,32 +2602,33 @@ msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Collegati al server Discord per chattare con gli sviluppatori e altri "
+"utenti, porre domande o discutere di nuove funzionalità."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Ricevi notizie, aggiornamenti e annunci sul progetto su Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Spargi la voce: dillo ai tuoi amici, ai tuoi compagni di palestra o "
+"condividilo sui social media! Il tuo entusiasmo ci aiuta a crescere e a "
+"raggiungere più persone."
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute"
 msgid "Contribute your skills"
-msgstr "Contribuisci"
+msgstr "Contribuisci con le tue competenze"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Segnala bug o suggerisci funzionalità"
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "Hai un problema o un'idea?"
+msgstr "Hai un problema o un'idea? Faccelo sapere!"
 
 #: software/templates/about_us.html:81
 #, fuzzy
@@ -2633,7 +2638,7 @@ msgstr "Invia esercizi"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Contribuisci con nuovi esercizi e modifica o traduci quelli esistenti."
 
 #: software/templates/about_us.html:85
 #, fuzzy
@@ -2645,6 +2650,8 @@ msgstr "Traduci con Transifex"
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Contribuisci a rendere l'app accessibile in più lingue per gli utenti di "
+"tutto il mondo."
 
 #: software/templates/about_us.html:89
 #, fuzzy
@@ -2655,10 +2662,12 @@ msgstr "Documentazione dello sviluppatore"
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
 msgstr ""
+"Dai un'occhiata al codice sorgente e aiutaci a realizzare la prossima "
+"versione."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Fai una donazione"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2669,6 +2678,13 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Sebbene il progetto sia gratuito e lo rimarrà per sempre, la gestione del "
+"server non lo è! Fornire la versione ospitata di wger comporta costi reali e "
+"costanti per l'hosting del server, la larghezza di banda, i backup, ecc. Lo "
+"sviluppo richiede anche molto tempo e impegno da parte dei volontari. Il tuo "
+"contributo contribuisce direttamente a sostenere questi costi essenziali, "
+"contribuendo a mantenere il servizio affidabile, in continuo miglioramento e "
+"gratuito per tutti."
 
 #: software/templates/about_us.html:135
 #, fuzzy
@@ -2678,13 +2694,15 @@ msgstr "stelle <br> su GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Grazie!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Grazie per far parte della community! Apprezziamo il tuo utilizzo, il tuo "
+"feedback e qualsiasi supporto tu possa offrirci."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
