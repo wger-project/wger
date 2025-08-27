@@ -12,13 +12,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jquery@npm:^2.0.32":
-  version: 2.0.54
-  resolution: "@types/jquery@npm:2.0.54"
-  checksum: 10c0/8fc70e33a313c50224cd929a428c728a6f700cc5ec66dec5028d817f0c34ba8388d472f1bc0fb07f424c8c67314a8d8d19dfbc96b24cde0e317b59a0ab67ca0c
-  languageName: node
-  linkType: hard
-
 "bootstrap@npm:5.3.8":
   version: 5.3.8
   resolution: "bootstrap@npm:5.3.8"
@@ -61,13 +54,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devbridge-autocomplete@npm:^1.4.11":
-  version: 1.4.11
-  resolution: "devbridge-autocomplete@npm:1.4.11"
-  dependencies:
-    "@types/jquery": "npm:^2.0.32"
-    jquery: "npm:>=1.7"
-  checksum: 10c0/2ec2d14d9060ca58d54b13b5582c3c87ede9d527c7f3b17e76f6492a35ef5cc66318b748cf8111839a7690a2e612f6c42667c2e8c72ab7129fc679ec3e74ed00
+"devbridge-autocomplete@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "devbridge-autocomplete@npm:1.5.0"
+  peerDependencies:
+    jquery: ">=1.9"
+  checksum: 10c0/c675e0ede93df2a3f78e1229c8608f75dc28b540b267d8aeaf299a618bcbb376946b8dd8b7e253c0eea2cf2f32003ffd5d7bf6fe9432d627e582d6144e38669e
   languageName: node
   linkType: hard
 
@@ -144,7 +136,7 @@ __metadata:
     bootstrap: "npm:5.3.8"
     components-font-awesome: "npm:5.9.0"
     datatables.net-bs5: "npm:^2.3.3"
-    devbridge-autocomplete: "npm:^1.4.11"
+    devbridge-autocomplete: "npm:^1.5.0"
     htmx.org: "npm:^2.0.5"
     jquery: "npm:^3.7.1"
     masonry-layout: "npm:^4.2.2"
