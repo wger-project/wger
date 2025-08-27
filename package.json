@@ -15,7 +15,7 @@
     "components-font-awesome": "5.9.0",
     "datatables.net-bs5": "^2.3.3",
     "devbridge-autocomplete": "^1.4.11",
-    "htmx.org": "^2.0.5",
+    "htmx.org": "^2.0.6",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
     "popper.js": "^1.16.1"
