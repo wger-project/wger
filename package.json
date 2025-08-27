@@ -11,7 +11,7 @@
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "5.3.7",
+    "bootstrap": "5.3.8",
     "components-font-awesome": "5.9.0",
     "datatables.net-bs5": "^2.3.3",
     "devbridge-autocomplete": "^1.4.11",
