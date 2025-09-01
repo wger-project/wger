@@ -142,6 +142,12 @@ class UserPreferencesForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserPreferencesForm, self).__init__(*args, **kwargs)
+
+        hattrs = self.fields['height'].widget.attrs
+        hattrs.setdefault('type', 'number')
+        hattrs.setdefault('step', '1')
+        hattrs['min'] = '0'
+
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
