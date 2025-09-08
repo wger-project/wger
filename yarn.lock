@@ -94,10 +94,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmx.org@npm:^2.0.6":
-  version: 2.0.6
-  resolution: "htmx.org@npm:2.0.6"
-  checksum: 10c0/df344f4d23f265b56bcd8ffa07e6feeae89c7efe5d773ca17a857f54388f5b30b52d5b0fda6ff4c89a994b149e7a77c8bcbc88bf9bd0b4b977b4fa641ba3c89b
+"htmx.org@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "htmx.org@npm:2.0.7"
+  checksum: 10c0/3b97e78cd28619574f34ab58d92aae201219cc02826292c535711c17768b7d9f05a4107192ea575651bc60d95a32afa084520d416696b4402beb95dfa715ac16
   languageName: node
   linkType: hard
 
@@ -145,7 +145,7 @@ __metadata:
     components-font-awesome: "npm:5.9.0"
     datatables.net-bs5: "npm:^2.3.3"
     devbridge-autocomplete: "npm:^1.4.11"
-    htmx.org: "npm:^2.0.6"
+    htmx.org: "npm:^2.0.7"
     jquery: "npm:^3.7.1"
     masonry-layout: "npm:^4.2.2"
     popper.js: "npm:^1.16.1"
