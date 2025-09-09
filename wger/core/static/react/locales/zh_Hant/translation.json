@@ -140,7 +140,9 @@
         "valueTooLong": "數值過長",
         "valueTooShort": "數值過短",
         "supportedImageFormats": "僅支援 20Mb 以下的 JPEG、PNG 和 WEBP 文件",
-        "maxValue": "此欄位的值必須小於 {{value}}"
+        "maxValue": "此欄位的值必須小於 {{value}}",
+        "enterNumber": "請輸入有效數字",
+        "maxLessThanMin": "最大值必須大於最小值"
     },
     "save": "儲存",
     "videos": "影片",
@@ -156,7 +158,8 @@
         "addLogToDay": "增加這天日誌",
         "addWeightLog": "增加訓練日誌",
         "routine": "常規項目",
-        "routines": "常規項目"
+        "routines": "常規項目",
+        "restTime": "休息時間"
     },
     "server": {
         "arms": "手臂",
@@ -236,5 +239,8 @@
     "lastHalfYear": "過去六個月",
     "calendar": "日曆",
     "entries": "項目",
-    "no_entries_for_day": "本日無紀錄"
+    "no_entries_for_day": "本日無紀錄",
+    "comment": "註解",
+    "editName": "編輯 {{name}}",
+    "successfullyDeleted": "刪除成功"
 }

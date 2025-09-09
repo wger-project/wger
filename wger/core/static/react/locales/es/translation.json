@@ -324,7 +324,7 @@
     "end": "Fin",
     "comment": "Comentar",
     "min": "Min",
-    "max": "Max",
+    "max": "Máximo",
     "durationWeeks": "{{number}} semanas",
     "durationWeeksDays": "{{nrWeeks}} semanas, {{nrDays}} días",
     "undo": "Deshacer",
