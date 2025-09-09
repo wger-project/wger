@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-08-26 06:02+0000\n"
-"Last-Translator: clafalco <claudio.falco1973@libero.it>\n"
+"PO-Revision-Date: 2025-09-10 09:02+0000\n"
+"Last-Translator: Luca Galli <lucagalli05@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -458,20 +458,13 @@ msgstr ""
 "elencati di seguito:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Stai\n"
-"                visitando il sito come «%(current_user)s», tutte le azioni "
-"sono memorizzate per questo utente.\n"
-"            "
+"Stai visitando il sito come \"%(current_user)s\", tutte le azioni sono "
+"effettuate sui suoi dati."
 
 #: core/templates/base.html:15
 #, python-format
@@ -479,12 +472,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Ritorna a «%(target)s»"
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -492,18 +480,16 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Stai\n"
-"                visitando il sito come «%(current_user)s», tutte le azioni "
-"sono memorizzate per questo utente.\n"
+"Stai visitando il sito come \"%(current_user)s\", tutte le azioni sono "
+"effettuate sui suoi dati.\n"
 "            "
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "Ritorna a «%(target)s»"
+msgstr "Ritorna a \"%(target)s\""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -634,7 +620,7 @@ msgstr "Allenamento"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Programmi"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -2022,21 +2008,19 @@ msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "pausa"
 
 #: manager/helpers.py:80
 msgid "Rest day"
 msgstr "Giorno di riposo"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "L'allenamento scadrà presto"
+msgstr "Il programma scadrà presto"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Programma"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2128,19 +2112,14 @@ msgid "Exercise day"
 msgstr "Giorno di allenamento"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Il tuo attuale allenamento '%(workout)s' è scaduto %(days)s giorni fa."
+msgstr "Il tuo attuale allenamento %(routine)s è scaduto %(days)s giorni fa."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr ""
-"Il tuo attuale allenamento '%(workout)s' è in procinto di scadere in "
-"%(days)s giorni."
+msgstr "Il tuo attuale allenamento '%(routine)s' scadrà tra %(days)s giorni."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2566,7 +2545,7 @@ msgstr ""
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Open Source & uso gratuito ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2592,10 +2571,8 @@ msgid "Join the Community"
 msgstr "Unisciti alla comunità"
 
 #: software/templates/about_us.html:46
-#, fuzzy
-#| msgid "Go to the discord server"
 msgid "Join the Discord server"
-msgstr "Vai al canale Discord"
+msgstr "Unisciti al canale Discord"
 
 #: software/templates/about_us.html:47
 msgid ""
@@ -2631,20 +2608,16 @@ msgid "Have a problem or idea? Let us know!"
 msgstr "Hai un problema o un'idea? Faccelo sapere!"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Invia esercizi"
+msgstr "Migliora esercizi"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr "Contribuisci con nuovi esercizi e modifica o traduci quelli esistenti."
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Traduci con Transifex"
+msgstr "Traduci l'applicazione"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2654,10 +2627,8 @@ msgstr ""
 "tutto il mondo."
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Documentazione dello sviluppatore"
+msgstr "Contribuisci al codice o documentazione"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
@@ -2687,10 +2658,8 @@ msgstr ""
 "gratuito per tutti."
 
 #: software/templates/about_us.html:135
-#, fuzzy
-#| msgid "stars <br> on GitHub"
 msgid "Sponsor on GitHub"
-msgstr "stelle <br> su GitHub"
+msgstr "Supporta su GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
@@ -2709,21 +2678,14 @@ msgid "Our goal"
 msgstr "Il nostro obbiettivo"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"L'obiettivo è costruire un fantastico\n"
-"                e flessibile gestore di fitness, insieme a un elenco "
-"comprensivo e completo di esercizi e\n"
-"                ingredienti, tutti rilasciati sotto una licenza gratuita."
+"L'obiettivo è di costruire un fantastico e flessibile gestore di fitness, "
+"insieme a un elenco comprensivo e completo di esercizi e ingredienti, tutti "
+"rilasciati sotto una licenza gratuita."
 
 #: software/templates/features.html:11
 msgid ""
