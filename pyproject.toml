@@ -31,7 +31,7 @@ dependencies = [
     "bleach[css]~=6.2",
     "celery[redis]==5.5.3",
     "crispy-bootstrap5==2025.6",
-    "django==5.2.5",
+    "django==5.2.6",
     "django-activity-stream==2.0.0",
     "django-axes[ipware]==8.0.0",
     "django-bootstrap-breadcrumbs2==1.0.0",
