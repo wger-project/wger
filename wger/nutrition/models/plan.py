@@ -60,6 +60,7 @@ class NutritionPlan(models.Model):
 
     start = models.DateField(
         _('Start date'),
+        default=datetime.date.today,
     )
 
     end = models.DateField(
