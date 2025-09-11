@@ -16,7 +16,6 @@
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
-
 # Third Party
 from rest_framework import serializers
 
@@ -262,42 +261,6 @@ class MuscleSerializer(serializers.ModelSerializer):
             'image_url_main',
             'image_url_secondary',
         ]
-
-
-class TranslationSerializer(serializers.ModelSerializer):
-    """
-    Translation serializer
-
-    The fields from the new ExerciseBase are retrieved here as to retain
-    compatibility with the old model where all the fields where in Exercise.
-    """
-
-    category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
-    muscles = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
-    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
-    equipment = serializers.PrimaryKeyRelatedField(many=True, queryset=Equipment.objects.all())
-    variations = serializers.PrimaryKeyRelatedField(many=True, queryset=Variation.objects.all())
-    author_history = serializers.ListSerializer(child=serializers.CharField())
-
-    class Meta:
-        model = Translation
-        fields = (
-            'id',
-            'uuid',
-            'name',
-            'exercise',
-            'description',
-            'created',
-            'category',
-            'muscles',
-            'muscles_secondary',
-            'equipment',
-            'language',
-            'license',
-            'license_author',
-            'variations',
-            'author_history',
-        )
 
 
 class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):

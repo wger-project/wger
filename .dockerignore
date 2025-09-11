@@ -1,17 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+.dockerignore
+
+# Python
+__pycache__/
+*.pyo
+*.pyd
 .venv
 venv
-node_modules
 *.sqlite3
-**/__pycache__
 *.egg-info
+
+# IDE / OS specific
+.idea/
+.vscode/
+*.swp
+.DS_Store
 
 # Other files and folders
 /coverage.lcov
 /media/
 /static/
 /db/
-/extras/docker/open-food-facts/dump/*.tar.gz
-/extras/docker/open-food-facts/dump/off/*
+/extras/open-food-facts/dump/
 /extras/authors/commits_cache/
 /extras/authors/*.md
 /extras/scripts/*.json

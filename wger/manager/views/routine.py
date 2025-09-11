@@ -101,7 +101,7 @@ def copy_routine(request, pk):
                 copy_config(current_entry.restconfig_set.all(), slot_entry_copy)
                 copy_config(current_entry.maxrestconfig_set.all(), slot_entry_copy)
 
-                copy_config(current_entry.maxrestconfig_set.all(), slot_entry_copy)
                 copy_config(current_entry.setsconfig_set.all(), slot_entry_copy)
+                copy_config(current_entry.maxsetsconfig_set.all(), slot_entry_copy)
 
     return HttpResponseRedirect(routine_copy.get_absolute_url())

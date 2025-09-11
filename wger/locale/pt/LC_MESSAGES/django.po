@@ -455,8 +455,7 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Você está\n"
-"                navegando no site como o utilizador \"%(current_user)\", "
+"Você está navegando no site como o utilizador \"%(current_user)s\", "
 "todas as ações são realizadas nos dados dele(a)."
 
 #: core/templates/base.html:15

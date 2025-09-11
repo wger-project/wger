@@ -101,8 +101,8 @@
                     <picture>
                         <source srcset="{% static 'images/hero.avif' %}" type="image/avif">
                         <img src="{% static 'images/hero.png' %}"
-                            alt="a man with a dumbbell"
-                            class="header-hero-image">
+                             alt="a man with a dumbbell"
+                             class="header-hero-image">
                     </picture>
                 </div>
                 <div class="col-lg-3 col-sm-5 col-11 d-flex py-3 flex-column align-items-start">
@@ -161,9 +161,9 @@
                         <picture>
                             <source srcset="{% static 'images/screens-1.avif' %}" type="image/avif">
                             <img src="{% static 'images/screens-1.png' %}"
-                                alt="mobile screen showing wger feature"
-                                class="img-fluid"
-                                loading="lazy">
+                                 alt="mobile screen showing wger feature"
+                                 class="img-fluid"
+                                 loading="lazy">
                         </picture>
                     </div>
 
@@ -200,9 +200,9 @@
                         <picture>
                             <source srcset="{% static 'images/screens-2.avif' %}" type="image/avif">
                             <img src="{% static 'images/screens-2.png' %}"
-                                alt="mobile screen showing wger feature"
-                                class="img-fluid"
-                                loading="lazy">
+                                 alt="mobile screen showing wger feature"
+                                 class="img-fluid"
+                                 loading="lazy">
                         </picture>
                     </div>
                     <div
@@ -240,9 +240,9 @@
                         <picture>
                             <source srcset="{% static 'images/screens-3.avif' %}" type="image/avif">
                             <img src="{% static 'images/screens-3.png' %}"
-                                alt="mobile screen showing wger feature"
-                                class="img-fluid"
-                                loading="lazy">
+                                 alt="mobile screen showing wger feature"
+                                 class="img-fluid"
+                                 loading="lazy">
                         </picture>
                     </div>
                     <div
@@ -344,22 +344,22 @@
 
         <!-- sign up section -->
         {% if allow_registration %}
-        <section class="main-section">
-            <div class="container d-flex align-items-center justify-content-center sign-up-bg">
-                <!-- form -->
-                <form method="post"
-                    action="{% url 'core:user:registration' %}"
-                    class="row justify-content-center">
-                    {% csrf_token %}
-                    <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
-                        {% translate "Sign Up Now For Free" %}
-                    </h3>
-                    <div class="col-lg-5 col-sm-10 col-12">
-                        {% crispy form %}
-                    </div>
-                </form>
-            </div>
-        </section>
+            <section class="main-section">
+                <div class="container d-flex align-items-center justify-content-center sign-up-bg">
+                    <!-- form -->
+                    <form method="post"
+                          action="{% url 'core:user:registration' %}"
+                          class="row justify-content-center">
+                        {% csrf_token %}
+                        <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
+                            {% translate "Sign Up Now For Free" %}
+                        </h3>
+                        <div class="col-lg-5 col-sm-10 col-12">
+                            {% crispy form %}
+                        </div>
+                    </form>
+                </div>
+            </section>
         {% endif %}
 
         <!-- not enough section  -->
@@ -437,11 +437,11 @@
                             <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
                         </li>
                         {% if allow_registration %}
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
-                            <a href="{% url 'core:user:registration' %}">
-                                {% translate "Register" %}
-                            </a>
-                        </li>
+                            <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
+                                <a href="{% url 'core:user:registration' %}">
+                                    {% translate "Register" %}
+                                </a>
+                            </li>
                         {% endif %}
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:login' %}">
@@ -629,7 +629,7 @@
                 </a>
                 <a href="https://f-droid.org/de/packages/de.wger.flutter/">
                     <img
-                        src="{% static 'images/logos/fdroid/get-it-on.png' %}"
+                        src="{% static 'images/logos/fdroid/get-it-on.svg' %}"
                         alt="fdroid logo"
                         height="55"
                     />

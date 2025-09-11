@@ -56,7 +56,8 @@
         "imageStyleLowPoly": "Basso numero di poligoni",
         "imageStyleOther": "Altro",
         "imageDetails": "Dettagli immagine",
-        "imageStyleLine": "Linea"
+        "imageStyleLine": "Linea",
+        "swapExercise": "Esercizio di scambio"
     },
     "noResults": "Nessun risultato",
     "noResultsDescription": "Nessun risultato trovato. Prova a ridurre i termini di ricerca.",
@@ -190,7 +191,8 @@
         "valueTooShort": "Il valore è troppo corto",
         "maxLength": "Per favore inserisci meno di {{chars}} caratteri",
         "maxValue": "Il valore di questo campo deve essere minore di {{value}}",
-        "minValue": "Il valore di questo campo deve essere maggiore di {{value}}"
+        "minValue": "Il valore di questo campo deve essere maggiore di {{value}}",
+        "enterNumber": "Inserisci un numero valido"
     },
     "goBack": "Indietro",
     "licenses": {
@@ -210,7 +212,50 @@
         "addLogToDay": "Aggiungi registro a questo giorno",
         "logsFilterNote": "Tieni presente che vengono tracciate solo le voci con un'unità di peso di kg o lb e le ripetizioni, altre combinazioni come il tempo o fino allo cedimento qui vengono ignorate",
         "logsHeader": "Registro di allenamento per l'allenamento",
-        "addWeightLog": "Aggiungi registro di allenamento"
+        "addWeightLog": "Aggiungi registro di allenamento",
+        "iteration": "Iterazione",
+        "weekly": "Settimanale",
+        "daily": "Quotidiano",
+        "restTime": "Tempo di riposo",
+        "deleteDayConfirmation": "Questo rimuoverà tutti i set, gli esercizi e le regole di progressione",
+        "routineHasNoDays": "La routine non ha giorni",
+        "setHasNoExercises": "Questo set non ha esercizi",
+        "fitDaysInWeek": "Giorni in forma nella settimana",
+        "fitDaysInWeekHelpText": "Questa impostazione controlla la programmazione dei giorni della tua routine su più settimane. Se abilitata, i giorni si ripeteranno in un ciclo settimanale. Ad esempio, una routine con allenamenti il lunedì, mercoledì e venerdì continuerà con questo schema il lunedì, mercoledì e venerdì successivi. Se disabilitata, i giorni si susseguiranno in sequenza, indipendentemente dall'inizio di una nuova settimana. Questa opzione è utile per le routine che non seguono un programma settimanale rigido.",
+        "needsLogsToAdvance": "Ha bisogno di registri per avanzare",
+        "needsLogsToAdvanceHelpText": "Se selezioni questa opzione, la routine passerà al giorno successivo programmato solo se hai registrato un allenamento per il giorno corrente. Se questa opzione non è selezionata, la routine passerà automaticamente al giorno successivo, indipendentemente dal fatto che tu abbia registrato o meno un allenamento.",
+        "simpleMode": "Modalità semplice",
+        "workoutSession": "Sessione di allenamento",
+        "restDay": "Giorno di riposo",
+        "confirmRestDay": "Conferma la modifica del giorno di riposo",
+        "confirmRestDayHelpText": "Tieni presente che tutte le serie e gli esercizi verranno rimossi quando contrassegni un giorno come giorno di riposo.",
+        "duplicate": "Routine duplicata",
+        "downloadPdfTable": "Scarica PDF (tabella)",
+        "downloadPdfLogs": "Scarica PDF (registri)",
+        "downloadIcal": "Scarica il file iCal",
+        "impression": "Impressione generale",
+        "impressionGood": "Bene",
+        "impressionNeutral": "Neutro",
+        "impressionBad": "Male",
+        "impressionHelpText": "Questo modulo registra i risultati del tuo allenamento (ripetizioni, peso, ecc.) per ogni esercizio. Le modifiche apportate qui, come la rimozione o lo scambio di esercizi, influiscono solo sui registri specifici salvati e non modificano la routine complessiva. Vengono salvate solo le righe con i valori relativi al peso o alle ripetizioni.",
+        "addAdditionalLog": "Aggiungi ulteriore registro",
+        "operation": "Operazione",
+        "requirements": "Requisiti",
+        "requirementsHelpText": "Seleziona i risultati dell'allenamento (dai registri precedenti) che devono essere soddisfatti affinché questa regola abbia effetto",
+        "repeatHelpText": "Seleziona la casella di controllo se desideri che questa regola continui ad applicarsi agli allenamenti successivi finché non ne definisci una nuova",
+        "template": "Modello",
+        "templates": "Modelli",
+        "publicTemplate": "Modello pubblico",
+        "publicTemplates": "Modelli pubblici",
+        "templatesHelpText": "I modelli sono un modo per salvare la routine per un utilizzo futuro e come punto di partenza per altre routine. Non è possibile modificare i modelli, ma è possibile duplicarli e apportare modifiche alla copia (oltre a riconvertirli in una routine normale, ovviamente).",
+        "publicTemplateHelpText": "I modelli pubblici sono disponibili a tutti gli utenti.",
+        "copyAndUseTemplate": "Copia e utilizza il modello",
+        "set": {
+            "type": "Tipo",
+            "normalSet": "Set normale",
+            "dropSet": "Set di rilascio",
+            "partial": "Parziale"
+        }
     },
     "measurements": {
         "deleteInfo": "Ciò eliminerà la categoria e tutte le sue voci",
@@ -233,5 +278,14 @@
     "lastWeek": "Ultima settimana",
     "start": "Inizia",
     "end": "Fine",
-    "editName": "Modifica {{name}}"
+    "editName": "Modifica {{name}}",
+    "comment": "Comment",
+    "filters": "Filtri",
+    "bmi": {
+        "calculator": "Calcolatore Bmi",
+        "overweight": "Overweight",
+        "obese": "Obeso",
+        "normal": "Peso normale",
+        "underweight": "Sottopeso"
+    }
 }
