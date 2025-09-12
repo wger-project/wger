@@ -31,7 +31,6 @@ from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -57,6 +56,17 @@ class NutritionPlan(models.Model):
     creation_date = models.DateField(
         _('Creation date'),
         auto_now_add=True,
+    )
+
+    start = models.DateField(
+        _('Start date'),
+        default=datetime.date.today,
+    )
+
+    end = models.DateField(
+        _('End date'),
+        null=True,
+        blank=True,
     )
 
     description = models.CharField(
