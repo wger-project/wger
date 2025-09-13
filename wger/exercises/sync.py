@@ -15,13 +15,12 @@
 # Standard Library
 import os
 
+# Third Party
+import requests
 # Django
 from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-
-# Third Party
-import requests
 
 # wger
 from wger.core.api.endpoints import (
@@ -296,7 +295,6 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
-
         def print_fn(_):
             return None
 
@@ -312,7 +310,6 @@ def handle_deleted_entries(
 
         if model_type == DeletionLog.MODEL_EXERCISE:
             obj_replaced = None
-            nr_settings = None
             nr_slot_entries = None
             nr_logs = None
             try:
@@ -333,8 +330,6 @@ def handle_deleted_entries(
 
                 obj.delete()
                 print_fn(f'Deleted exercise {uuid}')
-                if nr_settings:
-                    print_fn(f'- replaced in {nr_settings} in workouts with {replaced_by_uuid}')
                 if nr_slot_entries:
                     print_fn(f'- replaced in {nr_slot_entries} routines with {replaced_by_uuid}')
                 if nr_logs:
