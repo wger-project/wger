@@ -35,6 +35,7 @@ from wger.manager.models import (
     SlotEntry,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

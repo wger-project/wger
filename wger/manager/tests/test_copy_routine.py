@@ -11,8 +11,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-import datetime
 # Standard Library
+import datetime
 import logging
 
 # Django
@@ -21,6 +21,7 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import Routine
+
 
 logger = logging.getLogger(__name__)
 
