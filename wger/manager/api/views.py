@@ -19,7 +19,6 @@
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
-
 # Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -165,7 +164,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
     @action(detail=True)
     def structure(self, request, pk):
         """
-        Return full object structure of the routine.
+        Return the full object structure of the routine.
         """
         cache_key = CacheKeyMapper.routine_api_structure_key(pk)
         cached_data = cache.get(cache_key)

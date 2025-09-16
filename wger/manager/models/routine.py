@@ -52,7 +52,6 @@ from wger.manager.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -160,6 +159,10 @@ class Routine(models.Model):
             self.is_public = False
 
         super().save(*args, **kwargs)
+
+    @property
+    def duration(self) -> datetime.timedelta:
+        return self.end - self.start
 
     @property
     def label_dict(self) -> dict[datetime.date, str]:

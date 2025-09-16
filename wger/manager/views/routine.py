@@ -16,6 +16,7 @@
 
 # Standard Library
 import copy
+import datetime
 import logging
 from typing import List
 
@@ -33,7 +34,6 @@ from wger.manager.models import (
     Routine,
     SlotEntry,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -63,9 +63,15 @@ def copy_routine(request, pk):
     # Copy workout
     routine_copy: Routine = copy.copy(routine)
     routine_copy.pk = None
+    routine_copy.created = None
     routine_copy.user = request.user
     routine_copy.is_template = False
     routine_copy.is_public = False
+
+    # Update the start and end date
+    routine_copy.start = datetime.date.today()
+    routine_copy.end = routine_copy.start + routine.duration
+
     routine_copy.save()
 
     # Copy the days
