@@ -71,7 +71,7 @@ dev = [
     "coverage==7.10.6",
     "django-debug-toolbar==6.0.0",
     "django-extensions==4.1",
-    "faker==37.6.0",
+    "faker==37.8.0",
     "hatchling==1.27.0",
     "isort==6.0.1",
     "ruff==0.13.0",
