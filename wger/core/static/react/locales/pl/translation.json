@@ -56,7 +56,8 @@
         "imageStyleLine": "Linia",
         "imageStyleLowPoly": "Low-Poly",
         "imageStyleOther": "Inne",
-        "replacementsInfoText": "Opcjonalnie, możesz również wybrać ćwiczenie, które ma zamienić obecne (np. ponieważ zostało przesłane podwójnie lub w podobnych sytuacjach). Sprawi to, że zamiast usuwania nieaktualnego ćwiczenia, w jego miejsce, zarówno w planach jak i w dzienniku treningowym. Te zmiany wpłyną również na każdą instancję, która synchronizuje zamieniane ćwiczenia z tej instancji."
+        "replacementsInfoText": "Opcjonalnie, możesz również wybrać ćwiczenie, które ma zamienić obecne (np. ponieważ zostało przesłane podwójnie lub w podobnych sytuacjach). Sprawi to, że zamiast usuwania nieaktualnego ćwiczenia, w jego miejsce, zarówno w planach jak i w dzienniku treningowym. Te zmiany wpłyną również na każdą instancję, która synchronizuje zamieniane ćwiczenia z tej instancji.",
+        "swapExercise": "Zamień ćwiczenie"
     },
     "noResults": "Brak wyników",
     "noResultsDescription": "Nie znaleziono wyników dla tego zapytania, rozważ zmniejszenie liczby filtrów.",
@@ -122,7 +123,10 @@
         "minLength": "Wprowadź więcej niż {{chars}} znaków",
         "maxLength": "Wprowadź mniej niż {{chars}} znaków",
         "maxValue": "Wartość w tym polu nie może być mniejsza niż {{value}}",
-        "minValue": "Wartość w tym polu nie może być większa niż {{value}}"
+        "minValue": "Wartość w tym polu nie może być większa niż {{value}}",
+        "enterNumber": "Proszę wprowadzić poprawny numer",
+        "enterInteger": "Wprowadź liczbę całkowitą",
+        "maxLessThanMin": "Wartość maksymalna musi być większa niż minimalna"
     },
     "category": "Kategoria",
     "English": "Angielski",
@@ -251,5 +255,7 @@
     "successfullyDeleted": "Usunięto",
     "editName": "Edytować {{name}}",
     "min": "Min",
-    "max": "Max"
+    "max": "Max",
+    "start": "Uruchom",
+    "end": "Koniec"
 }

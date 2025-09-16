@@ -173,7 +173,8 @@
         "gramShort": "g",
         "searchIngredientName": "Cerca per nome dell'ingrediente",
         "sodium": "Sodio",
-        "pseudoMealTitle": "Altri registri"
+        "pseudoMealTitle": "Altri registri",
+        "goalFiber": "Obiettivo fibre"
     },
     "images": "Immagini",
     "downloadAsPdf": "Scarica come PDF",
@@ -192,7 +193,10 @@
         "maxLength": "Per favore inserisci meno di {{chars}} caratteri",
         "maxValue": "Il valore di questo campo deve essere minore di {{value}}",
         "minValue": "Il valore di questo campo deve essere maggiore di {{value}}",
-        "enterNumber": "Inserisci un numero valido"
+        "enterNumber": "Inserisci un numero valido",
+        "enterInteger": "Inserisci un numero intero",
+        "maxLessThanMin": "Il valore massimo deve essere più grande del minimo",
+        "endBeforeStart": "Il valore finale non può precedere quello iniziale"
     },
     "goBack": "Indietro",
     "licenses": {
@@ -254,8 +258,42 @@
             "type": "Tipo",
             "normalSet": "Set normale",
             "dropSet": "Set di rilascio",
-            "partial": "Parziale"
-        }
+            "partial": "Parziale",
+            "myo": "Serie MYO",
+            "forced": "Forzato",
+            "tut": "Tempo sotto tensione",
+            "iso": "Isometrico",
+            "jump": "Salto"
+        },
+        "sets": "Serie",
+        "reps": "Ripetizioni",
+        "volume": "Volume",
+        "intensity": "Intensità",
+        "currentRoutine": "Programma attuale",
+        "workoutNr": "Allenamento Nr. {{number}}",
+        "weekNr": "Settimana {{number}}",
+        "backToRoutine": "Torna al programma",
+        "minLengthRoutine": "Il programma deve durare almeno {{number}} settimane",
+        "maxLengthRoutine": "Il programma può durare massimo {{number}} settimane",
+        "addSuperset": "Aggiungi serie combinata",
+        "addExercise": "Aggiungi esercizio",
+        "exerciseNr": "Esercizio {{number}}",
+        "supersetNr": "Serie combinata {{number}}",
+        "editProgression": "Modifica avanzamento",
+        "progressionNeedsReplace": "Una delle voci precedenti deve avere un'operazione di sostituzione",
+        "exerciseHasProgression": "Questo esercizio ha regole di progressione e non può essere modificato qui. Per farlo, clicca il bottone.",
+        "defaultRounding": "Arrotondamento predefinito",
+        "rounding": "Arrotondamento (per questo esercizio)",
+        "roundingHelp": "Imposta l'arrotondamento predefinito per peso e ripetizioni (particolarmente utile quando si utilizza l’aumento percentuale nella progressione). Verrà applicato a tutte le nuove serie, ma potrà essere modificato singolarmente nel modulo della progressione. Lascia vuoto per disattivare l'arrotondamento.",
+        "newDay": "Nuovo giorno",
+        "weightLogNotPlanned": "Salvataggio dei log in una data senza allenamenti programmati.",
+        "logsOverview": "Panoramica dei log",
+        "alsoShowLogs": "Mostra anche logs",
+        "statsOverview": "Statistiche",
+        "step": "Fase",
+        "repeat": "Impostazione di ripetizione",
+        "markAsTemplate": "Gestisci template",
+        "resultingRoutine": "Risultato routine"
     },
     "measurements": {
         "deleteInfo": "Ciò eliminerà la categoria e tutte le sue voci",
@@ -279,13 +317,20 @@
     "start": "Inizia",
     "end": "Fine",
     "editName": "Modifica {{name}}",
-    "comment": "Comment",
+    "comment": "Commento",
     "filters": "Filtri",
     "bmi": {
         "calculator": "Calcolatore Bmi",
         "overweight": "Overweight",
         "obese": "Obeso",
         "normal": "Peso normale",
-        "underweight": "Sottopeso"
-    }
+        "underweight": "Sottopeso",
+        "result": "Il tuo BMI è {{value}}"
+    },
+    "min": "Min",
+    "max": "Max",
+    "durationWeeks": "{{number}} settimane",
+    "durationWeeksDays": "{{nrWeeks}} settimane, {{nrDays}} giorni",
+    "undo": "Annulla",
+    "successfullyDeleted": "Eliminato con successo"
 }
