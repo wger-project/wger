@@ -12,9 +12,7 @@ def prefill_end_date(apps, schema_editor):
     user_ids = NutritionPlan.objects.order_by().values_list('user_id', flat=True).distinct()
 
     for user_id in user_ids:
-        plans = list(
-            NutritionPlan.objects.filter(user_id=user_id).order_by('start', 'id')
-        )
+        plans = list(NutritionPlan.objects.filter(user_id=user_id).order_by('start', 'id'))
         for i in range(len(plans) - 1):
             current = plans[i]
             next_plan = plans[i + 1]
