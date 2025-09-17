@@ -15,12 +15,14 @@
 # Django
 from django.conf import settings
 from django.core.cache import cache
+from django.db import transaction
 from django.db.models import Q
-
+from lingua import LanguageDetectorBuilder
 # Third Party
 from rest_framework import serializers
 
 # wger
+from wger.core.models import License, Language
 from wger.exercises.models import (
     Alias,
     DeletionLog,
@@ -35,11 +37,12 @@ from wger.exercises.models import (
     Variation,
 )
 from wger.utils.cache import CacheKeyMapper
+from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
-class ExerciseBaseSerializer(serializers.ModelSerializer):
+class ExerciseSerializer(serializers.ModelSerializer):
     """
-    Exercise base serializer
+    Exercise serializer
     """
 
     class Meta:
@@ -193,6 +196,36 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         ]
 
 
+class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
+    """
+    ExerciseComment submission serializer
+    """
+
+    class Meta:
+        model = ExerciseComment
+        fields = [
+            'comment',
+        ]
+
+    def create(self, validated_data, **kwargs):
+        """
+        Custom create-method to handle the 'translation' keyword argument
+        and set the foreign key relationship.
+        """
+        translation = kwargs.get('translation')
+        if not translation:
+            raise serializers.ValidationError(
+                "A translation object is required for creating a comment."
+            )
+
+        # Create the comment with the parent translation
+        comment = ExerciseComment.objects.create(
+            translation=translation,
+            **validated_data
+        )
+        return comment
+
+
 class ExerciseAliasSerializer(serializers.ModelSerializer):
     """
     ExerciseAlias serializer
@@ -206,6 +239,36 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
             'translation',
             'alias',
         ]
+
+
+class ExerciseAliasSubmissionSerializer(serializers.ModelSerializer):
+    """
+    ExerciseAlias submission serializer
+    """
+
+    class Meta:
+        model = Alias
+        fields = [
+            'alias',
+        ]
+
+    def create(self, validated_data, **kwargs):
+        """
+        Custom create-method to handle the 'translation' keyword argument
+        and set the foreign key relationship.
+        """
+        translation = kwargs.get('translation')
+        if not translation:
+            raise serializers.ValidationError(
+                "A translation object is required for creating an alias."
+            )
+
+        # Create the Alias with the parent translation
+        alias = Alias.objects.create(
+            translation=translation,
+            **validated_data
+        )
+        return alias
 
 
 class ExerciseVariationSerializer(serializers.ModelSerializer):
@@ -299,6 +362,87 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             'license_derivative_source_url',
             'author_history',
         )
+
+
+class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
+    """
+    Exercise translation submission serializer
+    """
+
+    language = serializers.PrimaryKeyRelatedField(queryset=Language.objects.all())
+    aliases = ExerciseAliasSubmissionSerializer(many=True, required=False)
+    comments = ExerciseCommentSubmissionSerializer(many=True, required=False)
+
+    class Meta:
+        model = Translation
+        fields = (
+            'name',
+            'description',
+            'language',
+            'aliases',
+            'comments',
+            'license_author',
+        )
+
+    def validate(self, data):
+        """
+        Custom validator to ensure the detected language of the description corresponds with the
+        provided language.
+        """
+        detector = LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+        language = data.get('language')
+        description = data.get('description')
+
+        # Try to detect the language
+        detected_language = detector.detect_language_of(description)
+        detected_language_code = detected_language.iso_code_639_1.name.lower()
+        if detected_language_code != language.short_name.lower():
+            raise serializers.ValidationError({
+                "language":
+                    f'The language of the description was detected as "{detected_language.name.lower()}" '
+                    f'({detected_language_code}) and does not match the chosen language '
+                    f'{language.full_name} ({language.short_name}). If you are sure about the '
+                    f'language, try rewording it or adding more content since the detection '
+                    f'works best with longer texts.'
+            })
+
+        return super().validate(data)
+
+    def create(self, validated_data, **kwargs):
+        """
+        Custom create-method to handle the 'exercise' keyword argument
+        and set the foreign key relationship.
+        """
+        aliases_data = validated_data.pop('aliases', [])
+        comments_data = validated_data.pop('comments', [])
+        exercise = kwargs.get('exercise')
+        if not exercise:
+            raise serializers.ValidationError(
+                "Translation object is required for creating an Alias"
+            )
+
+        # Create the translation with the parent exercise
+        translation = Translation.objects.create(
+            exercise=exercise,
+            **validated_data
+        )
+
+        # Create the individual aliases
+        for alias_data in aliases_data:
+            alias_serializer = self.fields['aliases'].child
+            alias_serializer.create(
+                validated_data=alias_data,
+                translation=translation
+            )
+        # Create the individual comments
+        for comment_data in comments_data:
+            comment_serializer = self.fields['comments'].child
+            comment_serializer.create(
+                validated_data=comment_data,
+                translation=translation
+            )
+
+        return translation
 
 
 class ExerciseTranslationSerializer(serializers.ModelSerializer):
@@ -409,3 +553,62 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         cache.set(key, representation, settings.WGER_SETTINGS['EXERCISE_CACHE_TTL'])
         return representation
+
+
+class ExerciseSubmissionSerializer(serializers.ModelSerializer):
+    """
+    Exercise submission serializer
+    """
+    id = serializers.IntegerField(required=False, read_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
+    muscles = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
+    muscles_secondary = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
+    equipment = serializers.PrimaryKeyRelatedField(queryset=Equipment.objects.all(), many=True)
+    variation = serializers.PrimaryKeyRelatedField(queryset=Variation.objects.all(), required=False)
+    license = serializers.PrimaryKeyRelatedField(
+        queryset=License.objects.all(),
+        required=False,
+        default=License.objects.get(pk=CC_BY_SA_4_LICENSE_ID),
+    )
+    translations = ExerciseTranslationSubmissionSerializer(many=True)
+
+    class Meta:
+        model = Exercise
+        fields = [
+            'id',
+            'category',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'license',
+            'license_author',
+            'translations',
+            'variation',
+        ]
+
+    @transaction.atomic
+    def create(self, validated_data):
+        from pprint import pprint
+        pprint(validated_data)
+        translations_data = validated_data.pop('translations')
+
+        # Create the Exercise object first
+        exercise = Exercise.objects.create(
+            category=validated_data.pop('category'),
+            license=validated_data.pop('license'),
+            license_author=validated_data.pop('license_author'),
+            variations=validated_data.pop('variation', None),
+        )
+        exercise.muscles.set(validated_data.pop('muscles'))
+        exercise.muscles_secondary.set(validated_data.pop('muscles_secondary'))
+        exercise.equipment.set(validated_data.pop('equipment'))
+
+        # Create the individual translations
+        for translation_data in translations_data:
+            translation_serializer = self.fields['translations'].child
+            translation = translation_serializer.create(
+                validated_data=translation_data,
+                exercise=exercise
+            )
+
+        return exercise

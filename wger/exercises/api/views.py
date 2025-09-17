@@ -17,6 +17,10 @@
 import logging
 from uuid import UUID
 
+# Third Party
+import bleach
+from actstream import action as actstream_action
+from bleach.css_sanitizer import CSSSanitizer
 # Django
 from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
@@ -24,11 +28,6 @@ from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
-
-# Third Party
-import bleach
-from actstream import action as actstream_action
-from bleach.css_sanitizer import CSSSanitizer
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -47,6 +46,7 @@ from rest_framework.fields import (
     CharField,
     IntegerField,
 )
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -56,7 +56,8 @@ from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
-    ExerciseBaseSerializer,
+    ExerciseSerializer,
+    ExerciseSubmissionSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
@@ -90,7 +91,6 @@ from wger.utils.constants import (
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -102,7 +102,7 @@ class ExerciseViewSet(ModelViewSet):
     """
 
     queryset = Exercise.with_translations.all()
-    serializer_class = ExerciseBaseSerializer
+    serializer_class = ExerciseSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
@@ -338,6 +338,16 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+
+class ExerciseSubmissionViewSet(CreateAPIView):
+    """
+    API endpoint for submitting new exercises
+    """
+
+    serializer_class = ExerciseSubmissionSerializer
+    queryset = Exercise.objects.all()
+    permission_classes = (CanContributeExercises,)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
