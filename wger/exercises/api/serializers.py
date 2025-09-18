@@ -37,7 +37,6 @@ from wger.exercises.models import (
     Variation,
 )
 from wger.utils.cache import CacheKeyMapper
-from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -212,11 +211,30 @@ class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
         Custom create-method to handle the 'translation' keyword argument
         and set the foreign key relationship.
         """
-        translation = kwargs.get('translation')
+        translation: Translation = kwargs.get('translation')
         if not translation:
             raise serializers.ValidationError(
                 "A translation object is required for creating a comment."
             )
+
+        # Validate the language of the description
+        # -> This is done here instead of in the serializer's validate method
+        #    because the language is not available in the serializer's initial_data
+        detector = LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+        language = translation.language
+
+        # Try to detect the language
+        detected_language = detector.detect_language_of(validated_data['comment'])
+        detected_language_code = detected_language.iso_code_639_1.name.lower()
+        if detected_language_code != language.short_name.lower():
+            raise serializers.ValidationError({
+                "language":
+                    f'The detected language of the comment is "{detected_language.name.capitalize()}"'
+                    f'({detected_language_code}), which does not match your selected language: '
+                    f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                    f'this is incorrect, try adding more content or rephrasing your text, as '
+                    f'language detection works better with longer or more complete sentences.'
+            })
 
         # Create the comment with the parent translation
         comment = ExerciseComment.objects.create(
@@ -399,11 +417,11 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         if detected_language_code != language.short_name.lower():
             raise serializers.ValidationError({
                 "language":
-                    f'The language of the description was detected as "{detected_language.name.lower()}" '
-                    f'({detected_language_code}) and does not match the chosen language '
-                    f'{language.full_name} ({language.short_name}). If you are sure about the '
-                    f'language, try rewording it or adding more content since the detection '
-                    f'works best with longer texts.'
+                    f'The detected language of the description is "{detected_language.name.capitalize()}"'
+                    f'({detected_language_code}), which does not match your selected language: '
+                    f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                    f'this is incorrect, try adding more content or rephrasing your text, as '
+                    f'language detection works better with longer or more complete sentences.'
             })
 
         return super().validate(data)
@@ -568,7 +586,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     license = serializers.PrimaryKeyRelatedField(
         queryset=License.objects.all(),
         required=False,
-        default=License.objects.get(pk=CC_BY_SA_4_LICENSE_ID),
+        # default=License.objects.get(pk=CC_BY_SA_4_LICENSE_ID),
     )
     translations = ExerciseTranslationSubmissionSerializer(many=True)
 
@@ -606,7 +624,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         # Create the individual translations
         for translation_data in translations_data:
             translation_serializer = self.fields['translations'].child
-            translation = translation_serializer.create(
+            translation_serializer.create(
                 validated_data=translation_data,
                 exercise=exercise
             )
