@@ -40,6 +40,7 @@ from wger.exercises.models import (
     Variation,
 )
 from wger.utils.cache import CacheKeyMapper
+from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -567,6 +568,10 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
         return representation
 
 
+def get_default_license() -> License:
+    return License.objects.get(pk=CC_BY_SA_4_LICENSE_ID)
+
+
 class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     """
     Exercise submission serializer
@@ -581,7 +586,8 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     license = serializers.PrimaryKeyRelatedField(
         queryset=License.objects.all(),
         required=False,
-        # default=License.objects.get(pk=CC_BY_SA_4_LICENSE_ID),
+        # Note, using a function here because of problems during tests
+        default=get_default_license,
     )
     translations = ExerciseTranslationSubmissionSerializer(many=True)
 
@@ -601,10 +607,6 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
-        # Standard Library
-        from pprint import pprint
-
-        pprint(validated_data)
         translations_data = validated_data.pop('translations')
 
         # Create the Exercise object first

@@ -290,7 +290,7 @@ urlpatterns += [
     path('api/v2/', include(router.urls)),
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
     path(
-        'api/v2/exercise/submission/',
+        'api/v2/exercise-submission/',
         exercises_api_views.ExerciseSubmissionViewSet.as_view(),
         name='exercise-submission',
     ),
