@@ -36,7 +36,10 @@ from rest_framework import (
     status,
     viewsets,
 )
-from rest_framework.decorators import action, api_view
+from rest_framework.decorators import (
+    action,
+    api_view,
+)
 from rest_framework.fields import (
     BooleanField,
     CharField,
@@ -49,13 +52,14 @@ from rest_framework.response import Response
 
 # wger
 from wger.core.api.serializers import (
+    LanguageCheckSerializer,
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
     RoutineWeightUnitSerializer,
     UserLoginSerializer,
     UserprofileSerializer,
-    UserRegistrationSerializer, LanguageCheckSerializer,
+    UserRegistrationSerializer,
 )
 from wger.core.forms import UserLoginForm
 from wger.core.models import (

@@ -26,8 +26,7 @@ class LanguageCheckApiTestCase(BaseTestCase, ApiBaseTestCase):
         Test that the language is correctly detected - using language code
         """
         response = self.client.post(
-            self.url,
-            data={'language_code': 'de', 'input': 'Hallo Welt - das ist ein Test'}
+            self.url, data={'language_code': 'de', 'input': 'Hallo Welt - das ist ein Test'}
         ).json()
         self.assertEqual(response, {'result': True})
         self.assertFalse(response.get('check'))
@@ -37,8 +36,7 @@ class LanguageCheckApiTestCase(BaseTestCase, ApiBaseTestCase):
         Test that the language is correctly detected - using language id
         """
         response = self.client.post(
-            self.url,
-            data={'language': 1, 'input': 'Hallo Welt - das ist ein Test'}
+            self.url, data={'language': 1, 'input': 'Hallo Welt - das ist ein Test'}
         ).json()
         self.assertEqual(response, {'result': True})
         self.assertFalse(response.get('check'))
@@ -48,8 +46,7 @@ class LanguageCheckApiTestCase(BaseTestCase, ApiBaseTestCase):
         Test that the wrong language results in an error
         """
         response = self.client.post(
-            self.url,
-            data={'language_code': 'fr', 'input': 'a breed of hunting dog from Japan.'}
+            self.url, data={'language_code': 'fr', 'input': 'a breed of hunting dog from Japan.'}
         ).json()
         self.assertTrue(response['check'].get('detected_language'))
 
@@ -58,8 +55,7 @@ class LanguageCheckApiTestCase(BaseTestCase, ApiBaseTestCase):
         Test that an unknown language returns an error
         """
         response = self.client.post(
-            self.url,
-            data={'language_code': 'zz', 'input': 'a breed of hunting dog from Japan.'}
+            self.url, data={'language_code': 'zz', 'input': 'a breed of hunting dog from Japan.'}
         ).json()
         self.assertTrue(response.get('language'))
 
@@ -68,7 +64,6 @@ class LanguageCheckApiTestCase(BaseTestCase, ApiBaseTestCase):
         Test that either a language ID or a language code must be provided
         """
         response = self.client.post(
-            self.url,
-            data={'input': 'a breed of hunting dog from Japan.'}
+            self.url, data={'input': 'a breed of hunting dog from Japan.'}
         ).json()
         self.assertTrue(response.get('language'))

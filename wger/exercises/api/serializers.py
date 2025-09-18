@@ -17,12 +17,15 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
 from django.db.models import Q
-from lingua import LanguageDetectorBuilder
 # Third Party
+from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
 
 # wger
-from wger.core.models import License, Language
+from wger.core.models import (
+    Language,
+    License,
+)
 from wger.exercises.models import (
     Alias,
     DeletionLog,
@@ -214,33 +217,33 @@ class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
         translation: Translation = kwargs.get('translation')
         if not translation:
             raise serializers.ValidationError(
-                "A translation object is required for creating a comment."
+                'A translation object is required for creating a comment.'
             )
 
         # Validate the language of the description
         # -> This is done here instead of in the serializer's validate method
         #    because the language is not available in the serializer's initial_data
-        detector = LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+        detector = (
+            LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+        )
         language = translation.language
 
         # Try to detect the language
         detected_language = detector.detect_language_of(validated_data['comment'])
         detected_language_code = detected_language.iso_code_639_1.name.lower()
         if detected_language_code != language.short_name.lower():
-            raise serializers.ValidationError({
-                "language":
-                    f'The detected language of the comment is "{detected_language.name.capitalize()}"'
-                    f'({detected_language_code}), which does not match your selected language: '
-                    f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
-                    f'this is incorrect, try adding more content or rephrasing your text, as '
-                    f'language detection works better with longer or more complete sentences.'
-            })
+            raise serializers.ValidationError(
+                {
+                    'language': f'The detected language of the comment is "{detected_language.name.capitalize()}"'
+                                f'({detected_language_code}), which does not match your selected language: '
+                                f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                                f'this is incorrect, try adding more content or rephrasing your text, as '
+                                f'language detection works better with longer or more complete sentences.'
+                }
+            )
 
         # Create the comment with the parent translation
-        comment = ExerciseComment.objects.create(
-            translation=translation,
-            **validated_data
-        )
+        comment = ExerciseComment.objects.create(translation=translation, **validated_data)
         return comment
 
 
@@ -278,14 +281,11 @@ class ExerciseAliasSubmissionSerializer(serializers.ModelSerializer):
         translation = kwargs.get('translation')
         if not translation:
             raise serializers.ValidationError(
-                "A translation object is required for creating an alias."
+                'A translation object is required for creating an alias.'
             )
 
         # Create the Alias with the parent translation
-        alias = Alias.objects.create(
-            translation=translation,
-            **validated_data
-        )
+        alias = Alias.objects.create(translation=translation, **validated_data)
         return alias
 
 
@@ -407,7 +407,9 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         Custom validator to ensure the detected language of the description corresponds with the
         provided language.
         """
-        detector = LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+        detector = (
+            LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+        )
         language = data.get('language')
         description = data.get('description')
 
@@ -415,14 +417,15 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         detected_language = detector.detect_language_of(description)
         detected_language_code = detected_language.iso_code_639_1.name.lower()
         if detected_language_code != language.short_name.lower():
-            raise serializers.ValidationError({
-                "language":
-                    f'The detected language of the description is "{detected_language.name.capitalize()}"'
-                    f'({detected_language_code}), which does not match your selected language: '
-                    f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
-                    f'this is incorrect, try adding more content or rephrasing your text, as '
-                    f'language detection works better with longer or more complete sentences.'
-            })
+            raise serializers.ValidationError(
+                {
+                    'language': f'The detected language of the description is "{detected_language.name.capitalize()}"'
+                                f'({detected_language_code}), which does not match your selected language: '
+                                f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                                f'this is incorrect, try adding more content or rephrasing your text, as '
+                                f'language detection works better with longer or more complete sentences.'
+                }
+            )
 
         return super().validate(data)
 
@@ -436,29 +439,20 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         exercise = kwargs.get('exercise')
         if not exercise:
             raise serializers.ValidationError(
-                "Translation object is required for creating an Alias"
+                'Translation object is required for creating an Alias'
             )
 
         # Create the translation with the parent exercise
-        translation = Translation.objects.create(
-            exercise=exercise,
-            **validated_data
-        )
+        translation = Translation.objects.create(exercise=exercise, **validated_data)
 
         # Create the individual aliases
         for alias_data in aliases_data:
             alias_serializer = self.fields['aliases'].child
-            alias_serializer.create(
-                validated_data=alias_data,
-                translation=translation
-            )
+            alias_serializer.create(validated_data=alias_data, translation=translation)
         # Create the individual comments
         for comment_data in comments_data:
             comment_serializer = self.fields['comments'].child
-            comment_serializer.create(
-                validated_data=comment_data,
-                translation=translation
-            )
+            comment_serializer.create(validated_data=comment_data, translation=translation)
 
         return translation
 
@@ -577,6 +571,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     """
     Exercise submission serializer
     """
+
     id = serializers.IntegerField(required=False, read_only=True)
     category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
     muscles = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
@@ -606,7 +601,9 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
+        # Standard Library
         from pprint import pprint
+
         pprint(validated_data)
         translations_data = validated_data.pop('translations')
 
@@ -624,9 +621,6 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         # Create the individual translations
         for translation_data in translations_data:
             translation_serializer = self.fields['translations'].child
-            translation_serializer.create(
-                validated_data=translation_data,
-                exercise=exercise
-            )
+            translation_serializer.create(validated_data=translation_data, exercise=exercise)
 
         return exercise
