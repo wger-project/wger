@@ -14,5 +14,22 @@
     "workout": "Entrenament",
     "language": "Llenguatge",
     "images": "Imatges",
-    "translation": "Traducció"
+    "translation": "Traducció",
+    "timeOfDay": "Hora",
+    "editName": "Editar {{name}}",
+    "start": "Inici",
+    "licenses": {
+        "authors": "Autor(s)",
+        "authorProfile": "Enllaç al lloc web de l'autor, si n'hi ha",
+        "derivativeSourceUrl": "Enllaç a la font original, si es tracta d'una obra derivada"
+    },
+    "comment": "Comentari",
+    "deleteConfirmation": "Segur que vols esborrar \"{{name}}\"?",
+    "lastYear": "Any passat",
+    "lastHalfYear": "Darrers 6 mesos",
+    "lastMonth": "Darrer mes",
+    "height": "Alçada",
+    "cm": "cm",
+    "all": "Tot",
+    "lastWeek": "Darrera setmana"
 }

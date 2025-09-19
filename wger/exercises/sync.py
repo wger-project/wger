@@ -46,15 +46,15 @@ from wger.exercises.models import (
     DeletionLog,
     Equipment,
     Exercise,
-    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     ExerciseVideo,
     Muscle,
+    Translation,
 )
 from wger.manager.models import (
-    Setting,
+    SlotEntry,
     WorkoutLog,
 )
 from wger.utils.requests import (
@@ -84,27 +84,27 @@ def sync_exercises(
         muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
         muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-        base, base_created = ExerciseBase.objects.update_or_create(
+        exercise, exercise_created = Exercise.objects.update_or_create(
             uuid=uuid,
             defaults={'category_id': category_id, 'created': created},
         )
-        print_fn(f'{"created" if base_created else "updated"} exercise {uuid}')
+        print_fn(f'{"created" if exercise_created else "updated"} exercise {uuid}')
 
-        base.muscles.set(muscles)
-        base.muscles_secondary.set(muscles_sec)
-        base.equipment.set(equipment)
-        base.save()
+        exercise.muscles.set(muscles)
+        exercise.muscles_secondary.set(muscles_sec)
+        exercise.equipment.set(equipment)
+        exercise.save()
 
-        for translation_data in data['exercises']:
+        for translation_data in data['translations']:
             trans_uuid = translation_data['uuid']
             name = translation_data['name']
             description = translation_data['description']
             language_id = translation_data['language']
 
-            translation, translation_created = Exercise.objects.update_or_create(
+            translation, translation_created = Translation.objects.update_or_create(
                 uuid=trans_uuid,
                 defaults={
-                    'exercise_base': base,
+                    'exercise': exercise,
                     'name': name,
                     'description': description,
                     'license_id': license_id,
@@ -127,24 +127,24 @@ def sync_exercises(
             #
             #       -> remove the `.delete()` after the 2024-06-01
 
-            ExerciseComment.objects.filter(exercise=translation).delete()
+            ExerciseComment.objects.filter(translation=translation).delete()
             for note in translation_data['notes']:
                 ExerciseComment.objects.update_or_create(
                     uuid=note['uuid'],
                     defaults={
                         'uuid': note['uuid'],
-                        'exercise': translation,
+                        'translation': translation,
                         'comment': note['comment'],
                     },
                 )
 
-            Alias.objects.filter(exercise=translation).delete()
+            Alias.objects.filter(translation=translation).delete()
             for alias in translation_data['aliases']:
                 Alias.objects.update_or_create(
                     uuid=alias['uuid'],
                     defaults={
                         'uuid': alias['uuid'],
-                        'exercise': translation,
+                        'translation': translation,
                         'alias': alias['alias'],
                     },
                 )
@@ -310,42 +310,41 @@ def handle_deleted_entries(
         replaced_by_uuid = data['replaced_by']
         model_type = data['model_type']
 
-        if model_type == DeletionLog.MODEL_BASE:
+        if model_type == DeletionLog.MODEL_EXERCISE:
             obj_replaced = None
-            nr_settings = None
+            nr_slot_entries = None
             nr_logs = None
             try:
-                obj_replaced = ExerciseBase.objects.get(uuid=replaced_by_uuid)
-            except ExerciseBase.DoesNotExist:
+                obj_replaced = Exercise.objects.get(uuid=replaced_by_uuid)
+            except Exercise.DoesNotExist:
                 pass
 
             try:
-                obj = ExerciseBase.objects.get(uuid=uuid)
+                obj = Exercise.objects.get(uuid=uuid)
 
                 # Replace exercise in workouts and logs
                 if obj_replaced:
-                    nr_settings = Setting.objects.filter(exercise_base=obj).update(
-                        exercise_base=obj_replaced
-                    )
-                    nr_logs = WorkoutLog.objects.filter(exercise_base=obj).update(
-                        exercise_base=obj_replaced
+                    nr_slot_entries = SlotEntry.objects.filter(exercise=obj).update(
+                        exercise=obj_replaced
                     )
 
+                    nr_logs = WorkoutLog.objects.filter(exercise=obj).update(exercise=obj_replaced)
+
                 obj.delete()
-                print_fn(f'Deleted exercise base {uuid}')
-                if nr_settings:
-                    print_fn(f'- replaced {nr_settings} time(s) in workouts by {replaced_by_uuid}')
+                print_fn(f'Deleted exercise {uuid}')
+                if nr_slot_entries:
+                    print_fn(f'- replaced in {nr_slot_entries} routines with {replaced_by_uuid}')
                 if nr_logs:
-                    print_fn(f'- replaced {nr_logs} time(s) in workout logs by {replaced_by_uuid}')
-            except ExerciseBase.DoesNotExist:
+                    print_fn(f'- replaced in {nr_logs} workout logs with {replaced_by_uuid}')
+            except Exercise.DoesNotExist:
                 pass
 
         elif model_type == DeletionLog.MODEL_TRANSLATION:
             try:
-                obj = Exercise.objects.get(uuid=uuid)
+                obj = Translation.objects.get(uuid=uuid)
                 obj.delete()
                 print_fn(f'Deleted translation {uuid} ({data["comment"]})')
-            except Exercise.DoesNotExist:
+            except Translation.DoesNotExist:
                 pass
 
         elif model_type == DeletionLog.MODEL_IMAGE:
@@ -391,9 +390,9 @@ def download_exercise_images(
         print_fn(f'Processing image {image_uuid}')
 
         try:
-            exercise = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
-        except ExerciseBase.DoesNotExist:
-            print_fn('    Remote exercise base not found in local DB, skipping...')
+            exercise = Exercise.objects.get(uuid=image_data['exercise_uuid'])
+        except Exercise.DoesNotExist:
+            print_fn('    Remote exercise not found in local DB, skipping...')
             continue
 
         try:
@@ -423,9 +422,9 @@ def download_exercise_videos(
         print_fn(f'Processing video {video_uuid}')
 
         try:
-            exercise = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
-        except ExerciseBase.DoesNotExist:
-            print_fn('    Remote exercise base not found in local DB, skipping...')
+            exercise = Exercise.objects.get(uuid=video_data['exercise_uuid'])
+        except Exercise.DoesNotExist:
+            print_fn('    Remote exercise not found in local DB, skipping...')
             continue
 
         try:
@@ -435,7 +434,7 @@ def download_exercise_videos(
         except ExerciseVideo.DoesNotExist:
             print_fn('    Video not found in local DB, creating now...')
             video = ExerciseVideo()
-            video.exercise_base = exercise
+            video.exercise = exercise
             video.uuid = video_uuid
             video.is_main = video_data['is_main']
             video.license_id = video_data['license']

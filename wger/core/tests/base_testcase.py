@@ -103,7 +103,6 @@ class BaseTestCase:
     media_root = None
 
     fixtures = (
-        'days_of_week',
         'gym_config',
         'groups',
         'setting_repetition_units',
@@ -129,9 +128,9 @@ class BaseTestCase:
         'test-ingredients',
         'test-nutrition-data',
         'test-nutrition-diary',
-        'test-workout-data',
+        'test-routine-data',
         'test-workout-session',
-        'test-schedules',
+        'test-workout-log-data',
         'test-gallery-images',
         'test-measurement-categories',
         'test-measurements',
@@ -164,7 +163,8 @@ class BaseTestCase:
         """
         Reset settings
         """
-        del os.environ['RECAPTCHA_TESTING']
+
+        # del os.environ['RECAPTCHA_TESTING']
         cache.clear()
 
         # Clear MEDIA_ROOT folder

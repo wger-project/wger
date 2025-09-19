@@ -98,9 +98,12 @@
             <section
                 class="row px-3 mb-5 d-flex align-items-center justify-content-center gap-2 flex-row-reverse">
                 <div class="col-lg-7 col-sm-6 col-12 d-flex px-5 flex-column align-items-center">
-                    <img src="{% static 'images/hero.png' %}"
-                         alt="a man with a dumbbell"
-                         class="header-hero-image">
+                    <picture>
+                        <source srcset="{% static 'images/hero.avif' %}" type="image/avif">
+                        <img src="{% static 'images/hero.png' %}"
+                             alt="a man with a dumbbell"
+                             class="header-hero-image">
+                    </picture>
                 </div>
                 <div class="col-lg-3 col-sm-5 col-11 d-flex py-3 flex-column align-items-start">
                     <h1 class="font-bebas-neue display-3 uppercase">
@@ -155,9 +158,13 @@
                     class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                        <img src="{% static 'images/screens-1.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="img-fluid">
+                        <picture>
+                            <source srcset="{% static 'images/screens-1.avif' %}" type="image/avif">
+                            <img src="{% static 'images/screens-1.png' %}"
+                                 alt="mobile screen showing wger feature"
+                                 class="img-fluid"
+                                 loading="lazy">
+                        </picture>
                     </div>
 
                     <div
@@ -190,9 +197,13 @@
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
                         style="overflow: hidden;">
-                        <img src="{% static 'images/screens-2.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="img-fluid">
+                        <picture>
+                            <source srcset="{% static 'images/screens-2.avif' %}" type="image/avif">
+                            <img src="{% static 'images/screens-2.png' %}"
+                                 alt="mobile screen showing wger feature"
+                                 class="img-fluid"
+                                 loading="lazy">
+                        </picture>
                     </div>
                     <div
                         class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center">
@@ -226,10 +237,13 @@
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
                         style="overflow: hidden;">
-                        <img src="{% static 'images/screens-3.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="img-fluid">
-
+                        <picture>
+                            <source srcset="{% static 'images/screens-3.avif' %}" type="image/avif">
+                            <img src="{% static 'images/screens-3.png' %}"
+                                 alt="mobile screen showing wger feature"
+                                 class="img-fluid"
+                                 loading="lazy">
+                        </picture>
                     </div>
                     <div
                         class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center py-2">
@@ -280,10 +294,14 @@
                 <div class="row w-100 gy-3">
                     <div
                         class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
-                        <img src="{% static 'images/community.png' %}"
-                             width="500"
-                             alt="list of human faces"
-                             class="img-fluid">
+                        <picture>
+                            <source srcset="{% static 'images/community.avif' %}" type="image/avif">
+                            <img src="{% static 'images/community.png' %}"
+                                 width="500"
+                                 alt="list of human faces"
+                                 class="img-fluid"
+                                 loading="lazy">
+                        </picture>
                     </div>
                     <div class="col-lg-5 col-sm-12">
                         <h1 class="display-3 uppercase font-bebas-neue header-community">
@@ -326,22 +344,22 @@
 
         <!-- sign up section -->
         {% if allow_registration %}
-        <section class="main-section">
-            <div class="container d-flex align-items-center justify-content-center sign-up-bg">
-                <!-- form -->
-                <form method="post"
-                    action="{% url 'core:user:registration' %}"
-                    class="row justify-content-center">
-                    {% csrf_token %}
-                    <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
-                        {% translate "Sign Up Now For Free" %}
-                    </h3>
-                    <div class="col-lg-5 col-sm-10 col-12">
-                        {% crispy form %}
-                    </div>
-                </form>
-            </div>
-        </section>
+            <section class="main-section">
+                <div class="container d-flex align-items-center justify-content-center sign-up-bg">
+                    <!-- form -->
+                    <form method="post"
+                          action="{% url 'core:user:registration' %}"
+                          class="row justify-content-center">
+                        {% csrf_token %}
+                        <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
+                            {% translate "Sign Up Now For Free" %}
+                        </h3>
+                        <div class="col-lg-5 col-sm-10 col-12">
+                            {% crispy form %}
+                        </div>
+                    </form>
+                </div>
+            </section>
         {% endif %}
 
         <!-- not enough section  -->
@@ -419,11 +437,11 @@
                             <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
                         </li>
                         {% if allow_registration %}
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
-                            <a href="{% url 'core:user:registration' %}">
-                                {% translate "Register" %}
-                            </a>
-                        </li>
+                            <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
+                                <a href="{% url 'core:user:registration' %}">
+                                    {% translate "Register" %}
+                                </a>
+                            </li>
                         {% endif %}
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:login' %}">
@@ -436,7 +454,7 @@
                             </a>
                         </li>
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
-                            <a href="{% url 'manager:workout:overview' %}">
+                            <a href="{% url 'manager:routine:overview' %}">
                                 {% translate "Training" %}
                             </a>
                         </li>
@@ -611,7 +629,7 @@
                 </a>
                 <a href="https://f-droid.org/de/packages/de.wger.flutter/">
                     <img
-                        src="{% static 'images/logos/fdroid/get-it-on.png' %}"
+                        src="{% static 'images/logos/fdroid/get-it-on.svg' %}"
                         alt="fdroid logo"
                         height="55"
                     />

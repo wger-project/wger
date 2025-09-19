@@ -17,7 +17,6 @@
 # Standard Library
 import datetime
 import logging
-from decimal import Decimal
 
 # Django
 from django.contrib.auth.models import User
@@ -30,7 +29,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
@@ -59,6 +57,17 @@ class NutritionPlan(models.Model):
     creation_date = models.DateField(
         _('Creation date'),
         auto_now_add=True,
+    )
+
+    start = models.DateField(
+        _('Start date'),
+        default=datetime.date.today,
+    )
+
+    end = models.DateField(
+        _('End date'),
+        null=True,
+        blank=True,
     )
 
     description = models.CharField(

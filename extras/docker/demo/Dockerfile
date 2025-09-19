@@ -1,17 +1,17 @@
 #
-# A wger installation under apache with WSGI
+# A demo wger installation under apache with WSGI
 #
 # Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/demo/Dockerfile --tag wger/demo .
 #
 # Please consult the documentation for usage
-# docker run -ti --name wger.demo --publish 8000:80 wger/demo
+# docker run --rm --name wger.demo --publish 8000:80 wger/demo
 #
 # To stop the container:
-# sudo docker container stop wger.demo
+# docker container stop wger.demo
 #
 # To start again
-# sudo docker container start --attach wger.demo
+# docker container start --attach wger.demo
 #
 
 ##########
@@ -20,7 +20,8 @@
 FROM wger/base:latest AS builder
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt update \
+RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
+  && apt update \
   && apt install --no-install-recommends -y \
       build-essential \
       python3-dev \
@@ -32,40 +33,48 @@ RUN apt update \
       libpq-dev \
       rustc \
       cargo \
-      yarnpkg \
-      sassc
+      sassc \
+      nodejs \
+    && ln -s /usr/bin/sassc /usr/bin/sass \
+    && rm -rf /var/lib/apt/lists/* \
+    && corepack enable
 
 # Build the necessary python wheels
 # Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
-COPY requirements* ./
-RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt \
-  && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
-
-COPY . /home/wger/src
 WORKDIR /home/wger/src
-RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
-    && ln -s /usr/bin/sassc /usr/bin/sass \
-    && yarn install \
-    && yarn build:css:sass
+
+COPY pyproject.toml /home/wger/src
+COPY wger/version.py /home/wger/src/wger/
+COPY wger/__init__.py /home/wger/src/wger/
+COPY README.md /home/wger/src
+COPY package.json /home/wger/src
+COPY yarn.lock /home/wger/src
+COPY wger/core/static /home/wger/src/wger/core/static
+RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker . \
+  && yarn install \
+  && yarn build:css:sass
 
 
 ########
 # Final
 ########
-FROM wger/base:latest
-LABEL maintainer="Roland Geider <roland@geider.net>"
+FROM wger/base:latest AS final
+LABEL org.opencontainers.image.authors="wger team <hello@wger.de>"
 ENV TERM=xterm
 ARG DOCKER_DIR=./extras/docker/demo
 EXPOSE 80
 
 
 # Install dependencies
-RUN apt-get install --no-install-recommends -y \
-    apache2 \
-    cron \
-    python3-venv \
-    libapache2-mod-wsgi-py3 \
-    python3-wheel
+RUN apt update \
+    && apt install --no-install-recommends -y \
+        apache2 \
+        cron \
+        python3-venv \
+        libapache2-mod-wsgi-py3 \
+        python3-wheel \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
 COPY ${DOCKER_DIR}/wger.conf /etc/apache2/sites-available/
@@ -84,7 +93,6 @@ RUN chmod 0644 /etc/cron.d/wger \
   && chmod +x /home/wger/venvwrapper \
   && touch /var/log/cron.log
 
-COPY --from=builder /wheels /wheels
 COPY --chown=wger:www-data . /home/wger/src
 COPY --from=builder --chown=wger:wger /home/wger/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
 
@@ -101,7 +109,7 @@ RUN mkdir -p ~/static/CACHE ~/media \
     && ln -s /home/wger/static/CACHE /home/wger/src/CACHE \
     && chmod g+w /home/wger/static/CACHE
 
-RUN . /home/wger/venv/bin/activate \
+RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels  . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
     && pip install -e . \
@@ -113,7 +121,6 @@ RUN . /home/wger/venv/bin/activate \
     && wger load-online-fixtures \
     && python3 manage.py download-exercise-images \
     && python3 manage.py collectstatic --no-input
-
 
 
 USER root

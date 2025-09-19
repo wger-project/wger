@@ -1,27 +1,28 @@
 #
-# Installs some additional packages needed for development
+# Docker file for the development environment
 #
-# Note that this dockerfile is built from the corresponding docker-compose file
-#
+# Please consult https://wger.readthedocs.io/en/latest/development/backend.html
+# on how to use and start it.
 
 FROM wger/server:latest
 
 USER root
 
 WORKDIR /home/wger/src
-RUN apt-get update && \
-    apt-get install -y \
+RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
+    apt update && \
+    apt install --no-install-recommends -y \
         git \
         vim \
-        yarnpkg \
-        sassc
-
-COPY ../../../requirements.txt /tmp/requirements.txt
-COPY ../../../requirements_dev.txt /tmp/requirements_dev.txt
-
-RUN ln -s /usr/bin/yarnpkg /usr/bin/yarn \
+        nodejs \
+        sassc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
 USER wger
-RUN pip3 install --break-system-packages --user -r /tmp/requirements.txt \
-    && pip3 install --break-system-packages --user -r /tmp/requirements_dev.txt
+COPY --chown=wger:wger . /home/wger/src
+RUN yarn install:force \
+    && yarn build:css:sass \
+    && pip3 install --break-system-packages --user --group dev --editable .

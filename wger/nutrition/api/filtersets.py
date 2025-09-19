@@ -12,7 +12,7 @@ class LogItemFilterSet(filters.FilterSet):
     class Meta:
         model = LogItem
         fields = {
-            'datetime': ['exact', 'date'],
+            'datetime': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
             'amount': ['exact'],
             'ingredient': ['exact'],
             'plan': ['exact'],
@@ -40,7 +40,7 @@ class IngredientFilterSet(filters.FilterSet):
             'created': ['exact', 'gt', 'lt'],
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],
-            'language': ['exact'],
+            'language': ['exact', 'in'],
             'license': ['exact'],
             'license_author': ['exact'],
         }

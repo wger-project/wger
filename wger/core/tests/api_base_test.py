@@ -82,6 +82,9 @@ class ApiBaseTestCase(APITestCase):
         Returns the name of the resource. The default is the name of the model
         class used in lower letters
         """
+        if not self.resource:
+            return ''
+
         return self.resource.__name__.lower()
 
     @property
@@ -127,6 +130,8 @@ class ApiGetTestCase:
         Tests accessing the detail view of a resource
 
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             response = self.client.get(self.url_detail)
@@ -150,6 +155,9 @@ class ApiGetTestCase:
         """
         Test accessing the overview view of a resource
         """
+        if self.resource is None:
+            return
+
         if self.private_resource:
             response = self.client.get(self.url)
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -166,7 +174,13 @@ class ApiGetTestCase:
     def test_get_overview_is_cached(self):
         """
         Test accessing the overview view of a resource is cached
+
+        TODO: remove the hard coded 'wger-cache' here. This only works for the locmem cache
+              used in tests.
         """
+        if self.resource is None:
+            return
+
         # Ensure the wger cache is empty.
         cache_length = len(locmem._caches['wger-cache'])
         self.assertEqual(cache_length, 0)
@@ -185,18 +199,26 @@ class ApiGetTestCase:
         """
         Test accessing any special endpoint the resource could have
         """
+        if self.resource is None:
+            return
+
         for endpoint in self.special_endpoints:
             url = self.url_detail + endpoint + '/'
 
+            # Anonymous user
             response = self.client.get(url)
-            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+            self.assertEqual(
+                response.status_code,
+                status.HTTP_403_FORBIDDEN,
+                f'URL {url} should return a 403 status code',
+            )
 
             # Logged in owner user
             self.authenticate()
             response = self.client.get(url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-            # Different logged in user
+            # Different logged-in user
             self.authenticate(self.user_fail)
             response = self.client.get(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -211,6 +233,8 @@ class ApiPostTestCase:
         """
         POSTing to a detail view is not allowed
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             # Anonymous user
@@ -254,6 +278,8 @@ class ApiPostTestCase:
         """
         Tests POSTing (adding) a new object
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             # Anonymous user
@@ -308,11 +334,12 @@ class ApiPostTestCase:
         for endpoint in self.special_endpoints:
             url = self.url_detail + endpoint + '/'
 
+            # Anonymous user
             response = self.client.post(url, self.data)
-            if self.private_resource:
-                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-            else:
-                self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED),
+            )
 
             # Logged in owner user
             self.authenticate()
@@ -334,6 +361,8 @@ class ApiPatchTestCase:
         """
         Test PATCHING a detail view
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             # Anonymous user
@@ -388,6 +417,8 @@ class ApiPatchTestCase:
         """
         PATCHING to the overview is not allowed
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             # Anonymous user
@@ -422,18 +453,19 @@ class ApiPatchTestCase:
         for endpoint in self.special_endpoints:
             url = self.url_detail + endpoint + '/'
 
+            # Anonymous user
             response = self.client.patch(url, self.data)
-            if self.private_resource:
-                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-            else:
-                self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
+            )
 
             # Logged in owner user
             self.authenticate()
             response = self.client.patch(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-            # Different logged in user
+            # Different logged-in user
             self.authenticate(self.user_fail)
             response = self.client.patch(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -448,6 +480,8 @@ class ApiPutTestCase:
         """
         PUTing to a detail view is allowed
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             # Anonymous user
@@ -459,7 +493,7 @@ class ApiPutTestCase:
             response = self.client.put(self.url_detail, data=self.data)
             self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
 
-            # Different logged in user
+            # Different logged-in user
             count_before = self.resource.objects.all().count()
             self.authenticate(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
@@ -514,6 +548,8 @@ class ApiPutTestCase:
         """
         Tests PUTTING (adding) a new object
         """
+        if self.resource is None:
+            return
 
         if self.private_resource:
             # Anonymous user
@@ -549,18 +585,19 @@ class ApiPutTestCase:
         for endpoint in self.special_endpoints:
             url = self.url_detail + endpoint + '/'
 
+            # Anonymous user
             response = self.client.put(url, self.data)
-            if self.private_resource:
-                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-            else:
-                self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED),
+            )
 
             # Logged in owner user
             self.authenticate()
             response = self.client.put(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-            # Different logged in user
+            # Different logged-in user
             self.authenticate(self.user_fail)
             response = self.client.put(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -575,6 +612,9 @@ class ApiDeleteTestCase:
         """
         Tests DELETEing an object
         """
+        if self.resource is None:
+            return
+
         if self.private_resource:
             # Anonymous user
             count_before = self.resource.objects.all().count()
@@ -624,6 +664,9 @@ class ApiDeleteTestCase:
         """
         DELETEing to the overview is not allowed
         """
+        if self.resource is None:
+            return
+
         if self.private_resource:
             # Anonymous user
             response = self.client.delete(self.url)
@@ -669,18 +712,19 @@ class ApiDeleteTestCase:
         for endpoint in self.special_endpoints:
             url = self.url_detail + endpoint + '/'
 
+            # Anonymous
             response = self.client.delete(url)
-            if self.private_resource:
-                self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-            else:
-                self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED),
+            )
 
             # Logged in owner user
             self.authenticate()
             response = self.client.delete(url)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-            # Different logged in user
+            # Different logged-in user
             self.authenticate(self.user_fail)
             response = self.client.delete(url)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

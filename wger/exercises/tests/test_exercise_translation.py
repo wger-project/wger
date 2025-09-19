@@ -16,11 +16,6 @@
 import json
 
 # Django
-from django.core.cache import cache
-from django.template import (
-    Context,
-    Template,
-)
 from django.urls import reverse
 
 # Third Party
@@ -29,16 +24,13 @@ from rest_framework import status
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
-from wger.core.tests.base_testcase import (
-    WgerDeleteTestCase,
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
     Muscle,
+    Translation,
 )
-from wger.utils.cache import cache_mapper
-from wger.utils.constants import CC_BY_SA_4_ID
+from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -50,7 +42,7 @@ class ExerciseRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(str(Exercise.objects.get(pk=1)), 'An exercise')
+        self.assertEqual(str(Translation.objects.get(pk=1)), 'An exercise')
 
 
 class ExercisesTestCase(WgerTestCase):
@@ -99,157 +91,16 @@ class ExercisesTestCase(WgerTestCase):
         """
         Test that changing exercise details generates a historical record
         """
-        exercise = Exercise.objects.get(pk=2)
-        self.assertEqual(len(exercise.history.all()), 0)
+        translation = Translation.objects.get(pk=2)
+        self.assertEqual(len(translation.history.all()), 0)
 
-        exercise.name = 'Very cool exercise 2'
-        exercise.description = 'New description'
-        exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
-        exercise.save()
+        translation.name = 'Very cool exercise 2'
+        translation.description = 'New description'
+        translation.exercise.muscles_secondary.add(Muscle.objects.get(pk=2))
+        translation.save()
 
-        exercise = Exercise.objects.get(pk=2)
-        self.assertEqual(len(exercise.history.all()), 1)
-
-
-class MuscleTemplateTagTest(WgerTestCase):
-    def test_render_main_muscles(self):
-        """
-        Test that the tag renders only the main muscles
-        """
-
-        context = Context({'muscles': Muscle.objects.get(pk=2)})
-        template = Template('{% load wger_extras %}{% render_muscles muscles %}')
-        rendered_template = template.render(context)
-        self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
-        self.assertNotIn('images/muscles/secondary/', rendered_template)
-        self.assertIn('images/muscles/muscular_system_back.svg', rendered_template)
-
-    def test_render_main_muscles_empty_secondary(self):
-        """
-        Test that the tag works when giben main muscles and empty secondary ones
-        """
-
-        context = Context({'muscles': Muscle.objects.get(pk=2), 'muscles_sec': []})
-        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
-        rendered_template = template.render(context)
-        self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
-        self.assertNotIn('images/muscles/secondary/', rendered_template)
-        self.assertIn('images/muscles/muscular_system_back.svg', rendered_template)
-
-    def test_render_secondary_muscles(self):
-        """
-        Test that the tag renders only the secondary muscles
-        """
-
-        context = Context({'muscles': Muscle.objects.get(pk=1)})
-        template = Template('{% load wger_extras %}{% render_muscles muscles_sec=muscles %}')
-        rendered_template = template.render(context)
-        self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
-        self.assertNotIn('images/muscles/main/', rendered_template)
-        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
-
-    def test_render_secondary_muscles_empty_primary(self):
-        """
-        Test that the tag works when given secondary muscles and empty main ones
-        """
-
-        context = Context({'muscles_sec': Muscle.objects.get(pk=1), 'muscles': []})
-        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
-        rendered_template = template.render(context)
-        self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
-        self.assertNotIn('images/muscles/main/', rendered_template)
-        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
-
-    def test_render_secondary_muscles_list(self):
-        """
-        Test that the tag works when given a list for secondary muscles and empty main ones
-        """
-
-        context = Context({'muscles_sec': Muscle.objects.filter(is_front=True), 'muscles': []})
-        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
-        rendered_template = template.render(context)
-        self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
-        self.assertNotIn('images/muscles/secondary/muscle-2.svg', rendered_template)
-        self.assertNotIn('images/muscles/secondary/muscle-3.svg', rendered_template)
-        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
-        self.assertNotIn('images/muscles/muscular_system_back.svg', rendered_template)
-
-    def test_render_muscle_list(self):
-        """
-        Test that the tag works when given a list for main and secondary muscles
-        """
-
-        context = Context(
-            {
-                'muscles_sec': Muscle.objects.filter(id__in=[5, 6]),
-                'muscles': Muscle.objects.filter(id__in=[1, 4]),
-            }
-        )
-        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
-        rendered_template = template.render(context)
-        self.assertIn('images/muscles/main/muscle-1.svg', rendered_template)
-        self.assertNotIn('images/muscles/main/muscle-2.svg', rendered_template)
-        self.assertNotIn('images/muscles/main/muscle-3.svg', rendered_template)
-        self.assertIn('images/muscles/main/muscle-4.svg', rendered_template)
-        self.assertIn('images/muscles/secondary/muscle-5.svg', rendered_template)
-        self.assertIn('images/muscles/secondary/muscle-6.svg', rendered_template)
-        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
-        self.assertNotIn('images/muscles/muscular_system_back.svg', rendered_template)
-
-    def test_render_empty(self):
-        """
-        Test that the tag works when given empty input
-        """
-
-        context = Context({'muscles': [], 'muscles_sec': []})
-        template = Template('{% load wger_extras %}{% render_muscles muscles muscles_sec %}')
-        rendered_template = template.render(context)
-        self.assertEqual(rendered_template, '\n\n')
-
-    def test_render_no_parameters(self):
-        """
-        Test that the tag works when given no parameters
-        """
-
-        template = Template('{% load wger_extras %}{% render_muscles %}')
-        rendered_template = template.render(Context({}))
-        self.assertEqual(rendered_template, '\n\n')
-
-
-class WorkoutCacheTestCase(WgerTestCase):
-    """
-    Workout cache test case
-    """
-
-    def test_canonical_form_cache_save(self):
-        """
-        Tests the workout cache when saving
-        """
-        exercise = Exercise.objects.get(pk=2)
-        for setting in exercise.exercise_base.setting_set.all():
-            setting.set.exerciseday.training.canonical_representation
-            workout_id = setting.set.exerciseday.training_id
-            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-            exercise.save()
-            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-    def test_canonical_form_cache_delete(self):
-        """
-        Tests the workout cache when deleting
-        """
-        exercise = Exercise.objects.get(pk=2)
-
-        workout_ids = []
-        for setting in exercise.exercise_base.setting_set.all():
-            workout_id = setting.set.exerciseday.training_id
-            workout_ids.append(workout_id)
-            setting.set.exerciseday.training.canonical_representation
-            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-        exercise.delete()
-        for workout_id in workout_ids:
-            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+        translation = Translation.objects.get(pk=2)
+        self.assertEqual(len(translation.history.all()), 1)
 
 
 # TODO: fix test, all registered users can upload exercises
@@ -263,27 +114,30 @@ class ExerciseApiTestCase(
     pk = 1
     resource = Exercise
     private_resource = False
-    overview_cached = True
+    overview_cached = False
+
+    def get_resource_name(self):
+        return 'exercise'
 
 
-class ExerciseInfoApiTestCase(
-    api_base_test.BaseTestCase,
-    api_base_test.ApiBaseTestCase,
-    api_base_test.ApiGetTestCase,
+# TODO: fix test, all registered users can upload exercises
+class ExerciseTranslationApiTestCase(
+    api_base_test.BaseTestCase, api_base_test.ApiBaseTestCase, api_base_test.ApiGetTestCase
 ):
     """
-    Tests the exercise info resource
+    Tests the exercise overview resource
     """
 
     pk = 1
+    resource = Translation
     private_resource = False
-    overview_cached = True
+    overview_cached = False
 
     def get_resource_name(self):
-        return 'exerciseinfo'
+        return 'exercise-translation'
 
 
-class ExerciseBaseInfoApiTestCase(
+class ExerciseInfoApiTestCase(
     api_base_test.BaseTestCase,
     api_base_test.ApiBaseTestCase,
     api_base_test.ApiGetTestCase,
@@ -297,66 +151,66 @@ class ExerciseBaseInfoApiTestCase(
     overview_cached = True
 
     def get_resource_name(self):
-        return 'exercisebaseinfo'
+        return 'exerciseinfo'
 
 
-class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
+class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
     pk = 1
 
     data = {
         'name': 'A new name',
         'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
         'language': 1,
-        'exercise_base': 2,
+        'exercise': 2,
     }
 
     def get_resource_name(self):
         return 'exercise-translation'
 
-    def test_cant_change_base_id(self):
+    def test_cant_change_exercise_id(self):
         """
-        Test that it is not possible to change the base id of an existing
-        exercise translation.
+        Test that it is not possible to change the exercise id of an existing
+        translation.
         """
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.exercise_base_id, 1)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.exercise_id, 1)
 
         self.authenticate('trainer1')
-        response = self.client.patch(self.url_detail, data={'exercise_base': 2})
+        response = self.client.patch(self.url_detail, data={'exercise': 2})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.exercise_base_id, 1)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.exercise_id, 1)
 
     def test_cant_change_language(self):
         """
         Test that it is not possible to change the language id of an existing
         exercise translation.
         """
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.language_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.language_id, 2)
 
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'language': 1})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.language_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.language_id, 2)
 
     def test_cant_change_license(self):
         """
         Test that it is not possible to change the license of an existing
         exercise translation.
         """
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.license_id, 2)
 
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'license': 3})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.license_id, 2)
 
     def test_cant_set_license(self):
         """
@@ -369,8 +223,8 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, CC_BY_SA_4_ID)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.license_id, CC_BY_SA_4_LICENSE_ID)
 
     def test_patch_clean_html(self):
         """
@@ -381,8 +235,8 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         response = self.client.patch(self.url_detail, data={'description': description})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.description, 'alert(); The wild boar is a suid native...')
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.description, 'alert(); The wild boar is a suid native...')
 
     def test_post_only_one_language_per_base(self):
         """

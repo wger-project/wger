@@ -13,5 +13,4 @@ option in your settings.{% endblocktranslate %}
 
 
 * https://{{site}}{% url 'weight:overview' %}
-* https://{{site}}{% url 'weight:add' %}
 * https://{{site}}{% url 'core:user:preferences' %}

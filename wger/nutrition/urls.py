@@ -18,10 +18,7 @@
 # Django
 from django.conf.urls import include
 from django.contrib.auth.decorators import login_required
-from django.urls import (
-    path,
-    re_path,
-)
+from django.urls import path
 
 # wger
 from wger.core.views.react import ReactView
@@ -139,7 +136,7 @@ patterns_unit_ingredient = [
 patterns_bmi = [
     path(
         '',
-        ReactView.as_view(),
+        ReactView.as_view(login_required=True),
         name='view',
     ),
 ]

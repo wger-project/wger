@@ -20,20 +20,13 @@ from django.forms import (
     CharField,
     DateTimeField,
     Form,
-    ModelForm,
     Textarea,
-    widgets,
 )
 from django.utils.translation import gettext as _
 
 # Third Party
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
-
-# wger
-from wger.utils.constants import DATETIME_FORMATS
-from wger.utils.widgets import Html5DateInput
-from wger.weight.models import WeightEntry
 
 
 CSV_DATETIME_FORMAT = (
@@ -69,14 +62,3 @@ class WeightCsvImportForm(Form):
             'date_format',
         )
         self.helper.form_tag = False
-
-
-class WeightForm(ModelForm):
-    date = DateTimeField(input_formats=DATETIME_FORMATS, widget=Html5DateInput())
-
-    class Meta:
-        model = WeightEntry
-        exclude = []
-        widgets = {
-            'user': widgets.HiddenInput(),
-        }

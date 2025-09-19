@@ -1,8 +1,4 @@
 # Development image for wger
 
-## Usage
-
-Clone the docker repository, there are two development configuration that use
-this image:
-
-<https://github.com/wger-project/docker>
+Please consult <https://wger.readthedocs.io/en/latest/development/docker.html> for
+instructions on how to use this image.

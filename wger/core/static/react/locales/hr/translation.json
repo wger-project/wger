@@ -223,5 +223,27 @@
         "derivativeSourceUrl": "Poveži na izvorni izvor, ako je ovo izvedeno djelo",
         "derivativeSourceUrlHelper": "Izvedeni rad koji se ne temelji samo na prethodnom radu, te sadrži dovoljno novog, kreativnog sadržaja ima pravo na vlastito autorsko pravo."
     },
-    "filters": "Filtri"
+    "filters": "Filtri",
+    "height": "Visina",
+    "cm": "cm",
+    "all": "Sve",
+    "lastYear": "Prošla godina",
+    "lastMonth": "Prošli mjesec",
+    "lastWeek": "Prošli tjedan",
+    "bmi": {
+        "calculator": "Kalkulator indeksa tjelesne mase",
+        "obese": "Pretilost",
+        "overweight": "Prekomjerna težina",
+        "normal": "Normalna težina",
+        "underweight": "Nedovoljna težina",
+        "result": "Tvoj indeks tjelesne mase je {{value}}"
+    },
+    "lastHalfYear": "Prošlih 6 mjeseci",
+    "calendar": "Kalendar",
+    "entries": "Unosi",
+    "no_entries_for_day": "Nema unosa za ovaj dan",
+    "editName": "Uredi {{ime}}",
+    "start": "Start",
+    "end": "Kraj",
+    "comment": "Komentari"
 }

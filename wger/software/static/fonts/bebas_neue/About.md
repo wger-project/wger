@@ -23,7 +23,7 @@ A: Yes, You can.
 Ryoichi Tsunekawa  
 Dharma Type  
 <http://dharmatype.com>
-info@dharmatype.com
+<info@dharmatype.com>
 
 ## History of Bebas Neue by Dharma Type
 

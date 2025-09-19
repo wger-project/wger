@@ -102,6 +102,15 @@ WGER_SETTINGS["SYNC_OFF_DAILY_DELTA_CELERY"] = env.bool("SYNC_OFF_DAILY_DELTA_CE
 WGER_SETTINGS["USE_RECAPTCHA"] = env.bool("USE_RECAPTCHA", False)
 WGER_SETTINGS["USE_CELERY"] = env.bool("USE_CELERY", False)
 
+#
+# Auth Proxy Authentication
+# https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
+AUTH_PROXY_HEADER = env.str("AUTH_PROXY_HEADER", '')
+AUTH_PROXY_TRUSTED_IPS = env.list("AUTH_PROXY_TRUSTED_IPS", default=[])
+AUTH_PROXY_CREATE_UNKNOWN_USER = env.bool("AUTH_PROXY_CREATE_UNKNOWN_USER", False)
+AUTH_PROXY_USER_EMAIL_HEADER = env.str("AUTH_PROXY_USER_EMAIL_HEADER", '')
+AUTH_PROXY_USER_NAME_HEADER = env.str("AUTH_PROXY_USER_NAME_HEADER", '')
+
 # Cache
 if os.environ.get("DJANGO_CACHE_BACKEND"):
     CACHES = {
@@ -188,3 +197,31 @@ CELERY_RESULT_BACKEND = env.str("CELERY_BACKEND", "redis://cache:6379/2")
 #
 EXPOSE_PROMETHEUS_METRICS = env.bool('EXPOSE_PROMETHEUS_METRICS', False)
 PROMETHEUS_URL_PATH = env.str('PROMETHEUS_URL_PATH', 'super-secret-path')
+
+#
+# Logging
+#
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': 'level={levelname} ts={asctime} module={module} path={pathname} line={lineno} message={message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': env.str('LOG_LEVEL_PYTHON', 'INFO').upper(),
+            'propagate': True,
+        },
+    }
+}

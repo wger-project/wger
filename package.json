@@ -1,29 +1,32 @@
 {
   "name": "wger",
-  "version": "2.3.dev1",
+  "version": "2.4.alpha1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "repository": "github:wger-project/wger",
-  "author": "",
+  "author": "wger team <hello@wger.de>",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/wger-project/wger/issues"
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "htmx.org": "^2.0.4",
-    "bootstrap": "5.3.3",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "5.3.8",
     "components-font-awesome": "5.9.0",
-    "datatables.net-bs5": "^2.1.8",
+    "datatables.net-bs5": "^2.3.4",
     "devbridge-autocomplete": "^1.4.11",
+    "htmx.org": "^2.0.7",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
-    "popper.js": "^1.16.1",
-    "yarn": "^1.22.22"
+    "popper.js": "^1.16.1"
   },
   "scripts": {
-    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css"
+    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css",
+    "install:force": "yarn install && yarn run postinstall",
+    "postinstall": "rm -rf wger/core/static/yarn/ && mkdir -p wger/core/static/yarn/ && cp -r node_modules/* wger/core/static/yarn/"
   },
   "engines": {
     "yarn": ">= 1.0.0"
-  }
+  },
+  "packageManager": "yarn@4.9.2"
 }

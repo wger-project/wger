@@ -16,7 +16,7 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 
 
 class Command(BaseCommand):
@@ -42,7 +42,7 @@ class Command(BaseCommand):
             self.stdout.write(f'Extracting translations for {exercise_key}')
 
             uuid = self.uuids[exercise_key]
-            translations = Exercise.objects.filter(exercise_base__uuid=uuid)
+            translations = Translation.objects.filter(exercise__uuid=uuid)
 
             variables = []
 
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                           created: DateTime(2021, 1, 15),
                           name: '{translation.name}',
                           description: '''{translation.description}''',
-                          baseId: {translation.exercise_base_id},
+                          baseId: {translation.exercise_id},
                           language: tLanguage{translation.language.id},
                         );
                     """
@@ -92,4 +92,4 @@ class Command(BaseCommand):
         # Write to output
         with open('screenshots_exercises.dart', 'w') as f:
             f.write('\n'.join(out))
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to screenshots_exercises.dart'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to screenshots_exercises.dart'))

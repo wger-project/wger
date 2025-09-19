@@ -21,11 +21,11 @@ from zipfile import ZipFile
 
 # wger
 from wger.core.models import Language
+from wger.nutrition.extract_info.usda import extract_info_from_usda
 from wger.nutrition.management.products import (
     ImportProductCommand,
     Mode,
 )
-from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
 
