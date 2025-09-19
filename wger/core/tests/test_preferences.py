@@ -20,6 +20,7 @@ import logging
 # Django
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -146,7 +147,7 @@ class UserBodyweightTestCase(WgerTestCase):
         entry = user.userprofile.user_bodyweight(80)
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after - 1)
-        self.assertEqual(entry.date, datetime.date.today())
+        self.assertEqual(entry.date.date(), timezone.now().date())
 
     def test_bodyweight_new_2(self):
         """
@@ -155,13 +156,28 @@ class UserBodyweightTestCase(WgerTestCase):
         user = User.objects.get(pk=2)
         count_before = WeightEntry.objects.filter(user=user).count()
         last_entry = WeightEntry.objects.filter(user=user).latest()
-        last_entry.date = datetime.date.today() - datetime.timedelta(weeks=1)
+        last_entry.date = timezone.now() - datetime.timedelta(weeks=1)
         last_entry.save()
 
         entry = user.userprofile.user_bodyweight(80)
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after - 1)
-        self.assertEqual(entry.date, datetime.date.today())
+        self.assertEqual(entry.date.date(), timezone.now().date())
+
+    def test_bodyweight_new_3(self):
+        """
+        Tests that a new weight entry is created even if others exist today
+        """
+        user = User.objects.get(pk=2)
+        count_before = WeightEntry.objects.filter(user=user).count()
+        last_entry = WeightEntry.objects.filter(user=user).latest()
+        last_entry.date = timezone.now() - datetime.timedelta(hours=1)
+        last_entry.save()
+
+        entry = user.userprofile.user_bodyweight(80)
+        count_after = WeightEntry.objects.filter(user=user).count()
+        self.assertEqual(count_before, count_after - 1)
+        self.assertEqual(entry.date.date(), timezone.now().date())
 
     def test_bodyweight_no_entries(self):
         """
@@ -174,41 +190,7 @@ class UserBodyweightTestCase(WgerTestCase):
         entry = user.userprofile.user_bodyweight(80)
         count_after = WeightEntry.objects.filter(user=user).count()
         self.assertEqual(count_before, count_after - 1)
-        self.assertEqual(entry.date, datetime.date.today())
-
-    def test_bodyweight_edit(self):
-        """
-        Tests that the last weight entry is edited
-        """
-        user = User.objects.get(pk=2)
-        last_entry = WeightEntry.objects.filter(user=user).latest()
-        last_entry.date = datetime.date.today() - datetime.timedelta(days=3)
-        last_entry.save()
-
-        count_before = WeightEntry.objects.filter(user=user).count()
-        entry = user.userprofile.user_bodyweight(100)
-        count_after = WeightEntry.objects.filter(user=user).count()
-        self.assertEqual(count_before, count_after)
-        self.assertEqual(entry.pk, last_entry.pk)
-        self.assertEqual(entry.date, last_entry.date)
-        self.assertEqual(entry.weight, 100)
-
-    def test_bodyweight_edit_2(self):
-        """
-        Tests that the last weight entry is edited
-        """
-        user = User.objects.get(pk=2)
-        last_entry = WeightEntry.objects.filter(user=user).latest()
-        last_entry.date = datetime.date.today()
-        last_entry.save()
-
-        count_before = WeightEntry.objects.filter(user=user).count()
-        entry = user.userprofile.user_bodyweight(100)
-        count_after = WeightEntry.objects.filter(user=user).count()
-        self.assertEqual(count_before, count_after)
-        self.assertEqual(entry.pk, last_entry.pk)
-        self.assertEqual(entry.date, last_entry.date)
-        self.assertEqual(entry.weight, 100)
+        self.assertEqual(entry.date.date(), timezone.now().date())
 
 
 class PreferencesCalculationsTestCase(WgerTestCase):
@@ -223,7 +205,7 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         self.user_login('test')
         user = User.objects.get(pk=2)
         entry = WeightEntry()
-        entry.date = datetime.datetime.today()
+        entry.date = timezone.now()
         entry.user = user
         entry.weight = 100
         entry.save()
@@ -262,6 +244,10 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         """
 
         self.user_login('test')
+
+        # Test User (pk=2)
+        # 180 cm, 20 years
+        # Last weight entry is 83 kg
 
         # Male
         user = User.objects.get(pk=2)

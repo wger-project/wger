@@ -21,6 +21,7 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.http import HttpRequest
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.demo import (
@@ -100,7 +101,7 @@ class DemoUserTestCase(WgerTestCase):
 
     def test_demo_data_body_weight(self):
         """
-        Tests that the helper function that creates demo data filters out
+        Tests that the helper function that creates demo data does not filter out
         existing dates for the weight entries
         """
         self.client.get(reverse('core:dashboard'))
@@ -109,7 +110,7 @@ class DemoUserTestCase(WgerTestCase):
 
         temp = []
         for i in range(1, 5):
-            creation_date = datetime.date.today() - datetime.timedelta(days=i)
+            creation_date = timezone.now() - datetime.timedelta(days=i)
             entry = WeightEntry(
                 user=user,
                 weight=80 + 0.5 * i + random.randint(1, 3),
@@ -120,7 +121,7 @@ class DemoUserTestCase(WgerTestCase):
         create_demo_entries(user)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 40)
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 44)
 
     def test_demo_user(self):
         """

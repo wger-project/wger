@@ -18,6 +18,7 @@
 from django import forms
 from django.forms import (
     CharField,
+    DateTimeField,
     Form,
     Textarea,
 )
@@ -28,13 +29,19 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
 
 
-CSV_DATE_FORMAT = (
-    ('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
-    ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),
-    ('%Y-%m-%d', 'YYYY-MM-DD (2012-01-30)'),
-    ('%y-%m-%d', 'YY-MM-DD (12-01-30)'),
-    ('%m/%d/%Y', 'MM/DD/YYYY (01/30/2012)'),
-    ('%m/%d/%y', 'MM/DD/YY (01/30/12)'),
+CSV_DATETIME_FORMAT = (
+    ('%d.%m.%Y %H:%M:%S', 'DD.MM.YYYY HH:MM:SS (30.01.2012 14:30:00)'),
+    ('%d.%m.%Y %H:%M', 'DD.MM.YYYY HH:MM (30.01.2012 14:30)'),
+    ('%d.%m.%y %H:%M:%S', 'DD.MM.YY HH:MM:SS (30.01.12 14:30:00)'),
+    ('%d.%m.%y %H:%M', 'DD.MM.YY HH:MM (30.01.12 14:30)'),
+    ('%Y-%m-%d %H:%M:%S', 'YYYY-MM-DD HH:MM:SS (2012-01-30 14:30:00)'),
+    ('%Y-%m-%d %H:%M', 'YYYY-MM-DD HH:MM (2012-01-30 14:30)'),
+    ('%y-%m-%d %H:%M:%S', 'YY-MM-DD HH:MM:SS (12-01-30 14:30:00)'),
+    ('%y-%m-%d %H:%M', 'YY-MM-DD HH:MM (12-01-30 14:30)'),
+    ('%m/%d/%Y %H:%M:%S', 'MM/DD/YYYY HH:MM:SS (01/30/2012 14:30:00)'),
+    ('%m/%d/%Y %H:%M', 'MM/DD/YYYY HH:MM (01/30/2012 14:30)'),
+    ('%m/%d/%y %H:%M:%S', 'MM/DD/YY HH:MM:SS (01/30/12 14:30:00)'),
+    ('%m/%d/%y %H:%M', 'MM/DD/YY HH:MM (01/30/12 14:30)'),
 )
 
 
@@ -44,7 +51,7 @@ class WeightCsvImportForm(Form):
     """
 
     csv_input = CharField(widget=Textarea, label=_('Input'))
-    date_format = forms.ChoiceField(choices=CSV_DATE_FORMAT, label=_('Date format'))
+    date_format = forms.ChoiceField(choices=CSV_DATETIME_FORMAT, label=_('Date format'))
 
     def __init__(self, *args, **kwargs):
         super(WeightCsvImportForm, self).__init__(*args, **kwargs)
