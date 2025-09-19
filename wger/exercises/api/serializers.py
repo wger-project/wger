@@ -235,7 +235,7 @@ class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
         if detected_language_code != language.short_name.lower():
             raise serializers.ValidationError(
                 {
-                    'language': f'The detected language of the comment is "{detected_language.name.capitalize()}"'
+                    'language': f'The detected language of the comment is "{detected_language.name.capitalize()}" '
                                 f'({detected_language_code}), which does not match your selected language: '
                                 f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
                                 f'this is incorrect, try adding more content or rephrasing your text, as '
@@ -411,6 +411,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         detector = (
             LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
         )
+
         language = data.get('language')
         description = data.get('description')
 
@@ -420,11 +421,12 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         if detected_language_code != language.short_name.lower():
             raise serializers.ValidationError(
                 {
-                    'language': f'The detected language of the description is "{detected_language.name.capitalize()}"'
-                                f'({detected_language_code}), which does not match your selected language: '
-                                f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
-                                f'this is incorrect, try adding more content or rephrasing your text, as '
-                                f'language detection works better with longer or more complete sentences.'
+                    'language':
+                        f'The detected language of the description is "{detected_language.name.capitalize()}" '
+                        f'({detected_language_code}), which does not match your selected language: '
+                        f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                        f'this is incorrect, try adding more content or rephrasing your text, as '
+                        f'language detection works better with longer or more complete sentences.'
                 }
             )
 
@@ -450,6 +452,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         for alias_data in aliases_data:
             alias_serializer = self.fields['aliases'].child
             alias_serializer.create(validated_data=alias_data, translation=translation)
+
         # Create the individual comments
         for comment_data in comments_data:
             comment_serializer = self.fields['comments'].child
@@ -592,23 +595,21 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     translations = ExerciseTranslationSubmissionSerializer(many=True)
 
     class Meta:
-        model = Exercise
         fields = [
             'id',
             'category',
             'muscles',
             'muscles_secondary',
             'equipment',
+            'variation',
             'license',
             'license_author',
             'translations',
-            'variation',
         ]
+        model = Exercise
 
     @transaction.atomic
     def create(self, validated_data):
-        translations_data = validated_data.pop('translations')
-
         # Create the Exercise object first
         exercise = Exercise.objects.create(
             category=validated_data.pop('category'),
@@ -621,8 +622,8 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         exercise.equipment.set(validated_data.pop('equipment'))
 
         # Create the individual translations
-        for translation_data in translations_data:
-            translation_serializer = self.fields['translations'].child
-            translation_serializer.create(validated_data=translation_data, exercise=exercise)
+        for translation in validated_data.pop('translations', []):
+            serializer: ExerciseTranslationSubmissionSerializer = self.fields['translations'].child
+            serializer.create(validated_data=translation, exercise=exercise)
 
         return exercise

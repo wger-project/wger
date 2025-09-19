@@ -287,7 +287,6 @@ urlpatterns = i18n_patterns(
 urlpatterns += [
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
     # API
-    path('api/v2/', include(router.urls)),
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
     path(
         'api/v2/exercise-submission/',
@@ -296,6 +295,7 @@ urlpatterns += [
     ),
     path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
+    path('api/v2/', include(router.urls)),
     # The api user login
     path(
         'api/v2/login/', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
