@@ -259,6 +259,7 @@ AVAILABLE_LANGUAGES = (
     ('pt-br', 'Brazilian Portuguese'),
     ('ru', 'Russian'),
     ('sk', 'Slovak'),
+    ('sl', 'Slovenian'),
     ('sv', 'Swedish'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),

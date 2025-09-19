@@ -223,5 +223,14 @@
       "full_name": "Slovenský jazyk",
       "full_name_en": "Slovak"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 26,
+    "fields": {
+      "short_name": "sl",
+      "full_name": "Slovenski jezik",
+      "full_name_en": "Slovenian"
+    }
   }
 ]
