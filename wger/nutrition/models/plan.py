@@ -31,6 +31,7 @@ from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 
