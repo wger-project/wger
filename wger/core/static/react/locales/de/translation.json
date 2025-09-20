@@ -324,7 +324,7 @@
         "result": "Dein BMI ist {{value}}"
     },
     "editName": "{{name}} bearbeiten",
-    "start": "Start",
+    "start": "Beginne",
     "end": "Ende",
     "comment": "Kommentar",
     "min": "Min",
@@ -332,5 +332,7 @@
     "durationWeeks": "{{number}} Wochen",
     "durationWeeksDays": "{{nrWeeks}} Wochen, {{nrDays}} Tage",
     "undo": "Rückgängig machen",
-    "successfullyDeleted": "Erfolgreich gelöscht"
+    "successfullyDeleted": "Erfolgreich gelöscht",
+    "private": "Privat",
+    "public": "Öffentlich"
 }
