@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2023-12-27 14:07+0000\n"
-"Last-Translator: sasukeiscool <jaflagasd@gmail.com>\n"
+"PO-Revision-Date: 2025-09-22 11:52+0000\n"
+"Last-Translator: Ryohei Morimoto <caulked.thorax_3l@icloud.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/wger/web/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -31,6 +31,9 @@ msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"インストールに当たって、デフォルトのジムを選択してください。これにより全ての"
+"新規ユーザーがこのジムに割り当てられ、ジムを利用していない全ての既存ユーザー"
+"を更新します。"
 
 #: config/views/gym_config.py:42 core/templates/language/view.html:64
 #: core/templates/license/list.html:17
@@ -81,7 +84,8 @@ msgstr "メール"
 
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr ""
+msgstr "パスワードの再設定、またはオプションとしてメールのリマインダー通知に使用され"
+"ます。"
 
 #: core/forms.py:116 core/models/profile.py:221
 #: gym/templates/gym/new_user.html:38
@@ -94,7 +98,7 @@ msgstr "パーソナルデータ"
 
 #: core/forms.py:161
 msgid "Workout reminders"
-msgstr ""
+msgstr "ワークアウトリマインダー通知"
 
 #: core/forms.py:168
 msgid "Other settings"
