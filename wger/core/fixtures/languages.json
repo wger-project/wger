@@ -241,5 +241,14 @@
       "full_name": "한국어",
       "full_name_en": "Korean"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 28,
+    "fields": {
+      "short_name": "th",
+      "full_name": "ภาษาไทย",
+      "full_name_en": "Thai"
+    }
   }
 ]

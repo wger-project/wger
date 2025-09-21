@@ -262,6 +262,7 @@ AVAILABLE_LANGUAGES = (
     ('sk', 'Slovak'),
     ('sl', 'Slovenian'),
     ('sv', 'Swedish'),
+    ('th', 'Thai'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
     ('zh-hans', 'Chinese simplified'),
