@@ -9,6 +9,12 @@ from pathlib import Path
 # Third Party
 import requests
 
+# /// script
+# dependencies = [
+#   "requests",
+# ]
+# ///
+
 ORGANIZATION = 'wger-project'
 REPOSITORIES = ['wger', 'flutter', 'react', 'docker', 'docs']
 COMMITS_PER_PAGE = 100
