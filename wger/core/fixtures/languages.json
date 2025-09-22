@@ -259,5 +259,14 @@
       "full_name": "српски језик",
       "full_name_en": "Serbian"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 30,
+    "fields": {
+      "short_name": "ta",
+      "full_name": "தமிழ்",
+      "full_name_en": "Tamil"
+    }
   }
 ]

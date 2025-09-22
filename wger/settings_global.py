@@ -263,6 +263,7 @@ AVAILABLE_LANGUAGES = (
     ('sl', 'Slovenian'),
     ('sr', 'Serbian'),
     ('sv', 'Swedish'),
+    ('ta', 'Tamil'),
     ('th', 'Thai'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
