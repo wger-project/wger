@@ -214,5 +214,59 @@
       "full_name": "漢語",
       "full_name_en": "Chinese"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 25,
+    "fields": {
+      "short_name": "sk",
+      "full_name": "Slovenský jazyk",
+      "full_name_en": "Slovak"
+    }
+  },
+  {
+    "model": "core.language",
+    "pk": 26,
+    "fields": {
+      "short_name": "sl",
+      "full_name": "Slovenski jezik",
+      "full_name_en": "Slovenian"
+    }
+  },
+  {
+    "model": "core.language",
+    "pk": 27,
+    "fields": {
+      "short_name": "ko",
+      "full_name": "한국어",
+      "full_name_en": "Korean"
+    }
+  },
+  {
+    "model": "core.language",
+    "pk": 28,
+    "fields": {
+      "short_name": "th",
+      "full_name": "ภาษาไทย",
+      "full_name_en": "Thai"
+    }
+  },
+  {
+    "model": "core.language",
+    "pk": 29,
+    "fields": {
+      "short_name": "sr",
+      "full_name": "српски језик",
+      "full_name_en": "Serbian"
+    }
+  },
+  {
+    "model": "core.language",
+    "pk": 30,
+    "fields": {
+      "short_name": "ta",
+      "full_name": "தமிழ்",
+      "full_name_en": "Tamil"
+    }
   }
 ]
