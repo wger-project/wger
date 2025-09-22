@@ -261,6 +261,7 @@ AVAILABLE_LANGUAGES = (
     ('ru', 'Russian'),
     ('sk', 'Slovak'),
     ('sl', 'Slovenian'),
+    ('sr', 'Serbian'),
     ('sv', 'Swedish'),
     ('th', 'Thai'),
     ('tr', 'Turkish'),

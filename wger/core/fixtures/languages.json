@@ -250,5 +250,14 @@
       "full_name": "ภาษาไทย",
       "full_name_en": "Thai"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 29,
+    "fields": {
+      "short_name": "sr",
+      "full_name": "српски језик",
+      "full_name_en": "Serbian"
+    }
   }
 ]
