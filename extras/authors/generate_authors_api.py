@@ -1,4 +1,5 @@
 # Standard Library
+import datetime
 import json
 import os
 import re
@@ -163,6 +164,8 @@ def generate_authors_file(
     with open(filename, 'w') as f:
         f.write('# Contributors and translators to this repository\n\n')
         f.write('Thank you all for contributing to the project, you are true heroes! 🫶\n\n')
+        f.write(f'*Generated on {datetime.date.today()}*\n\n')
+        f.write('---\n\n')
 
         f.write('## Contributors\n\n')
         if contributors:
