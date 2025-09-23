@@ -18,7 +18,6 @@ import logging
 
 # Django
 from django.contrib.postgres.search import TrigramSimilarity
-
 # Third Party
 from django_filters import rest_framework as filters
 
@@ -29,7 +28,6 @@ from wger.nutrition.models import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
-
 
 logger = logging.getLogger(__name__)
 
@@ -47,11 +45,11 @@ class LogItemFilterSet(filters.FilterSet):
 
 
 class IngredientFilterSet(filters.FilterSet):
-    code = filters.CharFilter(method='search_code')
+    code = filters.CharFilter(method='search_barcode')
     name__search = filters.CharFilter(method='search_name_fulltext')
     language__code = filters.CharFilter(method='search_languagecode')
 
-    def search_code(self, queryset, name, value):
+    def search_barcode(self, queryset, name, value):
         """
         'exact' search for the barcode.
 
@@ -63,7 +61,7 @@ class IngredientFilterSet(filters.FilterSet):
 
         queryset = queryset.filter(code=value)
         if queryset.count() == 0:
-            logger.debug('code not found locally, fetching code from off')
+            logger.debug('barcode not found locally, trying to fetch ingredient from OFF')
             Ingredient.fetch_ingredient_from_off(value)
 
         return queryset
@@ -86,10 +84,10 @@ class IngredientFilterSet(filters.FilterSet):
         """
         Filter based on language codes, not IDs
 
-        Also accepts a comma separated list of codes. Unknown codes are ignored
+        Also accepts a comma-separated list of codes. Unknown codes are ignored
+        and duplicates removed.
         """
-
-        languages = [load_language(l) for l in value.split(',')]
+        languages = [load_language(l) for l in set(value.split(','))]
         if languages:
             queryset = queryset.filter(language__in=languages)
 
