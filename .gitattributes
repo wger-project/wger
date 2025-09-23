@@ -2,6 +2,7 @@
 * text eol=lf
 
 # These files are binary and should be left untouched
+*.avif binary
 *.png binary
 *.jpg binary
 *.jpeg binary

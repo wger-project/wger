@@ -20,20 +20,20 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Alias,
     Exercise,
-    ExerciseBase,
     ExerciseComment,
+    Translation,
 )
 from wger.utils.cache import cache_mapper
 
 
 class ExerciseApiCacheTestCase(WgerTestCase):
     """
-    Tests the API cache for the exercisebaseinfo endpoint
+    Tests the API cache for the exerciseinfo endpoint
     """
 
     exercise_id = 1
     exercise_uuid = 'acad3949-36fb-4481-9a72-be2ddae2bc05'
-    url = '/api/v2/exercisebaseinfo/1/'
+    url = '/api/v2/exerciseinfo/1/'
 
     cache_key = cache_mapper.get_exercise_api_key('acad3949-36fb-4481-9a72-be2ddae2bc05')
 
@@ -45,7 +45,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.category_id = 1
         exercise.save()
 
@@ -59,7 +59,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.delete()
 
         self.assertFalse(cache.get(self.cache_key))
@@ -72,7 +72,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         translation.name = 'something else'
         translation.save()
 
@@ -86,7 +86,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         translation.delete()
 
         self.assertFalse(cache.get(self.cache_key))

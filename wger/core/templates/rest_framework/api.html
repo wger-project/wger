@@ -29,25 +29,26 @@
 
 
 {% block content %}
-{#                             #}
-{# Object/endpoint description #}
-{#                             #}
-<div>
+    {#                             #}
+    {# Object/endpoint description #}
+    {#                             #}
+    <div>
 
-    <div class="request-info" style="clear: both">
-        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-    </div>
+        <div class="request-info" style="clear: both">
+            <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
+        </div>
 
-    <div class="response-info">
+        <div class="response-info">
         <pre class="prettyprint">
-            <span class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>
+            <span
+                class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>
                 {% for key, val in response_headers|items %}
-                    <b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize }}</span>
+                    <b>{{ key }}:</b> <span class="lit">{{ val|urlize }}</span>
                 {% endfor %}
 
             </span>{{ content|urlize }}</pre>
+        </div>
+
+
     </div>
-
-
-</div>
 {% endblock %}

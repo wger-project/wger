@@ -1,5 +1,5 @@
 # wger
-from wger import get_version
+from wger.version import get_version
 
 
 VERSION = get_version()

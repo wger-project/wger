@@ -99,6 +99,7 @@ class ImportProductCommand(BaseCommand):
     def process_ingredient(self, ingredient_data: IngredientData):
         #
         # Add entries as new products
+        ingredient_data.clean_name()
         if self.mode == Mode.INSERT:
             self.bulk_update_bucket.append(Ingredient(**ingredient_data.dict()))
             if len(self.bulk_update_bucket) > self.bulk_size:
@@ -168,11 +169,11 @@ class ImportProductCommand(BaseCommand):
             for line in gzid:
                 try:
                     product = json.loads(line)
-                    if not product.get('lang') in languages:
+                    if product.get('lang') not in languages:
                         continue
                     yield product
                 except JSONDecodeError:
-                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
+                    self.stdout.write(' Error parsing and/or filtering  json record, skipping')
                     continue
 
     def download_file(self, url: str, destination: str) -> None:

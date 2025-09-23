@@ -1,0 +1,11 @@
+.language-menu{
+    max-height: 60vh;
+    overflow-y: auto;
+    width: min(92vw, 420px);
+    overscroll-behavior: contain;
+}
+
+.language-menu .dropdown-item{
+    padding: .5rem .75rem;
+}
+

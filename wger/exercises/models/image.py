@@ -26,7 +26,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.helpers import BaseImage
 from wger.utils.models import (
@@ -40,7 +40,7 @@ def exercise_image_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     ext = pathlib.Path(filename).suffix
-    return f'exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}'
+    return f'exercise-images/{instance.exercise.id}/{instance.uuid}{ext}'
 
 
 class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, BaseImage):
@@ -69,8 +69,8 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     )
     """Globally unique ID, to identify the image across installations"""
 
-    exercise_base = models.ForeignKey(
-        ExerciseBase,
+    exercise = models.ForeignKey(
+        Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
@@ -137,19 +137,19 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         Only one image can be marked as main picture at a time
         """
         if self.is_main:
-            ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
+            ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
             self.is_main = True
         else:
             if (
-                ExerciseImage.objects.all().filter(exercise_base=self.exercise_base).count() == 0
+                ExerciseImage.objects.all().filter(exercise=self.exercise).count() == 0
                 or not ExerciseImage.objects.all()
-                .filter(exercise_base=self.exercise_base, is_main=True)
+                .filter(exercise=self.exercise, is_main=True)
                 .count()
             ):
                 self.is_main = True
 
         # Api cache
-        reset_exercise_api_cache(self.exercise_base.uuid)
+        reset_exercise_api_cache(self.exercise.uuid)
 
         # And go on
         super().save(*args, **kwargs)
@@ -158,21 +158,19 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         """
         Reset all cached infos
         """
+        reset_exercise_api_cache(self.exercise.uuid)
+
         super().delete(*args, **kwargs)
 
         # Make sure there is always a main image
         if (
-            not ExerciseImage.objects.all()
-            .filter(exercise_base=self.exercise_base, is_main=True)
-            .count()
+            not ExerciseImage.objects.all().filter(exercise=self.exercise, is_main=True).count()
             and ExerciseImage.objects.all()
-            .filter(exercise_base=self.exercise_base)
+            .filter(exercise=self.exercise)
             .filter(is_main=False)
             .count()
         ):
-            image = ExerciseImage.objects.all().filter(
-                exercise_base=self.exercise_base, is_main=False
-            )[0]
+            image = ExerciseImage.objects.all().filter(exercise=self.exercise, is_main=False)[0]
             image.is_main = True
             image.save()
 
@@ -185,7 +183,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     @classmethod
     def from_json(
         cls,
-        connect_to: ExerciseBase,
+        connect_to: Exercise,
         retrieved_image,
         json_data: dict,
         generate_uuid: bool = False,
@@ -196,7 +194,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
             json_data,
             generate_uuid,
         )
-        image.exercise_base = connect_to
+        image.exercise = connect_to
         image.is_main = json_data['is_main']
 
         image.license_id = json_data['license']

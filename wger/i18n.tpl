@@ -28,6 +28,7 @@
 {% translate "Pull-up bar" %}
 {% translate "Quads" %}
 {% translate "Repetitions" %}
+{% translate "Resistance band" %}
 {% translate "SZ-Bar" %}
 {% translate "Seconds" %}
 {% translate "Shoulders" %}

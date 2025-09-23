@@ -30,21 +30,6 @@ from wger.weight.forms import WeightCsvImportForm
 
 urlpatterns = [
     path(
-        'add/',
-        login_required(views.WeightAddView.as_view()),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit/',
-        login_required(views.WeightUpdateView.as_view()),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete/',
-        views.WeightDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
         'export-csv/',
         views.export_csv,
         name='export-csv',
@@ -56,7 +41,7 @@ urlpatterns = [
     ),
     re_path(
         'overview',
-        ReactView.as_view(div_id='react-weight-overview'),
+        ReactView.as_view(),
         name='overview',
     ),
 ]

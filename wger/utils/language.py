@@ -28,7 +28,7 @@ from wger.utils.constants import ENGLISH_SHORT_NAME
 logger = logging.getLogger(__name__)
 
 
-def load_language(language_code=None):
+def load_language(language_code=None, default_to_english=True) -> Language:
     """
     Returns the currently used language, e.g. to load appropriate exercises
     """
@@ -44,8 +44,11 @@ def load_language(language_code=None):
 
     try:
         language = Language.objects.get(short_name=used_language)
-    except Language.DoesNotExist:
-        language = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
+    except Language.DoesNotExist as e:
+        if default_to_english:
+            language = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
+        else:
+            raise e
 
     cache.set(cache_mapper.get_language_key(language.short_name), language)
     return language

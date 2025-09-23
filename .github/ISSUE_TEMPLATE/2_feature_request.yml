@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a new idea for wger
+type: enhancement
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Use case
+      description: |
+        A description of what new feature or behavior you would like to see.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: |
+        Why is this feature needed? What problems does it solve?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Any extra details, related issues, or mockups
+      placeholder: |
+        Screenshots or mockups, links to similar features in other applications, or other relevant
+        information.
+    validations:
+      required: false

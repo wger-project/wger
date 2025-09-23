@@ -12,15 +12,21 @@ env:
 
 jobs:
   build-prod:
-    name: Build production image
-    runs-on: ubuntu-latest
+    name: Build production image ${{ matrix.platform }}
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          - linux/amd64
-          - linux/arm/v7
-          - linux/arm64
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+
+          #Note: disabling ARMv7 for now, as the process fails with:
+          #      Error: Couldn't allocate enough memory
+          #- platform: linux/arm/v7
+          #runner: ubuntu-24.04-arm
     steps:
       - name: Prepare
         run: |
@@ -28,7 +34,7 @@ jobs:
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Docker meta
         id: meta
@@ -38,12 +44,12 @@ jobs:
           # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
-            type=raw,value=2.3-dev
+            type=raw,value=2.4-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.2.0
+        uses: docker/setup-qemu-action@v3.6.0
 
       - name: Set up Docker Buildx
         id: buildx
@@ -106,7 +112,7 @@ jobs:
       - build-prod
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: /tmp/digests
           pattern: digests-*
@@ -121,7 +127,7 @@ jobs:
         with:
           tags: |
             type=raw,value=latest
-            type=raw,value=2.3-dev
+            type=raw,value=2.4-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 

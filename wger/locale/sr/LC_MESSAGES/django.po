@@ -1,0 +1,2987 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-22 13:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+#: wger/config/models/gym_config.py:46 wger/gym/templates/gym/list.html:56
+msgid "Default gym"
+msgstr ""
+
+#: wger/config/models/gym_config.py:48
+msgid ""
+"Select the default gym for this installation. This will assign all new "
+"registered users to this gym and update all existing users without a gym."
+msgstr ""
+
+#: wger/config/views/gym_config.py:42 wger/core/templates/language/view.html:64
+#: wger/core/templates/license/list.html:17
+#: wger/core/templates/repetition_unit/list.html:18
+#: wger/core/templates/user/overview.html:204
+#: wger/core/templates/user/overview.html:467
+#: wger/core/templates/weight_unit/list.html:18
+#: wger/exercises/templates/categories/admin-overview.html:17
+#: wger/exercises/templates/equipment/admin-overview.html:17
+#: wger/exercises/templates/muscles/admin-overview.html:16
+#: wger/gallery/views/images.py:100 wger/gym/templates/admin_notes/list.html:31
+#: wger/gym/templates/contract/list.html:30
+#: wger/gym/templates/contract/view.html:106
+#: wger/gym/templates/contract_option/list.html:29
+#: wger/gym/templates/contract_type/list.html:30
+#: wger/gym/templates/document/list.html:38 wger/gym/templates/gym/list.html:19
+#: wger/gym/templates/gym/list.html:48
+#: wger/gym/templates/gym/member_list.html:94
+#: wger/gym/templates/gym/member_list.html:152
+#: wger/gym/templates/gym/member_list.html:190
+#: wger/nutrition/templates/ingredient/view.html:164
+#: wger/nutrition/templates/ingredient/view.html:209
+#: wger/nutrition/templates/units/list.html:19
+msgid "Edit"
+msgstr ""
+
+#: wger/core/forms.py:69 wger/core/templates/navigation.html:271
+#: wger/core/templates/navigation.html:278
+#: wger/core/templates/user/login.html:4
+#: wger/software/templates/features.html:82
+#: wger/software/templates/features.html:448
+msgid "Login"
+msgstr ""
+
+#: wger/core/forms.py:108 wger/core/forms.py:222 wger/gym/views/export.py:61
+#: wger/gym/views/gym.py:217
+msgid "First name"
+msgstr ""
+
+#: wger/core/forms.py:109 wger/core/forms.py:223
+#: wger/core/templates/user/overview.html:284 wger/gym/views/export.py:62
+#: wger/gym/views/gym.py:217
+msgid "Last name"
+msgstr ""
+
+#: wger/core/forms.py:111 wger/core/forms.py:188
+#: wger/core/templates/user/overview.html:288 wger/gym/models/contract.py:256
+#: wger/gym/models/gym.py:58 wger/gym/templates/contract/view.html:77
+#: wger/gym/templates/gym/member_list.html:116
+#: wger/gym/templates/gym/new_user.html:30 wger/gym/views/export.py:60
+#: wger/mailer/templates/mailer/gym/form.html:4
+#: wger/mailer/templates/mailer/gym/overview.html:4
+#: wger/mailer/templates/mailer/gym/preview.html:4
+msgid "Email"
+msgstr ""
+
+#: wger/core/forms.py:112
+msgid "Used for password resets and, optionally, e-mail reminders."
+msgstr ""
+
+#: wger/core/forms.py:116 wger/core/models/profile.py:221
+#: wger/gym/templates/gym/new_user.html:38
+msgid "Date of Birth"
+msgstr ""
+
+#: wger/core/forms.py:155
+msgid "Personal data"
+msgstr ""
+
+#: wger/core/forms.py:167
+msgid "Workout reminders"
+msgstr ""
+
+#: wger/core/forms.py:174
+msgid "Other settings"
+msgstr ""
+
+#: wger/core/forms.py:182 wger/core/views/user.py:611
+#: wger/core/views/user.py:626 wger/core/views/user.py:638 wger/gym/forms.py:73
+#: wger/utils/generic_views.py:143
+msgid "Save"
+msgstr ""
+
+#: wger/core/forms.py:189
+msgid "Used for password resets and, optionally, email reminders."
+msgstr ""
+
+#: wger/core/forms.py:218
+msgid "This e-mail address is already in use."
+msgstr ""
+
+#: wger/core/forms.py:239 wger/gym/templates/gym/new_user.html:26
+#: wger/gym/templates/gym/reset_user_password.html:24 wger/gym/views/gym.py:217
+msgid "Password"
+msgstr ""
+
+#: wger/core/forms.py:241
+msgid "Please enter your current password."
+msgstr ""
+
+#: wger/core/forms.py:250 wger/core/templates/language/view.html:70
+#: wger/core/templates/license/list.html:21
+#: wger/core/templates/repetition_unit/list.html:22
+#: wger/core/templates/user/overview.html:233
+#: wger/core/templates/weight_unit/list.html:22
+#: wger/exercises/templates/categories/admin-overview.html:21
+#: wger/exercises/templates/equipment/admin-overview.html:21
+#: wger/exercises/templates/muscles/admin-overview.html:20
+#: wger/gym/templates/admin_notes/list.html:37
+#: wger/gym/templates/contract_option/list.html:35
+#: wger/gym/templates/contract_type/list.html:36
+#: wger/gym/templates/document/list.html:46 wger/gym/templates/gym/list.html:23
+#: wger/nutrition/templates/ingredient/view.html:168
+#: wger/nutrition/templates/ingredient/view.html:215
+#: wger/nutrition/templates/units/list.html:25
+msgid "Delete"
+msgstr ""
+
+#: wger/core/forms.py:259
+msgid "Invalid password"
+msgstr ""
+
+#: wger/core/forms.py:271 wger/core/forms.py:346
+msgid "The form is secured with reCAPTCHA"
+msgstr ""
+
+#: wger/core/forms.py:287 wger/core/forms.py:309
+#: wger/core/templates/navigation.html:272
+#: wger/core/templates/navigation.html:285
+#: wger/core/templates/template.html:150 wger/core/templates/user/login.html:21
+#: wger/core/views/user.py:285 wger/software/templates/features.html:87
+#: wger/software/templates/features.html:442
+msgid "Register"
+msgstr ""
+
+#: wger/core/forms.py:323 wger/software/templates/features.html:45
+msgid "Contact"
+msgstr ""
+
+#: wger/core/forms.py:324
+msgid "Some way of answering you (e-mail, etc.)"
+msgstr ""
+
+#: wger/core/forms.py:332 wger/exercises/models/comment.py:55
+#: wger/manager/models/slot.py:40 wger/nutrition/models/log.py:77
+msgid "Comment"
+msgstr ""
+
+#: wger/core/forms.py:333
+msgid "What do you want to say?"
+msgstr ""
+
+#: wger/core/models/language.py:31 wger/core/templates/language/view.html:21
+msgid "Language short name"
+msgstr ""
+
+#: wger/core/models/language.py:39 wger/core/templates/language/view.html:22
+msgid "Language full name"
+msgstr ""
+
+#: wger/core/models/language.py:45 wger/core/templates/language/view.html:23
+msgid "Language full name in English"
+msgstr ""
+
+#: wger/core/models/license.py:29
+msgid "Full name"
+msgstr ""
+
+#: wger/core/models/license.py:31
+msgid ""
+"If a license has been localized, e.g. the Creative Commons licenses for the "
+"different countries, add them as separate entries here."
+msgstr ""
+
+#: wger/core/models/license.py:40
+msgid "Short name, e.g. CC-BY-SA 3"
+msgstr ""
+
+#: wger/core/models/license.py:45 wger/nutrition/models/ingredient.py:223
+msgid "Link"
+msgstr ""
+
+#: wger/core/models/license.py:46
+msgid "Link to license text or other information"
+msgstr ""
+
+#: wger/core/models/profile.py:56
+#, python-format
+msgid "%(birthdate)s is not a valid birthdate"
+msgstr ""
+
+#: wger/core/models/profile.py:65
+msgid "Male"
+msgstr ""
+
+#: wger/core/models/profile.py:66
+msgid "Female"
+msgstr ""
+
+#: wger/core/models/profile.py:73
+msgid "Low"
+msgstr ""
+
+#: wger/core/models/profile.py:74
+msgid "Medium"
+msgstr ""
+
+#: wger/core/models/profile.py:75
+msgid "High"
+msgstr ""
+
+#: wger/core/models/profile.py:81
+msgid "Metric (kilogram)"
+msgstr ""
+
+#: wger/core/models/profile.py:82
+msgid "Imperial (pound)"
+msgstr ""
+
+#: wger/core/models/profile.py:118
+msgid "Show exercise comments"
+msgstr ""
+
+#: wger/core/models/profile.py:119
+msgid "Check to show exercise comments on the workout view"
+msgstr ""
+
+#: wger/core/models/profile.py:129
+msgid "Also use ingredients in English"
+msgstr ""
+
+#: wger/core/models/profile.py:131
+msgid ""
+"Check to also show ingredients in English while creating\n"
+"a nutritional plan. These ingredients are extracted from a list provided\n"
+"by the US Department of Agriculture. It is extremely complete, with around\n"
+"7000 entries, but can be somewhat overwhelming and make the search difficult."
+msgstr ""
+
+#: wger/core/models/profile.py:140
+msgid "Activate workout reminders"
+msgstr ""
+
+#: wger/core/models/profile.py:142
+msgid ""
+"Check to activate automatic reminders for workouts. You need to provide a "
+"valid email for this to work."
+msgstr ""
+
+#: wger/core/models/profile.py:151
+msgid "Remind before expiration"
+msgstr ""
+
+#: wger/core/models/profile.py:152
+msgid "The number of days you want to be reminded before a workout expires."
+msgstr ""
+
+#: wger/core/models/profile.py:158
+msgid "Default duration of workouts"
+msgstr ""
+
+#: wger/core/models/profile.py:160
+msgid ""
+"Default duration in weeks of workouts not in a schedule. Used for email "
+"workout reminders."
+msgstr ""
+
+#: wger/core/models/profile.py:178
+msgid "Notification language"
+msgstr ""
+
+#: wger/core/models/profile.py:180
+msgid ""
+"Language to use when sending you email notifications, e.g. email reminders "
+"for workouts. This does not affect the language used on the website."
+msgstr ""
+
+#: wger/core/models/profile.py:213 wger/gym/views/export.py:64
+msgid "Age"
+msgstr ""
+
+#: wger/core/models/profile.py:229 wger/nutrition/forms.py:117
+msgid "Height (cm)"
+msgstr ""
+
+#: wger/core/models/profile.py:246
+msgid "Hours of sleep"
+msgstr ""
+
+#: wger/core/models/profile.py:247
+msgid "The average hours of sleep per day"
+msgstr ""
+
+#: wger/core/models/profile.py:256
+msgid "Work"
+msgstr ""
+
+#: wger/core/models/profile.py:257 wger/core/models/profile.py:299
+msgid "Average hours per day"
+msgstr ""
+
+#: wger/core/models/profile.py:266 wger/core/models/profile.py:287
+#: wger/core/models/profile.py:308
+msgid "Physical intensity"
+msgstr ""
+
+#: wger/core/models/profile.py:267 wger/core/models/profile.py:288
+#: wger/core/models/profile.py:309
+msgid "Approximately"
+msgstr ""
+
+#: wger/core/models/profile.py:277
+msgid "Sport"
+msgstr ""
+
+#: wger/core/models/profile.py:278
+msgid "Average hours per week"
+msgstr ""
+
+#: wger/core/models/profile.py:298
+msgid "Free time"
+msgstr ""
+
+#: wger/core/models/profile.py:319 wger/nutrition/templates/rate/form.html:66
+msgid "Total daily calories"
+msgstr ""
+
+#: wger/core/models/profile.py:320
+msgid "Total caloric intake, including e.g. any surplus"
+msgstr ""
+
+#: wger/core/models/profile.py:332
+#: wger/nutrition/models/ingredient_weight_unit.py:45
+#: wger/nutrition/models/log.py:96 wger/nutrition/models/meal_item.py:59
+msgid "Weight unit"
+msgstr ""
+
+#: wger/core/models/profile.py:340
+msgid "Allow external access"
+msgstr ""
+
+#: wger/core/models/profile.py:342
+msgid ""
+"Allow external users to access your workouts and logs in a read-only mode. "
+"You need to set this before you can share links e.g. to social media."
+msgstr ""
+
+#: wger/core/models/profile.py:351
+msgid "Automatic reminders for weight entries"
+msgstr ""
+
+#: wger/core/models/profile.py:352
+msgid "Number of days after the last weight entry (enter 0 to deactivate)"
+msgstr ""
+
+#: wger/core/models/profile.py:438
+msgid "The sum of all hours has to be 24"
+msgstr ""
+
+#: wger/core/models/rep_unit.py:36 wger/core/models/weight_unit.py:42
+#: wger/core/templates/user/overview.html:280 wger/core/views/user.py:586
+#: wger/exercises/models/category.py:29 wger/exercises/models/equipment.py:29
+#: wger/exercises/models/muscle.py:36 wger/exercises/models/translation.py:56
+#: wger/gym/models/contract.py:52 wger/gym/models/contract.py:103
+#: wger/gym/models/gym.py:46 wger/gym/models/user_document.py:84
+#: wger/gym/templates/contract/view.html:50
+#: wger/gym/templates/gym/member_list.html:28
+#: wger/gym/templates/gym/member_list.html:108 wger/gym/views/gym.py:158
+#: wger/manager/models/day.py:73 wger/manager/models/routine.py:81
+#: wger/measurements/models/category.py:36
+#: wger/nutrition/models/ingredient.py:126
+#: wger/nutrition/models/ingredient_category.py:27
+#: wger/nutrition/models/meal.py:65 wger/nutrition/models/weight_unit.py:38
+#: wger/nutrition/templates/ingredient/view.html:151
+msgid "Name"
+msgstr ""
+
+#: wger/core/templates/403.html:4
+msgid "Forbidden!"
+msgstr ""
+
+#: wger/core/templates/403.html:7
+msgid "You are not allowed to access this page"
+msgstr ""
+
+#: wger/core/templates/404.html:4
+msgid "Page not found"
+msgstr ""
+
+#: wger/core/templates/404.html:7
+msgid "The page you requested does not exist."
+msgstr ""
+
+#: wger/core/templates/500.html:4
+#: wger/core/templates/template_no_context.html:37
+msgid "An error occurred"
+msgstr ""
+
+#: wger/core/templates/500.html:8
+msgid ""
+"There was an error on the server while processing your request. Try "
+"refreshing your browser and if that doesn't help, please try again at a "
+"later time. If the problem persists, you can seek help in ways listed below:"
+msgstr ""
+
+#: wger/core/templates/base.html:10
+#, python-format
+msgid ""
+"You are browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data."
+msgstr ""
+
+#: wger/core/templates/base.html:15
+#, python-format
+msgid "Back to \"%(target)s\""
+msgstr ""
+
+#: wger/core/templates/base_wide.html:7
+#, python-format
+msgid ""
+"You are\n"
+"                browsing the site as the user \"%(current_user)s\", all "
+"actions are performed on\n"
+"                their data.\n"
+"            "
+msgstr ""
+
+#: wger/core/templates/base_wide.html:12
+#, python-format
+msgid ""
+"Back to \"%(target)s\n"
+"                    \""
+msgstr ""
+
+#: wger/core/templates/delete.html:4
+msgid "Are you sure you want to delete this? This action cannot be undone."
+msgstr ""
+
+#: wger/core/templates/email_verification/confirm_template.html:4
+msgid "Email verification"
+msgstr ""
+
+#: wger/core/templates/email_verification/confirm_template.html:18
+#, python-format
+msgid "%(username)s, your email was verified"
+msgstr ""
+
+#: wger/core/templates/email_verification/confirm_template.html:22
+msgid "Error, invalid verification token"
+msgstr ""
+
+#: wger/core/templates/email_verification/email_body_html.tpl:6
+msgid "Email Confirmation"
+msgstr ""
+
+#: wger/core/templates/email_verification/email_body_html.tpl:9
+#: wger/core/templates/email_verification/email_body_txt.tpl:3
+#, python-format
+msgid "You are almost there, %(username)s!"
+msgstr ""
+
+#: wger/core/templates/email_verification/email_body_html.tpl:11
+#, python-format
+msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
+msgstr ""
+
+#: wger/core/templates/email_verification/email_body_html.tpl:12
+#: wger/core/templates/email_verification/email_body_txt.tpl:5
+#, python-format
+msgid "The token expires on %(time)s"
+msgstr ""
+
+#: wger/core/templates/email_verification/email_body_html.tpl:14
+#: wger/core/templates/email_verification/email_body_txt.tpl:8
+msgid "the wger Team"
+msgstr ""
+
+#: wger/core/templates/email_verification/email_body_txt.tpl:4
+#, python-format
+msgid "Please click the following link to confirm your email: %(link)s"
+msgstr ""
+
+#: wger/core/templates/index.html:4 wger/software/templates/features.html:453
+msgid "Dashboard"
+msgstr ""
+
+#: wger/core/templates/language/overview.html:4
+#: wger/core/templates/navigation.html:334
+msgid "Languages"
+msgstr ""
+
+#: wger/core/templates/language/overview.html:22
+msgid "Nothing found."
+msgstr ""
+
+#: wger/core/templates/language/overview.html:22
+#: wger/nutrition/templates/ingredient/overview.html:38
+msgid "Add one now."
+msgstr ""
+
+#: wger/core/templates/language/overview.html:34
+#: wger/core/templates/license/list.html:43
+#: wger/core/templates/repetition_unit/list.html:46
+#: wger/core/templates/user/overview.html:344
+#: wger/core/templates/user/overview.html:384
+#: wger/core/templates/user/overview.html:422
+#: wger/core/templates/weight_unit/list.html:46 wger/core/views/languages.py:74
+#: wger/core/views/license.py:66 wger/core/views/repetition_units.py:66
+#: wger/core/views/weight_units.py:66
+#: wger/exercises/templates/categories/admin-overview.html:40
+#: wger/exercises/templates/equipment/admin-overview.html:39
+#: wger/exercises/templates/muscles/admin-overview.html:40
+#: wger/gallery/views/images.py:63 wger/gym/templates/admin_notes/list.html:64
+#: wger/gym/templates/contract/list.html:69
+#: wger/gym/templates/contract_option/list.html:65
+#: wger/gym/templates/contract_type/list.html:66
+#: wger/gym/templates/document/list.html:78
+#: wger/gym/templates/gym/member_list.html:228
+#: wger/gym/templates/gym/member_list.html:264
+#: wger/gym/templates/gym/member_list.html:303
+#: wger/mailer/templates/mailer/gym/overview.html:43
+#: wger/nutrition/templates/ingredient/overview.html:60
+msgid "Add"
+msgstr ""
+
+#: wger/core/templates/language/view.html:61
+#: wger/core/templates/user/api_key.html:41
+#: wger/core/templates/user/preferences.html:50 wger/gym/models/contract.py:203
+#: wger/gym/templates/contract/view.html:41
+#: wger/gym/templates/gym/member_list.html:270
+#: wger/nutrition/templates/ingredient/view.html:206
+msgid "Options"
+msgstr ""
+
+#: wger/core/templates/license/list.html:4
+msgid "License list"
+msgstr ""
+
+#: wger/core/templates/license/list.html:30
+#: wger/core/templates/repetition_unit/list.html:32
+#: wger/core/templates/user/overview.html:104
+#: wger/core/templates/user/overview.html:136
+#: wger/core/templates/user/overview.html:185
+#: wger/core/templates/user/overview.html:365
+#: wger/core/templates/user/overview.html:404
+#: wger/core/templates/user/overview.html:448
+#: wger/core/templates/weight_unit/list.html:32
+#: wger/exercises/templates/categories/admin-overview.html:30
+#: wger/exercises/templates/equipment/admin-overview.html:30
+#: wger/exercises/templates/muscles/admin-overview.html:29
+#: wger/gym/templates/admin_notes/list.html:50
+#: wger/gym/templates/contract/list.html:57
+#: wger/gym/templates/contract_option/list.html:52
+#: wger/gym/templates/contract_type/list.html:53
+#: wger/gym/templates/document/list.html:64 wger/gym/templates/gym/list.html:32
+#: wger/gym/templates/gym/member_list.html:248
+#: wger/gym/templates/gym/member_list.html:284
+#: wger/gym/templates/gym/member_list.html:321
+#: wger/mailer/templates/mailer/gym/overview.html:30
+#: wger/nutrition/templates/units/list.html:34
+msgid "Nothing found"
+msgstr ""
+
+#: wger/core/templates/misc/about.html:4 wger/core/templates/template.html:187
+msgid "Imprint"
+msgstr ""
+
+#: wger/core/templates/navigation.html:28
+#: wger/software/templates/features.html:458
+msgid "Training"
+msgstr ""
+
+#: wger/core/templates/navigation.html:37
+#: wger/core/templates/user/overview.html:25
+msgid "Routines"
+msgstr ""
+
+#: wger/core/templates/navigation.html:45
+#: wger/core/templates/user/overview.html:70
+msgid "Calendar"
+msgstr ""
+
+#: wger/core/templates/navigation.html:55
+msgid "Measurements"
+msgstr ""
+
+#: wger/core/templates/navigation.html:66
+#: wger/gallery/templates/images/overview.html:6
+msgid "Gallery"
+msgstr ""
+
+#: wger/core/templates/navigation.html:72
+msgid "Workout templates"
+msgstr ""
+
+#: wger/core/templates/navigation.html:79
+msgid "Your templates"
+msgstr ""
+
+#: wger/core/templates/navigation.html:88
+msgid "Public templates"
+msgstr ""
+
+#: wger/core/templates/navigation.html:96
+#: wger/software/templates/features.html:51
+#: wger/software/templates/features.html:480
+msgid "Exercises"
+msgstr ""
+
+#: wger/core/templates/navigation.html:102
+#: wger/core/templates/navigation.html:176
+#: wger/core/templates/navigation.html:329
+msgid "Administration"
+msgstr ""
+
+#: wger/core/templates/navigation.html:106
+msgid "Exercise edit history"
+msgstr ""
+
+#: wger/core/templates/navigation.html:112 wger/exercises/models/base.py:107
+msgid "Equipment"
+msgstr ""
+
+#: wger/core/templates/navigation.html:118
+msgid "Muscles"
+msgstr ""
+
+#: wger/core/templates/navigation.html:124
+#: wger/exercises/templates/categories/admin-overview.html:4
+msgid "Categories"
+msgstr ""
+
+#: wger/core/templates/navigation.html:139
+#: wger/software/templates/features.html:468
+msgid "Nutrition"
+msgstr ""
+
+#: wger/core/templates/navigation.html:147
+#: wger/core/templates/user/overview.html:144
+msgid "Nutrition plans"
+msgstr ""
+
+#: wger/core/templates/navigation.html:156
+msgid "BMI calculator"
+msgstr ""
+
+#: wger/core/templates/navigation.html:165
+#: wger/nutrition/templates/rate/form.html:17
+msgid "Daily calories calculator"
+msgstr ""
+
+#: wger/core/templates/navigation.html:171
+#: wger/nutrition/templates/ingredient/overview.html:10
+msgid "Ingredient overview"
+msgstr ""
+
+#: wger/core/templates/navigation.html:180
+#: wger/nutrition/templates/units/list.html:6
+msgid "Ingredient weight units"
+msgstr ""
+
+#: wger/core/templates/navigation.html:196
+#: wger/software/templates/features.html:463
+msgid "Body weight"
+msgstr ""
+
+#: wger/core/templates/navigation.html:203
+#: wger/core/templates/user/overview.html:114
+msgid "Weight overview"
+msgstr ""
+
+#: wger/core/templates/navigation.html:217
+msgid "About this software"
+msgstr ""
+
+#: wger/core/templates/navigation.html:223
+#: wger/software/templates/about_us.html:5
+msgid "Support & Get Involved"
+msgstr ""
+
+#: wger/core/templates/navigation.html:229
+#: wger/software/templates/features.html:528
+msgid "REST API"
+msgstr ""
+
+#: wger/core/templates/navigation.html:235 wger/utils/models.py:45
+msgid "License"
+msgstr ""
+
+#: wger/core/templates/navigation.html:241
+msgid "Developer documentation"
+msgstr ""
+
+#: wger/core/templates/navigation.html:248
+msgid "Get the code"
+msgstr ""
+
+#: wger/core/templates/navigation.html:255
+#: wger/core/templates/template.html:226
+#: wger/software/templates/features.html:603
+msgid "Translate"
+msgstr ""
+
+#: wger/core/templates/navigation.html:292
+#: wger/core/templates/user/login.html:30
+msgid "Reset password"
+msgstr ""
+
+#: wger/core/templates/navigation.html:310
+msgid "My preferences"
+msgstr ""
+
+#: wger/core/templates/navigation.html:319
+msgid "Logout"
+msgstr ""
+
+#: wger/core/templates/navigation.html:342
+msgid "Licenses"
+msgstr ""
+
+#: wger/core/templates/navigation.html:350
+#: wger/core/templates/repetition_unit/list.html:4
+msgid "Repetition units"
+msgstr ""
+
+#: wger/core/templates/navigation.html:358
+#: wger/core/templates/weight_unit/list.html:4
+#: wger/nutrition/templates/ingredient/view.html:141
+msgid "Weight units"
+msgstr ""
+
+#: wger/core/templates/navigation.html:366 wger/core/templates/user/list.html:4
+msgid "User list"
+msgstr ""
+
+#: wger/core/templates/navigation.html:372
+msgid "Gyms"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_complete.html:4
+msgid "Password reset complete"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_complete.html:8
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_complete.html:10
+msgid "Log in"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_done.html:4
+msgid "Password reset successful"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_done.html:8
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_email.html:9
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_email.html:11
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: wger/core/templates/registration/password_reset_email.html:13
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: wger/core/templates/tags/pagination.html:7
+#: wger/core/templates/tags/pagination.html:12
+msgid "previous"
+msgstr ""
+
+#: wger/core/templates/tags/pagination.html:33
+#: wger/core/templates/tags/pagination.html:38
+msgid "next"
+msgstr ""
+
+#: wger/core/templates/template.html:123
+msgid "Close"
+msgstr ""
+
+#: wger/core/templates/template.html:139
+msgid ""
+"You are using a guest account, data entered will be deleted after a week."
+msgstr ""
+
+#: wger/core/templates/template.html:144
+msgid "Create some demo entries"
+msgstr ""
+
+#: wger/core/templates/template.html:192
+#: wger/software/templates/features.html:568 wger/software/templates/tos.html:7
+msgid "Terms of service"
+msgstr ""
+
+#: wger/core/templates/template_features.html:60
+#: wger/software/templates/features.html:9
+msgid "Features"
+msgstr ""
+
+#: wger/core/templates/user/api_key.html:4
+#: wger/core/templates/user/preferences.html:59
+msgid "API key"
+msgstr ""
+
+#: wger/core/templates/user/api_key.html:15
+msgid "Your API key"
+msgstr ""
+
+#: wger/core/templates/user/api_key.html:21
+msgid "You have no API key yet"
+msgstr ""
+
+#: wger/core/templates/user/api_key.html:46
+msgid "Delete current API key and generate new one"
+msgstr ""
+
+#: wger/core/templates/user/api_key.html:49
+msgid "Generate new API key"
+msgstr ""
+
+#: wger/core/templates/user/api_key.html:55
+#: wger/software/templates/features.html:533
+msgid "Documentation"
+msgstr ""
+
+#: wger/core/templates/user/delete_account.html:3
+#: wger/core/templates/user/preferences.html:62
+msgid "Delete account"
+msgstr ""
+
+#: wger/core/templates/user/delete_account.html:9
+#: wger/exercises/templates/history/overview.html:93
+msgid "Are you sure?"
+msgstr ""
+
+#: wger/core/templates/user/delete_account.html:14
+#, python-format
+msgid ""
+"This action will delete the user account \"%(username)s\".\n"
+"It will also  irrevocably remove all the data associated with it (workouts, "
+"logs, etc.)\n"
+"and can't be undone. "
+msgstr ""
+
+#: wger/core/templates/user/login.html:17
+msgid "No account?"
+msgstr ""
+
+#: wger/core/templates/user/login.html:26
+msgid "Forgot password?"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:25
+#: wger/core/templates/user/overview.html:68
+#: wger/core/templates/user/overview.html:112
+#: wger/core/templates/user/overview.html:144
+#: wger/core/templates/user/overview.html:348
+#: wger/core/templates/user/overview.html:390
+#: wger/core/templates/user/overview.html:426
+#, python-format
+msgid "last %(number)s"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:27
+#: wger/core/templates/user/overview.html:146
+#: wger/core/templates/user/overview.html:343
+#: wger/core/templates/user/overview.html:382
+#: wger/core/templates/user/overview.html:421
+#: wger/gym/templates/gym/member_list.html:226
+#: wger/gym/templates/gym/member_list.html:262
+#: wger/gym/templates/gym/member_list.html:302
+msgid "Overview"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:34
+#: wger/core/templates/user/overview.html:76
+#: wger/core/templates/user/overview.html:120
+#: wger/core/templates/user/overview.html:152 wger/exercises/models/base.py:122
+#: wger/exercises/models/base.py:128 wger/exercises/models/image.py:107
+#: wger/exercises/models/image.py:113 wger/exercises/models/translation.py:61
+#: wger/exercises/models/translation.py:67 wger/exercises/models/video.py:163
+#: wger/exercises/models/video.py:169 wger/gallery/models/image.py:42
+#: wger/manager/helpers.py:88 wger/manager/models/log.py:53
+#: wger/manager/models/session.py:73 wger/measurements/models/measurement.py:46
+#: wger/nutrition/models/ingredient.py:87
+#: wger/nutrition/models/ingredient.py:93
+#: wger/nutrition/models/ingredient.py:231 wger/weight/models.py:51
+#: wger/weight/templates/import_csv_preview.html:13
+#: wger/weight/templates/import_csv_preview.html:42 wger/weight/views.py:54
+msgid "Date"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:35
+#: wger/core/templates/user/overview.html:153
+#: wger/exercises/models/translation.py:49 wger/gallery/models/image.py:65
+#: wger/gym/models/contract.py:58 wger/gym/models/contract.py:109
+#: wger/manager/models/day.py:79 wger/manager/models/routine.py:87
+#: wger/measurements/models/measurement.py:61 wger/nutrition/models/plan.py:76
+msgid "Description"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:36
+msgid "Number of logs (days)"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:37 wger/core/views/user.py:587
+#: wger/gym/templates/gym/email_inactive_members.html:4
+#: wger/gym/views/gym.py:158
+msgid "Last activity"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:58
+msgid "No workouts found."
+msgstr ""
+
+#: wger/core/templates/user/overview.html:68
+msgid "Log"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:77 wger/manager/models/session.py:91
+msgid "General impression"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:78
+#: wger/core/templates/user/overview.html:390 wger/manager/models/session.py:81
+msgid "Notes"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:79
+#: wger/exercises/templates/history/overview.html:30
+msgid "Time"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:112
+#: wger/core/templates/user/overview.html:121 wger/manager/helpers.py:89
+#: wger/manager/models/log.py:173 wger/weight/models.py:53
+#: wger/weight/templates/import_csv_preview.html:14
+#: wger/weight/templates/import_csv_preview.html:43 wger/weight/views.py:54
+msgid "Weight"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:154
+#: wger/nutrition/models/ingredient.py:131
+#: wger/nutrition/templates/ingredient/view.html:51
+#: wger/nutrition/views/plan.py:245
+msgid "Energy"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:155
+#: wger/nutrition/models/ingredient.py:138
+#: wger/nutrition/templates/ingredient/view.html:58
+#: wger/nutrition/views/plan.py:251
+msgid "Protein"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:156
+#: wger/nutrition/models/ingredient.py:146
+#: wger/nutrition/templates/ingredient/view.html:64
+#: wger/nutrition/views/plan.py:259
+msgid "Carbohydrates"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:157
+#: wger/nutrition/models/ingredient.py:164
+#: wger/nutrition/templates/ingredient/view.html:80
+#: wger/nutrition/views/plan.py:273
+msgid "Fat"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:170
+#: wger/nutrition/templates/ingredient/view.html:53
+msgid "kcal"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:201
+#: wger/core/templates/user/overview.html:340
+#: wger/core/templates/user/overview.html:379
+#: wger/core/templates/user/overview.html:418
+#: wger/core/templates/user/overview.html:463
+#: wger/gym/templates/gym/list.html:45
+#: wger/gym/templates/gym/member_list.html:91
+#: wger/gym/templates/gym/member_list.html:149
+#: wger/gym/templates/gym/member_list.html:187
+#: wger/gym/templates/gym/member_list.html:223
+#: wger/gym/templates/gym/member_list.html:259
+#: wger/gym/templates/gym/member_list.html:299
+msgid "Actions"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:210
+msgid "Deactivate user"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:214
+msgid "Activate user"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:223
+msgid "Reset user password"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:227
+#: wger/gym/templates/gym/member_list.html:30
+msgid "Roles"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:243
+msgid "Password reset confirmation"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:247
+msgid "Do you really want to change this user&#39;s password?"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:250
+#: wger/exercises/templates/history/overview.html:106
+msgid "No"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:251
+#: wger/exercises/templates/history/overview.html:99
+msgid "Yes"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:272
+#: wger/gym/templates/gym/member_list.html:105
+msgid "Details"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:276 wger/gym/views/export.py:57
+#: wger/manager/helpers.py:89 wger/nutrition/views/plan.py:151
+#: wger/nutrition/views/plan.py:157
+msgid "Nr."
+msgstr ""
+
+#: wger/core/templates/user/overview.html:298 wger/gym/models/contract.py:287
+#: wger/gym/models/gym.py:50 wger/gym/templates/contract/view.html:75
+#: wger/gym/templates/gym/member_list.html:112 wger/gym/views/export.py:68
+msgid "Phone"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:302
+#: wger/gym/templates/contract/view.html:87
+#: wger/gym/templates/gym/member_list.html:130
+msgid "Address"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:313
+msgid "Registered"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:317
+msgid "Last login"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:322
+msgid "Status"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:325
+msgid "Active"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:327
+msgid "Inactive"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:348
+#: wger/gym/templates/contract/list.html:4
+#: wger/gym/templates/gym/member_list.html:218
+msgid "Contracts"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:426
+#: wger/gym/templates/document/list.html:4
+msgid "Documents"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:433
+#: wger/gym/templates/document/list.html:33
+msgid "Download"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:474 wger/gym/views/admin_config.py:44
+#: wger/gym/views/admin_config.py:58 wger/gym/views/user_config.py:46
+msgid "Configuration"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:477 wger/gym/models/user_config.py:92
+msgid "Include in inactive overview"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:510
+#, python-format
+msgid "Admin login is only available for users in %(gym_name)s"
+msgstr ""
+
+#: wger/core/templates/user/overview.html:514
+msgid "Log in as this user"
+msgstr ""
+
+#: wger/core/templates/user/preferences.html:4
+msgid "Preferences"
+msgstr ""
+
+#: wger/core/templates/user/preferences.html:19
+msgid "Verified email"
+msgstr ""
+
+#: wger/core/templates/user/preferences.html:24
+msgid "Unverified email"
+msgstr ""
+
+#: wger/core/templates/user/preferences.html:26
+msgid "Send verification email"
+msgstr ""
+
+#: wger/core/templates/user/preferences.html:31
+msgid "You need to verify your email to contribute exercises"
+msgstr ""
+
+#: wger/core/templates/user/preferences.html:55 wger/core/views/user.py:598
+msgid "Change password"
+msgstr ""
+
+#: wger/core/templatetags/wger_extras.py:142 wger/i18n.tpl:38
+msgid "kg"
+msgstr ""
+
+#: wger/core/templatetags/wger_extras.py:144
+#: wger/nutrition/templates/ingredient/view.html:60
+#: wger/nutrition/templates/ingredient/view.html:66
+#: wger/nutrition/templates/ingredient/view.html:73
+#: wger/nutrition/templates/ingredient/view.html:82
+#: wger/nutrition/templates/ingredient/view.html:89
+#: wger/nutrition/templates/ingredient/view.html:111
+#: wger/nutrition/templates/ingredient/view.html:121
+msgctxt "weight unit, i.e. grams"
+msgid "g"
+msgstr ""
+
+#: wger/core/templatetags/wger_extras.py:147 wger/i18n.tpl:39
+msgid "lb"
+msgstr ""
+
+#: wger/core/templatetags/wger_extras.py:149
+msgctxt "weight unit, i.e. ounces"
+msgid "oz"
+msgstr ""
+
+#: wger/core/views/languages.py:85 wger/exercises/views/categories.py:122
+#: wger/exercises/views/equipment.py:103 wger/exercises/views/muscles.py:99
+#: wger/nutrition/views/ingredient.py:119 wger/nutrition/views/unit.py:110
+msgid "Successfully deleted"
+msgstr ""
+
+#: wger/core/views/languages.py:93 wger/core/views/license.py:103
+#: wger/core/views/repetition_units.py:115 wger/core/views/weight_units.py:115
+#: wger/exercises/views/categories.py:128 wger/exercises/views/muscles.py:106
+#: wger/gallery/views/images.py:124 wger/gym/views/admin_notes.py:196
+#: wger/gym/views/document.py:206 wger/gym/views/gym.py:481
+#: wger/nutrition/views/ingredient.py:126 wger/nutrition/views/unit.py:117
+#, python-brace-format
+msgid "Delete {0}?"
+msgstr ""
+
+#: wger/core/views/languages.py:111 wger/core/views/license.py:85
+#: wger/core/views/repetition_units.py:86 wger/core/views/user.py:461
+#: wger/core/views/weight_units.py:86 wger/exercises/views/categories.py:98
+#: wger/exercises/views/equipment.py:81 wger/exercises/views/muscles.py:87
+#: wger/gym/views/admin_notes.py:161 wger/gym/views/config.py:68
+#: wger/gym/views/contract.py:186 wger/gym/views/contract_option.py:123
+#: wger/gym/views/contract_type.py:123 wger/gym/views/document.py:171
+#: wger/gym/views/gym.py:463 wger/nutrition/views/ingredient.py:145
+#: wger/nutrition/views/unit.py:143
+#, python-brace-format
+msgid "Edit {0}"
+msgstr ""
+
+#: wger/core/views/misc.py:90
+msgid ""
+"We have created sample workout, workout schedules, weight logs, (body) "
+"weight and nutrition plan entries so you can better see what  this site can "
+"do. Feel free to edit or delete them!"
+msgstr ""
+
+#: wger/core/views/misc.py:125
+msgid "Feedback"
+msgstr ""
+
+#: wger/core/views/misc.py:144 wger/weight/templates/import_csv_form.html:9
+msgid "Submit"
+msgstr ""
+
+#: wger/core/views/misc.py:152
+msgid "Your feedback was successfully sent. Thank you!"
+msgstr ""
+
+#: wger/core/views/user.py:143
+#, python-brace-format
+msgid "Account \"{0}\" was successfully deleted"
+msgstr ""
+
+#: wger/core/views/user.py:279
+msgid "You were successfully registered"
+msgstr ""
+
+#: wger/core/views/user.py:338
+msgid "Settings successfully updated"
+msgstr ""
+
+#: wger/core/views/user.py:377
+msgid "The user was successfully deactivated"
+msgstr ""
+
+#: wger/core/views/user.py:414
+msgid "The user was successfully activated"
+msgstr ""
+
+#: wger/core/views/user.py:429
+msgid "Edit user"
+msgstr ""
+
+#: wger/core/views/user.py:584 wger/gym/templates/gym/member_list.html:26
+#: wger/gym/views/gym.py:158
+msgid "ID"
+msgstr ""
+
+#: wger/core/views/user.py:585 wger/gym/forms.py:95
+#: wger/gym/templates/contract/view.html:55
+#: wger/gym/templates/gym/member_list.html:27 wger/gym/views/export.py:59
+#: wger/gym/views/gym.py:158 wger/gym/views/gym.py:217
+msgid "Username"
+msgstr ""
+
+#: wger/core/views/user.py:588 wger/gym/templates/gym/new_user.html:34
+#: wger/gym/views/export.py:58 wger/gym/views/gym.py:217
+msgid "Gym"
+msgstr ""
+
+#: wger/core/views/user.py:647
+#, python-format
+msgid "A verification email was sent to %(email)s"
+msgstr ""
+
+#: wger/exercises/models/base.py:86 wger/nutrition/models/ingredient.py:245
+msgid "Category"
+msgstr ""
+
+#: wger/exercises/models/base.py:93
+msgid "Primary muscles"
+msgstr ""
+
+#: wger/exercises/models/base.py:99
+msgid "Secondary muscles"
+msgstr ""
+
+#: wger/exercises/models/base.py:114
+msgid "Variations"
+msgstr ""
+
+#: wger/exercises/models/category.py:34
+msgid "Exercise Categories"
+msgstr ""
+
+#: wger/exercises/models/comment.py:49
+#: wger/exercises/models/exercise_alias.py:50 wger/exercises/models/image.py:74
+#: wger/exercises/models/video.py:98 wger/manager/helpers.py:89
+#: wger/manager/models/log.py:91
+msgid "Exercise"
+msgstr ""
+
+#: wger/exercises/models/comment.py:56
+msgid "A comment about how to correctly do this exercise."
+msgstr ""
+
+#: wger/exercises/models/exercise_alias.py:56
+msgid "Alias for an exercise"
+msgstr ""
+
+#: wger/exercises/models/image.py:57
+msgid "Line"
+msgstr ""
+
+#: wger/exercises/models/image.py:58
+msgid "3D"
+msgstr ""
+
+#: wger/exercises/models/image.py:59
+msgid "Low-poly"
+msgstr ""
+
+#: wger/exercises/models/image.py:60
+msgid "Photo"
+msgstr ""
+
+#: wger/exercises/models/image.py:61
+msgid "Other"
+msgstr ""
+
+#: wger/exercises/models/image.py:80 wger/gallery/models/image.py:51
+#: wger/nutrition/models/image.py:59
+msgid "Image"
+msgstr ""
+
+#: wger/exercises/models/image.py:81 wger/gallery/models/image.py:52
+#: wger/nutrition/models/image.py:60
+msgid "Only PNG and JPEG formats are supported"
+msgstr ""
+
+#: wger/exercises/models/image.py:87
+msgid "Main picture"
+msgstr ""
+
+#: wger/exercises/models/image.py:90
+msgid ""
+"Tick the box if you want to set this image as the main one for the exercise "
+"(will be shown e.g. in the search). The first image is automatically marked "
+"by the system."
+msgstr ""
+
+#: wger/exercises/models/image.py:99
+msgid "The art style of your image"
+msgstr ""
+
+#: wger/exercises/models/muscle.py:37
+msgid "In latin, e.g. \"Pectoralis major\""
+msgstr ""
+
+#: wger/exercises/models/muscle.py:47
+msgid "Alternative name"
+msgstr ""
+
+#: wger/exercises/models/muscle.py:48
+msgid "A more basic name for the muscle"
+msgstr ""
+
+#: wger/exercises/models/translation.py:74
+#: wger/nutrition/models/ingredient.py:81
+#: wger/nutrition/models/weight_unit.py:32
+msgid "Language"
+msgstr ""
+
+#: wger/exercises/models/video.py:52
+#, python-format
+msgid "Maximum file size is %(size)sMB."
+msgstr ""
+
+#: wger/exercises/models/video.py:59 wger/exercises/models/video.py:67
+msgid "File type is not supported"
+msgstr ""
+
+#: wger/exercises/models/video.py:72
+msgid "File is not a valid video"
+msgstr ""
+
+#: wger/exercises/models/video.py:104
+msgid "Main video"
+msgstr ""
+
+#: wger/exercises/models/video.py:110
+msgid "Video"
+msgstr ""
+
+#: wger/exercises/models/video.py:117
+msgid "Size"
+msgstr ""
+
+#: wger/exercises/models/video.py:124
+msgid "Duration"
+msgstr ""
+
+#: wger/exercises/models/video.py:133
+msgid "Width"
+msgstr ""
+
+#: wger/exercises/models/video.py:140
+msgid "Height"
+msgstr ""
+
+#: wger/exercises/models/video.py:147
+msgid "Codec"
+msgstr ""
+
+#: wger/exercises/models/video.py:155
+msgid "Codec, long name"
+msgstr ""
+
+#: wger/exercises/templates/equipment/admin-overview.html:4
+msgid "Equipment list"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:11
+msgid "Exercise admin history"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:27
+msgid "Action"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:28
+#: wger/gallery/models/image.py:46 wger/gym/forms.py:58
+#: wger/gym/templates/gym/email_inactive_members.html:4
+#: wger/gym/templates/gym/new_user.html:22
+#: wger/gym/templates/gym/reset_user_password.html:20
+#: wger/manager/models/log.py:59 wger/manager/models/routine.py:76
+#: wger/manager/models/session.py:47 wger/measurements/models/category.py:31
+#: wger/measurements/models/measurement.py:41 wger/nutrition/models/plan.py:52
+#: wger/weight/models.py:60
+msgid "User"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:29
+msgid "Object"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:31
+msgid "Changes"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:32
+msgid "Revert"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:64
+msgid "View Object"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:75
+msgid "View changes"
+msgstr ""
+
+#: wger/exercises/templates/history/overview.html:86
+msgid "Revert changes"
+msgstr ""
+
+#: wger/exercises/templates/muscles/admin-overview.html:4
+msgid "Muscle overview"
+msgstr ""
+
+#: wger/exercises/views/categories.py:72
+msgid "Add category"
+msgstr ""
+
+#: wger/exercises/views/categories.py:121
+msgid "This will also delete all exercises in this category."
+msgstr ""
+
+#: wger/exercises/views/equipment.py:92
+msgid "Add new equipment"
+msgstr ""
+
+#: wger/exercises/views/equipment.py:104 wger/exercises/views/equipment.py:115
+msgid "Delete equipment?"
+msgstr ""
+
+#: wger/exercises/views/muscles.py:68
+msgid "Add muscle"
+msgstr ""
+
+#: wger/gallery/templates/images/overview.html:72
+msgid "Add image"
+msgstr ""
+
+#: wger/gym/forms.py:60 wger/gym/templates/gym/member_list.html:44
+msgid "Trainer"
+msgstr ""
+
+#: wger/gym/forms.py:62
+msgid "Gym administrator"
+msgstr ""
+
+#: wger/gym/forms.py:64 wger/gym/templates/gym/member_list.html:52
+msgid "General manager"
+msgstr ""
+
+#: wger/gym/forms.py:98
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: wger/gym/forms.py:100
+msgid "This value may contain only letters, numbers and @/.//-/_ characters."
+msgstr ""
+
+#: wger/gym/forms.py:114
+msgid "A user with that username already exists."
+msgstr ""
+
+#: wger/gym/management/commands/inactive-members.py:95
+#: wger/gym/models/gym_config.py:44
+msgid "Reminder of inactive members"
+msgstr ""
+
+#: wger/gym/models/admin_user_note.py:67 wger/gym/models/contract.py:305
+#: wger/gym/models/user_document.py:93 wger/gym/templates/contract/view.html:96
+msgid "Note"
+msgstr ""
+
+#: wger/gym/models/contract.py:143
+msgid "Yearly"
+msgstr ""
+
+#: wger/gym/models/contract.py:144
+msgid "Half yearly"
+msgstr ""
+
+#: wger/gym/models/contract.py:145
+msgid "Monthly"
+msgstr ""
+
+#: wger/gym/models/contract.py:146
+msgid "Biweekly"
+msgstr ""
+
+#: wger/gym/models/contract.py:147
+msgid "Weekly"
+msgstr ""
+
+#: wger/gym/models/contract.py:148
+msgid "Daily"
+msgstr ""
+
+#: wger/gym/models/contract.py:194 wger/gym/templates/contract/view.html:34
+msgid "Contract type"
+msgstr ""
+
+#: wger/gym/models/contract.py:211 wger/gym/templates/contract/view.html:59
+#: wger/nutrition/forms.py:62
+#: wger/nutrition/models/ingredient_weight_unit.py:54
+#: wger/nutrition/models/log.py:108 wger/nutrition/models/meal_item.py:73
+msgid "Amount"
+msgstr ""
+
+#: wger/gym/models/contract.py:221 wger/gym/templates/contract/view.html:63
+msgid "Payment type"
+msgstr ""
+
+#: wger/gym/models/contract.py:225
+msgid "How often the amount will be charged to the member"
+msgstr ""
+
+#: wger/gym/models/contract.py:231 wger/gym/templates/contract/view.html:24
+msgid "Contract is active"
+msgstr ""
+
+#: wger/gym/models/contract.py:237 wger/gym/templates/contract/view.html:69
+#: wger/manager/models/routine.py:98 wger/nutrition/models/plan.py:63
+msgid "Start date"
+msgstr ""
+
+#: wger/gym/models/contract.py:247 wger/gym/templates/contract/view.html:71
+#: wger/manager/models/routine.py:102 wger/nutrition/models/plan.py:68
+msgid "End date"
+msgstr ""
+
+#: wger/gym/models/contract.py:263 wger/gym/models/gym.py:73
+#: wger/gym/views/export.py:65
+msgid "ZIP code"
+msgstr ""
+
+#: wger/gym/models/contract.py:271 wger/gym/models/gym.py:81
+#: wger/gym/views/export.py:66
+msgid "City"
+msgstr ""
+
+#: wger/gym/models/contract.py:279 wger/gym/models/gym.py:89
+#: wger/gym/views/export.py:67
+msgid "Street"
+msgstr ""
+
+#: wger/gym/models/contract.py:295 wger/gym/templates/contract/view.html:92
+msgid "Profession"
+msgstr ""
+
+#: wger/gym/models/gym.py:33
+msgid "Trainer: can see the users for a gym"
+msgstr ""
+
+#: wger/gym/models/gym.py:34
+msgid "Admin: can manage users for a gym"
+msgstr ""
+
+#: wger/gym/models/gym.py:35
+msgid "Admin: can administrate the different gyms"
+msgstr ""
+
+#: wger/gym/models/gym.py:65 wger/gym/templates/gym/member_list.html:126
+msgid "Owner"
+msgstr ""
+
+#: wger/gym/models/gym_config.py:46
+msgid ""
+"Number of weeks since the last time a user logged his presence to be "
+"considered inactive"
+msgstr ""
+
+#: wger/gym/models/gym_config.py:56 wger/gym/templates/gym/member_list.html:166
+msgid "Show name in header"
+msgstr ""
+
+#: wger/gym/models/gym_config.py:57
+msgid "Show the name of the gym in the site header"
+msgstr ""
+
+#: wger/gym/models/user_config.py:65
+#: wger/gym/templates/gym/member_list.html:200
+msgid "Overview of inactive members"
+msgstr ""
+
+#: wger/gym/models/user_config.py:66
+msgid "Receive email overviews of inactive members"
+msgstr ""
+
+#: wger/gym/models/user_config.py:93
+msgid "Include this user in the email list with inactive members"
+msgstr ""
+
+#: wger/gym/models/user_document.py:72
+msgid "Document"
+msgstr ""
+
+#: wger/gym/models/user_document.py:85
+msgid "Will use file name if nothing provided"
+msgstr ""
+
+#: wger/gym/templates/admin_notes/list.html:4
+msgid "User notes"
+msgstr ""
+
+#: wger/gym/templates/contract/list.html:34
+msgid "Show"
+msgstr ""
+
+#: wger/gym/templates/contract/view.html:4
+msgid "Contract"
+msgstr ""
+
+#: wger/gym/templates/contract_option/list.html:4
+msgid "Contract options"
+msgstr ""
+
+#: wger/gym/templates/contract_type/list.html:4
+msgid "Contract types"
+msgstr ""
+
+#: wger/gym/templates/gym/email_inactive_members.html:2
+#, python-format
+msgid ""
+"The following users have not visited the gym in the last %(weeks)s weeks"
+msgstr ""
+
+#: wger/gym/templates/gym/list.html:6
+msgid "Gym list"
+msgstr ""
+
+#: wger/gym/templates/gym/list.html:53
+msgid "Global gym configuration"
+msgstr ""
+
+#: wger/gym/templates/gym/list.html:69 wger/gym/views/gym.py:171
+msgid "Add new gym"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:22
+msgid "Administrators and trainers"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:48
+msgid "Gym manager"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:76
+msgid "This gym has no administrators or trainers"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:98
+msgid "Export"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:137
+msgid "Members"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:159
+msgid "Gym configuration"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:162
+msgid "Inactive members"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:163
+msgid "weeks"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:197
+msgid "My configuration"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:234
+msgid "Types"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:307
+msgid "Emails"
+msgstr ""
+
+#: wger/gym/templates/gym/member_list.html:336
+msgid "Add member"
+msgstr ""
+
+#: wger/gym/templates/gym/new_user.html:48
+#: wger/nutrition/templates/rate/form.html:120
+msgid "Info"
+msgstr ""
+
+#: wger/gym/templates/gym/new_user.html:50
+msgid ""
+"Please write down the user password or save the exported\n"
+"file, which contains all the user data, and keep it in a safe place. The "
+"password\n"
+"cannot be recovered later."
+msgstr ""
+
+#: wger/gym/templates/gym/new_user.html:57
+msgid "Export user data"
+msgstr ""
+
+#: wger/gym/templates/gym/reset_user_password.html:32
+msgid ""
+"This user's password has been reset. Please notify the user of their new "
+"password."
+msgstr ""
+
+#: wger/gym/views/admin_notes.py:95 wger/gym/views/document.py:95
+msgid "Add note"
+msgstr ""
+
+#: wger/gym/views/contract.py:69
+msgid "Add contract"
+msgstr ""
+
+#: wger/gym/views/contract_option.py:60
+msgid "Add option"
+msgstr ""
+
+#: wger/gym/views/contract_option.py:159 wger/gym/views/contract_type.py:159
+#, python-brace-format
+msgid "Delete {0}"
+msgstr ""
+
+#: wger/gym/views/contract_type.py:60
+msgid "Add contract type"
+msgstr ""
+
+#: wger/gym/views/export.py:63
+msgid "Gender"
+msgstr ""
+
+#: wger/gym/views/gym.py:344
+msgid "Add user to gym"
+msgstr ""
+
+#: wger/gym/views/gym.py:443
+msgid "Edit gym"
+msgstr ""
+
+#: wger/i18n.tpl:2
+msgid "Abs"
+msgstr ""
+
+#: wger/i18n.tpl:3
+msgid "Arms"
+msgstr ""
+
+#: wger/i18n.tpl:4
+msgid "Back"
+msgstr ""
+
+#: wger/i18n.tpl:5
+msgid "Barbell"
+msgstr ""
+
+#: wger/i18n.tpl:6
+msgid "Bench"
+msgstr ""
+
+#: wger/i18n.tpl:7
+msgid "Biceps"
+msgstr ""
+
+#: wger/i18n.tpl:8
+msgid "Body Weight"
+msgstr ""
+
+#: wger/i18n.tpl:9
+msgid "Calves"
+msgstr ""
+
+#: wger/i18n.tpl:10
+msgid "Cardio"
+msgstr ""
+
+#: wger/i18n.tpl:11
+msgid "Chest"
+msgstr ""
+
+#: wger/i18n.tpl:12
+msgid "Dumbbell"
+msgstr ""
+
+#: wger/i18n.tpl:13
+msgid "Glutes"
+msgstr ""
+
+#: wger/i18n.tpl:14
+msgid "Gym mat"
+msgstr ""
+
+#: wger/i18n.tpl:15
+msgid "Hamstrings"
+msgstr ""
+
+#: wger/i18n.tpl:16
+msgid "Incline bench"
+msgstr ""
+
+#: wger/i18n.tpl:17
+msgid "Kettlebell"
+msgstr ""
+
+#: wger/i18n.tpl:18
+msgid "Kilometers"
+msgstr ""
+
+#: wger/i18n.tpl:19
+msgid "Kilometers Per Hour"
+msgstr ""
+
+#: wger/i18n.tpl:20
+msgid "Lats"
+msgstr ""
+
+#: wger/i18n.tpl:21
+msgid "Legs"
+msgstr ""
+
+#: wger/i18n.tpl:22
+msgid "Lower back"
+msgstr ""
+
+#: wger/i18n.tpl:23
+msgid "Max Reps"
+msgstr ""
+
+#: wger/i18n.tpl:24
+msgid "Miles"
+msgstr ""
+
+#: wger/i18n.tpl:25
+msgid "Miles Per Hour"
+msgstr ""
+
+#: wger/i18n.tpl:26
+msgid "Minutes"
+msgstr ""
+
+#: wger/i18n.tpl:27
+msgid "Plates"
+msgstr ""
+
+#: wger/i18n.tpl:28
+msgid "Pull-up bar"
+msgstr ""
+
+#: wger/i18n.tpl:29
+msgid "Quads"
+msgstr ""
+
+#: wger/i18n.tpl:30 wger/manager/models/log.py:138
+msgid "Repetitions"
+msgstr ""
+
+#: wger/i18n.tpl:31
+msgid "Resistance band"
+msgstr ""
+
+#: wger/i18n.tpl:32
+msgid "SZ-Bar"
+msgstr ""
+
+#: wger/i18n.tpl:33
+msgid "Seconds"
+msgstr ""
+
+#: wger/i18n.tpl:34
+msgid "Shoulders"
+msgstr ""
+
+#: wger/i18n.tpl:35
+msgid "Swiss Ball"
+msgstr ""
+
+#: wger/i18n.tpl:36
+msgid "Triceps"
+msgstr ""
+
+#: wger/i18n.tpl:37
+msgid "Until Failure"
+msgstr ""
+
+#: wger/i18n.tpl:40
+msgid "none (bodyweight exercise)"
+msgstr ""
+
+#: wger/mailer/forms.py:34 wger/mailer/templates/mailer/gym/preview.html:32
+msgctxt "As in \"email subject\""
+msgid "Subject"
+msgstr ""
+
+#: wger/mailer/forms.py:35 wger/mailer/templates/mailer/gym/preview.html:40
+msgctxt "As in \"content of an email\""
+msgid "Content"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/form.html:23
+msgid "Generate preview"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/form.html:28
+#: wger/mailer/templates/mailer/gym/preview.html:62
+msgid "Steps"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/form.html:30
+#: wger/mailer/templates/mailer/gym/preview.html:64
+msgid "Fill in the form"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/form.html:31
+#: wger/mailer/templates/mailer/gym/preview.html:65
+msgid "You will receive a preview email for you to review"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/form.html:32
+#: wger/mailer/templates/mailer/gym/preview.html:66
+msgid ""
+"You can update and correct the content as often as you need before sending "
+"the emails"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/preview.html:22
+#: wger/software/templates/about_us.html:167
+msgid "Current version"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/preview.html:47
+msgid "Send emails"
+msgstr ""
+
+#: wger/mailer/templates/mailer/gym/preview.html:51
+#: wger/mailer/templates/mailer/gym/preview.html:56
+msgid "Correction"
+msgstr ""
+
+#: wger/manager/dataclasses.py:106
+msgid "Sets"
+msgstr ""
+
+#: wger/manager/dataclasses.py:124 wger/manager/helpers.py:89
+msgid "Reps"
+msgstr ""
+
+#: wger/manager/dataclasses.py:158
+msgid "RiR"
+msgstr ""
+
+#: wger/manager/dataclasses.py:165
+msgid "rest"
+msgstr ""
+
+#: wger/manager/helpers.py:80
+msgid "Rest day"
+msgstr ""
+
+#: wger/manager/management/commands/email-reminders.py:89
+msgid "Routine will expire soon"
+msgstr ""
+
+#: wger/manager/models/day.py:52
+msgid "Routine"
+msgstr ""
+
+#: wger/manager/models/day.py:60 wger/manager/models/slot.py:34
+#: wger/nutrition/models/meal.py:53 wger/nutrition/models/meal_item.py:66
+msgid "Order"
+msgstr ""
+
+#: wger/manager/models/log.py:78
+msgid "Session"
+msgstr ""
+
+#: wger/manager/models/log.py:97 wger/manager/views/pdf.py:75
+#: wger/manager/views/pdf.py:144
+msgid "Workout"
+msgstr ""
+
+#: wger/manager/models/log.py:114 wger/manager/models/log.py:149
+#: wger/manager/models/slot_entry.py:122
+#: wger/measurements/models/category.py:41 wger/nutrition/forms.py:66
+msgid "Unit"
+msgstr ""
+
+#: wger/manager/models/routine.py:93 wger/nutrition/models/plan.py:58
+msgid "Creation date"
+msgstr ""
+
+#: wger/manager/models/routine.py:106
+msgid "Workout template"
+msgstr ""
+
+#: wger/manager/models/routine.py:108
+msgid ""
+"Marking a workout as a template will freeze it and allow you to make copies "
+"of it"
+msgstr ""
+
+#: wger/manager/models/routine.py:116
+msgid "Public template"
+msgstr ""
+
+#: wger/manager/models/routine.py:117
+msgid "A public template is available to other users"
+msgstr ""
+
+#: wger/manager/models/routine.py:155 wger/manager/models/session.py:147
+msgid "The start time cannot be after the end time."
+msgstr ""
+
+#: wger/manager/models/session.py:40
+msgid "Bad"
+msgstr ""
+
+#: wger/manager/models/session.py:41
+msgid "Neutral"
+msgstr ""
+
+#: wger/manager/models/session.py:42
+msgid "Good"
+msgstr ""
+
+#: wger/manager/models/session.py:84
+msgid "Any notes you might want to save about this workout session."
+msgstr ""
+
+#: wger/manager/models/session.py:96
+msgid ""
+"Your impression about this workout session. Did you exercise as well as you "
+"could?"
+msgstr ""
+
+#: wger/manager/models/session.py:104
+msgid "Start time"
+msgstr ""
+
+#: wger/manager/models/session.py:113
+msgid "Finish time"
+msgstr ""
+
+#: wger/manager/models/session.py:144
+msgid "If you enter a time, you must enter both start and end time."
+msgstr ""
+
+#: wger/manager/models/slot.py:26
+msgid "Exercise day"
+msgstr ""
+
+#: wger/manager/templates/routines/email_reminder.tpl:3
+#, python-format
+msgid "Your current workout '%(routine)s' expired %(days)s days ago."
+msgstr ""
+
+#: wger/manager/templates/routines/email_reminder.tpl:5
+#, python-format
+msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
+msgstr ""
+
+#: wger/manager/templates/routines/email_reminder.tpl:9
+msgid ""
+"You will regularly receive such reminders till you add a new workout.\n"
+"Alternatively you can add workouts to a loop schedule, such schedules\n"
+"never produce reminders."
+msgstr ""
+
+#: wger/manager/templates/routines/email_reminder.tpl:12
+#: wger/manager/templates/workout/email_weight_reminder.tpl:9
+msgid ""
+"If you don't want to ever receive email reminders, deactivate the\n"
+"option in your settings."
+msgstr ""
+
+#: wger/manager/templates/routines/email_reminder.tpl:15
+#: wger/manager/templates/workout/email_weight_reminder.tpl:12
+#: wger/nutrition/templates/ingredient/email_new.tpl:9
+#, python-format
+msgid "The %(site)s team"
+msgstr ""
+
+#: wger/manager/templates/workout/email_weight_reminder.tpl:3
+#, python-format
+msgid ""
+"Your last weight entry is from %(date)s (%(days)s days ago).\n"
+"Please click the link to access the application and enter a new one."
+msgstr ""
+
+#: wger/manager/templates/workout/email_weight_reminder.tpl:8
+msgid ""
+"You will regularly receive such reminders till you enter your current weight."
+msgstr ""
+
+#: wger/manager/views/pdf.py:77 wger/manager/views/pdf.py:146
+#, python-format
+msgid "Workout for %s"
+msgstr ""
+
+#: wger/measurements/models/measurement.py:51
+msgid "Value"
+msgstr ""
+
+#: wger/nutrition/forms.py:117
+msgid "Height (in)"
+msgstr ""
+
+#: wger/nutrition/forms.py:120
+msgid "Weight (kg)"
+msgstr ""
+
+#: wger/nutrition/forms.py:120
+msgid "Weight (lbs)"
+msgstr ""
+
+#: wger/nutrition/forms.py:133
+msgid "Calculate"
+msgstr ""
+
+#: wger/nutrition/forms.py:207 wger/nutrition/templates/rate/form.html:76
+msgid "Basic caloric intake"
+msgstr ""
+
+#: wger/nutrition/forms.py:208
+msgid "Your basic caloric intake as calculated for your data"
+msgstr ""
+
+#: wger/nutrition/forms.py:213
+msgid "Additional calories"
+msgstr ""
+
+#: wger/nutrition/forms.py:215
+msgid ""
+"Additional calories to add to the base rate (to substract, enter a negative "
+"number)"
+msgstr ""
+
+#: wger/nutrition/forms.py:246
+#: wger/nutrition/models/ingredient_weight_unit.py:39
+#: wger/nutrition/models/log.py:87 wger/nutrition/models/meal_item.py:54
+msgid "Ingredient"
+msgstr ""
+
+#: wger/nutrition/forms.py:250
+msgid "Also search for names in English"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:132
+msgid "In kcal per 100g"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:139
+#: wger/nutrition/models/ingredient.py:147
+#: wger/nutrition/models/ingredient.py:157
+#: wger/nutrition/models/ingredient.py:165
+#: wger/nutrition/models/ingredient.py:175
+#: wger/nutrition/models/ingredient.py:185
+#: wger/nutrition/models/ingredient.py:195
+msgid "In g per 100g of product"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:156
+#: wger/nutrition/templates/ingredient/view.html:70
+#: wger/nutrition/views/plan.py:267
+msgid "Sugar content in carbohydrates"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:174
+#: wger/nutrition/templates/ingredient/view.html:86
+#: wger/nutrition/views/plan.py:281
+msgid "Saturated fat content in fats"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:184
+#: wger/nutrition/templates/ingredient/view.html:108
+#: wger/nutrition/views/plan.py:287
+msgid "Fiber"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:194
+#: wger/nutrition/templates/ingredient/view.html:118
+#: wger/nutrition/views/plan.py:293
+msgid "Sodium"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:224
+msgid "Link to product"
+msgstr ""
+
+#: wger/nutrition/models/ingredient.py:253
+msgid "Brand name of product"
+msgstr ""
+
+#: wger/nutrition/models/ingredient_category.py:31
+msgid "Ingredient Categories"
+msgstr ""
+
+#: wger/nutrition/models/ingredient_weight_unit.py:49
+msgid "Amount in grams"
+msgstr ""
+
+#: wger/nutrition/models/ingredient_weight_unit.py:55
+msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
+msgstr ""
+
+#: wger/nutrition/models/log.py:52 wger/nutrition/models/meal.py:48
+#: wger/nutrition/models/meal_item.py:48 wger/nutrition/models/plan.py:117
+msgid "Nutrition plan"
+msgstr ""
+
+#: wger/nutrition/models/log.py:61
+msgid "Meal"
+msgstr ""
+
+#: wger/nutrition/models/log.py:71
+msgid "Date and Time (Approx.)"
+msgstr ""
+
+#: wger/nutrition/models/meal.py:60
+msgid "Time (approx)"
+msgstr ""
+
+#: wger/nutrition/models/meal.py:67
+msgid ""
+"Give meals a textual description / name such as \"Breakfast\" or \"after "
+"workout\""
+msgstr ""
+
+#: wger/nutrition/models/plan.py:78
+msgid ""
+"A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
+"summer\""
+msgstr ""
+
+#: wger/nutrition/models/plan.py:99
+msgid "Use daily calories"
+msgstr ""
+
+#: wger/nutrition/models/plan.py:102
+msgid ""
+"Tick the box if you want to mark this plan as having a goal amount of "
+"calories. You can use the calculator or enter the value yourself."
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/email_new.tpl:1
+#, python-format
+msgid ""
+"Your ingredient '%(ingredient)s' was successfully added to the general\n"
+"database."
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/email_new.tpl:4
+msgid ""
+"It is now available on the ingredient overview and can be\n"
+"added to nutrition plans. You can access it on this address:"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/email_new.tpl:8
+msgid "Thank you for contributing and making this site better!"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/form.html:4
+msgid "Submitting an ingredient"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/form.html:5
+msgid ""
+"Thank you for submitting an ingredient. This is much\n"
+"appreciated!"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/form.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once it is reviewed, it will be added to the database. Till this happens,\n"
+"it will not be visible in the overview or the search. In case you added your "
+"email\n"
+"when you registered, you will get notified when the process is completed "
+"sucessfully."
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/overview.html:38
+msgid "No ingredients."
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/overview.html:49
+msgid "Search"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/view.html:45
+#: wger/nutrition/views/plan.py:237
+msgid "Macronutrients"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/view.html:54
+msgid "kJ"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/view.html:75
+#: wger/nutrition/templates/ingredient/view.html:91
+#: wger/nutrition/templates/ingredient/view.html:113
+#: wger/nutrition/templates/ingredient/view.html:123
+msgid "n.A."
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/view.html:102
+msgid "Others"
+msgstr ""
+
+#: wger/nutrition/templates/ingredient/view.html:143
+#: wger/nutrition/templates/units/list.html:50 wger/nutrition/views/unit.py:86
+msgid "Add new weight unit"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:25
+msgid "Basal metabolic rate"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:26
+msgid ""
+"The basal metabolic rate is the amount of energy expended daily\n"
+"at rest. This is the minimum energy needed for the body to function, without "
+"any\n"
+"additional physical activity."
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:37
+msgid "Your basic metabolic rate is: "
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:47
+msgid "Physical activities"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:48
+msgid ""
+"The physical activity level (PAL) is a factor used to to express\n"
+"the additional physical activity and is used to calculate the total energy\n"
+"required per day."
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:59
+msgid "Factor for daily activities: "
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:67
+msgid ""
+"The base caloric intake is the amount of calories your metabolism\n"
+"needs based on your level of physical activity."
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:81
+msgid "Calculate basic caloric intake"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:88
+msgid ""
+"The total calories are the actual total calories per day. This\n"
+"might include e.g. a surplus or deficit if you are bulking or cutting. "
+"Alternatively\n"
+"you might just enter yourself the amount of calories if you know the value."
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:102
+msgid "Transfer basic intake to total daily calories"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:106
+msgid "Add additional calories to total daily calories"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:110
+msgid "Save total calories to profile"
+msgstr ""
+
+#: wger/nutrition/templates/rate/form.html:121
+msgid ""
+"Please note that these calculations can only be an\n"
+"approximation. If you base your nutrition plan on these values, observe\n"
+"yourself for some weeks and change the total amount if needed."
+msgstr ""
+
+#: wger/nutrition/views/ingredient.py:157
+msgid "Add a new ingredient"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:128
+msgid "Nutritional plan"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:130
+#, python-format
+msgid "Nutritional plan for %s"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:202
+msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:230
+msgid "Nutritional data"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:238
+msgid "Total"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:239
+msgid "Percent of energy"
+msgstr ""
+
+#: wger/nutrition/views/plan.py:240
+msgid "g per body kg"
+msgstr ""
+
+#: wger/nutrition/views/unit_ingredient.py:69
+msgid "Add a new weight unit"
+msgstr ""
+
+#: wger/nutrition/views/unit_ingredient.py:106
+msgid "Edit a weight unit to ingredient connection"
+msgstr ""
+
+#: wger/nutrition/views/unit_ingredient.py:138
+msgid "Delete?"
+msgstr ""
+
+#: wger/software/templates/about_us.html:9
+msgid ""
+"wger helps you track your workouts, manage your nutrition, and reach your "
+"fitness goals. We offer it as free, open-source software you can host "
+"yourself, and also provide a convenient, free, and hosted version for easy "
+"access."
+msgstr ""
+
+#: wger/software/templates/about_us.html:18
+msgid "Open Source & free to use ❤️"
+msgstr ""
+
+#: wger/software/templates/about_us.html:20
+msgid ""
+"wger is built on the principles of open source. Its code is publicly "
+"available, developed by our community, ensuring transparency and giving you "
+"control over your data (especially if self-hosting). The free hosted service "
+"runs entirely on this open-source foundation. We believe powerful fitness "
+"tools should be accessible to everyone."
+msgstr ""
+
+#: wger/software/templates/about_us.html:30
+msgid "How you can help"
+msgstr ""
+
+#: wger/software/templates/about_us.html:40
+msgid "Join the Community"
+msgstr ""
+
+#: wger/software/templates/about_us.html:46
+msgid "Join the Discord server"
+msgstr ""
+
+#: wger/software/templates/about_us.html:47
+msgid ""
+"Hop on the Discord server to chat with the developers and other users, ask "
+"questions, or discuss new features."
+msgstr ""
+
+#: wger/software/templates/about_us.html:55
+msgid "Get news, updates, and announcements about the project on Mastodon."
+msgstr ""
+
+#: wger/software/templates/about_us.html:61
+msgid ""
+"Spread the word: Tell your friends, gym buddies, or share on social media! "
+"Your enthusiasm helps us grow and reach more people."
+msgstr ""
+
+#: wger/software/templates/about_us.html:71
+msgid "Contribute your skills"
+msgstr ""
+
+#: wger/software/templates/about_us.html:76
+msgid "Report bugs or suggest features"
+msgstr ""
+
+#: wger/software/templates/about_us.html:78
+msgid "Have a problem or idea? Let us know!"
+msgstr ""
+
+#: wger/software/templates/about_us.html:81
+msgid "Improve the exercises"
+msgstr ""
+
+#: wger/software/templates/about_us.html:82
+msgid "Contribute new exercises, and edit or translate the existing ones."
+msgstr ""
+
+#: wger/software/templates/about_us.html:85
+msgid "Translate the application"
+msgstr ""
+
+#: wger/software/templates/about_us.html:86
+msgid ""
+"Help make the app accessible in more languages for users around the world."
+msgstr ""
+
+#: wger/software/templates/about_us.html:89
+msgid "Contribute code or documentation"
+msgstr ""
+
+#: wger/software/templates/about_us.html:90
+msgid "Check out the source code and help us build the next version."
+msgstr ""
+
+#: wger/software/templates/about_us.html:96
+msgid "Make a donation"
+msgstr ""
+
+#: wger/software/templates/about_us.html:100
+msgid ""
+"While the project is free and will always remain it, running the server "
+"isn’t! Providing the hosted version of wger involves real, ongoing costs for "
+"server hosting, bandwidth, backups, etc. Development also takes significant "
+"time and effort from volunteers. Your contribution directly supports these "
+"essential costs, helping to keep the service reliable, improving, and free "
+"for everyone."
+msgstr ""
+
+#: wger/software/templates/about_us.html:135
+msgid "Sponsor on GitHub"
+msgstr ""
+
+#: wger/software/templates/about_us.html:142
+msgid "Thank You!"
+msgstr ""
+
+#: wger/software/templates/about_us.html:144
+msgid ""
+"Thank you for being part of the community! We appreciate your usage, "
+"feedback, and any support you can offer."
+msgstr ""
+
+#: wger/software/templates/about_us.html:155
+msgid "Our goal"
+msgstr ""
+
+#: wger/software/templates/about_us.html:158
+msgid ""
+"The goal is to build an awesome and flexible fitness manager, along with a "
+"comprehensive and complete list of exercises and ingredients, all released "
+"under a free license."
+msgstr ""
+
+#: wger/software/templates/features.html:11
+msgid ""
+"wger Workout Manager is a free, open source web application that manages "
+"your exercises and workouts."
+msgstr ""
+
+#: wger/software/templates/features.html:57
+msgid "Mobile app"
+msgstr ""
+
+#: wger/software/templates/features.html:63
+#: wger/software/templates/features.html:337
+msgid "Donate"
+msgstr ""
+
+#: wger/software/templates/features.html:68
+msgid "Develop"
+msgstr ""
+
+#: wger/software/templates/features.html:73
+#: wger/software/templates/features.html:476
+msgid "Community"
+msgstr ""
+
+#: wger/software/templates/features.html:110
+msgid "Track your <br> way to your <br> ideal body"
+msgstr ""
+
+#: wger/software/templates/features.html:113
+msgid ""
+"Join wger, the community-driven <b>free and open-source fitness tracker</b>"
+msgstr ""
+
+#: wger/software/templates/features.html:123
+msgid "Get Started"
+msgstr ""
+
+#: wger/software/templates/features.html:133
+msgid "people <br> using wger"
+msgstr ""
+
+#: wger/software/templates/features.html:137
+msgid "exercises <br> for workout creation"
+msgstr ""
+
+#: wger/software/templates/features.html:141
+msgid "foods <br> for meal planing"
+msgstr ""
+
+#: wger/software/templates/features.html:145
+msgid "stars <br> on GitHub"
+msgstr ""
+
+#: wger/software/templates/features.html:173
+msgid "Craft your perfect <span>workout routines</span>"
+msgstr ""
+
+#: wger/software/templates/features.html:177
+msgid "Design a weekly workout plan from more than 100 exercises"
+msgstr ""
+
+#: wger/software/templates/features.html:180
+msgid "Set reps and sets, duration, or distance goals for each exercise"
+msgstr ""
+
+#: wger/software/templates/features.html:183
+msgid "Get guided through your workouts step by step"
+msgstr ""
+
+#: wger/software/templates/features.html:186
+msgid ""
+"Keep track of the workouts you've done, including how you felt you performed"
+msgstr ""
+
+#: wger/software/templates/features.html:211
+msgid "Plan your <span>daily meals</span>"
+msgstr ""
+
+#: wger/software/templates/features.html:215
+msgid "Fill your week with nutritious meals that help you perform better"
+msgstr ""
+
+#: wger/software/templates/features.html:218
+msgid "Build meals from a database of more than 2 million foods"
+msgstr ""
+
+#: wger/software/templates/features.html:221
+msgid ""
+"Get automatically calculated nutritional values (energy, protein, "
+"carbs, ...) for both individual meals and your entire weekly plan"
+msgstr ""
+
+#: wger/software/templates/features.html:251
+msgid "Keep track of <span>your progress</span>"
+msgstr ""
+
+#: wger/software/templates/features.html:256
+msgid "Track and annotate everything about your meals and workouts"
+msgstr ""
+
+#: wger/software/templates/features.html:259
+msgid "Add custom notes"
+msgstr ""
+
+#: wger/software/templates/features.html:262
+msgid "Record your weight"
+msgstr ""
+
+#: wger/software/templates/features.html:265
+msgid "Keep a photo log to see your progress"
+msgstr ""
+
+#: wger/software/templates/features.html:268
+msgid "Use the calendar view to see past entries"
+msgstr ""
+
+#: wger/software/templates/features.html:287
+msgid "Try wger now"
+msgstr ""
+
+#: wger/software/templates/features.html:308
+msgid "Powered By <span>the community</span>"
+msgstr ""
+
+#: wger/software/templates/features.html:311
+msgid ""
+"wger is funded and created by the open-source community: people like you "
+"translating, adding exercises and nutritional info, developing, and more."
+msgstr ""
+
+#: wger/software/templates/features.html:317
+msgid ""
+"We don't use ads, don't sell your personal info, and we share the code under "
+"a free and open-source license."
+msgstr ""
+
+#: wger/software/templates/features.html:322
+msgid "Pitch in and help make wger even better!"
+msgstr ""
+
+#: wger/software/templates/features.html:331
+msgid "Contribute"
+msgstr ""
+
+#: wger/software/templates/features.html:355
+msgid "Sign Up Now For Free"
+msgstr ""
+
+#: wger/software/templates/features.html:369
+msgid "Web version not enough?"
+msgstr ""
+
+#: wger/software/templates/features.html:371
+msgid "Get the code, too!"
+msgstr ""
+
+#: wger/software/templates/features.html:382
+msgid "Set up a private server for your gym"
+msgstr ""
+
+#: wger/software/templates/features.html:385
+msgid ""
+"Don't want your data on an online service? Set up a wger instance on your "
+"own server for free!"
+msgstr ""
+
+#: wger/software/templates/features.html:399
+msgid "Integrate with your own app"
+msgstr ""
+
+#: wger/software/templates/features.html:402
+msgid "wger offers an open API that you can use for your app."
+msgstr ""
+
+#: wger/software/templates/features.html:413
+msgid "Create your own version"
+msgstr ""
+
+#: wger/software/templates/features.html:416
+msgid ""
+"The source code is available under the GNU AGPLv3 license! Feel free to fork "
+"it on GitHub."
+msgstr ""
+
+#: wger/software/templates/features.html:437
+msgid "Account"
+msgstr ""
+
+#: wger/software/templates/features.html:485
+msgid "Workout routines"
+msgstr ""
+
+#: wger/software/templates/features.html:491
+msgid "Discord"
+msgstr ""
+
+#: wger/software/templates/features.html:506
+msgid "Software"
+msgstr ""
+
+#: wger/software/templates/features.html:512
+msgid "Report an issue"
+msgstr ""
+
+#: wger/software/templates/features.html:518
+msgid "Source Code"
+msgstr ""
+
+#: wger/software/templates/features.html:524
+msgid "Translation"
+msgstr ""
+
+#: wger/utils/generic_views.py:263
+msgid "Yes, delete"
+msgstr ""
+
+#: wger/utils/models.py:51
+msgid "The original title of this object, if available"
+msgstr ""
+
+#: wger/utils/models.py:57
+msgid "Link to original object, if available"
+msgstr ""
+
+#: wger/utils/models.py:63
+msgid "Author(s)"
+msgstr ""
+
+#: wger/utils/models.py:67
+msgid "If you are not the author, enter the name or source here."
+msgstr ""
+
+#: wger/utils/models.py:71
+msgid "Link to author profile, if available"
+msgstr ""
+
+#: wger/utils/models.py:77
+msgid "Link to the original source, if this is a derivative work"
+msgstr ""
+
+#: wger/utils/models.py:79
+msgid ""
+"Note that a derivative work is one which is not only based on a previous "
+"work, but which also contains sufficient new, creative content to entitle it "
+"to its own copyright."
+msgstr ""
+
+#: wger/weight/forms.py:46
+msgid "Input"
+msgstr ""
+
+#: wger/weight/forms.py:47
+msgid "Date format"
+msgstr ""
+
+#: wger/weight/management/commands/email-weight-reminder.py:78
+msgid "You have to enter your weight"
+msgstr ""
+
+#: wger/weight/models.py:78
+msgid "Weight entry"
+msgstr ""
+
+#: wger/weight/templates/import_csv_form.html:4
+msgid "Import weight logs"
+msgstr ""
+
+#: wger/weight/templates/import_csv_form.html:15
+msgid ""
+"Use this import field to import your weight logs into Workout\n"
+"Manager."
+msgstr ""
+
+#: wger/weight/templates/import_csv_form.html:18
+msgid ""
+"You can copy and paste from your spreadsheet into the text input,\n"
+"the system will try to guess the format to import. The only things to "
+"consider is\n"
+"that the first column is the <strong>date</strong>, the second the "
+"<strong>weight</strong>.\n"
+"All further columns are ignored. There is a 1000 row limit.\n"
+msgstr ""
+
+#: wger/weight/templates/import_csv_form.html:24
+msgid ""
+"If there are errors, you can correct or discard them in a\n"
+"second step."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:4
+msgid "Preview imported CSV entries"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:9
+msgid "Successfully converted values"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:10
+msgid "The following values could be converted."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:26
+msgid "Errors"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:29
+msgid "The following values could not be converted."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:31
+msgid ""
+"These values could not be converted to a weight log entry.\n"
+"    The reasons for this could be anything from an unrecognised date or "
+"number\n"
+"    format, a problem with the encoding or something else. Please check "
+"that\n"
+"    there are no obvious errors in the list (and correct them if there "
+"are!)\n"
+"    and try to import the list again."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:37
+msgid ""
+"Remember that the expected structure is <strong>date</strong>\n"
+"    on the first columns and <strong>weight</strong> on the second."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:54
+msgid "There were no errors, all entries could be converted!"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:58
+msgid "Import all successfully converted entries"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:59
+msgid ""
+"Continue here if you want to import into your weight log all\n"
+"entries that were successfully converted. All entries that produced an "
+"error\n"
+"will simply be ignored. It's up to you to decide whether they are useful\n"
+"(unrecognised entries) or not (e.g. headers, comments, etc.)."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:69
+msgid "Import"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:74
+msgid "Or try it again"
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:76
+msgid ""
+"You can correct the list here and re-submit it as often as\n"
+"you want."
+msgstr ""
+
+#: wger/weight/templates/import_csv_preview.html:85
+msgid "Re-Submit"
+msgstr ""

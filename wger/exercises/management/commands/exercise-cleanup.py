@@ -22,7 +22,7 @@ from django.core.management.base import BaseCommand
 from wger.core.models import Language
 from wger.exercises.models import (
     Exercise,
-    ExerciseBase,
+    Translation,
 )
 
 
@@ -39,7 +39,7 @@ class Command(BaseCommand):
         out = []
 
         languages = Language.objects.all()
-        for base in ExerciseBase.objects.all():
+        for base in Exercise.objects.all():
             data = {
                 'base': {
                     'uuid': base.uuid,
@@ -59,7 +59,7 @@ class Command(BaseCommand):
                     'author': '',
                 }
 
-                exercise = Exercise.objects.filter(exercise_base=base, language=language).first()
+                exercise = Translation.objects.filter(exercise_base=base, language=language).first()
                 if exercise:
                     exercise_data['uuid'] = exercise.uuid
                     exercise_data['name'] = exercise.name

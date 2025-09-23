@@ -119,6 +119,8 @@ class IngredientSerializer(serializers.ModelSerializer):
             'source_url',
             'code',
             'name',
+            'common_name',
+            'brand',
             'created',
             'last_update',
             'last_imported',
@@ -314,6 +316,8 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'creation_date',
+            'start',
+            'end',
             'description',
             'only_logging',
             'goal_energy',
@@ -338,6 +342,8 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'creation_date',
+            'start',
+            'end',
             'description',
             'only_logging',
             'goal_energy',

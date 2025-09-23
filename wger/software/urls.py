@@ -22,8 +22,8 @@ from django.views.generic import (
 )
 
 # wger
-from wger import get_version
 from wger.software import views
+from wger.version import get_version
 
 
 urlpatterns = [

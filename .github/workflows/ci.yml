@@ -5,68 +5,61 @@ on:
     branches: [ master, ]
     paths:
       - '**.py'
-      - 'requirements.txt'
+      - 'pyproject.toml'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ master, ]
     paths:
       - '**.py'
-      - 'requirements.txt'
+      - 'pyproject.toml'
 
 jobs:
   ci-job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        #TODO: pypy3 has problems compiling lxml
         python-version: [ '3.10', '3.11', '3.12', '3.13' ]
     name: CI job (python ${{ matrix.python-version }})
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+      - uses: actions/checkout@v5
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          cache: 'pip'
           python-version: ${{ matrix.python-version }}
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+        run: python --version
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install wheel coverage
-          pip install -r requirements_dev.txt
-          pip install -r requirements_prod.txt
-          pip install -e .
+          uv sync --group dev
 
       # Only run the tests with coverage for one version of python
       - name: Test the application with coverage
-        if: matrix.python-version == 3.11
+        if: matrix.python-version == 3.13
         run: |
+          source .venv/bin/activate
           wger create-settings
           coverage run --source='.' ./manage.py test
           coverage lcov
 
       - name: Test the application
-        if: matrix.python-version != 3.11
+        if: matrix.python-version != 3.13
         run: |
+          source .venv/bin/activate
           wger create-settings
           python manage.py test
 
       - name: Coveralls
-        if: matrix.python-version == 3.11
-        uses: coverallsapp/github-action@master
+        if: matrix.python-version == 3.13
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage.lcov

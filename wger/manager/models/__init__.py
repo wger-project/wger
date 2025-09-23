@@ -15,11 +15,31 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Local
+from .abstract_config import AbstractChangeConfig
 from .day import Day
+from .label import Label
 from .log import WorkoutLog
-from .schedule import Schedule
-from .schedule_step import ScheduleStep
+from .repetitions_config import (
+    MaxRepetitionsConfig,
+    RepetitionsConfig,
+)
+from .rest_config import (
+    MaxRestConfig,
+    RestConfig,
+)
+from .rir_config import (
+    MaxRiRConfig,
+    RiRConfig,
+)
+from .routine import Routine
 from .session import WorkoutSession
-from .set import Set
-from .setting import Setting
-from .workout import Workout
+from .sets_config import (
+    MaxSetsConfig,
+    SetsConfig,
+)
+from .slot import Slot
+from .slot_entry import SlotEntry
+from .weight_config import (
+    MaxWeightConfig,
+    WeightConfig,
+)
