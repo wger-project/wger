@@ -249,7 +249,7 @@ class IngredientSearchTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('api-ingredient-list'),
+            reverse('api-ingredientinfo-list'),
             {'name__search': 'test', 'language__code': 'en'},
         )
         self.assertEqual(response.status_code, 200)
@@ -261,13 +261,17 @@ class IngredientSearchTestCase(WgerTestCase):
         self.assertEqual(ingredient_1['id'], 2)
         self.assertEqual(ingredient_1['name'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(ingredient_1['uuid'], '44dc5966-73a2-4df7-8b15-f6d37a8990d9')
-        self.assertEqual(ingredient_1['language'], 2)
+        self.assertEqual(ingredient_1['language']['id'], 2)
+        self.assertEqual(ingredient_1['image'], None)
+        self.assertEqual(ingredient_1['thumbnails'], None)
 
         ingredient_2 = result['results'][1]
         self.assertEqual(ingredient_2['id'], 1)
         self.assertEqual(ingredient_2['name'], 'Test ingredient 1')
         self.assertEqual(ingredient_2['uuid'], '7908c204-907f-4b1e-ad4e-f482e9769ade')
-        self.assertEqual(ingredient_2['language'], 2)
+        self.assertEqual(ingredient_2['language']['id'], 2)
+        self.assertEqual(ingredient_2['image'], None)
+        self.assertEqual(ingredient_2['thumbnails'], None)
 
     def search_ingredient_de(self):
         """
@@ -275,7 +279,7 @@ class IngredientSearchTestCase(WgerTestCase):
         """
 
         response = self.client.get(
-            reverse('api-ingredient-list'),
+            reverse('api-ingredientinfo-list'),
             {'name__search': 'test', 'language__code': 'de'},
         )
         self.assertEqual(response.status_code, 200)
@@ -287,7 +291,9 @@ class IngredientSearchTestCase(WgerTestCase):
         self.assertEqual(ingredient_1['id'], 6)
         self.assertEqual(ingredient_1['name'], 'Testzutat 123')
         self.assertEqual(ingredient_1['uuid'], 'dfc5c622-027b-4f17-8141-dadd1ce7e3f1')
-        self.assertEqual(ingredient_1['language'], 1)
+        self.assertEqual(ingredient_1['language']['id'], 1)
+        self.assertEqual(ingredient_1['image'], None)
+        self.assertEqual(ingredient_1['thumbnails'], None)
 
     def test_search_ingredient_anonymous(self):
         """
