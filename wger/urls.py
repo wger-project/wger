@@ -25,7 +25,6 @@ from django.contrib.sitemaps.views import (
     sitemap,
 )
 from django.urls import path
-
 # Third Party
 from django_email_verification import urls as email_urls
 from drf_spectacular.views import (
@@ -50,7 +49,6 @@ from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
-
 
 #
 # REST API
@@ -290,6 +288,7 @@ urlpatterns += [
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
+    path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/', include(router.urls)),
     # The api user login
     path(
