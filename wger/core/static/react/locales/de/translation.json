@@ -172,7 +172,7 @@
         "resultingRoutine": "Resultierende Routine",
         "deleteDayConfirmation": "Dies löscht alle Sets, Übungen und Fortschrittsregeln",
         "fitDaysInWeek": "Tage in die Woche einpassen",
-        "defaultRounding": "Standardroutine",
+        "defaultRounding": "Standardrundung",
         "rounding": "Rundung (diese Übung)",
         "weightLogNotPlanned": "Speichere Log an einem Tag ohne geplantes Workout.",
         "alsoShowLogs": "Zeige auch Logeinträge",
@@ -324,7 +324,7 @@
         "result": "Dein BMI ist {{value}}"
     },
     "editName": "{{name}} bearbeiten",
-    "start": "Beginne",
+    "start": "Start",
     "end": "Ende",
     "comment": "Kommentar",
     "min": "Min",

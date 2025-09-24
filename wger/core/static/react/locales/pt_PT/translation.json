@@ -90,7 +90,7 @@
         "imageStylePhoto": "Foto",
         "imageStyle3D": "3D",
         "imageStyleLine": "Linha",
-        "imageStyleLowPoly": "Low-Poly",
+        "imageStyleLowPoly": "Roldana baixa",
         "imageStyleOther": "Outro",
         "imageDetails": "Detalhes da imagem",
         "swapExercise": "Trocar exercício"
@@ -190,7 +190,7 @@
     "durationWeeksDays": "{{nrWeeks}} semanas, {{nrDays}} dias",
     "videos": "Vídeos",
     "undo": "Desfazer",
-    "successfullyDeleted": "Apagado com sucesso",
+    "successfullyDeleted": "Eliminado com sucesso",
     "cannotBeUndone": "Esta ação é irreversível.",
     "cancel": "Cancelar",
     "noResults": "Sem resultados",
@@ -328,5 +328,7 @@
     },
     "calendar": "Calendário",
     "entries": "Registos",
-    "no_entries_for_day": "Sem registos neste dia"
+    "no_entries_for_day": "Sem registos neste dia",
+    "private": "Privado",
+    "public": "Público"
 }

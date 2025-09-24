@@ -328,5 +328,7 @@
     "durationWeeks": "{{number}} semanas",
     "durationWeeksDays": "{{nrWeeks}} semanas, {{nrDays}} días",
     "undo": "Deshacer",
-    "successfullyDeleted": "Borrado completado"
+    "successfullyDeleted": "Borrado completado",
+    "public": "Público",
+    "private": "Privado"
 }
