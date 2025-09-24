@@ -18,6 +18,7 @@ import logging
 
 # Django
 from django.contrib.postgres.search import TrigramSimilarity
+
 # Third Party
 from django_filters import rest_framework as filters
 
@@ -28,6 +29,7 @@ from wger.nutrition.models import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
+
 
 logger = logging.getLogger(__name__)
 

@@ -23,6 +23,7 @@ from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+
 # Third Party
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -69,6 +70,7 @@ from wger.utils.constants import (
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
+
 
 logger = logging.getLogger(__name__)
 

@@ -15,6 +15,7 @@
 
 # Django
 from django.conf import settings
+
 # Third Party
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
