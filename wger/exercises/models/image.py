@@ -21,6 +21,7 @@ import uuid
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 # Third Party
 from simple_history.models import HistoricalRecords
 

@@ -12,13 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.core.exceptions import ValidationError
+
 # Third Party
 from PIL import (
     Image,
     UnidentifiedImageError,
 )
-# Django
-from django.core.exceptions import ValidationError
+
 
 MAX_FILE_SIZE_MB = 20
 
