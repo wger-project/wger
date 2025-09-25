@@ -17,6 +17,10 @@
 import logging
 from uuid import UUID
 
+# Third Party
+import bleach
+from actstream import action as actstream_action
+from bleach.css_sanitizer import CSSSanitizer
 # Django
 from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
@@ -24,11 +28,6 @@ from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
-
-# Third Party
-import bleach
-from actstream import action as actstream_action
-from bleach.css_sanitizer import CSSSanitizer
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -89,7 +88,6 @@ from wger.utils.constants import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
-
 
 logger = logging.getLogger(__name__)
 
@@ -298,9 +296,9 @@ def search(request):
             try:
                 thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
             except InvalidImageFormatError as e:
-                logger.info(f'InvalidImageFormatError while processing a thumbnail: {e}')
+                logger.warning(f'InvalidImageFormatError while processing a thumbnail: {e}')
             except OSError as e:
-                logger.info(f'OSError while processing a thumbnail: {e}')
+                logger.warning(f'OSError while processing a thumbnail: {e}')
 
         result_json = {
             'value': translation.name,
