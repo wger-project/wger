@@ -21,7 +21,6 @@ import uuid
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 # Third Party
 from simple_history.models import HistoricalRecords
 
@@ -29,6 +28,7 @@ from simple_history.models import HistoricalRecords
 from wger.exercises.models import Exercise
 from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.helpers import BaseImage
+from wger.utils.images import validate_image_static_no_animation
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -78,25 +78,20 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
 
     image = models.ImageField(
         verbose_name=_('Image'),
-        help_text=_('Only PNG and JPEG formats are supported'),
+        help_text='Only PNG and JPEG formats are supported',
         upload_to=exercise_image_upload_dir,
+        validators=[validate_image_static_no_animation],
     )
     """Uploaded image"""
 
     is_main = models.BooleanField(
         verbose_name=_('Main picture'),
         default=False,
-        help_text=_(
-            'Tick the box if you want to set this image as the '
-            'main one for the exercise (will be shown e.g. in '
-            'the search). The first image is automatically '
-            'marked by the system.'
-        ),
     )
     """A flag indicating whether the image is the exercise's main image"""
 
     style = models.CharField(
-        help_text=_('The art style of your image'),
+        help_text='The art style of your image',
         max_length=1,
         choices=STYLE,
         default=PHOTO,
@@ -104,13 +99,13 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     """The art style of the image"""
 
     created = models.DateTimeField(
-        _('Date'),
+        'Date',
         auto_now_add=True,
     )
     """The creation time"""
 
     last_update = models.DateTimeField(
-        _('Date'),
+        'Date',
         auto_now=True,
     )
     """Datetime of last modification"""
