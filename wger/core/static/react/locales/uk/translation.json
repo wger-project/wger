@@ -333,5 +333,7 @@
     "durationWeeks": "{{number}} тижнів",
     "undo": "Відмініти",
     "successfullyDeleted": "Успішно вилучено",
-    "durationWeeksDays": "{{nrWeeks}} тижнів, {{nrDays}} днів"
+    "durationWeeksDays": "{{nrWeeks}} тижнів, {{nrDays}} днів",
+    "private": "Приватний",
+    "public": "Громадськість"
 }
