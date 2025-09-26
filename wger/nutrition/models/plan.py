@@ -193,7 +193,7 @@ class NutritionPlan(models.Model):
         )
         if closest_entry_gte is None or closest_entry_lte is None:
             return closest_entry_gte or closest_entry_lte
-        if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
+        if abs(closest_entry_gte.date.date() - target) < abs(closest_entry_lte.date.date() - target):
             return closest_entry_gte
         else:
             return closest_entry_lte

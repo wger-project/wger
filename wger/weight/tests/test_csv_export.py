@@ -39,8 +39,8 @@ class WeightCsvExportTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'text/csv')
         self.assertEqual(response['Content-Disposition'], 'attachment; filename=Weightdata.csv')
-        self.assertGreaterEqual(len(response.content), 120)
-        self.assertLessEqual(len(response.content), 150)
+        self.assertGreaterEqual(len(response.content), 150)
+        self.assertLessEqual(len(response.content), 300)
 
     def test_export_csv_logged_in(self):
         """
