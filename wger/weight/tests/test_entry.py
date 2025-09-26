@@ -30,7 +30,9 @@ class MealRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(str(WeightEntry.objects.get(pk=1)), '2012-10-01 14:30:21.592000+00:00: 77.00 kg')
+        self.assertEqual(
+            str(WeightEntry.objects.get(pk=1)), '2012-10-01 14:30:21.592000+00:00: 77.00 kg'
+        )
 
 
 class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):

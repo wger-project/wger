@@ -21,7 +21,10 @@ from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.management.base import BaseCommand
 from django.template import loader
-from django.utils import translation, timezone
+from django.utils import (
+    timezone,
+    translation,
+)
 from django.utils.translation import gettext_lazy as _
 
 # wger

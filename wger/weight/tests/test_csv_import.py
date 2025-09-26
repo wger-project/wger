@@ -64,7 +64,12 @@ class WeightCsvImportTestCase(WgerTestCase):
         # 2nd. step
         response = self.client.post(
             reverse('weight:import-csv'),
-            {'stage': 2, 'hash': hash_value, 'csv_input': csv_input, 'date_format': '%d.%m.%y %H:%M:%S'},
+            {
+                'stage': 2,
+                'hash': hash_value,
+                'csv_input': csv_input,
+                'date_format': '%d.%m.%y %H:%M:%S',
+            },
         )
 
         count_after = WeightEntry.objects.count()
