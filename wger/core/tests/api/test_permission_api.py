@@ -25,8 +25,8 @@ class CheckPermissionApiTestCase(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/check-permission/'
     error_message = "Please pass a permission name in the 'permission' parameter"
 
-    def get_resource_name(self):
-        return 'check-permission'
+    # def get_resource_name(self):
+    #    return 'check-permission'
 
     def test_check_permission_anonymous_no_parameters(self):
         """

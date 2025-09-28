@@ -23,7 +23,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-
 # Third Party
 from django_email_verification import send_email
 from drf_spectacular.types import OpenApiTypes
@@ -37,7 +36,10 @@ from rest_framework import (
     status,
     viewsets,
 )
-from rest_framework.decorators import action
+from rest_framework.decorators import (
+    action,
+    api_view,
+)
 from rest_framework.fields import (
     BooleanField,
     CharField,
@@ -50,6 +52,7 @@ from rest_framework.response import Response
 
 # wger
 from wger.core.api.serializers import (
+    LanguageCheckSerializer,
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
@@ -73,7 +76,6 @@ from wger.version import (
     MIN_SERVER_VERSION,
     get_version,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -406,3 +408,14 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RoutineWeightUnitSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name',)
+
+
+@api_view(['POST'])
+def check_language(request):
+    """
+    Checks the language of a string
+    """
+    serializer = LanguageCheckSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    return Response({'result': True})
