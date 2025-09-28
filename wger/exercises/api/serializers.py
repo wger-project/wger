@@ -421,12 +421,11 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         if detected_language_code != language.short_name.lower():
             raise serializers.ValidationError(
                 {
-                    'language':
-                        f'The detected language of the description is "{detected_language.name.capitalize()}" '
-                        f'({detected_language_code}), which does not match your selected language: '
-                        f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
-                        f'this is incorrect, try adding more content or rephrasing your text, as '
-                        f'language detection works better with longer or more complete sentences.'
+                    'language': f'The detected language of the description is "{detected_language.name.capitalize()}" '
+                                f'({detected_language_code}), which does not match your selected language: '
+                                f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                                f'this is incorrect, try adding more content or rephrasing your text, as '
+                                f'language detection works better with longer or more complete sentences.'
                 }
             )
 
@@ -585,7 +584,11 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     muscles = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
     muscles_secondary = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
     equipment = serializers.PrimaryKeyRelatedField(queryset=Equipment.objects.all(), many=True)
-    variation = serializers.PrimaryKeyRelatedField(queryset=Variation.objects.all(), required=False)
+    variations = serializers.PrimaryKeyRelatedField(
+        queryset=Variation.objects.all(),
+        required=False,
+        allow_null=True,
+    )
     license = serializers.PrimaryKeyRelatedField(
         queryset=License.objects.all(),
         required=False,
@@ -601,12 +604,28 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             'muscles',
             'muscles_secondary',
             'equipment',
-            'variation',
+            'variations',
             'license',
             'license_author',
             'translations',
         ]
         model = Exercise
+
+    def validate(self, data):
+        # Ensure at least one translation is present
+        translations = data.get('translations', [])
+        if not data.get('translations', []):
+            raise serializers.ValidationError(
+                {'translations': 'You must provide at least one translation.'}
+            )
+
+        # At least one translation in English
+        if not any(t.get('language').short_name == 'en' for t in translations):
+            raise serializers.ValidationError(
+                {'translations': 'You must provide at least one translation in English.'}
+            )
+
+        return data
 
     @transaction.atomic
     def create(self, validated_data):
@@ -615,7 +634,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             category=validated_data.pop('category'),
             license=validated_data.pop('license'),
             license_author=validated_data.pop('license_author'),
-            variations=validated_data.pop('variation', None),
+            variations=validated_data.pop('variations', None),
         )
         exercise.muscles.set(validated_data.pop('muscles'))
         exercise.muscles_secondary.set(validated_data.pop('muscles_secondary'))
