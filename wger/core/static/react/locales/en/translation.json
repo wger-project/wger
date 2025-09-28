@@ -171,8 +171,6 @@
     "supportedImageFormats": "Only JPEG, PNG and WEBP files below 20Mb are supported",
     "enterNumber": "Please enter a valid number",
     "enterInteger": "Please enter a whole number",
-    "valueTooShort": "The value is too short",
-    "valueTooLong": "The value is too long",
     "fieldRequired": "This field is required",
     "maxLength": "Please enter less than {{chars}} characters",
     "minLength": "Please enter more than {{chars}} characters",
