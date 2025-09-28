@@ -31,7 +31,6 @@ from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.weight.models import WeightEntry
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -42,9 +41,8 @@ class NutritionPlan(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        # Order by creation_date, descending (oldest first)
         ordering = [
-            '-creation_date',
+            '-start',
         ]
 
     user = models.ForeignKey(
