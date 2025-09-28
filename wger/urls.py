@@ -25,6 +25,7 @@ from django.contrib.sitemaps.views import (
     sitemap,
 )
 from django.urls import path
+
 # Third Party
 from django_email_verification import urls as email_urls
 from drf_spectacular.views import (
@@ -49,6 +50,7 @@ from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
+
 
 #
 # REST API

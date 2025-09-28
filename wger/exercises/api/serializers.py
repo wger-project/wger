@@ -17,6 +17,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
 from django.db.models import Q
+
 # Third Party
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
@@ -236,10 +237,10 @@ class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {
                     'language': f'The detected language of the comment is "{detected_language.name.capitalize()}" '
-                                f'({detected_language_code}), which does not match your selected language: '
-                                f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
-                                f'this is incorrect, try adding more content or rephrasing your text, as '
-                                f'language detection works better with longer or more complete sentences.'
+                    f'({detected_language_code}), which does not match your selected language: '
+                    f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                    f'this is incorrect, try adding more content or rephrasing your text, as '
+                    f'language detection works better with longer or more complete sentences.'
                 }
             )
 
@@ -422,10 +423,10 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {
                     'language': f'The detected language of the description is "{detected_language.name.capitalize()}" '
-                                f'({detected_language_code}), which does not match your selected language: '
-                                f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
-                                f'this is incorrect, try adding more content or rephrasing your text, as '
-                                f'language detection works better with longer or more complete sentences.'
+                    f'({detected_language_code}), which does not match your selected language: '
+                    f'"{language.full_name.capitalize()}" ({language.short_name}). If you believe '
+                    f'this is incorrect, try adding more content or rephrasing your text, as '
+                    f'language detection works better with longer or more complete sentences.'
                 }
             )
 

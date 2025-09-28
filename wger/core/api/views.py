@@ -23,6 +23,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+
 # Third Party
 from django_email_verification import send_email
 from drf_spectacular.types import OpenApiTypes
@@ -76,6 +77,7 @@ from wger.version import (
     MIN_SERVER_VERSION,
     get_version,
 )
+
 
 logger = logging.getLogger(__name__)
 

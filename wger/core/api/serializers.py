@@ -21,6 +21,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
+
 # Third Party
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
@@ -35,6 +36,7 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -250,10 +252,10 @@ class LanguageCheckSerializer(serializers.Serializer):
                         'result': False,
                         'detected_language': detected_language_code,
                         'message': f'The detected language is "{detected_language.name.capitalize()}" ({detected_language_code}), '
-                                   f'which does not match your selected language "{language.full_name.capitalize()}" '
-                                   f'({language.short_name}). If you believe this is incorrect, try adding more content '
-                                   f'or rephrasing your text, as language detection works better with longer or more '
-                                   f'complete sentences.',
+                        f'which does not match your selected language "{language.full_name.capitalize()}" '
+                        f'({language.short_name}). If you believe this is incorrect, try adding more content '
+                        f'or rephrasing your text, as language detection works better with longer or more '
+                        f'complete sentences.',
                     }
                 }
             )
