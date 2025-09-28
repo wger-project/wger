@@ -42,18 +42,18 @@ class WeightCsvImportTestCase(WgerTestCase):
         # 1st step
         count_before = WeightEntry.objects.count()
         csv_input = """Datum	Gewicht	KJ
-05.01.10	error here	111
-22.01.aa	69,2	222
-27.01.10	69,6	222
-02.02.10	69	222
-11.02.10	70,4	222
-19.02.10	71	222
-26.02.10	71,9	222
-26.02.10	71,9	222
-19.03.10	72	 222"""
+05.01.10 00:00:00	error here	111
+22.01.aa 00:00:00	69,2	222
+27.01.10 00:00:00	69,6	222
+02.02.10 00:00:00	69	222
+11.02.10 00:00:00	70,4	222
+19.02.10 00:00:00	71	222
+26.02.10 00:00:00	71,9	222
+26.02.10 00:00:00	71,9	222
+19.03.10 00:00:00	72	 222"""
         response = self.client.post(
             reverse('weight:import-csv'),
-            {'stage': 1, 'csv_input': csv_input, 'date_format': '%d.%m.%y'},
+            {'stage': 1, 'csv_input': csv_input, 'date_format': '%d.%m.%y %H:%M:%S'},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -64,7 +64,12 @@ class WeightCsvImportTestCase(WgerTestCase):
         # 2nd. step
         response = self.client.post(
             reverse('weight:import-csv'),
-            {'stage': 2, 'hash': hash_value, 'csv_input': csv_input, 'date_format': '%d.%m.%y'},
+            {
+                'stage': 2,
+                'hash': hash_value,
+                'csv_input': csv_input,
+                'date_format': '%d.%m.%y %H:%M:%S',
+            },
         )
 
         count_after = WeightEntry.objects.count()

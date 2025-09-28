@@ -25,22 +25,12 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import (
-    OpenApiParameter,
-    extend_schema,
-    inline_serializer,
-)
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
     action,
     api_view,
-)
-from rest_framework.fields import (
-    CharField,
-    IntegerField,
 )
 from rest_framework.response import Response
 
@@ -94,25 +84,11 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
+    queryset = Ingredient.objects.all()
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
-
-    def get_queryset(self):
-        """H"""
-        qs = Ingredient.objects.all()
-
-        code = self.request.query_params.get('code')
-        if not code:
-            return qs
-
-        qs = qs.filter(code=code)
-        if qs.count() == 0:
-            logger.debug('code not found locally, fetching code from off')
-            Ingredient.fetch_ingredient_from_off(code)
-
-        return qs
 
     @action(detail=True)
     def get_values(self, request, pk):
@@ -168,48 +144,12 @@ class IngredientInfoViewSet(IngredientViewSet):
     serializer_class = IngredientInfoSerializer
 
 
-@extend_schema(
-    parameters=[
-        OpenApiParameter(
-            'term',
-            OpenApiTypes.STR,
-            OpenApiParameter.QUERY,
-            description='The name of the ingredient to search"',
-            required=True,
-        ),
-        OpenApiParameter(
-            'language',
-            OpenApiTypes.STR,
-            OpenApiParameter.QUERY,
-            description='Comma separated list of language codes to search',
-            required=True,
-        ),
-    ],
-    responses={
-        200: inline_serializer(
-            name='IngredientSearchResponse',
-            fields={
-                'value': CharField(),
-                'data': inline_serializer(
-                    name='IngredientSearchItemResponse',
-                    fields={
-                        'id': IntegerField(),
-                        'name': CharField(),
-                        'category': CharField(),
-                        'image': CharField(),
-                        'image_thumbnail': CharField(),
-                    },
-                ),
-            },
-        )
-    },
-)
 @api_view(['GET'])
 def search(request):
     """
-    Searches for ingredients.
-
-    This format is currently used by the ingredient search autocompleter
+    NOTE: this endpoint is not used anymore and will be removed in the very
+          near future, but is kept here for backwards compatibility. When that
+          happens, SEARCH_ALL_LANGUAGES can be removed as well.
     """
     term = request.GET.get('term', None)
     language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)

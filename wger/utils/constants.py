@@ -37,6 +37,20 @@ DATE_FORMATS = [
     '%Y-%m-%d',  # '2012-10-25'
 ]
 
+# Valid datetime formats
+DATETIME_FORMATS = [
+    '%d.%m.%Y %H:%M:%S',  # '25.10.2012 14:30:00'
+    '%d.%m.%Y %H:%M',  # '25.10.2012 14:30'
+    '%d.%m.%y %H:%M:%S',  # '25.10.12 14:30:00'
+    '%d.%m.%y %H:%M',  # '25.10.12 14:30'
+    '%m/%d/%Y %H:%M:%S',  # '10/25/2012 14:30:00'
+    '%m/%d/%Y %H:%M',  # '10/25/2012 14:30'
+    '%m/%d/%y %H:%M:%S',  # '10/25/12 14:30:00'
+    '%m/%d/%y %H:%M',  # '10/25/12 14:30'
+    '%Y-%m-%d %H:%M:%S',  # '2012-10-25 14:30:00'
+    '%Y-%m-%d %H:%M',  # '2012-10-25 14:30'
+]
+
 # Allowed tags, attributes and styles allowed in textareas edited with a JS
 # editor. Everything not in these whitelists is stripped.
 HTML_TAG_WHITELIST = {'b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'p'}

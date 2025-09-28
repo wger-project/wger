@@ -172,7 +172,7 @@
         "resultingRoutine": "Resultierende Routine",
         "deleteDayConfirmation": "Dies löscht alle Sets, Übungen und Fortschrittsregeln",
         "fitDaysInWeek": "Tage in die Woche einpassen",
-        "defaultRounding": "Standardroutine",
+        "defaultRounding": "Standardrundung",
         "rounding": "Rundung (diese Übung)",
         "weightLogNotPlanned": "Speichere Log an einem Tag ohne geplantes Workout.",
         "alsoShowLogs": "Zeige auch Logeinträge",
@@ -332,5 +332,7 @@
     "durationWeeks": "{{number}} Wochen",
     "durationWeeksDays": "{{nrWeeks}} Wochen, {{nrDays}} Tage",
     "undo": "Rückgängig machen",
-    "successfullyDeleted": "Erfolgreich gelöscht"
+    "successfullyDeleted": "Erfolgreich gelöscht",
+    "private": "Privat",
+    "public": "Öffentlich"
 }

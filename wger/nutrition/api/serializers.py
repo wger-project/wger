@@ -13,7 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.conf import settings
+
 # Third Party
+from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
 # wger
@@ -149,6 +153,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
 
     weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
     image = IngredientImageSerializer(read_only=True)
+    thumbnails = serializers.SerializerMethodField()
 
     class Meta:
         model = Ingredient
@@ -174,14 +179,30 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'sodium',
             'weight_units',
             'language',
-            'image',
             'license',
             'license_title',
             'license_object_url',
             'license_author',
             'license_author_url',
             'license_derivative_source_url',
+            'image',
+            'thumbnails',
         ]
+
+    def get_thumbnails(self, obj: Ingredient):
+        if not hasattr(obj, 'image'):
+            return None
+
+        request = self.context.get('request')
+        aliases = ['small', 'small_cropped', 'medium', 'medium_cropped', 'large', 'large_cropped']
+        result = {}
+
+        thumbnailer = get_thumbnailer(obj.image.image)
+        for alias in aliases:
+            opts = settings.THUMBNAIL_ALIASES[''][alias]
+            thumb = thumbnailer.get_thumbnail(opts)
+            result[alias] = request.build_absolute_uri(thumb.url)
+        return result
 
 
 class MealItemSerializer(serializers.ModelSerializer):

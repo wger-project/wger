@@ -12,8 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import datetime
+# Django
+from django.utils import timezone
 
 # wger
 from wger.core.tests import api_base_test
@@ -30,7 +30,9 @@ class MealRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(str(WeightEntry.objects.get(pk=1)), '2012-10-01: 77.00 kg')
+        self.assertEqual(
+            str(WeightEntry.objects.get(pk=1)), '2012-10-01 14:30:21.592000+00:00: 77.00 kg'
+        )
 
 
 class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -41,4 +43,5 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 3
     resource = WeightEntry
     private_resource = True
-    data = {'weight': 100, 'date': datetime.date(2013, 2, 1)}
+    date = timezone.now() - timezone.timedelta(days=25)
+    data = {'weight': 100, 'date': date}

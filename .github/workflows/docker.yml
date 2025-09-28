@@ -20,10 +20,13 @@ jobs:
         include:
           - platform: linux/amd64
             runner: ubuntu-latest
-          - platform: linux/arm/v7
-            runner: ubuntu-24.04-arm
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
+
+          #Note: disabling ARMv7 for now, as the process fails with:
+          #      Error: Couldn't allocate enough memory
+          #- platform: linux/arm/v7
+          #runner: ubuntu-24.04-arm
     steps:
       - name: Prepare
         run: |

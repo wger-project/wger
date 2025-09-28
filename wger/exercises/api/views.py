@@ -298,9 +298,9 @@ def search(request):
             try:
                 thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
             except InvalidImageFormatError as e:
-                logger.info(f'InvalidImageFormatError while processing a thumbnail: {e}')
+                logger.warning(f'InvalidImageFormatError while processing a thumbnail: {e}')
             except OSError as e:
-                logger.info(f'OSError while processing a thumbnail: {e}')
+                logger.warning(f'OSError while processing a thumbnail: {e}')
 
         result_json = {
             'value': translation.name,
@@ -512,8 +512,8 @@ class ExerciseCommentViewSet(ModelViewSet):
         qs = ExerciseComment.objects.all()
         language = self.request.query_params.get('language')
         if language:
-            exercises = Translation.objects.filter(language=language)
-            qs = ExerciseComment.objects.filter(exercise__in=exercises)
+            translations = Translation.objects.filter(language=language)
+            qs = ExerciseComment.objects.filter(translation__in=translations)
         return qs
 
     def perform_create(self, serializer):

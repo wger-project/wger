@@ -244,33 +244,65 @@ class IngredientSearchTestCase(WgerTestCase):
     Tests the ingredient search functions
     """
 
-    def search_ingredient(self, fail=True):
+    def search_ingredient_en(self):
         """
-        Helper function
+        Helper function - Searches in English
         """
 
-        response = self.client.get(reverse('ingredient-search'), {'term': 'test'})
+        response = self.client.get(
+            reverse('api-ingredientinfo-list'),
+            {'name__search': 'test', 'language__code': 'en'},
+        )
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result['suggestions']), 2)
-        self.assertEqual(result['suggestions'][0]['value'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result['suggestions'][0]['data']['id'], 2)
-        suggestion_0_name = 'Ingredient, test, 2, organic, raw'
-        self.assertEqual(result['suggestions'][0]['data']['name'], suggestion_0_name)
-        self.assertEqual(result['suggestions'][0]['data']['image'], None)
-        self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
-        self.assertEqual(result['suggestions'][1]['value'], 'Test ingredient 1')
-        self.assertEqual(result['suggestions'][1]['data']['id'], 1)
-        self.assertEqual(result['suggestions'][1]['data']['name'], 'Test ingredient 1')
-        self.assertEqual(result['suggestions'][1]['data']['image'], None)
-        self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
+
+        self.assertEqual(result['count'], 2)
+
+        ingredient_1 = result['results'][0]
+        self.assertEqual(ingredient_1['id'], 2)
+        self.assertEqual(ingredient_1['name'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(ingredient_1['uuid'], '44dc5966-73a2-4df7-8b15-f6d37a8990d9')
+        self.assertEqual(ingredient_1['language']['id'], 2)
+        self.assertEqual(ingredient_1['image'], None)
+        self.assertEqual(ingredient_1['thumbnails'], None)
+
+        ingredient_2 = result['results'][1]
+        self.assertEqual(ingredient_2['id'], 1)
+        self.assertEqual(ingredient_2['name'], 'Test ingredient 1')
+        self.assertEqual(ingredient_2['uuid'], '7908c204-907f-4b1e-ad4e-f482e9769ade')
+        self.assertEqual(ingredient_2['language']['id'], 2)
+        self.assertEqual(ingredient_2['image'], None)
+        self.assertEqual(ingredient_2['thumbnails'], None)
+
+    def search_ingredient_de(self):
+        """
+        Helper function - Searches in German
+        """
+
+        response = self.client.get(
+            reverse('api-ingredientinfo-list'),
+            {'name__search': 'test', 'language__code': 'de'},
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode('utf8'))
+
+        self.assertEqual(result['count'], 1)
+
+        ingredient_1 = result['results'][0]
+        self.assertEqual(ingredient_1['id'], 6)
+        self.assertEqual(ingredient_1['name'], 'Testzutat 123')
+        self.assertEqual(ingredient_1['uuid'], 'dfc5c622-027b-4f17-8141-dadd1ce7e3f1')
+        self.assertEqual(ingredient_1['language']['id'], 1)
+        self.assertEqual(ingredient_1['image'], None)
+        self.assertEqual(ingredient_1['thumbnails'], None)
 
     def test_search_ingredient_anonymous(self):
         """
         Test searching for an ingredient by an anonymous user
         """
 
-        self.search_ingredient()
+        self.search_ingredient_en()
+        self.search_ingredient_de()
 
     def test_search_ingredient_logged_in(self):
         """
@@ -278,7 +310,8 @@ class IngredientSearchTestCase(WgerTestCase):
         """
 
         self.user_login('test')
-        self.search_ingredient()
+        self.search_ingredient_en()
+        self.search_ingredient_de()
 
 
 class IngredientValuesTestCase(WgerTestCase):
