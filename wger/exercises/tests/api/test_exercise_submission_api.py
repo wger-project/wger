@@ -27,6 +27,7 @@ from wger.exercises.models import (
     Exercise,
     ExerciseComment,
     Translation,
+    Variation,
 )
 
 
@@ -70,13 +71,14 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
     @staticmethod
     def get_counts():
-        Counts = namedtuple('Counts', ['exercise', 'translation', 'alias', 'comment'])
+        Counts = namedtuple('Counts', ['exercise', 'translation', 'alias', 'comment', 'variations'])
 
         return Counts(
             Exercise.objects.count(),
             Translation.objects.count(),
             Alias.objects.count(),
             ExerciseComment.objects.count(),
+            Variation.objects.count(),
         )
 
     def test_successful_submission_full(self):
@@ -174,3 +176,26 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
             response_data.get('translations'),
             ['You must provide at least one translation in English.'],
         )
+
+    def test_successfully_creates_new_variation(self):
+        """
+        Correctly connects the new exercise to another exercise via a new variation.
+        """
+        self.authenticate('admin')
+
+        payload = self.get_payload()
+        payload['variations_connect_to'] = 5
+        del payload['variations']
+
+        connected_exercise = Exercise.objects.get(pk=5)
+        self.assertIsNone(connected_exercise.variations_id)
+
+        counts_before = self.get_counts()
+        response = self.client.post(self.url, data=payload)
+        exercise = Exercise.objects.get(pk=response.json().get('id'))
+        connected_exercise.refresh_from_db()
+        counts_after = self.get_counts()
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(counts_before.variations + 1, counts_after.variations)
+        self.assertEqual(exercise.variations_id, connected_exercise.variations_id)

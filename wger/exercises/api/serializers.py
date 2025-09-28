@@ -581,21 +581,43 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False, read_only=True)
     category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
-    muscles = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
-    muscles_secondary = serializers.PrimaryKeyRelatedField(queryset=Muscle.objects.all(), many=True)
-    equipment = serializers.PrimaryKeyRelatedField(queryset=Equipment.objects.all(), many=True)
-    variations = serializers.PrimaryKeyRelatedField(
-        queryset=Variation.objects.all(),
+    muscles = serializers.PrimaryKeyRelatedField(
+        queryset=Muscle.objects.all(),
+        many=True,
         required=False,
-        allow_null=True,
+        default=list,
     )
+    muscles_secondary = serializers.PrimaryKeyRelatedField(
+        queryset=Muscle.objects.all(),
+        many=True,
+        required=False,
+        default=list,
+    )
+    equipment = serializers.PrimaryKeyRelatedField(
+        queryset=Equipment.objects.all(),
+        many=True,
+        required=False,
+        default=list,
+    )
+    translations = ExerciseTranslationSubmissionSerializer(many=True)
     license = serializers.PrimaryKeyRelatedField(
         queryset=License.objects.all(),
         required=False,
         # Note, using a function here because of problems during tests
         default=get_default_license,
     )
-    translations = ExerciseTranslationSubmissionSerializer(many=True)
+    variations = serializers.PrimaryKeyRelatedField(
+        queryset=Variation.objects.all(),
+        required=False,
+        allow_null=True,
+    )
+    variations_connect_to = serializers.PrimaryKeyRelatedField(
+        queryset=Exercise.objects.all(),
+        required=False,
+        allow_null=True,
+        write_only=True,
+        help_text='If provided, the created exercise will be added to the selected variation set.',
+    )
 
     class Meta:
         fields = [
@@ -605,6 +627,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             'muscles_secondary',
             'equipment',
             'variations',
+            'variations_connect_to',
             'license',
             'license_author',
             'translations',
@@ -623,6 +646,14 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         if not any(t.get('language').short_name == 'en' for t in translations):
             raise serializers.ValidationError(
                 {'translations': 'You must provide at least one translation in English.'}
+            )
+
+        # Either the variations or variations_connect_to field may be set, not both
+        if data.get('variations') and data.get('variations_connect_to'):
+            raise serializers.ValidationError(
+                {
+                    'variations': 'Either set the variations or the variations_connect_to field, not both.'
+                }
             )
 
         return data
@@ -644,5 +675,16 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         for translation in validated_data.pop('translations', []):
             serializer: ExerciseTranslationSubmissionSerializer = self.fields['translations'].child
             serializer.create(validated_data=translation, exercise=exercise)
+
+        # If requested, add the exercise to an existing variation set
+        connect_to: Exercise | None = validated_data.get('variations_connect_to')
+        if connect_to:
+            new_variation = Variation.objects.create()
+
+            connect_to.variations = new_variation
+            connect_to.save()
+
+            exercise.variations = new_variation
+            exercise.save()
 
         return exercise
