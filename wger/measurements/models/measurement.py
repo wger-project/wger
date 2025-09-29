@@ -15,7 +15,7 @@
 # Standard Library
 
 # Standard Library
-import datetime
+import uuid
 
 # Django
 from django.core.validators import (
@@ -23,6 +23,7 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -31,10 +32,13 @@ from wger.measurements.models import Category
 
 class Measurement(models.Model):
     class Meta:
-        unique_together = ('date', 'category')
         ordering = [
             '-date',
         ]
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+    )
 
     category = models.ForeignKey(
         Category,
@@ -42,9 +46,14 @@ class Measurement(models.Model):
         on_delete=models.CASCADE,
     )
 
-    date = models.DateField(
+    date = models.DateTimeField(
         _('Date'),
-        default=datetime.datetime.now,
+        default=timezone.now,
+    )
+
+    created = models.DateTimeField(
+        _('Date'),
+        default=timezone.now,
     )
 
     value = models.DecimalField(
@@ -61,6 +70,17 @@ class Measurement(models.Model):
         verbose_name=_('Description'),
         max_length=100,
         blank=True,
+    )
+
+    source = models.CharField(
+        verbose_name='Source',
+        max_length=100,
+        default='manual',
+    )
+
+    external_id = models.UUIDField(
+        blank=True,
+        null=True,
     )
 
     def get_owner_object(self):

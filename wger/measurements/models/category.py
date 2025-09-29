@@ -12,7 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
 # Standard Library
+import uuid
 
 # Django
 from django.contrib.auth.models import User
@@ -21,6 +23,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
+
     class Meta:
         ordering = [
             '-name',
@@ -33,14 +36,29 @@ class Category(models.Model):
     )
 
     name = models.CharField(
-        verbose_name=_('Name'),
         max_length=100,
+    )
+
+    """Name used for synchronization with external services"""
+    internal_name = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
     )
 
     unit = models.CharField(
         verbose_name=_('Unit'),
         max_length=30,
     )
+
+    #uuid = models.UUIDField(
+    #    default=uuid.uuid4,
+    #)
+
+    externally_synced = models.BooleanField(
+        default=False,
+    )
+
 
     def get_owner_object(self):
         """
