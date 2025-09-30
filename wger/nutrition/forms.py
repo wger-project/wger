@@ -17,12 +17,10 @@
 # Standard Library
 import logging
 from datetime import datetime
-from decimal import Decimal
 
 # Django
 from django import forms
 from django.forms import BooleanField
-from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -32,11 +30,9 @@ from django.utils.translation import (
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
-    ButtonHolder,
     Column,
     Layout,
     Row,
-    Submit,
 )
 
 # wger
@@ -80,9 +76,15 @@ class UnitChooserForm(forms.Form):
         else:
             ingredient_id = -1
 
-        self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
-            ingredient_id=ingredient_id
-        ).select_related()
+        self.fields['unit'].queryset = IngredientWeightUnit.objects.none()
+        try:
+            self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
+                ingredient_id=ingredient_id
+            ).select_related()
+        except ValueError as e:
+            logger.error(f'ValueError in UnitChooserForm: {e}')
+        except IngredientWeightUnit.DoesNotExist as e:
+            logger.error(f'IngredientWeightUnit does not exist: {e}')
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -93,45 +95,6 @@ class UnitChooserForm(forms.Form):
             )
         )
         self.helper.form_tag = False
-
-
-class BmiForm(forms.ModelForm):
-    height = forms.DecimalField(
-        widget=Html5NumberInput(),
-        max_value=Decimal(999),
-    )
-    weight = forms.DecimalField(
-        widget=Html5NumberInput(),
-        max_value=Decimal(999),
-    )
-
-    class Meta:
-        model = UserProfile
-        fields = ('height',)
-
-    def __init__(self, *args, **kwargs):
-        super(BmiForm, self).__init__(*args, **kwargs)
-
-        if 'initial' in kwargs:  # if the form is rendering for the first time
-            self['height'].label = (
-                _('Height (cm)') if kwargs['initial']['use_metric'] else _('Height (in)')
-            )
-            self['weight'].label = (
-                _('Weight (kg)') if kwargs['initial']['use_metric'] else _('Weight (lbs)')
-            )
-
-        self.helper = FormHelper()
-        self.helper.form_action = reverse('nutrition:bmi:calculate')
-        self.helper.form_class = 'wger-form'
-        self.helper.form_id = 'bmi-form'
-        self.helper.layout = Layout(
-            Row(
-                Column('height', css_class='col-6'),
-                Column('weight', css_class='col-6'),
-                css_class='form-row',
-            ),
-            ButtonHolder(Submit('submit', _('Calculate'), css_class='btn-success')),
-        )
 
 
 class BmrForm(forms.ModelForm):
