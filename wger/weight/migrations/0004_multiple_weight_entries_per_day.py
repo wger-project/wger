@@ -9,10 +9,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterUniqueTogether(
-            name='weightentry',
-            unique_together=set(),
-        ),
+        # migrations.AlterUniqueTogether(
+        #     name='weightentry',
+        #     unique_together=set(),
+        # ),
         migrations.AlterField(
             model_name='weightentry',
             name='date',
