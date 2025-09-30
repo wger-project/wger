@@ -7,7 +7,11 @@
         "addWeightLog": "Adicionar registro de treino",
         "logsHeader": "Registro de exercícios para treino",
         "logsFilterNote": "Observe que somente as entradas com uma unidade de peso de kg ou lb e repetições são registradas; outras combinações, como tempo ou até a falha, são ignoradas aqui",
-        "addLogToDay": "Adicionar registro a este dia"
+        "addLogToDay": "Adicionar registro a este dia",
+        "intensity": "Intensidade",
+        "currentRoutine": "Rotina atual",
+        "volume": "Volume",
+        "weekNr": "Semana {{number}}"
     },
     "server": {
         "glutes": "Glúteos",
@@ -56,7 +60,11 @@
         "valueTooShort": "O valor é muito pequeno",
         "supportedImageFormats": "Apenas são suportados arquivos JPEG, PNG e WEBP com menos de 20Mb",
         "valueTooLong": "O valor é muito longo",
-        "fieldRequired": "Este campo é obrigatório"
+        "fieldRequired": "Este campo é obrigatório",
+        "enterNumber": "Por favor, insira um número válido",
+        "enterInteger": "Por favor, insira um número inteiro",
+        "maxLessThanMin": "O valor máximo deve ser maior que o valor mínimo",
+        "endBeforeStart": "O valor final não pode ser anterior ao inicial"
     },
     "translation": "Tradução",
     "name": "Nome",
@@ -128,7 +136,8 @@
         "imageStyleOther": "Outros",
         "imageDetails": "Detalhes da Imagem",
         "replacementsInfoText": "Opcionalmente, você pode também selecionar um exercício que pode substituir esse (ex: porque foi substituído duas vezes, or similar). Isso irá substituir o exercício em rotinas e também logs de treinos, ao invés de apenas excluí-lo. Essas mudanças irão também ser propagadas para qualquer instancia que sincroniza os exercícios a partir desse.",
-        "deleteExerciseReplace": "Delete e substitua"
+        "deleteExerciseReplace": "Delete e substitua",
+        "swapExercise": "Substituir exercício"
     },
     "notes": "Comentários",
     "value": "Valor",
@@ -240,5 +249,11 @@
     "comment": "Comentário",
     "editName": "Editar {{name}}",
     "min": "Min",
-    "max": "Max"
+    "max": "Max",
+    "successfullyDeleted": "Deletado com sucesso",
+    "undo": "Desfazer",
+    "public": "Público",
+    "private": "Privado",
+    "durationWeeks": "{{number}} semanas",
+    "durationWeeksDays": "{{nrWeeks}} semanas, {{nrDays}} dias"
 }

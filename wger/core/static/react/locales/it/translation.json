@@ -72,7 +72,7 @@
         "dumbbell": "Manubrio",
         "gym_mat": "Materassino",
         "incline_bench": "Panca inclinata",
-        "kettlebell": "Kettlebell",
+        "kettlebell": "Ghiria",
         "kilometers": "Kilometri",
         "legs": "Gambe",
         "miles": "Miglia",
@@ -119,7 +119,7 @@
     "value": "Valore",
     "unit": "Unità",
     "close": "Chiudi",
-    "nothingHereYet": "Qui non c'é ancora nulla ...",
+    "nothingHereYet": "Qui non c'è ancora nulla ...",
     "alsoSearchEnglish": "Cerca anche nomi in inglese",
     "timeOfDay": "Ora del giorno",
     "copyToClipboard": "Copia negli appunti",
@@ -320,17 +320,19 @@
     "comment": "Commento",
     "filters": "Filtri",
     "bmi": {
-        "calculator": "Calcolatore Bmi",
-        "overweight": "Overweight",
+        "calculator": "Calcolatore IMC",
+        "overweight": "Sovrappeso",
         "obese": "Obeso",
         "normal": "Peso normale",
         "underweight": "Sottopeso",
-        "result": "Il tuo BMI è {{value}}"
+        "result": "Il tuo IMC è {{value}}"
     },
     "min": "Min",
     "max": "Max",
     "durationWeeks": "{{number}} settimane",
     "durationWeeksDays": "{{nrWeeks}} settimane, {{nrDays}} giorni",
     "undo": "Annulla",
-    "successfullyDeleted": "Eliminato con successo"
+    "successfullyDeleted": "Eliminato con successo",
+    "private": "Privato",
+    "public": "Pubblico"
 }
