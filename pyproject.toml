@@ -36,7 +36,7 @@ dependencies = [
     "django-axes[ipware]==8.0.0",
     "django-bootstrap-breadcrumbs2==1.0.0",
     "django-compressor==4.5.1",
-    "django-cors-headers==4.8.0",
+    "django-cors-headers==4.9.0",
     "django-crispy-forms==2.4",
     "django-email-verification==0.3.3",
     "django-environ==0.12.0",
@@ -57,11 +57,11 @@ dependencies = [
     "icalendar==6.3.1",
     "invoke==2.2.0",
     "lingua-language-detector==2.1.1",
-    "openfoodfacts==2.6.1",
+    "openfoodfacts==3.1.0",
     "packaging==25.0",
     "pillow==11.3.0",
     "psycopg==3.2.10",
-    "reportlab==4.4.3",
+    "reportlab==4.4.4",
     "requests==2.32.5",
     "tqdm==4.67.1",
     "tzdata==2025.2",
@@ -69,13 +69,13 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "coverage==7.10.6",
+    "coverage==7.10.7",
     "django-debug-toolbar==6.0.0",
     "django-extensions==4.1",
     "faker==37.8.0",
     "hatchling==1.27.0",
     "isort==6.0.1",
-    "ruff==0.13.0",
+    "ruff==0.13.2",
     "tblib==3.1.0",
     "wheel==0.45.1",
 ]
