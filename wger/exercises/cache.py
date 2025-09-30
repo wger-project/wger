@@ -28,10 +28,10 @@ def cache_exercise(
     Caches a provided exercise.
     """
     if force:
-        print_fn(f'Force updating cache for exercise base {exercise.uuid}')
+        print_fn(f'Force updating cache for exercise {exercise.uuid}')
         reset_exercise_api_cache(exercise.uuid)
     else:
-        print_fn(f'Warming cache for exercise base {exercise.uuid}')
+        print_fn(f'Warming cache for exercise {exercise.uuid}')
 
     serializer = ExerciseInfoSerializer(exercise)
     serializer.data
