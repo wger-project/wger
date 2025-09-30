@@ -232,7 +232,10 @@ class LanguageCheckSerializer(serializers.Serializer):
 
         # Try to detect the language
         detector = (
-            LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+            LanguageDetectorBuilder.from_all_languages()
+            .with_low_accuracy_mode()
+            .with_preloaded_language_models()
+            .build()
         )
         input_str = data.get('input')
 

@@ -226,7 +226,10 @@ class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
         # -> This is done here instead of in the serializer's validate method
         #    because the language is not available in the serializer's initial_data
         detector = (
-            LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+            LanguageDetectorBuilder.from_all_languages()
+            .with_low_accuracy_mode()
+            .with_preloaded_language_models()
+            .build()
         )
         language = translation.language
 
@@ -410,7 +413,10 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         provided language.
         """
         detector = (
-            LanguageDetectorBuilder.from_all_languages().with_preloaded_language_models().build()
+            LanguageDetectorBuilder.from_all_languages()
+            .with_low_accuracy_mode()
+            .with_preloaded_language_models()
+            .build()
         )
 
         language = data.get('language')
