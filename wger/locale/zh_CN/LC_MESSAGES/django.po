@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2024-11-20 18:22+0000\n"
-"Last-Translator: Herb Huang <Ranger0801@live.com>\n"
+"PO-Revision-Date: 2025-07-25 05:03+0000\n"
+"Last-Translator: KW Lam <kwlam281@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -440,19 +440,12 @@ msgstr ""
 "试。如果问题仍然存在，您可以通过以下方式寻求帮助："
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
-msgstr ""
-"你是\n"
-"    以用户\"%(current_user)s\"的身份浏览本网站，所有操作都对其数据执行。\n"
-"            "
+msgstr "您正以用户 “%(current_user)s” "
+"的身份浏览本网站，所有操作均基于该用户的数据执行。"
 
 #: core/templates/base.html:15
 #, python-format
@@ -460,12 +453,7 @@ msgid "Back to \"%(target)s\""
 msgstr "返回到\"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -473,17 +461,19 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"你是\n"
-"    以用户\"%(current_user)s\"的身份浏览本网站，所有操作都对其数据执行。\n"
+"您正以\n"
+"\"%(current_user)s\" 的身份浏览本网站，所有操作均基于\n"
+"该用户的数据执行。\n"
 "            "
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "返回到\"%(target)s\""
+msgstr ""
+"返回到\"%(target)s\n"
+"                    \""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -613,7 +603,7 @@ msgstr "训练"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "训练计划"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -705,7 +695,7 @@ msgstr "关于软件"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "支持与参与"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -1984,21 +1974,19 @@ msgstr "力竭之前的剩余次数"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "休息"
 
 #: manager/helpers.py:80
 msgid "Rest day"
 msgstr "休息日"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "安排的健身很快就要过期了"
+msgstr "训练计划即将过期"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "训练计划"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2006,10 +1994,8 @@ msgid "Order"
 msgstr "順序"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "职业"
+msgstr "训练时段"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2086,17 +2072,14 @@ msgid "Exercise day"
 msgstr "训练日"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "你当前的训练%(workout)s已经在%(days)s前过期。"
+msgstr "您当前的训练计划 “%(routine)s” 已于 %(days)s 天前过期。"
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "你当前的训练%(workout)s将在%(days)s天后过期。"
+msgstr "您当前的训练计划 “%(routine)s” 将在 %(days)s 天后过期。"
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2495,10 +2478,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger "
+"能帮助您记录锻炼情况、管理营养摄入，从而达成健身目标。我们将其作为免费开源软"
+"件提供，您可以自行搭建使用；同时，我们也提供便捷、免费的托管版本，方便您直接"
+"使用。"
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "开源且免费使用"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2508,88 +2495,80 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger "
+"基于开源理念构建而成。其代码完全公开，由社区共同开发，这不仅确保了透明度，也"
+"让您能掌控自己的数据（尤其是在自行搭建的情况下）。我们提供的免费托管服务，也"
+"完全基于这一开源基础运行。我们坚信，强大的健身工具应当为每个人所用。"
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "您可以如何提供帮助"
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "社区"
+msgstr "加入社区"
 
 #: software/templates/about_us.html:46
-#, fuzzy
 msgid "Join the Discord server"
-msgstr "前往Discord服务器"
+msgstr "加入 Discord 服务器"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
-msgstr ""
+msgstr "登录 Discord 服务器，您可以与开发者和其他用户交流、提问，或探讨新功能。"
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "在 Mastodon 上获取关于该项目的新闻、更新和公告。"
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
-msgstr ""
+msgstr "广而告之：告诉你的朋友、健身伙伴，或者在社交媒体上分享！你的热情将帮助我们发"
+"展壮大，触达更多人群。"
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute"
 msgid "Contribute your skills"
-msgstr "贡献"
+msgstr "贡献您的技能"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "报告漏洞或提出功能建议"
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "遇到什么问题或有什么想法？"
+msgstr "遇到问题或有想法？请告诉我们！"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "提交健身项目"
+msgstr "改善训练动作"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "贡献新的训练动作，或对现有动作进行编辑与翻译。"
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "在Transifex上翻译"
+msgstr "翻译此软件"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
-msgstr ""
+msgstr "助力这款应用支持更多语言，以便全球用户使用。"
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "开发者文档"
+msgstr "贡献代码或文档"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "查看源代码，助力我们打造下一个版本。"
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "进行捐赠"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2600,44 +2579,36 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"尽管该项目始终免费且将保持这一特性，但服务器的运营并非如此！提供 wger "
+"的托管版本需要持续投入实际成本，包括服务器托管、带宽、备份等费用。此外，开发"
+"工作也耗费了志愿者大量的时间和精力。您的捐赠将直接用于支付这些必要开支，助力"
+"我们维持服务的稳定性、推动其持续改进，并确保所有人都能免费使用。"
 
 #: software/templates/about_us.html:135
-#, fuzzy
-#| msgid "stars <br> on GitHub"
 msgid "Sponsor on GitHub"
-msgstr "赞我<br> 在GitHub上"
+msgstr "在 GitHub 上提供赞助"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "感谢！"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
-msgstr ""
+msgstr "感谢您成为社区的一员！我们十分感谢您的使用、反馈以及任何形式的支持。"
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "目标"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of\n"
-#| "                exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
-msgstr ""
-"我们希望开发一个\n"
-"                好用灵活的健身管理软件，\n"
-"                同时里面有完整的动作和营养成分，\n"
-"                并且以免费的许可证发行。"
+msgstr "我们的目标是打造一款出色且灵活的健身管理工具，同时构建一份全面完整的训练动作"
+"与食材清单，所有内容均以免费许可协议发布。"
 
 #: software/templates/features.html:11
 msgid ""

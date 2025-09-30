@@ -162,6 +162,10 @@ class Routine(models.Model):
         super().save(*args, **kwargs)
 
     @property
+    def duration(self) -> datetime.timedelta:
+        return self.end - self.start
+
+    @property
     def label_dict(self) -> dict[datetime.date, str]:
         out = {}
         labels = self.labels.all()

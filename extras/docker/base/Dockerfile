@@ -10,7 +10,7 @@
 
 FROM ubuntu:24.04
 
-LABEL maintainer="Roland Geider <roland@geider.net>"
+LABEL org.opencontainers.image.authors="wger team <hello@wger.de>"
 
 # Install dependencies
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,6 +24,7 @@ RUN apt update \
       wget \
       tzdata \
       libpq5 \
+      gettext \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && locale-gen en_US.UTF-8 \

@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2024-09-29 10:15+0000\n"
-"Last-Translator: MrSniikyz <babygeek83bis@gmail.com>\n"
+"PO-Revision-Date: 2025-06-12 15:01+0000\n"
+"Last-Translator: Kilian <kiloupich@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -463,20 +463,13 @@ msgstr ""
 "pouvez demander de l'aide des manières citées ci-dessous :"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Vous êtes\n"
-"    en train de naviguer sur le site en tant qu’utilisateur "
-"« %(current_user)s », toutes les actions sont effectuées sur ses données.\n"
-"            "
+"Vous naviguez sur le site en tant qu'utilisateur \"%(current_user)s\", "
+"toutes les actions sont effectuées sur ses données."
 
 #: core/templates/base.html:15
 #, python-format
@@ -484,12 +477,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Retour vers « %(target)s »"
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -498,17 +486,19 @@ msgid ""
 "            "
 msgstr ""
 "Vous êtes\n"
-"    en train de naviguer sur le site en tant qu’utilisateur "
-"« %(current_user)s », toutes les actions sont effectuées sur ses données.\n"
+"                en train de naviguer sur le site en tant qu’utilisateur « "
+"%(current_user)s », toutes les actions sont effectuées sur \n"
+"                ses données.\n"
 "            "
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "Retour vers « %(target)s »"
+msgstr ""
+"Retour vers \"%(target)s\n"
+"                    \""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -640,7 +630,7 @@ msgstr "Formation"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Routines"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -732,7 +722,7 @@ msgstr "À propos de ce logiciel"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Soutenez et impliquez-vous"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -2039,21 +2029,19 @@ msgstr "ReR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "repos"
 
 #: manager/helpers.py:80
 msgid "Rest day"
 msgstr "Jour de repos"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "L’entraînement va bientôt expirer"
+msgstr "La routine expirera bientôt"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Routine"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2061,10 +2049,8 @@ msgid "Order"
 msgstr "Ordre"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Profession"
+msgstr "Session"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2146,18 +2132,14 @@ msgid "Exercise day"
 msgstr "Jour d'exercice"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr ""
-"Votre entraînement actuel '%(workout)s' a expiré il y a %(days)s jours."
+msgstr "Votre entraînement actuel '%(routine)s' a expiré il y a %(days)s jours."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Votre entraînement actuel « %(workout)s » expire dans %(days)s jours."
+msgstr "Votre entraînement actuel '%(routine)s' expire dans %(days)s jours."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2574,10 +2556,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger vous aide à suivre vos entraînements, à gérer votre nutrition et à "
+"atteindre vos objectifs de remise en forme. Nous le proposons sous forme de "
+"logiciel gratuit et open source que vous pouvez héberger vous-même, ainsi "
+"qu'une version hébergée, pratique et gratuite, pour un accès facile."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Open Source et gratuit ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2587,89 +2573,91 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger repose sur les principes de l'open source. Son code, développé par "
+"notre communauté, est accessible au public, garantissant transparence et "
+"contrôle de vos données (surtout en cas d'auto-hébergement). Ce service "
+"hébergé gratuitement repose entièrement sur cette base open source. Nous "
+"pensons que des outils de fitness performants devraient être accessibles à "
+"tous."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Comment vous pouvez aider"
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "Communauté"
+msgstr "Rejoindre la communauté"
 
 #: software/templates/about_us.html:46
-#, fuzzy
-#| msgid "Go to the discord server"
 msgid "Join the Discord server"
-msgstr "Aller au serveur Discord"
+msgstr "Rejoindre le serveur Discord"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Rejoignez le serveur Discord pour discuter avec les développeurs et d'autres "
+"utilisateurs, poser des questions ou discuter de nouvelles fonctionnalités."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
 msgstr ""
+"Recevez des nouvelles, des mises à jour et des annonces sur le projet sur "
+"Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Passez le mot : parlez-en à vos amis, à vos partenaires de sport ou partagez-"
+"le sur les réseaux sociaux ! Votre enthousiasme nous aide à grandir et à "
+"toucher davantage de personnes."
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute"
 msgid "Contribute your skills"
-msgstr "Contribuer"
+msgstr "Apportez vos compétences"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Signaler des bugs ou suggérer des fonctionnalités"
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "Vous avez un problème ou une idée ?"
+msgstr "Vous avez un problème ou une idée ? N'hésitez pas à nous contacter !"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Soumettre des exercices"
+msgstr "Améliorer les exercices"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
+"Contribuez à de nouveaux exercices et modifiez ou traduisez ceux existants."
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Traduire avec Transifex"
+msgstr "Traduire l'application"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Aidez à rendre l'application accessible dans davantage de langues pour les "
+"utilisateurs du monde entier."
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Documentation du développeur"
+msgstr "Contribuer au code ou à la documentation"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Consultez le code source et aidez-nous à créer la prochaine version."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Faire un don"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2680,45 +2668,43 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Si le projet est gratuit et le restera, l'exploitation du serveur ne l'est "
+"pas ! Fournir la version hébergée de wger implique des coûts réels et "
+"récurrents : hébergement du serveur, bande passante, sauvegardes, etc. Le "
+"développement requiert également beaucoup de temps et d'efforts de la part "
+"des bénévoles. Votre contribution finance directement ces coûts essentiels, "
+"contribuant ainsi à la fiabilité, à l'amélioration et à la gratuité du "
+"service pour tous."
 
 #: software/templates/about_us.html:135
-#, fuzzy
-#| msgid "stars <br> on GitHub"
 msgid "Sponsor on GitHub"
-msgstr "étoiles <br> sur Github"
+msgstr "Sponsor sur GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Merci !"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Merci de faire partie de la communauté ! Nous apprécions votre utilisation, "
+"vos commentaires et tout le soutien que vous pouvez nous apporter."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Notre objectif"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of\n"
-#| "                exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"Le but est de construire un\n"
-"……………entraîneur de conditionnement physique impressionnant et flexible, "
-"ainsi qu’une liste exhaustive et complète \n"
-"……………d’exercices et\n"
-"……………d’ingrédients, tous publiés sous une licence libre."
+"L'objectif est de créer un gestionnaire de fitness génial et flexible, ainsi "
+"qu'une liste complète et exhaustive d'exercices et d'ingrédients, le tout "
+"publié sous une licence gratuite."
 
 #: software/templates/features.html:11
 msgid ""

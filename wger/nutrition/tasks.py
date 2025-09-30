@@ -64,7 +64,7 @@ def sync_all_ingredients_task():
     """
     Fetches the current ingredients from the default wger instance
     """
-    sync_ingredients(logger.info)
+    sync_ingredients(logger.info, show_progress_bar=False)
 
 
 @app.task

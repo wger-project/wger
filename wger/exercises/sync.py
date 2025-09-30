@@ -312,7 +312,6 @@ def handle_deleted_entries(
 
         if model_type == DeletionLog.MODEL_EXERCISE:
             obj_replaced = None
-            nr_settings = None
             nr_slot_entries = None
             nr_logs = None
             try:
@@ -321,24 +320,25 @@ def handle_deleted_entries(
                 pass
 
             try:
-                obj = Exercise.objects.get(uuid=uuid)
+                old_exercise = Exercise.objects.get(uuid=uuid)
 
-                # Replace exercise in workouts and logs
+                # Replace exercise in routines and logs
                 if obj_replaced:
-                    nr_slot_entries = SlotEntry.objects.filter(exercise=obj).update(
+                    nr_slot_entries = SlotEntry.objects.filter(exercise=old_exercise).update(
                         exercise=obj_replaced
                     )
 
-                    nr_logs = WorkoutLog.objects.filter(exercise=obj).update(exercise=obj_replaced)
+                    nr_logs = WorkoutLog.objects.filter(exercise=old_exercise).update(
+                        exercise=obj_replaced
+                    )
 
-                obj.delete()
-                print_fn(f'Deleted exercise {uuid}')
-                if nr_settings:
-                    print_fn(f'- replaced in {nr_settings} in workouts with {replaced_by_uuid}')
+                old_exercise.delete()
+                replaced_by_info = f' (replaced by {obj_replaced.uuid})' if obj_replaced else ''
+                print_fn(f'Deleted exercise {uuid}{replaced_by_info}')
                 if nr_slot_entries:
-                    print_fn(f'- replaced in {nr_slot_entries} routines with {replaced_by_uuid}')
+                    print_fn(f'- replaced in {nr_slot_entries} routines')
                 if nr_logs:
-                    print_fn(f'- replaced in {nr_logs} workout logs with {replaced_by_uuid}')
+                    print_fn(f'- replaced in {nr_logs} workout logs')
             except Exercise.DoesNotExist:
                 pass
 

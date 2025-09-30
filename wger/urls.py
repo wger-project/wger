@@ -290,7 +290,13 @@ urlpatterns += [
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
+    path(
+        'api/v2/exercise-submission/',
+        exercises_api_views.ExerciseSubmissionViewSet.as_view(),
+        name='exercise-submission',
+    ),
     path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
+    path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
     path('api/v2/', include(router.urls)),
     # The api user login
     path(

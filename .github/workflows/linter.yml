@@ -1,61 +1,42 @@
-###########################
-###########################
-## Linter GitHub Actions ##
-###########################
-###########################
 name: Lint Code Base
 
-#
-# Documentation:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
-#
-
-################################################
-# Trigger the workflow on push or pull request #
-# but only for the master branch               #
-################################################
 on:
   push:
     branches:
       - master
     paths:
-      - '**.py'
       - '**.md'
   pull_request:
     branches:
       - master
     paths:
-      - '**.py'
       - '**.md'
 
-###############
-# Set the Job #
-###############
 jobs:
   build:
-    # Name the Job
     name: Lint Code Base
-    # Set the agent to run on
     runs-on: ubuntu-latest
 
-    ##################
-    # Load all steps #
-    ##################
-    steps:
-      ##########################
-      # Checkout the code base #
-      ##########################
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
 
-      ################################
-      # Run Linter against code base #
-      ################################
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Check https://github.com/super-linter/super-linter for other options
       - name: Lint Code Base
-        uses: super-linter/super-linter@v7
+        uses: super-linter/super-linter@v8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true
-          VALIDATE_TYPESCRIPT_ES: true
-          VALIDATE_DOCKER: true
+
 

@@ -20,7 +20,8 @@
 FROM wger/base:latest AS builder
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt update \
+RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
+  && apt update \
   && apt install --no-install-recommends -y \
       build-essential \
       python3-dev \
@@ -32,31 +33,33 @@ RUN apt update \
       libpq-dev \
       rustc \
       cargo \
-      yarnpkg \
       sassc \
-    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
-    && ln -s /usr/bin/sassc /usr/bin/sass
+      nodejs \
+    && ln -s /usr/bin/sassc /usr/bin/sass \
+    && rm -rf /var/lib/apt/lists/* \
+    && corepack enable
 
 # Build the necessary python wheels
 # Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
-COPY pyproject.toml .
-COPY wger/version.py ./wger/version.py
-COPY wger/__init__.py ./wger/__init__.py
-COPY README.md ./README.md
-RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker . \
-  && pip3 install --break-system-packages --user --no-cache-dir /wheels/*
-
-COPY . /home/wger/src
 WORKDIR /home/wger/src
-RUN yarn install \
-    && yarn build:css:sass
+
+COPY pyproject.toml /home/wger/src
+COPY wger/version.py /home/wger/src/wger/
+COPY wger/__init__.py /home/wger/src/wger/
+COPY README.md /home/wger/src
+COPY package.json /home/wger/src
+COPY yarn.lock /home/wger/src
+COPY wger/core/static /home/wger/src/wger/core/static
+RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker . \
+  && yarn install \
+  && yarn build:css:sass
 
 
 ########
 # Final
 ########
 FROM wger/base:latest AS final
-LABEL maintainer="Roland Geider <roland@geider.net>"
+LABEL org.opencontainers.image.authors="wger team <hello@wger.de>"
 ENV TERM=xterm
 ARG DOCKER_DIR=./extras/docker/demo
 EXPOSE 80
@@ -90,7 +93,6 @@ RUN chmod 0644 /etc/cron.d/wger \
   && chmod +x /home/wger/venvwrapper \
   && touch /var/log/cron.log
 
-COPY --from=builder /wheels /wheels
 COPY --chown=wger:www-data . /home/wger/src
 COPY --from=builder --chown=wger:wger /home/wger/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
 
@@ -107,7 +109,7 @@ RUN mkdir -p ~/static/CACHE ~/media \
     && ln -s /home/wger/static/CACHE /home/wger/src/CACHE \
     && chmod g+w /home/wger/static/CACHE
 
-RUN . /home/wger/venv/bin/activate \
+RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels  . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
     && pip install -e . \

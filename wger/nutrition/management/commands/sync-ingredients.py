@@ -50,11 +50,16 @@ class Command(WgerCommand):
 
         check_min_server_version(remote_url)
         try:
-            self.languages = languages
-            if self.languages is not None:
-                for language in self.languages.split(','):
+            if languages is not None:
+                for language in languages.split(','):
                     validate_language_code(language)
         except ValidationError as e:
             raise CommandError('\n'.join([str(arg) for arg in e.args if arg is not None]))
 
-        sync_ingredients(self.stdout.write, self.remote_url, self.languages, self.style.SUCCESS)
+        sync_ingredients(
+            self.stdout.write,
+            self.remote_url,
+            languages,
+            self.style.SUCCESS,
+            show_progress_bar=True,
+        )

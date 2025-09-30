@@ -47,6 +47,7 @@ from rest_framework.fields import (
     CharField,
     IntegerField,
 )
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -56,11 +57,12 @@ from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
-    ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
+    ExerciseSerializer,
+    ExerciseSubmissionSerializer,
     ExerciseTranslationSerializer,
     ExerciseVariationSerializer,
     ExerciseVideoSerializer,
@@ -102,7 +104,7 @@ class ExerciseViewSet(ModelViewSet):
     """
 
     queryset = Exercise.with_translations.all()
-    serializer_class = ExerciseBaseSerializer
+    serializer_class = ExerciseSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
@@ -298,9 +300,9 @@ def search(request):
             try:
                 thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
             except InvalidImageFormatError as e:
-                logger.info(f'InvalidImageFormatError while processing a thumbnail: {e}')
+                logger.warning(f'InvalidImageFormatError while processing a thumbnail: {e}')
             except OSError as e:
-                logger.info(f'OSError while processing a thumbnail: {e}')
+                logger.warning(f'OSError while processing a thumbnail: {e}')
 
         result_json = {
             'value': translation.name,
@@ -338,6 +340,16 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+
+class ExerciseSubmissionViewSet(CreateAPIView):
+    """
+    API endpoint for submitting new exercises
+    """
+
+    serializer_class = ExerciseSubmissionSerializer
+    queryset = Exercise.objects.all()
+    permission_classes = (CanContributeExercises,)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -502,8 +514,8 @@ class ExerciseCommentViewSet(ModelViewSet):
         qs = ExerciseComment.objects.all()
         language = self.request.query_params.get('language')
         if language:
-            exercises = Translation.objects.filter(language=language)
-            qs = ExerciseComment.objects.filter(exercise__in=exercises)
+            translations = Translation.objects.filter(language=language)
+            qs = ExerciseComment.objects.filter(translation__in=translations)
         return qs
 
     def perform_create(self, serializer):

@@ -31,6 +31,7 @@ from openfoodfacts.images import (
     AWS_S3_BASE_URL,
     generate_image_path,
 )
+from tqdm import tqdm
 
 # wger
 from wger.core.models.language import Language
@@ -38,6 +39,7 @@ from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
     INGREDIENTS_ENDPOINT,
 )
+from wger.nutrition.extract_info.wger import extract_info_from_wger_api
 from wger.nutrition.models import (
     Image,
     Ingredient,
@@ -67,16 +69,15 @@ def fetch_ingredient_image(pk: int):
     try:
         ingredient = Ingredient.objects.get(pk=pk)
     except Ingredient.DoesNotExist:
-        logger.info(f'Ingredient with ID {pk} does not exist')
+        logger.debug(f'Ingredient with ID {pk} does not exist')
         return
 
     if hasattr(ingredient, 'image'):
-        return
-
-    if ingredient.source_name != Source.OPEN_FOOD_FACTS.value:
+        # logger.debug(f'Ingredient {pk} already has an image, skipping...')
         return
 
     if not ingredient.source_url:
+        # logger.debug(f'Ingredient {pk} does not have a source URL, skipping...')
         return
 
     if (
@@ -86,6 +87,9 @@ def fetch_ingredient_image(pk: int):
         )
         > timezone.now()
     ):
+        # logger.debug(
+        #     f'Last image check for ingredient {pk} is too recent'
+        #     f' ({ingredient.last_image_check}), skipping...')
         return
 
     if settings.TESTING:
@@ -93,6 +97,10 @@ def fetch_ingredient_image(pk: int):
 
     logger.info(f'Fetching image for ingredient {pk}')
     if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_OFF:
+        if ingredient.source_name != Source.OPEN_FOOD_FACTS.value:
+            # logger.debug(f'Ingredient {pk} is not from Open Food Facts, skipping...')
+            return
+
         fetch_image_from_off(ingredient)
     elif settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_WGER:
         fetch_image_from_wger_instance(ingredient)
@@ -105,7 +113,7 @@ def fetch_image_from_wger_instance(ingredient):
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     if result['count'] == 0:
-        logger.info('No ingredient matches UUID in the remote server')
+        logger.info('No image for ingredient found in the remote server')
         return
 
     image_data = result['results'][0]
@@ -116,7 +124,9 @@ def fetch_image_from_wger_instance(ingredient):
         return
     except Image.DoesNotExist:
         retrieved_image = requests.get(image_data['image'], headers=wger_headers())
-        Image.from_json(ingredient, retrieved_image, image_data)
+        image = Image.from_json(ingredient, retrieved_image, image_data)
+        image.ingredient.last_image_check = timezone.now()
+        image.ingredient.save()
 
 
 def fetch_image_from_off(ingredient: Ingredient):
@@ -238,71 +248,65 @@ def sync_ingredients(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     language_codes: Optional[str] = None,
     style_fn=lambda x: x,
+    show_progress_bar: bool = False,
 ):
     """Synchronize the ingredients from the remote server"""
-
-    def _sync_ingredients(language_codes: Optional[int] = None):
-        if language_codes is not None:
-            url = make_uri(
-                INGREDIENTS_ENDPOINT,
-                server_url=remote_url,
-                query={'limit': API_MAX_ITEMS, 'language__in': language_codes},
-            )
-        else:
-            url = make_uri(
-                INGREDIENTS_ENDPOINT,
-                server_url=remote_url,
-                query={'limit': API_MAX_ITEMS},
-            )
-        for data in get_paginated(url, headers=wger_headers()):
-            uuid = data['uuid']
-            name = data['name']
-
-            ingredient, created = Ingredient.objects.update_or_create(
-                uuid=uuid,
-                defaults={
-                    'name': name,
-                    'code': data['code'],
-                    'language_id': data['language'],
-                    'created': data['created'],
-                    'license_id': data['license'],
-                    'license_object_url': data['license_object_url'],
-                    'license_author': data['license_author_url'],
-                    'license_author_url': data['license_author_url'],
-                    'license_title': data['license_title'],
-                    'license_derivative_source_url': data['license_derivative_source_url'],
-                    'energy': data['energy'],
-                    'carbohydrates': data['carbohydrates'],
-                    'carbohydrates_sugar': data['carbohydrates_sugar'],
-                    'fat': data['fat'],
-                    'fat_saturated': data['fat_saturated'],
-                    'protein': data['protein'],
-                    'fiber': data['fiber'],
-                    'sodium': data['sodium'],
-                },
-            )
-
-            print_fn(f'{"created" if created else "updated"} ingredient {uuid} - {name}')
-
     print_fn('*** Synchronizing ingredients...')
 
+    language_ids: List[str] | None = None
     if language_codes is not None:
-        language_ids: List[int] = []
+        language_ids = []
         for code in language_codes.split(','):
             # Leaving the try except in here even though we've already validated on the sync-ingredients command itself.
             # This is in case we ever want to re-use this function for anything else where user can input language codes.
             try:
                 lang = load_language(code, default_to_english=False)
-                language_ids.append(lang.id)
+                language_ids.append(str(lang.id))
             except Language.DoesNotExist as e:
                 print_fn(
                     f'Error: The language code you provided ("{code}") does not exist in this database. Please try again.'
                 )
                 return 0
 
-        for language_id in language_ids:
-            _sync_ingredients(language_id)
-    else:
-        _sync_ingredients()
+    query: dict[str, str | int] = {'limit': API_MAX_ITEMS}
+    if language_ids is not None:
+        query['language__in'] = ','.join(language_ids)
+
+    url = make_uri(
+        INGREDIENTS_ENDPOINT,
+        server_url=remote_url,
+        query=query,
+    )
+
+    # Fetch once to retrieve the number of results
+    response = requests.get(url, headers=wger_headers()).json()
+    total_ingredients = response['count']
+    total_pages = total_ingredients // API_MAX_ITEMS
+
+    ingredient_nr = 1
+    page_nr = 1
+    pbar = tqdm(
+        total=total_ingredients, unit='ingredients', desc='Syncing progress', unit_scale=True
+    )
+    for data in get_paginated(url, headers=wger_headers()):
+        uuid = data['uuid']
+
+        ingredient_data = extract_info_from_wger_api(data).dict()
+        ingredient_data['uuid'] = uuid
+
+        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+
+        if show_progress_bar:
+            pbar.update(1)
+        else:
+            # Note that get_paginated returns the individual result entries from the pages.
+            # To get the current page, we need to calculate this ourselves.
+            ingredient_nr += 1
+            if ingredient_nr % API_MAX_ITEMS == 0:
+                page_nr += 1
+                print_fn(f'Processing ingredients, page {page_nr: >4} of {total_pages}')
+
+    pbar.close()
 
     print_fn(style_fn('done!\n'))
+    return None

@@ -20,6 +20,7 @@ import json
 # Django
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -90,7 +91,7 @@ class CaloriesCalculatorTestCase(WgerTestCase):
         self.user_login('test')
         user = User.objects.get(username=self.current_user)
 
-        # Existing weight entry is old, a new one is created
+        # A new weight entry is always created
         entry1 = WeightEntry.objects.filter(user=user).latest()
         response = self.client.post(
             reverse('nutrition:calories:bmr'), {'age': 30, 'height': 180, 'gender': 1, 'weight': 80}
@@ -98,18 +99,6 @@ class CaloriesCalculatorTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         entry2 = WeightEntry.objects.filter(user=user).latest()
         self.assertEqual(entry1.weight, 83)
-        self.assertEqual(entry2.weight, 80)
-
-        # Existing weight entry is from today, is updated
-        entry2.delete()
-        entry1.date = datetime.date.today()
-        entry1.save()
-        response = self.client.post(
-            reverse('nutrition:calories:bmr'), {'age': 30, 'height': 180, 'gender': 1, 'weight': 80}
-        )
-        self.assertEqual(response.status_code, 200)
-        entry2 = WeightEntry.objects.filter(user=user).latest()
-        self.assertEqual(entry1.pk, entry2.pk)
         self.assertEqual(entry2.weight, 80)
 
         # No existing entries
@@ -120,4 +109,4 @@ class CaloriesCalculatorTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         entry = WeightEntry.objects.filter(user=user).latest()
         self.assertEqual(entry.weight, 80)
-        self.assertEqual(entry.date, datetime.date.today())
+        self.assertEqual(entry.date.date(), timezone.now().date())

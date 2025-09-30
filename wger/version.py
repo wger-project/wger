@@ -31,10 +31,10 @@ Minimum version of the mobile app required to access this server.
 Always use versions in the x.y.z format, without any suffixes like "beta1" or such.
 """
 
-MIN_SERVER_VERSION = Version('2.3.0-beta2')
+MIN_SERVER_VERSION = Version('2.4.0-alpha2')
 """Minimum version of the server required to run sync commands on this server"""
 
-VERSION = Version('2.4.0-alpha1')
+VERSION = Version('2.4.0-alpha2')
 """Current version of the app"""
 
 

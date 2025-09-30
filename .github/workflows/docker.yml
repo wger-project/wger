@@ -20,10 +20,13 @@ jobs:
         include:
           - platform: linux/amd64
             runner: ubuntu-latest
-          - platform: linux/arm/v7
-            runner: ubuntu-24.04-arm
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
+
+          #Note: disabling ARMv7 for now, as the process fails with:
+          #      Error: Couldn't allocate enough memory
+          #- platform: linux/arm/v7
+          #runner: ubuntu-24.04-arm
     steps:
       - name: Prepare
         run: |
@@ -31,7 +34,7 @@ jobs:
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Docker meta
         id: meta
@@ -109,7 +112,7 @@ jobs:
       - build-prod
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: /tmp/digests
           pattern: digests-*

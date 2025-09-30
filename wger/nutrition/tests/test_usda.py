@@ -18,7 +18,7 @@ from django.test import SimpleTestCase
 
 # wger
 from wger.nutrition.dataclasses import IngredientData
-from wger.nutrition.usda import (
+from wger.nutrition.extract_info.usda import (
     convert_to_grams,
     extract_info_from_usda,
 )

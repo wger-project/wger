@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-02-11 11:02+0000\n"
+"PO-Revision-Date: 2025-05-24 16:02+0000\n"
 "Last-Translator: Christijan Mulder <zeecowboy@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -456,20 +456,13 @@ msgstr ""
 "voorkomen, bezoek een van de onderstaande links:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Je bezoekt \n"
-"    de website als gebruiker \"%(current_user)s\", alle acties worden "
-"uitgevoerd op eigen data\n"
-"            "
+"Je bezoekt de website als gebruiker \"%(current_user)s\", alle acties worden "
+"uitgevoerd op eigen data."
 
 #: core/templates/base.html:15
 #, python-format
@@ -530,7 +523,7 @@ msgstr "Email bevestiging"
 #: core/templates/email_verification/email_body_txt.tpl:3
 #, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Je bent er bijna, %(username)s"
+msgstr "Je bent er bijna, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -726,7 +719,7 @@ msgstr "Over deze software"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Help & doe mee"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -814,7 +807,7 @@ msgid ""
 "user account at %(site_name)s."
 msgstr ""
 "Je ontvangt deze e-mail omdat je een wachtwoord-reset voor je "
-"gebruikersaccount aanvroeg op %(site_name)s"
+"gebruikersaccount aanvroeg op %(site_name)s."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -1435,9 +1428,8 @@ msgid "Equipment list"
 msgstr "Materiaallijst"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
 msgid "Exercise admin history"
-msgstr "Oefeningdag"
+msgstr "Oefening admin geschiedenis"
 
 #: exercises/templates/history/overview.html:27
 #, fuzzy
@@ -1763,9 +1755,10 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Gelieve het wachtwoord van de gebruiker op te schrijven of het geëxporteerde "
-"bestand op te slaan dat alle gebruikersdata bevat. Het wachtwoord kan later "
-"niet gerecupereerd worden."
+"Gelieve het wachtwoord van de gebruiker op te schrijven of het "
+"geëxporteerde\n"
+" bestand op te slaan dat alle gebruikersdata bevat. Het wachtwoord\n"
+" kan later niet gerecupereerd worden."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -2022,21 +2015,20 @@ msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "rust"
 
 #: manager/helpers.py:80
 msgid "Rest day"
 msgstr "Rustdag"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Workout zal spoedig vervallen"
+msgstr "Routine zal spoedig vervallen"
 
 #: manager/models/day.py:52
+#, fuzzy
 msgid "Routine"
-msgstr ""
+msgstr "Routine"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2044,10 +2036,8 @@ msgid "Order"
 msgstr "Volgorde"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Beroep"
+msgstr "Sessie"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2128,17 +2118,14 @@ msgid "Exercise day"
 msgstr "Oefeningdag"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Je huidige workout '%(workout)s' verviel %(days)s dagen geleden."
+msgstr "Je huidige workout '%(routine)s' verviel %(days)s dagen geleden."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Je huidige workout '%(workout)s' zal verlopen binnen %(days)s dagen."
+msgstr "Je huidige workout '%(routine)s' zal binnen %(days)s dagen verlopen."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2147,8 +2134,9 @@ msgid ""
 "never produce reminders."
 msgstr ""
 "Je zal regelmatig zulke herinneringen ontvangen totdat je een nieuwe workout "
-"toevoegt. Je kan ook workouts toevoegen in een lus-schema, zulke schema's "
-"produceren nooit herinneringen."
+"toevoegt.\n"
+"Je kan ook workouts toevoegen in een lus-schema,\n"
+"zulke schema's produceren nooit herinneringen."
 
 #: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2156,8 +2144,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Als je geen e-mailherinneringen wenst te ontvangen, deactiveer dan de optie "
-"in je instellingen."
+"Als je geen e-mailherinneringen wenst te ontvangen,\n"
+"deactiveer dan de optie in je instellingen."
 
 #: manager/templates/routines/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
@@ -2336,7 +2324,8 @@ msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Ingrediënt '%(ingredient)s' met succes toegevoegd aan de algemene databank"
+"Ingrediënt '%(ingredient)s' met succes toegevoegd aan de algemene\n"
+"databank."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
@@ -2344,8 +2333,7 @@ msgid ""
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
 "Het is nu beschikbaar in het ingrediëntenoverzicht en kan\n"
-"worden toegevoegd aan voedingsplannen. Je kan het \n"
-"terugvinden op dit adres: "
+"worden toegevoegd aan voedingsplannen. Je kan het terugvinden op dit adres:"
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
@@ -2372,14 +2360,14 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
-"Nadat je het formulier instuurt, zal een administrator worden verwittigd.\n"
-"Zodra je insturing is beoordeeld, zal deze worden toegevoegd aan de "
-"databank.\n"
-"Totdat dit is gebeurd, zal deze niet zichtbaar zijn in het overzicht of de "
-"zoekresultaten.\n"
-"In geval je je e-mailadres hebt toegevoegd bij het registeren, zal je op de "
-"hoogte worden\n"
-"gebracht wanneer het proces met succes voltooid werd."
+"Nadat je het formulier hebt verzonden, worden de beheerders op de hoogte "
+"gebracht.\n"
+"Zodra het formulier is beoordeeld, wordt het toegevoegd aan de database. Tot "
+"dit gebeurt,\n"
+"zal het niet zichtbaar zijn in het overzicht of in de zoekfunctie. Als je je "
+"e-mailadres\n"
+"hebt toegevoegd toen je je registreerde krijg je een melding als het proces "
+"succesvol is afgerond."
 
 #: nutrition/templates/ingredient/overview.html:38
 msgid "No ingredients."
@@ -2431,7 +2419,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Je basaal metabolisme is:"
+msgstr "Je basaal metabolisme is: "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -2449,7 +2437,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Factor voor dagelijkse activiteiten:"
+msgstr "Factor voor dagelijkse activiteiten: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
@@ -2494,9 +2482,10 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-"Gelieve rekening te houden met het feit dat deze berekeningen enkel een "
-"schatting zijn. Als je je voedingsplan op deze waarden baseert, observeer "
-"jezelf dan voor enkele weken en verander de totale hoeveelheid indien nodig."
+"Gelieve rekening te houden met het feit dat deze berekeningen enkel\n"
+"een schatting zijn. Als je je voedingsplan op deze waarden baseert, \n"
+"observeer jezelf dan voor enkele weken en verander de totale hoeveelheid "
+"indien nodig."
 
 #: nutrition/views/ingredient.py:157
 msgid "Add a new ingredient"
@@ -2550,10 +2539,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger helpt u uw trainingen bij te houden, uw voeding te beheren en uw "
+"fitnessdoelen te bereiken. We bieden het aan als gratis, open-source "
+"software die u zelf kunt hosten, en bieden ook een handige, gratis en "
+"gehoste versie voor eenvoudige toegang."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Open Source & gratis te gebruiken ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2563,85 +2556,88 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger is gebouwd op de principes van open source. De code is publiekelijk "
+"beschikbaar en ontwikkeld door onze community, wat zorgt voor transparantie "
+"en u controle geeft over uw gegevens (vooral als u zelf host). De gratis "
+"hosted service draait volledig op deze open-source basis. Wij geloven dat "
+"krachtige fitnesstools voor iedereen toegankelijk moeten zijn."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Hoe kan je helpen"
 
 #: software/templates/about_us.html:40
-#, fuzzy
 msgid "Join the Community"
-msgstr "Opmerking"
+msgstr "Word lid van de Community"
 
 #: software/templates/about_us.html:46
-#, fuzzy
-#| msgid "Go to the discord server"
 msgid "Join the Discord server"
-msgstr "Ga naar Discord-server"
+msgstr "Meld je aan op de Discord-server"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Ga naar de Discord-server om met de ontwikkelaars en andere gebruikers te "
+"chatten, vragen te stellen of nieuwe functies te bespreken."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
 msgstr ""
+"Ontvang nieuws, updates en aankondigingen over het Wger project op Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Vertel het je vrienden, sportschoolvrienden of deel het op sociale media! "
+"Jouw enthousiasme helpt ons te groeien en meer mensen te bereiken."
 
 #: software/templates/about_us.html:71
-#, fuzzy
 msgid "Contribute your skills"
-msgstr "Draag bij!"
+msgstr "Draag bij met je skills"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Bugs melden of functies voorstellen"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
-msgstr ""
+msgstr "Heb je een probleem of idee? Laat het ons weten!"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Oefeningen indienen"
+msgstr "Verbeter de oefeningen"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
+"Nieuwe oefeningen toevoegen en bestaande oefeningen bewerken of vertalen."
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Vertaal met Transifex"
+msgstr "De toepassing vertalen"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Help de app toegankelijk te maken in meer talen voor gebruikers over de hele "
+"wereld."
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Developer documentatie"
+msgstr "Bijdragen aan code of documentatie"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Bekijk de broncode en help ons om de volgende versie te bouwen."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Schenk een donatie"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2652,86 +2648,93 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Hoewel het project gratis is en altijd gratis zal blijven, is het draaien "
+"van de server dat niet! Het aanbieden van de gehoste versie van wger brengt "
+"echte, doorlopende kosten met zich mee voor serverhosting, bandbreedte, back-"
+"ups, enz. De ontwikkeling kost ook veel tijd en inspanning van "
+"vrijwilligers. Uw bijdrage ondersteunt deze essentiële kosten en helpt om de "
+"service betrouwbaar, beter en gratis voor iedereen te houden."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Sponsor op GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Dank U!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Bedankt dat je deel uitmaakt van de community! We waarderen je gebruik, "
+"feedback en alle steun die je geeft."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Ons doel"
 
 #: software/templates/about_us.html:158
-#, fuzzy
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"Het doel is een geweldige en\n"
-"flexibele fitness-manager te bouwen, samen met een uitgebreide en complete "
-"lijst met oefeningen\n"
-"en ingrediënten, allemaal uitgebracht onder een gratis licentie."
+"Het doel is een geweldige en flexibele fitness-manager te bouwen, samen met "
+"een uitgebreide en complete lijst met oefeningen en ingrediënten, allemaal "
+"uitgebracht onder een gratis licentie."
 
 #: software/templates/features.html:11
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
+"wger Workout Manager is een gratis, open source webapplicatie die je "
+"oefeningen en workouts beheert."
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobiele app"
 
 #: software/templates/features.html:63 software/templates/features.html:319
 msgid "Donate"
-msgstr ""
+msgstr "Doneer"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Ontwikkel"
 
 #: software/templates/features.html:73 software/templates/features.html:458
-#, fuzzy
 msgid "Community"
-msgstr "Opmerking"
+msgstr "Gemeenschap"
 
 #: software/templates/features.html:107
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Track je <br> pad naar je <br> ideale lichaam"
 
 #: software/templates/features.html:110
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Word lid van wger, de community-gedreven <b>gratis en open-source "
+"fitnesstracker</b>"
 
 #: software/templates/features.html:120
-#, fuzzy
 msgid "Get Started"
-msgstr "Download de code"
+msgstr "Aan de slag"
 
 #: software/templates/features.html:130
 msgid "people <br> using wger"
-msgstr ""
+msgstr "mensen <br> die wger gebruiken"
 
 #: software/templates/features.html:134
-#, fuzzy
 msgid "exercises <br> for workout creation"
-msgstr "Oefeningen toevoegen aan deze workout-dag."
+msgstr "oefeningen <br> voor het maken van workouts"
 
 #: software/templates/features.html:138
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "voeding <br> voor maaltijdplanning"
 
 #: software/templates/features.html:142
 msgid "stars <br> on GitHub"
@@ -2790,32 +2793,33 @@ msgid "Add custom notes"
 msgstr "Voeg dagboekitem op maat toe"
 
 #: software/templates/features.html:248
-#, fuzzy
 msgid "Record your weight"
-msgstr "Lichaamsgewicht"
+msgstr "Registreer je gewicht"
 
 #: software/templates/features.html:251
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Houd een fotologboek bij om je vooruitgang te zien"
 
 #: software/templates/features.html:254
 msgid "Use the calendar view to see past entries"
 msgstr ""
 
 #: software/templates/features.html:273
-#, fuzzy
 msgid "Try wger now"
-msgstr "Probeer het nu"
+msgstr "Probeer wger nu"
 
 #: software/templates/features.html:290
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "Powered By <span>the community</span>"
 
 #: software/templates/features.html:293
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger wordt gefinancierd en gemaakt door de open-source gemeenschap: mensen "
+"zoals u die vertalen, oefeningen en voedingsinformatie toevoegen, "
+"ontwikkelen en nog veel meer."
 
 #: software/templates/features.html:299
 msgid ""
@@ -2828,9 +2832,8 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:313
-#, fuzzy
 msgid "Contribute"
-msgstr "Draag bij!"
+msgstr "Draag bij"
 
 #: software/templates/features.html:337
 msgid "Sign Up Now For Free"

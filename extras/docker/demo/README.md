@@ -25,11 +25,11 @@ Then just open <http://localhost:8000> and log in as: **admin**, password **admi
 
 To stop the container:
 
-```sudo docker container stop wger.apache```
+```sudo docker container stop wger.demo```
 
 To start developing again:
 
-```sudo docker container start --attach wger.apache```
+```sudo docker container start --attach wger.demo```
 
 
 Building

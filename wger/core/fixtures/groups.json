@@ -483,20 +483,74 @@
       "name": "exercises_editor",
       "permissions": [
         [
-          "add_equipment",
+          "add_translation",
           "exercises",
-          "equipment"
+          "translation"
         ],
         [
-          "change_equipment",
+          "change_translation",
           "exercises",
-          "equipment"
+          "translation"
         ],
         [
-          "delete_equipment",
+          "delete_translation",
           "exercises",
-          "equipment"
+          "translation"
         ],
+        [
+          "add_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "change_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "delete_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "add_exercisecomment",
+          "exercises",
+          "exercisecomment"
+        ],
+        [
+          "change_exercisecomment",
+          "exercises",
+          "exercisecomment"
+        ],
+        [
+          "delete_exercisecomment",
+          "exercises",
+          "exercisecomment"
+        ],
+        [
+          "add_exerciseimage",
+          "exercises",
+          "exerciseimage"
+        ],
+        [
+          "change_exerciseimage",
+          "exercises",
+          "exerciseimage"
+        ],
+        [
+          "delete_exerciseimage",
+          "exercises",
+          "exerciseimage"
+        ]
+      ]
+    },
+    "model": "auth.group",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "name": "exercises_admin",
+      "permissions": [
         [
           "add_translation",
           "exercises",
@@ -528,21 +582,6 @@
           "exercise"
         ],
         [
-          "add_exercisecategory",
-          "exercises",
-          "exercisecategory"
-        ],
-        [
-          "change_exercisecategory",
-          "exercises",
-          "exercisecategory"
-        ],
-        [
-          "delete_exercisecategory",
-          "exercises",
-          "exercisecategory"
-        ],
-        [
           "add_exercisecomment",
           "exercises",
           "exercisecomment"
@@ -558,6 +597,36 @@
           "exercisecomment"
         ],
         [
+          "add_equipment",
+          "exercises",
+          "equipment"
+        ],
+        [
+          "change_equipment",
+          "exercises",
+          "equipment"
+        ],
+        [
+          "delete_equipment",
+          "exercises",
+          "equipment"
+        ],
+        [
+          "add_exercisecategory",
+          "exercises",
+          "exercisecategory"
+        ],
+        [
+          "change_exercisecategory",
+          "exercises",
+          "exercisecategory"
+        ],
+        [
+          "delete_exercisecategory",
+          "exercises",
+          "exercisecategory"
+        ],
+        [
           "add_exerciseimage",
           "exercises",
           "exerciseimage"
@@ -571,6 +640,21 @@
           "delete_exerciseimage",
           "exercises",
           "exerciseimage"
+        ],
+        [
+          "add_exercisevideo",
+          "exercises",
+          "exercisevideo"
+        ],
+        [
+          "change_exercisevideo",
+          "exercises",
+          "exercisevideo"
+        ],
+        [
+          "delete_exercisevideo",
+          "exercises",
+          "exercisevideo"
         ],
         [
           "add_muscle",
@@ -590,6 +674,6 @@
       ]
     },
     "model": "auth.group",
-    "pk": 6
+    "pk": 7
   }
 ]

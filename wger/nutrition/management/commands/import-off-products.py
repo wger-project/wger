@@ -21,11 +21,11 @@ import requests
 
 # wger
 from wger.core.models import Language
+from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.management.products import (
     ImportProductCommand,
     Mode,
 )
-from wger.nutrition.off import extract_info_from_off
 
 
 logger = logging.getLogger(__name__)

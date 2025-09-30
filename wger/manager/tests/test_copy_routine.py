@@ -11,8 +11,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
 # Standard Library
+import datetime
 import logging
 
 # Django
@@ -45,7 +45,14 @@ class CopyRoutineTestCase(WgerTestCase):
         self.assertEqual(count_after, 6)
 
         routine_original = Routine.objects.get(pk=3)
-        routine_copy = Routine.objects.get(pk=4)
+        routine_copy = Routine.objects.get(pk=6)
+
+        self.assertEqual(routine_copy.name, routine_original.name)
+        self.assertEqual(routine_copy.description, routine_original.description)
+        self.assertEqual(routine_copy.is_template, routine_original.is_template)
+        self.assertEqual(routine_copy.is_public, routine_original.is_public)
+        self.assertEqual(routine_copy.start, datetime.date.today())
+        self.assertEqual(routine_copy.end, datetime.date.today() + routine_original.duration)
 
         days_original = routine_original.days.all()
         days_copy = routine_copy.days.all()

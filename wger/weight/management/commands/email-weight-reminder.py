@@ -21,7 +21,10 @@ from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.management.base import BaseCommand
 from django.template import loader
-from django.utils import translation
+from django.utils import (
+    timezone,
+    translation,
+)
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -45,7 +48,7 @@ class Command(BaseCommand):
             if not profile.user.email:
                 continue
 
-            today = datetime.datetime.now().date()
+            today = timezone.now()
 
             try:
                 last_entry = WeightEntry.objects.filter(user=profile.user).latest().date

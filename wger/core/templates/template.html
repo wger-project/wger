@@ -62,6 +62,8 @@
         id="react-css"
     >
 
+    <link rel="stylesheet" href="{% static 'css/language-menu.css' %}">
+
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
@@ -209,7 +211,7 @@
                             <span class="caret"></span>
                         </button>
 
-                        <ul class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                        <ul class="dropdown-menu language-menu" aria-labelledby="btnGroupLanguages">
                             {% for language in languages %}
                                 {% language_select language %}
                             {% endfor %}

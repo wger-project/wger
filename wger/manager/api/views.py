@@ -14,7 +14,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-from datetime import datetime
 
 # Django
 from django.conf import settings
@@ -78,6 +77,16 @@ from wger.utils.cache import CacheKeyMapper
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
+def request_user_or_trainer_q(request):
+    """
+    Helper function to build a Q object for filtering objects by user or trainer.
+    """
+    trainer_identity_pk = request.session.get('trainer.identity', None)
+    if trainer_identity_pk:
+        return Q(user=request.user) | Q(user_id=trainer_identity_pk)
+    return Q(user=request.user)
+
+
 class RoutineViewSet(viewsets.ModelViewSet):
     """
     API endpoint for routine objects
@@ -104,7 +113,9 @@ class RoutineViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Routine.objects.none()
 
-        return Routine.objects.filter(Q(user=self.request.user) | Q(is_public=True))
+        return Routine.objects.filter(
+            request_user_or_trainer_q(request=self.request) | Q(is_public=True)
+        )
 
     def perform_create(self, serializer):
         """
@@ -154,7 +165,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
     @action(detail=True)
     def structure(self, request, pk):
         """
-        Return full object structure of the routine.
+        Return the full object structure of the routine.
         """
         cache_key = CacheKeyMapper.routine_api_structure_key(pk)
         cached_data = cache.get(cache_key)
@@ -213,7 +224,8 @@ class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Routine.objects.none()
 
-        return Routine.templates.filter(user=self.request.user)
+        # If the current user is a trainer, also return their templates.
+        return Routine.templates.filter(request_user_or_trainer_q(request=self.request))
 
 
 class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):

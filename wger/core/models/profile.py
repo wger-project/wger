@@ -28,6 +28,7 @@ from django.core.validators import (
 )
 from django.db import models
 from django.db.models import IntegerField
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -535,23 +536,14 @@ by the US Department of Agriculture. It is extremely complete, with around
 
     def user_bodyweight(self, weight):
         """
-        Create a new weight entry as needed
+        Create a new weight entry and return it
         """
-        if not WeightEntry.objects.filter(user=self.user).exists() or (
-            datetime.date.today() - WeightEntry.objects.filter(user=self.user).latest().date
-            > datetime.timedelta(days=3)
-        ):
-            entry = WeightEntry()
-            entry.weight = weight
-            entry.user = self.user
-            entry.date = datetime.date.today()
-            entry.save()
+        entry = WeightEntry()
+        entry.weight = weight
+        entry.user = self.user
+        entry.date = timezone.now()
+        entry.save()
 
-        # Update the last entry
-        else:
-            entry = WeightEntry.objects.filter(user=self.user).latest()
-            entry.weight = weight
-            entry.save()
         return entry
 
     def get_owner_object(self):

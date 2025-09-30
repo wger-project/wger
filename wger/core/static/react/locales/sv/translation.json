@@ -160,5 +160,6 @@
     },
     "durationWeeks": "{{number}} veckor",
     "durationWeeksDays": "{{nrWeeks}} veckor, {{nrDays}} dagar",
-    "downloadAsPdf": "Ladda ned som PDF"
+    "downloadAsPdf": "Ladda ned som PDF",
+    "comment": "Kommentar"
 }

@@ -15,17 +15,17 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-03 21:57+0200\n"
-"PO-Revision-Date: 2025-02-14 11:20+0000\n"
-"Last-Translator: Алексей Курышко <alexkuryshko@gmail.com>\n"
+"PO-Revision-Date: 2025-09-16 20:01+0000\n"
+"Last-Translator: Иван Редун <ivanredun@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -443,7 +443,6 @@ msgid "An error occurred"
 msgstr "Произошла ошибка"
 
 #: core/templates/500.html:8
-#, fuzzy
 msgid ""
 "There was an error on the server while processing your request. Try "
 "refreshing your browser and if that doesn't help, please try again at a "
@@ -455,20 +454,13 @@ msgstr ""
 "ниже:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Вы\n"
-"    просматриваете сайт как пользователь \"%(current_user)s\", все действия "
-"производятся над его данными.\n"
-"    "
+"Вы просматриваете сайт как пользователь \"%(current_user)s\", все действия "
+"выполняются с его данными."
 
 #: core/templates/base.html:15
 #, python-format
@@ -476,12 +468,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Вернуться к \"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -489,10 +476,11 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Вы\n"
-"    просматриваете сайт как пользователь \"%(current_user)s\", все действия "
-"производятся над его данными.\n"
-"    "
+"Вы.\n"
+"                Вы просматриваете сайт как пользователь “%(current_user)s\", "
+"все действия выполняются над\n"
+"                их данными.\n"
+"            "
 
 #: core/templates/base_wide.html:12
 #, fuzzy, python-format
@@ -513,22 +501,19 @@ msgstr "Подтверждение электронного адреса"
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, ваша почта была подтверждена"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Ошибка, неверный токен"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Конфигурация"
+msgstr "Подтверждение по электронной почте"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
 msgstr "Календарь для %(username)s"
 
@@ -543,12 +528,12 @@ msgstr ""
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Срок действия токена истекает через %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "Команда wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
@@ -637,15 +622,13 @@ msgstr "Тренировка"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Рутина"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
 msgstr "Календарь"
 
 #: core/templates/navigation.html:55
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
 msgstr "Макронутриенты"
 
@@ -676,10 +659,8 @@ msgid "Administration"
 msgstr "Администрация"
 
 #: core/templates/navigation.html:106
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "День упражнений"
+msgstr "История редактирования упражнений"
 
 #: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
@@ -733,7 +714,7 @@ msgstr "Об этой программе"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Поддерживайте и принимайте участие"
 
 #: core/templates/navigation.html:229 software/templates/features.html:510
 msgid "REST API"
@@ -1153,22 +1134,22 @@ msgid "Preferences"
 msgstr "Настройки"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Отправить письма"
+msgstr "Подтвержденный email"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Непроверенный адрес электронной почты"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Отправить электронное письмо с подтверждением"
 
 #: core/templates/user/preferences.html:31
 msgid "You need to verify your email to contribute exercises"
 msgstr ""
+"Вам необходимо подтвердить свой адрес электронной почты, чтобы добавлять "
+"упражнения"
 
 #: core/templates/user/preferences.html:55 core/views/user.py:598
 msgid "Change password"
@@ -1294,7 +1275,7 @@ msgstr "Тренажерный зал"
 #: core/views/user.py:647
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "На адрес %(email)s было отправлено электронное письмо с подтверждением"
 
 #: exercises/models/base.py:86 nutrition/models/ingredient.py:245
 msgid "Category"
@@ -1327,10 +1308,8 @@ msgid "A comment about how to correctly do this exercise."
 msgstr "Коментарий о том, как правильно выполнять это упражнение."
 
 #: exercises/models/exercise_alias.py:56
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Исправить упражнение"
+msgstr "Псевдоним для упражнения"
 
 #: exercises/models/image.py:57
 msgid "Line"
@@ -1341,7 +1320,6 @@ msgid "3D"
 msgstr "3D"
 
 #: exercises/models/image.py:59
-#, fuzzy
 msgid "Low-poly"
 msgstr "Низкополигональный"
 
@@ -1391,7 +1369,7 @@ msgstr "Альтернативное название"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Более простое название для мышцы"
 
 #: exercises/models/translation.py:74 nutrition/models/ingredient.py:81
 #: nutrition/models/weight_unit.py:32
@@ -1448,10 +1426,8 @@ msgid "Equipment list"
 msgstr "Перечень оборудования"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "День упражнений"
+msgstr "История администрирования упражнений"
 
 #: exercises/templates/history/overview.html:27
 msgid "Action"
@@ -1472,29 +1448,24 @@ msgid "Object"
 msgstr "Объект"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Изменить"
+msgstr "Изменения"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Вернуть"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Просмотр объекта"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Просмотр журналов"
+msgstr "Просмотр изменений"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Отменить изменения"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1782,9 +1753,10 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Пожалуйста запишите пароль или сохраните экспортированный файл, который "
-"содержит все данные пользователя, и храните его в надежном месте. Пароль не "
-"может быть восстановлен позже."
+"Пожалуйста, запишите пароль пользователя или сохраните экспортированный\n"
+"файл, содержащий все данные пользователя, и храните его в надежном месте. "
+"Пароль\n"
+"не может быть восстановлен позднее."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -1876,10 +1848,8 @@ msgid "Dumbbell"
 msgstr "Гантель"
 
 #: i18n.tpl:13
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Минут"
+msgstr "Ягодицы"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -1936,7 +1906,7 @@ msgstr "Минут"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Блины"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -1944,7 +1914,7 @@ msgstr "Брус для подтягивания"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "Квадрицепсы"
 
 #: i18n.tpl:30 manager/models/log.py:138
 msgid "Repetitions"
@@ -2045,7 +2015,7 @@ msgstr "ПвЗ"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "остальное"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2059,7 +2029,7 @@ msgstr "Срок этой тренировки скоро истечет"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Рутина"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2067,10 +2037,8 @@ msgid "Order"
 msgstr "Порядок"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Профессия"
+msgstr "Сессия"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2148,17 +2116,14 @@ msgid "Exercise day"
 msgstr "День упражнений"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Ваша текущая тренировка '%(workout)s' истекла %(days)s дней назад."
+msgstr "Ваша текущая тренировка '%(routine)s' истекла %(days)s дней назад."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Ваша текущая тренировка '%(workout)s' истечет через %(days)s дней."
+msgstr "Ваша текущая тренировка '%(routine)s' истечет через %(days)s дней."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2167,8 +2132,10 @@ msgid ""
 "never produce reminders."
 msgstr ""
 "Вы будете регулярно получать такие напоминания пока Вы не добавите новую "
-"тренировку. В качестве альтернативы можно добавить тренировки в цикловой "
-"график, такие графики никогда не производят напоминания."
+"тренировку.\n"
+"В качестве альтернативы можно добавить тренировки в цикловой график, такие "
+"графики\n"
+"никогда не производят напоминания."
 
 #: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2213,8 +2180,6 @@ msgid "Value"
 msgstr "Значение"
 
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Height (cm)"
 msgid "Height (in)"
 msgstr "Рост (см)"
 
@@ -2223,10 +2188,8 @@ msgid "Weight (kg)"
 msgstr "Вес (кг)"
 
 #: nutrition/forms.py:120
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "Регистрация веса"
+msgstr "Вес (фунтов)"
 
 #: nutrition/forms.py:133
 msgid "Calculate"
@@ -2258,10 +2221,8 @@ msgid "Ingredient"
 msgstr "Ингредиент"
 
 #: nutrition/forms.py:250
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Компоненты также на английском языке"
+msgstr "Также ищите названия на английском"
 
 #: nutrition/models/ingredient.py:132
 msgid "In kcal per 100g"
@@ -2287,7 +2248,7 @@ msgstr "Содержание насыщенных жиров в жирах"
 #: nutrition/models/ingredient.py:184
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Волокно"
 
 #: nutrition/models/ingredient.py:194
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
@@ -2324,8 +2285,6 @@ msgid "Meal"
 msgstr "Прием пищи"
 
 #: nutrition/models/log.py:71
-#, fuzzy
-#| msgid "Time (approx)"
 msgid "Date and Time (Approx.)"
 msgstr "Время (приблизительно)"
 
@@ -2573,10 +2532,15 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger поможет вам отслеживать ваши тренировки, управлять своим питанием и "
+"достигать поставленных целей в фитнесе. Мы предлагаем его в виде бесплатного "
+"программного обеспечения с открытым исходным кодом, которое вы можете "
+"установить самостоятельно, а также предоставляем удобную, бесплатную и self-"
+"hosted версию для легкого доступа."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Открытый исходный код и бесплатно для использования ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2586,10 +2550,16 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger основан на принципах открытого исходного кода. Его код, разработанный "
+"нашим сообществом, находится в открытом доступе, что обеспечивает "
+"прозрачность и дает вам возможность контролировать свои данные (особенно при "
+"self-hosting размещении). Бесплатный хостинг-сервис полностью основан на "
+"базе открытого исходного кода. Мы считаем, что мощные фитнес-инструменты "
+"должны быть доступны каждому."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Как вы можете помочь"
 
 #: software/templates/about_us.html:40
 #, fuzzy
@@ -2608,67 +2578,66 @@ msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Заходите на сервер Discord, чтобы пообщаться с разработчиками и другими "
+"пользователями, задать вопросы или обсудить новые функции."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Получайте новости, обновления и анонсы о проекте в Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Распространяйте информацию: расскажите своим друзьям, приятелям по спортзалу "
+"или поделитесь в социальных сетях! Ваш энтузиазм помогает нам расти и "
+"привлекать больше людей."
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute your skills"
-msgstr "Способствуйте!"
+msgstr "Поделитесь своими навыками"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Сообщайте об ошибках или предлагайте новые функции"
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "Есть проблема или идея?"
+msgstr "У вас есть проблема или идея? Дайте нам знать!"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Представить упражнения"
+msgstr "Улучшите выполнение упражнений"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
+"Добавляйте новые упражнения, а также редактируйте или переводите "
+"существующие."
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Перевести с помощью Transifex"
+msgstr "Перевести приложение"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Помогите сделать приложение доступным на большем количестве языков для "
+"пользователей по всему миру."
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Документация для разработчиков"
+msgstr "Внесите свой вклад в код или документацию"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Ознакомьтесь с исходным кодом и помогите нам создать следующую версию."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Сделайте пожертвование"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2679,52 +2648,50 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Хотя проект бесплатный и всегда им останется, запуск сервера - нет! "
+"Предоставление размещенной версии wger сопряжено с реальными текущими "
+"затратами на размещение сервера, пропускную способность, резервное "
+"копирование и т.д. Разработка также требует значительного времени и усилий "
+"со стороны волонтеров. Ваш вклад напрямую влияет на эти важные расходы, "
+"помогая поддерживать надежность, качество и бесплатность сервиса для всех."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Спонсорство на GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Спасибо!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Спасибо вам за то, что вы являетесь частью сообщества! Мы ценим вас, отзывы "
+"и любую поддержку, которую вы можете предложить."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
 msgstr "Наша цель"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"Цель - создать удивительный и гибкий фитнес-менеджер, наряду с всесторонним "
-"и полным списком упражнений и\n"
-"ингредиентов, выпущеный под свободной лицензией."
+"Цель состоит в том, чтобы создать потрясающего и гибкого фитнес-менеджера, а "
+"также предоставить исчерпывающий список упражнений и ингредиентов, "
+"выпущенных по бесплатной лицензии."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
-"wger Workout Manager является бесплатным веб-приложением с открытым исходным "
-"кодом, которое управляет вашими упражнениями и тренировками. "
+"wger Workout Manager - это бесплатное веб-приложение с открытым исходным "
+"кодом, которое управляет вашими упражнениями и тренировками."
 
 #: software/templates/features.html:57
 msgid "Mobile app"
@@ -2732,11 +2699,11 @@ msgstr "Мобильное приложение"
 
 #: software/templates/features.html:63 software/templates/features.html:319
 msgid "Donate"
-msgstr ""
+msgstr "Пожертвовать"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Разрабатывать"
 
 #: software/templates/features.html:73 software/templates/features.html:458
 msgid "Community"
@@ -2744,89 +2711,95 @@ msgstr "Сообщество"
 
 #: software/templates/features.html:107
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Проследите свой <br> путь к идеальному телу"
 
 #: software/templates/features.html:110
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Присоединяйтесь к wger, <b>бесплатному фитнес-трекеру с открытым исходным "
+"кодом <b>"
 
 #: software/templates/features.html:120
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Получить код"
+msgstr "Начать"
 
 #: software/templates/features.html:130
 msgid "people <br> using wger"
-msgstr ""
+msgstr "люди<br> использующие wger"
 
 #: software/templates/features.html:134
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Добавить упражнения к этому тренировочному дню"
+msgstr "упражнения <br> для создания тренировки"
 
 #: software/templates/features.html:138
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "продукты <br>для планирования питания"
 
 #: software/templates/features.html:142
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "звезды<br> на GitHub"
 
 #: software/templates/features.html:166
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Разработайте свой идеальный <span>режим тренировок </span>"
 
 #: software/templates/features.html:170
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Разработайте еженедельный план тренировок из более чем 100 упражнений"
 
 #: software/templates/features.html:173
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Установите количество повторений и подходов, продолжительность или цель для "
+"каждого упражнения"
 
 #: software/templates/features.html:176
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Следуйте инструкциям по своим тренировкам шаг за шагом"
 
 #: software/templates/features.html:179
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Следите за выполненными тренировками, в том числе за тем, как вы себя "
+"чувствовали во время выполнения"
 
 #: software/templates/features.html:200
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Планируйте свое <span>ежедневное питание</span>"
 
 #: software/templates/features.html:204
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Наполните свою неделю питательными блюдами, которые помогут вам лучше "
+"работать"
 
 #: software/templates/features.html:207
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Создавайте блюда на основе базы данных из более чем 2 миллионов продуктов"
 
 #: software/templates/features.html:210
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Получите автоматически рассчитанный КБЖУ как для отдельных блюд, так и для "
+"всего вашего недельного плана"
 
 #: software/templates/features.html:237
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Следите за <span>своим прогрессом</span>"
 
 #: software/templates/features.html:242
 msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
+"Отслеживайте и комментируйте все, что касается вашего питания и тренировок"
 
 #: software/templates/features.html:245
-#, fuzzy
-#| msgid "Add custom diary entry"
 msgid "Add custom notes"
-msgstr "Добавить пользовательскую запись в дневник"
+msgstr "Добавить запись в дневник"
 
 #: software/templates/features.html:248
 msgid "Record your weight"
@@ -2834,37 +2807,40 @@ msgstr "Запишите свой вес"
 
 #: software/templates/features.html:251
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Ведите журнал фотографий, чтобы видеть свой прогресс"
 
 #: software/templates/features.html:254
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Используйте режим просмотра календаря, чтобы просмотреть прошлые записи"
 
 #: software/templates/features.html:273
-#, fuzzy
-#| msgid "Try it now"
 msgid "Try wger now"
 msgstr "Попробуйте сейчас"
 
 #: software/templates/features.html:290
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "Работает на базе <span>сообщества</span>"
 
 #: software/templates/features.html:293
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger финансируется и создается сообществом разработчиков с открытым исходным "
+"кодом: такие люди, как вы, переводят, добавляют упражнения и информацию о "
+"питании, а так же разрабатывают и многое другое."
 
 #: software/templates/features.html:299
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Мы не используем рекламу, не продаем вашу личную информацию и распространяем "
+"код по бесплатной лицензии с открытым исходным кодом."
 
 #: software/templates/features.html:304
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Присоединяйтесь и помогите сделать wger еще лучше!"
 
 #: software/templates/features.html:313
 #, fuzzy
@@ -2874,11 +2850,11 @@ msgstr "Способствуйте!"
 
 #: software/templates/features.html:337
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Зарегистрируйтесь Сейчас Бесплатно"
 
 #: software/templates/features.html:351
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Веб-версии недостаточно?"
 
 #: software/templates/features.html:353
 #, fuzzy
@@ -2888,21 +2864,25 @@ msgstr "Получить код"
 
 #: software/templates/features.html:364
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Настройте личный сервер для своего тренажерного зала"
 
 #: software/templates/features.html:367
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Не хотите, чтобы ваши данные хранились в онлайн-сервисе? Создайте экземпляр "
+"wger на своем собственном сервере бесплатно!"
 
 #: software/templates/features.html:381
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Интеграция с вашим собственным приложением"
 
 #: software/templates/features.html:384
 msgid "wger offers an open API that you can use for your app."
 msgstr ""
+"wger предлагает открытый API, который вы можете использовать для своего "
+"приложения."
 
 #: software/templates/features.html:395
 #, fuzzy
@@ -2915,12 +2895,12 @@ msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Исходный код доступен по лицензии GNU AGPLv3! Не стесняйтесь размещать его "
+"на GitHub."
 
 #: software/templates/features.html:419
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Количество"
+msgstr "Аккаунт"
 
 #: software/templates/features.html:467
 #, fuzzy
@@ -2930,7 +2910,7 @@ msgstr "Напоминания тренировок"
 
 #: software/templates/features.html:473
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: software/templates/features.html:488
 msgid "Software"
@@ -2954,11 +2934,11 @@ msgstr "Да, удалить"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Оригинальное название этого объекта, если таковое имеется"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Ссылка на исходный объект, если таковая имеется"
 
 #: utils/models.py:63
 msgid "Author(s)"
@@ -2976,11 +2956,11 @@ msgstr ""
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Ссылка на профиль автора, если таковая имеется"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Ссылка на первоисточник, если это производная работа"
 
 #: utils/models.py:79
 msgid ""
@@ -2988,6 +2968,10 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Обратите внимание, что производная работа - это такая работа, которая не "
+"только основана на предыдущей работе, но и содержит достаточно нового "
+"творческого контента, чтобы на нее распространялось собственное авторское "
+"право."
 
 #: weight/forms.py:46
 msgid "Input"

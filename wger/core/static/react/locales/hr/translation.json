@@ -241,5 +241,9 @@
     "lastHalfYear": "Prošlih 6 mjeseci",
     "calendar": "Kalendar",
     "entries": "Unosi",
-    "no_entries_for_day": "Nema unosa za ovaj dan"
+    "no_entries_for_day": "Nema unosa za ovaj dan",
+    "editName": "Uredi {{ime}}",
+    "start": "Start",
+    "end": "Kraj",
+    "comment": "Komentari"
 }

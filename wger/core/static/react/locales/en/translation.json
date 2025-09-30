@@ -44,6 +44,8 @@
   "alsoSearchEnglish": "Also search for names in English",
   "copyToClipboard": "Copy to clipboard",
   "filters": "Filters",
+  "private": "Private",
+  "public": "Public",
   "exercises": {
     "replacements": "Replacements",
     "replacementsInfoText": "Optionally, you can also select an exercise that should replace this one (e.g. because it was submitted twice, or similar). This will replace the exercise in routines as well as training logs, instead of just deleting it. These changes will also propagate to any instance that syncs the exercises from this one.",
@@ -169,8 +171,6 @@
     "supportedImageFormats": "Only JPEG, PNG and WEBP files below 20Mb are supported",
     "enterNumber": "Please enter a valid number",
     "enterInteger": "Please enter a whole number",
-    "valueTooShort": "The value is too short",
-    "valueTooLong": "The value is too long",
     "fieldRequired": "This field is required",
     "maxLength": "Please enter less than {{chars}} characters",
     "minLength": "Please enter more than {{chars}} characters",

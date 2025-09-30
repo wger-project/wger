@@ -436,7 +436,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         Searches OFF by barcode and creates a local ingredient from the result
         """
         # wger
-        from wger.nutrition.off import extract_info_from_off
+        from wger.nutrition.extract_info.off import extract_info_from_off
 
         logger.info(f'Searching for ingredient {code} in OFF')
         try:

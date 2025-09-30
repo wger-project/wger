@@ -295,49 +295,6 @@ circle.color-17becf:hover {
     fill: #17becf;
 }
 
-/**************************************************************
- * Weight log calendar
- **************************************************************/
-table.month td {
-    width: 14.285%;
-    height: 4em;
-    text-align: center;
-}
-
-table.month th.month {
-    text-align: center;
-    background-color: #eeeeec;
-}
-
-table.month a.calendar-link {
-    height: 100%;
-    line-height: 1;
-}
-
-table.month td.session-bad {
-    background-color: #f2dede;
-}
-
-table.month td.session-bad:hover {
-    background-color: #c9302c;
-}
-
-table.month td.session-neutral {
-    background-color: #f5f5f5;
-}
-
-table.month td.session-neutral:hover {
-    background-color: #babdb6;
-}
-
-table.month td.session-good {
-    background-color: #dff0d8;
-}
-
-table.month td.session-good:hover {
-    background-color: #449d44;
-}
-
 /*
  * Autocompleter
  */
