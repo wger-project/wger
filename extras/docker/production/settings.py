@@ -2,6 +2,7 @@
 
 # Third Party
 import environ
+import os
 
 # wger
 from wger.settings_global import *
@@ -150,6 +151,7 @@ COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', not DEBUG)
 
 # The site's domain as used by the email verification workflow
 # Optional override to avoid "http://localhost/..." in emails when self-hosting.
+
 PUBLIC_APP_URL = env.str('PUBLIC_APP_URL', '').strip()
 if PUBLIC_APP_URL:
     PUBLIC_APP_URL = PUBLIC_APP_URL.rstrip('/')
