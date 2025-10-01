@@ -29,6 +29,17 @@ All the code and the content is freely available:
 
 * Main repository: <https://github.com/wger-project/wger>
 
+Configuration
+-------------
+
+When self-hosting, verification emails may otherwise contain links like
+`http://localhost/...`. To override this, set the `PUBLIC_APP_URL` environment
+variable to your public domain:
+
+PUBLIC_APP_URL=https://your.public.domain
+
+If not set, the application falls back to the `SITE_URL` value.
+
 ## Licence
 
 The application is licenced under the Affero GNU General Public License 3 or
