@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
 # wger
 from wger.settings_global import *
 
@@ -71,8 +73,15 @@ if DEBUG:
 
 DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 
+# Optional override for the domain used in email verification links.
+# If set (e.g., PUBLIC_APP_URL="https://gym.example.com"), it will be used
+# instead of SITE_URL to avoid "http://localhost/..." in emails when self-hosting.
+PUBLIC_APP_URL = os.environ.get('PUBLIC_APP_URL', '').strip()
+if PUBLIC_APP_URL:
+    PUBLIC_APP_URL = PUBLIC_APP_URL.rstrip('/')
+
 # The site's domain as used by the email verification workflow
-EMAIL_PAGE_DOMAIN = SITE_URL
+EMAIL_PAGE_DOMAIN = PUBLIC_APP_URL or SITE_URL
 
 #
 # https://django-axes.readthedocs.io/en/latest/
