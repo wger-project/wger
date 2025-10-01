@@ -44,11 +44,11 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     serializer_class = ImageSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = [
+    filterset_fields = (
         'id',
         'date',
         'description',
-    ]
+    )
 
     def get_queryset(self):
         """

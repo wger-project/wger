@@ -67,7 +67,7 @@ class ExerciseCategoryAddView(
     """
 
     model = ExerciseCategory
-    fields = ['name']
+    fields = ('name',)
     success_url = reverse_lazy('exercise:category:list')
     title = gettext_lazy('Add category')
     permission_required = 'exercises.add_exercisecategory'
@@ -88,7 +88,7 @@ class ExerciseCategoryUpdateView(
     """
 
     model = ExerciseCategory
-    fields = ['name']
+    fields = ('name',)
     success_url = reverse_lazy('exercise:category:list')
     permission_required = 'exercises.change_exercisecategory'
 

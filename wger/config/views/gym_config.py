@@ -36,7 +36,7 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
     """
 
     model = GymConfig
-    fields = ['default_gym']
+    fields = ('default_gym',)
     permission_required = 'config.change_gymconfig'
     success_url = reverse_lazy('gym:gym:list')
     title = gettext_lazy('Edit')
