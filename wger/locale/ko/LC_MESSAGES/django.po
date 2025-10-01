@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 21:57+0200\n"
+"POT-Creation-Date: 2025-10-01 16:48+0530\n"
 "PO-Revision-Date: 2025-05-29 07:01+0000\n"
 "Last-Translator: kobo <kobo76@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/wger/web/ko/>\n"
@@ -54,21 +54,21 @@ msgstr "편집"
 
 #: core/forms.py:69 core/templates/navigation.html:271
 #: core/templates/navigation.html:278 core/templates/user/login.html:4
-#: software/templates/features.html:82 software/templates/features.html:430
+#: software/templates/features.html:82 software/templates/features.html:448
 msgid "Login"
 msgstr "로그인"
 
-#: core/forms.py:108 core/forms.py:216 gym/views/export.py:61
+#: core/forms.py:108 core/forms.py:222 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
 msgstr "이름"
 
-#: core/forms.py:109 core/forms.py:217 core/templates/user/overview.html:284
+#: core/forms.py:109 core/forms.py:223 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
 msgstr "성"
 
-#: core/forms.py:111 core/forms.py:182 core/templates/user/overview.html:288
+#: core/forms.py:111 core/forms.py:188 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
 #: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:116
 #: gym/templates/gym/new_user.html:30 gym/views/export.py:60
@@ -82,46 +82,46 @@ msgstr "이메일"
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr "비밀번호 재설정 및 이메일 알람(option)에 사용됩니다."
 
-#: core/forms.py:116 core/models/profile.py:221
+#: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr "생일"
 
-#: core/forms.py:149
+#: core/forms.py:155
 msgid "Personal data"
 msgstr "개인 정보"
 
-#: core/forms.py:161
+#: core/forms.py:167
 msgid "Workout reminders"
 msgstr "Workout 리마인더"
 
-#: core/forms.py:168
+#: core/forms.py:174
 msgid "Other settings"
 msgstr "기타 설정"
 
-#: core/forms.py:176 core/views/user.py:611 core/views/user.py:626
+#: core/forms.py:182 core/views/user.py:611 core/views/user.py:626
 #: core/views/user.py:638 gym/forms.py:73 utils/generic_views.py:143
 msgid "Save"
 msgstr "저장"
 
-#: core/forms.py:183
+#: core/forms.py:189
 msgid "Used for password resets and, optionally, email reminders."
 msgstr "비밀번호 재설정 및 이메일 알람(option)에 사용됩니다."
 
-#: core/forms.py:212
+#: core/forms.py:218
 msgid "This e-mail address is already in use."
 msgstr "이 이메일 주소는 이미 사용중입니다."
 
-#: core/forms.py:233 gym/templates/gym/new_user.html:26
+#: core/forms.py:239 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
 msgstr "비밀번호"
 
-#: core/forms.py:235
+#: core/forms.py:241
 msgid "Please enter your current password."
 msgstr "현재 비밀번호를 입력해주세요."
 
-#: core/forms.py:244 core/templates/language/view.html:70
+#: core/forms.py:250 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
 #: core/templates/repetition_unit/list.html:22
 #: core/templates/user/overview.html:233
@@ -138,35 +138,35 @@ msgstr "현재 비밀번호를 입력해주세요."
 msgid "Delete"
 msgstr "삭제"
 
-#: core/forms.py:253
+#: core/forms.py:259
 msgid "Invalid password"
 msgstr "유효하지 않은 비밀번호"
 
-#: core/forms.py:265 core/forms.py:340
+#: core/forms.py:271 core/forms.py:346
 msgid "The form is secured with reCAPTCHA"
 msgstr "양식은 reCAPTCHA로 보호됩니다"
 
-#: core/forms.py:281 core/forms.py:303 core/templates/navigation.html:272
-#: core/templates/navigation.html:285 core/templates/template.html:148
+#: core/forms.py:287 core/forms.py:309 core/templates/navigation.html:272
+#: core/templates/navigation.html:285 core/templates/template.html:150
 #: core/templates/user/login.html:21 core/views/user.py:285
-#: software/templates/features.html:87 software/templates/features.html:424
+#: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
 msgstr "등록"
 
-#: core/forms.py:317 software/templates/features.html:45
+#: core/forms.py:323 software/templates/features.html:45
 msgid "Contact"
 msgstr "연락"
 
-#: core/forms.py:318
+#: core/forms.py:324
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "답변방법 (이메일 등)"
 
-#: core/forms.py:326 exercises/models/comment.py:55 manager/models/slot.py:40
+#: core/forms.py:332 exercises/models/comment.py:55 manager/models/slot.py:40
 #: nutrition/models/log.py:77
 msgid "Comment"
 msgstr "댓글"
 
-#: core/forms.py:327
+#: core/forms.py:333
 msgid "What do you want to say?"
 msgstr "어떤말을 하고 싶은가요?"
 
@@ -206,52 +206,52 @@ msgstr "링크"
 msgid "Link to license text or other information"
 msgstr "라이선스 문서 또는 기타 정보 링크"
 
-#: core/models/profile.py:56
+#: core/models/profile.py:57
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
 msgstr "%(birthdate)s은 유효하지 않은 생년월일입니다"
 
-#: core/models/profile.py:65
+#: core/models/profile.py:66
 msgid "Male"
 msgstr "남성"
 
-#: core/models/profile.py:66
+#: core/models/profile.py:67
 msgid "Female"
 msgstr "여성"
 
-#: core/models/profile.py:73
+#: core/models/profile.py:74
 msgid "Low"
 msgstr "낮음"
 
-#: core/models/profile.py:74
+#: core/models/profile.py:75
 msgid "Medium"
 msgstr "중간"
 
-#: core/models/profile.py:75
+#: core/models/profile.py:76
 msgid "High"
 msgstr "높음"
 
-#: core/models/profile.py:81
+#: core/models/profile.py:82
 msgid "Metric (kilogram)"
 msgstr "미터법 (kg)"
 
-#: core/models/profile.py:82
+#: core/models/profile.py:83
 msgid "Imperial (pound)"
 msgstr "야드파운드법 (pound)"
 
-#: core/models/profile.py:118
+#: core/models/profile.py:119
 msgid "Show exercise comments"
 msgstr "운동 코멘트 표시"
 
-#: core/models/profile.py:119
+#: core/models/profile.py:120
 msgid "Check to show exercise comments on the workout view"
 msgstr "workout 보기에 운동 코멘트를 표시하려면 이 항목을 선택하세요"
 
-#: core/models/profile.py:129
+#: core/models/profile.py:130
 msgid "Also use ingredients in English"
 msgstr "원료를 영어로도 함께 표기하세요"
 
-#: core/models/profile.py:131
+#: core/models/profile.py:132
 msgid ""
 "Check to also show ingredients in English while creating\n"
 "a nutritional plan. These ingredients are extracted from a list provided\n"
@@ -263,126 +263,128 @@ msgstr ""
 "약 7,000개의 항목이 포함되어 매우 완벽하지만,\n"
 "너무 많아서 검색이 어려울 수 있습니다."
 
-#: core/models/profile.py:140
+#: core/models/profile.py:141
 msgid "Activate workout reminders"
 msgstr "Workout 리마인더 활성화"
 
-#: core/models/profile.py:142
+#: core/models/profile.py:143
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
-msgstr "운동 자동 알림을 활성화하려면 체크하세요. 이 기능을 사용하려면 유효한 이메일 "
+msgstr ""
+"운동 자동 알림을 활성화하려면 체크하세요. 이 기능을 사용하려면 유효한 이메일 "
 "주소를 입력해야 합니다."
 
-#: core/models/profile.py:151
+#: core/models/profile.py:152
 msgid "Remind before expiration"
 msgstr "만료 전에 알림"
 
-#: core/models/profile.py:152
+#: core/models/profile.py:153
 msgid "The number of days you want to be reminded before a workout expires."
 msgstr "운동이 만료되기 전에 알림을 받을 일수입니다."
 
-#: core/models/profile.py:158
+#: core/models/profile.py:159
 msgid "Default duration of workouts"
 msgstr "운동의 기본 기간"
 
-#: core/models/profile.py:160
+#: core/models/profile.py:161
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr "일정에 없는 운동의 기본 기간(주)입니다. 이메일 운동 알림에 사용됩니다."
 
-#: core/models/profile.py:178
+#: core/models/profile.py:179
 msgid "Notification language"
 msgstr "알람 언어"
 
-#: core/models/profile.py:180
+#: core/models/profile.py:181
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
-msgstr "이메일 알림을 보낼 때 사용할 언어(예: 운동 관련 이메일 알림). 웹사이트에서 "
-"사용되는 언어에는 영향을 미치지 않습니다."
+msgstr ""
+"이메일 알림을 보낼 때 사용할 언어(예: 운동 관련 이메일 알림). 웹사이트에서 사"
+"용되는 언어에는 영향을 미치지 않습니다."
 
-#: core/models/profile.py:213 gym/views/export.py:64
+#: core/models/profile.py:214 gym/views/export.py:64
 msgid "Age"
 msgstr "나이"
 
-#: core/models/profile.py:229 nutrition/forms.py:117
+#: core/models/profile.py:230 nutrition/forms.py:117
 msgid "Height (cm)"
 msgstr "키 (cm)"
 
-#: core/models/profile.py:246
+#: core/models/profile.py:247
 msgid "Hours of sleep"
 msgstr "수면시간"
 
-#: core/models/profile.py:247
+#: core/models/profile.py:248
 msgid "The average hours of sleep per day"
 msgstr "일 평균 수면시간"
 
-#: core/models/profile.py:256
+#: core/models/profile.py:257
 msgid "Work"
 msgstr "운동"
 
-#: core/models/profile.py:257 core/models/profile.py:299
+#: core/models/profile.py:258 core/models/profile.py:300
 msgid "Average hours per day"
 msgstr "하루 평균 시간"
 
-#: core/models/profile.py:266 core/models/profile.py:287
-#: core/models/profile.py:308
+#: core/models/profile.py:267 core/models/profile.py:288
+#: core/models/profile.py:309
 msgid "Physical intensity"
 msgstr "육체적 강도"
 
-#: core/models/profile.py:267 core/models/profile.py:288
-#: core/models/profile.py:309
+#: core/models/profile.py:268 core/models/profile.py:289
+#: core/models/profile.py:310
 msgid "Approximately"
 msgstr "약"
 
-#: core/models/profile.py:277
+#: core/models/profile.py:278
 msgid "Sport"
 msgstr "스포츠"
 
-#: core/models/profile.py:278
+#: core/models/profile.py:279
 msgid "Average hours per week"
 msgstr "주당 평균 시간"
 
-#: core/models/profile.py:298
+#: core/models/profile.py:299
 msgid "Free time"
 msgstr "자유 시간"
 
-#: core/models/profile.py:319 nutrition/templates/rate/form.html:66
+#: core/models/profile.py:320 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
 msgstr "총 일일 칼로리"
 
-#: core/models/profile.py:320
+#: core/models/profile.py:321
 msgid "Total caloric intake, including e.g. any surplus"
 msgstr "예를 들어 잉여분을 포함한 총 칼로리 섭취량"
 
-#: core/models/profile.py:332 nutrition/models/ingredient_weight_unit.py:45
+#: core/models/profile.py:333 nutrition/models/ingredient_weight_unit.py:45
 #: nutrition/models/log.py:96 nutrition/models/meal_item.py:59
 msgid "Weight unit"
 msgstr "몸무게 단위"
 
-#: core/models/profile.py:340
+#: core/models/profile.py:341
 msgid "Allow external access"
 msgstr "외부 접근 허용"
 
-#: core/models/profile.py:342
+#: core/models/profile.py:343
 msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
 msgstr ""
-"외부 사용자가 운동 및 로그에 읽기 전용 모드로 접근할 수 있도록 허용합니다. "
-"소셜 미디어 등에 링크를 공유하려면 먼저 이 설정을 해야 합니다."
+"외부 사용자가 운동 및 로그에 읽기 전용 모드로 접근할 수 있도록 허용합니다. 소"
+"셜 미디어 등에 링크를 공유하려면 먼저 이 설정을 해야 합니다."
 
-#: core/models/profile.py:351
+#: core/models/profile.py:352
 msgid "Automatic reminders for weight entries"
 msgstr "체중 입력에 대한 자동 알림"
 
-#: core/models/profile.py:352
+#: core/models/profile.py:353
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr "마지막 체중 입력 후 경과 일수(비활성화하려면 0 입력)"
 
-#: core/models/profile.py:438
+#: core/models/profile.py:439
 msgid "The sum of all hours has to be 24"
 msgstr "모든 시간의 합은 24이어야 합니다"
 
@@ -427,17 +429,18 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
-"요청을 처리하는 동안 서버에 오류가 발생했습니다. 브라우저를 새로 고쳐 "
-"보시고, 그래도 문제가 해결되지 않으면 나중에 다시 시도해 보세요. 문제가 "
-"지속되면 아래 방법으로 도움을 받으실 수 있습니다."
+"요청을 처리하는 동안 서버에 오류가 발생했습니다. 브라우저를 새로 고쳐 보시"
+"고, 그래도 문제가 해결되지 않으면 나중에 다시 시도해 보세요. 문제가 지속되면 "
+"아래 방법으로 도움을 받으실 수 있습니다."
 
 #: core/templates/base.html:10
 #, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
-msgstr "\"%(current_user)s\" 계정으로 사이트를 탐색하고 있습니다, 모든 작업은 해당 "
-"데이터를 대상으로 수행됩니다."
+msgstr ""
+"\"%(current_user)s\" 계정으로 사이트를 탐색하고 있습니다, 모든 작업은 해당 데"
+"이터를 대상으로 수행됩니다."
 
 #: core/templates/base.html:15
 #, python-format
@@ -513,7 +516,7 @@ msgstr "wger 팀"
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr "다음 링크를 클릭하여 이메일을 확인하세요: %(link)s"
 
-#: core/templates/index.html:4 software/templates/features.html:435
+#: core/templates/index.html:4 software/templates/features.html:453
 msgid "Dashboard"
 msgstr "대시보드"
 
@@ -583,11 +586,11 @@ msgstr "라이센스 리스트"
 msgid "Nothing found"
 msgstr "데이터가 없습니다"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:185
+#: core/templates/misc/about.html:4 core/templates/template.html:187
 msgid "Imprint"
 msgstr "날인"
 
-#: core/templates/navigation.html:28 software/templates/features.html:440
+#: core/templates/navigation.html:28 software/templates/features.html:458
 msgid "Training"
 msgstr "트레이닝"
 
@@ -620,7 +623,7 @@ msgid "Public templates"
 msgstr "공용 템플릿"
 
 #: core/templates/navigation.html:96 software/templates/features.html:51
-#: software/templates/features.html:462
+#: software/templates/features.html:480
 msgid "Exercises"
 msgstr "운동"
 
@@ -646,7 +649,7 @@ msgstr "근육"
 msgid "Categories"
 msgstr "카테고리"
 
-#: core/templates/navigation.html:139 software/templates/features.html:450
+#: core/templates/navigation.html:139 software/templates/features.html:468
 msgid "Nutrition"
 msgstr "영양"
 
@@ -671,7 +674,7 @@ msgstr "성분 개요"
 msgid "Ingredient weight units"
 msgstr "몸무게 성분 단위"
 
-#: core/templates/navigation.html:196 software/templates/features.html:445
+#: core/templates/navigation.html:196 software/templates/features.html:463
 msgid "Body weight"
 msgstr "체중"
 
@@ -687,7 +690,7 @@ msgstr "이 소프트웨어는"
 msgid "Support & Get Involved"
 msgstr "지원 및 참여"
 
-#: core/templates/navigation.html:229 software/templates/features.html:510
+#: core/templates/navigation.html:229 software/templates/features.html:528
 msgid "REST API"
 msgstr "REST API"
 
@@ -703,8 +706,8 @@ msgstr "개발 가이드"
 msgid "Get the code"
 msgstr "코드 정보"
 
-#: core/templates/navigation.html:255 core/templates/template.html:224
-#: software/templates/features.html:585
+#: core/templates/navigation.html:255 core/templates/template.html:226
+#: software/templates/features.html:603
 msgid "Translate"
 msgstr "번역"
 
@@ -762,16 +765,18 @@ msgstr "비밀번호 변경 성공"
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
-msgstr "제출하신 이메일 주소로 비밀번호 설정 지침을 이메일로 보내드렸습니다. 곧 "
-"받으실 수 있습니다."
+msgstr ""
+"제출하신 이메일 주소로 비밀번호 설정 지침을 이메일로 보내드렸습니다. 곧 받으"
+"실 수 있습니다."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
 msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr "%(site_name)s 사용자 계정에 대한 비밀번호 재설정을 요청하셨기 때문에 이 "
-"이메일을 보내드립니다."
+msgstr ""
+"%(site_name)s 사용자 계정에 대한 비밀번호 재설정을 요청하셨기 때문에 이 이메"
+"일을 보내드립니다."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -799,21 +804,22 @@ msgstr "이전"
 msgid "next"
 msgstr "다음"
 
-#: core/templates/template.html:121
+#: core/templates/template.html:123
 msgid "Close"
 msgstr "닫기"
 
-#: core/templates/template.html:137
+#: core/templates/template.html:139
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
-msgstr "귀하는 게스트 계정을 사용하고 계시므로, 입력하신 데이터는 일주일 후 "
-"삭제됩니다."
+msgstr ""
+"귀하는 게스트 계정을 사용하고 계시므로, 입력하신 데이터는 일주일 후 삭제됩니"
+"다."
 
-#: core/templates/template.html:142
+#: core/templates/template.html:144
 msgid "Create some demo entries"
 msgstr "데모용 계정 만들기"
 
-#: core/templates/template.html:190 software/templates/features.html:550
+#: core/templates/template.html:192 software/templates/features.html:568
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "서비스 약관"
@@ -842,7 +848,7 @@ msgstr "현재 API key 삭제하고 새 키를 생성하세요"
 msgid "Generate new API key"
 msgstr "새로운 API key 생성"
 
-#: core/templates/user/api_key.html:55 software/templates/features.html:515
+#: core/templates/user/api_key.html:55 software/templates/features.html:533
 msgid "Documentation"
 msgstr "문서"
 
@@ -865,8 +871,8 @@ msgid ""
 "and can't be undone. "
 msgstr ""
 "이 작업은 사용자 계정 \"%(username)s\"을 삭제합니다. \n"
-"또한  관련된 모든 데이터(Workout, 로그 등)를 완전히 제거하며, 취소할 수 "
-"없습니다. "
+"또한  관련된 모든 데이터(Workout, 로그 등)를 완전히 제거하며, 취소할 수 없습"
+"니다. "
 
 #: core/templates/user/login.html:17
 msgid "No account?"
@@ -895,7 +901,6 @@ msgstr "개요"
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:152
 #: exercises/models/base.py:122 exercises/models/base.py:128
-#: exercises/models/image.py:107 exercises/models/image.py:113
 #: exercises/models/translation.py:61 exercises/models/translation.py:67
 #: exercises/models/video.py:163 exercises/models/video.py:169
 #: gallery/models/image.py:42 manager/helpers.py:88 manager/models/log.py:53
@@ -911,7 +916,7 @@ msgstr "일자"
 #: exercises/models/translation.py:49 gallery/models/image.py:65
 #: gym/models/contract.py:58 gym/models/contract.py:109
 #: manager/models/day.py:79 manager/models/routine.py:87
-#: measurements/models/measurement.py:61 nutrition/models/plan.py:65
+#: measurements/models/measurement.py:61 nutrition/models/plan.py:76
 msgid "Description"
 msgstr "설명"
 
@@ -1028,8 +1033,7 @@ msgid "Details"
 msgstr "세부정보"
 
 #: core/templates/user/overview.html:276 gym/views/export.py:57
-#: manager/helpers.py:89 nutrition/views/plan.py:151
-#: nutrition/views/plan.py:157
+#: manager/helpers.py:89
 msgid "Nr."
 msgstr "Nr."
 
@@ -1119,7 +1123,7 @@ msgstr "운동에 참여하려면 이메일을 확인해야 합니다"
 msgid "Change password"
 msgstr "비밀번호 변경"
 
-#: core/templatetags/wger_extras.py:142 i18n.tpl:37
+#: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
 msgstr "kg"
 
@@ -1135,7 +1139,7 @@ msgctxt "weight unit, i.e. grams"
 msgid "g"
 msgstr "g"
 
-#: core/templatetags/wger_extras.py:147 i18n.tpl:38
+#: core/templatetags/wger_extras.py:147 i18n.tpl:39
 msgid "lb"
 msgstr "lb"
 
@@ -1261,7 +1265,7 @@ msgid "Exercise Categories"
 msgstr "예시 카테고리"
 
 #: exercises/models/comment.py:49 exercises/models/exercise_alias.py:50
-#: exercises/models/image.py:74 exercises/models/video.py:98
+#: exercises/models/image.py:75 exercises/models/video.py:98
 #: manager/helpers.py:89 manager/models/log.py:91
 msgid "Exercise"
 msgstr "예시"
@@ -1274,52 +1278,34 @@ msgstr "이 운동을 올바르게 하는 방법에 대한 의견."
 msgid "Alias for an exercise"
 msgstr "운동의 별칭"
 
-#: exercises/models/image.py:57
+#: exercises/models/image.py:58
 msgid "Line"
 msgstr "줄"
 
-#: exercises/models/image.py:58
+#: exercises/models/image.py:59
 msgid "3D"
 msgstr "3D"
 
-#: exercises/models/image.py:59
+#: exercises/models/image.py:60
 msgid "Low-poly"
 msgstr "Low-poly"
 
-#: exercises/models/image.py:60
+#: exercises/models/image.py:61
 msgid "Photo"
 msgstr "사진"
 
-#: exercises/models/image.py:61
+#: exercises/models/image.py:62
 msgid "Other"
 msgstr "기타"
 
-#: exercises/models/image.py:80 gallery/models/image.py:51
+#: exercises/models/image.py:81 gallery/models/image.py:51
 #: nutrition/models/image.py:59
 msgid "Image"
 msgstr "이미지"
 
-#: exercises/models/image.py:81 gallery/models/image.py:52
-#: nutrition/models/image.py:60
-msgid "Only PNG and JPEG formats are supported"
-msgstr "PNG,JPEG 포맷만 지원합니다"
-
-#: exercises/models/image.py:87
+#: exercises/models/image.py:89
 msgid "Main picture"
 msgstr "메인 그림"
-
-#: exercises/models/image.py:90
-msgid ""
-"Tick the box if you want to set this image as the main one for the exercise "
-"(will be shown e.g. in the search). The first image is automatically marked "
-"by the system."
-msgstr ""
-"이 이미지를 연습의 주요 이미지로 설정하려면 확인란을 선택하세요(검색 결과 "
-"등에 표시됩니다). 첫 번째 이미지는 시스템에서 자동으로 선택됩니다."
-
-#: exercises/models/image.py:99
-msgid "The art style of your image"
-msgstr "이미지의 아트 스타일"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
@@ -1401,7 +1387,7 @@ msgstr "활동"
 #: gym/templates/gym/reset_user_password.html:20 manager/models/log.py:59
 #: manager/models/routine.py:76 manager/models/session.py:47
 #: measurements/models/category.py:31 measurements/models/measurement.py:41
-#: nutrition/models/plan.py:52 weight/models.py:60
+#: nutrition/models/plan.py:51 weight/models.py:60
 msgid "User"
 msgstr "사용자"
 
@@ -1452,6 +1438,10 @@ msgstr "장비를 삭제하시겠습니까?"
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
 msgstr "근육 추가"
+
+#: gallery/models/image.py:52 nutrition/models/image.py:60
+msgid "Only PNG and JPEG formats are supported"
+msgstr "PNG,JPEG 포맷만 지원합니다"
 
 #: gallery/templates/images/overview.html:72
 msgid "Add image"
@@ -1537,12 +1527,12 @@ msgid "Contract is active"
 msgstr "계약이 활성화되었습니다"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
-#: manager/models/routine.py:100
+#: manager/models/routine.py:98 nutrition/models/plan.py:62
 msgid "Start date"
 msgstr "시작 날짜"
 
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
-#: manager/models/routine.py:104
+#: manager/models/routine.py:102 nutrition/models/plan.py:68
 msgid "End date"
 msgstr "종료 날짜"
 
@@ -1582,7 +1572,8 @@ msgstr "소유자"
 msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
-msgstr "사용자가 마지막으로 자신의 존재를 기록한 이후 비활성으로 간주되기까지 걸린 "
+msgstr ""
+"사용자가 마지막으로 자신의 존재를 기록한 이후 비활성으로 간주되기까지 걸린 "
 "주 수"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
@@ -1592,6 +1583,11 @@ msgstr "헤더에 이름 표시"
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
 msgstr "Site Header에 Gym 이름 표시"
+
+#: gym/models/gym_config.py:68
+#, python-brace-format
+msgid "Configuration for {self.gym.name}"
+msgstr ""
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
@@ -1710,8 +1706,8 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"사용자 암호를 적어 두거나, 모든 사용자 데이터가 포함된 내보낸 파일을 "
-"저장하고, \n"
+"사용자 암호를 적어 두거나, 모든 사용자 데이터가 포함된 내보낸 파일을 저장하"
+"고, \n"
 "안전한 장소에 보관하십시오. \n"
 "암호는 복구할 수 없습니다."
 
@@ -1723,7 +1719,8 @@ msgstr "사용자 데이터 내보내기"
 msgid ""
 "This user's password has been reset. Please notify the user of their new "
 "password."
-msgstr "이 사용자의 비밀번호가 재설정되었습니다. 사용자에게 새 비밀번호를 알려주세요."
+msgstr ""
+"이 사용자의 비밀번호가 재설정되었습니다. 사용자에게 새 비밀번호를 알려주세요."
 
 #: gym/views/admin_notes.py:95 gym/views/document.py:95
 msgid "Add note"
@@ -1875,30 +1872,34 @@ msgid "Repetitions"
 msgstr "반복"
 
 #: i18n.tpl:31
+msgid "Resistance band"
+msgstr ""
+
+#: i18n.tpl:32
 msgid "SZ-Bar"
 msgstr "SZ바"
 
-#: i18n.tpl:32
+#: i18n.tpl:33
 msgid "Seconds"
 msgstr "초"
 
-#: i18n.tpl:33
+#: i18n.tpl:34
 msgid "Shoulders"
 msgstr "어깨"
 
-#: i18n.tpl:34
+#: i18n.tpl:35
 msgid "Swiss Ball"
 msgstr "스위스볼"
 
-#: i18n.tpl:35
+#: i18n.tpl:36
 msgid "Triceps"
 msgstr "삼두근"
 
-#: i18n.tpl:36
+#: i18n.tpl:37
 msgid "Until Failure"
 msgstr "실패 전까지"
 
-#: i18n.tpl:39
+#: i18n.tpl:40
 msgid "none (bodyweight exercise)"
 msgstr "없음(체중 운동)"
 
@@ -1936,7 +1937,8 @@ msgstr "검토할 수 있는 미리보기 이메일을 받게 됩니다"
 msgid ""
 "You can update and correct the content as often as you need before sending "
 "the emails"
-msgstr "이메일을 보내기 전에 필요에 따라 콘텐츠를 업데이트하고 수정할 수 있습니다"
+msgstr ""
+"이메일을 보내기 전에 필요에 따라 콘텐츠를 업데이트하고 수정할 수 있습니다"
 
 #: mailer/templates/mailer/gym/preview.html:22
 #: software/templates/about_us.html:167
@@ -1952,25 +1954,9 @@ msgstr "이메일 보내기"
 msgid "Correction"
 msgstr "보정"
 
-#: manager/dataclasses.py:106
-msgid "Sets"
-msgstr "세트"
-
 #: manager/dataclasses.py:124 manager/helpers.py:89
 msgid "Reps"
 msgstr "랩스"
-
-#: manager/dataclasses.py:158
-msgid "RiR"
-msgstr "RiR"
-
-#: manager/dataclasses.py:165
-msgid "rest"
-msgstr "휴식"
-
-#: manager/helpers.py:80
-msgid "Rest day"
-msgstr "휴식"
 
 #: manager/management/commands/email-reminders.py:89
 msgid "Routine will expire soon"
@@ -1999,29 +1985,29 @@ msgstr "운동"
 msgid "Unit"
 msgstr "단위"
 
-#: manager/models/routine.py:95 nutrition/models/plan.py:58
+#: manager/models/routine.py:93 nutrition/models/plan.py:57
 msgid "Creation date"
 msgstr "생성일"
 
-#: manager/models/routine.py:108
+#: manager/models/routine.py:106
 msgid "Workout template"
 msgstr "운동 알림 템플릿"
 
-#: manager/models/routine.py:110
+#: manager/models/routine.py:108
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr "운동을 템플릿으로 표시하면 운동이 고정되고 사본을 만들 수 있습니다"
 
-#: manager/models/routine.py:118
+#: manager/models/routine.py:116
 msgid "Public template"
 msgstr "공개 템플릿"
 
-#: manager/models/routine.py:119
+#: manager/models/routine.py:117
 msgid "A public template is available to other users"
 msgstr "공개 템플릿은 다른 사용자에게 제공됩니다"
 
-#: manager/models/routine.py:157 manager/models/session.py:147
+#: manager/models/routine.py:155 manager/models/session.py:147
 msgid "The start time cannot be after the end time."
 msgstr "시작 시간은 종료 시간 이후일 수 없습니다."
 
@@ -2204,6 +2190,11 @@ msgstr "제품 링크"
 msgid "Brand name of product"
 msgstr "제품의 브랜드 이름"
 
+#: nutrition/models/ingredient.py:320
+#, python-brace-format
+msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
+msgstr ""
+
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
 msgstr "성분 카테고리"
@@ -2217,7 +2208,7 @@ msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
 msgstr "단위 수량, 예: \"1컵\" 또는 \"1/2스푼\""
 
 #: nutrition/models/log.py:52 nutrition/models/meal.py:48
-#: nutrition/models/meal_item.py:48 nutrition/models/plan.py:106
+#: nutrition/models/meal_item.py:48 nutrition/models/plan.py:117
 msgid "Nutrition plan"
 msgstr "영양 계획"
 
@@ -2237,24 +2228,26 @@ msgstr "시간(대략)"
 msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
-msgstr "\"아침 식사\" 또는 \"운동 후\"와 같이 식사에 대한 텍스트 설명/이름을 "
-"지정하세요"
+msgstr ""
+"\"아침 식사\" 또는 \"운동 후\"와 같이 식사에 대한 텍스트 설명/이름을 지정하세"
+"요"
 
-#: nutrition/models/plan.py:67
+#: nutrition/models/plan.py:78
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
 msgstr "계획의 목표에 대한 설명(예: \"체중 증가\" 또는 \"여름 준비\")"
 
-#: nutrition/models/plan.py:88
+#: nutrition/models/plan.py:99
 msgid "Use daily calories"
 msgstr "일일 사용 칼로리"
 
-#: nutrition/models/plan.py:91
+#: nutrition/models/plan.py:102
 msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
-msgstr "이 계획에 목표 칼로리량을 설정하려면 체크 표시를 하세요. 계산기를 사용하거나 "
+msgstr ""
+"이 계획에 목표 칼로리량을 설정하려면 체크 표시를 하세요. 계산기를 사용하거나 "
 "직접 값을 입력할 수 있습니다."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
@@ -2393,8 +2386,8 @@ msgid ""
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
 "총 칼로리는 하루 실제 총 칼로리입니다.\n"
-"여기에는 벌크업이나 컷팅을 하는 경우 과잉 또는 부족이 포함될 수 있습니다. "
-"또는\n"
+"여기에는 벌크업이나 컷팅을 하는 경우 과잉 또는 부족이 포함될 수 있습니다. 또"
+"는\n"
 "칼로리 값을 알고 있다면 직접 입력할 수도 있습니다."
 
 #: nutrition/templates/rate/form.html:102
@@ -2436,10 +2429,6 @@ msgstr "%s의 영양 계획"
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr "<i>이건 빈 계획인데, PDF에서 무엇을 기대하셨나요?</i>"
 
-#: nutrition/views/plan.py:230
-msgid "Nutritional data"
-msgstr "영양 데이터"
-
 #: nutrition/views/plan.py:238
 msgid "Total"
 msgstr "총"
@@ -2471,9 +2460,9 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
-"wger는 운동 추적, 영양 관리, 그리고 피트니스 목표 달성을 도와줍니다. 직접 "
-"호스팅할 수 있는 무료 오픈 소스 소프트웨어로 제공되며, 간편한 액세스를 위해 "
-"편리한 무료 호스팅 버전도 제공합니다."
+"wger는 운동 추적, 영양 관리, 그리고 피트니스 목표 달성을 도와줍니다. 직접 호"
+"스팅할 수 있는 무료 오픈 소스 소프트웨어로 제공되며, 간편한 액세스를 위해 편"
+"리한 무료 호스팅 버전도 제공합니다."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
@@ -2487,11 +2476,11 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
-"wger는 오픈 소스 원칙을 기반으로 구축되었습니다. 코드는 커뮤니티에서 "
-"개발하여 공개적으로 사용 가능하며, 투명성을 보장하고 사용자가 데이터를 직접 "
-"관리할 수 있도록 지원합니다(특히 셀프 호스팅의 경우). 무료 호스팅 서비스는 "
-"전적으로 오픈 소스 기반으로 운영됩니다. 강력한 피트니스 도구는 누구나 이용할 "
-"수 있어야 한다고 생각합니다."
+"wger는 오픈 소스 원칙을 기반으로 구축되었습니다. 코드는 커뮤니티에서 개발하"
+"여 공개적으로 사용 가능하며, 투명성을 보장하고 사용자가 데이터를 직접 관리할 "
+"수 있도록 지원합니다(특히 셀프 호스팅의 경우). 무료 호스팅 서비스는 전적으로 "
+"오픈 소스 기반으로 운영됩니다. 강력한 피트니스 도구는 누구나 이용할 수 있어"
+"야 한다고 생각합니다."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
@@ -2509,8 +2498,9 @@ msgstr "Discord 서버에 가입하세요"
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
-msgstr "개발자 및 다른 사용자와 채팅하고, 질문을 하거나 새로운 기능에 대해 "
-"논의하려면 Discord 서버에 접속하세요."
+msgstr ""
+"개발자 및 다른 사용자와 채팅하고, 질문을 하거나 새로운 기능에 대해 논의하려"
+"면 Discord 서버에 접속하세요."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
@@ -2521,9 +2511,9 @@ msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
-"널리 알려주세요: 친구, 헬스장 친구들에게 알리거나 소셜 미디어에 공유해 "
-"주세요! 여러분의 열정은 저희가 성장하고 더 많은 사람들에게 다가가는 데 큰 "
-"힘이 됩니다."
+"널리 알려주세요: 친구, 헬스장 친구들에게 알리거나 소셜 미디어에 공유해 주세"
+"요! 여러분의 열정은 저희가 성장하고 더 많은 사람들에게 다가가는 데 큰 힘이 됩"
+"니다."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
@@ -2575,12 +2565,12 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
-"프로젝트는 무료이며 앞으로도 계속 무료일 것이지만, 서버 운영은 그렇지 "
-"않습니다! wger 호스팅 버전을 제공하는 데는 서버 호스팅, 대역폭, 백업 등에 "
-"대한 실질적인 지속적인 비용이 발생합니다. 개발에는 자원봉사자들의 상당한 "
-"시간과 노력이 필요합니다. 여러분의 기부는 이러한 필수적인 비용을 직접적으로 "
-"지원하여 서비스의 안정성을 유지하고, 개선하며, 모두에게 무료로 제공하는 데 "
-"도움이 됩니다."
+"프로젝트는 무료이며 앞으로도 계속 무료일 것이지만, 서버 운영은 그렇지 않습니"
+"다! wger 호스팅 버전을 제공하는 데는 서버 호스팅, 대역폭, 백업 등에 대한 실질"
+"적인 지속적인 비용이 발생합니다. 개발에는 자원봉사자들의 상당한 시간과 노력"
+"이 필요합니다. 여러분의 기부는 이러한 필수적인 비용을 직접적으로 지원하여 서"
+"비스의 안정성을 유지하고, 개선하며, 모두에게 무료로 제공하는 데 도움이 됩니"
+"다."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
@@ -2594,8 +2584,9 @@ msgstr "감사합니다!"
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
-msgstr "커뮤니티에 참여해 주셔서 감사합니다! 여러분의 많은 이용과 피드백, 그리고 "
-"지원에 감사드립니다."
+msgstr ""
+"커뮤니티에 참여해 주셔서 감사합니다! 여러분의 많은 이용과 피드백, 그리고 지원"
+"에 감사드립니다."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
@@ -2607,21 +2598,22 @@ msgid ""
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"목표는 포괄적이고 완벽한 운동 및 재료 목록과 함께 훌륭하고 유연한 피트니스 "
-"관리자를 구축하는 것이며, 이 모든 것은 무료 라이선스로 공개됩니다."
+"목표는 포괄적이고 완벽한 운동 및 재료 목록과 함께 훌륭하고 유연한 피트니스 관"
+"리자를 구축하는 것이며, 이 모든 것은 무료 라이선스로 공개됩니다."
 
 #: software/templates/features.html:11
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
-msgstr "wger 운동 관리기는 운동과 훈련을 관리하는 무료 오픈 소스 웹 "
-"애플리케이션입니다."
+msgstr ""
+"wger 운동 관리기는 운동과 훈련을 관리하는 무료 오픈 소스 웹 애플리케이션입니"
+"다."
 
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "모바일 앱"
 
-#: software/templates/features.html:63 software/templates/features.html:319
+#: software/templates/features.html:63 software/templates/features.html:337
 msgid "Donate"
 msgstr "기부"
 
@@ -2629,201 +2621,209 @@ msgstr "기부"
 msgid "Develop"
 msgstr "개발자"
 
-#: software/templates/features.html:73 software/templates/features.html:458
+#: software/templates/features.html:73 software/templates/features.html:476
 msgid "Community"
 msgstr "커뮤니티"
 
-#: software/templates/features.html:107
+#: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
 msgstr "이상적인 몸매를 <br> 찾아가는 길을 <br>추적하세요"
 
-#: software/templates/features.html:110
+#: software/templates/features.html:113
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
-msgstr "커뮤니티 중심의 <b>무료 오픈 소스 피트니스 추적기</b>인 wger에 가입하세요"
+msgstr ""
+"커뮤니티 중심의 <b>무료 오픈 소스 피트니스 추적기</b>인 wger에 가입하세요"
 
-#: software/templates/features.html:120
+#: software/templates/features.html:123
 msgid "Get Started"
 msgstr "시작하기"
 
-#: software/templates/features.html:130
+#: software/templates/features.html:133
 msgid "people <br> using wger"
 msgstr "wger를 사용하는 <br>사람들"
 
-#: software/templates/features.html:134
+#: software/templates/features.html:137
 msgid "exercises <br> for workout creation"
 msgstr "운동 만들기를 위한 <br>운동"
 
-#: software/templates/features.html:138
-msgid "foods <br> for meal planing"
+#: software/templates/features.html:141
+#, fuzzy
+#| msgid "foods <br> for meal planing"
+msgid "foods <br> for meal planning"
 msgstr "식사 계획을 위한 <br>음식"
 
-#: software/templates/features.html:142
+#: software/templates/features.html:145
 msgid "stars <br> on GitHub"
 msgstr "GitHub에서 <br>별점"
 
-#: software/templates/features.html:166
+#: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
 msgstr "완벽한 <span>운동 루틴</span>을 만들어 보세요"
 
-#: software/templates/features.html:170
+#: software/templates/features.html:177
 msgid "Design a weekly workout plan from more than 100 exercises"
 msgstr "100개 이상의 운동으로 주간 운동 계획을 설계하세요"
 
-#: software/templates/features.html:173
+#: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr "각 운동에 대한 반복 횟수와 세트, 기간 또는 거리 목표를 설정합니다"
 
-#: software/templates/features.html:176
+#: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
 msgstr "단계별로 운동을 안내받으세요"
 
-#: software/templates/features.html:179
+#: software/templates/features.html:186
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr "수행한 운동을 추적하고 수행한 내용을 확인하세요"
 
-#: software/templates/features.html:200
+#: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
 msgstr "<span>매일의 식사</span>를 계획하세요"
 
-#: software/templates/features.html:204
+#: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
-msgstr "더 나은 성과를 내는 데 도움이 되는 영양가 있는 식사로 일주일을 채우세요"
+msgstr ""
+"더 나은 성과를 내는 데 도움이 되는 영양가 있는 식사로 일주일을 채우세요"
 
-#: software/templates/features.html:207
+#: software/templates/features.html:218
 msgid "Build meals from a database of more than 2 million foods"
 msgstr "200만 개 이상의 식품 데이터베이스에서 식사를 구성하세요"
 
-#: software/templates/features.html:210
+#: software/templates/features.html:221
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
-msgstr "개별 식사와 전체 주간 계획에 대한 영양 가치(에너지, 단백질, 탄수화물 등)를 "
-"자동으로 계산해 보세요"
+msgstr ""
+"개별 식사와 전체 주간 계획에 대한 영양 가치(에너지, 단백질, 탄수화물 등)를 자"
+"동으로 계산해 보세요"
 
-#: software/templates/features.html:237
+#: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
 msgstr "<span>진행 상황</span>을 추적하세요"
 
-#: software/templates/features.html:242
+#: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
 msgstr "식사와 운동에 대한 모든 것을 추적하고 주석을 달아보세요"
 
-#: software/templates/features.html:245
+#: software/templates/features.html:259
 msgid "Add custom notes"
 msgstr "맞춤 메모 추가"
 
-#: software/templates/features.html:248
+#: software/templates/features.html:262
 msgid "Record your weight"
 msgstr "체중을 기록하세요"
 
-#: software/templates/features.html:251
+#: software/templates/features.html:265
 msgid "Keep a photo log to see your progress"
 msgstr "진행 상황을 확인하려면 사진 기록을 남겨보세요"
 
-#: software/templates/features.html:254
+#: software/templates/features.html:268
 msgid "Use the calendar view to see past entries"
 msgstr "달력 보기를 사용하여 지난 항목을 확인하세요"
 
-#: software/templates/features.html:273
+#: software/templates/features.html:287
 msgid "Try wger now"
 msgstr "지금 Wger를 사용해 보세요"
 
-#: software/templates/features.html:290
+#: software/templates/features.html:308
 msgid "Powered By <span>the community</span>"
 msgstr "<span>커뮤니티</span>의 지원을 받음"
 
-#: software/templates/features.html:293
+#: software/templates/features.html:311
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
-"wger는 오픈 소스 커뮤니티의 자금 지원을 받아 제작되었습니다. 여러분과 같은 "
-"사람들이 번역하고, 운동과 영양 정보를 추가하고, 개발하는 등 다양한 활동을 "
-"하고 있습니다."
+"wger는 오픈 소스 커뮤니티의 자금 지원을 받아 제작되었습니다. 여러분과 같은 사"
+"람들이 번역하고, 운동과 영양 정보를 추가하고, 개발하는 등 다양한 활동을 하고 "
+"있습니다."
 
-#: software/templates/features.html:299
+#: software/templates/features.html:317
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
-msgstr "우리는 광고를 사용하지 않고, 귀하의 개인 정보를 판매하지 않으며, 무료 오픈 "
-"소스 라이선스에 따라 코드를 공유합니다."
+msgstr ""
+"우리는 광고를 사용하지 않고, 귀하의 개인 정보를 판매하지 않으며, 무료 오픈 소"
+"스 라이선스에 따라 코드를 공유합니다."
 
-#: software/templates/features.html:304
+#: software/templates/features.html:322
 msgid "Pitch in and help make wger even better!"
 msgstr "참여하여 wger를 더욱 개선하는 데 도움을 주세요!"
 
-#: software/templates/features.html:313
+#: software/templates/features.html:331
 msgid "Contribute"
 msgstr "기여하다"
 
-#: software/templates/features.html:337
+#: software/templates/features.html:355
 msgid "Sign Up Now For Free"
 msgstr "지금 무료로 가입하세요"
 
-#: software/templates/features.html:351
+#: software/templates/features.html:369
 msgid "Web version not enough?"
 msgstr "웹 버전이 부족하신가요?"
 
-#: software/templates/features.html:353
+#: software/templates/features.html:371
 msgid "Get the code, too!"
 msgstr "코드도 받으세요!"
 
-#: software/templates/features.html:364
+#: software/templates/features.html:382
 msgid "Set up a private server for your gym"
 msgstr "헬스장을 위한 개인 서버 설정"
 
-#: software/templates/features.html:367
+#: software/templates/features.html:385
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
-msgstr "온라인 서비스에 데이터가 저장되는 것을 원치 않으시나요? 나만의 서버에 wger "
-"인스턴스를 무료로 설정하세요!"
+msgstr ""
+"온라인 서비스에 데이터가 저장되는 것을 원치 않으시나요? 나만의 서버에 wger 인"
+"스턴스를 무료로 설정하세요!"
 
-#: software/templates/features.html:381
+#: software/templates/features.html:399
 msgid "Integrate with your own app"
 msgstr "자체 앱과 통합"
 
-#: software/templates/features.html:384
+#: software/templates/features.html:402
 msgid "wger offers an open API that you can use for your app."
 msgstr "wger는 앱에 사용할 수 있는 개방형 API를 제공합니다."
 
-#: software/templates/features.html:395
+#: software/templates/features.html:413
 msgid "Create your own version"
 msgstr "나만의 버전 만들기"
 
-#: software/templates/features.html:398
+#: software/templates/features.html:416
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
-msgstr "소스 코드는 GNU AGPLv3 라이선스에 따라 제공됩니다! GitHub에서 포크해 보세요."
+msgstr ""
+"소스 코드는 GNU AGPLv3 라이선스에 따라 제공됩니다! GitHub에서 포크해 보세요."
 
-#: software/templates/features.html:419
+#: software/templates/features.html:437
 msgid "Account"
 msgstr "계정"
 
-#: software/templates/features.html:467
+#: software/templates/features.html:485
 msgid "Workout routines"
 msgstr "운동 루틴"
 
-#: software/templates/features.html:473
+#: software/templates/features.html:491
 msgid "Discord"
 msgstr "Discord"
 
-#: software/templates/features.html:488
+#: software/templates/features.html:506
 msgid "Software"
 msgstr "소프트웨어"
 
-#: software/templates/features.html:494
+#: software/templates/features.html:512
 msgid "Report an issue"
 msgstr "이슈 신고"
 
-#: software/templates/features.html:500
+#: software/templates/features.html:518
 msgid "Source Code"
 msgstr "소스코드"
 
-#: software/templates/features.html:506
+#: software/templates/features.html:524
 msgid "Translation"
 msgstr "번역"
 
@@ -2861,18 +2861,18 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
-"파생 작품이란 단순히 기존 작품을 기반으로 하는 것이 아니라, 그 자체로 "
-"저작권을 가질 만큼 충분히 새롭고 창의적인 콘텐츠를 포함하는 작품을 말합니다."
+"파생 작품이란 단순히 기존 작품을 기반으로 하는 것이 아니라, 그 자체로 저작권"
+"을 가질 만큼 충분히 새롭고 창의적인 콘텐츠를 포함하는 작품을 말합니다."
 
-#: weight/forms.py:46
+#: weight/forms.py:53
 msgid "Input"
 msgstr "입력"
 
-#: weight/forms.py:47
+#: weight/forms.py:54
 msgid "Date format"
 msgstr "날짜 포맷"
 
-#: weight/management/commands/email-weight-reminder.py:78
+#: weight/management/commands/email-weight-reminder.py:81
 msgid "You have to enter your weight"
 msgstr "체중을 입력해야 합니다"
 
@@ -2902,8 +2902,8 @@ msgid ""
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
 "스프레드시트에서 텍스트 입력란에 복사하여 붙여넣을 수 있습니다.\n"
-"시스템에서 가져올 형식을 추측합니다. 단, 첫 번째 열은 <strong>날짜</"
-"strong>이고 두 번째 열은 <strong>체중</strong>이라는 점만 고려하면 됩니다.\n"
+"시스템에서 가져올 형식을 추측합니다. 단, 첫 번째 열은 <strong>날짜</strong>이"
+"고 두 번째 열은 <strong>체중</strong>이라는 점만 고려하면 됩니다.\n"
 "그 외의 모든 열은 무시됩니다. \n"
 "행은 최대 1,000개까지 입력할 수 있습니다.\n"
 
@@ -2979,8 +2979,8 @@ msgstr ""
 "성공적으로 변환된 모든 항목을 체중 기록으로 가져오려면 \n"
 "여기에서 계속하세요.\n"
 "오류가 발생한 모든 항목은 무시됩니다.\n"
-"유용한 항목(인식되지 않은 항목)인지 아닌지(예: 헤더, 댓글 등)는 사용자가 "
-"직접 결정해야 합니다."
+"유용한 항목(인식되지 않은 항목)인지 아닌지(예: 헤더, 댓글 등)는 사용자가 직"
+"접 결정해야 합니다."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -3001,6 +3001,32 @@ msgstr ""
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
 msgstr "다시 제출"
+
+#~ msgid ""
+#~ "Tick the box if you want to set this image as the main one for the "
+#~ "exercise (will be shown e.g. in the search). The first image is "
+#~ "automatically marked by the system."
+#~ msgstr ""
+#~ "이 이미지를 연습의 주요 이미지로 설정하려면 확인란을 선택하세요(검색 결과 "
+#~ "등에 표시됩니다). 첫 번째 이미지는 시스템에서 자동으로 선택됩니다."
+
+#~ msgid "The art style of your image"
+#~ msgstr "이미지의 아트 스타일"
+
+#~ msgid "Sets"
+#~ msgstr "세트"
+
+#~ msgid "RiR"
+#~ msgstr "RiR"
+
+#~ msgid "rest"
+#~ msgstr "휴식"
+
+#~ msgid "Rest day"
+#~ msgstr "휴식"
+
+#~ msgid "Nutritional data"
+#~ msgstr "영양 데이터"
 
 #~ msgid "Workouts"
 #~ msgstr "Workouts"
