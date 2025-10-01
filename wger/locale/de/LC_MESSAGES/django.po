@@ -2237,7 +2237,7 @@ msgstr "Markenname des Produkts"
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
 msgstr ""
-"Die gesamte Energie ({eigene Energie} kcal) ist nicht die ungefähre Summe "
+"Die gesamte Energie ({self.energy} kcal) ist nicht die ungefähre Summe "
 "der "
 
 #: nutrition/models/ingredient_category.py:31
