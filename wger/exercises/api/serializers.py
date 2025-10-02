@@ -51,7 +51,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = [
+        fields = (
             'id',
             'uuid',
             'created',
@@ -62,7 +62,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             'equipment',
             'variations',
             'license_author',
-        ]
+        )
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
@@ -72,7 +72,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Equipment
-        fields = ['id', 'name']
+        fields = ('id', 'name')
 
 
 class DeletionLogSerializer(serializers.ModelSerializer):
@@ -82,13 +82,13 @@ class DeletionLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeletionLog
-        fields = [
+        fields = (
             'model_type',
             'uuid',
             'replaced_by',
             'timestamp',
             'comment',
-        ]
+        )
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
@@ -101,7 +101,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseImage
-        fields = [
+        fields = (
             'id',
             'uuid',
             'exercise',
@@ -116,7 +116,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'license_author_url',
             'license_derivative_source_url',
             'author_history',
-        ]
+        )
 
 
 class ExerciseVideoSerializer(serializers.ModelSerializer):
@@ -129,7 +129,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseVideo
-        fields = [
+        fields = (
             'id',
             'uuid',
             'exercise',
@@ -149,7 +149,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'license_author_url',
             'license_derivative_source_url',
             'author_history',
-        ]
+        )
 
 
 class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
@@ -161,7 +161,7 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseVideo
-        fields = [
+        fields = (
             'id',
             'uuid',
             'exercise',
@@ -180,7 +180,7 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
             'license_author_url',
             'license_derivative_source_url',
             'author_history',
-        ]
+        )
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
@@ -192,12 +192,12 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseComment
-        fields = [
+        fields = (
             'id',
             'uuid',
             'translation',
             'comment',
-        ]
+        )
 
 
 class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
@@ -207,9 +207,7 @@ class ExerciseCommentSubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseComment
-        fields = [
-            'comment',
-        ]
+        fields = ('comment',)
 
     def create(self, validated_data, **kwargs):
         """
@@ -259,12 +257,12 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = [
+        fields = (
             'id',
             'uuid',
             'translation',
             'alias',
-        ]
+        )
 
 
 class ExerciseAliasSubmissionSerializer(serializers.ModelSerializer):
@@ -274,9 +272,7 @@ class ExerciseAliasSubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = [
-            'alias',
-        ]
+        fields = ('alias',)
 
     def create(self, validated_data, **kwargs):
         """
@@ -301,9 +297,7 @@ class ExerciseVariationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Variation
-        fields = [
-            'id',
-        ]
+        fields = ('id',)
 
 
 class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
@@ -313,11 +307,11 @@ class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = [
+        fields = (
             'id',
             'uuid',
             'alias',
-        ]
+        )
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
@@ -327,7 +321,7 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseCategory
-        fields = ['id', 'name']
+        fields = ('id', 'name')
 
 
 class MuscleSerializer(serializers.ModelSerializer):
@@ -340,14 +334,14 @@ class MuscleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Muscle
-        fields = [
+        fields = (
             'id',
             'name',
             'name_en',
             'is_front',
             'image_url_main',
             'image_url_secondary',
-        ]
+        )
 
 
 class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
@@ -541,7 +535,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         depth = 1
-        fields = [
+        fields = (
             'id',
             'uuid',
             'created',
@@ -560,7 +554,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             'videos',
             'author_history',
             'total_authors_history',
-        ]
+        )
 
     def to_representation(self, instance):
         """
@@ -627,7 +621,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        fields = [
+        fields = (
             'id',
             'category',
             'muscles',
@@ -638,7 +632,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             'license',
             'license_author',
             'translations',
-        ]
+        )
         model = Exercise
 
     def validate(self, data):

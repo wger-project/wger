@@ -217,12 +217,12 @@ class MealItemForm(forms.ModelForm):
 
     class Meta:
         model = MealItem
-        fields = [
+        fields = (
             'ingredient',
             'english_results',
             'weight_unit',
             'amount',
-        ]
+        )
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
@@ -270,12 +270,12 @@ class MealLogItemForm(MealItemForm):
 
     class Meta:
         model = LogItem
-        fields = [
+        fields = (
             'ingredient',
             'weight_unit',
             'amount',
             'datetime',
-        ]
+        )
 
     def __init__(self, *args, **kwargs):
         super(MealLogItemForm, self).__init__(*args, **kwargs)
@@ -295,7 +295,7 @@ class MealLogItemForm(MealItemForm):
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = [
+        fields = (
             'name',
             'brand',
             'energy',
@@ -308,7 +308,7 @@ class IngredientForm(forms.ModelForm):
             'sodium',
             'license',
             'license_author',
-        ]
+        )
         widgets = {'category': forms.TextInput}
 
     def __init__(self, *args, **kwargs):

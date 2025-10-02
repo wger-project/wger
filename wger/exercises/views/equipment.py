@@ -58,7 +58,7 @@ class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
 
     model = Equipment
-    fields = ['name']
+    fields = ('name',)
     template_name = 'equipment/admin-overview.html'
     context_object_name = 'equipment_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
@@ -71,7 +71,7 @@ class EquipmentEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
     """
 
     model = Equipment
-    fields = ['name']
+    fields = ('name',)
     permission_required = 'exercises.change_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
@@ -88,7 +88,7 @@ class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = Equipment
-    fields = ['name']
+    fields = ('name',)
     title = gettext_lazy('Add new equipment')
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')

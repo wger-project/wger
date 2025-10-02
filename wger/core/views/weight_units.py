@@ -62,7 +62,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = WeightUnit
-    fields = ['name']
+    fields = ('name',)
     title = gettext_lazy('Add')
     success_url = reverse_lazy('core:weight-unit:list')
     permission_required = 'core.add_weightunit'
@@ -74,7 +74,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = WeightUnit
-    fields = ['name']
+    fields = ('name',)
     success_url = reverse_lazy('core:weight-unit:list')
     permission_required = 'core.change_weightunit'
 

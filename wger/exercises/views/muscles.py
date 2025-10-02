@@ -63,7 +63,7 @@ class MuscleAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
     """
 
     model = Muscle
-    fields = ['name', 'is_front', 'name_en']
+    fields = ('name', 'is_front', 'name_en')
     success_url = reverse_lazy('exercise:muscle:admin-list')
     title = gettext_lazy('Add muscle')
     permission_required = 'exercises.add_muscle'
@@ -75,7 +75,7 @@ class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = Muscle
-    fields = ['name', 'is_front', 'name_en']
+    fields = ('name', 'is_front', 'name_en')
     success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.change_muscle'
 

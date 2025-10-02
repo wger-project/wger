@@ -87,7 +87,7 @@ class WeightUnitIngredientCreateView(
 
             class Meta:
                 model = IngredientWeightUnit
-                fields = ['unit', 'gram', 'amount']
+                fields = ('unit', 'gram', 'amount')
 
         return IngredientWeightUnitForm
 
@@ -119,7 +119,7 @@ class WeightUnitIngredientUpdateView(
 
             class Meta:
                 model = IngredientWeightUnit
-                fields = ['unit', 'gram', 'amount']
+                fields = ('unit', 'gram', 'amount')
 
         return IngredientWeightUnitForm
 

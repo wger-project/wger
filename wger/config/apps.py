@@ -23,4 +23,4 @@ class ConfigConfig(AppConfig):
     verbose_name = 'Config'
 
     def ready(self):
-        import wger.config.signals
+        import wger.config.signals  # noqa: F401
