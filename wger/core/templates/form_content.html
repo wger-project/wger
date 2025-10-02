@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n static crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags %}
 
 {% block header %}
     {{ form.media }}
@@ -26,4 +26,20 @@
 <!--
         Sidebar
 -->
-{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}
+
+
+{% block sidebar %}
+    {% if sidebar %}
+        {% include sidebar %}
+    {% else %}
+        {% if user.is_anonymous %}
+            <h4>{% translate "Already have an account?" %}</h4>
+            <p>
+                <a href="{% url 'core:user:login' %}">
+                    <span class="{% fa_class 'sign-in-alt' %}"></span>
+                    {% translate "Login" %}
+                </a>
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

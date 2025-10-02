@@ -118,7 +118,7 @@
                        href="{% if user.is_authenticated %}
                                 {% url 'core:index' %}
                             {% else %}
-                                {% url 'core:user:login' %}
+                                {% url 'core:user:registration' %}
                             {% endif %}">
                         {% translate "Get Started" %}
                     </a>
