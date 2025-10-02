@@ -29,16 +29,20 @@ All the code and the content is freely available:
 
 * Main repository: <https://github.com/wger-project/wger>
 
-Configuration
--------------
+
+## Configuration
 
 When self-hosting, verification emails may otherwise contain links like
-`http://localhost/...`. To override this, set the `PUBLIC_APP_URL` environment
+`http://localhost/...`. To fix this, set the `SITE_URL` environment
 variable to your public domain:
+```
+SITE_URL=https://your.public.domain
+```
 
-PUBLIC_APP_URL=https://your.public.domain
+This value is used by the application to build absolute links in outgoing
+emails and other places where a full URL is required.
 
-If not set, the application falls back to the `SITE_URL` value.
+
 
 ## Licence
 
