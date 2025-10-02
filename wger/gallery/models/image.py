@@ -25,6 +25,9 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
+# wger
+from wger.utils.images import validate_image_static_no_animation
+
 
 def gallery_upload_dir(instance, filename):
     """
@@ -53,6 +56,7 @@ class Image(models.Model):
         upload_to=gallery_upload_dir,
         height_field='height',
         width_field='width',
+        validators=[validate_image_static_no_animation],
     )
 
     height = models.IntegerField(editable=False)
