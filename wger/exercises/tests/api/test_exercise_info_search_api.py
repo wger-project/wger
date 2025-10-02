@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.urls import reverse
+
 # Third Party
 from rest_framework import status
 
@@ -43,7 +46,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Logged-out users can search via name__search and language__code
         """
-        response = self.client.get(self.url + '?name__search=exercise&language__code=en')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'exercise', 'language__code': 'en'},
+        )
         results = self._results(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(results), 4)
@@ -57,7 +63,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         Logged-in users get the same results
         """
         self.authenticate('test')
-        response = self.client.get(self.url + '?name__search=exercise&language__code=en')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'exercise', 'language__code': 'en'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -71,7 +80,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         A DE-only exercise name should not be found when searching in English
         """
-        response = self.client.get(self.url + '?name__search=Weitere&language__code=en')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'Weitere', 'language__code': 'en'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -81,7 +93,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         A DE-only exercise should be found when searching in German
         """
-        response = self.client.get(self.url + '?name__search=Weitere&language__code=de')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'Weitere', 'language__code': 'de'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -92,7 +107,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Passing different language codes works correctly
         """
-        response = self.client.get(self.url + '?name__search=demo&language__code=en,de')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'demo', 'language__code': 'en,de'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -102,7 +120,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Unknown language codes are ignored
         """
-        response = self.client.get(self.url + '?name__search=demo&language__code=en,de,zz')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'demo', 'language__code': 'en,de,zz'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -112,7 +133,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Disable all language filters when language__code is omitted
         """
-        response = self.client.get(self.url + '?name__search=demo')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'demo'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -122,7 +146,10 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Alias terms should also match
         """
-        response = self.client.get(self.url + '?name__search=different&language__code=en')
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': 'different', 'language__code': 'en'},
+        )
         results = self._results(response)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
