@@ -1,0 +1,17 @@
+
+{% load i18n static wger_extras crispy_forms_tags %}
+
+
+
+{% block sidebar %}
+{% if user.is_anonymous %}
+    <h4>{% trans "Already have an account?" %}</h4>
+    <p>
+        <a href="{% url 'core:user:login' %}">
+            <span class="{% fa_class 'sign-in-alt' %}"></span>
+            {% trans "Login" %}
+        </a>
+    </p>
+{% endif %}
+{% endblock %}
+
