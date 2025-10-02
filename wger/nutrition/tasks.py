@@ -38,7 +38,7 @@ from wger.nutrition.sync import (
 
 logger = logging.getLogger(__name__)
 
-
+PAGE_CHUNKS=100
 @app.task
 def fetch_ingredient_image_task(pk: int):
     """
@@ -60,11 +60,36 @@ def fetch_all_ingredient_images_task():
 
 
 @shared_task
-def sync_all_ingredients_task():
+def chunk_pages(total_pages, chunk_size=PAGE_CHUNK_SIZE):
     """
-    Fetches the current ingredients from the default wger instance
+    Create (start_page, end_page) tuples like (1,100), (101,200), ...
     """
-    sync_ingredients(logger.info, show_progress_bar=False)
+    return [(start, min(start + chunk_size - 1, total_pages))
+            for start in range(1, total_pages + 1, chunk_size)]
+
+
+@shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=60, max_retries=5)
+def sync_ingredient_page_range(self, start_page, end_page):
+    """
+    Syncs a page range with retry support.
+    """
+    for page in range(start_page, end_page + 1):
+        sync_ingredients(page)
+
+
+@shared_task
+def sync_all_ingredients_chunked():
+    """
+    Master task that splits ingredient sync into smaller retryable chunks and runs them sequentially.
+    """
+    total_pages = get_total_pages()
+    tasks = [
+        sync_ingredient_page_range.s(start, end)
+        for start, end in chunk_pages(total_pages)
+    ]
+    return chain(*tasks).delay()
+
+
 
 
 @app.task
@@ -85,7 +110,7 @@ def setup_periodic_tasks(sender, **kwargs):
                 day_of_month=str(randint(1, 28)),
                 month_of_year=choice(['1, 4, 7, 10', '2, 5, 8, 11', '3, 6, 9, 12']),
             ),
-            sync_all_ingredients_task.s(),
+            sync_all_ingredients_chunked.s(),
             name='Sync ingredients',
         )
 
