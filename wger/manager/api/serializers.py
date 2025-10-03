@@ -15,8 +15,9 @@
 
 # Third Party
 from rest_framework import serializers
-
+from django.apps import apps
 # wger
+from wger.exercises.models import Exercise
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
 from wger.manager.api.fields import DecimalOrIntegerField
 from wger.manager.api.validators import validate_requirements
@@ -39,6 +40,11 @@ from wger.manager.models import (
     WorkoutSession,
 )
 
+
+class ExerciseLiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Exercise
+        fields = ['id', 'name']
 
 class RoutineSerializer(serializers.ModelSerializer):
     """
@@ -321,6 +327,13 @@ class SlotEntrySerializer(serializers.ModelSerializer):
     """
     Slot entry serializer
     """
+    # Allow omitting 'exercise' when creating a custom one
+    exercise = serializers.PrimaryKeyRelatedField(queryset=Exercise.objects.all(), required=False)
+
+    # Inline custom-creation helpers (write-only; do not persist)
+    create_custom = serializers.BooleanField(write_only=True, required=False, default=False)
+    custom_name = serializers.CharField(write_only=True, required=False, allow_blank=False)
+    custom_notes = serializers.CharField(write_only=True, required=False, allow_blank=True)
 
     class Meta:
         model = SlotEntry
@@ -336,7 +349,131 @@ class SlotEntrySerializer(serializers.ModelSerializer):
             'order',
             'comment',
             'config',
+            # helpers (write-only)
+            'create_custom',
+            'custom_name',
+            'custom_notes',
         )
+
+    def validate(self, attrs):
+        has_exercise = bool(attrs.get('exercise'))
+        wants_custom = bool(attrs.get('create_custom'))
+
+        if has_exercise and wants_custom:
+            raise serializers.ValidationError(
+                "Provide either an existing exercise or create a custom one, not both.")
+
+        if not has_exercise and not wants_custom:
+            raise serializers.ValidationError("Select a catalog exercise or add a custom one.")
+
+        if wants_custom and not attrs.get('custom_name'):
+            raise serializers.ValidationError("Custom exercise requires a name.")
+
+        return attrs
+
+    def _exercise_field_exists(self, field_name):
+        try:
+            Exercise._meta.get_field(field_name)
+            return True
+        except Exception:
+            return False
+
+    def _maybe_required_fk_default(self, field_name, request):
+        """
+        Best-effort defaults for required FKs like language/category if your Exercise model needs them.
+        """
+        if not self._exercise_field_exists(field_name):
+            return None
+        field = Exercise._meta.get_field(field_name)
+        if getattr(field, 'null', False):
+            return None
+        Model = field.remote_field.model
+        # Try a user-derived value first (if present), else first available
+        candidate = None
+        if request and hasattr(request, 'user'):
+            # common possibilities; safe if absent
+            for attr in ('language',):
+                candidate = getattr(getattr(request.user, 'profile', None), attr, None)
+                if isinstance(candidate, Model):
+                    break
+                candidate = None
+        return candidate or Model.objects.first()
+
+    # inside SlotEntrySerializer
+    def _make_custom_exercise(self, name, notes):
+        request = self.context.get('request')
+
+        # fallbacks for language/category
+        lang = self._maybe_required_fk_default('language', request)  # for translation
+        cat = self._maybe_required_fk_default('category', request)
+
+        # guarantee a category exists
+        ExerciseCategory = apps.get_model('exercises', 'ExerciseCategory')
+        if cat is None:
+            cat = ExerciseCategory.objects.first() or ExerciseCategory.objects.create(name='Custom')
+
+        # create Exercise WITHOUT 'name'
+        create_kwargs = {}
+        for owner_field in ('owner', 'user', 'created_by', 'creation_user'):
+            if self._exercise_field_exists(owner_field) and request:
+                create_kwargs[owner_field] = getattr(request, 'user', None)
+        if self._exercise_field_exists('category') and cat is not None:
+            create_kwargs['category'] = cat
+        # only if Exercise itself has 'language' (often it doesn’t)
+        if self._exercise_field_exists('language') and lang is not None:
+            create_kwargs['language'] = lang
+
+        exercise = Exercise.objects.create(**create_kwargs)
+
+        # add translation with name/description
+        ExerciseTranslation = apps.get_model('exercises', 'ExerciseTranslation')
+        if ExerciseTranslation:
+            tr_kwargs = {'exercise': exercise}
+            if hasattr(ExerciseTranslation, 'language'):
+                if lang is None:
+                    LangModel = ExerciseTranslation._meta.get_field('language').remote_field.model
+                    lang = LangModel.objects.first()
+                tr_kwargs['language'] = lang
+            if hasattr(ExerciseTranslation, 'name'):
+                tr_kwargs['name'] = name
+            if hasattr(ExerciseTranslation, 'description'):
+                tr_kwargs['description'] = notes or ''
+            ExerciseTranslation.objects.create(**tr_kwargs)
+
+        # also create a CustomExercise so it shows on /en/exercise/my/custom-exercises/
+        CustomExercise = apps.get_model('exercises', 'CustomExercise')
+        if CustomExercise and request and getattr(request, 'user', None):
+            ce_fields = {f.name for f in CustomExercise._meta.get_fields()}
+            ce_kwargs = {'user': request.user, 'name': name, 'description': notes or ''}
+            if 'exercise' in ce_fields:
+                ce_kwargs['exercise'] = exercise
+            if 'category' in ce_fields:
+                ce_kwargs['category'] = cat
+            CustomExercise.objects.create(**ce_kwargs)
+
+        return exercise
+
+    def create(self, validated_data):
+        make_custom = validated_data.pop('create_custom', False)
+        custom_name = validated_data.pop('custom_name', None)
+        custom_notes = validated_data.pop('custom_notes', None)  # helpers only
+
+        if make_custom:
+            exercise = self._make_custom_exercise(custom_name, notes=custom_notes)
+            validated_data['exercise'] = exercise
+
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        make_custom = validated_data.pop('create_custom', False)
+        custom_name = validated_data.pop('custom_name', None)
+        custom_notes = validated_data.pop('custom_notes', None)
+
+        if make_custom:
+            exercise = self._make_custom_exercise(custom_name, notes=custom_notes)
+            validated_data['exercise'] = exercise
+
+        return super().update(instance, validated_data)
 
 
 class SetConfigDataSerializer(serializers.Serializer):

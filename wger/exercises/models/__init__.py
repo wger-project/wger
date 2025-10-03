@@ -26,3 +26,4 @@ from .muscle import Muscle
 from .translation import Translation
 from .variation import Variation
 from .video import ExerciseVideo
+from .custom import CustomExercise

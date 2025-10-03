@@ -1,0 +1,6 @@
+<h1>{{ obj|default:'New custom exercise' }}</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<p><a href="{% url 'exercise:custom_exercise_list' %}">Back to list</a></p>

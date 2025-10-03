@@ -1,0 +1,16 @@
+<h1>Your custom exercises</h1>
+<p><a href="{% url 'exercise:custom_exercise_create' %}">Add custom exercise</a></p>
+<ul>
+  {% for e in exercises %}
+    <li>
+      <strong>{{ e.name }}</strong>{% if e.category %} — {{ e.category }}{% endif %}<br>
+      {{ e.description|linebreaksbr }}
+      <div>
+        <a href="{% url 'exercise:custom_exercise_edit' e.pk %}">Edit</a> |
+        <a href="{% url 'exercise:custom_exercise_delete' e.pk %}">Delete</a>
+      </div>
+    </li>
+  {% empty %}
+    <li>No custom exercises yet.</li>
+  {% endfor %}
+</ul>

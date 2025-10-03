@@ -26,6 +26,9 @@ from typing import (
 )
 
 # Django
+from django.db.models import Q
+from django.core.exceptions import ValidationError
+from django.db import models
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
@@ -94,7 +97,40 @@ class SlotEntry(models.Model):
     exercise = models.ForeignKey(
         Exercise,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
+
+    """
+    User-owned exercise entries.
+
+    CustomExercise lets each user define movements not in the global catalog.
+    Uniqueness is per user (user, name) so two users can have the same-named item.
+    Category points to the existing ExerciseCategory; equipment/muscles reuse app models.
+    """
+
+    custom_exercise = models.ForeignKey(
+        'exercises.CustomExercise',
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        related_name='slot_entries',
+    )
+
+    def clean(self):
+        super().clean()
+        has_catalog = bool(getattr(self, 'exercise_id', None)) or bool(
+            getattr(self, 'exercise_base_id', None))
+        has_custom = bool(self.custom_exercise_id)
+        if has_catalog and has_custom:
+            raise ValidationError('Pick either a catalog exercise or a custom one, not both.')
+        if not has_catalog and not has_custom:
+            raise ValidationError('Select a catalog exercise or a custom one.')
+
+    @property
+    def exercise_display(self):
+        return self.custom_exercise or getattr(self, 'exercise', None) or getattr(self,
+                                                                                  'exercise_base',
+                                                                                  None)
 
     repetition_unit = models.ForeignKey(
         RepetitionUnit,
