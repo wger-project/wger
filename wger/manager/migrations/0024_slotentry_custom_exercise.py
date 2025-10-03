@@ -5,9 +5,11 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('exercises', '0034_rename_exercises_e_name_ac11f4_gin_exercises_t_name_6264c9_gin_and_more'),
+        (
+            'exercises',
+            '0034_rename_exercises_e_name_ac11f4_gin_exercises_t_name_6264c9_gin_and_more',
+        ),
         ('manager', '0023_change_validators'),
     ]
 
@@ -15,6 +17,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='slotentry',
             name='custom_exercise',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='slot_entries', to='exercises.customexercise'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='slot_entries',
+                to='exercises.customexercise',
+            ),
         ),
     ]

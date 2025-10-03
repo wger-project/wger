@@ -13,9 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.apps import apps
+
 # Third Party
 from rest_framework import serializers
-from django.apps import apps
+
 # wger
 from wger.exercises.models import Exercise
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
@@ -45,6 +48,7 @@ class ExerciseLiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = ['id', 'name']
+
 
 class RoutineSerializer(serializers.ModelSerializer):
     """
@@ -327,6 +331,7 @@ class SlotEntrySerializer(serializers.ModelSerializer):
     """
     Slot entry serializer
     """
+
     # Allow omitting 'exercise' when creating a custom one
     exercise = serializers.PrimaryKeyRelatedField(queryset=Exercise.objects.all(), required=False)
 
@@ -361,13 +366,14 @@ class SlotEntrySerializer(serializers.ModelSerializer):
 
         if has_exercise and wants_custom:
             raise serializers.ValidationError(
-                "Provide either an existing exercise or create a custom one, not both.")
+                'Provide either an existing exercise or create a custom one, not both.'
+            )
 
         if not has_exercise and not wants_custom:
-            raise serializers.ValidationError("Select a catalog exercise or add a custom one.")
+            raise serializers.ValidationError('Select a catalog exercise or add a custom one.')
 
         if wants_custom and not attrs.get('custom_name'):
-            raise serializers.ValidationError("Custom exercise requires a name.")
+            raise serializers.ValidationError('Custom exercise requires a name.')
 
         return attrs
 

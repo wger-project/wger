@@ -197,7 +197,7 @@ if __name__ == '__main__':
     for repo in REPOSITORIES:
         print(f'*** Processing {repo} ***')
         generate_authors_file(repo, *extract_contributors(repo, github_token))
-        print(f'')
+        print('')
 
     print('Done! 🥳')
     print('')

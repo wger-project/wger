@@ -18,11 +18,24 @@
 # Django
 
 
-from django.urls import include, path, re_path
+# Django
+from django.urls import (
+    include,
+    path,
+)
+
+# wger
+from wger.core.views.react import ReactView
+from wger.exercises.views import (
+    categories,
+    equipment,
+    history,
+    muscles,
+)
+
+# Local
 from .views import custom as custom_views
 
-from wger.core.views.react import ReactView
-from wger.exercises.views import categories, equipment, history, muscles
 
 # sub patterns for history
 patterns_history = [
@@ -136,8 +149,20 @@ urlpatterns = [
     path('equipment/', include((patterns_equipment, 'equipment'), namespace='equipment')),
     path('history/', include((patterns_history, 'history'), namespace='history')),
     path('', include((patterns_exercise, 'exercise'), namespace='exercise')),
-    path("my/custom-exercises/", custom_views.custom_exercise_list, name="custom_exercise_list"),
-    path("my/custom-exercises/new/", custom_views.custom_exercise_create, name="custom_exercise_create"),
-    path("my/custom-exercises/<int:pk>/edit/", custom_views.custom_exercise_edit, name="custom_exercise_edit"),
-    path("my/custom-exercises/<int:pk>/delete/", custom_views.custom_exercise_delete, name="custom_exercise_delete"),
+    path('my/custom-exercises/', custom_views.custom_exercise_list, name='custom_exercise_list'),
+    path(
+        'my/custom-exercises/new/',
+        custom_views.custom_exercise_create,
+        name='custom_exercise_create',
+    ),
+    path(
+        'my/custom-exercises/<int:pk>/edit/',
+        custom_views.custom_exercise_edit,
+        name='custom_exercise_edit',
+    ),
+    path(
+        'my/custom-exercises/<int:pk>/delete/',
+        custom_views.custom_exercise_delete,
+        name='custom_exercise_delete',
+    ),
 ]

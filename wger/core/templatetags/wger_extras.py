@@ -15,11 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-from collections.abc import Iterable
 
 # Django
 from django import template
-from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     gettext_lazy as _,

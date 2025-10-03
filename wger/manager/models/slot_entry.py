@@ -26,11 +26,9 @@ from typing import (
 )
 
 # Django
-from django.db.models import Q
-from django.core.exceptions import ValidationError
-from django.db import models
 from django.conf import settings
 from django.core.cache import cache
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -112,14 +110,16 @@ class SlotEntry(models.Model):
     custom_exercise = models.ForeignKey(
         'exercises.CustomExercise',
         on_delete=models.CASCADE,
-        null=True, blank=True,
+        null=True,
+        blank=True,
         related_name='slot_entries',
     )
 
     def clean(self):
         super().clean()
         has_catalog = bool(getattr(self, 'exercise_id', None)) or bool(
-            getattr(self, 'exercise_base_id', None))
+            getattr(self, 'exercise_base_id', None)
+        )
         has_custom = bool(self.custom_exercise_id)
         if has_catalog and has_custom:
             raise ValidationError('Pick either a catalog exercise or a custom one, not both.')
@@ -128,9 +128,11 @@ class SlotEntry(models.Model):
 
     @property
     def exercise_display(self):
-        return self.custom_exercise or getattr(self, 'exercise', None) or getattr(self,
-                                                                                  'exercise_base',
-                                                                                  None)
+        return (
+            self.custom_exercise
+            or getattr(self, 'exercise', None)
+            or getattr(self, 'exercise_base', None)
+        )
 
     repetition_unit = models.ForeignKey(
         RepetitionUnit,

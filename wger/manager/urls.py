@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
-from django.urls import path, include
+# Django
+from django.urls import (
+    include,
+    path,
+)
+
+# wger
 from wger.core.views.react import ReactView
-from wger.manager.views import ical, pdf, routine
+from wger.manager.views import (
+    ical,
+    pdf,
+    routine,
+)
+
 
 patterns_templates = [
     path('overview/private', ReactView.as_view(login_required=True), name='overview'),
@@ -16,8 +27,16 @@ patterns_days = [
 patterns_routine = [
     path('overview', ReactView.as_view(login_required=True), name='overview'),
     path('add', ReactView.as_view(login_required=True), name='add'),
-    path('<int:pk>/edit', ReactView.as_view(login_required=True, div_id='react-page-no-shadow-dom'), name='edit'),
-    path('<int:pk>/edit/progression/<int:progression_pk>', ReactView.as_view(login_required=True), name='edit-progression'),
+    path(
+        '<int:pk>/edit',
+        ReactView.as_view(login_required=True, div_id='react-page-no-shadow-dom'),
+        name='edit',
+    ),
+    path(
+        '<int:pk>/edit/progression/<int:progression_pk>',
+        ReactView.as_view(login_required=True),
+        name='edit-progression',
+    ),
     path('<int:pk>/statistics', ReactView.as_view(login_required=True), name='statistics'),
     path('<int:pk>/logs', ReactView.as_view(login_required=True), name='logs'),
     path('<int:pk>/view', ReactView.as_view(login_required=True), name='view'),

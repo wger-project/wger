@@ -18,6 +18,7 @@
 from .base import Exercise
 from .category import ExerciseCategory
 from .comment import ExerciseComment
+from .custom import CustomExercise
 from .deletion_log import DeletionLog
 from .equipment import Equipment
 from .exercise_alias import Alias
@@ -26,4 +27,3 @@ from .muscle import Muscle
 from .translation import Translation
 from .variation import Variation
 from .video import ExerciseVideo
-from .custom import CustomExercise

@@ -23,4 +23,4 @@ class NutritionConfig(AppConfig):
     verbose_name = 'Nutrition'
 
     def ready(self):
-        import wger.nutrition.signals
+        pass

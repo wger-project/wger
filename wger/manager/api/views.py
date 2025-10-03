@@ -1,8 +1,11 @@
 # Django / DRF
+# Django
 from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
+
+# Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -10,7 +13,10 @@ from rest_framework.views import APIView
 
 # wger
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
-from wger.manager.api.filtersets import BaseConfigFilterSet, WorkoutLogFilterSet
+from wger.manager.api.filtersets import (
+    BaseConfigFilterSet,
+    WorkoutLogFilterSet,
+)
 from wger.manager.api.permissions import RoutinePermission
 from wger.manager.api.serializers import (
     DaySerializer,
@@ -56,12 +62,16 @@ from wger.manager.models import (
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
+
 # Try to use the real helper; if not available, fall back to current-user filter
 try:
+    # wger
     from wger.manager.views import request_user_or_trainer_q  # noqa: F401
 except Exception:
+
     def request_user_or_trainer_q(request):
         return Q(user=getattr(request, 'user', None))
+
 
 def _safe_field_choices(model, field_name, defaults):
     """
@@ -81,11 +91,11 @@ def _safe_field_choices(model, field_name, defaults):
     # Fallback: infer from DB values
     try:
         vals = (
-            model.objects.exclude(**{f"{field_name}__isnull": True})
+            model.objects.exclude(**{f'{field_name}__isnull': True})
             .values_list(field_name, flat=True)
             .distinct()
         )
-        vals = [v for v in vals if v not in (None, "")]
+        vals = [v for v in vals if v not in (None, '')]
         if vals:
             return [(v, str(v)) for v in vals]
     except Exception:
@@ -93,11 +103,13 @@ def _safe_field_choices(model, field_name, defaults):
 
     return defaults
 
+
 class MyCustomExerciseSearchView(APIView):
     """
     Devbridge-autocomplete suggestions limited to the current user's CustomExercise.
     Returns {"query": "...", "suggestions": [{"value": <name>, "data": <exercise_id>}, ...]}
     """
+
     def post(self, request, *args, **kwargs):
         query = (request.POST.get('query') or '').strip()
         user = request.user
@@ -122,32 +134,38 @@ class MyCustomExerciseSearchView(APIView):
                 suggestions.append({'value': ce.name, 'data': exercise_id})
         return Response({'query': query, 'suggestions': suggestions})
 
+
 class SettingRepetitionUnitView(APIView):
     """
     Returns available repetition units.
     GET -> [{"id": "...", "name": "..."}, ...]
     """
+
     def get(self, request, *args, **kwargs):
         defaults = [('reps', 'Repetitions'), ('seconds', 'Seconds')]
         pairs = _safe_field_choices(SlotEntry, 'repetition_unit', defaults)
         data = [{'id': key, 'name': name} for key, name in pairs]
         return Response(data)
 
+
 class SettingWeightUnitView(APIView):
     """
     Returns available weight units.
     GET -> [{"id": "...", "name": "..."}, ...]
     """
+
     def get(self, request, *args, **kwargs):
         defaults = [('kg', 'Kilograms'), ('lb', 'Pounds')]
         pairs = _safe_field_choices(SlotEntry, 'weight_unit', defaults)
         data = [{'id': key, 'name': name} for key, name in pairs]
         return Response(data)
 
+
 class RoutineViewSet(viewsets.ModelViewSet):
     """
     API endpoint for routine objects
     """
+
     serializer_class = RoutineSerializer
     permission_classes = [RoutinePermission]
     ordering_fields = '__all__'
@@ -221,6 +239,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
         return Response(out)
 
+
 class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RoutineSerializer
     is_private = True
@@ -232,6 +251,7 @@ class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
             return Routine.objects.none()
         return Routine.templates.filter(request_user_or_trainer_q(request=self.request))
 
+
 class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RoutineSerializer
     is_private = True
@@ -240,6 +260,7 @@ class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         return Routine.public.all()
+
 
 class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = WorkoutSessionSerializer
@@ -265,6 +286,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     def get_owner_objects(self):
         return [(Routine, 'workout')]
 
+
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = WorkoutLogSerializer
     is_private = True
@@ -281,6 +303,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
 
     def get_owner_objects(self):
         return [(Routine, 'routine'), (WorkoutSession, 'session')]
+
 
 class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = DaySerializer
@@ -303,6 +326,7 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
     def get_owner_objects(self):
         return [(Routine, 'routine')]
 
+
 class SlotViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = SlotSerializer
     is_private = True
@@ -320,6 +344,7 @@ class SlotViewSet(WgerOwnerObjectModelViewSet):
 
     def get_owner_objects(self):
         return [(Day, 'day')]
+
 
 class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = SlotEntrySerializer
@@ -345,6 +370,7 @@ class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
     def get_owner_objects(self):
         return [(Slot, 'slot')]
 
+
 class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
@@ -352,6 +378,7 @@ class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
 
     def get_owner_objects(self):
         return [(SlotEntry, 'slot_entry')]
+
 
 class WeightConfigViewSet(AbstractConfigViewSet):
     serializer_class = WeightConfigSerializer
@@ -361,6 +388,7 @@ class WeightConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return WeightConfig.objects.none()
         return WeightConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
+
 
 class MaxWeightConfigViewSet(AbstractConfigViewSet):
     serializer_class = MaxWeightConfigSerializer
@@ -373,6 +401,7 @@ class MaxWeightConfigViewSet(AbstractConfigViewSet):
             slot_entry__slot__day__routine__user=self.request.user
         )
 
+
 class RepetitionsConfigViewSet(AbstractConfigViewSet):
     serializer_class = RepetitionsConfigSerializer
     filterset_class = BaseConfigFilterSet
@@ -381,6 +410,7 @@ class RepetitionsConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return RepetitionsConfig.objects.none()
         return RepetitionsConfig.objects.all()
+
 
 class MaxRepetitionsConfigViewSet(AbstractConfigViewSet):
     serializer_class = MaxRepetitionsConfigSerializer
@@ -391,6 +421,7 @@ class MaxRepetitionsConfigViewSet(AbstractConfigViewSet):
             return MaxRepetitionsConfig.objects.none()
         return MaxRepetitionsConfig.objects.all()
 
+
 class SetsConfigViewSet(AbstractConfigViewSet):
     serializer_class = SetNrConfigSerializer
     filterset_class = BaseConfigFilterSet
@@ -399,6 +430,7 @@ class SetsConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return SetsConfig.objects.none()
         return SetsConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
+
 
 class MaxSetsConfigViewSet(AbstractConfigViewSet):
     serializer_class = MaxSetNrConfigSerializer
@@ -409,6 +441,7 @@ class MaxSetsConfigViewSet(AbstractConfigViewSet):
             return MaxSetsConfig.objects.none()
         return MaxSetsConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
+
 class RestConfigViewSet(AbstractConfigViewSet):
     serializer_class = RestConfigSerializer
     filterset_class = BaseConfigFilterSet
@@ -417,6 +450,7 @@ class RestConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return RestConfig.objects.none()
         return RestConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
+
 
 class MaxRestConfigViewSet(AbstractConfigViewSet):
     serializer_class = MaxRestConfigSerializer
@@ -427,6 +461,7 @@ class MaxRestConfigViewSet(AbstractConfigViewSet):
             return MaxRestConfig.objects.none()
         return MaxRestConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
 
+
 class RiRConfigViewSet(AbstractConfigViewSet):
     serializer_class = RiRConfigSerializer
     filterset_class = BaseConfigFilterSet
@@ -435,6 +470,7 @@ class RiRConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return RiRConfig.objects.none()
         return RiRConfig.objects.filter(slot_entry__slot__day__routine__user=self.request.user)
+
 
 class MaxRiRConfigViewSet(AbstractConfigViewSet):
     serializer_class = MaxRiRConfigSerializer

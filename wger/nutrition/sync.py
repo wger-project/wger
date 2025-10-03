@@ -262,7 +262,7 @@ def sync_ingredients(
             try:
                 lang = load_language(code, default_to_english=False)
                 language_ids.append(str(lang.id))
-            except Language.DoesNotExist as e:
+            except Language.DoesNotExist:
                 print_fn(
                     f'Error: The language code you provided ("{code}") does not exist in this database. Please try again.'
                 )

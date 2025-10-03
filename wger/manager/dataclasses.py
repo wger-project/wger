@@ -36,10 +36,6 @@ from typing import (
 from django.utils.translation import gettext as _
 
 # wger
-from wger.core.models import (
-    RepetitionUnit,
-    WeightUnit,
-)
 from wger.manager.consts import (
     REP_UNIT_REPETITIONS,
     REP_UNIT_TILL_FAILURE,

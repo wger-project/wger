@@ -50,7 +50,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f'** Generating dummy workout log entries')
+        self.stdout.write('** Generating dummy workout log entries')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
