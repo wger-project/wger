@@ -63,6 +63,7 @@ target/
 # External Libraries
 wger/core/static/yarn
 node_modules
+/.yarn/install-state.gz
 
 # Virtual envs
 .venv
