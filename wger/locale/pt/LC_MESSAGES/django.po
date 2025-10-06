@@ -16,10 +16,10 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-09-23 19:01+0000\n"
+"PO-Revision-Date: 2025-10-07 18:01+0000\n"
 "Last-Translator: Ninguém Mesmo <weblate@rasparta.org>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1115,11 +1115,12 @@ msgstr "Incluir na visão geral inativa"
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr ""
-"O login de administrador está disponível apenas para usuários no %(gym_name)s"
+"A autenticação de administrador está disponível apenas para utilizadores no %"
+"(gym_name)s"
 
 #: core/templates/user/overview.html:514
 msgid "Log in as this user"
-msgstr "Logado como este utilizador"
+msgstr "Autenticado como este utilizador"
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
@@ -1900,7 +1901,7 @@ msgstr "Repeticões"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Elástico"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -2035,7 +2036,7 @@ msgstr "Modelo público"
 
 #: manager/models/routine.py:117
 msgid "A public template is available to other users"
-msgstr "Um modelo público está disponível para outros usuários"
+msgstr "Um modelo público está disponível para outros utilizadores"
 
 #: manager/models/routine.py:155 manager/models/session.py:147
 msgid "The start time cannot be after the end time."
@@ -2698,10 +2699,8 @@ msgid "exercises <br> for workout creation"
 msgstr "exercícios <br> para criação do treino"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
-msgstr "alimentos <br> para planejamento de refeições"
+msgstr "alimentos <br> para planeamento de refeições"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
@@ -2718,23 +2717,23 @@ msgstr "Projete um plano de treino semanal baseado em mais de 100 exercícios"
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
-"Defina repetições e séries, durações, ou metas de distância para cada "
+"Defina repetições e séries, duração, ou metas de distância para cada "
 "exercício"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
-msgstr "Seja orientado através dos seus treinos passo a passo"
+msgstr "Seja orientado passo a passo nos seus treinos"
 
 #: software/templates/features.html:186
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
-"Mantenha registro dos treinos que tiver feito, incluindo o sentimento de "
-"como rendeu"
+"Mantenha registo dos treinos que tiver feito, incluindo o sentimento de como "
+"correu"
 
 #: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
-msgstr "Planeje suas <span>refeições diárias</span>"
+msgstr "Planeie as suas <span>refeições diárias</span>"
 
 #: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
