@@ -30,7 +30,10 @@ from wger.exercises.models import (
     Muscle,
     Translation,
 )
-from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
+from wger.utils.constants import (
+    CC_0_LICENSE_ID,
+    CC_BY_SA_4_LICENSE_ID,
+)
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -161,7 +164,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         'name': 'A new name',
         'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
         'language': 1,
-        'exercise': 2,
+        'exercise': 1,
     }
 
     def get_resource_name(self):
@@ -172,6 +175,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         Test that it is not possible to change the exercise id of an existing
         translation.
         """
+        Translation.objects.filter(exercise_id=2).delete()
         translation = Translation.objects.get(pk=self.pk)
         self.assertEqual(translation.exercise_id, 1)
 
@@ -217,7 +221,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         Test that it is not possible to set the license for a newly created
         exercise translation (the license is always set to the default)
         """
-        self.data['license'] = 3
+        self.data['license'] = CC_0_LICENSE_ID
 
         self.authenticate('trainer1')
         response = self.client.post(self.url, data=self.data)
@@ -241,7 +245,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
     def test_post_only_one_language_per_base(self):
         """
         Test that it's not possible to add a second translation for the same
-        base in the same language.
+        exercise in the same language.
         """
         self.authenticate('trainer1')
         response = self.client.post(self.url, data=self.data)

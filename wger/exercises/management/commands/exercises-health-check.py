@@ -57,15 +57,6 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '--delete-duplicate-translations',
-            action='store_true',
-            dest='delete_duplicates',
-            default=False,
-            help='Delete duplicate translations (e.g. if an exercise has two French entries, '
-            'the first one will be removed)',
-        )
-
-        parser.add_argument(
             '--delete-no-english',
             action='store_true',
             dest='delete_no_english',
@@ -83,64 +74,33 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         delete_untranslated = options['delete_untranslated'] or options['delete_all']
-        delete_duplicates = options['delete_duplicates'] or options['delete_all']
         delete_no_english = options['delete_no_english'] or options['delete_all']
 
         self.english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
-        for base in Exercise.objects.all():
-            self.handle_untranslated(base, delete_untranslated)
-            self.handle_no_english(base, delete_no_english)
-            self.handle_duplicate_translations(base, delete_duplicates)
+        for exercise in Exercise.objects.all():
+            self.handle_untranslated(exercise, delete_untranslated)
+            self.handle_no_english(exercise, delete_no_english)
 
-    def handle_untranslated(self, base: Exercise, delete: bool):
+    def handle_untranslated(self, exercise: Exercise, delete: bool):
         """
         Delete exercises without translations
         """
-        if not base.pk or base.translations.count():
+        if not exercise.pk or exercise.translations.count():
             return
 
-        self.stdout.write(self.style.WARNING(f'Exercise {base.uuid} has no translations!'))
+        self.stdout.write(self.style.WARNING(f'Exercise {exercise.uuid} has no translations!'))
         if delete:
-            base.delete()
+            exercise.delete()
             self.stdout.write('  -> deleted')
 
-    def handle_no_english(self, base: Exercise, delete: bool):
-        if not base.pk or base.translations.filter(language=self.english).exists():
+    def handle_no_english(self, exercise: Exercise, delete: bool):
+        if not exercise.pk or exercise.translations.filter(language=self.english).exists():
             return
 
-        self.stdout.write(self.style.WARNING(f'Exercise {base.uuid} has no English translation!'))
+        self.stdout.write(
+            self.style.WARNING(f'Exercise {exercise.uuid} has no English translation!')
+        )
         if delete:
-            base.delete()
+            exercise.delete()
             self.stdout.write('  -> deleted')
-
-    def handle_duplicate_translations(self, base: Exercise, delete: bool):
-        if not base.pk:
-            return
-
-        exercise_languages = base.translations.values_list('language', flat=True)
-        duplicates = [
-            Language.objects.get(pk=item)
-            for item, count in collections.Counter(exercise_languages).items()
-            if count > 1
-        ]
-
-        if not duplicates:
-            return
-
-        warning = f'Exercise {base.uuid} has duplicate translations!'
-        self.stdout.write(self.style.WARNING(warning))
-
-        # Output the duplicates
-        for language in duplicates:
-            translations = base.translations.filter(language=language)
-            self.stdout.write(f'language {language.short_name}:')
-            for translation in translations:
-                self.stdout.write(f'  * {translation.name} {translation.uuid}')
-            self.stdout.write('')
-
-            # And delete them
-            if delete:
-                self.stdout.write(f'  Deleting all but first {language.short_name} translation')
-                for translation in translations[1:]:
-                    translation.delete()
