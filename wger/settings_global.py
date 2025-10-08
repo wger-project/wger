@@ -199,6 +199,14 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+# Additional places to copy to static files
+# TODO: only copy needed packages!
+STATICFILES_DIRS = (
+    ('node', os.path.join(BASE_DIR, '..', 'node_modules')),
+)
+
+print(STATICFILES_DIRS)
+
 #
 # Email
 #

@@ -10,6 +10,7 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
+    "@wger-project/react-components": "0.1.4",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.8",
     "components-font-awesome": "5.9.0",
@@ -21,12 +22,7 @@
     "popper.js": "^1.16.1"
   },
   "scripts": {
-    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css",
-    "install:force": "yarn install && yarn run postinstall",
-    "postinstall": "rm -rf wger/core/static/yarn/ && mkdir -p wger/core/static/yarn/ && cp -r node_modules/* wger/core/static/yarn/"
+    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"
   },
-  "engines": {
-    "yarn": ">= 1.0.0"
-  },
-  "packageManager": "yarn@4.9.2"
+  "packageManager": "npm@10.5.0"
 }

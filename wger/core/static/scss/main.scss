@@ -16,8 +16,8 @@ $wger-green: #307916 !default;
 
 $link-color: $wger-blue-2 !default;
 
-@import "../yarn/bootstrap/scss/functions";
-@import "../yarn/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
 
 $theme-colors: (
     "primary": $wger-blue,
@@ -38,4 +38,4 @@ $enable-responsive-font-sizes: true;
 /*
  * Import the rest of the bootstrap files
  */
-@import "../yarn/bootstrap/scss/bootstrap";
+@import "../../../../node_modules/bootstrap/scss/bootstrap";

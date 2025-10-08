@@ -18,11 +18,10 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
         sassc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -s /usr/bin/yarnpkg /usr/bin/yarn \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
 USER wger
 COPY --chown=wger:wger . /home/wger/src
-RUN yarn install:force \
-    && yarn build:css:sass \
+RUN npm install \
+    && npm run build:css:sass \
     && pip3 install --break-system-packages --user --group dev --editable .
