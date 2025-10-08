@@ -32,7 +32,6 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
       unzip \
       nodejs \
     && rm -rf /var/lib/apt/lists/* \
-    && corepack enable \
     && mkdir -p /root/src/wger/core/static
 
 
@@ -42,33 +41,22 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
 WORKDIR /root/src
 
 # Build the application
-COPY pyproject.toml /root/src
-COPY wger/version.py /root/src/wger/
-COPY wger/__init__.py /root/src/wger/
-COPY README.md /root/src
+COPY pyproject.toml README.md /root/src/
+COPY wger/version.py wger/__init__.py /root/src/wger/
 
 # NB: the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
-RUN --mount=type=tmpfs,target=/root/.cargo \
-    pip3 wheel \
+# --mount=type=tmpfs,target=/root/.cargo \
+RUN pip3 wheel \
       --no-cache-dir \
       --wheel-dir /wheels \
       --group docker . \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
 # Build the JS and CSS files
-COPY package.json yarn.lock .yarnrc.yml ./
+COPY package.json package-lock.json ./
 COPY wger/core/static /root/src/wger/core/static
-RUN yarn install \
-    && yarn build:css:sass \
-    && cd .. \
-    && wget https://github.com/wger-project/react/archive/refs/heads/master.zip \
-    && unzip master.zip \
-    && cd react-master \
-    && yarn config set --home enableTelemetry 0 \
-    && yarn config set nodeLinker node-modules \
-    && yarn install \
-    && WGER_STATIC_FOLDER="/root/src/wger/core/static/react" yarn build
-
+RUN npm install \
+    && npm run build:css:sass
 
 ########
 # Final
@@ -88,8 +76,7 @@ EXPOSE 8000
 
 # Set up the application
 COPY --chown=wger:wger . /home/wger/src
-COPY --chown=wger:wger --from=builder /root/src/wger/core/static/yarn /home/wger/src/wger/core/static/yarn
-COPY --chown=wger:wger --from=builder /root/src/wger/core/static/react /home/wger/src/wger/core/static/react
+COPY --chown=wger:wger --from=builder /root/src/node_modules /home/wger/src/wger/node_modules
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
