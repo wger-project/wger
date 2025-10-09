@@ -57,6 +57,7 @@ class PasswordInputWithToggle(PasswordInput):
     """
     Custom PasswordInput widget with eye icon toggle functionality
     """
+
     template_name = 'forms/password_with_toggle.html'
 
     def __init__(self, attrs=None, render_value=False):
@@ -289,11 +290,11 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        
+
         # Apply custom password widgets
         self.fields['password1'].widget = PasswordInputWithToggle()
         self.fields['password2'].widget = PasswordInputWithToggle()
-        
+
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
@@ -316,11 +317,11 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationFormNoCaptcha, self).__init__(*args, **kwargs)
-        
+
         # Apply custom password widgets
         self.fields['password1'].widget = PasswordInputWithToggle()
         self.fields['password2'].widget = PasswordInputWithToggle()
-        
+
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
