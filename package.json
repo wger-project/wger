@@ -12,7 +12,6 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.8",
-    "components-font-awesome": "5.9.0",
     "datatables.net-bs5": "^2.3.4",
     "devbridge-autocomplete": "^1.5.0",
     "htmx.org": "^2.0.7",
