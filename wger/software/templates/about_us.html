@@ -164,7 +164,11 @@
     </div>
 
     <div class="alert alert-dark mt-5" role="alert">
-        {% translate "Current version" %} {{ version }}
+        {% translate "Current version" %} <strong>{{ version }}</strong>
+        {% if date %}
+            <br>
+            {% translate 'Date' %} <strong>{{ date }}</strong>
+        {% endif %}
     </div>
 {% endblock %}
 

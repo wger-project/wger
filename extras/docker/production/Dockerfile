@@ -76,7 +76,13 @@ RUN yarn install \
 FROM wger/base:latest AS final
 LABEL org.opencontainers.image.authors="wger team <hello@wger.de>"
 ARG DOCKER_DIR=./extras/docker/production
+ARG BUILD_COMMIT
+ARG BUILD_DATE
+
 ENV PATH="/home/wger/.local/bin:$PATH"
+ENV APP_BUILD_COMMIT=$BUILD_COMMIT
+ENV APP_BUILD_DATE=$BUILD_DATE
+
 WORKDIR /home/wger/src
 EXPOSE 8000
 
