@@ -55,7 +55,7 @@ RUN pip3 wheel \
 # Build the JS and CSS files
 COPY package.json package-lock.json ./
 COPY wger/core/static /root/src/wger/core/static
-RUN npm install \
+RUN npm ci \
     && npm run build:css:sass
 
 ########

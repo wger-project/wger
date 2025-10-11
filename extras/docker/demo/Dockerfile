@@ -51,7 +51,7 @@ COPY package-lock.json /home/wger/src
 COPY wger/core/static /home/wger/src/wger/core/static
 RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker .
 RUN cat package.json \
-  && npm install \
+  && npm ci \
   && npm run build:css:sass
 
 
