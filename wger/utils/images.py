@@ -46,5 +46,5 @@ def validate_image_static_no_animation(value):
         )
 
     # Check for animation
-    if img_format == 'webp' and getattr(img, 'is_animated'):
+    if img_format in ('webp', 'avif') and getattr(img, 'is_animated'):
         raise ValidationError('Animated images are not supported.')
