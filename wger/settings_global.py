@@ -204,8 +204,6 @@ STATICFILES_DIRS = (
     ('node', os.path.join(BASE_DIR, '..', 'node_modules')),
 )
 
-print(STATICFILES_DIRS)
-
 #
 # Email
 #

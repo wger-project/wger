@@ -39,9 +39,7 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
     && rm -rf /var/lib/apt/lists/*
 
 # Build the necessary python wheels
-# Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
 WORKDIR /home/wger/src
-
 COPY pyproject.toml /home/wger/src
 COPY wger/version.py /home/wger/src/wger/
 COPY wger/__init__.py /home/wger/src/wger/
@@ -49,9 +47,8 @@ COPY README.md /home/wger/src
 COPY package.json /home/wger/src
 COPY package-lock.json /home/wger/src
 COPY wger/core/static /home/wger/src/wger/core/static
-RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker .
-RUN cat package.json \
-  && npm ci \
+RUN pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker .
+RUN npm ci \
   && npm run build:css:sass
 
 
@@ -94,7 +91,8 @@ RUN chmod 0644 /etc/cron.d/wger \
   && touch /var/log/cron.log
 
 COPY --chown=wger:www-data . /home/wger/src
-COPY --from=builder --chown=wger:wger /home/wger/src/wger/node_modules /home/wger/src/wger/node_modules
+COPY --chown=wger:wger --from=builder /home/wger/src/node_modules /home/wger/src/node_modules
+COPY --chown=wger:wger --from=builder /home/wger/src/wger/core/static/bootstrap-compiled.css /home/wger/src/core/static/bootstrap-compiled.css
 
 # Set up the application
 RUN ln -s /home/wger/static/CACHE /var/www
