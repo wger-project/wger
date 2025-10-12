@@ -54,11 +54,19 @@ RUN pip3 wheel \
       --group docker . \
     && ln -s /usr/bin/sassc /usr/bin/sass
 
-# Build the JS and CSS files
-COPY package.json package-lock.json ./
+# Fetch the JS and CSS files.
+# For the react-components npm package, we fetch it manually, extract it and move
+# it into node_modules to keep the size of the docker image small(er). Yes, this
+# is hacky and there's probably a better way.
+COPY package.json package-lock.json download-wger-react-components.sh ./
 COPY wger/core/static /root/src/wger/core/static
-RUN npm ci \
-    && npm run build:css:sass
+RUN npm ci --production \
+    && npm run build:css:sass \
+    && PACKAGE_NAME="@wger-project/react-components" \
+    && PACKAGE_VERSION=$(node -p "require('./package.json').devDependencies['$PACKAGE_NAME']") \
+    && TARBALL=$(npm pack ${PACKAGE_NAME}@${PACKAGE_VERSION}) \
+    && mkdir -p node_modules/${PACKAGE_NAME} \
+    && tar -xzf ${TARBALL} -C node_modules/${PACKAGE_NAME} --strip-components=1
 
 ########
 # Final

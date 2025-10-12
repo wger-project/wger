@@ -40,16 +40,16 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
 
 # Build the necessary python wheels
 WORKDIR /home/wger/src
-COPY pyproject.toml /home/wger/src
-COPY wger/version.py /home/wger/src/wger/
-COPY wger/__init__.py /home/wger/src/wger/
-COPY README.md /home/wger/src
-COPY package.json /home/wger/src
-COPY package-lock.json /home/wger/src
-COPY wger/core/static /home/wger/src/wger/core/static
-RUN pip3 wheel --no-cache-dir --wheel-dir /wheels --group docker .
-RUN npm ci \
-  && npm run build:css:sass
+COPY README.md pyproject.toml package.json package-lock.json package-lock.json /home/wger/src/
+COPY wger/version.py wger/__init__.py /home/wger/src/wger/
+COPY wger/core/static /root/src/wger/core/static
+RUN npm ci --production \
+    && npm run build:css:sass \
+    && PACKAGE_NAME="@wger-project/react-components" \
+    && PACKAGE_VERSION=$(node -p "require('./package.json').devDependencies['$PACKAGE_NAME']") \
+    && TARBALL=$(npm pack ${PACKAGE_NAME}@${PACKAGE_VERSION}) \
+    && mkdir -p node_modules/${PACKAGE_NAME} \
+    && tar -xzf ${TARBALL} -C node_modules/${PACKAGE_NAME} --strip-components=1
 
 
 ########

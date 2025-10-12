@@ -26,6 +26,10 @@ venv
 /media/
 /static/
 /db/
+/dist/
+/node_modules/
+/wger.egg-info
+/npm-debug.log*
 /extras/open-food-facts/dump/
 /extras/authors/commits_cache/
 /extras/authors/*.md

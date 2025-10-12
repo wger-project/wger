@@ -10,15 +10,16 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "@wger-project/react-components": "0.1.4",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.8",
     "datatables.net-bs5": "^2.3.4",
     "devbridge-autocomplete": "^1.5.0",
     "htmx.org": "^2.0.7",
     "jquery": "^3.7.1",
-    "masonry-layout": "^4.2.2",
-    "popper.js": "^1.16.1"
+    "masonry-layout": "^4.2.2"
+  },
+  "devDependencies": {
+    "@wger-project/react-components": "25.10.16"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"
