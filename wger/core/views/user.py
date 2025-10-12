@@ -284,6 +284,9 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
 
+    # Add this line to use the new registration-specific sidebar
+    template_data['sidebar'] = 'user/registration_sidebar.html'
+
     return render(request, 'form_content.html', template_data)
 
 

@@ -52,7 +52,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = [
+        fields = (
             'username',
             'email',
             'email_verified',
@@ -84,7 +84,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'weight_unit',
             'ro_access',
             'num_days_weight_reminder',
-        ]
+        )
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
@@ -98,7 +98,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email']
+        fields = ('username', 'password', 'email')
 
     def __init__(self, request: HttpRequest = None, instance=None, data=empty, **kwargs):
         self.request = request
@@ -157,12 +157,12 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = [
+        fields = (
             'id',
             'short_name',
             'full_name',
             'full_name_en',
-        ]
+        )
 
 
 class LicenseSerializer(serializers.ModelSerializer):
@@ -172,12 +172,12 @@ class LicenseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = License
-        fields = [
+        fields = (
             'id',
             'full_name',
             'short_name',
             'url',
-        ]
+        )
 
 
 class RepetitionUnitSerializer(serializers.ModelSerializer):
@@ -187,7 +187,7 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RepetitionUnit
-        fields = ['id', 'name']
+        fields = ('id', 'name')
 
 
 class RoutineWeightUnitSerializer(serializers.ModelSerializer):
@@ -197,7 +197,7 @@ class RoutineWeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightUnit
-        fields = ['id', 'name']
+        fields = ('id', 'name')
 
 
 class LanguageCheckSerializer(serializers.Serializer):

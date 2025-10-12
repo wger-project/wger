@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-05-16 16:27+0000\n"
-"Last-Translator: Максим Горпиніч <maksimgorpinic4@gmail.com>\n"
+"PO-Revision-Date: 2025-10-02 15:01+0000\n"
+"Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.12-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -1888,7 +1888,7 @@ msgstr "Пластини"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr "Планка для підтягувань"
+msgstr "Перекладина"
 
 #: i18n.tpl:29
 msgid "Quads"
@@ -1900,7 +1900,7 @@ msgstr "Повтори"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Еспандер"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -2701,8 +2701,6 @@ msgid "exercises <br> for workout creation"
 msgstr "вправи <br> для створення тренувань"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
 msgstr "продукти <br> для планування харчування"
 

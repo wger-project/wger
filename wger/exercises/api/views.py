@@ -52,6 +52,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 # wger
+from wger.exercises.api.filtersets import ExerciseFilterSet
 from wger.exercises.api.permissions import CanContributeExercises
 from wger.exercises.api.serializers import (
     DeletionLogSerializer,
@@ -330,6 +331,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
+    filterset_class = ExerciseFilterSet
     filterset_fields = (
         'uuid',
         'category',

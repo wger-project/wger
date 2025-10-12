@@ -61,7 +61,7 @@ class LicenseAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin,
     """
 
     model = License
-    fields = ['full_name', 'short_name', 'url']
+    fields = ('full_name', 'short_name', 'url')
     success_url = reverse_lazy('core:license:list')
     title = gettext_lazy('Add')
     permission_required = 'core.add_license'
@@ -73,7 +73,7 @@ class LicenseUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
     """
 
     model = License
-    fields = ['full_name', 'short_name', 'url']
+    fields = ('full_name', 'short_name', 'url')
     success_url = reverse_lazy('core:license:list')
     permission_required = 'core.change_license'
 

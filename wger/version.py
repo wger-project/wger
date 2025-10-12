@@ -14,6 +14,7 @@
 
 # Standard Library
 import logging
+import os
 
 # Third Party
 from packaging.version import Version
@@ -43,3 +44,16 @@ def get_version(version: Version = None) -> str:
         version = VERSION
 
     return str(version)
+
+
+def get_version_with_git(version: Version = None) -> str:
+    version = get_version(version)
+    git_sha1 = os.environ.get('APP_BUILD_COMMIT', '')[:7]
+    if git_sha1:
+        version += f'+git{git_sha1}'
+
+    return version
+
+
+def get_version_date() -> str | None:
+    return os.environ.get('APP_BUILD_DATE')

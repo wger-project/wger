@@ -50,7 +50,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = Contract
-    fields = [
+    fields = (
         'contract_type',
         'options',
         'amount',
@@ -65,7 +65,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         'phone',
         'profession',
         'note',
-    ]
+    )
     title = gettext_lazy('Add contract')
     permission_required = 'gym.add_contract'
     member = None
@@ -147,7 +147,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = Contract
-    fields = [
+    fields = (
         'contract_type',
         'options',
         'amount',
@@ -162,7 +162,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         'phone',
         'profession',
         'note',
-    ]
+    )
     permission_required = 'gym.change_contract'
 
     def dispatch(self, request, *args, **kwargs):

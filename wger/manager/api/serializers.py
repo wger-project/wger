@@ -408,7 +408,7 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutSession
-        fields = [
+        fields = (
             'id',
             'routine',
             'day',
@@ -417,7 +417,7 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
             'impression',
             'time_start',
             'time_end',
-        ]
+        )
 
 
 class WorkoutLogSerializer(serializers.ModelSerializer):
@@ -427,7 +427,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutLog
-        fields = [
+        fields = (
             'id',
             'date',
             'session',
@@ -446,7 +446,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rir_target',
             'rest',
             'rest_target',
-        ]
+        )
 
 
 class LogDisplaySerializer(serializers.Serializer):

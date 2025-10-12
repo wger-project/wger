@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # Note: removed 3.14 because lingua-language-detector has no wheels yet
         python-version: [ '3.10', '3.11', '3.12', '3.13' ]
     name: CI job (python ${{ matrix.python-version }})
 
@@ -30,7 +31,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
 

@@ -82,7 +82,7 @@ class WeightUnitCreateView(
     """
 
     model = WeightUnit
-    fields = ['name']
+    fields = ('name',)
     title = gettext_lazy('Add new weight unit')
     permission_required = 'nutrition.add_ingredientweightunit'
 
@@ -129,7 +129,7 @@ class WeightUnitUpdateView(
     """
 
     model = WeightUnit
-    fields = ['name']
+    fields = ('name',)
     permission_required = 'nutrition.change_ingredientweightunit'
 
     def get_success_url(self):
