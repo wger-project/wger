@@ -79,7 +79,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
 
     image = models.ImageField(
         verbose_name=_('Image'),
-        help_text='Only PNG and JPEG formats are supported',
+        help_text='Only JPEG, PNG and WebP formats are supported',
         upload_to=exercise_image_upload_dir,
         validators=[validate_image_static_no_animation],
         height_field='height',
