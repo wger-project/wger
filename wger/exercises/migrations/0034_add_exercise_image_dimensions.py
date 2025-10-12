@@ -24,7 +24,7 @@ def update_image_dimensions(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('exercises', '0032_rename_exercise'),
+        ('exercises', '0033_uniqueness_constraint_translations'),
     ]
 
     operations = [
