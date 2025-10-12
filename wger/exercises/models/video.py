@@ -217,3 +217,11 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         reset_exercise_api_cache(self.exercise.uuid)
 
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+        reset_exercise_api_cache(self.exercise.uuid)
+
+        super().delete(*args, **kwargs)
