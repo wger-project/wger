@@ -93,6 +93,7 @@ RUN chmod 0644 /etc/cron.d/wger \
 COPY --chown=wger:www-data . /home/wger/src
 COPY --chown=wger:wger --from=builder /home/wger/src/node_modules /home/wger/src/node_modules
 COPY --chown=wger:wger --from=builder /home/wger/src/wger/core/static/bootstrap-compiled.css /home/wger/src/core/static/bootstrap-compiled.css
+COPY --chown=wger:wger --from=builder /home/wger/src/wger/core/static/bootstrap-compiled.css.map /home/wger/src/core/static/bootstrap-compiled.css.map
 
 # Set up the application
 RUN ln -s /home/wger/static/CACHE /var/www

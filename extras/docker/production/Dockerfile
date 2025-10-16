@@ -88,6 +88,7 @@ EXPOSE 8000
 COPY --chown=wger:wger . /home/wger/src
 COPY --chown=wger:wger --from=builder /root/src/node_modules /home/wger/src/node_modules
 COPY --chown=wger:wger --from=builder /root/src/wger/core/static/bootstrap-compiled.css /home/wger/src/core/static/bootstrap-compiled.css
+COPY --chown=wger:wger --from=builder /root/src/wger/core/static/bootstrap-compiled.css.map /home/wger/src/core/static/bootstrap-compiled.css.map
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh

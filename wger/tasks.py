@@ -97,8 +97,8 @@ def bootstrap(context, settings_path=None, database_path=None, process_static=Tr
 
     # Download JS and CSS libraries
     if process_static:
-        context.run('yarn install')
-        context.run('yarn build:css:sass')
+        context.run('npm install')
+        context.run('npm run build:css:sass')
 
 
 @task(
