@@ -58,7 +58,7 @@ RUN pip3 wheel \
 # For the react-components npm package, we fetch it manually, extract it and move
 # it into node_modules to keep the size of the docker image small(er). Yes, this
 # is hacky and there's probably a better way.
-COPY package.json package-lock.json download-wger-react-components.sh ./
+COPY package.json package-lock.json ./
 COPY wger/core/static /root/src/wger/core/static
 RUN npm ci --production \
     && npm run build:css:sass \
