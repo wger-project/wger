@@ -24,6 +24,8 @@ from PIL import (
 
 MAX_FILE_SIZE_MB = 20
 
+IMAGE_ALLOWED_FORMATS = ('jpeg', 'jpg', 'png', 'webp', 'avif')
+
 
 def validate_image_static_no_animation(value):
     # File size check
@@ -39,12 +41,11 @@ def validate_image_static_no_animation(value):
         raise ValidationError('File is not a valid image.')
 
     # Supported types
-    allowed_formats = {'jpeg', 'jpg', 'png', 'webp'}
-    if img_format not in allowed_formats:
+    if img_format not in IMAGE_ALLOWED_FORMATS:
         raise ValidationError(
-            f'File type is not supported. Allowed formats: {", ".join(allowed_formats)}.'
+            f'File type is not supported. Allowed formats: {", ".join(IMAGE_ALLOWED_FORMATS)}.'
         )
 
     # Check for animation
-    if img_format == 'webp' and getattr(img, 'is_animated'):
+    if img_format in ('webp', 'avif') and getattr(img, 'is_animated'):
         raise ValidationError('Animated images are not supported.')

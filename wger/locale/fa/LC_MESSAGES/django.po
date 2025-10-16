@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-07-02 14:01+0000\n"
-"Last-Translator: William Sky <william2024sky@gmail.com>\n"
+"PO-Revision-Date: 2025-10-12 17:07+0000\n"
+"Last-Translator: Mahmuoud Salehi <hismom42-Mahmoud@yahoo.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/wger/web/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -111,10 +111,8 @@ msgid "Used for password resets and, optionally, email reminders."
 msgstr "استفاده شده برای بازیابی رمز عبور و به صورت اختیاری, یادآوری ایمیل"
 
 #: core/forms.py:218
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "این ایمیل قبلا استفاده شده است"
+msgstr "این ایمیل قبلا استفاده شده است."
 
 #: core/forms.py:239 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
@@ -449,6 +447,8 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
+"شما به عنوان کاربر \"%(current_user)s\" در حال تماشای سایت هستید، تمام "
+"اقدامات، روی داده‌های این کاربر انجام می‌شود."
 
 #: core/templates/base.html:15
 #, python-format
@@ -480,52 +480,48 @@ msgstr ""
 "نخواهد بود"
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email verification"
-msgstr "تنظیمات"
+msgstr "تأیید ایمیل"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s، ایمیل شما تأیید شد"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "خطا ، توکن تأیید نامعتبر"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "تنظیمات"
+msgstr "تأیید ایمیل"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
 #, python-format
 msgid "You are almost there, %(username)s!"
-msgstr ""
+msgstr "%(username)s، تقریبا تمومه!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
-msgstr ""
+msgstr "لطفا برای تایید ایمیلتان <a href=\"%(link)s\">اینجا</a> کلیک کنید"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "توکن در %(time)s منقضی میشود"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "تیم WGER"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
-msgstr ""
+msgstr "لطفاً برای تأیید ایمیل خود روی لینک زیر کلیک کنید: %(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:453
 msgid "Dashboard"
@@ -598,42 +594,46 @@ msgid "Nothing found"
 msgstr "چیزی یافت نشد"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:187
+#, fuzzy
 msgid "Imprint"
-msgstr ""
+msgstr "نشان دادن"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
+#, fuzzy
 msgid "Training"
-msgstr ""
+msgstr "تمرینات"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
+#, fuzzy
 msgid "Routines"
-msgstr ""
+msgstr "برنامه ها"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
-msgstr "ماشین حساب"
+msgstr "تقویم"
 
 #: core/templates/navigation.html:55
 msgid "Measurements"
-msgstr ""
+msgstr "اندازه گیری"
 
 #: core/templates/navigation.html:66 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "گالری"
 
 #: core/templates/navigation.html:72
 #, fuzzy
 #| msgid "Workouts schedules"
 msgid "Workout templates"
-msgstr "برنامه تمرین"
+msgstr "الگو تمرین ورزشی"
 
 #: core/templates/navigation.html:79
 msgid "Your templates"
-msgstr ""
+msgstr "الگو های شما"
 
 #: core/templates/navigation.html:88
+#, fuzzy
 msgid "Public templates"
-msgstr ""
+msgstr "الگو های عمومی"
 
 #: core/templates/navigation.html:96 software/templates/features.html:51
 #: software/templates/features.html:480
@@ -653,16 +653,16 @@ msgstr "تمرینات"
 
 #: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
-msgstr ""
+msgstr "تجهیزات"
 
 #: core/templates/navigation.html:118
 msgid "Muscles"
-msgstr ""
+msgstr "ماهیچه ها"
 
 #: core/templates/navigation.html:124
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
-msgstr ""
+msgstr "دسته بندی ها"
 
 #: core/templates/navigation.html:139 software/templates/features.html:468
 msgid "Nutrition"
@@ -670,28 +670,28 @@ msgstr "مواد غذایی"
 
 #: core/templates/navigation.html:147 core/templates/user/overview.html:144
 msgid "Nutrition plans"
-msgstr ""
+msgstr "برنامه های غذایی"
 
 #: core/templates/navigation.html:156
 msgid "BMI calculator"
-msgstr ""
+msgstr "حسابگر BMI (شاخص توده بدنی)"
 
 #: core/templates/navigation.html:165 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
-msgstr ""
+msgstr "حسابگر کالری های روزانه"
 
 #: core/templates/navigation.html:171
 #: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
-msgstr ""
+msgstr "نمای کلی مواد تشکیل دهنده"
 
 #: core/templates/navigation.html:180 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
-msgstr ""
+msgstr "واحدهای وزن مواد تشکیل دهنده"
 
 #: core/templates/navigation.html:196 software/templates/features.html:463
 msgid "Body weight"
-msgstr ""
+msgstr "وزن بدن"
 
 #: core/templates/navigation.html:203 core/templates/user/overview.html:114
 msgid "Weight overview"
@@ -699,11 +699,11 @@ msgstr "بازنگری وزن "
 
 #: core/templates/navigation.html:217
 msgid "About this software"
-msgstr ""
+msgstr "درباره این نرم افزار"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "ما را پشتیبانی کنید و در ارتباط باشید"
 
 #: core/templates/navigation.html:229 software/templates/features.html:528
 msgid "REST API"
@@ -711,76 +711,80 @@ msgstr ""
 
 #: core/templates/navigation.html:235 utils/models.py:45
 msgid "License"
-msgstr ""
+msgstr "مجوز"
 
 #: core/templates/navigation.html:241
+#, fuzzy
 msgid "Developer documentation"
-msgstr ""
+msgstr "مستندات برنامه نوبیسان"
 
 #: core/templates/navigation.html:248
 msgid "Get the code"
-msgstr ""
+msgstr "کد را دریافت کنید"
 
 #: core/templates/navigation.html:255 core/templates/template.html:226
 #: software/templates/features.html:603
 msgid "Translate"
-msgstr ""
+msgstr "ترجمه"
 
 #: core/templates/navigation.html:292 core/templates/user/login.html:30
 msgid "Reset password"
-msgstr ""
+msgstr "بازنشانی رمز عبور"
 
 #: core/templates/navigation.html:310
 msgid "My preferences"
-msgstr ""
+msgstr "ترجیحات من"
 
 #: core/templates/navigation.html:319
 msgid "Logout"
-msgstr ""
+msgstr "خروج"
 
 #: core/templates/navigation.html:342
 msgid "Licenses"
-msgstr ""
+msgstr "مجوز ها"
 
 #: core/templates/navigation.html:350
 #: core/templates/repetition_unit/list.html:4
+#, fuzzy
 msgid "Repetition units"
-msgstr ""
+msgstr "واحد تکرار"
 
 #: core/templates/navigation.html:358 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
-msgstr ""
+msgstr "واحد های وزن"
 
 #: core/templates/navigation.html:366 core/templates/user/list.html:4
 msgid "User list"
-msgstr ""
+msgstr "لیست کاربر"
 
 #: core/templates/navigation.html:372
 msgid "Gyms"
-msgstr ""
+msgstr "باشگاه ها"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr ""
+msgstr "تنظیم مجدد رمز عبور کامل شد"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
+msgstr "رمز ورود شما تنظیم شده است میتوانید وارد شوید."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
-msgstr ""
+msgstr "ورود"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr ""
+msgstr "تنظیم مجدد رمز عبور موفق آمیز بود"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
+"ما دستورالعمل هایی را برای تنظیم رمز عبور خود در آدرس ایمیل ارسال شده از "
+"طریق ایمیل به شما ارسال کرده ایم. به زودی آن را دریافت میکنید."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format

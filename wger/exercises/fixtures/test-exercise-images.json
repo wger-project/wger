@@ -7,6 +7,8 @@
       "exercise": 1,
       "is_main": true,
       "license": "1",
+      "width": 500,
+      "height": 332,
       "created": "2023-08-10T00:00:00+01:00",
       "last_update": "2023-08-10T00:00:00+01:00"
     }
@@ -19,6 +21,8 @@
       "exercise": 1,
       "is_main": false,
       "license": "2",
+      "width": 481,
+      "height": 320,
       "created": "2023-08-10T00:00:00+01:00",
       "last_update": "2023-08-10T00:00:00+01:00"
     }
@@ -31,6 +35,8 @@
       "exercise": 2,
       "is_main": false,
       "license": "2",
+      "width": 481,
+      "height": 320,
       "created": "2023-08-10T00:00:00+01:00",
       "last_update": "2023-08-10T00:00:00+01:00"
     }
