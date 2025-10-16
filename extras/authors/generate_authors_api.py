@@ -178,7 +178,7 @@ def generate_authors_file(
 
         f.write('\n## Translators\n')
         if translators:
-            for language, translator_data in translators.items():
+            for language, translator_data in sorted(translators.items()):
                 f.write('\n')
                 f.write(f'### {language}\n\n')
                 for author_email, data in translator_data.items():

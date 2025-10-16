@@ -16,16 +16,13 @@
     "devbridge-autocomplete": "^1.5.0",
     "htmx.org": "^2.0.7",
     "jquery": "^3.7.1",
-    "masonry-layout": "^4.2.2",
-    "popper.js": "^1.16.1"
+    "masonry-layout": "^4.2.2"
+  },
+  "devDependencies": {
+    "@wger-project/react-components": "25.10.16"
   },
   "scripts": {
-    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css",
-    "install:force": "yarn install && yarn run postinstall",
-    "postinstall": "rm -rf wger/core/static/yarn/ && mkdir -p wger/core/static/yarn/ && cp -r node_modules/* wger/core/static/yarn/"
+    "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"
   },
-  "engines": {
-    "yarn": ">= 1.0.0"
-  },
-  "packageManager": "yarn@4.9.2"
+  "packageManager": "npm@10.5.0"
 }
