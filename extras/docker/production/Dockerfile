@@ -27,7 +27,6 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
       libwebp-dev \
       libpq-dev \
       rustc \
-      sassc \
       cargo \
       unzip \
       nodejs \
@@ -52,7 +51,7 @@ RUN pip3 wheel \
       --no-cache-dir \
       --wheel-dir /wheels \
       --group docker . \
-    && ln -s /usr/bin/sassc /usr/bin/sass
+    && npm install -g sass
 
 # Fetch the JS and CSS files.
 # For the react-components npm package, we fetch it manually, extract it and move

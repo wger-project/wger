@@ -33,10 +33,9 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
       libpq-dev \
       rustc \
       cargo \
-      sassc \
       nodejs \
-    && ln -s /usr/bin/sassc /usr/bin/sass \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install -g sass
 
 # Build the necessary python wheels
 WORKDIR /home/wger/src
