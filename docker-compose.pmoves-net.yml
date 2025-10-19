@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  wger:
+    image: ghcr.io/POWERFULMOVES/Pmoves-Health-wger:main
+    restart: unless-stopped
+    networks: [pmoves-net]
+    ports: ["8000:8000"]
+    environment:
+      - DEBUG=false
+networks:
+  pmoves-net:
+    external: true
+
