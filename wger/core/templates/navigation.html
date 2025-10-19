@@ -22,34 +22,25 @@
                     {# Workout tab #}
                     {#             #}
                     <li class="nav-item dropdown">
-                        <a href="{% url 'manager:workout:overview' %}"
+                        <a href="{% url 'manager:routine:overview' %}"
                            rel="nofollow"
                            class="nav-link dropdown-toggle text-white {% if active_tab == 'workout' %}active{% endif %}"
                            data-bs-toggle="dropdown">{% translate "Training" %} <b
                             class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:workout:overview' %}"
+                                <a class="dropdown-item" href="{% url 'manager:routine:overview' %}"
                                    rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
-                                    {% translate "Workouts" %}
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"
-                                   href="{% url 'manager:schedule:overview' %}" rel="nofollow">
-                                    {% if not user.is_authenticated %}
-                                        <span class="{% fa_class 'lock' %}"></span>
-                                    {% endif %}
-                                    {% translate "Workouts schedules" %}
+                                    {% translate "Routines" %}
                                 </a>
                             </li>
                             {% if user.is_authenticated %}
                                 <li>
                                     <a class="dropdown-item"
-                                       href="{% url 'manager:workout:calendar' user.username %}"
+                                       href="{% url 'manager:routine:calendar' %}"
                                        rel="nofollow">
                                         {% translate "Calendar" %}
                                     </a>
@@ -175,7 +166,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">
+                                <a class="dropdown-item"
+                                   href="{% url 'nutrition:ingredient:list' %}">
                                     {% translate "Ingredient overview" %}
                                 </a>
                             </li>
@@ -183,7 +175,8 @@
                                 <li class="dropdown-divider"></li>
                                 <li class="dropdown-header">{% translate "Administration" %}</li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'nutrition:weight_unit:list' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'nutrition:weight_unit:list' %}">
                                         {% translate "Ingredient weight units" %}
                                     </a>
                                 </li>
@@ -210,13 +203,6 @@
                                         {% translate "Weight overview" %}
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                       href="{% url 'weight:add' %}"
-                                       rel="nofollow">
-                                        {% translate "Add weight entry" %}
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                     {% endif %}
@@ -234,7 +220,7 @@
                             <li>
                                 <a class="dropdown-item"
                                    href="{% url 'software:about-us' %}">
-                                    {% translate "About us" %}
+                                    {% translate "Support & Get Involved" %}
                                 </a>
                             </li>
                             <li class="dropdown-divider"></li>
@@ -282,7 +268,8 @@
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link text-white"
                                data-bs-toggle="dropdown">
-                                {% translate "Login" %} / {% translate "Register" %}
+                                {% translate "Login" %}{% if allow_registration %} /
+                                    {% translate "Register" %}{% endif %}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -291,12 +278,14 @@
                                         {% translate "Login" %}
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                       href="{% url 'core:user:registration' %}">
-                                        {% translate "Register" %}
-                                    </a>
-                                </li>
+                                {% if allow_registration %}
+                                    <li>
+                                        <a class="dropdown-item"
+                                           href="{% url 'core:user:registration' %}">
+                                            {% translate "Register" %}
+                                        </a>
+                                    </li>
+                                {% endif %}
                                 <li>
                                     <a class="dropdown-item"
                                        href="{% url 'core:user:password_reset' %}">

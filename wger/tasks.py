@@ -31,7 +31,11 @@ from django.utils.crypto import get_random_string
 
 # Third Party
 import requests
-from invoke import task
+from invoke import (
+    Collection,
+    Program,
+    task,
+)
 from tqdm import tqdm
 
 
@@ -93,8 +97,8 @@ def bootstrap(context, settings_path=None, database_path=None, process_static=Tr
 
     # Download JS and CSS libraries
     if process_static:
-        context.run('yarn install')
-        context.run('yarn build:css:sass')
+        context.run('npm install')
+        context.run('npm run build:css:sass')
 
 
 @task(
@@ -106,7 +110,11 @@ def bootstrap(context, settings_path=None, database_path=None, process_static=Tr
     }
 )
 def create_settings(
-    context, settings_path=None, database_path=None, database_type='sqlite3', key_length=50
+    context,
+    settings_path=None,
+    database_path=None,
+    database_type='sqlite3',
+    key_length=50,
 ):
     """
     Creates a local settings file
@@ -228,7 +236,6 @@ def load_fixtures(context, settings_path=None):
     call_command('loaddata', 'groups.json')
     call_command('loaddata', 'users.json')
     call_command('loaddata', 'licenses.json')
-    call_command('loaddata', 'days_of_week.json')
     call_command('loaddata', 'setting_repetition_units.json')
     call_command('loaddata', 'setting_weight_units.json')
 
@@ -250,7 +257,7 @@ def load_fixtures(context, settings_path=None):
     call_command('loaddata', 'gym-adminconfig.json')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
@@ -358,3 +365,17 @@ def database_exists():
         sys.exit(0)
     else:
         return True
+
+
+def make_program():
+    ns = Collection(
+        start,
+        bootstrap,
+        create_settings,
+        create_or_reset_admin,
+        migrate_db,
+        load_fixtures,
+        load_online_fixtures,
+    )
+    return Program(namespace=ns)
+    # program.run()

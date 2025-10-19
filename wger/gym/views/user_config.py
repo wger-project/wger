@@ -41,7 +41,7 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = GymUserConfig
-    fields = ['include_inactive']
+    fields = ('include_inactive',)
     permission_required = 'gym.change_gymuserconfig'
     title = gettext_lazy('Configuration')
 

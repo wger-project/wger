@@ -22,6 +22,7 @@ from datetime import (
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.management import call_command
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -66,7 +67,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.save()
 
         weightEntry = WeightEntry.objects.filter(user=user).get(pk=3)
-        weightEntry.date = datetime.now().date() - timedelta(days=2)
+        weightEntry.date = timezone.now() - timedelta(days=2)
         weightEntry.save()
 
         user.userprofile.num_days_weight_reminder = 1
@@ -81,7 +82,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.save()
 
         weightEntry = WeightEntry.objects.filter(user=user).get(pk=3)
-        weightEntry.date = datetime.now().date() - timedelta(days=1)
+        weightEntry.date = timezone.now() - timedelta(days=1)
         weightEntry.save()
 
         user.userprofile.num_days_weight_reminder = 1
@@ -96,7 +97,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.save()
 
         weightEntry = WeightEntry.objects.filter(user=user).latest()
-        weightEntry.date = datetime.now().date()
+        weightEntry.date = timezone.now()
         weightEntry.save()
 
         user.userprofile.num_days_weight_reminder = 3

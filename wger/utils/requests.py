@@ -16,7 +16,7 @@
 import requests
 
 # wger
-from wger import get_version
+from wger.version import get_version
 
 
 def wger_user_agent():

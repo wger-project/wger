@@ -13,7 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.conf import settings
+
 # Third Party
+from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
 # wger
@@ -36,13 +40,13 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientWeightUnit
-        fields = [
+        fields = (
             'id',
             'amount',
             'gram',
             'ingredient',
             'unit',
-        ]
+        )
 
 
 class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
@@ -53,11 +57,11 @@ class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = IngredientWeightUnit
         depth = 1
-        fields = [
+        fields = (
             'gram',
             'amount',
             'unit',
-        ]
+        )
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
@@ -67,11 +71,11 @@ class WeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightUnit
-        fields = [
+        fields = (
             'id',
             'language',
             'name',
-        ]
+        )
 
 
 class IngredientImageSerializer(serializers.ModelSerializer):
@@ -84,7 +88,7 @@ class IngredientImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = [
+        fields = (
             'id',
             'uuid',
             'ingredient_id',
@@ -101,7 +105,7 @@ class IngredientImageSerializer(serializers.ModelSerializer):
             'license_author',
             'license_author_url',
             'license_derivative_source_url',
-        ]
+        )
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -111,7 +115,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = [
+        fields = (
             'id',
             'uuid',
             'remote_id',
@@ -119,6 +123,8 @@ class IngredientSerializer(serializers.ModelSerializer):
             'source_url',
             'code',
             'name',
+            'common_name',
+            'brand',
             'created',
             'last_update',
             'last_imported',
@@ -137,7 +143,7 @@ class IngredientSerializer(serializers.ModelSerializer):
             'license_author_url',
             'license_derivative_source_url',
             'language',
-        ]
+        )
 
 
 class IngredientInfoSerializer(serializers.ModelSerializer):
@@ -147,11 +153,12 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
 
     weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
     image = IngredientImageSerializer(read_only=True)
+    thumbnails = serializers.SerializerMethodField()
 
     class Meta:
         model = Ingredient
         depth = 1
-        fields = [
+        fields = (
             'id',
             'uuid',
             'remote_id',
@@ -172,14 +179,30 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'sodium',
             'weight_units',
             'language',
-            'image',
             'license',
             'license_title',
             'license_object_url',
             'license_author',
             'license_author_url',
             'license_derivative_source_url',
-        ]
+            'image',
+            'thumbnails',
+        )
+
+    def get_thumbnails(self, obj: Ingredient):
+        if not hasattr(obj, 'image'):
+            return None
+
+        request = self.context.get('request')
+        aliases = ['small', 'small_cropped', 'medium', 'medium_cropped', 'large', 'large_cropped']
+        result = {}
+
+        thumbnailer = get_thumbnailer(obj.image.image)
+        for alias in aliases:
+            opts = settings.THUMBNAIL_ALIASES[''][alias]
+            thumb = thumbnailer.get_thumbnail(opts)
+            result[alias] = request.build_absolute_uri(thumb.url)
+        return result
 
 
 class MealItemSerializer(serializers.ModelSerializer):
@@ -191,14 +214,14 @@ class MealItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealItem
-        fields = [
+        fields = (
             'id',
             'meal',
             'ingredient',
             'weight_unit',
             'order',
             'amount',
-        ]
+        )
 
 
 class LogItemSerializer(serializers.ModelSerializer):
@@ -208,7 +231,7 @@ class LogItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LogItem
-        fields = [
+        fields = (
             'id',
             'plan',
             'meal',
@@ -216,7 +239,7 @@ class LogItemSerializer(serializers.ModelSerializer):
             'weight_unit',
             'datetime',
             'amount',
-        ]
+        )
 
 
 class MealItemInfoSerializer(serializers.ModelSerializer):
@@ -234,7 +257,7 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = MealItem
         depth = 1
-        fields = [
+        fields = (
             'id',
             'meal',
             'ingredient',
@@ -244,7 +267,7 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
             'image',
             'order',
             'amount',
-        ]
+        )
 
 
 class MealSerializer(serializers.ModelSerializer):
@@ -259,7 +282,7 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = ['id', 'plan', 'order', 'time', 'name']
+        fields = ('id', 'plan', 'order', 'time', 'name')
 
 
 class NutritionalValuesSerializer(serializers.Serializer):
@@ -291,7 +314,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = [
+        fields = (
             'id',
             'plan',
             'order',
@@ -299,7 +322,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
             'name',
             'meal_items',
             'nutritional_values',
-        ]
+        )
 
 
 class NutritionPlanSerializer(serializers.ModelSerializer):
@@ -311,9 +334,11 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NutritionPlan
-        fields = [
+        fields = (
             'id',
             'creation_date',
+            'start',
+            'end',
             'description',
             'only_logging',
             'goal_energy',
@@ -322,7 +347,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'goal_fat',
             'goal_fiber',
             # 'nutritional_values',
-        ]
+        )
 
 
 class NutritionPlanInfoSerializer(serializers.ModelSerializer):
@@ -335,9 +360,11 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = NutritionPlan
         depth = 1
-        fields = [
+        fields = (
             'id',
             'creation_date',
+            'start',
+            'end',
             'description',
             'only_logging',
             'goal_energy',
@@ -346,4 +373,4 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
             'goal_fat',
             'goal_fiber',
             'meals',
-        ]
+        )

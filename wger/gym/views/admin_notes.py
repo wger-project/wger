@@ -91,7 +91,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = AdminUserNote
-    fields = ['note']
+    fields = ('note',)
     title = gettext_lazy('Add note')
     permission_required = 'gym.add_adminusernote'
     member = None
@@ -131,7 +131,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = AdminUserNote
-    fields = ['note']
+    fields = ('note',)
     permission_required = 'gym.change_adminusernote'
 
     def get_success_url(self):

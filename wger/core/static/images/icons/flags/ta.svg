@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="600" viewBox="-45 -30 90 60" fill="#07038D">
+	<title>Flag of India</title>
+	<path fill="#FFF" d="m-45-30h90v60h-90z"/>
+	<path fill="#FF6820" d="m-45-30h90v20h-90z"/>
+	<path fill="#046A38" d="m-45 10h90v20h-90z"/>
+	<circle r="9.25"/>
+	<circle fill="#FFF" r="8"/>
+	<circle r="1.6"/>
+	<g id="d">
+		<g id="c">
+			<g id="b">
+				<g id="a">
+					<path d="m0-8 .3 4.81409L0-.80235-.3-3.18591z"/>
+					<circle transform="rotate(7.5)" r="0.35" cy="-8"/>
+				</g>
+				<use xlink:href="#a" transform="scale(-1)"/>
+			</g>
+			<use xlink:href="#b" transform="rotate(15)"/>
+		</g>
+		<use xlink:href="#c" transform="rotate(30)"/>
+	</g>
+	<use xlink:href="#d" transform="rotate(60)"/>
+	<use xlink:href="#d" transform="rotate(120)"/>
+</svg>

@@ -24,6 +24,7 @@ from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
+from wger.exercises.cache import cache_api_exercises
 from wger.exercises.sync import (
     download_exercise_images,
     download_exercise_videos,
@@ -70,6 +71,15 @@ def sync_videos_task():
     download_exercise_videos(logger.info)
 
 
+@app.task
+def cache_api_exercises_task():
+    """
+    Fetches all exercises from database and caches them.
+    """
+    force = settings.WGER_SETTINGS['CACHE_API_EXERCISES_CELERY_FORCE_UPDATE']
+    cache_api_exercises(logger.info, force)
+
+
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISES_CELERY']:
@@ -103,4 +113,15 @@ def setup_periodic_tasks(sender, **kwargs):
             ),
             sync_videos_task.s(),
             name='Sync exercise videos',
+        )
+
+    if settings.WGER_SETTINGS['CACHE_API_EXERCISES_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=str(random.randint(0, 23)),
+                minute=str(random.randint(0, 59)),
+                day_of_week=str(random.randint(0, 6)),
+            ),
+            cache_api_exercises_task.s(),
+            name='Cache API exercises',
         )

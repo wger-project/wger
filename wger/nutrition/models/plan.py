@@ -43,9 +43,8 @@ class NutritionPlan(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        # Order by creation_date, descending (oldest first)
         ordering = [
-            '-creation_date',
+            '-start',
         ]
 
     uuid = models.UUIDField(
@@ -67,12 +66,24 @@ class NutritionPlan(models.Model):
         auto_now_add=True,
     )
 
+    start = models.DateField(
+        _('Start date'),
+        blank=True,
+        default=datetime.date.today,
+    )
+
+    end = models.DateField(
+        _('End date'),
+        null=True,
+        blank=True,
+    )
+
     description = models.CharField(
         max_length=80,
         blank=True,
         verbose_name=_('Description'),
         help_text=_(
-            'A description of the goal of the plan, e.g. ' '"Gain mass" or "Prepare for summer"'
+            'A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"'
         ),
     )
 
@@ -189,7 +200,9 @@ class NutritionPlan(models.Model):
         )
         if closest_entry_gte is None or closest_entry_lte is None:
             return closest_entry_gte or closest_entry_lte
-        if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):
+        if abs(closest_entry_gte.date.date() - target) < abs(
+            closest_entry_lte.date.date() - target
+        ):
             return closest_entry_gte
         else:
             return closest_entry_lte

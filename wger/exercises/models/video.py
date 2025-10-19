@@ -37,7 +37,7 @@ except ImportError:
     ffmpeg = None
 
 # wger
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -68,7 +68,7 @@ def validate_video(value):
 
     try:
         ffmpeg.probe(value.file.temporary_file_path())
-    except ffmpeg.Error as e:
+    except ffmpeg.Error:
         raise ValidationError(_('File is not a valid video'))
 
 
@@ -77,7 +77,7 @@ def exercise_video_upload_dir(instance, filename):
     Returns the upload target for exercise videos
     """
     ext = pathlib.Path(filename).suffix
-    return f'exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}'
+    return f'exercise-video/{instance.exercise.id}/{instance.uuid}{ext}'
 
 
 class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -93,8 +93,8 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Globally unique ID, to identify the image across installations"""
 
-    exercise_base = models.ForeignKey(
-        ExerciseBase,
+    exercise = models.ForeignKey(
+        Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
@@ -214,6 +214,14 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 self.codec_long = stream['codec_long_name']
 
         # Api cache
-        reset_exercise_api_cache(self.exercise_base.uuid)
+        reset_exercise_api_cache(self.exercise.uuid)
 
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+        reset_exercise_api_cache(self.exercise.uuid)
+
+        super().delete(*args, **kwargs)

@@ -9,14 +9,18 @@
         {% for category in exercisecategory_list %}
             <li class="list-group-item list-group-item-action">
                 <div class="btn-group float-end">
-                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm"
+                            data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'exercise:category:edit' category.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                        <a href="{% url 'exercise:category:delete' category.id %}"
-                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                        {% translate 'Edit' as text %}
+                        {% url 'exercise:category:edit' category.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                        {% translate 'Delete' as text %}
+                        {% url 'exercise:category:delete' category.id as url %}
+                        {% modal_link url=url text=text css_class='dropdown-item' %}
                     </div>
                 </div>
                 {{ category }}
@@ -32,11 +36,8 @@
 
 
 {% block options %}
-    {% if perms.exercises.add_exercisecategory %}
-        <p>
-            <a href="{% url 'exercise:category:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-                {% translate "Add" %}
-            </a>
-        </p>
-    {% endif %}
+{% if perms.exercises.add_exercisecategory %}
+    {% translate 'Add' as text %}
+    {% modal_link url='exercise:category:add' text=text %}
+{% endif %}
 {% endblock %}

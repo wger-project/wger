@@ -68,7 +68,7 @@ class Command(BaseCommand):
             for i in data:
                 out += f'{{% translate "{i}" %}}\n'
             f.write(out)
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to wger/i18n.tpl'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to wger/i18n.tpl'))
 
         #
         # React - copy the file to src/i18n.tsx in the React repo
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 return (<p></p>);
                 };"""
             f.write(out)
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to wger/i18n.tsx'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to wger/i18n.tsx'))
 
         #
         # Flutter - copy content to the end of lib/l10n/app_en.arb in the flutter repo
@@ -102,10 +102,10 @@ class Command(BaseCommand):
             for i in data:
                 out += f'"{cleanup_name(i.__str__())}": "{i}",\n'
                 out += f'"@{cleanup_name(i.__str__())}": {{ \n'
-                out += f'"description": "Generated entry for translation for server strings"\n'
+                out += '"description": "Generated entry for translation for server strings"\n'
                 out += '},\n'
             f.write(out)
-            self.stdout.write(self.style.SUCCESS(f'Wrote content to app_en.arb'))
+            self.stdout.write(self.style.SUCCESS('Wrote content to app_en.arb'))
 
         # Copy to lib/helpers/i18n.dart in the flutter repo
         with open('wger/i18n.dart', 'w') as f:
@@ -120,10 +120,12 @@ class Command(BaseCommand):
             import 'dart:developer';
 
             import 'package:flutter/widgets.dart';
-            import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+            import 'package:wger/l10n/generated/app_localizations.dart';
             import 'package:logging/logging.dart';
 
             String getTranslation(String value, BuildContext context) {
+                  final logger = Logger('getTranslation');
+
                   switch (value) {"""
             for i in data:
                 out += f"""
@@ -132,10 +134,10 @@ class Command(BaseCommand):
                 """
 
             out += """
-                default:
-                    log('Could not translate the server string $value', level: Level.WARNING.value);
-                    return value;
-                }
+            default:
+                logger.warning('Could not translate the server string $value');
+                return value;
+            }
             }"""
 
             f.write(out)

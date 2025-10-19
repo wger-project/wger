@@ -1,0 +1,67 @@
+[
+  {
+    "pk": 1,
+    "model": "manager.workoutlog",
+    "fields": {
+      "routine": 1,
+      "session": 1,
+      "weight": 30,
+      "repetitions": 8,
+      "user": 1,
+      "date": "2025-10-01T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.workoutlog",
+    "fields": {
+      "routine": 1,
+      "session": 2,
+      "weight": 32,
+      "repetitions": 8,
+      "user": 1,
+      "date": "2025-10-20T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.workoutlog",
+    "fields": {
+      "routine": 1,
+      "session": 3,
+      "weight": 38,
+      "repetitions": 8,
+      "user": 1,
+      "date": "2025-10-30T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.workoutlog",
+    "fields": {
+      "routine": 1,
+      "session": 4,
+      "weight": 30,
+      "repetitions": 8,
+      "user": 1,
+      "date": "2025-11-01T00:00:00+01:00",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "manager.workoutlog",
+    "fields": {
+      "weight": 30,
+      "session": 5,
+      "routine": 5,
+      "repetitions": 8,
+      "user": 2,
+      "date": "2025-11-01T00:00:00+01:00",
+      "exercise": 2
+    }
+  }
+]

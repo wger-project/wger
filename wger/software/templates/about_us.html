@@ -2,63 +2,150 @@
 {% load static i18n wger_extras %}
 
 
-{% block title %}{% translate "About us" %}{% endblock %}
+{% block title %}{% translate "Support & Get Involved" %}{% endblock %}
 
 {% block content %}
     <p>
         {% blocktranslate trimmed %}
-            Thank you for using wger! wger is a collaborative open source project, made
-            by fitness enthusiasts from around the world.
+            wger helps you track your workouts, manage your nutrition, and reach
+            your fitness goals. We offer it as free, open-source software you can
+            host yourself, and also provide a convenient, free, and hosted version
+            for easy access.
         {% endblocktranslate %}
     </p>
 
 
-    <h5>
-        <span class="{% fa_class 'bug' %}"></span>
-        {% translate 'Have a problem or idea?' %}
+    <h3>{% translate "Open Source & free to use ❤️" %}</h3>
+    <p>
+        {% blocktranslate trimmed %}
+            wger is built on the principles of open source. Its code is publicly
+            available, developed by our community, ensuring transparency and giving
+            you control over your data (especially if self-hosting). The free
+            hosted service runs entirely on this open-source foundation. We believe
+            powerful fitness tools should be accessible to everyone.
+        {% endblocktranslate %}
+    </p>
+
+
+    <h3>{% translate "How you can help" %}</h3>
+    <p>
+        All types of contributions are encouraged. And if you like the project
+        but just don’t have time to contribute, that’s fine. There are other easy
+        ways to support the project and show your appreciation. Whether you're a
+        developer, a translator, or just passionate about fitness, every bit of
+        support is appreciated!
+    </p>
+
+    <h5 class="mt-4">
+        {% translate "Join the Community" %}
     </h5>
-    <p>{% translate "Get in touch if something didn't behave as expected or if there is a feature that you feel is missing." %}</p>
-    <a class="btn btn-outline-primary mb-5"
-       href="https://github.com/wger-project/wger/issues/new/choose">https://github.com/wger-project/wger/issues/new/choose</a>
 
-    <h5>
-        <span class="fa-brands fa-discord"></span>
-        {% translate 'Say hi!' %}
+    <ul class="fa-ul">
+        <li>
+            <span class="fa-li"><i class="fa-brands fa-discord"></i></span>
+            <a href="https://discord.gg/rPWFv6W">{% translate "Join the Discord server" %}</a>:
+            {% blocktranslate trimmed %}
+                Hop on the Discord server to chat with the developers and other
+                users, ask questions, or discuss new features.
+            {% endblocktranslate %}
+        </li>
+        <li>
+            <span class="fa-li"><i class="fa-brands fa-mastodon"></i></span>
+            <a href="https://fosstodon.org/@wger">Follow @wger@fosstodon.org</a>:
+            {% blocktranslate trimmed %}
+                Get news, updates, and announcements about the project on Mastodon.
+            {% endblocktranslate %}
+        </li>
+        <li>
+            <span class="fa-li"><i class="fa-solid fa-comments"></i></span>
+            {% blocktranslate trimmed %}
+                Spread the word: Tell your friends, gym buddies, or share on social
+                media! Your enthusiasm helps us grow and reach more people.
+            {% endblocktranslate %}
+        </li>
+    </ul>
+
+
+
+    <h5 class="mt-4">
+        {% translate "Contribute your skills" %}
     </h5>
-    <p>{% translate 'If you want to chat with us, hop on the Discord server and get in touch' %}</p>
-    <a class="btn btn-outline-primary mb-5" href="https://discord.gg/rPWFv6W">https://discord.gg/rPWFv6W</a>
+    <ul>
+        <li>
+            <a href="https://github.com/wger-project/wger/issues/new/choose">
+                {% translate "Report bugs or suggest features" %}:
+            </a>
+            {% translate "Have a problem or idea? Let us know!" %}
+        </li>
+        <li>
+            <a href="{% url 'exercise:exercise:overview' %}">{% translate "Improve the exercises" %}</a>:
+            {% translate "Contribute new exercises, and edit or translate the existing ones." %}
+        </li>
+        <li>
+            <a href="https://hosted.weblate.org/engage/wger/">{% translate "Translate the application" %}</a>:
+            {% translate "Help make the app accessible in more languages for users around the world." %}
+        </li>
+        <li>
+            <a href="https://github.com/wger-project">{% translate "Contribute code or documentation" %}</a>:
+            {% translate "Check out the source code and help us build the next version." %}
+        </li>
+    </ul>
 
-    <h5>
-        <span class="fa-brands fa-mastodon"></span>
-        {% translate 'Mastodon' %}
+
+    <h5 class="mt-4">
+        {% translate "Make a donation" %}
     </h5>
-    <p>{% translate 'Follow us on mastodon for updates and news about the project' %}</p>
-    <a class="btn btn-outline-primary mb-5" href="https://fosstodon.org/@wger">https://fosstodon.org/@wger</a>
 
-    <h5>
-        <span class="{% fa_class 'language' %}"></span>
-        {% translate 'Translation' %}
-    </h5>
-    <p>{% translate 'This application is translated on weblate. If you also want to help, click the link and start translating' %}</p>
-    <a class="btn btn-outline-primary mb-5" href="https://hosted.weblate.org/engage/wger/">https://hosted.weblate.org/engage/wger/</a>
+    <p>
+        {% blocktranslate trimmed %}
+            While the project is free and will always remain it, running the server
+            isn’t! Providing the hosted version of wger involves real, ongoing costs
+            for server hosting, bandwidth, backups, etc. Development also takes
+            significant time and effort from volunteers.
+            Your contribution directly supports these essential costs, helping to
+            keep the service reliable, improving, and free for everyone.
+        {% endblocktranslate %}
+    </p>
 
-    <h5>
-        <span class="{% fa_class 'code' %}"></span>
-        {% translate 'Source code' %}
-    </h5>
-    <p>{% translate 'Get the source code of this application and its server on github' %}</p>
-    <a class="btn btn-outline-primary mb-5" href="https://github.com/wger-project">https://github.com/wger-project</a>
-    
-    <h5>
-        <i class="fa-regular fa-money-bill-1"></i>
-        {% translate 'Donate' %}
-    </h5>
-    <p>{% translate 'Buy us a coffee to help the project, pay for server costs, and keep us fueled' %}</p>
-    <a class="btn btn-outline-primary mb-5" href="https://www.buymeacoffee.com/wger">https://www.buymeacoffee.com/wger</a>
+    <div class="row justify-content-center align-items-center"
+         style="display: flex;">
+        <div class="col-4 d-flex flex-column align-items-center">
+            <a href="https://buymeacoffee.com/wger">
+                <img src="{% static 'images/logos/buymeacoffee/bmc-full-logo-no-background.png' %}"
+                     width="160"
+                     alt="Donate"
+                     class="img-fluid">
+            </a>
+        </div>
+        <div class="col-4 d-flex flex-column align-items-center" style="text-align: center;">
+            <a href="https://liberapay.com/wger">
+                <img src="{% static 'images/logos/liberapay/liberapay_logo_black-on-yellow.svg' %}"
+                     width="60"
+                     alt="Donate" class="img-fluid">
+                <br>
+                Liberapay
+            </a>
+        </div>
+        <div class="col-4 d-flex flex-column align-items-center" style="text-align: center;">
+            <a href="https://github.com/sponsors/wger-project">
+                <img src="{% static 'images/logos/github/GitHub_Logo.png' %}"
+                     width="100"
+                     alt="Donate" class="img-fluid">
+                <br>
+                {% translate "Sponsor on GitHub" %}
+            </a>
+        </div>
+    </div>
 
 
 
-
+    <h4 class="mt-4">{% translate "Thank You!" %}</h4>
+    <p>
+        {% blocktranslate trimmed %}
+            Thank you for being part of the community! We appreciate your usage,
+            feedback, and any support you can offer.
+        {% endblocktranslate %}
+    </p>
 {% endblock %}
 
 
@@ -68,15 +155,20 @@
             {% translate "Our goal" %}
         </div>
         <div class="card-body">
-            {% blocktranslate %}The goal is to build an awesome
-                and flexible fitness manager, along with a comprehensive and complete list of
-                exercises and
-                ingredients, all released under a free license.{% endblocktranslate %}
+            {% blocktranslate trimmed %}
+                The goal is to build an awesome and flexible fitness manager, along
+                with a comprehensive and complete list of exercises and ingredients,
+                all released under a free license.
+            {% endblocktranslate %}
         </div>
     </div>
 
     <div class="alert alert-dark mt-5" role="alert">
-        {% translate "Current version" %} {{ version }}
+        {% translate "Current version" %} <strong>{{ version }}</strong>
+        {% if date %}
+            <br>
+            {% translate 'Date' %} <strong>{{ date }}</strong>
+        {% endif %}
     </div>
 {% endblock %}
 

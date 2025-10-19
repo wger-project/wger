@@ -65,7 +65,7 @@ class Command(BaseCommand):
     def handle(self, **options):
         faker = Faker()
 
-        self.stdout.write(f"** Generating {options['number_users']} users")
+        self.stdout.write(f'** Generating {options["number_users"]} users')
 
         match options['add_to_gym']:
             case 'auto':
@@ -80,7 +80,7 @@ class Command(BaseCommand):
             first_name = faker.first_name()
             last_name = faker.last_name()
 
-            username = slugify(f"{first_name}, {last_name} - {str(uid).split('-')[1]}")
+            username = slugify(f'{first_name}, {last_name} - {str(uid).split("-")[1]}')
             email = f'{username}@example.com'
             password = username
 
@@ -92,7 +92,7 @@ class Command(BaseCommand):
 
             # Even with the uuid part, usernames are not guaranteed to be unique,
             # in this case, just ignore and continue
-            except IntegrityError as e:
+            except IntegrityError:
                 continue
 
             if gym_list:

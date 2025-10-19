@@ -97,6 +97,21 @@ class Ingredient(AbstractLicenseModel, models.Model):
     )
     """Last update time"""
 
+    last_image_check = models.DateTimeField(
+        blank=True,
+        editable=False,
+        default=None,
+        null=True,
+    )
+    """
+    Last time we checked for an image.
+
+    This is used to prevent trying to fetch images over and over again from an
+    ingredient that does not have any.
+
+    In the future, this field can be used to renew existing images.
+    """
+
     uuid = models.UUIDField(
         default=uuid.uuid4,
         unique=True,
@@ -421,7 +436,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         Searches OFF by barcode and creates a local ingredient from the result
         """
         # wger
-        from wger.nutrition.off import extract_info_from_off
+        from wger.nutrition.extract_info.off import extract_info_from_off
 
         logger.info(f'Searching for ingredient {code} in OFF')
         try:

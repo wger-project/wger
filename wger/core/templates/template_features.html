@@ -45,16 +45,16 @@
 
 
     {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'yarn/components-font-awesome/css/all.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-compiled.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/landing_page.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-        <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
+        <script src="{% static 'node/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'node/@popperjs/core/dist/umd/popper.js' %}"></script>
     {% endcompress %}
 
     <title>wger Workout Manager - {% translate "Features" %}</title>

@@ -18,7 +18,7 @@ from django.test import SimpleTestCase
 
 # wger
 from wger.nutrition.dataclasses import IngredientData
-from wger.nutrition.off import extract_info_from_off
+from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.utils.constants import ODBL_LICENSE_ID
 
 
@@ -111,3 +111,29 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
 
         self.assertEqual(result.carbohydrates_sugar, None)
         self.assertEqual(result.fat_saturated, None)
+
+    def test_ingredient_clean_name(self):
+        data = IngredientData(
+            name='Stonebaked Pizza &quot;the amer\x96ican \x99pepperoni&quot;',
+            remote_id='1234',
+            language_id=1,
+            energy=120,
+            protein=10,
+            carbohydrates=20,
+            carbohydrates_sugar=30,
+            fat=40,
+            fat_saturated=11,
+            fiber=None,
+            sodium=5,
+            code='1234',
+            source_name='Open Food Facts',
+            source_url='https://world.openfoodfacts.org/api/v2/product/1234.json',
+            common_name='',
+            brand='The bar company',
+            license_id=ODBL_LICENSE_ID,
+            license_author='open food facts, MrX',
+            license_title='Foo with chocolate',
+            license_object_url='https://world.openfoodfacts.org/product/1234/',
+        )
+        data.clean_name()
+        self.assertEqual(data.name, 'Stonebaked Pizza "the american pepperoni"')

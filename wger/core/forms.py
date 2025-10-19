@@ -53,6 +53,20 @@ from django_recaptcha.widgets import ReCaptchaV3
 from wger.core.models import UserProfile
 
 
+class PasswordInputWithToggle(PasswordInput):
+    """
+    Custom PasswordInput widget with eye icon toggle functionality
+    """
+
+    template_name = 'forms/password_with_toggle.html'
+
+    def __init__(self, attrs=None, render_value=False):
+        default_attrs = {'class': 'form-control'}
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(default_attrs, render_value)
+
+
 class UserLoginForm(AuthenticationForm):
     """
     Form for logins
@@ -62,6 +76,9 @@ class UserLoginForm(AuthenticationForm):
 
     def __init__(self, authenticate_on_clean=True, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
+
+        # Apply custom password widget
+        self.fields['password'].widget = PasswordInputWithToggle()
 
         self.authenticate_on_clean = authenticate_on_clean
 
@@ -137,10 +154,17 @@ class UserPreferencesForm(forms.ModelForm):
             'ro_access',
             'num_days_weight_reminder',
             'birthdate',
+            'height',
         )
 
     def __init__(self, *args, **kwargs):
         super(UserPreferencesForm, self).__init__(*args, **kwargs)
+
+        hattrs = self.fields['height'].widget.attrs
+        hattrs.setdefault('type', 'number')
+        hattrs.setdefault('step', '1')
+        hattrs['min'] = '0'
+
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
@@ -153,6 +177,7 @@ class UserPreferencesForm(forms.ModelForm):
                     css_class='form-row',
                 ),
                 'birthdate',
+                'height',
                 HTML('<hr>'),
             ),
             Fieldset(
@@ -229,7 +254,7 @@ class PasswordConfirmationForm(Form):
 
     password = CharField(
         label=_('Password'),
-        widget=PasswordInput,
+        widget=PasswordInputWithToggle,
         help_text=_('Please enter your current password.'),
     )
 
@@ -265,6 +290,11 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
+
+        # Apply custom password widgets
+        self.fields['password1'].widget = PasswordInputWithToggle()
+        self.fields['password2'].widget = PasswordInputWithToggle()
+
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
@@ -287,6 +317,11 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationFormNoCaptcha, self).__init__(*args, **kwargs)
+
+        # Apply custom password widgets
+        self.fields['password1'].widget = PasswordInputWithToggle()
+        self.fields['password2'].widget = PasswordInputWithToggle()
+
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(

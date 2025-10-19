@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,14 +13,15 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 import os
 import re
 import sys
 from datetime import timedelta
 
 # wger
-from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
+from wger.version import get_version
 
 
 """
@@ -128,6 +127,9 @@ MIDDLEWARE = [
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
+    # Auth proxy middleware
+    'wger.core.middleware.AuthProxyHeaderMiddleware',
+
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
 
@@ -152,6 +154,8 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
+
+    'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
@@ -193,6 +197,11 @@ STATICFILES_FINDERS = (
 
     # Django compressor
     'compressor.finders.CompressorFinder',
+)
+
+# Additional places to copy to static files
+STATICFILES_DIRS = (
+    ('node', os.path.join(BASE_DIR, '..', 'node_modules')),
 )
 
 #
@@ -246,15 +255,22 @@ AVAILABLE_LANGUAGES = (
     ('es-ni', 'Nicaraguan Spanish'),
     ('es-ve', 'Venezuelan Spanish'),
     ('fr', 'French'),
+    ('he', 'Hebrew'),
     ('hr', 'Croatian'),
     ('it', 'Italian'),
+    ('ko', 'Korean'),
     ('nl', 'Dutch'),
     ('nb', 'Norwegian'),
     ('pl', 'Polish'),
     ('pt', 'Portuguese'),
     ('pt-br', 'Brazilian Portuguese'),
     ('ru', 'Russian'),
+    ('sk', 'Slovak'),
+    ('sl', 'Slovenian'),
+    ('sr', 'Serbian'),
     ('sv', 'Swedish'),
+    ('ta', 'Tamil'),
+    ('th', 'Thai'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
     ('zh-hans', 'Chinese simplified'),
@@ -292,13 +308,8 @@ LOGGING = {
     'loggers': {
         'wger': {
             'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        '': {
-            'handlers': ['console'],
             'level': 'INFO',
-            'propagate': False,
-        }
+        },
     }
 }
 
@@ -461,7 +472,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '10/min'
+        'login': '10/min',
+        'registration': '5/min'
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
@@ -537,22 +549,38 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'INGREDIENT_CACHE_TTL': 604800,  # one week
+    'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(weeks=12),
+    'ROUTINE_CACHE_TTL': 4 * 604800,  # one month
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'SYNC_EXERCISES_CELERY': False,
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'SYNC_INGREDIENTS_CELERY': False,
     'SYNC_OFF_DAILY_DELTA_CELERY': False,
+    'CACHE_API_EXERCISES_CELERY': False,
+    'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': False,
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
 }
+
+#
+# Auth Proxy Authentication
+#
+# Please read the documentation before enabling this feature:
+# https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
+#
+AUTH_PROXY_HEADER = ''
+AUTH_PROXY_USER_EMAIL_HEADER = ''
+AUTH_PROXY_USER_NAME_HEADER = ''
+AUTH_PROXY_TRUSTED_IPS = []
+AUTH_PROXY_CREATE_UNKNOWN_USER = False
 
 #
 # Prometheus metrics

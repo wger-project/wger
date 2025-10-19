@@ -22,10 +22,10 @@
 
 {% if perms.gym.gym_trainer %}
 
-<h4>{% translate "Workouts" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
+<h4>{% translate "Routines" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
-<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% translate "Add workout" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:routine:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
+{#<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% translate "Add workout" %}</a>#}
 {% endif %}
 
 <table class="table">
@@ -38,19 +38,19 @@
 </tr>
 </thead>
 <tbody>
-{% for workout in workouts %}
+{% for entry in routine_data %}
 <tr>
     <td>
-        {{workout.workout.creation_date}}
+        {{entry.routine.created}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={{ workout.workout.get_absolute_url }}">{{workout.workout}}</a>
+        <a href="{{trainer_login}}?next={{ entry.routine.get_absolute_url }}">{{entry.routine}}</a>
     </td>
     <td>
-        {{workout.logs|default:'-/-'}}
+        {{entry.logs|default:'-/-'}}
     </td>
     <td>
-        {{workout.last_log.date|default:'-/-'}}
+        {{entry.last_log.date|default:'-/-'}}
     </td>
 </tr>
 {% empty %}
@@ -67,7 +67,7 @@
 
 <h4>{% translate "Log" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-light btn-sm">{% translate "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:routine:calendar' %}" class="btn btn-light btn-sm">{% translate "Calendar" %}</a>
 {% endif %}
 
 <table class="table">
@@ -201,20 +201,38 @@
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'core:user:edit' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
+        {% translate 'Edit' as text %}
+        {% url 'core:user:edit' current_user.pk as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
+
         <div class="dropdown-divider"></div>
             {% if current_user.is_active %}
-            <a href="{% url 'core:user:deactivate' current_user.pk %}" class="dropdown-item">{% translate "Deactivate user"%}</a>
-        {% else %}
-            <a href="{% url 'core:user:activate' current_user.pk %}" class="dropdown-item">{% translate "Activate user"%}</a>
-        {% endif %}
-        <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-bs-toggle="modal" data-bs-target="#confirmation-modal" class="dropdown-item">{% translate "Reset user password" %}</a>
+                {% translate 'Deactivate user' as text %}
+                {% url 'core:user:deactivate' current_user.pk as url %}
+                {% modal_link url=url text=text css_class='dropdown-item' %}
+            {% else %}
+                {% translate 'Activate user' as text %}
+                {% url 'core:user:activate' current_user.pk as url %}
+                {% modal_link url=url text=text css_class='dropdown-item' %}
+            {% endif %}
+        <a
+            data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmation-modal"
+            class="dropdown-item">
+            {% translate "Reset user password" %}
+        </a>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         {% if current_user.userprofile.gym %}
-            <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Roles"%}</a>
+            {% translate 'Roles' as text %}
+            {% url 'gym:gym:edit-user-permission' current_user.pk as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
         {% endif %}
         {% endif %}
-        <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Delete"%}</a>
+
+        {% translate 'Delete' as text %}
+        {% url 'core:user:delete' current_user.pk as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 
@@ -362,7 +380,10 @@
     </button>
     <div class="dropdown-menu" role="menu">
         <a href="{% url 'gym:admin_note:list' current_user.pk %}" class="dropdown-item">{% translate "Overview" %}</a>
-        <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Add"%}</a>
+
+        {% translate 'Add' as text %}
+        {% url 'gym:admin_note:add' current_user.pk as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 
@@ -442,7 +463,10 @@
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
+
+        {% translate 'Edit' as text %}
+        {% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 {% endif %}

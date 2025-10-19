@@ -17,12 +17,10 @@
 # Standard Library
 import logging
 from datetime import datetime
-from decimal import Decimal
 
 # Django
 from django import forms
 from django.forms import BooleanField
-from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -32,11 +30,9 @@ from django.utils.translation import (
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
-    ButtonHolder,
     Column,
     Layout,
     Row,
-    Submit,
 )
 
 # wger
@@ -45,7 +41,6 @@ from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     LogItem,
-    Meal,
     MealItem,
 )
 from wger.utils.widgets import Html5NumberInput
@@ -81,9 +76,15 @@ class UnitChooserForm(forms.Form):
         else:
             ingredient_id = -1
 
-        self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
-            ingredient_id=ingredient_id
-        ).select_related()
+        self.fields['unit'].queryset = IngredientWeightUnit.objects.none()
+        try:
+            self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
+                ingredient_id=ingredient_id
+            ).select_related()
+        except ValueError as e:
+            logger.error(f'ValueError in UnitChooserForm: {e}')
+        except IngredientWeightUnit.DoesNotExist as e:
+            logger.error(f'IngredientWeightUnit does not exist: {e}')
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -94,45 +95,6 @@ class UnitChooserForm(forms.Form):
             )
         )
         self.helper.form_tag = False
-
-
-class BmiForm(forms.ModelForm):
-    height = forms.DecimalField(
-        widget=Html5NumberInput(),
-        max_value=Decimal(999),
-    )
-    weight = forms.DecimalField(
-        widget=Html5NumberInput(),
-        max_value=Decimal(999),
-    )
-
-    class Meta:
-        model = UserProfile
-        fields = ('height',)
-
-    def __init__(self, *args, **kwargs):
-        super(BmiForm, self).__init__(*args, **kwargs)
-
-        if 'initial' in kwargs:  # if the form is rendering for the first time
-            self['height'].label = (
-                _('Height (cm)') if kwargs['initial']['use_metric'] else _('Height (in)')
-            )
-            self['weight'].label = (
-                _('Weight (kg)') if kwargs['initial']['use_metric'] else _('Weight (lbs)')
-            )
-
-        self.helper = FormHelper()
-        self.helper.form_action = reverse('nutrition:bmi:calculate')
-        self.helper.form_class = 'wger-form'
-        self.helper.form_id = 'bmi-form'
-        self.helper.layout = Layout(
-            Row(
-                Column('height', css_class='col-6'),
-                Column('weight', css_class='col-6'),
-                css_class='form-row',
-            ),
-            ButtonHolder(Submit('submit', _('Calculate'), css_class='btn-success')),
-        )
 
 
 class BmrForm(forms.ModelForm):
@@ -206,16 +168,14 @@ class DailyCaloriesForm(forms.ModelForm):
 
     base_calories = forms.IntegerField(
         label=_('Basic caloric intake'),
-        help_text=_('Your basic caloric intake as calculated for ' 'your data'),
+        help_text=_('Your basic caloric intake as calculated for your data'),
         required=False,
         widget=Html5NumberInput(),
     )
     additional_calories = forms.IntegerField(
         label=_('Additional calories'),
         help_text=_(
-            'Additional calories to add to the base '
-            'rate (to substract, enter a negative '
-            'number)'
+            'Additional calories to add to the base rate (to substract, enter a negative number)'
         ),
         initial=0,
         required=False,
@@ -257,12 +217,12 @@ class MealItemForm(forms.ModelForm):
 
     class Meta:
         model = MealItem
-        fields = [
+        fields = (
             'ingredient',
             'english_results',
             'weight_unit',
             'amount',
-        ]
+        )
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
@@ -310,12 +270,12 @@ class MealLogItemForm(MealItemForm):
 
     class Meta:
         model = LogItem
-        fields = [
+        fields = (
             'ingredient',
             'weight_unit',
             'amount',
             'datetime',
-        ]
+        )
 
     def __init__(self, *args, **kwargs):
         super(MealLogItemForm, self).__init__(*args, **kwargs)
@@ -335,7 +295,7 @@ class MealLogItemForm(MealItemForm):
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = [
+        fields = (
             'name',
             'brand',
             'energy',
@@ -348,7 +308,7 @@ class IngredientForm(forms.ModelForm):
             'sodium',
             'license',
             'license_author',
-        ]
+        )
         widgets = {'category': forms.TextInput}
 
     def __init__(self, *args, **kwargs):

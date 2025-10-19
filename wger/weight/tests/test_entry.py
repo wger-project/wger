@@ -12,22 +12,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import datetime
-import decimal
-
 # Django
-from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import (
-    WgerAddTestCase,
-    WgerDeleteTestCase,
-    WgerEditTestCase,
-    WgerTestCase,
-)
-from wger.utils.constants import TWOPLACES
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.weight.models import WeightEntry
 
 
@@ -40,51 +30,9 @@ class MealRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(str(WeightEntry.objects.get(pk=1)), '2012-10-01: 77.00 kg')
-
-
-class AddWeightEntryTestCase(WgerAddTestCase):
-    """
-    Tests adding a weight entry
-    """
-
-    object_class = WeightEntry
-    url = 'weight:add'
-    user_fail = False
-    data = {
-        'weight': decimal.Decimal(81.1).quantize(TWOPLACES),
-        'date': datetime.date(2013, 2, 1),
-        'user': 1,
-    }
-
-
-class EditWeightEntryTestCase(WgerEditTestCase):
-    """
-    Tests editing a weight entry
-    """
-
-    object_class = WeightEntry
-    url = 'weight:edit'
-    pk = 1
-    data = {
-        'weight': 100,
-        'date': datetime.date(2013, 2, 1),
-        'user': 1,
-    }
-    user_success = 'test'
-    user_fail = 'admin'
-
-
-class DeleteWeightEntryTestCase(WgerDeleteTestCase):
-    """
-    Tests deleting a weight entry
-    """
-
-    object_class = WeightEntry
-    url = 'weight:delete'
-    pk = 1
-    user_success = 'test'
-    user_fail = 'admin'
+        self.assertEqual(
+            str(WeightEntry.objects.get(pk=1)), '2012-10-01 14:30:21.592000+00:00: 77.00 kg'
+        )
 
 
 class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -95,4 +43,5 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 3
     resource = WeightEntry
     private_resource = True
-    data = {'weight': 100, 'date': datetime.date(2013, 2, 1)}
+    date = timezone.now() - timezone.timedelta(days=25)
+    data = {'weight': 100, 'date': date}

@@ -31,7 +31,6 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'core:language:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add" %}
-    </a>
+    {% translate 'Add' as text %}
+    {% modal_link url="core:language:add" text=text %}
 {% endblock %}

@@ -20,6 +20,7 @@ import random
 # Django
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 # wger
 from wger.weight.models import WeightEntry
@@ -53,7 +54,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f"** Generating {options['nr_entries']} weight entries per user")
+        self.stdout.write(f'** Generating {options["nr_entries"]} weight entries per user')
 
         base_weight = 80
 
@@ -61,7 +62,7 @@ class Command(BaseCommand):
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
         )
 
-        print(f"** Generating {options['nr_entries']} weight entries per user")
+        print(f'** Generating {options["nr_entries"]} weight entries per user')
 
         for user in users:
             new_entries = []
@@ -71,7 +72,7 @@ class Command(BaseCommand):
 
             # Weight entries
             for i in range(options['nr_entries']):
-                creation_date = datetime.date.today() - datetime.timedelta(days=i)
+                creation_date = timezone.now() - datetime.timedelta(days=i)
                 if creation_date not in existing_entries:
                     entry = WeightEntry(
                         user=user,

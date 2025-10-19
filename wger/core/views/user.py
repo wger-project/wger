@@ -44,6 +44,7 @@ from django.http import (
 )
 from django.shortcuts import (
     get_object_or_404,
+    redirect,
     render,
 )
 from django.template.context_processors import csrf
@@ -81,7 +82,6 @@ from wger.core.forms import (
     PasswordConfirmationForm,
     RegistrationForm,
     RegistrationFormNoCaptcha,
-    UserLoginForm,
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
@@ -91,7 +91,7 @@ from wger.gym.models import (
     GymUserConfig,
 )
 from wger.manager.models import (
-    Workout,
+    Routine,
     WorkoutLog,
     WorkoutSession,
 )
@@ -106,19 +106,6 @@ from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)
-
-
-def login(request):
-    """
-    Small wrapper around the django login view
-    """
-
-    next_url = '?next=' + request.GET.get('next') if request.GET.get('next') else ''
-
-    form = UserLoginForm
-    form.helper.form_action = reverse('core:user:login') + next_url
-
-    return LoginView.as_view(template_name='user/login.html', authentication_form=form)
 
 
 @login_required()
@@ -297,7 +284,10 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
 
-    return render(request, 'form.html', template_data)
+    # Add this line to use the new registration-specific sidebar
+    template_data['sidebar'] = 'user/registration_sidebar.html'
+
+    return render(request, 'form_content.html', template_data)
 
 
 @login_required
@@ -537,17 +527,17 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         """
         context = super(UserDetailView, self).get_context_data(**kwargs)
         out = []
-        workouts = Workout.objects.filter(user=self.object).all()
-        for workout in workouts:
-            logs = WorkoutLog.objects.filter(workout=workout)
+        routines = Routine.objects.filter(user=self.object).all()
+        for routine in routines:
+            logs = WorkoutLog.objects.filter(routine=routine)
             out.append(
                 {
-                    'workout': workout,
+                    'routine': routine,
                     'logs': logs.dates('date', 'day').count(),
                     'last_log': logs.last(),
                 }
             )
-        context['workouts'] = out
+        context['routine_data'] = out
         context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
             :5
         ]
@@ -606,7 +596,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class WgerPasswordChangeView(PasswordChangeView):
-    template_name = 'form.html'
+    template_name = 'form_content.html'
     success_url = reverse_lazy('core:user:preferences')
     title = gettext_lazy('Change password')
 
@@ -627,7 +617,7 @@ class WgerPasswordChangeView(PasswordChangeView):
 
 
 class WgerPasswordResetView(PasswordResetView):
-    template_name = 'form.html'
+    template_name = 'form_content.html'
     email_template_name = 'registration/password_reset_email.html'
     success_url = reverse_lazy('core:user:password_reset_done')
     from_email = settings.WGER_SETTINGS['EMAIL_FROM']
@@ -641,7 +631,7 @@ class WgerPasswordResetView(PasswordResetView):
 
 
 class WgerPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'form.html'
+    template_name = 'form_content.html'
     success_url = reverse_lazy('core:user:login')
 
     def get_form(self, form_class=None):
@@ -661,3 +651,18 @@ def confirm_email(request):
         )
 
     return HttpResponseRedirect(reverse('core:dashboard'))
+
+
+class WgerLoginView(LoginView):
+    """
+    If the user is already logged in and there's a "next" parameter in the URL,
+    redirect there. Otherwise, proceed with the normal login logic from Django
+    """
+
+    def dispatch(self, request, *args, **kwargs):
+        next_url = request.GET.get('next', reverse('core:dashboard'))
+        if request.user.is_authenticated:
+            return redirect(next_url)
+
+        # Proceed with the normal login page logic
+        return super().dispatch(request, *args, **kwargs)

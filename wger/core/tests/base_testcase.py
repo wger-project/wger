@@ -103,7 +103,6 @@ class BaseTestCase:
     media_root = None
 
     fixtures = (
-        'days_of_week',
         'gym_config',
         'groups',
         'setting_repetition_units',
@@ -129,9 +128,9 @@ class BaseTestCase:
         'test-ingredients',
         'test-nutrition-data',
         'test-nutrition-diary',
-        'test-workout-data',
+        'test-routine-data',
         'test-workout-session',
-        'test-schedules',
+        'test-workout-log-data',
         'test-gallery-images',
         'test-measurement-categories',
         'test-measurements',
@@ -164,12 +163,13 @@ class BaseTestCase:
         """
         Reset settings
         """
-        del os.environ['RECAPTCHA_TESTING']
+
+        # del os.environ['RECAPTCHA_TESTING']
         cache.clear()
 
         # Clear MEDIA_ROOT folder
         if self.media_root:
-            shutil.rmtree(self.media_root)
+            self.media_root.cleanup()
 
     def init_media_root(self):
         """
@@ -177,24 +177,33 @@ class BaseTestCase:
 
         This is error-prone and ugly, but it's probably ok for the time being
         """
-        self.media_root = tempfile.mkdtemp()
-        settings.MEDIA_ROOT = self.media_root
+        self.media_root = tempfile.TemporaryDirectory()
+        settings.MEDIA_ROOT = self.media_root.name
 
-        os.makedirs(self.media_root + '/exercise-images/1/')
-        os.makedirs(self.media_root + '/exercise-images/2/')
+        pathlib.Path(self.media_root.name, 'exercise-images', '1').mkdir(
+            parents=True, exist_ok=True
+        )
+        pathlib.Path(self.media_root.name, 'exercise-images', '2').mkdir(
+            parents=True, exist_ok=True
+        )
 
-        shutil.copy(
-            'wger/exercises/tests/protestschwein.jpg',
-            self.media_root + '/exercise-images/1/protestschwein.jpg',
+        pathlib.Path(
+            self.media_root.name, 'exercise-images', '1', 'protestschwein.jpg'
+        ).write_bytes(
+            pathlib.Path('wger/exercises/tests/protestschwein.jpg').read_bytes(),
         )
-        shutil.copy(
-            'wger/exercises/tests/wildschwein.jpg',
-            self.media_root + '/exercise-images/1/wildschwein.jpg',
-        )
-        shutil.copy(
-            'wger/exercises/tests/wildschwein.jpg',
-            self.media_root + '/exercise-images/2/wildschwein.jpg',
-        )
+        pathlib.Path(
+            self.media_root.name,
+            'exercise-images',
+            '1',
+            'wildschwein.jpg',
+        ).write_bytes(pathlib.Path('wger/exercises/tests/wildschwein.jpg').read_bytes())
+        pathlib.Path(
+            self.media_root.name,
+            'exercise-images',
+            '2',
+            'wildschwein.jpg',
+        ).write_bytes(pathlib.Path('wger/exercises/tests/wildschwein.jpg').read_bytes())
 
 
 class WgerTestCase(BaseTestCase, TestCase):

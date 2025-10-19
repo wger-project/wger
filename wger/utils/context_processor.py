@@ -30,15 +30,14 @@ def processor(request):
     full_path = request.get_full_path()
     i18n_path = {}
     static_path = static('images/logos/logo-social.png')
-    is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
     for lang in settings.AVAILABLE_LANGUAGES:
         i18n_path[lang[0]] = '/{0}/{1}'.format(lang[0], '/'.join(full_path.split('/')[2:]))
 
     # yapf: disable
     context = {
-        'mastodon': settings.WGER_SETTINGS['MASTODON'],
-        'twitter': settings.WGER_SETTINGS['TWITTER'],
+        'mastodon': settings.WGER_SETTINGS.get('MASTODON', ''),
+        'twitter': settings.WGER_SETTINGS.get('TWITTER', ''),
 
         # Languages
         'i18n_language':
@@ -72,9 +71,6 @@ def processor(request):
 
         # current gym, if available
         'custom_header': get_custom_header(request),
-
-        # Template to extend in forms, kinda ugly but will be removed in the future
-        'extend_template': 'base_empty.html' if is_ajax else 'base.html',
     }
     # yapf: enable
 

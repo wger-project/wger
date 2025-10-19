@@ -41,8 +41,8 @@
     {% endif %}
 
 
-     <div style="padding-top:3em;"></div> 
-     {% pagination paginator page_obj %} 
+    <div style="padding-top:3em;"></div>
+    {% pagination paginator page_obj %}
 {% endblock %}
 
 {% block sidebar %}
@@ -56,10 +56,8 @@
 {# Options #}
 {#         #}
 {% block options %}
-    {% if perms.nutrition.add_ingredient and  user.is_authenticated and not user.userprofile.is_temporary %}
-        <a href="{% url 'nutrition:ingredient:add' %}"
-           class="btn btn-success btn-sm">
-            {% translate "Add ingredient" %}
-        </a>
+    {% if perms.nutrition.add_ingredient %}
+        {% translate 'Add' as text %}
+        {% modal_link url='nutrition:ingredient:add' text=text %}
     {% endif %}
 {% endblock %}

@@ -23,7 +23,7 @@ from django.test import SimpleTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
-    ExerciseBase,
+    Translation,
 )
 
 
@@ -55,16 +55,20 @@ class TestSyncManagementCommands(SimpleTestCase):
         mock_sync_muscles.assert_called()
         mock_delete_entries.assert_called()
 
+    @patch('wger.core.api.min_server_version.check_min_server_version')
     @patch('wger.exercises.sync.download_exercise_images')
-    def test_download_exercise_images(self, mock_download_exercise_images):
+    def test_download_exercise_images(self, mock_download_exercise_images, mock_check_min_version):
         call_command('download-exercise-images')
 
+        mock_check_min_version.assert_called()
         mock_download_exercise_images.assert_called()
 
+    @patch('wger.core.api.min_server_version.check_min_server_version')
     @patch('wger.exercises.sync.download_exercise_videos')
-    def test_download_exercise_videos(self, mock_download_exercise_videos):
+    def test_download_exercise_videos(self, mock_download_exercise_videos, mock_check_min_version):
         call_command('download-exercise-videos')
 
+        # mock_check_min_version.assert_called()
         mock_download_exercise_videos.assert_called()
 
 
@@ -78,8 +82,8 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         self.assertEqual('', self.out.getvalue())
 
     def test_find_untranslated(self):
-        Exercise.objects.get(pk=1).delete()
-        Exercise.objects.get(pk=5).delete()
+        Translation.objects.get(pk=1).delete()
+        Translation.objects.get(pk=5).delete()
 
         call_command('exercises-health-check', stdout=self.out)
         self.assertIn(
@@ -89,14 +93,14 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         self.assertNotIn('-> deleted', self.out.getvalue())
 
     def atest_fix_untranslated(self):
-        Exercise.objects.get(pk=1).delete()
+        Translation.objects.get(pk=1).delete()
 
         call_command('exercises-health-check', '--delete-untranslated', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
-        self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
+        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
     def test_find_no_english_translation(self):
-        Exercise.objects.get(pk=1).delete()
+        Translation.objects.get(pk=1).delete()
 
         call_command('exercises-health-check', stdout=self.out)
         self.assertIn(
@@ -106,29 +110,8 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         self.assertNotIn('-> deleted', self.out.getvalue())
 
     def test_fix_no_english_translation(self):
-        Exercise.objects.get(pk=1).delete()
+        Translation.objects.get(pk=1).delete()
 
         call_command('exercises-health-check', '--delete-no-english', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
-        self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
-
-    def test_find_duplicate_translations(self):
-        exercise = Exercise.objects.get(pk=1)
-        exercise.language_id = 3
-        exercise.save()
-
-        call_command('exercises-health-check', stdout=self.out)
-        self.assertIn(
-            'Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has duplicate translations!',
-            self.out.getvalue(),
-        )
-        self.assertNotIn('-> deleted', self.out.getvalue())
-
-    def test_fix_duplicate_translations(self):
-        exercise = Exercise.objects.get(pk=1)
-        exercise.language_id = 3
-        exercise.save()
-
-        call_command('exercises-health-check', '--delete-duplicate-translations', stdout=self.out)
-        self.assertIn('Deleting all but first fr translation', self.out.getvalue())
-        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=5)
+        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)

@@ -58,7 +58,14 @@
 
     {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
     <td style="text-align: right;">
-        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-light btn-sm wger-modal-dialog">
+        <a
+            href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}"
+            class="btn btn-light btn-sm "
+            hx-get="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}"
+            hx-target="#ajax-info-content"
+            data-bs-toggle="modal"
+            data-bs-target="#wger-ajax-info"
+        >
             <span class="{% fa_class 'cog' %}"></span>
         </a>
     </td>
@@ -84,8 +91,13 @@
         {% translate "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
-        <a href="{% url 'gym:gym:edit' gym.id %}" class="dropdown-item wger-modal-dialog">{% translate "Edit"%}</a>
-        <a href="{% url 'gym:export:users' gym.id %}" class="dropdown-item">{% translate "Export"%}</a>
+        {% translate 'Edit' as text %}
+        {% url 'gym:gym:edit' gym.id as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
+
+        {% translate 'Export' as text %}
+        {% url 'gym:export:users' gym.id as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 {% endif %}
@@ -137,7 +149,9 @@
         {% translate "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
-        <a href="{% url 'gym:config:edit' gym.config.id %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
+        {% translate 'Edit' as text %}
+        {% url 'gym:config:edit' gym.config.id as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 {% endif %}
@@ -173,7 +187,9 @@
             {% translate "Actions" %} <span class="caret"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" role="menu">
-            <a href="{% url 'gym:admin_config:edit' user.gymadminconfig.id %}" class="dropdown-item wger-modal-dialog">{% translate "Edit"%}</a>
+            {% translate 'Edit' as text %}
+            {% url 'gym:admin_config:edit' user.gymadminconfig.id as url %}
+            {% modal_link url=url text=text css_class='dropdown-item' %}
         </div>
     </div>
 </div>
@@ -208,7 +224,10 @@
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
         <a href="{% url 'gym:contract_type:list' gym.id %}" class="dropdown-item">{% translate "Overview" %}</a>
-        <a href="{% url 'gym:contract_type:add' gym.id %}" class="dropdown-item wger-modal-dialog">{% translate "Add" %}</a>
+
+        {% translate 'Add' as text %}
+        {% url 'gym:contract_type:add' gym.id as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 
@@ -241,7 +260,10 @@
     </button>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
         <a href="{% url 'gym:contract-option:list' gym.id %}" class="dropdown-item">{% translate "Overview" %}</a>
-        <a href="{% url 'gym:contract-option:add' gym.id %}" class="dropdown-item wger-modal-dialog">{% translate "Add" %}</a>
+
+        {% translate 'Add' as text %}
+        {% url 'gym:contract-option:add' gym.id as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
 
@@ -311,8 +333,8 @@
 {#         #}
 {% block options %}
 {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-    <a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add member" %}
-    </a>
+    {% translate 'Add member' as text %}
+    {% url 'gym:gym:add-user' gym.pk as url %}
+    {% modal_link url=url text=text  %}
 {% endif %}
 {% endblock %}

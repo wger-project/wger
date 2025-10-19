@@ -17,72 +17,47 @@
 
 # Django
 from django.conf.urls import include
-from django.contrib.auth.decorators import login_required
-from django.urls import (
-    path,
-    re_path,
-)
+from django.urls import path
 
 # wger
 from wger.core.views.react import ReactView
 from wger.manager.views import (
-    day,
     ical,
-    log,
     pdf,
-    schedule,
-    schedule_step,
-    set,
-    workout,
-    workout_session,
+    routine,
 )
 
-
-# sub patterns for workout logs
-patterns_log = [
-    path(
-        '<int:pk>/view',
-        ReactView.as_view(login_required=True),
-        name='log',
-    ),
-    path(
-        '<int:pk>/edit',  # JS
-        log.WorkoutLogUpdateView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        log.WorkoutLogDeleteView.as_view(),
-        name='delete',
-    ),
-]
 
 # sub patterns for templates
 patterns_templates = [
     path(
-        'overview',
-        workout.template_overview,
+        'overview/private',
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     path(
-        'public',
-        workout.public_template_overview,
+        'overview/public',
+        ReactView.as_view(login_required=True),
         name='public',
     ),
     path(
         '<int:pk>/view',
-        workout.template_view,
+        ReactView.as_view(login_required=True),
         name='view',
-    ),
-    path(
-        '<int:pk>/make-workout',
-        workout.make_workout,
-        name='make-workout',
     ),
 ]
 
-# sub patterns for workouts
-patterns_workout = [
+# sub patterns for days
+patterns_days = [
+    path(
+        '<int:day_pk>/add-logs',
+        ReactView.as_view(),
+        name='overview',
+    ),
+]
+
+# sub patterns for routines
+patterns_routine = [
     path(
         'overview',
         ReactView.as_view(login_required=True),
@@ -90,294 +65,70 @@ patterns_workout = [
     ),
     path(
         'add',
-        workout.add,
+        ReactView.as_view(login_required=True),
         name='add',
+    ),
+    # Note that this needs to be the no-shadow-dom variant till this issue is fixed:
+    # https://github.com/hello-pangea/dnd/issues/425
+    path(
+        '<int:pk>/edit',
+        ReactView.as_view(login_required=True, div_id='react-page-no-shadow-dom'),
+        name='edit',
+    ),
+    path(
+        '<int:pk>/edit/progression/<int:progression_pk>',
+        ReactView.as_view(login_required=True),
+        name='edit-progression',
+    ),
+    path(
+        '<int:pk>/statistics',
+        ReactView.as_view(login_required=True),
+        name='statistics',
+    ),
+    path(
+        '<int:pk>/logs',
+        ReactView.as_view(login_required=True),
+        name='logs',
+    ),
+    path(
+        '<int:pk>/view',
+        ReactView.as_view(login_required=True),
+        name='view',
+    ),
+    path(
+        '<int:pk>/table',
+        ReactView.as_view(login_required=True),
+        name='table',
     ),
     path(
         '<int:pk>/copy',
-        workout.copy_workout,
+        routine.copy_routine,
         name='copy',
     ),
     path(
-        '<int:pk>/edit',
-        workout.WorkoutEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/make-template',
-        workout.WorkoutMarkAsTemplateView.as_view(),
-        name='make-template',
-    ),
-    path(
-        '<int:pk>/delete',
-        workout.WorkoutDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/view',
-        # ReactView.as_view(login_required=True),
-        workout.view,
-        name='view',
-    ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)$',
-        log.calendar,
-        name='calendar',
-    ),
-    path(
-        'calendar',
-        log.calendar,
-        name='calendar',
-    ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)/(?P<year>\d{4})/(?P<month>\d{1,2})$',
-        log.calendar,
-        name='calendar',
-    ),
-    re_path(
-        r'^calendar/(?P<year>\d{4})/(?P<month>\d{1,2})$',
-        log.calendar,
-        name='calendar',
-    ),
-    re_path(
-        r'^calendar/(?P<username>[\w.@+-]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$',
-        log.day,
-        name='calendar-day',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        ical.export,
-        name='ical',
-    ),
-    path(
-        '<int:pk>/ical',
-        ical.export,
-        name='ical',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),  # JS!
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    path(
-        '<int:id>/pdf/log',
-        pdf.workout_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),  # JS!
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
-    path(
-        '<int:id>/pdf/table',
-        pdf.workout_view,
-        name='pdf-table',
-    ),
-]
-
-# sub patterns for workout sessions
-patterns_session = [
-    re_path(
-        r'^(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
-        workout_session.WorkoutSessionAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit',
-        workout_session.WorkoutSessionUpdateView.as_view(),
-        name='edit',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/delete/(?P<logs>session|logs)?$',
-        workout_session.WorkoutSessionDeleteView.as_view(),
-        name='delete',
-    ),
-]
-
-# sub patterns for workout days
-patterns_day = [
-    path(
-        '<int:pk>/edit',
-        login_required(day.DayEditView.as_view()),
-        name='edit',
-    ),
-    path(
-        '<int:workout_pk>/add',
-        login_required(day.DayCreateView.as_view()),
-        name='add',
-    ),
-    path(
-        '<int:pk>/delete',
-        day.delete,
-        name='delete',
-    ),
-    path(
-        '<int:id>/view',
-        day.view,
-        name='view',
-    ),
-    path(
-        '<int:pk>/log/add',
-        log.add,
-        name='log',
-    ),
-]
-
-# sub patterns for workout sets
-patterns_set = [
-    path(
-        '<int:day_pk>/add',
-        set.create,
-        name='add',
-    ),
-    path(
-        'get-formset/<int:base_pk>/<int:reps>',
-        set.get_formset,
-        name='get-formset',
-    ),  # Used by JS
-    path(
-        '<int:pk>/delete',
-        set.delete,
-        name='delete',
-    ),
-    path(
-        '<int:pk>/edit',
-        set.edit,
-        name='edit',
-    ),
-]
-
-# sub patterns for schedules
-patterns_schedule = [
-    path(
-        'overview',
-        schedule.overview,
-        name='overview',
-    ),
-    path(
-        'add',
-        schedule.ScheduleCreateView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/view',
-        schedule.view,
-        name='view',
-    ),
-    path(
-        '<int:pk>/start',
-        schedule.start,
-        name='start',
-    ),
-    path(
-        '<int:pk>/edit',
-        schedule.ScheduleEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        schedule.ScheduleDeleteView.as_view(),
-        name='delete',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        ical.export_schedule,
-        name='ical',
-    ),
-    path(
-        '<int:pk>/ical',
-        ical.export_schedule,
-        name='ical',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),  # JS!
-    re_path(
-        r'^(?P<pk>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        schedule.export_pdf_log,
-        name='pdf-log',
-    ),
-    path(
         '<int:pk>/pdf/log',
-        schedule.export_pdf_log,
+        pdf.workout_log,
         name='pdf-log',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_table,
-        name='pdf-table',
-    ),  # JS!
-    re_path(
-        r'^(?P<pk>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        schedule.export_pdf_table,
-        name='pdf-table',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
-        schedule.export_pdf_table,
-        name='pdf-table',
     ),
     path(
         '<int:pk>/pdf/table',
-        schedule.export_pdf_table,
+        pdf.workout_view,
         name='pdf-table',
     ),
-]
-
-# sub patterns for schedule steps
-patterns_step = [
     path(
-        '<int:schedule_pk>/step/add',
-        schedule_step.StepCreateView.as_view(),
-        name='add',
+        '<int:pk>/ical',
+        ical.export,
+        name='ical',
     ),
     path(
-        '<int:pk>/edit',
-        schedule_step.StepEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/delete',
-        schedule_step.StepDeleteView.as_view(),
-        name='delete',
+        'calendar',
+        ReactView.as_view(login_required=True),
+        name='calendar',
     ),
 ]
 
 urlpatterns = [
-    path('', include((patterns_workout, 'workout'), namespace='workout')),
-    path('template/', include((patterns_templates, 'template'), namespace='template')),
-    path('log/', include((patterns_log, 'log'), namespace='log')),
-    path('day/', include((patterns_day, 'day'), namespace='day')),
-    path('set/', include((patterns_set, 'set'), namespace='set')),
-    path('session/', include((patterns_session, 'session'), namespace='session')),
-    path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
-    path('schedule/step/', include((patterns_step, 'step'), namespace='step')),
+    path('', include((patterns_routine, 'routine'), namespace='routine')),
+    path('templates/', include((patterns_templates, 'template'), namespace='template')),
+    path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
 ]

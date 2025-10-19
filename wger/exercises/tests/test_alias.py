@@ -20,7 +20,7 @@ class AliasCustomApiTestCase(ExerciseCrudApiTestCase):
     pk = 1
 
     data = {
-        'exercise': 1,
+        'translation': 1,
         'alias': 'Alias 123',
     }
 

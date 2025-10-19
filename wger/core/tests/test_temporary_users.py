@@ -21,6 +21,7 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.http import HttpRequest
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.demo import (
@@ -30,9 +31,7 @@ from wger.core.demo import (
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
     Day,
-    Schedule,
-    ScheduleStep,
-    Workout,
+    Routine,
     WorkoutLog,
 )
 from wger.nutrition.models import (
@@ -84,28 +83,25 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=User.objects.latest('id').id)
         self.assertEqual(user.userprofile.is_temporary, True)
-        self.assertEqual(Workout.objects.filter(user=user).count(), 0)
+        self.assertEqual(Routine.objects.filter(user=user).count(), 0)
 
         self.client.get(reverse('core:user:demo-entries'))
-        # Workout
-        self.assertEqual(Workout.objects.filter(user=user).count(), 4)
-        self.assertEqual(Day.objects.filter(training__user=user).count(), 2)
-        self.assertEqual(WorkoutLog.objects.filter(user=user).count(), 56)
 
-        # Schedule
-        self.assertEqual(Schedule.objects.filter(user=user).count(), 3)
-        self.assertEqual(ScheduleStep.objects.filter(schedule__user=user).count(), 6)
+        # Routine
+        self.assertEqual(Routine.objects.filter(user=user).count(), 4)
+        self.assertGreater(Day.objects.filter(routine__user=user).count(), 5)
+        self.assertGreater(WorkoutLog.objects.filter(user=user).count(), 400)
 
         # Nutrition
-        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 1)
-        self.assertEqual(Meal.objects.filter(plan__user=user).count(), 3)
+        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 5)
+        self.assertEqual(Meal.objects.filter(plan__user=user).count(), 20)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 40)
 
     def test_demo_data_body_weight(self):
         """
-        Tests that the helper function that creates demo data filters out
+        Tests that the helper function that creates demo data does not filter out
         existing dates for the weight entries
         """
         self.client.get(reverse('core:dashboard'))
@@ -114,7 +110,7 @@ class DemoUserTestCase(WgerTestCase):
 
         temp = []
         for i in range(1, 5):
-            creation_date = datetime.date.today() - datetime.timedelta(days=i)
+            creation_date = timezone.now() - datetime.timedelta(days=i)
             entry = WeightEntry(
                 user=user,
                 weight=80 + 0.5 * i + random.randint(1, 3),
@@ -125,7 +121,7 @@ class DemoUserTestCase(WgerTestCase):
         create_demo_entries(user)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 44)
 
     def test_demo_user(self):
         """
@@ -146,7 +142,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
-        self.client.get(reverse('manager:workout:overview'))
+        self.client.get(reverse('manager:routine:overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
@@ -173,7 +169,7 @@ class DemoUserTestCase(WgerTestCase):
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('manager:workout:overview')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('manager:routine:overview')), demo_notice_text)
         self.assertContains(
             self.client.get(reverse('exercise:exercise:overview')), demo_notice_text
         )

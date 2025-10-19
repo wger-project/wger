@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -62,13 +63,8 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 
 # wger
-from wger import (
-    MIN_APP_VERSION,
-    get_version,
-)
-from wger.core.api.permissions import AllowRegisterUser
 from wger.core.api.serializers import (
-    DaysOfWeekSerializer,
+    LanguageCheckSerializer,
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
@@ -79,7 +75,6 @@ from wger.core.api.serializers import (
 )
 from wger.core.forms import UserLoginForm
 from wger.core.models import (
-    DaysOfWeek,
     Language,
     License,
     RepetitionUnit,
@@ -88,6 +83,11 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
+from wger.version import (
+    MIN_APP_VERSION,
+    MIN_SERVER_VERSION,
+    get_version,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -143,7 +143,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             serializer.save()
 
             # New email, update the user and reset the email verification flag
-            if request.user.email != data['email']:
+            if data.get('email') and request.user.email != data['email']:
                 request.user.email = data['email']
                 request.user.save()
                 request.user.userprofile.email_verified = False
@@ -241,8 +241,7 @@ class PermissionView(viewsets.ViewSet):
 
 class RequiredApplicationVersionView(viewsets.ViewSet):
     """
-    Returns the minimum required version of flutter app to access this server
-    such as 1.4.2 or 3.0.0
+    Returns the minimum required version of flutter app to access this server.
     """
 
     permission_classes = (AllowAny,)
@@ -255,7 +254,25 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
         },
     )
     def get(request):
-        return Response(get_version(MIN_APP_VERSION, True))
+        return Response(str(MIN_APP_VERSION))
+
+
+class RequiredServerVersionView(viewsets.ViewSet):
+    """
+    Returns the minimum required version of the server to perform sync requests
+    """
+
+    permission_classes = (AllowAny,)
+
+    @staticmethod
+    @extend_schema(
+        parameters=[],
+        responses={
+            200: OpenApiTypes.STR,
+        },
+    )
+    def get(request):
+        return Response(str(MIN_SERVER_VERSION))
 
 
 class UserAPILoginView(viewsets.ViewSet):
@@ -317,8 +334,9 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
     API endpoint
     """
 
-    permission_classes = (AllowRegisterUser,)
+    # permission_classes = (AllowRegisterUser,)
     serializer_class = UserRegistrationSerializer
+    throttle_scope = 'registration'
 
     def get_queryset(self):
         """
@@ -340,7 +358,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        user.userprofile.added_by = request.user
+        # user.userprofile.added_by = request.user
         user.userprofile.save()
         token = create_token(user)
 
@@ -366,19 +384,6 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-
-class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint for the days of the week (monday, tuesday, etc.).
-
-    This has historical reasons, and it's better and easier to just define a simple enum
-    """
-
-    queryset = DaysOfWeek.objects.all()
-    serializer_class = DaysOfWeekSerializer
-    ordering_fields = '__all__'
-    filterset_fields = ('day_of_week',)
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -416,6 +421,17 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RoutineWeightUnitSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name',)
+
+
+@api_view(['POST'])
+def check_language(request):
+    """
+    Checks the language of a string
+    """
+    serializer = LanguageCheckSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    return Response({'result': True})
 
 
 def create_jwt_token(user_id):

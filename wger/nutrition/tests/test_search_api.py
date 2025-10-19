@@ -22,93 +22,77 @@ from wger.core.tests.base_testcase import BaseTestCase
 
 
 class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
-    url = '/api/v2/ingredient/search/'
-
-    def setUp(self):
-        super().setUp()
-        self.init_media_root()
+    url = '/api/v2/ingredient/'
 
     def test_basic_search_logged_out(self):
         """
         Logged-out users are also allowed to use the search
         """
-        response = self.client.get(self.url + '?term=test')
-        result1 = response.data['suggestions'][0]
+        response = self.client.get(self.url + '?name__search=test&language__code=en')
+        result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 2)
-        self.assertEqual(result1['value'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['data']['id'], 2)
+        self.assertEqual(response.data['count'], 2)
+        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result1['id'], 2)
 
     def test_basic_search_logged_in(self):
         """
         Logged-in users get the same results
         """
         self.authenticate('test')
-        response = self.client.get(self.url + '?term=test')
-        result1 = response.data['suggestions'][0]
+        response = self.client.get(self.url + '?name__search=test&language__code=en')
+        result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 2)
-        self.assertEqual(result1['value'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['data']['id'], 2)
-
-    def test_search_language_code_en(self):
-        """
-        Explicitly passing the en language code (same as no code)
-        """
-        response = self.client.get(self.url + '?term=test&language=en')
-        result1 = response.data['suggestions'][0]
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 2)
-        self.assertEqual(result1['value'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['data']['id'], 2)
+        self.assertEqual(response.data['count'], 2)
+        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result1['id'], 2)
 
     def test_search_language_code_en_no_results(self):
         """
         The "Testzutat" ingredient should not be found when searching in English
         """
-        response = self.client.get(self.url + '?term=Testzutat&language=en')
+        response = self.client.get(self.url + '?name__search=Testzutat&language__code=en')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 0)
+        self.assertEqual(response.data['count'], 0)
 
     def test_search_language_code_de(self):
         """
-        The "Testübung" exercise should be only found when searching in German
+        The "Testzutat" ingredient should be only found when searching in German
         """
-        response = self.client.get(self.url + '?term=Testzutat&language=de')
-        result1 = response.data['suggestions'][0]
+        response = self.client.get(self.url + '?name__search=Testzutat&language__code=de')
+        result1 = response.data['results'][0]
 
+        self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 1)
-        self.assertEqual(result1['value'], 'Testzutat 123')
-        self.assertEqual(result1['data']['id'], 6)
+        self.assertEqual(result1['name'], 'Testzutat 123')
+        self.assertEqual(result1['id'], 6)
 
     def test_search_several_language_codes(self):
         """
         Passing different language codes works correctly
         """
-        response = self.client.get(self.url + '?term=guest&language=en,de')
+        response = self.client.get(self.url + '?name__search=guest&language__code=en,de')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 5)
+        self.assertEqual(response.data['count'], 5)
 
     def test_search_unknown_language_codes(self):
         """
         Unknown language codes are ignored
         """
-        response = self.client.get(self.url + '?term=guest&language=en,de,kg')
+        response = self.client.get(self.url + '?name__search=guest&language__code=en,de,kg')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 5)
+        self.assertEqual(response.data['count'], 5)
 
     def test_search_all_languages(self):
         """
         Disable all language filters
         """
-        response = self.client.get(self.url + '?term=guest&language=*')
+        response = self.client.get(self.url + '?name__search=guest')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 7)
+        self.assertEqual(response.data['count'], 7)

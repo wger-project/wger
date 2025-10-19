@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -22,10 +25,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.cache import reset_workout_log
-from wger.utils.fields import Html5DateField
-
-# Local
-from .workout import Workout
 
 
 class WorkoutSession(models.Model):
@@ -33,7 +32,6 @@ class WorkoutSession(models.Model):
     Model for a workout session
     """
 
-    # Note: values hardcoded in manager.helpers.WorkoutCalendar
     IMPRESSION_BAD = '1'
     IMPRESSION_NEUTRAL = '2'
     IMPRESSION_GOOD = '3'
@@ -55,16 +53,26 @@ class WorkoutSession(models.Model):
     See note in weight.models.WeightEntry about why this is not editable=False
     """
 
-    workout = models.ForeignKey(
-        Workout,
-        verbose_name=_('Workout'),
+    routine = models.ForeignKey(
+        'Routine',
         on_delete=models.CASCADE,
+        related_name='sessions',
+        null=True,
+    )
+
+    day = models.ForeignKey(
+        'Day',
+        on_delete=models.CASCADE,
+        null=True,
     )
     """
-    The workout the session belongs to
+    The day the session belongs to
     """
 
-    date = Html5DateField(verbose_name=_('Date'))
+    date = models.DateField(
+        verbose_name=_('Date'),
+        default=datetime.date.today,
+    )
     """
     The date the workout session was performed
     """
@@ -73,7 +81,7 @@ class WorkoutSession(models.Model):
         verbose_name=_('Notes'),
         null=True,
         blank=True,
-        help_text=_('Any notes you might want to save about this workout ' 'session.'),
+        help_text=_('Any notes you might want to save about this workout session.'),
     )
     """
     User notes about the workout
@@ -85,19 +93,27 @@ class WorkoutSession(models.Model):
         choices=IMPRESSION,
         default=IMPRESSION_NEUTRAL,
         help_text=_(
-            'Your impression about this workout session. ' 'Did you exercise as well as you could?'
+            'Your impression about this workout session. Did you exercise as well as you could?'
         ),
     )
     """
     The user's general impression of workout
     """
 
-    time_start = models.TimeField(verbose_name=_('Start time'), blank=True, null=True)
+    time_start = models.TimeField(
+        verbose_name=_('Start time'),
+        blank=True,
+        null=True,
+    )
     """
     Time the workout session started
     """
 
-    time_end = models.TimeField(verbose_name=_('Finish time'), blank=True, null=True)
+    time_end = models.TimeField(
+        verbose_name=_('Finish time'),
+        blank=True,
+        null=True,
+    )
     """
     Time the workout session ended
     """
@@ -106,7 +122,7 @@ class WorkoutSession(models.Model):
         """
         Return a more human-readable representation
         """
-        return f'{self.workout} - {self.date}'
+        return f'{self.routine} - {self.date}'
 
     class Meta:
         """
@@ -116,7 +132,8 @@ class WorkoutSession(models.Model):
         ordering = [
             'date',
         ]
-        unique_together = ('date', 'user')
+        unique_together = ('date', 'user', 'routine')
+        indexes = [models.Index(fields=['routine', 'date'])]
 
     def clean(self):
         """
@@ -140,11 +157,11 @@ class WorkoutSession(models.Model):
         Reset cache
         """
         reset_workout_log(self.user_id, self.date.year, self.date.month)
-        super(WorkoutSession, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
         Reset cache
         """
         reset_workout_log(self.user_id, self.date.year, self.date.month)
-        super(WorkoutSession, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)

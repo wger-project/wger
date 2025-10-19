@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -16,26 +14,26 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
-from calendar import HTMLCalendar
+from decimal import Decimal
 
 # Django
-from django.urls import reverse
+from django.core.cache import cache
 from django.utils.translation import gettext as _
 
 # Third Party
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    Image,
     KeepTogether,
-    ListFlowable,
-    ListItem,
     Paragraph,
     Table,
 )
 
 # wger
+from wger.exercises.models import Exercise
+from wger.manager.dataclasses import WorkoutDayData
+from wger.manager.models import Routine
+from wger.utils.cache import CacheKeyMapper
 from wger.utils.pdf import (
     header_colour,
     row_color,
@@ -43,11 +41,15 @@ from wger.utils.pdf import (
 )
 
 
-def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
+def render_workout_day(
+    day_data: WorkoutDayData,
+    nr_of_weeks=7,
+    only_table=False,
+):
     """
     Render a table with reportlab with the contents of the training day
 
-    :param day: a workout day object
+    :param day_data: a workout day object
     :param nr_of_weeks: the numbrer of weeks to render, default is 7
     :param images: boolean indicating whether to also draw exercise images
            in the PDF (actually only the main image)
@@ -72,73 +74,58 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
     set_count = 1
     day_markers.append(len(data))
 
-    p = Paragraph(
-        '<para align="center">%(days)s: %(description)s</para>'
-        % {'days': day.days_txt, 'description': day.description},
-        styleSheet['SubHeader'],
+    data.append(
+        [
+            Paragraph(
+                f'<para align="center">{_("Rest day") if day_data.day.is_rest else day_data.day.name}</para>',
+                styleSheet['SubHeader'],
+            )
+        ]
     )
-
-    data.append([p])
 
     # Note: the _('Date') will be on the 3rd cell, but since we make a span
     #       over 3 cells, the value has to be on the 1st one
-    data.append([_('Date') + ' ', '', ''] + [''] * nr_of_weeks)
+    data.append(['' if only_table else _('Date') + ' ', '', ''] + [''] * nr_of_weeks)
     data.append([_('Nr.'), _('Exercise'), _('Reps')] + [_('Weight')] * nr_of_weeks)
 
     # Sets
     exercise_start = len(data)
-    for set_obj in day.set_set.all():
-        group_exercise_marker[set_obj.id] = {'start': len(data), 'end': len(data)}
+    slot_count = 0
+    for slot in day_data.slots_display_mode:
+        slot_count += 1
 
-        # Exercises
-        for base in set_obj.exercise_bases:
-            exercise = base.get_translation()
-            group_exercise_marker[set_obj.id]['end'] = len(data)
+        group_exercise_marker[slot_count] = {'start': len(data), 'end': len(data)}
+
+        for slot_set in slot.sets:
+            # TODO
+            exercise = Exercise.objects.get(pk=slot_set.exercise)
+            group_exercise_marker[slot_count]['end'] = len(data)
 
             # Process the settings
-            setting_out = []
-            for i in set_obj.reps_smart_text(base).split('–'):
-                setting_out.append(Paragraph(i, styleSheet['Small'], bulletText=''))
-
-            # Collect a list of the exercise comments
-            item_list = [Paragraph('', styleSheet['Small'])]
-            if comments:
-                item_list = [
-                    ListItem(Paragraph(i.comment, style=styleSheet['ExerciseComments']))
-                    for i in exercise.exercisecomment_set.all()
-                ]
+            slot_entries_out = [Paragraph(slot_set.text_repr, styleSheet['Small'], bulletText='')]
 
             # Add the exercise's main image
-            image = Paragraph('', styleSheet['Small'])
-            if images:
-                if base.main_image:
-                    # Make the images somewhat larger when printing only the workout and not
-                    # also the columns for weight logs
-                    if only_table:
-                        image_size = 2
-                    else:
-                        image_size = 1.5
-
-                    image = Image(base.main_image.image)
-                    image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
-                    image.drawWidth = image_size * cm
+            # image = Paragraph('', styleSheet['Small'])
+            # if images:
+            #     if exercise.main_image:
+            #         # Make the images somewhat larger when printing only the workout and not
+            #         # also the columns for weight logs
+            #         if only_table:
+            #             image_size = 2
+            #         else:
+            #             image_size = 1.5
+            #
+            #         image = Image(exercise.main_image.image)
+            #         image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
+            #         image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
             exercise_content = [
-                Paragraph(exercise.name, styleSheet['Small']),
-                image,
-                ListFlowable(
-                    item_list,
-                    bulletType='bullet',
-                    leftIndent=5,
-                    spaceBefore=7,
-                    bulletOffsetY=-3,
-                    bulletFontSize=3,
-                    start='square',
-                ),
+                Paragraph(exercise.get_translation().name, styleSheet['Small']),
+                # image,
             ]
 
-            data.append([f'#{set_count}', exercise_content, setting_out] + [''] * nr_of_weeks)
+            data.append([f'#{set_count}', exercise_content, slot_entries_out] + [''] * nr_of_weeks)
         set_count += 1
 
     table_style = [
@@ -176,96 +163,47 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             table_style.append(('BACKGROUND', (0, i - 1), (-1, i - 1), row_color))
 
     # Put everything together and manually set some of the widths
-    t = Table(data, style=table_style)
-    if len(t._argW) > 1:
-        if only_table:
-            t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 8 * cm  # Exercise
-            t._argW[2] = 3.5 * cm  # Repetitions
-        else:
-            t._argW[0] = 0.6 * cm  # Numbering
-            t._argW[1] = 4 * cm  # Exercise
-            t._argW[2] = 3 * cm  # Repetitions
+    if only_table:
+        col_widths = [
+            0.6 * cm,  # Numbering
+            7 * cm,  # Exercise
+            7 * cm,  # Repetitions
+        ]
+    else:
+        col_widths = [
+            0.6 * cm,  # Numbering
+            6 * cm,  # Exercise
+            6 * cm,  # Repetitions
+            1.5 * cm,  # Logs
+        ]
+
+    t = Table(data, style=table_style, colWidths=col_widths)
 
     return KeepTogether(t)
 
 
-class WorkoutCalendar(HTMLCalendar):
-    """
-    A calendar renderer, see this blog entry for details:
-    * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
-    """
+def reset_routine_cache(instance: Routine, structure: bool = True):
+    """Resets all caches related to a routine"""
 
-    def __init__(self, workout_logs, *args, **kwargs):
-        super(WorkoutCalendar, self).__init__(*args, **kwargs)
-        self.workout_logs = workout_logs
+    cache.delete(CacheKeyMapper.routine_date_sequence_key(instance.id))
+    cache.delete(CacheKeyMapper.routine_api_date_sequence_display_key(instance.id))
+    cache.delete(CacheKeyMapper.routine_api_date_sequence_gym_key(instance.id))
+    cache.delete(CacheKeyMapper.routine_api_stats(instance.id))
 
-    def formatday(self, day, weekday):
-        # days belonging to last or next month are rendered empty
-        if day == 0:
-            return self.day_cell('noday', '&nbsp;')
+    if structure:
+        cache.delete(CacheKeyMapper.routine_api_structure_key(instance.id))
 
-        date_obj = datetime.date(self.year, self.month, day)
-        cssclass = self.cssclasses[weekday]
-        if datetime.date.today() == date_obj:
-            cssclass += ' today'
+    if instance.pk:
+        for day in instance.days.all():
+            for slot in day.slots.all():
+                for entry in slot.entries.all():
+                    cache.delete(CacheKeyMapper.slot_entry_configs_key(entry.id))
 
-        # There are no logs for this day, doesn't need special attention
-        if date_obj not in self.workout_logs:
-            return self.day_cell(cssclass, day)
 
-        # Day with a log, set background and link
-        entry = self.workout_logs.get(date_obj)
+def brzycki_one_rm(weight: float | None, reps: float | None) -> Decimal:
+    return Decimal(weight) / (Decimal(1.0278) - Decimal(0.0278) * Decimal(reps))
 
-        # Note: due to circular imports we use can't import the workout session
-        # model to access the impression values directly, so they are hard coded
-        # here.
-        if entry['session']:
-            # Bad
-            if entry['session'].impression == '1':
-                background_css = 'btn-danger'
-            # Good
-            elif entry['session'].impression == '3':
-                background_css = 'btn-success'
-            # Neutral
-            else:
-                background_css = 'btn-warning'
 
-        else:
-            background_css = 'btn-warning'
-
-        url = reverse('manager:log:log', kwargs={'pk': entry['workout'].id})
-        formatted_date = date_obj.strftime('%Y-%m-%d')
-        body = []
-        body.append(
-            f'<a href="{url}" '
-            f'data-log="log-{formatted_date}" '
-            f'class="btn btn-block {background_css} calendar-link">'
-        )
-        body.append(repr(day))
-        body.append('</a>')
-        return self.day_cell(cssclass, ''.join(body))
-
-    def formatmonth(self, year, month):
-        """
-        Format the table header. This is basically the same code from python's
-        calendar module but with additional bootstrap classes
-        """
-        self.year, self.month = year, month
-        out = []
-        out.append('<table class="month table table-bordered">\n')
-        out.append(self.formatmonthname(year, month))
-        out.append('\n')
-        out.append(self.formatweekheader())
-        out.append('\n')
-        for week in self.monthdays2calendar(year, month):
-            out.append(self.formatweek(week))
-            out.append('\n')
-        out.append('</table>\n')
-        return ''.join(out)
-
-    def day_cell(self, cssclass, body):
-        """
-        Renders a day cell
-        """
-        return f'<td class="{cssclass}" style="vertical-align: middle;">{body}</td>'
+def brzycki_intensity(weight, reps) -> Decimal:
+    one_rm = brzycki_one_rm(weight, reps)
+    return Decimal(weight / one_rm if one_rm != 0 else 0)

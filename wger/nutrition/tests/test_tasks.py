@@ -12,13 +12,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-# Standard Library
 
 # Standard Library
+import datetime
 from unittest.mock import (
     ANY,
     patch,
 )
+
+# Django
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -111,7 +114,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': True}):
+        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': 'FOO'}):
             result = fetch_ingredient_image(1)
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
@@ -136,6 +139,54 @@ class FetchIngredientImageTestCase(WgerTestCase):
     @patch('requests.get', return_value=MockOffResponse())
     @patch('wger.nutrition.models.Image.from_json')
     @patch.object(logger, 'info')
+    def test_last_new_image_date(self, mock_logger, mock_from_json, mock_request):
+        """
+        Test that no images are fetched if we already checked recently
+        """
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.last_image_check = timezone.now() - datetime.timedelta(days=1)
+        ingredient.save()
+
+        with self.settings(
+            TESTING=False,
+            WGER_SETTINGS={
+                'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF,
+                'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
+            },
+        ):
+            result = fetch_ingredient_image(1)
+            mock_from_json.assert_not_called()
+            mock_logger.assert_not_called()
+            mock_request.assert_not_called()
+            self.assertEqual(result, None)
+
+    @patch('requests.get', return_value=MockOffResponse())
+    @patch('wger.nutrition.models.Image.from_json')
+    @patch.object(logger, 'info')
+    def test_last_old_image_date(self, mock_logger, mock_from_json, mock_request):
+        """
+        Test that images are fetched if we checked a long time ago
+        """
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.last_image_check = timezone.now() - datetime.timedelta(days=200)
+        ingredient.save()
+
+        with self.settings(
+            TESTING=False,
+            WGER_SETTINGS={
+                'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF,
+                'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
+            },
+        ):
+            result = fetch_ingredient_image(1)
+            mock_from_json.assert_called()
+            mock_logger.assert_any_call('Fetching image for ingredient 1')
+            mock_request.assert_called()
+            self.assertEqual(result, None)
+
+    @patch('requests.get', return_value=MockOffResponse())
+    @patch('wger.nutrition.models.Image.from_json')
+    @patch.object(logger, 'info')
     def test_download_ingredient_off(self, mock_logger, mock_from_json, mock_request):
         """
         Test that the image is correctly downloaded
@@ -151,8 +202,6 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ):
             result = fetch_ingredient_image(1)
 
-            # log1 = mock_logger.mock_calls[0]
-            # print(log1)
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
                 'Trying to fetch image from OFF for Test ingredient 1 (UUID: '
@@ -160,13 +209,14 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
             mock_logger.assert_any_call('Image successfully saved')
 
+            # print(mock_request.mock_calls)
             mock_request.assert_any_call(
                 'https://world.openfoodfacts.org/api/v2/product/5055365635003.json?fields=images,image_front_url',
                 headers=wger_headers(),
                 timeout=ANY,
             )
             mock_request.assert_any_call(
-                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987/654321/12345.jpg',
+                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987654321/12345.jpg',
                 headers=wger_headers(),
             )
             mock_from_json.assert_called()

@@ -62,7 +62,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = RepetitionUnit
-    fields = ['name']
+    fields = ('name',)
     title = gettext_lazy('Add')
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.add_repetitionunit'
@@ -74,7 +74,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = RepetitionUnit
-    fields = ['name']
+    fields = ('name',)
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.change_repetitionunit'
 
