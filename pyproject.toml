@@ -49,7 +49,7 @@ dependencies = [
     "django-sortedm2m==4.0.0",
     "django-storages==1.14.6",
     "djangorestframework==3.16.1",
-    "djangorestframework-simplejwt[crypto]==5.5.1",
+    "djangorestframework-simplejwt[crypto,python_jose]==5.5.1",
     "drf-spectacular[sidecar]==0.28.0",
     "easy-thumbnails==2.10.1",
     "flower==2.0.1",
