@@ -39,7 +39,7 @@ def remove_ivm_extension(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('core', '0017_language_full_name_en'),
+        ('core', '0019_delete_daysofweek'),
     ]
 
     operations = [

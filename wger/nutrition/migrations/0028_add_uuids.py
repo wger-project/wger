@@ -29,7 +29,7 @@ def gen_uuids(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('nutrition', '0024_remove_ingredient_status'),
+        ('nutrition', '0027_prefill_end_date'),
     ]
 
     operations = [

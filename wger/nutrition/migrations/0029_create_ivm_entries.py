@@ -109,8 +109,8 @@ def remove_ivm_views(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('nutrition', '0025_add_uuids'),
-        ('core', '0018_create_publication_add_ivm_extension'),
+        ('nutrition', '0028_add_uuids'),
+        ('core', '0020_create_publication_add_ivm_extension'),
     ]
 
     operations = [
