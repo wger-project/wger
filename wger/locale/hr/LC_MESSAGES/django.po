@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-02-08 19:39+0000\n"
+"PO-Revision-Date: 2025-10-21 12:02+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10-dev\n"
+"Plural-Forms: nplurals=3; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -440,20 +441,13 @@ msgstr ""
 "problem ustraje, potraži pomoć na dolje navedene načine:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Pregledavaš\n"
-"                stranicu kao korisnik „%(current_user)s”, sve radnje se "
-"izvode s njegovim podacima.\n"
-"            "
+"Pregledavaš stranicu kao korisnik „%(current_user)s”, sve radnje se izvode s "
+"njegovim podacima."
 
 #: core/templates/base.html:15
 #, python-format
@@ -461,12 +455,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Natrag na „%(target)s”"
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -476,7 +465,8 @@ msgid ""
 msgstr ""
 "Pregledavaš\n"
 "                stranicu kao korisnik „%(current_user)s”, sve radnje se "
-"izvode s njegovim podacima.\n"
+"izvode s\n"
+"                njegovim podacima.\n"
 "            "
 
 #: core/templates/base_wide.html:12
@@ -2079,17 +2069,14 @@ msgid "Exercise day"
 msgstr "Dan za vježbu"
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Tvoj aktualni trening „%(workout)s” je istekao prije %(days)s dana."
+msgstr "Tvoj aktualni trening „%(routine)s” je istekao prije %(days)s dana."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Tvoj aktualni trening „%(workout)s” će isteći za %(days)s dana."
+msgstr "Tvoj aktualni trening „%(routine)s” će isteći za %(days)s dana."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2550,10 +2537,8 @@ msgid "Report bugs or suggest features"
 msgstr ""
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "Imaš problem ili ideju?"
+msgstr "Imaš problem ili ideju? Javi nam!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
@@ -2586,7 +2571,7 @@ msgstr ""
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Doniraj"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2619,22 +2604,14 @@ msgid "Our goal"
 msgstr "Naš cilj"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of\n"
-#| "                exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
-"Cilj je izgraditi sjajan i fleksibilan\n"
-"                fitness, zajedno sa sveobuhvatnim i potpunim popisom\n"
-"                vježbi i\n"
-"                sastojaka, a sve objavljeno pod besplatnom licencom."
+"Cilj je izgraditi sjajan i fleksibilan fitness, zajedno sa sveobuhvatnim i "
+"potpunim popisom vježbi i sastojaka, a sve objavljeno pod besplatnom "
+"licencom."
 
 #: software/templates/features.html:11
 msgid ""
