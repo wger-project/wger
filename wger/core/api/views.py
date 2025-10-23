@@ -63,6 +63,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 
 # wger
+import wger.weight.powersync as ps_weight
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
     LanguageSerializer,
@@ -484,13 +485,33 @@ def get_powersync_keys(request):
     )
 
 
-@api_view()
+@api_view(['PUT', 'PATCH', 'DELETE'])
 def upload_powersync_data(request):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
-    logger.debug(request.POST)
+    user_id = request.user.id
+    data = request.data
+
+    # get the http verb
+    http_verb = request.method
+
+    logger.info(f'Received PowerSync data: {data} via {http_verb} for user {user_id}')
+    match data['table']:
+        case 'weight_weightentry':
+            if http_verb == 'PUT':
+                ps_weight.handle_create(payload=data['data'], user_id=user_id)
+
+            elif http_verb == 'PATCH':
+                ps_weight.handle_update(payload=data['data'], user_id=user_id)
+
+            elif http_verb == 'DELETE':
+                ps_weight.handle_delete(payload=data['data'], user_id=user_id)
+        case _:
+            logger.warning('Received unknown PowerSync table')
+            raise ValueError('Unknown PowerSync table')
+
     return JsonResponse(
-        {'ok!'},
+        {'status': 'ok!'},
         status=200,
     )

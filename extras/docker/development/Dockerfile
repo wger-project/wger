@@ -10,15 +10,14 @@ USER root
 
 WORKDIR /home/wger/src
 RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
-    apt update && \
-    apt install --no-install-recommends -y \
+    && apt update \
+    && apt install --no-install-recommends -y \
         git \
         vim \
         nodejs \
-        sassc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -s /usr/bin/sassc /usr/bin/sass
+    && npm install -g sass
 
 USER wger
 COPY --chown=wger:wger . /home/wger/src
