@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-10-21 12:02+0000\n"
+"PO-Revision-Date: 2025-10-23 16:02+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural="
 "(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -144,7 +144,7 @@ msgstr "Izbriši"
 
 #: core/forms.py:259
 msgid "Invalid password"
-msgstr "Neispravna lozinka"
+msgstr "Nevaljana lozinka"
 
 #: core/forms.py:271 core/forms.py:346
 msgid "The form is secured with reCAPTCHA"
@@ -213,7 +213,7 @@ msgstr "Poveznica na tekst licence ili druge informacije"
 #: core/models/profile.py:57
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "%(birthdate)s nije ispravan datum rođenja"
+msgstr "%(birthdate)s nije valjani datum rođenja"
 
 #: core/models/profile.py:66
 msgid "Male"
@@ -296,7 +296,7 @@ msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
-"Stndardno trajanje treninga u tjednima koji nisu u rasporedu. Koristi se za "
+"Standardno trajanje treninga u tjednima koji nisu u rasporedu. Koristi se za "
 "e-mail podsjetnike treninga."
 
 #: core/models/profile.py:179
@@ -309,7 +309,7 @@ msgid ""
 "for workouts. This does not affect the language used on the website."
 msgstr ""
 "Jezik e-mail obavijesti, npr. e-mail podsjetnike za treninge. Ne utječe na "
-"jezik koji se koristi na web stranici."
+"jezik koji se koristi na web-stranici."
 
 #: core/models/profile.py:214 gym/views/export.py:64
 msgid "Age"
@@ -436,9 +436,9 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
-"Dogodila se greška na poslužitelju tijekom obrade tvog zahtjeva. Pokušaj "
+"Dogodila se greška na serveru tijekom obrade tvog zahtjeva. Pokušaj "
 "aktualizirati preglednik i ako to ne pomogne, pokušaj ponovo kasnije. Ako "
-"problem ustraje, potraži pomoć na dolje navedene načine:"
+"problem ustraje, zatraži pomoć na dolje navedene načine:"
 
 #: core/templates/base.html:10
 #, python-format
@@ -492,7 +492,7 @@ msgstr "%(username)s, tvoja je e-mail adresa ovjerena"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr "Greška, neispravni token ovjere"
+msgstr "Greška, nevaljan token ovjere"
 
 #: core/templates/email_verification/email_body_html.tpl:6
 msgid "Email Confirmation"
@@ -607,7 +607,7 @@ msgstr "Treniranje"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Rutine"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -699,7 +699,7 @@ msgstr "O ovom softveru"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Podrška i sudjelovanje"
 
 #: core/templates/navigation.html:229 software/templates/features.html:528
 msgid "REST API"
@@ -715,12 +715,12 @@ msgstr "Dokumentacija za programere"
 
 #: core/templates/navigation.html:248
 msgid "Get the code"
-msgstr "Nabavi kôd"
+msgstr "Nabavi izvorni kod"
 
 #: core/templates/navigation.html:255 core/templates/template.html:226
 #: software/templates/features.html:603
 msgid "Translate"
-msgstr "Prevodi"
+msgstr "Prevedi"
 
 #: core/templates/navigation.html:292 core/templates/user/login.html:30
 msgid "Reset password"
@@ -881,8 +881,8 @@ msgid ""
 "and can't be undone. "
 msgstr ""
 "Ova će radnja izbrisati korisnički račun „%(username)s”.\n"
-"Također će nepovratno ukloniti sve s njime povezane podatke (treninge, "
-"zapise, itd.)\n"
+"Također će nepovratno ukloniti sve s njime povezane podatke "
+"(treninge, dnevnike, itd.)\n"
 "i ne može se poništiti. "
 
 #: core/templates/user/login.html:17
@@ -933,7 +933,7 @@ msgstr "Opis"
 
 #: core/templates/user/overview.html:36
 msgid "Number of logs (days)"
-msgstr "Broj zapisa (u danima)"
+msgstr "Broj dnevnika (dani)"
 
 #: core/templates/user/overview.html:37 core/views/user.py:587
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
@@ -1152,7 +1152,7 @@ msgstr "g"
 
 #: core/templatetags/wger_extras.py:147 i18n.tpl:39
 msgid "lb"
-msgstr "funta"
+msgstr "lb"
 
 #: core/templatetags/wger_extras.py:149
 msgctxt "weight unit, i.e. ounces"
@@ -1194,8 +1194,8 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
-"Izradili smo uzorke treninga, rasporede treninga, zapise težine, (tjelesnu) "
-"težinu i unose za planove prehrane za bolji prikaz funkcionalnosti ove "
+"Izradili smo uzorke treninga, rasporede treninga, dnevnike težine, (tjelesnu)"
+" težinu i unose za planove prehrane za bolji prikaz funkcionalnosti ove "
 "stranice. Slobodno ih uredi ili izbriši!"
 
 #: core/views/misc.py:125
@@ -1347,7 +1347,7 @@ msgstr "Vrsta detoteke se ne podržava"
 
 #: exercises/models/video.py:72
 msgid "File is not a valid video"
-msgstr "Datoteka nije važeća video datoteka"
+msgstr "Datoteka nije valjana video datoteka"
 
 #: exercises/models/video.py:104
 msgid "Main video"
@@ -1548,7 +1548,7 @@ msgstr "Datum početka"
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
 #: manager/models/routine.py:102 nutrition/models/plan.py:68
 msgid "End date"
-msgstr "Datum završetka"
+msgstr "Datum kraja"
 
 #: gym/models/contract.py:263 gym/models/gym.py:73 gym/views/export.py:65
 msgid "ZIP code"
@@ -1877,7 +1877,7 @@ msgstr "Šipka za povlačenje"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr "Ekstenzije nogu"
+msgstr "Kvadriceps"
 
 #: i18n.tpl:30 manager/models/log.py:138
 msgid "Repetitions"
@@ -1885,7 +1885,7 @@ msgstr "Ponavljanja"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Elastična vrpca"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -1913,7 +1913,7 @@ msgstr "Do neuspjeha"
 
 #: i18n.tpl:40
 msgid "none (bodyweight exercise)"
-msgstr "ništa (vježba za tjelesnu težinu)"
+msgstr "bez (vježba za tjelesnu težinu)"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -1972,14 +1972,12 @@ msgid "Reps"
 msgstr "Ponavljanja"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Trening će uskoro isteći"
+msgstr "Rutina će uskoro isteći"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Rutina"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -1987,10 +1985,8 @@ msgid "Order"
 msgstr "Redoslijed"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Profesija"
+msgstr "Sesija"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2044,13 +2040,14 @@ msgstr "Dobro"
 
 #: manager/models/session.py:84
 msgid "Any notes you might want to save about this workout session."
-msgstr "Sve bilješke koje možda želiš spremiti o ovoj sesiji treninga."
+msgstr "Bilo koje bilješke koje želiš spremiti o ovoj sesiji treninga."
 
 #: manager/models/session.py:96
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
-msgstr "Tvoj dojam o ovom treningu. Jesi li vježbao/la koliko si mogao/la?"
+msgstr ""
+"Tvoj dojam o ovoj sesiji treninga. Jesi li vježbao/la koliko si mogao/la?"
 
 #: manager/models/session.py:104
 msgid "Start time"
@@ -2482,10 +2479,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger ti pomaže pratiti tvoje treninge, upravljati prehranom i ostvariti "
+"fitness ciljeve. Nudimo ga kao besplatan, otvoreni softver za vlastiti "
+"hosting, a također pružamo i praktičnu, besplatnu i hosting verziju za "
+"jednostavan pristup."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Otvoreni kod i besplatno ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2495,46 +2496,52 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger je izgrađen na principima otvorenog koda. Njegov je kod javno dostupan "
+"i razvija ga naša zajednica, što osigurava transparentnost i daje ti "
+"kontrolu nad tvojim podacima (posebno ako nudiš vlastiti hosting). Besplatna "
+"hosting usluga se u potpunosti temelji na ovom otvorenom kodu. Vjerujemo da "
+"moćni alati za fitness trebaju biti dostupni svima."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Kako možeš pomoći"
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "Zajednica"
+msgstr "Pridruži se zajednici"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Pridruži se Discord serveru"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Posjeti Discord server za razgovaranje s programerima i drugim korisnicima, "
+"za postavljanje pitanja ili za raspravljanje o novim funkcijama."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Primaj novosti, nove verzije i najave o projektu na Mastodonu."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Širi vijest o aplikaciji wger: Reci svojim prijateljima, kolegama iz "
+"teretane ili dijeli na društvenim mrežama! Tvoj entuzijazam nam pomaže da "
+"rastemo i dosegnemo više ljudi."
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute"
 msgid "Contribute your skills"
-msgstr "Doprinesi"
+msgstr "Doprinesi svojim vještinama"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Prijavi greške ili predloži funkcije"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
@@ -2542,32 +2549,30 @@ msgstr "Imaš problem ili ideju? Javi nam!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
-msgstr ""
+msgstr "Poboljšaj vježbe"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Doprinesi nove vježbe i uredi ili prevedi postojeće."
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translation"
 msgid "Translate the application"
-msgstr "Prijevod"
+msgstr "Prevedi aplikaciju"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Pomogni, kako bi aplikacija bila dostupna na više jezika za korisnike širom "
+"svijeta."
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Dokumentacija za programere"
+msgstr "Doprinesi porgramskom kodu ili dokumentaciji"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Pregledaj izvorni kod i pomogni nam izgraditi sljedeću verziju."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
@@ -2582,22 +2587,28 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Iako je projekt besplatan i uvijek će takav ostati, održavanje servera nije! "
+"Pružanje hosting verzije aplikacije wger uključuje stvarne, stalne troškove "
+"za hosting servera, promet, sigurnosne kopije i slično. Razvoj također "
+"zahtijeva značajno vrijeme i trud volontera. Tvoj doprinos izravno podržava "
+"ove ključne troškove, pomažući da usluga ostane pouzdana, da se kontinuirano "
+"poboljšava i da je besplatna za sve."
 
 #: software/templates/about_us.html:135
-#, fuzzy
-#| msgid "stars <br> on GitHub"
 msgid "Sponsor on GitHub"
-msgstr "ljudi koji prate wger <br> na GitHubu"
+msgstr "Sponzoriraj na GitHub-u"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Hvala!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Hvala ti što ste dio zajednice! Cijenimo tvoje korištenje aplikacije, slanje "
+"povratnih informacija i svaku podršku koju možeš ponuditi."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
@@ -2661,8 +2672,6 @@ msgid "exercises <br> for workout creation"
 msgstr "vježbe za <br> sastavljanje treninga"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
 msgstr "namirnice za <br> planiranje obroka"
 
@@ -2716,7 +2725,7 @@ msgstr ""
 
 #: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
-msgstr "Prati <span>tvoj napredak</span>"
+msgstr "Prati <span>svoj napredak</span>"
 
 #: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
@@ -2784,7 +2793,7 @@ msgstr "Preuzmi kod!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
-msgstr "Postavi privatni poslužitelj za tvoju teretanu"
+msgstr "Postavi privatni server za tvoju teretanu"
 
 #: software/templates/features.html:385
 msgid ""
@@ -2792,7 +2801,7 @@ msgid ""
 "own server for free!"
 msgstr ""
 "Ne želiš svoje podatke na online usluzi? Postavi wger instancu besplatno na "
-"vlastitom poslužitelju!"
+"vlastiti server!"
 
 #: software/templates/features.html:399
 msgid "Integrate with your own app"
@@ -2852,7 +2861,7 @@ msgstr "Izvorni naslov ovog objekta, ako postoji"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr "Poveži na izvorni objekt, ako postoji"
+msgstr "Poveznica na izvorni objekt, ako postoji"
 
 #: utils/models.py:63
 msgid "Author(s)"
@@ -2864,11 +2873,11 @@ msgstr "Ako nisi autor, ovdje upiši ime ili izvor."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr "Poveži na profil autora, ako postoji"
+msgstr "Poveznica na profil autora, ako postoji"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr "Poveži na izvorni izvor, ako je ovo izvedeno djelo"
+msgstr "Poveznica na izvorni izvor, ako je ovo izvedeno djelo"
 
 #: utils/models.py:79
 msgid ""
@@ -2897,14 +2906,14 @@ msgstr "Unos težine"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
-msgstr "Uvezi zapise težina"
+msgstr "Uvezi dnevnike težine"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
-"Koristi ovo polje za uvoz tvojih zapisa težine u Workout\n"
+"Koristi ovo polje za uvoz tvojih dnevnke težine u Workout\n"
 "Manager."
 
 #: weight/templates/import_csv_form.html:18
