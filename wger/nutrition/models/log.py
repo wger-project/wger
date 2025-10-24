@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import uuid
 from decimal import Decimal
 
 # Django
@@ -46,6 +47,13 @@ class LogItem(BaseMealItem, models.Model):
         ordering = [
             '-datetime',
         ]
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
+    )
 
     plan = models.ForeignKey(
         NutritionPlan,
