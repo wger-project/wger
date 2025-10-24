@@ -118,7 +118,7 @@ jobs:
       - build-prod
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           path: /tmp/digests
           pattern: digests-*
