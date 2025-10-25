@@ -63,6 +63,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 
 # wger
+import wger.manager.powersync as ps_manager
 import wger.weight.powersync as ps_weight
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
@@ -498,15 +499,23 @@ def upload_powersync_data(request):
 
     logger.info(f'Received PowerSync data: {data} via {http_verb} for user {user_id}')
     match data['table']:
+        # Body weight
         case 'weight_weightentry':
             if http_verb == 'PUT':
                 ps_weight.handle_create(payload=data['data'], user_id=user_id)
-
             elif http_verb == 'PATCH':
                 ps_weight.handle_update(payload=data['data'], user_id=user_id)
-
             elif http_verb == 'DELETE':
                 ps_weight.handle_delete(payload=data['data'], user_id=user_id)
+
+        # Routines
+        case 'manager_workoutlog':
+            if http_verb == 'PUT':
+                ps_manager.handle_create_log(payload=data['data'], user_id=user_id)
+            elif http_verb == 'PATCH':
+                ps_manager.handle_update_log(payload=data['data'], user_id=user_id)
+            elif http_verb == 'DELETE':
+                ps_manager.handle_delete_log(payload=data['data'], user_id=user_id)
         case _:
             logger.warning('Received unknown PowerSync table')
             raise ValueError('Unknown PowerSync table')

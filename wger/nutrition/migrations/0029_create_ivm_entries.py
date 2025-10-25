@@ -15,6 +15,7 @@ def add_ivm_views(apps, schema_editor):
     FROM nutrition_meal AS m
     JOIN nutrition_nutritionplan AS p ON m.plan_id = p.id;
     """
+    return
 
     schema_editor.execute(
         """

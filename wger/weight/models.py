@@ -37,9 +37,8 @@ class WeightEntry(models.Model):
 
     uuid = models.UUIDField(
         default=uuid4,
-        editable=False,
-        null=True,
-        unique=False,
+        editable=True,
+        null=False,
     )
 
     weight = models.DecimalField(
