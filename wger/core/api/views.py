@@ -516,6 +516,15 @@ def upload_powersync_data(request):
                 ps_manager.handle_update_log(payload=data['data'], user_id=user_id)
             elif http_verb == 'DELETE':
                 ps_manager.handle_delete_log(payload=data['data'], user_id=user_id)
+
+        case 'manager_workoutsession':
+            if http_verb == 'PUT':
+                ps_manager.handle_create_session(payload=data['data'], user_id=user_id)
+            elif http_verb == 'PATCH':
+                ps_manager.handle_update_session(payload=data['data'], user_id=user_id)
+            elif http_verb == 'DELETE':
+                ps_manager.handle_delete_session(payload=data['data'], user_id=user_id)
+
         case _:
             logger.warning('Received unknown PowerSync table')
             raise ValueError('Unknown PowerSync table')
