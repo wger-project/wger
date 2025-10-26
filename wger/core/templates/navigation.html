@@ -292,6 +292,16 @@
                                         {% translate "Reset password" %}
                                     </a>
                                 </li>
+                                {%  if user.userprofile.is_temporary %}
+                                <li class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           href="{% url 'core:user:logout' %}">
+                                            <span class="{% fa_class 'sign-out-alt' %}"></span>
+                                            {% translate "Logout" %}
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>
