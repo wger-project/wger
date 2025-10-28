@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2023-07-09 18:48+0000\n"
-"Last-Translator: Tomasz Cielecki <tomasz@ostebaronen.dk>\n"
+"PO-Revision-Date: 2025-10-30 04:25+0000\n"
+"Last-Translator: Fedder Skovgaard <fedder@skovgaard.tel>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/wger/web/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -423,7 +423,7 @@ msgstr "Forbudt!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "Du har ikke lov til at tilgå denne side"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -443,22 +443,20 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Der opstod en fejl på serveren under behandlingen af din anmodning. Prøv at "
+"genindlæse siden, og hvis det ikke hjælper, så prøv igen på et senere "
+"tidspunkt. Hvis problemet fortsætter, kan du søge hjælp på nedenstående "
+"måder:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Siden vieses\n"
+"Siden vises\n"
 "                som brugeren \"%(current_user)s\", alle handlinger bliver "
-"udført på brugerens data.\n"
-"            "
+"udført med brugerens data."
 
 #: core/templates/base.html:15
 #, python-format
@@ -466,12 +464,7 @@ msgid "Back to \"%(target)s\""
 msgstr "TIlbage til \"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -479,9 +472,9 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Siden vieses\n"
+"Siden vises\n"
 "                som brugeren \"%(current_user)s\", alle handlinger bliver "
-"udført på brugerens data.\n"
+"udført med brugerens data.\n"
 "            "
 
 #: core/templates/base_wide.html:12
@@ -500,7 +493,7 @@ msgstr "Er du sikker på at du vil slette dette? Handlingen kan ikke fortrydes."
 #, fuzzy
 #| msgid "Email verified"
 msgid "Email verification"
-msgstr "Email verificeret"
+msgstr "Email bekræftet"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -621,8 +614,9 @@ msgid "Training"
 msgstr "Træning"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
+#, fuzzy
 msgid "Routines"
-msgstr ""
+msgstr "Rutiner"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -630,7 +624,7 @@ msgstr "Kaldender"
 
 #: core/templates/navigation.html:55
 msgid "Measurements"
-msgstr ""
+msgstr "Målinger"
 
 #: core/templates/navigation.html:66 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -713,8 +707,9 @@ msgid "About this software"
 msgstr "Om denne software"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
+#, fuzzy
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Støt & bidrag til fællesskabet"
 
 #: core/templates/navigation.html:229 software/templates/features.html:528
 msgid "REST API"
@@ -1105,7 +1100,7 @@ msgstr "Dokumenter"
 
 #: core/templates/user/overview.html:433 gym/templates/document/list.html:33
 msgid "Download"
-msgstr ""
+msgstr "Hent"
 
 #: core/templates/user/overview.html:474 gym/views/admin_config.py:44
 #: gym/views/admin_config.py:58 gym/views/user_config.py:46
@@ -1253,7 +1248,7 @@ msgstr "Rediger bruger"
 #: core/views/user.py:584 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:158
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: core/views/user.py:585 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
@@ -1311,7 +1306,7 @@ msgstr "Linie"
 
 #: exercises/models/image.py:59
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:60
 msgid "Low-poly"
@@ -1390,7 +1385,7 @@ msgstr "Højdde"
 
 #: exercises/models/video.py:147
 msgid "Codec"
-msgstr ""
+msgstr "codec"
 
 #: exercises/models/video.py:155
 msgid "Codec, long name"
@@ -1405,10 +1400,8 @@ msgid "Exercise admin history"
 msgstr "Øvelses administrator historik"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Options"
 msgid "Action"
-msgstr "Indstillinger"
+msgstr "Handlinger"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:46
 #: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
@@ -1906,7 +1899,7 @@ msgstr "Repetitioner"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Elastik"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -1999,7 +1992,7 @@ msgstr "Træning vil udløbe snart"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Øvelse"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2055,7 +2048,7 @@ msgstr "Dårlig"
 
 #: manager/models/session.py:41
 msgid "Neutral"
-msgstr ""
+msgstr "Neutral"
 
 #: manager/models/session.py:42
 msgid "Good"
@@ -2090,7 +2083,7 @@ msgstr "Øvelsesdag"
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr ""
+msgstr "Din aktuelle øvelse '%(routine)s' udløb for %(days)s dage siden."
 
 #: manager/templates/routines/email_reminder.tpl:5
 #, python-format
