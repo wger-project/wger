@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+from uuid import uuid4
 
 # Django
 from django.contrib.auth.models import User
@@ -48,6 +49,12 @@ class WorkoutLog(models.Model):
     """
 
     objects = WorkoutLogManager()
+
+    uuid = models.UUIDField(
+        default=uuid4,
+        editable=True,
+        null=False,
+    )
 
     date = models.DateTimeField(
         verbose_name=_('Date'),
