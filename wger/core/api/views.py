@@ -502,9 +502,9 @@ def upload_powersync_data(request):
         # Body weight
         case 'weight_weightentry':
             if http_verb == 'PUT':
-                ps_weight.handle_create(payload=data['data'], user_id=user_id)
+                ps_weight.handle_create(payload=data['data'], user_id=user_id, request=request)
             elif http_verb == 'PATCH':
-                ps_weight.handle_update(payload=data['data'], user_id=user_id)
+                ps_weight.handle_update(payload=data['data'], user_id=user_id, request=request)
             elif http_verb == 'DELETE':
                 ps_weight.handle_delete(payload=data['data'], user_id=user_id)
 

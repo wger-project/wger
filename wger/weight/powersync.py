@@ -16,6 +16,9 @@
 # Standard Library
 import logging
 
+# Django
+from django.http import HttpRequest
+
 # wger
 from wger.weight.api.serializers import WeightEntrySerializer
 from wger.weight.models import WeightEntry
@@ -24,7 +27,7 @@ from wger.weight.models import WeightEntry
 logger = logging.getLogger(__name__)
 
 
-def handle_update(payload: dict[str, any], user_id: int) -> None:
+def handle_update(payload: dict[str, any], user_id: int, request: HttpRequest) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(
         f'Received PowerSync payload for update: {payload}',
@@ -37,7 +40,9 @@ def handle_update(payload: dict[str, any], user_id: int) -> None:
         )
         return
 
-    serializer = WeightEntrySerializer(entry, data=payload, partial=True)
+    serializer = WeightEntrySerializer(
+        entry, data=payload, partial=True, context={'request': request}
+    )
     if serializer.is_valid():
         serializer.save()
         logger.info(f'Updated WeightEntry {entry.pk} (uuid={entry.uuid}) for user {user_id}')
@@ -45,12 +50,12 @@ def handle_update(payload: dict[str, any], user_id: int) -> None:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
 
-def handle_create(payload: dict[str, any], user_id: int) -> None:
+def handle_create(payload: dict[str, any], user_id: int, request: HttpRequest) -> None:
     """Handle a create event from PowerSync"""
     logger.debug(
         f'Received PowerSync payload for create: {payload}',
     )
-    serializer = WeightEntrySerializer(data=payload)
+    serializer = WeightEntrySerializer(data=payload, context={'request': request})
     if serializer.is_valid():
         serializer.save(user_id=user_id)
     else:
