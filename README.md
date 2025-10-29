@@ -18,19 +18,16 @@ wger (ˈvɛɡɐ) is a free workout and fitness manager.
   from [Open Food Facts](https://openfoodfacts.org).
 - 📸 **Progress Gallery** – Upload and track your fitness progress with photos.
 - 📚 **Exercise Wiki** – Access and contribute to the built-in exercises.
+- 📱 **Cross-Platform Apps** – Available on 
+  [Android](https://play.google.com/store/apps/details?id=de.wger.flutter), 
+  [iOS](https://apps.apple.com/us/app/wger-workout-manager/id6502226792), 
+  [F-Droid](https://f-droid.org/en/packages/de.wger.flutter/), 
+  and [Flathub](https://flathub.org/apps/de.wger.flutter).
 - 🐳 **Self-Hostable** – Deploy easily with Docker for full control.
 - 🌍 **Multilingual Support** – Translated by the community via Weblate.
 - 🔗 **Powerful API** – REST API for third-party integrations or automations.
 - 👥 **Multi-User Support** – Includes basic gym management features.
 - 🆓 **100% Free & Open Source** – Licensed under AGPL-3.0 or later.
-
-- 📱 Cross-Platform Apps – Available on Android, iOS, F-Droid, and Flathub.
-
-### App Store Links
-- [Get it on Google Play](https://play.google.com/store/apps/details?id=de.wger.flutter)
-- [Download on the App Store](https://apps.apple.com/us/app/wger-workout-manager/id6502226792)
-- [Get it on F-Droid](https://f-droid.org/en/packages/de.wger.flutter/)
-- [Get it on Flathub](https://flathub.org/apps/de.wger.flutter)
 
 
 For a live system, visit: <https://wger.de>
