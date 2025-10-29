@@ -30,7 +30,7 @@ from wger.gallery.models import Image as GalleryImage
 class Command(BaseCommand):
     """
     Check existing gallery images in the database for validation issues.
-    
+
     This command validates all existing gallery images against the same rules
     that would be applied to new uploads, including:
     - File size limits (20MB max)
@@ -129,17 +129,14 @@ class Command(BaseCommand):
         for gallery_image in queryset:
             try:
                 result = self._validate_image(gallery_image, verbose)
-                
+
                 if result['valid']:
                     valid_count += 1
-                    if verbose:
-                        self.stdout.write(
-                            self.style.SUCCESS(f'✓ Image {gallery_image.id}: Valid')
-                        )
+
                 else:
                     invalid_count += 1
                     issue_type = result['issue_type']
-                    
+
                     if issue_type == 'missing_file':
                         missing_files += 1
                     elif issue_type == 'animated':
@@ -174,7 +171,7 @@ class Command(BaseCommand):
         self.stdout.write(f'Total images checked: {total_images}')
         self.stdout.write(f'Valid images: {valid_count}')
         self.stdout.write(f'Invalid images: {invalid_count}')
-        
+
         if invalid_count > 0:
             self.stdout.write('\nInvalid image breakdown:')
             if missing_files > 0:
