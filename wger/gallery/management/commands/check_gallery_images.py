@@ -18,10 +18,12 @@ from argparse import RawTextHelpFormatter
 
 # Django
 from django.core.management.base import BaseCommand
-from django.core.exceptions import ValidationError
 
 # Third Party
-from PIL import Image, UnidentifiedImageError
+from PIL import (
+    Image,
+    UnidentifiedImageError,
+)
 
 # wger
 from wger.gallery.models import Image as GalleryImage
@@ -98,9 +100,7 @@ class Command(BaseCommand):
         verbose = options['verbose']
 
         if delete_invalid and dry_run:
-            self.stdout.write(
-                self.style.ERROR('Cannot use --delete-invalid with --dry-run')
-            )
+            self.stdout.write(self.style.ERROR('Cannot use --delete-invalid with --dry-run'))
             return
 
         # Get the queryset
@@ -149,9 +149,7 @@ class Command(BaseCommand):
                         corrupted_files += 1
 
                     self.stdout.write(
-                        self.style.ERROR(
-                            f'✗ Image {gallery_image.id}: {result["message"]}'
-                        )
+                        self.style.ERROR(f'✗ Image {gallery_image.id}: {result["message"]}')
                     )
 
                     # Delete invalid images if requested
@@ -165,9 +163,9 @@ class Command(BaseCommand):
                 invalid_count += 1
 
         # Summary
-        self.stdout.write('\n' + '='*50)
+        self.stdout.write('\n' + '=' * 50)
         self.stdout.write('VALIDATION SUMMARY')
-        self.stdout.write('='*50)
+        self.stdout.write('=' * 50)
         self.stdout.write(f'Total images checked: {total_images}')
         self.stdout.write(f'Valid images: {valid_count}')
         self.stdout.write(f'Invalid images: {invalid_count}')
@@ -197,7 +195,7 @@ class Command(BaseCommand):
             return {
                 'valid': False,
                 'issue_type': 'missing_file',
-                'message': 'No image file associated with this record'
+                'message': 'No image file associated with this record',
             }
 
         # Check if file exists on disk
@@ -207,13 +205,13 @@ class Command(BaseCommand):
                 return {
                     'valid': False,
                     'issue_type': 'missing_file',
-                    'message': f'File not found on disk: {file_path}'
+                    'message': f'File not found on disk: {file_path}',
                 }
         except Exception as e:
             return {
                 'valid': False,
                 'issue_type': 'missing_file',
-                'message': f'Cannot access file: {str(e)}'
+                'message': f'Cannot access file: {str(e)}',
             }
 
         # File size check (20MB max)
@@ -224,13 +222,13 @@ class Command(BaseCommand):
                 return {
                     'valid': False,
                     'issue_type': 'oversized',
-                    'message': f'File too large: {file_size / (1024*1024):.1f}MB (max {MAX_FILE_SIZE_MB}MB)'
+                    'message': f'File too large: {file_size / (1024 * 1024):.1f}MB (max {MAX_FILE_SIZE_MB}MB)',
                 }
         except Exception as e:
             return {
                 'valid': False,
                 'issue_type': 'corrupted',
-                'message': f'Cannot determine file size: {str(e)}'
+                'message': f'Cannot determine file size: {str(e)}',
             }
 
         # Try opening the file with PIL
@@ -242,13 +240,13 @@ class Command(BaseCommand):
             return {
                 'valid': False,
                 'issue_type': 'corrupted',
-                'message': 'File is not a valid image'
+                'message': 'File is not a valid image',
             }
         except Exception as e:
             return {
                 'valid': False,
                 'issue_type': 'corrupted',
-                'message': f'Cannot open image: {str(e)}'
+                'message': f'Cannot open image: {str(e)}',
             }
 
         # Supported types
@@ -257,7 +255,7 @@ class Command(BaseCommand):
             return {
                 'valid': False,
                 'issue_type': 'invalid_format',
-                'message': f'Unsupported format: {img_format} (allowed: {", ".join(allowed_formats)})'
+                'message': f'Unsupported format: {img_format} (allowed: {", ".join(allowed_formats)})',
             }
 
         # Check for animation
@@ -265,14 +263,10 @@ class Command(BaseCommand):
             return {
                 'valid': False,
                 'issue_type': 'animated',
-                'message': 'Animated images are not supported'
+                'message': 'Animated images are not supported',
             }
 
-        return {
-            'valid': True,
-            'issue_type': None,
-            'message': 'Valid image'
-        }
+        return {'valid': True, 'issue_type': None, 'message': 'Valid image'}
 
     def _delete_invalid_image(self, gallery_image, issue_type):
         """
