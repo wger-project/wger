@@ -2,6 +2,10 @@
 
 Thank you all for contributing to the project, you are true heroes! 🫶
 
+*Generated on 2025-11-10*
+
+---
+
 ## Contributors
 
 - Github-actions - [https://github.com/invalid-email-address](https://github.com/invalid-email-address)
@@ -138,6 +142,182 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 
 ## Translators
 
+### Arabic (Saudi Arabia)
+
+- SlyBat - [https://github.com/AW-G](https://github.com/AW-G)
+- Hissabat Manager - [https://github.com/Chinguetti-Quizz](https://github.com/Chinguetti-Quizz)
+- My Google - [https://github.com/ahmedtahraoui90](https://github.com/ahmedtahraoui90)
+
+### Bulgarian
+
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Catalan
+
+- Zixu Sun - [https://github.com/ziixu](https://github.com/ziixu)
+- guillem - [https://github.com/gbuendia](https://github.com/gbuendia)
+
+### Chinese (Simplified Han script)
+
+- Herb Huang
+
+### Chinese (Simplified)
+
+- Yi-Han Hsiung - [https://github.com/AaronHsiung](https://github.com/AaronHsiung)
+- Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
+- Bingo_Yan - [https://github.com/ygbingo](https://github.com/ygbingo)
+- Scotee007 - [https://github.com/Scotee007](https://github.com/Scotee007)
+- cld4h - [https://github.com/cld4h](https://github.com/cld4h)
+- yzqzss - [https://github.com/yzqzss](https://github.com/yzqzss)
+- Jing - [https://github.com/jingcheng16](https://github.com/jingcheng16)
+- sr-c - [https://github.com/sr-c](https://github.com/sr-c)
+- tony - [https://github.com/tonyxxliu](https://github.com/tonyxxliu)
+- freeair zhao
+- 猫猫头 - [https://github.com/Lirosty](https://github.com/Lirosty)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Croatian
+
+- Milo Ivir - [https://github.com/milotype](https://github.com/milotype)
+
+### Czech
+
+- Fjuro - [https://github.com/Fjuro](https://github.com/Fjuro)
+- Fjuro
+- CaptainDolphy - [https://github.com/CaptainDolphy](https://github.com/CaptainDolphy)
+- Roman Kalivoda - [https://github.com/RKCZ](https://github.com/RKCZ)
+- Zrnek - [https://github.com/TomasZmek](https://github.com/TomasZmek)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Danish
+
+- Tomasz Cielecki - [https://github.com/Cheesebaron](https://github.com/Cheesebaron)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+
+### Dutch
+
+- Christijan Mulder
+- Christijan - [https://github.com/ChrispyM](https://github.com/ChrispyM)
+- SilverServerT - [https://github.com/SilverServerT](https://github.com/SilverServerT)
+- Coen Visser - [https://github.com/verluci](https://github.com/verluci)
+- Nick
+- Dieter Verbeken - [https://github.com/NimdaBE](https://github.com/NimdaBE)
+- Remco Schrijver - [https://github.com/RemcoSchrijver](https://github.com/RemcoSchrijver)
+- Rick
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- David - [https://github.com/DMachiels](https://github.com/DMachiels)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Finnish
+
+- Ricky Tigg - [https://github.com/Ricky-Tigg](https://github.com/Ricky-Tigg)
+- Nikolay Korotkiy - [https://github.com/sikmir](https://github.com/sikmir)
+- Juuso Haapanen - [https://github.com/juusohaapanen](https://github.com/juusohaapanen)
+- J. Lavoie
+
+### French
+
+- MrSniikyz - [https://github.com/BabyGeek](https://github.com/BabyGeek)
+- florent4014 - [https://github.com/florent4014](https://github.com/florent4014)
+- Lucas Batier - [https://github.com/lucas-batier](https://github.com/lucas-batier)
+- yoyomax80400 - [https://github.com/yoyomax80400](https://github.com/yoyomax80400)
+- Célian
+- J. Lavoie
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Antoine Vibien - [https://github.com/r1llettes](https://github.com/r1llettes)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### German
+
+- kvnrmnn - [https://github.com/rmnn92](https://github.com/rmnn92)
+- Tobias Lechner - [https://github.com/Lxchnxr](https://github.com/Lxchnxr)
+- becothas - [https://github.com/becothas](https://github.com/becothas)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- m4skedbyte
+- StefMe - [https://github.com/StefMe](https://github.com/StefMe)
+- Axel Steinbrecher
+- KneeClass03 - [https://github.com/KneeClass03](https://github.com/KneeClass03)
+- Christoph Suesser - [https://github.com/TheFitzZZ](https://github.com/TheFitzZZ)
+- J. Lavoie
+- mondstern
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Greek
+
+- Antonis-geo - [https://github.com/Antonis-geo](https://github.com/Antonis-geo)
+- George Koikas
+- Eugenia Russell - [https://github.com/eugenia-russell](https://github.com/eugenia-russell)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Michalis
+
+### Hebrew
+
+- shlomi assaf - [https://github.com/shlomiassaf](https://github.com/shlomiassaf)
+- Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
+- n,rdo
+
+### Hindi
+
+- Ritik Sharma - [https://github.com/RitikSharma02](https://github.com/RitikSharma02)
+- Ritish Bhardwaj - [https://github.com/levidroid](https://github.com/levidroid)
+
+### Hungarian
+
+- Adam Cool
+- László Mócsy - [https://github.com/LamaxStudio](https://github.com/LamaxStudio)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Italian
+
+- Federico Pierantoni - [https://github.com/F3FFO](https://github.com/F3FFO)
+- oarion - [https://github.com/oarion](https://github.com/oarion)
+- Alessandro Faucci - [https://github.com/Dhy19971](https://github.com/Dhy19971)
+- Marco Accorinti - [https://github.com/accodev](https://github.com/accodev)
+- Armando La Placa - [https://github.com/a-lp](https://github.com/a-lp)
+- clafalco - [https://github.com/clafalco](https://github.com/clafalco)
+- DT
+- MARCO ACORTE - [https://github.com/marco-acorte](https://github.com/marco-acorte)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- J. Lavoie
+- Stefano Rossi - [https://github.com/stefanorossiti](https://github.com/stefanorossiti)
+
+### Japanese
+
+- sasukeiscool - [https://github.com/sasukeiscool](https://github.com/sasukeiscool)
+- yuki chi - [https://github.com/kumo2kumo](https://github.com/kumo2kumo)
+
+### Korean
+
+- 고수처럼 - [https://github.com/rrrmaster](https://github.com/rrrmaster)
+- Gyu-sun Youm - [https://github.com/Perlmint](https://github.com/Perlmint)
+- 성동하 - [https://github.com/tomjovi](https://github.com/tomjovi)
+- namong79 - [https://github.com/namong79](https://github.com/namong79)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Norwegian Bokmål
+
+- GS Bacon
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+
+### Persian
+
+- m93n pk - [https://github.com/m93n](https://github.com/m93n)
+- anyBlackSoul
+- keyvanmj - [https://github.com/keyvanmj](https://github.com/keyvanmj)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
+### Polish
+
+- Karol Solecki - [https://github.com/karolsol](https://github.com/karolsol)
+- Dawid Panyło
+- Marcin Schoenknecht
+- gnu-ewm
+- A M - [https://github.com/AugiAugi44](https://github.com/AugiAugi44)
+- Jacob - [https://github.com/devzom](https://github.com/devzom)
+- Henio Szewczyk - [https://github.com/hszewczyk](https://github.com/hszewczyk)
+- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+
 ### Portuguese
 
 - Luiz Felipe Guidorizzi de Oliveira - [https://github.com/EvilMonark](https://github.com/EvilMonark)
@@ -155,45 +335,11 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - ssantos - [https://github.com/SantosSi](https://github.com/SantosSi)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
-### Korean
-
-- 고수처럼 - [https://github.com/rrrmaster](https://github.com/rrrmaster)
-- Gyu-sun Youm - [https://github.com/Perlmint](https://github.com/Perlmint)
-- 성동하 - [https://github.com/tomjovi](https://github.com/tomjovi)
-- namong79 - [https://github.com/namong79](https://github.com/namong79)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Finnish
-
-- Ricky Tigg - [https://github.com/Ricky-Tigg](https://github.com/Ricky-Tigg)
-- Nikolay Korotkiy - [https://github.com/sikmir](https://github.com/sikmir)
-- Juuso Haapanen - [https://github.com/juusohaapanen](https://github.com/juusohaapanen)
-- J. Lavoie
-
-### Polish
-
-- Karol Solecki - [https://github.com/karolsol](https://github.com/karolsol)
-- Dawid Panyło
-- Marcin Schoenknecht
-- gnu-ewm
-- A M - [https://github.com/AugiAugi44](https://github.com/AugiAugi44)
-- Jacob - [https://github.com/devzom](https://github.com/devzom)
-- Henio Szewczyk - [https://github.com/hszewczyk](https://github.com/hszewczyk)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
 ### Romanian
 
 - B Sebastian
 - Daniel Vigaru - [https://github.com/danielvigaru](https://github.com/danielvigaru)
 - dimii27 - [https://github.com/dimii27](https://github.com/dimii27)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Swedish
-
-- PNS11 - [https://github.com/cess11](https://github.com/cess11)
-- Kevin Gregard - [https://github.com/Kladdiskakan](https://github.com/Kladdiskakan)
-- tygyh - [https://github.com/tygyh](https://github.com/tygyh)
-- stefan - [https://github.com/clint1337](https://github.com/clint1337)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
 ### Russian
@@ -207,39 +353,6 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Ryeori - [https://github.com/daniqshu](https://github.com/daniqshu)
 - Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Dutch
-
-- Christijan Mulder
-- Christijan - [https://github.com/ChrispyM](https://github.com/ChrispyM)
-- SilverServerT - [https://github.com/SilverServerT](https://github.com/SilverServerT)
-- Coen Visser - [https://github.com/verluci](https://github.com/verluci)
-- Nick
-- Dieter Verbeken - [https://github.com/NimdaBE](https://github.com/NimdaBE)
-- Remco Schrijver - [https://github.com/RemcoSchrijver](https://github.com/RemcoSchrijver)
-- Rick
-- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
-- David - [https://github.com/DMachiels](https://github.com/DMachiels)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Croatian
-
-- Milo Ivir - [https://github.com/milotype](https://github.com/milotype)
-
-### Hebrew
-
-- shlomi assaf - [https://github.com/shlomiassaf](https://github.com/shlomiassaf)
-- Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
-- n,rdo
-
-### Ukrainian
-
-- Максим Горпиніч
-- kvinto - [https://github.com/badsystem](https://github.com/badsystem)
-- Dan - [https://github.com/Kefir2105](https://github.com/Kefir2105)
-- Dan
-- Tymofii Lytvynenko
-- Artem - [https://github.com/defaultpage](https://github.com/defaultpage)
 
 ### Spanish
 
@@ -257,59 +370,13 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - J. Lavoie
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
-### Chinese (Simplified Han script)
+### Swedish
 
-- Herb Huang
-
-### German
-
-- kvnrmnn - [https://github.com/rmnn92](https://github.com/rmnn92)
-- Tobias Lechner - [https://github.com/Lxchnxr](https://github.com/Lxchnxr)
-- becothas - [https://github.com/becothas](https://github.com/becothas)
-- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
-- m4skedbyte
-- StefMe - [https://github.com/StefMe](https://github.com/StefMe)
-- Axel Steinbrecher
-- KneeClass03 - [https://github.com/KneeClass03](https://github.com/KneeClass03)
-- Christoph Suesser - [https://github.com/TheFitzZZ](https://github.com/TheFitzZZ)
-- J. Lavoie
-- mondstern
+- PNS11 - [https://github.com/cess11](https://github.com/cess11)
+- Kevin Gregard - [https://github.com/Kladdiskakan](https://github.com/Kladdiskakan)
+- tygyh - [https://github.com/tygyh](https://github.com/tygyh)
+- stefan - [https://github.com/clint1337](https://github.com/clint1337)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Hindi
-
-- Ritik Sharma - [https://github.com/RitikSharma02](https://github.com/RitikSharma02)
-- Ritish Bhardwaj - [https://github.com/levidroid](https://github.com/levidroid)
-
-### French
-
-- MrSniikyz - [https://github.com/BabyGeek](https://github.com/BabyGeek)
-- florent4014 - [https://github.com/florent4014](https://github.com/florent4014)
-- Lucas Batier - [https://github.com/lucas-batier](https://github.com/lucas-batier)
-- yoyomax80400 - [https://github.com/yoyomax80400](https://github.com/yoyomax80400)
-- Célian
-- J. Lavoie
-- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
-- Antoine Vibien - [https://github.com/r1llettes](https://github.com/r1llettes)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Persian
-
-- m93n pk - [https://github.com/m93n](https://github.com/m93n)
-- anyBlackSoul
-- keyvanmj - [https://github.com/keyvanmj](https://github.com/keyvanmj)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Norwegian Bokmål
-
-- GS Bacon
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
-
-### Catalan
-
-- Zixu Sun - [https://github.com/ziixu](https://github.com/ziixu)
-- guillem - [https://github.com/gbuendia](https://github.com/gbuendia)
 
 ### Turkish
 
@@ -318,74 +385,11 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Oğuz Ersen
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 
-### Chinese (Simplified)
+### Ukrainian
 
-- Yi-Han Hsiung - [https://github.com/AaronHsiung](https://github.com/AaronHsiung)
-- Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
-- Bingo_Yan - [https://github.com/ygbingo](https://github.com/ygbingo)
-- Scotee007 - [https://github.com/Scotee007](https://github.com/Scotee007)
-- cld4h - [https://github.com/cld4h](https://github.com/cld4h)
-- yzqzss - [https://github.com/yzqzss](https://github.com/yzqzss)
-- Jing - [https://github.com/jingcheng16](https://github.com/jingcheng16)
-- sr-c - [https://github.com/sr-c](https://github.com/sr-c)
-- tony - [https://github.com/tonyxxliu](https://github.com/tonyxxliu)
-- freeair zhao
-- 猫猫头 - [https://github.com/Lirosty](https://github.com/Lirosty)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Italian
-
-- Federico Pierantoni - [https://github.com/F3FFO](https://github.com/F3FFO)
-- oarion - [https://github.com/oarion](https://github.com/oarion)
-- Alessandro Faucci - [https://github.com/Dhy19971](https://github.com/Dhy19971)
-- Marco Accorinti - [https://github.com/accodev](https://github.com/accodev)
-- Armando La Placa - [https://github.com/a-lp](https://github.com/a-lp)
-- clafalco - [https://github.com/clafalco](https://github.com/clafalco)
-- DT
-- MARCO ACORTE - [https://github.com/marco-acorte](https://github.com/marco-acorte)
-- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
-- J. Lavoie
-- Stefano Rossi - [https://github.com/stefanorossiti](https://github.com/stefanorossiti)
-
-### Czech
-
-- Fjuro - [https://github.com/Fjuro](https://github.com/Fjuro)
-- Fjuro
-- CaptainDolphy - [https://github.com/CaptainDolphy](https://github.com/CaptainDolphy)
-- Roman Kalivoda - [https://github.com/RKCZ](https://github.com/RKCZ)
-- Zrnek - [https://github.com/TomasZmek](https://github.com/TomasZmek)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Hungarian
-
-- Adam Cool
-- László Mócsy - [https://github.com/LamaxStudio](https://github.com/LamaxStudio)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-
-### Japanese
-
-- sasukeiscool - [https://github.com/sasukeiscool](https://github.com/sasukeiscool)
-- yuki chi - [https://github.com/kumo2kumo](https://github.com/kumo2kumo)
-
-### Greek
-
-- Antonis-geo - [https://github.com/Antonis-geo](https://github.com/Antonis-geo)
-- George Koikas
-- Eugenia Russell - [https://github.com/eugenia-russell](https://github.com/eugenia-russell)
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
-- Michalis
-
-### Danish
-
-- Tomasz Cielecki - [https://github.com/Cheesebaron](https://github.com/Cheesebaron)
-- Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
-
-### Arabic (Saudi Arabia)
-
-- SlyBat - [https://github.com/AW-G](https://github.com/AW-G)
-- Hissabat Manager - [https://github.com/Chinguetti-Quizz](https://github.com/Chinguetti-Quizz)
-- My Google - [https://github.com/ahmedtahraoui90](https://github.com/ahmedtahraoui90)
-
-### Bulgarian
-
-- Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Максим Горпиніч
+- kvinto - [https://github.com/badsystem](https://github.com/badsystem)
+- Dan - [https://github.com/Kefir2105](https://github.com/Kefir2105)
+- Dan
+- Tymofii Lytvynenko
+- Artem - [https://github.com/defaultpage](https://github.com/defaultpage)
