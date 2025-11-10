@@ -17,6 +17,7 @@
 # Standard Library
 import datetime
 import logging
+import uuid
 
 # Django
 from django.contrib.auth.models import User
@@ -45,6 +46,13 @@ class NutritionPlan(models.Model):
         ordering = [
             '-start',
         ]
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
+    )
 
     user = models.ForeignKey(
         User,

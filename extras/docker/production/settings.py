@@ -227,3 +227,10 @@ LOGGING = {
         },
     }
 }
+
+#
+# PowerSync configuration
+#
+POWERSYNC_JWKS_PUBLIC_KEY = env.str('POWERSYNC_JWKS_PUBLIC_KEY', '')
+POWERSYNC_JWKS_PRIVATE_KEY = env.str('POWERSYNC_JWKS_PRIVATE_KEY', '')
+POWERSYNC_URL = env.str('POWERSYNC_URL', 'http://powersync:8080')

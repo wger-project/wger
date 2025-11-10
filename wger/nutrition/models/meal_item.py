@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+import uuid
 from decimal import Decimal
 
 # Django
@@ -42,6 +43,13 @@ class MealItem(BaseMealItem, models.Model):
     """
     An item (component) of a meal
     """
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
+    )
 
     meal = models.ForeignKey(
         Meal,

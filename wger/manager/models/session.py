@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+from uuid import uuid4
 
 # Django
 from django.contrib.auth.models import User
@@ -52,6 +53,12 @@ class WorkoutSession(models.Model):
 
     See note in weight.models.WeightEntry about why this is not editable=False
     """
+
+    uuid = models.UUIDField(
+        default=uuid4,
+        editable=True,
+        null=False,
+    )
 
     routine = models.ForeignKey(
         'Routine',
