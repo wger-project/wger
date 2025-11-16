@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-02-28 08:02+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"PO-Revision-Date: 2025-11-17 06:51+0000\n"
+"Last-Translator: Petri Hämäläinen <petri.hamalainen@mailbox.org>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2-rc\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -448,20 +448,13 @@ msgstr ""
 "voit hakea apua alla luetelluilla tavoilla:"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Selaat\n"
-" sivustoa käyttäjänä %(current_user)s, kaikki toimet suoritetaan heidän "
-"tiedoilleen.\n"
-"            "
+"Selaat sivustoa käyttäjän \"%(current_user)s\" näkymässä, kaikki toiminnot "
+"kohdistuvat hänen tietoihinsa."
 
 #: core/templates/base.html:15
 #, python-format
@@ -469,12 +462,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Takaisin \"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -483,17 +471,19 @@ msgid ""
 "            "
 msgstr ""
 "Selaat\n"
-" sivustoa käyttäjänä %(current_user)s, kaikki toimet suoritetaan heidän "
-"tiedoilleen.\n"
+"                sivustoa käyttäjänä \"%(current_user)s\", kaikki toiminnot\n"
+"kohdistuvat\n"
+"                heidän tietoihinsa.\n"
 "            "
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "Takaisin \"%(target)s\""
+msgstr ""
+"Takaisin \"%(target)s\n"
+"                    \""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -625,7 +615,7 @@ msgstr "Harjoittelu"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Rutiinit"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -717,7 +707,7 @@ msgstr "Tietoja tästä ohjelmistosta"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Tuki ja osallistu"
 
 #: core/templates/navigation.html:229 software/templates/features.html:528
 msgid "REST API"
@@ -1063,7 +1053,7 @@ msgstr "Yksityiskohdat"
 #: core/templates/user/overview.html:276 gym/views/export.py:57
 #: manager/helpers.py:89
 msgid "Nr."
-msgstr ""
+msgstr "Nro."
 
 #: core/templates/user/overview.html:298 gym/models/contract.py:287
 #: gym/models/gym.py:50 gym/templates/contract/view.html:75
@@ -1172,12 +1162,12 @@ msgstr "g"
 
 #: core/templatetags/wger_extras.py:147 i18n.tpl:39
 msgid "lb"
-msgstr ""
+msgstr "lb"
 
 #: core/templatetags/wger_extras.py:149
 msgctxt "weight unit, i.e. ounces"
 msgid "oz"
-msgstr ""
+msgstr "oz"
 
 #: core/views/languages.py:85 exercises/views/categories.py:122
 #: exercises/views/equipment.py:103 exercises/views/muscles.py:99
@@ -1316,11 +1306,11 @@ msgstr "Linja"
 
 #: exercises/models/image.py:59
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:60
 msgid "Low-poly"
-msgstr ""
+msgstr "Low-poly"
 
 #: exercises/models/image.py:61
 msgid "Photo"
@@ -1433,7 +1423,7 @@ msgstr "Muutokset"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Kumoa"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
@@ -1864,7 +1854,7 @@ msgstr "Kilometrit tunnissa"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "Leveät selkälihakset"
 
 #: i18n.tpl:21
 msgid "Legs"
@@ -1872,7 +1862,7 @@ msgstr "Jalat"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Alaselkä"
 
 #: i18n.tpl:23
 msgid "Max Reps"
@@ -1900,7 +1890,7 @@ msgstr "Leuanvetotanko"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "Etureidet"
 
 #: i18n.tpl:30 manager/models/log.py:138
 msgid "Repetitions"
@@ -1908,7 +1898,7 @@ msgstr "Toistot"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Vastuskuminauha"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -1928,7 +1918,7 @@ msgstr "Sveitsin pallo"
 
 #: i18n.tpl:36
 msgid "Triceps"
-msgstr ""
+msgstr "Ojentajat"
 
 #: i18n.tpl:37
 msgid "Until Failure"
@@ -1995,14 +1985,12 @@ msgid "Reps"
 msgstr "Toistot"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Harjoitus päättyy pian"
+msgstr "Rutiini päättyy pian"
 
 #: manager/models/day.py:52
 msgid "Routine"
-msgstr ""
+msgstr "Rutiini"
 
 #: manager/models/day.py:60 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
@@ -2010,10 +1998,8 @@ msgid "Order"
 msgstr "Järjestys"
 
 #: manager/models/log.py:78
-#, fuzzy
-#| msgid "Profession"
 msgid "Session"
-msgstr "Ammatti"
+msgstr "Harjoituskerta"
 
 #: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2027,29 +2013,31 @@ msgstr "Yksikkö"
 
 #: manager/models/routine.py:93 nutrition/models/plan.py:57
 msgid "Creation date"
-msgstr ""
+msgstr "Luontipäivä"
 
 #: manager/models/routine.py:106
 msgid "Workout template"
-msgstr ""
+msgstr "Harjoitusmalli"
 
 #: manager/models/routine.py:108
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Harjoituksen merkitseminen malliksi estää sen muokkauksen ja sallii sen "
+"kopioimisen"
 
 #: manager/models/routine.py:116
 msgid "Public template"
-msgstr ""
+msgstr "Julkinen malli"
 
 #: manager/models/routine.py:117
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Julkinen malli on käytettävissä myös muilla käyttäjilla"
 
 #: manager/models/routine.py:155 manager/models/session.py:147
 msgid "The start time cannot be after the end time."
-msgstr ""
+msgstr "Aloitusaika ei voi olla päättymisajan jälkeen."
 
 #: manager/models/session.py:40
 msgid "Bad"
@@ -2091,17 +2079,17 @@ msgstr "Jos syötät ajan, sinun on syötettävä sekä alkamis- että päättym
 
 #: manager/models/slot.py:26
 msgid "Exercise day"
-msgstr ""
+msgstr "Harjoituspäivä"
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr ""
+msgstr "Nykyinen harjoituksesi '%(routine)s' vanheni %(days)s päivää sitten."
 
 #: manager/templates/routines/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr ""
+msgstr "Nykyinen harjoituksesi '%(routine)s' vanhenee %(days)s päivän kuluttua."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2109,6 +2097,10 @@ msgid ""
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
 "never produce reminders."
 msgstr ""
+"Saat säännöllisesti tällaisia muistutuksia, kunnes lisäät uuden "
+"harjoitusohjelman.\n"
+"Vaihtoehtoisesti voit lisätä harjoitusohjelmat toistumaan.\n"
+"Tällaisista aikatauluista ei tule muistutuksia."
 
 #: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2116,13 +2108,15 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
+"Mikäli et halua sähköpostimuistutuksia,\n"
+"kytke muistutukset pois päältä asetuksista."
 
 #: manager/templates/routines/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr ""
+msgstr "%(site)s tiimi"
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -2130,20 +2124,22 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
+"Viimeisin painonmittaus oli %(date)s (%(days)s päivää sitten).\n"
+"Napauta linkkiä siirtyäksesi sovellukseen syöttämään uusi paino."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
-msgstr ""
+msgstr "Saat säännöllisesti muistutuksia, kunnes syötät painosi."
 
 #: manager/views/pdf.py:77 manager/views/pdf.py:146
 #, python-format
 msgid "Workout for %s"
-msgstr ""
+msgstr "Harjoitus %s"
 
 #: measurements/models/measurement.py:51
 msgid "Value"
-msgstr ""
+msgstr "Arvo"
 
 #: nutrition/forms.py:117
 msgid "Height (in)"
@@ -2159,30 +2155,31 @@ msgstr "Paino (paunaa)"
 
 #: nutrition/forms.py:133
 msgid "Calculate"
-msgstr ""
+msgstr "Laske"
 
 #: nutrition/forms.py:207 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
-msgstr ""
+msgstr "Perusenergiantarve"
 
 #: nutrition/forms.py:208
 msgid "Your basic caloric intake as calculated for your data"
-msgstr ""
+msgstr "Perusenergiantarpeesi tietojesi perusteella"
 
 #: nutrition/forms.py:213
 msgid "Additional calories"
-msgstr ""
+msgstr "Perustarpeeseen lisättävät kalorit"
 
 #: nutrition/forms.py:215
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
+"Perustarpeeseen lisättävät kalorit (vähentääksesi, syötä negatiivinen luku)"
 
 #: nutrition/forms.py:246 nutrition/models/ingredient_weight_unit.py:39
 #: nutrition/models/log.py:87 nutrition/models/meal_item.py:54
 msgid "Ingredient"
-msgstr ""
+msgstr "Ainesosa"
 
 #: nutrition/forms.py:250
 msgid "Also search for names in English"
@@ -2190,42 +2187,42 @@ msgstr "Hae myös englanninkieliset nimet"
 
 #: nutrition/models/ingredient.py:132
 msgid "In kcal per 100g"
-msgstr ""
+msgstr "kcal / 100 g"
 
 #: nutrition/models/ingredient.py:139 nutrition/models/ingredient.py:147
 #: nutrition/models/ingredient.py:157 nutrition/models/ingredient.py:165
 #: nutrition/models/ingredient.py:175 nutrition/models/ingredient.py:185
 #: nutrition/models/ingredient.py:195
 msgid "In g per 100g of product"
-msgstr ""
+msgstr "g / 100 g tuotetta"
 
 #: nutrition/models/ingredient.py:156
 #: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:267
 msgid "Sugar content in carbohydrates"
-msgstr ""
+msgstr "Sokerin osuus hiilihydraateista"
 
 #: nutrition/models/ingredient.py:174
 #: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
-msgstr ""
+msgstr "Tyydyttyneen rasvan osuus rasvoista"
 
 #: nutrition/models/ingredient.py:184
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Kuitu"
 
 #: nutrition/models/ingredient.py:194
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
 msgid "Sodium"
-msgstr ""
+msgstr "Suola"
 
 #: nutrition/models/ingredient.py:224
 msgid "Link to product"
-msgstr ""
+msgstr "Linkki tuotteeseen"
 
 #: nutrition/models/ingredient.py:253
 msgid "Brand name of product"
-msgstr ""
+msgstr "Tuotteen merkki"
 
 #: nutrition/models/ingredient.py:320
 #, python-brace-format
