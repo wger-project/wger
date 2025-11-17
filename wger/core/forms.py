@@ -33,8 +33,10 @@ from django.forms import (
     PasswordInput,
     widgets,
 )
-from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
+from django.utils.translation import (
+    gettext as _,
+    gettext_lazy,
+)
 
 # Third Party
 from crispy_forms.helper import FormHelper
