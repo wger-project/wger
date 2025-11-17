@@ -40,7 +40,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         raise KeyError('Missing required nutrition key')
 
     # Basics
-    name = product_data.get('product_name')
+    name = product_data.get('product_name', '')
     common_name = product_data.get('generic_name', '')
 
     # If the energy is not available in kcal, convert from kJ
