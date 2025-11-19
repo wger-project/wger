@@ -117,5 +117,9 @@ class CacheKeyMapper:
     def slot_entry_configs_key(cls, pk: int):
         return f'slot-entry-configs-{pk}'
 
+    @classmethod
+    def ingredient_celery_sync(cls, page: int):
+        return f'ingredients-sync-page-{page}'
+
 
 cache_mapper = CacheKeyMapper()

@@ -54,6 +54,7 @@ dependencies = [
     "easy-thumbnails~=2.10.1",
     "flower~=2.0.1",
     "fontawesomefree~=6.6.0",
+    "gevent>=25.9.1",
     "icalendar~=6.3.2",
     "invoke~=2.2.1",
     "lingua-language-detector~=2.1.1",

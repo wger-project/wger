@@ -240,6 +240,46 @@ def download_ingredient_images(
         print_fn(style_fn('    successfully saved'))
 
 
+def sync_ingredients_page(
+    page: int,
+    limit: int = API_MAX_ITEMS,
+    remote_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
+    language_codes: Optional[str] = None,
+) -> int:
+    """
+    Sync a single paginated page (0-based index). Returns number of processed ingredients.
+    Safe to rerun (idempotent).
+    """
+    language_ids: List[str] | None = None
+    if language_codes:
+        language_ids = []
+        for code in language_codes.split(','):
+            try:
+                lang = load_language(code, default_to_english=False)
+                language_ids.append(str(lang.id))
+            except Language.DoesNotExist:
+                logger.warning(f'Language code "{code}" not found, skipping page {page}.')
+                return 0
+
+    offset = page * limit
+    query: dict[str, str | int] = {'limit': limit, 'offset': offset}
+    if language_ids:
+        query['language__in'] = ','.join(language_ids)
+
+    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query=query)
+    response = requests.get(url, headers=wger_headers(), timeout=30).json()
+    results = response.get('results', [])
+    processed = 0
+    for data in results:
+        uuid = data['uuid']
+        ingredient_data = extract_info_from_wger_api(data).dict()
+        ingredient_data['uuid'] = uuid
+        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        processed += 1
+    logger.debug(f'Page {page} synced ({processed} ingredients)')
+    return processed
+
+
 def sync_ingredients(
     print_fn,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
