@@ -27,10 +27,14 @@ from django.utils import timezone
 
 # Third Party
 import requests
-from openfoodfacts.images import (
-    AWS_S3_BASE_URL,
-    generate_image_path,
+from openfoodfacts import (
+    API,
+    APIVersion,
+    Country,
+    Environment,
+    Flavor,
 )
+from openfoodfacts.images import download_image
 from tqdm import tqdm
 
 # wger
@@ -55,6 +59,7 @@ from wger.utils.language import load_language
 from wger.utils.requests import (
     get_paginated,
     wger_headers,
+    wger_user_agent,
 )
 from wger.utils.url import make_uri
 
@@ -135,55 +140,47 @@ def fetch_image_from_off(ingredient: Ingredient):
     - https://openfoodfacts.github.io/openfoodfacts-server/api/how-to-download-images/
     - https://openfoodfacts.github.io/openfoodfacts-server/api/ref-v2/
     """
-    logger.info(f'Trying to fetch image from OFF for {ingredient.name} (UUID: {ingredient.uuid})')
+    logger.info(f'Trying to fetch image from OFF for "{ingredient.name}" ({ingredient.uuid})')
+    off_api = API(
+        user_agent=wger_user_agent(),
+        country=Country.world,
+        flavor=Flavor.off,
+        version=APIVersion.v2,
+        environment=Environment.org,
+    )
+    product_data = off_api.product.get(ingredient.code, fields=['images', 'image_front_url'])
 
-    url = ingredient.source_url + '?fields=images,image_front_url'
-    headers = wger_headers()
-    try:
-        product_data = requests.get(url, headers=headers, timeout=3).json()
-    except requests.JSONDecodeError:
-        logger.warning(f'Could not decode JSON response from {url}')
-        return
-    except requests.ConnectTimeout as e:
-        logger.warning(f'Connection timeout while trying to fetch {url}: {e}')
-        return
-    except requests.ReadTimeout as e:
-        logger.warning(f'Read timeout while trying to fetch {url}: {e}')
+    if product_data is None:
+        logger.info('No product data found for this ingredient')
         return
 
-    try:
-        image_url: Optional[str] = product_data['product'].get('image_front_url')
-    except KeyError:
-        logger.info('No "product" key found, exiting...')
-        return
-
+    image_url: Optional[str] = product_data.get('image_front_url')
     if not image_url:
         logger.info('Product data has no "image_front_url" key')
         return
-    image_data = product_data['product']['images']
+    image_data = product_data['images']
+    if not image_data:
+        logger.info('Product data has no "images" key')
+        return
 
     # Extract the image key from the url:
     # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg -> "front_en"
-    image_id: str = image_url.rpartition('/')[2].partition('.')[0]
+    image_key: str = image_url.rpartition('/')[2].partition('.')[0]
 
-    # Extract the uploader name
+    # Extract the uploader name and numerical image id
     try:
-        image_id: str = image_data[image_id]['imgid']
+        image_id: str = image_data[image_key]['imgid']
         uploader_name: str = image_data[image_id]['uploader']
     except KeyError as e:
         logger.info('could not load all image information, skipping...', e)
         return
 
-    # Download image from amazon
-    image_s3_url = f'{AWS_S3_BASE_URL}{generate_image_path(ingredient.code, image_id)}'
-    response = requests.get(image_s3_url, headers=headers)
-    if not response.ok:
-        logger.info(f'Could not locate image on AWS! Status code: {response.status_code}')
-        return
+    off_response = download_image(image_url, return_struct=True)
 
     # Save to DB
-    url = (
-        f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id={image_id}'
+    url = make_uri(
+        'https://world.openfoodfacts.org/cgi/product_image.pl',
+        query={'code': ingredient.code, 'id': image_id},
     )
     uploader_url = f'https://world.openfoodfacts.org/photographer/{uploader_name}'
     image_data = {
@@ -194,15 +191,15 @@ def fetch_image_from_off(ingredient: Ingredient):
         'license_author_url': uploader_url,
         'license_object_url': url,
         'license_derivative_source_url': '',
-        'size': len(response.content),
+        'size': len(off_response.image_bytes),
     }
     try:
-        Image.from_json(ingredient, response, image_data, generate_uuid=True)
+        Image.from_json(ingredient, off_response.response, image_data, generate_uuid=True)
     # Due to a race condition (e.g. when adding tasks over the search), we might
     # try to save an image to an ingredient that already has one. In that case,
     # just ignore the error
     except IntegrityError:
-        logger.info('Ingredient has already an image, skipping...')
+        logger.debug('Ingredient has already an image, skipping...')
         return
     ingredient.last_image_check = timezone.now()
     ingredient.save()

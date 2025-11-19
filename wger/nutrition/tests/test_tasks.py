@@ -15,10 +15,7 @@
 
 # Standard Library
 import datetime
-from unittest.mock import (
-    ANY,
-    patch,
-)
+from unittest.mock import patch
 
 # Django
 from django.utils import timezone
@@ -37,30 +34,20 @@ from wger.utils.constants import (
 from wger.utils.requests import wger_headers
 
 
-class MockOffResponse:
-    def __init__(self):
-        self.status_code = 200
-        self.ok = True
-        self.content = b'2000'
+mock_off_response = {
+    'image_front_url': 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+    'images': {
+        'front_en': {
+            'imgid': '12345',
+        },
+        '12345': {'uploader': 'Mr Foobar'},
+    },
+}
 
-    # yapf: disable
-    @staticmethod
-    def json():
-        return {
-            "product": {
-                'image_front_url':
-                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
-                'images': {
-                    'front_en': {
-                        'imgid': '12345',
-                    },
-                    '12345': {
-                        'uploader': 'Mr Foobar'
-                    }
-                }
-            },
-        }
-    # yapf: disable
+
+class MockOffImageResponse:
+    image_bytes = [0, 1, 2, 3]
+    response = type('obj', (object,), {'content': b'mock_content'})()
 
 
 class MockWgerApiResponse:
@@ -68,35 +55,33 @@ class MockWgerApiResponse:
         self.status_code = 200
         self.content = b'2000'
 
-    # yapf: disable
     @staticmethod
     def json():
         return {
-            "count": 1,
-            "next": None,
-            "previous": None,
-            "results": [
+            'count': 1,
+            'next': None,
+            'previous': None,
+            'results': [
                 {
-                    "id": 1,
-                    "uuid": "188324b5-587f-42d7-9abc-d2ca64c73d45",
-                    "ingredient_id": "12345",
-                    "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
-                    "image": "http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
-                    "created": "2023-03-15T23:20:10.969369+01:00",
-                    "last_update": "2023-03-15T23:20:10.969369+01:00",
-                    "size": 20179,
-                    "width": 400,
-                    "height": 166,
-                    "license": 1,
-                    "license_author": "Tester McTest",
-                    "license_author_url": "https://example.com/editors/mcLovin",
-                    "license_title": "",
-                    "license_object_url": "",
-                    "license_derivative_source_url": ""
+                    'id': 1,
+                    'uuid': '188324b5-587f-42d7-9abc-d2ca64c73d45',
+                    'ingredient_id': '12345',
+                    'ingredient_uuid': 'e9baa8bd-84fc-4756-8d90-5b9739b06cf8',
+                    'image': 'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
+                    'created': '2023-03-15T23:20:10.969369+01:00',
+                    'last_update': '2023-03-15T23:20:10.969369+01:00',
+                    'size': 20179,
+                    'width': 400,
+                    'height': 166,
+                    'license': 1,
+                    'license_author': 'Tester McTest',
+                    'license_author_url': 'https://example.com/editors/mcLovin',
+                    'license_title': '',
+                    'license_object_url': '',
+                    'license_derivative_source_url': '',
                 }
-            ]
+            ],
         }
-    # yapf: enable
 
 
 class FetchIngredientImageTestCase(WgerTestCase):
@@ -104,7 +89,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
     Test fetching an ingredient image
     """
 
-    @patch('requests.get')
+    @patch('openfoodfacts.api.ProductResource.get')
     @patch.object(logger, 'info')
     def test_source(self, mock_logger, mock_request):
         """
@@ -120,7 +105,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_request.assert_not_called()
             self.assertEqual(result, None)
 
-    @patch('requests.get')
+    @patch('openfoodfacts.api.ProductResource.get')
     @patch.object(logger, 'info')
     def test_download_off_setting(self, mock_logger, mock_request):
         """
@@ -136,7 +121,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_request.assert_not_called()
             self.assertEqual(result, None)
 
-    @patch('requests.get', return_value=MockOffResponse())
+    @patch('openfoodfacts.api.ProductResource.get')
     @patch('wger.nutrition.models.Image.from_json')
     @patch.object(logger, 'info')
     def test_last_new_image_date(self, mock_logger, mock_from_json, mock_request):
@@ -160,10 +145,17 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_request.assert_not_called()
             self.assertEqual(result, None)
 
-    @patch('requests.get', return_value=MockOffResponse())
+    @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse)
+    @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response)
     @patch('wger.nutrition.models.Image.from_json')
     @patch.object(logger, 'info')
-    def test_last_old_image_date(self, mock_logger, mock_from_json, mock_request):
+    def test_last_old_image_date(
+        self,
+        mock_logger,
+        mock_from_json,
+        mock_request,
+        mock_download_image,
+    ):
         """
         Test that images are fetched if we checked a long time ago
         """
@@ -180,14 +172,27 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ):
             result = fetch_ingredient_image(1)
             mock_from_json.assert_called()
+            mock_download_image.assert_called_with(
+                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                return_struct=True,
+            )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
-            mock_request.assert_called()
+            mock_request.assert_called_with(
+                '1234567890987654321', fields=['images', 'image_front_url']
+            )
             self.assertEqual(result, None)
 
-    @patch('requests.get', return_value=MockOffResponse())
+    @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse)
+    @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response)
     @patch('wger.nutrition.models.Image.from_json')
     @patch.object(logger, 'info')
-    def test_download_ingredient_off(self, mock_logger, mock_from_json, mock_request):
+    def test_download_ingredient_off(
+        self,
+        mock_logger,
+        mock_from_json,
+        mock_request,
+        mock_download_image,
+    ):
         """
         Test that the image is correctly downloaded
 
@@ -202,23 +207,21 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ):
             result = fetch_ingredient_image(1)
 
+            # print(mock_request.mock_calls)
+            mock_request.assert_called_with(
+                '1234567890987654321',
+                fields=['images', 'image_front_url'],
+            )
+            mock_download_image.assert_called_with(
+                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                return_struct=True,
+            )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
-                'Trying to fetch image from OFF for Test ingredient 1 (UUID: '
-                '7908c204-907f-4b1e-ad4e-f482e9769ade)'
+                'Trying to fetch image from OFF for "Test ingredient 1" '
+                '(7908c204-907f-4b1e-ad4e-f482e9769ade)'
             )
             mock_logger.assert_any_call('Image successfully saved')
-
-            # print(mock_request.mock_calls)
-            mock_request.assert_any_call(
-                'https://world.openfoodfacts.org/api/v2/product/5055365635003.json?fields=images,image_front_url',
-                headers=wger_headers(),
-                timeout=ANY,
-            )
-            mock_request.assert_any_call(
-                'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/123/456/789/0987654321/12345.jpg',
-                headers=wger_headers(),
-            )
             mock_from_json.assert_called()
 
             self.assertEqual(result, None)
