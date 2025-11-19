@@ -138,8 +138,8 @@ class UserPreferencesForm(forms.ModelForm):
         widget=forms.DateInput(
             attrs={
                 'type': 'date',
-                'max': str(date.today().replace(year=date.today().year - 10)),
-                'min': str(date.today().replace(year=date.today().year - 100)),
+                'max': str(date(date.today().year - 10, 1, 1)),
+                'min': str(date(date.today().year - 100, 1, 1)),
             },
         ),
     )
