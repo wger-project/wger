@@ -21,7 +21,6 @@ from wger.core.api.min_server_version import check_min_server_version
 from wger.nutrition.tasks import sync_all_ingredients_chunked_task
 
 
-
 class Command(BaseCommand):
     help = 'Asynchronously synchronize all ingredients from another wger instance.'
 
