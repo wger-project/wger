@@ -615,3 +615,144 @@ ACTSTREAM_SETTINGS = {
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+USE_CELERY = os.getenv('USE_CELERY', 'FALSE') == 'TRUE'
+
+if USE_CELERY:
+    CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+    CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+    CELERY_ACCEPT_CONTENT = ['json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = TIME_ZONE
+    CELERY_ENABLE_UTC = True
+    CELERY_TASK_TRACK_STARTED = True
+    CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes
+    CELERY_TASK_SOFT_TIME_LIMIT = 25 * 60  # 25 minutes
+else:
+    CELERY_BROKER_URL = None
+    CELERY_RESULT_BACKEND = None
+
+#
+# Cache settings for Redis
+#
+if os.getenv('USE_REDIS', 'FALSE') == 'TRUE':
+    CACHES['default'] = {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': os.getenv('REDIS_URL', 'redis://localhost:6379/1'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+
+#
+# Sentry Configuration
+#
+# Sentry is an error tracking tool to help you monitor and fix crashes in real time.
+# Set the following to enable Sentry integration:
+# SENTRY_DSN = 'https://<your_sentry_dsn>'
+# SENTRY_ENVIRONMENT = 'production'
+
+# For a better monitoring experience, you might want to add middleware or context processors for Sentry.
+SENTRY_ENABLED = os.getenv('SENTRY_ENABLED', 'FALSE') == 'TRUE'
+if SENTRY_ENABLED:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=os.getenv('SENTRY_DSN', ''),
+        integrations=[DjangoIntegration()],
+        environment=os.getenv('SENTRY_ENVIRONMENT', 'production'),
+        traces_sample_rate=1.0,
+    )
+
+#
+# Session Configuration
+#
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+#
+# Admin Configuration
+#
+# To enable Django Admin interface, uncomment the following line
+# 'django.contrib.admin',
+
+# Admin users can log in to the Django admin interface.
+ADMINS = [('Admin', 'admin@example.com')]
+
+#
+# Django security settings
+#
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 3600  # 1 hour
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+SECURE_CROSS_ORIGIN_EMBEDDER_POLICY = 'require-corp'
+
+# Set custom headers for security
+SECURE_REFERRER_POLICY = 'no-referrer'
+
+#
+# Healthcheck endpoint configuration
+#
+# Provide an endpoint to check the status of the application
+HEALTHCHECK_URL = '/health'
+HEALTHCHECK_METHOD = 'GET'
+
+# To enable a more robust health check, you could integrate with a tool like `django-health-check`
+# HEALTH_CHECKS = [
+#     'django_health_check.plugins.db.DatabaseHealthCheck',
+#     'django_health_check.plugins.cache.CacheHealthCheck',
+#     'django_health_check.plugins.redis.RedisHealthCheck',
+# ]
+
+#
+# User Profile Settings
+#
+# You can customize the UserProfile model and its related fields here
+USER_PROFILE_MODEL = 'wger.UserProfile'
+
+#
+# Logging Configuration (Extended)
+#
+LOGGING['handlers']['file'] = {
+    'level': 'DEBUG',
+    'class': 'logging.FileHandler',
+    'filename': os.path.join(BASE_DIR, 'logs', 'wger.log'),
+    'formatter': 'simple',
+}
+
+LOGGING['loggers']['django'] = {
+    'handlers': ['console', 'file'],
+    'level': 'DEBUG',
+    'propagate': True,
+}
+
+LOGGING['loggers']['wger'] = {
+    'handlers': ['console', 'file'],
+    'level': 'INFO',
+    'propagate': True,
+}
+
+#
+# Miscellaneous settings
+#
+# Customizable settings for specific wger functionality
+WGER_CUSTOM_SETTINGS = {
+    'EXERCISE_TIME_LIMIT': 45,  # Time in minutes
+    'NUTRITION_PLAN_UPDATE_INTERVAL': timedelta(days=7),  # Weekly updates
+    'WORKOUT_REMINDER': timedelta(hours=1),  # 1-hour reminder for scheduled workouts
+}
+
+# Update the django admin interface with custom settings
+if 'django.contrib.admin' in INSTALLED_APPS:
+    ADMIN_SITE_HEADER = 'wger Admin Dashboard'
+    ADMIN_SITE_TITLE = 'wger Admin Panel'
+    ADMIN_INDEX_TITLE = 'Admin Panel'
+
+# Custom user agent string
+USER_AGENT_STRING = "wger Workout Manager (https://wger.de)"
