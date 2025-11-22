@@ -136,11 +136,19 @@ def fetch_image_from_wger_instance(ingredient):
 
 def fetch_image_from_off(ingredient: Ingredient):
     """
-    See
-    - https://openfoodfacts.github.io/openfoodfacts-server/api/how-to-download-images/
-    - https://openfoodfacts.github.io/openfoodfacts-server/api/ref-v2/
+    Tries to download an image from Open Food Facts for the given ingredient.
+
+    See https://github.com/openfoodfacts/openfoodfacts-python
     """
+
     logger.info(f'Trying to fetch image from OFF for "{ingredient.name}" ({ingredient.uuid})')
+
+    # We always update the last check time, no matter if we found an image or there were
+    # errors in the response (keys missing, etc) since in any case we don't want to retry
+    # too often.
+    ingredient.last_image_check = timezone.now()
+    ingredient.save()
+
     off_api = API(
         user_agent=wger_user_agent(),
         country=Country.world,
@@ -158,7 +166,7 @@ def fetch_image_from_off(ingredient: Ingredient):
     if not image_url:
         logger.info('Product data has no "image_front_url" key')
         return
-    image_data = product_data['images']
+    image_data = product_data.get('images')
     if not image_data:
         logger.info('Product data has no "images" key')
         return
@@ -201,8 +209,6 @@ def fetch_image_from_off(ingredient: Ingredient):
     except IntegrityError:
         logger.debug('Ingredient has already an image, skipping...')
         return
-    ingredient.last_image_check = timezone.now()
-    ingredient.save()
     logger.info('Image successfully saved')
 
 

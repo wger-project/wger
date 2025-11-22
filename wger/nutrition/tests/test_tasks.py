@@ -15,7 +15,11 @@
 
 # Standard Library
 import datetime
-from unittest.mock import patch
+from unittest.mock import (
+    ANY,
+    MagicMock,
+    patch,
+)
 
 # Django
 from django.utils import timezone
@@ -36,6 +40,15 @@ from wger.utils.requests import wger_headers
 
 mock_off_response = {
     'image_front_url': 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+    'images': {
+        'front_en': {
+            'imgid': '12345',
+        },
+        '12345': {'uploader': 'Mr Foobar'},
+    },
+}
+
+mock_off_response_no_front_url = {
     'images': {
         'front_en': {
             'imgid': '12345',
@@ -89,9 +102,16 @@ class FetchIngredientImageTestCase(WgerTestCase):
     Test fetching an ingredient image
     """
 
-    @patch('openfoodfacts.api.ProductResource.get')
-    @patch.object(logger, 'info')
-    def test_source(self, mock_logger, mock_request):
+    @patch(
+        'openfoodfacts.api.ProductResource.get',
+        autospec=True,
+    )
+    @patch.object(
+        logger,
+        'info',
+        autospec=True,
+    )
+    def test_source(self, mock_logger: MagicMock, mock_request: MagicMock):
         """
         Test that sources other than OFF are ignored
         """
@@ -103,11 +123,11 @@ class FetchIngredientImageTestCase(WgerTestCase):
             result = fetch_ingredient_image(1)
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
-            self.assertEqual(result, None)
+            self.assertIsNone(result)
 
-    @patch('openfoodfacts.api.ProductResource.get')
-    @patch.object(logger, 'info')
-    def test_download_off_setting(self, mock_logger, mock_request):
+    @patch('openfoodfacts.api.ProductResource.get', autospec=True)
+    @patch.object(logger, 'info', autospec=True)
+    def test_download_off_setting(self, mock_logger: MagicMock, mock_request: MagicMock):
         """
         Test that no images are fetched if the appropriate setting is not set
         """
@@ -121,15 +141,22 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_request.assert_not_called()
             self.assertEqual(result, None)
 
-    @patch('openfoodfacts.api.ProductResource.get')
-    @patch('wger.nutrition.models.Image.from_json')
-    @patch.object(logger, 'info')
-    def test_last_new_image_date(self, mock_logger, mock_from_json, mock_request):
+    @patch('openfoodfacts.api.ProductResource.get', autospec=True)
+    @patch('wger.nutrition.models.Image.from_json', autospec=True)
+    @patch.object(logger, 'info', autospec=True)
+    def test_last_new_image_date(
+        self,
+        mock_logger: MagicMock,
+        mock_from_json: MagicMock,
+        mock_request: MagicMock,
+    ):
         """
         Test that no images are fetched if we already checked recently
         """
+        last_checked = timezone.now() - datetime.timedelta(days=1)
+
         ingredient = Ingredient.objects.get(pk=1)
-        ingredient.last_image_check = timezone.now() - datetime.timedelta(days=1)
+        ingredient.last_image_check = last_checked
         ingredient.save()
 
         with self.settings(
@@ -139,22 +166,27 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
             },
         ):
+            # Act
             result = fetch_ingredient_image(1)
+            ingredient.refresh_from_db()
+
+            # Assert
             mock_from_json.assert_not_called()
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
-            self.assertEqual(result, None)
+            self.assertIsNone(result)
+            self.assertEqual(ingredient.last_image_check , last_checked)
 
-    @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse)
-    @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response)
-    @patch('wger.nutrition.models.Image.from_json')
-    @patch.object(logger, 'info')
-    def test_last_old_image_date(
+    @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse, autospec=True)
+    @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response, autospec=True)
+    @patch('wger.nutrition.models.Image.from_json', autospec=True)
+    @patch.object(logger, 'info', autospec=True)
+    def test_old_last_image_check_date(
         self,
-        mock_logger,
-        mock_from_json,
-        mock_request,
-        mock_download_image,
+        mock_logger: MagicMock,
+        mock_from_json: MagicMock,
+        mock_request: MagicMock,
+        mock_download_image: MagicMock,
     ):
         """
         Test that images are fetched if we checked a long time ago
@@ -170,7 +202,11 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
             },
         ):
+            # Act
             result = fetch_ingredient_image(1)
+            ingredient.refresh_from_db()
+
+            # Assert
             mock_from_json.assert_called()
             mock_download_image.assert_called_with(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
@@ -178,20 +214,68 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_request.assert_called_with(
-                '1234567890987654321', fields=['images', 'image_front_url']
+                ANY,
+                '1234567890987654321',
+                fields=['images', 'image_front_url'],
             )
-            self.assertEqual(result, None)
 
-    @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse)
-    @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response)
-    @patch('wger.nutrition.models.Image.from_json')
-    @patch.object(logger, 'info')
+            self.assertIsNone(result)
+            self.assertAlmostEqual(
+                ingredient.last_image_check, timezone.now(), delta=datetime.timedelta(seconds=1)
+            )
+
+    @patch('wger.nutrition.sync.download_image', autospec=True, return_value=MockOffImageResponse)
+    @patch(
+        'openfoodfacts.api.ProductResource.get',
+        autospec=True,
+        return_value=mock_off_response_no_front_url,
+    )
+    @patch('wger.nutrition.models.Image.from_json', autospec=True)
+    @patch.object(logger, 'info', autospec=True)
+    def test_update_handle_no_front_url_key(
+        self,
+        mock_logger: MagicMock,
+        mock_from_json: MagicMock,
+        mock_request: MagicMock,
+        mock_download_image: MagicMock,
+    ):
+        """
+        Properly handles case where OFF response does not contain the 'image_front_url' key
+        """
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.last_image_check = None
+        ingredient.save()
+
+        with self.settings(
+            TESTING=False,
+            WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF},
+        ):
+            # Act
+            result = fetch_ingredient_image(1)
+            ingredient.refresh_from_db()
+
+            # Assert
+            mock_logger.assert_called()
+            mock_from_json.assert_not_called()
+            mock_download_image.assert_not_called()
+            mock_request.assert_called()
+
+            self.assertIsNone(result)
+            self.assertAlmostEqual(
+                ingredient.last_image_check, timezone.now(), delta=datetime.timedelta(seconds=1)
+            )
+
+
+    @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse, autospec=True)
+    @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response, autospec=True)
+    @patch('wger.nutrition.models.Image.from_json', autospec=True)
+    @patch.object(logger, 'info', autospec=True)
     def test_download_ingredient_off(
         self,
-        mock_logger,
-        mock_from_json,
-        mock_request,
-        mock_download_image,
+        mock_logger: MagicMock,
+        mock_from_json: MagicMock,
+        mock_request: MagicMock,
+        mock_download_image: MagicMock,
     ):
         """
         Test that the image is correctly downloaded
@@ -205,10 +289,13 @@ class FetchIngredientImageTestCase(WgerTestCase):
             WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF},
             TESTING=False,
         ):
+            # Act
             result = fetch_ingredient_image(1)
 
+            # Assert
             # print(mock_request.mock_calls)
             mock_request.assert_called_with(
+                ANY,
                 '1234567890987654321',
                 fields=['images', 'image_front_url'],
             )
@@ -224,12 +311,17 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_logger.assert_any_call('Image successfully saved')
             mock_from_json.assert_called()
 
-            self.assertEqual(result, None)
+            self.assertIsNone(result)
 
-    @patch('requests.get', return_value=MockWgerApiResponse())
-    @patch('wger.nutrition.models.Image.from_json')
-    @patch.object(logger, 'info')
-    def test_download_ingredient_wger(self, mock_logger, mock_from_json, mock_request):
+    @patch('requests.get', return_value=MockWgerApiResponse(), autospec=True)
+    @patch('wger.nutrition.models.Image.from_json', autospec=True)
+    @patch.object(logger, 'info', autospec=True)
+    def test_download_ingredient_wger(
+        self,
+        mock_logger: MagicMock,
+        mock_from_json: MagicMock,
+        mock_request: MagicMock,
+    ):
         """
         Test that the image is correctly downloaded
 
@@ -241,14 +333,15 @@ class FetchIngredientImageTestCase(WgerTestCase):
         with self.settings(
             WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER}, TESTING=False
         ):
+            # Act
             result = fetch_ingredient_image(1)
 
+            # Assert
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
                 'Trying to fetch image from WGER for Test ingredient 1 (UUID: '
                 '7908c204-907f-4b1e-ad4e-f482e9769ade)'
             )
-
             mock_request.assert_any_call(
                 'https://wger.de/api/v2/ingredient-image/?ingredient__uuid=7908c204-907f-4b1e-ad4e-f482e9769ade',
                 headers=wger_headers(),
@@ -258,5 +351,4 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 headers=wger_headers(),
             )
             mock_from_json.assert_called()
-
-            self.assertEqual(result, None)
+            self.assertIsNone(result)
