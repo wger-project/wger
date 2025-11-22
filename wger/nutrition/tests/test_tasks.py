@@ -175,7 +175,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
             self.assertIsNone(result)
-            self.assertEqual(ingredient.last_image_check , last_checked)
+            self.assertEqual(ingredient.last_image_check, last_checked)
 
     @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse, autospec=True)
     @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response, autospec=True)
@@ -264,7 +264,6 @@ class FetchIngredientImageTestCase(WgerTestCase):
             self.assertAlmostEqual(
                 ingredient.last_image_check, timezone.now(), delta=datetime.timedelta(seconds=1)
             )
-
 
     @patch('wger.nutrition.sync.download_image', return_value=MockOffImageResponse, autospec=True)
     @patch('openfoodfacts.api.ProductResource.get', return_value=mock_off_response, autospec=True)
