@@ -11,13 +11,15 @@
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@wger-project/react-components": "25.11.22",
     "bootstrap": "5.3.8",
     "datatables.net-bs5": "^2.3.5",
     "devbridge-autocomplete": "^1.5.0",
     "htmx.org": "^2.0.8",
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2"
+  },
+  "devDependencies": {
+    "@wger-project/react-components": "25.11.22"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"
