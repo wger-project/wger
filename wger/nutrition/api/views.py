@@ -143,6 +143,15 @@ class IngredientInfoViewSet(IngredientViewSet):
 
     serializer_class = IngredientInfoSerializer
 
+    def get_queryset(self):
+        """Optimize the queryset with select_related to avoid n+1 queries"""
+
+        return Ingredient.objects.select_related(
+            'language',
+            'license',
+            'image',
+        )
+
 
 @api_view(['GET'])
 def search(request):
@@ -211,7 +220,6 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for ingredient images
     """
 
-    queryset = Image.objects.all()
     serializer_class = IngredientImageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
@@ -219,6 +227,13 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        """Optimize the queryset"""
+
+        return Image.objects.select_related(
+            'ingredient'
+        )
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
