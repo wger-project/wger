@@ -374,6 +374,13 @@ by the US Department of Agriculture. It is extremely complete, with around
     behalf over the REST API
     """
 
+    trophies_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_('Enable trophies'),
+        help_text=_('Enable or disable the trophy system for this user'),
+    )
+    """Flag to enable or disable trophies for this user"""
+
     @property
     def is_trustworthy(self) -> bool:
         """
