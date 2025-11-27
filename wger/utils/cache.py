@@ -35,7 +35,7 @@ def reset_exercise_api_cache(uuid: str):
     cache.delete(CacheKeyMapper.get_exercise_api_key(uuid))
 
 
-def reset_workout_log(user_pk, year, month, day=None):
+def reset_workout_log_cache(user_pk, year, month, day=None):
     """
     Resets the cached workout logs
     """
