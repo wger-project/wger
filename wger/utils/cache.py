@@ -23,14 +23,6 @@ from django.core.cache.utils import make_template_fragment_key
 logger = logging.getLogger(__name__)
 
 
-def delete_template_fragment_cache(fragment_name='', vary_on=None):
-    """
-    Deletes a cache key created on the template with django's cache tag
-    """
-    out = vary_on if isinstance(vary_on, (list, tuple)) else [vary_on]
-    cache.delete(make_template_fragment_key(fragment_name, out))
-
-
 def reset_exercise_api_cache(uuid: str):
     cache.delete(CacheKeyMapper.get_exercise_api_key(uuid))
 
