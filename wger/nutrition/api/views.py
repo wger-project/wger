@@ -231,9 +231,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         """Optimize the queryset"""
 
-        return Image.objects.select_related(
-            'ingredient'
-        )
+        return Image.objects.select_related('ingredient')
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
