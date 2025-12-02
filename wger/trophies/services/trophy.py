@@ -39,8 +39,9 @@ from wger.trophies.models import (
 
 logger = logging.getLogger(__name__)
 
-# Default days of inactivity before skipping user for trophy evaluation
-TROPHIES_INACTIVE_USER_DAYS = getattr(settings, 'TROPHIES_INACTIVE_USER_DAYS', 30)
+# Trophy settings from WGER_SETTINGS (defined in settings_global.py)
+TROPHIES_ENABLED = settings.WGER_SETTINGS['TROPHIES_ENABLED']
+TROPHIES_INACTIVE_USER_DAYS = settings.WGER_SETTINGS['TROPHIES_INACTIVE_USER_DAYS']
 
 
 class TrophyService:
@@ -232,7 +233,8 @@ class TrophyService:
         Check if a user should be skipped for trophy evaluation.
 
         Users are skipped if:
-        - They have disabled trophies in their profile
+        - The trophy system is globally disabled (WGER_SETTINGS['TROPHIES_ENABLED'])
+        - They have disabled trophies in their profile (userprofile.trophies_enabled)
         - They haven't logged in for more than TROPHIES_INACTIVE_USER_DAYS
 
         Args:
@@ -241,6 +243,10 @@ class TrophyService:
         Returns:
             True if user should be skipped
         """
+        # Check if trophy system is globally disabled
+        if not TROPHIES_ENABLED:
+            return True
+
         # Check if user has disabled trophies (if profile has this field)
         if hasattr(user, 'userprofile'):
             profile = user.userprofile

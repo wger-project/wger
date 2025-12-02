@@ -37,8 +37,8 @@ from wger.trophies.services import (
 
 logger = logging.getLogger(__name__)
 
-# Default days of inactivity before skipping user
-TROPHIES_INACTIVE_USER_DAYS = getattr(settings, 'TROPHIES_INACTIVE_USER_DAYS', 30)
+# Trophy settings from WGER_SETTINGS (defined in settings_global.py)
+TROPHIES_INACTIVE_USER_DAYS = settings.WGER_SETTINGS['TROPHIES_INACTIVE_USER_DAYS']
 
 
 @app.task
