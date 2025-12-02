@@ -17,6 +17,111 @@
 """
 Signal handlers for the trophies app.
 
-Signals will be implemented in Phase 3 to trigger statistics updates
-and trophy evaluations when workouts are logged.
+These signals trigger statistics updates and trophy evaluations
+when workouts are logged, edited, or deleted.
 """
+
+# Standard Library
+import logging
+
+# Django
+from django.db.models.signals import (
+    post_delete,
+    post_save,
+)
+from django.dispatch import receiver
+
+# wger
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession,
+)
+from wger.trophies.services import UserStatisticsService
+
+
+logger = logging.getLogger(__name__)
+
+
+@receiver(post_save, sender=WorkoutLog)
+def workout_log_saved(sender, instance, created, **kwargs):
+    """
+    Handle WorkoutLog save events.
+
+    Updates user statistics when a new workout log is created.
+    For edits, triggers a full recalculation to ensure accuracy.
+    """
+    if not instance.user_id:
+        return
+
+    try:
+        if created:
+            # New log - incremental update
+            UserStatisticsService.increment_workout(
+                user=instance.user,
+                workout_log=instance,
+            )
+        else:
+            # Edited log - full recalculation for accuracy
+            UserStatisticsService.update_statistics(instance.user)
+    except Exception as e:
+        logger.error(f'Error updating statistics for user {instance.user_id}: {e}', exc_info=True)
+
+
+@receiver(post_delete, sender=WorkoutLog)
+def workout_log_deleted(sender, instance, **kwargs):
+    """
+    Handle WorkoutLog delete events.
+
+    Triggers full statistics recalculation when a log is deleted.
+    """
+    if not instance.user_id:
+        return
+
+    try:
+        UserStatisticsService.handle_workout_deletion(instance.user)
+    except Exception as e:
+        logger.error(f'Error updating statistics after deletion for user {instance.user_id}: {e}', exc_info=True)
+
+
+@receiver(post_save, sender=WorkoutSession)
+def workout_session_saved(sender, instance, created, **kwargs):
+    """
+    Handle WorkoutSession save events.
+
+    Updates user statistics when a workout session is created or updated.
+    This captures session-level data like start/end times.
+    """
+    if not instance.user_id:
+        return
+
+    try:
+        if created:
+            # New session - incremental update for session data
+            UserStatisticsService.increment_workout(
+                user=instance.user,
+                session=instance,
+            )
+        else:
+            # Session updated (e.g., time_start changed) - update times
+            UserStatisticsService.increment_workout(
+                user=instance.user,
+                session=instance,
+            )
+    except Exception as e:
+        logger.error(f'Error updating statistics for session {instance.id}: {e}', exc_info=True)
+
+
+@receiver(post_delete, sender=WorkoutSession)
+def workout_session_deleted(sender, instance, **kwargs):
+    """
+    Handle WorkoutSession delete events.
+
+    Triggers full statistics recalculation when a session is deleted.
+    """
+    if not instance.user_id:
+        return
+
+    try:
+        UserStatisticsService.handle_workout_deletion(instance.user)
+    except Exception as e:
+        logger.error(f'Error updating statistics after session deletion for user {instance.user_id}: {e}', exc_info=True)
