@@ -47,15 +47,16 @@ class CheckerRegistry:
     actual Python classes.
     """
 
-    # Registry mapping checker class paths to actual classes
+    # Registry mapping simple keys to checker classes
+    # Using simple keys instead of full Python paths to avoid breakage if module structure changes
     _registry: Dict[str, Type[BaseTrophyChecker]] = {
-        'wger.trophies.checkers.CountBasedChecker': CountBasedChecker,
-        'wger.trophies.checkers.StreakChecker': StreakChecker,
-        'wger.trophies.checkers.WeekendWarriorChecker': WeekendWarriorChecker,
-        'wger.trophies.checkers.VolumeChecker': VolumeChecker,
-        'wger.trophies.checkers.TimeBasedChecker': TimeBasedChecker,
-        'wger.trophies.checkers.DateBasedChecker': DateBasedChecker,
-        'wger.trophies.checkers.InactivityReturnChecker': InactivityReturnChecker,
+        'count_based': CountBasedChecker,
+        'streak': StreakChecker,
+        'weekend_warrior': WeekendWarriorChecker,
+        'volume': VolumeChecker,
+        'time_based': TimeBasedChecker,
+        'date_based': DateBasedChecker,
+        'inactivity_return': InactivityReturnChecker,
     }
 
     @classmethod

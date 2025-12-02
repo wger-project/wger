@@ -96,6 +96,14 @@ class UserStatistics(models.Model):
     )
     """Consecutive weekends with workouts on both Saturday and Sunday"""
 
+    last_complete_weekend_date = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name=_('Last complete weekend date'),
+        help_text=_('Date of the last Saturday where both Sat and Sun had workouts'),
+    )
+    """Used for tracking consecutive weekend workouts"""
+
     last_inactive_date = models.DateField(
         null=True,
         blank=True,
