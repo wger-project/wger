@@ -15,5 +15,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .statistics import UserStatisticsService
+from .trophy import TrophyService
 
-__all__ = ['UserStatisticsService']
+__all__ = ['UserStatisticsService', 'TrophyService']
