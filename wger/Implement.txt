@@ -95,10 +95,6 @@ PHASE 1: Foundation - Django App & Database Models
 1.5 Add site-wide config option
     - Add trophy system toggle to config app or WGER_SETTINGS
 
-1.6 Register models in Django admin
-    - Create admin.py with ModelAdmin for Trophy, UserTrophy, UserStatistics
-    - Allow admins to manage trophies via Django admin interface
-
 
 PHASE 2: Trophy Checker System
 ------------------------------
@@ -252,6 +248,18 @@ PHASE 6: Management Commands & Data Loading
     - Consider TrophyTranslation model (similar to ExerciseTranslation)
     - Or use Django's translation system with fixture translations
     - Trophy names and descriptions should be translatable
+
+6.6 Updating translation files
+    wger uses Django's translation infrastructure. To update translations:
+
+    1. Extract translatable strings from database (exercise categories, muscle names, etc.):
+       python manage.py extract-i18n
+
+    2. Update .po files (run in wger subfolder, not root):
+       django-admin makemessages --all --extension py,html,tpl
+
+    3. Compile translation files:
+       django-admin compilemessages
 
 
 PHASE 7: Testing
