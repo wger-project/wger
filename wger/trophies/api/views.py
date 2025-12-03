@@ -15,6 +15,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
+from drf_spectacular.utils import (
+    OpenApiResponse,
+    extend_schema,
+)
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -83,6 +87,24 @@ class TrophyViewSet(viewsets.ReadOnlyModelViewSet):
         # Anonymous users only see non-hidden trophies
         return queryset.filter(is_hidden=False)
 
+    @extend_schema(
+        summary="Get trophy progress",
+        description="""
+        Return all trophies with progress information for the current user.
+
+        For each trophy, returns:
+        - Trophy information (id, name, description, type, etc.)
+        - Whether the trophy has been earned
+        - Earned timestamp (if earned)
+        - Progress percentage (0-100)
+        - Current and target values (for progressive trophies)
+
+        Hidden trophies are excluded unless earned (or user is staff).
+        """,
+        responses={
+            200: TrophyProgressSerializer(many=True),
+        },
+    )
     @action(detail=False, methods=['get'])
     def progress(self, request):
         """
