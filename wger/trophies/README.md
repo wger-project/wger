@@ -1,14 +1,19 @@
 # Trophy System
 
-The trophy (achievement) system allows users to earn trophies based on their workout activities.
+The trophy (achievement) system allows users to earn trophies based on
+their workout activities.
 
 ## Features
 
-- **Multiple Trophy Types**: Time-based, volume-based, count-based, sequence-based, date-based, and custom trophies
+- **Multiple Trophy Types**: Time-based, volume-based, count-based,
+  sequence-based, date-based, and custom trophies
 - **Progressive Trophies**: Show user progress towards earning a trophy
-- **Hidden Trophies**: Secret achievements that are revealed only when earned
-- **Automatic Evaluation**: Trophies are evaluated automatically when workout data changes
-- **Statistics Tracking**: Denormalized statistics for efficient trophy evaluation
+- **Hidden Trophies**: Secret achievements that are revealed only when
+  earned
+- **Automatic Evaluation**: Trophies are evaluated automatically when
+  workout data changes
+- **Statistics Tracking**: Denormalized statistics for efficient trophy
+  evaluation
 - **API Endpoints**: Full REST API for trophy data and progress tracking
 
 ## Configuration
@@ -29,25 +34,30 @@ WGER_SETTINGS = {
 
 ### User Preferences
 
-Users can enable/disable trophies in their profile settings via the `trophies_enabled` field on `UserProfile`.
+Users can enable/disable trophies in their profile settings via the
+`trophies_enabled` field on `UserProfile`.
 
 ## Database Models
 
 ### Trophy
+
 Defines an achievement that users can earn.
 
 **Fields:**
 - `name`: Trophy name
 - `description`: How to earn it
 - `trophy_type`: Type (time, volume, count, sequence, date, other)
-- `checker_class`: Python class that checks if trophy is earned (e.g., 'count_based')
-- `checker_params`: JSON parameters for the checker (e.g., `{'count': 10}`)
+- `checker_class`: Python class that checks if trophy is earned
+  (e.g., 'count_based')
+- `checker_params`: JSON parameters for the checker
+  (e.g., `{'count': 10}`)
 - `is_hidden`: Hidden until earned
 - `is_progressive`: Shows progress percentage
 - `is_active`: Can be earned (admins can disable)
 - `order`: Display order
 
 ### UserTrophy
+
 Links users to their earned trophies.
 
 **Fields:**
@@ -58,6 +68,7 @@ Links users to their earned trophies.
 - `is_notified`: For future notification system
 
 ### UserStatistics
+
 Denormalized statistics for efficient trophy checking.
 
 **Fields:**
@@ -161,7 +172,7 @@ python manage.py recalculate_statistics --all --active-only
 
 ### Trophy Endpoints
 
-```
+```text
 GET /api/v2/trophy/
     List all active trophies
     - Hidden trophies excluded unless earned by user
@@ -177,7 +188,7 @@ GET /api/v2/trophy/progress/
 
 ### User Trophy Endpoints
 
-```
+```text
 GET /api/v2/user-trophy/
     List current user's earned trophies
     - Ordered by earned_at (newest first)
@@ -188,7 +199,7 @@ GET /api/v2/user-trophy/{id}/
 
 ### User Statistics Endpoints
 
-```
+```text
 GET /api/v2/user-statistics/
     Get current user's trophy statistics
 ```
@@ -298,8 +309,10 @@ When a user logs a workout:
 
 1. `WorkoutSession` or `WorkoutLog` is saved
 2. Django signal fires (`post_save`)
-3. `UserStatisticsService.increment_workout()` updates statistics incrementally
-4. `TrophyService.evaluate_all_trophies()` checks for newly earned trophies
+3. `UserStatisticsService.increment_workout()` updates statistics
+   incrementally
+4. `TrophyService.evaluate_all_trophies()` checks for newly earned
+   trophies
 5. Earned trophies create `UserTrophy` records
 
 ### Celery Tasks (Optional)
@@ -315,10 +328,13 @@ evaluate_user_trophies_task.delay(user_id)
 
 ### Performance Considerations
 
-- **Denormalized Statistics**: `UserStatistics` table provides O(1) lookups
-- **Incremental Updates**: Statistics update incrementally, not full recalculation
+- **Denormalized Statistics**: `UserStatistics` table provides O(1)
+  lookups
+- **Incremental Updates**: Statistics update incrementally, not full
+  recalculation
 - **Inactive User Skipping**: Users inactive >30 days are skipped
-- **Bulk Operations**: Batch evaluation supports chunking for large user sets
+- **Bulk Operations**: Batch evaluation supports chunking for large
+  user sets
 
 ## Testing
 
@@ -342,13 +358,15 @@ The system includes 9 initial trophies:
 
 1. **Beginner**: Complete your first workout
 2. **Unstoppable**: Maintain a 30-day workout streak
-3. **Weekend Warrior**: Work out on Saturday and Sunday for 4 consecutive weekends
+3. **Weekend Warrior**: Work out on Saturday and Sunday for 4 consecutive
+   weekends
 4. **Lifter**: Lift a cumulative total of 5,000 kg
 5. **Atlas**: Lift a cumulative total of 100,000 kg
 6. **Early Bird**: Complete a workout before 6:00 AM
 7. **Night Owl**: Complete a workout after 9:00 PM
 8. **New Year, New Me**: Work out on January 1st
-9. **Phoenix** (Hidden): Return to training after being inactive for 30 days
+9. **Phoenix** (Hidden): Return to training after being inactive for
+   30 days
 
 Load them with: `python manage.py load_trophies`
 
@@ -360,7 +378,8 @@ Load them with: `python manage.py load_trophies`
 2. Check user's profile: `user.userprofile.trophies_enabled`
 3. Check user activity: Not inactive >30 days
 4. Check trophy is active: `trophy.is_active = True`
-5. Recalculate statistics: `python manage.py recalculate_statistics --user username`
+5. Recalculate statistics:
+   `python manage.py recalculate_statistics --user username`
 
 ### Statistics not updating
 
@@ -378,3 +397,4 @@ Load them with: `python manage.py load_trophies`
 ## License
 
 AGPL-3.0 (same as wger Workout Manager)
+
