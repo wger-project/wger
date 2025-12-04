@@ -75,6 +75,9 @@ class TrophyModelTestCase(WgerTestCase):
 
     def test_trophy_ordering(self):
         """Test trophies are ordered by order field then name"""
+        # Delete any existing trophies from migration
+        Trophy.objects.all().delete()
+
         trophy1 = Trophy.objects.create(
             name='B Trophy',
             trophy_type=Trophy.TYPE_COUNT,
@@ -290,6 +293,8 @@ class UserStatisticsModelTestCase(WgerTestCase):
 
     def test_default_values(self):
         """Test default values are set correctly"""
+        # Delete any existing statistics and create fresh ones
+        UserStatistics.objects.filter(user=self.user).delete()
         stats, _ = UserStatistics.objects.get_or_create(user=self.user)
 
         self.assertEqual(stats.total_weight_lifted, Decimal('0'))
@@ -306,6 +311,9 @@ class UserStatisticsModelTestCase(WgerTestCase):
 
     def test_one_to_one_constraint(self):
         """Test one user can only have one statistics record"""
+        # Delete any existing statistics first
+        UserStatistics.objects.filter(user=self.user).delete()
+
         UserStatistics.objects.create(user=self.user)
 
         # Try to create another statistics record for the same user
@@ -333,9 +341,11 @@ class UserStatisticsModelTestCase(WgerTestCase):
 
         self.assertEqual(UserStatistics.objects.filter(user=test_user).count(), 1)
 
+        user_id = test_user.id
         test_user.delete()
 
-        self.assertEqual(UserStatistics.objects.filter(user=test_user).count(), 0)
+        # Verify statistics for this user ID no longer exist
+        self.assertEqual(UserStatistics.objects.filter(user_id=user_id).count(), 0)
 
     def test_str_representation(self):
         """Test string representation of statistics"""

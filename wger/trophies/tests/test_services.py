@@ -24,6 +24,10 @@ from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession,
+)
 from wger.trophies.models import (
     Trophy,
     UserStatistics,
@@ -41,6 +45,10 @@ class UserStatisticsServiceTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.user = User.objects.get(username='admin')
+        # Delete workout data and statistics to ensure clean state
+        WorkoutLog.objects.filter(user=self.user).delete()
+        WorkoutSession.objects.filter(user=self.user).delete()
+        UserStatistics.objects.filter(user=self.user).delete()
 
     def test_get_or_create_creates_new(self):
         """Test get_or_create creates statistics if they don't exist"""
@@ -104,6 +112,18 @@ class TrophyServiceTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.user = User.objects.get(username='admin')
+
+        # Set recent login to avoid being skipped by should_skip_user
+        self.user.last_login = timezone.now()
+        self.user.save()
+
+        # Delete workout data, migration trophies, and existing data to ensure clean state
+        WorkoutLog.objects.filter(user=self.user).delete()
+        WorkoutSession.objects.filter(user=self.user).delete()
+        Trophy.objects.all().delete()
+        UserTrophy.objects.all().delete()
+        UserStatistics.objects.filter(user=self.user).delete()
+
         self.trophy = Trophy.objects.create(
             name='Test Trophy',
             trophy_type=Trophy.TYPE_COUNT,
@@ -301,7 +321,7 @@ class TrophyServiceTestCase(WgerTestCase):
 
         self.assertFalse(should_skip)
 
-    @patch.dict(settings.WGER_SETTINGS, {'TROPHIES_ENABLED': False})
+    @patch('wger.trophies.services.trophy.TROPHIES_ENABLED', False)
     def test_should_skip_user_trophies_disabled(self):
         """Test skipping when trophies are globally disabled"""
         self.user.last_login = timezone.now()
@@ -313,6 +333,10 @@ class TrophyServiceTestCase(WgerTestCase):
 
     def test_reevaluate_trophies(self):
         """Test re-evaluating trophies for all users"""
+        # Set recent login for self.user
+        self.user.last_login = timezone.now()
+        self.user.save()
+
         # Create a second user
         user2 = User.objects.get(username='test')
         user2.last_login = timezone.now()
@@ -355,6 +379,10 @@ class TrophyServiceTestCase(WgerTestCase):
 
     def test_reevaluate_specific_users(self):
         """Test re-evaluating trophies for specific users"""
+        # Set recent login for self.user
+        self.user.last_login = timezone.now()
+        self.user.save()
+
         user2 = User.objects.get(username='test')
         user2.last_login = timezone.now()
         user2.save()

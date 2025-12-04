@@ -21,6 +21,10 @@ from django.contrib.auth.models import User
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession,
+)
 from wger.trophies.models import (
     Trophy,
     UserStatistics,
@@ -38,6 +42,18 @@ class TrophyIntegrationTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.user = User.objects.get(username='admin')
+
+        # Set recent login to avoid being skipped by should_skip_user
+        from django.utils import timezone
+        self.user.last_login = timezone.now()
+        self.user.save()
+
+        # Delete workout data, migration trophies, and existing data to ensure clean state
+        WorkoutLog.objects.filter(user=self.user).delete()
+        WorkoutSession.objects.filter(user=self.user).delete()
+        Trophy.objects.all().delete()
+        UserTrophy.objects.all().delete()
+        UserStatistics.objects.all().delete()
 
         # Create the standard trophies
         self.beginner_trophy = Trophy.objects.create(
@@ -149,6 +165,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
                 'total_workouts': 1,  # Qualifies for Beginner
                 'total_weight_lifted': Decimal('5000'),  # Qualifies for Lifter
                 'current_streak': 30,  # Qualifies for Unstoppable
+            }
         )
 
         # Evaluate all trophies
@@ -166,11 +183,10 @@ class TrophyIntegrationTestCase(WgerTestCase):
         """Test progressive trophies show partial progress"""
         # Create user statistics
         stats, _ = UserStatistics.objects.get_or_create(
-
             user=self.user,
-
             defaults={
                 'total_weight_lifted': Decimal('2500'),  # 50% of 5000kg
+            }
         )
 
         # Get progress for all trophies
@@ -195,6 +211,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
             user=self.user,
             defaults={
                 'total_workouts': 1,
+            }
         )
 
         # Evaluate and earn Beginner trophy
@@ -260,6 +277,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
             user=self.user,
             defaults={
                 'total_workouts': 1,
+            }
         )
 
         # Deactivate the Beginner trophy
@@ -309,6 +327,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
                 'total_weight_lifted': Decimal('100'),
                 'current_streak': 1,
                 'last_workout_date': datetime.date.today(),
+            }
         )
 
         awarded = TrophyService.evaluate_all_trophies(self.user)

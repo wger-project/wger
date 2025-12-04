@@ -160,6 +160,10 @@ class UserStatisticsService:
             session_date = workout_log.session.date
 
         if session_date:
+            # Convert datetime to date if needed for comparison
+            if hasattr(session_date, 'date'):
+                session_date = session_date.date()
+
             # Check if this is a new workout day
             is_new_day = stats.last_workout_date is None or session_date > stats.last_workout_date
 
