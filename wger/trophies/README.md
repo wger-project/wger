@@ -204,6 +204,67 @@ GET /api/v2/user-statistics/
     Get current user's trophy statistics
 ```
 
+## API Components
+
+### Serializers
+
+**TrophySerializer** (`wger.trophies.api.serializers`):
+
+- Serializes Trophy model for API responses
+- Fields: id, uuid, name, description, trophy_type, checker_class,
+  checker_params, is_hidden, is_progressive, is_active, order
+- Read-only serializer for trophy definitions
+
+**UserTrophySerializer** (`wger.trophies.api.serializers`):
+
+- Serializes UserTrophy model (earned trophies)
+- Fields: id, user, trophy (nested), earned_at, progress, is_notified
+- Includes nested trophy details in response
+
+**UserStatisticsSerializer** (`wger.trophies.api.serializers`):
+
+- Serializes UserStatistics model
+- Fields: All statistics fields (total_weight_lifted, total_workouts,
+  current_streak, longest_streak, etc.)
+- Read-only serializer for statistics data
+
+**TrophyProgressSerializer** (`wger.trophies.api.serializers`):
+
+- Custom serializer for trophy progress tracking
+- Fields: trophy (nested), is_earned, earned_at, progress,
+  current_value, target_value
+- Used by `/api/v2/trophy/progress/` endpoint
+
+### Filtersets
+
+**TrophyFilterSet** (`wger.trophies.api.filtersets`):
+
+- Filter trophies by type, active status, hidden status
+- Fields: `trophy_type`, `is_active`, `is_hidden`, `is_progressive`
+- Example: `/api/v2/trophy/?trophy_type=volume&is_active=true`
+
+**UserTrophyFilterSet** (`wger.trophies.api.filtersets`):
+
+- Filter user's earned trophies
+- Fields: `trophy`, `earned_at` (date range), `progress`
+- Example: `/api/v2/user-trophy/?trophy=5&earned_at__gte=2024-01-01`
+
+**Example API Usage:**
+
+```python
+# Get all volume-based trophies
+GET /api/v2/trophy/?trophy_type=volume
+
+# Get trophies earned in 2024
+GET /api/v2/user-trophy/?earned_at__year=2024
+
+# Get progress for all trophies (authenticated)
+GET /api/v2/trophy/progress/
+
+# Get current user's statistics
+GET /api/v2/user-statistics/
+```
+
 ## Adding New Trophies
 
 ### Method 1: Using Code (Recommended for new trophy types)
@@ -301,9 +362,124 @@ Create a JSON fixture in `wger/trophies/fixtures/`:
 
 Load with: `python manage.py loaddata my_trophies`
 
-## How It Works
+## Services API
 
-### Signal-Based Updates
+### UserStatisticsService
+
+Service for managing user workout statistics.
+
+**Methods:**
+
+- `increment_workout(user, workout_date, weight_lifted)`: Incrementally
+  update statistics after a workout. Updates streak, total workouts,
+  weight lifted, and workout times.
+- `update_statistics(user)`: Recalculate all statistics from scratch
+  by scanning workout history. Use for fixing inconsistencies.
+- `get_or_create_statistics(user)`: Get existing statistics or create
+  new record with default values.
+- `handle_workout_deletion(user, workout_date)`: Update statistics
+  after a workout is deleted. Recalculates streaks if needed.
+
+**Example Usage:**
+
+```python
+from wger.trophies.services.statistics import UserStatisticsService
+from decimal import Decimal
+import datetime
+
+# Increment after workout
+UserStatisticsService.increment_workout(
+    user=request.user,
+    workout_date=datetime.date.today(),
+    weight_lifted=Decimal('150.5')
+)
+
+# Recalculate all statistics
+stats = UserStatisticsService.update_statistics(request.user)
+
+# Get statistics (create if missing)
+stats = UserStatisticsService.get_or_create_statistics(request.user)
+```
+
+### TrophyService
+
+Service for evaluating and awarding trophies.
+
+**Methods:**
+
+- `evaluate_all_trophies(user, force=False)`: Evaluate all active
+  trophies for a user. Returns list of newly awarded UserTrophy
+  objects. Skip already earned unless force=True.
+- `award_trophy(user, trophy, progress=100.0)`: Award a specific
+  trophy to a user. Creates UserTrophy record. Idempotent (safe to
+  call multiple times).
+- `get_user_trophies(user, include_hidden=False)`: Get all trophies
+  earned by a user. Filter hidden trophies unless specified.
+- `get_all_trophy_progress(user, include_hidden=False)`: Get progress
+  for all trophies. Returns list of dicts with trophy info, earned
+  status, progress %, current/target values.
+- `reevaluate_trophies(user_ids=None, trophy_id=None,
+  force_reevaluate=False)`: Batch re-evaluate trophies for multiple
+  users. Returns dict with users_checked, trophies_awarded counts.
+
+**Example Usage:**
+
+```python
+from wger.trophies.services.trophy import TrophyService
+
+# Evaluate all trophies for user
+newly_awarded = TrophyService.evaluate_all_trophies(request.user)
+for user_trophy in newly_awarded:
+    print(f"Earned: {user_trophy.trophy.name}")
+
+# Get user's earned trophies
+earned = TrophyService.get_user_trophies(request.user)
+
+# Get progress for all trophies
+progress = TrophyService.get_all_trophy_progress(request.user)
+for item in progress:
+    print(f"{item['trophy'].name}: {item['progress']}%")
+
+# Batch re-evaluate for all active users
+results = TrophyService.reevaluate_trophies()
+print(f"Checked {results['users_checked']} users")
+print(f"Awarded {results['trophies_awarded']} trophies")
+```
+
+## Signals and Auto-Evaluation
+
+### Signal Handlers
+
+The trophy system uses Django signals for automatic evaluation:
+
+**workout_log_saved signal** (`wger.manager.signals`):
+
+- Fires when `WorkoutLog` is saved (user logs exercise sets)
+- Handler: Updates `UserStatistics` incrementally
+- Then evaluates all trophies for the user
+
+**workout_session_saved signal** (`wger.manager.signals`):
+
+- Fires when `WorkoutSession` is saved (user completes workout)
+- Handler: Updates workout count and streak
+- Then evaluates all trophies for the user
+
+**workout_deleted signal** (`wger.manager.signals`):
+
+- Fires when workout is deleted
+- Handler: Calls `handle_workout_deletion()` to update statistics
+
+**Configuration:**
+
+Signals are automatically connected in `wger/trophies/apps.py`:
+
+```python
+class TrophiesConfig(AppConfig):
+    def ready(self):
+        import wger.trophies.signals  # noqa: F401
+```
+
+### How Auto-Evaluation Works
 
 When a user logs a workout:
 
@@ -314,6 +490,7 @@ When a user logs a workout:
 4. `TrophyService.evaluate_all_trophies()` checks for newly earned
    trophies
 5. Earned trophies create `UserTrophy` records
+6. User sees new trophy (notifications in future version)
 
 ### Celery Tasks (Optional)
 
