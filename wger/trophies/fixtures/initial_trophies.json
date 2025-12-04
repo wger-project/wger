@@ -1,0 +1,137 @@
+[
+  {
+    "model": "trophies.trophy",
+    "pk": 1,
+    "fields": {
+      "name": "Beginner",
+      "description": "Complete your first workout",
+      "trophy_type": "count",
+      "checker_class": "count_based",
+      "checker_params": {"count": 1},
+      "is_hidden": false,
+      "is_progressive": false,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 2,
+    "fields": {
+      "name": "Unstoppable",
+      "description": "Maintain a 30-day workout streak",
+      "trophy_type": "sequence",
+      "checker_class": "streak",
+      "checker_params": {"days": 30},
+      "is_hidden": false,
+      "is_progressive": true,
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 3,
+    "fields": {
+      "name": "Weekend Warrior",
+      "description": "Work out on Saturday and Sunday for 4 consecutive weekends",
+      "trophy_type": "sequence",
+      "checker_class": "weekend_warrior",
+      "checker_params": {"weekends": 4},
+      "is_hidden": false,
+      "is_progressive": true,
+      "is_active": true,
+      "order": 3
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 4,
+    "fields": {
+      "name": "Lifter",
+      "description": "Lift a cumulative total of 5,000 kg",
+      "trophy_type": "volume",
+      "checker_class": "volume",
+      "checker_params": {"kg": 5000},
+      "is_hidden": false,
+      "is_progressive": true,
+      "is_active": true,
+      "order": 4
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 5,
+    "fields": {
+      "name": "Atlas",
+      "description": "Lift a cumulative total of 100,000 kg",
+      "trophy_type": "volume",
+      "checker_class": "volume",
+      "checker_params": {"kg": 100000},
+      "is_hidden": false,
+      "is_progressive": true,
+      "is_active": true,
+      "order": 5
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 6,
+    "fields": {
+      "name": "Early Bird",
+      "description": "Complete a workout before 6:00 AM",
+      "trophy_type": "time",
+      "checker_class": "time_based",
+      "checker_params": {"before": "06:00"},
+      "is_hidden": false,
+      "is_progressive": false,
+      "is_active": true,
+      "order": 6
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 7,
+    "fields": {
+      "name": "Night Owl",
+      "description": "Complete a workout after 9:00 PM",
+      "trophy_type": "time",
+      "checker_class": "time_based",
+      "checker_params": {"after": "21:00"},
+      "is_hidden": false,
+      "is_progressive": false,
+      "is_active": true,
+      "order": 7
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 8,
+    "fields": {
+      "name": "New Year, New Me",
+      "description": "Work out on January 1st",
+      "trophy_type": "date",
+      "checker_class": "date_based",
+      "checker_params": {"month": 1, "day": 1},
+      "is_hidden": false,
+      "is_progressive": false,
+      "is_active": true,
+      "order": 8
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 9,
+    "fields": {
+      "name": "Phoenix",
+      "description": "Return to training after being inactive for 30 days",
+      "trophy_type": "other",
+      "checker_class": "inactivity_return",
+      "checker_params": {"inactive_days": 30},
+      "is_hidden": true,
+      "is_progressive": false,
+      "is_active": true,
+      "order": 9
+    }
+  }
+]

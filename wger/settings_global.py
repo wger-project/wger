@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'wger.weight',
     'wger.gallery',
     'wger.measurements',
+    'wger.trophies',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'django_recaptcha',
@@ -568,6 +569,10 @@ WGER_SETTINGS = {
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
+
+    # Trophy system settings
+    'TROPHIES_ENABLED': True,  # Global toggle to enable/disable trophy system
+    'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
 
 #
