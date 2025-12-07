@@ -96,15 +96,6 @@ def demo_entries(request):
     return HttpResponseRedirect(reverse('core:dashboard'))
 
 
-@login_required
-def dashboard(request):
-    """
-    Show the index page, in our case, the last workout and nutritional plan
-    and the current weight
-    """
-    return render(request, 'index.html')
-
-
 class FeedbackClass(FormView):
     template_name = 'form.html'
     success_url = reverse_lazy('software:about-us')

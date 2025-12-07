@@ -32,6 +32,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Prefetch
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -167,10 +168,8 @@ class Routine(models.Model):
 
     @property
     def label_dict(self) -> dict[datetime.date, str]:
-        out = {}
-        labels = self.labels.all()
-
-        for label in labels:
+        out = defaultdict(str)
+        for label in self.labels.all():
             for i in range(label.start_offset, label.end_offset + 1):
                 out[self.start + datetime.timedelta(days=i)] = label.label
 
@@ -233,78 +232,83 @@ class Routine(models.Model):
             .order_by('order')
         )
 
-        # Precompute session dates from prefetched logs
-        day_session_map = defaultdict(set)
-        for day in days:
-            for session in day.workoutsession_set.all():
-                day_session_map[day.id].add(session.date)
-
-        # Main sequence generation logic
-        delta = datetime.timedelta(days=1)
-        current_date = self.start
-        days_list = list(days)
-        days_count = len(days_list)
-        counter = Counter()
-        skip_until = None
-        sequence = []
-
-        if not days_list:
+        if not days:
             return []
 
-        current_day = days_list[0]
-        index = 0
+        # Precompute session dates from prefetched logs
+        workout_session_map = defaultdict(set)
+        for day in days:
+            for session in day.workoutsession_set.all():
+                workout_session_map[day.id].add(session.date)
 
-        # Precompute label dates
-        label_dates = defaultdict(str)
-        for label in self.labels.all():
-            for i in range(label.start_offset, label.end_offset + 1):
-                label_dates[self.start + datetime.timedelta(days=i)] = label.label
+        # Main sequence generation logic
+        labels = self.label_dict
+        current_date = self.start
+        days_list = list(days)
+        nr_of_days = len(days_list)
+        iteration_counter = Counter()
+        sequence = []
+        is_first = True
+        day_index = 0
+
+        for day in days:
+            iteration_counter[day.id] = 1
 
         while current_date <= self.end:
-            if skip_until:
-                if current_date >= skip_until:
-                    skip_until = None
-                else:
-                    sequence.append(
-                        WorkoutDayData(
-                            iteration=counter[current_day],
-                            date=current_date,
-                            day=None,
-                            label=label_dates.get(current_date),
-                        )
-                    )
-                    current_date += delta
-                    continue
+            current_day = days_list[day_index]
+            previous_date = current_date - datetime.timedelta(days=1)
 
-            counter[current_day] += 1
-            index = (index + 1) % days_count
-
-            # Handle week filling logic
-            if self.fit_in_week and days_count % 7 != 0 and index == 0:
-                days_to_monday = 7 - current_date.weekday()
-                skip_until = current_date + datetime.timedelta(days=days_to_monday)
-
-            # Check if day can proceed using prefetched session dates
-            has_session = current_date in day_session_map[current_day.id]
+            # Checks whether the user can proceed to the next day in the sequence
+            #
+            # This is possible if
+            # - the day doesn't require logs
+            # - the day requires logs, and they exist. Note that we check for logs on the previous
+            #   day, since when a user logs a session for a day, the advancement should happen on
+            #   the next day, not immediately.
+            # - the date is in the future (used e.g. for calendars where we assume we will proceed)
+            has_session = previous_date in workout_session_map[current_day.id]
             can_proceed = (
                 not current_day.need_logs_to_advance
-                or has_session
-                or current_date > datetime.date.today()
+                or (current_day.need_logs_to_advance and has_session)
+                or current_date > timezone.localdate()
             )
 
+            if can_proceed and not is_first:
+                iteration_counter[current_day.id] += 1
+                day_index = (day_index + 1) % nr_of_days
+                current_day = days_list[day_index]
+
+            # If fit_in_week is set we need to fill the rest of the week with placeholders
+            if self.fit_in_week and nr_of_days % 7 != 0 and day_index == 0 and not is_first:
+                days_to_monday = 7 - current_date.weekday()
+                for i in range(days_to_monday):
+                    placeholder_date = current_date + datetime.timedelta(days=i)
+                    if placeholder_date > self.end:
+                        break
+                    sequence.append(
+                        WorkoutDayData(
+                            date=placeholder_date,
+                            day=None,
+                            label=labels.get(placeholder_date),
+                            # This is ugly, but we don't want to advance the iteration
+                            iteration=iteration_counter[current_day.id] - 1,
+                        )
+                    )
+                current_date += datetime.timedelta(days=days_to_monday)
+                if current_date > self.end:
+                    continue
+
+            # Add day data and advance the date
             sequence.append(
                 WorkoutDayData(
-                    iteration=counter[current_day],
+                    iteration=iteration_counter[current_day.id],
                     date=current_date,
                     day=current_day,
-                    label=label_dates.get(current_date),
+                    label=labels.get(current_date),
                 )
             )
-
-            if can_proceed:
-                current_day = days_list[index]
-
-            current_date += delta
+            current_date += datetime.timedelta(days=1)
+            is_first = False
 
         cache.set(cache_key, sequence, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
         return sequence
@@ -315,7 +319,7 @@ class Routine(models.Model):
         the results for "today"
         """
         if date is None:
-            date = datetime.date.today()
+            date = timezone.localdate()
 
         for data in self.date_sequence:
             if data.date == date:
@@ -332,7 +336,7 @@ class Routine(models.Model):
 
         if iteration is None:
             for data in self.date_sequence:
-                if data.date == datetime.date.today():
+                if data.date == timezone.localdate():
                     iteration = data.iteration
                     break
 

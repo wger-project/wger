@@ -39,7 +39,7 @@ from wger.manager.validators import (
     NullMinValueValidator,
     validate_rir,
 )
-from wger.utils.cache import reset_workout_log
+from wger.utils.cache import reset_workout_log_cache
 
 
 class WorkoutLog(models.Model):
@@ -263,7 +263,7 @@ class WorkoutLog(models.Model):
         )[0]
 
         # Reset cache
-        reset_workout_log(
+        reset_workout_log_cache(
             self.user_id,
             self.session.date.year,
             self.session.date.month,
@@ -287,7 +287,7 @@ class WorkoutLog(models.Model):
         Reset cache
         """
         try:
-            reset_workout_log(
+            reset_workout_log_cache(
                 self.user_id,
                 self.session.date.year,
                 self.session.date.month,

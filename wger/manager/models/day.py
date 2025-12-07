@@ -15,7 +15,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
 from typing import List
 
 # Django
@@ -121,24 +120,6 @@ class Day(models.Model):
         Returns the object that has owner information
         """
         return self.routine
-
-    def can_proceed(self, date: datetime.date) -> bool:
-        """
-        Checks whether the user can proceed to the next day in the sequence
-
-        This is possible if
-        - the day doesn't require logs
-        - the day requires logs, and they exist
-        - the date is in the future (used e.g. for calendars where we assume we will proceed)
-        """
-        if (
-            not self.need_logs_to_advance
-            # or self.workoutsession_set.filter(date=date).exists()
-            or date > datetime.date.today()
-        ):
-            return True
-
-        return False
 
     def get_slots_gym_mode(self, iteration: int) -> List[SlotData]:
         """

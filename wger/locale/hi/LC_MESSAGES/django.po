@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2024-10-04 07:15+0000\n"
-"Last-Translator: Ritik Sharma <pandatritik47@gmail.com>\n"
+"PO-Revision-Date: 2025-12-01 06:00+0000\n"
+"Last-Translator: Madhav Agarwal <connectmadhav09@gmail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/wger/web/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -55,17 +55,17 @@ msgstr "संपादन"
 #: core/templates/navigation.html:278 core/templates/user/login.html:4
 #: software/templates/features.html:82 software/templates/features.html:448
 msgid "Login"
-msgstr ""
+msgstr "लॉग इन करें"
 
 #: core/forms.py:108 core/forms.py:222 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
-msgstr ""
+msgstr "पहला नाम"
 
 #: core/forms.py:109 core/forms.py:223 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
-msgstr ""
+msgstr "उपनाम"
 
 #: core/forms.py:111 core/forms.py:188 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
@@ -75,7 +75,7 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr ""
+msgstr "ईमेल"
 
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
@@ -134,23 +134,24 @@ msgstr ""
 #: gym/templates/gym/list.html:23 nutrition/templates/ingredient/view.html:168
 #: nutrition/templates/ingredient/view.html:215
 #: nutrition/templates/units/list.html:25
+#, fuzzy
 msgid "Delete"
-msgstr "मिटादे"
+msgstr "मितादे"
 
 #: core/forms.py:259
 msgid "Invalid password"
-msgstr ""
+msgstr "अवैध पासवर्ड"
 
 #: core/forms.py:271 core/forms.py:346
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "फ़ॉर्म reCAPTCHA द्वारा सुरक्षित है"
 
 #: core/forms.py:287 core/forms.py:309 core/templates/navigation.html:272
 #: core/templates/navigation.html:285 core/templates/template.html:150
 #: core/templates/user/login.html:21 core/views/user.py:285
 #: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
-msgstr ""
+msgstr "रजिस्टर"
 
 #: core/forms.py:323 software/templates/features.html:45
 msgid "Contact"
@@ -210,11 +211,11 @@ msgstr ""
 
 #: core/models/profile.py:66
 msgid "Male"
-msgstr ""
+msgstr "मर्द"
 
 #: core/models/profile.py:67
 msgid "Female"
-msgstr ""
+msgstr "महिला"
 
 #: core/models/profile.py:74
 msgid "Low"
