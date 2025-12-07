@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}Timer Demo{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">Countdown Timer Demo</h1>
+
+    <div class="row">
+        <!-- Timer Example 1: 60 seconds -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Plank - 60 Seconds</h5>
+                </div>
+                <div class="card-body">
+                    <div id="timer-60s" data-timer-duration="60" data-timer-unit-type="TIME"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer Example 2: 30 seconds -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Wall Sit - 30 Seconds</h5>
+                </div>
+                <div class="card-body">
+                    <div id="timer-30s" data-timer-duration="30" data-timer-unit-type="TIME"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer Example 3: 2 minutes -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Rest Period - 2 Minutes</h5>
+                </div>
+                <div class="card-body">
+                    <div id="timer-2m" data-timer-duration="120" data-timer-unit-type="TIME"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h2 class="mb-3">Manual Timer Creation</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Custom Timer</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="custom-duration" class="form-label">Duration (seconds):</label>
+                        <input type="number" id="custom-duration" class="form-control" value="45" min="1" max="3600">
+                    </div>
+                    <button id="create-timer-btn" class="btn btn-primary mb-3">Create Timer</button>
+                    <div id="custom-timer-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Manual timer creation
+    document.getElementById('create-timer-btn').addEventListener('click', function() {
+        const duration = parseInt(document.getElementById('custom-duration').value, 10);
+        const container = document.getElementById('custom-timer-container');
+        container.innerHTML = ''; // Clear previous timer
+
+        new CountdownTimer(container, {
+            duration: duration,
+            onComplete: function() {
+                alert('Timer completed!');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

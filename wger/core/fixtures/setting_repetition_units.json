@@ -2,42 +2,48 @@
     {
         "pk": 1,
         "fields": {
-            "name": "Repetitions"
+            "name": "Repetitions",
+            "unit_type": "REPETITIONS"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 2,
         "fields": {
-            "name": "Until Failure"
+            "name": "Until Failure",
+            "unit_type": "REPETITIONS"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 3,
         "fields": {
-            "name": "Seconds"
+            "name": "Seconds",
+            "unit_type": "TIME"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 4,
         "fields": {
-            "name": "Minutes"
+            "name": "Minutes",
+            "unit_type": "TIME"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 5,
         "fields": {
-            "name": "Miles"
+            "name": "Miles",
+            "unit_type": "DISTANCE"
         },
         "model": "core.repetitionunit"
     },
     {
         "pk": 6,
         "fields": {
-            "name": "Kilometers"
+            "name": "Kilometers",
+            "unit_type": "DISTANCE"
         },
         "model": "core.repetitionunit"
     },
@@ -45,7 +51,8 @@
         "model": "core.repetitionunit",
         "pk": 7,
         "fields": {
-            "name": "Max Reps"
+            "name": "Max Reps",
+            "unit_type": "REPETITIONS"
         }
     }
 ]
