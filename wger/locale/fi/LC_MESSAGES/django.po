@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-11-17 06:51+0000\n"
+"PO-Revision-Date: 2025-12-08 07:00+0000\n"
 "Last-Translator: Petri Hämäläinen <petri.hamalainen@mailbox.org>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
@@ -2299,13 +2299,13 @@ msgstr ""
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
-msgstr ""
+msgstr "Raaka-aineen lisääminen"
 
 #: nutrition/templates/ingredient/form.html:5
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr ""
+msgstr "Kiitos raaka-aineen lisäämisestä. Olemme kiitollisia!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -2319,19 +2319,19 @@ msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:38
 msgid "No ingredients."
-msgstr ""
+msgstr "Ei raaka-aineita."
 
 #: nutrition/templates/ingredient/overview.html:49
 msgid "Search"
-msgstr ""
+msgstr "Etsi"
 
 #: nutrition/templates/ingredient/view.html:45 nutrition/views/plan.py:237
 msgid "Macronutrients"
-msgstr ""
+msgstr "Makroravinteet"
 
 #: nutrition/templates/ingredient/view.html:54
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:75
 #: nutrition/templates/ingredient/view.html:91
@@ -2342,12 +2342,12 @@ msgstr ""
 
 #: nutrition/templates/ingredient/view.html:102
 msgid "Others"
-msgstr ""
+msgstr "Muut"
 
 #: nutrition/templates/ingredient/view.html:143
 #: nutrition/templates/units/list.html:50 nutrition/views/unit.py:86
 msgid "Add new weight unit"
-msgstr ""
+msgstr "Lisää uusi painoyksikkö"
 
 #: nutrition/templates/rate/form.html:25
 msgid "Basal metabolic rate"
@@ -2367,7 +2367,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
-msgstr ""
+msgstr "Fyysiset aktiviteetit"
 
 #: nutrition/templates/rate/form.html:48
 msgid ""
@@ -2419,7 +2419,7 @@ msgstr ""
 
 #: nutrition/views/ingredient.py:157
 msgid "Add a new ingredient"
-msgstr ""
+msgstr "Lisää uusi raaka-aine"
 
 #: nutrition/views/plan.py:128
 msgid "Nutritional plan"
