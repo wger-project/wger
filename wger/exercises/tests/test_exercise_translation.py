@@ -102,7 +102,7 @@ class ExercisesTestCase(WgerTestCase):
         translation.exercise.muscles_secondary.add(Muscle.objects.get(pk=2))
         translation.save()
 
-        translation.refresh_from_db()
+        translation = Translation.objects.get(pk=2)
         self.assertEqual(len(translation.history.all()), 1)
 
 

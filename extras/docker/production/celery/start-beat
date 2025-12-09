@@ -4,4 +4,4 @@ set -o errexit
 set -o nounset
 
 rm -f './celerybeat.pid'
-celery --app wger beat --loglevel INFO --schedule /home/wger/beat/celerybeat-schedule
+celery -A wger beat -l INFO -s /home/wger/beat/celerybeat-schedule

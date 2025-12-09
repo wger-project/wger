@@ -13,13 +13,17 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 from dataclasses import asdict
 from decimal import Decimal
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import SetConfigData
-from wger.manager.models import Day
+from wger.manager.models import (
+    Day,
+    WorkoutLog,
+)
 
 
 class DaySlotTestCase(WgerTestCase):
@@ -211,3 +215,47 @@ class DayModelTestCase(WgerTestCase):
         day.name = 'foo'
         day.save()
         self.assertEqual(day.slots.count(), 3)
+
+    def test_can_proceed_future(self):
+        """
+        Test that can_proceed returns true when the date is in the future
+        """
+
+        day = Day.objects.get(pk=1)
+        self.assertTrue(day.can_proceed(date=datetime.date.today() + datetime.timedelta(days=1)))
+
+    def test_can_proceed_present(self):
+        """
+        Test that can_proceed returns true when need_logs_to_advance is false
+        """
+
+        day = Day.objects.get(pk=1)
+        day.need_logs_to_advance = False
+        self.assertTrue(day.can_proceed(date=datetime.date.today()))
+
+    def test_can_proceed_no_logs(self):
+        """
+        Test that can_proceed returns false when need_logs_to_advance is true and there are no logs
+        """
+
+        day = Day.objects.get(pk=1)
+        day.need_logs_to_advance = True
+        self.assertFalse(day.can_proceed(date=datetime.date.today()))
+
+    def test_can_proceed(self):
+        """
+        Test that can_proceed returns true when need_logs_to_advance is true and there are logs
+        """
+
+        day = Day.objects.get(pk=1)
+        day.need_logs_to_advance = True
+        WorkoutLog.objects.create(
+            date=datetime.datetime.now(),
+            weight_unit_id=1,
+            repetitions_unit_id=1,
+            user=day.routine.user,
+            repetitions=1,
+            weight=1,
+            exercise_id=1,
+        )
+        self.assertFalse(day.can_proceed(date=datetime.date.today()))

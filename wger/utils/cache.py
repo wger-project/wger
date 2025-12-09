@@ -23,11 +23,19 @@ from django.core.cache.utils import make_template_fragment_key
 logger = logging.getLogger(__name__)
 
 
+def delete_template_fragment_cache(fragment_name='', vary_on=None):
+    """
+    Deletes a cache key created on the template with django's cache tag
+    """
+    out = vary_on if isinstance(vary_on, (list, tuple)) else [vary_on]
+    cache.delete(make_template_fragment_key(fragment_name, out))
+
+
 def reset_exercise_api_cache(uuid: str):
     cache.delete(CacheKeyMapper.get_exercise_api_key(uuid))
 
 
-def reset_workout_log_cache(user_pk, year, month, day=None):
+def reset_workout_log(user_pk, year, month, day=None):
     """
     Resets the cached workout logs
     """
@@ -108,10 +116,6 @@ class CacheKeyMapper:
     @classmethod
     def slot_entry_configs_key(cls, pk: int):
         return f'slot-entry-configs-{pk}'
-
-    @classmethod
-    def ingredient_celery_sync(cls, page: int):
-        return f'ingredients-sync-page-{page}'
 
 
 cache_mapper = CacheKeyMapper()

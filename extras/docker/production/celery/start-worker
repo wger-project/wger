@@ -3,7 +3,4 @@
 set -o errexit
 set -o nounset
 
-celery --app wger worker \
-    --pool=gevent \
-    --concurrency=${CELERY_WORKER_CONCURRENCY:-1} \
-    --loglevel INFO
+celery -A wger worker -l INFO

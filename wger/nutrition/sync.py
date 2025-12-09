@@ -27,14 +27,10 @@ from django.utils import timezone
 
 # Third Party
 import requests
-from openfoodfacts import (
-    API,
-    APIVersion,
-    Country,
-    Environment,
-    Flavor,
+from openfoodfacts.images import (
+    AWS_S3_BASE_URL,
+    generate_image_path,
 )
-from openfoodfacts.images import download_image
 from tqdm import tqdm
 
 # wger
@@ -59,7 +55,6 @@ from wger.utils.language import load_language
 from wger.utils.requests import (
     get_paginated,
     wger_headers,
-    wger_user_agent,
 )
 from wger.utils.url import make_uri
 
@@ -136,59 +131,59 @@ def fetch_image_from_wger_instance(ingredient):
 
 def fetch_image_from_off(ingredient: Ingredient):
     """
-    Tries to download an image from Open Food Facts for the given ingredient.
-
-    See https://github.com/openfoodfacts/openfoodfacts-python
+    See
+    - https://openfoodfacts.github.io/openfoodfacts-server/api/how-to-download-images/
+    - https://openfoodfacts.github.io/openfoodfacts-server/api/ref-v2/
     """
+    logger.info(f'Trying to fetch image from OFF for {ingredient.name} (UUID: {ingredient.uuid})')
 
-    logger.info(f'Trying to fetch image from OFF for "{ingredient.name}" ({ingredient.uuid})')
-
-    # We always update the last check time, no matter if we found an image or there were
-    # errors in the response (keys missing, etc) since in any case we don't want to retry
-    # too often.
-    ingredient.last_image_check = timezone.now()
-    ingredient.save()
-
-    off_api = API(
-        user_agent=wger_user_agent(),
-        country=Country.world,
-        flavor=Flavor.off,
-        version=APIVersion.v2,
-        environment=Environment.org,
-    )
-    product_data = off_api.product.get(ingredient.code, fields=['images', 'image_front_url'])
-
-    if product_data is None:
-        logger.info('No product data found for this ingredient')
+    url = ingredient.source_url + '?fields=images,image_front_url'
+    headers = wger_headers()
+    try:
+        product_data = requests.get(url, headers=headers, timeout=3).json()
+    except requests.JSONDecodeError:
+        logger.warning(f'Could not decode JSON response from {url}')
+        return
+    except requests.ConnectTimeout as e:
+        logger.warning(f'Connection timeout while trying to fetch {url}: {e}')
+        return
+    except requests.ReadTimeout as e:
+        logger.warning(f'Read timeout while trying to fetch {url}: {e}')
         return
 
-    image_url: Optional[str] = product_data.get('image_front_url')
+    try:
+        image_url: Optional[str] = product_data['product'].get('image_front_url')
+    except KeyError:
+        logger.info('No "product" key found, exiting...')
+        return
+
     if not image_url:
         logger.info('Product data has no "image_front_url" key')
         return
-    image_data = product_data.get('images')
-    if not image_data:
-        logger.info('Product data has no "images" key')
-        return
+    image_data = product_data['product']['images']
 
     # Extract the image key from the url:
     # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg -> "front_en"
-    image_key: str = image_url.rpartition('/')[2].partition('.')[0]
+    image_id: str = image_url.rpartition('/')[2].partition('.')[0]
 
-    # Extract the uploader name and numerical image id
+    # Extract the uploader name
     try:
-        image_id: str = image_data[image_key]['imgid']
+        image_id: str = image_data[image_id]['imgid']
         uploader_name: str = image_data[image_id]['uploader']
     except KeyError as e:
         logger.info('could not load all image information, skipping...', e)
         return
 
-    off_response = download_image(image_url, return_struct=True)
+    # Download image from amazon
+    image_s3_url = f'{AWS_S3_BASE_URL}{generate_image_path(ingredient.code, image_id)}'
+    response = requests.get(image_s3_url, headers=headers)
+    if not response.ok:
+        logger.info(f'Could not locate image on AWS! Status code: {response.status_code}')
+        return
 
     # Save to DB
-    url = make_uri(
-        'https://world.openfoodfacts.org/cgi/product_image.pl',
-        query={'code': ingredient.code, 'id': image_id},
+    url = (
+        f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id={image_id}'
     )
     uploader_url = f'https://world.openfoodfacts.org/photographer/{uploader_name}'
     image_data = {
@@ -199,16 +194,18 @@ def fetch_image_from_off(ingredient: Ingredient):
         'license_author_url': uploader_url,
         'license_object_url': url,
         'license_derivative_source_url': '',
-        'size': len(off_response.image_bytes),
+        'size': len(response.content),
     }
     try:
-        Image.from_json(ingredient, off_response.response, image_data, generate_uuid=True)
+        Image.from_json(ingredient, response, image_data, generate_uuid=True)
     # Due to a race condition (e.g. when adding tasks over the search), we might
     # try to save an image to an ingredient that already has one. In that case,
     # just ignore the error
     except IntegrityError:
-        logger.debug('Ingredient has already an image, skipping...')
+        logger.info('Ingredient has already an image, skipping...')
         return
+    ingredient.last_image_check = timezone.now()
+    ingredient.save()
     logger.info('Image successfully saved')
 
 
@@ -244,46 +241,6 @@ def download_ingredient_images(
             Image.from_json(ingredient, retrieved_image, image_data)
 
         print_fn(style_fn('    successfully saved'))
-
-
-def sync_ingredients_page(
-    page: int,
-    limit: int = API_MAX_ITEMS,
-    remote_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
-    language_codes: Optional[str] = None,
-) -> int:
-    """
-    Sync a single paginated page (0-based index). Returns number of processed ingredients.
-    Safe to rerun (idempotent).
-    """
-    language_ids: List[str] | None = None
-    if language_codes:
-        language_ids = []
-        for code in language_codes.split(','):
-            try:
-                lang = load_language(code, default_to_english=False)
-                language_ids.append(str(lang.id))
-            except Language.DoesNotExist:
-                logger.warning(f'Language code "{code}" not found, skipping page {page}.')
-                return 0
-
-    offset = page * limit
-    query: dict[str, str | int] = {'limit': limit, 'offset': offset}
-    if language_ids:
-        query['language__in'] = ','.join(language_ids)
-
-    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query=query)
-    response = requests.get(url, headers=wger_headers(), timeout=30).json()
-    results = response.get('results', [])
-    processed = 0
-    for data in results:
-        uuid = data['uuid']
-        ingredient_data = extract_info_from_wger_api(data).dict()
-        ingredient_data['uuid'] = uuid
-        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
-        processed += 1
-    logger.debug(f'Page {page} synced ({processed} ingredients)')
-    return processed
 
 
 def sync_ingredients(

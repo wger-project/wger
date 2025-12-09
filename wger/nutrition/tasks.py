@@ -14,49 +14,37 @@
 
 # Standard Library
 import logging
-from random import randint
+from random import (
+    choice,
+    randint,
+)
 
 # Django
 from django.conf import settings
-from django.core.cache import cache
 from django.core.management import call_command
 
 # Third Party
-import requests
-from celery import group
+from celery import shared_task
 from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
-from wger.nutrition.api.endpoints import INGREDIENTS_ENDPOINT
 from wger.nutrition.sync import (
     download_ingredient_images,
     fetch_ingredient_image,
     sync_ingredients,
-    sync_ingredients_page,
 )
-from wger.utils.cache import CacheKeyMapper
-from wger.utils.constants import API_MAX_ITEMS
-from wger.utils.requests import wger_headers
-from wger.utils.url import make_uri
 
 
 logger = logging.getLogger(__name__)
 
 
-PAGE_RANGE_SIZE = 25
-"""The number of pages (with API_MAX_ITEMS items each) the individual task processes"""
-
-
-CACHE_TIMEOUT_SECONDS = 10 * 3600
-"""Timeout for the cache keys marking completed pages/ranges"""
-
-
 @app.task
 def fetch_ingredient_image_task(pk: int):
     """
-    Fetches the ingredient image from an upstream wger server (or Open Food Facts)
-    if it is not available locally.
+    Fetches the ingredient image from Open Food Facts servers if it is not available locally
+
+    Returns the image if it is already present in the DB
     """
     fetch_ingredient_image(pk)
 
@@ -64,80 +52,19 @@ def fetch_ingredient_image_task(pk: int):
 @app.task
 def fetch_all_ingredient_images_task():
     """
-    Fetches all ingredient image from an upstream wger server (or Open Food Facts)
-    if they are not available locally
+    Fetches the ingredient image from Open Food Facts servers if it is not available locally
+
+    Returns the image if it is already present in the DB
     """
     download_ingredient_images(logger.info)
 
 
-@app.task(
-    autoretry_for=(requests.exceptions.RequestException,),
-    retry_backoff=True,
-    retry_jitter=True,
-    retry_kwargs={'max_retries': 5},
-)
-def sync_ingredient_page_range_task(
-    total_pages: int,
-    start_page: int,
-    end_page: int,
-    remote_url: str | None = None,
-    language_codes: str | None = None,
-):
+@shared_task
+def sync_all_ingredients_task():
     """
-    Sequentially processes pages in [start_page, end_page), skips pages already
-    completed by writing to the cache.
+    Fetches the current ingredients from the default wger instance
     """
-    remote = remote_url or settings.WGER_SETTINGS['WGER_INSTANCE']
-    processed = 0
-    for page in range(start_page, end_page):
-        # Atomic: only first caller succeeds; subsequent ones skip
-        key = CacheKeyMapper.ingredient_celery_sync(page)
-        if not cache.add(key, 'done', timeout=CACHE_TIMEOUT_SECONDS):
-            logger.info(f'Page {page} already done, skipping.')
-            continue
-
-        page_processed = sync_ingredients_page(
-            page=page,
-            limit=API_MAX_ITEMS,
-            remote_url=remote,
-            language_codes=language_codes,
-        )
-        processed += page_processed
-    logger.info(f'Processed pages {start_page} - {end_page - 1} of {total_pages}')
-    return processed
-
-
-@app.task
-def sync_all_ingredients_chunked_task(
-    language_codes: str | None = None,
-    remote_url: str | None = None,
-):
-    """
-    Orchestrator: builds a group of page-range tasks that process a range of pages each.
-    Runs in parallel depending on the concurrency settings of the Celery worker.
-    """
-
-    # Calculate number of pages
-    remote = remote_url or settings.WGER_SETTINGS['WGER_INSTANCE']
-    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote, query={'limit': 1})
-    data = requests.get(url, headers=wger_headers(), timeout=30).json()
-    total = data['count']
-    total_pages = total // API_MAX_ITEMS
-    logger.info(
-        f'Start sync: {total} ingredients over {total_pages} pages (chunk={PAGE_RANGE_SIZE}).'
-    )
-
-    # Create tasks for each page range and start them
-    tasks = []
-    for start in range(0, total_pages, PAGE_RANGE_SIZE):
-        end = min(start + PAGE_RANGE_SIZE, total_pages)
-
-        tasks.append(
-            sync_ingredient_page_range_task.s(total_pages, start, end, remote, language_codes)
-        )
-    group(*tasks).apply_async()
-
-    return None
+    sync_ingredients(logger.info, show_progress_bar=False)
 
 
 @app.task
@@ -156,8 +83,9 @@ def setup_periodic_tasks(sender, **kwargs):
                 hour=str(randint(0, 23)),
                 minute=str(randint(0, 59)),
                 day_of_month=str(randint(1, 28)),
+                month_of_year=choice(['1, 4, 7, 10', '2, 5, 8, 11', '3, 6, 9, 12']),
             ),
-            sync_all_ingredients_chunked_task.s(),
+            sync_all_ingredients_task.s(),
             name='Sync ingredients',
         )
 

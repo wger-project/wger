@@ -32,9 +32,6 @@ class RoutineTestCase(WgerTestCase):
     Test the different day and date functions
     """
 
-    maxDiff = None
-    """Show full diff on assert failures"""
-
     routine: Routine
     day1: Day
     day2: Day
@@ -69,29 +66,12 @@ class RoutineTestCase(WgerTestCase):
         Label(routine=self.routine, start_offset=0, end_offset=3, label='First label').save()
         Label(routine=self.routine, start_offset=4, end_offset=5, label='Second label').save()
 
-    def test_labels(self):
-        """
-        Test that the labels are correctly assigned to their dates
-        """
-
-        self.assertEqual(
-            self.routine.label_dict,
-            {
-                datetime.date(2024, 1, 1): 'First label',
-                datetime.date(2024, 1, 2): 'First label',
-                datetime.date(2024, 1, 3): 'First label',
-                datetime.date(2024, 1, 4): 'First label',
-                datetime.date(2024, 1, 5): 'Second label',
-                datetime.date(2024, 1, 6): 'Second label',
-            },
-        )
-
     def test_date_sequences(self):
         """
         Test that the days are correctly outputted in a sequence
         """
 
-        self.assertListEqual(
+        self.assertEqual(
             self.routine.date_sequence,
             [
                 WorkoutDayData(
@@ -157,249 +137,13 @@ class RoutineTestCase(WgerTestCase):
             ],
         )
 
-    def test_date_sequences_need_logs_to_advance_no_session(self):
-        """
-        Test that days do not advance if they have the need_logs_to_advance flag set
-        and there are no logs
-        """
-
-        # Arrange
-        today = datetime.date.today()
-        start = today - datetime.timedelta(days=5)
-        self.routine.start = start
-        self.routine.end = today + datetime.timedelta(weeks=3)
-        self.day1.need_logs_to_advance = True
-        self.day1.save()
-        WorkoutSession.objects.all().delete()
-        Label.objects.all().delete()
-
-        # Assert
-        sequence = self.routine.date_sequence
-
-        # The first day does not advance
-        self.assertEqual(
-            sequence[0],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start,
-            ),
-        )
-        self.assertEqual(
-            sequence[1],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=1),
-            ),
-        )
-        self.assertEqual(
-            sequence[2],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=2),
-            ),
-        )
-        self.assertEqual(
-            sequence[3],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=3),
-            ),
-        )
-        self.assertEqual(
-            sequence[4],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=4),
-            ),
-        )
-        self.assertEqual(
-            sequence[5],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=5),
-            ),
-        )
-
-        # For dates in the future, the days always advance
-        self.assertEqual(
-            sequence[6],
-            WorkoutDayData(
-                day=self.day2,
-                iteration=1,
-                date=start + datetime.timedelta(days=6),
-            ),
-        )
-        self.assertEqual(
-            sequence[7],
-            WorkoutDayData(
-                day=self.day3,
-                iteration=1,
-                date=start + datetime.timedelta(days=7),
-            ),
-        )
-        self.assertEqual(
-            sequence[8],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=2,
-                date=start + datetime.timedelta(days=8),
-            ),
-        )
-        self.assertEqual(
-            sequence[9],
-            WorkoutDayData(
-                day=self.day2,
-                iteration=2,
-                date=start + datetime.timedelta(days=9),
-            ),
-        )
-        self.assertEqual(
-            sequence[10],
-            WorkoutDayData(
-                day=self.day3,
-                iteration=2,
-                date=start + datetime.timedelta(days=10),
-            ),
-        )
-        self.assertEqual(
-            sequence[11],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=3,
-                date=start + datetime.timedelta(days=11),
-            ),
-        )
-
-    def test_date_sequences_need_logs_to_advance_session_available(self):
-        """
-        Test that days only advance if they have the need_logs_to_advance flag set
-        and there are is a session
-        """
-
-        # Arrange
-        today = datetime.date.today()
-        start = today - datetime.timedelta(days=5)
-
-        self.routine.start = start
-        self.routine.end = today + datetime.timedelta(days=10)
-        self.day1.need_logs_to_advance = True
-        self.day1.save()
-
-        Label.objects.all().delete()
-        WorkoutSession.objects.all().delete()
-        WorkoutSession.objects.create(
-            day=self.day1,
-            routine=self.routine,
-            date=start + datetime.timedelta(days=2),
-            user=self.routine.user,
-        )
-
-        # Assert
-        sequence = self.routine.date_sequence
-        self.assertEqual(
-            sequence[0],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start,
-            ),
-        )
-        self.assertEqual(
-            sequence[1],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=1),
-            ),
-        )
-
-        # Session saved on this day
-        self.assertEqual(
-            sequence[2],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=1,
-                date=start + datetime.timedelta(days=2),
-            ),
-        )
-
-        # Day can advance
-        self.assertEqual(
-            sequence[3],
-            WorkoutDayData(
-                day=self.day2,
-                iteration=1,
-                date=start + datetime.timedelta(days=3),
-            ),
-        )
-        self.assertEqual(
-            sequence[4],
-            WorkoutDayData(
-                day=self.day3,
-                iteration=1,
-                date=start + datetime.timedelta(days=4),
-            ),
-        )
-        self.assertEqual(
-            sequence[5],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=2,
-                date=start + datetime.timedelta(days=5),
-            ),
-        )
-
-        # For dates in the future, the days always advance
-        self.assertEqual(
-            sequence[6],
-            WorkoutDayData(
-                day=self.day2,
-                iteration=2,
-                date=start + datetime.timedelta(days=6),
-            ),
-        )
-        self.assertEqual(
-            sequence[7],
-            WorkoutDayData(
-                day=self.day3,
-                iteration=2,
-                date=start + datetime.timedelta(days=7),
-            ),
-        )
-        self.assertEqual(
-            sequence[8],
-            WorkoutDayData(
-                day=self.day1,
-                iteration=3,
-                date=start + datetime.timedelta(days=8),
-            ),
-        )
-        self.assertEqual(
-            sequence[9],
-            WorkoutDayData(
-                day=self.day2,
-                iteration=3,
-                date=start + datetime.timedelta(days=9),
-            ),
-        )
-
     def test_date_sequence_week_skip(self):
         """
         Test that the fit_in_week flag works
         """
-
-        # Arrange
         self.routine.fit_in_week = True
-        self.routine.end = datetime.date(2024, 1, 12)
         self.routine.save()
 
-        # Assert
         self.assertListEqual(
             self.routine.date_sequence,
             [
@@ -444,32 +188,26 @@ class RoutineTestCase(WgerTestCase):
                     day=None,
                     iteration=1,
                     date=datetime.date(2024, 1, 7),
+                    label=None,
                 ),
-                # Monday, start the cycle again
+                # Monday
                 WorkoutDayData(
                     day=self.day1,
                     iteration=2,
                     date=datetime.date(2024, 1, 8),
+                    label=None,
                 ),
                 WorkoutDayData(
                     day=self.day2,
                     iteration=2,
                     date=datetime.date(2024, 1, 9),
+                    label=None,
                 ),
                 WorkoutDayData(
                     day=self.day3,
                     iteration=2,
                     date=datetime.date(2024, 1, 10),
-                ),
-                WorkoutDayData(
-                    day=None,
-                    iteration=2,
-                    date=datetime.date(2024, 1, 11),
-                ),
-                WorkoutDayData(
-                    day=None,
-                    iteration=2,
-                    date=datetime.date(2024, 1, 12),
+                    label=None,
                 ),
             ],
         )
@@ -481,6 +219,98 @@ class RoutineTestCase(WgerTestCase):
         self.assertEqual(
             self.routine.data_for_day(datetime.date(2024, 1, 7)),
             WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7)),
+        )
+
+    def test_date_sequences_logs(self):
+        """
+        Test that the days are correctly outputted in a sequence
+
+        Day one needs logs to advance, till then it will be repeated
+        """
+
+        # Arrange
+        self.day1.need_logs_to_advance = True
+        self.day1.save()
+
+        dates = [
+            datetime.date(2024, 1, 4),
+            datetime.date(2024, 1, 7),
+        ]
+
+        for date in dates:
+            session = WorkoutSession(
+                user_id=1,
+                date=date,
+                day=self.day1,
+                routine_id=1,
+            )
+            session.save()
+
+        # Assert
+        self.assertEqual(
+            self.routine.date_sequence,
+            [
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 1),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 2),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=3,
+                    date=datetime.date(2024, 1, 3),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=4,
+                    date=datetime.date(2024, 1, 4),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 5),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 6),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=5,
+                    date=datetime.date(2024, 1, 7),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 8),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 9),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=6,
+                    date=datetime.date(2024, 1, 10),
+                    label=None,
+                ),
+            ],
         )
 
 

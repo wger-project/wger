@@ -16,8 +16,6 @@ import requests
 # ]
 # ///
 
-# Run with "uv run generate_authors_api.py"
-
 ORGANIZATION = 'wger-project'
 REPOSITORIES = ['wger', 'flutter', 'react', 'docker', 'docs']
 COMMITS_PER_PAGE = 100

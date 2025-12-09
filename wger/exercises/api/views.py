@@ -20,10 +20,7 @@ from uuid import UUID
 # Django
 from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
-from django.db.models import (
-    Prefetch,
-    Q,
-)
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
@@ -331,6 +328,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     is the recommended way to access the exercise data.
     """
 
+    queryset = Exercise.objects.all()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_class = ExerciseFilterSet
@@ -344,32 +342,6 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
-
-    def get_queryset(self):
-        """
-        Optimize the queryset with select_related and prefetch_related to avoid
-        n+1 queries
-
-        One improvement is that we access the historical records of the exercise
-        from the django-simple-history package, which are not really prefetchable
-        since they are a manager.
-        """
-
-        return Exercise.objects.select_related(
-            'category',
-            'license',
-            'variations',
-        ).prefetch_related(
-            'muscles',
-            'muscles_secondary',
-            'equipment',
-            'exerciseimage_set',
-            'exercisevideo_set',
-            Prefetch(
-                'translations',
-                queryset=Translation.objects.prefetch_related('alias_set', 'exercisecomment_set'),
-            ),
-        )
 
 
 class ExerciseSubmissionViewSet(CreateAPIView):
