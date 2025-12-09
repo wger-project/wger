@@ -28,7 +28,6 @@ classifiers = [
 ]
 
 dependencies = [
-    "bleach[css]~=6.3",
     "celery[redis]~=5.5.3",
     "crispy-bootstrap5==2025.6",
     "django-activity-stream~=2.0.0",
@@ -58,6 +57,9 @@ dependencies = [
     "icalendar~=6.3.2",
     "invoke~=2.2.1",
     "lingua-language-detector~=2.1.1",
+    "markdownify~=1.2",
+    "markdown-it-py~=4.0",
+    "nh3~=0.3",
     "openfoodfacts~=3.3.0",
     "packaging~=25.0",
     "pillow~=12.0.0",

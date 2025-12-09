@@ -26,12 +26,13 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
-import bleach
+import nh3
 from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
 from wger.exercises.models import Exercise
+from wger.utils.markdown import render_markdown, sanitize_html
 from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -50,6 +51,13 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         validators=[MinLengthValidator(40)],
     )
     """Description on how to perform the exercise"""
+
+    description_source = models.TextField(
+        verbose_name=_('Description (Source)'),
+        blank=True, 
+        null=True
+    )
+    """The raw Markdown source"""
 
     name = models.CharField(
         max_length=200,
@@ -128,6 +136,9 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Reset all cached infos
         """
+        if self.description_source:
+            self.description = render_markdown(self.description_source)
+        
         super().save(*args, **kwargs)
 
         # Api cache
@@ -203,7 +214,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return the exercise description with all markup removed
         """
-        return bleach.clean(self.description, strip=True)
+        return sanitize_html(self.description)
 
     def get_owner_object(self):
         """
