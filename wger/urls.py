@@ -350,6 +350,11 @@ urlpatterns += [
     path('email/', include(email_urls)),
 ]
 
+if getattr(settings, "ENABLE_GOOGLE_LOGIN", False):
+        urlpatterns += [
+        path("accounts/", include("allauth.urls")),
+    ]
+
 #
 # URL for user uploaded files, served like this during development only
 #
