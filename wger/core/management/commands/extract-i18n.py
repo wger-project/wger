@@ -117,19 +117,20 @@ class Command(BaseCommand):
             /// in English and need to be translated here in the application (there are
             /// probably better ways to do this, but that's the way it is right now).
 
-            import 'package:flutter/widgets.dart';
-            import 'package:logging/logging.dart';
-            import 'package:wger/l10n/generated/app_localizations.dart';
+            import 'dart:developer';
 
-            String getServerStringTranslation(String value, BuildContext context) {
-                  final logger = Logger('getServerStringTranslation');
-                  final i18n = AppLocalizations.of(context);
+            import 'package:flutter/widgets.dart';
+            import 'package:wger/l10n/generated/app_localizations.dart';
+            import 'package:logging/logging.dart';
+
+            String getTranslation(String value, BuildContext context) {
+                  final logger = Logger('getTranslation');
 
                   switch (value) {"""
             for i in data:
                 out += f"""
                 case '{i}':
-                    return i18n.{cleanup_name(i.__str__())};
+                    return AppLocalizations.of(context).{cleanup_name(i.__str__())};
                 """
 
             out += """

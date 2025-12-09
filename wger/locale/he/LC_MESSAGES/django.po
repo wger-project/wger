@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-11-17 06:51+0000\n"
+"PO-Revision-Date: 2025-07-10 11:01+0000\n"
 "Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -79,7 +79,7 @@ msgstr "דואר אלקטרוני"
 
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "בשימוש עבור איפוס סיסמה וגם, באופן אופציונלי, לתזכורות בדואר האלקטרוני."
+msgstr ""
 
 #: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
@@ -143,7 +143,7 @@ msgstr "סיסמה שגויה"
 
 #: core/forms.py:271 core/forms.py:346
 msgid "The form is secured with reCAPTCHA"
-msgstr "טופס זה מאובטח באמצעות reCAPTCHA"
+msgstr ""
 
 #: core/forms.py:287 core/forms.py:309 core/templates/navigation.html:272
 #: core/templates/navigation.html:285 core/templates/template.html:150

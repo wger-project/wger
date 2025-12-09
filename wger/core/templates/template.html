@@ -53,6 +53,14 @@
         <link rel="stylesheet" type="text/css" href="{% static 'node/@wger-project/react-components/build/assets/index.css' %}" id="react-css">
     {% endcompress %}
 
+    {# this needs to be outside of the compress block! #}
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/react-simple-wysiwyg.css' %}"
+        id="react-css"
+    >
+
     <link rel="stylesheet" href="{% static 'css/language-menu.css' %}">
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">

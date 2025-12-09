@@ -27,7 +27,7 @@ from django.views.decorators.cache import cache_page
 # Third Party
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import (
     action,
     api_view,
@@ -51,6 +51,7 @@ from wger.nutrition.api.serializers import (
     NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
     WeightUnitSerializer,
+    FastingWindowSerializer,
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
@@ -62,6 +63,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
     WeightUnit,
+    FastingWindow,
 )
 from wger.utils.constants import (
     ENGLISH_SHORT_NAME,
@@ -143,15 +145,6 @@ class IngredientInfoViewSet(IngredientViewSet):
 
     serializer_class = IngredientInfoSerializer
 
-    def get_queryset(self):
-        """Optimize the queryset with select_related to avoid n+1 queries"""
-
-        return Ingredient.objects.select_related(
-            'language',
-            'license',
-            'image',
-        )
-
 
 @api_view(['GET'])
 def search(request):
@@ -220,6 +213,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for ingredient images
     """
 
+    queryset = Image.objects.all()
     serializer_class = IngredientImageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
@@ -227,11 +221,6 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-    def get_queryset(self):
-        """Optimize the queryset"""
-
-        return Image.objects.select_related('ingredient')
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -437,3 +426,26 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         return Response(
             LogItem.objects.get(pk=pk, plan__user=self.request.user).get_nutritional_values()
         )
+
+
+
+
+class FastingWindowViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for fasting windows.
+
+    - Only returns the current user's windows
+    - Requires authentication
+    """
+
+    serializer_class = FastingWindowSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return FastingWindow.objects.none()
+        return FastingWindow.objects.filter(user=user).order_by("-start")
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

@@ -30,6 +30,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
     WeightUnit,
+    FastingWindow,
 )
 
 
@@ -374,3 +375,23 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
             'goal_fiber',
             'meals',
         )
+class FastingWindowSerializer(serializers.ModelSerializer):
+    """
+    Fasting window serializer
+    """
+
+    duration_seconds = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = FastingWindow
+        fields = (
+            'id',
+            'start',
+            'end',
+            'goal_duration_minutes',
+            'note',
+            'created',
+            'updated',
+            'duration_seconds',
+        )
+        read_only_fields = ('id', 'created', 'updated', 'duration_seconds')

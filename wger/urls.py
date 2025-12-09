@@ -248,6 +248,11 @@ router.register(
     measurements_api_views.CategoryViewSet,
     basename='measurement-category',
 )
+router.register(
+    r'fastingwindow',
+    nutrition_api_views.FastingWindowViewSet,
+    basename='api-fastingwindow',
+)
 
 #
 # Sitemaps

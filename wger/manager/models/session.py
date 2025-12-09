@@ -24,7 +24,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.utils.cache import reset_workout_log_cache
+from wger.utils.cache import reset_workout_log
 
 
 class WorkoutSession(models.Model):
@@ -156,12 +156,12 @@ class WorkoutSession(models.Model):
         """
         Reset cache
         """
-        reset_workout_log_cache(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
         Reset cache
         """
-        reset_workout_log_cache(self.user_id, self.date.year, self.date.month)
+        reset_workout_log(self.user_id, self.date.year, self.date.month)
         super().delete(*args, **kwargs)

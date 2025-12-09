@@ -463,7 +463,10 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return None
 
         if not ingredient_data.name:
-            return None
+            return
+
+        if not ingredient_data.common_name:
+            return
 
         ingredient = cls(**ingredient_data.dict())
         ingredient.save()
