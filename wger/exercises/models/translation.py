@@ -136,8 +136,11 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Reset all cached infos
         """
+
         if self.description_source:
             self.description = render_markdown(self.description_source)
+        elif self.description:
+            self.description = sanitize_html(self.description)
         
         super().save(*args, **kwargs)
 
