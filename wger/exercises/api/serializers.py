@@ -487,7 +487,8 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             'language',
             'license_author',
         )
-    read_only_fields = ('description')  # Prevents API from accepting raw HTML
+
+    read_only_fields = 'description'  # Prevents API from accepting raw HTML
 
     def validate(self, value):
         """

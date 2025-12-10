@@ -31,17 +31,13 @@ class TestMigrateDescriptionsCommand(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.translation = Translation.objects.get(pk=1)
-        
+
         self.raw_html = (
-            "<p>This is <b>bold</b> and <i>italic</i>.</p>"
-            "<ul><li>Item 1</li><li>Item 2</li></ul>"
+            '<p>This is <b>bold</b> and <i>italic</i>.</p><ul><li>Item 1</li><li>Item 2</li></ul>'
         )
-        
+
         # Set to Legacy State (no markdown).
-        Translation.objects.filter(pk=1).update(
-            description=self.raw_html,
-            description_source=None
-        )
+        Translation.objects.filter(pk=1).update(description=self.raw_html, description_source=None)
         self.translation.refresh_from_db()
 
     def test_migration_command(self):
@@ -53,21 +49,20 @@ class TestMigrateDescriptionsCommand(WgerTestCase):
         call_command('migrate_descriptions_to_markdown', stdout=out)
 
         self.translation.refresh_from_db()
-        
+
         src = self.translation.description_source
         self.assertIsNotNone(src)
-        self.assertTrue("**bold**" in src or "__bold__" in src)  # Markdownify config dependant 
-        self.assertTrue("*italic*" in src or "_italic_" in src)
-        self.assertIn("* Item 1", src)
-        self.assertIn("* Item 2", src)
+        self.assertTrue('**bold**' in src or '__bold__' in src)  # Markdownify config dependant
+        self.assertTrue('*italic*' in src or '_italic_' in src)
+        self.assertIn('* Item 1', src)
+        self.assertIn('* Item 2', src)
 
         desc = self.translation.description
-        self.assertIn("<strong>bold</strong>", desc)
-        self.assertIn("<em>italic</em>", desc)
-        self.assertIn("<ul>", desc)
-        self.assertIn("<li>Item 1</li>", desc)
-        self.assertIn("<p>", desc)
-    
+        self.assertIn('<strong>bold</strong>', desc)
+        self.assertIn('<em>italic</em>', desc)
+        self.assertIn('<ul>', desc)
+        self.assertIn('<li>Item 1</li>', desc)
+        self.assertIn('<p>', desc)
 
     def test_dry_run(self):
         """
@@ -76,9 +71,9 @@ class TestMigrateDescriptionsCommand(WgerTestCase):
 
         out = StringIO()
         call_command('migrate_descriptions_to_markdown', '--dry-run', stdout=out)
-        
+
         self.translation.refresh_from_db()
-        
+
         self.assertIsNone(self.translation.description_source)
-        self.assertIn("[Dry Run]", out.getvalue())
+        self.assertIn('[Dry Run]', out.getvalue())
         self.assertEqual(self.translation.description, self.raw_html)

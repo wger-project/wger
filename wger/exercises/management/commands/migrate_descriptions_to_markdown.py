@@ -51,15 +51,14 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         dry_run = options['dry_run']
-        
+
         # Filter: Has description, but NO source (to avoid re-migrating).
         translations_to_migrate = Translation.objects.filter(
-            Q(description_source__isnull=True) | Q(description_source=''),
-            description__isnull=False
+            Q(description_source__isnull=True) | Q(description_source=''), description__isnull=False
         ).exclude(description='')
 
         total = translations_to_migrate.count()
-        self.stdout.write(f"Found {total} translations to migrate.")
+        self.stdout.write(f'Found {total} translations to migrate.')
 
         count = 0
         errors = 0
@@ -67,34 +66,34 @@ class Command(BaseCommand):
         for trans in translations_to_migrate:
             try:
                 # ATX to ensure # headings instead of underlined headings.
-                md_source = markdownify(trans.description, heading_style="ATX")
+                md_source = markdownify(trans.description, heading_style='ATX')
 
                 if dry_run:
                     self.stdout.write(
-                        f"[Dry Run] ID {trans.id}: "
-                        f"converted length {len(trans.description)} -> {len(md_source)}"
-                        )
+                        f'[Dry Run] ID {trans.id}: '
+                        f'converted length {len(trans.description)} -> {len(md_source)}'
+                    )
                 else:
                     trans.description_source = md_source
-                    
+
                     # save() triggers:
                     # description = render_markdown(description_source)
                     # To ensure a clean HTML cache.
                     trans.save()
-                
+
                 count += 1
-                
+
                 if count % 100 == 0:
-                    self.stdout.write(f"Processed {count}/{total}...")
+                    self.stdout.write(f'Processed {count}/{total}...')
 
             except Exception as e:
                 errors += 1
-                self.stdout.write(self.style.ERROR(f"Error converting ID {trans.id}: {e}"))
+                self.stdout.write(self.style.ERROR(f'Error converting ID {trans.id}: {e}'))
 
-        success_msg = f"Successfully migrated {count} descriptions."
+        success_msg = f'Successfully migrated {count} descriptions.'
         if dry_run:
-            success_msg += " (Dry Run)"
-        
+            success_msg += ' (Dry Run)'
+
         self.stdout.write(self.style.SUCCESS(success_msg))
         if errors > 0:
-            self.stdout.write(self.style.WARNING(f"Finished with {errors} errors."))
+            self.stdout.write(self.style.WARNING(f'Finished with {errors} errors.'))

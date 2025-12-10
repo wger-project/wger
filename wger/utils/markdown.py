@@ -14,38 +14,37 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 # Third party
 import nh3
 from markdown_it import MarkdownIt
+
 
 def render_markdown(text):
     """
     Renders markdown text to HTML and sanitizes it to allow only basic markup.
     """
     if not text:
-        return ""
+        return ''
 
     # Render Markdown to HTML
-    md = MarkdownIt("commonmark", {"breaks": True, "html": True})
+    md = MarkdownIt('commonmark', {'breaks': True, 'html': True})
     raw_html = md.render(text)
 
     # Sanitize HTML
     ALLOWED_TAGS = {'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
 
-    clean_html = nh3.clean(
-        raw_html,
-        tags=ALLOWED_TAGS,
-        attributes={}
-    )
+    clean_html = nh3.clean(raw_html, tags=ALLOWED_TAGS, attributes={})
 
     return clean_html
+
 
 def sanitize_html(text):
     """
     Directly sanitizes HTML (for legacy fields or non-markdown inputs)
     """
     if not text:
-        return ""
-        
+        return ''
+
     ALLOWED_TAGS = {'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
     return nh3.clean(text, tags=ALLOWED_TAGS, attributes={})

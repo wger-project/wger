@@ -171,7 +171,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        
+
         super().perform_create(serializer)
 
         actstream_action.send(
@@ -193,7 +193,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
             del serializer.validated_data['language']
 
         super().perform_update(serializer)
-        
+
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,

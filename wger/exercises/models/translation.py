@@ -32,8 +32,11 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.core.models import Language
 from wger.exercises.models import Exercise
-from wger.utils.markdown import render_markdown, sanitize_html
 from wger.utils.cache import reset_exercise_api_cache
+from wger.utils.markdown import (
+    render_markdown,
+    sanitize_html,
+)
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -53,9 +56,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """Description on how to perform the exercise"""
 
     description_source = models.TextField(
-        verbose_name=_('Description (Source)'),
-        blank=True, 
-        null=True
+        verbose_name=_('Description (Source)'), blank=True, null=True
     )
     """The raw Markdown source"""
 
@@ -141,7 +142,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             self.description = render_markdown(self.description_source)
         elif self.description:
             self.description = sanitize_html(self.description)
-        
+
         super().save(*args, **kwargs)
 
         # Api cache

@@ -33,9 +33,9 @@ class TestMarkdown(unittest.TestCase):
         Test that basic markdown syntax is rendered to HTML.
         """
         # Bold and Italic
-        text = "I like **osaka** and eating *sata-andagi*."
+        text = 'I like **osaka** and eating *sata-andagi*.'
         output = render_markdown(text)
-        
+
         self.assertTrue('<strong>osaka</strong>' in output or '<b>osaka</b>' in output)
         self.assertTrue('<em>sata-andagi</em>' in output or '<i>sata-andagi</i>' in output)
         self.assertIn('<p>', output)
@@ -44,9 +44,9 @@ class TestMarkdown(unittest.TestCase):
         """
         Test that lists are rendered correctly.
         """
-        text = "- Item 1\n- Item 2"
+        text = '- Item 1\n- Item 2'
         output = render_markdown(text)
-        
+
         self.assertIn('<ul>', output)
         self.assertIn('<li>Item 1</li>', output)
         self.assertIn('<li>Item 2</li>', output)
@@ -57,16 +57,16 @@ class TestMarkdown(unittest.TestCase):
         results in the tag being stripped.
         """
         # Heading 1 (<h1> is not allowed)
-        text = "# Big Title"
+        text = '# Big Title'
         output = render_markdown(text)
-        
+
         self.assertNotIn('<h1>', output)
         self.assertIn('Big Title', output)  # Content remains, tag is removed
 
         # Image (<img> is not allowed)
-        text = "![Alt text](http://example.com/img.jpg)"
+        text = '![Alt text](http://example.com/img.jpg)'
         output = render_markdown(text)
-        
+
         self.assertNotIn('<img', output)
 
     def test_render_markdown_xss_prevention(self):
@@ -76,14 +76,14 @@ class TestMarkdown(unittest.TestCase):
         # Script injection via Markdown/HTML mix
         text = "Hello <script>alert('XSS')</script>"
         output = render_markdown(text)
-        
+
         self.assertNotIn('<script>', output)
         self.assertNotIn('alert', output)
 
         # Dangerous attributes
         text = '<p onclick="maliciousCode()">Click me</p>'
         output = render_markdown(text)
-        
+
         self.assertNotIn('onclick', output)
         self.assertIn('<p>Click me</p>', output)
 
@@ -95,17 +95,17 @@ class TestMarkdown(unittest.TestCase):
         output = sanitize_html(html)
 
         self.assertIn('<b>Bold</b>', output)
-        self.assertNotIn('<a href', output) # Links are not in the allowed list
-        self.assertIn('Link', output) # Content usually preserved
+        self.assertNotIn('<a href', output)  # Links are not in the allowed list
+        self.assertIn('Link', output)  # Content usually preserved
 
     def test_empty_inputs(self):
         """
         Test handling of None or empty strings.
         """
-        self.assertEqual(render_markdown(None), "")
-        self.assertEqual(render_markdown(""), "")
-        self.assertEqual(sanitize_html(None), "")
-        self.assertEqual(sanitize_html(""), "")
+        self.assertEqual(render_markdown(None), '')
+        self.assertEqual(render_markdown(''), '')
+        self.assertEqual(sanitize_html(None), '')
+        self.assertEqual(sanitize_html(''), '')
 
 
 if __name__ == '__main__':
