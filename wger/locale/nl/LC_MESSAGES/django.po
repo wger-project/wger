@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-12-03 18:00+0000\n"
+"PO-Revision-Date: 2025-12-13 15:00+0000\n"
 "Last-Translator: Floris C <floris.contactmail@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
@@ -468,12 +468,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Terug naar \"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -481,9 +476,10 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Je bezoekt \n"
-"    de website als gebruiker \"%(current_user)s\", alle acties worden "
-"uitgevoerd op eigen data\n"
+"Je bezoekt\n"
+"\n"
+"                                     de website als gebruiker \"%"
+"(current_user)s\", alle acties worden uitgevoerd op eigen data\n"
 "            "
 
 #: core/templates/base_wide.html:12
@@ -624,7 +620,7 @@ msgstr "Training"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "Routines"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
@@ -661,9 +657,8 @@ msgid "Administration"
 msgstr "Administratie"
 
 #: core/templates/navigation.html:106
-#, fuzzy
 msgid "Exercise edit history"
-msgstr "Oefeningdag"
+msgstr "Oefeningswijzigings geschiedenis"
 
 #: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
