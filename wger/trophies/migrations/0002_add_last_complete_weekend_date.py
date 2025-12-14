@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('trophies', '0001_initial'),
     ]
@@ -13,6 +12,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userstatistics',
             name='last_complete_weekend_date',
-            field=models.DateField(blank=True, help_text='Date of the last Saturday where both Sat and Sun had workouts', null=True, verbose_name='Last complete weekend date'),
+            field=models.DateField(
+                blank=True,
+                help_text='Date of the last Saturday where both Sat and Sun had workouts',
+                null=True,
+                verbose_name='Last complete weekend date',
+            ),
         ),
     ]

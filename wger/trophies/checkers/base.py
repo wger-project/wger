@@ -56,7 +56,9 @@ class BaseTrophyChecker(ABC):
         Lazy-load the user's statistics.
         """
         if self._statistics is None:
+            # wger
             from wger.trophies.models import UserStatistics
+
             self._statistics, _ = UserStatistics.objects.get_or_create(user=self.user)
         return self._statistics
 

@@ -44,7 +44,9 @@ class TrophyIntegrationTestCase(WgerTestCase):
         self.user = User.objects.get(username='admin')
 
         # Set recent login to avoid being skipped by should_skip_user
+        # Django
         from django.utils import timezone
+
         self.user.last_login = timezone.now()
         self.user.save()
 
@@ -85,7 +87,9 @@ class TrophyIntegrationTestCase(WgerTestCase):
     def test_first_workout_earns_beginner_trophy(self):
         """Test that completing first workout earns Beginner trophy"""
         # Create user statistics
-        stats, _ = UserStatistics.objects.get_or_create(user=self.user, defaults={'total_workouts': 0})
+        stats, _ = UserStatistics.objects.get_or_create(
+            user=self.user, defaults={'total_workouts': 0}
+        )
 
         # Verify no trophies earned yet
         self.assertEqual(UserTrophy.objects.filter(user=self.user).count(), 0)
@@ -109,7 +113,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
             defaults={
                 'total_workouts': 10,
                 'total_weight_lifted': Decimal('4999'),
-            }
+            },
         )
 
         # Evaluate - should not earn yet
@@ -137,7 +141,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
                 'total_workouts': 30,
                 'current_streak': 29,
                 'last_workout_date': datetime.date.today(),
-            }
+            },
         )
 
         # Evaluate - should not earn yet (only 29 days)
@@ -165,7 +169,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
                 'total_workouts': 1,  # Qualifies for Beginner
                 'total_weight_lifted': Decimal('5000'),  # Qualifies for Lifter
                 'current_streak': 30,  # Qualifies for Unstoppable
-            }
+            },
         )
 
         # Evaluate all trophies
@@ -186,7 +190,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
             user=self.user,
             defaults={
                 'total_weight_lifted': Decimal('2500'),  # 50% of 5000kg
-            }
+            },
         )
 
         # Get progress for all trophies
@@ -194,8 +198,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
 
         # Find Lifter trophy progress
         lifter_progress = next(
-            (p for p in progress_list if p['trophy'].id == self.lifter_trophy.id),
-            None
+            (p for p in progress_list if p['trophy'].id == self.lifter_trophy.id), None
         )
 
         self.assertIsNotNone(lifter_progress)
@@ -211,7 +214,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
             user=self.user,
             defaults={
                 'total_workouts': 1,
-            }
+            },
         )
 
         # Evaluate and earn Beginner trophy
@@ -227,7 +230,9 @@ class TrophyIntegrationTestCase(WgerTestCase):
 
         # Should not award Beginner again (already earned)
         self.assertEqual(len(awarded2), 0)
-        self.assertEqual(UserTrophy.objects.filter(user=self.user, trophy=self.beginner_trophy).count(), 1)
+        self.assertEqual(
+            UserTrophy.objects.filter(user=self.user, trophy=self.beginner_trophy).count(), 1
+        )
 
     def test_statistics_service_updates_correctly(self):
         """Test that statistics service updates all fields correctly"""
@@ -277,7 +282,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
             user=self.user,
             defaults={
                 'total_workouts': 1,
-            }
+            },
         )
 
         # Deactivate the Beginner trophy
@@ -300,7 +305,9 @@ class TrophyIntegrationTestCase(WgerTestCase):
         UserStatistics.objects.get_or_create(user=user2, defaults={'total_workouts': 1})
 
         # Set recent login for both
+        # Django
         from django.utils import timezone
+
         self.user.last_login = timezone.now()
         self.user.save()
         user2.last_login = timezone.now()
@@ -314,7 +321,9 @@ class TrophyIntegrationTestCase(WgerTestCase):
         self.assertEqual(results['trophies_awarded'], 2)
 
         # Verify both users have the trophy
-        self.assertTrue(UserTrophy.objects.filter(user=self.user, trophy=self.beginner_trophy).exists())
+        self.assertTrue(
+            UserTrophy.objects.filter(user=self.user, trophy=self.beginner_trophy).exists()
+        )
         self.assertTrue(UserTrophy.objects.filter(user=user2, trophy=self.beginner_trophy).exists())
 
     def test_complete_user_journey(self):
@@ -327,7 +336,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
                 'total_weight_lifted': Decimal('100'),
                 'current_streak': 1,
                 'last_workout_date': datetime.date.today(),
-            }
+            },
         )
 
         awarded = TrophyService.evaluate_all_trophies(self.user)

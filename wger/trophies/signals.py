@@ -53,8 +53,11 @@ def _trigger_trophy_evaluation(user_id: int):
         evaluate_user_trophies_task.delay(user_id)
     except Exception:
         # Celery not available - evaluate synchronously
-        from wger.trophies.services import TrophyService
+        # Django
         from django.contrib.auth.models import User
+
+        # wger
+        from wger.trophies.services import TrophyService
 
         try:
             user = User.objects.get(id=user_id)
@@ -107,7 +110,10 @@ def workout_log_deleted(sender, instance, **kwargs):
     try:
         UserStatisticsService.handle_workout_deletion(instance.user)
     except Exception as e:
-        logger.error(f'Error updating statistics after deletion for user {instance.user_id}: {e}', exc_info=True)
+        logger.error(
+            f'Error updating statistics after deletion for user {instance.user_id}: {e}',
+            exc_info=True,
+        )
 
 
 @receiver(post_save, sender=WorkoutSession)
@@ -155,4 +161,7 @@ def workout_session_deleted(sender, instance, **kwargs):
     try:
         UserStatisticsService.handle_workout_deletion(instance.user)
     except Exception as e:
-        logger.error(f'Error updating statistics after session deletion for user {instance.user_id}: {e}', exc_info=True)
+        logger.error(
+            f'Error updating statistics after session deletion for user {instance.user_id}: {e}',
+            exc_info=True,
+        )

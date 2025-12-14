@@ -88,7 +88,7 @@ class TrophyViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset.filter(is_hidden=False)
 
     @extend_schema(
-        summary="Get trophy progress",
+        summary='Get trophy progress',
         description="""
         Return all trophies with progress information for the current user.
 

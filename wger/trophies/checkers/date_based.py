@@ -68,7 +68,9 @@ class DateBasedChecker(BaseTrophyChecker):
 
         # For other dates, we need to query the workout sessions
         # This is done in the statistics service when updating
+        # wger
         from wger.manager.models import WorkoutSession
+
         return WorkoutSession.objects.filter(
             user=self.user,
             date__month=month,
@@ -92,7 +94,9 @@ class DateBasedChecker(BaseTrophyChecker):
             return 'N/A'
 
         # Convert to month name
+        # Standard Library
         import calendar
+
         month_name = calendar.month_name[month]
         return f'{month_name} {day}'
 

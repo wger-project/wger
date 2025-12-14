@@ -200,7 +200,10 @@ class UserStatisticsService:
 
         # Update workout times if session has time info
         if session and session.time_start:
-            if stats.earliest_workout_time is None or session.time_start < stats.earliest_workout_time:
+            if (
+                stats.earliest_workout_time is None
+                or session.time_start < stats.earliest_workout_time
+            ):
                 stats.earliest_workout_time = session.time_start
             if stats.latest_workout_time is None or session.time_start > stats.latest_workout_time:
                 stats.latest_workout_time = session.time_start
@@ -413,12 +416,8 @@ class UserStatisticsService:
         sunday = saturday + datetime.timedelta(days=1)
 
         # Check if both days have workouts
-        has_saturday = WorkoutSession.objects.filter(
-            user=stats.user, date=saturday
-        ).exists()
-        has_sunday = WorkoutSession.objects.filter(
-            user=stats.user, date=sunday
-        ).exists()
+        has_saturday = WorkoutSession.objects.filter(user=stats.user, date=saturday).exists()
+        has_sunday = WorkoutSession.objects.filter(user=stats.user, date=sunday).exists()
 
         if has_saturday and has_sunday:
             # This weekend is complete

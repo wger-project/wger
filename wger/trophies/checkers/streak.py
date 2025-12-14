@@ -45,10 +45,7 @@ class StreakChecker(BaseTrophyChecker):
             return False
         # Check both current streak and longest streak (in case they achieved it before)
         target = self.get_target_value()
-        return (
-            self.statistics.current_streak >= target
-            or self.statistics.longest_streak >= target
-        )
+        return self.statistics.current_streak >= target or self.statistics.longest_streak >= target
 
     def get_progress(self) -> float:
         """Get progress as percentage of streak achieved."""

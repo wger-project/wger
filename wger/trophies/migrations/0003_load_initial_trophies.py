@@ -148,7 +148,6 @@ def reverse_load_trophies(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('trophies', '0002_add_last_complete_weekend_date'),
     ]

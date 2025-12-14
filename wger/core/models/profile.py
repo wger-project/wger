@@ -39,6 +39,7 @@ from wger.utils.units import (
     AbstractWeight,
 )
 from wger.weight.models import WeightEntry
+
 # Local
 from .language import Language
 

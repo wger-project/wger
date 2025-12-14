@@ -75,9 +75,7 @@ class Command(BaseCommand):
 
         # Validate that at least one option is provided
         if not username and not recalculate_all:
-            raise CommandError(
-                'Please specify --user or --all. See help for details.'
-            )
+            raise CommandError('Please specify --user or --all. See help for details.')
 
         # Case 1: Recalculate for a specific user
         if username:
@@ -104,9 +102,7 @@ class Command(BaseCommand):
                 )
 
             if verbosity >= 1:
-                self.stdout.write(
-                    self.style.SUCCESS(f'\nRecalculation complete for {username}')
-                )
+                self.stdout.write(self.style.SUCCESS(f'\nRecalculation complete for {username}'))
 
         # Case 2: Recalculate for all users
         elif recalculate_all:
@@ -138,9 +134,7 @@ class Command(BaseCommand):
                     processed += 1
 
                     if verbosity >= 2:
-                        self.stdout.write(
-                            self.style.SUCCESS(f'✓ Processed: {user.username}')
-                        )
+                        self.stdout.write(self.style.SUCCESS(f'✓ Processed: {user.username}'))
                     elif verbosity >= 1 and processed % 100 == 0:
                         self.stdout.write(f'  Processed {processed}/{total_users} users...')
 
@@ -148,9 +142,7 @@ class Command(BaseCommand):
                     errors += 1
                     if verbosity >= 1:
                         self.stdout.write(
-                            self.style.ERROR(
-                                f'✗ Error processing {user.username}: {str(e)}'
-                            )
+                            self.style.ERROR(f'✗ Error processing {user.username}: {str(e)}')
                         )
 
             if verbosity >= 1:

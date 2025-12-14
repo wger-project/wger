@@ -25,6 +25,7 @@ from django.contrib.sitemaps.views import (
     sitemap,
 )
 from django.urls import path
+
 # Third Party
 from django_email_verification import urls as email_urls
 from drf_spectacular.views import (

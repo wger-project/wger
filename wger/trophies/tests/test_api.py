@@ -123,7 +123,14 @@ class TrophyAPITestCase(WgerTestCase):
         data = response.json()
 
         # Check all expected fields are present
-        expected_fields = ['id', 'name', 'description', 'trophy_type', 'is_hidden', 'is_progressive']
+        expected_fields = [
+            'id',
+            'name',
+            'description',
+            'trophy_type',
+            'is_hidden',
+            'is_progressive',
+        ]
         for field in expected_fields:
             self.assertIn(field, data)
 
@@ -157,7 +164,9 @@ class TrophyAPITestCase(WgerTestCase):
         )
 
         # Should not be allowed
-        self.assertIn(response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED])
+        self.assertIn(
+            response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED]
+        )
 
 
 class UserTrophyAPITestCase(WgerTestCase):
@@ -223,7 +232,7 @@ class UserTrophyAPITestCase(WgerTestCase):
             defaults={
                 'total_workouts': 1,
                 'total_weight_lifted': Decimal('2500'),
-            }
+            },
         )
 
     def test_list_user_trophies_authenticated(self):
@@ -239,7 +248,9 @@ class UserTrophyAPITestCase(WgerTestCase):
         self.client.logout()
         response = self.client.get(reverse('user-trophy-list'))
 
-        self.assertIn(response.status_code, [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN])
+        self.assertIn(
+            response.status_code, [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN]
+        )
 
     def test_user_only_sees_own_trophies(self):
         """Test users only see their own earned trophies"""
@@ -369,7 +380,9 @@ class UserTrophyAPITestCase(WgerTestCase):
         )
 
         # Should not be allowed
-        self.assertIn(response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED])
+        self.assertIn(
+            response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_405_METHOD_NOT_ALLOWED]
+        )
 
     def test_trophy_progress_display_format(self):
         """Test progress display includes current and target values"""

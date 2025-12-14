@@ -73,7 +73,9 @@ class TrophyService:
 
         # Get all active trophies the user hasn't earned
         earned_trophy_ids = UserTrophy.objects.filter(user=user).values_list('trophy_id', flat=True)
-        unevaluated_trophies = Trophy.objects.filter(is_active=True).exclude(id__in=earned_trophy_ids)
+        unevaluated_trophies = Trophy.objects.filter(is_active=True).exclude(
+            id__in=earned_trophy_ids
+        )
 
         awarded = []
         for trophy in unevaluated_trophies:
@@ -115,7 +117,9 @@ class TrophyService:
             if checker.check():
                 return cls.award_trophy(user, trophy, progress=100.0)
         except Exception as e:
-            logger.error(f'Error checking trophy {trophy.name} for user {user.id}: {e}', exc_info=True)
+            logger.error(
+                f'Error checking trophy {trophy.name} for user {user.id}: {e}', exc_info=True
+            )
 
         return None
 
@@ -157,9 +161,7 @@ class TrophyService:
             List of UserTrophy instances
         """
         return list(
-            UserTrophy.objects.filter(user=user)
-            .select_related('trophy')
-            .order_by('-earned_at')
+            UserTrophy.objects.filter(user=user).select_related('trophy').order_by('-earned_at')
         )
 
     @classmethod
@@ -184,8 +186,7 @@ class TrophyService:
 
         # Get user's earned trophies
         earned = {
-            ut.trophy_id: ut
-            for ut in UserTrophy.objects.filter(user=user).select_related('trophy')
+            ut.trophy_id: ut for ut in UserTrophy.objects.filter(user=user).select_related('trophy')
         }
 
         for trophy in trophies:

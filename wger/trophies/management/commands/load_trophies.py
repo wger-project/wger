@@ -163,25 +163,19 @@ class Command(BaseCommand):
                     updated_count += 1
 
                     if verbosity >= 2:
-                        self.stdout.write(
-                            self.style.SUCCESS(f'✓ Updated trophy: {name}')
-                        )
+                        self.stdout.write(self.style.SUCCESS(f'✓ Updated trophy: {name}'))
                 else:
                     skipped_count += 1
 
                     if verbosity >= 2:
-                        self.stdout.write(
-                            self.style.WARNING(f'- Skipped existing trophy: {name}')
-                        )
+                        self.stdout.write(self.style.WARNING(f'- Skipped existing trophy: {name}'))
             else:
                 # Create new trophy
                 Trophy.objects.create(**trophy_data)
                 created_count += 1
 
                 if verbosity >= 2:
-                    self.stdout.write(
-                        self.style.SUCCESS(f'+ Created trophy: {name}')
-                    )
+                    self.stdout.write(self.style.SUCCESS(f'+ Created trophy: {name}'))
 
         # Summary
         if verbosity >= 1:

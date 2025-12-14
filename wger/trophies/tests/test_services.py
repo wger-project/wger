@@ -62,7 +62,9 @@ class UserStatisticsServiceTestCase(WgerTestCase):
 
     def test_get_or_create_returns_existing(self):
         """Test get_or_create returns existing statistics"""
-        existing, _ = UserStatistics.objects.get_or_create(user=self.user, defaults={'total_workouts': 5})
+        existing, _ = UserStatistics.objects.get_or_create(
+            user=self.user, defaults={'total_workouts': 5}
+        )
 
         stats = UserStatisticsService.get_or_create_statistics(self.user)
 
@@ -94,7 +96,7 @@ class UserStatisticsServiceTestCase(WgerTestCase):
             defaults={
                 'total_workouts': 10,
                 'total_weight_lifted': Decimal('5000'),
-            }
+            },
         )
 
         stats = UserStatisticsService.handle_workout_deletion(self.user)
@@ -258,8 +260,7 @@ class TrophyServiceTestCase(WgerTestCase):
 
         # Find the progressive trophy in the list
         prog_trophy_data = next(
-            (p for p in progress_list if p['trophy'].id == progressive_trophy.id),
-            None
+            (p for p in progress_list if p['trophy'].id == progressive_trophy.id), None
         )
         self.assertIsNotNone(prog_trophy_data)
         self.assertEqual(prog_trophy_data['progress'], 50.0)

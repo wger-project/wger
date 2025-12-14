@@ -79,9 +79,7 @@ class Command(BaseCommand):
 
         # Validate that at least one option is provided
         if not username and not trophy_id and not evaluate_all:
-            raise CommandError(
-                'Please specify --user, --trophy, or --all. See help for details.'
-            )
+            raise CommandError('Please specify --user, --trophy, or --all. See help for details.')
 
         # Case 1: Evaluate for a specific user
         if username:
@@ -105,9 +103,7 @@ class Command(BaseCommand):
 
             if verbosity >= 1:
                 self.stdout.write(
-                    self.style.SUCCESS(
-                        f'\nEvaluation complete: {len(awarded)} trophy(ies) awarded'
-                    )
+                    self.style.SUCCESS(f'\nEvaluation complete: {len(awarded)} trophy(ies) awarded')
                 )
 
         # Case 2: Evaluate a specific trophy for all users (or force re-evaluation)
@@ -120,9 +116,7 @@ class Command(BaseCommand):
                     trophy_ids = [trophy_id]
 
                     if verbosity >= 1:
-                        self.stdout.write(
-                            f'Evaluating trophy "{trophy.name}" for all users'
-                        )
+                        self.stdout.write(f'Evaluating trophy "{trophy.name}" for all users')
                 except Trophy.DoesNotExist:
                     raise CommandError(f'Trophy with ID {trophy_id} does not exist')
             else:
