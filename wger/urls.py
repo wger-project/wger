@@ -25,7 +25,6 @@ from django.contrib.sitemaps.views import (
     sitemap,
 )
 from django.urls import path
-
 # Third Party
 from django_email_verification import urls as email_urls
 from drf_spectacular.views import (
@@ -48,7 +47,7 @@ from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
-from wger.trophies.api import views as trophies_api_views
+# from wger.trophies.api import views as trophies_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -251,13 +250,13 @@ router.register(
 )
 
 # Trophies app
-router.register(r'trophy', trophies_api_views.TrophyViewSet, basename='trophy')
-router.register(r'user-trophy', trophies_api_views.UserTrophyViewSet, basename='user-trophy')
-router.register(
-    r'user-statistics',
-    trophies_api_views.UserStatisticsViewSet,
-    basename='user-statistics',
-)
+# router.register(r'trophy', trophies_api_views.TrophyViewSet, basename='trophy')
+# router.register(r'user-trophy', trophies_api_views.UserTrophyViewSet, basename='user-trophy')
+# router.register(
+#     r'user-statistics',
+#     trophies_api_views.UserStatisticsViewSet,
+#     basename='user-statistics',
+# )
 
 #
 # Sitemaps
