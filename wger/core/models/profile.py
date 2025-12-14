@@ -39,7 +39,6 @@ from wger.utils.units import (
     AbstractWeight,
 )
 from wger.weight.models import WeightEntry
-
 # Local
 from .language import Language
 
@@ -373,6 +372,13 @@ by the US Department of Agriculture. It is extremely complete, with around
     Flag to indicate whether the (app) user can register other users on his
     behalf over the REST API
     """
+
+    # trophies_enabled = models.BooleanField(
+    #     default=True,
+    #     verbose_name=_('Enable trophies'),
+    #     help_text=_('Enable or disable the trophy system for this user'),
+    # )
+    # """Flag to enable or disable trophies for this user"""
 
     @property
     def is_trustworthy(self) -> bool:
