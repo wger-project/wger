@@ -293,8 +293,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'User trophy',
                 'verbose_name_plural': 'User trophies',
-                'ordering': ['-earned_at'],
-                'unique_together': {('user', 'trophy')},
+                'ordering': ['-earned_at']
             },
         ),
     ]

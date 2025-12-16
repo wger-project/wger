@@ -20,7 +20,7 @@ from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
 )
-from django.db import models
+from django.db import IntegrityError, models
 from django.utils.translation import gettext_lazy as _
 
 # Local
@@ -70,11 +70,19 @@ class UserTrophy(models.Model):
     )
     """Whether the user has been notified about this trophy (for future notification system)"""
 
+    context_data = models.JSONField(
+        blank=True,
+        null=True,
+        default=None,
+        verbose_name=_('Context data'),
+        help_text=_('Additional information concerning this trophy'),
+    )
+    """Additional information concerning this trophy (useful for repeatable trophies)"""
+
     class Meta:
         ordering = ['-earned_at']
         verbose_name = _('User trophy')
         verbose_name_plural = _('User trophies')
-        unique_together = [['user', 'trophy']]
 
     def __str__(self):
         return f'{self.user.username} - {self.trophy.name}'
@@ -84,3 +92,11 @@ class UserTrophy(models.Model):
         Returns the object that has owner information
         """
         return self
+
+    def save(self, *args, **kwargs):
+        # Prevent duplicate non-repeatable trophies (allow more than one if trophy.is_repeatable)
+        if not self.trophy.is_repeatable and UserTrophy.objects.filter(
+            user=self.user, trophy=self.trophy
+        ).exclude(pk=self.pk).exists():
+            raise IntegrityError('User already has this non-repeatable trophy')
+        super().save(*args, **kwargs)

@@ -54,6 +54,7 @@ Defines an achievement that users can earn.
 - `is_hidden`: Hidden until earned
 - `is_progressive`: Shows progress percentage
 - `is_active`: Can be earned (admins can disable)
+- `is_repeatable`: Can be earned multiple times
 - `order`: Display order
 
 ### UserTrophy
@@ -66,6 +67,7 @@ Links users to their earned trophies.
 - `earned_at`: Timestamp when earned
 - `progress`: Progress percentage (0-100)
 - `is_notified`: For future notification system
+- `context_data`: Additionnal information on the trophy
 
 ### UserStatistics
 

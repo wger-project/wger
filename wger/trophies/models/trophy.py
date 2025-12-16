@@ -126,6 +126,13 @@ class Trophy(models.Model):
     )
     """Whether the trophy is active and can be earned"""
 
+    is_repeatable = models.BooleanField(
+        default=False,
+        verbose_name=_('Repeatable'),
+        help_text=_('If true, this trophy can be earned multiple times'),
+    )
+    """Whether the trophy can be earned multiple times"""
+
     order = models.PositiveIntegerField(
         default=0,
         verbose_name=_('Order'),

@@ -63,6 +63,16 @@ class TrophyModelTestCase(WgerTestCase):
         self.assertEqual(trophy.order, 0)
         self.assertEqual(trophy.description, '')
 
+    def test_is_repeatable_defaults_to_false(self):
+        """Test the is_repeatable field defaults to False"""
+        trophy = Trophy.objects.create(
+            name='Repeatable Test Trophy',
+            trophy_type=Trophy.TYPE_OTHER,
+            checker_class='personal_record',
+        )
+
+        self.assertFalse(trophy.is_repeatable)
+
     def test_trophy_str(self):
         """Test trophy string representation"""
         trophy = Trophy.objects.create(
@@ -192,6 +202,53 @@ class UserTrophyModelTestCase(WgerTestCase):
                 user=self.user,
                 trophy=self.trophy,
             )
+
+    def test_repeatable_trophy_earned_twice(self):
+        """Test a user can earn the same repeatable trophy twice"""
+        repeatable_trophy = Trophy.objects.create(
+            name='Repeatable Test', 
+            trophy_type=Trophy.TYPE_OTHER, 
+            checker_class='personal_record',
+            is_repeatable=True
+        )
+        
+        user_trophy_1 = UserTrophy.objects.create(
+            user=self.user,
+            trophy=repeatable_trophy,
+            context_data={"weight":100, "unit":"kg"}
+        )
+
+        user_trophy_2 = UserTrophy.objects.create(
+            user=self.user,
+            trophy=repeatable_trophy,
+            context_data={"weight":110, "unit":"kg"}
+        )
+
+        self.assertNotEquals(user_trophy_1, user_trophy_2)
+        self.assertEqual(UserTrophy.objects.filter(trophy=repeatable_trophy).count(), 2)
+
+
+    def test_context_data_default_should_be_none(self):
+        """Test context_data default is None"""
+        user_trophy = UserTrophy.objects.create(
+            user=self.user,
+            trophy=self.trophy,
+        )
+
+        self.assertIsNone(user_trophy.context_data)
+
+    def test_context_data(self):
+        """JSON data should be stored and retrieved correctly"""
+        data = {'pr_weight': 200, 'units': 'kg'}
+        user_trophy2 = UserTrophy.objects.create(
+            user=self.user,
+            trophy=Trophy.objects.create(
+                name='PR Test', trophy_type=Trophy.TYPE_OTHER, checker_class='personal_record'
+            ),
+            context_data=data,
+        )
+
+        self.assertEqual(user_trophy2.context_data, data)
 
     def test_progress_field(self):
         """Test progress field for progressive trophies"""

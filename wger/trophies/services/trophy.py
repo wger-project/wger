@@ -61,6 +61,7 @@ class TrophyService:
 
         Checks each active trophy the user hasn't earned yet using the
         appropriate checker class. Awards trophies where criteria are met.
+        Always re-evaluates repeatable trophies.
 
         Args:
             user: The user to evaluate trophies for
@@ -73,7 +74,7 @@ class TrophyService:
 
         # Get all active trophies the user hasn't earned
         earned_trophy_ids = UserTrophy.objects.filter(user=user).values_list('trophy_id', flat=True)
-        unevaluated_trophies = Trophy.objects.filter(is_active=True).exclude(
+        unevaluated_trophies = Trophy.objects.filter(is_active=True, is_repeatable=False).exclude(
             id__in=earned_trophy_ids
         )
 
@@ -104,7 +105,7 @@ class TrophyService:
             return None
 
         # Check if already earned
-        if UserTrophy.objects.filter(user=user, trophy=trophy).exists():
+        if not trophy.is_repeatable and UserTrophy.objects.filter(user=user, trophy=trophy).exists():
             return None
 
         # Get the checker for this trophy
@@ -138,11 +139,14 @@ class TrophyService:
         Returns:
             The created UserTrophy instance
         """
-        user_trophy, created = UserTrophy.objects.get_or_create(
-            user=user,
-            trophy=trophy,
-            defaults={'progress': progress},
-        )
+        if trophy.is_repeatable:
+            user_trophy, created = UserTrophy.objects.create(user=user, trophy=trophy, progress=progress)
+        else:
+            user_trophy, created = UserTrophy.objects.get_or_create(
+                user=user,
+                trophy=trophy,
+                defaults={'progress': progress},
+            )
 
         if created:
             logger.info(f'Awarded trophy "{trophy.name}" to user {user.username}')
