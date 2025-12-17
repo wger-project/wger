@@ -9,6 +9,29 @@ class Migration(migrations.Migration):
         ('trophies', '0003_load_initial_trophies'),
     ]
 
+    def create_personal_record_trophy(apps, schema_editor):
+        Trophy = apps.get_model('trophies', 'Trophy')
+
+        if not Trophy.objects.filter(name='Personal Record').exists():
+            Trophy.objects.create(
+                name='Personal Record',
+                description='Repeatable Personal Record (PR) trophy',
+                trophy_type='other',
+                checker_class='personal_record',
+                checker_params={},
+                is_hidden=True,
+                is_progressive=False,
+                is_repeatable=True,
+                order=10,
+            )
+
+        print(f'Trophy migration: Created trophy \'Personal Record\'')
+
+
+    def remove_personal_record_trophy(apps, schema_editor):
+        Trophy = apps.get_model('trophies', 'Trophy')
+        Trophy.objects.filter(name='Personal Record').delete()
+
     operations = [
         migrations.AddField(
             model_name='trophy',
@@ -20,4 +43,5 @@ class Migration(migrations.Migration):
             name='context_data',
             field=models.JSONField(blank=True, default=None, help_text='Additional information concerning this trophy', null=True, verbose_name='Context data'),
         ),
+        migrations.RunPython(create_personal_record_trophy, remove_personal_record_trophy),
     ]

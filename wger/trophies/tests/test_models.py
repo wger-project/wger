@@ -172,6 +172,9 @@ class UserTrophyModelTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.user = User.objects.get(username='admin')
+
+        UserTrophy.objects.filter(user=self.user).delete()
+
         self.trophy = Trophy.objects.create(
             name='Test Trophy',
             trophy_type=Trophy.TYPE_COUNT,
@@ -293,11 +296,11 @@ class UserTrophyModelTestCase(WgerTestCase):
             checker_class='volume',
         )
 
-        user_trophy1 = UserTrophy.objects.create(
+        UserTrophy.objects.create(
             user=self.user,
             trophy=self.trophy,
         )
-        user_trophy2 = UserTrophy.objects.create(
+        UserTrophy.objects.create(
             user=self.user,
             trophy=trophy2,
         )

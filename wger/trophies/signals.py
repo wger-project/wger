@@ -36,7 +36,11 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+from wger.trophies.checkers.registry import CheckerRegistry
+from wger.trophies.models.trophy import Trophy
+from wger.trophies.models.user_trophy import UserTrophy
 from wger.trophies.services import UserStatisticsService
+from wger.trophies.services.trophy import TrophyService
 from wger.trophies.tasks import evaluate_user_trophies_task
 
 
@@ -87,6 +91,16 @@ def workout_log_saved(sender, instance, created, **kwargs):
                 user=instance.user,
                 workout_log=instance,
             )
+
+            # Personal Record award
+            trophy = Trophy.objects.get(name='Personal Record', is_active=True)
+            checker = CheckerRegistry.create_checker(instance.user, trophy)
+            checker.params = {'log': instance}
+            existing = UserTrophy.objects.filter(user=instance.user, trophy=trophy, context_data__log_id=instance.id).exists()
+            if not existing and checker and checker.check():
+                context = checker.get_context_data()
+                TrophyService.award_trophy(instance.user, trophy, progress=100.0, context_data=context)
+
         else:
             # Edited log - full recalculation for accuracy
             UserStatisticsService.update_statistics(instance.user)
@@ -95,7 +109,6 @@ def workout_log_saved(sender, instance, created, **kwargs):
         _trigger_trophy_evaluation(instance.user_id)
     except Exception as e:
         logger.error(f'Error updating statistics for user {instance.user_id}: {e}', exc_info=True)
-
 
 @receiver(post_delete, sender=WorkoutLog)
 def workout_log_deleted(sender, instance, **kwargs):

@@ -72,14 +72,12 @@ class TrophyService:
         if cls.should_skip_user(user):
             return []
 
-        # Get all active trophies the user hasn't earned
-        earned_trophy_ids = UserTrophy.objects.filter(user=user).values_list('trophy_id', flat=True)
-        unevaluated_trophies = Trophy.objects.filter(is_active=True, is_repeatable=False).exclude(
-            id__in=earned_trophy_ids
-        )
+        # Evaluate all active trophies. evaluate_trophy() will skip non-repeatable trophies 
+        # the user already has, while repeatable trophies are always checked.
+        trophies = Trophy.objects.filter(is_active=True).order_by('order', 'name')
 
         awarded = []
-        for trophy in unevaluated_trophies:
+        for trophy in trophies:
             user_trophy = cls.evaluate_trophy(user, trophy)
             if user_trophy:
                 awarded.append(user_trophy)
@@ -116,7 +114,8 @@ class TrophyService:
 
         try:
             if checker.check():
-                return cls.award_trophy(user, trophy, progress=100.0)
+                context = checker.get_context_data()
+                return cls.award_trophy(user, trophy, progress=100.0, context_data=context)
         except Exception as e:
             logger.error(
                 f'Error checking trophy {trophy.name} for user {user.id}: {e}', exc_info=True
@@ -125,7 +124,7 @@ class TrophyService:
         return None
 
     @classmethod
-    def award_trophy(cls, user: User, trophy: Trophy, progress: float = 100.0) -> UserTrophy:
+    def award_trophy(cls, user: User, trophy: Trophy, progress: float = 100.0, context_data: Optional[dict]=None) -> UserTrophy:
         """
         Award a trophy to a user.
 
@@ -135,17 +134,24 @@ class TrophyService:
             user: The user to award the trophy to
             trophy: The trophy to award
             progress: The progress value (default 100 for earned)
+            context_data: Additional information regarding the trophy awarded
 
         Returns:
             The created UserTrophy instance
         """
         if trophy.is_repeatable:
-            user_trophy, created = UserTrophy.objects.create(user=user, trophy=trophy, progress=progress)
+            created = True
+            user_trophy = UserTrophy.objects.create(
+                user=user, 
+                trophy=trophy, 
+                progress=progress, 
+                context_data=context_data
+            )
         else:
             user_trophy, created = UserTrophy.objects.get_or_create(
                 user=user,
                 trophy=trophy,
-                defaults={'progress': progress},
+                defaults={'progress': progress, 'context_data': context_data},
             )
 
         if created:

@@ -140,6 +140,17 @@ class Command(BaseCommand):
                 'is_progressive': False,
                 'order': 9,
             },
+            {
+                'name': _('Personal Record'),
+                'description': _('Repeatable Personal Record (PR) trophy'),
+                'trophy_type': Trophy.TYPE_OTHER,
+                'checker_class': 'personal_record',
+                'checker_params': {},
+                'is_hidden': True,
+                'is_progressive': False,
+                'is_repeatable': True,
+                'order': 10,
+            },
         ]
 
         created_count = 0

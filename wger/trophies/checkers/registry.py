@@ -24,6 +24,7 @@ from typing import (
 
 # Django
 from django.contrib.auth.models import User
+from wger.trophies.models.trophy import Trophy
 
 # Local
 from .base import BaseTrophyChecker
@@ -34,6 +35,7 @@ from .streak import StreakChecker
 from .time_based import TimeBasedChecker
 from .volume import VolumeChecker
 from .weekend_warrior import WeekendWarriorChecker
+from .personal_record import PersonalRecordChecker
 
 
 logger = logging.getLogger(__name__)
@@ -57,6 +59,7 @@ class CheckerRegistry:
         'time_based': TimeBasedChecker,
         'date_based': DateBasedChecker,
         'inactivity_return': InactivityReturnChecker,
+        'personal_record': PersonalRecordChecker,
     }
 
     @classmethod
@@ -109,7 +112,7 @@ class CheckerRegistry:
     def create_checker(
         cls,
         user: User,
-        trophy: 'Trophy',
+        trophy: Trophy,
     ) -> Optional[BaseTrophyChecker]:
         """
         Factory method to create a checker instance for a trophy.
