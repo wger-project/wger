@@ -1,5 +1,5 @@
 #  https://docs.docker.com/build/ci/github-actions/multi-platform/
-name: Build and push production Docker images
+name: Build production Docker images
 
 on:
   workflow_dispatch:

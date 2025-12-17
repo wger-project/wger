@@ -1,4 +1,4 @@
-name: Build and push demo Docker image
+name: Build demo Docker image
 
 # Only build when the dockerfile has changed, otherwise scheduled every two weeks
 # (on the 1st and 15th every month) since it's not so important to keep this image
