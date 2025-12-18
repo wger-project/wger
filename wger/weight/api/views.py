@@ -105,3 +105,22 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         }
 
         return Response(data)
+            @action(detail=False, methods=["get"])
+    def latest(self, request):
+        """
+        Returns the most recent weight entry for the authenticated user.
+        """
+        qs = self.get_queryset().order_by("-date")
+
+        if not qs.exists():
+            return Response(
+                {"message": "No weight entries available"}
+            )
+
+        entry = qs.first()
+
+        return Response({
+            "date": entry.date,
+            "weight": entry.weight,
+        })
+
