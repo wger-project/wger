@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         if not Trophy.objects.filter(name='Personal Record').exists():
             Trophy.objects.create(
                 name='Personal Record',
-                description='Repeatable Personal Record (PR) trophy',
+                description='Achieve a new Personal Record on any exercise',
                 trophy_type='other',
                 checker_class='personal_record',
                 checker_params={},

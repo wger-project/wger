@@ -10,6 +10,8 @@ their workout activities.
 - **Progressive Trophies**: Show user progress towards earning a trophy
 - **Hidden Trophies**: Secret achievements that are revealed only when
   earned
+- **Repeatable Trophies**: Trophies can be earned multiple times, for
+  example PR trophies. Context data can be added to each earned trophy.
 - **Automatic Evaluation**: Trophies are evaluated automatically when
   workout data changes
 - **Statistics Tracking**: Denormalized statistics for efficient trophy
@@ -119,6 +121,10 @@ Trophy checkers are Python classes that determine if a user has earned a trophy.
 7. **inactivity_return**: Check for return after inactivity
    - Params: `{'inactive_days': 30}`
    - Example: "Return to training after 30 days inactive"
+
+8. **personal_record**: Check for new PRs
+   - Params: ``{'log': WorkoutLog}`
+   - Example: "Beats PR on exercise 'Bench Press Dumbells' by logging 100kg for 10 reps."
 
 ## Management Commands
 
@@ -533,7 +539,7 @@ python manage.py test wger.trophies.tests.test_integration
 
 ## Initial Trophies
 
-The system includes 9 initial trophies:
+The system includes 10 initial trophies.
 
 1. **Beginner**: Complete your first workout
 2. **Unstoppable**: Maintain a 30-day workout streak
@@ -546,6 +552,7 @@ The system includes 9 initial trophies:
 8. **New Year, New Me**: Work out on January 1st
 9. **Phoenix** (Hidden): Return to training after being inactive for
    30 days
+10. **PR Trophy** Achieve a new Personal Record on any exercise
 
 Load them with: `python manage.py load_trophies`
 
