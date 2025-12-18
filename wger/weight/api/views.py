@@ -25,9 +25,24 @@ from wger.weight.models import WeightEntry
 
 
 class WeightEntryViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint for nutrition plan objects
-    """
+ """
+API endpoints for body weight tracking.
+
+Purpose:
+- Allow users to record body weight over time
+- Support monitoring of weight-loss or weight-gain progress
+- Enable data-driven fitness and nutrition adjustments
+
+Typical use cases:
+- Daily or weekly weight logging
+- Long-term progress tracking and trend analysis
+- Integration with nutrition and workout planning features
+
+This endpoint is commonly consumed by:
+- Mobile fitness applications
+- Health dashboards and analytics tools
+- Personal weight-management workflows
+"""
 
     serializer_class = WeightEntrySerializer
 
