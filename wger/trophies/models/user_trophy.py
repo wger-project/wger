@@ -95,8 +95,11 @@ class UserTrophy(models.Model):
 
     def save(self, *args, **kwargs):
         # Prevent duplicate non-repeatable trophies (allow more than one if trophy.is_repeatable)
-        if not self.trophy.is_repeatable and UserTrophy.objects.filter(
-            user=self.user, trophy=self.trophy
-        ).exclude(pk=self.pk).exists():
+        if (
+            not self.trophy.is_repeatable
+            and UserTrophy.objects.filter(user=self.user, trophy=self.trophy)
+            .exclude(pk=self.pk)
+            .exists()
+        ):
             raise IntegrityError('User already has this non-repeatable trophy')
         super().save(*args, **kwargs)

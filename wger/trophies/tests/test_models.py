@@ -209,27 +209,22 @@ class UserTrophyModelTestCase(WgerTestCase):
     def test_repeatable_trophy_earned_twice(self):
         """Test a user can earn the same repeatable trophy twice"""
         repeatable_trophy = Trophy.objects.create(
-            name='Repeatable Test', 
-            trophy_type=Trophy.TYPE_OTHER, 
+            name='Repeatable Test',
+            trophy_type=Trophy.TYPE_OTHER,
             checker_class='personal_record',
-            is_repeatable=True
+            is_repeatable=True,
         )
-        
+
         user_trophy_1 = UserTrophy.objects.create(
-            user=self.user,
-            trophy=repeatable_trophy,
-            context_data={"weight":100, "unit":"kg"}
+            user=self.user, trophy=repeatable_trophy, context_data={'weight': 100, 'unit': 'kg'}
         )
 
         user_trophy_2 = UserTrophy.objects.create(
-            user=self.user,
-            trophy=repeatable_trophy,
-            context_data={"weight":110, "unit":"kg"}
+            user=self.user, trophy=repeatable_trophy, context_data={'weight': 110, 'unit': 'kg'}
         )
 
         self.assertNotEquals(user_trophy_1, user_trophy_2)
         self.assertEqual(UserTrophy.objects.filter(trophy=repeatable_trophy).count(), 2)
-
 
     def test_context_data_default_should_be_none(self):
         """Test context_data default is None"""

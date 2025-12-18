@@ -305,12 +305,16 @@ class TrophyServiceTestCase(WgerTestCase):
     def test_award_pr_trophy_multiple_times(self):
         """PR trophies can be awarded multiple times via TrophyService"""
         pr_trophy, _ = Trophy.objects.get_or_create(
-            name="Personal Record",
+            name='Personal Record',
             defaults={'is_repeatable': True, 'is_active': True},
         )
 
-        ut1 = TrophyService.award_trophy(self.user, pr_trophy, progress=100.0, context_data={'log_id': 1})
-        ut2 = TrophyService.award_trophy(self.user, pr_trophy, progress=100.0, context_data={'log_id': 2})
+        ut1 = TrophyService.award_trophy(
+            self.user, pr_trophy, progress=100.0, context_data={'log_id': 1}
+        )
+        ut2 = TrophyService.award_trophy(
+            self.user, pr_trophy, progress=100.0, context_data={'log_id': 2}
+        )
 
         self.assertEqual(UserTrophy.objects.filter(user=self.user, trophy=pr_trophy).count(), 2)
         self.assertNotEquals(ut1, ut2)

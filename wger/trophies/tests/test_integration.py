@@ -120,7 +120,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
         """Only awards the Personal Record trophy if the log is a PR"""
         UserTrophy.objects.filter(user=self.user).delete()
         exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='pr_cat'))
-        
+
         # first log = PR
         WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=100)
         pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('trophies', '0003_load_initial_trophies'),
     ]
@@ -25,8 +24,7 @@ class Migration(migrations.Migration):
                 order=10,
             )
 
-        print(f'Trophy migration: Created trophy \'Personal Record\'')
-
+        print(f"Trophy migration: Created trophy 'Personal Record'")
 
     def remove_personal_record_trophy(apps, schema_editor):
         Trophy = apps.get_model('trophies', 'Trophy')
@@ -36,12 +34,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='trophy',
             name='is_repeatable',
-            field=models.BooleanField(default=False, help_text='If true, this trophy can be earned multiple times', verbose_name='Repeatable'),
+            field=models.BooleanField(
+                default=False,
+                help_text='If true, this trophy can be earned multiple times',
+                verbose_name='Repeatable',
+            ),
         ),
         migrations.AddField(
             model_name='usertrophy',
             name='context_data',
-            field=models.JSONField(blank=True, default=None, help_text='Additional information concerning this trophy', null=True, verbose_name='Context data'),
+            field=models.JSONField(
+                blank=True,
+                default=None,
+                help_text='Additional information concerning this trophy',
+                null=True,
+                verbose_name='Context data',
+            ),
         ),
         migrations.RunPython(create_personal_record_trophy, remove_personal_record_trophy),
     ]

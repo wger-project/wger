@@ -489,6 +489,7 @@ class InactivityReturnCheckerTestCase(WgerTestCase):
         checker = InactivityReturnChecker(self.user, self.trophy, {'inactive_days': 30})
         self.assertEqual(checker.get_progress(), 100.0)
 
+
 class PersonalRecordCheckerTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
@@ -504,7 +505,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
                 'checker_params': {},
                 'is_active': True,
                 'is_repeatable': True,
-            }
+            },
         )
 
     def test_check_returns_false_with_no_logs(self):
@@ -519,7 +520,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
 
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
-        
+
         self.assertTrue(checker.check())
         context = checker.get_context_data()
         self.assertIsNotNone(context)
@@ -530,7 +531,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
         self.assertTrue(checker1.check())
-        
+
         log2 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=110)
         checker2 = PersonalRecordChecker(self.user, self.trophy, {'log': log2})
         self.assertTrue(checker2.check())
@@ -544,7 +545,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
         self.assertTrue(checker1.check())
-        
+
         # lower weight
         log2 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=90)
         checker2 = PersonalRecordChecker(self.user, self.trophy, {'log': log2})
@@ -562,14 +563,14 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
 
     def test_estimate_1rm(self):
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
-        
+
         log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         one_rm = round(100 * (36.0 / (37 - 10)), 2)
 
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
         estimate = checker._estimate_one_rep_max()
         self.assertEquals(estimate, one_rm)
-        self.assertEquals(checker.get_context_data().get("one_rep_max_estimate"), one_rm)
+        self.assertEquals(checker.get_context_data().get('one_rep_max_estimate'), one_rm)
 
     def test_estimate_1rm_raises_on_missing_values(self):
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
@@ -592,7 +593,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
             checker._estimate_one_rep_max()
 
         context = checker.get_context_data()
-        self.assertIsNone(context.get("one_rep_max_estimate"))
+        self.assertIsNone(context.get('one_rep_max_estimate'))
 
     def test_estimate_1rm_raises_on_repetitions_37(self):
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
@@ -601,5 +602,3 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
         with self.assertRaises(ValueError):
             checker._estimate_one_rep_max()
-
-        

@@ -72,7 +72,7 @@ class TrophyService:
         if cls.should_skip_user(user):
             return []
 
-        # Evaluate all active trophies. evaluate_trophy() will skip non-repeatable trophies 
+        # Evaluate all active trophies. evaluate_trophy() will skip non-repeatable trophies
         # the user already has, while repeatable trophies are always checked.
         trophies = Trophy.objects.filter(is_active=True).order_by('order', 'name')
 
@@ -103,7 +103,10 @@ class TrophyService:
             return None
 
         # Check if already earned
-        if not trophy.is_repeatable and UserTrophy.objects.filter(user=user, trophy=trophy).exists():
+        if (
+            not trophy.is_repeatable
+            and UserTrophy.objects.filter(user=user, trophy=trophy).exists()
+        ):
             return None
 
         # Get the checker for this trophy
@@ -124,7 +127,13 @@ class TrophyService:
         return None
 
     @classmethod
-    def award_trophy(cls, user: User, trophy: Trophy, progress: float = 100.0, context_data: Optional[dict]=None) -> UserTrophy:
+    def award_trophy(
+        cls,
+        user: User,
+        trophy: Trophy,
+        progress: float = 100.0,
+        context_data: Optional[dict] = None,
+    ) -> UserTrophy:
         """
         Award a trophy to a user.
 
@@ -142,10 +151,7 @@ class TrophyService:
         if trophy.is_repeatable:
             created = True
             user_trophy = UserTrophy.objects.create(
-                user=user, 
-                trophy=trophy, 
-                progress=progress, 
-                context_data=context_data
+                user=user, trophy=trophy, progress=progress, context_data=context_data
             )
         else:
             user_trophy, created = UserTrophy.objects.get_or_create(

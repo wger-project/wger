@@ -27,7 +27,7 @@ class PersonalRecordChecker(BaseTrophyChecker):
 
     Used to detect when PRs are beaten and award trophies accordingly.
 
-    params: 
+    params:
         log (WorkoutLog): workout log used to check if a PR was beaten.
 
     """
@@ -38,20 +38,21 @@ class PersonalRecordChecker(BaseTrophyChecker):
         """
         log = self.params.get('log', None)
 
-        if not log: raise ValueError("Log should not be None")
+        if not log:
+            raise ValueError('Log should not be None')
 
         weight = getattr(log, 'weight', None)
         repetitions = getattr(log, 'repetitions', None)
 
         if weight is None:
-            raise ValueError("Weight should not be None")
+            raise ValueError('Weight should not be None')
         if repetitions is None:
-            raise ValueError("Repetitions should not be None")
+            raise ValueError('Repetitions should not be None')
 
         try:
             reps = int(repetitions)
         except (TypeError, ValueError):
-            raise ValueError("Repetitions must be an integer")
+            raise ValueError('Repetitions must be an integer')
 
         if reps == 37:
             raise ValueError("In Brzycki's formula, repetitions cannot be equal to 37.")
@@ -59,10 +60,9 @@ class PersonalRecordChecker(BaseTrophyChecker):
         try:
             w = float(weight)
         except (TypeError, ValueError):
-            raise ValueError("Weight must be a number")
+            raise ValueError('Weight must be a number')
 
         return round(w * (36.0 / float(37 - reps)), 2)
-
 
     def check(self) -> bool:
         """Check if user has beaten Personal Record."""
@@ -70,18 +70,22 @@ class PersonalRecordChecker(BaseTrophyChecker):
 
         if not log:
             return False
-        
+
         exercise = getattr(log, 'exercise', None)
 
-        pr_trophy = Trophy.objects.get(name="Personal Record")
+        pr_trophy = Trophy.objects.get(name='Personal Record')
         if not pr_trophy:
             raise Exception("Trophy 'Personal Record' not found.")
 
-        last_pr = UserTrophy.objects.filter(
-            user=log.user,
-            trophy=pr_trophy,
-            context_data__exercise_id=exercise.id,
-        ).order_by('-earned_at').first()
+        last_pr = (
+            UserTrophy.objects.filter(
+                user=log.user,
+                trophy=pr_trophy,
+                context_data__exercise_id=exercise.id,
+            )
+            .order_by('-earned_at')
+            .first()
+        )
 
         if last_pr and last_pr.context_data:
             prev = last_pr.context_data.get('one_rep_max_estimate')
@@ -94,7 +98,6 @@ class PersonalRecordChecker(BaseTrophyChecker):
                 return False
 
         return True
-            
 
     def get_progress(self) -> float:
         """Get progress as percentage."""
@@ -116,7 +119,7 @@ class PersonalRecordChecker(BaseTrophyChecker):
         try:
             one_rm_estimate = self._estimate_one_rep_max()
         except Exception as e:
-            print(f"PR estimation failed : {e}")
+            print(f'PR estimation failed : {e}')
             one_rm_estimate = None
 
         return {
@@ -124,12 +127,14 @@ class PersonalRecordChecker(BaseTrophyChecker):
             'date': getattr(log, 'date', None).isoformat(),
             'session_id': getattr(session, 'id', None) if session else None,
             'exercise_id': getattr(exercise, 'id', None) if exercise else None,
-            'repetitions_unit_id': getattr(repetitions_unit, 'id', None) if repetitions_unit else None,
+            'repetitions_unit_id': getattr(repetitions_unit, 'id', None)
+            if repetitions_unit
+            else None,
             'repetitions': float(repetitions) if repetitions else None,
             'weight_unit_id': getattr(weight_unit, 'id', None) if weight_unit else None,
             'weight': float(weight) if weight else None,
             'iteration': getattr(log, 'iteration', None),
-            'one_rep_max_estimate': one_rm_estimate
+            'one_rep_max_estimate': one_rm_estimate,
         }
 
     def get_target_value(self) -> int:
@@ -140,4 +145,3 @@ class PersonalRecordChecker(BaseTrophyChecker):
 
     def get_progress_display(self) -> str:
         return 'N/A'
-
