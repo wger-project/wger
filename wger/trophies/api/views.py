@@ -126,7 +126,13 @@ class TrophyViewSet(viewsets.ReadOnlyModelViewSet):
             include_hidden=include_hidden,
         )
 
-        serializer = TrophyProgressSerializer(progress_data, many=True)
+        serializer = TrophyProgressSerializer(
+            progress_data,
+            many=True,
+
+            # Important: provide request in context for image URL building
+            context={'request': request}
+        )
         return Response(serializer.data)
 
 

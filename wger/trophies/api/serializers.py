@@ -60,10 +60,9 @@ class TrophySerializer(serializers.ModelSerializer):
     def get_image(self, obj: Trophy):
         """Build absolute URL to trophy image, if possible."""
 
-        static_url = static(obj.image_rel_path)
         request = self.context.get('request')
         if request is not None:
-            return request.build_absolute_uri(static_url)
+            return request.build_absolute_uri(static(obj.image_rel_path))
 
         # no host available
         logger.info('Cannot build absolute URL for trophy image without request context')
