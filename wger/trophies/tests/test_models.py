@@ -223,7 +223,7 @@ class UserTrophyModelTestCase(WgerTestCase):
             user=self.user, trophy=repeatable_trophy, context_data={'weight': 110, 'unit': 'kg'}
         )
 
-        self.assertNotEquals(user_trophy_1, user_trophy_2)
+        self.assertNotEqual(user_trophy_1, user_trophy_2)
         self.assertEqual(UserTrophy.objects.filter(trophy=repeatable_trophy).count(), 2)
 
     def test_context_data_default_should_be_none(self):

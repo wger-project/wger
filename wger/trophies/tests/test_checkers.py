@@ -569,8 +569,8 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
 
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
         estimate = checker._estimate_one_rep_max()
-        self.assertEquals(estimate, one_rm)
-        self.assertEquals(checker.get_context_data().get('one_rep_max_estimate'), one_rm)
+        self.assertEqual(estimate, one_rm)
+        self.assertEqual(checker.get_context_data().get('one_rep_max_estimate'), one_rm)
 
     def test_estimate_1rm_raises_on_missing_values(self):
         from wger.trophies.checkers.personal_record import PersonalRecordChecker

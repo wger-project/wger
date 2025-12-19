@@ -317,7 +317,7 @@ class TrophyServiceTestCase(WgerTestCase):
         )
 
         self.assertEqual(UserTrophy.objects.filter(user=self.user, trophy=pr_trophy).count(), 2)
-        self.assertNotEquals(ut1, ut2)
+        self.assertNotEqual(ut1, ut2)
 
     def test_should_skip_user_inactive(self):
         """Test skipping inactive users"""
