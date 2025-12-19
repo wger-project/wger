@@ -123,7 +123,7 @@ Trophy checkers are Python classes that determine if a user has earned a trophy.
    - Example: "Return to training after 30 days inactive"
 
 8. **personal_record**: Check for new PRs
-   - Params: ``{'log': WorkoutLog}`
+   - Params: `{'log': WorkoutLog}`
    - Example: "Beats PR on exercise 'Bench Press Dumbells' by logging 100kg for 10 reps."
 
 ## Management Commands
@@ -133,14 +133,8 @@ Trophy checkers are Python classes that determine if a user has earned a trophy.
 Load the initial set of trophies into the database:
 
 ```bash
-# Load new trophies (skip existing)
-python manage.py load_trophies
-
-# Update existing trophies
-python manage.py load_trophies --update
-
-# Verbose output
-python manage.py load_trophies -v 2
+# Load trophies (overwrites existing ones if IDs match)
+python manage.py loaddata initial_trophies
 ```
 
 ### Evaluate Trophies
@@ -554,7 +548,7 @@ The system includes 10 initial trophies.
    30 days
 10. **PR Trophy** Achieve a new Personal Record on any exercise
 
-Load them with: `python manage.py load_trophies`
+Load them with: `python manage.py loaddata initial_trophies`
 
 ## Troubleshooting
 
