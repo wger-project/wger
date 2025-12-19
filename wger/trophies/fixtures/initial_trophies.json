@@ -3,6 +3,7 @@
     "model": "trophies.trophy",
     "pk": 1,
     "fields": {
+      "uuid": "5362e55b-eaf1-4e34-9ef8-661538a3bdd9",
       "name": "Beginner",
       "description": "Complete your first workout",
       "trophy_type": "count",
@@ -11,13 +12,16 @@
       "is_hidden": false,
       "is_progressive": false,
       "is_active": true,
-      "order": 1
+      "order": 1,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 2,
     "fields": {
+      "uuid": "b605b6a1-953d-41fb-87c9-a2f88b5f5907",
       "name": "Unstoppable",
       "description": "Maintain a 30-day workout streak",
       "trophy_type": "sequence",
@@ -26,13 +30,16 @@
       "is_hidden": false,
       "is_progressive": true,
       "is_active": true,
-      "order": 2
+      "order": 2,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 3,
     "fields": {
+      "uuid": "bf60e051-a9a5-4bf5-ac4b-1aa713febca7",
       "name": "Weekend Warrior",
       "description": "Work out on Saturday and Sunday for 4 consecutive weekends",
       "trophy_type": "sequence",
@@ -41,13 +48,16 @@
       "is_hidden": false,
       "is_progressive": true,
       "is_active": true,
-      "order": 3
+      "order": 3,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 4,
     "fields": {
+      "uuid": "5353989b-adc0-481b-a9bc-64365a9179e8",
       "name": "Lifter",
       "description": "Lift a cumulative total of 5,000 kg",
       "trophy_type": "volume",
@@ -56,13 +66,16 @@
       "is_hidden": false,
       "is_progressive": true,
       "is_active": true,
-      "order": 4
+      "order": 4,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 5,
     "fields": {
+      "uuid": "3c53887b-feba-4d73-8022-e446f46395c8",
       "name": "Atlas",
       "description": "Lift a cumulative total of 100,000 kg",
       "trophy_type": "volume",
@@ -71,13 +84,16 @@
       "is_hidden": false,
       "is_progressive": true,
       "is_active": true,
-      "order": 5
+      "order": 5,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 6,
     "fields": {
+      "uuid": "cc833c0b-1fd9-4cde-baa5-3bff9cd97d0c",
       "name": "Early Bird",
       "description": "Complete a workout before 6:00 AM",
       "trophy_type": "time",
@@ -86,13 +102,16 @@
       "is_hidden": false,
       "is_progressive": false,
       "is_active": true,
-      "order": 6
+      "order": 6,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 7,
     "fields": {
+      "uuid": "2b00ff1e-69f8-47f0-b8df-976a4127a425",
       "name": "Night Owl",
       "description": "Complete a workout after 9:00 PM",
       "trophy_type": "time",
@@ -101,13 +120,16 @@
       "is_hidden": false,
       "is_progressive": false,
       "is_active": true,
-      "order": 7
+      "order": 7,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 8,
     "fields": {
+      "uuid": "31a71d9a-bf26-4f18-b82f-afefe6f50df2",
       "name": "New Year, New Me",
       "description": "Work out on January 1st",
       "trophy_type": "date",
@@ -116,13 +138,16 @@
       "is_hidden": false,
       "is_progressive": false,
       "is_active": true,
-      "order": 8
+      "order": 8,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   },
   {
     "model": "trophies.trophy",
     "pk": 9,
     "fields": {
+      "uuid": "32bb12da-b25f-4e18-81e4-b695eb65283e",
       "name": "Phoenix",
       "description": "Return to training after being inactive for 30 days",
       "trophy_type": "other",
@@ -131,7 +156,27 @@
       "is_hidden": true,
       "is_progressive": false,
       "is_active": true,
-      "order": 9
+      "order": 9,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
+    }
+  },
+  {
+    "model": "trophies.trophy",
+    "pk": 10,
+    "fields": {
+      "uuid": "d4a5dbe7-7e15-4f7c-8560-a19f5f27eb2e",
+      "name": "Personal Record",
+      "description": "Repeatable Personal Record (PR) trophy",
+      "trophy_type": "pr",
+      "checker_class": "personal_record",
+      "checker_params": {},
+      "is_hidden": true,
+      "is_progressive": false,
+      "is_repeatable": true,
+      "order": 10,
+      "created": "2025-12-19T00:00:00Z",
+      "updated": "2025-12-19T00:00:00Z"
     }
   }
 ]

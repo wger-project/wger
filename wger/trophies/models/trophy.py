@@ -22,14 +22,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-def trophy_image_upload_path(instance, filename):
-    """
-    Returns the upload path for trophy images
-    """
-    ext = filename.split('.')[-1]
-    return f'trophies/{instance.uuid}.{ext}'
-
-
 class Trophy(models.Model):
     """
     Model representing a trophy/achievement that users can earn
@@ -40,6 +32,7 @@ class Trophy(models.Model):
     TYPE_COUNT = 'count'
     TYPE_SEQUENCE = 'sequence'
     TYPE_DATE = 'date'
+    TYPE_PR = 'pr'
     TYPE_OTHER = 'other'
 
     TROPHY_TYPES = (
@@ -48,6 +41,7 @@ class Trophy(models.Model):
         (TYPE_COUNT, _('Count-based')),
         (TYPE_SEQUENCE, _('Sequence-based')),
         (TYPE_DATE, _('Date-based')),
+        (TYPE_PR, _('Personal Record')),
         (TYPE_OTHER, _('Other')),
     )
 
@@ -56,14 +50,14 @@ class Trophy(models.Model):
         editable=False,
         unique=True,
     )
-    """Unique identifier for the trophy"""
+    """Unique identifier for the trophy (also used for image filenames)"""
 
     name = models.CharField(
         max_length=100,
         verbose_name=_('Name'),
         help_text=_('The name of the trophy'),
     )
-    """The name of the trophy"""
+    """The user-facing name of the trophy"""
 
     description = models.TextField(
         verbose_name=_('Description'),
@@ -72,14 +66,6 @@ class Trophy(models.Model):
         default='',
     )
     """Description of the trophy and how to earn it"""
-
-    image = models.ImageField(
-        verbose_name=_('Image'),
-        upload_to=trophy_image_upload_path,
-        blank=True,
-        null=True,
-    )
-    """Optional image for the trophy"""
 
     trophy_type = models.CharField(
         max_length=20,
@@ -165,3 +151,10 @@ class Trophy(models.Model):
         Trophies don't have an owner - they are global
         """
         return None
+
+    @property
+    def image_rel_path(self):
+        """
+        Returns the relative path to the trophy image
+        """
+        return f'trophies/{self.trophy_type}/{self.uuid}.png'

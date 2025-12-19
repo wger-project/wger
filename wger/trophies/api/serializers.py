@@ -14,6 +14,12 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
+# Django
+from django.templatetags.static import static
+
 # Third Party
 from rest_framework import serializers
 
@@ -24,6 +30,8 @@ from wger.trophies.models import (
     UserTrophy,
 )
 
+logger = logging.getLogger(__name__)
+
 
 class TrophySerializer(serializers.ModelSerializer):
     """
@@ -31,6 +39,8 @@ class TrophySerializer(serializers.ModelSerializer):
 
     Shows trophy information for listing active trophies.
     """
+
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = Trophy
@@ -46,6 +56,18 @@ class TrophySerializer(serializers.ModelSerializer):
             'order',
         )
         read_only_fields = fields
+
+    def get_image(self, obj: Trophy):
+        """Build absolute URL to trophy image, if possible."""
+
+        static_url = static(obj.image_rel_path)
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(static_url)
+
+        # no host available
+        logger.info('Cannot build absolute URL for trophy image without request context')
+        return None
 
 
 class UserTrophySerializer(serializers.ModelSerializer):
