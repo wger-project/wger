@@ -509,12 +509,14 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         )
 
     def test_check_returns_false_with_no_logs(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         checker = PersonalRecordChecker(self.user, self.trophy, {})
         self.assertFalse(checker.check())
 
     def test_first_log_counts_as_pr(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
@@ -526,6 +528,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertIsNotNone(context)
 
     def test_improvement_detected_and_context_values(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
@@ -540,6 +543,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertIsNotNone(context)
 
     def no_award_if_not_an_improvement(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
@@ -562,6 +566,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertFalse(checker4.check())
 
     def test_estimate_1rm(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
@@ -573,6 +578,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertEqual(checker.get_context_data().get('one_rep_max_estimate'), one_rm)
 
     def test_estimate_1rm_raises_on_missing_values(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         # No log
@@ -596,6 +602,7 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertIsNone(context.get('one_rep_max_estimate'))
 
     def test_estimate_1rm_raises_on_repetitions_37(self):
+        # wger
         from wger.trophies.checkers.personal_record import PersonalRecordChecker
 
         log = WorkoutLog(user=self.user, exercise=self.exercise, weight=100, repetitions=37)

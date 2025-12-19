@@ -14,10 +14,14 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 from typing import Optional
 
+# wger
 from wger.trophies.models.trophy import Trophy
 from wger.trophies.models.user_trophy import UserTrophy
+
+# Local
 from .base import BaseTrophyChecker
 
 

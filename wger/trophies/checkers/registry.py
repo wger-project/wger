@@ -24,6 +24,8 @@ from typing import (
 
 # Django
 from django.contrib.auth.models import User
+
+# wger
 from wger.trophies.models.trophy import Trophy
 
 # Local
@@ -31,11 +33,11 @@ from .base import BaseTrophyChecker
 from .count_based import CountBasedChecker
 from .date_based import DateBasedChecker
 from .inactivity_return import InactivityReturnChecker
+from .personal_record import PersonalRecordChecker
 from .streak import StreakChecker
 from .time_based import TimeBasedChecker
 from .volume import VolumeChecker
 from .weekend_warrior import WeekendWarriorChecker
-from .personal_record import PersonalRecordChecker
 
 
 logger = logging.getLogger(__name__)
