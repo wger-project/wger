@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-12-13 15:00+0000\n"
+"PO-Revision-Date: 2025-12-20 11:00+0000\n"
 "Last-Translator: Floris C <floris.contactmail@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -88,7 +88,7 @@ msgstr "E-mail"
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Gebruikt voor het her-instellen van wachtwoorden en, optioneel, voor e-"
+"Gebruikt voor het opnieuw-instellen van wachtwoorden en, optioneel, e-"
 "mailherinneringen."
 
 #: core/forms.py:116 core/models/profile.py:222
@@ -170,7 +170,7 @@ msgstr "Contact"
 
 #: core/forms.py:324
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Een manier om je te beantwoorden (e-mail, etc.)"
+msgstr "Een manier om je van antwoorden te voorzien (e-mail, etc.)"
 
 #: core/forms.py:332 exercises/models/comment.py:55 manager/models/slot.py:40
 #: nutrition/models/log.py:77
@@ -202,13 +202,13 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
-"Als een licentie werd gelokaliseerd, zoals bvb. de Creative Commons-"
+"Als een licentie werd gelokaliseerd, zoals bijv. de Creative Commons-"
 "licenties voor verschillende landen, voeg ze ze dan hier toe als aparte "
 "ingaven."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr "Korte naam, bvb. CC-BY-SA 3"
+msgstr "Korte naam, bijv. CC-BY-SA 3"
 
 #: core/models/license.py:45 nutrition/models/ingredient.py:223
 msgid "Link"
@@ -258,11 +258,11 @@ msgstr "Toon opmerkingen oefening"
 #: core/models/profile.py:120
 msgid "Check to show exercise comments on the workout view"
 msgstr ""
-"Vink aan om begeleiding voor de oefeningen te tonen in de workout view."
+"Vink aan om de opmerkingen bij de oefeningen te tonen in de workout view"
 
 #: core/models/profile.py:130
 msgid "Also use ingredients in English"
-msgstr "Gebruik ook engelstalige ingrediënten"
+msgstr "Gebruik ook Engelstalige ingrediënten"
 
 #: core/models/profile.py:132
 msgid ""
@@ -272,10 +272,11 @@ msgid ""
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
 "Vink aan om ook ingrediënten in het Engels te tonen bij het aanmaken van\n"
-"een voedingsschema. Deze ingrediënten worden geëxtraheerd uit een lijst\n"
-"aangeboden door het Amerikaanse Departement voor Landbouw. Ze is bijzonder\n"
-"compleet, met ongeveer 7000 elementen, maar kan ook overweldigend zijn en je "
-"zoektocht bemoeilijken"
+"een voedingsschema. Deze ingrediënten worden uit een lijst gehaald die\n"
+"aangeboden wordt door het Amerikaanse Departement voor Landbouw. Deze lijst "
+"is bijzonder\n"
+"compleet, met ongeveer 7000 ingrediënten, maar kan ook overweldigend zijn en "
+"je zoektocht bemoeilijken"
 
 #: core/models/profile.py:141
 msgid "Activate workout reminders"
@@ -483,12 +484,13 @@ msgstr ""
 "            "
 
 #: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
+#, python-format
 msgid ""
 "Back to \"%(target)s\n"
 "                    \""
-msgstr "Terug naar \"%(target)s\""
+msgstr ""
+"Terug naar \"%(target)s\n"
+"                                               \""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -511,7 +513,7 @@ msgstr "Foutmelding, foutieve verificatie token"
 
 #: core/templates/email_verification/email_body_html.tpl:6
 msgid "Email Confirmation"
-msgstr "Email bevestiging"
+msgstr "Email Bevestiging"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
@@ -577,7 +579,7 @@ msgstr "Voeg er een toe."
 #: mailer/templates/mailer/gym/overview.html:43
 #: nutrition/templates/ingredient/overview.html:60
 msgid "Add"
-msgstr "Aanmaken"
+msgstr "Toevoegen"
 
 #: core/templates/language/view.html:61 core/templates/user/api_key.html:41
 #: core/templates/user/preferences.html:50 gym/models/contract.py:203
@@ -640,7 +642,7 @@ msgstr "Training schema's"
 
 #: core/templates/navigation.html:79
 msgid "Your templates"
-msgstr "Je sjablonen"
+msgstr "Je templates"
 
 #: core/templates/navigation.html:88
 msgid "Public templates"
@@ -658,7 +660,7 @@ msgstr "Administratie"
 
 #: core/templates/navigation.html:106
 msgid "Exercise edit history"
-msgstr "Oefeningswijzigings geschiedenis"
+msgstr "Oefening bewerkings historie"
 
 #: core/templates/navigation.html:112 exercises/models/base.py:107
 msgid "Equipment"
@@ -1116,7 +1118,7 @@ msgstr "Opnemen in inactief overzicht"
 #: core/templates/user/overview.html:510
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr "Inloggen voor beheerders is enkel beschikbaar in %(gym_name)s"
+msgstr "Admin login is alleen beschikbaar voor gebruikers %(gym_name)s"
 
 #: core/templates/user/overview.html:514
 msgid "Log in as this user"
@@ -1128,19 +1130,19 @@ msgstr "Voorkeuren"
 
 #: core/templates/user/preferences.html:19
 msgid "Verified email"
-msgstr "e-mail is gevalideerd"
+msgstr "Geverifieerd email adres"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr "Onbevestigde email"
+msgstr "Niet geverifieerde email"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr "Verstuur bevestigingsemail"
+msgstr "Verzend verificatie email"
 
 #: core/templates/user/preferences.html:31
 msgid "You need to verify your email to contribute exercises"
-msgstr "Je moet jouw email bevestigen om bij te dragen aan oefeningen"
+msgstr "Je moet jouw email nog bevestigen om oefeningen te plaatsen"
 
 #: core/templates/user/preferences.html:55 core/views/user.py:598
 msgid "Change password"
@@ -1266,7 +1268,7 @@ msgstr "Gym"
 #: core/views/user.py:647
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr "Een bevestigingsmail is verstuurd naar %(email)s"
+msgstr "Een verificatie email is verstuurd naar %(email)s"
 
 #: exercises/models/base.py:86 nutrition/models/ingredient.py:245
 msgid "Category"
@@ -1300,7 +1302,7 @@ msgstr "Een opmerking over hoe je deze oefening correct kan uitvoeren."
 
 #: exercises/models/exercise_alias.py:56
 msgid "Alias for an exercise"
-msgstr "Andere naam voor een oefening"
+msgstr "Alias voor een oefening"
 
 #: exercises/models/image.py:58
 msgid "Line"
@@ -1312,7 +1314,7 @@ msgstr "3D"
 
 #: exercises/models/image.py:60
 msgid "Low-poly"
-msgstr ""
+msgstr "Lage-poly"
 
 #: exercises/models/image.py:61
 msgid "Photo"
@@ -1341,7 +1343,7 @@ msgstr "Alternatieve naam"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr "Een bekendere naam voor deze spier"
+msgstr "Een vereenvoudigde naam voor de spier"
 
 #: exercises/models/translation.py:74 nutrition/models/ingredient.py:81
 #: nutrition/models/weight_unit.py:32
@@ -1358,14 +1360,12 @@ msgid "File type is not supported"
 msgstr "Bestandstype wordt niet ondersteund"
 
 #: exercises/models/video.py:72
-#, fuzzy
 msgid "File is not a valid video"
 msgstr "Bestand is geen geldige video"
 
 #: exercises/models/video.py:104
-#, fuzzy
 msgid "Main video"
-msgstr "Hoofdvideo"
+msgstr "Hoofd video"
 
 #: exercises/models/video.py:110
 msgid "Video"
@@ -1401,12 +1401,11 @@ msgstr "Materiaallijst"
 
 #: exercises/templates/history/overview.html:11
 msgid "Exercise admin history"
-msgstr "Oefening admin geschiedenis"
+msgstr "Admin oefening geschiedenis"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
 msgid "Action"
-msgstr "Acties"
+msgstr "Actie"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:46
 #: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
@@ -1419,17 +1418,16 @@ msgid "User"
 msgstr "Gebruiker"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
 msgid "Object"
 msgstr "Onderwerp"
 
 #: exercises/templates/history/overview.html:31
 msgid "Changes"
-msgstr "Veranderingen"
+msgstr "Wijzigingen"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr "Terug"
+msgstr "Terugzetten"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
@@ -1437,7 +1435,7 @@ msgstr "Bekijk Object"
 
 #: exercises/templates/history/overview.html:75
 msgid "View changes"
-msgstr "Bekijk veranderingen"
+msgstr "Bekijk wijzigingen"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
@@ -1472,7 +1470,6 @@ msgid "Only PNG and JPEG formats are supported"
 msgstr "Enkel PNG en JPEG-formaten worden ondersteund"
 
 #: gallery/templates/images/overview.html:72
-#, fuzzy
 msgid "Add image"
 msgstr "Voeg afbeelding toe"
 
@@ -1832,7 +1829,7 @@ msgstr "Vrije halter"
 
 #: i18n.tpl:13
 msgid "Glutes"
-msgstr "Bilspieren"
+msgstr "Bil spieren"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -1904,7 +1901,7 @@ msgstr "Herhalingen"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Weerstandsband"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -1995,7 +1992,6 @@ msgid "Routine will expire soon"
 msgstr "Routine zal spoedig vervallen"
 
 #: manager/models/day.py:52
-#, fuzzy
 msgid "Routine"
 msgstr "Routine"
 
@@ -2031,16 +2027,16 @@ msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
-"Een training markeren als een sjabloon zal het bevriezen en je toelaten om "
-"er kopieën van te maken"
+"Door een workout als template te markeren zal deze niet meer aan te passen "
+"zijn en je in staat stellen om er kopieën van te maken"
 
 #: manager/models/routine.py:116
 msgid "Public template"
-msgstr "Publieke sjabloon"
+msgstr "Publieke template"
 
 #: manager/models/routine.py:117
 msgid "A public template is available to other users"
-msgstr "Een publieke sjabloon is beschikbaar voor andere gebruikers"
+msgstr "Een publieke template is beschikbaar voor andere gebruikers"
 
 #: manager/models/routine.py:155 manager/models/session.py:147
 msgid "The start time cannot be after the end time."
@@ -2129,11 +2125,16 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
+"Je laatste gewichtsinvoer dateert van %(date)s (%(days)s dagen geleden).\n"
+"Klik op de link om het aanvraagformulier te openen en een nieuw gewicht in "
+"te voeren."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
 msgstr ""
+"Je zal regelmatig dergelijke herinneringen totdat je je huidige gewicht hebt "
+"ingevoerd."
 
 #: manager/views/pdf.py:77 manager/views/pdf.py:146
 #, python-format
@@ -2142,22 +2143,19 @@ msgstr "Workout voor %s"
 
 #: measurements/models/measurement.py:51
 msgid "Value"
-msgstr ""
+msgstr "Waarde"
 
 #: nutrition/forms.py:117
-#, fuzzy
 msgid "Height (in)"
-msgstr "Hoogte (cm)"
+msgstr "Hoogte (in)"
 
 #: nutrition/forms.py:120
-#, fuzzy
 msgid "Weight (kg)"
-msgstr "Gewichtlog"
+msgstr "Gewicht (kg)"
 
 #: nutrition/forms.py:120
-#, fuzzy
 msgid "Weight (lbs)"
-msgstr "Gewichtlog"
+msgstr "Gewicht (lbs)"
 
 #: nutrition/forms.py:133
 msgid "Calculate"
@@ -2216,7 +2214,7 @@ msgstr "Verzadigde vetinhoud in vetten"
 #: nutrition/models/ingredient.py:184
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Vezels"
 
 #: nutrition/models/ingredient.py:194
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
@@ -2225,20 +2223,21 @@ msgstr "Natrium"
 
 #: nutrition/models/ingredient.py:224
 msgid "Link to product"
-msgstr ""
+msgstr "Link naar product"
 
 #: nutrition/models/ingredient.py:253
 msgid "Brand name of product"
-msgstr ""
+msgstr "Merknaam van product"
 
 #: nutrition/models/ingredient.py:320
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
 msgstr ""
+"De totale energie ({self.energy}kcal) is niet de benaderende som van de "
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Ingrediënt Categorieën"
 
 #: nutrition/models/ingredient_weight_unit.py:49
 msgid "Amount in grams"
@@ -2258,9 +2257,8 @@ msgid "Meal"
 msgstr "Maaltijd"
 
 #: nutrition/models/log.py:71
-#, fuzzy
 msgid "Date and Time (Approx.)"
-msgstr "Tijd (ongeveer)"
+msgstr "Datum en Tijd (Ongeveer.)"
 
 #: nutrition/models/meal.py:60
 msgid "Time (approx)"
@@ -2271,6 +2269,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Geef maaltijden een tekstuele beschrijving / naam, zoals 'Ontbijt' of 'na de "
+"workout'."
 
 #: nutrition/models/plan.py:78
 msgid ""
@@ -2357,7 +2357,7 @@ msgstr "Macrovoedingstoffen"
 
 #: nutrition/templates/ingredient/view.html:54
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:75
 #: nutrition/templates/ingredient/view.html:91
@@ -2703,66 +2703,72 @@ msgid "exercises <br> for workout creation"
 msgstr "oefeningen <br> voor het maken van workouts"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
 msgstr "voeding <br> voor maaltijdplanning"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "sterren <br> op Github"
 
 #: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Stel je perfecte <span>trainingsschema's</span> samen"
 
 #: software/templates/features.html:177
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Stel een wekelijks trainingsschema samen uit meer dan 100 oefeningen"
 
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Stel doelen vast voor het aantal herhalingen en sets, de duur of de afstand "
+"van elke oefening"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Laat je stap voor stap begeleiden tijdens je trainingen"
 
 #: software/templates/features.html:186
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Houd bij welke trainingen je hebt gedaan, inclusief hoe je je prestatie hebt "
+"ervaren"
 
 #: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Plan je <span>dagelijkse maaltijden</span>"
 
 #: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
-msgstr ""
+msgstr "Vul je week met voedzame maaltijden die je helpen beter te presteren"
 
 #: software/templates/features.html:218
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Stel maaltijden samen uit een database met meer dan 2 miljoen "
+"voedingsmiddelen"
 
 #: software/templates/features.html:221
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Ontvang automatisch berekende voedingswaarden (energie, eiwitten, "
+"koolhydraten, ...) voor zowel individuele maaltijden als je volledige "
+"weekplan"
 
 #: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Houd je <span>voortgang</span> bij"
 
 #: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
-msgstr ""
+msgstr "Houd alles bij en maak aantekeningen over je maaltijden en trainingen"
 
 #: software/templates/features.html:259
-#, fuzzy
 msgid "Add custom notes"
-msgstr "Voeg dagboekitem op maat toe"
+msgstr "Voeg custom notities toe"
 
 #: software/templates/features.html:262
 msgid "Record your weight"
@@ -2774,7 +2780,7 @@ msgstr "Houd een fotologboek bij om je vooruitgang te zien"
 
 #: software/templates/features.html:268
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Gebruik de kalenderweergave om eerdere berichten te bekijken"
 
 #: software/templates/features.html:287
 msgid "Try wger now"
@@ -2798,10 +2804,12 @@ msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"We gebruiken geen advertenties, verkopen uw persoonlijke gegevens niet en "
+"delen de code onder een gratis en open-source licentie."
 
 #: software/templates/features.html:322
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Doe mee en help wger nog beter te maken!"
 
 #: software/templates/features.html:331
 msgid "Contribute"
@@ -2809,55 +2817,55 @@ msgstr "Draag bij"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Meld je nu gratis aan"
 
 #: software/templates/features.html:369
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Is de webversie niet voldoende?"
 
 #: software/templates/features.html:371
-#, fuzzy
 msgid "Get the code, too!"
-msgstr "Download de code"
+msgstr "Download de code ook!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Zet een privéserver op voor je sportschool"
 
 #: software/templates/features.html:385
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Wil je je gegevens niet op een online service opslaan? Zet dan gratis een "
+"wger-instantie op je eigen server op!"
 
 #: software/templates/features.html:399
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Integreer met je eigen app"
 
 #: software/templates/features.html:402
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "wger biedt een open API die je voor je app kunt gebruiken."
 
 #: software/templates/features.html:413
-#, fuzzy
 msgid "Create your own version"
-msgstr "Huidige versie"
+msgstr "Creëer je eigen versie"
 
 #: software/templates/features.html:416
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"De broncode is beschikbaar onder de GNU AGPLv3-licentie! Je kunt de code "
+"gerust forken op GitHub."
 
 #: software/templates/features.html:437
-#, fuzzy
 msgid "Account"
-msgstr "Hoeveelheid"
+msgstr "Account"
 
 #: software/templates/features.html:485
-#, fuzzy
 msgid "Workout routines"
-msgstr "Workout-herinneringen"
+msgstr "Workout routines"
 
 #: software/templates/features.html:491
 msgid "Discord"
@@ -2865,20 +2873,19 @@ msgstr "Discord"
 
 #: software/templates/features.html:506
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #: software/templates/features.html:512
 msgid "Report an issue"
-msgstr ""
+msgstr "Rapporteer een probleem"
 
 #: software/templates/features.html:518
 msgid "Source Code"
-msgstr ""
+msgstr "Broncode"
 
 #: software/templates/features.html:524
-#, fuzzy
 msgid "Translation"
-msgstr "Vertaal"
+msgstr "Vertaling"
 
 #: utils/generic_views.py:263
 msgid "Yes, delete"
@@ -2886,31 +2893,27 @@ msgstr "Ja, verwijder"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "De oorspronkelijke titel van dit object, indien beschikbaar"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Link naar het originele object, indien beschikbaar"
 
 #: utils/models.py:63
-#, fuzzy
 msgid "Author(s)"
-msgstr "Auteur"
+msgstr "Auteur(s)"
 
 #: utils/models.py:67
-#, fuzzy
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Als je niet de auteur bent, voeg dan de naam of bron hier toe. Dit is nodig "
-"voor sommige licenties, oa. de CC-BY-SA."
+msgstr "Als je niet de auteur bent, voeg dan de naam of bron hier toe."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Link naar het profiel van de auteur, indien beschikbaar"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Link naar de originele bron als dit een afgeleid werk is"
 
 #: utils/models.py:79
 msgid ""
@@ -2918,6 +2921,9 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Een afgeleid werk is niet alleen gebaseerd op een eerder werk, maar bevat "
+"ook voldoende nieuwe, creatieve inhoud om recht te geven op een eigen "
+"auteursrecht."
 
 #: weight/forms.py:53
 msgid "Input"
@@ -2956,6 +2962,13 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
+"Je kunt tekst kopiëren en plakken vanuit je spreadsheet in het tekst "
+"invoerveld.\n"
+"Het systeem zal het importformaat proberen te raden. Het enige waar je "
+"rekening mee moet houden is:\n"
+"dat de eerste kolom de <strong>datum</strong> is en de tweede het <strong>"
+"gewicht</strong>.\n"
+"Alle overige kolommen worden genegeerd. Er geldt een limiet van 1000 rijen.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
