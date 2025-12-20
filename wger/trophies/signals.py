@@ -25,6 +25,7 @@ when workouts are logged, edited, or deleted.
 import logging
 
 # Django
+from django.conf import settings
 from django.db.models.signals import (
     post_delete,
     post_save,
@@ -43,7 +44,6 @@ from wger.trophies.services import UserStatisticsService
 from wger.trophies.services.trophy import TrophyService
 from wger.trophies.tasks import evaluate_user_trophies_task
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -53,10 +53,10 @@ def _trigger_trophy_evaluation(user_id: int):
 
     Uses Celery if available, otherwise evaluates synchronously.
     """
-    try:
+    if settings.WGER_SETTINGS['USE_CELERY']:
         evaluate_user_trophies_task.delay(user_id)
-    except Exception:
-        # Celery not available - evaluate synchronously
+    else:
+        # Celery not available or configured - evaluate synchronously
         # Django
         from django.contrib.auth.models import User
 
@@ -73,7 +73,7 @@ def _trigger_trophy_evaluation(user_id: int):
 
 
 @receiver(post_save, sender=WorkoutLog)
-def workout_log_saved(sender, instance, created, **kwargs):
+def workout_log_saved(sender, instance: WorkoutLog, created: bool, **kwargs):
     """
     Handle WorkoutLog save events.
 
@@ -116,7 +116,7 @@ def workout_log_saved(sender, instance, created, **kwargs):
 
 
 @receiver(post_delete, sender=WorkoutLog)
-def workout_log_deleted(sender, instance, **kwargs):
+def workout_log_deleted(sender, instance: WorkoutLog, **kwargs):
     """
     Handle WorkoutLog delete events.
 
@@ -135,7 +135,7 @@ def workout_log_deleted(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=WorkoutSession)
-def workout_session_saved(sender, instance, created, **kwargs):
+def workout_session_saved(sender, instance: WorkoutSession, created: bool, **kwargs):
     """
     Handle WorkoutSession save events.
 
@@ -167,7 +167,7 @@ def workout_session_saved(sender, instance, created, **kwargs):
 
 
 @receiver(post_delete, sender=WorkoutSession)
-def workout_session_deleted(sender, instance, **kwargs):
+def workout_session_deleted(sender, instance: WorkoutSession, **kwargs):
     """
     Handle WorkoutSession delete events.
 
