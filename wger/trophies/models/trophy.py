@@ -156,4 +156,5 @@ class Trophy(models.Model):
         """
         Returns the relative path to the trophy image
         """
-        return f'trophies/{self.trophy_type}/{self.uuid}.png'
+        return 'trophies/placeholder.png'
+        # return f'trophies/{self.trophy_type}/{self.uuid}.png'
