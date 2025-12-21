@@ -23,4 +23,4 @@ class TrophiesConfig(AppConfig):
     verbose_name = 'Trophies'
 
     def ready(self):
-        import wger.trophies.signals  # noqa: F401
+        import wger.trophies.signals
