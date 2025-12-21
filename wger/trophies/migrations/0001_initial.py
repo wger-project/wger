@@ -220,6 +220,15 @@ class Migration(migrations.Migration):
                         verbose_name='User',
                     ),
                 ),
+                (
+                    'last_complete_weekend_date',
+                    models.DateField(
+                        blank=True,
+                        help_text='Date of the last Saturday where both Sat and Sun had workouts',
+                        null=True,
+                        verbose_name='Last complete weekend date',
+                    )
+                )
             ],
             options={
                 'verbose_name': 'User statistics',

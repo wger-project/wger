@@ -9,8 +9,8 @@ def load_initial_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEdit
     """
     Load the initial set of 9 trophies.
 
-    This migration is idempotent - it will skip trophies that already exist
-    based on the trophy name.
+    This migration almost idempotent - it will update trophies that already exist
+    based on the trophy UUID.
     """
     Trophy = apps.get_model('trophies', 'Trophy')
 
@@ -117,18 +117,11 @@ def load_initial_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEdit
         },
     ]
 
-    created_count = 0
-    skipped_count = 0
-
     for trophy_data in trophies_data:
-        # Check if trophy already exists
-        if not Trophy.objects.filter(name=trophy_data['name']).exists():
-            Trophy.objects.create(**trophy_data)
-            created_count += 1
-        else:
-            skipped_count += 1
-
-
+        Trophy.objects.update_or_create(
+            name=trophy_data['uuid'],
+            defaults=trophy_data
+        )
 
 def reverse_load_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
     """
@@ -158,7 +151,7 @@ def reverse_load_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEdit
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('trophies', '0002_add_last_complete_weekend_date'),
+        ('trophies', '0001_initial'),
     ]
 
     operations = [

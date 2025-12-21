@@ -30,7 +30,7 @@ def remove_personal_record_trophy(apps: StateApps, schema_editor: BaseDatabaseSc
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('trophies', '0003_load_initial_trophies'),
+        ('trophies', '0002_load_initial_trophies'),
     ]
 
     operations = [
