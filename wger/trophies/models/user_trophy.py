@@ -24,7 +24,6 @@ from django.db import (
     IntegrityError,
     models,
 )
-from django.utils.translation import gettext_lazy as _
 
 # Local
 from .trophy import Trophy
@@ -39,7 +38,7 @@ class UserTrophy(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='earned_trophies',
-        verbose_name=_('User'),
+        verbose_name='User',
     )
     """The user who earned the trophy"""
 
@@ -47,29 +46,29 @@ class UserTrophy(models.Model):
         Trophy,
         on_delete=models.CASCADE,
         related_name='user_trophies',
-        verbose_name=_('Trophy'),
+        verbose_name='Trophy',
     )
     """The trophy that was earned"""
 
     earned_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Earned at'),
-        help_text=_('When the trophy was earned'),
+        verbose_name='Earned at',
+        help_text='When the trophy was earned',
     )
     """When the trophy was earned"""
 
     progress = models.FloatField(
         default=0.0,
         validators=[MinValueValidator(0.0), MaxValueValidator(100.0)],
-        verbose_name=_('Progress'),
-        help_text=_('Progress towards earning the trophy (0-100)'),
+        verbose_name='Progress',
+        help_text='Progress towards earning the trophy (0-100)',
     )
     """Progress towards earning the trophy (0-100%)"""
 
     is_notified = models.BooleanField(
         default=False,
-        verbose_name=_('Notified'),
-        help_text=_('Whether the user has been notified about earning this trophy'),
+        verbose_name='Notified',
+        help_text='Whether the user has been notified about earning this trophy',
     )
     """Whether the user has been notified about this trophy (for future notification system)"""
 
@@ -77,15 +76,15 @@ class UserTrophy(models.Model):
         blank=True,
         null=True,
         default=None,
-        verbose_name=_('Context data'),
-        help_text=_('Additional information concerning this trophy'),
+        verbose_name='Context data',
+        help_text='Additional information concerning this trophy',
     )
     """Additional information concerning this trophy (useful for repeatable trophies)"""
 
     class Meta:
         ordering = ['-earned_at']
-        verbose_name = _('User trophy')
-        verbose_name_plural = _('User trophies')
+        verbose_name = 'User trophy'
+        verbose_name_plural = 'User trophies'
 
     def __str__(self):
         return f'{self.user.username} - {self.trophy.name}'

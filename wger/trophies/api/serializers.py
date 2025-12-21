@@ -19,6 +19,7 @@ import logging
 
 # Django
 from django.templatetags.static import static
+from django.utils.translation import gettext as _
 
 # Third Party
 from rest_framework import serializers
@@ -29,6 +30,7 @@ from wger.trophies.models import (
     UserStatistics,
     UserTrophy,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +43,8 @@ class TrophySerializer(serializers.ModelSerializer):
     """
 
     image = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
 
     class Meta:
         model = Trophy
@@ -56,6 +60,14 @@ class TrophySerializer(serializers.ModelSerializer):
             'order',
         )
         read_only_fields = fields
+
+    def get_name(self, obj: Trophy):
+        """Translate the trophy name"""
+        return _(obj.name)
+
+    def get_description(self, obj: Trophy):
+        """Translate the trophy description"""
+        return _(obj.description)
 
     def get_image(self, obj: Trophy):
         """Build absolute URL to trophy image, if possible."""

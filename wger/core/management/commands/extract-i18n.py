@@ -25,6 +25,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     Muscle,
 )
+from wger.trophies.models import Trophy
 
 
 class Command(BaseCommand):
@@ -58,6 +59,11 @@ class Command(BaseCommand):
             + [i for i in WeightUnit.objects.all()]
         )
 
+        # Trophy data is only translated in the django repo
+        trophy_data = [i.name for i in Trophy.objects.all()] + [
+            i.description for i in Trophy.objects.all()
+        ]
+
         # Make entries unique and sort alphabetically
         data = sorted(set([i.__str__() for i in data]))
 
@@ -66,6 +72,8 @@ class Command(BaseCommand):
         with open('wger/i18n.tpl', 'w') as f:
             out = '{% load i18n %}\n'
             for i in data:
+                out += f'{{% translate "{i}" %}}\n'
+            for i in trophy_data:
                 out += f'{{% translate "{i}" %}}\n'
             f.write(out)
             self.stdout.write(self.style.SUCCESS('Wrote content to wger/i18n.tpl'))
