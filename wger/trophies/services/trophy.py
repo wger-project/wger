@@ -35,7 +35,6 @@ from wger.trophies.models import (
     UserTrophy,
 )
 
-
 logger = logging.getLogger(__name__)
 
 # Trophy settings from WGER_SETTINGS (defined in settings_global.py)
@@ -180,7 +179,12 @@ class TrophyService:
         )
 
     @classmethod
-    def get_all_trophy_progress(cls, user: User, include_hidden: bool = False) -> List[Dict]:
+    def get_all_trophy_progress(
+        cls,
+        user: User,
+        include_hidden: bool = False,
+        include_repeatable: bool = False,
+    ) -> List[Dict]:
         """
         Get all trophies with progress information for a user.
 
@@ -190,6 +194,7 @@ class TrophyService:
         Args:
             user: The user to get trophy progress for
             include_hidden: If True, include hidden trophies even if not earned
+            include_repeatable: If True, include repeatable (PR) trophies
 
         Returns:
             List of dicts with trophy info and progress
@@ -201,7 +206,11 @@ class TrophyService:
 
         # Get user's earned trophies
         earned = {
-            ut.trophy_id: ut for ut in UserTrophy.objects.filter(user=user).select_related('trophy')
+            ut.trophy_id: ut
+            for ut in UserTrophy.objects.filter(
+                user=user,
+                trophy__is_repeatable=include_repeatable,
+            ).select_related('trophy')
         }
 
         for trophy in trophies:

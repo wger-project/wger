@@ -57,6 +57,7 @@ class TrophySerializer(serializers.ModelSerializer):
             'trophy_type',
             'is_hidden',
             'is_progressive',
+            'is_repeatable',
             'order',
         )
         read_only_fields = fields
@@ -98,6 +99,7 @@ class UserTrophySerializer(serializers.ModelSerializer):
             'earned_at',
             'progress',
             'is_notified',
+            'context_data',
         )
         read_only_fields = fields
 
