@@ -115,13 +115,23 @@ def load_initial_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEdit
             'is_progressive': False,
             'order': 9,
         },
+        {
+            'uuid': 'd4a5dbe7-7e15-4f7c-8560-a19f5f27eb2e',
+            'name': 'Personal Record',
+            'description': 'Achieve a new Personal Record on any exercise',
+            'trophy_type': 'pr',
+            'checker_class': 'personal_record',
+            'checker_params': {},
+            'is_hidden': True,
+            'is_progressive': False,
+            'is_repeatable': True,
+            'order': 9,
+        },
     ]
 
     for trophy_data in trophies_data:
-        Trophy.objects.update_or_create(
-            name=trophy_data['uuid'],
-            defaults=trophy_data
-        )
+        Trophy.objects.update_or_create(uuid=trophy_data['uuid'], defaults=trophy_data)
+
 
 def reverse_load_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
     """
@@ -142,6 +152,7 @@ def reverse_load_trophies(apps: StateApps, schema_editor: BaseDatabaseSchemaEdit
         'Night Owl',
         'New Year, New Me',
         'Phoenix',
+        'Personal Record',
     ]
 
     deleted_count = Trophy.objects.filter(name__in=trophy_names).delete()[0]

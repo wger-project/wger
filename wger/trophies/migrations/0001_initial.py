@@ -101,6 +101,14 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
+                    'is_repeatable',
+                    models.BooleanField(
+                        default=True,
+                        help_text='If true, this trophy can be earned multiple times',
+                        verbose_name='Repeatable',
+                    ),
+                ),
+                (
                     'order',
                     models.PositiveIntegerField(
                         default=0, help_text='Display order of the trophy', verbose_name='Order'
@@ -227,8 +235,8 @@ class Migration(migrations.Migration):
                         help_text='Date of the last Saturday where both Sat and Sun had workouts',
                         null=True,
                         verbose_name='Last complete weekend date',
-                    )
-                )
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'User statistics',
@@ -242,6 +250,15 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'user',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='earned_trophies',
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name='User',
                     ),
                 ),
                 (
@@ -282,13 +299,14 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    'user',
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name='earned_trophies',
-                        to=settings.AUTH_USER_MODEL,
-                        verbose_name='User',
-                    ),
+                    'context_data',
+                    models.JSONField(
+                        blank=True,
+                        default=None,
+                        help_text='Additional information concerning this trophy',
+                        null=True,
+                        verbose_name='Context data',
+                    )
                 ),
             ],
             options={
