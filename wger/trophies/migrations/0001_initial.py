@@ -103,7 +103,7 @@ class Migration(migrations.Migration):
                 (
                     'is_repeatable',
                     models.BooleanField(
-                        default=True,
+                        default=False,
                         help_text='If true, this trophy can be earned multiple times',
                         verbose_name='Repeatable',
                     ),
