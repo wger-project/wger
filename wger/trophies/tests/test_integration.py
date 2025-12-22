@@ -63,7 +63,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
         self.beginner_trophy = Trophy.objects.create(
             name='Beginner',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 1},
             is_active=True,
         )
@@ -306,7 +306,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
         hidden_trophy = Trophy.objects.create(
             name='Secret Achievement',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 100},
             is_active=True,
             is_hidden=True,

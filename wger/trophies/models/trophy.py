@@ -154,7 +154,7 @@ class Trophy(models.Model):
     @property
     def image_rel_path(self):
         """
-        Returns the relative path to the trophy image
+        Returns the relative (to the static folder) path to the trophy image
         """
         return 'trophies/placeholder.png'
         # return f'trophies/{self.trophy_type}/{self.uuid}.png'

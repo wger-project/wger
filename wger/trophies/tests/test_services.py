@@ -129,7 +129,7 @@ class TrophyServiceTestCase(WgerTestCase):
         self.trophy = Trophy.objects.create(
             name='Test Trophy',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 1},
             is_active=True,
         )
@@ -270,7 +270,7 @@ class TrophyServiceTestCase(WgerTestCase):
         hidden_trophy = Trophy.objects.create(
             name='Hidden',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 10},
             is_hidden=True,
             is_active=True,
@@ -287,7 +287,7 @@ class TrophyServiceTestCase(WgerTestCase):
         hidden_trophy = Trophy.objects.create(
             name='Hidden',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 1},
             is_hidden=True,
             is_active=True,
@@ -379,7 +379,7 @@ class TrophyServiceTestCase(WgerTestCase):
         trophy2 = Trophy.objects.create(
             name='Trophy 2',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 5},
             is_active=True,
         )

@@ -24,13 +24,13 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models.base import Exercise
 from wger.exercises.models.category import ExerciseCategory
 from wger.manager.models.log import WorkoutLog
-from wger.trophies.checkers.count_based import CountBasedChecker
 from wger.trophies.checkers.date_based import DateBasedChecker
 from wger.trophies.checkers.inactivity_return import InactivityReturnChecker
 from wger.trophies.checkers.streak import StreakChecker
 from wger.trophies.checkers.time_based import TimeBasedChecker
 from wger.trophies.checkers.volume import VolumeChecker
 from wger.trophies.checkers.weekend_warrior import WeekendWarriorChecker
+from wger.trophies.checkers.workout_count_based import WorkoutCountBasedChecker
 from wger.trophies.models import (
     Trophy,
     UserStatistics,
@@ -58,7 +58,7 @@ class CountBasedCheckerTestCase(WgerTestCase):
         self.stats.total_workouts = 5
         self.stats.save()
 
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertFalse(checker.check())
 
     def test_check_achieved(self):
@@ -66,7 +66,7 @@ class CountBasedCheckerTestCase(WgerTestCase):
         self.stats.total_workouts = 10
         self.stats.save()
 
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertTrue(checker.check())
 
     def test_check_exceeded(self):
@@ -74,7 +74,7 @@ class CountBasedCheckerTestCase(WgerTestCase):
         self.stats.total_workouts = 15
         self.stats.save()
 
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertTrue(checker.check())
 
     def test_progress_calculation(self):
@@ -82,7 +82,7 @@ class CountBasedCheckerTestCase(WgerTestCase):
         self.stats.total_workouts = 5
         self.stats.save()
 
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertEqual(checker.get_progress(), 50.0)
 
     def test_progress_capped_at_100(self):
@@ -90,7 +90,7 @@ class CountBasedCheckerTestCase(WgerTestCase):
         self.stats.total_workouts = 15
         self.stats.save()
 
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertEqual(checker.get_progress(), 100.0)
 
     def test_get_current_value(self):
@@ -98,12 +98,12 @@ class CountBasedCheckerTestCase(WgerTestCase):
         self.stats.total_workouts = 7
         self.stats.save()
 
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertEqual(checker.get_current_value(), 7)
 
     def test_get_target_value(self):
         """Test getting target workout count"""
-        checker = CountBasedChecker(self.user, self.trophy, {'count': 10})
+        checker = WorkoutCountBasedChecker(self.user, self.trophy, {'count': 10})
         self.assertEqual(checker.get_target_value(), 10)
 
 

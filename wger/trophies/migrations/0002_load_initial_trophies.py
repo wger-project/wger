@@ -12,18 +12,76 @@ volume_trophy_data = {
     'is_repeatable': False,
 }
 
+workout_count_trophy_data = {
+    'trophy_type': 'count',
+    'checker_class': 'workout_count_based',
+    'is_hidden': False,
+    'is_progressive': True,
+    'is_repeatable': False,
+}
+
 # Define the initial trophies (same as in load_trophies management command)
 trophies_data = [
     {
-        'uuid': '5362e55b-eaf1-4e34-9ef8-661538a3bdd9',
+        **workout_count_trophy_data,
+        'uuid': '9f1c7c7e-3b2a-4b6f-9b5f-1c3e2d4f5a60',
         'name': 'Beginner',
         'description': 'Complete your first workout',
-        'trophy_type': 'count',
-        'checker_class': 'count_based',
         'checker_params': {'count': 1},
-        'is_hidden': False,
-        'is_progressive': False,
         'order': 1,
+    },
+    {
+        **workout_count_trophy_data,
+        'uuid': '0d2e3f4a-5b6c-47d8-9e0f-1a2b3c4d5e6f',
+        'name': 'Consistent',
+        'description': 'Complete 10 workouts',
+        'checker_params': {'count': 10},
+        'is_hidden': False,
+        'order': 2,
+    },
+    {
+        **workout_count_trophy_data,
+        'uuid': '4b6f9c2d-3e1a-4f5b-8c7d-2e3f4a5b6c7d',
+        'name': 'Dedicated',
+        'description': 'Complete 50 workouts',
+        'checker_params': {'count': 50},
+        'order': 3,
+    },
+    {
+        **workout_count_trophy_data,
+        'uuid': 'd2c3b4a5-6f7e-48d9-8c0b-2a3c4d5e6f7b',
+        'name': 'Obsessed',
+        'description': 'Complete 100 workouts',
+        'checker_params': {'count': 100},
+        'is_hidden': True,
+        'order': 4,
+    },
+    {
+        **workout_count_trophy_data,
+        'uuid': 'e3f4a5b6-c7d8-49e0-9f1a-2b3c4d5e6f7a',
+        'name': 'Legend',
+        'description': 'Complete 200 workouts',
+        'checker_params': {'count': 200},
+        'is_hidden': True,
+        'order': 5,
+    },
+    {
+        **workout_count_trophy_data,
+        'uuid': 'f4a5b6c7-d8e9-40f1-9a2b-3c4d5e6f7a8b',
+        'name': 'Veteran',
+        'description': 'Complete 500 workouts',
+        'checker_params': {'count': 500},
+        'is_hidden': True,
+        'order': 6,
+    },
+    {
+        **workout_count_trophy_data,
+        'uuid': 'a5b6c7d8-e9f0-41a2-9b3c-4d5e6f7a8b9c',
+        'name': 'Legend',
+        'description': 'Complete 1000 workouts',
+        'checker_params': {'count': 1000},
+        'is_hidden': True,
+        'order': 7,
     },
     {
         'uuid': 'b605b6a1-953d-41fb-87c9-a2f88b5f5907',
@@ -32,9 +90,9 @@ trophies_data = [
         'trophy_type': 'sequence',
         'checker_class': 'streak',
         'checker_params': {'days': 30},
-        'is_hidden': False,
         'is_progressive': True,
-        'order': 2,
+        'is_hidden': False,
+        'order': 8,
     },
     {
         'uuid': 'bf60e051-a9a5-4bf5-ac4b-1aa713febca7',
@@ -43,9 +101,9 @@ trophies_data = [
         'trophy_type': 'sequence',
         'checker_class': 'weekend_warrior',
         'checker_params': {'weekends': 4},
-        'is_hidden': False,
         'is_progressive': True,
-        'order': 3,
+        'is_hidden': False,
+        'order': 9,
     },
     {
         **volume_trophy_data,
@@ -53,7 +111,7 @@ trophies_data = [
         'name': 'Elephant lifter',
         'description': 'Lift a cumulative total of 5.000 kg',
         'checker_params': {'kg': 5_000},
-        'order': 4,
+        'order': 10,
     },
     {
         **volume_trophy_data,
@@ -61,7 +119,7 @@ trophies_data = [
         'name': 'Bus lifter',
         'description': 'Lift a cumulative total of 20.000 kg',
         'checker_params': {'kg': 20_000},
-        'order': 5,
+        'order': 11,
     },
     {
         **volume_trophy_data,
@@ -69,7 +127,7 @@ trophies_data = [
         'name': 'Plane lifter',
         'description': 'Lift a cumulative total of 50.000 kg',
         'checker_params': {'kg': 50_000},
-        'order': 6,
+        'order': 12,
     },
     {
         **volume_trophy_data,
@@ -77,8 +135,8 @@ trophies_data = [
         'name': 'Blue whale lifter',
         'description': 'Lift a cumulative total of 150.000 kg',
         'checker_params': {'kg': 150_000},
-        'order': 7,
         'is_hidden':True,
+        'order': 13,
     },
     {
         **volume_trophy_data,
@@ -86,8 +144,8 @@ trophies_data = [
         'name': 'Space Station lifter',
         'description': 'Lift a cumulative total of 450.000 kg',
         'checker_params': {'kg': 450_000},
-        'order': 8,
         'is_hidden':True,
+        'order': 14,
     },
     {
         **volume_trophy_data,
@@ -95,8 +153,8 @@ trophies_data = [
         'name': 'Millionaire',
         'description': 'Lift a cumulative total of 1.000.000 kg',
         'checker_params': {'kg': 1_000_000},
-        'order': 9,
         'is_hidden':True,
+        'order': 15,
     },
     {
         **volume_trophy_data,
@@ -104,8 +162,8 @@ trophies_data = [
         'name': 'Atlas',
         'description': 'Lift a cumulative total of 10.000.000 kg',
         'checker_params': {'kg': 10_000_000},
-        'order': 10,
         'is_hidden':True,
+        'order': 16,
     },
     {
         'uuid': 'cc833c0b-1fd9-4cde-baa5-3bff9cd97d0c',
@@ -116,7 +174,7 @@ trophies_data = [
         'checker_params': {'before': '06:00'},
         'is_hidden': False,
         'is_progressive': False,
-        'order': 11,
+        'order': 17,
     },
     {
         'uuid': '2b00ff1e-69f8-47f0-b8df-976a4127a425',
@@ -127,7 +185,7 @@ trophies_data = [
         'checker_params': {'after': '21:00'},
         'is_hidden': False,
         'is_progressive': False,
-        'order': 12,
+        'order': 18,
     },
     {
         'uuid': '31a71d9a-bf26-4f18-b82f-afefe6f50df2',
@@ -138,7 +196,7 @@ trophies_data = [
         'checker_params': {'month': 1, 'day': 1},
         'is_hidden': True,
         'is_progressive': False,
-        'order': 13,
+        'order': 19,
     },
     {
         'uuid': '32bb12da-b25f-4e18-81e4-b695eb65283e',
@@ -149,7 +207,7 @@ trophies_data = [
         'checker_params': {'inactive_days': 30},
         'is_hidden': True,
         'is_progressive': False,
-        'order': 14,
+        'order': 20,
     },
     {
         'uuid': 'd4a5dbe7-7e15-4f7c-8560-a19f5f27eb2e',
@@ -161,7 +219,7 @@ trophies_data = [
         'is_hidden': True,
         'is_progressive': False,
         'is_repeatable': True,
-        'order': 15,
+        'order': 21,
     },
 ]
 
