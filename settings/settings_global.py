@@ -18,11 +18,11 @@ import os
 import re
 import sys
 from datetime import timedelta
+from pathlib import Path
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
-
 
 """
 This file contains the global settings that don't usually need to be changed.
@@ -30,8 +30,15 @@ For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent / 'wger'
+SITE_ROOT = Path(__file__).resolve().parent.parent / 'wger'
+
+
+# Static and media files (only during development)
+MEDIA_ROOT =  BASE_DIR / 'media'
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
 
 #
 # Application definition
@@ -39,6 +46,7 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
+
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -437,7 +445,7 @@ else:
     STATIC_URL = '/static/'
 
 #
-# Django compressor
+# Django compressor for CSS and JS files
 #
 
 # The default is not DEBUG, override if needed
@@ -620,3 +628,8 @@ ACTSTREAM_SETTINGS = {
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+
+# Your reCaptcha keys
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
+NOCAPTCHA = True
