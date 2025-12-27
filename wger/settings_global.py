@@ -620,3 +620,38 @@ ACTSTREAM_SETTINGS = {
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+
+ENABLE_GOOGLE_LOGIN = os.environ.get("ENABLE_GOOGLE_LOGIN", "false").lower() == "true"
+
+if ENABLE_GOOGLE_LOGIN:
+    # Add allauth apps
+    INSTALLED_APPS += [
+        "django.contrib.sites",
+        "allauth",
+        "allauth.account",
+        "allauth.socialaccount",
+        "allauth.socialaccount.providers.google",
+    ]
+
+    # Add authentication backends
+    AUTHENTICATION_BACKENDS = (
+        "django.contrib.auth.backends.ModelBackend",           # default
+        "allauth.account.auth_backends.AuthenticationBackend", # allauth
+    )
+
+
+    # Redirects
+    LOGOUT_REDIRECT_URL = "/"
+
+    # Socialaccount provider config
+    SOCIALACCOUNT_PROVIDERS = {
+        "google": {
+            "APP": {
+                "client_id": os.environ.get("GOOGLE_CLIENT_ID", ""),
+                "secret": os.environ.get("GOOGLE_CLIENT_SECRET", ""),
+                "key": "",
+            },
+            "SCOPE": ["profile", "email"],
+            "AUTH_PARAMS": {"access_type": "online"},
+        }
+    }

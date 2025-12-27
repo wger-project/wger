@@ -9,6 +9,13 @@
 
 {% block content %}
     {% crispy form %}
+    
+    {# Google OAuth login button #}
+    {% load socialaccount %}
+    <a class="btn btn-primary" href="{% provider_login_url 'google' %}">
+        Sign in with Google
+    </a>
+
 {% endblock %}
 
 
