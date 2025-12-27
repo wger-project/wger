@@ -1,0 +1,254 @@
+/*
+ * wger Countdown Timer Styles
+ */
+
+.countdown-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Timer Circle Container */
+.timer-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+/* SVG Circle */
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-bg {
+  fill: none;
+  stroke: #e9ecef;
+  stroke-width: 8;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: #2a8fbd; /* wger-blue */
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
+}
+
+.timer-progress.timer-warning {
+  stroke: #ffc107; /* warning yellow */
+}
+
+.timer-progress.timer-danger {
+  stroke: #dc3545; /* danger red */
+}
+
+/* Time Display */
+.timer-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.timer-time {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #212529;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Completion Animation */
+.timer-circle.timer-complete {
+  animation: pulse 0.5s ease-in-out 3;
+}
+
+.timer-circle.timer-complete .timer-progress {
+  stroke: #28a745; /* success green */
+}
+
+.timer-circle.timer-complete .timer-time {
+  color: #28a745;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Timer Controls */
+.timer-controls {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.timer-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.timer-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.timer-btn:active {
+  transform: scale(0.95);
+}
+
+.timer-start {
+  background-color: #28a745;
+  color: white;
+}
+
+.timer-start:hover {
+  background-color: #218838;
+  color: white;
+}
+
+.timer-pause {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.timer-pause:hover {
+  background-color: #e0a800;
+  color: #212529;
+}
+
+.timer-reset {
+  background-color: #6c757d;
+  color: white;
+}
+
+.timer-reset:hover {
+  background-color: #5a6268;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .timer-circle {
+    width: 160px;
+    height: 160px;
+  }
+
+  .timer-time {
+    font-size: 2rem;
+  }
+
+  .timer-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+}
+
+/* Dark mode support (if theme supports it) */
+@media (prefers-color-scheme: dark) {
+  .timer-bg {
+    stroke: #495057;
+  }
+
+  .timer-time {
+    color: #f8f9fa;
+  }
+}
+
+/* Timer in card/modal context */
+.card .countdown-timer,
+.modal .countdown-timer {
+  padding: 0.5rem;
+}
+
+.card .timer-circle,
+.modal .timer-circle {
+  width: 150px;
+  height: 150px;
+}
+
+.card .timer-time,
+.modal .timer-time {
+  font-size: 1.75rem;
+}
+
+/* Inline timer (smaller version) */
+.countdown-timer.timer-inline {
+  flex-direction: row;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.countdown-timer.timer-inline .timer-circle {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0;
+}
+
+.countdown-timer.timer-inline .timer-time {
+  font-size: 1.25rem;
+}
+
+.countdown-timer.timer-inline .timer-btn {
+  width: 36px;
+  height: 36px;
+  font-size: 0.875rem;
+}
+
+/* Injected exercise timer (compact, next to exercise) */
+.wger-exercise-timer-inline .countdown-timer {
+  flex-direction: row;
+  padding: 0.25rem 0.5rem;
+  gap: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.wger-exercise-timer-inline .timer-circle {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0;
+}
+
+.wger-exercise-timer-inline .timer-time {
+  font-size: 1rem;
+}
+
+.wger-exercise-timer-inline .timer-controls {
+  gap: 0.25rem;
+}
+
+.wger-exercise-timer-inline .timer-btn {
+  width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
+}
+
+.wger-exercise-timer-inline .timer-svg {
+  stroke-width: 6;
+}
+
+.wger-exercise-timer-inline .timer-bg,
+.wger-exercise-timer-inline .timer-progress {
+  stroke-width: 6;
+}

@@ -24,6 +24,16 @@ class RepetitionUnit(models.Model):
     Setting unit, used in combination with an amount such as '10 reps', '5 km'
     """
 
+    UNIT_TYPE_REPETITIONS = 'REPETITIONS'
+    UNIT_TYPE_TIME = 'TIME'
+    UNIT_TYPE_DISTANCE = 'DISTANCE'
+
+    UNIT_TYPE_CHOICES = [
+        (UNIT_TYPE_REPETITIONS, _('Repetitions')),
+        (UNIT_TYPE_TIME, _('Time')),
+        (UNIT_TYPE_DISTANCE, _('Distance')),
+    ]
+
     class Meta:
         """
         Set Meta options
@@ -34,6 +44,13 @@ class RepetitionUnit(models.Model):
         ]
 
     name = models.CharField(max_length=100, verbose_name=_('Name'))
+    unit_type = models.CharField(
+        max_length=20,
+        choices=UNIT_TYPE_CHOICES,
+        default=UNIT_TYPE_REPETITIONS,
+        verbose_name=_('Unit Type'),
+        help_text=_('The type of unit (repetitions, time, or distance)'),
+    )
 
     def __str__(self):
         """
@@ -58,3 +75,19 @@ class RepetitionUnit(models.Model):
         This is done basically to not litter the code with magic IDs
         """
         return self.id == 1
+
+    @property
+    def is_time(self):
+        """
+        Checks if this unit represents a time-based measurement (seconds, minutes)
+
+        Used by the frontend to determine if a countdown timer should be displayed
+        """
+        return self.unit_type == self.UNIT_TYPE_TIME
+
+    @property
+    def is_distance(self):
+        """
+        Checks if this unit represents a distance measurement (km, miles)
+        """
+        return self.unit_type == self.UNIT_TYPE_DISTANCE
