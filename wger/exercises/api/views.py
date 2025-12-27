@@ -29,9 +29,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 
 # Third Party
-import bleach
 from actstream import action as actstream_action
-from bleach.css_sanitizer import CSSSanitizer
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -173,15 +171,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        # Clean the description HTML
-        if serializer.validated_data.get('description'):
-            serializer.validated_data['description'] = bleach.clean(
-                serializer.validated_data['description'],
-                tags=HTML_TAG_WHITELIST,
-                attributes=HTML_ATTRIBUTES_WHITELIST,
-                css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
-                strip=True,
-            )
+
         super().perform_create(serializer)
 
         actstream_action.send(
@@ -202,17 +192,8 @@ class ExerciseTranslationViewSet(ModelViewSet):
         if serializer.validated_data.get('language'):
             del serializer.validated_data['language']
 
-        # Clean the description HTML
-        if serializer.validated_data.get('description'):
-            serializer.validated_data['description'] = bleach.clean(
-                serializer.validated_data['description'],
-                tags=HTML_TAG_WHITELIST,
-                attributes=HTML_ATTRIBUTES_WHITELIST,
-                css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
-                strip=True,
-            )
-
         super().perform_update(serializer)
+
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
