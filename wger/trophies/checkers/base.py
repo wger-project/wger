@@ -124,5 +124,16 @@ class BaseTrophyChecker(ABC):
         """
         return True
 
+    def get_context_data(self) -> Optional[dict]:
+        """
+        Returns context information about the trophy.
+
+        Override this method in subclasses to return informative context.
+
+        Returns:
+            None if no context, dict context information otherwise
+        """
+        return None
+
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}(user={self.user.username}, trophy={self.trophy.name})>'
