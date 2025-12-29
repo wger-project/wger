@@ -203,6 +203,12 @@
                         </button>
 
                         <ul class="dropdown-menu language-menu" aria-labelledby="btnGroupLanguages">
+                            <li>
+                                <a href="" class="dropdown-item">
+                                    <span class="{% fa_class 'globe' %}"></span>
+                                    <span>{% translate "Browser language" %}</span>
+                                </a>
+                            </li>
                             {% for language in languages %}
                                 {% language_select language %}
                             {% endfor %}
