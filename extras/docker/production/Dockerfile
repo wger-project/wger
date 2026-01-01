@@ -79,6 +79,7 @@ ARG BUILD_DATE
 ENV PATH="/home/wger/.local/bin:$PATH"
 ENV APP_BUILD_COMMIT=$BUILD_COMMIT
 ENV APP_BUILD_DATE=$BUILD_DATE
+ENV DJANGO_SETTINGS_MODULE='settings.main'
 
 WORKDIR /home/wger/src
 EXPOSE 8000
@@ -88,8 +89,6 @@ COPY --chown=wger:wger . /home/wger/src
 COPY --chown=wger:wger --from=builder /root/src/node_modules /home/wger/src/node_modules
 COPY --chown=wger:wger --from=builder /root/src/wger/core/static/bootstrap-compiled.css /home/wger/src/wger/core/static/bootstrap-compiled.css
 COPY --chown=wger:wger --from=builder /root/src/wger/core/static/bootstrap-compiled.css.map /home/wger/src/wger/core/static/bootstrap-compiled.css.map
-COPY ${DOCKER_DIR}/settings.py /home/wger/src
-COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
 COPY ${DOCKER_DIR}/celery/start-beat /start-beat
 COPY ${DOCKER_DIR}/celery/start-worker /start-worker

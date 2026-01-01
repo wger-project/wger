@@ -16,6 +16,11 @@ on:
 jobs:
   ci-job:
     runs-on: ubuntu-latest
+
+    env:
+      DJANGO_SETTINGS_MODULE: settings.ci
+      DJANGO_MEDIA_ROOT: /tmp/wger-test
+
     strategy:
       matrix:
         # Note: removed 3.14 because lingua-language-detector has no wheels yet
@@ -41,22 +46,19 @@ jobs:
       - name: Install dependencies
         run: |
           uv sync --group dev
+          mkdir /tmp/wger-test
 
       # Only run the tests with coverage for one version of python
       - name: Test the application with coverage
         if: matrix.python-version == 3.13
         run: |
-          source .venv/bin/activate
-          wger create-settings
-          coverage run --source='.' ./manage.py test
-          coverage lcov
+          uv run coverage run --source='.' ./manage.py test
+          uv run coverage lcov
 
       - name: Test the application
         if: matrix.python-version != 3.13
         run: |
-          source .venv/bin/activate
-          wger create-settings
-          python manage.py test
+          uv run ./manage.py test
 
       - name: Coveralls
         if: matrix.python-version == 3.13

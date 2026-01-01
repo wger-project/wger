@@ -165,7 +165,7 @@ line-ending = "auto"
 src_paths = ["wger", "extras"]
 
 sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-skip = ["extras", "build", "dist", "node_modules", "migrations", "docs", "settings.py", "apps.py"]
+skip = ["extras", "build", "dist", "node_modules", "migrations", "docs", "settings", "apps.py"]
 # If set to true - ensures that if a star import is present, nothing else is
 # imported from that namespace.
 combine_star = false
