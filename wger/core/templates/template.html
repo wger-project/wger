@@ -203,15 +203,32 @@
                         </button>
 
                         <ul class="dropdown-menu language-menu" aria-labelledby="btnGroupLanguages">
+
                             <li>
                                 <a href="" class="dropdown-item">
                                     <span class="{% fa_class 'globe' %}"></span>
                                     <span>{% translate "Browser language" %}</span>
                                 </a>
                             </li>
-                            {% for language in languages %}
-                                {% language_select language %}
-                            {% endfor %}
+
+                            <form id="language-form" action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ redirect_to }}">
+                                <input type="hidden" name="language" id="language-input">
+                                {% for language in languages %}
+                                    {% language_select language %}
+                                {% endfor %}
+                            </form>
+                            <script>
+                                document.querySelectorAll('[data-language]').forEach(item => {
+                                    item.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        document.getElementById('language-input').value = this.dataset.language;
+                                        document.getElementById('language-form').submit();
+                                    });
+                                });
+                            </script>
+
                             <li>
                                 <hr class="dropdown-divider"></hr>
                             </li>

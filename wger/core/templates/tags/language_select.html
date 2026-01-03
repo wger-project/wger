@@ -1,11 +1,11 @@
 {% load i18n static %}
 
 <li>
-    <a class="dropdown-item" href="{{ i18n_path }}">
+    <button class="dropdown-item" type="button" data-language="{{ code }}">
         <img src="{% static path %}"
              width="20"
              alt="{% translate name %}"
              title="{% translate name %}">
         {% translate name %} / <small>{{ name }}</small>
-    </a>
+    </button>
 </li>
