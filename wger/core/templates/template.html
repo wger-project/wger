@@ -204,17 +204,16 @@
 
                         <ul class="dropdown-menu language-menu" aria-labelledby="btnGroupLanguages">
 
-                            <li>
-                                <a href="" class="dropdown-item">
-                                    <span class="{% fa_class 'globe' %}"></span>
-                                    <span>{% translate "Browser language" %}</span>
-                                </a>
-                            </li>
-
                             <form id="language-form" action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
                                 <input name="next" type="hidden" value="{{ redirect_to }}">
                                 <input type="hidden" name="language" id="language-input">
+                                <li>
+                                    <button class="dropdown-item" type="button" data-language="">
+                                        <span class="{% fa_class 'globe' %}"></span>
+                                        <span>{% translate "Browser language" %}</span>
+                                    </button>
+                                </li>
                                 {% for language in languages %}
                                     {% language_select language %}
                                 {% endfor %}
@@ -223,8 +222,16 @@
                                 document.querySelectorAll('[data-language]').forEach(item => {
                                     item.addEventListener('click', function(e) {
                                         e.preventDefault();
-                                        document.getElementById('language-input').value = this.dataset.language;
-                                        document.getElementById('language-form').submit();
+                                        const langCode = this.dataset.language;
+                                        
+                                        if (langCode === '') {
+                                            // Delete cookie and reload
+                                            document.cookie = 'django_language=; path=/; max-age=0';
+                                            window.location.reload();
+                                        } else {
+                                            document.getElementById('language-input').value = langCode;
+                                            document.getElementById('language-form').submit();
+                                        }
                                     });
                                 });
                             </script>
