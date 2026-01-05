@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load i18n static crispy_forms_tags %}
+
+{% block title %}{% translate "Add Timed Exercise" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fa-solid fa-stopwatch me-2"></i>
+                        {% translate "Add Timed Exercise" %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-4">
+                        {% translate "Add an exercise with a time-based duration (e.g., 60 second plank, 2 minute wall sit). A countdown timer will automatically appear when viewing the routine." %}
+                    </p>
+
+                    <form method="post" id="timed-exercise-form">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_routine" class="form-label">{% translate "Routine" %}</label>
+                            <select name="routine" id="id_routine" class="form-select" required>
+                                <option value="">{% translate "Select a routine..." %}</option>
+                                {% for routine in form.routine.field.queryset %}
+                                    <option value="{{ routine.id }}">{{ routine.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-text">{% translate "Select the routine to add this exercise to" %}</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_day" class="form-label">{% translate "Day" %} ({% translate "optional" %})</label>
+                            <select name="day" id="id_day" class="form-select">
+                                <option value="">{% translate "Auto-select or create day" %}</option>
+                            </select>
+                            <div class="form-text">{% translate "Leave empty to use the first day or create a new one" %}</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_exercise" class="form-label">{% translate "Exercise" %}</label>
+                            <select name="exercise" id="id_exercise" class="form-select" required>
+                                <option value="">{% translate "Select an exercise..." %}</option>
+                                {% for exercise in form.exercise.field.queryset %}
+                                    <option value="{{ exercise.id }}">{{ exercise.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-text">{% translate "Select the exercise (e.g., Plank, Wall Sit)" %}</div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-8">
+                                <label for="id_duration" class="form-label">{% translate "Duration" %}</label>
+                                <input type="number" name="duration" id="id_duration" class="form-control"
+                                       min="1" max="3600" value="60" required>
+                            </div>
+                            <div class="col-4">
+                                <label for="id_unit" class="form-label">{% translate "Unit" %}</label>
+                                <select name="unit" id="id_unit" class="form-select" required>
+                                    {% for unit in form.unit.field.queryset %}
+                                        <option value="{{ unit.id }}" {% if unit.name == "Seconds" %}selected{% endif %}>
+                                            {{ unit.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Timer Preview -->
+                        <div class="mb-4">
+                            <label class="form-label">{% translate "Preview" %}</label>
+                            <div class="border rounded p-3 bg-light">
+                                <div id="timer-preview" data-timer-duration="60" data-timer-unit-type="TIME"></div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fa-solid fa-plus me-2"></i>
+                                {% translate "Add Timed Exercise" %}
+                            </button>
+                            <a href="{% url 'manager:routine:overview' %}" class="btn btn-outline-secondary">
+                                {% translate "Cancel" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize preview timer
+    const previewContainer = document.getElementById('timer-preview');
+    let previewTimer = new CountdownTimer(previewContainer, {
+        duration: 60
+    });
+
+    // Update preview when duration or unit changes
+    const durationInput = document.getElementById('id_duration');
+    const unitSelect = document.getElementById('id_unit');
+
+    function updatePreview() {
+        let duration = parseInt(durationInput.value) || 60;
+        const unitText = unitSelect.options[unitSelect.selectedIndex].text.toLowerCase();
+
+        // Convert minutes to seconds for preview
+        if (unitText.includes('minute')) {
+            duration = duration * 60;
+        }
+
+        // Recreate timer with new duration
+        previewContainer.innerHTML = '';
+        previewTimer = new CountdownTimer(previewContainer, {
+            duration: duration
+        });
+    }
+
+    durationInput.addEventListener('change', updatePreview);
+    durationInput.addEventListener('input', updatePreview);
+    unitSelect.addEventListener('change', updatePreview);
+
+    // Load days when routine changes
+    const routineSelect = document.getElementById('id_routine');
+    const daySelect = document.getElementById('id_day');
+
+    routineSelect.addEventListener('change', function() {
+        const routineId = this.value;
+        daySelect.innerHTML = '<option value="">{% translate "Auto-select or create day" %}</option>';
+
+        if (routineId) {
+            fetch(`/en/routine/api/days/${routineId}/`)
+                .then(response => response.json())
+                .then(days => {
+                    days.forEach(day => {
+                        const option = document.createElement('option');
+                        option.value = day.id;
+                        option.textContent = day.name;
+                        daySelect.appendChild(option);
+                    });
+                })
+                .catch(err => console.log('Could not load days:', err));
+        }
+    });
+});
+</script>
+{% endblock %}

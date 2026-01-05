@@ -187,7 +187,7 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RepetitionUnit
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'unit_type')
 
 
 class RoutineWeightUnitSerializer(serializers.ModelSerializer):
