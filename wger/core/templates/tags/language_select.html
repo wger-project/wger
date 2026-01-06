@@ -1,7 +1,7 @@
 {% load i18n static %}
 
 <li>
-    <button class="dropdown-item" type="button" data-language="{{ code }}">
+    <button class="dropdown-item" type="button" onclick="submitLanguageForm('{{ code }}')">
         <img src="{% static path %}"
              width="20"
              alt="{% translate name %}"

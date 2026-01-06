@@ -66,6 +66,7 @@
         </script>
         <script src="{% static 'node/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
+        <script src="{% static 'js/language.js' %}"></script>
     {% endcompress %}
 
     {# this needs to be outside of the compress block! #}
@@ -218,23 +219,6 @@
                                     {% language_select language %}
                                 {% endfor %}
                             </form>
-                            <script>
-                                document.querySelectorAll('[data-language]').forEach(item => {
-                                    item.addEventListener('click', function(e) {
-                                        e.preventDefault();
-                                        const langCode = this.dataset.language;
-                                        
-                                        if (langCode === '') {
-                                            // Delete cookie and reload
-                                            document.cookie = 'django_language=; path=/; max-age=0';
-                                            window.location.reload();
-                                        } else {
-                                            document.getElementById('language-input').value = langCode;
-                                            document.getElementById('language-form').submit();
-                                        }
-                                    });
-                                });
-                            </script>
 
                             <li>
                                 <hr class="dropdown-divider"></hr>
