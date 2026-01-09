@@ -104,18 +104,24 @@ USER wger
 WORKDIR /home/wger/src
 RUN python3 -m venv /home/wger/venv
 
-# Change permissions of some files and folders so the apache process
-# can access them.
+# Configure the application
+ENV PYTHONPATH=/home/wger/src
+ENV DJANGO_SETTINGS_MODULE=settings.main
+ENV MEDIA_ROOT=/home/wger/media
+ENV STATIC_ROOT=/home/wger/static
+ENV DJANGO_DB_DATABASE=/home/wger/db/database.sqlite
+ENV COMPRESS_OFFLINE=True
+
+# Change permissions of some files and folders so the apache process can access them.
 RUN mkdir -p ~/static/CACHE ~/media \
     && ln -s /home/wger/static/CACHE /home/wger/src/CACHE \
     && chmod g+w /home/wger/static/CACHE
 
 RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels  . /home/wger/venv/bin/activate \
-    && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
     && pip install -e . \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings/production.py \
-    && echo STATIC_ROOT=\'/home/wger/static\' >> settings/production.py \
+    && mkdir -p /home/wger/db \
+    && . /home/wger/venv/bin/activate \
     && wger bootstrap --no-process-static \
     && python3 manage.py sync-exercises \
     && wger load-online-fixtures \
