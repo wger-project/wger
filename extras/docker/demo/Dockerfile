@@ -110,7 +110,7 @@ ENV DJANGO_SETTINGS_MODULE=settings.main
 ENV MEDIA_ROOT=/home/wger/media
 ENV STATIC_ROOT=/home/wger/static
 ENV DJANGO_DB_DATABASE=/home/wger/db/database.sqlite
-ENV COMPRESS_OFFLINE=True
+ENV DJANGO_CACHE_BACKEND=django.core.cache.backends.locmem.LocMemCache
 
 # Change permissions of some files and folders so the apache process can access them.
 RUN mkdir -p ~/static/CACHE ~/media \

@@ -20,7 +20,12 @@ import environ
 # wger
 from .settings_global import *  # noqa: F403
 
-"""Main settings file for a production deployment of wger."""
+"""
+Main settings file for a production deployment of wger.
+
+For a more commented version of the options used here, please refer to
+https://github.com/wger-project/docker/blob/master/config/prod.env
+"""
 
 env = environ.Env(
     # set casting, default value
@@ -136,10 +141,10 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
     CACHES = {
         'default': {
             'BACKEND': env.str("DJANGO_CACHE_BACKEND"),
-            'LOCATION': env.str("DJANGO_CACHE_LOCATION"),
-            'TIMEOUT': env.int("DJANGO_CACHE_TIMEOUT"),
+            'LOCATION': env.str("DJANGO_CACHE_LOCATION", ''),
+            'TIMEOUT': env.int("DJANGO_CACHE_TIMEOUT", 300),
             'OPTIONS': {
-                'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS")
+                'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS", '')
             }
         }
     }

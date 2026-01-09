@@ -65,8 +65,9 @@ fi
 # Sync ingredients
 if [[ "$SYNC_INGREDIENTS_ON_STARTUP" == "True" ]];
 then
-    echo "Syncing ingredients"
-    python3 manage.py sync-ingredients
+    echo "The option SYNC_INGREDIENTS_ON_STARTUP is not supported anymore as it needs several hours to complete."
+    echo "Please start the process manually with: docker compose exec web python3 manage.py sync-ingredients"
+    exit 1
 fi
 
 # Set the site URL

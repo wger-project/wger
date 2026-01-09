@@ -406,7 +406,6 @@ THUMBNAIL_ALIASES = {
     },
 }
 
-STATIC_ROOT = ''
 USE_S3 = os.getenv('USE_S3') == 'TRUE'
 
 if USE_S3:

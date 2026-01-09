@@ -1,9 +1,10 @@
 """Local development settings for wger"""
 
 # ruff: noqa: F405
+# ruff: noqa: F403
 
 # wger
-from .settings_global import *  # noqa: F403
+from .settings_global import *
 
 DEBUG = True
 
@@ -119,6 +120,6 @@ DATABASES = {
 
 # Import other local settings that are not in version control
 try:
-    from .local_dev_extra import *  # noqa: F403
+    from .local_dev_extra import *
 except ImportError:
     pass
