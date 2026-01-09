@@ -52,6 +52,7 @@ from wger.trophies.api import views as trophies_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
+
 #
 # REST API
 #

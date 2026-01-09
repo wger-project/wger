@@ -44,6 +44,7 @@ from wger.trophies.services import UserStatisticsService
 from wger.trophies.services.trophy import TrophyService
 from wger.trophies.tasks import evaluate_user_trophies_task
 
+
 logger = logging.getLogger(__name__)
 
 

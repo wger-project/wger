@@ -39,6 +39,7 @@ from .volume import VolumeChecker
 from .weekend_warrior import WeekendWarriorChecker
 from .workout_count_based import WorkoutCountBasedChecker
 
+
 logger = logging.getLogger(__name__)
 
 

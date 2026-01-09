@@ -19,6 +19,7 @@ from django.urls import re_path
 # wger
 from wger.core.views.react import ReactView
 
+
 urlpatterns = [
     re_path(
         '',

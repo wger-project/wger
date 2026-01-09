@@ -18,6 +18,7 @@
 from typing import Optional
 
 # wger
+from wger.manager.models import WorkoutLog
 from wger.trophies.models.trophy import Trophy
 from wger.trophies.models.user_trophy import UserTrophy
 
@@ -40,7 +41,7 @@ class PersonalRecordChecker(BaseTrophyChecker):
         """
         Brzycki's formula: 1RM = weight * (36 / (37 - repetitions))
         """
-        log = self.params.get('log', None)
+        log: WorkoutLog | None = self.params.get('log', None)
 
         if not log:
             raise ValueError('Log should not be None')

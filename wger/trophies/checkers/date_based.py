@@ -14,9 +14,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-from typing import Any
-
 # Local
 from .base import BaseTrophyChecker
 

@@ -135,7 +135,7 @@ trophies_data = [
         'name': 'Blue whale lifter',
         'description': 'Lift a cumulative total of 150.000 kg',
         'checker_params': {'kg': 150_000},
-        'is_hidden':True,
+        'is_hidden': True,
         'order': 13,
     },
     {
@@ -144,7 +144,7 @@ trophies_data = [
         'name': 'Space Station lifter',
         'description': 'Lift a cumulative total of 450.000 kg',
         'checker_params': {'kg': 450_000},
-        'is_hidden':True,
+        'is_hidden': True,
         'order': 14,
     },
     {
@@ -153,7 +153,7 @@ trophies_data = [
         'name': 'Millionaire',
         'description': 'Lift a cumulative total of 1.000.000 kg',
         'checker_params': {'kg': 1_000_000},
-        'is_hidden':True,
+        'is_hidden': True,
         'order': 15,
     },
     {
@@ -162,7 +162,7 @@ trophies_data = [
         'name': 'Atlas',
         'description': 'Lift a cumulative total of 10.000.000 kg',
         'checker_params': {'kg': 10_000_000},
-        'is_hidden':True,
+        'is_hidden': True,
         'order': 16,
     },
     {

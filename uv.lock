@@ -2245,7 +2245,7 @@ dev = [
     { name = "tblib", specifier = "~=3.2.0" },
     { name = "wheel", specifier = "==0.45.1" },
 ]
-docker = [{ name = "gunicorn", specifier = "==23.0.0" }]
+docker = [{ name = "gunicorn", specifier = "~=23.0.0" }]
 
 [[package]]
 name = "wheel"

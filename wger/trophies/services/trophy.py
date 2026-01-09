@@ -244,7 +244,8 @@ class TrophyService:
                         current = progress_data['current_value']
                         target = progress_data['target_value']
                         if current is not None and target is not None:
-                            progress_data['progress_display'] = f'{current}/{target}'
+                            progress_data['progress_display'] = checker.get_progress_display()
+                            # progress_data['progress_display'] = f'{current}/{target}'
                     except Exception as e:
                         logger.error(f'Error getting progress for trophy {trophy.name}: {e}')
 

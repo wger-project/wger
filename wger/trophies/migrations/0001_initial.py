@@ -306,7 +306,7 @@ class Migration(migrations.Migration):
                         help_text='Additional information concerning this trophy',
                         null=True,
                         verbose_name='Context data',
-                    )
+                    ),
                 ),
             ],
             options={
