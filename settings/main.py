@@ -164,9 +164,14 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
     if CONNECTION_POOL_KWARGS:
         CACHES["default"]["OPTIONS"]["CONNECTION_POOL_KWARGS"] = CONNECTION_POOL_KWARGS
 
-# Folder for compressed CSS and JS files
+#
+# Django Compressor
+# Consult https://django-compressor.readthedocs.io/en/stable/ for more information
+# (specially the offline compression part)
+#
 COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', not DEBUG)
+COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', False)
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL
