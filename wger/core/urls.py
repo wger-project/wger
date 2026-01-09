@@ -63,6 +63,7 @@ patterns_language = [
         languages.LanguageCreateView.as_view(),
         name='add',
     ),
+    path('browser_language/', languages.use_browser_language, name='browser_language'),
 ]
 
 # sub patterns for user

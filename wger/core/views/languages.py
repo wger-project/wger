@@ -18,10 +18,12 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import (
     gettext as _,
@@ -41,6 +43,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
 )
+from wger.utils.helpers import remove_language_code
 
 
 logger = logging.getLogger(__name__)
@@ -110,3 +113,15 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         context = super(LanguageEditView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object.full_name)
         return context
+
+
+def use_browser_language(request):
+    # Remove language prefix from URL so middleware can re-detect language
+    next_url = remove_language_code(request.GET.get('next', '/'))
+    response = HttpResponseRedirect(next_url)
+    response.delete_cookie(
+        settings.LANGUAGE_COOKIE_NAME,
+        path=settings.LANGUAGE_COOKIE_PATH,
+        domain=settings.LANGUAGE_COOKIE_DOMAIN,
+    )
+    return response
