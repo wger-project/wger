@@ -287,6 +287,21 @@
           "delete_weightunit",
           "nutrition",
           "weightunit"
+        ],
+        [
+          "add_trophy",
+          "trophies",
+          "trophy"
+        ],
+        [
+          "change_trophy",
+          "trophies",
+          "trophy"
+        ],
+        [
+          "delete_trophy",
+          "trophies",
+          "trophy"
         ]
       ]
     },

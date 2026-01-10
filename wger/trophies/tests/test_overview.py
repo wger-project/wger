@@ -11,26 +11,35 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Django
-from django.urls import re_path
+# Standard Library
+import logging
 
 # wger
-from wger.core.views.react import ReactView
+from wger.core.tests.base_testcase import WgerAccessTestCase
 
-# Local
-from .views import TrophiesOverview
+logger = logging.getLogger(__name__)
 
-urlpatterns = [
-    re_path(
-        '',
-        ReactView.as_view(),
-        name='overview',
-    ),
-    re_path(
-        'admin/overview/',
-        TrophiesOverview.as_view(),
-        name='admin-overview',
-    ),
-]
+
+class TrophiesOverviewTestCase(WgerAccessTestCase):
+    """
+    Test case for the trophies overview page
+    """
+    url = 'trophies:admin-overview'
+    anonymous_fail = True
+    user_success = 'admin'
+    user_fail = (
+        'manager1',
+        'manager2',
+        'general_manager1',
+        'manager3',
+        'manager4',
+        'test',
+        'member1',
+        'member2',
+        'member3',
+        'member4',
+        'member5',
+    )
+
+

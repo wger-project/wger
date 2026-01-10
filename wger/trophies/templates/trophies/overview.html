@@ -1,0 +1,53 @@
+{% extends "base_wide.html" %}
+{% load i18n static wger_extras %}
+
+{#         #}
+{# Title #}
+{#         #}
+{% block title %}{% translate "Trophies" %}{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+<p>All trophies currently in the system</p>
+
+<div class="row row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
+{% for trophy in trophy_list %}
+    <div class="col">
+        <div class="card h-100" style="min-width: 12rem;">
+            <img src="{% static trophy.image_rel_path %}" class="card-img-top" alt="..." style="padding: 1rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {%  if not trophy.is_active %}<s>{% endif %}
+                    {{ trophy.name }}
+                    {%  if not trophy.is_active %}</s>{% endif %}
+                </h5>
+                <p class="card-text">
+                    {%  if not trophy.is_active %}<s>{% endif %}
+                    {{ trophy.description }}
+                    {%  if not trophy.is_active %}</s>{% endif %}
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Type: {{ trophy.trophy_type }}</li>
+                <li class="list-group-item">Hidden: {{ trophy.is_hidden }}</li>
+                <li class="list-group-item">Progressive: {{ trophy.is_progressive }}</li>
+            </ul>
+            <div class="card-footer text-body-secondary">
+                Awarded {{ trophy.user_trophies.count }} times
+            </div>
+
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% endblock %}
