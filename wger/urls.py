@@ -48,7 +48,7 @@ from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
-# from wger.trophies.api import views as trophies_api_views
+from wger.trophies.api import views as trophies_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -251,13 +251,13 @@ router.register(
 )
 
 # Trophies app
-# router.register(r'trophy', trophies_api_views.TrophyViewSet, basename='trophy')
-# router.register(r'user-trophy', trophies_api_views.UserTrophyViewSet, basename='user-trophy')
-# router.register(
-#     r'user-statistics',
-#     trophies_api_views.UserStatisticsViewSet,
-#     basename='user-statistics',
-# )
+router.register(r'trophy', trophies_api_views.TrophyViewSet, basename='trophy')
+router.register(r'user-trophy', trophies_api_views.UserTrophyViewSet, basename='user-trophy')
+router.register(
+    r'user-statistics',
+    trophies_api_views.UserStatisticsViewSet,
+    basename='user-statistics',
+)
 
 #
 # Sitemaps
@@ -279,6 +279,7 @@ urlpatterns = i18n_patterns(
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
+    path('trophies/', include(('wger.trophies.urls', 'trophies'), namespace='trophies')),
     path(
         'measurement/',
         include(('wger.measurements.urls', 'measurements'), namespace='measurements'),

@@ -16,10 +16,6 @@
 
 # Standard Library
 from decimal import Decimal
-from typing import (
-    Any,
-    Union,
-)
 
 # Local
 from .base import BaseTrophyChecker
@@ -74,15 +70,4 @@ class VolumeChecker(BaseTrophyChecker):
         current = self.get_current_value()
         target = self.get_target_value()
 
-        # Format large numbers with commas for readability
-        if current >= 1000:
-            current_str = f'{current:,.0f}'
-        else:
-            current_str = f'{current:.1f}'
-
-        if target >= 1000:
-            target_str = f'{target:,.0f}'
-        else:
-            target_str = f'{target:.1f}'
-
-        return f'{current_str} / {target_str} kg'
+        return f'{self.format_number(current)} / {self.format_number(target)} kg'

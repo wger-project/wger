@@ -14,9 +14,10 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# ruff: noqa: F401
+
 # Local
 from .base import BaseTrophyChecker
-from .count_based import CountBasedChecker
 from .date_based import DateBasedChecker
 from .inactivity_return import InactivityReturnChecker
 from .registry import CheckerRegistry
@@ -24,3 +25,4 @@ from .streak import StreakChecker
 from .time_based import TimeBasedChecker
 from .volume import VolumeChecker
 from .weekend_warrior import WeekendWarriorChecker
+from .workout_count_based import WorkoutCountBasedChecker

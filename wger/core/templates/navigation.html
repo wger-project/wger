@@ -395,6 +395,16 @@
                                             </li>
                                         {% endif %}
                                     {% endif %}
+
+                                    {% if perms.trophies.change_trophy %}
+                                        <li>
+                                            <a class="dropdown-item"
+                                               href="{% url 'trophies:admin-overview' %}">
+                                                {% translate "Trophies" %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
                                 {% endif %}
                             </ul>
                         </li>

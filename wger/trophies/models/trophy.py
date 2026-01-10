@@ -19,15 +19,6 @@ import uuid
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-
-
-def trophy_image_upload_path(instance, filename):
-    """
-    Returns the upload path for trophy images
-    """
-    ext = filename.split('.')[-1]
-    return f'trophies/{instance.uuid}.{ext}'
 
 
 class Trophy(models.Model):
@@ -40,15 +31,17 @@ class Trophy(models.Model):
     TYPE_COUNT = 'count'
     TYPE_SEQUENCE = 'sequence'
     TYPE_DATE = 'date'
+    TYPE_PR = 'pr'
     TYPE_OTHER = 'other'
 
     TROPHY_TYPES = (
-        (TYPE_TIME, _('Time-based')),
-        (TYPE_VOLUME, _('Volume-based')),
-        (TYPE_COUNT, _('Count-based')),
-        (TYPE_SEQUENCE, _('Sequence-based')),
-        (TYPE_DATE, _('Date-based')),
-        (TYPE_OTHER, _('Other')),
+        (TYPE_TIME, 'Time-based'),
+        (TYPE_VOLUME, 'Volume-based'),
+        (TYPE_COUNT, 'Count-based'),
+        (TYPE_SEQUENCE, 'Sequence-based'),
+        (TYPE_DATE, 'Date-based'),
+        (TYPE_PR, 'Personal Record'),
+        (TYPE_OTHER, 'Other'),
     )
 
     uuid = models.UUIDField(
@@ -56,80 +49,79 @@ class Trophy(models.Model):
         editable=False,
         unique=True,
     )
-    """Unique identifier for the trophy"""
+    """Unique identifier for the trophy (also used for image filenames)"""
 
     name = models.CharField(
         max_length=100,
-        verbose_name=_('Name'),
-        help_text=_('The name of the trophy'),
+        verbose_name='Name',
+        help_text='The name of the trophy',
     )
-    """The name of the trophy"""
+    """The user-facing name of the trophy"""
 
     description = models.TextField(
-        verbose_name=_('Description'),
-        help_text=_('A description of how to earn this trophy'),
+        verbose_name='Description',
+        help_text='A description of how to earn this trophy',
         blank=True,
         default='',
     )
     """Description of the trophy and how to earn it"""
 
-    image = models.ImageField(
-        verbose_name=_('Image'),
-        upload_to=trophy_image_upload_path,
-        blank=True,
-        null=True,
-    )
-    """Optional image for the trophy"""
-
     trophy_type = models.CharField(
         max_length=20,
         choices=TROPHY_TYPES,
         default=TYPE_OTHER,
-        verbose_name=_('Trophy type'),
-        help_text=_('The type of criteria used to evaluate this trophy'),
+        verbose_name='Trophy type',
+        help_text='The type of criteria used to evaluate this trophy',
     )
     """The type of trophy (time, volume, count, sequence, date, other)"""
 
     checker_class = models.CharField(
         max_length=255,
-        verbose_name=_('Checker class'),
-        help_text=_('The Python class path used to check if this trophy is earned'),
+        verbose_name='Checker class',
+        help_text='The Python class path used to check if this trophy is earned',
     )
     """Python path to the checker class (e.g., 'wger.trophies.checkers.CountBasedChecker')"""
 
     checker_params = models.JSONField(
         default=dict,
         blank=True,
-        verbose_name=_('Checker parameters'),
-        help_text=_('JSON parameters passed to the checker class'),
+        verbose_name='Checker parameters',
+        help_text='JSON parameters passed to the checker class',
     )
     """Parameters for the checker class (e.g., {'count': 1} for workout count)"""
 
     is_hidden = models.BooleanField(
         default=False,
-        verbose_name=_('Hidden'),
-        help_text=_('If true, this trophy is hidden until earned'),
+        verbose_name='Hidden',
+        help_text='If true, this trophy is hidden until earned',
     )
     """Whether the trophy is hidden until earned"""
 
     is_progressive = models.BooleanField(
         default=False,
-        verbose_name=_('Progressive'),
-        help_text=_('If true, this trophy shows progress towards completion'),
+        verbose_name='Progressive',
+        help_text='If true, this trophy shows progress towards completion',
     )
     """Whether to show progress towards earning the trophy"""
 
     is_active = models.BooleanField(
         default=True,
-        verbose_name=_('Active'),
-        help_text=_('If false, this trophy cannot be earned'),
+        verbose_name='Active',
+        help_text='If false, this trophy cannot be earned',
     )
     """Whether the trophy is active and can be earned"""
 
+    is_repeatable = models.BooleanField(
+        default=False,
+        verbose_name='Repeatable',
+        help_text='If true, this trophy can be earned multiple times',
+    )
+    """Whether the trophy can be earned multiple times"""
+
     order = models.PositiveIntegerField(
         default=0,
-        verbose_name=_('Order'),
-        help_text=_('Display order of the trophy'),
+        verbose_name='Order',
+        help_text='Display order of the trophy',
     )
     """Display order for the trophy"""
 
@@ -147,8 +139,8 @@ class Trophy(models.Model):
 
     class Meta:
         ordering = ['order', 'name']
-        verbose_name = _('Trophy')
-        verbose_name_plural = _('Trophies')
+        verbose_name = 'Trophy'
+        verbose_name_plural = 'Trophies'
 
     def __str__(self):
         return self.name
@@ -158,3 +150,10 @@ class Trophy(models.Model):
         Trophies don't have an owner - they are global
         """
         return None
+
+    @property
+    def image_rel_path(self):
+        """
+        Returns the relative (to the static folder) path to the trophy image
+        """
+        return f'trophies/{self.trophy_type}/{self.uuid}.png'

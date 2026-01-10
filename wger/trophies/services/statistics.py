@@ -22,7 +22,6 @@ from typing import Optional
 
 # Django
 from django.contrib.auth.models import User
-from django.db.models import Sum
 
 # wger
 from wger.manager.consts import WEIGHT_UNIT_LB

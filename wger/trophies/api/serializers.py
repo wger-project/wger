@@ -14,6 +14,13 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
+# Django
+from django.templatetags.static import static
+from django.utils.translation import gettext as _
+
 # Third Party
 from rest_framework import serializers
 
@@ -25,12 +32,19 @@ from wger.trophies.models import (
 )
 
 
+logger = logging.getLogger(__name__)
+
+
 class TrophySerializer(serializers.ModelSerializer):
     """
     Serializer for Trophy model.
 
     Shows trophy information for listing active trophies.
     """
+
+    image = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
 
     class Meta:
         model = Trophy
@@ -43,9 +57,29 @@ class TrophySerializer(serializers.ModelSerializer):
             'trophy_type',
             'is_hidden',
             'is_progressive',
+            'is_repeatable',
             'order',
         )
         read_only_fields = fields
+
+    def get_name(self, obj: Trophy):
+        """Translate the trophy name"""
+        return _(obj.name)
+
+    def get_description(self, obj: Trophy):
+        """Translate the trophy description"""
+        return _(obj.description)
+
+    def get_image(self, obj: Trophy):
+        """Build absolute URL to trophy image, if possible."""
+
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(static(obj.image_rel_path))
+
+        # no host available
+        logger.info('Cannot build absolute URL for trophy image without request context')
+        return None
 
 
 class UserTrophySerializer(serializers.ModelSerializer):
@@ -65,6 +99,7 @@ class UserTrophySerializer(serializers.ModelSerializer):
             'earned_at',
             'progress',
             'is_notified',
+            'context_data',
         )
         read_only_fields = fields
 
