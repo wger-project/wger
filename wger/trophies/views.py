@@ -25,6 +25,7 @@ from django.views.generic import ListView
 # wger
 from wger.trophies.models import Trophy
 
+
 logger = logging.getLogger(__name__)
 
 

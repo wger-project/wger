@@ -15,6 +15,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import logging
+from decimal import Decimal
 from typing import Optional
 
 # wger
@@ -24,6 +26,9 @@ from wger.trophies.models.user_trophy import UserTrophy
 
 # Local
 from .base import BaseTrophyChecker
+
+
+logger = logging.getLogger(__name__)
 
 
 class PersonalRecordChecker(BaseTrophyChecker):
@@ -37,37 +42,33 @@ class PersonalRecordChecker(BaseTrophyChecker):
 
     """
 
-    def _estimate_one_rep_max(self):
+    def _estimate_one_rep_max(self) -> float:
         """
-        Brzycki's formula: 1RM = weight * (36 / (37 - repetitions))
-        """
-        log: WorkoutLog | None = self.params.get('log', None)
+        Estimates the user's one-rep max (1RM) using Brzycki's formula:
+        1RM = weight * (36 / (37 - repetitions))
 
+        Note: returning float because of serialization issues with Decimal in JSON.
+        """
+        log: WorkoutLog | None = self.params.get('log')
         if not log:
             raise ValueError('Log should not be None')
 
-        weight = getattr(log, 'weight', None)
-        repetitions = getattr(log, 'repetitions', None)
+        weight = log.weight
+        repetitions = log.repetitions
+        rir = log.rir
 
         if weight is None:
             raise ValueError('Weight should not be None')
         if repetitions is None:
             raise ValueError('Repetitions should not be None')
+        if rir is not None:
+            repetitions += rir
 
-        try:
-            reps = int(repetitions)
-        except (TypeError, ValueError):
-            raise ValueError('Repetitions must be an integer')
-
-        if reps == 37:
+        if repetitions == 37:
             raise ValueError("In Brzycki's formula, repetitions cannot be equal to 37.")
 
-        try:
-            w = float(weight)
-        except (TypeError, ValueError):
-            raise ValueError('Weight must be a number')
-
-        return round(w * (36.0 / float(37 - reps)), 2)
+        result = weight * (Decimal('36') / (Decimal('37') - repetitions))
+        return round(float(result), 2)
 
     def check(self) -> bool:
         """Check if user has beaten Personal Record."""
@@ -109,43 +110,41 @@ class PersonalRecordChecker(BaseTrophyChecker):
         return 100.0 if self.check() else 0.0
 
     def get_context_data(self) -> Optional[dict]:
-        log = self.params.get('log', None)
+        log: WorkoutLog | None = self.params.get('log', None)
 
         if not log:
             return None
 
-        session = getattr(log, 'session', None)
-        exercise = getattr(log, 'exercise', None)
-        repetitions_unit = getattr(log, 'repetitions_unit', None)
-        weight_unit = getattr(log, 'weight_unit', None)
-        repetitions = getattr(log, 'repetitions', None)
-        weight = getattr(log, 'weight', None)
+        session = log.session
+        exercise = log.exercise
+        repetitions_unit = log.repetitions_unit
+        weight_unit = log.weight_unit
+        repetitions = log.repetitions
+        weight = log.weight
 
         try:
             one_rm_estimate = self._estimate_one_rep_max()
         except Exception as e:
-            print(f'PR estimation failed : {e}')
+            logger.warning(f'PR estimation failed : {e}')
             one_rm_estimate = None
 
         return {
-            'log_id': getattr(log, 'id', None),
-            'date': getattr(log, 'date', None).isoformat(),
-            'session_id': getattr(session, 'id', None) if session else None,
-            'exercise_id': getattr(exercise, 'id', None) if exercise else None,
-            'repetitions_unit_id': getattr(repetitions_unit, 'id', None)
-            if repetitions_unit
-            else None,
+            'log_id': log.id,
+            'date': log.date.isoformat(),
+            'session_id': session.id if session else None,
+            'exercise_id': exercise.id if exercise else None,
+            'repetitions_unit_id': repetitions_unit.id if repetitions_unit else None,
             'repetitions': float(repetitions) if repetitions else None,
-            'weight_unit_id': getattr(weight_unit, 'id', None) if weight_unit else None,
+            'weight_unit_id': weight_unit.id if weight_unit else None,
             'weight': float(weight) if weight else None,
-            'iteration': getattr(log, 'iteration', None),
+            'iteration': log.iteration,
             'one_rep_max_estimate': one_rm_estimate,
         }
 
-    def get_target_value(self) -> int:
+    def get_target_value(self) -> str:
         return 'N/A'
 
-    def get_current_value(self) -> int:
+    def get_current_value(self) -> str:
         return 'N/A'
 
     def get_progress_display(self) -> str:

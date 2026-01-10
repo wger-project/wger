@@ -26,6 +26,7 @@ from wger.exercises.models.category import ExerciseCategory
 from wger.manager.models.log import WorkoutLog
 from wger.trophies.checkers.date_based import DateBasedChecker
 from wger.trophies.checkers.inactivity_return import InactivityReturnChecker
+from wger.trophies.checkers.personal_record import PersonalRecordChecker
 from wger.trophies.checkers.streak import StreakChecker
 from wger.trophies.checkers.time_based import TimeBasedChecker
 from wger.trophies.checkers.volume import VolumeChecker
@@ -509,16 +510,10 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         )
 
     def test_check_returns_false_with_no_logs(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
-
         checker = PersonalRecordChecker(self.user, self.trophy, {})
         self.assertFalse(checker.check())
 
     def test_first_log_counts_as_pr(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
-
         log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
 
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
@@ -528,9 +523,6 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertIsNotNone(context)
 
     def test_improvement_detected_and_context_values(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
-
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
         self.assertTrue(checker1.check())
@@ -543,9 +535,6 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertIsNotNone(context)
 
     def no_award_if_not_an_improvement(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
-
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
         self.assertTrue(checker1.check())
@@ -566,9 +555,6 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertFalse(checker4.check())
 
     def test_estimate_1rm(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
-
         log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         one_rm = round(100 * (36.0 / (37 - 10)), 2)
 
@@ -577,10 +563,16 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertEqual(estimate, one_rm)
         self.assertEqual(checker.get_context_data().get('one_rep_max_estimate'), one_rm)
 
-    def test_estimate_1rm_raises_on_missing_values(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
+    def test_estimate_1rm_with_rir(self):
+        log = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100, rir=2)
+        one_rm = round(100 * (36.0 / (37 - 12)), 2)
 
+        checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
+        estimate = checker._estimate_one_rep_max()
+        self.assertEqual(estimate, one_rm)
+        self.assertEqual(checker.get_context_data().get('one_rep_max_estimate'), one_rm)
+
+    def test_estimate_1rm_raises_on_missing_values(self):
         # No log
         checker = PersonalRecordChecker(self.user, self.trophy, {})
         with self.assertRaises(ValueError):
@@ -602,9 +594,6 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         self.assertIsNone(context.get('one_rep_max_estimate'))
 
     def test_estimate_1rm_raises_on_repetitions_37(self):
-        # wger
-        from wger.trophies.checkers.personal_record import PersonalRecordChecker
-
         log = WorkoutLog(user=self.user, exercise=self.exercise, weight=100, repetitions=37)
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
         with self.assertRaises(ValueError):

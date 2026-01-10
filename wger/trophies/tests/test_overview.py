@@ -18,6 +18,7 @@ import logging
 # wger
 from wger.core.tests.base_testcase import WgerAccessTestCase
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -25,6 +26,7 @@ class TrophiesOverviewTestCase(WgerAccessTestCase):
     """
     Test case for the trophies overview page
     """
+
     url = 'trophies:admin-overview'
     anonymous_fail = True
     user_success = 'admin'
@@ -41,5 +43,3 @@ class TrophiesOverviewTestCase(WgerAccessTestCase):
         'member4',
         'member5',
     )
-
-

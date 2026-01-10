@@ -35,6 +35,7 @@ from wger.trophies.models import (
     UserTrophy,
 )
 
+
 logger = logging.getLogger(__name__)
 
 # Trophy settings from WGER_SETTINGS (defined in settings_global.py)
