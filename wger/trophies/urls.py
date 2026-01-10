@@ -14,7 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.urls import re_path
+from django.urls import path
 
 # wger
 from wger.core.views.react import ReactView
@@ -23,13 +23,13 @@ from wger.core.views.react import ReactView
 from .views import TrophiesOverview
 
 urlpatterns = [
-    re_path(
+    path(
         '',
         ReactView.as_view(),
         name='overview',
     ),
-    re_path(
-        'admin/overview/',
+    path(
+        'admin',
         TrophiesOverview.as_view(),
         name='admin-overview',
     ),
