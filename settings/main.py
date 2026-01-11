@@ -257,3 +257,22 @@ LOGGING = {
         },
     },
 }
+
+#
+# Storage options
+#
+STORAGES = {
+    'default': {
+        'BACKEND': env.str(
+            'DJANGO_STORAGES_DEFAULT_BACKEND',
+            'django.core.files.storage.FileSystemStorage'
+        ),
+    },
+    # django.contrib.staticfiles.storage.StaticFilesStorage
+    'staticfiles': {
+        'BACKEND': env.str(
+            'DJANGO_STORAGES_STATICFILES_BACKEND',
+            'wger.core.storage.LenientManifestStaticFilesStorage'
+        ),
+    },
+}
