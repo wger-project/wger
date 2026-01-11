@@ -200,5 +200,5 @@ def remove_language_code(path):
     Removes optional language code at the start of a path
     """
 
-    pattern = r'^/[a-z]{2}(?=/)'
-    return re.sub(pattern, '', path)
+    pattern = r'^/[a-z]{2}(-[a-z]{2,4})?/'
+    return re.sub(pattern, '/', path)
