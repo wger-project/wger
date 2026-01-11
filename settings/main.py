@@ -1,10 +1,31 @@
-#!/usr/bin/env python
+# This file is part of wger Workout Manager.
+#
+# wger Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wger Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+
+# ruff: noqa: F405
 
 # Third Party
 import environ
 
 # wger
-from wger.settings_global import *
+from .settings_global import *  # noqa: F403
+
+"""
+Main settings file for a production deployment of wger.
+
+For a more commented version of the options used here, please refer to
+https://github.com/wger-project/docker/blob/master/config/prod.env
+"""
 
 env = environ.Env(
     # set casting, default value
@@ -41,6 +62,7 @@ else:
 TIME_ZONE = env.str("TIME_ZONE", 'Europe/Berlin')
 
 # Make this unique, and don't share it with anybody.
+# Generate e.g. with: python -c "import secrets; print(secrets.token_urlsafe(50))" or https://djecrety.ir/
 SECRET_KEY = env.str("SECRET_KEY", 'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)')
 
 # Your reCaptcha keys
@@ -71,6 +93,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Configure a real backend in production
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 if env.bool("ENABLE_EMAIL", False):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = env.str("EMAIL_HOST")
@@ -118,10 +141,10 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
     CACHES = {
         'default': {
             'BACKEND': env.str("DJANGO_CACHE_BACKEND"),
-            'LOCATION': env.str("DJANGO_CACHE_LOCATION"),
-            'TIMEOUT': env.int("DJANGO_CACHE_TIMEOUT"),
+            'LOCATION': env.str("DJANGO_CACHE_LOCATION", ''),
+            'TIMEOUT': env.int("DJANGO_CACHE_TIMEOUT", 300),
             'OPTIONS': {
-                'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS")
+                'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS", '')
             }
         }
     }
@@ -146,9 +169,14 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
     if CONNECTION_POOL_KWARGS:
         CACHES["default"]["OPTIONS"]["CONNECTION_POOL_KWARGS"] = CONNECTION_POOL_KWARGS
 
-# Folder for compressed CSS and JS files
+#
+# Django Compressor
+# Consult https://django-compressor.readthedocs.io/en/stable/ for more information
+# (specially the offline compression part)
+#
 COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', not DEBUG)
+COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', False)
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL
