@@ -16,7 +16,9 @@ MANAGERS = ADMINS
 SECRET_KEY = 'wger-local-development-supersecret-key-1234567890!'
 
 # Allow all hosts to access the application.
-ALLOWED_HOSTS = ['*', ]
+ALLOWED_HOSTS = [
+    '*',
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -24,7 +26,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS'] = True
 WGER_SETTINGS['ALLOW_GUEST_USERS'] = True
 WGER_SETTINGS['ALLOW_REGISTRATION'] = True
-WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] = 'WGER' # or 'None' to disable
+WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] = 'WGER'  # or 'None' to disable
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 WGER_SETTINGS['EXERCISE_CACHE_TTL'] = 500
 WGER_SETTINGS['INGREDIENT_CACHE_TTL'] = 500
@@ -52,8 +54,8 @@ AXES_ENABLED = False
 
 # Does not really cache anything
 CACHES_DUMMY = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         'TIMEOUT': 100,
     }
 }
@@ -73,9 +75,7 @@ CACHE_REDIS = {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': 'redis://localhost:6379/1',
         'TIMEOUT': 5000,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
-        }
+        'OPTIONS': {'CLIENT_CLASS': 'django_redis.client.DefaultClient'},
     }
 }
 
@@ -109,7 +109,7 @@ DBCONFIG_PG = {
 
 DBCONFIG_SQLITE = {
     'ENGINE': 'django_prometheus.db.backends.sqlite3',
-    'NAME':  BASE_DIR.parent / 'db' / 'database.sqlite',
+    'NAME': BASE_DIR.parent / 'db' / 'database.sqlite',
 }
 
 DATABASES = {

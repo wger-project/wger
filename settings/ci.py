@@ -27,11 +27,11 @@ DEBUG = True
 
 # Application settings
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
-WGER_SETTINGS["ALLOW_REGISTRATION"] = True
-WGER_SETTINGS["ALLOW_GUEST_USERS"] = True
-WGER_SETTINGS["ALLOW_UPLOAD_VIDEOS"] = False
-WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = 21  # in days
-WGER_SETTINGS["EXERCISE_CACHE_TTL"] = 3600  # in seconds
+WGER_SETTINGS['ALLOW_REGISTRATION'] = True
+WGER_SETTINGS['ALLOW_GUEST_USERS'] = True
+WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS'] = False
+WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST'] = 21  # in days
+WGER_SETTINGS['EXERCISE_CACHE_TTL'] = 3600  # in seconds
 
 DATABASES = {
     'default': {
@@ -70,7 +70,7 @@ SITE_URL = 'http://localhost:8000'
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = env.str("DJANGO_MEDIA_ROOT", '/tmp/')
+MEDIA_ROOT = env.str('DJANGO_MEDIA_ROOT', '/tmp/')
 MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application.
