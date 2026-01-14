@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2025-12-31 21:36+0000\n"
-"Last-Translator: MR <msrhy131@gmail.com>\n"
+"PO-Revision-Date: 2026-01-16 00:01+0000\n"
+"Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
 "Language: ar_SA\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -302,16 +302,20 @@ msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
+"المدة الافتراضية بالأسابيع للتدريبات غير المدرجة في جدولٍ زمني. تُستخدم لإرسال "
+"تذكيرات بالتدريبات عبر البريد الإلكتروني."
 
 #: core/models/profile.py:179
 msgid "Notification language"
-msgstr ""
+msgstr "لغة الإشعار"
 
 #: core/models/profile.py:181
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
+"اللغة المستخدمة في إرسال الإشعارات عبر البريد الإلكتروني، مثل رسائل التذكير "
+"بالتدريبات. هذا لا يؤثّر على اللغة المستخدمة في الموقع الإلكتروني."
 
 #: core/models/profile.py:214 gym/views/export.py:64
 msgid "Age"
@@ -345,15 +349,15 @@ msgstr "الكثافة البدنية"
 #: core/models/profile.py:268 core/models/profile.py:289
 #: core/models/profile.py:310
 msgid "Approximately"
-msgstr ""
+msgstr "تقريبًا"
 
 #: core/models/profile.py:278
 msgid "Sport"
-msgstr ""
+msgstr "رياضة"
 
 #: core/models/profile.py:279
 msgid "Average hours per week"
-msgstr ""
+msgstr "متوسط الساعات في الأسبوع"
 
 #: core/models/profile.py:299
 msgid "Free time"
