@@ -26,6 +26,9 @@ from django.core.management.base import (
 )
 from django.utils import timezone
 
+# Third Party
+from tqdm import tqdm
+
 # wger
 from wger.trophies.services.statistics import UserStatisticsService
 
@@ -128,22 +131,23 @@ class Command(BaseCommand):
             processed = 0
             errors = 0
 
-            for user in users:
-                try:
-                    UserStatisticsService.update_statistics(user)
-                    processed += 1
+            with tqdm(total=total_users, unit='B', unit_scale=True) as pbar:
+                for user in users:
+                    try:
+                        UserStatisticsService.update_statistics(user)
+                        processed += 1
 
-                    if verbosity >= 2:
-                        self.stdout.write(self.style.SUCCESS(f'✓ Processed: {user.username}'))
-                    elif verbosity >= 1 and processed % 100 == 0:
-                        self.stdout.write(f'  Processed {processed}/{total_users} users...')
+                        if verbosity >= 2:
+                            self.stdout.write(self.style.SUCCESS(f'✓ Processed: {user.username}'))
+                        elif verbosity >= 1:
+                            pbar.update(1)
 
-                except Exception as e:
-                    errors += 1
-                    if verbosity >= 1:
-                        self.stdout.write(
-                            self.style.ERROR(f'✗ Error processing {user.username}: {str(e)}')
-                        )
+                    except Exception as e:
+                        errors += 1
+                        if verbosity >= 1:
+                            self.stdout.write(
+                                self.style.ERROR(f'✗ Error processing {user.username}: {str(e)}')
+                            )
 
             if verbosity >= 1:
                 self.stdout.write(
