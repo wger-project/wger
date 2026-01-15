@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-01 16:48+0530\n"
-"PO-Revision-Date: 2023-06-24 20:53+0000\n"
-"Last-Translator: SlyBat <aw9gm3@gmail.com>\n"
+"PO-Revision-Date: 2025-12-31 21:36+0000\n"
+"Last-Translator: MR <msrhy131@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
 "Language: ar_SA\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -148,6 +148,8 @@ msgstr "الرمز غير صحيح"
 #: core/forms.py:271 core/forms.py:346
 msgid "The form is secured with reCAPTCHA"
 msgstr ""
+"يتم تامين النموذج مع استخدام خدمه تمييز البشر عن ريبوت في الفحص للدخول الى "
+"اي موقع او اي شيء يحتاج الى تمييزك كانسان"
 
 #: core/forms.py:287 core/forms.py:309 core/templates/navigation.html:272
 #: core/templates/navigation.html:285 core/templates/template.html:150
@@ -182,10 +184,8 @@ msgid "Language full name"
 msgstr "الاسم الكامل للغة"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "الاسم الكامل للغة"
+msgstr "الاسم الكامل للغة الانكليزية"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -196,6 +196,8 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"إذا تم توطين الترخيص، على سبيل المثال تراخيص المشاع الإبداعي لمختلف البلدان، "
+"أضفها كإدخالات منفصلة هنا."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -207,7 +209,7 @@ msgstr "الرابط"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
-msgstr ""
+msgstr "رابط لنص الترخيص أو معلومات أخرى"
 
 #: core/models/profile.py:57
 #, python-format
@@ -248,7 +250,7 @@ msgstr "اظهار ملاحظات التدريب"
 
 #: core/models/profile.py:120
 msgid "Check to show exercise comments on the workout view"
-msgstr ""
+msgstr "تحقق لإظهار تعليقات التمرين على عرض التمرين"
 
 #: core/models/profile.py:130
 msgid "Also use ingredients in English"
@@ -261,28 +263,39 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
+"تحقق أيضا لإظهار المكونات باللغة الإنجليزية أثناء الإنشاء\n"
+"\n"
+"خطة غذائية. يتم استخراج هذه المكونات من قائمة مقدمة\n"
+"\n"
+"من قبل وزارة الزراعة الأمريكية. إنه كامل للغاية ، مع حول\n"
+"\n"
+"7000 إدخالات، ولكن يمكن أن تكون ساحقة إلى حد ما وجعل البحث صعبا."
 
 #: core/models/profile.py:141
 msgid "Activate workout reminders"
-msgstr ""
+msgstr "تفعيل تذكيرات التمرين"
 
 #: core/models/profile.py:143
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
+"تحقق لتفعيل التذكيرات التلقائية للتدريبات. تحتاج إلى تقديم بريد إلكتروني "
+"صالح حتى يعمل هذا."
 
 #: core/models/profile.py:152
 msgid "Remind before expiration"
-msgstr ""
+msgstr "تذكير قبل انتهاء الصلاحية"
 
 #: core/models/profile.py:153
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr ""
+msgstr "عدد الأيام التي تريد أن يتم تذكيرك بها قبل انتهاء التمرين."
 
 #: core/models/profile.py:159
 msgid "Default duration of workouts"
 msgstr ""
+"المدة الافتراضية للتدريبات\n"
+"Arabic (Sudish)"
 
 #: core/models/profile.py:161
 msgid ""
@@ -302,32 +315,32 @@ msgstr ""
 
 #: core/models/profile.py:214 gym/views/export.py:64
 msgid "Age"
-msgstr ""
+msgstr "العمر"
 
 #: core/models/profile.py:230 nutrition/forms.py:117
 msgid "Height (cm)"
-msgstr ""
+msgstr "الطول (سنتيمتر)"
 
 #: core/models/profile.py:247
 msgid "Hours of sleep"
-msgstr ""
+msgstr "ساعات النMم"
 
 #: core/models/profile.py:248
 msgid "The average hours of sleep per day"
-msgstr ""
+msgstr "معدل ساعات النوم خلال اليوم"
 
 #: core/models/profile.py:257
 msgid "Work"
-msgstr ""
+msgstr "العمل"
 
 #: core/models/profile.py:258 core/models/profile.py:300
 msgid "Average hours per day"
-msgstr ""
+msgstr "معدل الساعات خلال اليوم"
 
 #: core/models/profile.py:267 core/models/profile.py:288
 #: core/models/profile.py:309
 msgid "Physical intensity"
-msgstr ""
+msgstr "الكثافة البدنية"
 
 #: core/models/profile.py:268 core/models/profile.py:289
 #: core/models/profile.py:310
