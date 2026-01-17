@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 16:48+0530\n"
+"POT-Creation-Date: 2026-01-17 13:11+0000\n"
 "PO-Revision-Date: 2025-10-30 04:25+0000\n"
 "Last-Translator: Fedder Skovgaard <fedder@skovgaard.tel>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/wger/web/da/>\n"
@@ -54,23 +54,24 @@ msgstr ""
 msgid "Edit"
 msgstr "Rediger"
 
-#: core/forms.py:69 core/templates/navigation.html:271
+#: core/forms.py:89 core/templates/navigation.html:271
 #: core/templates/navigation.html:278 core/templates/user/login.html:4
+#: core/templates/user/registration_sidebar.html:12
 #: software/templates/features.html:82 software/templates/features.html:448
 msgid "Login"
 msgstr "Login"
 
-#: core/forms.py:108 core/forms.py:222 gym/views/export.py:61
+#: core/forms.py:128 core/forms.py:242 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
 msgstr "Fornavn"
 
-#: core/forms.py:109 core/forms.py:223 core/templates/user/overview.html:284
+#: core/forms.py:129 core/forms.py:243 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
 msgstr "Efternavn"
 
-#: core/forms.py:111 core/forms.py:188 core/templates/user/overview.html:288
+#: core/forms.py:131 core/forms.py:208 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
 #: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:116
 #: gym/templates/gym/new_user.html:30 gym/views/export.py:60
@@ -80,52 +81,52 @@ msgstr "Efternavn"
 msgid "Email"
 msgstr "Email"
 
-#: core/forms.py:112
+#: core/forms.py:132
 #, fuzzy
 #| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr "Bruges til kode-nulstilling og, hvis ønsket, påmindelser."
 
-#: core/forms.py:116 core/models/profile.py:222
+#: core/forms.py:136 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr "Fødselsdag"
 
-#: core/forms.py:155
+#: core/forms.py:175
 msgid "Personal data"
 msgstr "Personlige oplysninger"
 
-#: core/forms.py:167
+#: core/forms.py:187
 msgid "Workout reminders"
 msgstr "Træningspåmindelser"
 
-#: core/forms.py:174
+#: core/forms.py:194
 msgid "Other settings"
 msgstr "Andre indstillinger"
 
-#: core/forms.py:182 core/views/user.py:611 core/views/user.py:626
-#: core/views/user.py:638 gym/forms.py:73 utils/generic_views.py:143
+#: core/forms.py:202 core/views/user.py:614 core/views/user.py:629
+#: core/views/user.py:641 gym/forms.py:73 utils/generic_views.py:143
 msgid "Save"
 msgstr "Gem"
 
-#: core/forms.py:189
+#: core/forms.py:209
 msgid "Used for password resets and, optionally, email reminders."
 msgstr "Bruges til kode-nulstilling og, hvis ønsket, email-påmindelser."
 
-#: core/forms.py:218
+#: core/forms.py:238
 msgid "This e-mail address is already in use."
 msgstr "Denne emailadresse er allerede i brug."
 
-#: core/forms.py:239 gym/templates/gym/new_user.html:26
+#: core/forms.py:259 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
 msgstr "Kodeord"
 
-#: core/forms.py:241
+#: core/forms.py:261
 msgid "Please enter your current password."
 msgstr "Indtast venligst dit nuværende kodeord."
 
-#: core/forms.py:250 core/templates/language/view.html:70
+#: core/forms.py:270 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
 #: core/templates/repetition_unit/list.html:22
 #: core/templates/user/overview.html:233
@@ -142,37 +143,37 @@ msgstr "Indtast venligst dit nuværende kodeord."
 msgid "Delete"
 msgstr "Slet"
 
-#: core/forms.py:259
+#: core/forms.py:279
 msgid "Invalid password"
 msgstr "Ukorrekt kodeord"
 
-#: core/forms.py:271 core/forms.py:346
+#: core/forms.py:291 core/forms.py:376
 msgid "The form is secured with reCAPTCHA"
 msgstr "Denne formular er sikret med reCAPTCHA"
 
-#: core/forms.py:287 core/forms.py:309 core/templates/navigation.html:272
-#: core/templates/navigation.html:285 core/templates/template.html:150
+#: core/forms.py:312 core/forms.py:339 core/templates/navigation.html:272
+#: core/templates/navigation.html:285 core/templates/template.html:123
 #: core/templates/user/login.html:21 core/views/user.py:285
 #: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
 msgstr "Registrer"
 
-#: core/forms.py:323 software/templates/features.html:45
+#: core/forms.py:353 software/templates/features.html:45
 msgid "Contact"
 msgstr "Kontakt"
 
-#: core/forms.py:324
+#: core/forms.py:354
 #, fuzzy
 #| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Måder du kan kontaktes på (email, etc.)"
 
-#: core/forms.py:332 exercises/models/comment.py:55 manager/models/slot.py:40
+#: core/forms.py:362 exercises/models/comment.py:55 manager/models/slot.py:40
 #: nutrition/models/log.py:77
 msgid "Comment"
 msgstr "Kommentar"
 
-#: core/forms.py:333
+#: core/forms.py:363
 msgid "What do you want to say?"
 msgstr "Hvad vil du gerne sige?"
 
@@ -322,7 +323,7 @@ msgstr ""
 msgid "Age"
 msgstr "Alder"
 
-#: core/models/profile.py:230 nutrition/forms.py:117
+#: core/models/profile.py:230
 msgid "Height (cm)"
 msgstr "Højde (cm)"
 
@@ -398,18 +399,26 @@ msgstr "Automatisk påmindelse om vægtindskrivning"
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr "Antal dage siden sidste vægtindskrivning (skriv 0 for at deaktivere)"
 
-#: core/models/profile.py:439
+#: core/models/profile.py:379
+msgid "Enable trophies"
+msgstr ""
+
+#: core/models/profile.py:380
+msgid "Enable or disable the trophy system for this user"
+msgstr ""
+
+#: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
 msgstr "Summen af alle timer skal være 24"
 
 #: core/models/rep_unit.py:36 core/models/weight_unit.py:42
-#: core/templates/user/overview.html:280 core/views/user.py:586
+#: core/templates/user/overview.html:280 core/views/user.py:589
 #: exercises/models/category.py:29 exercises/models/equipment.py:29
 #: exercises/models/muscle.py:36 exercises/models/translation.py:56
 #: gym/models/contract.py:52 gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
-#: gym/views/gym.py:158 manager/models/day.py:73 manager/models/routine.py:81
+#: gym/views/gym.py:158 manager/models/day.py:72 manager/models/routine.py:82
 #: measurements/models/category.py:36 nutrition/models/ingredient.py:126
 #: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:65
 #: nutrition/models/weight_unit.py:38
@@ -433,7 +442,7 @@ msgstr "Side ikke fundet"
 msgid "The page you requested does not exist."
 msgstr "Siden du prøvede at tilgå eksisterer ikke."
 
-#: core/templates/500.html:4 core/templates/template_no_context.html:37
+#: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
 msgstr "Der skete en fejl"
 
@@ -458,7 +467,7 @@ msgstr ""
 "                som brugeren \"%(current_user)s\", alle handlinger bliver "
 "udført med brugerens data."
 
-#: core/templates/base.html:15
+#: core/templates/base.html:15 core/templates/base_wide.html:12
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "TIlbage til \"%(target)s\""
@@ -476,14 +485,6 @@ msgstr ""
 "                som brugeren \"%(current_user)s\", alle handlinger bliver "
 "udført med brugerens data.\n"
 "            "
-
-#: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
-msgid ""
-"Back to \"%(target)s\n"
-"                    \""
-msgstr "TIlbage til \"%(target)s\""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -535,11 +536,7 @@ msgstr "wger Holdet"
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr "Klik venligst følgende link for at bekræfte din email: %(link)s"
 
-#: core/templates/index.html:4 software/templates/features.html:453
-msgid "Dashboard"
-msgstr "Instrumentbrættet"
-
-#: core/templates/language/overview.html:4 core/templates/navigation.html:334
+#: core/templates/language/overview.html:4 core/templates/navigation.html:344
 msgid "Languages"
 msgstr "Sprog"
 
@@ -605,7 +602,7 @@ msgstr "Licens liste"
 msgid "Nothing found"
 msgstr "Ingenting fundet"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:187
+#: core/templates/misc/about.html:4 core/templates/template.html:160
 msgid "Imprint"
 msgstr "Aftryk"
 
@@ -648,7 +645,7 @@ msgid "Exercises"
 msgstr "Øvelser"
 
 #: core/templates/navigation.html:102 core/templates/navigation.html:176
-#: core/templates/navigation.html:329
+#: core/templates/navigation.html:339
 msgid "Administration"
 msgstr "Administration"
 
@@ -727,7 +724,7 @@ msgstr "Udviklerdokumentation"
 msgid "Get the code"
 msgstr "Hent koden"
 
-#: core/templates/navigation.html:255 core/templates/template.html:226
+#: core/templates/navigation.html:255 core/templates/template.html:199
 #: software/templates/features.html:603
 msgid "Translate"
 msgstr "Oversæt"
@@ -736,35 +733,40 @@ msgstr "Oversæt"
 msgid "Reset password"
 msgstr "Nulstil kodeord"
 
-#: core/templates/navigation.html:310
-msgid "My preferences"
-msgstr "Mine indstillinger"
-
-#: core/templates/navigation.html:319
+#: core/templates/navigation.html:301 core/templates/navigation.html:329
 msgid "Logout"
 msgstr "Log ud"
 
-#: core/templates/navigation.html:342
+#: core/templates/navigation.html:320
+msgid "My preferences"
+msgstr "Mine indstillinger"
+
+#: core/templates/navigation.html:352
 msgid "Licenses"
 msgstr "Licenser"
 
-#: core/templates/navigation.html:350
+#: core/templates/navigation.html:360
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Gentagelsesenheder"
 
-#: core/templates/navigation.html:358 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:368 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
 msgstr "Vægtenheder"
 
-#: core/templates/navigation.html:366 core/templates/user/list.html:4
+#: core/templates/navigation.html:376 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Brugerliste"
 
-#: core/templates/navigation.html:372
+#: core/templates/navigation.html:382
 msgid "Gyms"
 msgstr "Fitnescentre"
+
+#: core/templates/navigation.html:403
+#: trophies/templates/trophies/overview.html:7
+msgid "Trophies"
+msgstr ""
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
@@ -825,26 +827,26 @@ msgstr "forrige"
 msgid "next"
 msgstr "næste"
 
-#: core/templates/template.html:123
+#: core/templates/template.html:96
 msgid "Close"
 msgstr "Luk"
 
-#: core/templates/template.html:139
+#: core/templates/template.html:112
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Du bruger en gæstekonto, date indtastet vil blive slettet efter en uge."
 
-#: core/templates/template.html:144
+#: core/templates/template.html:117
 msgid "Create some demo entries"
 msgstr "Indtast nogle demo-poster"
 
-#: core/templates/template.html:192 software/templates/features.html:568
+#: core/templates/template.html:165 software/templates/features.html:568
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Vilkår for brug"
 
-#: core/templates/template_features.html:60 software/templates/features.html:9
+#: core/templates/template_features.html:53 software/templates/features.html:9
 msgid "Features"
 msgstr "Funktioner"
 
@@ -924,19 +926,19 @@ msgstr "Oversigt"
 #: exercises/models/base.py:122 exercises/models/base.py:128
 #: exercises/models/translation.py:61 exercises/models/translation.py:67
 #: exercises/models/video.py:163 exercises/models/video.py:169
-#: gallery/models/image.py:42 manager/helpers.py:88 manager/models/log.py:53
+#: gallery/models/image.py:45 manager/helpers.py:88 manager/models/log.py:53
 #: manager/models/session.py:73 measurements/models/measurement.py:46
 #: nutrition/models/ingredient.py:87 nutrition/models/ingredient.py:93
-#: nutrition/models/ingredient.py:231 weight/models.py:51
-#: weight/templates/import_csv_preview.html:13
+#: nutrition/models/ingredient.py:231 software/templates/about_us.html:170
+#: weight/models.py:35 weight/templates/import_csv_preview.html:13
 #: weight/templates/import_csv_preview.html:42 weight/views.py:54
 msgid "Date"
 msgstr "Dato"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
-#: exercises/models/translation.py:49 gallery/models/image.py:65
+#: exercises/models/translation.py:49 gallery/models/image.py:69
 #: gym/models/contract.py:58 gym/models/contract.py:109
-#: manager/models/day.py:79 manager/models/routine.py:87
+#: manager/models/day.py:78 manager/models/routine.py:88
 #: measurements/models/measurement.py:61 nutrition/models/plan.py:76
 msgid "Description"
 msgstr "Beskrivelse"
@@ -945,7 +947,7 @@ msgstr "Beskrivelse"
 msgid "Number of logs (days)"
 msgstr "Antal logs (dage)"
 
-#: core/templates/user/overview.html:37 core/views/user.py:587
+#: core/templates/user/overview.html:37 core/views/user.py:590
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
 msgstr "Sidste aktivitet"
@@ -973,7 +975,7 @@ msgid "Time"
 msgstr "Tid"
 
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:121
-#: manager/helpers.py:89 manager/models/log.py:173 weight/models.py:53
+#: manager/helpers.py:89 manager/models/log.py:173 weight/models.py:37
 #: weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:54
 msgid "Weight"
@@ -1054,7 +1056,8 @@ msgid "Details"
 msgstr "Detaljer"
 
 #: core/templates/user/overview.html:276 gym/views/export.py:57
-#: manager/helpers.py:89
+#: manager/helpers.py:89 nutrition/views/plan.py:151
+#: nutrition/views/plan.py:157
 msgid "Nr."
 msgstr "Nr."
 
@@ -1140,9 +1143,13 @@ msgstr "Send bekræftelsesemail"
 msgid "You need to verify your email to contribute exercises"
 msgstr "Du skal bekræfte din email for at tilføje øvelser"
 
-#: core/templates/user/preferences.html:55 core/views/user.py:598
+#: core/templates/user/preferences.html:55 core/views/user.py:601
 msgid "Change password"
 msgstr "Ændre kodeord"
+
+#: core/templates/user/registration_sidebar.html:8
+msgid "Already have an account?"
+msgstr ""
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
@@ -1186,7 +1193,7 @@ msgid "Delete {0}?"
 msgstr "Slet {0}?"
 
 #: core/views/languages.py:111 core/views/license.py:85
-#: core/views/repetition_units.py:86 core/views/user.py:461
+#: core/views/repetition_units.py:86 core/views/user.py:464
 #: core/views/weight_units.py:86 exercises/views/categories.py:98
 #: exercises/views/equipment.py:81 exercises/views/muscles.py:87
 #: gym/views/admin_notes.py:161 gym/views/config.py:68
@@ -1208,15 +1215,15 @@ msgstr ""
 "og ernærningsplanposter så du bedre kan se hvad denne hjemmeside kan. Du kan "
 "redigere eller slette dem!"
 
-#: core/views/misc.py:125
+#: core/views/misc.py:116
 msgid "Feedback"
 msgstr ""
 
-#: core/views/misc.py:144 weight/templates/import_csv_form.html:9
+#: core/views/misc.py:135 weight/templates/import_csv_form.html:9
 msgid "Submit"
 msgstr "Indsend"
 
-#: core/views/misc.py:152
+#: core/views/misc.py:143
 msgid "Your feedback was successfully sent. Thank you!"
 msgstr "Din feedback blev sendt. Tak!"
 
@@ -1229,39 +1236,39 @@ msgstr "Kontoen \"{0}\" blev slettet"
 msgid "You were successfully registered"
 msgstr "Du er nu registreret"
 
-#: core/views/user.py:338
+#: core/views/user.py:341
 msgid "Settings successfully updated"
 msgstr "Indstillinger opdateret"
 
-#: core/views/user.py:377
+#: core/views/user.py:380
 msgid "The user was successfully deactivated"
 msgstr "Brugeren blev deaktiveret"
 
-#: core/views/user.py:414
+#: core/views/user.py:417
 msgid "The user was successfully activated"
 msgstr "Brugeren blev aktiveret"
 
-#: core/views/user.py:429
+#: core/views/user.py:432
 msgid "Edit user"
 msgstr "Rediger bruger"
 
-#: core/views/user.py:584 gym/templates/gym/member_list.html:26
+#: core/views/user.py:587 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:158
 msgid "ID"
 msgstr "ID"
 
-#: core/views/user.py:585 gym/forms.py:95 gym/templates/contract/view.html:55
+#: core/views/user.py:588 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
 #: gym/views/gym.py:158 gym/views/gym.py:217
 msgid "Username"
 msgstr "Brugernavn"
 
-#: core/views/user.py:588 gym/templates/gym/new_user.html:34
+#: core/views/user.py:591 gym/templates/gym/new_user.html:34
 #: gym/views/export.py:58 gym/views/gym.py:217
 msgid "Gym"
 msgstr "Fitnescenter"
 
-#: core/views/user.py:647
+#: core/views/user.py:650
 #, python-format
 msgid "A verification email was sent to %(email)s"
 msgstr "En bekræftelsesemail blev sendt til %(email)s"
@@ -1320,12 +1327,20 @@ msgstr "Foto"
 msgid "Other"
 msgstr "Øvrige"
 
-#: exercises/models/image.py:81 gallery/models/image.py:51
+#: exercises/models/image.py:81 gallery/models/image.py:54
 #: nutrition/models/image.py:59
 msgid "Image"
 msgstr "Billede"
 
-#: exercises/models/image.py:89
+#: exercises/models/image.py:91 exercises/models/video.py:140
+msgid "Height"
+msgstr "Højdde"
+
+#: exercises/models/image.py:99 exercises/models/video.py:133
+msgid "Width"
+msgstr "Bredde"
+
+#: exercises/models/image.py:107
 msgid "Main picture"
 msgstr "Primære billede"
 
@@ -1375,14 +1390,6 @@ msgstr "Størrelse"
 msgid "Duration"
 msgstr "Varighed"
 
-#: exercises/models/video.py:133
-msgid "Width"
-msgstr "Bredde"
-
-#: exercises/models/video.py:140
-msgid "Height"
-msgstr "Højdde"
-
 #: exercises/models/video.py:147
 msgid "Codec"
 msgstr "codec"
@@ -1403,13 +1410,13 @@ msgstr "Øvelses administrator historik"
 msgid "Action"
 msgstr "Handlinger"
 
-#: exercises/templates/history/overview.html:28 gallery/models/image.py:46
+#: exercises/templates/history/overview.html:28 gallery/models/image.py:49
 #: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
 #: gym/templates/gym/new_user.html:22
 #: gym/templates/gym/reset_user_password.html:20 manager/models/log.py:59
-#: manager/models/routine.py:76 manager/models/session.py:47
+#: manager/models/routine.py:77 manager/models/session.py:47
 #: measurements/models/category.py:31 measurements/models/measurement.py:41
-#: nutrition/models/plan.py:51 weight/models.py:60
+#: nutrition/models/plan.py:51 weight/models.py:44
 msgid "User"
 msgstr "Bruger"
 
@@ -1461,7 +1468,7 @@ msgstr "Slet udstyr?"
 msgid "Add muscle"
 msgstr "Tilføj muskler"
 
-#: gallery/models/image.py:52 nutrition/models/image.py:60
+#: gallery/models/image.py:55 nutrition/models/image.py:60
 msgid "Only PNG and JPEG formats are supported"
 msgstr "Kun PNG og JPEG formatter er understøttet"
 
@@ -1531,7 +1538,7 @@ msgid "Contract type"
 msgstr "Kontrakttype"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
-#: nutrition/forms.py:62 nutrition/models/ingredient_weight_unit.py:54
+#: nutrition/forms.py:58 nutrition/models/ingredient_weight_unit.py:54
 #: nutrition/models/log.py:108 nutrition/models/meal_item.py:73
 msgid "Amount"
 msgstr "Mængde"
@@ -1549,12 +1556,12 @@ msgid "Contract is active"
 msgstr "Kontrakten er aktiv"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
-#: manager/models/routine.py:98 nutrition/models/plan.py:62
+#: manager/models/routine.py:99 nutrition/models/plan.py:62
 msgid "Start date"
 msgstr "Startdato"
 
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
-#: manager/models/routine.py:102 nutrition/models/plan.py:68
+#: manager/models/routine.py:103 nutrition/models/plan.py:68
 msgid "End date"
 msgstr "Slutdato"
 
@@ -1606,12 +1613,6 @@ msgstr "Vis navn i overskriften"
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
 msgstr "Vis navnet på fitnescentret i sidens overskrift"
-
-#: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
-msgid "Configuration for {self.gym.name}"
-msgstr "Konfiguration for {}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
@@ -1929,6 +1930,189 @@ msgstr "Indtil Fejl"
 msgid "none (bodyweight exercise)"
 msgstr "ingen (kropsvægt øvelse)"
 
+#: i18n.tpl:41
+msgid "Beginner"
+msgstr ""
+
+#: i18n.tpl:42
+#, fuzzy
+#| msgctxt "As in \"content of an email\""
+#| msgid "Content"
+msgid "Consistent"
+msgstr "Indhold"
+
+#: i18n.tpl:43
+msgid "Dedicated"
+msgstr ""
+
+#: i18n.tpl:44
+msgid "Obsessed"
+msgstr ""
+
+#: i18n.tpl:45 i18n.tpl:47
+msgid "Legend"
+msgstr ""
+
+#: i18n.tpl:46
+msgid "Veteran"
+msgstr ""
+
+#: i18n.tpl:48
+msgid "Unstoppable"
+msgstr ""
+
+#: i18n.tpl:49
+msgid "Weekend Warrior"
+msgstr ""
+
+#: i18n.tpl:50
+msgid "Elephant lifter"
+msgstr ""
+
+#: i18n.tpl:51
+msgid "Bus lifter"
+msgstr ""
+
+#: i18n.tpl:52
+msgid "Plane lifter"
+msgstr ""
+
+#: i18n.tpl:53
+msgid "Blue whale lifter"
+msgstr ""
+
+#: i18n.tpl:54
+msgid "Space Station lifter"
+msgstr ""
+
+#: i18n.tpl:55
+msgid "Millionaire"
+msgstr ""
+
+#: i18n.tpl:56
+msgid "Atlas"
+msgstr ""
+
+#: i18n.tpl:57
+msgid "Early Bird"
+msgstr ""
+
+#: i18n.tpl:58
+#, fuzzy
+#| msgid "New weight log"
+msgid "Night Owl"
+msgstr "Ny vægtlog"
+
+#: i18n.tpl:59
+msgid "New Year, New Me"
+msgstr ""
+
+#: i18n.tpl:60
+msgid "Phoenix"
+msgstr ""
+
+#: i18n.tpl:61
+#, fuzzy
+#| msgid "Personal data"
+msgid "Personal Record"
+msgstr "Personlige oplysninger"
+
+#: i18n.tpl:62
+msgid "Complete your first workout"
+msgstr ""
+
+#: i18n.tpl:63
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 10 workouts"
+msgstr "Eksempel-træning"
+
+#: i18n.tpl:64
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 50 workouts"
+msgstr "Eksempel-træning"
+
+#: i18n.tpl:65
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 100 workouts"
+msgstr "Eksempel-træning"
+
+#: i18n.tpl:66
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 200 workouts"
+msgstr "Eksempel-træning"
+
+#: i18n.tpl:67
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 500 workouts"
+msgstr "Eksempel-træning"
+
+#: i18n.tpl:68
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 1000 workouts"
+msgstr "Eksempel-træning"
+
+#: i18n.tpl:69
+msgid "Maintain a 30-day workout streak"
+msgstr ""
+
+#: i18n.tpl:70
+msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
+msgstr ""
+
+#: i18n.tpl:71
+msgid "Lift a cumulative total of 5.000 kg"
+msgstr ""
+
+#: i18n.tpl:72
+msgid "Lift a cumulative total of 20.000 kg"
+msgstr ""
+
+#: i18n.tpl:73
+msgid "Lift a cumulative total of 50.000 kg"
+msgstr ""
+
+#: i18n.tpl:74
+msgid "Lift a cumulative total of 150.000 kg"
+msgstr ""
+
+#: i18n.tpl:75
+msgid "Lift a cumulative total of 450.000 kg"
+msgstr ""
+
+#: i18n.tpl:76
+msgid "Lift a cumulative total of 1.000.000 kg"
+msgstr ""
+
+#: i18n.tpl:77
+msgid "Lift a cumulative total of 10.000.000 kg"
+msgstr ""
+
+#: i18n.tpl:78
+msgid "Complete a workout before 6:00 AM"
+msgstr ""
+
+#: i18n.tpl:79
+msgid "Complete a workout after 9:00 PM"
+msgstr ""
+
+#: i18n.tpl:80
+msgid "Work out on January 1st"
+msgstr ""
+
+#: i18n.tpl:81
+msgid "Return to training after being inactive for 30 days"
+msgstr ""
+
+#: i18n.tpl:82
+msgid "Achieve a new Personal Record on any exercise"
+msgstr ""
+
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
 msgid "Subject"
@@ -1980,9 +2164,25 @@ msgstr "Send emails"
 msgid "Correction"
 msgstr "Rettelse"
 
+#: manager/dataclasses.py:106
+msgid "Sets"
+msgstr "Sæt"
+
 #: manager/dataclasses.py:124 manager/helpers.py:89
 msgid "Reps"
 msgstr "Repetitioner"
+
+#: manager/dataclasses.py:158
+msgid "RiR"
+msgstr ""
+
+#: manager/dataclasses.py:165
+msgid "rest"
+msgstr ""
+
+#: manager/helpers.py:80
+msgid "Rest day"
+msgstr "Hviledag"
 
 #: manager/management/commands/email-reminders.py:89
 #, fuzzy
@@ -1990,11 +2190,11 @@ msgstr "Repetitioner"
 msgid "Routine will expire soon"
 msgstr "Træning vil udløbe snart"
 
-#: manager/models/day.py:52
+#: manager/models/day.py:51
 msgid "Routine"
 msgstr "Øvelse"
 
-#: manager/models/day.py:60 manager/models/slot.py:34
+#: manager/models/day.py:59 manager/models/slot.py:34
 #: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
 msgid "Order"
 msgstr "Orden"
@@ -2010,19 +2210,19 @@ msgstr "Træning"
 
 #: manager/models/log.py:114 manager/models/log.py:149
 #: manager/models/slot_entry.py:122 measurements/models/category.py:41
-#: nutrition/forms.py:66
+#: nutrition/forms.py:62
 msgid "Unit"
 msgstr "Enhed"
 
-#: manager/models/routine.py:93 nutrition/models/plan.py:57
+#: manager/models/routine.py:94 nutrition/models/plan.py:57
 msgid "Creation date"
 msgstr "Oprettelsesdato"
 
-#: manager/models/routine.py:106
+#: manager/models/routine.py:107
 msgid "Workout template"
 msgstr "Træningsskabelon"
 
-#: manager/models/routine.py:108
+#: manager/models/routine.py:109
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
@@ -2030,15 +2230,15 @@ msgstr ""
 "Hvis du markerer en træning som skabelon, vil den blive frosset og vil "
 "tillade at du laver kopier af den"
 
-#: manager/models/routine.py:116
+#: manager/models/routine.py:117
 msgid "Public template"
 msgstr "Offentlig skabelon"
 
-#: manager/models/routine.py:117
+#: manager/models/routine.py:118
 msgid "A public template is available to other users"
 msgstr "En offentlig skabelon vil være tilgængelig for andre brugere"
 
-#: manager/models/routine.py:155 manager/models/session.py:147
+#: manager/models/routine.py:156 manager/models/session.py:147
 msgid "The start time cannot be after the end time."
 msgstr "Startiden kan ikke være efter sluttiden."
 
@@ -2132,46 +2332,30 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: nutrition/forms.py:117
-msgid "Height (in)"
-msgstr ""
-
-#: nutrition/forms.py:120
-msgid "Weight (kg)"
-msgstr ""
-
-#: nutrition/forms.py:120
-msgid "Weight (lbs)"
-msgstr ""
-
-#: nutrition/forms.py:133
-msgid "Calculate"
-msgstr ""
-
-#: nutrition/forms.py:207 nutrition/templates/rate/form.html:76
+#: nutrition/forms.py:170 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
 msgstr ""
 
-#: nutrition/forms.py:208
+#: nutrition/forms.py:171
 msgid "Your basic caloric intake as calculated for your data"
 msgstr ""
 
-#: nutrition/forms.py:213
+#: nutrition/forms.py:176
 msgid "Additional calories"
 msgstr ""
 
-#: nutrition/forms.py:215
+#: nutrition/forms.py:178
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
 
-#: nutrition/forms.py:246 nutrition/models/ingredient_weight_unit.py:39
+#: nutrition/forms.py:209 nutrition/models/ingredient_weight_unit.py:39
 #: nutrition/models/log.py:87 nutrition/models/meal_item.py:54
 msgid "Ingredient"
 msgstr ""
 
-#: nutrition/forms.py:250
+#: nutrition/forms.py:213
 msgid "Also search for names in English"
 msgstr "Søg også navne på Engelsk"
 
@@ -2212,11 +2396,6 @@ msgstr ""
 
 #: nutrition/models/ingredient.py:253
 msgid "Brand name of product"
-msgstr ""
-
-#: nutrition/models/ingredient.py:320
-#, python-brace-format
-msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
 msgstr ""
 
 #: nutrition/models/ingredient_category.py:31
@@ -2423,6 +2602,12 @@ msgstr ""
 #: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
+
+#: nutrition/views/plan.py:230
+#, fuzzy
+#| msgid "Nutrition plan"
+msgid "Nutritional data"
+msgstr "Ernæringsplan"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2765,6 +2950,10 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
+#: software/templates/features.html:453
+msgid "Dashboard"
+msgstr "Instrumentbrættet"
+
 #: software/templates/features.html:485
 #, fuzzy
 #| msgid "Workout reminders"
@@ -2838,7 +3027,7 @@ msgstr ""
 msgid "You have to enter your weight"
 msgstr ""
 
-#: weight/models.py:78
+#: weight/models.py:62
 msgid "Weight entry"
 msgstr ""
 
@@ -2941,6 +3130,18 @@ msgstr ""
 msgid "Re-Submit"
 msgstr ""
 
+#, fuzzy, python-format
+#~| msgid "Back to \"%(target)s\""
+#~ msgid ""
+#~ "Back to \"%(target)s\n"
+#~ "                    \""
+#~ msgstr "TIlbage til \"%(target)s\""
+
+#, fuzzy, python-brace-format
+#~| msgid "Configuration for {}"
+#~ msgid "Configuration for {self.gym.name}"
+#~ msgstr "Konfiguration for {}"
+
 #~ msgid ""
 #~ "Tick the box if you want to set this image as the main one for the "
 #~ "exercise (will be shown e.g. in the search). The first image is "
@@ -2953,25 +3154,11 @@ msgstr ""
 #~ msgid "The art style of your image"
 #~ msgstr "Kunststilen på dit billede"
 
-#~ msgid "Sets"
-#~ msgstr "Sæt"
-
-#~ msgid "Rest day"
-#~ msgstr "Hviledag"
-
-#, fuzzy
-#~| msgid "Nutrition plan"
-#~ msgid "Nutritional data"
-#~ msgstr "Ernæringsplan"
-
 #~ msgid "Workouts"
 #~ msgstr "Træninger"
 
 #~ msgid "About us"
 #~ msgstr "Om os"
-
-#~ msgid "Sample workout"
-#~ msgstr "Eksempel-træning"
 
 #~ msgid "Sample day"
 #~ msgstr "Eksempel-dag"
@@ -3155,9 +3342,6 @@ msgstr ""
 
 #~ msgid "Add workout impression"
 #~ msgstr "Tilføj træningsindtryk"
-
-#~ msgid "New weight log"
-#~ msgstr "Ny vægtlog"
 
 #~ msgid ""
 #~ "A new workout session (impression, notes, time) will\n"

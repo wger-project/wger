@@ -22,6 +22,7 @@ from wger.core.views.react import ReactView
 # Local
 from .views import TrophiesOverview
 
+
 urlpatterns = [
     path(
         '',
