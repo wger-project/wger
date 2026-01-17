@@ -44,7 +44,7 @@
 {% translate "Obsessed" %}
 {% translate "Legend" %}
 {% translate "Veteran" %}
-{% translate "Legend" %}
+{% translate "Titan" %}
 {% translate "Unstoppable" %}
 {% translate "Weekend Warrior" %}
 {% translate "Elephant lifter" %}

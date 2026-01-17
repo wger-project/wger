@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-17 13:49+0000\n"
+"POT-Creation-Date: 2026-01-17 14:03+0000\n"
 "PO-Revision-Date: 2025-10-07 18:01+0000\n"
 "Last-Translator: Ninguém Mesmo <weblate@rasparta.org>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
@@ -1795,12 +1795,16 @@ msgstr ""
 msgid "Obsessed"
 msgstr ""
 
-#: i18n.tpl:45 i18n.tpl:47
+#: i18n.tpl:45
 msgid "Legend"
 msgstr "Legenda"
 
 #: i18n.tpl:46
 msgid "Veteran"
+msgstr ""
+
+#: i18n.tpl:47
+msgid "Titan"
 msgstr ""
 
 #: i18n.tpl:48

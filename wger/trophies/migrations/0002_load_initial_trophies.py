@@ -77,7 +77,7 @@ trophies_data = [
     {
         **workout_count_trophy_data,
         'uuid': 'a5b6c7d8-e9f0-41a2-9b3c-4d5e6f7a8b9c',
-        'name': 'Legend',
+        'name': 'Titan',
         'description': 'Complete 1000 workouts',
         'checker_params': {'count': 1000},
         'is_hidden': True,

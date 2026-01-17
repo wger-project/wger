@@ -28,7 +28,6 @@ logger = logging.getLogger(__name__)
 class Muscle(models.Model):
     """
     Muscle an exercise works out
-    Muscle an exercise works out
     """
 
     name = models.CharField(
