@@ -22,12 +22,12 @@ from django.db import models
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
-
 logger = logging.getLogger(__name__)
 
 
 class Muscle(models.Model):
     """
+    Muscle an exercise works out
     Muscle an exercise works out
     """
 

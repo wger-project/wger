@@ -3,7 +3,6 @@ from typing import List
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.manager.dataclasses import (
@@ -23,7 +22,7 @@ class Slot(models.Model):
 
     day = models.ForeignKey(
         Day,
-        verbose_name=_('Exercise day'),
+        verbose_name='Exercise day',
         on_delete=models.CASCADE,
         related_name='slots',
     )
@@ -31,13 +30,13 @@ class Slot(models.Model):
     order = models.PositiveIntegerField(
         default=1,
         null=False,
-        verbose_name=_('Order'),
+        verbose_name='Order',
         db_index=True,
     )
 
     comment = models.CharField(
         max_length=200,
-        verbose_name=_('Comment'),
+        verbose_name='Comment',
         blank=True,
     )
 

@@ -19,12 +19,10 @@ import logging
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # Local
 from .ingredient import Ingredient
 from .weight_unit import WeightUnit
-
 
 logger = logging.getLogger(__name__)
 
@@ -36,23 +34,23 @@ class IngredientWeightUnit(models.Model):
 
     ingredient = models.ForeignKey(
         Ingredient,
-        verbose_name=_('Ingredient'),
+        verbose_name='Ingredient',
         editable=False,
         on_delete=models.CASCADE,
     )
     unit = models.ForeignKey(
         WeightUnit,
-        verbose_name=_('Weight unit'),
+        verbose_name='Weight unit',
         on_delete=models.CASCADE,
     )
 
-    gram = models.IntegerField(verbose_name=_('Amount in grams'))
+    gram = models.IntegerField(verbose_name='Amount in grams')
     amount = models.DecimalField(
         decimal_places=2,
         max_digits=5,
         default=1,
-        verbose_name=_('Amount'),
-        help_text=_('Unit amount, e.g. "1 Cup" or "1/2 spoon"'),
+        verbose_name='Amount',
+        help_text='Unit amount, e.g. "1 Cup" or "1/2 spoon"',
     )
 
     def get_owner_object(self):
