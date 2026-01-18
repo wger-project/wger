@@ -19,7 +19,7 @@
     "masonry-layout": "^4.2.2"
   },
   "devDependencies": {
-    "@wger-project/react-components": "25.12.5"
+    "@wger-project/react-components": "26.1.18"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"
