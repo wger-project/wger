@@ -34,7 +34,6 @@ from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from openfoodfacts import API
@@ -59,7 +58,6 @@ from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -78,19 +76,19 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
     language = models.ForeignKey(
         Language,
-        verbose_name=_('Language'),
+        verbose_name='Language',
         editable=False,
         on_delete=models.CASCADE,
     )
 
     created = models.DateTimeField(
-        _('Date'),
+        verbose_name='Date',
         auto_now_add=True,
     )
     """Date when the ingredient was created"""
 
     last_update = models.DateTimeField(
-        _('Date'),
+        'Date',
         auto_now=True,
         blank=True,
         editable=False,
@@ -123,28 +121,28 @@ class Ingredient(AbstractLicenseModel, models.Model):
     # Product infos
     name = models.CharField(
         max_length=200,
-        verbose_name=_('Name'),
+        verbose_name='Name',
         validators=[MinLengthValidator(3)],
     )
 
     energy = models.IntegerField(
-        verbose_name=_('Energy'),
-        help_text=_('In kcal per 100g'),
+        verbose_name='Energy',
+        help_text='In kcal per 100g',
     )
 
     protein = models.DecimalField(
         decimal_places=3,
         max_digits=6,
-        verbose_name=_('Protein'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Protein',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     carbohydrates = models.DecimalField(
         decimal_places=3,
         max_digits=6,
-        verbose_name=_('Carbohydrates'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Carbohydrates',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
@@ -153,16 +151,16 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         blank=True,
         null=True,
-        verbose_name=_('Sugar content in carbohydrates'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Sugar content in carbohydrates',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     fat = models.DecimalField(
         decimal_places=3,
         max_digits=6,
-        verbose_name=_('Fat'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Fat',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
@@ -171,8 +169,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         blank=True,
         null=True,
-        verbose_name=_('Saturated fat content in fats'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Saturated fat content in fats',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
@@ -181,8 +179,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         blank=True,
         null=True,
-        verbose_name=_('Fiber'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Fiber',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
@@ -191,8 +189,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         blank=True,
         null=True,
-        verbose_name=_('Sodium'),
-        help_text=_('In g per 100g of product'),
+        verbose_name='Sodium',
+        help_text='In g per 100g of product',
         validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
@@ -220,15 +218,15 @@ class Ingredient(AbstractLicenseModel, models.Model):
     """Name of the source, such as Open Food Facts"""
 
     source_url = models.URLField(
-        verbose_name=_('Link'),
-        help_text=_('Link to product'),
+        verbose_name='Link',
+        help_text='Link to product',
         blank=True,
         null=True,
     )
     """URL of the product at the source"""
 
     last_imported = models.DateTimeField(
-        _('Date'),
+        'Date',
         auto_now_add=True,
         null=True,
         blank=True,
@@ -242,7 +240,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
     category = models.ForeignKey(
         IngredientCategory,
-        verbose_name=_('Category'),
+        verbose_name='Category',
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -250,7 +248,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
     brand = models.CharField(
         max_length=200,
-        verbose_name=_('Brand name of product'),
+        verbose_name='Brand name of product',
         null=True,
         blank=True,
     )
@@ -316,11 +314,9 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
                 raise ValidationError(
-                    _(
-                        f'The total energy ({self.energy}kcal) is not the approximate sum of the '
-                        f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
-                        f' +/-{self.ENERGY_APPROXIMATION}%)'
-                    )
+                    f'The total energy ({self.energy}kcal) is not the approximate sum of the '
+                    f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
+                    f' +/-{self.ENERGY_APPROXIMATION}%)'
                 )
 
     def save(self, *args, **kwargs):

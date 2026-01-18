@@ -25,15 +25,19 @@ from typing import (
 # Django
 from django.contrib.auth.models import User
 
+# wger
+from wger.trophies.models.trophy import Trophy
+
 # Local
 from .base import BaseTrophyChecker
-from .count_based import CountBasedChecker
 from .date_based import DateBasedChecker
 from .inactivity_return import InactivityReturnChecker
+from .personal_record import PersonalRecordChecker
 from .streak import StreakChecker
 from .time_based import TimeBasedChecker
 from .volume import VolumeChecker
 from .weekend_warrior import WeekendWarriorChecker
+from .workout_count_based import WorkoutCountBasedChecker
 
 
 logger = logging.getLogger(__name__)
@@ -50,13 +54,14 @@ class CheckerRegistry:
     # Registry mapping simple keys to checker classes
     # Using simple keys instead of full Python paths to avoid breakage if module structure changes
     _registry: Dict[str, Type[BaseTrophyChecker]] = {
-        'count_based': CountBasedChecker,
+        'workout_count_based': WorkoutCountBasedChecker,
         'streak': StreakChecker,
         'weekend_warrior': WeekendWarriorChecker,
         'volume': VolumeChecker,
         'time_based': TimeBasedChecker,
         'date_based': DateBasedChecker,
         'inactivity_return': InactivityReturnChecker,
+        'personal_record': PersonalRecordChecker,
     }
 
     @classmethod
@@ -109,7 +114,7 @@ class CheckerRegistry:
     def create_checker(
         cls,
         user: User,
-        trophy: 'Trophy',
+        trophy: Trophy,
     ) -> Optional[BaseTrophyChecker]:
         """
         Factory method to create a checker instance for a trophy.
@@ -125,7 +130,7 @@ class CheckerRegistry:
         checker_class = cls.get_checker_class(trophy.checker_class)
 
         if checker_class is None:
-            logger.warning(
+            logger.error(
                 f'Checker class not found in registry: {trophy.checker_class} '
                 f'for trophy: {trophy.name}'
             )

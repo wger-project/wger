@@ -129,7 +129,7 @@ class TrophyServiceTestCase(WgerTestCase):
         self.trophy = Trophy.objects.create(
             name='Test Trophy',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 1},
             is_active=True,
         )
@@ -270,7 +270,7 @@ class TrophyServiceTestCase(WgerTestCase):
         hidden_trophy = Trophy.objects.create(
             name='Hidden',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 10},
             is_hidden=True,
             is_active=True,
@@ -287,7 +287,7 @@ class TrophyServiceTestCase(WgerTestCase):
         hidden_trophy = Trophy.objects.create(
             name='Hidden',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 1},
             is_hidden=True,
             is_active=True,
@@ -301,6 +301,23 @@ class TrophyServiceTestCase(WgerTestCase):
         # Hidden trophy should now be in the list
         hidden_in_list = any(p['trophy'].id == hidden_trophy.id for p in progress_list)
         self.assertTrue(hidden_in_list)
+
+    def test_award_pr_trophy_multiple_times(self):
+        """PR trophies can be awarded multiple times via TrophyService"""
+        pr_trophy, _ = Trophy.objects.get_or_create(
+            name='Personal Record',
+            defaults={'is_repeatable': True, 'is_active': True},
+        )
+
+        ut1 = TrophyService.award_trophy(
+            self.user, pr_trophy, progress=100.0, context_data={'log_id': 1}
+        )
+        ut2 = TrophyService.award_trophy(
+            self.user, pr_trophy, progress=100.0, context_data={'log_id': 2}
+        )
+
+        self.assertEqual(UserTrophy.objects.filter(user=self.user, trophy=pr_trophy).count(), 2)
+        self.assertNotEqual(ut1, ut2)
 
     def test_should_skip_user_inactive(self):
         """Test skipping inactive users"""
@@ -362,7 +379,7 @@ class TrophyServiceTestCase(WgerTestCase):
         trophy2 = Trophy.objects.create(
             name='Trophy 2',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 5},
             is_active=True,
         )

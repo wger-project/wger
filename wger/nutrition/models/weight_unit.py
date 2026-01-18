@@ -16,7 +16,6 @@
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import Language
@@ -29,13 +28,13 @@ class WeightUnit(models.Model):
 
     language = models.ForeignKey(
         Language,
-        verbose_name=_('Language'),
+        verbose_name='Language',
         editable=False,
         on_delete=models.CASCADE,
     )
     name = models.CharField(
         max_length=200,
-        verbose_name=_('Name'),
+        verbose_name='Name',
     )
 
     # Metaclass to set some other properties

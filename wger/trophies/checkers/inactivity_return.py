@@ -16,7 +16,6 @@
 
 # Standard Library
 import datetime
-from typing import Any
 
 # Local
 from .base import BaseTrophyChecker

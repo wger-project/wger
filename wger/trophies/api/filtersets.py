@@ -37,6 +37,7 @@ class TrophyFilterSet(filters.FilterSet):
             'is_active': ['exact'],
             'is_hidden': ['exact'],
             'is_progressive': ['exact'],
+            'is_repeatable': ['exact'],
         }
 
 
@@ -49,7 +50,11 @@ class UserTrophyFilterSet(filters.FilterSet):
         model = UserTrophy
         fields = {
             'id': ['exact', 'in'],
-            'trophy': ['exact', 'in'],
             'earned_at': ['exact', 'gt', 'gte', 'lt', 'lte'],
             'is_notified': ['exact'],
+            'trophy': ['exact', 'in'],
+            'trophy__is_active': ['exact'],
+            'trophy__is_hidden': ['exact'],
+            'trophy__is_repeatable': ['exact'],
+            'trophy__trophy_type': ['exact', 'in'],
         }

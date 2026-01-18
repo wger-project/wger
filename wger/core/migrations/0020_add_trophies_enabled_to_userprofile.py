@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0019_delete_daysofweek'),
     ]
@@ -13,6 +12,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='trophies_enabled',
-            field=models.BooleanField(default=True, help_text='Enable or disable the trophy system for this user', verbose_name='Enable trophies'),
+            field=models.BooleanField(
+                default=True,
+                help_text='Enable or disable the trophy system for this user',
+                verbose_name='Enable trophies',
+            ),
         ),
     ]

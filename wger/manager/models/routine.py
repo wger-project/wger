@@ -53,7 +53,6 @@ from wger.manager.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -74,48 +73,46 @@ class Routine(models.Model):
 
     user = models.ForeignKey(
         User,
-        verbose_name=_('User'),
+        verbose_name='User',
         on_delete=models.CASCADE,
     )
 
     name = models.CharField(
-        verbose_name=_('Name'),
+        verbose_name='Name',
         max_length=25,
         blank=True,
     )
 
     description = models.TextField(
-        verbose_name=_('Description'),
+        verbose_name='Description',
         max_length=1000,
         blank=True,
     )
 
     created = models.DateTimeField(
-        _('Creation date'),
+        verbose_name='Creation date',
         auto_now_add=True,
     )
 
     start = models.DateField(
-        _('Start date'),
+        verbose_name='Start date',
     )
 
     end = models.DateField(
-        _('End date'),
+        verbose_name='End date',
     )
 
     is_template = models.BooleanField(
-        verbose_name=_('Workout template'),
-        help_text=_(
-            'Marking a workout as a template will freeze it and allow you to make copies of it'
-        ),
+        verbose_name='Workout template',
+        help_text='Marking a workout as a template will freeze it and allow you to make copies of it',
         default=False,
         null=False,
     )
     """Marking a workout as a template will freeze it and allow you to make copies of it"""
 
     is_public = models.BooleanField(
-        verbose_name=_('Public template'),
-        help_text=_('A public template is available to other users'),
+        verbose_name='Public template',
+        help_text='A public template is available to other users',
         default=False,
         null=False,
     )

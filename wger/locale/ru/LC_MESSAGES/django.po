@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 16:48+0530\n"
+"POT-Creation-Date: 2026-01-17 14:03+0000\n"
 "PO-Revision-Date: 2026-01-03 23:01+0000\n"
 "Last-Translator: Gevorg Danielyan <forza-dgn@ya.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
@@ -61,23 +61,24 @@ msgstr ""
 msgid "Edit"
 msgstr "Редактировать"
 
-#: core/forms.py:69 core/templates/navigation.html:271
+#: core/forms.py:91 core/templates/navigation.html:271
 #: core/templates/navigation.html:278 core/templates/user/login.html:4
+#: core/templates/user/registration_sidebar.html:12
 #: software/templates/features.html:82 software/templates/features.html:448
 msgid "Login"
 msgstr "Войти"
 
-#: core/forms.py:108 core/forms.py:222 gym/views/export.py:61
+#: core/forms.py:130 core/forms.py:244 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
 msgstr "Имя"
 
-#: core/forms.py:109 core/forms.py:223 core/templates/user/overview.html:284
+#: core/forms.py:131 core/forms.py:245 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
 msgstr "Фамилия"
 
-#: core/forms.py:111 core/forms.py:188 core/templates/user/overview.html:288
+#: core/forms.py:133 core/forms.py:210 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
 #: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:116
 #: gym/templates/gym/new_user.html:30 gym/views/export.py:60
@@ -87,52 +88,52 @@ msgstr "Фамилия"
 msgid "Email"
 msgstr "Электронный адрес"
 
-#: core/forms.py:112
+#: core/forms.py:134
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr "Используется для сброса пароля и опциональных уведомлений по e-mail."
 
-#: core/forms.py:116 core/models/profile.py:222
+#: core/forms.py:138 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr "Дата рождения"
 
-#: core/forms.py:155
+#: core/forms.py:177
 msgid "Personal data"
 msgstr "Персональные данные"
 
-#: core/forms.py:167
+#: core/forms.py:189
 msgid "Workout reminders"
 msgstr "Напоминания тренировок"
 
-#: core/forms.py:174
+#: core/forms.py:196
 msgid "Other settings"
 msgstr "Другие настройки"
 
-#: core/forms.py:182 core/views/user.py:611 core/views/user.py:626
-#: core/views/user.py:638 gym/forms.py:73 utils/generic_views.py:143
+#: core/forms.py:204 core/views/user.py:614 core/views/user.py:629
+#: core/views/user.py:641 gym/forms.py:73 utils/generic_views.py:143
 msgid "Save"
 msgstr "Сохранить"
 
-#: core/forms.py:189
+#: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
 "Необходимо для возобновлений пароля, и выборочно, напоминаний по электронной "
 "почте."
 
-#: core/forms.py:218
+#: core/forms.py:240
 msgid "This e-mail address is already in use."
 msgstr "Этот электронный адрес уже используется."
 
-#: core/forms.py:239 gym/templates/gym/new_user.html:26
+#: core/forms.py:261 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
 msgstr "Пароль"
 
-#: core/forms.py:241
+#: core/forms.py:263
 msgid "Please enter your current password."
 msgstr "Пожалуйста, введите ваш пароль."
 
-#: core/forms.py:250 core/templates/language/view.html:70
+#: core/forms.py:272 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
 #: core/templates/repetition_unit/list.html:22
 #: core/templates/user/overview.html:233
@@ -149,37 +150,20 @@ msgstr "Пожалуйста, введите ваш пароль."
 msgid "Delete"
 msgstr "Удалить"
 
-#: core/forms.py:259
+#: core/forms.py:281
 msgid "Invalid password"
 msgstr "Неверный пароль"
 
-#: core/forms.py:271 core/forms.py:346
+#: core/forms.py:293
 msgid "The form is secured with reCAPTCHA"
 msgstr "Данная форма защищена reCAPTCHA"
 
-#: core/forms.py:287 core/forms.py:309 core/templates/navigation.html:272
-#: core/templates/navigation.html:285 core/templates/template.html:150
+#: core/forms.py:314 core/forms.py:341 core/templates/navigation.html:272
+#: core/templates/navigation.html:285 core/templates/template.html:123
 #: core/templates/user/login.html:21 core/views/user.py:285
 #: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
 msgstr "Зарегистрироваться"
-
-#: core/forms.py:323 software/templates/features.html:45
-msgid "Contact"
-msgstr "Контакт"
-
-#: core/forms.py:324
-msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Обратная связь с вами (электронная почта, и т.д.)"
-
-#: core/forms.py:332 exercises/models/comment.py:55 manager/models/slot.py:40
-#: nutrition/models/log.py:77
-msgid "Comment"
-msgstr "Комментарий"
-
-#: core/forms.py:333
-msgid "What do you want to say?"
-msgstr "Что Вы имеете в виду?"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -209,7 +193,7 @@ msgstr ""
 msgid "Short name, e.g. CC-BY-SA 3"
 msgstr "Краткое название, например, CC-BY-SA 3"
 
-#: core/models/license.py:45 nutrition/models/ingredient.py:223
+#: core/models/license.py:45
 msgid "Link"
 msgstr "Ссылка"
 
@@ -327,7 +311,7 @@ msgstr ""
 msgid "Age"
 msgstr "Возраст"
 
-#: core/models/profile.py:230 nutrition/forms.py:117
+#: core/models/profile.py:230
 msgid "Height (cm)"
 msgstr "Рост (см)"
 
@@ -377,8 +361,7 @@ msgstr "Общая суточная калорийность"
 msgid "Total caloric intake, including e.g. any surplus"
 msgstr "Общее потребление калорий, в том числе, любой излишек"
 
-#: core/models/profile.py:333 nutrition/models/ingredient_weight_unit.py:45
-#: nutrition/models/log.py:96 nutrition/models/meal_item.py:59
+#: core/models/profile.py:333
 msgid "Weight unit"
 msgstr "Единица веса"
 
@@ -403,22 +386,25 @@ msgstr "Автоматические напоминания для записе�
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr "Количество дней после последней записи веса (введите 0 для отключения)"
 
-#: core/models/profile.py:439
+#: core/models/profile.py:379
+msgid "Enable trophies"
+msgstr ""
+
+#: core/models/profile.py:380
+msgid "Enable or disable the trophy system for this user"
+msgstr ""
+
+#: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
 msgstr "Сумма всех часов должна быть 24"
 
 #: core/models/rep_unit.py:36 core/models/weight_unit.py:42
-#: core/templates/user/overview.html:280 core/views/user.py:586
-#: exercises/models/category.py:29 exercises/models/equipment.py:29
-#: exercises/models/muscle.py:36 exercises/models/translation.py:56
-#: gym/models/contract.py:52 gym/models/contract.py:103 gym/models/gym.py:46
+#: core/templates/user/overview.html:280 core/views/user.py:589
+#: exercises/models/muscle.py:36 gym/models/contract.py:52
+#: gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
-#: gym/views/gym.py:158 manager/models/day.py:73 manager/models/routine.py:81
-#: measurements/models/category.py:36 nutrition/models/ingredient.py:126
-#: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:65
-#: nutrition/models/weight_unit.py:38
-#: nutrition/templates/ingredient/view.html:151
+#: gym/views/gym.py:158 nutrition/templates/ingredient/view.html:151
 msgid "Name"
 msgstr "Имя"
 
@@ -438,7 +424,7 @@ msgstr "Страницу не найдено"
 msgid "The page you requested does not exist."
 msgstr "Страница, на которую Вы подали запрос, не существует."
 
-#: core/templates/500.html:4 core/templates/template_no_context.html:37
+#: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
 msgstr "Произошла ошибка"
 
@@ -462,7 +448,7 @@ msgstr ""
 "Вы просматриваете сайт как пользователь \"%(current_user)s\", все действия "
 "выполняются с его данными."
 
-#: core/templates/base.html:15
+#: core/templates/base.html:15 core/templates/base_wide.html:12
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "Вернуться к \"%(target)s\""
@@ -481,14 +467,6 @@ msgstr ""
 "все действия выполняются над\n"
 "                их данными.\n"
 "            "
-
-#: core/templates/base_wide.html:12
-#, fuzzy, python-format
-#| msgid "Back to \"%(target)s\""
-msgid ""
-"Back to \"%(target)s\n"
-"                    \""
-msgstr "Вернуться к \"%(target)s\""
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -542,11 +520,7 @@ msgstr ""
 "Пожалуйста, перейдите по ссылке, чтобы подтвердить вашу электронную почту: "
 "%(link)s"
 
-#: core/templates/index.html:4 software/templates/features.html:453
-msgid "Dashboard"
-msgstr "Панель управления"
-
-#: core/templates/language/overview.html:4 core/templates/navigation.html:334
+#: core/templates/language/overview.html:4 core/templates/navigation.html:344
 msgid "Languages"
 msgstr "Языки"
 
@@ -612,7 +586,7 @@ msgstr "Список лицензий"
 msgid "Nothing found"
 msgstr "Ничего не найдено"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:187
+#: core/templates/misc/about.html:4 core/templates/template.html:160
 msgid "Imprint"
 msgstr "Отпечаток"
 
@@ -654,7 +628,7 @@ msgid "Exercises"
 msgstr "Упражнения"
 
 #: core/templates/navigation.html:102 core/templates/navigation.html:176
-#: core/templates/navigation.html:329
+#: core/templates/navigation.html:339
 msgid "Administration"
 msgstr "Администрация"
 
@@ -662,7 +636,7 @@ msgstr "Администрация"
 msgid "Exercise edit history"
 msgstr "История редактирования упражнений"
 
-#: core/templates/navigation.html:112 exercises/models/base.py:107
+#: core/templates/navigation.html:112
 msgid "Equipment"
 msgstr "Спортивное оборудование"
 
@@ -732,7 +706,7 @@ msgstr "Документация для разработчиков"
 msgid "Get the code"
 msgstr "Получить код"
 
-#: core/templates/navigation.html:255 core/templates/template.html:226
+#: core/templates/navigation.html:255 core/templates/template.html:199
 #: software/templates/features.html:603
 msgid "Translate"
 msgstr "Перевести"
@@ -741,35 +715,40 @@ msgstr "Перевести"
 msgid "Reset password"
 msgstr "Восстановить пароль"
 
-#: core/templates/navigation.html:310
-msgid "My preferences"
-msgstr "Мои настройки"
-
-#: core/templates/navigation.html:319
+#: core/templates/navigation.html:301 core/templates/navigation.html:329
 msgid "Logout"
 msgstr "Выйти"
 
-#: core/templates/navigation.html:342
+#: core/templates/navigation.html:320
+msgid "My preferences"
+msgstr "Мои настройки"
+
+#: core/templates/navigation.html:352
 msgid "Licenses"
 msgstr "Лицензии"
 
-#: core/templates/navigation.html:350
+#: core/templates/navigation.html:360
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Единицы повторения"
 
-#: core/templates/navigation.html:358 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:368 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
 msgstr "Единицы веса"
 
-#: core/templates/navigation.html:366 core/templates/user/list.html:4
+#: core/templates/navigation.html:376 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Список пользователей"
 
-#: core/templates/navigation.html:372
+#: core/templates/navigation.html:382
 msgid "Gyms"
 msgstr "Тренажерные залы"
+
+#: core/templates/navigation.html:403
+#: trophies/templates/trophies/overview.html:7
+msgid "Trophies"
+msgstr ""
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
@@ -830,27 +809,27 @@ msgstr "предыдущий"
 msgid "next"
 msgstr "следующий"
 
-#: core/templates/template.html:123
+#: core/templates/template.html:96
 msgid "Close"
 msgstr "Закрыть"
 
-#: core/templates/template.html:139
+#: core/templates/template.html:112
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Вы используете аккаунт для гостей, введенные данные будут удалены через "
 "неделю."
 
-#: core/templates/template.html:144
+#: core/templates/template.html:117
 msgid "Create some demo entries"
 msgstr "Создайте демо-записи"
 
-#: core/templates/template.html:192 software/templates/features.html:568
+#: core/templates/template.html:165 software/templates/features.html:568
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Условия обслуживания"
 
-#: core/templates/template_features.html:60 software/templates/features.html:9
+#: core/templates/template_features.html:53 software/templates/features.html:9
 msgid "Features"
 msgstr "Особенности"
 
@@ -928,23 +907,14 @@ msgstr "Обзор"
 
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:152
-#: exercises/models/base.py:122 exercises/models/base.py:128
-#: exercises/models/translation.py:61 exercises/models/translation.py:67
-#: exercises/models/video.py:163 exercises/models/video.py:169
-#: gallery/models/image.py:42 manager/helpers.py:88 manager/models/log.py:53
-#: manager/models/session.py:73 measurements/models/measurement.py:46
-#: nutrition/models/ingredient.py:87 nutrition/models/ingredient.py:93
-#: nutrition/models/ingredient.py:231 weight/models.py:51
+#: manager/helpers.py:88 software/templates/about_us.html:170
 #: weight/templates/import_csv_preview.html:13
 #: weight/templates/import_csv_preview.html:42 weight/views.py:54
 msgid "Date"
 msgstr "Дата"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
-#: exercises/models/translation.py:49 gallery/models/image.py:65
 #: gym/models/contract.py:58 gym/models/contract.py:109
-#: manager/models/day.py:79 manager/models/routine.py:87
-#: measurements/models/measurement.py:61 nutrition/models/plan.py:76
 msgid "Description"
 msgstr "Описание"
 
@@ -952,7 +922,7 @@ msgstr "Описание"
 msgid "Number of logs (days)"
 msgstr "Количество записей (дней)"
 
-#: core/templates/user/overview.html:37 core/views/user.py:587
+#: core/templates/user/overview.html:37 core/views/user.py:590
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
 msgstr "Последние действия"
@@ -965,12 +935,11 @@ msgstr "Тренировок не найдено."
 msgid "Log"
 msgstr "Журнал"
 
-#: core/templates/user/overview.html:77 manager/models/session.py:91
+#: core/templates/user/overview.html:77
 msgid "General impression"
 msgstr "Общее впечатление"
 
 #: core/templates/user/overview.html:78 core/templates/user/overview.html:390
-#: manager/models/session.py:81
 msgid "Notes"
 msgstr "Заметки"
 
@@ -980,28 +949,27 @@ msgid "Time"
 msgstr "Время"
 
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:121
-#: manager/helpers.py:89 manager/models/log.py:173 weight/models.py:53
-#: weight/templates/import_csv_preview.html:14
+#: manager/helpers.py:89 weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:54
 msgid "Weight"
 msgstr "Вес"
 
-#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:131
+#: core/templates/user/overview.html:154
 #: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:245
 msgid "Energy"
 msgstr "Энергия"
 
-#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:138
+#: core/templates/user/overview.html:155
 #: nutrition/templates/ingredient/view.html:58 nutrition/views/plan.py:251
 msgid "Protein"
 msgstr "Белки"
 
-#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:146
+#: core/templates/user/overview.html:156
 #: nutrition/templates/ingredient/view.html:64 nutrition/views/plan.py:259
 msgid "Carbohydrates"
 msgstr "Углеводы"
 
-#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:164
+#: core/templates/user/overview.html:157
 #: nutrition/templates/ingredient/view.html:80 nutrition/views/plan.py:273
 msgid "Fat"
 msgstr "Жиры"
@@ -1061,7 +1029,8 @@ msgid "Details"
 msgstr "Детали"
 
 #: core/templates/user/overview.html:276 gym/views/export.py:57
-#: manager/helpers.py:89
+#: manager/helpers.py:89 nutrition/views/plan.py:151
+#: nutrition/views/plan.py:157
 msgid "Nr."
 msgstr "№"
 
@@ -1149,9 +1118,13 @@ msgstr ""
 "Вам необходимо подтвердить свой адрес электронной почты, чтобы добавлять "
 "упражнения"
 
-#: core/templates/user/preferences.html:55 core/views/user.py:598
+#: core/templates/user/preferences.html:55 core/views/user.py:601
 msgid "Change password"
 msgstr "Изменить"
+
+#: core/templates/user/registration_sidebar.html:8
+msgid "Already have an account?"
+msgstr ""
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
@@ -1180,7 +1153,7 @@ msgstr "oz"
 
 #: core/views/languages.py:85 exercises/views/categories.py:122
 #: exercises/views/equipment.py:103 exercises/views/muscles.py:99
-#: nutrition/views/ingredient.py:119 nutrition/views/unit.py:110
+#: nutrition/views/ingredient.py:120 nutrition/views/unit.py:110
 msgid "Successfully deleted"
 msgstr "Успешно удалено"
 
@@ -1189,25 +1162,25 @@ msgstr "Успешно удалено"
 #: exercises/views/categories.py:128 exercises/views/muscles.py:106
 #: gallery/views/images.py:124 gym/views/admin_notes.py:196
 #: gym/views/document.py:206 gym/views/gym.py:481
-#: nutrition/views/ingredient.py:126 nutrition/views/unit.py:117
+#: nutrition/views/ingredient.py:127 nutrition/views/unit.py:117
 #, python-brace-format
 msgid "Delete {0}?"
 msgstr "Удалить {0}?"
 
 #: core/views/languages.py:111 core/views/license.py:85
-#: core/views/repetition_units.py:86 core/views/user.py:461
+#: core/views/repetition_units.py:86 core/views/user.py:464
 #: core/views/weight_units.py:86 exercises/views/categories.py:98
 #: exercises/views/equipment.py:81 exercises/views/muscles.py:87
 #: gym/views/admin_notes.py:161 gym/views/config.py:68
 #: gym/views/contract.py:186 gym/views/contract_option.py:123
 #: gym/views/contract_type.py:123 gym/views/document.py:171
-#: gym/views/gym.py:463 nutrition/views/ingredient.py:145
+#: gym/views/gym.py:463 nutrition/views/ingredient.py:146
 #: nutrition/views/unit.py:143
 #, python-brace-format
 msgid "Edit {0}"
 msgstr "Редактировать {0}"
 
-#: core/views/misc.py:90
+#: core/views/misc.py:74
 msgid ""
 "We have created sample workout, workout schedules, weight logs, (body) "
 "weight and nutrition plan entries so you can better see what  this site can "
@@ -1216,18 +1189,6 @@ msgstr ""
 "Мы создали образец тренировки, графики тренировки, запись тяжестей, записи "
 "масс тела и плана питания для наглядного примера возможностей этого сайта. "
 "Вы можете их изменить или удалить!"
-
-#: core/views/misc.py:125
-msgid "Feedback"
-msgstr "Отзывы"
-
-#: core/views/misc.py:144 weight/templates/import_csv_form.html:9
-msgid "Submit"
-msgstr "Отправить"
-
-#: core/views/misc.py:152
-msgid "Your feedback was successfully sent. Thank you!"
-msgstr "Ваш отзыв был успешно отправлен. Спасибо!"
 
 #: core/views/user.py:143
 #, python-brace-format
@@ -1238,105 +1199,42 @@ msgstr "Аккаунт \"{0}\" успешно удален"
 msgid "You were successfully registered"
 msgstr "Вы были успешно зарегистрированы"
 
-#: core/views/user.py:338
+#: core/views/user.py:341
 msgid "Settings successfully updated"
 msgstr "Настройки успешно обновлены"
 
-#: core/views/user.py:377
+#: core/views/user.py:380
 msgid "The user was successfully deactivated"
 msgstr "Пользователь был успешно отключен"
 
-#: core/views/user.py:414
+#: core/views/user.py:417
 msgid "The user was successfully activated"
 msgstr "Пользователь был успешно активирован"
 
-#: core/views/user.py:429
+#: core/views/user.py:432
 msgid "Edit user"
 msgstr "Редактирование пользователя"
 
-#: core/views/user.py:584 gym/templates/gym/member_list.html:26
+#: core/views/user.py:587 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:158
 msgid "ID"
 msgstr "Идентификация"
 
-#: core/views/user.py:585 gym/forms.py:95 gym/templates/contract/view.html:55
+#: core/views/user.py:588 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
 #: gym/views/gym.py:158 gym/views/gym.py:217
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: core/views/user.py:588 gym/templates/gym/new_user.html:34
+#: core/views/user.py:591 gym/templates/gym/new_user.html:34
 #: gym/views/export.py:58 gym/views/gym.py:217
 msgid "Gym"
 msgstr "Тренажерный зал"
 
-#: core/views/user.py:647
+#: core/views/user.py:650
 #, python-format
 msgid "A verification email was sent to %(email)s"
 msgstr "На адрес %(email)s было отправлено электронное письмо с подтверждением"
-
-#: exercises/models/base.py:86 nutrition/models/ingredient.py:245
-msgid "Category"
-msgstr "Категория"
-
-#: exercises/models/base.py:93
-msgid "Primary muscles"
-msgstr "Основные мышцы"
-
-#: exercises/models/base.py:99
-msgid "Secondary muscles"
-msgstr "Второстепенные мышцы"
-
-#: exercises/models/base.py:114
-msgid "Variations"
-msgstr "Вариации"
-
-#: exercises/models/category.py:34
-msgid "Exercise Categories"
-msgstr "Категории упражнений"
-
-#: exercises/models/comment.py:49 exercises/models/exercise_alias.py:50
-#: exercises/models/image.py:75 exercises/models/video.py:98
-#: manager/helpers.py:89 manager/models/log.py:91
-msgid "Exercise"
-msgstr "Упражнение"
-
-#: exercises/models/comment.py:56
-msgid "A comment about how to correctly do this exercise."
-msgstr "Коментарий о том, как правильно выполнять это упражнение."
-
-#: exercises/models/exercise_alias.py:56
-msgid "Alias for an exercise"
-msgstr "Псевдоним для упражнения"
-
-#: exercises/models/image.py:58
-msgid "Line"
-msgstr "Линия"
-
-#: exercises/models/image.py:59
-msgid "3D"
-msgstr "3D"
-
-#: exercises/models/image.py:60
-msgid "Low-poly"
-msgstr "Низкополигональный"
-
-#: exercises/models/image.py:61
-msgid "Photo"
-msgstr "Фото"
-
-#: exercises/models/image.py:62
-msgid "Other"
-msgstr "Другое"
-
-#: exercises/models/image.py:81 gallery/models/image.py:51
-#: nutrition/models/image.py:59
-msgid "Image"
-msgstr "Изображение"
-
-#: exercises/models/image.py:89
-msgid "Main picture"
-msgstr "Основное изображение"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
@@ -1350,55 +1248,18 @@ msgstr "Альтернативное название"
 msgid "A more basic name for the muscle"
 msgstr "Более простое название для мышцы"
 
-#: exercises/models/translation.py:74 nutrition/models/ingredient.py:81
-#: nutrition/models/weight_unit.py:32
-msgid "Language"
-msgstr "Язык"
-
-#: exercises/models/video.py:52
+#: exercises/models/video.py:50
 #, python-format
 msgid "Maximum file size is %(size)sMB."
 msgstr "Максимальный размер файла - %(size)s МБ."
 
-#: exercises/models/video.py:59 exercises/models/video.py:67
+#: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
 msgstr "Тип файла не поддерживается"
 
-#: exercises/models/video.py:72
+#: exercises/models/video.py:70
 msgid "File is not a valid video"
 msgstr "Файл не содержит видеодорожку"
-
-#: exercises/models/video.py:104
-msgid "Main video"
-msgstr "Основное видео"
-
-#: exercises/models/video.py:110
-msgid "Video"
-msgstr "Видео"
-
-#: exercises/models/video.py:117
-msgid "Size"
-msgstr "Размер"
-
-#: exercises/models/video.py:124
-msgid "Duration"
-msgstr "Продолжительность"
-
-#: exercises/models/video.py:133
-msgid "Width"
-msgstr "Ширина"
-
-#: exercises/models/video.py:140
-msgid "Height"
-msgstr "Высота"
-
-#: exercises/models/video.py:147
-msgid "Codec"
-msgstr "Кодек"
-
-#: exercises/models/video.py:155
-msgid "Codec, long name"
-msgstr "Кодек, длинное название"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1412,13 +1273,10 @@ msgstr "История администрирования упражнений"
 msgid "Action"
 msgstr "Действие"
 
-#: exercises/templates/history/overview.html:28 gallery/models/image.py:46
-#: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
+#: exercises/templates/history/overview.html:28 gym/forms.py:58
+#: gym/templates/gym/email_inactive_members.html:4
 #: gym/templates/gym/new_user.html:22
-#: gym/templates/gym/reset_user_password.html:20 manager/models/log.py:59
-#: manager/models/routine.py:76 manager/models/session.py:47
-#: measurements/models/category.py:31 measurements/models/measurement.py:41
-#: nutrition/models/plan.py:51 weight/models.py:60
+#: gym/templates/gym/reset_user_password.html:20
 msgid "User"
 msgstr "Пользователь"
 
@@ -1469,10 +1327,6 @@ msgstr "Удалить оборудование?"
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
 msgstr "Добавить мышцу"
-
-#: gallery/models/image.py:52 nutrition/models/image.py:60
-msgid "Only PNG and JPEG formats are supported"
-msgstr "Поддерживаются только форматы PNG и JPEG"
 
 #: gallery/templates/images/overview.html:72
 msgid "Add image"
@@ -1542,8 +1396,7 @@ msgid "Contract type"
 msgstr "Форма контракта"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
-#: nutrition/forms.py:62 nutrition/models/ingredient_weight_unit.py:54
-#: nutrition/models/log.py:108 nutrition/models/meal_item.py:73
+#: nutrition/forms.py:58
 msgid "Amount"
 msgstr "Количество"
 
@@ -1560,12 +1413,10 @@ msgid "Contract is active"
 msgstr "Контракт активен"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
-#: manager/models/routine.py:98 nutrition/models/plan.py:62
 msgid "Start date"
 msgstr "Дата начала"
 
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
-#: manager/models/routine.py:102 nutrition/models/plan.py:68
 msgid "End date"
 msgstr "Конечная дата"
 
@@ -1616,12 +1467,6 @@ msgstr "Показывать имя в заголовке"
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
 msgstr "Показывать название зала в шапке сайта"
-
-#: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
-msgid "Configuration for {self.gym.name}"
-msgstr "Конфигурация для {}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
@@ -1905,7 +1750,7 @@ msgstr "Брус для подтягивания"
 msgid "Quads"
 msgstr "Квадрицепсы"
 
-#: i18n.tpl:30 manager/models/log.py:138
+#: i18n.tpl:30
 msgid "Repetitions"
 msgstr "Повторений"
 
@@ -1940,6 +1785,197 @@ msgstr "До отказа"
 #: i18n.tpl:40
 msgid "none (bodyweight exercise)"
 msgstr "Никакое (упражнение с весом тела)"
+
+#: i18n.tpl:41
+msgid "Beginner"
+msgstr ""
+
+#: i18n.tpl:42
+#, fuzzy
+#| msgctxt "As in \"content of an email\""
+#| msgid "Content"
+msgid "Consistent"
+msgstr "Содержание"
+
+#: i18n.tpl:43
+msgid "Dedicated"
+msgstr ""
+
+#: i18n.tpl:44
+msgid "Obsessed"
+msgstr ""
+
+#: i18n.tpl:45
+msgid "Legend"
+msgstr "Условное обозначение"
+
+#: i18n.tpl:46
+msgid "Veteran"
+msgstr ""
+
+#: i18n.tpl:47
+msgid "Titan"
+msgstr ""
+
+#: i18n.tpl:48
+msgid "Unstoppable"
+msgstr ""
+
+#: i18n.tpl:49
+msgid "Weekend Warrior"
+msgstr ""
+
+#: i18n.tpl:50
+msgid "Elephant lifter"
+msgstr ""
+
+#: i18n.tpl:51
+msgid "Bus lifter"
+msgstr ""
+
+#: i18n.tpl:52
+msgid "Plane lifter"
+msgstr ""
+
+#: i18n.tpl:53
+msgid "Blue whale lifter"
+msgstr ""
+
+#: i18n.tpl:54
+msgid "Space Station lifter"
+msgstr ""
+
+#: i18n.tpl:55
+msgid "Millionaire"
+msgstr ""
+
+#: i18n.tpl:56
+msgid "Atlas"
+msgstr ""
+
+#: i18n.tpl:57
+msgid "Early Bird"
+msgstr ""
+
+#: i18n.tpl:58
+#, fuzzy
+#| msgid "Weight log"
+msgid "Night Owl"
+msgstr "Регистрация веса"
+
+#: i18n.tpl:59
+msgid "New Year, New Me"
+msgstr ""
+
+#: i18n.tpl:60
+msgid "Phoenix"
+msgstr ""
+
+#: i18n.tpl:61
+#, fuzzy
+#| msgid "Personal data"
+msgid "Personal Record"
+msgstr "Персональные данные"
+
+#: i18n.tpl:62
+#, fuzzy
+#| msgid "Copy workout"
+msgid "Complete your first workout"
+msgstr "Копировать тренировку"
+
+#: i18n.tpl:63
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 10 workouts"
+msgstr "Пример тренировки"
+
+#: i18n.tpl:64
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 50 workouts"
+msgstr "Пример тренировки"
+
+#: i18n.tpl:65
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 100 workouts"
+msgstr "Пример тренировки"
+
+#: i18n.tpl:66
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 200 workouts"
+msgstr "Пример тренировки"
+
+#: i18n.tpl:67
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 500 workouts"
+msgstr "Пример тренировки"
+
+#: i18n.tpl:68
+#, fuzzy
+#| msgid "Sample workout"
+msgid "Complete 1000 workouts"
+msgstr "Пример тренировки"
+
+#: i18n.tpl:69
+msgid "Maintain a 30-day workout streak"
+msgstr ""
+
+#: i18n.tpl:70
+msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
+msgstr ""
+
+#: i18n.tpl:71
+msgid "Lift a cumulative total of 5.000 kg"
+msgstr ""
+
+#: i18n.tpl:72
+msgid "Lift a cumulative total of 20.000 kg"
+msgstr ""
+
+#: i18n.tpl:73
+msgid "Lift a cumulative total of 50.000 kg"
+msgstr ""
+
+#: i18n.tpl:74
+msgid "Lift a cumulative total of 150.000 kg"
+msgstr ""
+
+#: i18n.tpl:75
+msgid "Lift a cumulative total of 450.000 kg"
+msgstr ""
+
+#: i18n.tpl:76
+msgid "Lift a cumulative total of 1.000.000 kg"
+msgstr ""
+
+#: i18n.tpl:77
+msgid "Lift a cumulative total of 10.000.000 kg"
+msgstr ""
+
+#: i18n.tpl:78
+msgid "Complete a workout before 6:00 AM"
+msgstr ""
+
+#: i18n.tpl:79
+msgid "Complete a workout after 9:00 PM"
+msgstr ""
+
+#: i18n.tpl:80
+#, fuzzy
+#| msgid "Workout for %s"
+msgid "Work out on January 1st"
+msgstr "Тренировка для %s"
+
+#: i18n.tpl:81
+msgid "Return to training after being inactive for 30 days"
+msgstr ""
+
+#: i18n.tpl:82
+msgid "Achieve a new Personal Record on any exercise"
+msgstr ""
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -1993,9 +2029,30 @@ msgstr "Отправить письма"
 msgid "Correction"
 msgstr "Исправление"
 
+#: manager/dataclasses.py:106
+msgid "Sets"
+msgstr "Подходы"
+
 #: manager/dataclasses.py:124 manager/helpers.py:89
 msgid "Reps"
 msgstr "Повтор"
+
+#: manager/dataclasses.py:158
+#, fuzzy
+msgid "RiR"
+msgstr "ПвЗ"
+
+#: manager/dataclasses.py:165
+msgid "rest"
+msgstr "остальное"
+
+#: manager/helpers.py:80
+msgid "Rest day"
+msgstr "Выходной день"
+
+#: manager/helpers.py:89
+msgid "Exercise"
+msgstr "Упражнение"
 
 #: manager/management/commands/email-reminders.py:89
 #, fuzzy
@@ -2003,53 +2060,7 @@ msgstr "Повтор"
 msgid "Routine will expire soon"
 msgstr "Срок этой тренировки скоро истечет"
 
-#: manager/models/day.py:52
-msgid "Routine"
-msgstr "Рутина"
-
-#: manager/models/day.py:60 manager/models/slot.py:34
-#: nutrition/models/meal.py:53 nutrition/models/meal_item.py:66
-msgid "Order"
-msgstr "Порядок"
-
-#: manager/models/log.py:78
-msgid "Session"
-msgstr "Сессия"
-
-#: manager/models/log.py:97 manager/views/pdf.py:75 manager/views/pdf.py:144
-msgid "Workout"
-msgstr "Тренировка"
-
-#: manager/models/log.py:114 manager/models/log.py:149
-#: manager/models/slot_entry.py:122 measurements/models/category.py:41
-#: nutrition/forms.py:66
-msgid "Unit"
-msgstr "Секция"
-
-#: manager/models/routine.py:93 nutrition/models/plan.py:57
-msgid "Creation date"
-msgstr "Дата создания"
-
-#: manager/models/routine.py:106
-msgid "Workout template"
-msgstr "Шаблон тренировки"
-
-#: manager/models/routine.py:108
-msgid ""
-"Marking a workout as a template will freeze it and allow you to make copies "
-"of it"
-msgstr ""
-"Отметив тренировку как шаблон, вы заморозите ее и сможете создавать ее копии"
-
-#: manager/models/routine.py:116
-msgid "Public template"
-msgstr "Общедоступный шаблон"
-
-#: manager/models/routine.py:117
-msgid "A public template is available to other users"
-msgstr "Общедоступный шаблон доступен для других пользователей"
-
-#: manager/models/routine.py:155 manager/models/session.py:147
+#: manager/models/routine.py:153 manager/models/session.py:145
 msgid "The start time cannot be after the end time."
 msgstr "Время начала не может быть после времени окончания."
 
@@ -2065,31 +2076,9 @@ msgstr "Нормально"
 msgid "Good"
 msgstr "Хорошо"
 
-#: manager/models/session.py:84
-msgid "Any notes you might want to save about this workout session."
-msgstr "Заметки о тренировке, которые вы желаете сохранить."
-
-#: manager/models/session.py:96
-msgid ""
-"Your impression about this workout session. Did you exercise as well as you "
-"could?"
-msgstr "Ваше впечатление от тренировки. Выполняли ли вы упражнения как надо?"
-
-#: manager/models/session.py:104
-msgid "Start time"
-msgstr "Время начала"
-
-#: manager/models/session.py:113
-msgid "Finish time"
-msgstr "Время окончания"
-
-#: manager/models/session.py:144
+#: manager/models/session.py:142
 msgid "If you enter a time, you must enter both start and end time."
 msgstr "Если вводить время, необходимо ввести время начала и окончания."
-
-#: manager/models/slot.py:26
-msgid "Exercise day"
-msgstr "День упражнений"
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
@@ -2146,44 +2135,32 @@ msgstr ""
 "Вы будете регулярно получать такие напоминания, пока не укажете свой текущий "
 "вес."
 
+#: manager/views/pdf.py:75 manager/views/pdf.py:144
+msgid "Workout"
+msgstr "Тренировка"
+
 #: manager/views/pdf.py:77 manager/views/pdf.py:146
 #, python-format
 msgid "Workout for %s"
 msgstr "Тренировка для %s"
 
-#: measurements/models/measurement.py:51
-msgid "Value"
-msgstr "Значение"
+#: nutrition/forms.py:62
+msgid "Unit"
+msgstr "Секция"
 
-#: nutrition/forms.py:117
-msgid "Height (in)"
-msgstr "Рост (см)"
-
-#: nutrition/forms.py:120
-msgid "Weight (kg)"
-msgstr "Вес (кг)"
-
-#: nutrition/forms.py:120
-msgid "Weight (lbs)"
-msgstr "Вес (фунтов)"
-
-#: nutrition/forms.py:133
-msgid "Calculate"
-msgstr "Рассчитать"
-
-#: nutrition/forms.py:207 nutrition/templates/rate/form.html:76
+#: nutrition/forms.py:170 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
 msgstr "Основное потребление калорий"
 
-#: nutrition/forms.py:208
+#: nutrition/forms.py:171
 msgid "Your basic caloric intake as calculated for your data"
 msgstr "Ваше основное потребление калорий, рассчитанное для ваших данных"
 
-#: nutrition/forms.py:213
+#: nutrition/forms.py:176
 msgid "Additional calories"
 msgstr "Дополнительные калории"
 
-#: nutrition/forms.py:215
+#: nutrition/forms.py:178
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
@@ -2191,115 +2168,13 @@ msgstr ""
 "Дополнительные калории для добавления к базовой ставке (для вычитывания, "
 "введите отрицательное число)"
 
-#: nutrition/forms.py:246 nutrition/models/ingredient_weight_unit.py:39
-#: nutrition/models/log.py:87 nutrition/models/meal_item.py:54
+#: nutrition/forms.py:209
 msgid "Ingredient"
 msgstr "Ингредиент"
 
-#: nutrition/forms.py:250
+#: nutrition/forms.py:213
 msgid "Also search for names in English"
 msgstr "Также ищите названия на английском"
-
-#: nutrition/models/ingredient.py:132
-msgid "In kcal per 100g"
-msgstr "В ккал на 100г"
-
-#: nutrition/models/ingredient.py:139 nutrition/models/ingredient.py:147
-#: nutrition/models/ingredient.py:157 nutrition/models/ingredient.py:165
-#: nutrition/models/ingredient.py:175 nutrition/models/ingredient.py:185
-#: nutrition/models/ingredient.py:195
-msgid "In g per 100g of product"
-msgstr "В г на 100г продукта"
-
-#: nutrition/models/ingredient.py:156
-#: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:267
-msgid "Sugar content in carbohydrates"
-msgstr "Содержание сахара в углеводах"
-
-#: nutrition/models/ingredient.py:174
-#: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:281
-msgid "Saturated fat content in fats"
-msgstr "Содержание насыщенных жиров в жирах"
-
-#: nutrition/models/ingredient.py:184
-#: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
-msgid "Fiber"
-msgstr "Волокно"
-
-#: nutrition/models/ingredient.py:194
-#: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
-msgid "Sodium"
-msgstr "Натрий"
-
-#: nutrition/models/ingredient.py:224
-msgid "Link to product"
-msgstr "Ссылка на продукт"
-
-#: nutrition/models/ingredient.py:253
-msgid "Brand name of product"
-msgstr "Название бренда продукта"
-
-#: nutrition/models/ingredient.py:320
-#, python-brace-format
-msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
-msgstr ""
-
-#: nutrition/models/ingredient_category.py:31
-msgid "Ingredient Categories"
-msgstr "Категории ингредиентов"
-
-#: nutrition/models/ingredient_weight_unit.py:49
-msgid "Amount in grams"
-msgstr "Количество в граммах"
-
-#: nutrition/models/ingredient_weight_unit.py:55
-msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
-msgstr "Единица измерения количества, например \"1 чашка\" или \"1/2 ложки\""
-
-#: nutrition/models/log.py:52 nutrition/models/meal.py:48
-#: nutrition/models/meal_item.py:48 nutrition/models/plan.py:117
-msgid "Nutrition plan"
-msgstr "Программа питания"
-
-#: nutrition/models/log.py:61
-msgid "Meal"
-msgstr "Прием пищи"
-
-#: nutrition/models/log.py:71
-msgid "Date and Time (Approx.)"
-msgstr "Время (приблизительно)"
-
-#: nutrition/models/meal.py:60
-msgid "Time (approx)"
-msgstr "Время (приблизительно)"
-
-#: nutrition/models/meal.py:67
-msgid ""
-"Give meals a textual description / name such as \"Breakfast\" or \"after "
-"workout\""
-msgstr ""
-"Дайте блюдам текстовое описание / название, например, \"Завтрак\" или "
-"\"После тренировки\""
-
-#: nutrition/models/plan.py:78
-msgid ""
-"A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
-"summer\""
-msgstr ""
-"Описание цели плана, например \"Набрать вес\" или \"Подготовка к лету\""
-
-#: nutrition/models/plan.py:99
-msgid "Use daily calories"
-msgstr "Используйте ежедневныу калории"
-
-#: nutrition/models/plan.py:102
-msgid ""
-"Tick the box if you want to mark this plan as having a goal amount of "
-"calories. You can use the calculator or enter the value yourself."
-msgstr ""
-"Поставьте галочку, если вы хотите пометить в этом плане наличие цели "
-"количества калорий. Вы можете использовать калькулятор или ввести их "
-"самостоятельно."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2361,6 +2236,10 @@ msgstr "Макронутриенты"
 msgid "kJ"
 msgstr "кДж"
 
+#: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:267
+msgid "Sugar content in carbohydrates"
+msgstr "Содержание сахара в углеводах"
+
 #: nutrition/templates/ingredient/view.html:75
 #: nutrition/templates/ingredient/view.html:91
 #: nutrition/templates/ingredient/view.html:113
@@ -2368,9 +2247,21 @@ msgstr "кДж"
 msgid "n.A."
 msgstr "не имеется в наличии"
 
+#: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:281
+msgid "Saturated fat content in fats"
+msgstr "Содержание насыщенных жиров в жирах"
+
 #: nutrition/templates/ingredient/view.html:102
 msgid "Others"
 msgstr "Другие"
+
+#: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
+msgid "Fiber"
+msgstr "Волокно"
+
+#: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
+msgid "Sodium"
+msgstr "Натрий"
 
 #: nutrition/templates/ingredient/view.html:143
 #: nutrition/templates/units/list.html:50 nutrition/views/unit.py:86
@@ -2461,7 +2352,7 @@ msgstr ""
 "вы создаете ваш план питания на этих значениях, понаблюдайте за собой "
 "несколько недель и при необходимости измените общее количество."
 
-#: nutrition/views/ingredient.py:157
+#: nutrition/views/ingredient.py:158
 msgid "Add a new ingredient"
 msgstr "Добавить новый ингредиент"
 
@@ -2477,6 +2368,10 @@ msgstr "План питания для %s"
 #: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr "<i>Это пустой план, что Вы ожидали в PDF?</i>"
+
+#: nutrition/views/plan.py:230
+msgid "Nutritional data"
+msgstr "Пищевые данные"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2669,6 +2564,10 @@ msgid ""
 msgstr ""
 "wger Workout Manager - это бесплатное веб-приложение с открытым исходным "
 "кодом, которое управляет вашими упражнениями и тренировками."
+
+#: software/templates/features.html:45
+msgid "Contact"
+msgstr "Контакт"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
@@ -2882,6 +2781,10 @@ msgstr ""
 msgid "Account"
 msgstr "Аккаунт"
 
+#: software/templates/features.html:453
+msgid "Dashboard"
+msgstr "Панель управления"
+
 #: software/templates/features.html:485
 #, fuzzy
 #| msgid "Workout reminders"
@@ -2965,13 +2868,13 @@ msgstr "Формат даты"
 msgid "You have to enter your weight"
 msgstr "Вы должны ввести свой вес"
 
-#: weight/models.py:78
-msgid "Weight entry"
-msgstr "Запись веса"
-
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
 msgstr "Импортировать журнал веса"
+
+#: weight/templates/import_csv_form.html:9
+msgid "Submit"
+msgstr "Отправить"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
@@ -3093,6 +2996,227 @@ msgstr ""
 msgid "Re-Submit"
 msgstr "Повторно отправить"
 
+#~ msgid "Image"
+#~ msgstr "Изображение"
+
+#~ msgid "Only PNG and JPEG formats are supported"
+#~ msgstr "Поддерживаются только форматы PNG и JPEG"
+
+#~ msgid "Some way of answering you (e-mail, etc.)"
+#~ msgstr "Обратная связь с вами (электронная почта, и т.д.)"
+
+#~ msgid "Comment"
+#~ msgstr "Комментарий"
+
+#~ msgid "What do you want to say?"
+#~ msgstr "Что Вы имеете в виду?"
+
+#~ msgid "Feedback"
+#~ msgstr "Отзывы"
+
+#~ msgid "Your feedback was successfully sent. Thank you!"
+#~ msgstr "Ваш отзыв был успешно отправлен. Спасибо!"
+
+#~ msgid "Category"
+#~ msgstr "Категория"
+
+#~ msgid "Primary muscles"
+#~ msgstr "Основные мышцы"
+
+#~ msgid "Secondary muscles"
+#~ msgstr "Второстепенные мышцы"
+
+#~ msgid "Variations"
+#~ msgstr "Вариации"
+
+#~ msgid "Exercise Categories"
+#~ msgstr "Категории упражнений"
+
+#~ msgid "A comment about how to correctly do this exercise."
+#~ msgstr "Коментарий о том, как правильно выполнять это упражнение."
+
+#~ msgid "Alias for an exercise"
+#~ msgstr "Псевдоним для упражнения"
+
+#~ msgid "Line"
+#~ msgstr "Линия"
+
+#~ msgid "3D"
+#~ msgstr "3D"
+
+#~ msgid "Low-poly"
+#~ msgstr "Низкополигональный"
+
+#~ msgid "Photo"
+#~ msgstr "Фото"
+
+#~ msgid "Other"
+#~ msgstr "Другое"
+
+#~ msgid "Height"
+#~ msgstr "Высота"
+
+#~ msgid "Width"
+#~ msgstr "Ширина"
+
+#~ msgid "Main picture"
+#~ msgstr "Основное изображение"
+
+#~ msgid "Language"
+#~ msgstr "Язык"
+
+#~ msgid "Main video"
+#~ msgstr "Основное видео"
+
+#~ msgid "Video"
+#~ msgstr "Видео"
+
+#~ msgid "Size"
+#~ msgstr "Размер"
+
+#~ msgid "Duration"
+#~ msgstr "Продолжительность"
+
+#~ msgid "Codec"
+#~ msgstr "Кодек"
+
+#~ msgid "Codec, long name"
+#~ msgstr "Кодек, длинное название"
+
+#~ msgid "Routine"
+#~ msgstr "Рутина"
+
+#~ msgid "Order"
+#~ msgstr "Порядок"
+
+#~ msgid "Session"
+#~ msgstr "Сессия"
+
+#~ msgid "Creation date"
+#~ msgstr "Дата создания"
+
+#~ msgid "Workout template"
+#~ msgstr "Шаблон тренировки"
+
+#~ msgid ""
+#~ "Marking a workout as a template will freeze it and allow you to make "
+#~ "copies of it"
+#~ msgstr ""
+#~ "Отметив тренировку как шаблон, вы заморозите ее и сможете создавать ее "
+#~ "копии"
+
+#~ msgid "Public template"
+#~ msgstr "Общедоступный шаблон"
+
+#~ msgid "A public template is available to other users"
+#~ msgstr "Общедоступный шаблон доступен для других пользователей"
+
+#~ msgid "Any notes you might want to save about this workout session."
+#~ msgstr "Заметки о тренировке, которые вы желаете сохранить."
+
+#~ msgid ""
+#~ "Your impression about this workout session. Did you exercise as well as "
+#~ "you could?"
+#~ msgstr ""
+#~ "Ваше впечатление от тренировки. Выполняли ли вы упражнения как надо?"
+
+#~ msgid "Start time"
+#~ msgstr "Время начала"
+
+#~ msgid "Finish time"
+#~ msgstr "Время окончания"
+
+#~ msgid "Exercise day"
+#~ msgstr "День упражнений"
+
+#~ msgid "Value"
+#~ msgstr "Значение"
+
+#~ msgid "In kcal per 100g"
+#~ msgstr "В ккал на 100г"
+
+#~ msgid "In g per 100g of product"
+#~ msgstr "В г на 100г продукта"
+
+#~ msgid "Link to product"
+#~ msgstr "Ссылка на продукт"
+
+#~ msgid "Brand name of product"
+#~ msgstr "Название бренда продукта"
+
+#~ msgid "Ingredient Categories"
+#~ msgstr "Категории ингредиентов"
+
+#~ msgid "Amount in grams"
+#~ msgstr "Количество в граммах"
+
+#~ msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
+#~ msgstr ""
+#~ "Единица измерения количества, например \"1 чашка\" или \"1/2 ложки\""
+
+#~ msgid "Nutrition plan"
+#~ msgstr "Программа питания"
+
+#~ msgid "Meal"
+#~ msgstr "Прием пищи"
+
+#~ msgid "Date and Time (Approx.)"
+#~ msgstr "Время (приблизительно)"
+
+#~ msgid "Time (approx)"
+#~ msgstr "Время (приблизительно)"
+
+#~ msgid ""
+#~ "Give meals a textual description / name such as \"Breakfast\" or \"after "
+#~ "workout\""
+#~ msgstr ""
+#~ "Дайте блюдам текстовое описание / название, например, \"Завтрак\" или "
+#~ "\"После тренировки\""
+
+#~ msgid ""
+#~ "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare "
+#~ "for summer\""
+#~ msgstr ""
+#~ "Описание цели плана, например \"Набрать вес\" или \"Подготовка к лету\""
+
+#~ msgid "Use daily calories"
+#~ msgstr "Используйте ежедневныу калории"
+
+#~ msgid ""
+#~ "Tick the box if you want to mark this plan as having a goal amount of "
+#~ "calories. You can use the calculator or enter the value yourself."
+#~ msgstr ""
+#~ "Поставьте галочку, если вы хотите пометить в этом плане наличие цели "
+#~ "количества калорий. Вы можете использовать калькулятор или ввести их "
+#~ "самостоятельно."
+
+#~ msgid "Weight entry"
+#~ msgstr "Запись веса"
+
+#, fuzzy, python-format
+#~| msgid "Back to \"%(target)s\""
+#~ msgid ""
+#~ "Back to \"%(target)s\n"
+#~ "                    \""
+#~ msgstr "Вернуться к \"%(target)s\""
+
+#, fuzzy, python-brace-format
+#~| msgid "Configuration for {}"
+#~ msgid "Configuration for {self.gym.name}"
+#~ msgstr "Конфигурация для {}"
+
+#~ msgid "Height (in)"
+#~ msgstr "Рост (см)"
+
+#~ msgid "Weight (kg)"
+#~ msgstr "Вес (кг)"
+
+#~ msgid "Weight (lbs)"
+#~ msgstr "Вес (фунтов)"
+
+#~ msgid "Calculate"
+#~ msgstr "Рассчитать"
+
 #~ msgid ""
 #~ "Tick the box if you want to set this image as the main one for the "
 #~ "exercise (will be shown e.g. in the search). The first image is "
@@ -3104,22 +3228,6 @@ msgstr "Повторно отправить"
 
 #~ msgid "The art style of your image"
 #~ msgstr "Художественный стиль вашего изображения"
-
-#~ msgid "Sets"
-#~ msgstr "Подходы"
-
-#, fuzzy
-#~ msgid "RiR"
-#~ msgstr "ПвЗ"
-
-#~ msgid "rest"
-#~ msgstr "остальное"
-
-#~ msgid "Rest day"
-#~ msgstr "Выходной день"
-
-#~ msgid "Nutritional data"
-#~ msgstr "Пищевые данные"
 
 #~ msgid "Workouts"
 #~ msgstr "Тренировки"
@@ -3165,9 +3273,6 @@ msgstr "Повторно отправить"
 
 #~ msgid "Get the source code of this application and its server on github"
 #~ msgstr "Получите исходный код этого приложения и его сервера на github"
-
-#~ msgid "Sample workout"
-#~ msgstr "Пример тренировки"
 
 #~ msgid "Sample day"
 #~ msgstr "Пример дня"
@@ -3588,9 +3693,6 @@ msgstr "Повторно отправить"
 #~ msgid "Edit workout"
 #~ msgstr "Изменить тренировку"
 
-#~ msgid "Copy workout"
-#~ msgstr "Копировать тренировку"
-
 #~ msgid "Copy"
 #~ msgstr "Копировать"
 
@@ -3624,9 +3726,6 @@ msgstr "Повторно отправить"
 
 #~ msgid "Your BMI is: "
 #~ msgstr "Ваш ИМТ: "
-
-#~ msgid "Legend"
-#~ msgstr "Условное обозначение"
 
 #~ msgid "Adipositas III"
 #~ msgstr "Ожирение III"
@@ -3693,9 +3792,6 @@ msgstr "Повторно отправить"
 #~ msgid "Delete schedule"
 #~ msgstr "Удалить программу"
 
-#~ msgid "Weight log"
-#~ msgstr "Регистрация веса"
-
 #~ msgid "Weight log for workout"
 #~ msgstr "Регистрация веса для тренировки"
 
@@ -3761,8 +3857,8 @@ msgstr "Повторно отправить"
 #, fuzzy, python-brace-format
 #~| msgid "The user {0} submitted a new ingredient \"{1}\"."
 #~ msgid ""
-#~ "The user {request.user.username} submitted a new ingredient \"{self."
-#~ "name}\"."
+#~ "The user {request.user.username} submitted a new ingredient \"{self.name}"
+#~ "\"."
 #~ msgstr "Пользователь {0} представил новый ингредиент \"{1}\"."
 
 #~ msgid "Submission date"
@@ -4088,8 +4184,8 @@ msgstr "Повторно отправить"
 #~ msgid ""
 #~ "You can also enter notes and a general impression (great, neutral, etc.)"
 #~ msgstr ""
-#~ "Также можно ввести примечания и общее впечатление (Cупер, нормально, и т."
-#~ "д.)"
+#~ "Также можно ввести примечания и общее впечатление (Cупер, нормально, и "
+#~ "т.д.)"
 
 #~ msgid "Among many others"
 #~ msgstr "Среди многих других"
@@ -4449,8 +4545,8 @@ msgstr "Повторно отправить"
 #~ "(no registration needed)"
 #~ msgstr ""
 #~ "Воспользуйтесь общественной группой, чтобы получить поддержку для Вашей "
-#~ "локальной wger установки, обговорить проблемы или Вашу новую идею, и т."
-#~ "п.\n"
+#~ "локальной wger установки, обговорить проблемы или Вашу новую идею, и "
+#~ "т.п.\n"
 #~ "(нет необходимости в регистрации)"
 
 #~ msgid "Open feedback form"
@@ -4464,8 +4560,8 @@ msgstr "Повторно отправить"
 #~ "the development process is open and freely accessible to anybody "
 #~ "interested.\n"
 #~ "If you are new to the free software world, we recommend to take a\n"
-#~ "look <a href=\"http://schlitt.info/opensource/"
-#~ "blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+#~ "look <a href=\"http://schlitt.info/opensource/blog/"
+#~ "0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
 #~ "article</a> which summarizes they way open source projects work very "
 #~ "well. "
 #~ msgstr ""
@@ -4473,10 +4569,9 @@ msgstr "Повторно отправить"
 #~ "процесс программирования открыт и свободно доступен всем "
 #~ "заинтересованым.\n"
 #~ "Если вы новичок в сфере свободного софта, мы рекомендуем вам заглянуть "
-#~ "сюда <a href=\"http://schlitt.info/opensource/"
-#~ "blog/0541_10_golden_rules_for_starting_with_open_source.html\">эта "
-#~ "статья</a> очень доступно обьясняет как работают проекты в свободном "
-#~ "софте."
+#~ "сюда <a href=\"http://schlitt.info/opensource/blog/"
+#~ "0541_10_golden_rules_for_starting_with_open_source.html\">эта статья</a> "
+#~ "очень доступно обьясняет как работают проекты в свободном софте."
 
 #~ msgid ""
 #~ "Any kind of contribution is appreciated and welcome.\n"

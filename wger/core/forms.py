@@ -17,6 +17,18 @@
 # Standard Library
 from datetime import date
 
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    HTML,
+    ButtonHolder,
+    Column,
+    Fieldset,
+    Layout,
+    Row,
+    Submit,
+)
+
 # Django
 from django import forms
 from django.contrib.auth import authenticate
@@ -35,19 +47,9 @@ from django.forms import (
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy,
 )
-
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    HTML,
-    ButtonHolder,
-    Column,
-    Fieldset,
-    Layout,
-    Row,
-    Submit,
+from django.utils.translation import (
+    gettext_lazy,
 )
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV3
@@ -341,37 +343,3 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
             ),
         )
 
-
-class FeedbackRegisteredForm(forms.Form):
-    """
-    Feedback form used for logged-in users
-    """
-
-    contact = forms.CharField(
-        max_length=50,
-        min_length=10,
-        label=gettext_lazy('Contact'),
-        help_text=gettext_lazy('Some way of answering you (e-mail, etc.)'),
-        required=False,
-    )
-
-    comment = forms.CharField(
-        max_length=500,
-        min_length=10,
-        widget=widgets.Textarea,
-        label=gettext_lazy('Comment'),
-        help_text=gettext_lazy('What do you want to say?'),
-        required=True,
-    )
-
-
-class FeedbackAnonymousForm(FeedbackRegisteredForm):
-    """
-    Feedback form used for anonymous users (has additionally a reCAPTCHA field)
-    """
-
-    captcha = ReCaptchaField(
-        widget=ReCaptchaV3,
-        label='reCaptcha',
-        help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-    )

@@ -21,6 +21,8 @@ from django.contrib.auth.models import User
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models.base import Exercise
+from wger.exercises.models.category import ExerciseCategory
 from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
@@ -61,7 +63,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
         self.beginner_trophy = Trophy.objects.create(
             name='Beginner',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 1},
             is_active=True,
         )
@@ -84,6 +86,15 @@ class TrophyIntegrationTestCase(WgerTestCase):
             is_progressive=True,
         )
 
+        self.personal_record_trophy = Trophy.objects.create(
+            name='Personal Record',
+            trophy_type=Trophy.TYPE_OTHER,
+            checker_class='personal_record',
+            checker_params={},
+            is_active=True,
+            is_repeatable=True,
+        )
+
     def test_first_workout_earns_beginner_trophy(self):
         """Test that completing first workout earns Beginner trophy"""
         # Create user statistics
@@ -104,6 +115,49 @@ class TrophyIntegrationTestCase(WgerTestCase):
         # Should earn Beginner trophy
         self.assertEqual(len(awarded), 1)
         self.assertEqual(awarded[0].trophy, self.beginner_trophy)
+
+    def test_personal_record_not_awarded_if_no_pr(self):
+        """Only awards the Personal Record trophy if the log is a PR"""
+        UserTrophy.objects.filter(user=self.user).delete()
+        exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='pr_cat'))
+
+        # first log = PR
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=100)
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 1)
+
+        # not a PR
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=100)
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 1)
+
+        # not a PR
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=90)
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 1)
+
+        # not a PR
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=5, weight=101)
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 1)
+
+        # PR
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=11, weight=100)
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 2)
+
+    def test_personal_record_awarded_on_log_creation(self):
+        """Creating a new WorkoutLog which is a PR awards the Personal Record trophy"""
+        UserTrophy.objects.filter(user=self.user).delete()
+
+        exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='pr_cat'))
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=100)
+
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 1)
+
+        context = pr_trophies.first().context_data
+        self.assertIsNotNone(context)
 
     def test_lifting_5000kg_earns_lifter_trophy(self):
         """Test that lifting 5000kg total earns Lifter trophy"""
@@ -252,7 +306,7 @@ class TrophyIntegrationTestCase(WgerTestCase):
         hidden_trophy = Trophy.objects.create(
             name='Secret Achievement',
             trophy_type=Trophy.TYPE_COUNT,
-            checker_class='count_based',
+            checker_class='workout_count_based',
             checker_params={'count': 100},
             is_active=True,
             is_hidden=True,

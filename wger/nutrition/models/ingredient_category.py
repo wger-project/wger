@@ -16,7 +16,6 @@
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class IngredientCategory(models.Model):
@@ -24,11 +23,11 @@ class IngredientCategory(models.Model):
     Model for an Ingredient category
     """
 
-    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    name = models.CharField(max_length=100, verbose_name='Name')
 
     # Metaclass to set some other properties
     class Meta:
-        verbose_name_plural = _('Ingredient Categories')
+        verbose_name_plural = 'Ingredient Categories'
         ordering = [
             'name',
         ]
