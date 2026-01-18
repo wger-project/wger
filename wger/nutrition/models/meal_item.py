@@ -33,6 +33,7 @@ from .ingredient import Ingredient
 from .ingredient_weight_unit import IngredientWeightUnit
 from .meal import Meal
 
+
 logger = logging.getLogger(__name__)
 
 

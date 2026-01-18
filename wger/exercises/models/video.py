@@ -29,6 +29,7 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.utils.cache import reset_exercise_api_cache
 
+
 try:
     # Third Party
     import ffmpeg
@@ -41,6 +42,7 @@ from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
 )
+
 
 MAX_FILE_SIZE_MB = 100
 

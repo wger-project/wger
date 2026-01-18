@@ -72,7 +72,6 @@ INSTALLED_APPS = [
     'wger.gallery',
     'wger.measurements',
     'wger.trophies',
-
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'django_recaptcha',
     # The sitemaps app

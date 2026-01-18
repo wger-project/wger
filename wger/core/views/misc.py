@@ -22,9 +22,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
 from django.http import HttpResponseRedirect
-from django.urls import (
-    reverse,
-)
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 # wger
@@ -32,6 +30,7 @@ from wger.core.demo import (
     create_demo_entries,
     create_temporary_user,
 )
+
 
 logger = logging.getLogger(__name__)
 

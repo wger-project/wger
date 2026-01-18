@@ -33,8 +33,6 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import (
     gettext as _,
-)
-from django.utils.translation import (
     gettext_lazy,
 )
 from django.views.decorators.cache import cache_page
@@ -58,6 +56,7 @@ from wger.utils.generic_views import (
     WgerFormMixin,
 )
 from wger.utils.language import load_language
+
 
 logger = logging.getLogger(__name__)
 

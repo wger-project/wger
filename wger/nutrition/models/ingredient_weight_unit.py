@@ -24,6 +24,7 @@ from django.db import models
 from .ingredient import Ingredient
 from .weight_unit import WeightUnit
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -53,6 +53,7 @@ from wger.manager.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -27,6 +27,7 @@ from wger.utils.fields import Html5TimeField
 from ..helpers import NutritionalValues
 from .plan import NutritionPlan
 
+
 logger = logging.getLogger(__name__)
 
 

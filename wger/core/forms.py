@@ -17,18 +17,6 @@
 # Standard Library
 from datetime import date
 
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    HTML,
-    ButtonHolder,
-    Column,
-    Fieldset,
-    Layout,
-    Row,
-    Submit,
-)
-
 # Django
 from django import forms
 from django.contrib.auth import authenticate
@@ -47,9 +35,19 @@ from django.forms import (
 )
 from django.utils.translation import (
     gettext as _,
-)
-from django.utils.translation import (
     gettext_lazy,
+)
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    HTML,
+    ButtonHolder,
+    Column,
+    Fieldset,
+    Layout,
+    Row,
+    Submit,
 )
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV3
@@ -342,4 +340,3 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
                 css_class='text-center',
             ),
         )
-

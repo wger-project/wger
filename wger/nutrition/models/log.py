@@ -67,10 +67,7 @@ class LogItem(BaseMealItem, models.Model):
     The meal this log belongs to (optional)
     """
 
-    datetime = models.DateTimeField(
-        verbose_name='Date and Time (Approx.)',
-        default=timezone.now
-    )
+    datetime = models.DateTimeField(verbose_name='Date and Time (Approx.)', default=timezone.now)
     """
     Time and date when the log was added
     """

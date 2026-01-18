@@ -35,6 +35,7 @@ from wger.core.views import (
 )
 from wger.core.views.react import ReactView
 
+
 # sub patterns for languages
 patterns_language = [
     path(
