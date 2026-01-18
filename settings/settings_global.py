@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'storages',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
+
     # Apps from wger proper
     'wger.config',
     'wger.core',
@@ -72,15 +73,20 @@ INSTALLED_APPS = [
     'wger.gallery',
     'wger.measurements',
     'wger.trophies',
+
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'django_recaptcha',
+
     # The sitemaps app
     'django.contrib.sitemaps',
+
     # thumbnails
     'easy_thumbnails',
+
     # Form renderer helper
     'crispy_forms',
     'crispy_bootstrap5',
+
     # REST-API
     'rest_framework',
     'rest_framework.authtoken',
@@ -88,20 +94,28 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
+
     # CORS
     'corsheaders',
+
     # Django Axes
     'axes',
+
     # History keeping
     'simple_history',
+
     # Django email verification
     'django_email_verification',
+
     # Activity stream
     'actstream',
+
     # Fontawesome
     'fontawesomefree',
+
     # Prometheus
     'django_prometheus',
 ]
