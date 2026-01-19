@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-16 00:01+0000\n"
+"PO-Revision-Date: 2026-01-19 13:01+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -19,20 +19,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
-msgstr "الجيم الافتراضي"
+msgstr "الصالة الافتراضية"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
-"حدد الصالة الرياضية الافتراضية لهذا التثبيت. سيؤدي هذا إلى تعيين جميع "
-"المستخدمين المسجلين الجدد في هذه الصالة الرياضية وتحديث جميع المستخدمين "
-"الحاليين بدون صالة رياضية."
+"حدّد الصالة الافتراضية لهذا التثبيت. سيؤدي هذا إلى تعيين جميع المستخدمين "
+"المسجّلين الجدد إلى الصالة وتحديث جميع المستخدمين الحاليين الذين ليس لديهم "
+"صالة."
 
 #: config/views/gym_config.py:42 core/templates/language/view.html:64
 #: core/templates/license/list.html:17
@@ -65,12 +65,12 @@ msgstr "تسجيل الدخول"
 #: core/forms.py:130 core/forms.py:244 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
-msgstr "الاسم الاول"
+msgstr "الاسم الأول"
 
 #: core/forms.py:131 core/forms.py:245 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
-msgstr "الاسم الاخير"
+msgstr "الاسم الأخير"
 
 #: core/forms.py:133 core/forms.py:210 core/templates/user/overview.html:288
 #: gym/models/contract.py:256 gym/models/gym.py:58
@@ -80,11 +80,12 @@ msgstr "الاسم الاخير"
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr "البريد الألكتروني"
+msgstr "البريد الإلكتروني"
 
 #: core/forms.py:134
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "يستخدم لأعادة تعيين كلمة السر, واختيارياً لتنبيهات البريد"
+msgstr ""
+"يُستخدم لإعادة تعيين كلمة السر، واختياريًا، رسائل التذكير عبر البريد الإلكتروني."
 
 #: core/forms.py:138 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
@@ -97,24 +98,24 @@ msgstr "المعلومات الشخصية"
 
 #: core/forms.py:189
 msgid "Workout reminders"
-msgstr "تنبيهات و اشعارات التدريب"
+msgstr "تذكيرات بالتمارين"
 
 #: core/forms.py:196
 msgid "Other settings"
-msgstr "أعدادات اخرى"
+msgstr "إعدادات أخرى"
 
 #: core/forms.py:204 core/views/user.py:614 core/views/user.py:629
 #: core/views/user.py:641 gym/forms.py:73 utils/generic_views.py:143
 msgid "Save"
-msgstr "الحفظ"
+msgstr "حفظ"
 
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "يستخدم للأعادة تعيين كلمة المرور, وتنبيهات البريد."
+msgstr "يُستخدم لإعادة تعيين كلمة المرور، ورسائل التذكير عبر البريد الإلكتروني."
 
 #: core/forms.py:240
 msgid "This e-mail address is already in use."
-msgstr "البريد الذي ادخلته مستخدم مسبقاً."
+msgstr "هذا البريد مُستخدم بالفعل."
 
 #: core/forms.py:261 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
@@ -123,7 +124,7 @@ msgstr "كلمة السر"
 
 #: core/forms.py:263
 msgid "Please enter your current password."
-msgstr "الرجاء ادخال كلمة المرور الحالية."
+msgstr "الرجاء إدخال كلمة مرورك الحالية."
 
 #: core/forms.py:272 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
@@ -144,48 +145,46 @@ msgstr "حذف"
 
 #: core/forms.py:281
 msgid "Invalid password"
-msgstr "الرمز غير صحيح"
+msgstr "كلمة مرور غير صالحة"
 
 #: core/forms.py:293
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
-"يتم تامين النموذج مع استخدام خدمه تمييز البشر عن ريبوت في الفحص للدخول الى "
-"اي موقع او اي شيء يحتاج الى تمييزك كانسان"
+msgstr "النموذج مؤمّن بـ reCAPTCHA"
 
 #: core/forms.py:314 core/forms.py:341 core/templates/navigation.html:272
 #: core/templates/navigation.html:285 core/templates/template.html:123
 #: core/templates/user/login.html:21 core/views/user.py:285
 #: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
-msgstr "التسجيل"
+msgstr "تسجيل"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
-msgstr "اسم قصير للغة"
+msgstr "اسم اللغة المختصر"
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
-msgstr "الاسم الكامل للغة"
+msgstr "اسم اللغة الكامل"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
 msgid "Language full name in English"
-msgstr "الاسم الكامل للغة الانكليزية"
+msgstr "اسم اللغة الكامل باللغة الإنكليزية"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr "الأسم الكامل"
+msgstr "الاسم الكامل"
 
 #: core/models/license.py:31
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
-"إذا تم توطين الترخيص، على سبيل المثال تراخيص المشاع الإبداعي لمختلف البلدان، "
-"أضفها كإدخالات منفصلة هنا."
+"إذا تمّ توطين ترخيص ما، على سبيل المثال: تراخيص المشاع الإبداعي للدول المختلفة"
+"، فأضفها كمدخلات منفصلة هنا."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr "كتابة أسم قصيرمثلاً : CC-BY-SA 3"
+msgstr "اسم مختصر، على سبيل المثال: CC-BY-SA 3"
 
 #: core/models/license.py:45
 msgid "Link"
@@ -198,7 +197,7 @@ msgstr "رابط لنص الترخيص أو معلومات أخرى"
 #: core/models/profile.py:57
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "تاريخ الميلاد غير صالح %(birthdate)s"
+msgstr "تاريخ الميلاد %(birthdate)s غير صحيح"
 
 #: core/models/profile.py:66
 msgid "Male"
@@ -206,11 +205,11 @@ msgstr "ذكر"
 
 #: core/models/profile.py:67
 msgid "Female"
-msgstr "انثى"
+msgstr "أنثى"
 
 #: core/models/profile.py:74
 msgid "Low"
-msgstr "قليل"
+msgstr "منخفض"
 
 #: core/models/profile.py:75
 msgid "Medium"
@@ -222,23 +221,23 @@ msgstr "عالي"
 
 #: core/models/profile.py:82
 msgid "Metric (kilogram)"
-msgstr "نظام متري (كيلوغرام)"
+msgstr "النظام المتري (كيلوجرام)"
 
 #: core/models/profile.py:83
 msgid "Imperial (pound)"
-msgstr "النظام الامبراطوري (باوند)"
+msgstr "النظام الإمبراطوري (رطل)"
 
 #: core/models/profile.py:119
 msgid "Show exercise comments"
-msgstr "اظهار ملاحظات التدريب"
+msgstr "عرض تعليقات التمرين"
 
 #: core/models/profile.py:120
 msgid "Check to show exercise comments on the workout view"
-msgstr "تحقق لإظهار تعليقات التمرين على عرض التمرين"
+msgstr "تحقّق لعرض تعليقات التمرين في عرض التمرين"
 
 #: core/models/profile.py:130
 msgid "Also use ingredients in English"
-msgstr "أيضاً استعمل المكونات في اللغة الأنجليزية"
+msgstr "استخدم أيضًا المكوّنات باللغة الإنكليزية"
 
 #: core/models/profile.py:132
 msgid ""
@@ -247,24 +246,21 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"تحقق أيضا لإظهار المكونات باللغة الإنجليزية أثناء الإنشاء\n"
-"\n"
-"خطة غذائية. يتم استخراج هذه المكونات من قائمة مقدمة\n"
-"\n"
-"من قبل وزارة الزراعة الأمريكية. إنه كامل للغاية ، مع حول\n"
-"\n"
-"7000 إدخالات، ولكن يمكن أن تكون ساحقة إلى حد ما وجعل البحث صعبا."
+"تحقّق أيضًا من عرض المكوّنات باللغة الإنكليزية أثناء إنشاء\n"
+"خطة غذائية. يتمّ استخراج هذه المكوّنات من قائمة مقدّمة\n"
+"من وزارة الزراعة الأمريكية. وهي قائمة كاملة للغاية، وتحتوي على حوالي\n"
+"٧٠٠٠ مدخل، ولكنها قد تكون مُربكة بعض الشيء وتجعل البحث صعبًا."
 
 #: core/models/profile.py:141
 msgid "Activate workout reminders"
-msgstr "تفعيل تذكيرات التمرين"
+msgstr "فعّل تذكيرات التمرين"
 
 #: core/models/profile.py:143
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
-"تحقق لتفعيل التذكيرات التلقائية للتدريبات. تحتاج إلى تقديم بريد إلكتروني "
+"تحقّق لتفعيل التذكيرات التلقائية للتدريبات. تحتاج إلى تقديم بريد إلكتروني "
 "صالح حتى يعمل هذا."
 
 #: core/models/profile.py:152
@@ -273,13 +269,11 @@ msgstr "تذكير قبل انتهاء الصلاحية"
 
 #: core/models/profile.py:153
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr "عدد الأيام التي تريد أن يتم تذكيرك بها قبل انتهاء التمرين."
+msgstr "عدد الأيام التي ترغب في تلقّي تذكير قبل انتهاء صلاحية تمرين."
 
 #: core/models/profile.py:159
 msgid "Default duration of workouts"
-msgstr ""
-"المدة الافتراضية للتدريبات\n"
-"Arabic (Sudish)"
+msgstr "المدة الافتراضية للتمارين"
 
 #: core/models/profile.py:161
 msgid ""
@@ -311,11 +305,11 @@ msgstr "الطول (سنتيمتر)"
 
 #: core/models/profile.py:247
 msgid "Hours of sleep"
-msgstr "ساعات النMم"
+msgstr "ساعات النوم"
 
 #: core/models/profile.py:248
 msgid "The average hours of sleep per day"
-msgstr "معدل ساعات النوم خلال اليوم"
+msgstr "متوسط ساعات النوم في اليوم"
 
 #: core/models/profile.py:257
 msgid "Work"
@@ -323,12 +317,12 @@ msgstr "العمل"
 
 #: core/models/profile.py:258 core/models/profile.py:300
 msgid "Average hours per day"
-msgstr "معدل الساعات خلال اليوم"
+msgstr "متوسط عدد الساعات في اليوم"
 
 #: core/models/profile.py:267 core/models/profile.py:288
 #: core/models/profile.py:309
 msgid "Physical intensity"
-msgstr "الكثافة البدنية"
+msgstr "الشدّة البدنية"
 
 #: core/models/profile.py:268 core/models/profile.py:289
 #: core/models/profile.py:310
@@ -345,29 +339,32 @@ msgstr "متوسط الساعات في الأسبوع"
 
 #: core/models/profile.py:299
 msgid "Free time"
-msgstr ""
+msgstr "وقت حر"
 
 #: core/models/profile.py:320 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
-msgstr ""
+msgstr "إجماليّ السعرات الحرارية اليومية"
 
 #: core/models/profile.py:321
 msgid "Total caloric intake, including e.g. any surplus"
-msgstr ""
+msgstr "إجماليّ السعرات الحرارية المتناوَلة، بما في ذلك على سبيل المثال أي فائض"
 
 #: core/models/profile.py:333
 msgid "Weight unit"
-msgstr ""
+msgstr "وحدة الوزن"
 
 #: core/models/profile.py:341
 msgid "Allow external access"
-msgstr ""
+msgstr "السماح بالوصول الخارجي"
 
 #: core/models/profile.py:343
 msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
 msgstr ""
+"اسمح للمستخدمين الخارجيين بالوصول إلى تمارينك وسجلّاتك في وضع القراءة فقط. يجب "
+"عليك ضبط هذا الإعداد قبل مشاركة الروابط، على سبيل المثال: على وسائل التواصل "
+"الاجتماعي."
 
 #: core/models/profile.py:352
 msgid "Automatic reminders for weight entries"
