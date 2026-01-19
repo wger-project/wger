@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2025-10-07 18:01+0000\n"
+"PO-Revision-Date: 2026-01-20 20:01+0000\n"
 "Last-Translator: Ninguém Mesmo <weblate@rasparta.org>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -1837,135 +1837,115 @@ msgstr ""
 
 #: i18n.tpl:55
 msgid "Millionaire"
-msgstr ""
+msgstr "Milionário"
 
 #: i18n.tpl:56
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:57
 msgid "Early Bird"
-msgstr ""
+msgstr "Passarinho matinal"
 
 #: i18n.tpl:58
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Log de peso"
+msgstr "Coruja Noturna"
 
 #: i18n.tpl:59
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Novo ano, novo eu"
 
 #: i18n.tpl:60
 msgid "Phoenix"
-msgstr ""
+msgstr "Fénix"
 
 #: i18n.tpl:61
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Dados pessoais"
+msgstr "Recorde Pessoal"
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Copiar treino"
+msgstr "Completa o teu primeiro treino"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Treino de exemplo"
+msgstr "Completa 10 treinos"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Treino de exemplo"
+msgstr "Completa 50 treinos"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Treino de exemplo"
+msgstr "Completa 100 treinos"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Treino de exemplo"
+msgstr "Completa 200 treinos"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Treino de exemplo"
+msgstr "Completa 500 treinos"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Treino de exemplo"
+msgstr "Completa 1000 treinos"
 
 #: i18n.tpl:69
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Mantém uma sequência de treinos de 30 dias"
 
 #: i18n.tpl:70
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Treina sábado e domingo por 4 semanas consecutivas"
 
 #: i18n.tpl:71
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 5000kg"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 20000kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 50000kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 150000kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 450000kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 1000000kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Levanta um peso acumulado de 10000000kg"
 
 #: i18n.tpl:78
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Completa um treino antes das 6:00 da manhã"
 
 #: i18n.tpl:79
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Completa um treino após as 21:00 horas"
 
 #: i18n.tpl:80
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Treino para %s"
+msgstr "Treino em %s de janeiro"
 
 #: i18n.tpl:81
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Volta a treinar após estar inativo por 30 dias"
 
 #: i18n.tpl:82
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Alcança novo recorde pessoal em qualquer exercício"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
