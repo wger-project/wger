@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-19 13:01+0000\n"
+"PO-Revision-Date: 2026-01-20 20:01+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -368,23 +368,23 @@ msgstr ""
 
 #: core/models/profile.py:352
 msgid "Automatic reminders for weight entries"
-msgstr ""
+msgstr "تذكيرات تلقائية لإدخال الوزن"
 
 #: core/models/profile.py:353
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
-msgstr ""
+msgstr "عدد الأيام بعد آخر إدخال للوزن (أدخل ٠ لإلغاء التنشيط)"
 
 #: core/models/profile.py:379
 msgid "Enable trophies"
-msgstr ""
+msgstr "فعّل الجوائز"
 
 #: core/models/profile.py:380
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "تفعيل أو تعطيل نظام الجوائز لهذا المستخدم"
 
 #: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
-msgstr ""
+msgstr "يجب أن يكون مجموع جميع الساعات ٢٤"
 
 #: core/models/rep_unit.py:36 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:280 core/views/user.py:589
@@ -394,27 +394,27 @@ msgstr ""
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
 #: gym/views/gym.py:158 nutrition/templates/ingredient/view.html:151
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
-msgstr ""
+msgstr "ممنوع!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "لا يُسمح لك بالوصول إلى هذه الصفحة"
 
 #: core/templates/404.html:4
 msgid "Page not found"
-msgstr ""
+msgstr "الصفحة غير موجودة"
 
 #: core/templates/404.html:7
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "الصفحة التي طلبتها غير موجودة."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "حدث خطأ"
 
 #: core/templates/500.html:8
 msgid ""
@@ -422,6 +422,9 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"حدث خطأ على الخدمة أثناء معالجة طلبك. حاول تحديث متصفّحك، وإذا لم يحلّ ذلك "
+"المشكلة، يُرجى المحاولة مرة أخرى لاحقًا. إذا استمرّت المشكلة، يمكنك طلب المساعدة "
+"من الطرق المذكورة أدناه:"
 
 #: core/templates/base.html:10
 #, python-format
@@ -429,11 +432,13 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
+"أنت تتصفّح الموقع بصفتك المستخدم \"%(current_user)s\"، ويتمّ تنفيذ جميع "
+"الإجراءات على بياناته."
 
 #: core/templates/base.html:15 core/templates/base_wide.html:12
 #, python-format
 msgid "Back to \"%(target)s\""
-msgstr ""
+msgstr "الرجوع إلى \"%(target)s\""
 
 #: core/templates/base_wide.html:7
 #, python-format
@@ -444,56 +449,57 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
+"أنت تتصفّح الموقع بصفتك المستخدم \"%(current_user)s\"، ويتمّ تنفيذ جميع "
+"الإجراءات على بياناته.\n"
+"            "
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
-msgstr ""
+msgstr "هل أنت متأكّد من رغبتك في حذف هذا؟ لا يمكن التراجع عن هذا الإجراء."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
 msgid "Email verification"
-msgstr "إعدادات"
+msgstr "التحقُّق من البريد الإلكتروني"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s، تم التحقُّق من بريدك الإلكتروني"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "خطأ، رمز تحقُّق غير صالح"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
 msgid "Email Confirmation"
-msgstr "إعدادات"
+msgstr "تأكيد البريد الإلكتروني"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
 #, python-format
 msgid "You are almost there, %(username)s!"
-msgstr ""
+msgstr "أنت على وشك الوصول، %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
-msgstr ""
+msgstr "يُرجى النقر <a href=\"%(link)s\">هنا</a> لتأكيد بريدك الإلكتروني"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "تنتهي صلاحية الرمز في %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "فريق wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
-msgstr ""
+msgstr "يُرجى النقر على الرابط التالي لتأكيد بريدك الإلكتروني: %(link)s"
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:344
 msgid "Languages"
@@ -501,13 +507,12 @@ msgstr "اللغات"
 
 #: core/templates/language/overview.html:22
 msgid "Nothing found."
-msgstr "لم يتم العثور على شيء."
+msgstr "لم يتمّ العثور على شيء."
 
 #: core/templates/language/overview.html:22
 #: nutrition/templates/ingredient/overview.html:38
-#, fuzzy
 msgid "Add one now."
-msgstr "أضف واحدة الآن."
+msgstr "أضف واحدًا الآن."
 
 #: core/templates/language/overview.html:34 core/templates/license/list.html:43
 #: core/templates/repetition_unit/list.html:46
@@ -529,7 +534,7 @@ msgstr "أضف واحدة الآن."
 #: mailer/templates/mailer/gym/overview.html:43
 #: nutrition/templates/ingredient/overview.html:60
 msgid "Add"
-msgstr "اضف"
+msgstr "إضافة"
 
 #: core/templates/language/view.html:61 core/templates/user/api_key.html:41
 #: core/templates/user/preferences.html:50 gym/models/contract.py:203
@@ -540,7 +545,7 @@ msgstr "الخيارات"
 
 #: core/templates/license/list.html:4
 msgid "License list"
-msgstr ""
+msgstr "قائمة التراخيص"
 
 #: core/templates/license/list.html:30
 #: core/templates/repetition_unit/list.html:32
@@ -560,43 +565,43 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:30
 #: nutrition/templates/units/list.html:34
 msgid "Nothing found"
-msgstr ""
+msgstr "لم يتمّ العثور على شيء"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:160
 msgid "Imprint"
-msgstr ""
+msgstr "طبع"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
 msgid "Training"
-msgstr ""
+msgstr "تمرين"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Routines"
-msgstr ""
+msgstr "الروتينات"
 
 #: core/templates/navigation.html:45 core/templates/user/overview.html:70
 msgid "Calendar"
-msgstr ""
+msgstr "التقويم"
 
 #: core/templates/navigation.html:55
 msgid "Measurements"
-msgstr ""
+msgstr "القياسات"
 
 #: core/templates/navigation.html:66 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "المعرض"
 
 #: core/templates/navigation.html:72
 msgid "Workout templates"
-msgstr ""
+msgstr "قوالب تمارين"
 
 #: core/templates/navigation.html:79
 msgid "Your templates"
-msgstr ""
+msgstr "قوالبك"
 
 #: core/templates/navigation.html:88
 msgid "Public templates"
-msgstr ""
+msgstr "قوالب عامة"
 
 #: core/templates/navigation.html:96 software/templates/features.html:51
 #: software/templates/features.html:480
@@ -606,149 +611,149 @@ msgstr "تمارين"
 #: core/templates/navigation.html:102 core/templates/navigation.html:176
 #: core/templates/navigation.html:339
 msgid "Administration"
-msgstr ""
+msgstr "إدارة"
 
 #: core/templates/navigation.html:106
-#, fuzzy
-#| msgid "Exercises"
 msgid "Exercise edit history"
-msgstr "تمارين"
+msgstr "تاريخ تعديل التمارين"
 
 #: core/templates/navigation.html:112
 msgid "Equipment"
-msgstr ""
+msgstr "مُعدّات"
 
 #: core/templates/navigation.html:118
 msgid "Muscles"
-msgstr ""
+msgstr "عضلات"
 
 #: core/templates/navigation.html:124
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
-msgstr ""
+msgstr "فئات"
 
 #: core/templates/navigation.html:139 software/templates/features.html:468
 msgid "Nutrition"
-msgstr ""
+msgstr "تغذية"
 
 #: core/templates/navigation.html:147 core/templates/user/overview.html:144
 msgid "Nutrition plans"
-msgstr ""
+msgstr "خطط التغذية"
 
 #: core/templates/navigation.html:156
 msgid "BMI calculator"
-msgstr ""
+msgstr "حاسبة مؤشّر كتلة الجسم"
 
 #: core/templates/navigation.html:165 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
-msgstr ""
+msgstr "حاسبة السعرات الحرارية اليومية"
 
 #: core/templates/navigation.html:171
 #: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
-msgstr ""
+msgstr "نظرة عامة على المكوّنات"
 
 #: core/templates/navigation.html:180 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
-msgstr ""
+msgstr "وحدات وزن المكوّنات"
 
 #: core/templates/navigation.html:196 software/templates/features.html:463
 msgid "Body weight"
-msgstr ""
+msgstr "وزن الجسم"
 
 #: core/templates/navigation.html:203 core/templates/user/overview.html:114
 msgid "Weight overview"
-msgstr ""
+msgstr "نظرة عامة على الوزن"
 
 #: core/templates/navigation.html:217
 msgid "About this software"
-msgstr ""
+msgstr "حول هذا البرنامج"
 
 #: core/templates/navigation.html:223 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "ادعم وشارك"
 
 #: core/templates/navigation.html:229 software/templates/features.html:528
 msgid "REST API"
-msgstr ""
+msgstr "واجهة برمجة تطبيقات REST"
 
 #: core/templates/navigation.html:235 utils/models.py:45
 msgid "License"
-msgstr ""
+msgstr "ترخيص"
 
 #: core/templates/navigation.html:241
 msgid "Developer documentation"
-msgstr ""
+msgstr "وثائق المطوّر"
 
 #: core/templates/navigation.html:248
 msgid "Get the code"
-msgstr ""
+msgstr "احصل على الكود"
 
 #: core/templates/navigation.html:255 core/templates/template.html:199
 #: software/templates/features.html:603
 msgid "Translate"
-msgstr ""
+msgstr "ترجمة"
 
 #: core/templates/navigation.html:292 core/templates/user/login.html:30
 msgid "Reset password"
-msgstr ""
+msgstr "إعادة تعيين كلمة المرور"
 
 #: core/templates/navigation.html:301 core/templates/navigation.html:329
 msgid "Logout"
-msgstr ""
+msgstr "تسجيل الخروج"
 
 #: core/templates/navigation.html:320
 msgid "My preferences"
-msgstr ""
+msgstr "تفضيلاتي"
 
 #: core/templates/navigation.html:352
 msgid "Licenses"
-msgstr ""
+msgstr "التراخيص"
 
 #: core/templates/navigation.html:360
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
-msgstr ""
+msgstr "وحدات التكرار"
 
 #: core/templates/navigation.html:368 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
-msgstr ""
+msgstr "وحدات الوزن"
 
 #: core/templates/navigation.html:376 core/templates/user/list.html:4
 msgid "User list"
-msgstr ""
+msgstr "قائمة المستخدمين"
 
 #: core/templates/navigation.html:382
 msgid "Gyms"
-msgstr ""
+msgstr "الصالات"
 
 #: core/templates/navigation.html:403
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "الجوائز"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr ""
+msgstr "تمّت إعادة تعيين كلمة المرور"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
+msgstr "تم تعيين كلمة مرورك.  يمكنك الآن تسجيل الدخول."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
-msgstr ""
+msgstr "سجّل الدخول"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr ""
+msgstr "تمّت إعادة تعيين كلمة المرور بنجاح"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
+"لقد أرسلنا إليك عبر البريد الإلكتروني تعليمات حول كيفية تعيين كلمة المرور "
+"الخاصة بك إلى عنوان البريد الإلكتروني الذي قدّمته. ستستلمها قريبًا."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -756,88 +761,90 @@ msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"تتلقّى هذه الرسالة الإلكترونية لأنك طلبت إعادة تعيين كلمة المرور لحساب المستخدم "
+"الخاص بك على %(site_name)s."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "يُرجى الانتقال إلى الصفحة التالية واختيار كلمة مرور جديدة:"
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
-msgstr ""
+msgstr "اسم المستخدم الخاص بك، في حال نسيته:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
-msgstr ""
+msgstr "شكرًا لاستخدامك موقعنا!"
 
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr ""
+msgstr "فريق %(site_name)s"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:12
 msgid "previous"
-msgstr ""
+msgstr "السابق"
 
 #: core/templates/tags/pagination.html:33
 #: core/templates/tags/pagination.html:38
 msgid "next"
-msgstr ""
+msgstr "التالي"
 
 #: core/templates/template.html:96
 msgid "Close"
-msgstr ""
+msgstr "إغلاق"
 
 #: core/templates/template.html:112
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
-msgstr ""
+msgstr "أنت تستخدم حساب ضيف، وسيتمّ حذف البيانات المدخلة بعد أسبوع."
 
 #: core/templates/template.html:117
 msgid "Create some demo entries"
-msgstr ""
+msgstr "أنشئ بعض الإدخالات التجريبية"
 
 #: core/templates/template.html:165 software/templates/features.html:568
 #: software/templates/tos.html:7
 msgid "Terms of service"
-msgstr ""
+msgstr "شروط الخدمة"
 
 #: core/templates/template_features.html:53 software/templates/features.html:9
 msgid "Features"
-msgstr ""
+msgstr "الميزات"
 
 #: core/templates/user/api_key.html:4 core/templates/user/preferences.html:59
 msgid "API key"
-msgstr ""
+msgstr "مفتاح API"
 
 #: core/templates/user/api_key.html:15
 msgid "Your API key"
-msgstr ""
+msgstr "مفتاح API الخاص بك"
 
 #: core/templates/user/api_key.html:21
 msgid "You have no API key yet"
-msgstr ""
+msgstr "ليس لديك مفتاح API حتى الآن"
 
 #: core/templates/user/api_key.html:46
 msgid "Delete current API key and generate new one"
-msgstr ""
+msgstr "حذف مفتاح API الحالي وإنشاء مفتاح جديد"
 
 #: core/templates/user/api_key.html:49
 msgid "Generate new API key"
-msgstr ""
+msgstr "إنشاء مفتاح API جديد"
 
 #: core/templates/user/api_key.html:55 software/templates/features.html:533
 msgid "Documentation"
-msgstr ""
+msgstr "وثائق"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:62
 msgid "Delete account"
-msgstr ""
+msgstr "حذف الحساب"
 
 #: core/templates/user/delete_account.html:9
 #: exercises/templates/history/overview.html:93
 msgid "Are you sure?"
-msgstr ""
+msgstr "هل أنت متأكّد؟"
 
 #: core/templates/user/delete_account.html:14
 #, python-format
@@ -847,14 +854,18 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
+"سيؤدي هذا الإجراء إلى حذف حساب المستخدم \"%(username)s\".\n"
+"سيؤدي ذلك أيضًا  إلى إزالة جميع البيانات المرتبطة به بشكل نهائي (التمارين، "
+"والسجلّات، وما إلى ذلك)\n"
+"ولا يمكن التراجع عنه. "
 
 #: core/templates/user/login.html:17
 msgid "No account?"
-msgstr ""
+msgstr "ليس لديك حساب؟"
 
 #: core/templates/user/login.html:26
 msgid "Forgot password?"
-msgstr ""
+msgstr "هل نسيت كلمة السر؟"
 
 #: core/templates/user/overview.html:25 core/templates/user/overview.html:68
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:144
@@ -862,7 +873,7 @@ msgstr ""
 #: core/templates/user/overview.html:426
 #, python-format
 msgid "last %(number)s"
-msgstr ""
+msgstr "آخر %(number)s"
 
 #: core/templates/user/overview.html:27 core/templates/user/overview.html:146
 #: core/templates/user/overview.html:343 core/templates/user/overview.html:382
@@ -870,7 +881,7 @@ msgstr ""
 #: gym/templates/gym/member_list.html:262
 #: gym/templates/gym/member_list.html:302
 msgid "Overview"
-msgstr ""
+msgstr "نظرة عامة"
 
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:152
