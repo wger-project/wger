@@ -1,6 +1,6 @@
 {
   "name": "wger",
-  "version": "2.4",
+  "version": "2.5-alpha1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "repository": "github:wger-project/wger",
   "author": "wger team <hello@wger.de>",
