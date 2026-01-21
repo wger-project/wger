@@ -15,7 +15,7 @@
     "datatables.net-bs5": "^2.3.6",
     "devbridge-autocomplete": "^1.5.0",
     "htmx.org": "^2.0.8",
-    "jquery": "^3.7.1",
+    "jquery": "^4.0.0",
     "masonry-layout": "^4.2.2"
   },
   "devDependencies": {
