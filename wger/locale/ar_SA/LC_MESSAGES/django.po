@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-20 20:01+0000\n"
+"PO-Revision-Date: 2026-01-22 02:01+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -464,7 +464,7 @@ msgstr "التحقُّق من البريد الإلكتروني"
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr "%(username)s، تم التحقُّق من بريدك الإلكتروني"
+msgstr "%(username)s، تمّ توثيق بريدك الإلكتروني"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
@@ -889,73 +889,73 @@ msgstr "نظرة عامة"
 #: weight/templates/import_csv_preview.html:13
 #: weight/templates/import_csv_preview.html:42 weight/views.py:54
 msgid "Date"
-msgstr ""
+msgstr "التاريخ"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
 #: gym/models/contract.py:58 gym/models/contract.py:109
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: core/templates/user/overview.html:36
 msgid "Number of logs (days)"
-msgstr ""
+msgstr "عدد السجلّات (بالأيام)"
 
 #: core/templates/user/overview.html:37 core/views/user.py:590
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
-msgstr ""
+msgstr "آخر نشاط"
 
 #: core/templates/user/overview.html:58
 msgid "No workouts found."
-msgstr ""
+msgstr "لم يتمّ العثور على أي تمارين."
 
 #: core/templates/user/overview.html:68
 msgid "Log"
-msgstr ""
+msgstr "سجلّ"
 
 #: core/templates/user/overview.html:77
 msgid "General impression"
-msgstr ""
+msgstr "الانطباع العام"
 
 #: core/templates/user/overview.html:78 core/templates/user/overview.html:390
 msgid "Notes"
-msgstr ""
+msgstr "ملحوظات"
 
 #: core/templates/user/overview.html:79
 #: exercises/templates/history/overview.html:30
 msgid "Time"
-msgstr ""
+msgstr "الوقت"
 
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:121
 #: manager/helpers.py:89 weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:54
 msgid "Weight"
-msgstr ""
+msgstr "الوزن"
 
 #: core/templates/user/overview.html:154
 #: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:245
 msgid "Energy"
-msgstr ""
+msgstr "الطاقة"
 
 #: core/templates/user/overview.html:155
 #: nutrition/templates/ingredient/view.html:58 nutrition/views/plan.py:251
 msgid "Protein"
-msgstr ""
+msgstr "البروتين"
 
 #: core/templates/user/overview.html:156
 #: nutrition/templates/ingredient/view.html:64 nutrition/views/plan.py:259
 msgid "Carbohydrates"
-msgstr ""
+msgstr "الكربوهيدرات"
 
 #: core/templates/user/overview.html:157
 #: nutrition/templates/ingredient/view.html:80 nutrition/views/plan.py:273
 msgid "Fat"
-msgstr ""
+msgstr "الدهون"
 
 #: core/templates/user/overview.html:170
 #: nutrition/templates/ingredient/view.html:53
 msgid "kcal"
-msgstr ""
+msgstr "كيلوكالوري"
 
 #: core/templates/user/overview.html:201 core/templates/user/overview.html:340
 #: core/templates/user/overview.html:379 core/templates/user/overview.html:418
@@ -966,126 +966,125 @@ msgstr ""
 #: gym/templates/gym/member_list.html:259
 #: gym/templates/gym/member_list.html:299
 msgid "Actions"
-msgstr ""
+msgstr "الإجراءات"
 
 #: core/templates/user/overview.html:210
 msgid "Deactivate user"
-msgstr ""
+msgstr "إلغاء تنشيط المستخدم"
 
 #: core/templates/user/overview.html:214
 msgid "Activate user"
-msgstr ""
+msgstr "تنشيط المستخدم"
 
 #: core/templates/user/overview.html:223
 msgid "Reset user password"
-msgstr ""
+msgstr "إعادة تعيين كلمة مرور المستخدم"
 
 #: core/templates/user/overview.html:227 gym/templates/gym/member_list.html:30
 msgid "Roles"
-msgstr ""
+msgstr "الأدوار"
 
 #: core/templates/user/overview.html:243
 msgid "Password reset confirmation"
-msgstr ""
+msgstr "تأكيد إعادة تعيين كلمة المرور"
 
 #: core/templates/user/overview.html:247
 msgid "Do you really want to change this user&#39;s password?"
-msgstr ""
+msgstr "هل تريد حقًا تغيير كلمة مرور هذا المستخدم؟"
 
 #: core/templates/user/overview.html:250
 #: exercises/templates/history/overview.html:106
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 #: core/templates/user/overview.html:251
 #: exercises/templates/history/overview.html:99
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: core/templates/user/overview.html:272 gym/templates/gym/member_list.html:105
 msgid "Details"
-msgstr ""
+msgstr "التفاصيل"
 
 #: core/templates/user/overview.html:276 gym/views/export.py:57
 #: manager/helpers.py:89 nutrition/views/plan.py:151
 #: nutrition/views/plan.py:157
 msgid "Nr."
-msgstr ""
+msgstr "Nr."
 
 #: core/templates/user/overview.html:298 gym/models/contract.py:287
 #: gym/models/gym.py:50 gym/templates/contract/view.html:75
 #: gym/templates/gym/member_list.html:112 gym/views/export.py:68
 msgid "Phone"
-msgstr ""
+msgstr "الهاتف"
 
 #: core/templates/user/overview.html:302 gym/templates/contract/view.html:87
 #: gym/templates/gym/member_list.html:130
 msgid "Address"
-msgstr ""
+msgstr "العنوان"
 
 #: core/templates/user/overview.html:313
 msgid "Registered"
-msgstr ""
+msgstr "مسجَّل"
 
 #: core/templates/user/overview.html:317
 msgid "Last login"
-msgstr ""
+msgstr "آخر تسجيل دخول"
 
 #: core/templates/user/overview.html:322
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 #: core/templates/user/overview.html:325
 msgid "Active"
-msgstr ""
+msgstr "نشط"
 
 #: core/templates/user/overview.html:327
 msgid "Inactive"
-msgstr ""
+msgstr "غير نشط"
 
 #: core/templates/user/overview.html:348 gym/templates/contract/list.html:4
 #: gym/templates/gym/member_list.html:218
 msgid "Contracts"
-msgstr ""
+msgstr "العقود"
 
 #: core/templates/user/overview.html:426 gym/templates/document/list.html:4
 msgid "Documents"
-msgstr ""
+msgstr "المستندات"
 
 #: core/templates/user/overview.html:433 gym/templates/document/list.html:33
 msgid "Download"
-msgstr ""
+msgstr "تحميل"
 
 #: core/templates/user/overview.html:474 gym/views/admin_config.py:44
 #: gym/views/admin_config.py:58 gym/views/user_config.py:46
-#, fuzzy
 msgid "Configuration"
 msgstr "إعدادات"
 
 #: core/templates/user/overview.html:477 gym/models/user_config.py:92
 msgid "Include in inactive overview"
-msgstr ""
+msgstr "تضمين في نظرة عامة غير نشطة"
 
 #: core/templates/user/overview.html:510
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "تسجيل دخول المسؤول متاح فقط للمستخدمين في %(gym_name)s"
 
 #: core/templates/user/overview.html:514
 msgid "Log in as this user"
-msgstr ""
+msgstr "قم بتسجيل الدخول بهذا المستخدم"
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
-msgstr ""
+msgstr "التفضيلات"
 
 #: core/templates/user/preferences.html:19
 msgid "Verified email"
-msgstr ""
+msgstr "بريد إلكتروني موثّق"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "بريد إلكتروني غير موثّق"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
