@@ -19,6 +19,7 @@ from abc import (
     ABC,
     abstractmethod,
 )
+from decimal import Decimal
 from typing import (
     Any,
     Optional,
@@ -26,6 +27,10 @@ from typing import (
 
 # Django
 from django.contrib.auth.models import User
+from django.utils import formats
+
+# wger
+from wger.trophies.models import Trophy
 
 
 class BaseTrophyChecker(ABC):
@@ -123,6 +128,26 @@ class BaseTrophyChecker(ABC):
             True if parameters are valid, False otherwise
         """
         return True
+
+    def get_context_data(self) -> Optional[dict]:
+        """
+        Returns context information about the trophy.
+
+        Override this method in subclasses to return informative context.
+
+        Returns:
+            None if no context, dict context information otherwise
+        """
+        return None
+
+    @staticmethod
+    def format_number(val: Decimal | float):
+        return formats.number_format(
+            val,
+            decimal_pos=0 if val >= 1000 else 1,
+            use_l10n=True,
+            force_grouping=True,
+        )
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}(user={self.user.username}, trophy={self.trophy.name})>'

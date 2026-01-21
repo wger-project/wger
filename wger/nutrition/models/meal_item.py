@@ -24,7 +24,6 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
@@ -45,32 +44,32 @@ class MealItem(BaseMealItem, models.Model):
 
     meal = models.ForeignKey(
         Meal,
-        verbose_name=_('Nutrition plan'),
+        verbose_name='Nutrition plan',
         editable=False,
         on_delete=models.CASCADE,
     )
     ingredient = models.ForeignKey(
         Ingredient,
-        verbose_name=_('Ingredient'),
+        verbose_name='Ingredient',
         on_delete=models.CASCADE,
     )
     weight_unit = models.ForeignKey(
         IngredientWeightUnit,
-        verbose_name=_('Weight unit'),
+        verbose_name='Weight unit',
         null=True,
         blank=True,
         on_delete=models.CASCADE,
     )
 
     order = models.IntegerField(
-        verbose_name=_('Order'),
+        verbose_name='Order',
         blank=True,
         editable=False,
     )
     amount = models.DecimalField(
         decimal_places=2,
         max_digits=6,
-        verbose_name=_('Amount'),
+        verbose_name='Amount',
         validators=[MinValueValidator(Decimal(1)), MaxValueValidator(Decimal(1000))],
     )
 

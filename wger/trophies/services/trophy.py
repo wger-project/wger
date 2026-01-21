@@ -26,7 +26,6 @@ from typing import (
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.db.models import Q
 from django.utils import timezone
 
 # wger
@@ -61,6 +60,7 @@ class TrophyService:
 
         Checks each active trophy the user hasn't earned yet using the
         appropriate checker class. Awards trophies where criteria are met.
+        Always re-evaluates repeatable trophies.
 
         Args:
             user: The user to evaluate trophies for
@@ -71,14 +71,12 @@ class TrophyService:
         if cls.should_skip_user(user):
             return []
 
-        # Get all active trophies the user hasn't earned
-        earned_trophy_ids = UserTrophy.objects.filter(user=user).values_list('trophy_id', flat=True)
-        unevaluated_trophies = Trophy.objects.filter(is_active=True).exclude(
-            id__in=earned_trophy_ids
-        )
+        # Evaluate all active trophies. evaluate_trophy() will skip non-repeatable trophies
+        # the user already has, while repeatable trophies are always checked.
+        trophies = Trophy.objects.filter(is_active=True).order_by('order', 'name')
 
         awarded = []
-        for trophy in unevaluated_trophies:
+        for trophy in trophies:
             user_trophy = cls.evaluate_trophy(user, trophy)
             if user_trophy:
                 awarded.append(user_trophy)
@@ -104,7 +102,10 @@ class TrophyService:
             return None
 
         # Check if already earned
-        if UserTrophy.objects.filter(user=user, trophy=trophy).exists():
+        if (
+            not trophy.is_repeatable
+            and UserTrophy.objects.filter(user=user, trophy=trophy).exists()
+        ):
             return None
 
         # Get the checker for this trophy
@@ -115,7 +116,8 @@ class TrophyService:
 
         try:
             if checker.check():
-                return cls.award_trophy(user, trophy, progress=100.0)
+                context = checker.get_context_data()
+                return cls.award_trophy(user, trophy, progress=100.0, context_data=context)
         except Exception as e:
             logger.error(
                 f'Error checking trophy {trophy.name} for user {user.id}: {e}', exc_info=True
@@ -124,7 +126,13 @@ class TrophyService:
         return None
 
     @classmethod
-    def award_trophy(cls, user: User, trophy: Trophy, progress: float = 100.0) -> UserTrophy:
+    def award_trophy(
+        cls,
+        user: User,
+        trophy: Trophy,
+        progress: float = 100.0,
+        context_data: Optional[dict] = None,
+    ) -> UserTrophy:
         """
         Award a trophy to a user.
 
@@ -134,15 +142,22 @@ class TrophyService:
             user: The user to award the trophy to
             trophy: The trophy to award
             progress: The progress value (default 100 for earned)
+            context_data: Additional information regarding the trophy awarded
 
         Returns:
             The created UserTrophy instance
         """
-        user_trophy, created = UserTrophy.objects.get_or_create(
-            user=user,
-            trophy=trophy,
-            defaults={'progress': progress},
-        )
+        if trophy.is_repeatable:
+            created = True
+            user_trophy = UserTrophy.objects.create(
+                user=user, trophy=trophy, progress=progress, context_data=context_data
+            )
+        else:
+            user_trophy, created = UserTrophy.objects.get_or_create(
+                user=user,
+                trophy=trophy,
+                defaults={'progress': progress, 'context_data': context_data},
+            )
 
         if created:
             logger.info(f'Awarded trophy "{trophy.name}" to user {user.username}')
@@ -165,7 +180,12 @@ class TrophyService:
         )
 
     @classmethod
-    def get_all_trophy_progress(cls, user: User, include_hidden: bool = False) -> List[Dict]:
+    def get_all_trophy_progress(
+        cls,
+        user: User,
+        include_hidden: bool = False,
+        include_repeatable: bool = False,
+    ) -> List[Dict]:
         """
         Get all trophies with progress information for a user.
 
@@ -175,6 +195,7 @@ class TrophyService:
         Args:
             user: The user to get trophy progress for
             include_hidden: If True, include hidden trophies even if not earned
+            include_repeatable: If True, include repeatable (PR) trophies
 
         Returns:
             List of dicts with trophy info and progress
@@ -186,7 +207,11 @@ class TrophyService:
 
         # Get user's earned trophies
         earned = {
-            ut.trophy_id: ut for ut in UserTrophy.objects.filter(user=user).select_related('trophy')
+            ut.trophy_id: ut
+            for ut in UserTrophy.objects.filter(
+                user=user,
+                trophy__is_repeatable=include_repeatable,
+            ).select_related('trophy')
         }
 
         for trophy in trophies:
@@ -220,7 +245,8 @@ class TrophyService:
                         current = progress_data['current_value']
                         target = progress_data['target_value']
                         if current is not None and target is not None:
-                            progress_data['progress_display'] = f'{current}/{target}'
+                            progress_data['progress_display'] = checker.get_progress_display()
+                            # progress_data['progress_display'] = f'{current}/{target}'
                     except Exception as e:
                         logger.error(f'Error getting progress for trophy {trophy.name}: {e}')
 

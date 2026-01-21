@@ -197,18 +197,11 @@ patterns_weight_units = [
 urlpatterns = [
     # The landing page
     path('', misc.index, name='index'),
-    # The dashboard
     path('dashboard', ReactView.as_view(login_required=True), name='dashboard'),
-    # Others
     path(
         'imprint',
         TemplateView.as_view(template_name='misc/about.html'),
         name='imprint',
-    ),
-    path(
-        'feedback',
-        misc.FeedbackClass.as_view(),
-        name='feedback',
     ),
     path('language/', include((patterns_language, 'language'), namespace='language')),
     path('user/', include((patterns_user, 'user'), namespace='user')),

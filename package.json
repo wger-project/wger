@@ -1,6 +1,6 @@
 {
   "name": "wger",
-  "version": "2.4.alpha1",
+  "version": "2.5-alpha1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "repository": "github:wger-project/wger",
   "author": "wger team <hello@wger.de>",
@@ -19,7 +19,7 @@
     "masonry-layout": "^4.2.2"
   },
   "devDependencies": {
-    "@wger-project/react-components": "25.12.5"
+    "@wger-project/react-components": "26.1.18"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"

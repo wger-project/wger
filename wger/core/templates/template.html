@@ -16,7 +16,7 @@
     along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-{% load i18n static wger_extras compress django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
 {% endblock %}
@@ -26,6 +26,8 @@
     <meta http-equiv="content-language" content="{{ i18n_language.code }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     <!-- OpenGraph -->
     {% block opengraph %}
@@ -63,19 +65,10 @@
 
     {% block header %}{% endblock %}
 
-    <script>
-        $(document).ready(function () {
-
-            if (typeof wgerCustomPageInit !== "undefined") {
-                wgerCustomPageInit();
-            }
-        });
-    </script>
-
-
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+
 {#            #}
 {# Navigation #}
 {#            #}

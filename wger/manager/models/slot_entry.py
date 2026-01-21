@@ -29,7 +29,6 @@ from typing import (
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import (
@@ -119,7 +118,7 @@ class SlotEntry(models.Model):
 
     weight_unit = models.ForeignKey(
         WeightUnit,
-        verbose_name=_('Unit'),
+        verbose_name='Unit',
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
         null=True,

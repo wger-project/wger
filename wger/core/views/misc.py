@@ -21,31 +21,14 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
-from django.contrib.auth.decorators import login_required
-from django.core import mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.template.loader import render_to_string
-from django.urls import (
-    reverse,
-    reverse_lazy,
-)
-from django.utils.text import slugify
+from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.generic.edit import FormView
-
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
 
 # wger
 from wger.core.demo import (
     create_demo_entries,
     create_temporary_user,
-)
-from wger.core.forms import (
-    FeedbackAnonymousForm,
-    FeedbackRegisteredForm,
 )
 
 
@@ -94,57 +77,3 @@ def demo_entries(request):
             ),
         )
     return HttpResponseRedirect(reverse('core:dashboard'))
-
-
-class FeedbackClass(FormView):
-    template_name = 'form.html'
-    success_url = reverse_lazy('software:about-us')
-
-    def get_initial(self):
-        """
-        Fill in the contact, if available
-        """
-        if self.request.user.is_authenticated:
-            return {'contact': self.request.user.email}
-        return {}
-
-    def get_context_data(self, **kwargs):
-        """
-        Set necessary template data to correctly render the form
-        """
-        context = super(FeedbackClass, self).get_context_data(**kwargs)
-        context['title'] = _('Feedback')
-        return context
-
-    def get_form_class(self):
-        """
-        Load the correct feedback form depending on the user
-        (either with reCaptcha field or not)
-        """
-        if self.request.user.is_anonymous or self.request.user.userprofile.is_temporary:
-            return FeedbackAnonymousForm
-        else:
-            return FeedbackRegisteredForm
-
-    def get_form(self, form_class=None):
-        """Return an instance of the form to be used in this view."""
-
-        form = super(FeedbackClass, self).get_form(form_class)
-        form.helper = FormHelper()
-        form.helper.form_id = slugify(self.request.path)
-        form.helper.add_input(Submit('submit', _('Submit'), css_class='btn-success btn-block'))
-        form.helper.form_class = 'wger-form'
-        return form
-
-    def form_valid(self, form):
-        """
-        Send the feedback to the administrators
-        """
-        messages.success(self.request, _('Your feedback was successfully sent. Thank you!'))
-
-        context = {'user': self.request.user, 'form_data': form.cleaned_data}
-        subject = 'New feedback'
-        message = render_to_string('user/email_feedback.html', context)
-        mail.mail_admins(subject, message)
-
-        return super(FeedbackClass, self).form_valid(form)

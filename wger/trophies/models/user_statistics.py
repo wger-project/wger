@@ -17,7 +17,6 @@
 # Django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class UserStatistics(models.Model):
@@ -31,7 +30,7 @@ class UserStatistics(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='trophy_statistics',
-        verbose_name=_('User'),
+        verbose_name='User',
     )
     """The user these statistics belong to"""
 
@@ -39,95 +38,95 @@ class UserStatistics(models.Model):
         max_digits=12,
         decimal_places=2,
         default=0,
-        verbose_name=_('Total weight lifted'),
-        help_text=_('Cumulative weight lifted in kg'),
+        verbose_name='Total weight lifted',
+        help_text='Cumulative weight lifted in kg',
     )
     """Total cumulative weight lifted in kg"""
 
     total_workouts = models.PositiveIntegerField(
         default=0,
-        verbose_name=_('Total workouts'),
-        help_text=_('Total number of workout sessions completed'),
+        verbose_name='Total workouts',
+        help_text='Total number of workout sessions completed',
     )
     """Total number of workout sessions completed"""
 
     current_streak = models.PositiveIntegerField(
         default=0,
-        verbose_name=_('Current streak'),
-        help_text=_('Current consecutive days with workouts'),
+        verbose_name='Current streak',
+        help_text='Current consecutive days with workouts',
     )
     """Current consecutive workout streak in days"""
 
     longest_streak = models.PositiveIntegerField(
         default=0,
-        verbose_name=_('Longest streak'),
-        help_text=_('Longest consecutive days with workouts'),
+        verbose_name='Longest streak',
+        help_text='Longest consecutive days with workouts',
     )
     """Longest consecutive workout streak ever achieved"""
 
     last_workout_date = models.DateField(
         null=True,
         blank=True,
-        verbose_name=_('Last workout date'),
-        help_text=_('Date of the most recent workout'),
+        verbose_name='Last workout date',
+        help_text='Date of the most recent workout',
     )
     """Date of the most recent workout"""
 
     earliest_workout_time = models.TimeField(
         null=True,
         blank=True,
-        verbose_name=_('Earliest workout time'),
-        help_text=_('Earliest time a workout was started'),
+        verbose_name='Earliest workout time',
+        help_text='Earliest time a workout was started',
     )
     """Earliest time a workout was ever started"""
 
     latest_workout_time = models.TimeField(
         null=True,
         blank=True,
-        verbose_name=_('Latest workout time'),
-        help_text=_('Latest time a workout was started'),
+        verbose_name='Latest workout time',
+        help_text='Latest time a workout was started',
     )
     """Latest time a workout was ever started"""
 
     weekend_workout_streak = models.PositiveIntegerField(
         default=0,
-        verbose_name=_('Weekend workout streak'),
-        help_text=_('Consecutive weekends with workouts on both Saturday and Sunday'),
+        verbose_name='Weekend workout streak',
+        help_text='Consecutive weekends with workouts on both Saturday and Sunday',
     )
     """Consecutive weekends with workouts on both Saturday and Sunday"""
 
     last_complete_weekend_date = models.DateField(
         null=True,
         blank=True,
-        verbose_name=_('Last complete weekend date'),
-        help_text=_('Date of the last Saturday where both Sat and Sun had workouts'),
+        verbose_name='Last complete weekend date',
+        help_text='Date of the last Saturday where both Sat and Sun had workouts',
     )
     """Used for tracking consecutive weekend workouts"""
 
     last_inactive_date = models.DateField(
         null=True,
         blank=True,
-        verbose_name=_('Last inactive date'),
-        help_text=_('Last date before the current activity period began'),
+        verbose_name='Last inactive date',
+        help_text='Last date before the current activity period began',
     )
     """Used for Phoenix trophy - tracks when user was last inactive"""
 
     worked_out_jan_1 = models.BooleanField(
         default=False,
-        verbose_name=_('Worked out on January 1st'),
-        help_text=_('Whether user has ever worked out on January 1st'),
+        verbose_name='Worked out on January 1st',
+        help_text='Whether user has ever worked out on January 1st',
     )
     """Flag for New Year, New Me trophy"""
 
     last_updated = models.DateTimeField(
         auto_now=True,
-        verbose_name=_('Last updated'),
+        verbose_name='Last updated',
     )
     """When these statistics were last updated"""
 
     class Meta:
-        verbose_name = _('User statistics')
-        verbose_name_plural = _('User statistics')
+        verbose_name = 'User statistics'
+        verbose_name_plural = 'User statistics'
 
     def __str__(self):
         return f'Statistics for {self.user.username}'

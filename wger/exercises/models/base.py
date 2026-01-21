@@ -31,10 +31,7 @@ from django.db import (
 )
 from django.db.models import Q
 from django.urls import reverse
-from django.utils.translation import (
-    get_language,
-    gettext_lazy as _,
-)
+from django.utils.translation import get_language
 
 # Third Party
 from simple_history.models import HistoricalRecords
@@ -83,20 +80,20 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     category = models.ForeignKey(
         ExerciseCategory,
-        verbose_name=_('Category'),
+        verbose_name='Category',
         on_delete=models.CASCADE,
     )
 
     muscles = models.ManyToManyField(
         Muscle,
         blank=True,
-        verbose_name=_('Primary muscles'),
+        verbose_name='Primary muscles',
     )
     """Main muscles trained by the exercise"""
 
     muscles_secondary = models.ManyToManyField(
         Muscle,
-        verbose_name=_('Secondary muscles'),
+        verbose_name='Secondary muscles',
         related_name='secondary_muscles_base',
         blank=True,
     )
@@ -104,14 +101,14 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     equipment = models.ManyToManyField(
         Equipment,
-        verbose_name=_('Equipment'),
+        verbose_name='Equipment',
         blank=True,
     )
     """Equipment needed by this exercise"""
 
     variations = models.ForeignKey(
         Variation,
-        verbose_name=_('Variations'),
+        verbose_name='Variations',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -119,13 +116,13 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """Variations of this exercise"""
 
     created = models.DateTimeField(
-        _('Date'),
+        'Creation date',
         auto_now_add=True,
     )
     """The submission datetime"""
 
     last_update = models.DateTimeField(
-        _('Date'),
+        'last update',
         auto_now=True,
     )
     """Datetime of last modification"""

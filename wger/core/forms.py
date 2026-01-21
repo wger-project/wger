@@ -340,38 +340,3 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
                 css_class='text-center',
             ),
         )
-
-
-class FeedbackRegisteredForm(forms.Form):
-    """
-    Feedback form used for logged-in users
-    """
-
-    contact = forms.CharField(
-        max_length=50,
-        min_length=10,
-        label=gettext_lazy('Contact'),
-        help_text=gettext_lazy('Some way of answering you (e-mail, etc.)'),
-        required=False,
-    )
-
-    comment = forms.CharField(
-        max_length=500,
-        min_length=10,
-        widget=widgets.Textarea,
-        label=gettext_lazy('Comment'),
-        help_text=gettext_lazy('What do you want to say?'),
-        required=True,
-    )
-
-
-class FeedbackAnonymousForm(FeedbackRegisteredForm):
-    """
-    Feedback form used for anonymous users (has additionally a reCAPTCHA field)
-    """
-
-    captcha = ReCaptchaField(
-        widget=ReCaptchaV3,
-        label='reCaptcha',
-        help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-    )

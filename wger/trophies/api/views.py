@@ -121,12 +121,19 @@ class TrophyViewSet(viewsets.ReadOnlyModelViewSet):
             return Response([])
 
         include_hidden = request.user.is_staff
+        include_repeatable = request.GET.get('include_repeatable', 'false') == 'true'
         progress_data = TrophyService.get_all_trophy_progress(
             request.user,
             include_hidden=include_hidden,
+            include_repeatable=include_repeatable,
         )
 
-        serializer = TrophyProgressSerializer(progress_data, many=True)
+        serializer = TrophyProgressSerializer(
+            progress_data,
+            many=True,
+            # Important: provide request in context for image URL building
+            context={'request': request},
+        )
         return Response(serializer.data)
 
 
@@ -145,7 +152,7 @@ class UserTrophyViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = UserTrophySerializer
     filterset_class = UserTrophyFilterSet
-    ordering_fields = ['earned_at', 'trophy__name']
+    ordering_fields = ['earned_at', 'trophy__trophy_type', 'trophy__name']
     ordering = ['-earned_at']
 
     is_private = True
