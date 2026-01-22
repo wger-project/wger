@@ -560,15 +560,15 @@ wheels = [
 
 [[package]]
 name = "django-axes"
-version = "8.0.0"
+version = "8.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9b/bf/ce259e79cf66cdd1aa7b1968af04a036cf39737c3ff69ced3a39808cd40d/django_axes-8.0.0.tar.gz", hash = "sha256:f95b6ae67fd77d44cc688818cef174914c4ad98c48daf65020b6f03f37220e45", size = 249419, upload-time = "2025-05-10T11:17:43.657Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b5/60/82817a23327f4633e2015bb8e34a133d5fad3903ae384f7d7116759bd3a6/django_axes-8.1.0.tar.gz", hash = "sha256:92cae514b6270d4b76c7afa657d5988c28b7c6ac1ce367c368eea2dd976199e7", size = 253181, upload-time = "2025-12-19T19:44:12.27Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fe/4b/8862d6d326411fe18854db98305dc292b694d84b2b91398c33a792b7e772/django_axes-8.0.0-py3-none-any.whl", hash = "sha256:7ddc55f21b704b7e9b3e793a75deac01ff16cb67f561649b04336e1e96980035", size = 68884, upload-time = "2025-05-10T11:17:41.351Z" },
+    { url = "https://files.pythonhosted.org/packages/34/c8/83620d6a281487dcd97cbe28b0a3684702b3c251159a46091e25501de46d/django_axes-8.1.0-py3-none-any.whl", hash = "sha256:50117de17d189497a01d0544a9977b5136764c513085cf15138084de9dd81993", size = 73731, upload-time = "2025-12-19T19:44:04.216Z" },
 ]
 
 [package.optional-dependencies]
@@ -2095,7 +2095,7 @@ requires-dist = [
     { name = "crispy-bootstrap5", specifier = "~=2025.6" },
     { name = "django", specifier = "~=5.2.8" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
-    { name = "django-axes", extras = ["ipware"], specifier = "~=8.0.0" },
+    { name = "django-axes", extras = ["ipware"], specifier = "~=8.1.0" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },
     { name = "django-crispy-forms", specifier = "~=2.5" },

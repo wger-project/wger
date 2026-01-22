@@ -32,7 +32,7 @@ dependencies = [
     "celery[redis]~=5.6.0",
     "crispy-bootstrap5~=2025.6",
     "django-activity-stream~=2.0.0",
-    "django-axes[ipware]~=8.0.0",
+    "django-axes[ipware]~=8.1.0",
     "django-bootstrap-breadcrumbs2==1.0.0",
     "django-cors-headers~=4.9.0",
     "django-crispy-forms~=2.5",
