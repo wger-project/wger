@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-22 02:01+0000\n"
+"PO-Revision-Date: 2026-01-22 23:48+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -1088,23 +1088,23 @@ msgstr "بريد إلكتروني غير موثّق"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "إرسال بريد إلكتروني للتوثيق"
 
 #: core/templates/user/preferences.html:31
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "يجب عليك توثيق بريدك الإلكتروني للمساهمة في التمارين"
 
 #: core/templates/user/preferences.html:55 core/views/user.py:601
 msgid "Change password"
-msgstr ""
+msgstr "تغيير كلمة المرور"
 
 #: core/templates/user/registration_sidebar.html:8
 msgid "Already have an account?"
-msgstr ""
+msgstr "هل لديك حساب بالفعل؟"
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
-msgstr ""
+msgstr "كيلوجرام"
 
 #: core/templatetags/wger_extras.py:144
 #: nutrition/templates/ingredient/view.html:60
@@ -1116,22 +1116,22 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:121
 msgctxt "weight unit, i.e. grams"
 msgid "g"
-msgstr ""
+msgstr "جرام"
 
 #: core/templatetags/wger_extras.py:147 i18n.tpl:39
 msgid "lb"
-msgstr ""
+msgstr "رطل"
 
 #: core/templatetags/wger_extras.py:149
 msgctxt "weight unit, i.e. ounces"
 msgid "oz"
-msgstr ""
+msgstr "أونصة"
 
 #: core/views/languages.py:85 exercises/views/categories.py:122
 #: exercises/views/equipment.py:103 exercises/views/muscles.py:99
 #: nutrition/views/ingredient.py:120 nutrition/views/unit.py:110
 msgid "Successfully deleted"
-msgstr ""
+msgstr "تمّ الحذف بنجاح"
 
 #: core/views/languages.py:93 core/views/license.py:103
 #: core/views/repetition_units.py:115 core/views/weight_units.py:115
@@ -1141,7 +1141,7 @@ msgstr ""
 #: nutrition/views/ingredient.py:127 nutrition/views/unit.py:117
 #, python-brace-format
 msgid "Delete {0}?"
-msgstr ""
+msgstr "حذف {0}؟"
 
 #: core/views/languages.py:111 core/views/license.py:85
 #: core/views/repetition_units.py:86 core/views/user.py:464
