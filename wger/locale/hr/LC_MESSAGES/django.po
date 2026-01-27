@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2025-10-26 11:02+0000\n"
+"PO-Revision-Date: 2026-01-28 10:47+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -375,11 +375,11 @@ msgstr "Broj dana nakon zadnjeg unosa težine (upiši 0 za deaktiviranje)"
 
 #: core/models/profile.py:379
 msgid "Enable trophies"
-msgstr ""
+msgstr "Uključi trofeje"
 
 #: core/models/profile.py:380
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Uključi ili isključi sustav trofeja za ovog korisnika"
 
 #: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
@@ -732,7 +732,7 @@ msgstr "Teretane"
 #: core/templates/navigation.html:403
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Trofeje"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
@@ -1104,7 +1104,7 @@ msgstr "Promjeni lozinku"
 
 #: core/templates/user/registration_sidebar.html:8
 msgid "Already have an account?"
-msgstr ""
+msgstr "Već imaš korisnički račun?"
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
@@ -1762,22 +1762,19 @@ msgstr "bez (vježba za tjelesnu težinu)"
 
 #: i18n.tpl:41
 msgid "Beginner"
-msgstr ""
+msgstr "Početnik"
 
 #: i18n.tpl:42
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Sadržaj"
+msgstr "Redovito"
 
 #: i18n.tpl:43
 msgid "Dedicated"
-msgstr ""
+msgstr "Posvećen"
 
 #: i18n.tpl:44
 msgid "Obsessed"
-msgstr ""
+msgstr "Opsesivan"
 
 #: i18n.tpl:45
 msgid "Legend"
@@ -1785,171 +1782,151 @@ msgstr "Legenda"
 
 #: i18n.tpl:46
 msgid "Veteran"
-msgstr ""
+msgstr "Veteran"
 
 #: i18n.tpl:47
 msgid "Titan"
-msgstr ""
+msgstr "Titan"
 
 #: i18n.tpl:48
 msgid "Unstoppable"
-msgstr ""
+msgstr "Nezaustavljiv"
 
 #: i18n.tpl:49
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Vikendaški entuzijast"
 
 #: i18n.tpl:50
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Dizač slona"
 
 #: i18n.tpl:51
 msgid "Bus lifter"
-msgstr ""
+msgstr "Dizač autobusa"
 
 #: i18n.tpl:52
 msgid "Plane lifter"
-msgstr ""
+msgstr "Dizač aviona"
 
 #: i18n.tpl:53
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Dizač plavog kita"
 
 #: i18n.tpl:54
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Dizač svemirske stanice"
 
 #: i18n.tpl:55
 msgid "Millionaire"
-msgstr ""
+msgstr "Milijunaš"
 
 #: i18n.tpl:56
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:57
 msgid "Early Bird"
-msgstr ""
+msgstr "Ranoranilac"
 
 #: i18n.tpl:58
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Zapis težine"
+msgstr "Noćna ptica"
 
 #: i18n.tpl:59
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Nova Godina, Novi Ja"
 
 #: i18n.tpl:60
 msgid "Phoenix"
-msgstr ""
+msgstr "Feniks"
 
 #: i18n.tpl:61
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Osobni podaci"
+msgstr "Osobni rekord"
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Kopiraj trening"
+msgstr "Završi svoj prvi trening"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Primjer treninga"
+msgstr "Završi 10 treninga"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Primjer treninga"
+msgstr "Završi 50 treninga"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Primjer treninga"
+msgstr "Završi 100 treninga"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Primjer treninga"
+msgstr "Završi 200 treninga"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Primjer treninga"
+msgstr "Završi 500 treninga"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Primjer treninga"
+msgstr "Završi 1000 treninga"
 
 #: i18n.tpl:69
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Održi 30-dnevni režim treniranja"
 
 #: i18n.tpl:70
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Treniraj subotom i nedjeljom 4 uzastopna vikenda"
 
 #: i18n.tpl:71
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Digni ukupno 5.000 kg"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Digni ukupno 20.000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Digni ukupno 50.000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Digni ukupno 150.000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Digni ukupno 450.000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Digni ukupno 1.000.000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Digni ukupno 10.000.000 kg"
 
 #: i18n.tpl:78
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Odradi trening prije 06:00 ujutro"
 
 #: i18n.tpl:79
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Odradi trening nakon 21:00 navečer"
 
 #: i18n.tpl:80
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Trening za %s"
+msgstr "Odradi trening 01. siječnja"
 
 #: i18n.tpl:81
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Treniraj ponovo nakon 30 dana neaktivnosti"
 
 #: i18n.tpl:82
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Postigni novi osobni rekord u bilo kojoj vježbi"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2017,7 +1994,7 @@ msgstr "PUR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "odmor"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2226,7 +2203,7 @@ msgstr "Drugi"
 
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr "Vlakno"
+msgstr "Vlakna"
 
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:293
 msgid "Sodium"
@@ -2727,7 +2704,7 @@ msgstr "Račun"
 
 #: software/templates/features.html:453
 msgid "Dashboard"
-msgstr "Kontrolna ploča"
+msgstr "Nadzorna ploča"
 
 #: software/templates/features.html:485
 msgid "Workout routines"
