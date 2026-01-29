@@ -213,6 +213,12 @@ class SlotEntry(models.Model):
                 )
             if not self.weight_rounding:
                 self.weight_rounding = self.slot.day.routine.user.userprofile.weight_rounding
+
+            # Auto-calculate order if not provided
+            if self.order is None:
+                max_order = self.slot.entries.aggregate(models.Max('order'))['order__max']
+                self.order = (max_order or 0) + 1
+
         return super().save(*args, **kwargs)
 
     def get_owner_object(self):
