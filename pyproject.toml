@@ -77,7 +77,7 @@ dev = [
     "isort~=7.0.0",
     "ruff~=0.14.2",
     "tblib~=3.2.0",
-    "wheel==0.45.1",
+    "wheel==0.46.3",
 ]
 
 docker = [
