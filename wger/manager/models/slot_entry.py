@@ -140,7 +140,6 @@ class SlotEntry(models.Model):
 
     order = models.PositiveIntegerField(
         blank=True,
-        null=True,
         db_index=True,
     )
 
