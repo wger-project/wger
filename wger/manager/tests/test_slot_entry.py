@@ -62,6 +62,11 @@ class SlotEntryTestCase(WgerTestCase):
         """
         Test that the order is automatically added if not provided
         """
+        SlotEntry.objects.filter(slot_id=1).delete()
+
+        slot_entry_1 = SlotEntry(slot_id=1, exercise_id=1)
+        slot_entry_1.save()
+
         slot_entry_2 = SlotEntry(slot_id=1, exercise_id=2, order=None)
         slot_entry_2.save()
 
@@ -71,7 +76,7 @@ class SlotEntryTestCase(WgerTestCase):
         slot_entry_4 = SlotEntry(slot_id=1, exercise_id=3)
         slot_entry_4.save()
 
-        self.assertEqual(self.slot_entry.order, 1)
+        self.assertEqual(slot_entry_1.order, 1)
         self.assertEqual(slot_entry_2.order, 2)
         self.assertEqual(slot_entry_3.order, 7)
         self.assertEqual(slot_entry_4.order, 8)
