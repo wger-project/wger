@@ -17,16 +17,6 @@
 # Standard Library
 import logging
 
-# Third Party
-import bleach
-from bleach.css_sanitizer import CSSSanitizer
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    ButtonHolder,
-    Layout,
-    Submit,
-)
-
 # Django
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -40,12 +30,23 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import ModelFormMixin
 
+# Third Party
+import bleach
+from bleach.css_sanitizer import CSSSanitizer
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Layout,
+    Submit,
+)
+
 # wger
 from wger.utils.constants import (
     HTML_ATTRIBUTES_WHITELIST,
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
 )
+
 
 logger = logging.getLogger(__name__)
 
