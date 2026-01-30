@@ -304,9 +304,14 @@ def search(request):
             try:
                 thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
             except InvalidImageFormatError as e:
-                logger.warning(f'InvalidImageFormatError while processing a thumbnail: {e}')
+                logger.warning(
+                    f'InvalidImageFormatError while processing thumbnails for '
+                    f'image ID {image_obj.id}: {e}'
+                )
             except OSError as e:
-                logger.warning(f'OSError while processing a thumbnail: {e}')
+                logger.warning(
+                    f'OSError while processing thumbnails for image ID {image_obj.id}: {e}'
+                )
 
         result_json = {
             'value': translation.name,
