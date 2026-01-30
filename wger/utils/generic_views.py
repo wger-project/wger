@@ -17,6 +17,16 @@
 # Standard Library
 import logging
 
+# Third Party
+import bleach
+from bleach.css_sanitizer import CSSSanitizer
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Layout,
+    Submit,
+)
+
 # Django
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -30,23 +40,12 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import ModelFormMixin
 
-# Third Party
-import bleach
-from bleach.css_sanitizer import CSSSanitizer
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    ButtonHolder,
-    Layout,
-    Submit,
-)
-
 # wger
 from wger.utils.constants import (
     HTML_ATTRIBUTES_WHITELIST,
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -116,11 +115,6 @@ class WgerPermissionMixin:
 class WgerFormMixin(ModelFormMixin):
     template_name = 'form.html'
 
-    custom_js = ''
-    """
-    Custom javascript to be executed.
-    """
-
     form_action = ''
     form_action_urlname = ''
 
@@ -163,9 +157,6 @@ class WgerFormMixin(ModelFormMixin):
         context = super(WgerFormMixin, self).get_context_data(**kwargs)
         context['sidebar'] = self.sidebar
         context['title'] = self.title
-
-        # Custom JS code on form (autocompleter, editor, etc.)
-        context['custom_js'] = self.custom_js
 
         return context
 

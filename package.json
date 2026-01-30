@@ -13,10 +13,8 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.8",
     "datatables.net-bs5": "^2.3.6",
-    "devbridge-autocomplete": "^1.5.0",
     "htmx.org": "^2.0.8",
-    "jquery": "^3.7.1",
-    "masonry-layout": "^4.2.2"
+    "jquery": "^3.7.1"
   },
   "devDependencies": {
     "@wger-project/react-components": "26.1.18"

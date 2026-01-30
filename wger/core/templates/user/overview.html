@@ -3,6 +3,9 @@
 
 {% block title %}{{current_user|format_username}}{% endblock %}
 
+{% block header %}
+    <script src="{% static 'node/jquery/dist/jquery.js' %}"></script>
+{% endblock %}
 
 {% block breadcrumbs %}
     {% if current_user.userprofile.gym %}

@@ -1,6 +1,7 @@
 {% load i18n static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'node/datatables.net-bs5/css/dataTables.bootstrap5.css' %}">
+<script src="{% static 'node/jquery/dist/jquery.js' %}"></script>
 <script src="{% static 'node/datatables.net/js/dataTables.js' %}" ></script>
 <script src="{% static 'node/datatables.net-bs5/js/dataTables.bootstrap5.js' %}" ></script>
 <script>
@@ -17,7 +18,6 @@
         });
     });
 </script>
-
 
 
 <table class="table table-hover table-responsive" id="main_member_list">
