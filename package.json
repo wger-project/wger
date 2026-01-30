@@ -14,7 +14,7 @@
     "bootstrap": "5.3.8",
     "datatables.net-bs5": "^2.3.6",
     "htmx.org": "^2.0.8",
-    "jquery": "^3.7.1"
+    "jquery": "^4.0.0"
   },
   "devDependencies": {
     "@wger-project/react-components": "26.1.18"
