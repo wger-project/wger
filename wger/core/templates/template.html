@@ -60,6 +60,7 @@
     <script src="{% static 'node/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
     <script src="{% static 'node/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
+    <script src="{% static 'js/language.js' %}"></script>
     <script src="{% static 'node/@wger-project/react-components/build/main.js' %}" type="module" defer="defer"></script>
 
     {% block header %}{% endblock %}
@@ -184,10 +185,23 @@
                             <span class="caret"></span>
                         </button>
 
-                        <ul class="dropdown-menu language-menu" aria-labelledby="btnGroupLanguages">
-                            {% for language in languages %}
-                                {% language_select language %}
-                            {% endfor %}
+                        <ul class="dropdown-menu language-menu" aria-labelledby="btnGroupLanguages">                            
+                            <li>
+                                <a class="dropdown-item" href="{% url 'core:language:browser_language' %}?next={{ request.path }}">
+                                    <span class="{% fa_class 'globe' %}"></span>
+                                    <span>{% translate "Browser language" %}</span>
+                                </a>
+                            </li>
+
+                            <form id="language-form" action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ redirect_to }}">
+                                <input type="hidden" name="language" id="language-input">
+                                {% for language in languages %}
+                                    {% language_select language %}
+                                {% endfor %}
+                            </form>
+
                             <li>
                                 <hr class="dropdown-divider"></hr>
                             </li>

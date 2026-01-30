@@ -74,7 +74,7 @@ def language_select(context, language):
     Renders a link to change the current language.
     """
 
-    return {**get_language_data(language), 'i18n_path': context['i18n_path'][language[0]]}
+    return get_language_data(language)
 
 
 @register.filter

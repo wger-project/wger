@@ -589,9 +589,20 @@
                     </button>
 
                     <ul class="dropdown-menu" aria-labelledby="btnGroupLanguages">
-                        {% for language in languages %}
-                            {% language_select language %}
-                        {% endfor %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'core:language:browser_language' %}?next={{ request.path }}">
+                                <span class="{% fa_class 'globe' %}"></span>
+                                <span>{% translate "Browser language" %}</span>
+                            </a>
+                        </li>
+                        <form id="language-form" action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ redirect_to }}">
+                            <input type="hidden" name="language" id="language-input">
+                            {% for language in languages %}
+                                {% language_select language %}
+                            {% endfor %}
+                        </form>
                         <li>
                             <hr class="dropdown-divider"></hr>
                         </li>

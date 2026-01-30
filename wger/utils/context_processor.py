@@ -28,11 +28,7 @@ from wger.utils.language import get_language_data
 def processor(request):
     languages_dict = dict(settings.AVAILABLE_LANGUAGES)
     full_path = request.get_full_path()
-    i18n_path = {}
     static_path = static('images/logos/logo-social.png')
-
-    for lang in settings.AVAILABLE_LANGUAGES:
-        i18n_path[lang[0]] = '/{0}/{1}'.format(lang[0], '/'.join(full_path.split('/')[2:]))
 
     # yapf: disable
     context = {
@@ -54,7 +50,6 @@ def processor(request):
         'image_absolute_path': request.build_absolute_uri(static_path),
 
         # Translation links
-        'i18n_path': i18n_path,
         'is_api_path': '/api/' in request.build_absolute_uri(),
 
         # Flag for guest users
