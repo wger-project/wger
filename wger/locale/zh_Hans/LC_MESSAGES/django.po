@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2025-07-25 05:03+0000\n"
-"Last-Translator: KW Lam <kwlam281@gmail.com>\n"
+"PO-Revision-Date: 2026-01-31 16:01+0000\n"
+"Last-Translator: youkarin <svyoukarin@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/wger/web/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -376,11 +376,11 @@ msgstr "最后一次体重记录之后经过的天数(输入0关闭提醒)"
 
 #: core/models/profile.py:379
 msgid "Enable trophies"
-msgstr ""
+msgstr "开启奖杯"
 
 #: core/models/profile.py:380
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "启用或禁用此用户的奖杯系统"
 
 #: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
@@ -729,7 +729,7 @@ msgstr "健身房"
 #: core/templates/navigation.html:403
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "奖杯"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
@@ -1097,7 +1097,7 @@ msgstr "修改密码"
 
 #: core/templates/user/registration_sidebar.html:8
 msgid "Already have an account?"
-msgstr ""
+msgstr "已有账户?"
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
@@ -1719,7 +1719,7 @@ msgstr "重复次数"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "弹力带"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -1751,22 +1751,19 @@ msgstr "无（体重锻炼）"
 
 #: i18n.tpl:41
 msgid "Beginner"
-msgstr ""
+msgstr "入门"
 
 #: i18n.tpl:42
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "内容"
+msgstr "规律"
 
 #: i18n.tpl:43
 msgid "Dedicated"
-msgstr ""
+msgstr "资深"
 
 #: i18n.tpl:44
 msgid "Obsessed"
-msgstr ""
+msgstr "狂热"
 
 #: i18n.tpl:45
 msgid "Legend"
@@ -1774,65 +1771,63 @@ msgstr "说明"
 
 #: i18n.tpl:46
 msgid "Veteran"
-msgstr ""
+msgstr "大神"
 
 #: i18n.tpl:47
 msgid "Titan"
-msgstr ""
+msgstr "泰坦"
 
 #: i18n.tpl:48
 msgid "Unstoppable"
-msgstr ""
+msgstr "战神"
 
 #: i18n.tpl:49
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "周末运动达人"
 
 #: i18n.tpl:50
 msgid "Elephant lifter"
-msgstr ""
+msgstr "力量怪兽"
 
 #: i18n.tpl:51
 msgid "Bus lifter"
-msgstr ""
+msgstr "人力起重机"
 
 #: i18n.tpl:52
 msgid "Plane lifter"
-msgstr ""
+msgstr "撼天者"
 
 #: i18n.tpl:53
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "深海巨兽"
 
 #: i18n.tpl:54
 msgid "Space Station lifter"
-msgstr ""
+msgstr "星环使者"
 
 #: i18n.tpl:55
 msgid "Millionaire"
-msgstr ""
+msgstr "百万量级"
 
 #: i18n.tpl:56
 msgid "Atlas"
-msgstr ""
+msgstr "阿特拉斯"
 
 #: i18n.tpl:57
 msgid "Early Bird"
-msgstr ""
+msgstr "早鸟"
 
 #: i18n.tpl:58
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "体重日志"
+msgstr "夜猫子"
 
 #: i18n.tpl:59
 msgid "New Year, New Me"
-msgstr ""
+msgstr "新年,蜕变"
 
 #: i18n.tpl:60
 msgid "Phoenix"
-msgstr ""
+msgstr "不死鸟"
 
 #: i18n.tpl:61
 #, fuzzy
@@ -1841,104 +1836,89 @@ msgid "Personal Record"
 msgstr "个人数据"
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "拷贝健身"
+msgstr "完成你的首次训练"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "健身示例"
+msgstr "完成10次训练"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "健身示例"
+msgstr "完成50次训练"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "健身示例"
+msgstr "完成100次训练"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "健身示例"
+msgstr "完成200次训练"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "健身示例"
+msgstr "完成500次训练"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "健身示例"
+msgstr "完成1000次训练"
 
 #: i18n.tpl:69
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "保持连续 30 天训练记录"
 
 #: i18n.tpl:70
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "连续 4 周在周六和周日完成训练"
 
 #: i18n.tpl:71
+#, fuzzy
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "累计负重达到 5,000 kg"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "累计负重达到 20,000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "累计负重达到 50,000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "累计负重达到 150,000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "累计负重达到 450,000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "累计负重达到 1,000,000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "累计负重达到 10,000,000 kg"
 
 #: i18n.tpl:78
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "在凌晨 6:00 前完成一次训练"
 
 #: i18n.tpl:79
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "在晚上 9:00 后完成一次训练"
 
 #: i18n.tpl:80
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "训练%s"
+msgstr "在 1 月 1 日完成一次训练"
 
 #: i18n.tpl:81
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "在中断 30 天后重返训练"
 
 #: i18n.tpl:82
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "在任何练习中创造新的个人纪录"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
