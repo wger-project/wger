@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-28 10:47+0000\n"
+"PO-Revision-Date: 2026-02-05 09:01+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -1029,7 +1029,7 @@ msgstr "Adresa"
 
 #: core/templates/user/overview.html:313
 msgid "Registered"
-msgstr "Registriran"
+msgstr "Registriran/a"
 
 #: core/templates/user/overview.html:317
 msgid "Last login"
@@ -1990,7 +1990,7 @@ msgstr "Ponavljanja"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr "PUR"
+msgstr "Broj ponavljanja u rezervi"
 
 #: manager/dataclasses.py:165
 msgid "rest"
