@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-22 23:48+0000\n"
+"PO-Revision-Date: 2026-02-05 09:01+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -1154,7 +1154,7 @@ msgstr "حذف {0}؟"
 #: nutrition/views/unit.py:143
 #, python-brace-format
 msgid "Edit {0}"
-msgstr ""
+msgstr "تعديل {0}"
 
 #: core/views/misc.py:74
 msgid ""
@@ -1162,77 +1162,80 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
+"لقد أنشأنا نماذج لتمارين رياضية، وجداول تمارين، وسجلات للوزن (الجسم)، وخطط "
+"تغذية، لتتمكّن من رؤية إمكانيات هذا الموقع بشكل أفضل. لا تتردّد في تعديلها أو "
+"حذفها!"
 
 #: core/views/user.py:143
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
-msgstr ""
+msgstr "تمّ حذف الحساب \"{0}\" بنجاح"
 
 #: core/views/user.py:279
 msgid "You were successfully registered"
-msgstr ""
+msgstr "تمّ تسجيلك بنجاح"
 
 #: core/views/user.py:341
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "تمّ تحديث الإعدادات بنجاح"
 
 #: core/views/user.py:380
 msgid "The user was successfully deactivated"
-msgstr ""
+msgstr "تمّ إلغاء تفعيل المستخدم بنجاح"
 
 #: core/views/user.py:417
 msgid "The user was successfully activated"
-msgstr ""
+msgstr "تمّ تفعيل المستخدم بنجاح"
 
 #: core/views/user.py:432
 msgid "Edit user"
-msgstr ""
+msgstr "تعديل المستخدم"
 
 #: core/views/user.py:587 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:158
 msgid "ID"
-msgstr ""
+msgstr "معرّف"
 
 #: core/views/user.py:588 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
 #: gym/views/gym.py:158 gym/views/gym.py:217
 msgid "Username"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: core/views/user.py:591 gym/templates/gym/new_user.html:34
 #: gym/views/export.py:58 gym/views/gym.py:217
 msgid "Gym"
-msgstr ""
+msgstr "الصالة"
 
 #: core/views/user.py:650
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "تم إرسال بريد إلكتروني للتوثيق إلى %(email)s"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
-msgstr ""
+msgstr "باللاتينية، على سبيل المثال: ”Pectoralis major“"
 
 #: exercises/models/muscle.py:47
 msgid "Alternative name"
-msgstr ""
+msgstr "اسم بديل"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "اسمٌ أبسط للعضلة"
 
 #: exercises/models/video.py:50
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "الحد الأقصى لحجم الملف هو %(size)sميجابايت."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
-msgstr ""
+msgstr "نوع الملف غير مدعوم"
 
 #: exercises/models/video.py:70
 msgid "File is not a valid video"
-msgstr ""
+msgstr "الملف ليس فيديو صالحًا"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
