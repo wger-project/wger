@@ -166,6 +166,8 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'source_url',
             'code',
             'name',
+            'common_name',
+            'brand',
             'created',
             'last_update',
             'last_imported',
