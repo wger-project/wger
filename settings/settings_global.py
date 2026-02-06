@@ -18,11 +18,11 @@ import os
 import re
 import sys
 from datetime import timedelta
+from pathlib import Path
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
-
 
 """
 This file contains the global settings that don't usually need to be changed.
@@ -30,8 +30,15 @@ For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent / 'wger'
+SITE_ROOT = Path(__file__).resolve().parent.parent / 'wger'
+
+
+# Static and media files (only during development)
+MEDIA_ROOT = BASE_DIR.parent / 'media'
+STATIC_ROOT = BASE_DIR.parent / 'static'
+MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
 
 #
 # Application definition
@@ -39,6 +46,7 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
+
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -48,10 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'storages',
-
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
-
     # Apps from wger proper
     'wger.config',
     'wger.core',
@@ -65,23 +71,16 @@ INSTALLED_APPS = [
     'wger.weight',
     'wger.gallery',
     'wger.measurements',
-
+    'wger.trophies',
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'django_recaptcha',
-
     # The sitemaps app
     'django.contrib.sitemaps',
-
     # thumbnails
     'easy_thumbnails',
-
-    # CSS/JS compressor
-    'compressor',
-
     # Form renderer helper
     'crispy_forms',
     'crispy_bootstrap5',
-
     # REST-API
     'rest_framework',
     'rest_framework.authtoken',
@@ -89,28 +88,20 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_spectacular',
     'drf_spectacular_sidecar',
-
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
-
     # CORS
     'corsheaders',
-
     # Django Axes
     'axes',
-
     # History keeping
     'simple_history',
-
     # Django email verification
     'django_email_verification',
-
     # Activity stream
     'actstream',
-
     # Fontawesome
     'fontawesomefree',
-
     # Prometheus
     'django_prometheus',
 ]
@@ -118,43 +109,33 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # Prometheus
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
-
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-
     # Auth proxy middleware
     'wger.core.middleware.AuthProxyHeaderMiddleware',
-
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
-
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
-
     # Send an appropriate Header so search engines don't index pages
     'wger.utils.middleware.RobotsExclusionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
-
     # Prometheus
     'django_prometheus.middleware.PrometheusAfterMiddleware',
-
     # Django Axes
     'axes.middleware.AxesMiddleware',  # should be the last one in the list
 ]
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
-
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
     'wger.utils.helpers.EmailAuthBackend',
@@ -166,7 +147,6 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'wger.utils.context_processor.processor',
-
                 # Django
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
@@ -175,15 +155,14 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-
                 # Breadcrumbs
-                'django.template.context_processors.request'
+                'django.template.context_processors.request',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug': False
+            'debug': False,
         },
     },
 ]
@@ -191,18 +170,15 @@ TEMPLATES = [
 # Store the user messages in the session
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+# Static files
+# https://docs.djangoproject.com/en/6.0/ref/contrib/staticfiles/
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-
-    # Django compressor
-    'compressor.finders.CompressorFinder',
 )
-
 # Additional places to copy to static files
-STATICFILES_DIRS = (
-    ('node', os.path.join(BASE_DIR, '..', 'node_modules')),
-)
+STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
+
 
 #
 # Email
@@ -294,23 +270,17 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'simple': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
-        },
+        'simple': {'format': '%(levelname)s %(asctime)s %(module)s %(message)s'},
     },
     'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
+        'console': {'level': 'DEBUG', 'class': 'logging.StreamHandler', 'formatter': 'simple'},
     },
     'loggers': {
         'wger': {
             'handlers': ['console'],
             'level': 'INFO',
         },
-    }
+    },
 }
 
 #
@@ -349,7 +319,7 @@ AXES_CACHE = 'default'
 #
 # Django Crispy Templates
 #
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 #
@@ -357,47 +327,19 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 #
 THUMBNAIL_ALIASES = {
     '': {
-        'micro': {
-            'size': (30, 30)
-        },
-        'micro_cropped': {
-            'size': (30, 30),
-            'crop': 'smart'
-        },
-        'thumbnail': {
-            'size': (80, 80)
-        },
-        'thumbnail_cropped': {
-            'size': (80, 80),
-            'crop': 'smart'
-        },
-        'small': {
-            'size': (200, 200)
-        },
-        'small_cropped': {
-            'size': (200, 200),
-            'crop': 'smart'
-        },
-        'medium': {
-            'size': (400, 400)
-        },
-        'medium_cropped': {
-            'size': (400, 400),
-            'crop': 'smart'
-        },
-        'large': {
-            'size': (800, 800),
-            'quality': 90
-        },
-        'large_cropped': {
-            'size': (800, 800),
-            'crop': 'smart',
-            'quality': 90
-        },
+        'micro': {'size': (30, 30)},
+        'micro_cropped': {'size': (30, 30), 'crop': 'smart'},
+        'thumbnail': {'size': (80, 80)},
+        'thumbnail_cropped': {'size': (80, 80), 'crop': 'smart'},
+        'small': {'size': (200, 200)},
+        'small_cropped': {'size': (200, 200), 'crop': 'smart'},
+        'medium': {'size': (400, 400)},
+        'medium_cropped': {'size': (400, 400), 'crop': 'smart'},
+        'large': {'size': (800, 800), 'quality': 90},
+        'large_cropped': {'size': (800, 800), 'crop': 'smart', 'quality': 90},
     },
 }
 
-STATIC_ROOT = ''
 USE_S3 = os.getenv('USE_S3') == 'TRUE'
 
 if USE_S3:
@@ -412,49 +354,14 @@ if USE_S3:
     AWS_LOCATION = 'static'
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    COMPRESS_URL = STATIC_URL
-    COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    COMPRESS_OFFLINE = True
-    COMPRESS_OFFLINE_CONTEXT = [
-        {
-            'request': {
-                'user_agent': {
-                    'is_mobile': True
-                }
-            },
-            'STATIC_URL': STATIC_URL
-        }, {
-            'request': {
-                'user_agent': {
-                    'is_mobile': False
-                }
-            },
-            'STATIC_URL': STATIC_URL
-        }
-    ]
 else:
     STATIC_URL = '/static/'
 
-#
-# Django compressor
-#
-
-# The default is not DEBUG, override if needed
-# COMPRESS_ENABLED = True
-COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.rCSSMinFilter',
-)
-COMPRESS_JS_FILTERS = [
-    'compressor.filters.jsmin.JSMinFilter',
-    'compressor.filters.template.TemplateFilter',
-]
-COMPRESS_ROOT = STATIC_ROOT
 
 #
 # Django Rest Framework
+# https://www.django-rest-framework.org/
 #
-# yapf: disable
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
@@ -471,16 +378,14 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
-    'DEFAULT_THROTTLE_RATES': {
-        'login': '10/min',
-        'registration': '5/min'
-    },
+    'DEFAULT_THROTTLE_RATES': {'login': '10/min', 'registration': '5/min'},
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
-# yapf: enable
 
-# Api docs
-# yapf: disable
+#
+# API docs
+# https://drf-spectacular.readthedocs.io/en/latest/
+#
 SPECTACULAR_SETTINGS = {
     'TITLE': 'wger',
     'SERVERS': [
@@ -494,9 +399,8 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
-    'COMPONENT_SPLIT_REQUEST': True
+    'COMPONENT_SPLIT_REQUEST': True,
 }
-# yapf: enable
 
 #
 # Django Rest Framework SimpleJWT
@@ -568,6 +472,9 @@ WGER_SETTINGS = {
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
+    # Trophy system settings
+    'TROPHIES_ENABLED': True,  # Global toggle to enable/disable trophy system
+    'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
 
 #
@@ -615,3 +522,8 @@ ACTSTREAM_SETTINGS = {
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+
+# Your reCaptcha keys
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
+NOCAPTCHA = True

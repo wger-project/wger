@@ -95,33 +95,33 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     exercise = models.ForeignKey(
         Exercise,
-        verbose_name=_('Exercise'),
+        verbose_name='Exercise',
         on_delete=models.CASCADE,
     )
     """The exercise the video belongs to"""
 
     is_main = models.BooleanField(
-        verbose_name=_('Main video'),
+        verbose_name='Is main video',
         default=False,
     )
     """A flag indicating whether the video is the exercise's main one"""
 
     video = models.FileField(
-        verbose_name=_('Video'),
+        verbose_name='Video',
         upload_to=exercise_video_upload_dir,
         validators=[validate_video],
     )
     """Uploaded video"""
 
     size = models.IntegerField(
-        verbose_name=_('Size'),
+        verbose_name='Size',
         default=0,
         editable=False,
     )
     """The video filesize, in bytes"""
 
     duration = models.DecimalField(
-        verbose_name=_('Duration'),
+        verbose_name='Duration',
         default=0,
         editable=False,
         max_digits=12,
@@ -130,21 +130,21 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """The video duration, in seconds"""
 
     width = models.IntegerField(
-        verbose_name=_('Width'),
+        verbose_name='Width',
         default=0,
         editable=False,
     )
     """The video width, in pixels"""
 
     height = models.IntegerField(
-        verbose_name=_('Height'),
+        verbose_name='Height',
         default=0,
         editable=False,
     )
     """The video height, in pixels"""
 
     codec = models.CharField(
-        verbose_name=_('Codec'),
+        verbose_name='Codec',
         max_length=30,
         default='',
         editable=False,
@@ -152,7 +152,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """The video codec"""
 
     codec_long = models.CharField(
-        verbose_name=_('Codec, long name'),
+        verbose_name='Codec, long name',
         max_length=100,
         default='',
         editable=False,
@@ -160,13 +160,13 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """The video codec, in full"""
 
     created = models.DateTimeField(
-        _('Date'),
+        verbose_name='Date',
         auto_now_add=True,
     )
     """The creation time"""
 
     last_update = models.DateTimeField(
-        _('Date'),
+        verbose_name='Date',
         auto_now=True,
     )
     """Datetime of last modification"""

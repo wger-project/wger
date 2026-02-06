@@ -115,11 +115,6 @@ class WgerPermissionMixin:
 class WgerFormMixin(ModelFormMixin):
     template_name = 'form.html'
 
-    custom_js = ''
-    """
-    Custom javascript to be executed.
-    """
-
     form_action = ''
     form_action_urlname = ''
 
@@ -162,9 +157,6 @@ class WgerFormMixin(ModelFormMixin):
         context = super(WgerFormMixin, self).get_context_data(**kwargs)
         context['sidebar'] = self.sidebar
         context['title'] = self.title
-
-        # Custom JS code on form (autocompleter, editor, etc.)
-        context['custom_js'] = self.custom_js
 
         return context
 

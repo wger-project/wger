@@ -41,15 +41,18 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
 WORKDIR /home/wger/src
 COPY README.md pyproject.toml package.json package-lock.json package-lock.json /home/wger/src/
 COPY wger/version.py wger/__init__.py /home/wger/src/wger/
-COPY wger/core/static /root/src/wger/core/static
+COPY wger/core/static /home/wger/src/wger/core/static
 RUN npm ci --production \
     && npm run build:css:sass \
     && PACKAGE_NAME="@wger-project/react-components" \
     && PACKAGE_VERSION=$(node -p "require('./package.json').devDependencies['$PACKAGE_NAME']") \
     && TARBALL=$(npm pack ${PACKAGE_NAME}@${PACKAGE_VERSION}) \
     && mkdir -p node_modules/${PACKAGE_NAME} \
-    && tar -xzf ${TARBALL} -C node_modules/${PACKAGE_NAME} --strip-components=1
-
+    && tar -xzf ${TARBALL} -C node_modules/${PACKAGE_NAME} --strip-components=1 \
+    && pip3 wheel \
+      --no-cache-dir \
+      --wheel-dir /wheels \
+      --group docker .
 
 ########
 # Final
@@ -101,19 +104,24 @@ USER wger
 WORKDIR /home/wger/src
 RUN python3 -m venv /home/wger/venv
 
-# Change permissions of some files and folders so the apache process
-# can access them.
+# Configure the application
+ENV PYTHONPATH=/home/wger/src
+ENV DJANGO_SETTINGS_MODULE=settings.main
+ENV MEDIA_ROOT=/home/wger/media
+ENV STATIC_ROOT=/home/wger/static
+ENV DJANGO_DB_DATABASE=/home/wger/db/database.sqlite
+ENV DJANGO_CACHE_BACKEND=django.core.cache.backends.locmem.LocMemCache
+
+# Change permissions of some files and folders so the apache process can access them.
 RUN mkdir -p ~/static/CACHE ~/media \
     && ln -s /home/wger/static/CACHE /home/wger/src/CACHE \
     && chmod g+w /home/wger/static/CACHE
 
 RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels  . /home/wger/venv/bin/activate \
-    && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
     && pip install -e . \
-    && wger create-settings --database-path /home/wger/db/database.sqlite \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
-    && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py \
+    && mkdir -p /home/wger/db \
+    && . /home/wger/venv/bin/activate \
     && wger bootstrap --no-process-static \
     && python3 manage.py sync-exercises \
     && wger load-online-fixtures \

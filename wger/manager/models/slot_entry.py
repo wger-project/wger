@@ -29,7 +29,6 @@ from typing import (
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import (
@@ -119,7 +118,7 @@ class SlotEntry(models.Model):
 
     weight_unit = models.ForeignKey(
         WeightUnit,
-        verbose_name=_('Unit'),
+        verbose_name='Unit',
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
         null=True,
@@ -214,6 +213,12 @@ class SlotEntry(models.Model):
                 )
             if not self.weight_rounding:
                 self.weight_rounding = self.slot.day.routine.user.userprofile.weight_rounding
+
+            # Auto-calculate order if not provided
+            if self.order is None:
+                max_order = self.slot.entries.aggregate(models.Max('order'))['order__max']
+                self.order = (max_order or 0) + 1
+
         return super().save(*args, **kwargs)
 
     def get_owner_object(self):

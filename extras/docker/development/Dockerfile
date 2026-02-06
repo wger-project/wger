@@ -10,8 +10,8 @@ USER root
 
 WORKDIR /home/wger/src
 RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
-    apt update && \
-    apt install --no-install-recommends -y \
+    && apt update \
+    && apt install --no-install-recommends -y \
         git \
         vim \
         nodejs \

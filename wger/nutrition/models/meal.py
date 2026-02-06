@@ -19,7 +19,6 @@ import logging
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.fields import Html5TimeField
@@ -45,27 +44,25 @@ class Meal(models.Model):
 
     plan = models.ForeignKey(
         NutritionPlan,
-        verbose_name=_('Nutrition plan'),
+        verbose_name='Nutrition plan',
         editable=False,
         on_delete=models.CASCADE,
     )
     order = models.IntegerField(
-        verbose_name=_('Order'),
+        verbose_name='Order',
         blank=True,
         editable=False,
     )
     time = Html5TimeField(
         null=True,
         blank=True,
-        verbose_name=_('Time (approx)'),
+        verbose_name='Time (approx)',
     )
     name = models.CharField(
         max_length=25,
         blank=True,
-        verbose_name=_('Name'),
-        help_text=_(
-            'Give meals a textual description / name such as "Breakfast" or "after workout"'
-        ),
+        verbose_name='Name',
+        help_text='Give meals a textual description / name such as "Breakfast" or "after workout"',
     )
 
     def __str__(self):

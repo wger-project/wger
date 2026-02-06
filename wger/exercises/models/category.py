@@ -16,7 +16,6 @@
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class ExerciseCategory(models.Model):
@@ -26,12 +25,12 @@ class ExerciseCategory(models.Model):
 
     name = models.CharField(
         max_length=100,
-        verbose_name=_('Name'),
+        verbose_name='Name',
     )
 
     # Metaclass to set some other properties
     class Meta:
-        verbose_name_plural = _('Exercise Categories')
+        verbose_name_plural = 'Exercise Categories'
         ordering = [
             'name',
         ]

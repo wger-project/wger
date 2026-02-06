@@ -58,6 +58,29 @@ class SlotEntryTestCase(WgerTestCase):
         )
         self.slot_entry.save()
 
+    def test_auto_add_order(self):
+        """
+        Test that the order is automatically added if not provided
+        """
+        SlotEntry.objects.filter(slot_id=1).delete()
+
+        slot_entry_1 = SlotEntry(slot_id=1, exercise_id=1)
+        slot_entry_1.save()
+
+        slot_entry_2 = SlotEntry(slot_id=1, exercise_id=2, order=None)
+        slot_entry_2.save()
+
+        slot_entry_3 = SlotEntry(slot_id=1, exercise_id=3, order=7)
+        slot_entry_3.save()
+
+        slot_entry_4 = SlotEntry(slot_id=1, exercise_id=3)
+        slot_entry_4.save()
+
+        self.assertEqual(slot_entry_1.order, 1)
+        self.assertEqual(slot_entry_2.order, 2)
+        self.assertEqual(slot_entry_3.order, 7)
+        self.assertEqual(slot_entry_4.order, 8)
+
     def test_weight_config(self):
         """
         Test that the weight is correctly calculated for each step / iteration

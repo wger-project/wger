@@ -3,13 +3,6 @@
 
 {% block header %}
     {{ form.media }}
-    {% if custom_js %}
-        <script type="text/javascript">
-            $(document).ready(function () {
-                {{ custom_js|safe }}
-            });
-        </script>
-    {% endif %}
 {% endblock %}
 
 {% block title %}{{ title }}{% endblock %}

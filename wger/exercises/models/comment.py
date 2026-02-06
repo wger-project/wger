@@ -19,7 +19,6 @@ import uuid
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from simple_history.models import HistoricalRecords
@@ -46,14 +45,14 @@ class ExerciseComment(models.Model):
 
     translation = models.ForeignKey(
         Translation,
-        verbose_name=_('Exercise'),
+        verbose_name='Exercise',
         on_delete=models.CASCADE,
     )
 
     comment = models.CharField(
         max_length=200,
-        verbose_name=_('Comment'),
-        help_text=_('A comment about how to correctly do this exercise.'),
+        verbose_name='Comment',
+        help_text='A comment about how to correctly do this exercise.',
     )
 
     history = HistoricalRecords()
