@@ -12,7 +12,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.8",
-    "datatables.net-bs5": "^2.3.6",
+    "datatables.net-bs5": "^2.3.7",
     "htmx.org": "^2.0.8",
     "jquery": "^4.0.0"
   },
