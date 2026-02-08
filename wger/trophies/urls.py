@@ -26,7 +26,7 @@ from .views import TrophiesOverview
 urlpatterns = [
     path(
         '',
-        ReactView.as_view(),
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     path(
