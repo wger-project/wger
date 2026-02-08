@@ -394,7 +394,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         model = Translation
         fields = (
             'name',
-            'description',
+            'description_source',
             'language',
             'aliases',
             'comments',
@@ -414,7 +414,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         )
 
         language = data.get('language')
-        description = data.get('description')
+        description = data.get('description_source')
 
         # Try to detect the language
         detected_language = detector.detect_language_of(description)
