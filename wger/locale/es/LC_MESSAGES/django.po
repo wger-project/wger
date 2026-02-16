@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2025-10-16 08:08+0000\n"
-"Last-Translator: v7mbz <weblate.v7mbz@simplelogin.com>\n"
+"PO-Revision-Date: 2026-02-17 22:09+0000\n"
+"Last-Translator: David Peñas <github-1029@odemasin.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -393,11 +393,11 @@ msgstr ""
 
 #: core/models/profile.py:379
 msgid "Enable trophies"
-msgstr ""
+msgstr "Activar trofeos"
 
 #: core/models/profile.py:380
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Activar o desactivar sistema de trofeos para este usuario"
 
 #: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
@@ -751,7 +751,7 @@ msgstr "Gimnasios"
 #: core/templates/navigation.html:403
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Trofeos"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
@@ -1130,7 +1130,7 @@ msgstr "Cambiar contraseña"
 
 #: core/templates/user/registration_sidebar.html:8
 msgid "Already have an account?"
-msgstr ""
+msgstr "¿Tienes ya una cuenta?"
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
@@ -1792,22 +1792,19 @@ msgstr "ninguno (ejercicio de peso corporal)"
 
 #: i18n.tpl:41
 msgid "Beginner"
-msgstr ""
+msgstr "Principiante"
 
 #: i18n.tpl:42
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Contenido"
+msgstr "Consistente"
 
 #: i18n.tpl:43
 msgid "Dedicated"
-msgstr ""
+msgstr "Dedicado"
 
 #: i18n.tpl:44
 msgid "Obsessed"
-msgstr ""
+msgstr "Obsesionado"
 
 #: i18n.tpl:45
 msgid "Legend"
@@ -1815,171 +1812,151 @@ msgstr "Leyenda"
 
 #: i18n.tpl:46
 msgid "Veteran"
-msgstr ""
+msgstr "Veterano"
 
 #: i18n.tpl:47
 msgid "Titan"
-msgstr ""
+msgstr "Titán"
 
 #: i18n.tpl:48
 msgid "Unstoppable"
-msgstr ""
+msgstr "Imparable"
 
 #: i18n.tpl:49
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Guerrero del fin de semana"
 
 #: i18n.tpl:50
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Levantador de elefantes"
 
 #: i18n.tpl:51
 msgid "Bus lifter"
-msgstr ""
+msgstr "Levantador de autobuses"
 
 #: i18n.tpl:52
 msgid "Plane lifter"
-msgstr ""
+msgstr "Levantador de aviones"
 
 #: i18n.tpl:53
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Levantador de ballenas azules"
 
 #: i18n.tpl:54
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Levantador de estación espacial"
 
 #: i18n.tpl:55
 msgid "Millionaire"
-msgstr ""
+msgstr "Millonario"
 
 #: i18n.tpl:56
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:57
 msgid "Early Bird"
-msgstr ""
+msgstr "Madrugador"
 
 #: i18n.tpl:58
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Registro de peso"
+msgstr "Ave nocturna"
 
 #: i18n.tpl:59
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Año nuevo, nuevo yo"
 
 #: i18n.tpl:60
 msgid "Phoenix"
-msgstr ""
+msgstr "Fénix"
 
 #: i18n.tpl:61
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Datos personales"
+msgstr "Récord personal"
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Copiar rutina"
+msgstr "Completa tu primer entrenamiento"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Rutina de ejemplo"
+msgstr "Completa 10 entrenamientos"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Rutina de ejemplo"
+msgstr "Completa 50 entrenamientos"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Rutina de ejemplo"
+msgstr "Completa 100 entrenamientos"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Rutina de ejemplo"
+msgstr "Completa 200 entrenamientos"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Rutina de ejemplo"
+msgstr "Completa 500 entrenamientos"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Rutina de ejemplo"
+msgstr "Completa 1000 entrenamientos"
 
 #: i18n.tpl:69
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Mantener una racha de entrenamiento de 30 días"
 
 #: i18n.tpl:70
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Entrenar en sábado y domingo durante 4 fines de semana consecutivos"
 
 #: i18n.tpl:71
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 5000 kg"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 20000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 50000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 150000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 450000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 1000000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Levantar un peso acumulado de 10000000 kg"
 
 #: i18n.tpl:78
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Completar un entrenamiento antes de las 6:00 AM"
 
 #: i18n.tpl:79
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Completar un entrenamiento después de las 9:00 PM"
 
 #: i18n.tpl:80
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Rutina para %s"
+msgstr "Entrenar el 1 de enero"
 
 #: i18n.tpl:81
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Volver a entrenar después de 30 días inactivo"
 
 #: i18n.tpl:82
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Alcanzar un nuevo récord personal en cualquier ejercicio"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
