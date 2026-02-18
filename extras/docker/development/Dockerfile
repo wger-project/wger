@@ -16,6 +16,8 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
         vim \
         nodejs \
         sassc \
+    && corepack enable \
+    && corepack install -g yarn \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && ln -s /usr/bin/sassc /usr/bin/sass
