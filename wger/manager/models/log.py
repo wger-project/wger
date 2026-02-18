@@ -200,6 +200,31 @@ class WorkoutLog(models.Model):
     """
     Target Reps in Reserve
     """
+    bpm_max = models.PositiveIntegerField(
+        verbose_name=_('Bpm max.'),
+        blank=True,
+        null=True,
+    )
+    """
+    Logged maximum heart rate
+    """
+
+    bpm_avg = models.PositiveIntegerField(
+        verbose_name=_('Bpm (Ø)'),
+        blank=True,
+        null=True,
+    )
+    """
+    Logged average heart rate
+    """
+    duration = models.DurationField(
+        verbose_name=_('Duration'),
+        blank=True,
+        null=True,
+    )
+    """
+    Logged duration of the exercise (e.g. for cardio)
+    """
 
     rest = models.PositiveIntegerField(
         blank=True,
