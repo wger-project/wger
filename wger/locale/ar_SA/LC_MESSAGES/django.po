@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-02-17 22:09+0000\n"
+"PO-Revision-Date: 2026-02-19 21:09+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -459,7 +459,7 @@ msgstr "هل أنت متأكد من رغبتك في حذف هذا؟ لا يمك�
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verification"
-msgstr "التحقق من البريد الإلكتروني"
+msgstr "توثيق البريد الإلكتروني"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -468,7 +468,7 @@ msgstr "%(username)s، تم توثيق بريدك الإلكتروني"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr "خطأ، رمز تحقق غير صالح"
+msgstr "خطأ، رمز توثيق غير صالح"
 
 #: core/templates/email_verification/email_body_html.tpl:6
 msgid "Email Confirmation"
@@ -1266,7 +1266,7 @@ msgstr "تغييرات"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr "إرجاع"
+msgstr "تراجع"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
@@ -1278,237 +1278,238 @@ msgstr "عرض التغييرات"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "التراجع عن التغييرات"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
-msgstr ""
+msgstr "نظرة عامة على العضلات"
 
 #: exercises/views/categories.py:72
 msgid "Add category"
-msgstr ""
+msgstr "إضافة فئة"
 
 #: exercises/views/categories.py:121
 msgid "This will also delete all exercises in this category."
-msgstr ""
+msgstr "سيؤدي هذا أيضًا إلى حذف جميع التمارين في هذه الفئة."
 
 #: exercises/views/equipment.py:92
 msgid "Add new equipment"
-msgstr ""
+msgstr "إضافة معدات جديدة"
 
 #: exercises/views/equipment.py:104 exercises/views/equipment.py:115
 msgid "Delete equipment?"
-msgstr ""
+msgstr "حذف المعدات؟"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
-msgstr ""
+msgstr "إضافة عضلة"
 
 #: gallery/templates/images/overview.html:72
 msgid "Add image"
-msgstr ""
+msgstr "إضافة صورة"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
-msgstr ""
+msgstr "مدرب"
 
 #: gym/forms.py:62
 msgid "Gym administrator"
-msgstr ""
+msgstr "مدير الصالة"
 
 #: gym/forms.py:64 gym/templates/gym/member_list.html:52
 msgid "General manager"
-msgstr ""
+msgstr "مدير عام"
 
 #: gym/forms.py:98
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
+msgstr "مطلوب. ٣٠ حرفًا أو أقل. حروف، أرقام ورموز @/./+/-/_ فقط."
 
 #: gym/forms.py:100
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr ""
+msgstr "قد تحتوي هذه القيمة على حروف وأرقام ورموز @/./-/_ فقط."
 
 #: gym/forms.py:114
 msgid "A user with that username already exists."
-msgstr ""
+msgstr "يوجد مستخدم بهذا الاسم بالفعل."
 
 #: gym/management/commands/inactive-members.py:95 gym/models/gym_config.py:44
 msgid "Reminder of inactive members"
-msgstr ""
+msgstr "تذكير للأعضاء غير النشطين"
 
 #: gym/models/admin_user_note.py:67 gym/models/contract.py:305
 #: gym/models/user_document.py:93 gym/templates/contract/view.html:96
 msgid "Note"
-msgstr ""
+msgstr "ملحوظة"
 
 #: gym/models/contract.py:143
 msgid "Yearly"
-msgstr ""
+msgstr "سنوي"
 
 #: gym/models/contract.py:144
 msgid "Half yearly"
-msgstr ""
+msgstr "نصف سنوي"
 
 #: gym/models/contract.py:145
 msgid "Monthly"
-msgstr ""
+msgstr "شهري"
 
 #: gym/models/contract.py:146
 msgid "Biweekly"
-msgstr ""
+msgstr "كل أسبوعين"
 
 #: gym/models/contract.py:147
 msgid "Weekly"
-msgstr ""
+msgstr "أسبوعي"
 
 #: gym/models/contract.py:148
 msgid "Daily"
-msgstr ""
+msgstr "يومي"
 
 #: gym/models/contract.py:194 gym/templates/contract/view.html:34
 msgid "Contract type"
-msgstr ""
+msgstr "نوع العقد"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
 #: nutrition/forms.py:58
 msgid "Amount"
-msgstr ""
+msgstr "الكمية"
 
 #: gym/models/contract.py:221 gym/templates/contract/view.html:63
 msgid "Payment type"
-msgstr ""
+msgstr "نوع الدفع"
 
 #: gym/models/contract.py:225
 msgid "How often the amount will be charged to the member"
-msgstr ""
+msgstr "كم مرة سيتم تحميل المبلغ على العضو"
 
 #: gym/models/contract.py:231 gym/templates/contract/view.html:24
 msgid "Contract is active"
-msgstr ""
+msgstr "العقد سارٍ"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
 msgid "Start date"
-msgstr ""
+msgstr "تاريخ البدء"
 
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
 msgid "End date"
-msgstr ""
+msgstr "تاريخ الانتهاء"
 
 #: gym/models/contract.py:263 gym/models/gym.py:73 gym/views/export.py:65
 msgid "ZIP code"
-msgstr ""
+msgstr "الرمز البريدي"
 
 #: gym/models/contract.py:271 gym/models/gym.py:81 gym/views/export.py:66
 msgid "City"
-msgstr ""
+msgstr "المدينة"
 
 #: gym/models/contract.py:279 gym/models/gym.py:89 gym/views/export.py:67
 msgid "Street"
-msgstr ""
+msgstr "الشارع"
 
 #: gym/models/contract.py:295 gym/templates/contract/view.html:92
 msgid "Profession"
-msgstr ""
+msgstr "المهنة"
 
 #: gym/models/gym.py:33
 msgid "Trainer: can see the users for a gym"
-msgstr ""
+msgstr "المدرب: يمكنه رؤية مستخدمي الصالة"
 
 #: gym/models/gym.py:34
 msgid "Admin: can manage users for a gym"
-msgstr ""
+msgstr "المسؤول: يمكنه إدارة المستخدمين في الصالة"
 
 #: gym/models/gym.py:35
 msgid "Admin: can administrate the different gyms"
-msgstr ""
+msgstr "المسؤول: يمكنه إدارة الصالات المختلفة"
 
 #: gym/models/gym.py:65 gym/templates/gym/member_list.html:126
 msgid "Owner"
-msgstr ""
+msgstr "المالك"
 
 #: gym/models/gym_config.py:46
 msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
-msgstr ""
+msgstr "عدد الأسابيع منذ آخر مرة سجل فيها مستخدم حضوره ليتم اعتباره غير نشط"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
 msgid "Show name in header"
-msgstr ""
+msgstr "عرض الاسم في المقدمة"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "عرض اسم الصالة الرياضية في مقدمة الموقع"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
-msgstr ""
+msgstr "نظرة عامة على الأعضاء غير النشطين"
 
 #: gym/models/user_config.py:66
 msgid "Receive email overviews of inactive members"
-msgstr ""
+msgstr "تلقَّ ملخصات عبر البريد الإلكتروني للأعضاء غير النشطين"
 
 #: gym/models/user_config.py:93
 msgid "Include this user in the email list with inactive members"
-msgstr ""
+msgstr "أضف هذا المستخدم إلى قائمة البريد الإلكتروني للأعضاء غير النشطين"
 
 #: gym/models/user_document.py:72
 msgid "Document"
-msgstr ""
+msgstr "مستند"
 
 #: gym/models/user_document.py:85
 msgid "Will use file name if nothing provided"
-msgstr ""
+msgstr "‎سيتم استخدام اسم الملف إذا لم يتم توفير أي شيء"
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
-msgstr ""
+msgstr "ملاحظات المستخدم"
 
 #: gym/templates/contract/list.html:34
 msgid "Show"
-msgstr "العرض"
+msgstr "عرض"
 
 #: gym/templates/contract/view.html:4
 msgid "Contract"
-msgstr ""
+msgstr "العقد"
 
 #: gym/templates/contract_option/list.html:4
 msgid "Contract options"
-msgstr ""
+msgstr "خيارات العقد"
 
 #: gym/templates/contract_type/list.html:4
 msgid "Contract types"
-msgstr ""
+msgstr "أنواع العقود"
 
 #: gym/templates/gym/email_inactive_members.html:2
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
 msgstr ""
+"لم يزر المستخدمون التاليون الصالة الرياضية خلال %(weeks)s من الأسابيع الماضية"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
-msgstr ""
+msgstr "قائمة الصالة"
 
 #: gym/templates/gym/list.html:53
 msgid "Global gym configuration"
-msgstr ""
+msgstr "تكوين الصالة العالمية"
 
 #: gym/templates/gym/list.html:69 gym/views/gym.py:171
 msgid "Add new gym"
-msgstr ""
+msgstr "إضافة صالة جديدة"
 
 #: gym/templates/gym/member_list.html:22
 msgid "Administrators and trainers"
-msgstr ""
+msgstr "المسؤولون والمدربون"
 
 #: gym/templates/gym/member_list.html:48
 msgid "Gym manager"
-msgstr ""
+msgstr "مدير الصالة"
 
 #: gym/templates/gym/member_list.html:76
 msgid "This gym has no administrators or trainers"
-msgstr ""
+msgstr "لا يوجد في هذه الصالة أي مسؤولين أو مدربين"
 
 #: gym/templates/gym/member_list.html:98
 msgid "Export"
