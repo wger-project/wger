@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-02-18 17:16+0000\n"
+"PO-Revision-Date: 2026-02-19 21:09+0000\n"
 "Last-Translator: saraswathi <saraswathirajkumar18@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/wger/web/ta/>\n"
 "Language: ta\n"
@@ -54,12 +54,12 @@ msgstr ""
 #: core/templates/user/registration_sidebar.html:12
 #: software/templates/features.html:82 software/templates/features.html:448
 msgid "Login"
-msgstr ""
+msgstr "உள்நுழை"
 
 #: core/forms.py:130 core/forms.py:244 gym/views/export.py:61
 #: gym/views/gym.py:217
 msgid "First name"
-msgstr ""
+msgstr "முதல் பெயர்"
 
 #: core/forms.py:131 core/forms.py:245 core/templates/user/overview.html:284
 #: gym/views/export.py:62 gym/views/gym.py:217
@@ -91,7 +91,7 @@ msgstr "தனிப்பட்ட விவரங்கள்"
 
 #: core/forms.py:189
 msgid "Workout reminders"
-msgstr ""
+msgstr "பயிற்சி நினைவூட்டல்"
 
 #: core/forms.py:196
 msgid "Other settings"
@@ -105,19 +105,20 @@ msgstr ""
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
+"கடவுச்சொல் மீட்பு மற்றும் விருப்பமான மின்னஞ்சல் நினைவூட்டல்களுக்குப் பயன்படுத்தப்படுகிறது."
 
 #: core/forms.py:240
 msgid "This e-mail address is already in use."
-msgstr ""
+msgstr "மின்னஞ்சல் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது."
 
 #: core/forms.py:261 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
-msgstr ""
+msgstr "கடவுச்சொல்"
 
 #: core/forms.py:263
 msgid "Please enter your current password."
-msgstr ""
+msgstr "உங்கள் தற்போதைய கடவுச்சொல்லை உள்ளிடவும்."
 
 #: core/forms.py:272 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
@@ -134,11 +135,11 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:215
 #: nutrition/templates/units/list.html:25
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #: core/forms.py:281
 msgid "Invalid password"
-msgstr ""
+msgstr "தவறான கடவுச்சொல்"
 
 #: core/forms.py:293
 msgid "The form is secured with reCAPTCHA"
@@ -149,7 +150,7 @@ msgstr ""
 #: core/templates/user/login.html:21 core/views/user.py:285
 #: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
-msgstr ""
+msgstr "பதிவு செய்"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -157,15 +158,15 @@ msgstr ""
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
-msgstr ""
+msgstr "மொழியின் முழுப் பெயர்"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
 msgid "Language full name in English"
-msgstr ""
+msgstr "ஆங்கிலத்தில் மொழியின் முழுப் பெயர்"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "முழுப் பெயர்"
 
 #: core/models/license.py:31
 msgid ""
@@ -192,11 +193,11 @@ msgstr ""
 
 #: core/models/profile.py:66
 msgid "Male"
-msgstr ""
+msgstr "ஆண்"
 
 #: core/models/profile.py:67
 msgid "Female"
-msgstr ""
+msgstr "பெண்"
 
 #: core/models/profile.py:74
 msgid "Low"
