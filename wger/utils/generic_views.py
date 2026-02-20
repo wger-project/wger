@@ -31,8 +31,6 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import ModelFormMixin
 
 # Third Party
-import bleach
-from bleach.css_sanitizer import CSSSanitizer
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -46,6 +44,7 @@ from wger.utils.constants import (
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
 )
+from wger.utils.markdown import sanitize_html
 
 
 logger = logging.getLogger(__name__)
@@ -142,7 +141,7 @@ class WgerFormMixin(ModelFormMixin):
 
     clean_html = ()
     """
-    List of form fields that should be passed to bleach to clean the html
+    List of form fields that should be passed to wger.utils.markdown to clean the html
     """
 
     messages = ''
@@ -229,17 +228,9 @@ class WgerFormMixin(ModelFormMixin):
         """
 
         for field in self.clean_html:
-            setattr(
-                form.instance,
-                field,
-                bleach.clean(
-                    getattr(form.instance, field),
-                    tags=HTML_TAG_WHITELIST,
-                    attributes=HTML_ATTRIBUTES_WHITELIST,
-                    css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
-                    strip=True,
-                ),
-            )
+            raw_value = getattr(form.instance, field)
+            clean_value = sanitize_html(raw_value)
+            setattr(form.instance, field, clean_value)
 
         if self.get_messages():
             messages.success(self.request, self.get_messages())

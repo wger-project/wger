@@ -394,7 +394,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         model = Translation
         fields = (
             'name',
-            'description',
+            'description_source',
             'language',
             'aliases',
             'comments',
@@ -414,7 +414,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         )
 
         language = data.get('language')
-        description = data.get('description')
+        description = data.get('description_source')
 
         # Try to detect the language
         detected_language = detector.detect_language_of(description)
@@ -468,6 +468,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
+    description_source = serializers.CharField(required=False, allow_blank=True)
     exercise = serializers.PrimaryKeyRelatedField(
         queryset=Exercise.objects.all(),
         required=True,
@@ -481,10 +482,13 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             'name',
             'exercise',
             'description',
+            'description_source',
             'created',
             'language',
             'license_author',
         )
+
+    read_only_fields = 'description'  # Prevents API from accepting raw HTML
 
     def validate(self, value):
         """
