@@ -77,10 +77,28 @@ class IngredientListView(ListView):
 
     def get_queryset(self):
         """
-        Filter the ingredients the user will see by its language
+        Filter the ingredients the user will see by its language, optionally
+        also filtering by dietary properties (is_vegan, is_vegetarian).
         """
         language = load_language()
-        return Ingredient.objects.filter(language=language)
+        queryset = Ingredient.objects.filter(language=language)
+
+        if self.request.GET.get('is_vegan'):
+            queryset = queryset.filter(is_vegan=True)
+
+        if self.request.GET.get('is_vegetarian'):
+            queryset = queryset.filter(is_vegetarian=True)
+
+        return queryset
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Bypass the page-level cache when dietary filters are active so that
+        filtered results are always fresh.
+        """
+        if request.GET.get('is_vegan') or request.GET.get('is_vegetarian'):
+            return super(ListView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 def view(request, pk, slug=None):
