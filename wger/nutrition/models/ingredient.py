@@ -254,6 +254,24 @@ class Ingredient(AbstractLicenseModel, models.Model):
         blank=True,
     )
 
+    is_vegan = models.BooleanField(
+        verbose_name='Vegan',
+        help_text='Whether the ingredient is suitable for a vegan diet',
+        null=True,
+        blank=True,
+        default=None,
+    )
+    """Dietary classification from Open Food Facts ingredients_analysis_tags"""
+
+    is_vegetarian = models.BooleanField(
+        verbose_name='Vegetarian',
+        help_text='Whether the ingredient is suitable for a vegetarian diet',
+        null=True,
+        blank=True,
+        default=None,
+    )
+    """Dietary classification from Open Food Facts ingredients_analysis_tags"""
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [
