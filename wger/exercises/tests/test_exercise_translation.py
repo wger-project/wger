@@ -240,7 +240,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         translation = Translation.objects.get(pk=self.pk)
-        self.assertEqual(translation.description, 'alert(); The wild boar is a suid native...')
+        self.assertEqual(translation.description, ' The wild boar is a suid native...')
 
     def test_post_only_one_language_per_base(self):
         """
