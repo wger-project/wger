@@ -20,21 +20,21 @@ def set_unit_types(apps, schema_editor):
 
     # Time-based units
     RepetitionUnit.objects.filter(id__in=[3, 4]).update(unit_type='TIME')
+    RepetitionUnit.objects.filter(id=3).update(multiplier=1)  # Seconds -> base unit for time
+    RepetitionUnit.objects.filter(id=4).update(multiplier=60)  # Minutes -> 60 seconds
 
     # Distance-based units
-    RepetitionUnit.objects.filter(id__in=[5, 6]).update(unit_type='DISTANCE')
+    RepetitionUnit.objects.filter(id__in=[5, 6, 8]).update(unit_type='DISTANCE')
+    RepetitionUnit.objects.filter(id=8).update(multiplier=1)  # Meters -> base unit for distance
+    RepetitionUnit.objects.filter(id=6).update(multiplier=1000)  # Kilometers -> 1000 meters
+    RepetitionUnit.objects.filter(id=5).update(multiplier=1609)  # Miles -> 1609 meters
 
     # Repetition-based units (already default, but explicit for clarity)
     RepetitionUnit.objects.filter(id__in=[1, 2, 7]).update(unit_type='REPETITIONS')
-
-
-def reverse_unit_types(apps, schema_editor):
-    """Reverse migration - no action needed since field will be removed"""
-    pass
+    RepetitionUnit.objects.filter(id=1).update(multiplier=1)
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0020_add_trophies_enabled_to_userprofile'),
     ]
@@ -55,5 +55,19 @@ class Migration(migrations.Migration):
                 verbose_name='Unit Type',
             ),
         ),
-        migrations.RunPython(set_unit_types, reverse_unit_types),
+        migrations.AddField(
+            model_name='repetitionunit',
+            name='multiplier',
+            field=models.PositiveIntegerField(
+                blank=True,
+                help_text='Multiplier to convert this unit to a base unit. Time units are converted\n        to seconds, distance units to meters, and repetitions remain unchanged. For example:\n        minutes -> 60, kilometers -> 1000. Leave empty if a multiplier does not apply.',
+                null=True,
+                verbose_name='Multiplier',
+            ),
+        ),
+        migrations.AlterModelOptions(
+            name='repetitionunit',
+            options={'ordering': ['unit_type', 'name']},
+        ),
+        migrations.RunPython(set_unit_types, reverse_code=migrations.RunPython.noop),
     ]

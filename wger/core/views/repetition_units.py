@@ -74,7 +74,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = RepetitionUnit
-    fields = ('name',)
+    fields = ('name', 'unit_type', 'multiplier')
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.change_repetitionunit'
 

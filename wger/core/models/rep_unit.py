@@ -40,16 +40,27 @@ class RepetitionUnit(models.Model):
         """
 
         ordering = [
+            'unit_type',
             'name',
         ]
 
     name = models.CharField(max_length=100, verbose_name=_('Name'))
+
     unit_type = models.CharField(
         max_length=20,
         choices=UNIT_TYPE_CHOICES,
         default=UNIT_TYPE_REPETITIONS,
         verbose_name=_('Unit Type'),
         help_text=_('The type of unit (repetitions, time, or distance)'),
+    )
+
+    multiplier = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name='Multiplier',
+        help_text="""Multiplier to convert this unit to a base unit. Time units are converted
+        to seconds, distance units to meters, and repetitions remain unchanged. For example:
+        minutes -> 60, kilometers -> 1000. Leave empty if a multiplier does not apply.""",
     )
 
     def __str__(self):

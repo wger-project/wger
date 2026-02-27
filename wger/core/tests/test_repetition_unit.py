@@ -123,7 +123,7 @@ class EditTestCase(WgerEditTestCase):
     pk = 1
     object_class = RepetitionUnit
     url = 'core:repetition-unit:edit'
-    data = {'name': 'Furlongs'}
+    data = {'name': 'Furlongs', 'unit_type': RepetitionUnit.UNIT_TYPE_DISTANCE, 'multiplier': 201}
     user_success = ('admin',)
     user_fail = (
         'general_manager1',
