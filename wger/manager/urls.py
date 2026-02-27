@@ -25,7 +25,6 @@ from wger.manager.views import (
     ical,
     pdf,
     routine,
-    timer,
 )
 
 
@@ -130,7 +129,4 @@ urlpatterns = [
     path('', include((patterns_routine, 'routine'), namespace='routine')),
     path('templates/', include((patterns_templates, 'template'), namespace='template')),
     path('<int:routine_pk>/day/', include((patterns_days, 'day'), namespace='day')),
-    path('timer-demo/', timer.timer_demo, name='timer-demo'),
-    path('add-timed-exercise/', timer.add_timed_exercise, name='add-timed-exercise'),
-    path('api/days/<int:routine_id>/', timer.get_days_for_routine, name='api-days'),
 ]
