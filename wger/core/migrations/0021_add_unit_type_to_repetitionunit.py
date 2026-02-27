@@ -36,7 +36,7 @@ def reverse_unit_types(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0019_delete_daysofweek'),
+        ('core', '0020_add_trophies_enabled_to_userprofile'),
     ]
 
     operations = [
