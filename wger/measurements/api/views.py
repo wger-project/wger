@@ -18,8 +18,11 @@
 # Standard Library
 import logging
 
+# Django
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
+
 # Third Party
-from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 # wger
@@ -32,12 +35,13 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
 logger = logging.getLogger(__name__)
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
+class CategoryViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for measurement units
     """
@@ -64,8 +68,14 @@ class CategoryViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(User, 'user')]
 
-class MeasurementViewSet(viewsets.ModelViewSet):
+
+class MeasurementViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for measurements
     """
@@ -75,6 +85,12 @@ class MeasurementViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_class = MeasurementEntryFilterSet
+
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(Category, 'category')]
 
     def get_queryset(self):
         """

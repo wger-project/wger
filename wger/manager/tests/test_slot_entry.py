@@ -58,6 +58,29 @@ class SlotEntryTestCase(WgerTestCase):
         )
         self.slot_entry.save()
 
+    def test_auto_add_order(self):
+        """
+        Test that the order is automatically added if not provided
+        """
+        SlotEntry.objects.filter(slot_id=1).delete()
+
+        slot_entry_1 = SlotEntry(slot_id=1, exercise_id=1)
+        slot_entry_1.save()
+
+        slot_entry_2 = SlotEntry(slot_id=1, exercise_id=2, order=None)
+        slot_entry_2.save()
+
+        slot_entry_3 = SlotEntry(slot_id=1, exercise_id=3, order=7)
+        slot_entry_3.save()
+
+        slot_entry_4 = SlotEntry(slot_id=1, exercise_id=3)
+        slot_entry_4.save()
+
+        self.assertEqual(slot_entry_1.order, 1)
+        self.assertEqual(slot_entry_2.order, 2)
+        self.assertEqual(slot_entry_3.order, 7)
+        self.assertEqual(slot_entry_4.order, 8)
+
     def test_weight_config(self):
         """
         Test that the weight is correctly calculated for each step / iteration
@@ -457,6 +480,53 @@ class SlotEntryTestCase(WgerTestCase):
                 rest=90,
             ),
         )
+
+    def test_requirements_sets_null_values(self):
+        """
+        Test that the sets are correctly calculated if there are requirements but
+        some values are null (e.g. there is a rule to check for RiR but there is no
+        RiR config)
+        """
+
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 2
+        self.slot_entry.save()
+
+        # Initial values
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=4).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=80,
+        ).save()
+
+        # Increase weight by 2.5 at iteration 2, depends on RiR
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['rir']},
+        ).save()
+
+        # Logs
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_entry=self.slot_entry,
+            iteration=1,
+            weight=None,
+            rest=80,
+            repetitions=4,
+            rir=2,
+        ).save()
+
+        config_data = self.slot_entry.get_config_data(2)
+        self.assertEqual(config_data.rir, None)
+        self.assertEqual(config_data.weight, 80)
 
     def test_weight_config_with_logs_and_range(self):
         """

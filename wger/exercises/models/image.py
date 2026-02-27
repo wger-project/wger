@@ -20,7 +20,6 @@ import uuid
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from simple_history.models import HistoricalRecords
@@ -55,11 +54,11 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     PHOTO = '4'
     OTHER = '5'
     STYLE = (
-        (LINE_ART, _('Line')),
-        (THREE_D, _('3D')),
-        (LOW_POLY, _('Low-poly')),
-        (PHOTO, _('Photo')),
-        (OTHER, _('Other')),
+        (LINE_ART, 'Line'),
+        (THREE_D, '3D'),
+        (LOW_POLY, 'Low-poly'),
+        (PHOTO, 'Photo'),
+        (OTHER, 'Other'),
     )
 
     uuid = models.UUIDField(
@@ -72,13 +71,13 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
 
     exercise = models.ForeignKey(
         Exercise,
-        verbose_name=_('Exercise'),
+        verbose_name='Exercise',
         on_delete=models.CASCADE,
     )
     """The exercise the image belongs to"""
 
     image = models.ImageField(
-        verbose_name=_('Image'),
+        verbose_name='Image',
         help_text='Only JPEG, PNG and WebP formats are supported',
         upload_to=exercise_image_upload_dir,
         validators=[validate_image_static_no_animation],
@@ -88,7 +87,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     """Uploaded image"""
 
     height = models.PositiveIntegerField(
-        verbose_name=_('Height'),
+        verbose_name='Height',
         null=True,
         blank=True,
         editable=False,
@@ -96,7 +95,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     """Image height"""
 
     width = models.PositiveIntegerField(
-        verbose_name=_('Width'),
+        verbose_name='Width',
         null=True,
         blank=True,
         editable=False,
@@ -104,7 +103,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     """Image width"""
 
     is_main = models.BooleanField(
-        verbose_name=_('Main picture'),
+        verbose_name='Is main picture',
         default=False,
     )
     """A flag indicating whether the image is the exercise's main image"""

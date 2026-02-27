@@ -22,6 +22,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import (
     AuthenticationForm,
+    PasswordResetForm,
     UserCreationForm,
 )
 from django.contrib.auth.models import User
@@ -31,7 +32,6 @@ from django.forms import (
     EmailField,
     Form,
     PasswordInput,
-    widgets,
 )
 from django.utils.translation import (
     gettext as _,
@@ -286,7 +286,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
     """
 
     captcha = ReCaptchaField(
-        widget=ReCaptchaV3,
+        widget=ReCaptchaV3(action='register'),
         label='reCaptcha',
         help_text=gettext_lazy('The form is secured with reCAPTCHA'),
     )
@@ -342,36 +342,20 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
         )
 
 
-class FeedbackRegisteredForm(forms.Form):
-    """
-    Feedback form used for logged-in users
-    """
-
-    contact = forms.CharField(
-        max_length=50,
-        min_length=10,
-        label=gettext_lazy('Contact'),
-        help_text=gettext_lazy('Some way of answering you (e-mail, etc.)'),
-        required=False,
-    )
-
-    comment = forms.CharField(
-        max_length=500,
-        min_length=10,
-        widget=widgets.Textarea,
-        label=gettext_lazy('Comment'),
-        help_text=gettext_lazy('What do you want to say?'),
-        required=True,
-    )
-
-
-class FeedbackAnonymousForm(FeedbackRegisteredForm):
-    """
-    Feedback form used for anonymous users (has additionally a reCAPTCHA field)
-    """
-
+class PasswordResetFormCaptcha(PasswordResetForm):
     captcha = ReCaptchaField(
-        widget=ReCaptchaV3,
+        widget=ReCaptchaV3(action='password_reset'),
         label='reCaptcha',
         help_text=gettext_lazy('The form is secured with reCAPTCHA'),
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            'email',
+            'captcha',
+            ButtonHolder(Submit('submitBtn', _('Submit'), css_class='btn-success btn-block')),
+        )

@@ -24,7 +24,6 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class WeightEntry(models.Model):
@@ -32,16 +31,16 @@ class WeightEntry(models.Model):
     Model for a weight point
     """
 
-    date = models.DateTimeField(verbose_name=_('Date'))
+    date = models.DateTimeField(verbose_name='Date')
     weight = models.DecimalField(
-        verbose_name=_('Weight'),
+        verbose_name='Weight',
         max_digits=5,
         decimal_places=2,
         validators=[MinValueValidator(Decimal(30)), MaxValueValidator(Decimal(600))],
     )
     user = models.ForeignKey(
         User,
-        verbose_name=_('User'),
+        verbose_name='User',
         on_delete=models.CASCADE,
     )
     """
@@ -59,7 +58,7 @@ class WeightEntry(models.Model):
         Metaclass to set some other properties
         """
 
-        verbose_name = _('Weight entry')
+        verbose_name = 'Weight entry'
         ordering = [
             'date',
         ]

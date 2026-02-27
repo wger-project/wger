@@ -4,6 +4,7 @@
 {% block title %}{{ingredient.name}}{% endblock %}
 
 {% block header %}
+<script src="{% static 'node/jquery/dist/jquery.js' %}"></script>
 <script>
 $(document).ready(function() {
     wgerInitIngredientDetail("{% url 'api-ingredient-get-values' ingredient.id %}");

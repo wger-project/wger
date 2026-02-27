@@ -29,22 +29,21 @@ classifiers = [
 
 dependencies = [
     "bleach[css]~=6.3",
-    "celery[redis]~=5.5.3",
-    "crispy-bootstrap5==2025.6",
+    "celery[redis]~=5.6.0",
+    "crispy-bootstrap5~=2025.6",
     "django-activity-stream~=2.0.0",
-    "django-axes[ipware]~=8.0.0",
+    "django-axes[ipware]~=8.3.1",
     "django-bootstrap-breadcrumbs2==1.0.0",
-    "django-compressor~=4.6.0",
     "django-cors-headers~=4.9.0",
     "django-crispy-forms~=2.5",
     "django-email-verification~=0.3.3",
-    "django-environ~=0.12.0",
+    "django-environ~=0.13.0",
     "django-filter~=25.2",
     "django-formtools~=2.5",
     "django-prometheus~=2.4.1",
     "django-recaptcha~=4.1.0",
     "django-redis~=6.0.0",
-    "django-simple-history~=3.10.1",
+    "django-simple-history~=3.11.0",
     "django-sortedm2m~=4.0.0",
     "django-storages~=1.14.6",
     "djangorestframework-simplejwt[crypto]~=5.5.1",
@@ -58,31 +57,31 @@ dependencies = [
     "icalendar~=6.3.2",
     "invoke~=2.2.1",
     "lingua-language-detector~=2.1.1",
-    "openfoodfacts~=3.3.0",
-    "packaging~=25.0",
-    "pillow~=12.0.0",
-    "psycopg~=3.2.12",
+    "openfoodfacts~=3.4.5",
+    "packaging~=26.0",
+    "pillow~=12.1.1",
+    "psycopg[binary]~=3.3.2",
     "reportlab~=4.4.5",
     "requests~=2.32.5",
     "tqdm~=4.67.1",
-    "tzdata~=2025.2",
+    "tzdata~=2025.3",
 ]
 
 [dependency-groups]
 dev = [
-    "coverage~=7.12.0",
-    "django-debug-toolbar~=6.1.0",
+    "coverage~=7.13.0",
+    "django-debug-toolbar~=6.2.0",
     "django-extensions~=4.1",
-    "faker~=38.2.0",
-    "hatchling~=1.27.0",
+    "faker~=40.1.2",
+    "hatchling~=1.28.0",
     "isort~=7.0.0",
-    "ruff~=0.14.2",
+    "ruff~=0.15.2",
     "tblib~=3.2.0",
-    "wheel==0.45.1",
+    "wheel==0.46.3",
 ]
 
 docker = [
-    "gunicorn~=23.0.0",
+    "gunicorn~=25.1.0",
 ]
 
 
@@ -165,7 +164,7 @@ line-ending = "auto"
 src_paths = ["wger", "extras"]
 
 sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-skip = ["extras", "build", "dist", "node_modules", "migrations", "docs", "settings.py", "apps.py"]
+skip = ["extras", "build", "dist", "node_modules", "migrations", "docs", "settings", "apps.py"]
 # If set to true - ensures that if a star import is present, nothing else is
 # imported from that namespace.
 combine_star = false

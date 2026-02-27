@@ -28,22 +28,18 @@ from wger.utils.language import get_language_data
 def processor(request):
     languages_dict = dict(settings.AVAILABLE_LANGUAGES)
     full_path = request.get_full_path()
-    i18n_path = {}
     static_path = static('images/logos/logo-social.png')
 
-    for lang in settings.AVAILABLE_LANGUAGES:
-        i18n_path[lang[0]] = '/{0}/{1}'.format(lang[0], '/'.join(full_path.split('/')[2:]))
-
-    # yapf: disable
+    # fmt: off
     context = {
         'mastodon': settings.WGER_SETTINGS.get('MASTODON', ''),
         'twitter': settings.WGER_SETTINGS.get('TWITTER', ''),
+        'allow_registration': settings.WGER_SETTINGS.get('ALLOW_REGISTRATION', False),
 
         # Languages
-        'i18n_language':
-            get_language_data(
-                (get_language(), languages_dict.get(get_language(), ENGLISH_SHORT_NAME)),
-            ),
+        'i18n_language': get_language_data(
+            (get_language(), languages_dict.get(get_language(), ENGLISH_SHORT_NAME)),
+        ),
         'languages': settings.AVAILABLE_LANGUAGES,
 
         # The current path
@@ -54,7 +50,6 @@ def processor(request):
         'image_absolute_path': request.build_absolute_uri(static_path),
 
         # Translation links
-        'i18n_path': i18n_path,
         'is_api_path': '/api/' in request.build_absolute_uri(),
 
         # Flag for guest users
@@ -72,26 +67,25 @@ def processor(request):
         # current gym, if available
         'custom_header': get_custom_header(request),
     }
-    # yapf: enable
+    # fmt: on
 
     # Pseudo-intelligent navigation here
-    if (
-        '/software/' in request.get_full_path()
-        or '/contact' in request.get_full_path()
-        or '/api/v2' in request.get_full_path()
-    ):
+    if '/software/' in full_path or '/contact' in full_path or '/api/v2' in full_path:
         context['active_tab'] = constants.SOFTWARE_TAB
 
-    elif '/exercise/' in request.get_full_path():
-        context['active_tab'] = constants.WORKOUT_TAB
-
-    elif '/nutrition/' in request.get_full_path():
+    elif '/nutrition/' in full_path:
         context['active_tab'] = constants.NUTRITION_TAB
 
-    elif '/weight/' in request.get_full_path():
+    elif '/weight/' in full_path:
         context['active_tab'] = constants.WEIGHT_TAB
 
-    elif '/workout/' in request.get_full_path():
+    elif (
+        '/routine/' in full_path
+        or '/measurement/' in full_path
+        or '/exercise/' in full_path
+        or '/gallery/' in full_path
+        or '/trophies/' in full_path
+    ):
         context['active_tab'] = constants.WORKOUT_TAB
 
     return context

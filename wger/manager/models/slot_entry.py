@@ -1,5 +1,5 @@
 #  This file is part of wger Workout Manager <https://github.com/wger-project>.
-#  Copyright (C) 2013 - 2021 wger Team
+#  Copyright (C) 2013 - 2026 wger Team
 #
 #  wger Workout Manager is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published by
@@ -21,6 +21,7 @@ import importlib
 import logging
 from decimal import Decimal
 from typing import (
+    Callable,
     Dict,
     List,
 )
@@ -29,7 +30,6 @@ from typing import (
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import (
@@ -45,6 +45,7 @@ from wger.manager.dataclasses import (
     SetConfigData,
     round_value,
 )
+from wger.manager.models import WorkoutLog
 from wger.manager.models.abstract_config import (
     AbstractChangeConfig,
     OperationChoices,
@@ -119,7 +120,7 @@ class SlotEntry(models.Model):
 
     weight_unit = models.ForeignKey(
         WeightUnit,
-        verbose_name=_('Unit'),
+        verbose_name='Unit',
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
         null=True,
@@ -214,6 +215,12 @@ class SlotEntry(models.Model):
                 )
             if not self.weight_rounding:
                 self.weight_rounding = self.slot.day.routine.user.userprofile.weight_rounding
+
+            # Auto-calculate order if not provided
+            if self.order is None:
+                max_order = self.slot.entries.aggregate(models.Max('order'))['order__max']
+                self.order = (max_order or 0) + 1
+
         return super().save(*args, **kwargs)
 
     def get_owner_object(self):
@@ -371,6 +378,19 @@ class SlotEntry(models.Model):
             'max_sets': 1,
         }
 
+        def _requirement_met(log: WorkoutLog, field_name: str) -> bool:
+            """Checks if the requirements for a single field are met for this log"""
+
+            log_value = getattr(log, field_name, None)
+            if log_value is None:
+                return False
+
+            min_value = min_values.get(field_name)
+            if min_value is None:
+                return False
+
+            return log_value >= min_value
+
         for i in range(1, iteration + 1):
             configs = self.load_all_configs(i)['last']
 
@@ -386,23 +406,40 @@ class SlotEntry(models.Model):
 
                 if not requirements:
                     max_iterations[field] = i
-                    # logger.debug(f'No requirements for {field} in iteration {i}')
                     continue
+
+                # Precompute threshold values for all required fields once per iteration
+                # to avoid recalculating them for every log entry.
+                min_values: Dict[str, Decimal | None] = {}
+                for req_field in requirements.rules:
+                    calc_fn: Callable[[int], Decimal | None] | None = getattr(
+                        self, f'calculate_{req_field}', None
+                    )
+                    if not callable(calc_fn):
+                        logger.error(
+                            f'Missing method calculate_{req_field} on SlotEntry {self.id}',
+                        )
+                        min_values[req_field] = None
+                        continue
+
+                    try:
+                        min_values[req_field] = calc_fn(max_iterations[req_field])
+                    except Exception as e:
+                        logger.error(
+                            f'Error during calculate_{req_field} for SlotEntry {self.id}: {e}',
+                        )
+                        min_values[req_field] = None
 
                 # Field has requirements, check if they are met
                 # logger.debug(f'Requirements for {field} in iteration {i}: {requirements.rules}')
                 for log in log_data:
+                    # If any log satisfies all required fields for the config, the field is ready
                     all_fields_met = all(
-                        getattr(log, req_field) is not None
-                        and getattr(log, req_field)
-                        >= getattr(self, f'calculate_{req_field}')(max_iterations[req_field])
-                        for req_field in requirements.rules
+                        _requirement_met(log, req_field) for req_field in requirements.rules
                     )
-                    # logger.debug(f'all_fields_met for {field} in iteration {i}: {all_fields_met}')
-
                     if all_fields_met:
                         max_iterations[field] = i
-                        continue
+                        break
 
         sets = self.calculate_sets(max_iterations['sets'])
         max_sets = self.calculate_maxsets(max_iterations['max_sets'])
@@ -462,8 +499,6 @@ class SlotEntry(models.Model):
     # Note: don't rename these methods, they are accessed in get_config via getattr
     #
     def calculate_sets(self, iteration: int) -> Decimal | None:
-        # logger.debug(f'calculate_sets for slot entry {self.id} and iteration {iteration}')
-
         return self.calculate_config_value(
             self.duplicate_configs(
                 iteration,

@@ -93,8 +93,6 @@ def fetch_commits_from_github(repo_name, github_token):
             print(f'Error fetching commits: {e}')
             break
 
-        break
-
     return commits
 
 

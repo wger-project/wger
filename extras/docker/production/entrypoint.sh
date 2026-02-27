@@ -6,25 +6,28 @@
 #   * (optionally) Download JS and CSS files
 #   * (optionally) Compile custom bootstrap theme
 
+# TODO: remove the warning after some time, e.g. after 2026-06-01
 if [ "$YARN_PROCESS_STATIC" == "True" ]; then
-    yarn_static=""
-else
-    yarn_static="--no-process-static"
+then
+    echo "The option YARN_PROCESS_STATIC has been removed as this step happens during "
+    echo "the image's build process. If you really need this to run, manually call the "
+    echo "bootstrap process with: 'docker compose exec web wger bootstrap'"
+    exit 1
 fi
 
-wger bootstrap $yarn_static
+wger bootstrap --no-process-static
 
 # Collect static files
 if [ "$DJANGO_CLEAR_STATIC_FIRST" == "False" ]; then
-    clear=""
+    clear_static=""
 else
-    clear="--clear"
+    clear_static="--clear"
 fi
 
-if [[ "$DJANGO_DEBUG" == "False" ]];
+if [[ "$DJANGO_DEBUG" == "False" && "${DJANGO_COLLECTSTATIC_ON_STARTUP:-True}" == "True"  ]];
 then
     echo "Running in production mode, running collectstatic now"
-    python3 manage.py collectstatic --no-input $clear
+    python3 manage.py collectstatic --no-input $clear_static
 fi
 
 # Perform database migrations
@@ -65,19 +68,21 @@ fi
 # Sync ingredients
 if [[ "$SYNC_INGREDIENTS_ON_STARTUP" == "True" ]];
 then
-    echo "Syncing ingredients"
-    python3 manage.py sync-ingredients
+    echo "The option SYNC_INGREDIENTS_ON_STARTUP is not supported anymore as it needs several hours to complete."
+    echo "Please start the process manually with: docker compose exec web python3 manage.py sync-ingredients"
+    exit 1
 fi
 
 # Set the site URL
 python3 manage.py set-site-url
 
 # Run the server
+PORT="${WGER_PORT:-8000}"
 if [[ "$WGER_USE_GUNICORN" == "True" ]];
 then
-    echo "Using gunicorn..."
-    gunicorn wger.wsgi:application --preload --bind 0.0.0.0:8000
+    echo "Using gunicorn on port $PORT..."
+    gunicorn wger.wsgi:application --preload --bind 0.0.0.0:$PORT
 else
-    echo "Using django's development server..."
-    python3 manage.py runserver 0.0.0.0:8000
+    echo "Using django's development server on port $PORT..."
+    python3 manage.py runserver 0.0.0.0:$PORT
 fi

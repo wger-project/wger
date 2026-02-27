@@ -54,12 +54,9 @@
     <div class="row">
         {% for image in images %}
             <div class="col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalImage{{ image.id }}">
-                        <img class="card-img-top" src="{{ image.image.url }}"
-                             alt="{{ image.description }}">
-                    </a>
-                </div>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalImage{{ image.id }}">
+                    <img class="w-100 rounded" src="{{ image.image.url }}" alt="{{ image.description }}">
+                </a>
             </div>
         {% endfor %}
     </div>

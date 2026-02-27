@@ -1,5 +1,5 @@
 #  https://docs.docker.com/build/ci/github-actions/multi-platform/
-name: Build and push production Docker images
+name: Build production Docker images
 
 on:
   workflow_dispatch:
@@ -44,7 +44,7 @@ jobs:
           # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
-            type=raw,value=2.4-dev
+            type=raw,value=2.5-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
@@ -58,7 +58,7 @@ jobs:
           install: true
 
       - name: Cache Docker layers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/.buildx-cache
           key: multi-buildx-${{ matrix.platform }}-${{ hashFiles('requirements*.txt') }}
@@ -100,7 +100,7 @@ jobs:
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: digests-${{ env.PLATFORM_PAIR }}
           path: /tmp/digests/*
@@ -118,7 +118,7 @@ jobs:
       - build-prod
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           path: /tmp/digests
           pattern: digests-*
@@ -133,7 +133,7 @@ jobs:
         with:
           tags: |
             type=raw,value=latest
-            type=raw,value=2.4-dev
+            type=raw,value=2.5-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 

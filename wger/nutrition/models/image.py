@@ -20,7 +20,6 @@ import uuid
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.helpers import BaseImage
@@ -56,8 +55,8 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
     """Image for this ingredient"""
 
     image = models.ImageField(
-        verbose_name=_('Image'),
-        help_text=_('Only PNG and JPEG formats are supported'),
+        verbose_name='Image',
+        help_text='Only PNG and JPEG formats are supported',
         upload_to=ingredient_image_upload_dir,
         height_field='height',
         width_field='width',

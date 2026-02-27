@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import logging
+
 # Django
 from django.conf import settings
 from django.core.cache import cache
@@ -42,6 +45,9 @@ from wger.exercises.models import (
 )
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
+
+
+logger = logging.getLogger(__name__)
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -329,8 +335,8 @@ class MuscleSerializer(serializers.ModelSerializer):
     Muscle serializer
     """
 
-    image_url_main = serializers.CharField()
-    image_url_secondary = serializers.CharField()
+    image_url_main = serializers.SerializerMethodField()
+    image_url_secondary = serializers.SerializerMethodField()
 
     class Meta:
         model = Muscle
@@ -342,6 +348,28 @@ class MuscleSerializer(serializers.ModelSerializer):
             'image_url_main',
             'image_url_secondary',
         )
+
+    def get_image_url_main(self, obj: Muscle):
+        """Build absolute URL to muscle image"""
+
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(obj.image_url_main)
+
+        # no host available
+        logger.info('Cannot build absolute URL for main muscle image without request context')
+        return None
+
+    def get_image_url_secondary(self, obj: Muscle):
+        """Build absolute URL to muscle image"""
+
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(obj.image_url_secondary)
+
+        # no host available
+        logger.info('Cannot build absolute URL for secondary muscle image without request context')
+        return None
 
 
 class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):

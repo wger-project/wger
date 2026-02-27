@@ -33,6 +33,7 @@ from wger.core.views import (
     user,
     weight_units,
 )
+from wger.core.views.react import ReactView
 
 
 # sub patterns for languages
@@ -62,6 +63,7 @@ patterns_language = [
         languages.LanguageCreateView.as_view(),
         name='add',
     ),
+    path('browser_language/', languages.use_browser_language, name='browser_language'),
 ]
 
 # sub patterns for user
@@ -195,18 +197,11 @@ patterns_weight_units = [
 urlpatterns = [
     # The landing page
     path('', misc.index, name='index'),
-    # The dashboard
-    path('dashboard', misc.dashboard, name='dashboard'),
-    # Others
+    path('dashboard', ReactView.as_view(login_required=True), name='dashboard'),
     path(
         'imprint',
         TemplateView.as_view(template_name='misc/about.html'),
         name='imprint',
-    ),
-    path(
-        'feedback',
-        misc.FeedbackClass.as_view(),
-        name='feedback',
     ),
     path('language/', include((patterns_language, 'language'), namespace='language')),
     path('user/', include((patterns_user, 'user'), namespace='user')),
