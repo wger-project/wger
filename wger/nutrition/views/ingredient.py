@@ -87,15 +87,6 @@ class IngredientListView(ListView):
         filterset = self.filterset_class(self.request.GET or None, queryset=queryset)
         return filterset.qs
 
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Bypass the page-level cache when dietary filters are active so that
-        filtered results are always fresh.
-        """
-        if request.GET.get('is_vegan') or request.GET.get('is_vegetarian'):
-            return super(ListView, self).dispatch(request, *args, **kwargs)
-        return super().dispatch(request, *args, **kwargs)
-
 
 def view(request, pk, slug=None):
     context = {}

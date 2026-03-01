@@ -102,9 +102,7 @@ class Command(ImportProductCommand):
             try:
                 ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
             except (KeyError, ValueError) as e:
-                self.stdout.write(
-                    f'--> Error while extracting info from OFF: {e}'
-                )
+                self.stdout.write(f'--> Error while extracting info from OFF: {e}')
                 self.counter['skipped'] += 1
             else:
                 self.process_ingredient(ingredient_data)
