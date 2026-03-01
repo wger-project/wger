@@ -487,6 +487,11 @@ class IngredientModelTestCase(WgerTestCase):
             'generic_name': 'Foo with chocolate, 250g package',
             'brands': 'The bar company',
             'editors_tags': ['open food facts', 'MrX'],
+            'ingredients_analysis_tags': [
+                'en:palm-oil-free',
+                'en:vegan',
+                'en:vegetarian',
+            ],
             'nutriments': {
                 'energy-kcal_100g': 120,
                 'proteins_100g': 10,
@@ -521,6 +526,8 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.fiber, None)
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
+        self.assertTrue(ingredient.is_vegan)
+        self.assertTrue(ingredient.is_vegetarian)
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api):
