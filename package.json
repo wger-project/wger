@@ -12,12 +12,12 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.8",
-    "datatables.net-bs5": "^2.3.6",
+    "datatables.net-bs5": "^2.3.7",
     "htmx.org": "^2.0.8",
     "jquery": "^4.0.0"
   },
   "devDependencies": {
-    "@wger-project/react-components": "26.1.18"
+    "@wger-project/react-components": "26.2.26"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"

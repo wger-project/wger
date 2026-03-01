@@ -569,15 +569,15 @@ wheels = [
 
 [[package]]
 name = "django-axes"
-version = "8.1.0"
+version = "8.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b5/60/82817a23327f4633e2015bb8e34a133d5fad3903ae384f7d7116759bd3a6/django_axes-8.1.0.tar.gz", hash = "sha256:92cae514b6270d4b76c7afa657d5988c28b7c6ac1ce367c368eea2dd976199e7", size = 253181, upload-time = "2025-12-19T19:44:12.27Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f0/b4/00c701a22d46288e3eb1340a1c141f5b4002572ce836a3e8d069f1e1de8a/django_axes-8.3.1.tar.gz", hash = "sha256:d57e923c0ba33cf45275253dd1313c3a3ff04bec686b38d677beb2b3d43c7bcd", size = 254715, upload-time = "2026-02-11T20:19:52.172Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/34/c8/83620d6a281487dcd97cbe28b0a3684702b3c251159a46091e25501de46d/django_axes-8.1.0-py3-none-any.whl", hash = "sha256:50117de17d189497a01d0544a9977b5136764c513085cf15138084de9dd81993", size = 73731, upload-time = "2025-12-19T19:44:04.216Z" },
+    { url = "https://files.pythonhosted.org/packages/46/f6/777a5df7d5698eeb23c7c496cc268c0181f0489dbc5b5f2b235b30e5d8dd/django_axes-8.3.1-py3-none-any.whl", hash = "sha256:f7887582fd12713064f1602091ff6152752becae5e891a15bf802746cab0f51a", size = 74213, upload-time = "2026-02-11T20:19:48.646Z" },
 ]
 
 [package.optional-dependencies]
@@ -1016,14 +1016,14 @@ wheels = [
 
 [[package]]
 name = "gunicorn"
-version = "25.0.3"
+version = "25.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "packaging" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f3/e5/e1d2225d2b75fe4988821715d2c526fdf7b39f4a7260aa7e2bb4b25ec65c/gunicorn-25.0.3.tar.gz", hash = "sha256:b53a7fff1a07b825b962af320554de44ae77a26abfa373711ff3f83d57d3506d", size = 9702357, upload-time = "2026-02-07T16:53:52.72Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/66/13/ef67f59f6a7896fdc2c1d62b5665c5219d6b0a9a1784938eb9a28e55e128/gunicorn-25.1.0.tar.gz", hash = "sha256:1426611d959fa77e7de89f8c0f32eed6aa03ee735f98c01efba3e281b1c47616", size = 594377, upload-time = "2026-02-13T11:09:58.989Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/84/117f39896ded517149be72d16c02252885690e9b0d1b84281944928f61aa/gunicorn-25.0.3-py3-none-any.whl", hash = "sha256:aca364c096c81ca11acd4cede0aaeea91ba76ca74e2c0d7f879154db9d890f35", size = 171728, upload-time = "2026-02-07T16:53:49.546Z" },
+    { url = "https://files.pythonhosted.org/packages/da/73/4ad5b1f6a2e21cf1e85afdaad2b7b1a933985e2f5d679147a1953aaa192c/gunicorn-25.1.0-py3-none-any.whl", hash = "sha256:d0b1236ccf27f72cfe14bce7caadf467186f19e865094ca84221424e839b8b8b", size = 197067, upload-time = "2026-02-13T11:09:57.146Z" },
 ]
 
 [[package]]
@@ -1196,16 +1196,16 @@ wheels = [
 
 [[package]]
 name = "openfoodfacts"
-version = "3.3.0"
+version = "3.4.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
     { name = "requests" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/d8/47afc11d46c2677d9a6b626c879e0803be6b54e764774e112e2c8be4054f/openfoodfacts-3.3.0.tar.gz", hash = "sha256:656dd98a4e620dc70899528359e75b7a773773cf8e420edcc352c31f5fa2aec1", size = 71254, upload-time = "2025-11-20T10:38:13.772Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4c/35/59ed4e448cdc6da9be5f01f29781024cd4e431369bf404f23150acc7b69f/openfoodfacts-3.4.5.tar.gz", hash = "sha256:03107591ab9ac99210337012e7481315aaa0f72fdf9850fc24718aa0f9a2845f", size = 60850, upload-time = "2026-02-23T14:40:38.775Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/76/9e/e51fc2002464a6e21701e445184db416e63ed16ace765e7473282eb50358/openfoodfacts-3.3.0-py3-none-any.whl", hash = "sha256:cdca761569a17266a80d2e93bdc863090bfa51c1c5548c6c8582c3351abc24a3", size = 65507, upload-time = "2025-11-20T10:38:12.536Z" },
+    { url = "https://files.pythonhosted.org/packages/60/bf/1fdfa307b16c70eee3ead5924354ba9da2e347d6302609517cf80207846c/openfoodfacts-3.4.5-py3-none-any.whl", hash = "sha256:d0154533fd923ef24711b94f4bfa2950766b98a77a1065d76a6247ca67cedeeb", size = 63759, upload-time = "2026-02-23T14:40:37.702Z" },
 ]
 
 [[package]]
@@ -2175,7 +2175,7 @@ requires-dist = [
     { name = "crispy-bootstrap5", specifier = "~=2025.6" },
     { name = "django", specifier = "~=5.2.8" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
-    { name = "django-axes", extras = ["ipware"], specifier = "~=8.1.0" },
+    { name = "django-axes", extras = ["ipware"], specifier = "~=8.3.1" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },
     { name = "django-crispy-forms", specifier = "~=2.5" },
@@ -2199,7 +2199,7 @@ requires-dist = [
     { name = "icalendar", specifier = "~=6.3.2" },
     { name = "invoke", specifier = "~=2.2.1" },
     { name = "lingua-language-detector", specifier = "~=2.1.1" },
-    { name = "openfoodfacts", specifier = "~=3.3.0" },
+    { name = "openfoodfacts", specifier = "~=3.4.5" },
     { name = "packaging", specifier = "~=26.0" },
     { name = "pillow", specifier = "~=12.1.1" },
     { name = "psycopg", extras = ["binary"], specifier = "~=3.3.2" },
@@ -2221,7 +2221,7 @@ dev = [
     { name = "tblib", specifier = "~=3.2.0" },
     { name = "wheel", specifier = "==0.46.3" },
 ]
-docker = [{ name = "gunicorn", specifier = "~=25.0.3" }]
+docker = [{ name = "gunicorn", specifier = "~=25.1.0" }]
 
 [[package]]
 name = "wheel"

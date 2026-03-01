@@ -280,7 +280,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Routine, 'workout')]
+        return [(Routine, 'routine')]
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
