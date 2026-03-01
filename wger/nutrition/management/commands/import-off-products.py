@@ -36,7 +36,7 @@ class Command(ImportProductCommand):
     Import an Open Food facts Dump
     """
 
-    help = 'Import an Open Food Facts dump. Please consult extras/docker/open-food-facts'
+    help = 'Import an Open Food Facts dump'
 
     deltas_base_url = 'https://static.openfoodfacts.org/data/delta/'
     full_off_dump_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
@@ -63,7 +63,7 @@ class Command(ImportProductCommand):
             help='Downloads and imports the most recent delta file',
         )
 
-    def import_mongo(self, languages: dict[str:int]):
+    def import_mongo(self, languages: dict[str, int]):
         try:
             # Third Party
             from pymongo import MongoClient
@@ -82,7 +82,7 @@ class Command(ImportProductCommand):
             else:
                 self.process_ingredient(ingredient_data)
 
-    def import_daily_delta(self, languages: dict[str:int], destination: str):
+    def import_daily_delta(self, languages: dict[str, int], destination: str):
         download_folder, tmp_folder = self.get_download_folder(destination)
 
         # Fetch the index page with requests and read the result
@@ -103,7 +103,7 @@ class Command(ImportProductCommand):
                 ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
             except (KeyError, ValueError) as e:
                 self.stdout.write(
-                    f'--> {ingredient_data.remote_id=} Error while extracting info from OFF: {e}'
+                    f'--> Error while extracting info from OFF: {e}'
                 )
                 self.counter['skipped'] += 1
             else:
@@ -113,7 +113,7 @@ class Command(ImportProductCommand):
             self.stdout.write(f'Removing temporary folder {download_folder}')
             tmp_folder.cleanup()
 
-    def import_full_dump(self, languages: dict[str:int], destination: str):
+    def import_full_dump(self, languages: dict[str, int], destination: str):
         download_folder, tmp_folder = self.get_download_folder(destination)
 
         file_path = os.path.join(download_folder, os.path.basename(self.full_off_dump_url))
