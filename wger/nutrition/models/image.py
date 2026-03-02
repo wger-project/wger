@@ -22,8 +22,11 @@ import uuid
 from django.db import models
 
 # wger
-from wger.utils.helpers import BaseImage
+from wger.utils.helpers import BaseImageMixin
 from wger.utils.models import AbstractLicenseModel
+
+# Local
+from .ingredient import Ingredient
 
 
 def ingredient_image_upload_dir(instance, filename):
@@ -34,7 +37,7 @@ def ingredient_image_upload_dir(instance, filename):
     return f'ingredients/{instance.ingredient.pk}/{instance.uuid}{ext}'
 
 
-class Image(AbstractLicenseModel, models.Model, BaseImage):
+class Image(AbstractLicenseModel, models.Model, BaseImageMixin):
     """
     Model for an ingredient image
     """
@@ -81,26 +84,25 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
     @classmethod
     def from_json(
         cls,
-        connect_to,
+        connect_to: Ingredient,
         retrieved_image,
         json_data: dict,
         generate_uuid: bool = False,
+        save_to_db: bool = True,
     ):
-        image: cls = super().from_json(connect_to, retrieved_image, json_data, generate_uuid)
+        image = super().from_json(
+            connect_to,
+            retrieved_image,
+            json_data,
+            generate_uuid,
+            has_license_information=True,
+        )
 
         image.ingredient = connect_to
-        image.license_id = json_data['license']
-        image.license_title = json_data['license_title']
-        image.license_object_url = json_data['license_object_url']
-        image.license_author = json_data['license_author']
-        image.license_author_url = json_data['license_author_url']
-        image.license_derivative_source_url = json_data['license_derivative_source_url']
         image.size = json_data['size']
 
-        image.save_image(retrieved_image, json_data)
+        if save_to_db:
+            image.save_image(retrieved_image, json_data)
+            image.save()
 
-        image.save()
-
-        connect_to.image = image
-        connect_to.save()
         return image

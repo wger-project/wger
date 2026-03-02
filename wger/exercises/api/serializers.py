@@ -122,6 +122,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'license_author_url',
             'license_derivative_source_url',
             'author_history',
+            'is_ai_generated',
         )
 
 

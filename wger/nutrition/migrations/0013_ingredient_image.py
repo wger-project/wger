@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(models.Model, wger.utils.helpers.BaseImage),
+            bases=(models.Model, wger.utils.helpers.BaseImageMixin),
         ),
         migrations.RunPython(generate_uuids, reverse_code=noop),
         migrations.AlterField(
