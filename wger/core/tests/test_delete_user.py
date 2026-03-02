@@ -227,11 +227,11 @@ class UserDeleteTrophyIntegrationTestCase(WgerTestCase):
             checker_params={"count": 1},
             is_active=True
         )
-        stats = UserStatistics.objects.create(
+        UserStatistics.objects.update_or_create(
             user=user,
-            total_workouts=1
+            defaults={"total_workouts": 1}
         )
-        logger.info("Created Trophy and UserStatistics")
+        logger.info("Created Trophy and updated UserStatistics")
         UserStatisticsService.update_statistics(user)
         TrophyService.evaluate_all_trophies(user)
         logger.info("Trophy services invoked")
