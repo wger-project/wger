@@ -106,6 +106,14 @@ class UserStatisticsServiceTestCase(WgerTestCase):
         self.assertEqual(stats.total_weight_lifted, Decimal('0'))
 
 
+    def test_get_or_create_statistics_deleted_user(self):
+        """
+        Test get_or_create raises DoesNotExist for deleted user
+        """
+        with patch.object(User.objects, 'filter') as mock_filter:
+            mock_filter.return_value.exists.return_value = False
+            with self.assertRaises(User.DoesNotExist):
+                UserStatisticsService.get_or_create_statistics(self.user)
 class TrophyServiceTestCase(WgerTestCase):
     """
     Test the TrophyService
