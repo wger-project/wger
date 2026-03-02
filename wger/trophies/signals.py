@@ -126,8 +126,17 @@ def workout_log_deleted(sender, instance: WorkoutLog, **kwargs):
     if not instance.user_id:
         return
 
+    # Django
+    from django.contrib.auth.models import User
+
     try:
+        # Check if user still exists before updating statistics
+        # This prevents errors when logs are deleted as part of user deletion
+        User.objects.get(id=instance.user_id)
         UserStatisticsService.handle_workout_deletion(instance.user)
+    except User.DoesNotExist:
+        # User was deleted - no need to update statistics
+        logger.debug(f'Skipping statistics update for deleted user {instance.user_id}')
     except Exception as e:
         logger.error(
             f'Error updating statistics after deletion for user {instance.user_id}: {e}',
@@ -177,8 +186,17 @@ def workout_session_deleted(sender, instance: WorkoutSession, **kwargs):
     if not instance.user_id:
         return
 
+    # Django
+    from django.contrib.auth.models import User
+
     try:
+        # Check if user still exists before updating statistics
+        # This prevents errors when sessions are deleted as part of user deletion
+        User.objects.get(id=instance.user_id)
         UserStatisticsService.handle_workout_deletion(instance.user)
+    except User.DoesNotExist:
+        # User was deleted - no need to update statistics
+        logger.debug(f'Skipping statistics update for deleted user {instance.user_id}')
     except Exception as e:
         logger.error(
             f'Error updating statistics after session deletion for user {instance.user_id}: {e}',
