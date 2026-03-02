@@ -14,6 +14,7 @@
 
 # Django
 from django.core.files import File
+from django.test import SimpleTestCase
 
 # wger
 from wger.core.tests import api_base_test
@@ -126,6 +127,59 @@ class MainImageTestCase(WgerTestCase):
         image.refresh_from_db()
 
         self.assertTrue(image.is_ai_generated)
+
+
+class ExerciseImageFromJsonSimpleTests(SimpleTestCase):
+    def test_from_json_sets_fields_when_generate_uuid_false(self):
+        json_data = {
+            'uuid': '11111111-2222-3333-4444-555555555555',
+            'license_title': 'CC-BY',
+            'license_object_url': 'https://license.example/',
+            'license_author': 'Author Name',
+            'license_author_url': 'https://author.example/',
+            'license_derivative_source_url': 'https://source.example/',
+            'is_main': True,
+            'is_ai_generated': True,
+        }
+
+        img = ExerciseImage.from_json(
+            connect_to=None,
+            retrieved_image=None,
+            json_data=json_data,
+            generate_uuid=False,
+            save_to_db=False,
+        )
+
+        self.assertIsInstance(img, ExerciseImage)
+        self.assertEqual(str(img.uuid), json_data['uuid'])
+        self.assertTrue(img.is_main)
+        self.assertTrue(img.is_ai_generated)
+        self.assertEqual(img.license_title, json_data['license_title'])
+        self.assertEqual(img.license_author, json_data['license_author'])
+
+    def test_from_json_generate_uuid_true_uses_model_default(self):
+        json_data = {
+            'uuid': 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+            'license_title': 'CC-BY',
+            'license_object_url': 'https://license.example/',
+            'license_author': 'Author Name',
+            'license_author_url': 'https://author.example/',
+            'license_derivative_source_url': 'https://source.example/',
+            'is_main': False,
+        }
+
+        img = ExerciseImage.from_json(
+            connect_to=None,
+            retrieved_image=None,
+            json_data=json_data,
+            generate_uuid=True,
+            save_to_db=False,
+        )
+
+        self.assertIsInstance(img, ExerciseImage)
+        self.assertNotEqual(str(img.uuid), json_data['uuid'])
+        self.assertFalse(img.is_main)
+
 
 # TODO: add POST and DELETE tests
 class ExerciseImagesApiTestCase(

@@ -1,10 +1,9 @@
-﻿# Generated manually
+# Generated manually
 
 from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0034_add_exercise_image_dimensions'),
     ]
