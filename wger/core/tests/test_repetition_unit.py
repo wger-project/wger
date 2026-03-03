@@ -80,7 +80,7 @@ class AddTestCase(WgerAddTestCase):
 
     object_class = RepetitionUnit
     url = 'core:repetition-unit:add'
-    data = {'name': 'Furlongs'}
+    data = {'name': 'Furlongs', 'unit_type': RepetitionUnit.UNIT_TYPE_DISTANCE, 'multiplier': 201}
     user_success = ('admin',)
     user_fail = (
         'general_manager1',
