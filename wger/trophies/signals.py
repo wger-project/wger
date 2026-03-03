@@ -26,6 +26,7 @@ import logging
 
 # Django
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db.models.signals import (
     post_delete,
     post_save,
@@ -112,6 +113,8 @@ def workout_log_saved(sender, instance: WorkoutLog, created: bool, **kwargs):
 
         # Trigger trophy evaluation
         _trigger_trophy_evaluation(instance.user_id)
+    except User.DoesNotExist:
+        pass
     except Exception as e:
         logger.error(f'Error updating statistics for user {instance.user_id}: {e}', exc_info=True)
 
@@ -128,6 +131,8 @@ def workout_log_deleted(sender, instance: WorkoutLog, **kwargs):
 
     try:
         UserStatisticsService.handle_workout_deletion(instance.user)
+    except User.DoesNotExist:
+        pass
     except Exception as e:
         logger.error(
             f'Error updating statistics after deletion for user {instance.user_id}: {e}',
@@ -163,6 +168,8 @@ def workout_session_saved(sender, instance: WorkoutSession, created: bool, **kwa
 
         # Trigger trophy evaluation
         _trigger_trophy_evaluation(instance.user_id)
+    except User.DoesNotExist:
+        pass
     except Exception as e:
         logger.error(f'Error updating statistics for session {instance.id}: {e}', exc_info=True)
 
@@ -179,6 +186,8 @@ def workout_session_deleted(sender, instance: WorkoutSession, **kwargs):
 
     try:
         UserStatisticsService.handle_workout_deletion(instance.user)
+    except User.DoesNotExist:
+        pass
     except Exception as e:
         logger.error(
             f'Error updating statistics after session deletion for user {instance.user_id}: {e}',

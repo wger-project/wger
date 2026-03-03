@@ -7,7 +7,7 @@
 #   * (optionally) Compile custom bootstrap theme
 
 # TODO: remove the warning after some time, e.g. after 2026-06-01
-if [ "$YARN_PROCESS_STATIC" == "True" ]; then
+if [ "$YARN_PROCESS_STATIC" == "True" ];
 then
     echo "The option YARN_PROCESS_STATIC has been removed as this step happens during "
     echo "the image's build process. If you really need this to run, manually call the "

@@ -44,6 +44,7 @@ from django.views.generic import (
 )
 
 # wger
+from wger.nutrition.api.filtersets import IngredientFilterSet
 from wger.nutrition.forms import (
     IngredientForm,
     UnitChooserForm,
@@ -74,13 +75,17 @@ class IngredientListView(ListView):
     template_name = 'ingredient/overview.html'
     context_object_name = 'ingredients_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
+    filterset_class = IngredientFilterSet
 
     def get_queryset(self):
         """
-        Filter the ingredients the user will see by its language
+        Filter the ingredients the user will see by its language, optionally
+        also filtering by other properties
         """
         language = load_language()
-        return Ingredient.objects.filter(language=language)
+        queryset = Ingredient.objects.filter(language=language)
+        filterset = self.filterset_class(self.request.GET or None, queryset=queryset)
+        return filterset.qs
 
 
 def view(request, pk, slug=None):
