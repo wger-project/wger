@@ -34,6 +34,7 @@ from django.views.generic import (
 
 # wger
 from wger.core.models import RepetitionUnit
+from wger.manager.consts import REP_UNIT_METERS
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
@@ -51,6 +52,18 @@ class UnitListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = RepetitionUnit
     permission_required = 'core.add_repetitionunit'
     template_name = 'repetition_unit/list.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Send some additional data to the template
+        """
+        context = super().get_context_data(**kwargs)
+
+        # TODO: this is a hack, if the user in the local installation has other units, this
+        #       will break (however, this is very unlikely). Ideally we would give the units
+        #        e.g. UUIDs so we can properly identify them.
+        context['max_id'] = REP_UNIT_METERS
+        return context
 
 
 class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
