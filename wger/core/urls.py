@@ -147,7 +147,7 @@ patterns_license = [
 patterns_repetition_units = [
     path(
         'list',
-        repetition_units.ListView.as_view(),
+        repetition_units.UnitListView.as_view(),
         name='list',
     ),
     path(
@@ -157,12 +157,12 @@ patterns_repetition_units = [
     ),
     path(
         '<int:pk>/edit',
-        repetition_units.UpdateView.as_view(),
+        repetition_units.UnitUpdateView.as_view(),
         name='edit',
     ),
     path(
         '<int:pk>/delete',
-        repetition_units.DeleteView.as_view(),
+        repetition_units.UnitDeleteView.as_view(),
         name='delete',
     ),
 ]
@@ -171,22 +171,22 @@ patterns_repetition_units = [
 patterns_weight_units = [
     path(
         'list',
-        weight_units.ListView.as_view(),
+        weight_units.UnitListView.as_view(),
         name='list',
     ),
     path(
         'add',
-        weight_units.AddView.as_view(),
+        weight_units.UnitAddView.as_view(),
         name='add',
     ),
     path(
         '<int:pk>)/edit',
-        weight_units.UpdateView.as_view(),
+        weight_units.UnitUpdateView.as_view(),
         name='edit',
     ),
     path(
         '<int:pk>/delete',
-        weight_units.DeleteView.as_view(),
+        weight_units.UnitDeleteView.as_view(),
         name='delete',
     ),
 ]
