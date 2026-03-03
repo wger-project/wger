@@ -35,6 +35,7 @@
 {% translate "Swiss Ball" %}
 {% translate "Triceps" %}
 {% translate "Until Failure" %}
+{% translate "Meters" %}
 {% translate "kg" %}
 {% translate "lb" %}
 {% translate "none (bodyweight exercise)" %}
