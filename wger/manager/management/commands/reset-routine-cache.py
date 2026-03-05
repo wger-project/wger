@@ -11,27 +11,32 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+# Standard Library
+from typing import Any
 
 # Django
-from django.conf import settings
 from django.core.management.base import BaseCommand
 
+# Third Party
+from tqdm import tqdm
+
 # wger
-from wger.core.api.min_server_version import check_min_server_version
-from wger.nutrition.tasks import sync_all_ingredients_chunked_task
+from wger.manager.helpers import reset_routine_cache
+from wger.manager.models import Routine
 
 
 class Command(BaseCommand):
-    help = 'Asynchronously synchronize all ingredients from another wger instance.'
+    help = 'Resets the cache for all routines.'
 
     def handle(self, *args, **options):
-        self.stdout.write('Triggering the Celery task to synchronize all ingredients...')
+        total_routines = Routine.objects.count()
+        self.stdout.write(f'Updating cache for {total_routines} routines...')
 
-        check_min_server_version(settings.WGER_SETTINGS['WGER_INSTANCE'])
+        with tqdm(total=total_routines, unit='routine', unit_scale=True) as pbar:
+            routine: Routine
+            for routine in Routine.objects.all():
+                reset_routine_cache(routine)
+                _ = routine.date_sequence
+                pbar.update(1)
 
-        # Trigger the task asynchronously
-        sync_all_ingredients_chunked_task.delay()
-
-        self.stdout.write(
-            'Synchronization task has been triggered. Check the Celery worker logs for progress.'
-        )
+        self.stdout.write(self.style.SUCCESS('Successfully updated cache for all routines!'))

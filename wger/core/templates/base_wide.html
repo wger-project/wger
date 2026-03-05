@@ -9,8 +9,7 @@
                 their data.
             {% endblocktranslate %}
             <a href="{% url 'core:user:trainer-login' trainer_identity %}" class="alert-link">
-                {% blocktranslate with target=user.userprofile.gym.name %}Back to "{{ target }}
-                    "{% endblocktranslate %}
+                {% blocktranslate with target=user.userprofile.gym.name trimmed %}Back to "{{ target }}"{% endblocktranslate %}
             </a>
         </div>
     {% endif %}
