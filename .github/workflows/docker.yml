@@ -38,7 +38,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           # Think if we want to also build branches, PRs, tags, etc.
           # https://github.com/docker/metadata-action
@@ -129,7 +129,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           tags: |
             type=raw,value=latest
