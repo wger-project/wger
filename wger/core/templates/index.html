@@ -1,0 +1,31 @@
+{% extends "base_wide.html" %}
+{% load i18n static wger_extras %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div id="react-routine-dashboard"></div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div id="react-nutrition-dashboard"></div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div id="react-weight-dashboard"></div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
