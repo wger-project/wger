@@ -77,14 +77,14 @@ def handle_config_change(sender, instance: AbstractChangeConfig, **kwargs):
 def handle_workout_log_change(sender, instance: WorkoutLog, **kwargs):
     update_activity_cache(sender, instance, **kwargs)
     if instance.routine:
-        cache.delete(CacheKeyMapper.routine_api_logs(instance.routine.id))
+        cache.delete(CacheKeyMapper.routine_api_logs(instance.routine.id, instance.user_id))
         reset_routine_cache(instance.routine, structure=False)
 
 
 def handle_workout_session_change(sender, instance: WorkoutSession, **kwargs):
     update_activity_cache(sender, instance, **kwargs)
     if instance.routine:
-        cache.delete(CacheKeyMapper.routine_api_logs(instance.routine.id))
+        cache.delete(CacheKeyMapper.routine_api_logs(instance.routine.id, instance.user_id))
         reset_routine_cache(instance.routine, structure=False)
 
 

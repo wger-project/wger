@@ -20,7 +20,6 @@ from typing import List
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.manager.dataclasses import SlotData
@@ -49,7 +48,7 @@ class Day(models.Model):
 
     routine = models.ForeignKey(
         'Routine',
-        verbose_name=_('Routine'),
+        verbose_name='Routine',
         on_delete=models.CASCADE,
         related_name='days',
     )
@@ -57,7 +56,7 @@ class Day(models.Model):
     order = models.PositiveIntegerField(
         default=1,
         null=False,
-        verbose_name=_('Order'),
+        verbose_name='Order',
         db_index=True,
     )
 
@@ -70,13 +69,13 @@ class Day(models.Model):
 
     name = models.CharField(
         max_length=20,
-        verbose_name=_('Name'),
+        verbose_name='Name',
         blank=True,  # needed for rest days
     )
 
     description = models.CharField(
         max_length=1000,
-        verbose_name=_('Description'),
+        verbose_name='Description',
         blank=True,
     )
 
@@ -174,7 +173,6 @@ class Day(models.Model):
         slots = getattr(self, 'prefetched_slots', self.slots.all())
 
         for slot in slots:
-            # for slot in self.slots.all():
             slot_data = SlotData(
                 comment=slot.comment,
                 sets=[s.data for s in slot.set_data(iteration)],

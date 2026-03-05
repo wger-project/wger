@@ -1,0 +1,1 @@
+nconvert -ratio -rtype lanczos -resize 800 800  -dither -colors 64 -out png -clevel 9 

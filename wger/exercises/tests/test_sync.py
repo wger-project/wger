@@ -724,7 +724,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(translation_de.alias_set.all()[0].alias, 'A new alias here')
         self.assertEqual(translation_de.alias_set.all()[1].alias, 'yet another name')
 
-        self.assertEqual(translation_de.exercisecomment_set.count(), 1)
+        self.assertEqual(translation_de.exercisecomment_set.count(), 2)
         self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
 
         translation_fr = exercise.get_translation('fr')

@@ -25,6 +25,7 @@ import re
 import string
 from decimal import Decimal
 from functools import wraps
+from typing import Any
 
 # Django
 from django.contrib.auth.models import User
@@ -171,7 +172,7 @@ def random_string(length=32):
     return ''.join(random.choice(string.ascii_uppercase) for i in range(length))
 
 
-class BaseImage:
+class BaseImageMixin:
     def save_image(self, retrieved_image, json_data: dict):
         # Save the downloaded image
         # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to
@@ -188,10 +189,24 @@ class BaseImage:
         )
 
     @classmethod
-    def from_json(cls, connect_to, retrieved_image, json_data: dict, generate_uuid: bool = False):
-        image: cls = cls()
+    def from_json(
+        cls,
+        connect_to: Any,
+        retrieved_image,
+        json_data: dict,
+        generate_uuid: bool = False,
+        has_license_information: bool = True,
+    ):
+        image = cls()
         if not generate_uuid:
             image.uuid = json_data['uuid']
+
+        if has_license_information:
+            image.license_title = json_data['license_title']
+            image.license_object_url = json_data['license_object_url']
+            image.license_author = json_data['license_author']
+            image.license_author_url = json_data['license_author_url']
+            image.license_derivative_source_url = json_data['license_derivative_source_url']
         return image
 
 
@@ -200,5 +215,5 @@ def remove_language_code(path):
     Removes optional language code at the start of a path
     """
 
-    pattern = r'^/[a-z]{2}(?=/)'
-    return re.sub(pattern, '', path)
+    pattern = r'^/[a-z]{2}(-[a-z]{2,4})?/'
+    return re.sub(pattern, '/', path)

@@ -8,7 +8,7 @@
     <ul class="list-group">
         {% for unit in object_list %}
             <li class="list-group-item list-group-item-action">
-                {% if unit.id != 1 and unit.id != 2 %}
+                {% if unit.id > max_id %}
                     <div class="btn-group float-end">
                         <button type="button" class="btn btn-dark dropdown-toggle btn-sm"
                                 data-bs-toggle="dropdown">
@@ -36,8 +36,6 @@
 {% endblock %}
 
 
-
-
 {#         #}
 {# Options #}
 {#         #}
@@ -47,3 +45,14 @@
         {% modal_link url='core:repetition-unit:add' text=text %}
     {% endif %}
 {% endblock %}
+
+
+{#         #}
+{# Sidebar #}
+{#         #}
+{% block sidebar %}
+    <p>
+        Note that it is not possible to delete the system repetition units as some
+        of the IDs are had coded in a handful of places.
+    </p>
+{% endblock sidebar %}

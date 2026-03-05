@@ -343,6 +343,12 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         },
     )
     def post(self, request):
+        if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
+            return Response(
+                {'message': 'Registration is not allowed on this instance'},
+                status=status.HTTP_200_OK,
+            )
+
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)

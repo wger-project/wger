@@ -31,3 +31,9 @@ class TestRemoveLanguageCode(TestCase):
             remove_language_code('/api/v2/endpoint'),
             '/api/v2/endpoint',
         )
+
+    def test_regional_code(self):
+        self.assertEqual(remove_language_code('/es-ar/some/url/'), '/some/url/')
+
+    def test_long_regional_code(self):
+        self.assertEqual(remove_language_code('/zh-hans/some/url/'), '/some/url/')

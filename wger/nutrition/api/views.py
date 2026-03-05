@@ -146,68 +146,6 @@ class IngredientInfoViewSet(IngredientViewSet):
     serializer_class = IngredientInfoSerializer
 
 
-@api_view(['GET'])
-def search(request):
-    """
-    NOTE: this endpoint is not used anymore and will be removed in the very
-          near future, but is kept here for backwards compatibility. When that
-          happens, SEARCH_ALL_LANGUAGES can be removed as well.
-    """
-    term = request.GET.get('term', None)
-    language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)
-    results = []
-    response = {}
-
-    if not term:
-        return Response(response)
-
-    query = Ingredient.objects.all()
-
-    # Filter the appropriate languages
-    languages = [load_language(l) for l in language_codes.split(',')]
-    if language_codes != SEARCH_ALL_LANGUAGES:
-        query = query.filter(
-            language__in=languages,
-        )
-
-    query = query.only('name')
-
-    # Postgres uses a full-text search
-    if is_postgres_db():
-        query = (
-            query.annotate(similarity=TrigramSimilarity('name', term))
-            .filter(similarity__gt=0.15)
-            .order_by('-similarity', 'name')
-        )
-    else:
-        query = query.filter(name__icontains=term)
-
-    for ingredient in query[:150]:
-        if hasattr(ingredient, 'image'):
-            image_obj = ingredient.image
-            image = image_obj.image.url
-            t = get_thumbnailer(image_obj.image)
-            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-        else:
-            ingredient.get_image(request)
-            image = None
-            thumbnail = None
-
-        ingredient_json = {
-            'value': ingredient.name,
-            'data': {
-                'id': ingredient.id,
-                'name': ingredient.name,
-                'image': image,
-                'image_thumbnail': thumbnail,
-            },
-        }
-        results.append(ingredient_json)
-    response['suggestions'] = results
-
-    return Response(response)
-
-
 class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for ingredient images
@@ -287,7 +225,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         Return an overview of the nutritional plan's values
         """
         serializer = NutritionalValuesSerializer(
-            NutritionPlan.objects.get(pk=pk).get_nutritional_values()['total'],
+            self.get_object().get_nutritional_values()['total'],
         )
         return Response(serializer.data)
 
@@ -342,7 +280,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        serializer = NutritionalValuesSerializer(Meal.objects.get(pk=pk).get_nutritional_values())
+        serializer = NutritionalValuesSerializer(self.get_object().get_nutritional_values())
         return Response(serializer.data)
 
 
@@ -389,7 +327,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(MealItem.objects.get(pk=pk).get_nutritional_values())
+        return Response(self.get_object().get_nutritional_values())
 
 
 class LogItemViewSet(WgerOwnerObjectModelViewSet):

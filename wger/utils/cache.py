@@ -90,28 +90,28 @@ class CacheKeyMapper:
         return f'base-uuid-{base_uuid}'
 
     @classmethod
-    def routine_date_sequence_key(cls, id: int):
-        return f'routine-date-sequence-{id}'
+    def routine_date_sequence_key(cls, pk: int):
+        return f'routine-date-sequence-{pk}'
 
     @classmethod
-    def routine_api_date_sequence_display_key(cls, pk: int):
-        return f'routine-api-date-sequence-display-{pk}'
+    def routine_api_date_sequence_display_key(cls, pk: int, user_id: int):
+        return f'routine-api-date-sequence-display-{user_id}-{pk}'
 
     @classmethod
-    def routine_api_date_sequence_gym_key(cls, pk: int):
-        return f'routine-api-date-sequence-gym-{pk}'
+    def routine_api_date_sequence_gym_key(cls, pk: int, user_id: int):
+        return f'routine-api-date-sequence-gym-{user_id}-{pk}'
 
     @classmethod
-    def routine_api_stats(cls, pk: int):
-        return f'routine-api-stats-{pk}'
+    def routine_api_stats(cls, pk: int, user_id: int):
+        return f'routine-api-stats-{user_id}-{pk}'
 
     @classmethod
-    def routine_api_logs(cls, pk: int):
-        return f'routine-api-logs-{pk}'
+    def routine_api_logs(cls, pk: int, user_id: int):
+        return f'routine-api-logs-{user_id}-{pk}'
 
     @classmethod
-    def routine_api_structure_key(cls, pk: int):
-        return f'routine-api-structure-{pk}'
+    def routine_api_structure_key(cls, pk: int, user_id: int = None):
+        return f'routine-api-structure-{user_id}-{pk}'
 
     @classmethod
     def slot_entry_configs_key(cls, pk: int):

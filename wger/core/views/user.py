@@ -26,6 +26,7 @@ from django.contrib.auth import (
     logout as django_logout,
 )
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -80,6 +81,7 @@ from rest_framework.authtoken.models import Token
 from wger.config.models import GymConfig
 from wger.core.forms import (
     PasswordConfirmationForm,
+    PasswordResetFormCaptcha,
     RegistrationForm,
     RegistrationFormNoCaptcha,
     UserPersonalInformationForm,
@@ -622,12 +624,23 @@ class WgerPasswordResetView(PasswordResetView):
     success_url = reverse_lazy('core:user:password_reset_done')
     from_email = settings.WGER_SETTINGS['EMAIL_FROM']
 
+    def get_form_class(self):
+        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
+            return PasswordResetFormCaptcha
+
+        # From django
+        return PasswordResetForm
+
     def get_form(self, form_class=None):
-        form = super(WgerPasswordResetView, self).get_form(form_class)
-        form.helper = FormHelper()
-        form.helper.form_class = 'wger-form'
-        form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))
-        return form
+        # Massage django's default form. Our form already has a helper.
+        if not settings.WGER_SETTINGS['USE_RECAPTCHA']:
+            form = super().get_form(form_class)
+            form.helper = FormHelper()
+            form.helper.form_class = 'wger-form'
+            form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))
+            return form
+
+        return super().get_form(form_class)
 
 
 class WgerPasswordResetConfirmView(PasswordResetConfirmView):
@@ -635,7 +648,7 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
     success_url = reverse_lazy('core:user:login')
 
     def get_form(self, form_class=None):
-        form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
+        form = super().get_form(form_class)
         form.helper = FormHelper()
         form.helper.form_class = 'wger-form'
         form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))

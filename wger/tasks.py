@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -17,7 +15,6 @@
 # Standard Library
 import logging
 import os
-import pathlib
 import sys
 import tempfile
 
@@ -25,9 +22,9 @@ import tempfile
 import django
 from django.core.management import (
     call_command,
+    color_style,
     execute_from_command_line,
 )
-from django.utils.crypto import get_random_string
 
 # Third Party
 import requests
@@ -41,6 +38,8 @@ from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
+
+style = color_style()
 
 
 @task(
@@ -56,8 +55,6 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
     """
     Start the application using django's built in webserver
     """
-
-    # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
     argv = ['', 'runserver', '--noreload']
@@ -70,22 +67,14 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
 
 @task(
     help={
-        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
-        'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
+        'settings-path': 'Path to settings file. Leave empty for default (settings.main)',
+        'process-static': 'Whether to process static files (install npm packages and process css). Default: True',
     }
 )
-def bootstrap(context, settings_path=None, database_path=None, process_static=True):
+def bootstrap(context, settings_path=None, process_static=True):
     """
     Performs all steps necessary to bootstrap the application
     """
-
-    # Create settings if necessary
-    if settings_path is None:
-        settings_path = get_path('settings.py')
-    if not os.path.exists(settings_path):
-        create_settings(context, settings_path=settings_path, database_path=database_path)
-
-    # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
     # Create Database if necessary
@@ -101,93 +90,11 @@ def bootstrap(context, settings_path=None, database_path=None, process_static=Tr
         context.run('npm run build:css:sass')
 
 
-@task(
-    help={
-        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
-        'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
-        'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
-        'key-length': 'Length of the generated secret key. Default: 50',
-    }
-)
-def create_settings(
-    context,
-    settings_path=None,
-    database_path=None,
-    database_type='sqlite3',
-    key_length=50,
-):
-    """
-    Creates a local settings file
-    """
-    if settings_path is None:
-        settings_path = get_path('settings.py')
-
-    settings_module = os.path.dirname(settings_path)
-    print(f'*** Creating settings file at {settings_module}')
-
-    if database_path is None:
-        database_path = get_path('database.sqlite').as_posix()
-    dbpath_value = database_path
-
-    media_folder_path = get_path('media').as_posix()
-
-    # Use localhost with default django port if no URL given
-    url = 'http://localhost:8000'
-
-    # Fill in the config file template
-    settings_template = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings.tpl')
-    with open(settings_template, 'r') as settings_file:
-        settings_content = settings_file.read()
-
-    if database_type == 'postgresql':
-        dbengine = 'postgresql'
-        dbname = 'wger'
-        dbuser = 'wger'
-        dbpassword = 'wger'
-        dbhost = 'localhost'
-        dbport = 5432
-    elif database_type == 'sqlite3':
-        dbengine = 'sqlite3'
-        dbname = dbpath_value
-        dbuser = ''
-        dbpassword = ''
-        dbhost = ''
-        dbport = ''
-
-    # Create a random SECRET_KEY to put it in the settings.
-    # from django.core.management.commands.startproject
-    secret_key = get_random_string(key_length, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
-
-    settings_content = settings_content.format(
-        dbname=dbname,
-        dbpath=dbpath_value,
-        dbengine=dbengine,
-        dbuser=dbuser,
-        dbpassword=dbpassword,
-        dbhost=dbhost,
-        dbport=dbport,
-        default_key=secret_key,
-        siteurl=url,
-        media_folder_path=media_folder_path,
-    )
-
-    if not os.path.exists(settings_module):
-        os.makedirs(settings_module)
-
-    if not os.path.exists(os.path.dirname(database_path)):
-        os.makedirs(os.path.dirname(database_path))
-
-    with open(settings_path, 'w') as settings_file:
-        settings_file.write(settings_content)
-
-
 @task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
-def create_or_reset_admin(context, settings_path=None):
+def create_or_reset_admin(context, settings_path: str = None):
     """
     Creates an admin user or resets the password for an existing one
     """
-
-    # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
     # can't be imported in global scope as it already requires
@@ -207,25 +114,21 @@ def create_or_reset_admin(context, settings_path=None):
     call_command('loaddata', path + 'users.json')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
+@task(help={'settings-path': 'Path to settings file. Leave empty for default (settings.main)'})
 def migrate_db(context, settings_path=None):
     """
     Run all database migrations
     """
-
-    # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
     call_command('migrate')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
-def load_fixtures(context, settings_path=None):
+@task(help={'settings-path': 'Path to settings file. Leave empty for default (settings.main)'})
+def load_fixtures(context, settings_path: str = None):
     """
     Loads all fixtures
     """
-
-    # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
     # Gym
@@ -257,13 +160,11 @@ def load_fixtures(context, settings_path=None):
     call_command('loaddata', 'gym-adminconfig.json')
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
-def load_online_fixtures(context, settings_path=None):
+@task(help={'settings-path': 'Path to settings file. Leave empty for default (settings.main)'})
+def load_online_fixtures(context, settings_path: str = None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
     """
-
-    # Find the path to the settings and set up the django environment
     setup_django_environment(settings_path)
 
     # Prepare the download
@@ -291,57 +192,28 @@ def load_online_fixtures(context, settings_path=None):
         os.unlink(f.name)
 
 
-@task
-def config_location(context):
-    """
-    Returns the default location for the settings file and the data folder
-    """
-    print('Default locations:')
-    print(f'* settings:      {get_path("settings.py")}')
-    print(f'* media folder:  {get_path("media")}')
-    print(f'* database path: {get_path("database.sqlite")}')
-
-
 #
 #
 # Helper functions
 #
-# Note: these functions were originally in wger/utils/main.py but were moved
-#       here because of different import problems (the packaged pip-installed
-#       packaged has a different sys path than the local one)
-#
-
-
-def get_path(file='settings.py') -> pathlib.Path:
-    """
-    Return the path of the given file relatively to the wger source folder
-
-    Note: one parent is the step from e.g. some-checkout/wger/settings.py
-    to some-checkout/wger, the second one to get to the source folder
-    itself.
-    """
-    return (pathlib.Path(__file__).parent.parent / file).resolve()
-
-
-def setup_django_environment(settings_path):
+def setup_django_environment(settings_path: str = None):
     """
     Setup the django environment
     """
+    if settings_path is not None:
+        print(f'*** Using settings from argument: {settings_path}')
+        os.environ['DJANGO_SETTINGS_MODULE'] = settings_path
+    elif os.environ.get('DJANGO_SETTINGS_MODULE') is not None:
+        print(f'*** Using settings from env: {os.environ.get("DJANGO_SETTINGS_MODULE")}')
+    else:
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.main'
+        print('*** No settings given, using settings.main')
 
-    # Use default settings if the user didn't specify something else
-    if settings_path is None:
-        settings_path = get_path('settings.py').as_posix()
-        print(f'*** No settings given, using {settings_path}')
-
-    # Find out file path and fine name of settings and setup django
-    settings_file = os.path.basename(settings_path)
-    settings_module_name = ''.join(settings_file.split('.')[:-1])
-    if '.' in settings_module_name:
-        print("'.' is not an allowed character in the settings-file")
+    # Check if we are in the wger source folder
+    if not os.path.isfile('manage.py'):
+        print(style.ERROR('Error: please run this script from the wger checkout folder'))
         sys.exit(1)
-    settings_module_dir = os.path.dirname(settings_path)
-    sys.path.append(settings_module_dir)
-    os.environ[django.conf.ENVIRONMENT_VARIABLE] = '%s' % settings_module_name
+
     django.setup()
 
 
@@ -356,12 +228,11 @@ def database_exists():
     from django.db import DatabaseError
 
     try:
-        # TODO: Use another model, the User could be deactivated
         User.objects.count()
     except DatabaseError:
         return False
-    except ImproperlyConfigured:
-        print('Your settings file seems broken')
+    except ImproperlyConfigured as e:
+        print(style.ERROR('Your settings file seems broken: '), e)
         sys.exit(0)
     else:
         return True
@@ -369,9 +240,7 @@ def database_exists():
 
 def make_program():
     ns = Collection(
-        start,
         bootstrap,
-        create_settings,
         create_or_reset_admin,
         migrate_db,
         load_fixtures,

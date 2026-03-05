@@ -48,6 +48,7 @@ from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
+from wger.trophies.api import views as trophies_api_views
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -254,6 +255,15 @@ router.register(
     basename='api-fastingwindow',
 )
 
+# Trophies app
+router.register(r'trophy', trophies_api_views.TrophyViewSet, basename='trophy')
+router.register(r'user-trophy', trophies_api_views.UserTrophyViewSet, basename='user-trophy')
+router.register(
+    r'user-statistics',
+    trophies_api_views.UserStatisticsViewSet,
+    basename='user-statistics',
+)
+
 #
 # Sitemaps
 #
@@ -274,6 +284,7 @@ urlpatterns = i18n_patterns(
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
+    path('trophies/', include(('wger.trophies.urls', 'trophies'), namespace='trophies')),
     path(
         'measurement/',
         include(('wger.measurements.urls', 'measurements'), namespace='measurements'),
@@ -292,6 +303,7 @@ urlpatterns = i18n_patterns(
 # URLs without language prefix
 #
 urlpatterns += [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
@@ -300,7 +312,6 @@ urlpatterns += [
         exercises_api_views.ExerciseSubmissionViewSet.as_view(),
         name='exercise-submission',
     ),
-    path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
     path('api/v2/', include(router.urls)),
     # The api user login

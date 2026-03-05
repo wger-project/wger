@@ -4,6 +4,7 @@
 {% block title %}{{ingredient.name}}{% endblock %}
 
 {% block header %}
+<script src="{% static 'node/jquery/dist/jquery.js' %}"></script>
 <script>
 $(document).ready(function() {
     wgerInitIngredientDetail("{% url 'api-ingredient-get-values' ingredient.id %}");
@@ -126,6 +127,44 @@ $(document).ready(function() {
         </tr>
     </tbody>
 </table>
+
+{% if ingredient.is_vegan is not None or ingredient.is_vegetarian is not None %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th colspan="2">
+                {% translate "Dietary information" %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if ingredient.is_vegan is not None %}
+        <tr>
+            <td>{% translate "Vegan" %}</td>
+            <td class="text-right">
+                {% if ingredient.is_vegan %}
+                    <span class="badge bg-success">{% translate "Yes" %}</span>
+                {% else %}
+                    <span class="badge bg-danger">{% translate "No" %}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ingredient.is_vegetarian is not None %}
+        <tr>
+            <td>{% translate "Vegetarian" %}</td>
+            <td class="text-right">
+                {% if ingredient.is_vegetarian %}
+                    <span class="badge bg-success">{% translate "Yes" %}</span>
+                {% else %}
+                    <span class="badge bg-danger">{% translate "No" %}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endif %}
 </div>
 
 <small>
