@@ -10,7 +10,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("nutrition", "0027_prefill_end_date"),
+        ("nutrition", "0028_ingredient_dietary_properties"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -60,22 +60,6 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "Fasting windows",
                 "ordering": ["-start"],
             },
-        ),
-        migrations.AlterModelOptions(
-            name="nutritionplan",
-            options={"ordering": ["-start"]},
-        ),
-        migrations.RenameIndex(
-            model_name="ingredient",
-            new_name="nutrition_i_name_8f538f_gin",
-            old_name="nutrition_i_search__f274b7_gin",
-        ),
-        migrations.AlterField(
-            model_name="nutritionplan",
-            name="start",
-            field=models.DateField(
-                blank=True, default=datetime.date.today, verbose_name="Start date"
-            ),
         ),
         migrations.AddField(
             model_name="fastingwindow",
