@@ -38,6 +38,20 @@ class AddGalleryImageTestCase(WgerAddTestCase):
         'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
     }
 
+class AddGalleryImageNoDateTestCase(WgerAddTestCase):
+    """
+    Tests adding an image to the gallery
+    """
+
+    object_class = Image
+    url = 'gallery:images:add'
+    user_fail = False
+    data = {
+        # No date
+        'user': 1,
+        'description': 'No date provided',
+        'image': open('wger/exercises/tests/wildschwein.jpg', 'rb'),
+    }
 
 class DeleteGalleryImageTestCase(WgerDeleteTestCase):
     """
