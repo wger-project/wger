@@ -14,7 +14,7 @@ from wger.utils.widgets import Html5DateInput
 
 # Python Imaging Library to extract data
 from PIL import Image as PilImage
-from datetime import datetime
+from datetime import datetime, date
 
 class ImageForm(ModelForm):
     date = DateField(
@@ -34,11 +34,13 @@ class ImageForm(ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        # Tries to extract date from EXIF metadata
-        if 'image' in self.changed_data:
+        if self.cleaned_data.get('date'):
+            instance.date = self.cleaned_data['date']
+        elif 'image' in self.changed_data:
             exif_date = self._get_exif_date(self.cleaned_data['image'])
-            if exif_date:
-                instance.date = exif_date
+            instance.date = exif_date if exif_date else date.today()
+        else:
+            instance.date = date.today()
 
         if commit:
             instance.save()
