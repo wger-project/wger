@@ -5,6 +5,8 @@ from django.forms import (
     widgets,
 )
 
+from django.utils.translation import gettext_lazy
+
 # wger
 from wger.gallery.models import Image
 from wger.utils.constants import DATE_FORMATS
@@ -15,7 +17,12 @@ from PIL import Image as PilImage
 from datetime import datetime
 
 class ImageForm(ModelForm):
-    date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput(), required=False)
+    date = DateField(
+        input_formats=DATE_FORMATS,
+        widget=Html5DateInput(),
+        required=False,
+        help_text=gettext_lazy("If date is left empty, it will be read from the image instead"),
+    )
 
     class Meta:
         model = Image
