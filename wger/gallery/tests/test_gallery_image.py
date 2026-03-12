@@ -53,6 +53,10 @@ class AddGalleryImageNoDateTestCase(WgerAddTestCase):
         'image': open('wger/exercises/tests/wildschwein.jpg', 'rb'),
     }
 
+    def post_test_hook(self):
+        image = Image.objects.filter(description='No date provided').first()
+        self.assertEqual(image.date, datetime.date.today())
+
 class DeleteGalleryImageTestCase(WgerDeleteTestCase):
     """
     Tests deleting a gallery image
