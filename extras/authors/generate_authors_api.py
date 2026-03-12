@@ -16,6 +16,8 @@ import requests
 # ]
 # ///
 
+# Run with "uv run generate_authors_api.py"
+
 ORGANIZATION = 'wger-project'
 REPOSITORIES = ['wger', 'flutter', 'react', 'docker', 'docs']
 COMMITS_PER_PAGE = 100
@@ -90,8 +92,6 @@ def fetch_commits_from_github(repo_name, github_token):
         except requests.exceptions.RequestException as e:
             print(f'Error fetching commits: {e}')
             break
-
-        break
 
     return commits
 

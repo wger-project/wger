@@ -22,7 +22,7 @@ from django.core.management.base import (
 
 # wger
 from wger.manager.models import WorkoutLog
-from wger.utils.cache import reset_workout_log
+from wger.utils.cache import reset_workout_log_cache
 
 
 class Command(BaseCommand):
@@ -81,7 +81,7 @@ class Command(BaseCommand):
                     ):
                         if int(options['verbosity']) >= 3:
                             self.stdout.write(f'    Month {entry.month}')
-                        reset_workout_log(user.id, entry.year, entry.month)
+                        reset_workout_log_cache(user.id, entry.year, entry.month)
                         for day in WorkoutLog.objects.filter(
                             user=user,
                             date__year=entry.year,
@@ -89,7 +89,7 @@ class Command(BaseCommand):
                         ).dates('date', 'day'):
                             if int(options['verbosity']) >= 3:
                                 self.stdout.write(f'      Day {day.day}')
-                            reset_workout_log(user.id, entry.year, entry.month, day)
+                            reset_workout_log_cache(user.id, entry.year, entry.month, day)
 
         # Nuclear option, clear all
         if options['clear_all']:

@@ -23,7 +23,6 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
@@ -46,32 +45,32 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     description = models.TextField(
         max_length=2000,
-        verbose_name=_('Description'),
+        verbose_name='Description',
         validators=[MinLengthValidator(40)],
     )
     """Description on how to perform the exercise"""
 
     name = models.CharField(
+        verbose_name='Name',
         max_length=200,
-        verbose_name=_('Name'),
     )
     """The exercise's name"""
 
     created = models.DateTimeField(
-        _('Date'),
+        verbose_name='Date',
         auto_now_add=True,
     )
     """The submission date"""
 
     last_update = models.DateTimeField(
-        _('Date'),
+        verbose_name='Date',
         auto_now=True,
     )
     """Datetime of the last modification"""
 
     language = models.ForeignKey(
         Language,
-        verbose_name=_('Language'),
+        verbose_name='Language',
         on_delete=models.CASCADE,
     )
     """The exercise's language"""

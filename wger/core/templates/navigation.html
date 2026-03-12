@@ -24,9 +24,8 @@
                     <li class="nav-item dropdown">
                         <a href="{% url 'manager:routine:overview' %}"
                            rel="nofollow"
-                           class="nav-link dropdown-toggle text-white {% if active_tab == 'workout' %}active{% endif %}"
-                           data-bs-toggle="dropdown">{% translate "Training" %} <b
-                            class="caret"></b></a>
+                           class="nav-link dropdown-toggle text-white {% if active_tab == 'workout' %}text-decoration-underline{% endif %}"
+                           data-bs-toggle="dropdown">{% translate "Training" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" href="{% url 'manager:routine:overview' %}"
@@ -45,7 +44,6 @@
                                         {% translate "Calendar" %}
                                     </a>
                                 </li>
-
                                 <li>
                                     <a class="dropdown-item"
                                        href="{% url 'measurements:overview' %}" rel="nofollow">
@@ -67,6 +65,15 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a class="dropdown-item" href="{% url 'trophies:overview' %}"
+                                   rel="nofollow">
+                                    {% if not user.is_authenticated %}
+                                        <span class="{% fa_class 'lock' %}"></span>
+                                    {% endif %}
+                                    {% translate "Trophies" %}
+                                </a>
+                            </li>
 
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Workout templates" %}</li>
@@ -134,7 +141,7 @@
                     {#               #}
                     <li class="nav-item dropdown">
                         <a href="{% url 'nutrition:plan:overview' %}"
-                           class="dropdown-toggle nav-link text-white {% if active_tab == 'nutrition' %}active{% endif %}"
+                           class="dropdown-toggle nav-link text-white {% if active_tab == 'nutrition' %}text-decoration-underline{% endif %}"
                            data-bs-toggle="dropdown"
                            rel="nofollow">{% translate "Nutrition" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -191,7 +198,7 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a href="{% url 'weight:overview' %}"
-                               class="dropdown-toggle nav-link text-white {% if active_tab == 'weight' %}active{% endif %}"
+                               class="dropdown-toggle nav-link text-white {% if active_tab == 'weight' %}text-decoration-underline{% endif %}"
                                data-bs-toggle="dropdown"
                                rel="nofollow">{% translate "Body weight" %} <b
                                 class="caret"></b></a>
@@ -213,7 +220,7 @@
                     {#              #}
                     <li class="nav-item dropdown">
                         <a href=""
-                           class="dropdown-toggle nav-link text-white {% if active_tab == 'software' %}active{% endif %}"
+                           class="dropdown-toggle nav-link text-white {% if active_tab == 'software' %}text-decoration-underline{% endif %}"
                            data-bs-toggle="dropdown">{% translate "About this software" %} <b
                             class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -292,6 +299,16 @@
                                         {% translate "Reset password" %}
                                     </a>
                                 </li>
+                                {%  if user.userprofile.is_temporary %}
+                                <li class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           href="{% url 'core:user:logout' %}">
+                                            <span class="{% fa_class 'sign-out-alt' %}"></span>
+                                            {% translate "Logout" %}
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>
@@ -385,6 +402,16 @@
                                             </li>
                                         {% endif %}
                                     {% endif %}
+
+                                    {% if perms.trophies.change_trophy %}
+                                        <li>
+                                            <a class="dropdown-item"
+                                               href="{% url 'trophies:admin-overview' %}">
+                                                {% translate "Trophies" %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
                                 {% endif %}
                             </ul>
                         </li>

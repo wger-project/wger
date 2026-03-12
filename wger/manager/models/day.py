@@ -15,12 +15,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
 from typing import List
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.manager.dataclasses import SlotData
@@ -49,7 +47,7 @@ class Day(models.Model):
 
     routine = models.ForeignKey(
         'Routine',
-        verbose_name=_('Routine'),
+        verbose_name='Routine',
         on_delete=models.CASCADE,
         related_name='days',
     )
@@ -57,7 +55,7 @@ class Day(models.Model):
     order = models.PositiveIntegerField(
         default=1,
         null=False,
-        verbose_name=_('Order'),
+        verbose_name='Order',
         db_index=True,
     )
 
@@ -70,13 +68,13 @@ class Day(models.Model):
 
     name = models.CharField(
         max_length=20,
-        verbose_name=_('Name'),
+        verbose_name='Name',
         blank=True,  # needed for rest days
     )
 
     description = models.CharField(
         max_length=1000,
-        verbose_name=_('Description'),
+        verbose_name='Description',
         blank=True,
     )
 
@@ -122,24 +120,6 @@ class Day(models.Model):
         """
         return self.routine
 
-    def can_proceed(self, date: datetime.date) -> bool:
-        """
-        Checks whether the user can proceed to the next day in the sequence
-
-        This is possible if
-        - the day doesn't require logs
-        - the day requires logs, and they exist
-        - the date is in the future (used e.g. for calendars where we assume we will proceed)
-        """
-        if (
-            not self.need_logs_to_advance
-            # or self.workoutsession_set.filter(date=date).exists()
-            or date > datetime.date.today()
-        ):
-            return True
-
-        return False
-
     def get_slots_gym_mode(self, iteration: int) -> List[SlotData]:
         """
         Return the sets for this day
@@ -174,7 +154,6 @@ class Day(models.Model):
         slots = getattr(self, 'prefetched_slots', self.slots.all())
 
         for slot in slots:
-            # for slot in self.slots.all():
             slot_data = SlotData(
                 comment=slot.comment,
                 sets=[s.data for s in slot.set_data(iteration)],

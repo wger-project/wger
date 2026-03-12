@@ -18,34 +18,28 @@ wger (ˈvɛɡɐ) is a free workout and fitness manager.
   from [Open Food Facts](https://openfoodfacts.org).
 - 📸 **Progress Gallery** – Upload and track your fitness progress with photos.
 - 📚 **Exercise Wiki** – Access and contribute to the built-in exercises.
-- 📱 **Cross-Platform Apps** – Available on Android, iOS, F-Droid, and Flathub.
+- 📱 **Cross-Platform Apps** – Available on
+  [Android](https://play.google.com/store/apps/details?id=de.wger.flutter),
+  [iOS](https://apps.apple.com/us/app/wger-workout-manager/id6502226792),
+  [F-Droid](https://f-droid.org/en/packages/de.wger.flutter/),
+  and [Flathub](https://flathub.org/apps/de.wger.flutter).
 - 🐳 **Self-Hostable** – Deploy easily with Docker for full control.
 - 🌍 **Multilingual Support** – Translated by the community via Weblate.
 - 🔗 **Powerful API** – REST API for third-party integrations or automations.
 - 👥 **Multi-User Support** – Includes basic gym management features.
 - 🆓 **100% Free & Open Source** – Licensed under AGPL-3.0 or later.
 
+
 For a live system, visit: <https://wger.de>
 
-
-<p align="center">
-  <img
-    src="https://raw.githubusercontent.com/wger-project/wger/master/wger/software/static/images/screens-3.png"
-    alt="Screenshot"
-    width="400">
+<p align="center" style="line-height:0; margin:0; padding:0;">
+  <a href="https://play.google.com/store/apps/details?id=de.wger.flutter" target="_blank" style="text-decoration:none; border:none; outline:none;"><img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/play-store/badge.svg" alt="Get it on Google Play" height="50" style="margin-right:8px; vertical-align:middle; border:none; outline:none; display:inline-block;"></a>
+  <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792" target="_blank" style="text-decoration:none; border:none; outline:none;"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="64" style="margin-right:8px; vertical-align:middle; border:none; outline:none; display:inline-block; background:none;"></a>
+  <a href="https://f-droid.org/packages/de.wger.flutter/" target="_blank" style="text-decoration:none; border:none; outline:none;"><img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/fdroid/get-it-on.png" alt="Get it on F-Droid" height="50" style="margin-right:8px; vertical-align:middle; border:none; outline:none; display:inline-block; background:none;"></a>
+  <a href="https://flathub.org/apps/de.wger.flutter" target="_blank" style="text-decoration:none; border:none; outline:none;"><img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/flathub/black.svg" alt="Get it on Flathub" height="50" style="vertical-align:middle; border:none; outline:none; display:inline-block; background:none;"></a>
 </p>
 
 
-<p align="center">
-  <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-    <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/play-store/badge.svg" alt="Get it on Google Play" height="50"></a>
-  <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="50"></a>
-  <a href="https://f-droid.org/packages/de.wger.flutter/">
-    <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/fdroid/get-it-on.png" alt="Get it on F-Droid" height="60"></a>
-  <a href="https://flathub.org/apps/de.wger.flutter">
-    <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/flathub/black.svg" alt="Get it on Flathub" height="50"></a>
-</p>
 
 ## Self-hosting
 

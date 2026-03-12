@@ -16,9 +16,9 @@
 
 # Standard Library
 import logging
+import uuid
 
 # Django
-from django.contrib.sites.models import Site
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
@@ -30,7 +30,6 @@ from icalendar import (
     Calendar,
     Event,
 )
-from icalendar.tools import UIDGenerator
 
 # wger
 from wger.manager.models import Routine
@@ -70,9 +69,6 @@ def get_events_workout(calendar, routine: Routine):
     the calendar.
     """
 
-    generator = UIDGenerator()
-    site = Site.objects.get_current()
-
     for day_data in routine.date_sequence:
         if day_data.day is None or day_data.day.is_rest:
             continue
@@ -82,7 +78,7 @@ def get_events_workout(calendar, routine: Routine):
         event.add('description', day_data.day.description)
         event.add('dtstart', day_data.date)
         event.add('dtend', day_data.date)
-        event['uid'] = generator.uid(host_name=site.domain)
+        event['uid'] = uuid.uuid4()
         event.add('priority', 5)
         calendar.add_component(event)
 

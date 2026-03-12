@@ -40,7 +40,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         raise KeyError('Missing required nutrition key')
 
     # Basics
-    name = product_data.get('product_name')
+    name = product_data.get('product_name', '')
     common_name = product_data.get('generic_name', '')
 
     # If the energy is not available in kcal, convert from kJ
@@ -62,6 +62,29 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     sugars = product_data['nutriments'].get('sugars_100g', None)
     fiber = product_data['nutriments'].get('fiber_100g', None)
     brand = product_data.get('brands', '')
+
+    # Dietary properties from OFF ingredients analysis
+    is_vegan = None
+    is_vegetarian = None
+    analysis_tags = product_data.get('ingredients_analysis_tags', [])
+    for tag in analysis_tags:
+        if tag == 'en:vegan':
+            is_vegan = True
+        elif tag == 'en:non-vegan':
+            is_vegan = False
+        elif tag == 'en:vegan-status-unknown':
+            is_vegan = None
+        elif tag == 'en:maybe-vegan':
+            is_vegan = None
+
+        if tag == 'en:vegetarian':
+            is_vegetarian = True
+        elif tag == 'en:non-vegetarian':
+            is_vegetarian = False
+        elif tag == 'en:vegetarian-status-unknown':
+            is_vegetarian = None
+        elif tag == 'en:maybe-vegetarian':
+            is_vegetarian = None
 
     # License and author info
     source_name = Source.OPEN_FOOD_FACTS.value
@@ -90,6 +113,8 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         license_author=authors,
         license_title=name,
         license_object_url=object_url,
+        is_vegan=is_vegan,
+        is_vegetarian=is_vegetarian,
     )
     ingredient_data.sanity_checks()
     return ingredient_data

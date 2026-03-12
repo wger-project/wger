@@ -25,7 +25,13 @@ class ReactView(TemplateView):
     """
 
     template_name = 'react/react-page.html'
-    div_id = 'react-page'
+    div_id = 'react-page-no-shadow-dom'
+    """
+    Default div ID where the React app is mounted
+
+    If you want to render the component in a shadow dom, use 'react-page' instead.
+    """
+
     login_required = False
 
     def get_context_data(self, **kwargs):

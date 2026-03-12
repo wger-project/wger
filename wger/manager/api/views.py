@@ -128,10 +128,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        # profiler = cProfile.Profile()
-        # profiler.enable()
-
-        cache_key = CacheKeyMapper.routine_api_date_sequence_display_key(pk)
+        cache_key = CacheKeyMapper.routine_api_date_sequence_display_key(pk, request.user.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
@@ -142,9 +139,6 @@ class RoutineViewSet(viewsets.ModelViewSet):
         ).data
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
-        # profiler.disable()
-        # profiler.dump_stats("profile_results.prof")
-
         return Response(out)
 
     @action(detail=True, url_path='date-sequence-gym')
@@ -152,7 +146,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        cache_key = CacheKeyMapper.routine_api_date_sequence_gym_key(pk)
+        cache_key = CacheKeyMapper.routine_api_date_sequence_gym_key(pk, request.user.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
@@ -167,7 +161,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the full object structure of the routine.
         """
-        cache_key = CacheKeyMapper.routine_api_structure_key(pk)
+        cache_key = CacheKeyMapper.routine_api_structure_key(pk, request.user.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
@@ -181,7 +175,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Returns the logs for the routine
         """
-        cache_key = CacheKeyMapper.routine_api_logs(pk)
+        cache_key = CacheKeyMapper.routine_api_logs(pk, request.user.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
@@ -195,7 +189,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Returns the logs for the routine
         """
-        cache_key = CacheKeyMapper.routine_api_stats(pk)
+        cache_key = CacheKeyMapper.routine_api_stats(pk, request.user.id)
         cached_data = cache.get(cache_key)
         if cached_data is not None:
             return Response(cached_data)
@@ -286,7 +280,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Routine, 'workout')]
+        return [(Routine, 'routine')]
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
@@ -496,7 +490,9 @@ class RepetitionsConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return RepetitionsConfig.objects.none()
 
-        return RepetitionsConfig.objects.all()
+        return RepetitionsConfig.objects.filter(
+            slot_entry__slot__day__routine__user=self.request.user
+        )
 
 
 class MaxRepetitionsConfigViewSet(AbstractConfigViewSet):
@@ -515,7 +511,9 @@ class MaxRepetitionsConfigViewSet(AbstractConfigViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return MaxRepetitionsConfig.objects.none()
 
-        return MaxRepetitionsConfig.objects.all()
+        return MaxRepetitionsConfig.objects.filter(
+            slot_entry__slot__day__routine__user=self.request.user
+        )
 
 
 class SetsConfigViewSet(AbstractConfigViewSet):

@@ -111,6 +111,8 @@ class IngredientFilterSet(filters.FilterSet):
             'fat_saturated': ['exact'],
             'fiber': ['exact'],
             'sodium': ['exact'],
+            'is_vegan': ['exact'],
+            'is_vegetarian': ['exact'],
             'created': ['exact', 'gt', 'lt'],
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],

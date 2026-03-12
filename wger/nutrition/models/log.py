@@ -25,7 +25,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
@@ -57,7 +56,7 @@ class LogItem(BaseMealItem, models.Model):
 
     plan = models.ForeignKey(
         NutritionPlan,
-        verbose_name=_('Nutrition plan'),
+        verbose_name='Nutrition plan',
         on_delete=models.CASCADE,
     )
     """
@@ -66,7 +65,7 @@ class LogItem(BaseMealItem, models.Model):
 
     meal = models.ForeignKey(
         Meal,
-        verbose_name=_('Meal'),
+        verbose_name='Meal',
         on_delete=models.SET_NULL,
         related_name='log_items',
         blank=True,
@@ -76,13 +75,13 @@ class LogItem(BaseMealItem, models.Model):
     The meal this log belongs to (optional)
     """
 
-    datetime = models.DateTimeField(verbose_name=_('Date and Time (Approx.)'), default=timezone.now)
+    datetime = models.DateTimeField(verbose_name='Date and Time (Approx.)', default=timezone.now)
     """
     Time and date when the log was added
     """
 
     comment = models.TextField(
-        verbose_name=_('Comment'),
+        verbose_name='Comment',
         blank=True,
         null=True,
     )
@@ -92,7 +91,7 @@ class LogItem(BaseMealItem, models.Model):
 
     ingredient = models.ForeignKey(
         Ingredient,
-        verbose_name=_('Ingredient'),
+        verbose_name='Ingredient',
         on_delete=models.CASCADE,
     )
     """
@@ -101,7 +100,7 @@ class LogItem(BaseMealItem, models.Model):
 
     weight_unit = models.ForeignKey(
         IngredientWeightUnit,
-        verbose_name=_('Weight unit'),
+        verbose_name='Weight unit',
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -113,7 +112,7 @@ class LogItem(BaseMealItem, models.Model):
     amount = models.DecimalField(
         decimal_places=2,
         max_digits=6,
-        verbose_name=_('Amount'),
+        verbose_name='Amount',
         validators=[MinValueValidator(Decimal(1)), MaxValueValidator(Decimal(1000))],
     )
     """

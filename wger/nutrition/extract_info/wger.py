@@ -44,6 +44,10 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
 
     brand = product_data.get('brand', '')
 
+    # Dietary properties
+    is_vegan = product_data.get('is_vegan', None)
+    is_vegetarian = product_data.get('is_vegetarian', None)
+
     # License and author info
     source_name = product_data.get('source_name', '')
     source_url = product_data.get('source_url', '')
@@ -78,5 +82,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
         license_author=license_authors,
         license_author_url=license_author_url,
         license_derivative_source_url=license_derivative_source_url,
+        is_vegan=is_vegan,
+        is_vegetarian=is_vegetarian,
     )
     return ingredient_data

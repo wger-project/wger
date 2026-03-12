@@ -50,6 +50,8 @@ class IngredientData:
     license_object_url: str
     license_derivative_source_url: str = ''
     license_author_url: str = ''
+    is_vegan: Optional[bool] = None
+    is_vegetarian: Optional[bool] = None
 
     def sanity_checks(self):
         if not self.name:

@@ -22,7 +22,6 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import (
@@ -40,7 +39,7 @@ from wger.manager.validators import (
     NullMinValueValidator,
     validate_rir,
 )
-from wger.utils.cache import reset_workout_log
+from wger.utils.cache import reset_workout_log_cache
 
 
 class WorkoutLog(models.Model):
@@ -57,13 +56,13 @@ class WorkoutLog(models.Model):
     )
 
     date = models.DateTimeField(
-        verbose_name=_('Date'),
+        verbose_name='Date',
         default=datetime.datetime.now,
     )
 
     user = models.ForeignKey(
         User,
-        verbose_name=_('User'),
+        verbose_name='User',
         editable=False,
         on_delete=models.CASCADE,
     )
@@ -82,7 +81,7 @@ class WorkoutLog(models.Model):
 
     session = models.ForeignKey(
         'WorkoutSession',
-        verbose_name=_('Session'),
+        verbose_name='Session',
         on_delete=models.CASCADE,
         null=True,
         related_name='logs',
@@ -95,13 +94,13 @@ class WorkoutLog(models.Model):
 
     exercise = models.ForeignKey(
         Exercise,
-        verbose_name=_('Exercise'),
+        verbose_name='Exercise',
         on_delete=models.CASCADE,
     )
 
     routine = models.ForeignKey(
         'Routine',
-        verbose_name=_('Workout'),
+        verbose_name='Workout',
         on_delete=models.CASCADE,
         null=True,
     )
@@ -118,7 +117,7 @@ class WorkoutLog(models.Model):
 
     repetitions_unit = models.ForeignKey(
         RepetitionUnit,
-        verbose_name=_('Unit'),
+        verbose_name='Repetitions unit',
         default=REP_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
         null=True,
@@ -142,7 +141,7 @@ class WorkoutLog(models.Model):
     repetitions_target = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        verbose_name=_('Repetitions'),
+        verbose_name='Repetitions target',
         validators=[NullMinValueValidator(0)],
         null=True,
         blank=True,
@@ -153,7 +152,7 @@ class WorkoutLog(models.Model):
 
     weight_unit = models.ForeignKey(
         WeightUnit,
-        verbose_name=_('Unit'),
+        verbose_name='Weight unit',
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
         null=True,
@@ -177,7 +176,7 @@ class WorkoutLog(models.Model):
     weight_target = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        verbose_name=_('Weight'),
+        verbose_name='Weight target',
         validators=[NullMinValueValidator(0)],
         null=True,
         blank=True,
@@ -270,7 +269,7 @@ class WorkoutLog(models.Model):
         )[0]
 
         # Reset cache
-        reset_workout_log(
+        reset_workout_log_cache(
             self.user_id,
             self.session.date.year,
             self.session.date.month,
@@ -294,7 +293,7 @@ class WorkoutLog(models.Model):
         Reset cache
         """
         try:
-            reset_workout_log(
+            reset_workout_log_cache(
                 self.user_id,
                 self.session.date.year,
                 self.session.date.month,

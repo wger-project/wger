@@ -25,7 +25,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.utils.cache import reset_workout_log
+from wger.utils.cache import reset_workout_log_cache
 
 
 class WorkoutSession(models.Model):
@@ -45,7 +45,7 @@ class WorkoutSession(models.Model):
 
     user = models.ForeignKey(
         User,
-        verbose_name=_('User'),
+        verbose_name='User',
         on_delete=models.CASCADE,
     )
     """
@@ -77,7 +77,7 @@ class WorkoutSession(models.Model):
     """
 
     date = models.DateField(
-        verbose_name=_('Date'),
+        verbose_name='Date',
         default=datetime.date.today,
     )
     """
@@ -85,30 +85,28 @@ class WorkoutSession(models.Model):
     """
 
     notes = models.TextField(
-        verbose_name=_('Notes'),
+        verbose_name='Notes',
         null=True,
         blank=True,
-        help_text=_('Any notes you might want to save about this workout session.'),
+        help_text='Any notes you might want to save about this workout session.',
     )
     """
     User notes about the workout
     """
 
     impression = models.CharField(
-        verbose_name=_('General impression'),
+        verbose_name='General impression',
         max_length=2,
         choices=IMPRESSION,
         default=IMPRESSION_NEUTRAL,
-        help_text=_(
-            'Your impression about this workout session. Did you exercise as well as you could?'
-        ),
+        help_text='Your impression about this workout session. Did you exercise as well as you could?',
     )
     """
     The user's general impression of workout
     """
 
     time_start = models.TimeField(
-        verbose_name=_('Start time'),
+        verbose_name='Start time',
         blank=True,
         null=True,
     )
@@ -117,7 +115,7 @@ class WorkoutSession(models.Model):
     """
 
     time_end = models.TimeField(
-        verbose_name=_('Finish time'),
+        verbose_name='Finish time',
         blank=True,
         null=True,
     )
@@ -163,12 +161,12 @@ class WorkoutSession(models.Model):
         """
         Reset cache
         """
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log_cache(self.user_id, self.date.year, self.date.month)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
         Reset cache
         """
-        reset_workout_log(self.user_id, self.date.year, self.date.month)
+        reset_workout_log_cache(self.user_id, self.date.year, self.date.month)
         super().delete(*args, **kwargs)

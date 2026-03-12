@@ -308,6 +308,8 @@ class IngredientForm(forms.ModelForm):
             'sodium',
             'license',
             'license_author',
+            'is_vegan',
+            'is_vegetarian',
         )
         widgets = {'category': forms.TextInput}
 
@@ -334,6 +336,11 @@ class IngredientForm(forms.ModelForm):
             ),
             'fiber',
             'sodium',
+            Row(
+                Column('is_vegan', css_class='col-6'),
+                Column('is_vegetarian', css_class='col-6'),
+                css_class='form-row',
+            ),
             Row(
                 Column('license', css_class='col-6'),
                 Column('license_author', css_class='col-6'),

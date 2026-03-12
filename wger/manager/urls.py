@@ -68,11 +68,9 @@ patterns_routine = [
         ReactView.as_view(login_required=True),
         name='add',
     ),
-    # Note that this needs to be the no-shadow-dom variant till this issue is fixed:
-    # https://github.com/hello-pangea/dnd/issues/425
     path(
         '<int:pk>/edit',
-        ReactView.as_view(login_required=True, div_id='react-page-no-shadow-dom'),
+        ReactView.as_view(login_required=True),
         name='edit',
     ),
     path(

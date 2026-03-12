@@ -17,7 +17,6 @@
 # Django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
@@ -28,17 +27,17 @@ class Category(models.Model):
 
     user = models.ForeignKey(
         User,
-        verbose_name=_('User'),
+        verbose_name='User',
         on_delete=models.CASCADE,
     )
 
     name = models.CharField(
-        verbose_name=_('Name'),
+        verbose_name='Name',
         max_length=100,
     )
 
     unit = models.CharField(
-        verbose_name=_('Unit'),
+        verbose_name='Unit',
         max_length=30,
     )
 

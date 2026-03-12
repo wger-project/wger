@@ -20,7 +20,6 @@ import uuid
 # Django
 from django.contrib.postgres.indexes import GinIndex
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from simple_history.models import HistoricalRecords
@@ -47,13 +46,13 @@ class Alias(models.Model):
 
     translation = models.ForeignKey(
         Translation,
-        verbose_name=_('Exercise'),
+        verbose_name='Exercise',
         on_delete=models.CASCADE,
     )
 
     alias = models.CharField(
         max_length=200,
-        verbose_name=_('Alias for an exercise'),
+        verbose_name='Alias for an exercise',
     )
 
     history = HistoricalRecords()
