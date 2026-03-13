@@ -3,8 +3,10 @@
 from django.db import migrations, models
 import uuid
 
+from django.db.migrations.state import StateApps
 
-def gen_uuids(apps, schema_editor):
+
+def gen_uuids(apps: StateApps, schema_editor):
     NutritionPlan = apps.get_model('nutrition', 'NutritionPlan')
     Meal = apps.get_model('nutrition', 'Meal')
     MealItem = apps.get_model('nutrition', 'MealItem')
@@ -29,7 +31,7 @@ def gen_uuids(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('nutrition', '0027_prefill_end_date'),
+        ('nutrition', '0028_ingredient_dietary_properties'),
     ]
 
     operations = [

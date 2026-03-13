@@ -31,6 +31,6 @@ def postgres_only(func):
         if is_postgres_db():
             return func(*args, **kwargs)
         else:
-            return
+            return None
 
     return wrapper
