@@ -28,6 +28,7 @@ def add_publication(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
 def remove_publication(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
     schema_editor.execute('DROP PUBLICATION IF EXISTS powersync;')
 
+
 class Migration(migrations.Migration):
     dependencies = [
         ('core', '0021_add_unit_type_to_repetitionunit'),

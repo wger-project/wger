@@ -64,6 +64,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 # wger
 import wger.manager.powersync as ps_manager
+import wger.measurements.powersync as ps_measurements
 import wger.weight.powersync as ps_weight
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
@@ -513,6 +514,23 @@ def upload_powersync_data(request):
                 ps_weight.handle_update(payload=data['data'], user_id=user_id, request=request)
             elif http_verb == 'DELETE':
                 ps_weight.handle_delete(payload=data['data'], user_id=user_id)
+
+        # Measurements
+        case 'measuerement_category':
+            if http_verb == 'PUT':
+                ps_measurements.handle_create_category(payload=data['data'], user_id=user_id)
+            elif http_verb == 'PATCH':
+                ps_measurements.handle_update_category(payload=data['data'], user_id=user_id)
+            elif http_verb == 'DELETE':
+                ps_measurements.handle_delete_category(payload=data['data'], user_id=user_id)
+
+        case 'measurement_measurement':
+            if http_verb == 'PUT':
+                ps_measurements.handle_create_measurement(payload=data['data'], user_id=user_id)
+            elif http_verb == 'PATCH':
+                ps_measurements.handle_update_measurement(payload=data['data'], user_id=user_id)
+            elif http_verb == 'DELETE':
+                ps_measurements.handle_delete_measurement(payload=data['data'], user_id=user_id)
 
         # Routines
         case 'manager_workoutlog':

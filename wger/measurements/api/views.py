@@ -28,8 +28,8 @@ from rest_framework.permissions import IsAuthenticated
 # wger
 from wger.measurements.api.filtersets import MeasurementEntryFilterSet
 from wger.measurements.api.serializers import (
+    CategorySerializer,
     MeasurementSerializer,
-    UnitSerializer,
 )
 from wger.measurements.models import (
     Category,
@@ -47,7 +47,7 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
     """
 
     permission_classes = [IsAuthenticated]
-    serializer_class = UnitSerializer
+    serializer_class = CategorySerializer
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('id', 'name', 'unit')

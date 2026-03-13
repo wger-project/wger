@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+import uuid
 
 # Django
 from django.core.validators import (
@@ -39,6 +40,13 @@ class Measurement(models.Model):
         Category,
         verbose_name='User',
         on_delete=models.CASCADE,
+    )
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
     )
 
     date = models.DateField(

@@ -12,7 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
 # Standard Library
+import uuid
 
 # Django
 from django.contrib.auth.models import User
@@ -29,6 +31,13 @@ class Category(models.Model):
         User,
         verbose_name='User',
         on_delete=models.CASCADE,
+    )
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        null=False,
+        unique=True,
     )
 
     name = models.CharField(
