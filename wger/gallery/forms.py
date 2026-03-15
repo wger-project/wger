@@ -17,6 +17,11 @@ from PIL import Image as PilImage
 from datetime import datetime, date
 
 class ImageForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.instance.pk:
+            self.initial['date'] = None
+
     date = DateField(
         input_formats=DATE_FORMATS,
         widget=Html5DateInput(),
