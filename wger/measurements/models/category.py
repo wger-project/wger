@@ -20,6 +20,9 @@ import uuid
 from django.contrib.auth.models import User
 from django.db import models
 
+# wger
+from wger.utils.uuid import uuid7
+
 
 class Category(models.Model):
     class Meta:
@@ -27,17 +30,17 @@ class Category(models.Model):
             '-name',
         ]
 
+    id = models.UUIDField(
+        default=uuid7,
+        editable=False,
+        null=False,
+        primary_key=True,
+    )
+
     user = models.ForeignKey(
         User,
         verbose_name='User',
         on_delete=models.CASCADE,
-    )
-
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False,
-        null=False,
-        unique=True,
     )
 
     name = models.CharField(

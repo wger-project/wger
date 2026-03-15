@@ -516,7 +516,7 @@ def upload_powersync_data(request):
                 ps_weight.handle_delete(payload=data['data'], user_id=user_id)
 
         # Measurements
-        case 'measurement_category':
+        case 'measurements_category':
             if http_verb == 'PUT':
                 ps_measurements.handle_create_category(payload=data['data'], user_id=user_id)
             elif http_verb == 'PATCH':
@@ -524,7 +524,7 @@ def upload_powersync_data(request):
             elif http_verb == 'DELETE':
                 ps_measurements.handle_delete_category(payload=data['data'], user_id=user_id)
 
-        case 'measurement_measurement':
+        case 'measurements_measurement':
             if http_verb == 'PUT':
                 ps_measurements.handle_create_measurement(payload=data['data'], user_id=user_id)
             elif http_verb == 'PATCH':

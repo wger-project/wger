@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 def handle_update_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
-    entry = Category.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = Category.objects.get(pk=payload['id'], user_id=user_id)
 
     if not entry:
         logger.warning(
@@ -43,7 +43,7 @@ def handle_update_category(payload: dict[str, Any], user_id: int) -> None:
     serializer = CategorySerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
-        logger.info(f'Updated Category {entry.pk} (uuid={entry.uuid}) for user {user_id}')
+        logger.info(f'Updated Category {entry.pk} for user {user_id}')
     else:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
@@ -63,7 +63,7 @@ def handle_create_category(payload: dict[str, Any], user_id: int) -> None:
 def handle_delete_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
-    entry = Category.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = Category.objects.get(pk=payload['id'], user_id=user_id)
     if not entry:
         logger.warning(f'Category with UUID {payload["id"]} not found for delete.')
         return
@@ -73,7 +73,7 @@ def handle_delete_category(payload: dict[str, Any], user_id: int) -> None:
 def handle_update_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
-    entry = Measurement.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = Measurement.objects.get(pk=payload['id'], user_id=user_id)
 
     if not entry:
         logger.warning(
@@ -84,7 +84,7 @@ def handle_update_measurement(payload: dict[str, Any], user_id: int) -> None:
     serializer = MeasurementSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
-        logger.info(f'Updated Measurement {entry.pk} (uuid={entry.uuid}) for user {user_id}')
+        logger.info(f'Updated Measurement {entry.pk} for user {user_id}')
     else:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
@@ -102,7 +102,7 @@ def handle_create_measurement(payload: dict[str, Any], user_id: int) -> None:
 def handle_delete_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
-    entry = Measurement.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = Measurement.objects.get(pk=payload['id'], user_id=user_id)
     if not entry:
         logger.warning(f'Measurement with UUID {payload["id"]} not found for delete.')
         return

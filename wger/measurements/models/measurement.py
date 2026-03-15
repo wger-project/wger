@@ -27,6 +27,7 @@ from django.db import models
 
 # wger
 from wger.measurements.models import Category
+from wger.utils.uuid import uuid7
 
 
 class Measurement(models.Model):
@@ -36,17 +37,18 @@ class Measurement(models.Model):
             '-date',
         ]
 
-    category = models.ForeignKey(
-        Category,
-        verbose_name='User',
-        on_delete=models.CASCADE,
-    )
-
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
+    id = models.UUIDField(
+        default=uuid7,
         editable=False,
         null=False,
         unique=True,
+        primary_key=True,
+    )
+
+    category = models.ForeignKey(
+        Category,
+        verbose_name='Category',
+        on_delete=models.CASCADE,
     )
 
     date = models.DateField(
