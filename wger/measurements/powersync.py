@@ -15,6 +15,7 @@
 
 # Standard Library
 import logging
+from typing import Any
 
 # wger
 from wger.measurements.api.serializers import MeasurementSerializer
@@ -28,7 +29,7 @@ from wger.measurements.models import (
 logger = logging.getLogger(__name__)
 
 
-def handle_update_category(payload: dict[str, any], user_id: int) -> None:
+def handle_update_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
     entry = Category.objects.get(uuid=payload['id'], user_id=user_id)
@@ -47,7 +48,7 @@ def handle_update_category(payload: dict[str, any], user_id: int) -> None:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
 
-def handle_create_category(payload: dict[str, any], user_id: int) -> None:
+def handle_create_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a create event from PowerSync"""
     logger.debug(
         f'Received PowerSync payload for create: {payload}',
@@ -59,7 +60,7 @@ def handle_create_category(payload: dict[str, any], user_id: int) -> None:
         logger.warning(f'PowerSync create validation failed: {serializer.errors}')
 
 
-def handle_delete_category(payload: dict[str, any], user_id: int) -> None:
+def handle_delete_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
     entry = Category.objects.get(uuid=payload['id'], user_id=user_id)
@@ -69,7 +70,7 @@ def handle_delete_category(payload: dict[str, any], user_id: int) -> None:
     entry.delete()
 
 
-def handle_update_measurement(payload: dict[str, any], user_id: int) -> None:
+def handle_update_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
     entry = Measurement.objects.get(uuid=payload['id'], user_id=user_id)
@@ -88,7 +89,7 @@ def handle_update_measurement(payload: dict[str, any], user_id: int) -> None:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
 
-def handle_create_measurement(payload: dict[str, any], user_id: int) -> None:
+def handle_create_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a create event from PowerSync"""
     logger.debug(f'Received PowerSync payload for create: {payload}')
     serializer = MeasurementSerializer(data=payload)
@@ -98,7 +99,7 @@ def handle_create_measurement(payload: dict[str, any], user_id: int) -> None:
         logger.warning(f'PowerSync create validation failed: {serializer.errors}')
 
 
-def handle_delete_measurement(payload: dict[str, any], user_id: int) -> None:
+def handle_delete_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
     entry = Measurement.objects.get(uuid=payload['id'], user_id=user_id)
