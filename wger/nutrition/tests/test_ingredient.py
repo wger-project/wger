@@ -21,6 +21,7 @@ from unittest.mock import patch
 
 # Django
 from django.core.exceptions import ValidationError
+from django.test import SimpleTestCase
 from django.urls import reverse
 
 # Third Party
@@ -41,6 +42,7 @@ from wger.nutrition.models import (
     Ingredient,
     Meal,
 )
+from wger.nutrition.models.image import Image
 from wger.utils.constants import NUTRITION_TAB
 
 
@@ -487,6 +489,11 @@ class IngredientModelTestCase(WgerTestCase):
             'generic_name': 'Foo with chocolate, 250g package',
             'brands': 'The bar company',
             'editors_tags': ['open food facts', 'MrX'],
+            'ingredients_analysis_tags': [
+                'en:palm-oil-free',
+                'en:vegan',
+                'en:vegetarian',
+            ],
             'nutriments': {
                 'energy-kcal_100g': 120,
                 'proteins_100g': 10,
@@ -521,6 +528,8 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.fiber, None)
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
+        self.assertTrue(ingredient.is_vegan)
+        self.assertTrue(ingredient.is_vegetarian)
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api):
@@ -594,3 +603,52 @@ class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 0)
+
+
+class ImageFromJsonSimpleTests(SimpleTestCase):
+    def test_from_json_sets_uuid_size_and_license_when_generate_uuid_false(self):
+        json_data = {
+            'uuid': '123e4567-e89b-12d3-a456-426614174000',
+            'license_title': 'CC0',
+            'license_object_url': 'https://license.example/',
+            'license_author': 'Author Name',
+            'license_author_url': 'https://author.example/',
+            'license_derivative_source_url': 'https://source.example/',
+            'size': 12345,
+        }
+
+        img = Image.from_json(
+            connect_to=None,
+            retrieved_image=None,
+            json_data=json_data,
+            generate_uuid=False,
+            save_to_db=False,
+        )
+
+        self.assertIsInstance(img, Image)
+        self.assertEqual(str(img.uuid), json_data['uuid'])
+        self.assertEqual(img.size, 12345)
+        self.assertEqual(img.license_title, json_data['license_title'])
+
+    def test_from_json_generate_uuid_true_uses_model_default_uuid(self):
+        json_data = {
+            'uuid': '123e4567-e89b-12d3-a456-426614174001',
+            'license_title': 'CC0',
+            'license_object_url': 'https://license.example/',
+            'license_author': 'Author Name',
+            'license_author_url': 'https://author.example/',
+            'license_derivative_source_url': 'https://source.example/',
+            'size': 54321,
+        }
+
+        img = Image.from_json(
+            connect_to=None,
+            retrieved_image=None,
+            json_data=json_data,
+            generate_uuid=True,
+            save_to_db=False,
+        )
+
+        self.assertIsInstance(img, Image)
+        self.assertNotEqual(str(img.uuid), json_data['uuid'])
+        self.assertEqual(img.size, 54321)

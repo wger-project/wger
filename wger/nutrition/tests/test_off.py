@@ -37,6 +37,11 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             'generic_name': 'Foo with chocolate, 250g package',
             'brands': 'The bar company',
             'editors_tags': ['open food facts', 'MrX'],
+            'ingredients_analysis_tags': [
+                'en:palm-oil-free',
+                'en:vegan',
+                'en:vegetarian',
+            ],
             'nutriments': {
                 'energy-kcal_100g': 120,
                 'proteins_100g': 10,
@@ -76,6 +81,8 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             license_author='open food facts, MrX',
             license_title='Foo with chocolate',
             license_object_url='https://world.openfoodfacts.org/product/1234/',
+            is_vegan=True,
+            is_vegetarian=True,
         )
 
         self.assertEqual(result, data)
@@ -111,6 +118,62 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
 
         self.assertEqual(result.carbohydrates_sugar, None)
         self.assertEqual(result.fat_saturated, None)
+
+    def test_vegan_product(self):
+        """
+        Test that vegan/vegetarian status is correctly extracted
+        """
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertTrue(result.is_vegan)
+        self.assertTrue(result.is_vegetarian)
+
+    def test_non_vegan_product(self):
+        """
+        Test that non-vegan product is correctly detected
+        """
+        self.off_data1['ingredients_analysis_tags'] = [
+            'en:palm-oil-free',
+            'en:non-vegan',
+            'en:vegetarian',
+        ]
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertFalse(result.is_vegan)
+        self.assertTrue(result.is_vegetarian)
+
+    def test_non_vegetarian_product(self):
+        """
+        Test that non-vegetarian product is correctly detected
+        """
+        self.off_data1['ingredients_analysis_tags'] = [
+            'en:palm-oil-free',
+            'en:non-vegan',
+            'en:non-vegetarian',
+        ]
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertFalse(result.is_vegan)
+        self.assertFalse(result.is_vegetarian)
+
+    def test_unknown_vegan_status(self):
+        """
+        Test that unknown vegan status returns None
+        """
+        self.off_data1['ingredients_analysis_tags'] = [
+            'en:palm-oil-free',
+            'en:vegan-status-unknown',
+            'en:vegetarian-status-unknown',
+        ]
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertIsNone(result.is_vegan)
+        self.assertIsNone(result.is_vegetarian)
+
+    def test_no_analysis_tags(self):
+        """
+        Test that missing ingredients_analysis_tags returns None
+        """
+        del self.off_data1['ingredients_analysis_tags']
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertIsNone(result.is_vegan)
+        self.assertIsNone(result.is_vegetarian)
 
     def test_ingredient_clean_name(self):
         data = IngredientData(

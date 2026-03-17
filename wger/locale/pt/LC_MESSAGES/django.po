@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-01-20 20:01+0000\n"
-"Last-Translator: Ninguém Mesmo <weblate@rasparta.org>\n"
+"PO-Revision-Date: 2026-03-15 16:09+0000\n"
+"Last-Translator: Edson Wolf <edsonwolf@vivaldi.net>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -385,11 +385,11 @@ msgstr "Número de dias após o último peso digitado (0 para desativar)"
 
 #: core/models/profile.py:379
 msgid "Enable trophies"
-msgstr ""
+msgstr "Ativar troféus"
 
 #: core/models/profile.py:380
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Ative ou desative o sistema de troféus para este usuário"
 
 #: core/models/profile.py:446
 msgid "The sum of all hours has to be 24"
@@ -741,7 +741,7 @@ msgstr "Academias"
 #: core/templates/navigation.html:403
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Troféus"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
@@ -1116,7 +1116,7 @@ msgstr "Mudar senha"
 
 #: core/templates/user/registration_sidebar.html:8
 msgid "Already have an account?"
-msgstr ""
+msgstr "Já tem uma conta?"
 
 #: core/templatetags/wger_extras.py:142 i18n.tpl:38
 msgid "kg"
@@ -1694,7 +1694,7 @@ msgstr "Kettlebell"
 
 #: i18n.tpl:18
 msgid "Kilometers"
-msgstr "Kilometros"
+msgstr "Quilômetros"
 
 #: i18n.tpl:19
 msgid "Kilometers Per Hour"
@@ -1778,22 +1778,19 @@ msgstr "nenhum (exercício corporal)"
 
 #: i18n.tpl:41
 msgid "Beginner"
-msgstr ""
+msgstr "Novato"
 
 #: i18n.tpl:42
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Conteúdo"
+msgstr "Consistente"
 
 #: i18n.tpl:43
 msgid "Dedicated"
-msgstr ""
+msgstr "Dedicado"
 
 #: i18n.tpl:44
 msgid "Obsessed"
-msgstr ""
+msgstr "Obcecado"
 
 #: i18n.tpl:45
 msgid "Legend"
@@ -1801,39 +1798,39 @@ msgstr "Legenda"
 
 #: i18n.tpl:46
 msgid "Veteran"
-msgstr ""
+msgstr "Veterano"
 
 #: i18n.tpl:47
 msgid "Titan"
-msgstr ""
+msgstr "Titã"
 
 #: i18n.tpl:48
 msgid "Unstoppable"
-msgstr ""
+msgstr "Imparável"
 
 #: i18n.tpl:49
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Guerreiro de fim de semana"
 
 #: i18n.tpl:50
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Levantador de elefantes"
 
 #: i18n.tpl:51
 msgid "Bus lifter"
-msgstr ""
+msgstr "Elevador de ônibus"
 
 #: i18n.tpl:52
 msgid "Plane lifter"
-msgstr ""
+msgstr "Elevador de avião"
 
 #: i18n.tpl:53
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Elevador de baleia azul"
 
 #: i18n.tpl:54
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Elevador da Estação Espacial"
 
 #: i18n.tpl:55
 msgid "Millionaire"

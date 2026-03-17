@@ -68,7 +68,16 @@ class ConfigType(enum.Enum):
 
 
 class ExerciseType(models.TextChoices):
+    """
+    Types of exercise (set)
+
+    This list needs to be kept in sync with the react and flutter apps:
+    * public/locales/en/translation.json, src/components/WorkoutRoutines/models/SlotEntry.ts and
+    * lib/l10n/app_en.arb, lib/models/workouts/slot_entry.dart
+    """
+
     NORMAL = 'normal'
+    WARMUP = 'warmup'
     DROPSET = 'dropset'
     MYO = 'myo'
     PARTIAL = 'partial'

@@ -57,6 +57,8 @@ class UserStatisticsService:
         Returns:
             The UserStatistics instance
         """
+        if not User.objects.filter(pk=user.pk).exists():
+            raise User.DoesNotExist('User not found')
         stats, created = UserStatistics.objects.get_or_create(user=user)
         return stats
 

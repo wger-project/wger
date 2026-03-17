@@ -46,7 +46,7 @@ from wger.utils.generic_views import (
 logger = logging.getLogger(__name__)
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class UnitListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available weight units
     """
@@ -56,7 +56,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'weight_unit/list.html'
 
 
-class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class UnitAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     View to add a new weight unit
     """
@@ -68,7 +68,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     permission_required = 'core.add_weightunit'
 
 
-class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class UnitUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     View to update an existing weight unit
     """
@@ -82,12 +82,12 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         """
         Send some additional data to the template
         """
-        context = super(UpdateView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object)
         return context
 
 
-class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class UnitDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     View to delete an existing weight unit
     """
@@ -105,12 +105,12 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
         if self.kwargs['pk'] == '1':
             return HttpResponseForbidden()
 
-        return super(DeleteView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         """
         Send some additional data to the template
         """
-        context = super(DeleteView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['title'] = _('Delete {0}?').format(self.object)
         return context

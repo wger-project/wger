@@ -154,7 +154,6 @@ class Day(models.Model):
         slots = getattr(self, 'prefetched_slots', self.slots.all())
 
         for slot in slots:
-            # for slot in self.slots.all():
             slot_data = SlotData(
                 comment=slot.comment,
                 sets=[s.data for s in slot.set_data(iteration)],
