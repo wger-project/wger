@@ -38,6 +38,7 @@ class AddGalleryImageTestCase(WgerAddTestCase):
         'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
     }
 
+
 class AddGalleryImageNoDateEXIFTestCase(WgerAddTestCase):
     """
     Tests adding an image to the gallery with no date, should read EXIF data
@@ -57,6 +58,7 @@ class AddGalleryImageNoDateEXIFTestCase(WgerAddTestCase):
         image = Image.objects.filter(description='EXIF Read').first()
         self.assertEqual(image.date, datetime.date(2026, 3, 1))
 
+
 class AddGalleryImageNoDateTestCase(WgerAddTestCase):
     """
     Tests adding an image to the gallery with no date, should default to current date
@@ -75,6 +77,7 @@ class AddGalleryImageNoDateTestCase(WgerAddTestCase):
     def post_test_hook(self):
         image = Image.objects.filter(description='No date provided').first()
         self.assertEqual(image.date, datetime.date.today())
+
 
 class DeleteGalleryImageTestCase(WgerDeleteTestCase):
     """

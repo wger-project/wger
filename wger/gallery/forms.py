@@ -1,20 +1,26 @@
+# Standard Library
+from datetime import (
+    date,
+    datetime,
+)
+
 # Django
 from django.forms import (
     DateField,
     ModelForm,
     widgets,
 )
-
 from django.utils.translation import gettext_lazy
+
+# Third Party
+# Python Imaging Library to extract data
+from PIL import Image as PilImage
 
 # wger
 from wger.gallery.models import Image
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
 
-# Python Imaging Library to extract data
-from PIL import Image as PilImage
-from datetime import datetime, date
 
 class ImageForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -26,7 +32,7 @@ class ImageForm(ModelForm):
         input_formats=DATE_FORMATS,
         widget=Html5DateInput(),
         required=False,
-        help_text=gettext_lazy("If date is left empty, it will be read from the image instead"),
+        help_text=gettext_lazy('If date is left empty, it will be read from the image instead'),
     )
 
     class Meta:
