@@ -52,6 +52,7 @@ class IngredientData:
     license_author_url: str = ''
     is_vegan: Optional[bool] = None
     is_vegetarian: Optional[bool] = None
+    nutriscore: Optional[str] = None
 
     def sanity_checks(self):
         if not self.name:

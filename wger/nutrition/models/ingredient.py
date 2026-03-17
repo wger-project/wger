@@ -272,6 +272,25 @@ class Ingredient(AbstractLicenseModel, models.Model):
     )
     """Dietary classification from Open Food Facts ingredients_analysis_tags"""
 
+    NUTRISCORE_CHOICES = [
+        ('a', 'A'),
+        ('b', 'B'),
+        ('c', 'C'),
+        ('d', 'D'),
+        ('e', 'E'),
+    ]
+
+    nutriscore = models.CharField(
+        max_length=1,
+        choices=NUTRISCORE_CHOICES,
+        verbose_name='Nutri-Score',
+        help_text='Nutri-Score grade from Open Food Facts',
+        null=True,
+        blank=True,
+        default=None,
+    )
+    """Nutri-Score from Open Food Facts"""
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [

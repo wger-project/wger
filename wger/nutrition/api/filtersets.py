@@ -113,6 +113,7 @@ class IngredientFilterSet(filters.FilterSet):
             'sodium': ['exact'],
             'is_vegan': ['exact'],
             'is_vegetarian': ['exact'],
+            'nutriscore': ['exact', 'in'],
             'created': ['exact', 'gt', 'lt'],
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],

@@ -310,6 +310,7 @@ class IngredientForm(forms.ModelForm):
             'license_author',
             'is_vegan',
             'is_vegetarian',
+            'nutriscore',
         )
         widgets = {'category': forms.TextInput}
 
@@ -341,6 +342,7 @@ class IngredientForm(forms.ModelForm):
                 Column('is_vegetarian', css_class='col-6'),
                 css_class='form-row',
             ),
+            'nutriscore',
             Row(
                 Column('license', css_class='col-6'),
                 Column('license_author', css_class='col-6'),
