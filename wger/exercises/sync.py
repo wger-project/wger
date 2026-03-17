@@ -358,7 +358,7 @@ def handle_deleted_entries(
 
 
 def download_exercise_images(
-    print_fn,
+    print_fn=lambda x: x,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
@@ -404,7 +404,7 @@ def download_exercise_images(
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(image_data['image'], headers=headers)
-            image = ExerciseImage.from_json(exercise, retrieved_image, image_data)
+            ExerciseImage.from_json(exercise, retrieved_image, image_data)
 
         print_fn(style_fn('    successfully saved'))
 

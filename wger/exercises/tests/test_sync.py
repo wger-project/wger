@@ -517,9 +517,15 @@ class MockExerciseResponse:
                             "notes": [
                                 {
                                     "id": 147,
-                                    "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
+                                    "uuid": "a0271147-faca-4a08-af5e-0c02e8ae1310",
                                     "translation": 123,
-                                    "comment": "Foobar"
+                                    "comment": "Updated note"
+                                },
+                                {
+                                    "id": 12345,
+                                    "uuid": "1cc583ab-4c84-4a8a-9689-8c0ba4c44802",
+                                    "translation": 123,
+                                    "comment": "A new note"
                                 },
                             ],
                             "license": 2,
@@ -574,9 +580,10 @@ class MockImageResponse:
             "next": None,
             "previous": None,
             "results": [
+                # existing image, will be updated
                 {
                     "id": 1,
-                    "uuid": "existing-image-uuid-1234",
+                    "uuid": "00000000-0000-0000-0000-000000000001",
                     "exercise": 1,
                     "exercise_uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
                     "image": "https://wger.de/media/exercise-images/1/test.jpg",
@@ -590,9 +597,11 @@ class MockImageResponse:
                     "license_derivative_source_url": "https://source.updated.com",
                     "author_history": ["Author 1"]
                 },
+
+                # new image, will be created
                 {
                     "id": 2,
-                    "uuid": "new-image-uuid-5678",
+                    "uuid": "00000002-1d00-4e9d-a1a4-5f5ebd15e819",
                     "exercise": 2,
                     "exercise_uuid": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
                     "image": "https://wger.de/media/exercise-images/2/newtest.jpg",
@@ -776,8 +785,12 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(translation_de.alias_set.all()[0].alias, 'A new alias here')
         self.assertEqual(translation_de.alias_set.all()[1].alias, 'yet another name')
 
-        self.assertEqual(translation_de.exercisecomment_set.count(), 1)
-        self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
+        self.assertEqual(translation_de.exercisecomment_set.count(), 2)
+        comments = translation_de.exercisecomment_set.all()
+        self.assertEqual(str(comments[0].uuid), 'a0271147-faca-4a08-af5e-0c02e8ae1310')
+        self.assertEqual(comments[0].comment, 'Updated note')
+        self.assertEqual(str(comments[1].uuid), '1cc583ab-4c84-4a8a-9689-8c0ba4c44802')
+        self.assertEqual(comments[1].comment, 'A new note')
 
         translation_fr = exercise.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
@@ -786,44 +799,33 @@ class TestSyncMethods(WgerTestCase):
     def test_image_sync(self, mock_request):
         """Test that download_exercise_images updates existing images and creates new ones"""
 
-        exercise = Exercise.objects.get(uuid='acad3949-36fb-4481-9a72-be2ddae2bc05')
-        existing_image = ExerciseImage.objects.create(
-            uuid='existing-image-uuid-1234',
-            exercise=exercise,
-            is_main=False,
-            style='1',
-            license_id=1,
-            license_title='Old Title',
-            license_author='Old Author',
-        )
-
+        # Arrange
         initial_image_count = ExerciseImage.objects.count()
 
-        download_exercise_images(lambda x: x)
+        # Act
+        download_exercise_images()
 
+        # Assert
+        existing_image = ExerciseImage.objects.get(uuid='00000000-0000-0000-0000-000000000001')
         mock_request.assert_called()
-
-        # Existing image was updated, not recreated
         self.assertEqual(ExerciseImage.objects.count(), initial_image_count + 1)
 
-        updated_image = ExerciseImage.objects.get(uuid='existing-image-uuid-1234')
-        self.assertEqual(updated_image.pk, existing_image.pk)
-        self.assertEqual(updated_image.is_main, True)
-        self.assertEqual(updated_image.style, '2')
-        self.assertEqual(updated_image.license_id, 2)
-        self.assertEqual(updated_image.license_title, 'Updated Image Title')
-        self.assertEqual(updated_image.license_author, 'Updated Author')
-        self.assertEqual(updated_image.license_object_url, 'https://example.com/updated')
-        self.assertEqual(updated_image.license_author_url, 'https://author.updated.com')
+        self.assertEqual(existing_image.is_main, True)
+        self.assertEqual(existing_image.style, '2')
+        self.assertEqual(existing_image.license_id, 2)
+        self.assertEqual(existing_image.license_title, 'Updated Image Title')
+        self.assertEqual(existing_image.license_author, 'Updated Author')
+        self.assertEqual(existing_image.license_object_url, 'https://example.com/updated')
+        self.assertEqual(existing_image.license_author_url, 'https://author.updated.com')
         self.assertEqual(
-            updated_image.license_derivative_source_url,
+            existing_image.license_derivative_source_url,
             'https://source.updated.com',
         )
 
         # Check that a new image was created
-        new_image = ExerciseImage.objects.get(uuid='new-image-uuid-5678')
+        new_image = ExerciseImage.objects.get(uuid='00000002-1d00-4e9d-a1a4-5f5ebd15e819')
         self.assertEqual(new_image.exercise_id, 2)
-        self.assertEqual(new_image.is_main, False)
+        self.assertEqual(new_image.is_main, True)  # the only image will be marked as "main"
         self.assertEqual(new_image.style, '4')
         self.assertEqual(new_image.license_id, 1)
         self.assertEqual(new_image.license_title, 'New Image Title')
