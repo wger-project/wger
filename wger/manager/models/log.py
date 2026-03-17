@@ -40,6 +40,7 @@ from wger.manager.validators import (
     validate_rir,
 )
 from wger.utils.cache import reset_workout_log_cache
+from wger.utils.uuid import uuid7
 
 
 class WorkoutLog(models.Model):
@@ -49,10 +50,11 @@ class WorkoutLog(models.Model):
 
     objects = WorkoutLogManager()
 
-    uuid = models.UUIDField(
-        default=uuid4,
-        editable=True,
+    id = models.UUIDField(
+        default=uuid7,
+        editable=False,
         null=False,
+        primary_key=True,
     )
 
     date = models.DateTimeField(

@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 def handle_update_log(payload: dict[str, any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
-    entry = WorkoutLog.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = WorkoutLog.objects.get(pk=payload['id'], user_id=user_id)
 
     if not entry:
         logger.warning(
@@ -46,7 +46,7 @@ def handle_update_log(payload: dict[str, any], user_id: int) -> None:
     serializer = WorkoutLogSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
-        logger.info(f'Updated WorkoutLog {entry.pk} (uuid={entry.uuid}) for user {user_id}')
+        logger.info(f'Updated WorkoutLog {entry.pk} for user {user_id}')
     else:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
@@ -66,9 +66,9 @@ def handle_create_log(payload: dict[str, any], user_id: int) -> None:
 def handle_delete_log(payload: dict[str, any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
-    entry = WorkoutLog.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = WorkoutLog.objects.get(pk=payload['id'], user_id=user_id)
     if not entry:
-        logger.warning(f'WorkoutLog with UUID {payload["uuid"]} not found for delete.')
+        logger.warning(f'WorkoutLog with UUID {payload["id"]} not found for delete.')
         return
     entry.delete()
 
@@ -78,7 +78,7 @@ def handle_update_session(payload: dict[str, any], user_id: int) -> None:
     logger.debug(
         f'Received PowerSync payload for update: {payload}',
     )
-    entry = WorkoutSession.objects.get(uuid=payload['id'], user_id=user_id)
+    entry = WorkoutSession.objects.get(pk=payload['id'], user_id=user_id)
 
     if not entry:
         logger.warning(
@@ -89,7 +89,7 @@ def handle_update_session(payload: dict[str, any], user_id: int) -> None:
     serializer = WorkoutSessionSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
-        logger.info(f'Updated WorkoutSession {entry.pk} (uuid={entry.uuid}) for user {user_id}')
+        logger.info(f'Updated WorkoutSession {entry.pk} for user {user_id}')
     else:
         logger.warning(f'PowerSync update validation failed: {serializer.errors}')
 
@@ -108,11 +108,9 @@ def handle_create_session(payload: dict[str, any], user_id: int) -> None:
 
 def handle_delete_session(payload: dict[str, any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
-    logger.debug(
-        f'Received PowerSync payload for delete: {payload}',
-    )
-    entry = WorkoutSession.objects.get(uuid=payload['id'], user_id=user_id)
+    logger.debug(f'Received PowerSync payload for delete: {payload}')
+    entry = WorkoutSession.objects.get(pk=payload['id'], user_id=user_id)
     if not entry:
-        logger.warning(f'WorkoutSession with UUID {payload["uuid"]} not found for delete.')
+        logger.warning(f'WorkoutSession with UUID {payload["id"]} not found for delete.')
         return
     entry.delete()

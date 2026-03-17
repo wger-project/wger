@@ -410,7 +410,6 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
         model = WorkoutSession
         fields = (
             'id',
-            'uuid',
             'routine',
             'day',
             'date',
@@ -430,7 +429,6 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
         model = WorkoutLog
         fields = (
             'id',
-            'uuid',
             'date',
             'session',
             'routine',
