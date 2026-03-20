@@ -361,23 +361,6 @@ THUMBNAIL_ALIASES = {
     },
 }
 
-USE_S3 = os.getenv('USE_S3') == 'TRUE'
-
-if USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-    AWS_DEFAULT_ACL = 'public-read'
-    AWS_S3_CUSTOM_DOMAIN = os.getenv('WGER_CDN_DOMAIN')
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=31557600'}
-    # s3 static settings
-    AWS_LOCATION = 'static'
-    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-else:
-    STATIC_URL = '/static/'
-
 
 #
 # Django Rest Framework
@@ -492,7 +475,7 @@ WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
     # Trophy system settings
-    'TROPHIES_ENABLED': True,  # Global toggle to enable/disable trophy system
+    'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
 
