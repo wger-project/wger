@@ -180,3 +180,43 @@ class AuthProxyMiddlewareTests(TestCase):
         self.assertEqual(response_wrong1.status_code, 200)
         self.assertEqual(response_wrong2.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=['10.0.0.0/24', TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_success_trusted_ip_in_subnet(self):
+        """Client IP inside trusted CIDR subnet should authenticate."""
+        response = self.make_request('10.0.0.50', USERNAME)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(int(self.client.session.get('_auth_user_id', 0)), self.existing_user.pk)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=['10.0.0.0/24', TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_failure_untrusted_ip_outside_subnet(self):
+        """Client IP outside trusted CIDR subnet should not authenticate."""
+        response = self.make_request('10.0.1.50', USERNAME)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.request['PATH_INFO'].startswith(self.login_url))
+        self.assertNotIn('_auth_user_id', self.client.session)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=['invalid_subnet_format', '10.0.0.0/24', TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_graceful_handling_of_invalid_subnet_format(self):
+        """Invalid subnet entries should be ignored without crashing."""
+        response = self.make_request('10.0.0.50', USERNAME)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(int(self.client.session.get('_auth_user_id', 0)), self.existing_user.pk)
+
+        self.client.logout()
+
+        response_exact = self.make_request(TRUSTED_IP, USERNAME)
+        self.assertEqual(response_exact.status_code, 200)
+        self.assertEqual(int(self.client.session.get('_auth_user_id', 0)), self.existing_user.pk)
