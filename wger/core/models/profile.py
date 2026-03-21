@@ -558,3 +558,6 @@ by the US Department of Agriculture. It is extremely complete, with around
         Returns the object that has owner information
         """
         return self
+
+# TODO
+# D:\src\PY\WGER-2026-PULL-\DJANGO-\CODE-\wger\wger\core\models\profile.py

@@ -89,3 +89,6 @@ venv-wger
 
 # macOS
 .DS_Store
+
+# feature/2258-migrate-to-django-allauth
+/z-feature-notes-todos

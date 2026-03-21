@@ -25,7 +25,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from django_email_verification import send_email
+# from django_email_verification import send_email  ## TODO: delete this (((pbc260321)))
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -160,7 +160,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         if profile.email_verified:
             return Response({'status': 'verified', 'message': 'This email is already verified'})
 
-        send_email(request.user)
+        # send_email(request.user)  ## TODO: delete this (((pbc260321)))
         return Response(
             {'status': 'sent', 'message': f'A verification email was sent to {request.user.email}'}
         )
@@ -358,7 +358,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         token = create_token(user)
 
         # Email the user with the activation link
-        send_email(user)
+        # send_email(user)  ## TODO: delete this (((pbc260321)))
 
         return Response(
             {'message': 'api user successfully registered', 'token': token.key},

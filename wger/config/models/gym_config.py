@@ -86,3 +86,6 @@ class GymConfig(models.Model):
                         logger.debug(f'Creating GymUserConfig for user {user.username}')
 
         return super(GymConfig, self).save(*args, **kwargs)
+
+# TODO
+# D:\src\PY\WGER-2026-PULL-\DJANGO-\CODE-\wger\wger\config\models\gym_config.py

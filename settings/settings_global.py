@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'storages',
 
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
 
     # Apps from wger proper
     'wger.config',
@@ -109,9 +109,6 @@ INSTALLED_APPS = [
     # History keeping
     'simple_history',
 
-    # Django email verification
-    'django_email_verification',
-
     # Activity stream
     'actstream',
 
@@ -120,6 +117,9 @@ INSTALLED_APPS = [
 
     # Prometheus
     'django_prometheus',
+
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +148,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 
+    # allauth
+    "allauth.account.middleware.AccountMiddleware",
+
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
 
@@ -163,7 +166,10 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by email (Docs)
+    'allauth.account.auth_backends.AuthenticationBackend',
     'wger.utils.helpers.EmailAuthBackend',
+
 )
 
 TEMPLATES = [
@@ -518,12 +524,12 @@ PROMETHEUS_URL_PATH = 'super-secret-path'
 #
 # Django email verification
 #
-def email_verified_callback(user):
-    user.userprofile.email_verified = True
-    user.userprofile.save()
+# def email_verified_callback(user):  # TODO: delete this function (((pbc260321)))
+#     user.userprofile.email_verified = True
+#     user.userprofile.save()
 
 
-EMAIL_MAIL_CALLBACK = email_verified_callback
+# EMAIL_MAIL_CALLBACK = email_verified_callback  # TODO: delete this (((pbc260321)))
 EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'

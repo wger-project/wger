@@ -74,7 +74,7 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
-from django_email_verification import send_email
+# from django_email_verification import send_email  # TODO: delete this function (((pbc260321)))
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -275,7 +275,7 @@ def registration(request):
             django_login(request, user)
 
             # Email the user with the activation link
-            send_email(user)
+            # send_email(user)  # TODO: delete this function (((pbc260321)))
 
             # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
@@ -658,7 +658,7 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
 @login_required
 def confirm_email(request):
     if not request.user.userprofile.email_verified:
-        send_email(request.user)
+        # send_email(request.user)   # TODO: delete this function (((pbc260321)))
         messages.success(
             request, _('A verification email was sent to %(email)s') % {'email': request.user.email}
         )

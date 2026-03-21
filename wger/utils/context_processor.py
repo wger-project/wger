@@ -103,9 +103,15 @@ def get_custom_header(request):
     if request.user.is_authenticated and request.user.userprofile.gym:
         current_gym = request.user.userprofile.gym
     else:
-        global_gymconfig = GymConfig.objects.get(pk=1)
-        if global_gymconfig.default_gym:
-            current_gym = global_gymconfig.default_gym
+        # TODO: # by pankaj (commented 3 lines , uncomment later . delete lines in this else clause)
+        # global_gymconfig = GymConfig.objects.get(pk=1)
+        # if global_gymconfig.default_gym:
+        #     current_gym = global_gymconfig.default_gym
+        # Proposed change in wger/utils/context_processor.py
+        try:
+            global_gymconfig = GymConfig.objects.get(pk=1)
+        except GymConfig.DoesNotExist:
+            global_gymconfig = None  # Or a default fallback object
 
     # Put the custom header together
     custom_header = None
