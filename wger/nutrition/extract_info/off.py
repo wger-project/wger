@@ -13,6 +13,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import re
+
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.dataclasses import IngredientData
@@ -30,6 +33,50 @@ OFF_REQUIRED_NUTRIMENTS = [
     'carbohydrates_100g',
     'fat_100g',
 ]
+
+GRAM_PATTERN = re.compile(r'(?P<gram>\d+(?:[\.,]\d+)?)\s*g\b', re.IGNORECASE)
+AMOUNT_AND_UNIT_PATTERN = re.compile(
+    r'^\s*(?P<amount>\d+(?:[\.,]\d+)?)\s*(?P<unit>[^\d\(\),;\|][^\(\),;\|]*)$'
+)
+
+
+def extract_serving_size_data(serving_size: str) -> tuple[int | None, str | None, float | None]:
+    if not serving_size:
+        return None, None, None
+
+    gram_match = GRAM_PATTERN.search(serving_size)
+    if not gram_match:
+        return None, None, None
+
+    gram_value = float(gram_match.group('gram').replace(',', '.'))
+    if gram_value <= 0:
+        return None, None, None
+
+    gram = int(round(gram_value))
+
+    # If only grams are provided (e.g. "30 g"), expose a generic serving unit.
+    amount = 1.0
+    unit = 'Serving'
+
+    no_parentheses = re.sub(r'\([^\)]*\)', '', serving_size)
+    no_grams = GRAM_PATTERN.sub('', no_parentheses)
+    candidate = re.sub(r'\s+', ' ', no_grams).strip(' ,;-/').strip()
+
+    if candidate:
+        parsed = AMOUNT_AND_UNIT_PATTERN.match(candidate)
+        if parsed:
+            amount = float(parsed.group('amount').replace(',', '.'))
+            unit = parsed.group('unit').strip()
+        else:
+            unit = candidate
+
+    if amount <= 0:
+        amount = 1.0
+
+    if not unit:
+        unit = 'Serving'
+
+    return gram, unit[:200], amount
 
 
 def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
@@ -62,6 +109,11 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     sugars = product_data['nutriments'].get('sugars_100g', None)
     fiber = product_data['nutriments'].get('fiber_100g', None)
     brand = product_data.get('brands', '')
+    serving_size = product_data.get('serving_size', '')
+    
+    serving_size_gram, serving_size_unit, serving_size_amount = extract_serving_size_data(
+        serving_size
+    )
 
     # Dietary properties from OFF ingredients analysis
     is_vegan = None
@@ -115,6 +167,9 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         license_object_url=object_url,
         is_vegan=is_vegan,
         is_vegetarian=is_vegetarian,
+        serving_size_gram=serving_size_gram,
+        serving_size_unit=serving_size_unit,
+        serving_size_amount=serving_size_amount,
     )
     ingredient_data.sanity_checks()
     return ingredient_data

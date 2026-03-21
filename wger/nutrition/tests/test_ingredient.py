@@ -38,9 +38,12 @@ from wger.core.tests.base_testcase import (
     WgerEditTestCase,
     WgerTestCase,
 )
+from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.models import (
     Ingredient,
+    IngredientWeightUnit,
     Meal,
+    WeightUnit,
 )
 from wger.nutrition.models.image import Image
 from wger.utils.constants import NUTRITION_TAB
@@ -530,6 +533,34 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
         self.assertTrue(ingredient.is_vegan)
         self.assertTrue(ingredient.is_vegetarian)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_creates_serving_unit(self, mock_api):
+        self.off_response['serving_size'] = '2 biscuits (30 g)'
+        mock_api.return_value = self.off_response
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        unit = WeightUnit.objects.get(language=ingredient.language, name='biscuits')
+        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
+        self.assertEqual(ingredient_unit.gram, 30)
+        self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_updates_existing_serving_unit(self, mock_api):
+        self.off_response['serving_size'] = '2 biscuits (30 g)'
+        mock_api.return_value = self.off_response
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.off_response['serving_size'] = '2 biscuits (25 g)'
+        ingredient.update_or_create_serving_unit_from_off(
+            extract_info_from_off(self.off_response, ingredient.language_id)
+        )
+
+        unit = WeightUnit.objects.get(language=ingredient.language, name='biscuits')
+        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
+        self.assertEqual(ingredient_unit.gram, 25)
+        self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api):

@@ -135,6 +135,7 @@ class ImportProductCommand(BaseCommand):
                     remote_id=ingredient_data.remote_id,
                     defaults=ingredient_data.dict(),
                 )
+                obj.update_or_create_serving_unit_from_off(ingredient_data)
 
                 if created:
                     self.counter['new'] += 1

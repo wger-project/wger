@@ -52,6 +52,9 @@ class IngredientData:
     license_author_url: str = ''
     is_vegan: Optional[bool] = None
     is_vegetarian: Optional[bool] = None
+    serving_size_gram: Optional[int] = None
+    serving_size_unit: Optional[str] = None
+    serving_size_amount: Optional[float] = None
 
     def sanity_checks(self):
         if not self.name:
@@ -78,7 +81,11 @@ class IngredientData:
             raise ValueError('Total of carbohydrates, protein and fat is greater than 100!')
 
     def dict(self):
-        return asdict(self)
+        data = asdict(self)
+        data.pop('serving_size_gram', None)
+        data.pop('serving_size_unit', None)
+        data.pop('serving_size_amount', None)
+        return data
 
     def clean_name(self):
         self.name = remove_problematic_characters(self.name)

@@ -17,6 +17,7 @@
 # Standard Library
 import logging
 import uuid as uuid
+from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from json import JSONDecodeError
 
@@ -445,6 +446,46 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         fetch_ingredient_image_task.delay(self.pk)
 
+    def update_or_create_serving_unit_from_off(self, ingredient_data):
+        if not ingredient_data.serving_size_gram or not ingredient_data.serving_size_unit:
+            return
+
+        # Local imports to avoid model import cycles.
+        from wger.nutrition.models import (
+            IngredientWeightUnit,
+            WeightUnit,
+        )
+
+        unit = WeightUnit.objects.filter(
+            language_id=self.language_id,
+            name__iexact=ingredient_data.serving_size_unit,
+        ).first()
+        if not unit:
+            unit = WeightUnit.objects.create(
+                language_id=self.language_id,
+                name=ingredient_data.serving_size_unit,
+            )
+
+        amount = ingredient_data.serving_size_amount or 1 # if no amount is given, assume 1.
+        amount = Decimal(str(amount)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+        existing_weight_unit = IngredientWeightUnit.objects.filter(
+            ingredient=self,
+            unit=unit,
+        ).first()
+
+        if existing_weight_unit:
+            existing_weight_unit.gram = ingredient_data.serving_size_gram
+            existing_weight_unit.amount = amount
+            existing_weight_unit.save(update_fields=['gram', 'amount'])
+        else:
+            IngredientWeightUnit.objects.create(
+                ingredient=self,
+                unit=unit,
+                gram=ingredient_data.serving_size_gram,
+                amount=amount,
+            )
+
     @classmethod
     def fetch_ingredient_from_off(cls, code: str):
         """
@@ -482,5 +523,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         ingredient = cls(**ingredient_data.dict())
         ingredient.save()
+        ingredient.update_or_create_serving_unit_from_off(ingredient_data)
         logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
         return ingredient

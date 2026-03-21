@@ -200,3 +200,21 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         )
         data.clean_name()
         self.assertEqual(data.name, 'Stonebaked Pizza "the american pepperoni"')
+
+    def test_serving_size_parsed(self):
+        self.off_data1['serving_size'] = '2 biscuits (30 g)'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.serving_size_gram, 30)
+        self.assertEqual(result.serving_size_unit, 'biscuits')
+        self.assertEqual(result.serving_size_amount, 2)
+
+    def test_serving_size_only_grams(self):
+        self.off_data1['serving_size'] = '30 g'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.serving_size_gram, 30)
+        self.assertEqual(result.serving_size_unit, 'Serving')
+        self.assertEqual(result.serving_size_amount, 1)
