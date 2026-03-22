@@ -43,7 +43,6 @@ class Image(models.Model):
 
     date = models.DateField(
         verbose_name='Date',
-        default=datetime.datetime.now,
     )
 
     user = models.ForeignKey(

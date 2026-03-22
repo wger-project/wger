@@ -358,7 +358,7 @@ def handle_deleted_entries(
 
 
 def download_exercise_images(
-    print_fn,
+    print_fn=lambda x: x,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
@@ -389,13 +389,22 @@ def download_exercise_images(
             continue
 
         try:
-            ExerciseImage.objects.get(uuid=image_uuid)
-            print_fn('    Image already present locally, skipping...')
-            continue
+            image = ExerciseImage.objects.get(uuid=image_uuid)
+            print_fn('    Image already present locally, updating fields...')
+            image.exercise = exercise
+            image.is_main = image_data['is_main']
+            image.style = image_data['style']
+            image.license_id = image_data['license']
+            image.license_title = image_data['license_title']
+            image.license_object_url = image_data['license_object_url']
+            image.license_author = image_data['license_author']
+            image.license_author_url = image_data['license_author_url']
+            image.license_derivative_source_url = image_data['license_derivative_source_url']
+            image.save()
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(image_data['image'], headers=headers)
-            image = ExerciseImage.from_json(exercise, retrieved_image, image_data)
+            ExerciseImage.from_json(exercise, retrieved_image, image_data)
 
         print_fn(style_fn('    successfully saved'))
 

@@ -133,6 +133,7 @@ class ExerciseImageFromJsonSimpleTests(SimpleTestCase):
     def test_from_json_sets_fields_when_generate_uuid_false(self):
         json_data = {
             'uuid': '11111111-2222-3333-4444-555555555555',
+            'license': 1,
             'license_title': 'CC-BY',
             'license_object_url': 'https://license.example/',
             'license_author': 'Author Name',
@@ -160,6 +161,7 @@ class ExerciseImageFromJsonSimpleTests(SimpleTestCase):
     def test_from_json_generate_uuid_true_uses_model_default(self):
         json_data = {
             'uuid': 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+            'license': 1,
             'license_title': 'CC-BY',
             'license_object_url': 'https://license.example/',
             'license_author': 'Author Name',

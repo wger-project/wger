@@ -156,6 +156,11 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         elif tag == 'en:maybe-vegetarian':
             is_vegetarian = None
 
+    # Nutri-Score
+    nutriscore_value = product_data.get('nutrition_grades', None)
+    if nutriscore_value not in ('a', 'b', 'c', 'd', 'e'):
+        nutriscore_value = None
+
     # License and author info
     source_name = Source.OPEN_FOOD_FACTS.value
     source_url = f'https://world.openfoodfacts.org/api/v2/product/{code}.json'
@@ -188,6 +193,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         serving_size_gram=serving_size_gram,
         serving_size_unit=serving_size_unit,
         serving_size_amount=serving_size_amount,
+        nutriscore=nutriscore_value,
     )
     ingredient_data.sanity_checks()
     return ingredient_data

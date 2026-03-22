@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-02-05 09:01+0000\n"
+"PO-Revision-Date: 2026-03-19 12:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -515,7 +515,7 @@ msgstr "Ništa nije pronađeno."
 #: core/templates/language/overview.html:22
 #: nutrition/templates/ingredient/overview.html:38
 msgid "Add one now."
-msgstr "Dodaj jedan sada."
+msgstr "Dodaj jedan sastojak."
 
 #: core/templates/language/overview.html:34 core/templates/license/list.html:43
 #: core/templates/repetition_unit/list.html:46
@@ -2424,7 +2424,7 @@ msgstr "Poboljšaj vježbe"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr "Doprinesi nove vježbe i uredi ili prevedi postojeće."
+msgstr "Dodaj nove vježbe i uredi ili prevedi postojeće."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
@@ -2439,7 +2439,7 @@ msgstr ""
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
-msgstr "Doprinesi porgramskom kodu ili dokumentaciji"
+msgstr "Doprinesi programskom kodu ili dokumentaciji"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
@@ -2478,7 +2478,7 @@ msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
-"Hvala ti što ste dio zajednice! Cijenimo tvoje korištenje aplikacije, slanje "
+"Hvala ti što si dio zajednice! Cijenimo tvoje korištenje aplikacije, slanje "
 "povratnih informacija i svaku podršku koju možeš ponuditi."
 
 #: software/templates/about_us.html:155
@@ -2492,8 +2492,7 @@ msgid ""
 "under a free license."
 msgstr ""
 "Cilj je izgraditi sjajan i fleksibilan fitness, zajedno sa sveobuhvatnim i "
-"potpunim popisom vježbi i sastojaka, a sve objavljeno pod besplatnom "
-"licencom."
+"potpunim popisom vježbi i sastojaka, a sve objavljeno pod slobodnom licencom."
 
 #: software/templates/features.html:11
 msgid ""

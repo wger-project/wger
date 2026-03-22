@@ -39,6 +39,46 @@ class AddGalleryImageTestCase(WgerAddTestCase):
     }
 
 
+class AddGalleryImageNoDateEXIFTestCase(WgerAddTestCase):
+    """
+    Tests adding an image to the gallery with no date, should read EXIF data
+    """
+
+    object_class = Image
+    url = 'gallery:images:add'
+    user_fail = False
+    data = {
+        # No date
+        'user': 1,
+        'description': 'EXIF Read',
+        'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
+    }
+
+    def post_test_hook(self):
+        image = Image.objects.filter(description='EXIF Read').first()
+        self.assertEqual(image.date, datetime.date(2026, 3, 1))
+
+
+class AddGalleryImageNoDateTestCase(WgerAddTestCase):
+    """
+    Tests adding an image to the gallery with no date, should default to current date
+    """
+
+    object_class = Image
+    url = 'gallery:images:add'
+    user_fail = False
+    data = {
+        # No date
+        'user': 1,
+        'description': 'No date provided',
+        'image': open('wger/exercises/tests/wildschwein.jpg', 'rb'),
+    }
+
+    def post_test_hook(self):
+        image = Image.objects.filter(description='No date provided').first()
+        self.assertEqual(image.date, datetime.date.today())
+
+
 class DeleteGalleryImageTestCase(WgerDeleteTestCase):
     """
     Tests deleting a gallery image

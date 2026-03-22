@@ -217,6 +217,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
             has_license_information=True,
         )
         image.exercise = connect_to
+        image.license_id = json_data['license']
         image.is_main = json_data['is_main']
         image.is_ai_generated = json_data.get('is_ai_generated', False)
 

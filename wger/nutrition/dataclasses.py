@@ -55,6 +55,7 @@ class IngredientData:
     serving_size_gram: Optional[int] = None
     serving_size_unit: Optional[str] = None
     serving_size_amount: Optional[float] = None
+    nutriscore: Optional[str] = None
 
     def sanity_checks(self):
         if not self.name:
