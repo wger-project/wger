@@ -13,9 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import logging
-
 import ipaddress  # Support IP and CIDR subnet parsing
+import logging
 
 # Django
 from django.conf import settings
@@ -73,7 +72,6 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
         # Use REMOTE_ADDR as it's the direct connection IP (should be the proxy).
         client_ip = request.META.get('REMOTE_ADDR')
 
-
         # Check if the request comes from a trusted IP or subnet
         is_trusted = False
         if client_ip:
@@ -82,7 +80,7 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
                 client_ip_obj = ipaddress.ip_address(client_ip)
                 for trusted_network in trusted_ips:
                     try:
-                        # strict=False allows both single IPs (e.g., "192.168.1.1") 
+                        # strict=False allows both single IPs (e.g., "192.168.1.1")
                         # and CIDR subnets (e.g., "192.168.1.0/24")
                         if client_ip_obj in ipaddress.ip_network(trusted_network, strict=False):
                             is_trusted = True
