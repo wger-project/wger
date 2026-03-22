@@ -43,6 +43,7 @@ from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     Meal,
+    Source,
     WeightUnit,
 )
 from wger.nutrition.models.image import Image
@@ -242,6 +243,13 @@ class IngredientDetailTestCase(WgerTestCase):
         """
 
         self.ingredient_detail(editor=False)
+
+    @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
+    def test_ingredient_detail_triggers_lazy_serving_sync(self, mock_sync):
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 6}))
+
+        self.assertEqual(response.status_code, 200)
+        mock_sync.assert_called_once()
 
 
 class IngredientSearchTestCase(WgerTestCase):
@@ -547,6 +555,30 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_creates_volume_serving_unit(self, mock_api):
+        self.off_response['serving_size'] = '200 ml (206 g)'
+        mock_api.return_value = self.off_response
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        unit = WeightUnit.objects.get(language=ingredient.language, name='ml')
+        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
+        self.assertEqual(ingredient_unit.gram, 206)
+        self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_creates_volume_serving_unit_without_mass(self, mock_api):
+        self.off_response['serving_size'] = '200 ml'
+        mock_api.return_value = self.off_response
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        unit = WeightUnit.objects.get(language=ingredient.language, name='ml')
+        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
+        self.assertEqual(ingredient_unit.gram, 200)
+        self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
+
+    @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_updates_existing_serving_unit(self, mock_api):
         self.off_response['serving_size'] = '2 biscuits (30 g)'
         mock_api.return_value = self.off_response
@@ -608,6 +640,101 @@ class IngredientModelTestCase(WgerTestCase):
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_creates_unit(self, mock_api):
+        mock_api.return_value = {
+            **self.off_response,
+            'serving_size': '2 biscuits (30 g)',
+        }
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (True, False))
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 1)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_skips_existing_units(self, mock_api):
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.get_or_create(
+            unit=WeightUnit.objects.get(pk=5),
+            defaults={'gram': 15, 'amount': Decimal('1.00')},
+        )
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        mock_api.assert_not_called()
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_skips_non_off_source(self, mock_api):
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.USDA.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        mock_api.assert_not_called()
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_skips_missing_code(self, mock_api):
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = ''
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        mock_api.assert_not_called()
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_handles_off_fetch_failure(self, mock_api):
+        mock_api.return_value = None
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 0)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_does_not_create_unit_for_non_derivable_serving_size(self, mock_api):
+        self.off_response['serving_size'] = '2 tbsp'
+        mock_api.return_value = self.off_response
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.assertIsNotNone(ingredient)
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 0)
+
+
+class IngredientInfoLazyServingUnitSyncApiTestCase(WgerTestCase):
+    @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
+    def test_detail_triggers_lazy_sync(self, mock_sync):
+        self.client.get(reverse('api-ingredientinfo-detail', kwargs={'pk': 1}))
+        mock_sync.assert_called_once()
+
+    @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
+    def test_list_does_not_trigger_lazy_sync(self, mock_sync):
+        self.client.get(reverse('api-ingredientinfo-list'))
+        mock_sync.assert_not_called()
 
 
 class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):

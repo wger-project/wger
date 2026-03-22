@@ -34,33 +34,38 @@ OFF_REQUIRED_NUTRIMENTS = [
     'fat_100g',
 ]
 
-GRAM_PATTERN = re.compile(r'(?P<gram>\d+(?:[\.,]\d+)?)\s*g\b', re.IGNORECASE)
+MASS_PATTERN = re.compile(r'(?P<mass>\d+(?:[\.,]\d+)?)\s*(?P<unit>kg|g|mg)\b', re.IGNORECASE)
 AMOUNT_AND_UNIT_PATTERN = re.compile(
     r'^\s*(?P<amount>\d+(?:[\.,]\d+)?)\s*(?P<unit>[^\d\(\),;\|][^\(\),;\|]*)$'
 )
+
+
+def _mass_match_to_gram(match: re.Match) -> int | None:
+    mass = float(match.group('mass').replace(',', '.'))
+    unit = match.group('unit').lower()
+
+    factor = {'kg': 1000, 'g': 1, 'mg': 0.001}.get(unit)
+    if factor is None:
+        return None
+
+    gram_value = mass * factor
+    if gram_value <= 0:
+        return None
+
+    return int(round(gram_value))
 
 
 def extract_serving_size_data(serving_size: str) -> tuple[int | None, str | None, float | None]:
     if not serving_size:
         return None, None, None
 
-    gram_match = GRAM_PATTERN.search(serving_size)
-    if not gram_match:
-        return None, None, None
-
-    gram_value = float(gram_match.group('gram').replace(',', '.'))
-    if gram_value <= 0:
-        return None, None, None
-
-    gram = int(round(gram_value))
-
-    # If only grams are provided (e.g. "30 g"), expose a generic serving unit.
+    # Parse textual amount/unit even if no explicit mass value is present.
     amount = 1.0
     unit = 'Serving'
 
     no_parentheses = re.sub(r'\([^\)]*\)', '', serving_size)
-    no_grams = GRAM_PATTERN.sub('', no_parentheses)
-    candidate = re.sub(r'\s+', ' ', no_grams).strip(' ,;-/').strip()
+    no_mass = MASS_PATTERN.sub('', no_parentheses)
+    candidate = re.sub(r'\s+', ' ', no_mass).strip(' ,;-/').strip()
 
     if candidate:
         parsed = AMOUNT_AND_UNIT_PATTERN.match(candidate)
@@ -75,6 +80,19 @@ def extract_serving_size_data(serving_size: str) -> tuple[int | None, str | None
 
     if not unit:
         unit = 'Serving'
+
+    # Prefer mass values in parenthesis, e.g. "200 ml (206 g)".
+    parenthesis_matches = [
+        _mass_match_to_gram(match)
+        for content in re.findall(r'\(([^\)]*)\)', serving_size)
+        for match in MASS_PATTERN.finditer(content)
+    ]
+    parenthesis_matches = [value for value in parenthesis_matches if value is not None]
+
+    all_matches = [_mass_match_to_gram(match) for match in MASS_PATTERN.finditer(serving_size)]
+    all_matches = [value for value in all_matches if value is not None]
+
+    gram = parenthesis_matches[0] if parenthesis_matches else (all_matches[0] if all_matches else None)
 
     return gram, unit[:200], amount
 

@@ -218,3 +218,21 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         self.assertEqual(result.serving_size_gram, 30)
         self.assertEqual(result.serving_size_unit, 'Serving')
         self.assertEqual(result.serving_size_amount, 1)
+
+    def test_serving_size_volume_with_gram_equivalent(self):
+        self.off_data1['serving_size'] = '200 ml (206 g)'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.serving_size_gram, 206)
+        self.assertEqual(result.serving_size_unit, 'ml')
+        self.assertEqual(result.serving_size_amount, 200)
+
+    def test_serving_size_without_mass_is_parsed(self):
+        self.off_data1['serving_size'] = '200 ml'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertIsNone(result.serving_size_gram)
+        self.assertEqual(result.serving_size_unit, 'ml')
+        self.assertEqual(result.serving_size_amount, 200)

@@ -447,8 +447,18 @@ class Ingredient(AbstractLicenseModel, models.Model):
         fetch_ingredient_image_task.delay(self.pk)
 
     def update_or_create_serving_unit_from_off(self, ingredient_data):
-        if not ingredient_data.serving_size_gram or not ingredient_data.serving_size_unit:
-            return
+        if not ingredient_data.serving_size_unit:
+            return (False, False)
+
+        gram = ingredient_data.serving_size_gram
+        if not gram:
+            gram = self._derive_serving_size_gram(
+                ingredient_data.serving_size_amount,
+                ingredient_data.serving_size_unit,
+            )
+
+        if not gram:
+            return (False, False)
 
         # Local imports to avoid model import cycles.
         from wger.nutrition.models import (
@@ -475,47 +485,121 @@ class Ingredient(AbstractLicenseModel, models.Model):
         ).first()
 
         if existing_weight_unit:
-            existing_weight_unit.gram = ingredient_data.serving_size_gram
+            existing_weight_unit.gram = gram
             existing_weight_unit.amount = amount
             existing_weight_unit.save(update_fields=['gram', 'amount'])
+            return (False, True)  # (created, updated)
         else:
             IngredientWeightUnit.objects.create(
                 ingredient=self,
                 unit=unit,
-                gram=ingredient_data.serving_size_gram,
+                gram=gram,
                 amount=amount,
             )
+            return (True, False)  # (created, updated)
+
+    @staticmethod
+    def _derive_serving_size_gram(amount, unit):
+        """
+        Derive gram equivalents for volume-based servings using 1 g/ml fallback.
+        """
+        if not amount or not unit:
+            return None
+
+        normalized_unit = unit.strip().lower()
+        conversion = {
+            'ml': 1,
+            'milliliter': 1,
+            'millilitre': 1,
+            'cl': 10,
+            'centiliter': 10,
+            'centilitre': 10,
+            'dl': 100,
+            'deciliter': 100,
+            'decilitre': 100,
+            'l': 1000,
+            'liter': 1000,
+            'litre': 1000,
+        }
+
+        if normalized_unit not in conversion:
+            return None
+
+        try:
+            return int(round(float(amount) * conversion[normalized_unit]))
+        except (TypeError, ValueError):
+            return None
+
+    @staticmethod
+    def _fetch_off_product(code: str, context: str = ''):
+        """
+        Fetch product data from OFF and handle transient API errors.
+        """
+        try:
+            api = API(user_agent=wger_user_agent(), timeout=3)
+            return api.product.get(code)
+        except JSONDecodeError as e:
+            logger.info(f'Got JSONDecodeError from OFF{context}: {e}')
+        except (ReadTimeout, ConnectTimeout):
+            logger.info(f'Timeout from OFF{context}')
+        except HTTPError as e:
+            logger.info(f'Got HTTPError from OFF{context}: {e}')
+
+        return None
+
+    @staticmethod
+    def _extract_off_ingredient_data(result: dict, language_id: int):
+        """
+        Extract normalized ingredient data from an OFF payload.
+        """
+        # wger
+        from wger.nutrition.extract_info.off import extract_info_from_off
+
+        try:
+            return extract_info_from_off(result, language_id)
+        except (KeyError, ValueError) as e:
+            logger.debug(f'Error extracting data from OFF: {e}')
+            return None
+
+    def sync_serving_unit_from_off_if_missing(self):
+        """
+        Fetch serving-size data from OFF for existing ingredients missing local units.
+        """
+        if self.source_name != Source.OPEN_FOOD_FACTS.value or not self.code:
+            return (False, False)
+
+        if self.ingredientweightunit_set.exists():
+            return (False, False)
+
+        result = self._fetch_off_product(self.code, ' while syncing serving size')
+
+        if not result:
+            return (False, False)
+
+        ingredient_data = self._extract_off_ingredient_data(result, self.language_id)
+        if not ingredient_data:
+            return (False, False)
+
+        return self.update_or_create_serving_unit_from_off(ingredient_data)
 
     @classmethod
     def fetch_ingredient_from_off(cls, code: str):
         """
         Searches OFF by barcode and creates a local ingredient from the result
         """
-        # wger
-        from wger.nutrition.extract_info.off import extract_info_from_off
-
         logger.info(f'Searching for ingredient {code} in OFF')
-        try:
-            api = API(user_agent=wger_user_agent(), timeout=3)
-            result = api.product.get(code)
-        except JSONDecodeError as e:
-            logger.info(f'Got JSONDecodeError from OFF: {e}')
-            return None
-        except (ReadTimeout, ConnectTimeout):
-            logger.info('Timeout from OFF')
-            return None
-        except HTTPError as e:
-            logger.info(f'Got HTTPError from OFF: {e}')
-            return None
+        result = cls._fetch_off_product(code)
 
         if not result:
             logger.info('Product not found')
             return None
 
-        try:
-            ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
-        except (KeyError, ValueError) as e:
-            logger.debug(f'Error extracting data from OFF: {e}')
+        language = load_language(result.get('lang'))
+        if not language:
+            return None
+
+        ingredient_data = cls._extract_off_ingredient_data(result, language.pk)
+        if not ingredient_data:
             return None
 
         if not ingredient_data.name:
