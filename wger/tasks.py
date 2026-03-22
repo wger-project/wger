@@ -106,14 +106,6 @@ def create_or_reset_admin(context, settings_path: str = None):
         User.objects.get(username='admin')
         print("*** Password for user admin was reset to 'adminadmin'")
     except User.DoesNotExist:
-        # TODO : by pankaj(pbc260321 bpan) , added 7 lines. remove 7 lines later.
-        user = User.objects.create_user('username', 'emailadmin@gmail.com', 'Cfehome199#')
-        user.save()
-        user_profile = user.userprofile
-        user_profile.is_temporary = True
-        user_profile.age = 25
-        user_profile.height = 175
-        user_profile.save()
         print('*** Created default admin user')
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
