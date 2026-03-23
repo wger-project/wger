@@ -31,6 +31,9 @@ from django.db.models import IntegerField
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from allauth.account.models import EmailAddress
+
 # wger
 from wger.gym.models import Gym
 from wger.utils.constants import TWOPLACES
@@ -102,6 +105,14 @@ class UserProfile(models.Model):
     """
     The gym this user belongs to, if any
     """
+
+    # this field still used in wger\wger\core\templates\user\preferences.html (user.preferences)
+    email_verified = models.OneToOneField(
+        EmailAddress,
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    """Flag indicating whether the user's email has been verified"""
 
     is_temporary = models.BooleanField(default=False, editable=False)
     """
@@ -398,9 +409,9 @@ by the US Department of Agriculture. It is extremely complete, with around
 
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
         minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
-
-        return days_since_joined.days > minimum_account_age
-        # return days_since_joined.days > minimum_account_age and self.email_verified 
+        email_obj = EmailAddress.objects.get_for_user(user=self.user, email=self.user.email)
+        
+        return days_since_joined.days > minimum_account_age and email_obj.verified 
 
     @property
     def weight(self):
