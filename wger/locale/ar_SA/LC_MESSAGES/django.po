@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-02-19 21:09+0000\n"
+"PO-Revision-Date: 2026-03-24 09:09+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -1513,11 +1513,11 @@ msgstr "لا يوجد في هذه الصالة أي مسؤولين أو مدرب
 
 #: gym/templates/gym/member_list.html:98
 msgid "Export"
-msgstr ""
+msgstr "تصدير"
 
 #: gym/templates/gym/member_list.html:137
 msgid "Members"
-msgstr ""
+msgstr "الأعضاء"
 
 #: gym/templates/gym/member_list.html:159
 msgid "Gym configuration"
