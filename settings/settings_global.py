@@ -118,6 +118,7 @@ INSTALLED_APPS = [
     # Prometheus
     'django_prometheus',
 
+    # Django-allauth
     'allauth',
     'allauth.account',
 ]
@@ -166,10 +167,7 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by email (Docs)
-    'allauth.account.auth_backends.AuthenticationBackend',
     'wger.utils.helpers.EmailAuthBackend',
-
 )
 
 TEMPLATES = [
@@ -215,7 +213,7 @@ STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
 # Email
 #
 EMAIL_SUBJECT_PREFIX = '[wger] '
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 #
 # Login
@@ -520,23 +518,6 @@ AUTH_PROXY_CREATE_UNKNOWN_USER = False
 EXPOSE_PROMETHEUS_METRICS = False
 PROMETHEUS_URL_PATH = 'super-secret-path'
 
-
-#
-# Django email verification
-#
-# def email_verified_callback(user):  # TODO: delete this function (((pbc260321)))
-#     user.userprofile.email_verified = True
-#     user.userprofile.save()
-
-
-# EMAIL_MAIL_CALLBACK = email_verified_callback  # TODO: delete this (((pbc260321)))
-EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
-EMAIL_MAIL_SUBJECT = 'Confirm your email'
-EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
-EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'
-EMAIL_MAIL_TOKEN_LIFE = 60 * 60
-EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
 # Django-activity stream

@@ -358,8 +358,10 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
     ),
-    # path('email/', include(email_urls)),   ## TODO: delete this (((pbc260321)))     
-    path('accounts/', include('allauth.account.urls')), 
+    # path('email/', include(email_urls)),   ## TODO: delete this (((pbc260321)))
+    # path('accounts/', include('allauth.urls')),     
+    path('email/', include('allauth.account.urls')), 
+    # path('accounts/', include('allauth.account.urls')), 
 ]
 
 #

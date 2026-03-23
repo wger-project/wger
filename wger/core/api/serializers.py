@@ -93,7 +93,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
         Check Allauth's EmailAddress table for the verification status
         """
         try:
-            email_obj = EmailAddress.objects.get(
+            email_obj = EmailAddress.objects.get_for_user(
                 user=obj.user, 
                 email=obj.user.email
             )

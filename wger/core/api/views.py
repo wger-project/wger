@@ -25,7 +25,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-# from django_email_verification import send_email  ## TODO: delete this (((pbc260321)))
+from allauth.account.models import EmailAddress
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -135,9 +135,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             if data.get('email') and request.user.email != data['email']:
                 request.user.email = data['email']
                 request.user.save()
-                request.user.userprofile.email_verified = False
                 request.user.userprofile.save()
-                logger.debug('resetting verified flag')
+                # EmailAddress.objects.add_email(request, request.user, request.user.email)
+                EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
+                logger.debug('adding email with verified flag and also, sends email confirmation')
 
             return Response(serializer.data)
 
@@ -156,11 +157,11 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         Return the username
         """
 
-        profile = request.user.userprofile
-        if profile.email_verified:
+        email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+        if email_obj.verified:
             return Response({'status': 'verified', 'message': 'This email is already verified'})
-
-        # send_email(request.user)  ## TODO: delete this (((pbc260321)))
+        
+        email_obj.send_confirmation(request)
         return Response(
             {'status': 'sent', 'message': f'A verification email was sent to {request.user.email}'}
         )
@@ -358,7 +359,8 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         token = create_token(user)
 
         # Email the user with the activation link
-        # send_email(user)  ## TODO: delete this (((pbc260321)))
+        email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+        email_obj.send_confirmation(request)
 
         return Response(
             {'message': 'api user successfully registered', 'token': token.key},

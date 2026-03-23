@@ -103,9 +103,6 @@ class UserProfile(models.Model):
     The gym this user belongs to, if any
     """
 
-    email_verified = models.BooleanField(default=False)
-    """Flag indicating whether the user's email has been verified"""
-
     is_temporary = models.BooleanField(default=False, editable=False)
     """
     Flag to mark a temporary user (demo account)
@@ -402,7 +399,8 @@ by the US Department of Agriculture. It is extremely complete, with around
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
         minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
 
-        return days_since_joined.days > minimum_account_age and self.email_verified
+        return days_since_joined.days > minimum_account_age
+        # return days_since_joined.days > minimum_account_age and self.email_verified 
 
     @property
     def weight(self):
@@ -558,6 +556,3 @@ by the US Department of Agriculture. It is extremely complete, with around
         Returns the object that has owner information
         """
         return self
-
-# TODO
-# D:\src\PY\WGER-2026-PULL-\DJANGO-\CODE-\wger\wger\core\models\profile.py

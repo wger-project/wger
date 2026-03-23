@@ -74,7 +74,7 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
-# from django_email_verification import send_email  # TODO: delete this function (((pbc260321)))
+from allauth.account.models import EmailAddress
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -275,7 +275,7 @@ def registration(request):
             django_login(request, user)
 
             # Email the user with the activation link
-            # send_email(user)  # TODO: delete this function (((pbc260321)))
+            EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
 
             # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
@@ -327,8 +327,8 @@ def preferences(request):
         if email_form.is_valid() and redirect:
             # If the user changes the email, it is no longer verified
             if user_email != email_form.instance.email:
-                logger.debug('resetting verified flag')
-                request.user.userprofile.email_verified = False
+                logger.debug('adding email with verified flag and also, sends email confirmation')
+                EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
                 request.user.userprofile.save()
 
             # Save as normal
@@ -657,8 +657,9 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
 
 @login_required
 def confirm_email(request):
-    if not request.user.userprofile.email_verified:
-        # send_email(request.user)   # TODO: delete this function (((pbc260321)))
+    email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+    if not email_obj.verified:
+        email_obj.send_confirmation(request)
         messages.success(
             request, _('A verification email was sent to %(email)s') % {'email': request.user.email}
         )
