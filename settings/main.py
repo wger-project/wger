@@ -290,9 +290,13 @@ if env.bool('USE_S3_MEDIA_FILES', False):
     AWS_S3_REGION_NAME = env.str('AWS_S3_REGION_NAME')
     AWS_S3_DOMAIN = env.str('AWS_S3_DOMAIN')
     AWS_S3_ENDPOINT_URL = env.str(
-        'AWS_S3_ENDPOINT_URL', f'https://{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}'
+        'AWS_S3_ENDPOINT_URL',
+        f'https://{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}',
     )
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}'
+    AWS_S3_CUSTOM_DOMAIN = env.str(
+        'AWS_S3_CUSTOM_DOMAIN',
+        f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}',
+    )
     AWS_QUERYSTRING_AUTH = False
     STORAGES['default']['BACKEND'] = 'storages.backends.s3boto3.S3Boto3Storage'
 
