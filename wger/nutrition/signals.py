@@ -12,15 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import pathlib
-
 # Django
 from django.core.cache import cache
 from django.db.models.signals import (
     post_delete,
     post_save,
 )
+
+# Third Party
+from easy_thumbnails.files import get_thumbnailer
 
 # wger
 from wger.nutrition.models import (
@@ -49,15 +49,14 @@ post_delete.connect(reset_nutritional_values_canonical_form, sender=MealItem)
 
 def auto_delete_file_on_delete(sender, instance: Image, **kwargs):
     """
-    Deletes file from filesystem
-    when corresponding `MediaFile` object is deleted.
+    Delete the image along with its thumbnails
     """
     if not instance.image:
         return
 
-    path = pathlib.Path(instance.image.path)
-    if path.exists():
-        path.unlink()
+    thumbnailer = get_thumbnailer(instance.image)
+    thumbnailer.delete_thumbnails()
+    instance.image.delete(save=False)
 
 
 post_delete.connect(auto_delete_file_on_delete, sender=Image)
