@@ -75,7 +75,7 @@ dev = [
     "django-extensions~=4.1",
     "faker~=40.1.2",
     "hatchling~=1.28.0",
-    "isort~=7.0.0",
+    "isort~=8.0.1",
     "ruff~=0.15.2",
     "tblib~=3.2.0",
     "wheel==0.46.3",
