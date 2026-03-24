@@ -417,6 +417,19 @@ class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(Slot, 'slot')]
 
+    def perform_create(self, serializer):
+        """
+        Default weight_unit to the user's preferred unit if not explicitly set.
+        """
+        if not serializer.validated_data.get('weight_unit'):
+            profile = self.request.user.userprofile
+            if profile.weight_unit == 'lb':
+                from wger.manager.consts import WEIGHT_UNIT_LB
+                from wger.core.models import WeightUnit
+
+                serializer.validated_data['weight_unit'] = WeightUnit.objects.get(pk=WEIGHT_UNIT_LB)
+        super().perform_create(serializer)
+
 
 class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
     """
