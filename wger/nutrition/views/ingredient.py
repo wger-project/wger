@@ -100,9 +100,6 @@ def view(request, pk, slug=None):
             settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL'],
         )
 
-    # Opportunistically fetch missing OFF serving units during page load.
-    ingredient.sync_serving_unit_from_off_if_missing()
-
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)
     context['form'] = UnitChooserForm(

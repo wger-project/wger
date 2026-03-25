@@ -466,6 +466,11 @@ class Ingredient(AbstractLicenseModel, models.Model):
         fetch_ingredient_image_task.delay(self.pk)
 
     def update_or_create_serving_unit_from_off(self, ingredient_data):
+        """
+        Fetch serving size from OFF and update or create a record of it. 
+
+        Returns (boolean, boolean). First boolean is whether serving unit was created, second boolean whether it was updated. 
+        """
         if not ingredient_data.serving_size_unit:
             return (False, False)
 
@@ -515,7 +520,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
                 gram=gram,
                 amount=amount,
             )
-            return (True, False)  # (created, updated)
+            return (True, False) # (created, updated)
 
     @staticmethod
     def _derive_serving_size_gram(amount, unit):
