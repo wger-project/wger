@@ -136,9 +136,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
                 request.user.email = data['email']
                 request.user.save()
                 request.user.userprofile.save()
-                # EmailAddress.objects.add_email(request, request.user, request.user.email)
+                # adds new email if it is not already registered
                 EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
-                logger.debug('adding email with verified flag and also, sends email confirmation')
+                logger.debug('adding new email with verified flag , send verification email')
 
             return Response(serializer.data)
 
@@ -358,9 +358,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         user.userprofile.save()
         token = create_token(user)
 
-        # Email the user with the activation link
-        email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
-        email_obj.send_confirmation(request)
+        EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
 
         return Response(
             {'message': 'api user successfully registered', 'token': token.key},

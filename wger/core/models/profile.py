@@ -106,14 +106,6 @@ class UserProfile(models.Model):
     The gym this user belongs to, if any
     """
 
-    # this field still used in wger\wger\core\templates\user\preferences.html (user.preferences)
-    email_verified = models.OneToOneField(
-        EmailAddress,
-        editable=False,
-        on_delete=models.CASCADE,
-    )
-    """Flag indicating whether the user's email has been verified"""
-
     is_temporary = models.BooleanField(default=False, editable=False)
     """
     Flag to mark a temporary user (demo account)

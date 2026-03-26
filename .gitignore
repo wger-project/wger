@@ -50,7 +50,6 @@ settings/*_extra.py
 *.sqlite
 /CACHE
 
-database.sqlite.orig
 
 # Sphinx documentation
 docs/_build/
@@ -91,6 +90,3 @@ venv-wger
 
 # macOS
 .DS_Store
-
-# feature/2258-migrate-to-django-allauth  # TODO: delete this pbc260322
-/z-feature-notes-todos
