@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-03-24 09:09+0000\n"
+"PO-Revision-Date: 2026-03-28 22:09+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -1484,8 +1484,7 @@ msgstr "أنواع العقود"
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
-msgstr ""
-"لم يزر المستخدمون التاليون الصالة الرياضية خلال %(weeks)s من الأسابيع الماضية"
+msgstr "لم يزر المستخدمون التاليون الصالة خلال %(weeks)s من الأسابيع الماضية"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
