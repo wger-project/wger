@@ -17,8 +17,10 @@
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.forms import MealItemForm
-from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import MealItem
+from wger.nutrition.models import (
+    IngredientWeightUnit,
+    MealItem,
+)
 
 
 class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):

@@ -17,7 +17,10 @@
 import datetime
 import json
 from decimal import Decimal
-from unittest.mock import patch
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
 
 # Django
 from django.core.exceptions import ValidationError
@@ -245,11 +248,11 @@ class IngredientDetailTestCase(WgerTestCase):
         self.ingredient_detail(editor=False)
 
     @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
-    def test_ingredient_detail_triggers_lazy_serving_sync(self, mock_sync):
+    def test_ingredient_detail_does_not_triggers_lazy_serving_sync(self, mock_sync: MagicMock):
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 6}))
 
         self.assertEqual(response.status_code, 200)
-        mock_sync.assert_called_once()
+        mock_sync.assert_not_called()
 
 
 class IngredientSearchTestCase(WgerTestCase):
@@ -520,7 +523,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.off_response_no_results = None
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_success(self, mock_api):
+    def test_fetch_from_off_success(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF
         """
@@ -543,7 +546,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertTrue(ingredient.is_vegetarian)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_serving_unit(self, mock_api):
+    def test_fetch_from_off_creates_serving_unit(self, mock_api: MagicMock):
         self.off_response['serving_size'] = '2 biscuits (30 g)'
         mock_api.return_value = self.off_response
 
@@ -555,7 +558,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_volume_serving_unit(self, mock_api):
+    def test_fetch_from_off_creates_volume_serving_unit(self, mock_api: MagicMock):
         self.off_response['serving_size'] = '200 ml (206 g)'
         mock_api.return_value = self.off_response
 
@@ -567,7 +570,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_volume_serving_unit_without_mass(self, mock_api):
+    def test_fetch_from_off_creates_volume_serving_unit_without_mass(self, mock_api: MagicMock):
         self.off_response['serving_size'] = '200 ml'
         mock_api.return_value = self.off_response
 
@@ -579,7 +582,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_updates_existing_serving_unit(self, mock_api):
+    def test_fetch_from_off_updates_existing_serving_unit(self, mock_api: MagicMock):
         self.off_response['serving_size'] = '2 biscuits (30 g)'
         mock_api.return_value = self.off_response
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
@@ -595,7 +598,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_success_long_name(self, mock_api):
+    def test_fetch_from_off_success_long_name(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - name gets truncated
         """
@@ -610,7 +613,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(len(ingredient.name), 200)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_key_missing_1(self, mock_api):
+    def test_fetch_from_off_key_missing_1(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - missing key in nutriments
         """
@@ -621,7 +624,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertIsNone(ingredient)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_key_missing_2(self, mock_api):
+    def test_fetch_from_off_key_missing_2(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - missing name
         """
@@ -632,7 +635,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertIsNone(ingredient)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_no_results(self, mock_api):
+    def test_fetch_from_off_no_results(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF
         """
@@ -642,7 +645,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertIsNone(ingredient)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_sync_serving_unit_from_off_if_missing_creates_unit(self, mock_api):
+    def test_sync_serving_unit_from_off_if_missing_creates_unit(self, mock_api: MagicMock):
         mock_api.return_value = {
             **self.off_response,
             'serving_size': '2 biscuits (30 g)',
@@ -659,7 +662,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.ingredientweightunit_set.count(), 1)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_sync_serving_unit_from_off_if_missing_skips_existing_units(self, mock_api):
+    def test_sync_serving_unit_from_off_if_missing_skips_existing_units(self, mock_api: MagicMock):
         ingredient = Ingredient.objects.get(pk=1)
         ingredient.source_name = Source.OPEN_FOOD_FACTS.value
         ingredient.code = '1234'
@@ -675,7 +678,7 @@ class IngredientModelTestCase(WgerTestCase):
         mock_api.assert_not_called()
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_sync_serving_unit_from_off_if_missing_skips_non_off_source(self, mock_api):
+    def test_sync_serving_unit_from_off_if_missing_skips_non_off_source(self, mock_api: MagicMock):
         ingredient = Ingredient.objects.get(pk=1)
         ingredient.source_name = Source.USDA.value
         ingredient.code = '1234'
@@ -688,7 +691,7 @@ class IngredientModelTestCase(WgerTestCase):
         mock_api.assert_not_called()
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_sync_serving_unit_from_off_if_missing_skips_missing_code(self, mock_api):
+    def test_sync_serving_unit_from_off_if_missing_skips_missing_code(self, mock_api: MagicMock):
         ingredient = Ingredient.objects.get(pk=1)
         ingredient.source_name = Source.OPEN_FOOD_FACTS.value
         ingredient.code = ''
@@ -701,7 +704,9 @@ class IngredientModelTestCase(WgerTestCase):
         mock_api.assert_not_called()
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_sync_serving_unit_from_off_if_missing_handles_off_fetch_failure(self, mock_api):
+    def test_sync_serving_unit_from_off_if_missing_handles_off_fetch_failure(
+        self, mock_api: MagicMock
+    ):
         mock_api.return_value = None
         ingredient = Ingredient.objects.get(pk=1)
         ingredient.source_name = Source.OPEN_FOOD_FACTS.value
@@ -727,9 +732,9 @@ class IngredientModelTestCase(WgerTestCase):
 
 class IngredientInfoLazyServingUnitSyncApiTestCase(WgerTestCase):
     @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
-    def test_detail_triggers_lazy_sync(self, mock_sync):
+    def test_detail_triggers_lazy_sync(self, mock_sync: MagicMock):
         self.client.get(reverse('api-ingredientinfo-detail', kwargs={'pk': 1}))
-        mock_sync.assert_called_once()
+        mock_sync.assert_not_called()
 
     @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
     def test_list_does_not_trigger_lazy_sync(self, mock_sync):
@@ -741,7 +746,7 @@ class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/ingredient/'
 
     @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
-    def test_search_existing_code(self, mock_fetch_from_off):
+    def test_search_existing_code(self, mock_fetch_from_off: MagicMock):
         """
         Test that when a code already exists, no off sync happens
         """
@@ -752,7 +757,7 @@ class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.data['count'], 1)
 
     @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
-    def test_search_new_code(self, mock_fetch_from_off):
+    def test_search_new_code(self, mock_fetch_from_off: MagicMock):
         """
         Test that when a code isn't present, it will be fetched
         """

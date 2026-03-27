@@ -17,8 +17,10 @@
 # Standard Library
 import logging
 import uuid as uuid
-from decimal import ROUND_HALF_UP
-from decimal import Decimal
+from decimal import (
+    ROUND_HALF_UP,
+    Decimal,
+)
 from json import JSONDecodeError
 
 # Django
@@ -467,12 +469,13 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
     def update_or_create_serving_unit_from_off(self, ingredient_data):
         """
-        Fetch serving size from OFF and update or create a record of it. 
+        Fetch serving size from OFF and update or create a record of it.
 
-        Returns (boolean, boolean). First boolean is whether serving unit was created, second boolean whether it was updated. 
+        Returns (boolean, boolean). First boolean is whether serving unit was created,
+        second boolean whether it was updated.
         """
         if not ingredient_data.serving_size_unit:
-            return (False, False)
+            return False, False
 
         gram = ingredient_data.serving_size_gram
         if not gram:
@@ -482,9 +485,10 @@ class Ingredient(AbstractLicenseModel, models.Model):
             )
 
         if not gram:
-            return (False, False)
+            return False, False
 
         # Local imports to avoid model import cycles.
+        # wger
         from wger.nutrition.models import (
             IngredientWeightUnit,
             WeightUnit,
@@ -500,7 +504,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
                 name=ingredient_data.serving_size_unit,
             )
 
-        amount = ingredient_data.serving_size_amount or 1 # if no amount is given, assume 1.
+        amount = ingredient_data.serving_size_amount or 1  # if no amount is given, assume 1.
         amount = Decimal(str(amount)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
 
         existing_weight_unit = IngredientWeightUnit.objects.filter(
@@ -512,7 +516,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
             existing_weight_unit.gram = gram
             existing_weight_unit.amount = amount
             existing_weight_unit.save(update_fields=['gram', 'amount'])
-            return (False, True)  # (created, updated)
+            return False, True  # (created, updated)
         else:
             IngredientWeightUnit.objects.create(
                 ingredient=self,
@@ -520,7 +524,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
                 gram=gram,
                 amount=amount,
             )
-            return (True, False) # (created, updated)
+            return True, False  # (created, updated)
 
     @staticmethod
     def _derive_serving_size_gram(amount, unit):

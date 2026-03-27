@@ -92,7 +92,9 @@ def extract_serving_size_data(serving_size: str) -> tuple[int | None, str | None
     all_matches = [_mass_match_to_gram(match) for match in MASS_PATTERN.finditer(serving_size)]
     all_matches = [value for value in all_matches if value is not None]
 
-    gram = parenthesis_matches[0] if parenthesis_matches else (all_matches[0] if all_matches else None)
+    gram = (
+        parenthesis_matches[0] if parenthesis_matches else (all_matches[0] if all_matches else None)
+    )
 
     return gram, unit[:200], amount
 
@@ -128,7 +130,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     fiber = product_data['nutriments'].get('fiber_100g', None)
     brand = product_data.get('brands', '')
     serving_size = product_data.get('serving_size', '')
-    
+
     serving_size_gram, serving_size_unit, serving_size_amount = extract_serving_size_data(
         serving_size
     )
