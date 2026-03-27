@@ -160,7 +160,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
         if email_obj.verified:
             return Response({'status': 'verified', 'message': 'This email is already verified'})
-        
+
         email_obj.send_confirmation(request)
         return Response(
             {'status': 'sent', 'message': f'A verification email was sent to {request.user.email}'}
@@ -358,7 +358,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         user.userprofile.save()
         token = create_token(user)
 
-        EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
+        EmailAddress.objects.add_email(request, user, user.email, confirm=True)
 
         return Response(
             {'message': 'api user successfully registered', 'token': token.key},

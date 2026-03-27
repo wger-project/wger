@@ -568,6 +568,19 @@ wheels = [
 ]
 
 [[package]]
+name = "django-allauth"
+version = "65.15.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/84/c1/d3385f4c3169c1d6eea3c63aed0f36af51478c1d72e46db12bb1a08f8034/django_allauth-65.15.0.tar.gz", hash = "sha256:b404d48cf0c3ee14dacc834c541f30adedba2ff1c433980ecc494d6cb0b395a8", size = 2215709, upload-time = "2026-03-09T13:51:28.675Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/75/b8/c8411339171bd8bc075c09ef190fb42195e9a2149e5c5026e094fe62fce0/django_allauth-65.15.0-py3-none-any.whl", hash = "sha256:ad9fc49c49a9368eaa5bb95456b76e2a4f377b3c6862ee8443507816578c098d", size = 2022994, upload-time = "2026-03-09T13:51:19.711Z" },
+]
+
+[[package]]
 name = "django-axes"
 version = "8.3.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2119,6 +2132,7 @@ dependencies = [
     { name = "crispy-bootstrap5" },
     { name = "django" },
     { name = "django-activity-stream" },
+    { name = "django-allauth" },
     { name = "django-axes", extra = ["ipware"] },
     { name = "django-bootstrap-breadcrumbs2" },
     { name = "django-cors-headers" },
@@ -2176,6 +2190,7 @@ requires-dist = [
     { name = "crispy-bootstrap5", specifier = "~=2025.6" },
     { name = "django", specifier = "~=5.2.8" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
+    { name = "django-allauth", specifier = "~=65.15.0" },
     { name = "django-axes", extras = ["ipware"], specifier = "~=8.3.1" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },

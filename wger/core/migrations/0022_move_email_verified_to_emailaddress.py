@@ -7,7 +7,7 @@ Migration script to copy 'email_verified' column of UserProfile to 'verified' co
 def migrate_verification_status(apps, schema_editor):
     UserProfile = apps.get_model('core', 'UserProfile')
     EmailAddress = apps.get_model('account', 'EmailAddress')
-    
+
     for profile in UserProfile.objects.all():
         if profile.user.email:
             # Create allauth table using existing userprofile fields
@@ -28,4 +28,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(migrate_verification_status),
+        migrations.RemoveField(
+            model_name='userprofile',
+            name='email_verified',
+        ),
     ]
