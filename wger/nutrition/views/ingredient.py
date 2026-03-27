@@ -99,6 +99,7 @@ def view(request, pk, slug=None):
             ingredient,
             settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL'],
         )
+
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)
     context['form'] = UnitChooserForm(

@@ -84,7 +84,10 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.select_related(
+        'language',
+        'license',
+    ).prefetch_related('ingredientweightunit_set__unit')
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
