@@ -70,6 +70,39 @@ class Ingredient(AbstractLicenseModel, models.Model):
     An ingredient, with some approximate nutrition values
     """
 
+    class Meta:
+        ordering = [
+            'name',
+        ]
+        indexes = (
+            GinIndex(
+                fields=['name'],
+                name='nutrition_i_search__f274b7_gin',
+            ),
+            models.Index(
+                fields=['last_update'],
+                name='idx_ingredient_last_update',
+            ),
+            models.Index(
+                fields=['last_imported'],
+                name='idx_ingredient_last_imported',
+            ),
+            models.Index(
+                fields=['is_vegan'],
+                name='idx_ingredient_vegan',
+                condition=models.Q(is_vegan=True),
+            ),
+            models.Index(
+                fields=['is_vegetarian'],
+                name='idx_ingredient_vegetarian',
+                condition=models.Q(is_vegetarian=True),
+            ),
+            models.Index(
+                fields=['nutriscore'],
+                name='idx_ingredient_nutriscore',
+            ),
+        )
+
     ENERGY_APPROXIMATION = 15
     """
     How much the calculated energy from protein, etc. can deviate from the
@@ -293,13 +326,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
         default=None,
     )
     """Nutri-Score from Open Food Facts"""
-
-    # Metaclass to set some other properties
-    class Meta:
-        ordering = [
-            'name',
-        ]
-        indexes = (GinIndex(fields=['name']),)
 
     #
     # Django methods
