@@ -531,3 +531,16 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 RECAPTCHA_REQUIRED_SCORE = 0
+
+#
+# Storage options
+#
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage'
+    },
+    'staticfiles': {
+        # django.contrib.staticfiles.storage.StaticFilesStorage
+        'BACKEND': 'wger.core.storage.LenientManifestStaticFilesStorage',
+    },
+}
