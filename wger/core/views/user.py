@@ -301,6 +301,8 @@ def preferences(request):
     context.update(csrf(request))
     redirect = False
 
+    email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+
     # Process the preferences form
     if request.method == 'POST':
         form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
@@ -338,6 +340,7 @@ def preferences(request):
             redirect = False
 
     context['form'] = form
+    context['email_verified'] = email_obj.verified
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
