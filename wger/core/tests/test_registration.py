@@ -18,10 +18,13 @@ from io import StringIO
 
 # Django
 from django.contrib.auth.models import User
+from django.core import mail
 from django.core.management import call_command
+from django.test import override_settings
 from django.urls import reverse
 
 # Third Party
+from allauth.account.models import EmailAddress
 from rest_framework.authtoken.models import Token
 from rest_framework.status import (
     HTTP_200_OK,
@@ -179,6 +182,32 @@ class RegistrationTestCase(WgerTestCase):
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()
 
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    def test_registration_sends_verification_email(self):
+        """
+        Tests that a verification email is sent when a new user registers
+        """
+
+        registration_data = {
+            'username': 'newuser',
+            'password1': 'quai8fai7Zae',
+            'password2': 'quai8fai7Zae',
+            'email': 'newuser@example.com',
+            'g-recaptcha-response': 'PASSED',
+        }
+        response = self.client.post(reverse('core:user:registration'), registration_data)
+        self.assertEqual(response.status_code, 302)
+
+        # A verification email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn('newuser@example.com', mail.outbox[0].to)
+
+        # An EmailAddress entry was created with verified=False
+        user = User.objects.get(username='newuser')
+        email_obj = EmailAddress.objects.get(user=user)
+        self.assertEqual(email_obj.email, 'newuser@example.com')
+        self.assertFalse(email_obj.verified)
+
     def test_registration_deactivated(self):
         """
         Test that with deactivated registration no users can register
@@ -230,6 +259,26 @@ class ApiRegistrationTestCase(WgerTestCase):
         self.assertEqual(response.data['message'], 'api user successfully registered')
         self.assertEqual(response.data['token'], token.key)
         self.assertEqual(count_after, count_before + 1)
+
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    def test_api_registration_sends_verification_email(self):
+        """Tests that a verification email is sent when registering via the API"""
+
+        response = self.client.post(
+            reverse('api_register'),
+            {'username': 'restapi_email', 'email': 'restapi@example.com', 'password': 'AekaiLe0ga'},
+        )
+        self.assertEqual(response.status_code, HTTP_201_CREATED)
+
+        # A verification email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn('restapi@example.com', mail.outbox[0].to)
+
+        # An EmailAddress entry was created with verified=False
+        user = User.objects.get(username='restapi_email')
+        email_obj = EmailAddress.objects.get(user=user)
+        self.assertEqual(email_obj.email, 'restapi@example.com')
+        self.assertFalse(email_obj.verified)
 
     def test_post_valid_api_user_creation_no_email(self):
         """Successfully register a user via the REST API without providing an email"""
