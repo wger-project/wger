@@ -219,7 +219,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # django-allauth
 #
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 
 #

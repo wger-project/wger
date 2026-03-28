@@ -16,10 +16,10 @@
 from datetime import timedelta
 
 # Django
+from django.conf import settings
 from django.utils import timezone
 
 # Third Party
-from allauth.account import app_settings
 from allauth.account.adapter import DefaultAccountAdapter
 
 
@@ -36,7 +36,7 @@ class WgerAccountAdapter(DefaultAccountAdapter):
         which needs this information.
         """
 
-        expire_days = app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
+        expire_days = settings.ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS
         context['expire_hours'] = expire_days * 24
         context['expire_date'] = timezone.now() + timedelta(days=expire_days)
         super().send_mail(template_prefix, email, context)
