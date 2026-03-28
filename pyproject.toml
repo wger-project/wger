@@ -37,7 +37,6 @@ dependencies = [
     "django-bootstrap-breadcrumbs2==1.0.0",
     "django-cors-headers~=4.9.0",
     "django-crispy-forms~=2.5",
-    "django-email-verification~=0.3.3",
     "django-environ~=0.13.0",
     "django-filter~=25.2",
     "django-formtools~=2.5",
