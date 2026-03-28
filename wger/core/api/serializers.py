@@ -23,11 +23,11 @@ from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
 
 # Third Party
+from allauth.account.models import EmailAddress
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
 from rest_framework.fields import empty
 from rest_framework.validators import UniqueValidator
-from allauth.account.models import EmailAddress
 
 # wger
 from wger.core.models import (
@@ -87,16 +87,13 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         )
-    
+
     def get_email_verified(self, obj):
         """
         Check Allauth's EmailAddress table for the verification status
         """
         try:
-            email_obj = EmailAddress.objects.get_for_user(
-                user=obj.user, 
-                email=obj.user.email
-            )
+            email_obj = EmailAddress.objects.get_for_user(user=obj.user, email=obj.user.email)
             return email_obj.verified
         except EmailAddress.DoesNotExist:
             return False

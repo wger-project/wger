@@ -402,8 +402,8 @@ by the US Department of Agriculture. It is extremely complete, with around
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
         minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
         email_obj = EmailAddress.objects.get_for_user(user=self.user, email=self.user.email)
-        
-        return days_since_joined.days > minimum_account_age and email_obj.verified 
+
+        return days_since_joined.days > minimum_account_age and email_obj.verified
 
     @property
     def weight(self):

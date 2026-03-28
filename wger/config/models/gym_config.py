@@ -86,4 +86,3 @@ class GymConfig(models.Model):
                         logger.debug(f'Creating GymUserConfig for user {user.username}')
 
         return super(GymConfig, self).save(*args, **kwargs)
-

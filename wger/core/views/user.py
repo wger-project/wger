@@ -66,6 +66,7 @@ from django.views.generic import (
 )
 
 # Third Party
+from allauth.account.models import EmailAddress
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -74,7 +75,6 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
-from allauth.account.models import EmailAddress
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -330,7 +330,12 @@ def preferences(request):
             # If the user changes the email, it is no longer verified
             if user_email != email_form.instance.email:
                 logger.debug('adding email with verified flag and also, sends email confirmation')
-                EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    request.user.email,
+                    confirm=True,
+                )
                 request.user.userprofile.save()
 
             # Save as normal

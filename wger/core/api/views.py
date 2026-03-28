@@ -137,7 +137,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
                 request.user.save()
                 request.user.userprofile.save()
                 # adds new email if it is not already registered
-                EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    request.user.email,
+                    confirm=True,
+                )
                 logger.debug('adding new email with verified flag , send verification email')
 
             return Response(serializer.data)
