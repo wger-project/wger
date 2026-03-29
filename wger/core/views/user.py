@@ -66,6 +66,7 @@ from django.views.generic import (
 )
 
 # Third Party
+from allauth.account.models import EmailAddress
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -74,7 +75,6 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
-from django_email_verification import send_email
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -275,7 +275,7 @@ def registration(request):
             django_login(request, user)
 
             # Email the user with the activation link
-            send_email(user)
+            EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
 
             # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
@@ -300,6 +300,8 @@ def preferences(request):
     context = {}
     context.update(csrf(request))
     redirect = False
+
+    email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
 
     # Process the preferences form
     if request.method == 'POST':
@@ -327,8 +329,13 @@ def preferences(request):
         if email_form.is_valid() and redirect:
             # If the user changes the email, it is no longer verified
             if user_email != email_form.instance.email:
-                logger.debug('resetting verified flag')
-                request.user.userprofile.email_verified = False
+                logger.debug('adding email with verified flag and also, sends email confirmation')
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    request.user.email,
+                    confirm=True,
+                )
                 request.user.userprofile.save()
 
             # Save as normal
@@ -338,6 +345,7 @@ def preferences(request):
             redirect = False
 
     context['form'] = form
+    context['email_verified'] = email_obj.verified
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
@@ -657,8 +665,9 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
 
 @login_required
 def confirm_email(request):
-    if not request.user.userprofile.email_verified:
-        send_email(request.user)
+    email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+    if not email_obj.verified:
+        email_obj.send_confirmation(request)
         messages.success(
             request, _('A verification email was sent to %(email)s') % {'email': request.user.email}
         )

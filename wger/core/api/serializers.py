@@ -23,6 +23,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
 
 # Third Party
+from allauth.account.models import EmailAddress
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
 from rest_framework.fields import empty
@@ -49,6 +50,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
     username = serializers.EmailField(source='user.username', read_only=True)
     date_joined = serializers.EmailField(source='user.date_joined', read_only=True)
+    email_verified = serializers.SerializerMethodField()
 
     class Meta:
         model = UserProfile
@@ -85,6 +87,16 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         )
+
+    def get_email_verified(self, obj):
+        """
+        Check Allauth's EmailAddress table for the verification status
+        """
+        try:
+            email_obj = EmailAddress.objects.get_for_user(user=obj.user, email=obj.user.email)
+            return email_obj.verified
+        except EmailAddress.DoesNotExist:
+            return False
 
 
 class UserLoginSerializer(serializers.ModelSerializer):

@@ -50,6 +50,7 @@ settings/*_extra.py
 *.sqlite
 /CACHE
 
+
 # Sphinx documentation
 docs/_build/
 

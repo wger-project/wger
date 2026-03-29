@@ -574,18 +574,6 @@ wheels = [
 ]
 
 [[package]]
-name = "deprecation"
-version = "2.1.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "packaging" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/5a/d3/8ae2869247df154b64c1884d7346d412fed0c49df84db635aab2d1c40e62/deprecation-2.1.0.tar.gz", hash = "sha256:72b3bde64e5d778694b0cf68178aed03d15e15477116add3fb773e581f9518ff", size = 173788, upload-time = "2020-04-20T14:23:38.738Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl", hash = "sha256:a10811591210e1fb0e768a8c25517cabeabcba6f0bf96564f8ff45189f90b14a", size = 11178, upload-time = "2020-04-20T14:23:36.581Z" },
-]
-
-[[package]]
 name = "django"
 version = "5.2.12"
 source = { registry = "https://pypi.org/simple" }
@@ -609,6 +597,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ff/38/6e3effa1633930183f027d5b89392fef159a6aa45fe9b50b6fdb46bc0ba2/django-activity-stream-2.0.0.tar.gz", hash = "sha256:33a467ba9b9a9969cbed76b2fd65e94a19928e48f0ec2b2e5bb1855177036ed2", size = 41331, upload-time = "2023-10-04T07:51:22.947Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a4/a5/24dee73df5206e71020ab5e530b8687fb2073a7c95542d145f6bbaabd86d/django_activity_stream-2.0.0-py3-none-any.whl", hash = "sha256:e7b86e637e419d068d9a5b4f3bacfec5ae231f412c2bda0ad686a1e47d4424ef", size = 50731, upload-time = "2023-10-04T07:51:20.479Z" },
+]
+
+[[package]]
+name = "django-allauth"
+version = "65.15.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/84/c1/d3385f4c3169c1d6eea3c63aed0f36af51478c1d72e46db12bb1a08f8034/django_allauth-65.15.0.tar.gz", hash = "sha256:b404d48cf0c3ee14dacc834c541f30adedba2ff1c433980ecc494d6cb0b395a8", size = 2215709, upload-time = "2026-03-09T13:51:28.675Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/75/b8/c8411339171bd8bc075c09ef190fb42195e9a2149e5c5026e094fe62fce0/django_allauth-65.15.0-py3-none-any.whl", hash = "sha256:ad9fc49c49a9368eaa5bb95456b76e2a4f377b3c6862ee8443507816578c098d", size = 2022994, upload-time = "2026-03-09T13:51:19.711Z" },
 ]
 
 [[package]]
@@ -677,20 +678,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f1/4d/6acf660500d3d581bfc19460d9605cdf14c275640f35825da1329eaafafa/django_debug_toolbar-6.2.0.tar.gz", hash = "sha256:dc1c174d8fb0ea01435e02d9ceef735cf62daf37c1a6a5692d33b4127327679b", size = 313779, upload-time = "2026-01-20T12:38:25.268Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/88/04/e24611299a5ee0d4edfacf935b09cfb7d5d9cb653bd7b7883c3b43a6f90d/django_debug_toolbar-6.2.0-py3-none-any.whl", hash = "sha256:1575461954e6befa720e999dec13fe4f1cc8baf40b6c3ac2aec5f340c0f9c85f", size = 271354, upload-time = "2026-01-20T12:38:23.608Z" },
-]
-
-[[package]]
-name = "django-email-verification"
-version = "0.3.3"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "deprecation" },
-    { name = "pyjwt" },
-    { name = "validators" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/69/6b/f3bda23f427b904a5d5aac5767ee794f23c79a0db830d5a408fedfaf2d83/django-email-verification-0.3.3.tar.gz", hash = "sha256:da110400449f15e200e27cce1ddf32afacd361c1ea710dcd18f1244410a73f1e", size = 11352, upload-time = "2023-09-20T21:39:52.255Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/9c/5a/56ac119901d82c64c9a22e28cdca14aedb4a1fb90e54467e2372b3f2a2f3/django_email_verification-0.3.3-py3-none-any.whl", hash = "sha256:ba4d8211e55d56e75243ca9453e5623d0eb59de4729cb39a677d57a42d6ef0aa", size = 7831, upload-time = "2023-09-20T21:39:50.972Z" },
 ]
 
 [[package]]
@@ -2141,15 +2128,6 @@ wheels = [
 ]
 
 [[package]]
-name = "validators"
-version = "0.35.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/53/66/a435d9ae49850b2f071f7ebd8119dd4e84872b01630d6736761e6e7fd847/validators-0.35.0.tar.gz", hash = "sha256:992d6c48a4e77c81f1b4daba10d16c3a9bb0dbb79b3a19ea847ff0928e70497a", size = 73399, upload-time = "2025-05-01T05:42:06.7Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/fa/6e/3e955517e22cbdd565f2f8b2e73d52528b14b8bcfdb04f62466b071de847/validators-0.35.0-py3-none-any.whl", hash = "sha256:e8c947097eae7892cb3d26868d637f79f47b4a0554bc6b80065dfe5aac3705dd", size = 44712, upload-time = "2025-05-01T05:42:04.203Z" },
-]
-
-[[package]]
 name = "vine"
 version = "5.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2186,11 +2164,11 @@ dependencies = [
     { name = "crispy-bootstrap5" },
     { name = "django" },
     { name = "django-activity-stream" },
+    { name = "django-allauth" },
     { name = "django-axes", extra = ["ipware"] },
     { name = "django-bootstrap-breadcrumbs2" },
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
-    { name = "django-email-verification" },
     { name = "django-environ" },
     { name = "django-filter" },
     { name = "django-formtools" },
@@ -2244,11 +2222,11 @@ requires-dist = [
     { name = "crispy-bootstrap5", specifier = "~=2025.6" },
     { name = "django", specifier = "~=5.2.8" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
+    { name = "django-allauth", specifier = "~=65.15.0" },
     { name = "django-axes", extras = ["ipware"], specifier = "~=8.3.1" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },
     { name = "django-crispy-forms", specifier = "~=2.5" },
-    { name = "django-email-verification", specifier = "~=0.3.3" },
     { name = "django-environ", specifier = "~=0.13.0" },
     { name = "django-filter", specifier = "~=25.2" },
     { name = "django-formtools", specifier = "~=2.5" },

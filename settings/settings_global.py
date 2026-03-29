@@ -109,9 +109,6 @@ INSTALLED_APPS = [
     # History keeping
     'simple_history',
 
-    # Django email verification
-    'django_email_verification',
-
     # Activity stream
     'actstream',
 
@@ -120,6 +117,10 @@ INSTALLED_APPS = [
 
     # Prometheus
     'django_prometheus',
+
+    # Django-allauth
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
+    # allauth
+    "allauth.account.middleware.AccountMiddleware",
 
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
@@ -209,7 +213,14 @@ STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
 # Email
 #
 EMAIL_SUBJECT_PREFIX = '[wger] '
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#
+# django-allauth
+#
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 
 #
 # Login
@@ -497,23 +508,6 @@ AUTH_PROXY_CREATE_UNKNOWN_USER = False
 EXPOSE_PROMETHEUS_METRICS = False
 PROMETHEUS_URL_PATH = 'super-secret-path'
 
-
-#
-# Django email verification
-#
-def email_verified_callback(user):
-    user.userprofile.email_verified = True
-    user.userprofile.save()
-
-
-EMAIL_MAIL_CALLBACK = email_verified_callback
-EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
-EMAIL_MAIL_SUBJECT = 'Confirm your email'
-EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
-EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'
-EMAIL_MAIL_TOKEN_LIFE = 60 * 60
-EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
 # Django-activity stream
