@@ -29,7 +29,6 @@ from wger.nutrition.models import (
     Meal,
     MealItem,
     NutritionPlan,
-    WeightUnit,
 )
 
 
@@ -38,17 +37,13 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
     IngredientWeightUnit serializer
     """
 
-    unit_name = serializers.CharField(source='unit.name', read_only=True)
-
     class Meta:
         model = IngredientWeightUnit
         fields = (
             'id',
-            'amount',
             'gram',
             'ingredient',
-            'unit',
-            'unit_name',
+            'name',
         )
 
 
@@ -57,30 +52,11 @@ class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
     IngredientWeightUnit info serializer
     """
 
-    unit_name = serializers.CharField(source='unit.name', read_only=True)
-
     class Meta:
         model = IngredientWeightUnit
-        depth = 1
         fields = (
             'id',
             'gram',
-            'amount',
-            'unit',
-            'unit_name',
-        )
-
-
-class WeightUnitSerializer(serializers.ModelSerializer):
-    """
-    WeightUnit serializer
-    """
-
-    class Meta:
-        model = WeightUnit
-        fields = (
-            'id',
-            'language',
             'name',
         )
 

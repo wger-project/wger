@@ -22,7 +22,6 @@ from django.db import models
 
 # Local
 from .ingredient import Ingredient
-from .weight_unit import WeightUnit
 
 
 logger = logging.getLogger(__name__)
@@ -39,20 +38,12 @@ class IngredientWeightUnit(models.Model):
         editable=False,
         on_delete=models.CASCADE,
     )
-    unit = models.ForeignKey(
-        WeightUnit,
-        verbose_name='Weight unit',
-        on_delete=models.CASCADE,
+    name = models.CharField(
+        max_length=200,
+        verbose_name='Name',
     )
 
     gram = models.IntegerField(verbose_name='Amount in grams')
-    amount = models.DecimalField(
-        decimal_places=2,
-        max_digits=5,
-        default=1,
-        verbose_name='Amount',
-        help_text='Unit amount, e.g. "1 Cup" or "1/2 spoon"',
-    )
 
     def get_owner_object(self):
         """
@@ -65,4 +56,4 @@ class IngredientWeightUnit(models.Model):
         Return a more human-readable representation
         """
 
-        return f'{self.amount if self.amount > 1 else ""}{self.unit.name} ({self.gram}g)'
+        return f'{self.name} ({self.gram}g)'

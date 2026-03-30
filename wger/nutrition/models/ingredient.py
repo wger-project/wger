@@ -17,10 +17,7 @@
 # Standard Library
 import logging
 import uuid as uuid
-from decimal import (
-    ROUND_HALF_UP,
-    Decimal,
-)
+from decimal import Decimal
 from json import JSONDecodeError
 
 # Django
@@ -36,7 +33,9 @@ from django.core.validators import (
 from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
+from django.utils import translation
 from django.utils.text import slugify
+from django.utils.translation import gettext
 
 # Third Party
 from openfoodfacts import API
@@ -52,6 +51,7 @@ from wger.nutrition.consts import (
     ENERGY_FACTOR,
     KJ_PER_KCAL,
 )
+from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.managers import ApproximateCountManager
 from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
@@ -493,7 +493,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         fetch_ingredient_image_task.delay(self.pk)
 
-    def update_or_create_serving_unit_from_off(self, ingredient_data):
+    def update_or_create_serving_unit_from_off(self, ingredient_data: IngredientData):
         """
         Fetch serving size from OFF and update or create a record of it.
 
@@ -513,42 +513,35 @@ class Ingredient(AbstractLicenseModel, models.Model):
         if not gram:
             return False, False
 
-        # Local imports to avoid model import cycles.
+        # Local import to avoid model import cycles.
         # wger
-        from wger.nutrition.models import (
-            IngredientWeightUnit,
-            WeightUnit,
-        )
+        from wger.nutrition.models import IngredientWeightUnit
 
-        unit = WeightUnit.objects.filter(
-            language_id=self.language_id,
-            name__iexact=ingredient_data.serving_size_unit,
-        ).first()
-        if not unit:
-            unit = WeightUnit.objects.create(
-                language_id=self.language_id,
-                name=ingredient_data.serving_size_unit,
-            )
+        amount = ingredient_data.serving_size_amount or 1
+        unit = ingredient_data.serving_size_unit
 
-        amount = ingredient_data.serving_size_amount or 1  # if no amount is given, assume 1.
-        amount = Decimal(str(amount)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        # Build a descriptive name, e.g. "1 Portion (2 biscuits)" for amount > 1
+        if amount > 1:
+            with translation.override(self.language.short_name):
+                portion = gettext('Portion')
+            name = f'1 {portion} ({amount:g} {unit})'
+        else:
+            name = unit
 
         existing_weight_unit = IngredientWeightUnit.objects.filter(
             ingredient=self,
-            unit=unit,
+            name__iexact=name,
         ).first()
 
         if existing_weight_unit:
             existing_weight_unit.gram = gram
-            existing_weight_unit.amount = amount
-            existing_weight_unit.save(update_fields=['gram', 'amount'])
+            existing_weight_unit.save(update_fields=['gram'])
             return False, True  # (created, updated)
         else:
             IngredientWeightUnit.objects.create(
                 ingredient=self,
-                unit=unit,
+                name=name,
                 gram=gram,
-                amount=amount,
             )
             return True, False  # (created, updated)
 

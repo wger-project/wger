@@ -18,3 +18,8 @@ timer or similar. The `setting-repetitionunit` endpoint now exposes the new fiel
 
 <https://github.com/wger-project/wger/issues/2124>
 Automatically read the date from uploaded image to the gallery.
+
+Improve serving size support for ingredients. Users can now log food in
+everyday units like "1 Serving (2 biscuits)" or "1 Cup" instead of only grams,
+with serving sizes automatically imported from Open Food Facts.
+The `/api/v2/weightunit/` endpoint has been removed.

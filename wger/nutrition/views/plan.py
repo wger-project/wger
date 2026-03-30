@@ -41,7 +41,6 @@ from reportlab.platypus import (
 )
 
 # wger
-from wger.nutrition.consts import MEALITEM_WEIGHT_GRAM
 from wger.nutrition.models import (
     Meal,
     MealItem,
@@ -165,10 +164,10 @@ def export_pdf(request, id: int):
             ingredient_markers.append(len(data))
 
             p = Paragraph(f'<para>{item.ingredient.name}</para>', styleSheet['Normal'])
-            if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
-                unit_name = 'g'
+            if item.weight_unit:
+                unit_name = ' × ' + item.weight_unit.name
             else:
-                unit_name = ' × ' + item.weight_unit.unit.name
+                unit_name = 'g'
 
             data.append(
                 [Paragraph('{0:.0f}{1}'.format(item.amount, unit_name), styleSheet['Normal']), p]

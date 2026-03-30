@@ -26,7 +26,6 @@ from wger.nutrition.views import (
     calculator,
     ingredient,
     plan,
-    unit,
     unit_ingredient,
 )
 
@@ -86,30 +85,6 @@ patterns_ingredient = [
         '<int:pk>/view/<slug:slug>/',
         ingredient.view,
         name='view',
-    ),
-]
-
-# sub patterns for weight units
-patterns_weight_unit = [
-    path(
-        'list/',
-        unit.WeightUnitListView.as_view(),
-        name='list',
-    ),
-    path(
-        'add/',
-        unit.WeightUnitCreateView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/delete/',
-        unit.WeightUnitDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/edit/',
-        unit.WeightUnitUpdateView.as_view(),
-        name='edit',
     ),
 ]
 
@@ -173,13 +148,6 @@ urlpatterns = [
         include(
             (patterns_ingredient, 'ingredient'),
             namespace='ingredient',
-        ),
-    ),
-    path(
-        'unit/',
-        include(
-            (patterns_weight_unit, 'weight_unit'),
-            namespace='weight_unit',
         ),
     ),
     path(

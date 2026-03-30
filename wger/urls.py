@@ -214,7 +214,6 @@ router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='
 router.register(
     r'ingredientinfo', nutrition_api_views.IngredientInfoViewSet, basename='api-ingredientinfo'
 )
-router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, basename='weightunit')
 router.register(
     r'ingredientweightunit',
     nutrition_api_views.IngredientWeightUnitViewSet,
