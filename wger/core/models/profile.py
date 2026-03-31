@@ -391,7 +391,7 @@ by the US Department of Agriculture. It is extremely complete, with around
     @property
     def is_verified(self) -> bool:
         email_obj = self.get_allauth_email
-        return  email_obj is not None and email_obj.verified
+        return email_obj is not None and email_obj.verified
 
     @property
     def is_trustworthy(self) -> bool:
