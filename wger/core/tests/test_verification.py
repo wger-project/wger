@@ -73,7 +73,7 @@ class EmailVerificationFromPreferencesTestCase(WgerTestCase):
 
         # Extract the confirmation key from the email body
         email_body = mail.outbox[0].body
-        match = re.search(r'/account/confirm-email/([^/\s]+)/', email_body)
+        match = re.search(r'/accounts/confirm-email/([^/\s]+)/', email_body)
         self.assertIsNotNone(match, 'Could not find confirmation link in email body')
         key = match.group(1)
 
@@ -156,7 +156,7 @@ class EmailVerificationFromAPITestCase(WgerTestCase):
 
         # Extract the confirmation key from the email body
         email_body = mail.outbox[0].body
-        match = re.search(r'/account/confirm-email/([^/\s]+)/', email_body)
+        match = re.search(r'/accounts/confirm-email/([^/\s]+)/', email_body)
         self.assertIsNotNone(match, 'Could not find confirmation link in email body')
         key = match.group(1)
 

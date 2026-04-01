@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 {% block title %}{% translate "Login" %}{% endblock %}
 
@@ -9,8 +9,18 @@
 
 {% block content %}
     {% crispy form %}
-{% endblock %}
 
+    {# --- GOOGLE LOGIN SECTION --- #}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <hr>
+            <h4>{% translate "Login with Google" %}</h4>
+            <a href="{% provider_login_url 'google' %}" class="btn btn-primary">
+                <i class="fab fa-google"></i> {% translate "Login" %}
+            </a>
+        </div>
+    </div>
+{% endblock %}
 
 {% block sidebar %}
 {% if allow_registration %}
