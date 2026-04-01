@@ -125,6 +125,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.mfa',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -262,6 +264,25 @@ MFA_TOTP_ISSUER = 'wger'
 # button), but not for passwordless signup.
 MFA_PASSKEY_LOGIN_ENABLED = True
 MFA_PASSKEY_SIGNUP_ENABLED = False
+
+#
+# Social account providers
+#
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
+
+ACCOUNT_LOGOUT_ON_GET = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 #
 # Login

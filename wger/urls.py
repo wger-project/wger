@@ -373,6 +373,7 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
     ),
+    path('accounts/', include('allauth.urls')),
 ]
 
 #
