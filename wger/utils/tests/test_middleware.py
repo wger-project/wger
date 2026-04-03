@@ -12,6 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+
+# Standard Library
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
+
 # Django
 from django.urls import reverse
 
@@ -38,10 +45,17 @@ class RobotsExclusionMiddlewareTestCase(WgerTestCase):
         response = self.client.get(reverse('core:imprint'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-    def test_middleware_software(self):
+    @patch('wger.software.views.fetch_github_stats', autospec=True)
+    def test_middleware_software(self, mock_fetch: MagicMock):
         """
         Test the middleware on URLs from software app
         """
+        mock_fetch.return_value = {
+            'nr_users': 1,
+            'nr_exercises': 1,
+            'nr_ingredients': 1,
+            'nr_stars': 1,
+        }
 
         for i in ('features', 'tos', 'about-us'):
             response = self.client.get(reverse(f'software:{i}'))

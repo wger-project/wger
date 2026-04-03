@@ -38,21 +38,37 @@ logger = logging.getLogger(__name__)
 CACHE_KEY = 'landing-page-context'
 
 
+def fetch_github_stats() -> dict:
+    context = cache.get(CACHE_KEY)
+    if context:
+        return context
+
+    context = {
+        'nr_users': 1,
+        'nr_exercises': 1,
+        'nr_ingredients': 1,
+        'nr_stars': 1,
+    }
+
+    try:
+        result_github_api = requests.get('https://api.github.com/repos/wger-project/wger').json()
+        context['nr_users'] = User.objects.count()
+        context['nr_exercises'] = Exercise.objects.count()
+        context['nr_ingredients'] = Ingredient.objects.count()
+        context['nr_stars'] = result_github_api.get('stargazers_count', '2000')
+        cache.set(CACHE_KEY, context, 60 * 60 * 24 * 7)  # one week
+    except Exception as e:
+        logger.error(f'Error fetching github stats: {e}')
+
+    return context
+
+
 def features(request):
     """
     Render the landing page
     """
 
-    context = cache.get(CACHE_KEY)
-    if not context:
-        result_github_api = requests.get('https://api.github.com/repos/wger-project/wger').json()
-        context = {
-            'nr_users': User.objects.count(),
-            'nr_exercises': Exercise.objects.count(),
-            'nr_ingredients': Ingredient.objects.count(),
-            'nr_stars': result_github_api.get('stargazers_count', '2000'),
-        }
-        cache.set(CACHE_KEY, context, 60 * 60 * 24 * 7)  # one week
+    context = fetch_github_stats()
 
     FormClass = (
         RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
