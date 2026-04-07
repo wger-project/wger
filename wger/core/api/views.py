@@ -50,6 +50,9 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework.response import Response
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
 
 # wger
 from wger.core.api.serializers import (
@@ -373,6 +376,13 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
             status=status.HTTP_201_CREATED,
         )
 
+class GoogleLogin(SocialLoginView):
+    """
+    REST endpoint to exchange a Google Access Token for a wger API JWT.
+    """
+    adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client
+    callback_url = "http://127.0.0.1:8000/accounts/google/login/callback/"
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     """
