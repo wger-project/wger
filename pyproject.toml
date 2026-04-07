@@ -49,6 +49,7 @@ dependencies = [
     "djangorestframework-simplejwt[crypto,python_jose]~=5.5.1",
     "djangorestframework~=3.17.1",
     "django~=6.0.5",
+    "dj-rest-auth~=7.2.0",
     "drf-spectacular[sidecar]~=0.29.0",
     "easy-thumbnails~=2.10.1",
     "flower~=2.0.1",

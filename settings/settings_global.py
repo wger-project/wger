@@ -127,6 +127,10 @@ INSTALLED_APPS = [
     'allauth.mfa',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    # Dj-rest-auth
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -499,6 +503,11 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
 }
+
+#
+# Dj-rest-auth
+#
+REST_USE_JWT = True
 
 #
 # CORS headers: allow all hosts to access the API
