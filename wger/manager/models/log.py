@@ -234,12 +234,6 @@ class WorkoutLog(models.Model):
         if self.repetitions is None and self.weight is None:
             raise ValidationError('Both repetitions and weight cannot be null at the same time.')
 
-        if self.repetitions is not None and self.repetitions_unit is None:
-            raise ValidationError('Repetitions unit must be present if repetitions have a value.')
-
-        if self.weight is not None and self.weight_unit is None:
-            raise ValidationError('Weight unit must be present if weight has a value.')
-
     def save(self, *args, **kwargs):
         """
         Plumbing
