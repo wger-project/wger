@@ -113,8 +113,6 @@ class WorkoutLog(models.Model):
         verbose_name='Repetitions unit',
         default=REP_UNIT_REPETITIONS,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
     )
     """
     The repetition unit of the log. This can be e.g. a repetition, a minute, etc.
@@ -148,8 +146,6 @@ class WorkoutLog(models.Model):
         verbose_name='Weight unit',
         default=WEIGHT_UNIT_KG,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
     )
     """
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
