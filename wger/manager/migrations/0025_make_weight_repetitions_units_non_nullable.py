@@ -6,7 +6,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('manager', '0024_fill_null_weight_repetitions_units'),
-        ('core', '0022_move_email_verified_to_emailaddress.py'),
+        ('core', '0022_move_email_verified_to_emailaddress'),
     ]
 
     operations = [
