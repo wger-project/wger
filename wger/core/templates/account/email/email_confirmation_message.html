@@ -1,0 +1,130 @@
+{% load account %}
+{% load i18n %}
+{% autoescape off %}
+{% user_display user as user_display %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #2a4e6c;
+            color: #ffffff;
+            padding: 24px 32px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 32px;
+        }
+        .content p {
+            margin: 0 0 16px;
+        }
+        .button-wrapper {
+            text-align: center;
+            margin: 24px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #2a4e6c;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .note {
+            font-size: 13px;
+            color: #888;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+        .note a {
+            color: #888;
+            word-break: break-all;
+        }
+        .footer {
+            text-align: center;
+            padding: 16px 32px;
+            font-size: 12px;
+            color: #999;
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{% trans "Almost there!" %}</h1>
+        </div>
+        <div class="content">
+            <p>
+                {% blocktranslate with site_name=current_site.name site_domain=current_site.domain trimmed %}
+                    You're receiving this email because the user "{{ user_display }}" has given your
+                    email address to register an account on {{ site_domain }}.
+                {% endblocktranslate %}
+            </p>
+
+            {% if code %}
+                <p>
+                    {% blocktranslate trimmed %}
+                        Your email verification code is listed below. Please enter it in your open browser window.
+                    {% endblocktranslate %}
+                </p>
+                <p style="text-align: center; font-size: 28px; font-weight: bold; letter-spacing: 4px;">{{ code }}</p>
+            {% else %}
+                <p>
+                    {% blocktranslate trimmed %}
+                        Please click the button below to confirm your email address.
+                    {% endblocktranslate %}
+                </p>
+                <div class="button-wrapper">
+                    <a class="button" href="{{ activate_url }}">
+                        {% translate "Confirm email" %}
+                    </a>
+                </div>
+                <p class="note">
+                    {% blocktranslate with time=expire_date|time:"TIME_FORMAT" date=expire_date|date:"DATE_FORMAT" trimmed %}
+                        The link is valid for {{ expire_hours }} hours (until {{ date }}, {{ time }}).
+                        You can request a new one from your profile settings.
+                    {% endblocktranslate %}
+                    <br><br>
+
+                    {% blocktranslate trimmed %}
+                        If the button doesn't work, copy and paste this link into your browser:
+                    {% endblocktranslate %}
+                    <br>
+                    <a href="{{ activate_url }}">{{ activate_url }}</a>
+                </p>
+            {% endif %}
+        </div>
+        <div class="footer">
+           {% translate 'the wger Team' %}
+        </div>
+    </div>
+</body>
+</html>
+{% endautoescape %}

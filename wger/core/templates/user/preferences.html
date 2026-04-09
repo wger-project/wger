@@ -13,7 +13,7 @@
 
 
 {% block sidebar %}
-    {% if user.userprofile.email_verified %}
+    {% if email_verified %}
         <p>
             <span class="{% fa_class 'envelope-circle-check' %}  text-success"></span>
             {% translate "Verified email" %}
@@ -41,10 +41,10 @@
 {% block options %}
     <div class="btn-group">
         <div class="btn-group" role="group">
-            <button type="button" 
+            <button type="button"
                     class="btn btn-primary btn-sm dropdown-toggle"
                     data-bs-toggle="dropdown"
-                    aria-haspopup="true" 
+                    aria-haspopup="true"
                     aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}

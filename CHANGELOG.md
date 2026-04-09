@@ -15,3 +15,6 @@ Add more information to the repetition units in the routines. This will allow
 us to e.g. properly handle time units in the mobile app, e.g.  by showing a
 timer or similar. The `setting-repetitionunit` endpoint now exposes the new fields
 `unit_type` and `multiplier`.
+
+<https://github.com/wger-project/wger/issues/2124>
+Automatically read the date from uploaded image to the gallery.

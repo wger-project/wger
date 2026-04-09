@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import ipaddress  # Support IP and CIDR subnet parsing
 import logging
 
 # Django
@@ -71,8 +72,27 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
         # Use REMOTE_ADDR as it's the direct connection IP (should be the proxy).
         client_ip = request.META.get('REMOTE_ADDR')
 
-        # Check if the request comes from a trusted IP
-        if not client_ip or client_ip not in trusted_ips:
+        # Check if the request comes from a trusted IP or subnet
+        is_trusted = False
+        if client_ip:
+            try:
+                # Convert IP string to IP object
+                client_ip_obj = ipaddress.ip_address(client_ip)
+                for trusted_network in trusted_ips:
+                    try:
+                        # strict=False allows both single IPs (e.g., "192.168.1.1")
+                        # and CIDR subnets (e.g., "192.168.1.0/24")
+                        if client_ip_obj in ipaddress.ip_network(trusted_network, strict=False):
+                            is_trusted = True
+                            break
+                    except ValueError:
+                        # Ignore invalid IP or subnet formats in settings
+                        pass
+            except ValueError:
+                # Invalid client IP format
+                pass
+
+        if not is_trusted:
             # If the header *is* present but the IP is not trusted, log a warning
             # as this might indicate a misconfiguration or security probing.
             if header_key in request.META:
@@ -82,7 +102,6 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
                 )
             # Not a trusted IP, do nothing.
             return None
-
         username = request.META.get(header_key)
         email = request.META.get(user_email_key, '') if user_email_key else None
         name = request.META.get(user_name_key, '') if user_name_key else None

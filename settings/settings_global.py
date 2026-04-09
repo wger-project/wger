@@ -109,9 +109,6 @@ INSTALLED_APPS = [
     # History keeping
     'simple_history',
 
-    # Django email verification
-    'django_email_verification',
-
     # Activity stream
     'actstream',
 
@@ -120,6 +117,10 @@ INSTALLED_APPS = [
 
     # Prometheus
     'django_prometheus',
+
+    # Django-allauth
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
+    # allauth
+    "allauth.account.middleware.AccountMiddleware",
 
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
@@ -209,7 +213,14 @@ STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
 # Email
 #
 EMAIL_SUBJECT_PREFIX = '[wger] '
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#
+# django-allauth
+#
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 
 #
 # Login
@@ -361,23 +372,6 @@ THUMBNAIL_ALIASES = {
     },
 }
 
-USE_S3 = os.getenv('USE_S3') == 'TRUE'
-
-if USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-    AWS_DEFAULT_ACL = 'public-read'
-    AWS_S3_CUSTOM_DOMAIN = os.getenv('WGER_CDN_DOMAIN')
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=31557600'}
-    # s3 static settings
-    AWS_LOCATION = 'static'
-    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-else:
-    STATIC_URL = '/static/'
-
 
 #
 # Django Rest Framework
@@ -492,7 +486,7 @@ WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
     # Trophy system settings
-    'TROPHIES_ENABLED': True,  # Global toggle to enable/disable trophy system
+    'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
 
@@ -516,23 +510,6 @@ PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #
-# Django email verification
-#
-def email_verified_callback(user):
-    user.userprofile.email_verified = True
-    user.userprofile.save()
-
-
-EMAIL_MAIL_CALLBACK = email_verified_callback
-EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
-EMAIL_MAIL_SUBJECT = 'Confirm your email'
-EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
-EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'
-EMAIL_MAIL_TOKEN_LIFE = 60 * 60
-EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
-
-#
 # Django-activity stream
 #
 ACTSTREAM_SETTINGS = {
@@ -548,3 +525,16 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 RECAPTCHA_REQUIRED_SCORE = 0
+
+#
+# Storage options
+#
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage'
+    },
+    'staticfiles': {
+        # django.contrib.staticfiles.storage.StaticFilesStorage
+        'BACKEND': 'wger.core.storage.LenientManifestStaticFilesStorage',
+    },
+}

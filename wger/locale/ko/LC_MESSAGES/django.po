@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2025-05-29 07:01+0000\n"
-"Last-Translator: kobo <kobo76@gmail.com>\n"
+"PO-Revision-Date: 2026-03-22 19:09+0000\n"
+"Last-Translator: Hosted Weblate user 141821 "
+"<clearstripe@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/wger/web/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -1885,11 +1886,11 @@ msgstr ""
 
 #: i18n.tpl:70
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "토요일과 일요일에 4 연속 주말에 일하다"
 
 #: i18n.tpl:71
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "5.000 kg의 누적 총을 들어 올리십시오"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 20.000 kg"
@@ -1931,11 +1932,11 @@ msgstr "%s 를 위한 운동"
 
 #: i18n.tpl:81
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "30 일 동안 비활성 후 훈련에 반환"
 
 #: i18n.tpl:82
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "어떤 운동에 새로운 개인 기록 달성"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""

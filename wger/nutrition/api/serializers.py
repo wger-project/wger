@@ -38,6 +38,8 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
     IngredientWeightUnit serializer
     """
 
+    unit_name = serializers.CharField(source='unit.name', read_only=True)
+
     class Meta:
         model = IngredientWeightUnit
         fields = (
@@ -46,6 +48,7 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
             'gram',
             'ingredient',
             'unit',
+            'unit_name',
         )
 
 
@@ -54,13 +57,17 @@ class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
     IngredientWeightUnit info serializer
     """
 
+    unit_name = serializers.CharField(source='unit.name', read_only=True)
+
     class Meta:
         model = IngredientWeightUnit
         depth = 1
         fields = (
+            'id',
             'gram',
             'amount',
             'unit',
+            'unit_name',
         )
 
 
@@ -113,6 +120,8 @@ class IngredientSerializer(serializers.ModelSerializer):
     Ingredient serializer
     """
 
+    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+
     class Meta:
         model = Ingredient
         fields = (
@@ -138,6 +147,7 @@ class IngredientSerializer(serializers.ModelSerializer):
             'sodium',
             'is_vegan',
             'is_vegetarian',
+            'weight_units',
             'nutriscore',
             'license',
             'license_title',

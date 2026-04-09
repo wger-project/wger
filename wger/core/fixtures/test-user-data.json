@@ -480,7 +480,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 1,
@@ -499,7 +498,7 @@
             "workout_reminder": 20,
             "workout_duration": 8,
             "notification_language": 1,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": true,
             "num_days_weight_reminder": 0,
@@ -512,7 +511,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 2,
@@ -531,7 +529,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 3,
@@ -544,7 +542,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": true,
-            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 3,
@@ -576,7 +573,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 4,
@@ -595,7 +591,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -608,7 +604,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 5,
@@ -627,7 +622,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-  	        "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -640,7 +635,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 6,
@@ -659,7 +653,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -672,7 +666,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 7,
@@ -691,7 +684,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 2,
+            "gym": 2,
             "weight_unit": "lb",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -704,7 +697,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 8,
@@ -723,7 +715,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 2,
+            "gym": 2,
             "weight_unit": "lb",
             "ro_access": true,
             "num_days_weight_reminder": 0,
@@ -736,7 +728,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 9,
@@ -755,7 +746,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -768,7 +759,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 10,
@@ -787,7 +777,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -800,7 +790,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 11,
@@ -819,7 +808,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 2,
+            "gym": 2,
             "weight_unit": "lb",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -832,7 +821,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 12,
@@ -851,7 +839,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 1,
+            "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
             "num_days_weight_reminder": 0,
@@ -864,7 +852,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 13,
@@ -883,7 +870,7 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	          "gym": 2,
+            "gym": 2,
             "weight_unit": "lb",
             "ro_access": true,
             "num_days_weight_reminder": 0,
@@ -891,11 +878,10 @@
             "can_add_user": false
         }
     },
-        {
+    {
         "pk": 14,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -927,7 +913,6 @@
         "pk": 15,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -959,7 +944,6 @@
         "pk": 16,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -991,7 +975,6 @@
         "pk": 17,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1023,7 +1006,6 @@
         "pk": 18,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1055,7 +1037,6 @@
         "pk": 19,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1087,7 +1068,6 @@
         "pk": 20,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1119,7 +1099,6 @@
         "pk": 21,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1151,7 +1130,6 @@
         "pk": 22,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1183,7 +1161,6 @@
         "pk": 23,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1215,7 +1192,6 @@
         "pk": 24,
         "model": "core.userprofile",
         "fields": {
-            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1243,7 +1219,7 @@
             "can_add_user": false
         }
     },
-        {
+    {
         "pk": 1,
         "model": "core.usercache",
         "fields": {
@@ -1433,6 +1409,236 @@
         "fields": {
             "last_activity": null,
             "user_id": 24
+        }
+    },
+    {
+        "pk": 1,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 1,
+            "email": "admin@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 2,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 2,
+            "email": "test@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 3,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 4,
+            "email": "trainer1@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 4,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 5,
+            "email": "trainer2@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 5,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 6,
+            "email": "trainer3@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 6,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 7,
+            "email": "trainer4@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 7,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 8,
+            "email": "trainer5@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 8,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 9,
+            "email": "manager1@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 9,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 10,
+            "email": "manager2@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 10,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 11,
+            "email": "manager3@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 11,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 12,
+            "email": "general_manager1@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 12,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 13,
+            "email": "general_manager2@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 13,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 14,
+            "email": "member1@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 14,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 15,
+            "email": "member2@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 15,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 16,
+            "email": "member3@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 16,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 17,
+            "email": "member4@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 17,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 18,
+            "email": "member5@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 18,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 19,
+            "email": "member6@example.com",
+            "verified": false,
+            "primary": true
+        }
+    },
+    {
+        "pk": 19,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 20,
+            "email": "member7@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 20,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 21,
+            "email": "member8@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 21,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 22,
+            "email": "member9@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 22,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 23,
+            "email": "member10@example.com",
+            "verified": true,
+            "primary": true
+        }
+    },
+    {
+        "pk": 23,
+        "model": "account.emailaddress",
+        "fields": {
+            "user": 24,
+            "email": "member11@example.com",
+            "verified": true,
+            "primary": true
         }
     }
 ]

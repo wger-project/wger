@@ -50,6 +50,7 @@ settings/*_extra.py
 *.sqlite
 /CACHE
 
+
 # Sphinx documentation
 docs/_build/
 
@@ -86,6 +87,7 @@ venv-wger
 /extras/authors/commits_cache/
 /extras/authors/*-AUTHORS.md
 /extras/scripts/*.json
+/.claude/
 
 # macOS
 .DS_Store

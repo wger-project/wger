@@ -265,7 +265,8 @@ LOGGING = {
 STORAGES = {
     'default': {
         'BACKEND': env.str(
-            'DJANGO_STORAGES_DEFAULT_BACKEND', 'django.core.files.storage.FileSystemStorage'
+            'DJANGO_STORAGES_DEFAULT_BACKEND',
+            'django.core.files.storage.FileSystemStorage',
         ),
     },
     # django.contrib.staticfiles.storage.StaticFilesStorage
@@ -276,3 +277,46 @@ STORAGES = {
         ),
     },
 }
+
+
+#
+# S3 object storage config
+# See https://wger.readthedocs.io/en/latest/production/docker.html#s3-object-storage
+#
+USE_S3_MEDIA_FILES = env.bool('USE_S3_MEDIA_FILES', False)
+USE_S3_STATIC_FILES = env.bool('USE_S3_STATIC_FILES', False)
+if USE_S3_MEDIA_FILES or USE_S3_STATIC_FILES:
+    AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = env.str('AWS_S3_REGION_NAME')
+    AWS_S3_DOMAIN = env.str('AWS_S3_DOMAIN')
+    AWS_S3_ENDPOINT_URL = env.str(
+        'AWS_S3_ENDPOINT_URL',
+        f'https://{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}',
+    )
+    AWS_S3_CUSTOM_DOMAIN = env.str(
+        'AWS_S3_CUSTOM_DOMAIN',
+        f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}',
+    )
+    AWS_QUERYSTRING_AUTH = False
+
+    if USE_S3_MEDIA_FILES:
+        STORAGES['default'] = {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+            'OPTIONS': {
+                'location': env.str('S3_MEDIA_FILES_LOCATION', 'media'),
+            },
+        }
+        if env.bool('USE_S3_URL_FOR_MEDIA', True):
+            MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
+    if USE_S3_STATIC_FILES:
+        STORAGES['staticfiles'] = {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+            'OPTIONS': {
+                'location': env.str('S3_STATIC_FILES_LOCATION', 'static'),
+            },
+        }
+        if env.bool('USE_S3_URL_FOR_STATIC', True):
+            STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'

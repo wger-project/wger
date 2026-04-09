@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-17 14:03+0000\n"
-"PO-Revision-Date: 2026-02-19 21:09+0000\n"
+"PO-Revision-Date: 2026-04-07 08:09+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -1484,8 +1484,7 @@ msgstr "أنواع العقود"
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
-msgstr ""
-"لم يزر المستخدمون التاليون الصالة الرياضية خلال %(weeks)s من الأسابيع الماضية"
+msgstr "لم يزر المستخدمون التاليون الصالة خلال %(weeks)s من الأسابيع الماضية"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
@@ -1513,43 +1512,43 @@ msgstr "لا يوجد في هذه الصالة أي مسؤولين أو مدرب
 
 #: gym/templates/gym/member_list.html:98
 msgid "Export"
-msgstr ""
+msgstr "تصدير"
 
 #: gym/templates/gym/member_list.html:137
 msgid "Members"
-msgstr ""
+msgstr "الأعضاء"
 
 #: gym/templates/gym/member_list.html:159
 msgid "Gym configuration"
-msgstr ""
+msgstr "إعدادات الصالة"
 
 #: gym/templates/gym/member_list.html:162
 msgid "Inactive members"
-msgstr ""
+msgstr "الأعضاء غير النشطين"
 
 #: gym/templates/gym/member_list.html:163
 msgid "weeks"
-msgstr ""
+msgstr "أسابيع"
 
 #: gym/templates/gym/member_list.html:197
 msgid "My configuration"
-msgstr ""
+msgstr "إعداداتي"
 
 #: gym/templates/gym/member_list.html:234
 msgid "Types"
-msgstr ""
+msgstr "الأنواع"
 
 #: gym/templates/gym/member_list.html:307
 msgid "Emails"
-msgstr ""
+msgstr "البُرُد الإلكترونية"
 
 #: gym/templates/gym/member_list.html:336
 msgid "Add member"
-msgstr ""
+msgstr "إضافة عضو"
 
 #: gym/templates/gym/new_user.html:48 nutrition/templates/rate/form.html:120
 msgid "Info"
-msgstr ""
+msgstr "المعلومات"
 
 #: gym/templates/gym/new_user.html:50
 msgid ""
@@ -1558,10 +1557,14 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
+"يُرجى تدوين كلمة مرور المستخدم أو حفظ الملف المُصدَّر،\n"
+" والذي يحتوي على جميع بيانات المستخدم، والاحتفاظ به في مكان آمن. لا يمكن "
+"استعادة كلمة المرور\n"
+"لاحقًا."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
-msgstr ""
+msgstr "تصدير بيانات المستخدم"
 
 #: gym/templates/gym/reset_user_password.html:32
 msgid ""
