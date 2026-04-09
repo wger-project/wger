@@ -11,7 +11,7 @@ authors = [
 ]
 description = "FLOSS workout, fitness and weight manager/tracker"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 classifiers = [
     # http://pypi.python.org/pypi?%3Aaction=list_classifiers
     'Development Status :: 5 - Production/Stable',
@@ -31,7 +31,7 @@ dependencies = [
     "bleach[css]~=6.3",
     "boto3~=1.42.71",
     "celery[redis]~=5.6.0",
-    "crispy-bootstrap5~=2025.6",
+    "crispy-bootstrap5~=2026.3",
     "django-activity-stream~=2.0.0",
     "django-allauth~=65.15.0",
     "django-axes[ipware]~=8.3.1",
@@ -48,7 +48,7 @@ dependencies = [
     "django-sortedm2m~=4.0.0",
     "django-storages~=1.14.6",
     "djangorestframework-simplejwt[crypto]~=5.5.1",
-    "djangorestframework~=3.16.1",
+    "djangorestframework~=3.17.1",
     "django~=5.2.8",
     "drf-spectacular[sidecar]~=0.29.0",
     "easy-thumbnails~=2.10.1",
@@ -57,25 +57,25 @@ dependencies = [
     "gevent>=25.9.1",
     "icalendar~=7.0.2",
     "invoke~=2.2.1",
-    "lingua-language-detector~=2.1.1",
-    "openfoodfacts~=3.4.5",
+    "lingua-language-detector~=2.2.0",
+    "openfoodfacts~=5.0.1",
     "packaging~=26.0",
-    "pillow~=12.1.1",
+    "pillow~=12.2.0",
     "psycopg[binary]~=3.3.2",
     "reportlab~=4.4.5",
     "requests~=2.33.0",
     "tqdm~=4.67.1",
-    "tzdata~=2025.3",
+    "tzdata~=2026.1",
 ]
 
 [dependency-groups]
 dev = [
     "coverage~=7.13.0",
-    "django-debug-toolbar~=6.2.0",
+    "django-debug-toolbar~=6.3.0",
     "django-extensions~=4.1",
-    "faker~=40.1.2",
-    "hatchling~=1.28.0",
-    "isort~=7.0.0",
+    "faker~=40.13.0",
+    "hatchling~=1.29.0",
+    "isort~=8.0.1",
     "ruff~=0.15.2",
     "tblib~=3.2.0",
     "wheel==0.46.3",
