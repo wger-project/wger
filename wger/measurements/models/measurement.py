@@ -30,9 +30,9 @@ from wger.measurements.models import Category
 
 class Measurement(models.Model):
     class Meta:
-     ordering = [
-        '-date',
-    ]
+        ordering = [
+            '-date',
+        ]
 
     category = models.ForeignKey(
         Category,
@@ -41,9 +41,9 @@ class Measurement(models.Model):
     )
 
     date = models.DateTimeField(
-       verbose_name='Date',
-       default=datetime.datetime.now,
-)
+        verbose_name='Date',
+        default=datetime.datetime.now,
+    )
 
     value = models.DecimalField(
         verbose_name='Value',
