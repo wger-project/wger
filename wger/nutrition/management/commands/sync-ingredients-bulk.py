@@ -81,10 +81,15 @@ class Command(WgerCommand):
         except FileNotFoundError as e:
             raise CommandError(str(e))
 
-        sync_ingredients_from_dump(
-            self.stdout.write,
-            file_path=file_path,
-            mode=mode,
-            style_fn=self.style.SUCCESS,
-            show_progress_bar=True,
-        )
+        try:
+            sync_ingredients_from_dump(
+                self.stdout.write,
+                file_path=file_path,
+                mode=mode,
+                style_fn=self.style.SUCCESS,
+                show_progress_bar=True,
+            )
+        finally:
+            # Clean up the temp file if no explicit folder was given
+            if not options['folder']:
+                file_path.unlink(missing_ok=True)

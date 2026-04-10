@@ -154,7 +154,10 @@ def sync_ingredients_bulk_or_api_task():
     """
     try:
         file_path = download_ingredient_dump(logger.info)
-        sync_ingredients_from_dump(logger.info, file_path)
+        try:
+            sync_ingredients_from_dump(logger.info, file_path)
+        finally:
+            file_path.unlink(missing_ok=True)
     except FileNotFoundError:
         logger.info('Bulk dump not available, falling back to API sync.')
         sync_all_ingredients_chunked_task.delay()
