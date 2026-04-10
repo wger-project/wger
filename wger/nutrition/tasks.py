@@ -20,6 +20,7 @@ from random import randint
 from django.conf import settings
 from django.core.cache import cache
 from django.core.management import call_command
+from django.core.management.base import CommandError
 
 # Third Party
 import requests
@@ -28,6 +29,7 @@ from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
+from wger.core.api.min_server_version import check_min_server_version
 from wger.nutrition.api.endpoints import INGREDIENTS_ENDPOINT
 from wger.nutrition.sync import (
     download_ingredient_dump,
@@ -152,6 +154,12 @@ def sync_ingredients_bulk_or_api_task():
     (e.g. the remote server hasn't generated one), falls back to the paginated
     API sync.
     """
+    try:
+        check_min_server_version(settings.WGER_SETTINGS['WGER_INSTANCE'])
+    except CommandError as e:
+        logger.error(f'Ingredient sync aborted, server incompatible: {e}')
+        return
+
     try:
         file_path = download_ingredient_dump(logger.info)
         try:
