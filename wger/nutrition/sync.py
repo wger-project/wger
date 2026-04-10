@@ -13,8 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import gzip
+import json
 import logging
 import os
+import tempfile
+from pathlib import Path
 from typing import (
     List,
     Optional,
@@ -39,6 +43,7 @@ from tqdm import tqdm
 
 # wger
 from wger.core.models.language import Language
+from wger.nutrition.consts import SyncMode
 from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
     INGREDIENTS_ENDPOINT,
@@ -353,3 +358,213 @@ def sync_ingredients(
 
     print_fn(style_fn('done!\n'))
     return None
+
+
+BULK_SIZE = 500
+
+
+def export_ingredient_dump(
+    print_fn,
+    style_fn=lambda x: x,
+    show_progress_bar: bool = False,
+):
+    """
+    Export all ingredients as a gzipped JSONL file via Django's default storage.
+
+    Each line is the same JSON format as the ingredient API endpoint,
+    so clients can parse it with extract_info_from_wger_api().
+
+    Uses default_storage so the dump works with any configured backend
+    (local filesystem, S3, GCS, etc.).
+    """
+
+    # Import here to avoid circular imports
+    from django.core.files.base import File
+    from django.core.files.storage import default_storage
+
+    from wger.nutrition.api.endpoints import INGREDIENT_BULK_EXPORT_PATH
+    from wger.nutrition.api.serializers import IngredientSerializer
+
+    # TODO: handle units here as well
+    queryset = Ingredient.objects.select_related(
+        'language',
+        'license',
+    )
+    total = queryset.count()
+    queryset = queryset.iterator(chunk_size=2000)
+
+    print_fn('*** Exporting ingredients to JSONL dump...')
+
+    pbar = tqdm(total=total, unit='ingredients', desc='Exporting', disable=not show_progress_bar)
+
+    # Write to a local temp file first, then upload via storage backend
+    count = 0
+    with tempfile.NamedTemporaryFile(suffix='.jsonl.gz', delete=False) as tmp:
+        tmp_path = tmp.name
+
+    try:
+        with gzip.open(tmp_path, 'wt', encoding='utf-8') as f:
+            for ingredient in queryset:
+                data = IngredientSerializer(ingredient).data
+                f.write(json.dumps(data) + '\n')
+                count += 1
+                pbar.update(1)
+
+        pbar.close()
+
+        # Upload to the configured storage backend
+        with open(tmp_path, 'rb') as f:
+            # delete old file first if it exists, then save the new one
+            if default_storage.exists(INGREDIENT_BULK_EXPORT_PATH):
+                default_storage.delete(INGREDIENT_BULK_EXPORT_PATH)
+            saved_name = default_storage.save(INGREDIENT_BULK_EXPORT_PATH, File(f))
+    finally:
+        Path(tmp_path).unlink()
+
+    print_fn(style_fn(f'done! Exported {count} ingredients to {saved_name}\n'))
+    return saved_name
+
+
+def _open_jsonl(file_path: str):
+    """Open a JSONL file, transparently handling both gzip and plain text."""
+    with open(file_path, 'rb') as f:
+        magic = f.read(2)
+    if magic == b'\x1f\x8b':
+        return gzip.open(file_path, 'rt', encoding='utf-8')
+    return open(file_path, 'r', encoding='utf-8')
+
+
+def sync_ingredients_from_dump(
+    print_fn,
+    file_path: str,
+    mode: SyncMode = SyncMode.UPDATE,
+    style_fn=lambda x: x,
+    show_progress_bar: bool = False,
+):
+    """
+    Import ingredients from a JSONL dump file (gzipped or plain).
+
+    Each line must be in the same JSON format as the ingredient API endpoint.
+    Reuses extract_info_from_wger_api() for data transformation.
+    """
+    print_fn(f'*** Importing ingredients from {file_path} (mode: {mode.name})...')
+
+    # Count lines for the progress bar
+    total = 0
+    if show_progress_bar:
+        with _open_jsonl(file_path) as f:
+            total = sum(1 for _ in f)
+
+    pbar = tqdm(total=total, unit='ingredients', desc='Importing', disable=not show_progress_bar)
+
+    bulk_bucket: list[Ingredient] = []
+    count = 0
+    errors = 0
+
+    with _open_jsonl(file_path) as f:
+        for line in f:
+            try:
+                data = json.loads(line)
+            except json.JSONDecodeError:
+                errors += 1
+                continue
+
+            uuid = data.get('uuid')
+            if not uuid:
+                errors += 1
+                continue
+
+            ingredient_data = extract_info_from_wger_api(data).dict()
+            ingredient_data['uuid'] = uuid
+
+            if mode == SyncMode.INSERT:
+                bulk_bucket.append(Ingredient(**ingredient_data))
+                if len(bulk_bucket) >= BULK_SIZE:
+                    try:
+                        Ingredient.objects.bulk_create(bulk_bucket)
+                    except Exception:
+                        # Fall back to individual saves
+                        for ingredient in bulk_bucket:
+                            try:
+                                ingredient.save()
+                            except Exception:
+                                errors += 1
+                    count += len(bulk_bucket)
+                    bulk_bucket = []
+            else:
+                try:
+                    Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+                    count += 1
+                except Exception:
+                    errors += 1
+
+            pbar.update(1)
+
+    # Flush remaining items in INSERT mode
+    if mode == SyncMode.INSERT and bulk_bucket:
+        try:
+            Ingredient.objects.bulk_create(bulk_bucket)
+        except Exception:
+            for ingredient in bulk_bucket:
+                try:
+                    ingredient.save()
+                except Exception:
+                    errors += 1
+        count += len(bulk_bucket)
+
+    pbar.close()
+
+    print_fn(style_fn(f'done! Processed {count} ingredients ({errors} errors)\n'))
+    return count
+
+
+def download_ingredient_dump(
+    print_fn,
+    remote_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
+    folder: str = '',
+    style_fn=lambda x: x,
+) -> str:
+    """
+    Download the ingredient JSONL dump from a remote wger instance.
+
+    Returns the path to the downloaded file.
+    """
+    from wger.nutrition.api.endpoints import INGREDIENT_BULK_EXPORT_PATH
+
+    dump_url = f'{remote_url}{settings.MEDIA_URL}{INGREDIENT_BULK_EXPORT_PATH}'
+    print_fn(f'*** Downloading ingredient dump from {dump_url}...')
+
+    if folder:
+        download_folder = folder
+    else:
+        download_folder = tempfile.mkdtemp()
+
+    file_path = Path(download_folder) / 'ingredients.jsonl.gz'
+
+    if file_path.exists():
+        print_fn(f'File already downloaded at {file_path}')
+        return str(file_path)
+
+    response = requests.get(dump_url, stream=True, headers=wger_headers())
+    if response.status_code == 404:
+        raise FileNotFoundError(
+            f'Bulk ingredient dump not found at {dump_url}. '
+            f'The remote server may not have generated a dump yet. '
+            f'Please ask the server admin to run "python manage.py export-ingredients" first, '
+            f'or use "python manage.py sync-ingredients" to sync via the API instead.'
+        )
+    if response.status_code != 200:
+        raise Exception(f'Could not download dump from {dump_url} (status {response.status_code})')
+
+    # Prevent requests from transparently decompressing the gzip file
+    response.raw.decode_content = False
+    total_size = int(response.headers.get('content-length', 0))
+
+    with open(file_path, 'wb') as fid:
+        with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
+            for chunk in response.raw.stream(50 * 1024):
+                fid.write(chunk)
+                pbar.update(len(chunk))
+
+    print_fn(style_fn(f'Download complete: {file_path}\n'))
+    return str(file_path)
