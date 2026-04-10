@@ -1870,7 +1870,7 @@ requires-dist = [
     { name = "openfoodfacts", specifier = "~=5.0.1" },
     { name = "packaging", specifier = "~=26.0" },
     { name = "pillow", specifier = "~=12.2.0" },
-    { name = "psycopg", extras = ["binary"], specifier = "~=3.3.2" },
+    { name = "psycopg", extras = ["binary"], specifier = "~=3.3.3" },
     { name = "reportlab", specifier = "~=4.4.5" },
     { name = "requests", specifier = "~=2.33.0" },
     { name = "tqdm", specifier = "~=4.67.1" },
