@@ -47,7 +47,6 @@ from wger.nutrition.models import (
     IngredientWeightUnit,
     Meal,
     Source,
-    WeightUnit,
 )
 from wger.nutrition.models.image import Image
 from wger.utils.constants import NUTRITION_TAB
@@ -376,15 +375,15 @@ class IngredientValuesTestCase(WgerTestCase):
         self.assertEqual(
             result,
             {
-                'sodium': 0.612135,
-                'energy': 196.24,
-                # 'energy_kilojoule': '821.07',
-                'fat': 9.13185,
+                'sodium': 1.22427,
+                'energy': 392.48,
+                # 'energy_kilojoule': '1642.14',
+                'fat': 18.2637,
                 'carbohydrates_sugar': None,
-                'fat_saturated': 3.61706,
+                'fat_saturated': 7.23412,
                 'fiber': None,
-                'protein': 28.57745,
-                'carbohydrates': 0.139375,
+                'protein': 57.1549,
+                'carbohydrates': 0.27875,
             },
         )
 
@@ -546,42 +545,6 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertTrue(ingredient.is_vegetarian)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_serving_unit(self, mock_api: MagicMock):
-        self.off_response['serving_size'] = '2 biscuits (30 g)'
-        mock_api.return_value = self.off_response
-
-        ingredient = Ingredient.fetch_ingredient_from_off('1234')
-
-        unit = WeightUnit.objects.get(language=ingredient.language, name='biscuits')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
-        self.assertEqual(ingredient_unit.gram, 30)
-        self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
-
-    @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_volume_serving_unit(self, mock_api: MagicMock):
-        self.off_response['serving_size'] = '200 ml (206 g)'
-        mock_api.return_value = self.off_response
-
-        ingredient = Ingredient.fetch_ingredient_from_off('1234')
-
-        unit = WeightUnit.objects.get(language=ingredient.language, name='ml')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
-        self.assertEqual(ingredient_unit.gram, 206)
-        self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
-
-    @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_volume_serving_unit_without_mass(self, mock_api: MagicMock):
-        self.off_response['serving_size'] = '200 ml'
-        mock_api.return_value = self.off_response
-
-        ingredient = Ingredient.fetch_ingredient_from_off('1234')
-
-        unit = WeightUnit.objects.get(language=ingredient.language, name='ml')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
-        self.assertEqual(ingredient_unit.gram, 200)
-        self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
-
-    @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_updates_existing_serving_unit(self, mock_api: MagicMock):
         self.off_response['serving_size'] = '2 biscuits (30 g)'
         mock_api.return_value = self.off_response
@@ -592,10 +555,10 @@ class IngredientModelTestCase(WgerTestCase):
             extract_info_from_off(self.off_response, ingredient.language_id)
         )
 
-        unit = WeightUnit.objects.get(language=ingredient.language, name='biscuits')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
+        ingredient_unit = IngredientWeightUnit.objects.get(
+            ingredient=ingredient, name='1 Portion (2 biscuits)'
+        )
         self.assertEqual(ingredient_unit.gram, 25)
-        self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api: MagicMock):
@@ -668,8 +631,8 @@ class IngredientModelTestCase(WgerTestCase):
         ingredient.code = '1234'
         ingredient.save(update_fields=['source_name', 'code'])
         ingredient.ingredientweightunit_set.get_or_create(
-            unit=WeightUnit.objects.get(pk=5),
-            defaults={'gram': 15, 'amount': Decimal('1.00')},
+            name='Cup',
+            defaults={'gram': 15},
         )
 
         created, updated = ingredient.sync_serving_unit_from_off_if_missing()

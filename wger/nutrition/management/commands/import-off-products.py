@@ -34,6 +34,16 @@ logger = logging.getLogger(__name__)
 class Command(ImportProductCommand):
     """
     Import an Open Food facts Dump
+
+    Example usage:
+    * Import dump (downloads the full dump, imports it and deletes it):
+        python manage.py import-off-products --jsonl
+
+    * Import dump (already downloaded in /tmo/off/):
+        python manage.py import-off-products --jsonl --folder /tmp/off/
+
+    * Import last delta update (downloads, imports and deltes the most recent delta file):
+        python manage.py import-off-products --delta-updates
     """
 
     help = 'Import an Open Food Facts dump'

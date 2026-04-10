@@ -381,9 +381,8 @@
     "pk": 1,
     "model": "nutrition.ingredientweightunit",
     "fields": {
-      "amount": "1",
       "gram": 109,
-      "unit": 4,
+      "name": "Spoon",
       "ingredient": 1
     }
   },
@@ -391,9 +390,8 @@
     "pk": 2,
     "model": "nutrition.ingredientweightunit",
     "fields": {
-      "amount": "0.5",
       "gram": 223,
-      "unit": 5,
+      "name": "Cup",
       "ingredient": 1
     }
   },
@@ -401,9 +399,8 @@
     "pk": 3,
     "model": "nutrition.ingredientweightunit",
     "fields": {
-      "amount": "1",
       "gram": 12,
-      "unit": 6,
+      "name": "A bit",
       "ingredient": 1
     }
   },
@@ -411,9 +408,8 @@
     "pk": 9874,
     "model": "nutrition.ingredientweightunit",
     "fields": {
-      "amount": "1",
       "gram": 12,
-      "unit": 6,
+      "name": "A bit",
       "ingredient": 1
     }
   },
@@ -421,9 +417,8 @@
     "pk": 5950,
     "model": "nutrition.ingredientweightunit",
     "fields": {
-      "amount": "1",
       "gram": 12,
-      "unit": 6,
+      "name": "A bit",
       "ingredient": 1
     }
   }

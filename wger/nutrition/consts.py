@@ -14,9 +14,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-MEALITEM_WEIGHT_GRAM = '1'
-MEALITEM_WEIGHT_UNIT = '2'
-
 ENERGY_FACTOR = {
     'protein': {'kg': 4, 'lb': 113},
     'carbohydrates': {'kg': 4, 'lb': 113},

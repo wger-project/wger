@@ -54,6 +54,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
                 'fiber_100g': None,
                 'other_stuff': 'is ignored',
             },
+            'serving_size': '',
         }
 
     def test_regular_response(self):

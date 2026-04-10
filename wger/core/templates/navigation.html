@@ -178,16 +178,6 @@
                                     {% translate "Ingredient overview" %}
                                 </a>
                             </li>
-                            {% if perms.nutrition %}
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-header">{% translate "Administration" %}</li>
-                                <li>
-                                    <a class="dropdown-item"
-                                       href="{% url 'nutrition:weight_unit:list' %}">
-                                        {% translate "Ingredient weight units" %}
-                                    </a>
-                                </li>
-                            {% endif %}
                         </ul>
                     </li>
 
