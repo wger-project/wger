@@ -14,17 +14,20 @@
 
 # Standard Library
 import gzip
+import importlib
 import json
-import os
+import shutil
 import tempfile
 from decimal import Decimal
 from io import StringIO
+from pathlib import Path
 from unittest.mock import (
     MagicMock,
     patch,
 )
 
 # Django
+from django.core.files.storage import default_storage
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import SimpleTestCase
@@ -93,10 +96,12 @@ SAMPLE_INGREDIENTS = [
 
 def _write_dump(path, ingredients, use_gzip=True):
     """Helper to write a JSONL dump file."""
+
     if use_gzip:
         with gzip.open(path, 'wt', encoding='utf-8') as f:
             for item in ingredients:
                 f.write(json.dumps(item) + '\n')
+
     else:
         with open(path, 'w', encoding='utf-8') as f:
             for item in ingredients:
@@ -117,7 +122,7 @@ class TestOpenJsonl(SimpleTestCase):
             self.assertEqual(len(lines), 2)
             self.assertEqual(json.loads(lines[0])['name'], 'Gâteau double chocolat')
         finally:
-            os.unlink(tmp_path)
+            Path(tmp_path).unlink()
 
     def test_opens_plain_file(self):
         with tempfile.NamedTemporaryFile(suffix='.jsonl', delete=False, mode='w') as tmp:
@@ -130,7 +135,7 @@ class TestOpenJsonl(SimpleTestCase):
             self.assertEqual(len(lines), 2)
             self.assertEqual(json.loads(lines[1])['name'], 'Maxi Hot Dog New York Style')
         finally:
-            os.unlink(tmp_path)
+            Path(tmp_path).unlink()
 
 
 class TestExportIngredientDump(WgerTestCase):
@@ -141,9 +146,6 @@ class TestExportIngredientDump(WgerTestCase):
         self.tmp_media = tempfile.mkdtemp()
 
     def tearDown(self):
-        # Standard Library
-        import shutil
-
         shutil.rmtree(self.tmp_media, ignore_errors=True)
         super().tearDown()
 
@@ -155,9 +157,6 @@ class TestExportIngredientDump(WgerTestCase):
         """Test that export creates a valid gzipped JSONL file."""
         with self.settings(MEDIA_ROOT=self.tmp_media):
             saved_name = self._export()
-
-            # Django
-            from django.core.files.storage import default_storage
 
             self.assertTrue(default_storage.exists(saved_name))
 
@@ -194,9 +193,6 @@ class TestExportIngredientDump(WgerTestCase):
         self.assertEqual(saved_name_1, saved_name_2)
 
         with self.settings(MEDIA_ROOT=self.tmp_media):
-            # Django
-            from django.core.files.storage import default_storage
-
             self.assertTrue(default_storage.exists(saved_name_2))
 
 
@@ -217,9 +213,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
 
         try:
             # Ingredient with this UUID already exists in fixtures
-            ingredient = Ingredient.objects.get(
-                uuid='7908c204-907f-4b1e-ad4e-f482e9769ade',
-            )
+            ingredient = Ingredient.objects.get(uuid='7908c204-907f-4b1e-ad4e-f482e9769ade')
             self.assertEqual(ingredient.name, 'Test ingredient 1')
 
             count = sync_ingredients_from_dump(lambda x: x, file_path)
@@ -230,7 +224,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             self.assertAlmostEqual(ingredient.protein, Decimal(5), 2)
             self.assertEqual(count, 2)
         finally:
-            os.unlink(file_path)
+            Path(file_path).unlink()
 
     def test_update_mode_creates_new(self):
         """Test that UPDATE mode creates new ingredients for unknown UUIDs."""
@@ -248,7 +242,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             self.assertEqual(new_ingredient.name, 'Maxi Hot Dog New York Style')
             self.assertEqual(new_ingredient.energy, 256)
         finally:
-            os.unlink(file_path)
+            Path(file_path).unlink()
 
     def test_insert_mode(self):
         """Test that INSERT mode bulk-creates ingredients."""
@@ -270,7 +264,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             self.assertEqual(count, 2)
             self.assertEqual(Ingredient.objects.count(), initial_count + 2)
         finally:
-            os.unlink(file_path)
+            Path(file_path).unlink()
 
     def test_handles_plain_jsonl(self):
         """Test that import works with plain (non-gzipped) JSONL files."""
@@ -280,7 +274,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             count = sync_ingredients_from_dump(lambda x: x, file_path)
             self.assertEqual(count, 2)
         finally:
-            os.unlink(file_path)
+            Path(file_path).unlink()
 
     def test_handles_invalid_json(self):
         """Test that invalid JSON lines are skipped."""
@@ -293,7 +287,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             count = sync_ingredients_from_dump(lambda x: x, tmp.name)
             self.assertEqual(count, 1)
         finally:
-            os.unlink(tmp.name)
+            Path(tmp.name).unlink()
 
     def test_handles_missing_uuid(self):
         """Test that entries without UUID are skipped."""
@@ -309,7 +303,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             count = sync_ingredients_from_dump(lambda x: x, tmp.name)
             self.assertEqual(count, 1)
         finally:
-            os.unlink(tmp.name)
+            Path(tmp.name).unlink()
 
     def test_returns_error_count(self):
         """Test that the function correctly tracks errors."""
@@ -325,7 +319,7 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             count = sync_ingredients_from_dump(lambda x: x, tmp.name)
             self.assertEqual(count, 1)
         finally:
-            os.unlink(tmp.name)
+            Path(tmp.name).unlink()
 
 
 class TestDownloadIngredientDump(WgerTestCase):
@@ -345,8 +339,8 @@ class TestDownloadIngredientDump(WgerTestCase):
         with tempfile.TemporaryDirectory() as folder:
             path = download_ingredient_dump(lambda x: x, folder=folder)
 
-            self.assertTrue(os.path.exists(path))
-            self.assertTrue(path.endswith('ingredients.jsonl.gz'))
+            self.assertTrue(path.exists())
+            self.assertEqual(path.name, 'ingredients.jsonl.gz')
 
     @patch('wger.nutrition.sync.requests.get')
     def test_download_404_raises_file_not_found(self, mock_get: MagicMock):
@@ -371,9 +365,8 @@ class TestDownloadIngredientDump(WgerTestCase):
     def test_download_skips_existing_file(self, mock_get: MagicMock):
         """Test that an already-downloaded file is reused."""
         with tempfile.TemporaryDirectory() as folder:
-            file_path = os.path.join(folder, 'ingredients.jsonl.gz')
-            with open(file_path, 'w') as f:
-                f.write('existing')
+            file_path = Path(folder) / 'ingredients.jsonl.gz'
+            file_path.write_text('existing')
 
             path = download_ingredient_dump(lambda x: x, folder=folder)
 
@@ -407,26 +400,25 @@ class TestBulkSyncManagementCommands(WgerTestCase):
                 self.assertIn('done!', output)
 
     def _get_command_module(self):
-        """Get the bulk-sync-ingredients command module (hyphenated name needs importlib)."""
-        # Standard Library
-        import importlib
-
-        return importlib.import_module('wger.nutrition.management.commands.bulk-sync-ingredients')
+        """Get the sync-ingredients-bulk command module (hyphenated name needs importlib)."""
+        return importlib.import_module('wger.nutrition.management.commands.sync-ingredients-bulk')
 
     @patch('wger.core.api.min_server_version.check_min_server_version')
     def test_bulk_sync_command_calls_functions(self, mock_version_check: MagicMock):
-        """Test that the bulk-sync-ingredients command calls the right functions."""
+        """Test that the sync-ingredients-bulk command calls the right functions."""
         mod = self._get_command_module()
 
         with (
             patch.object(
-                mod, 'download_ingredient_dump', return_value='/tmp/fake.jsonl.gz'
+                mod,
+                'download_ingredient_dump',
+                return_value=Path('/tmp/fake.jsonl.gz'),
             ) as mock_download,
             patch.object(mod, 'sync_ingredients_from_dump') as mock_sync,
         ):
             out = StringIO()
             call_command(
-                'bulk-sync-ingredients',
+                'sync-ingredients-bulk',
                 '--remote-url',
                 'https://example.com',
                 stdout=out,
@@ -448,7 +440,7 @@ class TestBulkSyncManagementCommands(WgerTestCase):
             out = StringIO()
             with self.assertRaises(CommandError):
                 call_command(
-                    'bulk-sync-ingredients',
+                    'sync-ingredients-bulk',
                     '--remote-url',
                     'https://example.com',
                     stdout=out,

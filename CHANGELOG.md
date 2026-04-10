@@ -2,9 +2,9 @@
 
 Improved ingredient sync. Instead of loading the ingredients over the paginated
 API (which was taking a long time with almost 3 million entries), wger instances
-can generate and read a dump file, which can be downloaded and read much more
-effectively. The setting `SYNC_INGREDIENTS_CELERY` will automatically prefer the
-bulk dump over the paginated API, falling back to the API if no dump is available.
+can generate and read a dump file, which can be processed much more effectively.
+The setting `SYNC_INGREDIENTS_CELERY` will automatically prefer the bulk dump
+over the paginated API, falling back to the API if no dump is available.
 
 <https://github.com/wger-project/wger/issues/2231> Add vegan and vegetarian flags to
 the ingredient model. This allows to filter products based on dietary preferences.

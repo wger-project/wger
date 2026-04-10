@@ -26,6 +26,8 @@ from typing import (
 
 # Django
 from django.conf import settings
+from django.core.files.base import File
+from django.core.files.storage import default_storage
 from django.db import IntegrityError
 from django.utils import timezone
 
@@ -45,8 +47,10 @@ from tqdm import tqdm
 from wger.core.models.language import Language
 from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
+    INGREDIENT_BULK_EXPORT_PATH,
     INGREDIENTS_ENDPOINT,
 )
+from wger.nutrition.api.serializers import IngredientSerializer
 from wger.nutrition.consts import SyncMode
 from wger.nutrition.extract_info.wger import extract_info_from_wger_api
 from wger.nutrition.models import (
@@ -149,7 +153,7 @@ def fetch_image_from_off(ingredient: Ingredient):
     logger.info(f'Trying to fetch image from OFF for "{ingredient.name}" ({ingredient.uuid})')
 
     # We always update the last check time, no matter if we found an image or there were
-    # errors in the response (keys missing, etc) since in any case we don't want to retry
+    # errors in the response (keys missing, etc.) since in any case we don't want to retry
     # too often.
     ingredient.last_image_check = timezone.now()
     ingredient.save()
@@ -305,14 +309,16 @@ def sync_ingredients(
     if language_codes is not None:
         language_ids = []
         for code in language_codes.split(','):
-            # Leaving the try except in here even though we've already validated on the sync-ingredients command itself.
-            # This is in case we ever want to re-use this function for anything else where user can input language codes.
+            # Leaving the try except in here even though we've already validated on the
+            # sync-ingredients command itself. This is in case we ever want to re-use
+            # this function for anything else where user can input language codes.
             try:
                 lang = load_language(code, default_to_english=False)
                 language_ids.append(str(lang.id))
-            except Language.DoesNotExist as e:
+            except Language.DoesNotExist:
                 print_fn(
-                    f'Error: The language code you provided ("{code}") does not exist in this database. Please try again.'
+                    f'Error: The language code you provided ("{code}") does not exist in '
+                    f'this database. Please try again.'
                 )
                 return 0
 
@@ -378,15 +384,6 @@ def export_ingredient_dump(
     (local filesystem, S3, GCS, etc.).
     """
 
-    # Import here to avoid circular imports
-    # Django
-    from django.core.files.base import File
-    from django.core.files.storage import default_storage
-
-    # wger
-    from wger.nutrition.api.endpoints import INGREDIENT_BULK_EXPORT_PATH
-    from wger.nutrition.api.serializers import IngredientSerializer
-
     # TODO: handle units here as well
     queryset = Ingredient.objects.select_related(
         'language',
@@ -427,7 +424,7 @@ def export_ingredient_dump(
     return saved_name
 
 
-def _open_jsonl(file_path: str):
+def _open_jsonl(file_path: Path):
     """Open a JSONL file, transparently handling both gzip and plain text."""
     with open(file_path, 'rb') as f:
         magic = f.read(2)
@@ -438,7 +435,7 @@ def _open_jsonl(file_path: str):
 
 def sync_ingredients_from_dump(
     print_fn,
-    file_path: str,
+    file_path: Path,
     mode: SyncMode = SyncMode.UPDATE,
     style_fn=lambda x: x,
     show_progress_bar: bool = False,
@@ -525,14 +522,12 @@ def download_ingredient_dump(
     remote_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
     folder: str = '',
     style_fn=lambda x: x,
-) -> str:
+) -> Path:
     """
     Download the ingredient JSONL dump from a remote wger instance.
 
     Returns the path to the downloaded file.
     """
-    # wger
-    from wger.nutrition.api.endpoints import INGREDIENT_BULK_EXPORT_PATH
 
     dump_url = f'{remote_url}{settings.MEDIA_URL}{INGREDIENT_BULK_EXPORT_PATH}'
     print_fn(f'*** Downloading ingredient dump from {dump_url}...')
@@ -546,7 +541,7 @@ def download_ingredient_dump(
 
     if file_path.exists():
         print_fn(f'File already downloaded at {file_path}')
-        return str(file_path)
+        return file_path
 
     response = requests.get(dump_url, stream=True, headers=wger_headers())
     if response.status_code == 404:
@@ -570,4 +565,4 @@ def download_ingredient_dump(
                 pbar.update(len(chunk))
 
     print_fn(style_fn(f'Download complete: {file_path}\n'))
-    return str(file_path)
+    return file_path

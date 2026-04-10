@@ -20,7 +20,7 @@ from wger.utils.constants import ODBL_LICENSE_ID
 
 def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     # Basics
-    name = product_data.get('name')
+    name = product_data.get('name', '')
     common_name = product_data.get('common_name', '')
     code = product_data['code']
     energy = float(product_data['energy'])
@@ -47,6 +47,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     # Dietary properties
     is_vegan = product_data.get('is_vegan', None)
     is_vegetarian = product_data.get('is_vegetarian', None)
+    nutriscore = product_data.get('nutriscore', None)
 
     # License and author info
     source_name = product_data.get('source_name', '')
@@ -84,5 +85,6 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
         license_derivative_source_url=license_derivative_source_url,
         is_vegan=is_vegan,
         is_vegetarian=is_vegetarian,
+        nutriscore=nutriscore,
     )
     return ingredient_data
