@@ -21,7 +21,7 @@ def migrate_description_to_markdown(apps: StateApps, schema_editor: BaseDatabase
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('exercises', '0034_add_exercise_image_dimensions'),
+        ('exercises', '0035_add_is_ai_generated'),
     ]
 
     operations = [
