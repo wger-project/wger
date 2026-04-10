@@ -31,8 +31,8 @@ from django.test import SimpleTestCase
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.nutrition.models import Ingredient
 from wger.nutrition.consts import SyncMode
+from wger.nutrition.models import Ingredient
 from wger.nutrition.sync import (
     _open_jsonl,
     download_ingredient_dump,
@@ -141,6 +141,7 @@ class TestExportIngredientDump(WgerTestCase):
         self.tmp_media = tempfile.mkdtemp()
 
     def tearDown(self):
+        # Standard Library
         import shutil
 
         shutil.rmtree(self.tmp_media, ignore_errors=True)
@@ -155,6 +156,7 @@ class TestExportIngredientDump(WgerTestCase):
         with self.settings(MEDIA_ROOT=self.tmp_media):
             saved_name = self._export()
 
+            # Django
             from django.core.files.storage import default_storage
 
             self.assertTrue(default_storage.exists(saved_name))
@@ -192,6 +194,7 @@ class TestExportIngredientDump(WgerTestCase):
         self.assertEqual(saved_name_1, saved_name_2)
 
         with self.settings(MEDIA_ROOT=self.tmp_media):
+            # Django
             from django.core.files.storage import default_storage
 
             self.assertTrue(default_storage.exists(saved_name_2))
@@ -405,11 +408,10 @@ class TestBulkSyncManagementCommands(WgerTestCase):
 
     def _get_command_module(self):
         """Get the bulk-sync-ingredients command module (hyphenated name needs importlib)."""
+        # Standard Library
         import importlib
 
-        return importlib.import_module(
-            'wger.nutrition.management.commands.bulk-sync-ingredients'
-        )
+        return importlib.import_module('wger.nutrition.management.commands.bulk-sync-ingredients')
 
     @patch('wger.core.api.min_server_version.check_min_server_version')
     def test_bulk_sync_command_calls_functions(self, mock_version_check: MagicMock):
@@ -417,13 +419,16 @@ class TestBulkSyncManagementCommands(WgerTestCase):
         mod = self._get_command_module()
 
         with (
-            patch.object(mod, 'download_ingredient_dump', return_value='/tmp/fake.jsonl.gz') as mock_download,
+            patch.object(
+                mod, 'download_ingredient_dump', return_value='/tmp/fake.jsonl.gz'
+            ) as mock_download,
             patch.object(mod, 'sync_ingredients_from_dump') as mock_sync,
         ):
             out = StringIO()
             call_command(
                 'bulk-sync-ingredients',
-                '--remote-url', 'https://example.com',
+                '--remote-url',
+                'https://example.com',
                 stdout=out,
             )
 
@@ -436,13 +441,15 @@ class TestBulkSyncManagementCommands(WgerTestCase):
         mod = self._get_command_module()
 
         with patch.object(
-            mod, 'download_ingredient_dump',
+            mod,
+            'download_ingredient_dump',
             side_effect=FileNotFoundError('Bulk ingredient dump not found'),
         ):
             out = StringIO()
             with self.assertRaises(CommandError):
                 call_command(
                     'bulk-sync-ingredients',
-                    '--remote-url', 'https://example.com',
+                    '--remote-url',
+                    'https://example.com',
                     stdout=out,
                 )

@@ -30,8 +30,8 @@ from celery.schedules import crontab
 from wger.celery_configuration import app
 from wger.nutrition.api.endpoints import INGREDIENTS_ENDPOINT
 from wger.nutrition.sync import (
-    download_ingredient_images,
     download_ingredient_dump,
+    download_ingredient_images,
     export_ingredient_dump,
     fetch_ingredient_image,
     sync_ingredients,

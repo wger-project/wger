@@ -43,11 +43,11 @@ from tqdm import tqdm
 
 # wger
 from wger.core.models.language import Language
-from wger.nutrition.consts import SyncMode
 from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
     INGREDIENTS_ENDPOINT,
 )
+from wger.nutrition.consts import SyncMode
 from wger.nutrition.extract_info.wger import extract_info_from_wger_api
 from wger.nutrition.models import (
     Image,
@@ -379,9 +379,11 @@ def export_ingredient_dump(
     """
 
     # Import here to avoid circular imports
+    # Django
     from django.core.files.base import File
     from django.core.files.storage import default_storage
 
+    # wger
     from wger.nutrition.api.endpoints import INGREDIENT_BULK_EXPORT_PATH
     from wger.nutrition.api.serializers import IngredientSerializer
 
@@ -529,6 +531,7 @@ def download_ingredient_dump(
 
     Returns the path to the downloaded file.
     """
+    # wger
     from wger.nutrition.api.endpoints import INGREDIENT_BULK_EXPORT_PATH
 
     dump_url = f'{remote_url}{settings.MEDIA_URL}{INGREDIENT_BULK_EXPORT_PATH}'
