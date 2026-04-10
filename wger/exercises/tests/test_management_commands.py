@@ -11,9 +11,13 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 # Standard Library
 from io import StringIO
-from unittest.mock import patch
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
 
 # Django
 from django.core.management import call_command
@@ -37,13 +41,13 @@ class TestSyncManagementCommands(SimpleTestCase):
     @patch('wger.exercises.sync.sync_licenses')
     def test_sync_exercises(
         self,
-        mock_sync_licenses,
-        mock_sync_categories,
-        mock_sync_equipment,
-        mock_sync_exercises,
-        mock_sync_languages,
-        mock_sync_muscles,
-        mock_delete_entries,
+        mock_sync_licenses: MagicMock,
+        mock_sync_categories: MagicMock,
+        mock_sync_equipment: MagicMock,
+        mock_sync_exercises: MagicMock,
+        mock_sync_languages: MagicMock,
+        mock_sync_muscles: MagicMock,
+        mock_delete_entries: MagicMock,
     ):
         call_command('sync-exercises')
 
