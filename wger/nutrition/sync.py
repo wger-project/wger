@@ -529,7 +529,10 @@ def download_ingredient_dump(
     Returns the path to the downloaded file.
     """
 
-    dump_url = f'{remote_url}{settings.MEDIA_URL}{INGREDIENT_BULK_EXPORT_PATH}'
+    dump_url = settings.WGER_SETTINGS.get(
+        'SYNC_INGREDIENTS_DUMP_URL',
+        f'{remote_url}{settings.MEDIA_URL}{INGREDIENT_BULK_EXPORT_PATH}',
+    )
     print_fn(f'*** Downloading ingredient dump from {dump_url}...')
 
     if folder:
