@@ -425,6 +425,8 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
+    session = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = WorkoutLog
         fields = (
