@@ -96,7 +96,9 @@ class AbstractLicenseModel(models.Model):
             title = escape(self.license_title)
 
         if self.license_author_url:
-            author = format_html('<a href="{}">{}</a>', self.license_author_url, self.license_author)
+            author = format_html(
+                '<a href="{}">{}</a>', self.license_author_url, self.license_author
+            )
         else:
             author = escape(self.license_author)
 
@@ -111,7 +113,10 @@ class AbstractLicenseModel(models.Model):
 
         return format_html(
             '{} by {} is licensed under {}{}',
-            title, author, license_link, derivative,
+            title,
+            author,
+            license_link,
+            derivative,
         )
 
 
