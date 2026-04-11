@@ -409,7 +409,7 @@ class Routine(models.Model):
                 pk = muscle.id
 
                 entry.daily[date].muscle[pk] += value
-                entry.weekly[week_number].muscle[pk] += value
+                entry.weekly[week_nr].muscle[pk] += value
                 entry.iteration[iter].muscle[pk] += value
                 entry.mesocycle.muscle[pk] += value
 
