@@ -39,6 +39,7 @@ from django.utils.translation import gettext_lazy as _
 from wger.exercises.models import Exercise
 from wger.manager.dataclasses import (
     GroupedLogData,
+    LogData,
     RoutineLogData,
     WorkoutDayData,
 )
@@ -416,89 +417,25 @@ class Routine(models.Model):
         def safe_divide(numerator, denominator):
             return numerator / denominator if denominator != 0 else numerator
 
+        def avg_log_data(data: LogData, count: LogData) -> None:
+            data.total = safe_divide(data.total, count.total)
+            data.upper_body = safe_divide(data.upper_body, count.upper_body)
+            data.lower_body = safe_divide(data.lower_body, count.lower_body)
+            for k in data.muscle:
+                data.muscle[k] = safe_divide(data.muscle[k], count.muscle[k])
+            for k in data.exercises:
+                data.exercises[k] = safe_divide(data.exercises[k], count.exercises[k])
+
         def calculate_average_intensity(result: GroupedLogData, counters: GroupedLogData) -> None:
-            result.mesocycle.total = safe_divide(
-                result.mesocycle.total,
-                counters.mesocycle.total,
-            )
+            avg_log_data(result.mesocycle, counters.mesocycle)
 
-            for key in result.daily.keys():
-                result.daily[key].total = safe_divide(
-                    result.daily[key].total,
-                    counters.daily[key].total,
-                )
-                result.daily[key].upper_body = safe_divide(
-                    result.daily[key].upper_body,
-                    counters.daily[key].upper_body,
-                )
-                result.daily[key].lower_body = safe_divide(
-                    result.daily[key].lower_body,
-                    counters.daily[key].lower_body,
-                )
-
-                for j in result.daily[key].muscle.keys():
-                    result.daily[key].muscle[j] = safe_divide(
-                        result.daily[key].muscle[j],
-                        counters.daily[key].muscle[j],
-                    )
-
-                for j in result.daily[key].exercises.keys():
-                    result.daily[key].exercises[j] = safe_divide(
-                        result.daily[key].exercises[j],
-                        counters.daily[key].exercises[j],
-                    )
-
-            for key in result.weekly.keys():
-                result.weekly[key].total = safe_divide(
-                    result.weekly[key].total,
-                    counters.weekly[key].total,
-                )
-                result.weekly[key].upper_body = safe_divide(
-                    result.weekly[key].upper_body,
-                    counters.weekly[key].upper_body,
-                )
-                result.weekly[key].lower_body = safe_divide(
-                    result.weekly[key].lower_body,
-                    counters.weekly[key].lower_body,
-                )
-
-                for j in result.weekly[key].muscle.keys():
-                    result.weekly[key].muscle[j] = safe_divide(
-                        result.weekly[key].muscle[j],
-                        counters.weekly[key].muscle[j],
-                    )
-
-                for j in result.weekly[key].exercises.keys():
-                    result.weekly[key].exercises[j] = safe_divide(
-                        result.weekly[key].exercises[j],
-                        counters.weekly[key].exercises[j],
-                    )
-
-            for key in result.iteration.keys():
-                result.iteration[key].total = safe_divide(
-                    result.iteration[key].total,
-                    counters.iteration[key].total,
-                )
-                result.iteration[key].upper_body = safe_divide(
-                    result.iteration[key].upper_body,
-                    counters.iteration[key].upper_body,
-                )
-                result.iteration[key].lower_body = safe_divide(
-                    result.iteration[key].lower_body,
-                    counters.iteration[key].lower_body,
-                )
-
-                for j in result.iteration[key].muscle.keys():
-                    result.iteration[key].muscle[j] = safe_divide(
-                        result.iteration[key].muscle[j],
-                        counters.iteration[key].muscle[j],
-                    )
-
-                for j in result.iteration[key].exercises.keys():
-                    result.iteration[key].exercises[j] = safe_divide(
-                        result.iteration[key].exercises[j],
-                        counters.iteration[key].exercises[j],
-                    )
+            for res_group, cnt_group in (
+                (result.daily, counters.daily),
+                (result.weekly, counters.weekly),
+                (result.iteration, counters.iteration),
+            ):
+                for key in res_group:
+                    avg_log_data(res_group[key], cnt_group[key])
 
         # Iterate over each workout session associated with the routine
         for session in self.sessions.all():
