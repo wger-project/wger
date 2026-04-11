@@ -14,6 +14,10 @@
 
 # ruff: noqa: F405
 
+# Standard Library
+import secrets
+import warnings
+
 # Third Party
 import environ
 
@@ -31,6 +35,14 @@ env = environ.Env(
     # set casting, default value
     DJANGO_DEBUG=(bool, False)
 )
+
+# A list of keys used in the docker repo as defaults. To prevent instances using
+# these defaults in production, servers with these keys will warn and generate
+# random ones
+_DEFAULT_KEYS = {
+    'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)',
+    'wger-docker-secret-jwtkey-1234567890!@#$%^&*(-_=+)',
+}
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = env('DJANGO_DEBUG')
@@ -63,9 +75,17 @@ else:
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = env.str('TIME_ZONE', 'Europe/Berlin')
 
-# Make this unique, and don't share it with anybody.
+# Django's secret key
 # Generate e.g. with: python -c "import secrets; print(secrets.token_urlsafe(50))" or https://djecrety.ir/
-SECRET_KEY = env.str('SECRET_KEY', 'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)')
+SECRET_KEY = env.str('SECRET_KEY', '')
+if not SECRET_KEY or SECRET_KEY in _DEFAULT_KEYS:
+    SECRET_KEY = secrets.token_urlsafe(50)
+    warnings.warn(
+        'SECRET_KEY is not set or uses the default value so '
+        'a random key was generated, sessions will not persist across restarts. '
+        'Set SECRET_KEY in your environment for production use.',
+        stacklevel=1,
+    )
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
@@ -208,7 +228,16 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 #
 SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int('ACCESS_TOKEN_LIFETIME', 15))
 SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=env.int('REFRESH_TOKEN_LIFETIME', 24))
-SIMPLE_JWT['SIGNING_KEY'] = env.str('SIGNING_KEY', SECRET_KEY)
+_SIGNING_KEY = env.str('SIGNING_KEY', '')
+if not _SIGNING_KEY or _SIGNING_KEY in _DEFAULT_KEYS:
+    _SIGNING_KEY = secrets.token_urlsafe(50)
+    warnings.warn(
+        'SIGNING_KEY is not set or uses the default value so '
+        'a random key was generated, sessions will not persist across restarts. '
+        'Set SIGNING_KEY in your environment for production use.',
+        stacklevel=1,
+    )
+SIMPLE_JWT['SIGNING_KEY'] = _SIGNING_KEY
 
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/
