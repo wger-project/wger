@@ -377,7 +377,12 @@ def sync_ingredients(
     ingredient_nr = 1
     page_nr = 1
     pbar = tqdm(
-        total=total_ingredients, unit='ingredients', desc='Syncing progress', unit_scale=True
+        total=total_ingredients,
+        unit='ingredients',
+        desc='Syncing progress',
+        unit_scale=True,
+        smoothing=0.1,
+        mininterval=1.0,
     )
     for data in get_paginated(url, headers=wger_headers()):
         _sync_ingredient_from_api_data(data)
@@ -425,7 +430,14 @@ def export_ingredient_dump(
 
     print_fn('*** Exporting ingredients to JSONL dump...')
 
-    pbar = tqdm(total=total, unit='ingredients', desc='Exporting', disable=not show_progress_bar)
+    pbar = tqdm(
+        total=total,
+        unit='ingredients',
+        desc='Exporting',
+        disable=not show_progress_bar,
+        smoothing=0.1,
+        mininterval=1.0,
+    )
 
     # Write to a local temp file first, then upload via storage backend
     count = 0
@@ -485,7 +497,14 @@ def sync_ingredients_from_dump(
         with _open_jsonl(file_path) as f:
             total = sum(1 for _ in f)
 
-    pbar = tqdm(total=total, unit='ingredients', desc='Importing', disable=not show_progress_bar)
+    pbar = tqdm(
+        total=total,
+        unit='ingredients',
+        desc='Importing',
+        disable=not show_progress_bar,
+        smoothing=0.1,
+        mininterval=1.0,
+    )
 
     bulk_bucket: List[tuple[Ingredient, list[WeightUnitData] | None]] = []
     count = 0
