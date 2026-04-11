@@ -20,6 +20,9 @@ import logging
 # Django
 from django.db import models
 
+# wger
+from wger.utils.uuid import uuid7
+
 # Local
 from .ingredient import Ingredient
 
@@ -31,6 +34,12 @@ class IngredientWeightUnit(models.Model):
     """
     A specific human usable weight unit for an ingredient
     """
+
+    uuid = models.UUIDField(
+        default=uuid7,
+        unique=True,
+        editable=False,
+    )
 
     ingredient = models.ForeignKey(
         Ingredient,
