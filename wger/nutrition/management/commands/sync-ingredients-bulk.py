@@ -16,7 +16,6 @@
 from django.core.management.base import CommandError
 
 # wger
-from wger.core.api.min_server_version import check_min_server_version
 from wger.core.management.wger_command import WgerCommand
 from wger.nutrition.consts import SyncMode
 from wger.nutrition.sync import (
@@ -68,8 +67,6 @@ class Command(WgerCommand):
 
         remote_url = self.remote_url
         mode = SyncMode.INSERT if options['mode'] == 'insert' else SyncMode.UPDATE
-
-        check_min_server_version(remote_url)
 
         try:
             file_path = download_ingredient_dump(

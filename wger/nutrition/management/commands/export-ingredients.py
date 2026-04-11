@@ -23,8 +23,8 @@ class Command(BaseCommand):
     """
     Export all ingredients as a gzipped JSONL file for bulk synchronization.
 
-    The generated file is placed in MEDIA_ROOT/ingredients/ and can be
-    served to other wger instances for fast bulk imports.
+    The generated file is written using the configured storage backend and can
+    be served to other wger instances for fast bulk imports.
     """
 
     help = 'Export all ingredients as a gzipped JSONL dump file for bulk synchronization'

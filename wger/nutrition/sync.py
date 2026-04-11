@@ -481,14 +481,15 @@ def sync_ingredients_from_dump(
                 if len(bulk_bucket) >= BULK_SIZE:
                     try:
                         Ingredient.objects.bulk_create(bulk_bucket)
+                        count += len(bulk_bucket)
                     except Exception:
                         # Fall back to individual saves
                         for ingredient in bulk_bucket:
                             try:
                                 ingredient.save()
+                                count += 1
                             except Exception:
                                 errors += 1
-                    count += len(bulk_bucket)
                     bulk_bucket = []
             else:
                 try:
@@ -503,13 +504,14 @@ def sync_ingredients_from_dump(
     if mode == SyncMode.INSERT and bulk_bucket:
         try:
             Ingredient.objects.bulk_create(bulk_bucket)
+            count += len(bulk_bucket)
         except Exception:
             for ingredient in bulk_bucket:
                 try:
                     ingredient.save()
+                    count += 1
                 except Exception:
                     errors += 1
-        count += len(bulk_bucket)
 
     pbar.close()
 
@@ -536,23 +538,19 @@ def download_ingredient_dump(
     print_fn(f'*** Downloading ingredient dump from {dump_url}...')
 
     if folder:
-        download_folder = folder
+        file_path = Path(folder) / 'ingredients.jsonl.gz'
+        if file_path.exists():
+            print_fn(f'File already downloaded at {file_path}')
+            return file_path
     else:
-        download_folder = tempfile.mkdtemp()
+        file_path = Path(tempfile.NamedTemporaryFile(delete=False, suffix='.jsonl.gz').name)
 
-    file_path = Path(download_folder) / 'ingredients.jsonl.gz'
-
-    if file_path.exists():
-        print_fn(f'File already downloaded at {file_path}')
-        return file_path
-
-    response = requests.get(dump_url, stream=True, headers=wger_headers())
+    response = requests.get(dump_url, stream=True, headers=wger_headers(), timeout=(10, 60))
     if response.status_code == 404:
         raise FileNotFoundError(
             f'Bulk ingredient dump not found at {dump_url}. '
             f'The remote server may not have generated a dump yet. '
-            f'Please ask the server admin to run "python manage.py export-ingredients" first, '
-            f'or use "python manage.py sync-ingredients" to sync via the API instead.'
+            f'Please ask the server admin to run "python manage.py export-ingredients" first.'
         )
     if response.status_code != 200:
         raise Exception(f'Could not download dump from {dump_url} (status {response.status_code})')

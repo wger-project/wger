@@ -145,7 +145,12 @@ def sync_all_ingredients_chunked_task(
     return None
 
 
-@app.task
+@app.task(
+    autoretry_for=(requests.exceptions.RequestException,),
+    retry_backoff=True,
+    retry_jitter=True,
+    retry_kwargs={'max_retries': 3},
+)
 def sync_ingredients_bulk_or_api_task():
     """
     Sync ingredients from a remote wger instance.

@@ -56,7 +56,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     license_id = product_data.get('license', ODBL_LICENSE_ID)
     license_title = product_data.get('license_title', '')
     license_object_url = product_data.get('license_object_url', '')
-    license_authors = product_data.get('authors', '')
+    license_authors = product_data.get('license_author', '')
     license_author_url = product_data.get('license_author_url', '')
     license_derivative_source_url = product_data.get('license_derivative_source_url', '')
 
