@@ -159,10 +159,13 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     @action(detail=False, url_name='verify-email', url_path='verify-email')
     def verify_email(self, request):
         """
-        Return the username
+        Verify the user's email address
         """
+        email_obj = request.user.userprofile.get_allauth_email
 
-        email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+        if email_obj is None:
+            return Response({'result': 'not sent', 'message': 'The user has no associated email'})
+
         if email_obj.verified:
             return Response({'status': 'verified', 'message': 'This email is already verified'})
 

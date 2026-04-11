@@ -58,7 +58,6 @@ class RegistrationTestCase(WgerTestCase):
                 'USE_RECAPTCHA': True,
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
-                'TWITTER': False,
                 'MASTODON': False,
                 'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
@@ -71,7 +70,6 @@ class RegistrationTestCase(WgerTestCase):
                 'USE_RECAPTCHA': False,
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
-                'TWITTER': False,
                 'MASTODON': False,
                 'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }

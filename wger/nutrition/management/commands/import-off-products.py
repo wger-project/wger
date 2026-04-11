@@ -21,11 +21,9 @@ import requests
 
 # wger
 from wger.core.models import Language
+from wger.nutrition.consts import SyncMode
 from wger.nutrition.extract_info.off import extract_info_from_off
-from wger.nutrition.management.products import (
-    ImportProductCommand,
-    Mode,
-)
+from wger.nutrition.management.products import ImportProductCommand
 
 
 logger = logging.getLogger(__name__)
@@ -143,7 +141,7 @@ class Command(ImportProductCommand):
 
     def handle(self, **options):
         if options['mode'] == 'insert':
-            self.mode = Mode.INSERT
+            self.mode = SyncMode.INSERT
 
         languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
 

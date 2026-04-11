@@ -33,7 +33,6 @@ def processor(request):
     # fmt: off
     context = {
         'mastodon': settings.WGER_SETTINGS.get('MASTODON', ''),
-        'twitter': settings.WGER_SETTINGS.get('TWITTER', ''),
         'allow_registration': settings.WGER_SETTINGS.get('ALLOW_REGISTRATION', False),
 
         # Languages

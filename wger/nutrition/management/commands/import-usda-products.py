@@ -21,11 +21,9 @@ from zipfile import ZipFile
 
 # wger
 from wger.core.models import Language
+from wger.nutrition.consts import SyncMode
 from wger.nutrition.extract_info.usda import extract_info_from_usda
-from wger.nutrition.management.products import (
-    ImportProductCommand,
-    Mode,
-)
+from wger.nutrition.management.products import ImportProductCommand
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
 
@@ -53,7 +51,7 @@ class Command(ImportProductCommand):
 
     def handle(self, **options):
         if options['mode'] == 'insert':
-            self.mode = Mode.INSERT
+            self.mode = SyncMode.INSERT
 
         dataset_url = f'https://fdc.nal.usda.gov/fdc-datasets/{options["dataset"]}'
         download_folder, tmp_folder = self.get_download_folder(options['folder'])

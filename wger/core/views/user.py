@@ -275,7 +275,13 @@ def registration(request):
             django_login(request, user)
 
             # Email the user with the activation link
-            EmailAddress.objects.add_email(request, request.user, request.user.email, confirm=True)
+            if email:
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    request.user.email,
+                    confirm=True,
+                )
 
             # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
@@ -301,7 +307,7 @@ def preferences(request):
     context.update(csrf(request))
     redirect = False
 
-    email_obj = EmailAddress.objects.get_for_user(request.user, request.user.email)
+    email_verified = request.user.userprofile.is_verified
 
     # Process the preferences form
     if request.method == 'POST':
@@ -345,7 +351,7 @@ def preferences(request):
             redirect = False
 
     context['form'] = form
-    context['email_verified'] = email_obj.verified
+    context['email_verified'] = email_verified
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
