@@ -14,6 +14,10 @@
 
 # Django
 from django.db import models
+from django.utils.html import (
+    escape,
+    format_html,
+)
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -86,28 +90,29 @@ class AbstractLicenseModel(models.Model):
 
     @property
     def attribution_link(self):
-        out = ''
-
         if self.license_object_url:
-            out += f'<a href="{self.license_object_url}">{self.license_title}</a>'
+            title = format_html('<a href="{}">{}</a>', self.license_object_url, self.license_title)
         else:
-            out += self.license_title
+            title = escape(self.license_title)
 
-        out += ' by '
         if self.license_author_url:
-            out += f'<a href="{self.license_author_url}">{self.license_author}</a>'
+            author = format_html('<a href="{}">{}</a>', self.license_author_url, self.license_author)
         else:
-            out += self.license_author
+            author = escape(self.license_author)
 
-        out += f' is licensed under <a href="{self.license.url}">{self.license.short_name}</a>'
+        license_link = format_html('<a href="{}">{}</a>', self.license.url, self.license.short_name)
 
+        derivative = ''
         if self.license_derivative_source_url:
-            out += (
-                f'/ A derivative work from <a href="{self.license_derivative_source_url}">the '
-                f'original work</a>'
+            derivative = format_html(
+                ' / A derivative work from <a href="{}">the original work</a>',
+                self.license_derivative_source_url,
             )
 
-        return out
+        return format_html(
+            '{} by {} is licensed under {}{}',
+            title, author, license_link, derivative,
+        )
 
 
 class AbstractHistoryMixin:
