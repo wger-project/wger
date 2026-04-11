@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import enum
 import json
 import logging
 import os
@@ -31,6 +30,7 @@ import requests
 from tqdm import tqdm
 
 # wger
+from wger.nutrition.consts import SyncMode
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Ingredient
 from wger.utils.requests import wger_headers
@@ -39,22 +39,12 @@ from wger.utils.requests import wger_headers
 logger = logging.getLogger(__name__)
 
 
-# Mode for this script. When using 'insert', the script will bulk-insert the new
-# ingredients, which is very efficient. Importing the whole database will require
-# barely a minute. When using 'update', existing ingredients will be updated, which
-# requires two queries per product and is needed when there are already existing
-# entries in the local ingredient table.
-class Mode(enum.Enum):
-    INSERT = enum.auto()
-    UPDATE = enum.auto()
-
-
 class ImportProductCommand(BaseCommand):
     """
     Import an Open Food facts Dump
     """
 
-    mode = Mode.UPDATE
+    mode = SyncMode.UPDATE
     bulk_update_bucket: list[Ingredient] = []
     bulk_size = 500
     counter: Counter
@@ -100,7 +90,7 @@ class ImportProductCommand(BaseCommand):
         #
         # Add entries as new products
         ingredient_data.clean_name()
-        if self.mode == Mode.INSERT:
+        if self.mode == SyncMode.INSERT:
             self.bulk_update_bucket.append(Ingredient(**ingredient_data.dict()))
             if len(self.bulk_update_bucket) > self.bulk_size:
                 try:
