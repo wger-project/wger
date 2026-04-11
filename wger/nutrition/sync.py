@@ -81,6 +81,34 @@ from wger.utils.url import make_uri
 logger = logging.getLogger(__name__)
 
 
+def _resolve_language_codes(language_codes: Optional[str]) -> List[str] | None:
+    """Resolve comma-separated language codes to a list of language ID strings."""
+    if language_codes is None:
+        return None
+
+    language_ids = []
+    for code in language_codes.split(','):
+        lang = load_language(code, default_to_english=False)
+        language_ids.append(str(lang.id))
+    return language_ids
+
+
+def _sync_ingredient_from_api_data(data: dict) -> Ingredient:
+    """
+    Create or update a single ingredient (and its weight units) from API data.
+    """
+    uuid = data['uuid']
+    ingredient_data = extract_info_from_wger_api(data).dict()
+    ingredient_data['uuid'] = uuid
+
+    ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+    weight_units_data = extract_weight_unit_info_from_wger_api(data)
+    if weight_units_data is not None:
+        sync_weight_units(ingredient, weight_units_data)
+
+    return ingredient
+
+
 def sync_weight_units(ingredient: Ingredient, weight_units_data: list[WeightUnitData]):
     """
     Synchronize weight units for an ingredient from remote data.
@@ -291,16 +319,11 @@ def sync_ingredients_page(
     Sync a single paginated page (0-based index). Returns number of processed ingredients.
     Safe to rerun (idempotent).
     """
-    language_ids: List[str] | None = None
-    if language_codes:
-        language_ids = []
-        for code in language_codes.split(','):
-            try:
-                lang = load_language(code, default_to_english=False)
-                language_ids.append(str(lang.id))
-            except Language.DoesNotExist:
-                logger.warning(f'Language code "{code}" not found, skipping page {page}.')
-                return 0
+    try:
+        language_ids = _resolve_language_codes(language_codes)
+    except Language.DoesNotExist:
+        logger.warning(f'Language code not found, skipping page {page}.')
+        return 0
 
     offset = page * limit
     query: dict[str, str | int] = {'limit': limit, 'offset': offset}
@@ -312,13 +335,7 @@ def sync_ingredients_page(
     results = response.get('results', [])
     processed = 0
     for data in results:
-        uuid = data['uuid']
-        ingredient_data = extract_info_from_wger_api(data).dict()
-        ingredient_data['uuid'] = uuid
-        ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
-        weight_units_data = extract_weight_unit_info_from_wger_api(data)
-        if weight_units_data is not None:
-            sync_weight_units(ingredient, weight_units_data)
+        _sync_ingredient_from_api_data(data)
         processed += 1
     logger.debug(f'Page {page} synced ({processed} ingredients)')
     return processed
@@ -334,22 +351,13 @@ def sync_ingredients(
     """Synchronize the ingredients from the remote server"""
     print_fn('*** Synchronizing ingredients...')
 
-    language_ids: List[str] | None = None
-    if language_codes is not None:
-        language_ids = []
-        for code in language_codes.split(','):
-            # Leaving the try except in here even though we've already validated on the
-            # sync-ingredients command itself. This is in case we ever want to re-use
-            # this function for anything else where user can input language codes.
-            try:
-                lang = load_language(code, default_to_english=False)
-                language_ids.append(str(lang.id))
-            except Language.DoesNotExist:
-                print_fn(
-                    f'Error: The language code you provided ("{code}") does not exist in '
-                    f'this database. Please try again.'
-                )
-                return 0
+    try:
+        language_ids = _resolve_language_codes(language_codes)
+    except Language.DoesNotExist:
+        print_fn(
+            'Error: A language code you provided does not exist in this database. Please try again.'
+        )
+        return 0
 
     query: dict[str, str | int] = {'limit': API_MAX_ITEMS}
     if language_ids is not None:
@@ -372,15 +380,7 @@ def sync_ingredients(
         total=total_ingredients, unit='ingredients', desc='Syncing progress', unit_scale=True
     )
     for data in get_paginated(url, headers=wger_headers()):
-        uuid = data['uuid']
-
-        ingredient_data = extract_info_from_wger_api(data).dict()
-        ingredient_data['uuid'] = uuid
-
-        ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
-        weight_units_data = extract_weight_unit_info_from_wger_api(data)
-        if weight_units_data is not None:
-            sync_weight_units(ingredient, weight_units_data)
+        _sync_ingredient_from_api_data(data)
 
         if show_progress_bar:
             pbar.update(1)
