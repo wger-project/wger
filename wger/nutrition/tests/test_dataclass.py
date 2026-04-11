@@ -78,3 +78,18 @@ class IngredientDataclassTestCase(SimpleTestCase):
         self.ingredient_data.carbohydrates = 20
         self.ingredient_data.carbohydrates_sugar = 30
         self.assertRaises(ValueError, self.ingredient_data.sanity_checks)
+
+    def test_validation_nutriscore_valid(self):
+        """
+        Test that valid nutriscore values are accepted
+        """
+        for score in ('a', 'b', 'c', 'd', 'e', None):
+            self.ingredient_data.nutriscore = score
+            self.assertEqual(self.ingredient_data.sanity_checks(), None)
+
+    def test_validation_nutriscore_invalid(self):
+        """
+        Test that invalid nutriscore values are rejected
+        """
+        self.ingredient_data.nutriscore = 'z'
+        self.assertRaises(ValueError, self.ingredient_data.sanity_checks)

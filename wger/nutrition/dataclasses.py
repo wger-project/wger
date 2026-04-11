@@ -100,6 +100,9 @@ class IngredientData:
         if self.carbohydrates + self.protein + self.fat > 100:
             raise ValueError('Total of carbohydrates, protein and fat is greater than 100!')
 
+        if self.nutriscore is not None and self.nutriscore not in ('a', 'b', 'c', 'd', 'e'):
+            raise ValueError(f'Invalid nutriscore value: {self.nutriscore}')
+
     def dict(self):
         data = asdict(self)
         data.pop('serving_size_gram', None)
