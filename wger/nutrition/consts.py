@@ -14,6 +14,22 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import enum
+
+
+class SyncMode(enum.Enum):
+    """
+    Mode for ingredient sync/import scripts.
+
+    INSERT: bulk-insert new ingredients (very fast, use for empty databases)
+    UPDATE: update existing ingredients or create new ones (slower, 2 queries per product)
+    """
+
+    INSERT = enum.auto()
+    UPDATE = enum.auto()
+
+
 ENERGY_FACTOR = {
     'protein': {'kg': 4, 'lb': 113},
     'carbohydrates': {'kg': 4, 'lb': 113},

@@ -168,7 +168,7 @@ def load_online_fixtures(context, settings_path: str = None):
     setup_django_environment(settings_path)
 
     # Prepare the download
-    for name in ('ingredients', 'weight_units', 'ingredient_units'):
+    for name in ('ingredients',):
         url = f'{FIXTURE_URL}{name}.json.zip'
 
         print(f'Downloading fixture data from {url}...')

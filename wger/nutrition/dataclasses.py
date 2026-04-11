@@ -27,6 +27,13 @@ from wger.nutrition.helpers import (
 
 
 @dataclass
+class WeightUnitData:
+    uuid: str
+    name: str
+    gram: int
+
+
+@dataclass
 class IngredientData:
     name: str
     remote_id: str
@@ -64,6 +71,7 @@ class IngredientData:
         self.brand = self.brand[:200]
         self.common_name = self.common_name[:200]
 
+        # Mass checks (not more than 100g of something per 100g of product etc)
         macros = [
             'protein',
             'fat',
@@ -78,8 +86,22 @@ class IngredientData:
             if value and value > 100:
                 raise ValueError(f'Value for {macro} is greater than 100: {value}')
 
+        if self.fat_saturated and self.fat_saturated > self.fat:
+            raise ValueError(
+                f'Saturated fat is greater than fat: {self.fat_saturated} > {self.fat}'
+            )
+
+        if self.carbohydrates_sugar and self.carbohydrates_sugar > self.carbohydrates:
+            raise ValueError(
+                f'Sugar is greater than carbohydrates: '
+                f'{self.carbohydrates_sugar} > {self.carbohydrates}'
+            )
+
         if self.carbohydrates + self.protein + self.fat > 100:
             raise ValueError('Total of carbohydrates, protein and fat is greater than 100!')
+
+        if self.nutriscore is not None and self.nutriscore not in ('a', 'b', 'c', 'd', 'e'):
+            raise ValueError(f'Invalid nutriscore value: {self.nutriscore}')
 
     def dict(self):
         data = asdict(self)
