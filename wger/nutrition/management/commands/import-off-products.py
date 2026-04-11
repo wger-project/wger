@@ -40,7 +40,7 @@ class Command(ImportProductCommand):
     * Import dump (already downloaded in /tmo/off/):
         python manage.py import-off-products --jsonl --folder /tmp/off/
 
-    * Import last delta update (downloads, imports and deltes the most recent delta file):
+    * Import last delta update (downloads, imports and deletes the most recent delta file):
         python manage.py import-off-products --delta-updates
     """
 

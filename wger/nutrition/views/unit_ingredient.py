@@ -74,7 +74,7 @@ class WeightUnitIngredientCreateView(
 
     def get_form_class(self):
         """
-        The form can only show units in the user's language
+        Return the form class for the weight unit
         """
 
         class IngredientWeightUnitForm(ModelForm):
@@ -104,7 +104,7 @@ class WeightUnitIngredientUpdateView(
 
     def get_form_class(self):
         """
-        The form can only show units in the user's language
+        Return the form class for the weight unit
         """
 
         class IngredientWeightUnitForm(ModelForm):

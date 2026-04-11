@@ -27,6 +27,13 @@ from wger.nutrition.helpers import (
 
 
 @dataclass
+class WeightUnitData:
+    uuid: str
+    name: str
+    gram: int
+
+
+@dataclass
 class IngredientData:
     name: str
     remote_id: str

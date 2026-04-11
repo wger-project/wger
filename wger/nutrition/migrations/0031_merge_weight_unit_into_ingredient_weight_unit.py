@@ -12,9 +12,13 @@ def migrate_weight_units(apps, schema_editor):
     MealItem = apps.get_model('nutrition', 'MealItem')
     LogItem = apps.get_model('nutrition', 'LogItem')
 
-    # Copy names from the related WeightUnit
+    # Copy names from the related WeightUnit, preserving amount in the name
+    # so that existing MealItem/LogItem references keep the same meaning.
     for iwu in IngredientWeightUnit.objects.select_related('unit').filter(unit__isnull=False):
-        iwu.name = iwu.unit.name
+        if iwu.amount == 1:
+            iwu.name = iwu.unit.name
+        else:
+            iwu.name = f'{iwu.amount} {iwu.unit.name}'
         iwu.save(update_fields=['name'])
 
     # Delete entries not referenced by any MealItem or LogItem.

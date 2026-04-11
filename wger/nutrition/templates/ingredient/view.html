@@ -196,7 +196,7 @@ $(document).ready(function() {
     {% for unit in ingredient.ingredientweightunit_set.select_related %}
         <tr>
             <td>
-                {{unit.amount}} {{unit.name}} = {{unit.gram}}g
+                {{unit.name}} = {{unit.gram}}g
                 <div class="dropdown float-end">
                     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>

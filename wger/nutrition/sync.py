@@ -52,7 +52,11 @@ from wger.nutrition.api.endpoints import (
 )
 from wger.nutrition.api.serializers import IngredientSerializer
 from wger.nutrition.consts import SyncMode
-from wger.nutrition.extract_info.wger import extract_info_from_wger_api
+from wger.nutrition.dataclasses import WeightUnitData
+from wger.nutrition.extract_info.wger import (
+    extract_info_from_wger_api,
+    extract_weight_unit_info_from_wger_api,
+)
 from wger.nutrition.models import (
     Image,
     Ingredient,
@@ -77,25 +81,20 @@ from wger.utils.url import make_uri
 logger = logging.getLogger(__name__)
 
 
-def sync_weight_units(ingredient: Ingredient, weight_units_data: list[dict]):
+def sync_weight_units(ingredient: Ingredient, weight_units_data: list[WeightUnitData]):
     """
     Synchronize weight units for an ingredient from remote data.
-
-    Each entry in weight_units_data is expected to have: uuid, name, gram.
     """
+
     remote_uuids = set()
     for unit_data in weight_units_data:
-        uuid = unit_data.get('uuid')
-        if not uuid:
-            continue
-
-        remote_uuids.add(uuid)
+        remote_uuids.add(unit_data.uuid)
         IngredientWeightUnit.objects.update_or_create(
-            uuid=uuid,
+            uuid=unit_data.uuid,
             defaults={
                 'ingredient': ingredient,
-                'name': unit_data['name'],
-                'gram': unit_data['gram'],
+                'name': unit_data.name,
+                'gram': unit_data.gram,
             },
         )
 
@@ -317,7 +316,9 @@ def sync_ingredients_page(
         ingredient_data = extract_info_from_wger_api(data).dict()
         ingredient_data['uuid'] = uuid
         ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
-        sync_weight_units(ingredient, data.get('weight_units', []))
+        weight_units_data = extract_weight_unit_info_from_wger_api(data)
+        if weight_units_data is not None:
+            sync_weight_units(ingredient, weight_units_data)
         processed += 1
     logger.debug(f'Page {page} synced ({processed} ingredients)')
     return processed
@@ -377,7 +378,9 @@ def sync_ingredients(
         ingredient_data['uuid'] = uuid
 
         ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
-        sync_weight_units(ingredient, data.get('weight_units', []))
+        weight_units_data = extract_weight_unit_info_from_wger_api(data)
+        if weight_units_data is not None:
+            sync_weight_units(ingredient, weight_units_data)
 
         if show_progress_bar:
             pbar.update(1)
@@ -484,7 +487,7 @@ def sync_ingredients_from_dump(
 
     pbar = tqdm(total=total, unit='ingredients', desc='Importing', disable=not show_progress_bar)
 
-    bulk_bucket: list[Ingredient] = []
+    bulk_bucket: List[tuple[Ingredient, list[WeightUnitData] | None]] = []
     count = 0
     errors = 0
 
@@ -503,22 +506,29 @@ def sync_ingredients_from_dump(
 
             ingredient_data = extract_info_from_wger_api(data).dict()
             ingredient_data['uuid'] = uuid
-            weight_units_data = data.get('weight_units', [])
+            weight_units_data = extract_weight_unit_info_from_wger_api(data)
 
             if mode == SyncMode.INSERT:
                 bulk_bucket.append((Ingredient(**ingredient_data), weight_units_data))
                 if len(bulk_bucket) >= BULK_SIZE:
                     try:
                         Ingredient.objects.bulk_create([item[0] for item in bulk_bucket])
+                        # Re-fetch to ensure PKs are populated (not all DBs
+                        # return PKs from bulk_create)
+                        uuids = [item[0].uuid for item in bulk_bucket]
+                        saved = {str(i.uuid): i for i in Ingredient.objects.filter(uuid__in=uuids)}
                         for ingredient, units_data in bulk_bucket:
-                            sync_weight_units(ingredient, units_data)
+                            refetched = saved.get(str(ingredient.uuid))
+                            if units_data is not None and refetched is not None:
+                                sync_weight_units(refetched, units_data)
                         count += len(bulk_bucket)
                     except Exception:
                         # Fall back to individual saves
                         for ingredient, units_data in bulk_bucket:
                             try:
                                 ingredient.save()
-                                sync_weight_units(ingredient, units_data)
+                                if units_data is not None:
+                                    sync_weight_units(ingredient, units_data)
                                 count += 1
                             except Exception:
                                 errors += 1
@@ -528,7 +538,8 @@ def sync_ingredients_from_dump(
                     ingredient, _ = Ingredient.objects.update_or_create(
                         uuid=uuid, defaults=ingredient_data
                     )
-                    sync_weight_units(ingredient, weight_units_data)
+                    if weight_units_data is not None:
+                        sync_weight_units(ingredient, weight_units_data)
                     count += 1
                 except Exception:
                     errors += 1
@@ -539,14 +550,18 @@ def sync_ingredients_from_dump(
     if mode == SyncMode.INSERT and bulk_bucket:
         try:
             Ingredient.objects.bulk_create([item[0] for item in bulk_bucket])
+            uuids = [item[0].uuid for item in bulk_bucket]
+            saved = {i.uuid: i for i in Ingredient.objects.filter(uuid__in=uuids)}
             for ingredient, units_data in bulk_bucket:
-                sync_weight_units(ingredient, units_data)
+                if units_data is not None and ingredient.uuid in saved:
+                    sync_weight_units(saved[ingredient.uuid], units_data)
             count += len(bulk_bucket)
         except Exception:
             for ingredient, units_data in bulk_bucket:
                 try:
                     ingredient.save()
-                    sync_weight_units(ingredient, units_data)
+                    if units_data is not None:
+                        sync_weight_units(ingredient, units_data)
                     count += 1
                 except Exception:
                     errors += 1

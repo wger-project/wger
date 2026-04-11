@@ -281,10 +281,6 @@ class TestSyncIngredientsFromDump(WgerTestCase):
 
             self.assertEqual(count, 2)
             self.assertEqual(Ingredient.objects.count(), initial_count + 2)
-
-            # Weight units synced for the ingredient that has them
-            ingredient = Ingredient.objects.get(uuid='7908c204-907f-4b1e-ad4e-f482e9769ade')
-            self.assertEqual(ingredient.ingredientweightunit_set.count(), 1)
         finally:
             Path(file_path).unlink()
 

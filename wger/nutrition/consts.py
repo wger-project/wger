@@ -29,6 +29,7 @@ class SyncMode(enum.Enum):
     INSERT = enum.auto()
     UPDATE = enum.auto()
 
+
 ENERGY_FACTOR = {
     'protein': {'kg': 4, 'lb': 113},
     'carbohydrates': {'kg': 4, 'lb': 113},
