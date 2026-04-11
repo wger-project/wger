@@ -56,6 +56,7 @@ class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
         model = IngredientWeightUnit
         fields = (
             'id',
+            'uuid',
             'gram',
             'name',
         )

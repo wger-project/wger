@@ -56,6 +56,7 @@ from wger.nutrition.extract_info.wger import extract_info_from_wger_api
 from wger.nutrition.models import (
     Image,
     Ingredient,
+    IngredientWeightUnit,
     Source,
 )
 from wger.utils.constants import (
@@ -74,6 +75,32 @@ from wger.utils.url import make_uri
 
 
 logger = logging.getLogger(__name__)
+
+
+def sync_weight_units(ingredient: Ingredient, weight_units_data: list[dict]):
+    """
+    Synchronize weight units for an ingredient from remote data.
+
+    Each entry in weight_units_data is expected to have: uuid, name, gram.
+    """
+    remote_uuids = set()
+    for unit_data in weight_units_data:
+        uuid = unit_data.get('uuid')
+        if not uuid:
+            continue
+
+        remote_uuids.add(uuid)
+        IngredientWeightUnit.objects.update_or_create(
+            uuid=uuid,
+            defaults={
+                'ingredient': ingredient,
+                'name': unit_data['name'],
+                'gram': unit_data['gram'],
+            },
+        )
+
+    # Remove local units that no longer exist on the remote
+    ingredient.ingredientweightunit_set.exclude(uuid__in=remote_uuids).delete()
 
 
 def fetch_ingredient_image(pk: int):
@@ -289,7 +316,8 @@ def sync_ingredients_page(
         uuid = data['uuid']
         ingredient_data = extract_info_from_wger_api(data).dict()
         ingredient_data['uuid'] = uuid
-        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        sync_weight_units(ingredient, data.get('weight_units', []))
         processed += 1
     logger.debug(f'Page {page} synced ({processed} ingredients)')
     return processed
@@ -348,7 +376,8 @@ def sync_ingredients(
         ingredient_data = extract_info_from_wger_api(data).dict()
         ingredient_data['uuid'] = uuid
 
-        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        sync_weight_units(ingredient, data.get('weight_units', []))
 
         if show_progress_bar:
             pbar.update(1)
@@ -384,11 +413,10 @@ def export_ingredient_dump(
     (local filesystem, S3, GCS, etc.).
     """
 
-    # TODO: handle units here as well
     queryset = Ingredient.objects.select_related(
         'language',
         'license',
-    )
+    ).prefetch_related('ingredientweightunit_set')
     total = queryset.count()
     queryset = queryset.iterator(chunk_size=2000)
 
@@ -475,25 +503,32 @@ def sync_ingredients_from_dump(
 
             ingredient_data = extract_info_from_wger_api(data).dict()
             ingredient_data['uuid'] = uuid
+            weight_units_data = data.get('weight_units', [])
 
             if mode == SyncMode.INSERT:
-                bulk_bucket.append(Ingredient(**ingredient_data))
+                bulk_bucket.append((Ingredient(**ingredient_data), weight_units_data))
                 if len(bulk_bucket) >= BULK_SIZE:
                     try:
-                        Ingredient.objects.bulk_create(bulk_bucket)
+                        Ingredient.objects.bulk_create([item[0] for item in bulk_bucket])
+                        for ingredient, units_data in bulk_bucket:
+                            sync_weight_units(ingredient, units_data)
                         count += len(bulk_bucket)
                     except Exception:
                         # Fall back to individual saves
-                        for ingredient in bulk_bucket:
+                        for ingredient, units_data in bulk_bucket:
                             try:
                                 ingredient.save()
+                                sync_weight_units(ingredient, units_data)
                                 count += 1
                             except Exception:
                                 errors += 1
                     bulk_bucket = []
             else:
                 try:
-                    Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+                    ingredient, _ = Ingredient.objects.update_or_create(
+                        uuid=uuid, defaults=ingredient_data
+                    )
+                    sync_weight_units(ingredient, weight_units_data)
                     count += 1
                 except Exception:
                     errors += 1
@@ -503,12 +538,15 @@ def sync_ingredients_from_dump(
     # Flush remaining items in INSERT mode
     if mode == SyncMode.INSERT and bulk_bucket:
         try:
-            Ingredient.objects.bulk_create(bulk_bucket)
+            Ingredient.objects.bulk_create([item[0] for item in bulk_bucket])
+            for ingredient, units_data in bulk_bucket:
+                sync_weight_units(ingredient, units_data)
             count += len(bulk_bucket)
         except Exception:
-            for ingredient in bulk_bucket:
+            for ingredient, units_data in bulk_bucket:
                 try:
                     ingredient.save()
+                    sync_weight_units(ingredient, units_data)
                     count += 1
                 except Exception:
                     errors += 1
