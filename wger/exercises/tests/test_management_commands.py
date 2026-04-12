@@ -28,6 +28,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
     Translation,
+    Variation,
 )
 
 
@@ -119,3 +120,39 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         call_command('exercises-health-check', '--delete-no-english', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
+
+    def test_find_orphan_variation_empty(self):
+        """Variation with 0 exercises is reported"""
+
+        orphan = Variation.objects.create()
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertIn(f'Variation {orphan.uuid} has 0 exercise(s)!', self.out.getvalue())
+        self.assertNotIn('-> deleted', self.out.getvalue())
+
+    def test_find_orphan_variation_single(self):
+        """Variation with 1 exercise is reported"""
+
+        variation = Variation.objects.get(pk=1)
+        # Remove one exercise so only 1 remains
+        exercise = Exercise.objects.filter(variations=variation).first()
+        Exercise.objects.filter(pk=exercise.pk).update(variations=None)
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertIn(f'Variation {variation.uuid} has 1 exercise(s)!', self.out.getvalue())
+
+    def test_fix_orphan_variations(self):
+        """--delete-orphan-variations removes orphaned variations"""
+
+        orphan = Variation.objects.create()
+        orphan_pk = orphan.pk
+
+        call_command('exercises-health-check', '--delete-orphan-variations', stdout=self.out)
+        self.assertIn('-> deleted', self.out.getvalue())
+        self.assertFalse(Variation.objects.filter(pk=orphan_pk).exists())
+
+    def test_healthy_variations_not_affected(self):
+        """Variations with 2+ exercises are not reported"""
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertNotIn('Variation', self.out.getvalue())

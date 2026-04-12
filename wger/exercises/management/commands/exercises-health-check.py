@@ -19,9 +19,15 @@ from argparse import RawTextHelpFormatter
 # Django
 from django.core.management.base import BaseCommand
 
+# Django
+from django.db.models import Count
+
 # wger
 from wger.core.models import Language
-from wger.exercises.models import Exercise
+from wger.exercises.models import (
+    Exercise,
+    Variation,
+)
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
 
@@ -38,6 +44,7 @@ class Command(BaseCommand):
         '- has at least one translation\n'
         '- has a translation in English\n'
         '- has no duplicate translations\n\n'
+        'It also checks for orphaned variation groups (0 or 1 exercises).\n\n'
         'Each problem can be fixed individually by using the --delete-* flags\n'
     )
 
@@ -65,6 +72,14 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
+            '--delete-orphan-variations',
+            action='store_true',
+            dest='delete_orphan_variations',
+            default=False,
+            help='Delete variation groups with 0 or 1 exercises',
+        )
+
+        parser.add_argument(
             '--delete-all',
             action='store_true',
             dest='delete_all',
@@ -75,12 +90,15 @@ class Command(BaseCommand):
     def handle(self, **options):
         delete_untranslated = options['delete_untranslated'] or options['delete_all']
         delete_no_english = options['delete_no_english'] or options['delete_all']
+        delete_orphan_variations = options['delete_orphan_variations'] or options['delete_all']
 
         self.english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
         for exercise in Exercise.objects.all():
             self.handle_untranslated(exercise, delete_untranslated)
             self.handle_no_english(exercise, delete_no_english)
+
+        self.handle_orphan_variations(delete_orphan_variations)
 
     def handle_untranslated(self, exercise: Exercise, delete: bool):
         """
@@ -104,3 +122,22 @@ class Command(BaseCommand):
         if delete:
             exercise.delete()
             self.stdout.write('  -> deleted')
+
+    def handle_orphan_variations(self, delete: bool):
+        """
+        Find and optionally delete variation groups with fewer than 2 exercises.
+        """
+        orphaned = Variation.objects.annotate(
+            exercise_count=Count('exercise')
+        ).filter(exercise_count__lte=1)
+
+        for variation in orphaned:
+            self.stdout.write(
+                self.style.WARNING(
+                    f'Variation {variation.uuid} has {variation.exercise_count} exercise(s)!'
+                )
+            )
+            if delete:
+                Exercise.objects.filter(variations=variation).update(variations=None)
+                variation.delete()
+                self.stdout.write('  -> deleted')

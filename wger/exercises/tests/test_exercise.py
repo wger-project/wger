@@ -105,7 +105,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         'muscles': [1, 3],
         'muscles_secondary': [2],
         'equipment': [3],
-        'variations': 4,
+        'variations': 1,
     }
 
     def get_resource_name(self):
