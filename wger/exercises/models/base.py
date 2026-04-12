@@ -251,14 +251,18 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     def delete(self, using=None, keep_parents=False, replace_by: str = None):
         """
-        Save entry to log
+        Save entry to deletion log and optionally replace references in
+        workout logs and routines before deleting.
         """
         # wger
         from wger.exercises.models import DeletionLog
+        from wger.manager.models import WorkoutLog
+        from wger.manager.models.slot_entry import SlotEntry
 
+        replacement = None
         if replace_by:
             try:
-                Exercise.objects.get(uuid=replace_by)
+                replacement = Exercise.objects.get(uuid=replace_by)
             except Exercise.DoesNotExist:
                 replace_by = None
 
@@ -269,6 +273,12 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             replaced_by=replace_by,
         )
         log.save()
+
+        # Replace references in workout logs and routines before deleting,
+        # so that user data is not lost on this instance
+        if replacement:
+            SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
+            WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
 
         reset_exercise_api_cache(self.uuid)
 
