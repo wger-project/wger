@@ -436,7 +436,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": 47,
+                    "variations": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mrs Winterbottom"
@@ -552,7 +552,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": 47,
+                    "variations": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mr X"
@@ -794,6 +794,15 @@ class TestSyncMethods(WgerTestCase):
 
         translation_fr = exercise.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
+
+        # Both exercises should be in the same variation group
+        self.assertIsNotNone(new_exercise.variations)
+        self.assertIsNotNone(exercise.variations)
+        self.assertEqual(new_exercise.variations, exercise.variations)
+        self.assertEqual(
+            str(new_exercise.variations.uuid),
+            '4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7',
+        )
 
     @patch('requests.get', return_value=MockImageResponse())
     def test_image_sync(self, mock_request):

@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import uuid
+
 # Django
 from django.db import models
 
@@ -22,6 +25,12 @@ class Variation(models.Model):
     """
     Variation ids for exercises
     """
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+    )
 
     def __str__(self):
         """

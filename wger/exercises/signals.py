@@ -17,6 +17,7 @@
 # Django
 from django.db.models.signals import (
     post_delete,
+    post_save,
     pre_delete,
     pre_save,
 )
@@ -30,9 +31,11 @@ from easy_thumbnails.signals import saved_file
 # wger
 from wger.exercises.models import (
     DeletionLog,
+    Exercise,
     ExerciseImage,
     ExerciseVideo,
     Translation,
+    Variation,
 )
 
 
@@ -124,3 +127,43 @@ def add_deletion_log_video(sender, instance: ExerciseVideo, **kwargs):
         model_type=DeletionLog.MODEL_VIDEO,
         uuid=instance.uuid,
     ).save()
+
+
+@receiver(pre_save, sender=Exercise)
+def store_previous_variation(sender, instance: Exercise, **kwargs):
+    """
+    Store the previous variation ID before saving so we can clean up
+    orphaned groups afterwards.
+    """
+    if instance.pk:
+        instance._previous_variation_id = (
+            Exercise.objects.filter(pk=instance.pk)
+            .values_list('variations_id', flat=True)
+            .first()
+        )
+    else:
+        instance._previous_variation_id = None
+
+
+@receiver(post_save, sender=Exercise)
+def cleanup_orphaned_variation(sender, instance: Exercise, **kwargs):
+    """
+    Clean up the previous variation group if it now has fewer than 2 exercises.
+
+    A variation with only 1 exercise makes no sense, so we unlink the
+    remaining exercise and delete the variation.
+
+    Note: it's necessary to handle this case like this because the naive option
+    of just removing all variations with only one (or none) exercises won't work,
+    as it would prevent any variations from being created since there will always
+    be a moment where there is only one exercise in the variation.
+    """
+    previous_id = getattr(instance, '_previous_variation_id', None)
+    if previous_id is None or previous_id == instance.variations_id:
+        return
+
+    members = Exercise.objects.filter(variations_id=previous_id)
+    count = members.count()
+    if count <= 1:
+        members.update(variations=None)
+        Variation.objects.filter(pk=previous_id).delete()

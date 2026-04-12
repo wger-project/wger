@@ -304,7 +304,7 @@ class ExerciseVariationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Variation
-        fields = ('id',)
+        fields = ('id', 'uuid')
 
 
 class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
@@ -556,7 +556,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     equipment = EquipmentSerializer(many=True, read_only=True)
     translations = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
     videos = ExerciseVideoInfoSerializer(source='exercisevideo_set', many=True, read_only=True)
-    variations = serializers.PrimaryKeyRelatedField(read_only=True)
+    variations = serializers.SlugRelatedField(slug_field='uuid', read_only=True)
     author_history = serializers.ListSerializer(child=serializers.CharField())
     total_authors_history = serializers.ListSerializer(child=serializers.CharField())
     last_update_global = serializers.DateTimeField(read_only=True)

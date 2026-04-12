@@ -52,6 +52,7 @@ from wger.exercises.models import (
     ExerciseVideo,
     Muscle,
     Translation,
+    Variation,
 )
 from wger.manager.models import (
     SlotEntry,
@@ -84,9 +85,21 @@ def sync_exercises(
         muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
         muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
+        # Sync variation group by UUID
+        remote_variation_uuid = data.get('variations')
+        local_variation = None
+        if remote_variation_uuid is not None:
+            local_variation, _ = Variation.objects.get_or_create(
+                uuid=remote_variation_uuid,
+            )
+
         exercise, exercise_created = Exercise.objects.update_or_create(
             uuid=uuid,
-            defaults={'category_id': category_id, 'created': created},
+            defaults={
+                'category_id': category_id,
+                'created': created,
+                'variations': local_variation,
+            },
         )
         print_fn(f'{"created" if exercise_created else "updated"} exercise {uuid}')
 
