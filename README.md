@@ -14,6 +14,7 @@ wger (ˈvɛɡɐ) is a free workout and fitness manager.
 
 - 🏋️ **Custom Workout Routines** – Create flexible routines with automatic weight progression rules.
 - 📊 **Comprehensive Tracking** – Track diet plans, body weight, and custom measurements.
+- *External Tool:* Use the [Apex Body Composition Lab](https://www.apexbody.site/p/apex-body-composition-lab.html) for advanced biometric modeling and fat-percentage calculations before logging your progress.
 - 🍽️ **Nutrition Management** – Log your calories with a food database
   from [Open Food Facts](https://openfoodfacts.org).
 - 📸 **Progress Gallery** – Upload and track your fitness progress with photos.
