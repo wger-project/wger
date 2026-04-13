@@ -194,14 +194,16 @@ class ApiGetTestCase:
             self.client.get(self.url)
 
         resource_queries = [
-            q for q in context.captured_queries
+            q
+            for q in context.captured_queries
             if 'django_session' not in q['sql']
             and 'SAVEPOINT' not in q['sql']
             and 'RELEASE' not in q['sql']
         ]
         self.assertEqual(
-            len(resource_queries), 0,
-            f'Expected no resource queries on cached request, got: {resource_queries}'
+            len(resource_queries),
+            0,
+            f'Expected no resource queries on cached request, got: {resource_queries}',
         )
 
     def test_special_endpoints(self):

@@ -1,6 +1,11 @@
 from django.db import migrations, models
 
-from wger.utils.uuid import uuid7
+
+"""
+Merges weight units into one table.
+
+This migration is split into three files so that each one runs in its own transaction
+"""
 
 
 def migrate_weight_units(apps, schema_editor):
@@ -48,20 +53,4 @@ class Migration(migrations.Migration):
         ),
         # Copy names and delete unreferenced entries
         migrations.RunPython(migrate_weight_units, migrations.RunPython.noop),
-        migrations.AddField(
-            model_name='ingredientweightunit',
-            name='uuid',
-            field=models.UUIDField(default=uuid7, editable=False, unique=True),
-        ),
-        migrations.RemoveField(
-            model_name='ingredientweightunit',
-            name='unit',
-        ),
-        migrations.RemoveField(
-            model_name='ingredientweightunit',
-            name='amount',
-        ),
-        migrations.DeleteModel(
-            name='WeightUnit',
-        ),
     ]

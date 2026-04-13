@@ -46,14 +46,12 @@ def fix_sqlite_historical_indexes(apps: StateApps, schema_editor: BaseDatabaseSc
 
     elif schema_editor.connection.vendor == 'mysql':
         cursor.execute(
-            "SELECT INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS "
+            'SELECT INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS '
             "WHERE TABLE_NAME = 'exercises_historicaltranslation' "
             "AND INDEX_NAME LIKE 'exercises_historicalexercise_%%'"
         )
         for (index_name,) in cursor.fetchall():
-            cursor.execute(
-                f'DROP INDEX `{index_name}` ON `exercises_historicaltranslation`'
-            )
+            cursor.execute(f'DROP INDEX `{index_name}` ON `exercises_historicaltranslation`')
 
 
 def generate_variation_uuids(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
@@ -79,7 +77,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(fix_sqlite_historical_indexes, migrations.RunPython.noop),
-
         # Temporarily add UUID to the variation table
         migrations.AddField(
             model_name='variation',
@@ -106,7 +103,6 @@ class Migration(migrations.Migration):
                 verbose_name='Variation group',
             ),
         ),
-
         # Copy data and remove FK relations
         migrations.RunPython(copy_variation_uuids, migrations.RunPython.noop),
         migrations.RemoveField(
@@ -117,7 +113,6 @@ class Migration(migrations.Migration):
             model_name='historicalexercise',
             name='variations',
         ),
-
         # Cleanup
         migrations.DeleteModel(
             name='Variation',
