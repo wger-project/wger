@@ -694,15 +694,17 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             serializer: ExerciseTranslationSubmissionSerializer = self.fields['translations'].child
             serializer.create(validated_data=translation, exercise=exercise)
 
-        # If requested, create a new variation group for both exercises
+        # If requested, add the exercise to an existing or new variation group
         connect_to: Exercise | None = validated_data.get('variations_connect_to')
         if connect_to:
-            new_group = uuid.uuid4()
+            # Reuse the target's existing group, or create a new one
+            group = connect_to.variation_group or uuid.uuid4()
 
-            connect_to.variation_group = new_group
-            connect_to.save()
+            if not connect_to.variation_group:
+                connect_to.variation_group = group
+                connect_to.save()
 
-            exercise.variation_group = new_group
+            exercise.variation_group = group
             exercise.save()
 
         return exercise

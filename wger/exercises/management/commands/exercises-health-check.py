@@ -39,7 +39,7 @@ class Command(BaseCommand):
         '- has at least one translation\n'
         '- has a translation in English\n'
         '- has no duplicate translations\n\n'
-        'It also checks for orphaned variation groups (0 or 1 exercises).\n\n'
+        'It also checks for orphaned variation groups (only 1 exercise).\n\n'
         'Each problem can be fixed individually by using the --delete-* flags\n'
     )
 
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='delete_orphan_variations',
             default=False,
-            help='Delete variation groups with 0 or 1 exercises',
+            help='Clear variation_group for exercises that are alone in their group',
         )
 
         parser.add_argument(
