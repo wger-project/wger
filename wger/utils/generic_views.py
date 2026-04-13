@@ -39,11 +39,6 @@ from crispy_forms.layout import (
 )
 
 # wger
-from wger.utils.constants import (
-    HTML_ATTRIBUTES_WHITELIST,
-    HTML_STYLES_WHITELIST,
-    HTML_TAG_WHITELIST,
-)
 from wger.utils.markdown import sanitize_html
 
 

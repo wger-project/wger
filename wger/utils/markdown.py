@@ -15,9 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Third Party
-# Third party
 import nh3
 from markdown_it import MarkdownIt
+
+
+ALLOWED_TAGS = {'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
 
 
 def render_markdown(text):
@@ -31,12 +33,7 @@ def render_markdown(text):
     md = MarkdownIt('commonmark', {'breaks': True, 'html': True})
     raw_html = md.render(text)
 
-    # Sanitize HTML
-    ALLOWED_TAGS = {'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
-
-    clean_html = nh3.clean(raw_html, tags=ALLOWED_TAGS, attributes={})
-
-    return clean_html
+    return nh3.clean(raw_html, tags=ALLOWED_TAGS, attributes={})
 
 
 def sanitize_html(text):
@@ -46,5 +43,4 @@ def sanitize_html(text):
     if not text:
         return ''
 
-    ALLOWED_TAGS = {'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
     return nh3.clean(text, tags=ALLOWED_TAGS, attributes={})

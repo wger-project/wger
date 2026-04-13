@@ -84,9 +84,6 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.constants import (
     ENGLISH_SHORT_NAME,
-    HTML_ATTRIBUTES_WHITELIST,
-    HTML_STYLES_WHITELIST,
-    HTML_TAG_WHITELIST,
     SEARCH_ALL_LANGUAGES,
 )
 from wger.utils.db import is_postgres_db

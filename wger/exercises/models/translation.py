@@ -212,13 +212,6 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         return self.images.all().filter(is_main=True).first()
 
-    @property
-    def description_clean(self):
-        """
-        Return the exercise description with all markup removed
-        """
-        return sanitize_html(self.description)
-
     def get_owner_object(self):
         """
         Exercise has no owner information

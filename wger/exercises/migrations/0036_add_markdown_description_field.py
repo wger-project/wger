@@ -6,16 +6,19 @@ from markdownify import markdownify
 
 from django.db import migrations, models
 
+from wger.utils.markdown import render_markdown
+
+
 def migrate_description_to_markdown(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
     Translation = apps.get_model('exercises', 'Translation')
 
-    translations_to_migrate = Translation.objects.exclude(description='')
+    translations_to_migrate = Translation.objects.exclude(description='').exclude(description=None)
     for trans in translations_to_migrate:
         # ATX to ensure # headings instead of underlined headings.
         trans.description_source = markdownify(trans.description, heading_style='ATX')
 
-        # save() triggers "description = render_markdown(description_source)". This
-        # ensures a clean HTML cache
+        # Call render_markdown() explicitly
+        trans.description = render_markdown(trans.description_source)
         trans.save()
 
 

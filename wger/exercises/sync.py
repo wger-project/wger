@@ -103,6 +103,7 @@ def sync_exercises(
             trans_uuid = translation_data['uuid']
             name = translation_data['name']
             description = translation_data['description']
+            description_source = translation_data['description_source']
             language_id = translation_data['language']
 
             translation, translation_created = Translation.objects.update_or_create(
@@ -111,6 +112,7 @@ def sync_exercises(
                     'exercise': exercise,
                     'name': name,
                     'description': description,
+                    'description_source': description_source,
                     'license_id': license_id,
                     'license_author': license_author,
                     'language_id': language_id,
