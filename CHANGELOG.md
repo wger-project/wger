@@ -25,6 +25,7 @@ timer or similar. The `setting-repetitionunit` endpoint now exposes the new fiel
 <https://github.com/wger-project/wger/issues/2124>
 Automatically read the date from uploaded image to the gallery.
 
-Move the variation ID from an (empty) table to a field in the exercise model. This
-simplifies a lot of code and allows us to properly sync them to local instances
-as well. The API endpoint `/api/v2/variations/` API endpoint has been removed.
+<https://github.com/wger-project/wger/pull/2292> Move the variation ID from an
+(empty) table to a field in the exercise model. This  simplifies a lot of code
+and allows us to properly sync them to local instances  as well.
+The API endpoint `/api/v2/variations/` API endpoint has been removed.
