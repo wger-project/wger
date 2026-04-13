@@ -120,6 +120,7 @@
       "language": 2,
       "exercise": 1,
       "description": "Lorem ipsum dolor sit amet",
+      "description_source": "Lorem ipsum dolor sit amet",
       "name": "An exercise",
       "created": "2002-08-15T00:00:00+01:00",
       "last_update": "2008-08-08T08:08:08+01:00"
@@ -133,6 +134,7 @@
       "language": 2,
       "exercise": 2,
       "description": "",
+      "description_source": "",
       "name": "Very cool exercise",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"
@@ -146,6 +148,7 @@
       "language": 2,
       "exercise": 3,
       "description": "",
+      "description_source": "",
       "name": "Boring exercise",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"
@@ -158,6 +161,7 @@
       "uuid": "5e80d257-3ece-43a1-b01d-2b28c6c288be",
       "language": 2,
       "description": "",
+      "description_source": "",
       "exercise": 4,
       "license_author": "test",
       "name": "Pending exercise",
@@ -172,6 +176,7 @@
       "uuid": "13b532f9-d208-462e-a000-7b9982b2b53e",
       "language": 3,
       "description": "",
+      "description_source": "",
       "exercise": 1,
       "license_author": "test",
       "name": "Test exercise 123",
@@ -186,6 +191,7 @@
       "uuid": "e75335be-5177-4475-b17b-8d833c2aadf1",
       "language": 3,
       "description": "",
+      "description_source": "",
       "exercise": 3,
       "license_author": "test",
       "name": "Some other exercise",
@@ -201,6 +207,7 @@
       "language": 1,
       "exercise": 4,
       "description": "",
+      "description_source": "",
       "name": "Weitere Testübung",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"
@@ -214,6 +221,7 @@
       "language": 2,
       "exercise": 5,
       "description": "",
+      "description_source": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"
@@ -227,6 +235,7 @@
       "language": 2,
       "exercise": 6,
       "description": "",
+      "description_source": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"
@@ -240,6 +249,7 @@
       "language": 2,
       "exercise": 7,
       "description": "",
+      "description_source": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"
@@ -253,6 +263,7 @@
       "language": 2,
       "exercise": 8,
       "description": "",
+      "description_source": "",
       "name": "Needed for demo user",
       "created": "2022-01-10T00:00:00+01:00",
       "last_update": "2022-02-02T06:45:11+01:00"

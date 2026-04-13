@@ -232,11 +232,11 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
 
     def test_patch_clean_html(self):
         """
-        Test that the description field has its HTML stripped before saving
+        Test that HTML in description_source is sanitized (script tags stripped) before saving
         """
         description = '<script>alert();</script> The wild boar is a suid native...'
         self.authenticate('trainer1')
-        response = self.client.patch(self.url_detail, data={'description': description})
+        response = self.client.patch(self.url_detail, data={'description_source': description})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         translation = Translation.objects.get(pk=self.pk)
