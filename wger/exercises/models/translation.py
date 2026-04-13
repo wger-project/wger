@@ -56,7 +56,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     description_source = models.TextField(
         verbose_name='Description (Source)',
         blank=True,
-        null=True,
+        default='',
     )
     """The raw Markdown source"""
 

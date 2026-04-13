@@ -31,12 +31,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='historicaltranslation',
             name='description_source',
-            field=models.TextField(blank=True, null=True, verbose_name='Description (Source)'),
+            field=models.TextField(blank=True, default='', verbose_name='Description (Source)'),
         ),
         migrations.AddField(
             model_name='translation',
             name='description_source',
-            field=models.TextField(blank=True, null=True, verbose_name='Description (Source)'),
+            field=models.TextField(blank=True, default='', verbose_name='Description (Source)'),
         ),
         migrations.RunPython(migrate_description_to_markdown),
     ]
