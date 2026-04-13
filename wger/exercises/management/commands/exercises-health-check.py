@@ -18,16 +18,11 @@ from argparse import RawTextHelpFormatter
 
 # Django
 from django.core.management.base import BaseCommand
-
-# Django
 from django.db.models import Count
 
 # wger
 from wger.core.models import Language
-from wger.exercises.models import (
-    Exercise,
-    Variation,
-)
+from wger.exercises.models import Exercise
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
 
@@ -125,19 +120,23 @@ class Command(BaseCommand):
 
     def handle_orphan_variations(self, delete: bool):
         """
-        Find and optionally delete variation groups with fewer than 2 exercises.
+        Find and optionally clean up variation groups with fewer than 2 exercises.
         """
-        orphaned = Variation.objects.annotate(
-            exercise_count=Count('exercise')
-        ).filter(exercise_count__lte=1)
+        orphaned = (
+            Exercise.objects.filter(variation_group__isnull=False)
+            .values('variation_group')
+            .annotate(count=Count('id'))
+            .filter(count=1)
+        )
 
-        for variation in orphaned:
+        for group in orphaned:
             self.stdout.write(
                 self.style.WARNING(
-                    f'Variation {variation.uuid} has {variation.exercise_count} exercise(s)!'
+                    f'Variation group {group["variation_group"]} has only 1 exercise!'
                 )
             )
             if delete:
-                Exercise.objects.filter(variations=variation).update(variations=None)
-                variation.delete()
-                self.stdout.write('  -> deleted')
+                Exercise.objects.filter(variation_group=group['variation_group']).update(
+                    variation_group=None
+                )
+                self.stdout.write('  -> cleaned up')

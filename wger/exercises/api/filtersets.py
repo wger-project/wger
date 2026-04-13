@@ -88,5 +88,5 @@ class ExerciseFilterSet(filters.FilterSet):
             'muscles': ['exact', 'in'],
             'muscles_secondary': ['exact', 'in'],
             'equipment': ['exact', 'in'],
-            'variations': ['exact', 'in'],
+            'variation_group': ['exact', 'in'],
         }

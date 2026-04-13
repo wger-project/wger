@@ -27,7 +27,6 @@ from wger.exercises.models import (
     Exercise,
     ExerciseComment,
     Translation,
-    Variation,
 )
 
 
@@ -43,7 +42,7 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
             'muscles_secondary': [1],
             'equipment': [3],
             'license_author': 'test man',
-            'variations': 1,
+            'variation_group': 'a1b2c3d4-0001-0000-0000-000000000001',
             'translations': [
                 {
                     'name': '1-Arm Half-Kneeling Lat Pulldown',
@@ -71,14 +70,13 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
     @staticmethod
     def get_counts():
-        Counts = namedtuple('Counts', ['exercise', 'translation', 'alias', 'comment', 'variations'])
+        Counts = namedtuple('Counts', ['exercise', 'translation', 'alias', 'comment'])
 
         return Counts(
             Exercise.objects.count(),
             Translation.objects.count(),
             Alias.objects.count(),
             ExerciseComment.objects.count(),
-            Variation.objects.count(),
         )
 
     def test_successful_submission_full(self):
@@ -98,7 +96,7 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(list(exercise.muscles_secondary.values_list('id', flat=True)), [1])
         self.assertEqual(list(exercise.equipment.values_list('id', flat=True)), [3])
         self.assertEqual(exercise.license_author, 'test man')
-        self.assertEqual(exercise.variations_id, 1)
+        self.assertEqual(str(exercise.variation_group), 'a1b2c3d4-0001-0000-0000-000000000001')
 
         self.assertEqual(before.exercise + 1, after.exercise)
         self.assertEqual(before.translation + 2, after.translation)
@@ -114,7 +112,7 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
         payload['muscles_secondary'] = []
         payload['muscles'] = []
         payload['equipment'] = []
-        payload['variations'] = None
+        payload['variation_group'] = None
 
         before = self.get_counts()
         response_data = self.client.post(self.url, data=payload).json()
@@ -127,7 +125,7 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(list(exercise.muscles_secondary.values_list('id', flat=True)), [])
         self.assertEqual(list(exercise.equipment.values_list('id', flat=True)), [])
         self.assertEqual(exercise.license_author, 'test man')
-        self.assertEqual(exercise.variations_id, None)
+        self.assertIsNone(exercise.variation_group)
 
         self.assertEqual(before.exercise + 1, after.exercise)
         self.assertEqual(before.translation + 2, after.translation)
@@ -185,17 +183,15 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         payload = self.get_payload()
         payload['variations_connect_to'] = 5
-        del payload['variations']
+        del payload['variation_group']
 
         connected_exercise = Exercise.objects.get(pk=5)
-        self.assertIsNone(connected_exercise.variations_id)
+        self.assertIsNone(connected_exercise.variation_group)
 
-        counts_before = self.get_counts()
         response = self.client.post(self.url, data=payload)
         exercise = Exercise.objects.get(pk=response.json().get('id'))
         connected_exercise.refresh_from_db()
-        counts_after = self.get_counts()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(counts_before.variations + 1, counts_after.variations)
-        self.assertEqual(exercise.variations_id, connected_exercise.variations_id)
+        self.assertIsNotNone(exercise.variation_group)
+        self.assertEqual(exercise.variation_group, connected_exercise.variation_group)

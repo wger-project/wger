@@ -436,7 +436,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
+                    "variation_group": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mrs Winterbottom"
@@ -552,7 +552,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
+                    "variation_group": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mr X"
@@ -796,11 +796,11 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
 
         # Both exercises should be in the same variation group
-        self.assertIsNotNone(new_exercise.variations)
-        self.assertIsNotNone(exercise.variations)
-        self.assertEqual(new_exercise.variations, exercise.variations)
+        self.assertIsNotNone(new_exercise.variation_group)
+        self.assertIsNotNone(exercise.variation_group)
+        self.assertEqual(new_exercise.variation_group, exercise.variation_group)
         self.assertEqual(
-            str(new_exercise.variations.uuid),
+            str(new_exercise.variation_group),
             '4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7',
         )
 
