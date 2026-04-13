@@ -23,7 +23,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": false,
+      "is_vegetarian": true,
+      "nutriscore": "b"
     }
   },
   {
@@ -50,7 +53,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-10T12:37:35.903Z",
       "common_name": "ing 2",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": true,
+      "is_vegetarian": true,
+      "nutriscore": "a"
     }
   },
   {
@@ -77,7 +83,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-31T12:37:35.903Z",
       "common_name": "the everything food",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": false,
+      "is_vegetarian": false,
+      "nutriscore": "c"
     }
   },
   {
@@ -104,7 +113,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": true,
+      "is_vegetarian": true,
+      "nutriscore": "e"
     }
   },
   {
@@ -131,7 +143,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": null,
+      "is_vegetarian": true,
+      "nutriscore": "b"
     }
   },
   {
@@ -158,7 +173,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": false,
+      "is_vegetarian": true,
+      "nutriscore": "a"
     }
   },
   {
@@ -185,7 +203,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": null,
+      "is_vegetarian": null,
+      "nutriscore": null
     }
   },
   {
@@ -212,7 +233,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": true,
+      "is_vegetarian": true,
+      "nutriscore": "b"
     }
   },
   {
@@ -239,7 +263,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": false,
+      "is_vegetarian": false,
+      "nutriscore": "d"
     }
   },
   {
@@ -266,7 +293,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": true,
+      "is_vegetarian": true,
+      "nutriscore": "a"
     }
   },
   {
@@ -293,7 +323,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": false,
+      "is_vegetarian": true,
+      "nutriscore": "c"
     }
   },
   {
@@ -320,7 +353,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": null,
+      "is_vegetarian": false,
+      "nutriscore": "d"
     }
   },
   {
@@ -347,7 +383,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": true,
+      "is_vegetarian": true,
+      "nutriscore": "b"
     }
   },
   {
@@ -374,7 +413,10 @@
       "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
-      "brand": "the food brand"
+      "brand": "the food brand",
+      "is_vegan": false,
+      "is_vegetarian": true,
+      "nutriscore": "c"
     }
   },
   {
