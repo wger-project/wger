@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import models
 from django.urls import reverse
+from django.utils.timezone import make_aware
 
 # wger
 from wger.nutrition.consts import ENERGY_FACTOR
@@ -175,15 +176,16 @@ class NutritionPlan(models.Model):
         Returns None if there are no entries.
         """
         target = self.creation_date
+        target_aware = make_aware(datetime.datetime.combine(target, datetime.time()))
         closest_entry_gte = (
             WeightEntry.objects.filter(user=self.user)
-            .filter(date__gte=target)
+            .filter(date__gte=target_aware)
             .order_by('date')
             .first()
         )
         closest_entry_lte = (
             WeightEntry.objects.filter(user=self.user)
-            .filter(date__lte=target)
+            .filter(date__lte=target_aware)
             .order_by('-date')
             .first()
         )

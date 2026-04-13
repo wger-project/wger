@@ -86,7 +86,11 @@ def sync_exercises(
 
         exercise, exercise_created = Exercise.objects.update_or_create(
             uuid=uuid,
-            defaults={'category_id': category_id, 'created': created},
+            defaults={
+                'category_id': category_id,
+                'created': created,
+                'variation_group': data.get('variation_group'),
+            },
         )
         print_fn(f'{"created" if exercise_created else "updated"} exercise {uuid}')
 

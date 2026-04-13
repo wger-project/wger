@@ -119,3 +119,38 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         call_command('exercises-health-check', '--delete-no-english', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
+
+    def test_find_orphan_variation_single(self):
+        """Variation group with 1 exercise is reported"""
+        # Standard Library
+        import uuid
+
+        # Set one exercise to a unique variation group alone
+        exercise = Exercise.objects.get(pk=5)
+        group_uuid = uuid.uuid4()
+        exercise.variation_group = group_uuid
+        exercise.save()
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertIn(f'Variation group {group_uuid} has only 1 exercise!', self.out.getvalue())
+
+    def test_fix_orphan_variations(self):
+        """--delete-orphan-variations cleans up single-exercise groups"""
+        # Standard Library
+        import uuid
+
+        exercise = Exercise.objects.get(pk=5)
+        group_uuid = uuid.uuid4()
+        exercise.variation_group = group_uuid
+        exercise.save()
+
+        call_command('exercises-health-check', '--delete-orphan-variations', stdout=self.out)
+        self.assertIn('-> cleaned up', self.out.getvalue())
+        exercise.refresh_from_db()
+        self.assertIsNone(exercise.variation_group)
+
+    def test_healthy_variations_not_affected(self):
+        """Variation groups with 2+ exercises are not reported"""
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertNotIn('Variation', self.out.getvalue())

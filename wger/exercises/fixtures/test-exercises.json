@@ -1,30 +1,6 @@
 [
   {
     "pk": 1,
-    "model": "exercises.variation",
-    "fields": {
-    }
-  },
-  {
-    "pk": 2,
-    "model": "exercises.variation",
-    "fields": {
-    }
-  },
-  {
-    "pk": 3,
-    "model": "exercises.variation",
-    "fields": {
-    }
-  },
-  {
-    "pk": 4,
-    "model": "exercises.variation",
-    "fields": {
-    }
-  },
-  {
-    "pk": 1,
     "model": "exercises.exercise",
     "fields": {
       "uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
@@ -38,7 +14,7 @@
       "muscles_secondary": [
         3
       ],
-      "variations": 1
+      "variation_group": "a1b2c3d4-0001-0000-0000-000000000001"
     }
   },
   {
@@ -56,7 +32,7 @@
         1,
         3
       ],
-      "variations": 1
+      "variation_group": "a1b2c3d4-0001-0000-0000-000000000001"
     }
   },
   {
@@ -70,7 +46,7 @@
       "muscles": [
         1
       ],
-      "variations": 2
+      "variation_group": "a1b2c3d4-0002-0000-0000-000000000002"
     }
   },
   {
@@ -85,7 +61,7 @@
         1
       ],
       "muscles_secondary": [],
-      "variations": 2
+      "variation_group": "a1b2c3d4-0002-0000-0000-000000000002"
     }
   },
   {
@@ -97,7 +73,7 @@
       "created": "2002-08-15T00:00:00+01:00",
       "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
-      "variations": null
+      "variation_group": null
     }
   },
   {
@@ -109,7 +85,7 @@
       "created": "2002-08-15T00:00:00+01:00",
       "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
-      "variations": null
+      "variation_group": null
     }
   },
   {
@@ -121,7 +97,7 @@
       "created": "2002-08-15T00:00:00+01:00",
       "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
-      "variations": null
+      "variation_group": null
     }
   },
   {
@@ -133,7 +109,7 @@
       "created": "2002-08-15T00:00:00+01:00",
       "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
-      "variations": null
+      "variation_group": null
     }
   },
   {

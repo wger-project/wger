@@ -14,13 +14,11 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-import datetime
-
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 # wger
 from wger.core.models import (
@@ -50,7 +48,7 @@ class WorkoutLog(models.Model):
 
     date = models.DateTimeField(
         verbose_name='Date',
-        default=datetime.datetime.now,
+        default=timezone.now,
     )
 
     user = models.ForeignKey(

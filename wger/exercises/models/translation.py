@@ -113,7 +113,7 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         ordering = [
             'name',
         ]
-        indexes = (GinIndex(fields=['name']),)
+        indexes = (GinIndex(fields=['name'], name='exercises_e_name_ac11f4_gin'),)
         constraints = [
             models.UniqueConstraint(
                 fields=['exercise', 'language'],
@@ -197,10 +197,9 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         Returns the variations for this exercise in the same language
         """
         out = []
-        if self.exercise.variations:
-            for variation in self.exercise.variations.exercise_set.all():
-                for exercise in variation.translations.filter(language=self.language).all():
-                    out.append(exercise)
+        for variation in self.exercise.base_variations:
+            for translation in variation.translations.filter(language=self.language).all():
+                out.append(translation)
         return out
 
     #

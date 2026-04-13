@@ -66,7 +66,6 @@ from wger.exercises.api.serializers import (
     ExerciseSerializer,
     ExerciseSubmissionSerializer,
     ExerciseTranslationSerializer,
-    ExerciseVariationSerializer,
     ExerciseVideoSerializer,
     MuscleSerializer,
 )
@@ -81,7 +80,6 @@ from wger.exercises.models import (
     ExerciseVideo,
     Muscle,
     Translation,
-    Variation,
 )
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.constants import (
@@ -326,7 +324,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'muscles',
         'muscles_secondary',
         'equipment',
-        'variations',
+        'variation_group',
         'license',
         'license_author',
     )
@@ -344,7 +342,6 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         return Exercise.objects.select_related(
             'category',
             'license',
-            'variations',
         ).prefetch_related(
             'muscles',
             'muscles_secondary',
@@ -589,16 +586,6 @@ class ExerciseAliasViewSet(ModelViewSet):
             verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
         )
-
-
-class ExerciseVariationViewSet(ModelViewSet):
-    """
-    API endpoint for exercise variation objects
-    """
-
-    serializer_class = ExerciseVariationSerializer
-    queryset = Variation.objects.all()
-    permission_classes = (CanContributeExercises,)
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):

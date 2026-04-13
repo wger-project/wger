@@ -14,7 +14,9 @@
 
 # Django
 from django.contrib.auth.models import User
-from django.core.cache.backends import locmem
+from django.core.cache import cache
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
 
 # Third Party
 from rest_framework import status
@@ -173,27 +175,34 @@ class ApiGetTestCase:
 
     def test_get_overview_is_cached(self):
         """
-        Test accessing the overview view of a resource is cached
-
-        TODO: remove the hard coded 'wger-cache' here. This only works for the locmem cache
-              used in tests.
+        Test that accessing the overview of a cached resource results in fewer
+        database queries on the second request.
         """
         if self.resource is None:
             return
 
-        # Ensure the wger cache is empty.
-        cache_length = len(locmem._caches['wger-cache'])
-        self.assertEqual(cache_length, 0)
+        if not self.overview_cached:
+            return
 
+        # First request: populate the cache
+        cache.clear()
         self.test_get_overview()
 
-        # If the overview is cached. Then ensure the cache isn't empty.
-        if self.overview_cached:
-            cache_length = len(locmem._caches['wger-cache'])
-            self.assertNotEqual(cache_length, 0)
-        else:
-            cache_length = len(locmem._caches['wger-cache'])
-            self.assertEqual(cache_length, 0)
+        # Second request: should be served from cache
+        # Only session-related queries may still occur, but no queries for the actual resource
+        with CaptureQueriesContext(connection) as context:
+            self.client.get(self.url)
+
+        resource_queries = [
+            q for q in context.captured_queries
+            if 'django_session' not in q['sql']
+            and 'SAVEPOINT' not in q['sql']
+            and 'RELEASE' not in q['sql']
+        ]
+        self.assertEqual(
+            len(resource_queries), 0,
+            f'Expected no resource queries on cached request, got: {resource_queries}'
+        )
 
     def test_special_endpoints(self):
         """

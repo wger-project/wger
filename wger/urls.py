@@ -203,11 +203,6 @@ router.register(
     exercises_api_views.MuscleViewSet,
     basename='muscle',
 )
-router.register(
-    r'variation',
-    exercises_api_views.ExerciseVariationViewSet,
-    basename='variation',
-)
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='api-ingredient')

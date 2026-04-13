@@ -110,17 +110,14 @@ def insert_variations(apps, schema_editor):
     Variation = apps.get_model('exercises', 'Variation')
 
     for group in exercise_variation_ids:
+        exercises = Exercise.objects.filter(pk__in=group)
+        if exercises.count() < 2:
+            continue
+
         variation = Variation()
         variation.save()
 
-        for exercise_id in group:
-            # Exercises won't be found on an empty (new) database, just ignore
-            try:
-                exercise = Exercise.objects.get(pk=exercise_id)
-                exercise.variations = variation
-                exercise.save()
-            except Exercise.DoesNotExist:
-                pass
+        exercises.update(variations=variation)
 
 
 def remove_variations(apps, schema_editor):
