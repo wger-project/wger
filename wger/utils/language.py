@@ -34,9 +34,9 @@ def load_language(language_code=None, default_to_english=True) -> Language:
     """
 
     # Read the first part of a composite language, e.g. 'de-at'
-    used_language = (
-        translation.get_language().split('-')[0] if language_code is None else language_code
-    )
+    used_language = (translation.get_language() if language_code is None else language_code).split(
+        '-'
+    )[0]
 
     language = cache.get(cache_mapper.get_language_key(used_language))
     if language:
