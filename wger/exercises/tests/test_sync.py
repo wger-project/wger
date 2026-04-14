@@ -643,7 +643,7 @@ class TestSyncMethods(WgerTestCase):
         language1 = Language.objects.get(pk=1)
         self.assertEqual(language1.full_name, 'Daitsch')
         self.assertEqual(language1.full_name_en, 'Kraut')
-        self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
+        self.assertEqual(Language.objects.get(short_name='eo').full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
 
     @patch('requests.get', return_value=MockLicenseResponse())
@@ -661,7 +661,7 @@ class TestSyncMethods(WgerTestCase):
             'http://creativecommons.org/licenses/aca/fl/4.0/',
         )
         self.assertEqual(
-            License.objects.get(pk=6).full_name,
+            License.objects.get(short_name='CC-BY-SA 4').full_name,
             'Creative Commons Attribution Share Alike 4',
         )
         self.assertEqual(License.objects.count(), 4)
