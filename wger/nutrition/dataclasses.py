@@ -70,6 +70,7 @@ class IngredientData:
         self.name = self.name[:200]
         self.brand = self.brand[:200]
         self.common_name = self.common_name[:200]
+        self.license_title = self.license_title[:200]
 
         # Mass checks (not more than 100g of something per 100g of product etc)
         macros = [
