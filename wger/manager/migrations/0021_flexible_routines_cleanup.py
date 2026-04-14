@@ -32,13 +32,13 @@ class Migration(migrations.Migration):
             name='Day',
         ),
         migrations.DeleteModel(
-            name='Workout',
+            name='ScheduleStep',
         ),
         migrations.DeleteModel(
             name='Schedule',
         ),
         migrations.DeleteModel(
-            name='ScheduleStep',
+            name='Workout',
         ),
         migrations.RenameModel(
             old_name='DayNg',
