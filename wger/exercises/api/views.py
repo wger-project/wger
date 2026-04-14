@@ -14,40 +14,21 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import logging
 from uuid import UUID
 
 # Django
 from django.conf import settings
-from django.contrib.postgres.search import TrigramSimilarity
-from django.db.models import (
-    Prefetch,
-    Q,
-)
+from django.db.models import Prefetch
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import (
-    OpenApiParameter,
-    extend_schema,
-    inline_serializer,
-)
+from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
-from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
-from rest_framework.decorators import (
-    action,
-    api_view,
-)
-from rest_framework.fields import (
-    CharField,
-    IntegerField,
-)
+from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -82,15 +63,6 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.exercises.views.helper import StreamVerbs
-from wger.utils.constants import (
-    ENGLISH_SHORT_NAME,
-    SEARCH_ALL_LANGUAGES,
-)
-from wger.utils.db import is_postgres_db
-from wger.utils.language import load_language
-
-
-logger = logging.getLogger(__name__)
 
 
 class ExerciseViewSet(ModelViewSet):
@@ -194,115 +166,6 @@ class ExerciseTranslationViewSet(ModelViewSet):
             verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
         )
-
-
-@extend_schema(
-    parameters=[
-        OpenApiParameter(
-            'term',
-            OpenApiTypes.STR,
-            OpenApiParameter.QUERY,
-            description='The name of the exercise to search',
-            required=True,
-        ),
-        OpenApiParameter(
-            'language',
-            OpenApiTypes.STR,
-            OpenApiParameter.QUERY,
-            description='Comma separated list of language codes to search',
-            required=True,
-        ),
-    ],
-    # yapf: disable
-    responses={
-        200: inline_serializer(
-            name='ExerciseSearchResponse',
-            fields={
-                'value': CharField(),
-                'data': inline_serializer(
-                    name='ExerciseSearchItemResponse',
-                    fields={
-                        'id': IntegerField(),
-                        'base_id': IntegerField(),
-                        'name': CharField(),
-                        'category': CharField(),
-                        'image': CharField(),
-                        'image_thumbnail': CharField(),
-                    },
-                ),
-            },
-        )
-    },
-    # yapf: enable
-)
-@api_view(['GET'])
-def search(request):
-    """
-    Searches for exercises.
-
-    This format is currently used by the exercise search autocompleter
-    """
-    q = request.GET.get('term', None)
-    language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)
-    response = {}
-    results = []
-
-    if not q:
-        return Response(response)
-
-    # Filter the appropriate languages
-    languages = [load_language(l) for l in language_codes.split(',')]
-    if language_codes == SEARCH_ALL_LANGUAGES:
-        query = Translation.objects.all()
-    else:
-        query = Translation.objects.filter(language__in=languages)
-
-    query = query.only('name')
-
-    # Postgres uses a full-text search
-    if is_postgres_db():
-        query = (
-            query.annotate(similarity=TrigramSimilarity('name', q))
-            .filter(Q(similarity__gt=0.15) | Q(alias__alias__icontains=q))
-            .order_by('-similarity', 'name')
-        )
-    else:
-        query = query.filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))
-
-    for translation in query:
-        image = None
-        thumbnail = None
-        if translation.main_image:
-            image_obj = translation.main_image
-            image = image_obj.image.url
-            t = get_thumbnailer(image_obj.image)
-            thumbnail = None
-            try:
-                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-            except InvalidImageFormatError as e:
-                logger.warning(
-                    f'InvalidImageFormatError while processing thumbnails for '
-                    f'image ID {image_obj.id}: {e}'
-                )
-            except OSError as e:
-                logger.warning(
-                    f'OSError while processing thumbnails for image ID {image_obj.id}: {e}'
-                )
-
-        result_json = {
-            'value': translation.name,
-            'data': {
-                'id': translation.id,
-                'base_id': translation.exercise_id,
-                'name': translation.name,
-                'category': _(translation.category.name),
-                'image': image,
-                'image_thumbnail': thumbnail,
-            },
-        }
-        results.append(result_json)
-    response['suggestions'] = results
-    return Response(response)
 
 
 class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):

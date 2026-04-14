@@ -12,12 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import json
-
-# Django
-from django.urls import reverse
-
 # Third Party
 from rest_framework import status
 
@@ -52,43 +46,6 @@ class ExercisesTestCase(WgerTestCase):
     """
     Exercise test case
     """
-
-    def search_exercise(self, fail=True):
-        """
-        Helper function to test searching for exercises
-        """
-
-        # 1 hit, "Very cool exercise"
-        response = self.client.get(reverse('exercise-search'), {'term': 'cool'})
-        self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result['suggestions'][0]['value'], 'Very cool exercise')
-        self.assertEqual(result['suggestions'][0]['data']['id'], 2)
-        self.assertEqual(result['suggestions'][0]['data']['category'], 'Another category')
-        self.assertEqual(result['suggestions'][0]['data']['image'], None)
-        self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
-
-        # 0 hits, "Pending exercise"
-        response = self.client.get(reverse('exercise-search'), {'term': 'Foobar'})
-        self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result['suggestions']), 0)
-
-    def test_search_exercise_anonymous(self):
-        """
-        Test deleting an exercise by an anonymous user
-        """
-
-        self.search_exercise()
-
-    def test_search_exercise_logged_in(self):
-        """
-        Test deleting an exercise by a logged-in user
-        """
-
-        self.user_login('test')
-        self.search_exercise()
 
     def test_exercise_records_historical_data(self):
         """
