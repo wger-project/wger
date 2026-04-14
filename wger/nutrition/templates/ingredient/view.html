@@ -12,13 +12,29 @@ $(document).ready(function() {
 });
 </script>
 <style>
+    .nutriscore-bar {
+        display: inline-flex;
+        align-items: center;
+    }
     .nutriscore-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.7rem;
+        height: 1.4rem;
+        padding: 0 0.3em;
         opacity: 0.4;
     }
+    .nutriscore-badge:first-child { border-radius: 0.7rem 0 0 0.7rem; }
+    .nutriscore-badge:last-child { border-radius: 0 0.7rem 0.7rem 0; }
     .nutriscore-badge.active {
         opacity: 1;
-        font-size: 1.1rem;
-        padding: 0.4em 0.6em;
+        font-size: 0.9rem;
+        height: 1.8rem;
+        padding: 0 0.35em;
+        margin: 0 2px;
     }
     .nutriscore-a { background-color: #0d8949; }
     .nutriscore-b { background-color: #72c72b; }
@@ -187,11 +203,9 @@ $(document).ready(function() {
             <td>{% translate "Nutri-Score" %}</td>
             <td class="text-end">
                 {% if ingredient.nutriscore %}
-                <span class="d-inline-flex align-items-center gap-1">
+                <span class="nutriscore-bar">
                     {% for score, label in ingredient.NUTRISCORE_CHOICES %}
-                        <span class="badge rounded-pill nutriscore-badge nutriscore-{{ score }}{% if score == ingredient.nutriscore %} active{% endif %}">
-                            {{ label }}
-                        </span>
+                        <span class="nutriscore-badge nutriscore-{{ score }}{% if score == ingredient.nutriscore %} active{% endif %}">{{ label }}</span>
                     {% endfor %}
                 </span>
                 {% else %}
