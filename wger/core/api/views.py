@@ -21,6 +21,7 @@ import logging
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.http import (
     HttpResponseForbidden,
     JsonResponse,
@@ -55,9 +56,12 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework.response import Response
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from dj_rest_auth.registration.views import SocialLoginView
+
+
+if settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH'):
+    from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+    from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+    from dj_rest_auth.registration.views import SocialLoginView
 
 # wger
 # The per-app powersync modules are imported for their side effect: each one
@@ -374,13 +378,23 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
             status=status.HTTP_201_CREATED,
         )
 
-class GoogleLogin(SocialLoginView):
-    """
-    REST endpoint to exchange a Google Access Token for a wger API JWT.
-    """
-    adapter_class = GoogleOAuth2Adapter
-    client_class = OAuth2Client
-    callback_url = "http://127.0.0.1:8000/accounts/google/login/callback/"
+
+if settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH'):
+
+    class GoogleLogin(SocialLoginView):
+        """
+        REST endpoint to exchange a Google Access Token for a wger API JWT.
+        """
+
+        adapter_class = GoogleOAuth2Adapter
+        client_class = OAuth2Client
+
+        @property
+        def callback_url():
+            base_url = Site.objects.get_current()
+            base_url_domain = base_url.domain
+            return f'http://${base_url_domain}/accounts/google/login/callback/'
+
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     """

@@ -571,7 +571,24 @@ WGER_SETTINGS = {
     # Trophy system settings
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
+    # Social authentication/Oauth
+    'USE_SOCIAL_AUTH': False,
 }
+
+#
+# Django-allauth
+# Dj-rest-auth
+#
+if WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
+    INSTALLED_APPS += [
+
+        'allauth.socialaccount',
+        'allauth.socialaccount.providers.google',
+
+        'dj_rest_auth',
+        'dj_rest_auth.registration',
+
+    ]
 
 #
 # Auth Proxy Authentication
