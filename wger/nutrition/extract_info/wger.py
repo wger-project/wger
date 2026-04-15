@@ -14,8 +14,33 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # wger
-from wger.nutrition.dataclasses import IngredientData
+from wger.nutrition.dataclasses import (
+    IngredientData,
+    WeightUnitData,
+)
 from wger.utils.constants import ODBL_LICENSE_ID
+
+
+def extract_weight_unit_info_from_wger_api(product_data: dict) -> list[WeightUnitData] | None:
+    """
+    Extract weight unit data from a wger API ingredient response.
+
+    Returns a list of WeightUnitData, or None if the response does not
+    contain weight unit data.
+    """
+    weight_units = product_data.get('weight_units')
+    if weight_units is None:
+        return None
+
+    return [
+        WeightUnitData(
+            uuid=unit['uuid'],
+            name=unit['name'],
+            gram=unit['gram'],
+        )
+        for unit in weight_units
+        if 'uuid' in unit and 'name' in unit and 'gram' in unit
+    ]
 
 
 def extract_info_from_wger_api(product_data: dict) -> IngredientData:

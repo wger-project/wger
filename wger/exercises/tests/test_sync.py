@@ -392,7 +392,8 @@ class MockExerciseResponse:
                             "uuid": "c788d643-150a-4ac7-97ef-84643c6419bf",
                             "name": "Zweihandiges Kettlebell",
                             "exercise": 123,
-                            "description": "Hier könnte Ihre Werbung stehen!",
+                            "description": "<p>Hier könnte Ihre Werbung stehen!</p>",
+                            "description_source": "Hier könnte Ihre Werbung stehen!",
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
@@ -423,7 +424,8 @@ class MockExerciseResponse:
                             "uuid": "ab4185dd-2e68-4579-af1f-0c03957c0a9e",
                             "name": "2 Handed Kettlebell Swing",
                             "exercise": 123,
-                            "description": "TBD",
+                            "description": "<p>TBD</p>",
+                            "description_source": "TBD",
                             "created": "2023-08-03",
                             "language": 2,
                             "aliases": [],
@@ -436,7 +438,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": 47,
+                    "variation_group": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mrs Winterbottom"
@@ -499,7 +501,8 @@ class MockExerciseResponse:
                             "uuid": "7524ca8d-032e-482d-ab18-40e8a97851f6",
                             "name": "A new, better, updated name",
                             "exercise": 2,
-                            "description": "Two Handed Russian Style Kettlebell swing",
+                            "description": "<p>Two Handed Russian Style Kettlebell swing</p>",
+                            "description_source": "Two Handed Russian Style Kettlebell swing",
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
@@ -539,7 +542,8 @@ class MockExerciseResponse:
                             "uuid": "581338a1-8e52-405b-99eb-f0724c528bc8",
                             "name": "Balançoire Kettlebell à 2 mains",
                             "exercise": 2,
-                            "description": "Balançoire Kettlebell à deux mains de style russe",
+                            "description": "<p>Balançoire Kettlebell à deux mains de style russe</p>",
+                            "description_source": "Balançoire Kettlebell à deux mains de style russe",
                             "created": "2015-08-03",
                             "language": 3,
                             "aliases": [],
@@ -552,7 +556,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": 47,
+                    "variation_group": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mr X"
@@ -639,7 +643,7 @@ class TestSyncMethods(WgerTestCase):
         language1 = Language.objects.get(pk=1)
         self.assertEqual(language1.full_name, 'Daitsch')
         self.assertEqual(language1.full_name_en, 'Kraut')
-        self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
+        self.assertEqual(Language.objects.get(short_name='eo').full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
 
     @patch('requests.get', return_value=MockLicenseResponse())
@@ -657,7 +661,7 @@ class TestSyncMethods(WgerTestCase):
             'http://creativecommons.org/licenses/aca/fl/4.0/',
         )
         self.assertEqual(
-            License.objects.get(pk=6).full_name,
+            License.objects.get(short_name='CC-BY-SA 4').full_name,
             'Creative Commons Attribution Share Alike 4',
         )
         self.assertEqual(License.objects.count(), 4)
@@ -762,7 +766,14 @@ class TestSyncMethods(WgerTestCase):
         translation_de = new_exercise.get_translation('de')
         self.assertEqual(translation_de.language_id, 1)
         self.assertEqual(translation_de.name, 'Zweihandiges Kettlebell')
-        self.assertEqual(translation_de.description, 'Hier könnte Ihre Werbung stehen!')
+        self.assertEqual(
+            translation_de.description_source,
+            'Hier könnte Ihre Werbung stehen!',
+        )
+        self.assertEqual(
+            translation_de.description,
+            '<p>Hier könnte Ihre Werbung stehen!</p>\n',
+        )
         self.assertEqual(translation_de.alias_set.first().alias, 'Kettlebell mit zwei Händen')
         self.assertEqual(
             translation_de.exercisecomment_set.first().comment,
@@ -772,7 +783,8 @@ class TestSyncMethods(WgerTestCase):
         translation_en = new_exercise.get_translation('en')
         self.assertEqual(translation_en.language_id, 2)
         self.assertEqual(translation_en.name, '2 Handed Kettlebell Swing')
-        self.assertEqual(translation_en.description, 'TBD')
+        self.assertEqual(translation_en.description_source, 'TBD')
+        self.assertEqual(translation_en.description, '<p>TBD</p>\n')
 
         # Existing exercise was updated
         exercise = Exercise.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
@@ -794,6 +806,15 @@ class TestSyncMethods(WgerTestCase):
 
         translation_fr = exercise.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
+
+        # Both exercises should be in the same variation group
+        self.assertIsNotNone(new_exercise.variation_group)
+        self.assertIsNotNone(exercise.variation_group)
+        self.assertEqual(new_exercise.variation_group, exercise.variation_group)
+        self.assertEqual(
+            str(new_exercise.variation_group),
+            '4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7',
+        )
 
     @patch('requests.get', return_value=MockImageResponse())
     def test_image_sync(self, mock_request):

@@ -15,6 +15,8 @@
 # Django
 from django.contrib.auth.models import User
 from django.core.cache import cache
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
 
 # Third Party
 from rest_framework import status
@@ -186,9 +188,23 @@ class ApiGetTestCase:
         cache.clear()
         self.test_get_overview()
 
-        # Second request: should be served from cache with no DB queries
-        with self.assertNumQueries(0):
+        # Second request: should be served from cache
+        # Only session-related queries may still occur, but no queries for the actual resource
+        with CaptureQueriesContext(connection) as context:
             self.client.get(self.url)
+
+        resource_queries = [
+            q
+            for q in context.captured_queries
+            if 'django_session' not in q['sql']
+            and 'SAVEPOINT' not in q['sql']
+            and 'RELEASE' not in q['sql']
+        ]
+        self.assertEqual(
+            len(resource_queries),
+            0,
+            f'Expected no resource queries on cached request, got: {resource_queries}',
+        )
 
     def test_special_endpoints(self):
         """

@@ -203,18 +203,12 @@ router.register(
     exercises_api_views.MuscleViewSet,
     basename='muscle',
 )
-router.register(
-    r'variation',
-    exercises_api_views.ExerciseVariationViewSet,
-    basename='variation',
-)
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='api-ingredient')
 router.register(
     r'ingredientinfo', nutrition_api_views.IngredientInfoViewSet, basename='api-ingredientinfo'
 )
-router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, basename='weightunit')
 router.register(
     r'ingredientweightunit',
     nutrition_api_views.IngredientWeightUnitViewSet,
@@ -300,7 +294,6 @@ urlpatterns += [
     path('i18n/', include('django.conf.urls.i18n')),
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
     # API
-    path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
     path(
         'api/v2/exercise-submission/',
         exercises_api_views.ExerciseSubmissionViewSet.as_view(),

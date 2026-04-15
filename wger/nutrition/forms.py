@@ -55,7 +55,7 @@ class IngredientWeightUnitChoiceField(forms.ModelChoiceField):
     """
 
     def label_from_instance(self, obj):
-        return f'{obj.amount} {obj.unit.name} = {obj.gram}g'
+        return f'{obj.name} = {obj.gram}g'
 
 
 class UnitChooserForm(forms.Form):

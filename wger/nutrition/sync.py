@@ -52,10 +52,15 @@ from wger.nutrition.api.endpoints import (
 )
 from wger.nutrition.api.serializers import IngredientSerializer
 from wger.nutrition.consts import SyncMode
-from wger.nutrition.extract_info.wger import extract_info_from_wger_api
+from wger.nutrition.dataclasses import WeightUnitData
+from wger.nutrition.extract_info.wger import (
+    extract_info_from_wger_api,
+    extract_weight_unit_info_from_wger_api,
+)
 from wger.nutrition.models import (
     Image,
     Ingredient,
+    IngredientWeightUnit,
     Source,
 )
 from wger.utils.constants import (
@@ -74,6 +79,55 @@ from wger.utils.url import make_uri
 
 
 logger = logging.getLogger(__name__)
+
+
+def _resolve_language_codes(language_codes: Optional[str]) -> List[str] | None:
+    """Resolve comma-separated language codes to a list of language ID strings."""
+    if language_codes is None:
+        return None
+
+    language_ids = []
+    for code in language_codes.split(','):
+        lang = load_language(code, default_to_english=False)
+        language_ids.append(str(lang.id))
+    return language_ids
+
+
+def _sync_ingredient_from_api_data(data: dict) -> Ingredient:
+    """
+    Create or update a single ingredient (and its weight units) from API data.
+    """
+    uuid = data['uuid']
+    ingredient_data = extract_info_from_wger_api(data).dict()
+    ingredient_data['uuid'] = uuid
+
+    ingredient, _ = Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+    weight_units_data = extract_weight_unit_info_from_wger_api(data)
+    if weight_units_data is not None:
+        sync_weight_units(ingredient, weight_units_data)
+
+    return ingredient
+
+
+def sync_weight_units(ingredient: Ingredient, weight_units_data: list[WeightUnitData]):
+    """
+    Synchronize weight units for an ingredient from remote data.
+    """
+
+    remote_uuids = set()
+    for unit_data in weight_units_data:
+        remote_uuids.add(unit_data.uuid)
+        IngredientWeightUnit.objects.update_or_create(
+            uuid=unit_data.uuid,
+            defaults={
+                'ingredient': ingredient,
+                'name': unit_data.name,
+                'gram': unit_data.gram,
+            },
+        )
+
+    # Remove local units that no longer exist on the remote
+    ingredient.ingredientweightunit_set.exclude(uuid__in=remote_uuids).delete()
 
 
 def fetch_ingredient_image(pk: int):
@@ -265,16 +319,11 @@ def sync_ingredients_page(
     Sync a single paginated page (0-based index). Returns number of processed ingredients.
     Safe to rerun (idempotent).
     """
-    language_ids: List[str] | None = None
-    if language_codes:
-        language_ids = []
-        for code in language_codes.split(','):
-            try:
-                lang = load_language(code, default_to_english=False)
-                language_ids.append(str(lang.id))
-            except Language.DoesNotExist:
-                logger.warning(f'Language code "{code}" not found, skipping page {page}.')
-                return 0
+    try:
+        language_ids = _resolve_language_codes(language_codes)
+    except Language.DoesNotExist:
+        logger.warning(f'Language code not found, skipping page {page}.')
+        return 0
 
     offset = page * limit
     query: dict[str, str | int] = {'limit': limit, 'offset': offset}
@@ -286,10 +335,7 @@ def sync_ingredients_page(
     results = response.get('results', [])
     processed = 0
     for data in results:
-        uuid = data['uuid']
-        ingredient_data = extract_info_from_wger_api(data).dict()
-        ingredient_data['uuid'] = uuid
-        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        _sync_ingredient_from_api_data(data)
         processed += 1
     logger.debug(f'Page {page} synced ({processed} ingredients)')
     return processed
@@ -305,22 +351,13 @@ def sync_ingredients(
     """Synchronize the ingredients from the remote server"""
     print_fn('*** Synchronizing ingredients...')
 
-    language_ids: List[str] | None = None
-    if language_codes is not None:
-        language_ids = []
-        for code in language_codes.split(','):
-            # Leaving the try except in here even though we've already validated on the
-            # sync-ingredients command itself. This is in case we ever want to re-use
-            # this function for anything else where user can input language codes.
-            try:
-                lang = load_language(code, default_to_english=False)
-                language_ids.append(str(lang.id))
-            except Language.DoesNotExist:
-                print_fn(
-                    f'Error: The language code you provided ("{code}") does not exist in '
-                    f'this database. Please try again.'
-                )
-                return 0
+    try:
+        language_ids = _resolve_language_codes(language_codes)
+    except Language.DoesNotExist:
+        print_fn(
+            'Error: A language code you provided does not exist in this database. Please try again.'
+        )
+        return 0
 
     query: dict[str, str | int] = {'limit': API_MAX_ITEMS}
     if language_ids is not None:
@@ -340,15 +377,15 @@ def sync_ingredients(
     ingredient_nr = 1
     page_nr = 1
     pbar = tqdm(
-        total=total_ingredients, unit='ingredients', desc='Syncing progress', unit_scale=True
+        total=total_ingredients,
+        unit='ingredients',
+        desc='Syncing progress',
+        unit_scale=True,
+        smoothing=0.1,
+        mininterval=1.0,
     )
     for data in get_paginated(url, headers=wger_headers()):
-        uuid = data['uuid']
-
-        ingredient_data = extract_info_from_wger_api(data).dict()
-        ingredient_data['uuid'] = uuid
-
-        Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+        _sync_ingredient_from_api_data(data)
 
         if show_progress_bar:
             pbar.update(1)
@@ -384,17 +421,23 @@ def export_ingredient_dump(
     (local filesystem, S3, GCS, etc.).
     """
 
-    # TODO: handle units here as well
     queryset = Ingredient.objects.select_related(
         'language',
         'license',
-    )
+    ).prefetch_related('ingredientweightunit_set')
     total = queryset.count()
     queryset = queryset.iterator(chunk_size=2000)
 
     print_fn('*** Exporting ingredients to JSONL dump...')
 
-    pbar = tqdm(total=total, unit='ingredients', desc='Exporting', disable=not show_progress_bar)
+    pbar = tqdm(
+        total=total,
+        unit='ingredients',
+        desc='Exporting',
+        disable=not show_progress_bar,
+        smoothing=0.1,
+        mininterval=1.0,
+    )
 
     # Write to a local temp file first, then upload via storage backend
     count = 0
@@ -454,9 +497,16 @@ def sync_ingredients_from_dump(
         with _open_jsonl(file_path) as f:
             total = sum(1 for _ in f)
 
-    pbar = tqdm(total=total, unit='ingredients', desc='Importing', disable=not show_progress_bar)
+    pbar = tqdm(
+        total=total,
+        unit='ingredients',
+        desc='Importing',
+        disable=not show_progress_bar,
+        smoothing=0.1,
+        mininterval=1.0,
+    )
 
-    bulk_bucket: list[Ingredient] = []
+    bulk_bucket: List[tuple[Ingredient, list[WeightUnitData] | None]] = []
     count = 0
     errors = 0
 
@@ -475,25 +525,40 @@ def sync_ingredients_from_dump(
 
             ingredient_data = extract_info_from_wger_api(data).dict()
             ingredient_data['uuid'] = uuid
+            weight_units_data = extract_weight_unit_info_from_wger_api(data)
 
             if mode == SyncMode.INSERT:
-                bulk_bucket.append(Ingredient(**ingredient_data))
+                bulk_bucket.append((Ingredient(**ingredient_data), weight_units_data))
                 if len(bulk_bucket) >= BULK_SIZE:
                     try:
-                        Ingredient.objects.bulk_create(bulk_bucket)
+                        Ingredient.objects.bulk_create([item[0] for item in bulk_bucket])
+                        # Re-fetch to ensure PKs are populated (not all DBs
+                        # return PKs from bulk_create)
+                        uuids = [item[0].uuid for item in bulk_bucket]
+                        saved = {str(i.uuid): i for i in Ingredient.objects.filter(uuid__in=uuids)}
+                        for ingredient, units_data in bulk_bucket:
+                            refetched = saved.get(str(ingredient.uuid))
+                            if units_data is not None and refetched is not None:
+                                sync_weight_units(refetched, units_data)
                         count += len(bulk_bucket)
                     except Exception:
                         # Fall back to individual saves
-                        for ingredient in bulk_bucket:
+                        for ingredient, units_data in bulk_bucket:
                             try:
                                 ingredient.save()
+                                if units_data is not None:
+                                    sync_weight_units(ingredient, units_data)
                                 count += 1
                             except Exception:
                                 errors += 1
                     bulk_bucket = []
             else:
                 try:
-                    Ingredient.objects.update_or_create(uuid=uuid, defaults=ingredient_data)
+                    ingredient, _ = Ingredient.objects.update_or_create(
+                        uuid=uuid, defaults=ingredient_data
+                    )
+                    if weight_units_data is not None:
+                        sync_weight_units(ingredient, weight_units_data)
                     count += 1
                 except Exception:
                     errors += 1
@@ -503,12 +568,19 @@ def sync_ingredients_from_dump(
     # Flush remaining items in INSERT mode
     if mode == SyncMode.INSERT and bulk_bucket:
         try:
-            Ingredient.objects.bulk_create(bulk_bucket)
+            Ingredient.objects.bulk_create([item[0] for item in bulk_bucket])
+            uuids = [item[0].uuid for item in bulk_bucket]
+            saved = {i.uuid: i for i in Ingredient.objects.filter(uuid__in=uuids)}
+            for ingredient, units_data in bulk_bucket:
+                if units_data is not None and ingredient.uuid in saved:
+                    sync_weight_units(saved[ingredient.uuid], units_data)
             count += len(bulk_bucket)
         except Exception:
-            for ingredient in bulk_bucket:
+            for ingredient, units_data in bulk_bucket:
                 try:
                     ingredient.save()
+                    if units_data is not None:
+                        sync_weight_units(ingredient, units_data)
                     count += 1
                 except Exception:
                     errors += 1

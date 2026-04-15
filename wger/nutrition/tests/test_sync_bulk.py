@@ -35,7 +35,10 @@ from django.test import SimpleTestCase
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.consts import SyncMode
-from wger.nutrition.models import Ingredient
+from wger.nutrition.models import (
+    Ingredient,
+    IngredientWeightUnit,
+)
 from wger.nutrition.sync import (
     _open_jsonl,
     download_ingredient_dump,
@@ -67,6 +70,14 @@ SAMPLE_INGREDIENTS = [
         'license_author_url': '',
         'license_derivative_source_url': '',
         'language': 2,
+        'weight_units': [
+            {
+                'id': 100,
+                'uuid': 'a1b2c3d4-0000-0000-0000-000000000001',
+                'name': 'Serving',
+                'gram': 85,
+            },
+        ],
     },
     {
         'id': 22634,
@@ -90,6 +101,7 @@ SAMPLE_INGREDIENTS = [
         'license_author_url': '',
         'license_derivative_source_url': '',
         'language': 3,
+        'weight_units': [],
     },
 ]
 
@@ -223,6 +235,12 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             self.assertEqual(ingredient.energy, 360)
             self.assertAlmostEqual(ingredient.protein, Decimal(5), 2)
             self.assertEqual(count, 2)
+
+            # Weight units synced
+            units = ingredient.ingredientweightunit_set.all()
+            self.assertEqual(units.count(), 1)
+            self.assertEqual(units[0].name, 'Serving')
+            self.assertEqual(units[0].gram, 85)
         finally:
             Path(file_path).unlink()
 

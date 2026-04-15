@@ -42,10 +42,9 @@ class CopyRoutineTestCase(WgerTestCase):
         count_after = Routine.objects.count()
 
         self.assertEqual(count_after, count_before + 1)
-        self.assertEqual(count_after, 6)
 
         routine_original = Routine.objects.get(pk=3)
-        routine_copy = Routine.objects.get(pk=6)
+        routine_copy = Routine.objects.latest('pk')
 
         self.assertEqual(routine_copy.name, routine_original.name)
         self.assertEqual(routine_copy.description, routine_original.description)

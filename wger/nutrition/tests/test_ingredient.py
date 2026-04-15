@@ -47,7 +47,6 @@ from wger.nutrition.models import (
     IngredientWeightUnit,
     Meal,
     Source,
-    WeightUnit,
 )
 from wger.nutrition.models.image import Image
 from wger.utils.constants import NUTRITION_TAB
@@ -376,15 +375,15 @@ class IngredientValuesTestCase(WgerTestCase):
         self.assertEqual(
             result,
             {
-                'sodium': 0.612135,
-                'energy': 196.24,
-                # 'energy_kilojoule': '821.07',
-                'fat': 9.13185,
+                'sodium': 1.22427,
+                'energy': 392.48,
+                # 'energy_kilojoule': '1642.14',
+                'fat': 18.2637,
                 'carbohydrates_sugar': None,
-                'fat_saturated': 3.61706,
+                'fat_saturated': 7.23412,
                 'fiber': None,
-                'protein': 28.57745,
-                'carbohydrates': 0.139375,
+                'protein': 57.1549,
+                'carbohydrates': 0.27875,
             },
         )
 
@@ -444,38 +443,6 @@ class IngredientTestCase(WgerTestCase):
         meal = Meal.objects.get(pk=1)
         self.assertFalse(ingredient1 == meal)
 
-    def test_total_energy(self):
-        """
-        Tests the custom clean() method
-        """
-        self.user_login('admin')
-
-        # Values OK
-        ingredient = Ingredient()
-        ingredient.name = 'FooBar, cooked, with salt'
-        ingredient.energy = 50
-        ingredient.protein = 0.5
-        ingredient.carbohydrates = 12
-        ingredient.fat = Decimal('0.1')
-        ingredient.language_id = 1
-        self.assertFalse(ingredient.full_clean())
-
-        # Values wrong
-        ingredient.protein = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.protein = 0.5
-        ingredient.fat = 5
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.fat = 0.1
-        ingredient.carbohydrates = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.fat = 5
-        ingredient.carbohydrates = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
 
 class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
@@ -499,6 +466,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.off_response = {
             'code': '1234',
             'lang': 'de',
+            'name': 'Foo with chocolate',
             'product_name': 'Foo with chocolate',
             'generic_name': 'Foo with chocolate, 250g package',
             'brands': 'The bar company',
@@ -509,10 +477,10 @@ class IngredientModelTestCase(WgerTestCase):
                 'en:vegetarian',
             ],
             'nutriments': {
-                'energy-kcal_100g': 120,
+                'energy-kcal_100g': 600,
                 'proteins_100g': 10,
-                'carbohydrates_100g': 20,
-                'sugars_100g': 30,
+                'carbohydrates_100g': 30,
+                'sugars_100g': 20,
                 'fat_100g': 40,
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
@@ -533,9 +501,9 @@ class IngredientModelTestCase(WgerTestCase):
 
         self.assertEqual(ingredient.name, 'Foo with chocolate')
         self.assertEqual(ingredient.code, '1234')
-        self.assertEqual(ingredient.energy, 120)
+        self.assertEqual(ingredient.energy, 600)
         self.assertEqual(ingredient.protein, 10)
-        self.assertEqual(ingredient.carbohydrates, 20)
+        self.assertEqual(ingredient.carbohydrates, 30)
         self.assertEqual(ingredient.fat, 40)
         self.assertEqual(ingredient.fat_saturated, 11)
         self.assertEqual(ingredient.sodium, 5)
@@ -544,42 +512,6 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
         self.assertTrue(ingredient.is_vegan)
         self.assertTrue(ingredient.is_vegetarian)
-
-    @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_serving_unit(self, mock_api: MagicMock):
-        self.off_response['serving_size'] = '2 biscuits (30 g)'
-        mock_api.return_value = self.off_response
-
-        ingredient = Ingredient.fetch_ingredient_from_off('1234')
-
-        unit = WeightUnit.objects.get(language=ingredient.language, name='biscuits')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
-        self.assertEqual(ingredient_unit.gram, 30)
-        self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
-
-    @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_volume_serving_unit(self, mock_api: MagicMock):
-        self.off_response['serving_size'] = '200 ml (206 g)'
-        mock_api.return_value = self.off_response
-
-        ingredient = Ingredient.fetch_ingredient_from_off('1234')
-
-        unit = WeightUnit.objects.get(language=ingredient.language, name='ml')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
-        self.assertEqual(ingredient_unit.gram, 206)
-        self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
-
-    @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_creates_volume_serving_unit_without_mass(self, mock_api: MagicMock):
-        self.off_response['serving_size'] = '200 ml'
-        mock_api.return_value = self.off_response
-
-        ingredient = Ingredient.fetch_ingredient_from_off('1234')
-
-        unit = WeightUnit.objects.get(language=ingredient.language, name='ml')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
-        self.assertEqual(ingredient_unit.gram, 200)
-        self.assertEqual(ingredient_unit.amount, Decimal('200.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_updates_existing_serving_unit(self, mock_api: MagicMock):
@@ -592,10 +524,10 @@ class IngredientModelTestCase(WgerTestCase):
             extract_info_from_off(self.off_response, ingredient.language_id)
         )
 
-        unit = WeightUnit.objects.get(language=ingredient.language, name='biscuits')
-        ingredient_unit = IngredientWeightUnit.objects.get(ingredient=ingredient, unit=unit)
+        ingredient_unit = IngredientWeightUnit.objects.get(
+            ingredient=ingredient, name='1 Portion (2 biscuits)'
+        )
         self.assertEqual(ingredient_unit.gram, 25)
-        self.assertEqual(ingredient_unit.amount, Decimal('2.00'))
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api: MagicMock):
@@ -668,8 +600,8 @@ class IngredientModelTestCase(WgerTestCase):
         ingredient.code = '1234'
         ingredient.save(update_fields=['source_name', 'code'])
         ingredient.ingredientweightunit_set.get_or_create(
-            unit=WeightUnit.objects.get(pk=5),
-            defaults={'gram': 15, 'amount': Decimal('1.00')},
+            name='Cup',
+            defaults={'gram': 15},
         )
 
         created, updated = ingredient.sync_serving_unit_from_off_if_missing()

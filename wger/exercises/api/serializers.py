@@ -14,6 +14,7 @@
 
 # Standard Library
 import logging
+import uuid
 
 # Django
 from django.conf import settings
@@ -41,7 +42,6 @@ from wger.exercises.models import (
     ExerciseVideo,
     Muscle,
     Translation,
-    Variation,
 )
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
@@ -66,7 +66,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             'muscles',
             'muscles_secondary',
             'equipment',
-            'variations',
+            'variation_group',
             'license_author',
         )
 
@@ -297,16 +297,6 @@ class ExerciseAliasSubmissionSerializer(serializers.ModelSerializer):
         return alias
 
 
-class ExerciseVariationSerializer(serializers.ModelSerializer):
-    """
-    Exercise variation serializer
-    """
-
-    class Meta:
-        model = Variation
-        fields = ('id',)
-
-
 class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
     """
     Exercise alias serializer for info endpoint
@@ -423,7 +413,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         model = Translation
         fields = (
             'name',
-            'description',
+            'description_source',
             'language',
             'aliases',
             'comments',
@@ -443,7 +433,7 @@ class ExerciseTranslationSubmissionSerializer(serializers.ModelSerializer):
         )
 
         language = data.get('language')
-        description = data.get('description')
+        description = data.get('description_source')
 
         # Try to detect the language
         detected_language = detector.detect_language_of(description)
@@ -497,6 +487,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
+    description_source = serializers.CharField(required=False, allow_blank=True)
     exercise = serializers.PrimaryKeyRelatedField(
         queryset=Exercise.objects.all(),
         required=True,
@@ -510,10 +501,13 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             'name',
             'exercise',
             'description',
+            'description_source',
             'created',
             'language',
             'license_author',
         )
+
+    read_only_fields = ('description',)  # Prevents API from accepting raw HTML
 
     def validate(self, value):
         """
@@ -556,7 +550,6 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     equipment = EquipmentSerializer(many=True, read_only=True)
     translations = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
     videos = ExerciseVideoInfoSerializer(source='exercisevideo_set', many=True, read_only=True)
-    variations = serializers.PrimaryKeyRelatedField(read_only=True)
     author_history = serializers.ListSerializer(child=serializers.CharField())
     total_authors_history = serializers.ListSerializer(child=serializers.CharField())
     last_update_global = serializers.DateTimeField(read_only=True)
@@ -578,7 +571,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             'license_author',
             'images',
             'translations',
-            'variations',
+            'variation_group',
             'images',
             'videos',
             'author_history',
@@ -636,8 +629,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         # Note, using a function here because of problems during tests
         default=get_default_license,
     )
-    variations = serializers.PrimaryKeyRelatedField(
-        queryset=Variation.objects.all(),
+    variation_group = serializers.UUIDField(
         required=False,
         allow_null=True,
     )
@@ -656,7 +648,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             'muscles',
             'muscles_secondary',
             'equipment',
-            'variations',
+            'variation_group',
             'variations_connect_to',
             'license',
             'license_author',
@@ -678,11 +670,11 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
                 {'translations': 'You must provide at least one translation in English.'}
             )
 
-        # Either the variations or variations_connect_to field may be set, not both
-        if data.get('variations') and data.get('variations_connect_to'):
+        # Either variation_group or variations_connect_to may be set, not both
+        if data.get('variation_group') and data.get('variations_connect_to'):
             raise serializers.ValidationError(
                 {
-                    'variations': 'Either set the variations or the variations_connect_to field, not both.'
+                    'variation_group': 'Either set variation_group or variations_connect_to, not both.'
                 }
             )
 
@@ -695,7 +687,7 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             category=validated_data.pop('category'),
             license=validated_data.pop('license'),
             license_author=validated_data.pop('license_author'),
-            variations=validated_data.pop('variations', None),
+            variation_group=validated_data.pop('variation_group', None),
         )
         exercise.muscles.set(validated_data.pop('muscles'))
         exercise.muscles_secondary.set(validated_data.pop('muscles_secondary'))
@@ -706,15 +698,17 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
             serializer: ExerciseTranslationSubmissionSerializer = self.fields['translations'].child
             serializer.create(validated_data=translation, exercise=exercise)
 
-        # If requested, add the exercise to an existing variation set
+        # If requested, add the exercise to an existing or new variation group
         connect_to: Exercise | None = validated_data.get('variations_connect_to')
         if connect_to:
-            new_variation = Variation.objects.create()
+            # Reuse the target's existing group, or create a new one
+            group = connect_to.variation_group or uuid.uuid4()
 
-            connect_to.variations = new_variation
-            connect_to.save()
+            if not connect_to.variation_group:
+                connect_to.variation_group = group
+                connect_to.save()
 
-            exercise.variations = new_variation
+            exercise.variation_group = group
             exercise.save()
 
         return exercise

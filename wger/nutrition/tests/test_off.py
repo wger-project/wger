@@ -44,16 +44,17 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             ],
             'nutrition_grades': 'c',
             'nutriments': {
-                'energy-kcal_100g': 120,
+                'energy-kcal_100g': 600,
                 'proteins_100g': 10,
-                'carbohydrates_100g': 20,
-                'sugars_100g': 30,
+                'carbohydrates_100g': 30,
+                'sugars_100g': 20,
                 'fat_100g': 40,
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
                 'fiber_100g': None,
                 'other_stuff': 'is ignored',
             },
+            'serving_size': '',
         }
 
     def test_regular_response(self):
@@ -65,10 +66,10 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             name='Foo with chocolate',
             remote_id='1234',
             language_id=1,
-            energy=120,
+            energy=600,
             protein=10,
-            carbohydrates=20,
-            carbohydrates_sugar=30,
+            carbohydrates=30,
+            carbohydrates_sugar=20,
             fat=40,
             fat_saturated=11,
             fiber=None,
@@ -95,12 +96,12 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         we convert it to kcal per 100 g
         """
         del self.off_data1['nutriments']['energy-kcal_100g']
-        self.off_data1['nutriments']['energy-kj_100g'] = 120
+        self.off_data1['nutriments']['energy-kj_100g'] = 2510.4
 
         result = extract_info_from_off(self.off_data1, 1)
 
         # 120 / KJ_PER_KCAL
-        self.assertAlmostEqual(result.energy, 28.6806, 3)
+        self.assertAlmostEqual(result.energy, 600, 3)
 
     def test_no_energy(self):
         """

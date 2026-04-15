@@ -105,7 +105,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         'muscles': [1, 3],
         'muscles_secondary': [2],
         'equipment': [3],
-        'variations': 4,
+        'variation_group': 'a1b2c3d4-0001-0000-0000-000000000001',
     }
 
     def get_resource_name(self):
@@ -120,10 +120,10 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        log = DeletionLog.objects.get(pk=1)
-
-        self.assertEqual(log.model_type, 'base')
-        self.assertEqual(log.uuid, UUID('acad3949-36fb-4481-9a72-be2ddae2bc05'))
+        log = DeletionLog.objects.get(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=UUID('acad3949-36fb-4481-9a72-be2ddae2bc05'),
+        )
         self.assertEqual(log.replaced_by, UUID('ae3328ba-9a35-4731-bc23-5da50720c5aa'))
 
     def test_cant_change_license(self):

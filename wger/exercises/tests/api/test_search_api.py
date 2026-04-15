@@ -13,93 +13,102 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import json
+
+# Django
+from django.urls import reverse
+
 # Third Party
 from rest_framework import status
 
 # wger
-from wger.core.tests.api_base_test import ApiBaseTestCase
-from wger.core.tests.base_testcase import BaseTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class SearchExerciseApiTestCase(BaseTestCase, ApiBaseTestCase):
-    url = '/api/v2/exercise/search/'
+class SearchExerciseApiTestCase(WgerTestCase):
+    """
+    Tests searching for exercises via the exerciseinfo endpoint's name__search filter
+    """
 
-    def setUp(self):
-        super().setUp()
-        self.init_media_root()
+    url = reverse('exerciseinfo-list')
 
-    def test_basic_search_logged_out(self):
+    def search_exercise(self):
+        """
+        Helper function to test basic searching for exercises
+        """
+
+        # Search for "cool" should find exercise base containing "Very cool exercise"
+        response = self.client.get(self.url, {'name__search': 'cool', 'format': 'json'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        result = json.loads(response.content.decode('utf8'))
+        results = result['results']
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['category']['name'], 'Another category')
+
+        # Search for non-existent term should return no results
+        response = self.client.get(self.url, {'name__search': 'Foobar', 'format': 'json'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertEqual(len(result['results']), 0)
+
+    def test_search_logged_out(self):
         """
         Logged-out users are also allowed to use the search
         """
-        response = self.client.get(self.url + '?term=exercise')
-        result1 = response.data['suggestions'][0]
+        self.search_exercise()
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 4)
-        self.assertEqual(result1['value'], 'An exercise')
-        self.assertEqual(result1['data']['id'], 1)
-
-    def test_basic_search_logged_in(self):
+    def test_search_logged_in(self):
         """
         Logged-in users get the same results
         """
-        self.authenticate('test')
-        response = self.client.get(self.url + '?term=exercise')
-        result1 = response.data['suggestions'][0]
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 4)
-        self.assertEqual(result1['value'], 'An exercise')
-        self.assertEqual(result1['data']['id'], 1)
+        self.user_login('test')
+        self.search_exercise()
 
     def test_search_language_code_en(self):
         """
-        Explicitly passing the en language code (same as no code)
+        Explicitly passing the en language code
         """
-        response = self.client.get(self.url + '?term=exercise&language=en')
-        result1 = response.data['suggestions'][0]
-
+        response = self.client.get(
+            self.url,
+            {'name__search': 'exercise', 'language__code': 'en', 'format': 'json'},
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 4)
-        self.assertEqual(result1['value'], 'An exercise')
-        self.assertEqual(result1['data']['id'], 1)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertGreaterEqual(len(result['results']), 1)
 
     def test_search_language_code_en_no_results(self):
         """
         The "Testübung" exercise should not be found when searching in English
         """
-        response = self.client.get(self.url + '?term=Testübung&language=en')
-
+        response = self.client.get(
+            self.url,
+            {'name__search': 'Testübung', 'language__code': 'en', 'format': 'json'},
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 0)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertEqual(len(result['results']), 0)
 
     def test_search_language_code_de(self):
         """
-        The "Testübung" exercise should be only found when searching in German
+        The "Testübung" exercise should be found when searching in German
         """
-        response = self.client.get(self.url + '?term=Testübung&language=de')
-        result1 = response.data['suggestions'][0]
-
+        response = self.client.get(
+            self.url,
+            {'name__search': 'Testübung', 'language__code': 'de', 'format': 'json'},
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 1)
-        self.assertEqual(result1['value'], 'Weitere Testübung')
-        self.assertEqual(result1['data']['id'], 7)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertEqual(len(result['results']), 1)
 
     def test_search_several_language_codes(self):
         """
         Passing different language codes works correctly
         """
-        response = self.client.get(self.url + '?term=demo&language=en,de')
-
+        response = self.client.get(
+            self.url,
+            {'name__search': 'demo', 'language__code': 'en,de', 'format': 'json'},
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 4)
-
-    def test_search_all_languages(self):
-        """
-        Passing different language codes works correctly
-        """
-        response = self.client.get(self.url + '?term=demo&language=*')
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['suggestions']), 4)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertGreaterEqual(len(result['results']), 1)

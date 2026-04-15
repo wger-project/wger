@@ -8,8 +8,40 @@
 <script>
 $(document).ready(function() {
     wgerInitIngredientDetail("{% url 'api-ingredient-get-values' ingredient.id %}");
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
 });
 </script>
+<style>
+    .nutriscore-bar {
+        display: inline-flex;
+        align-items: center;
+    }
+    .nutriscore-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.7rem;
+        height: 1.4rem;
+        padding: 0 0.3em;
+        opacity: 0.4;
+    }
+    .nutriscore-badge:first-child { border-radius: 0.7rem 0 0 0.7rem; }
+    .nutriscore-badge:last-child { border-radius: 0 0.7rem 0.7rem 0; }
+    .nutriscore-badge.active {
+        opacity: 1;
+        font-size: 0.9rem;
+        height: 1.8rem;
+        padding: 0 0.35em;
+        margin: 0 2px;
+    }
+    .nutriscore-a { background-color: #0d8949; }
+    .nutriscore-b { background-color: #72c72b; }
+    .nutriscore-c { background-color: #fbc606; color: #000; }
+    .nutriscore-d { background-color: #f37115; }
+    .nutriscore-e { background-color: #ee301f; }
+</style>
 {% endblock %}
 
 
@@ -39,7 +71,7 @@ $(document).ready(function() {
     {% crispy form %}
 </form>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th colspan="2">
@@ -50,26 +82,26 @@ $(document).ready(function() {
     <tbody>
         <tr>
             <td>{% translate "Energy" %}</td>
-            <td itemprop="calories" class="text-right">
+            <td itemprop="calories" class="text-end">
                 <span id="value-energy">{{ingredient.energy|floatformat:1}}</span> {% translate "kcal" %} /
                 <span id="value-energy-kjoule">{{ingredient.energy_kilojoule|floatformat:1}}</span> {% translate "kJ" %}
             </td>
         </tr>
         <tr>
             <td>{% translate "Protein" %}</td>
-            <td itemprop="proteinContent" class="text-right">
+            <td itemprop="proteinContent" class="text-end">
                 <span id="value-protein">{{ingredient.protein|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td>{% translate "Carbohydrates" %}</td>
-            <td itemprop="carbohydrateContent" class="text-right">
+            <td itemprop="carbohydrateContent" class="text-end">
                 <span id="value-carbohydrates">{{ingredient.carbohydrates|floatformat}}</span> {% translate "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td class="pl-5">{% translate "Sugar content in carbohydrates" %}</td>
-            <td itemprop="sugarContent" class="text-right">
+            <td itemprop="sugarContent" class="text-end">
                 {% if ingredient.carbohydrates_sugar %}
                     <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
@@ -79,13 +111,13 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td>{% translate "Fat" %}</td>
-            <td itemprop="fatContent" class="text-right">
+            <td itemprop="fatContent" class="text-end">
                 <span id="value-fat">{{ingredient.fat|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
             <td class="pl-5">{% translate "Saturated fat content in fats" %}</td>
-            <td itemprop="saturatedFatContent" class="text-right">
+            <td itemprop="saturatedFatContent" class="text-end">
                 {% if ingredient.fat_saturated %}
                     <span id="value-fat-saturated">{{ingredient.fat_saturated|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
@@ -96,7 +128,7 @@ $(document).ready(function() {
     </tbody>
 </table>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th colspan="2">
@@ -107,7 +139,7 @@ $(document).ready(function() {
     <tbody>
         <tr>
             <td>{% translate "Fiber" %}</td>
-            <td itemprop="fiberContent" class="text-right">
+            <td itemprop="fiberContent" class="text-end">
                 {% if ingredient.fiber %}
                     <span id="value-fiber">{{ingredient.fiber|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
@@ -117,7 +149,7 @@ $(document).ready(function() {
         </tr>
         <tr>
             <td>{% translate "Sodium" %}</td>
-            <td itemprop="sodiumContent" class="text-right">
+            <td itemprop="sodiumContent" class="text-end">
                 {% if ingredient.sodium %}
                     <span id="value-sodium">{{ingredient.sodium|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
@@ -128,8 +160,7 @@ $(document).ready(function() {
     </tbody>
 </table>
 
-{% if ingredient.is_vegan is not None or ingredient.is_vegetarian is not None %}
-<table class="table table-hover">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th colspan="2">
@@ -138,33 +169,52 @@ $(document).ready(function() {
         </tr>
     </thead>
     <tbody>
-        {% if ingredient.is_vegan is not None %}
         <tr>
             <td>{% translate "Vegan" %}</td>
-            <td class="text-right">
-                {% if ingredient.is_vegan %}
-                    <span class="badge bg-success">{% translate "Yes" %}</span>
+            <td class="text-end">
+                {% if ingredient.is_vegan is None %}
+                    {% translate "n.A." %}
+                {% elif ingredient.is_vegan %}
+                    <i class="fa-solid fa-seedling fa-2x text-success" data-bs-toggle="tooltip" title="{% translate 'Yes' %}"></i>
                 {% else %}
-                    <span class="badge bg-danger">{% translate "No" %}</span>
+                    <span class="fa-stack fa-1x" data-bs-toggle="tooltip" title="{% translate 'No' %}">
+                        <i class="fa-solid fa-seedling fa-stack-1x text-muted"></i>
+                        <i class="fa-solid fa-ban fa-stack-2x text-danger opacity-75"></i>
+                    </span>
                 {% endif %}
             </td>
         </tr>
-        {% endif %}
-        {% if ingredient.is_vegetarian is not None %}
         <tr>
             <td>{% translate "Vegetarian" %}</td>
-            <td class="text-right">
-                {% if ingredient.is_vegetarian %}
-                    <span class="badge bg-success">{% translate "Yes" %}</span>
+            <td class="text-end">
+                {% if ingredient.is_vegetarian is None %}
+                    {% translate "n.A." %}
+                {% elif ingredient.is_vegetarian %}
+                    <i class="fa-solid fa-leaf fa-2x text-success" data-bs-toggle="tooltip" title="{% translate 'Yes' %}"></i>
                 {% else %}
-                    <span class="badge bg-danger">{% translate "No" %}</span>
+                    <span class="fa-stack fa-1x" data-bs-toggle="tooltip" title="{% translate 'No' %}">
+                        <i class="fa-solid fa-leaf fa-stack-1x text-muted"></i>
+                        <i class="fa-solid fa-ban fa-stack-2x text-danger opacity-75"></i>
+                    </span>
                 {% endif %}
             </td>
         </tr>
-        {% endif %}
+        <tr>
+            <td>{% translate "Nutri-Score" %}</td>
+            <td class="text-end">
+                {% if ingredient.nutriscore %}
+                <span class="nutriscore-bar">
+                    {% for score, label in ingredient.NUTRISCORE_CHOICES %}
+                        <span class="nutriscore-badge nutriscore-{{ score }}{% if score == ingredient.nutriscore %} active{% endif %}">{{ label }}</span>
+                    {% endfor %}
+                </span>
+                {% else %}
+                    {% translate "n.A." %}
+                {% endif %}
+            </td>
+        </tr>
     </tbody>
 </table>
-{% endif %}
 </div>
 
 <small>
@@ -173,7 +223,9 @@ $(document).ready(function() {
 {% endblock %}
 
 
-
+{#         #}
+{# Sidebar #}
+{#         #}
 {% block sidebar %}
 
 {% if perms.nutrition.delete_ingredient %}
@@ -194,7 +246,7 @@ $(document).ready(function() {
     {% for unit in ingredient.ingredientweightunit_set.select_related %}
         <tr>
             <td>
-                {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
+                {{unit.name}} = {{unit.gram}}g
                 <div class="dropdown float-end">
                     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
@@ -229,8 +281,6 @@ $(document).ready(function() {
 {% endif %}
 
 {% endblock %}
-
-
 
 
 {#         #}

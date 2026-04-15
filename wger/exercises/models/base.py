@@ -55,7 +55,6 @@ from wger.utils.models import (
 from .category import ExerciseCategory
 from .equipment import Equipment
 from .muscle import Muscle
-from .variation import Variation
 
 
 class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -106,14 +105,13 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Equipment needed by this exercise"""
 
-    variations = models.ForeignKey(
-        Variation,
-        verbose_name='Variations',
-        on_delete=models.SET_NULL,
+    variation_group = models.UUIDField(
+        verbose_name='Variation group',
         null=True,
         blank=True,
+        db_index=True,
     )
-    """Variations of this exercise"""
+    """Exercises with the same variation_group UUID belong together"""
 
     created = models.DateTimeField(
         'Creation date',
@@ -213,9 +211,9 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Returns the variations of this exercise base, excluding itself
         """
-        if not self.variations:
+        if not self.variation_group:
             return []
-        return self.variations.exercise_set.filter(~Q(id=self.id))
+        return Exercise.objects.filter(variation_group=self.variation_group).exclude(id=self.id)
 
     def get_translation(self, language: Optional[str] = None):
         """
@@ -280,6 +278,6 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
             WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
 
-        reset_exercise_api_cache(self.uuid)
+        reset_exercise_api_cache(str(self.uuid))
 
         return super().delete(using, keep_parents)

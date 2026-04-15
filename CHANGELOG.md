@@ -24,3 +24,16 @@ timer or similar. The `setting-repetitionunit` endpoint now exposes the new fiel
 
 <https://github.com/wger-project/wger/issues/2124>
 Automatically read the date from uploaded image to the gallery.
+
+<https://github.com/wger-project/wger/pull/2292> Move the variation ID from an
+(empty) table to a field in the exercise model. This  simplifies a lot of code
+and allows us to properly sync them to local instances  as well.
+The API endpoint `/api/v2/variations/` API endpoint has been removed.
+
+Improve serving size support for ingredients. Users can now log food in
+everyday units like "1 Serving (2 biscuits)" or "1 Cup" instead of only grams,
+with serving sizes automatically imported from Open Food Facts.
+The `/api/v2/weightunit/` endpoint has been removed.
+
+The deprecated API endpoint `/api/v2/exercise/search/` has been removed. Use the
+regular `/api/v2/exerciseinfo/` endpoint with appropriate query parameters instead.

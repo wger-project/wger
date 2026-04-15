@@ -19,7 +19,10 @@ from uuid import UUID
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.nutrition.models import Ingredient
+from wger.nutrition.models import (
+    Ingredient,
+    IngredientWeightUnit,
+)
 from wger.nutrition.sync import (
     sync_ingredients,
     sync_ingredients_page,
@@ -61,6 +64,23 @@ class MockIngredientResponse:
                     'license_author_url': '',
                     'license_derivative_source_url': '',
                     'language': 2,
+                    'is_vegan': True,
+                    'is_vegetarian': True,
+                    'nutriscore': 'D',
+                    'weight_units': [
+                        {
+                            'id': 100,
+                            'uuid': 'a1b2c3d4-0000-0000-0000-000000000001',
+                            'name': 'Serving',
+                            'gram': 85,
+                        },
+                        {
+                            'id': 101,
+                            'uuid': 'a1b2c3d4-0000-0000-0000-000000000002',
+                            'name': '1 Portion (2 slices)',
+                            'gram': 60,
+                        },
+                    ],
                 },
                 {
                     'id': 22634,
@@ -84,6 +104,10 @@ class MockIngredientResponse:
                     'license_author_url': '',
                     'license_derivative_source_url': '',
                     'language': 3,
+                    'is_vegan': None,
+                    'is_vegetarian': None,
+                    'nutriscore': None,
+                    'weight_units': [],
                 },
             ],
         }
@@ -118,12 +142,45 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ingredient.code, '0013087245950')
         self.assertEqual(ingredient.license.pk, 5)
         self.assertEqual(ingredient.uuid, UUID('7908c204-907f-4b1e-ad4e-f482e9769ade'))
+        self.assertTrue(ingredient.is_vegan)
+        self.assertTrue(ingredient.is_vegetarian)
+        self.assertEqual(ingredient.nutriscore, 'D')
+
+        # Weight units synced
+        units = ingredient.ingredientweightunit_set.order_by('gram')
+        self.assertEqual(units.count(), 2)
+        self.assertEqual(units[0].name, '1 Portion (2 slices)')
+        self.assertEqual(units[0].gram, 60)
+        self.assertEqual(units[1].name, 'Serving')
+        self.assertEqual(units[1].gram, 85)
 
         new_ingredient = Ingredient.objects.get(uuid='582f1b7f-a8bd-4951-9edd-247bc68b28f4')
         self.assertEqual(new_ingredient.name, 'Maxi Hot Dog New York Style')
         self.assertEqual(new_ingredient.energy, 256)
         self.assertAlmostEqual(new_ingredient.protein, Decimal(11), 2)
         self.assertEqual(new_ingredient.code, '3181238941963')
+        self.assertIsNone(new_ingredient.is_vegan)
+        self.assertIsNone(new_ingredient.is_vegetarian)
+        self.assertIsNone(new_ingredient.nutriscore)
+        self.assertEqual(new_ingredient.ingredientweightunit_set.count(), 0)
+
+    @patch('requests.get', return_value=MockIngredientResponse())
+    def test_sync_removes_deleted_weight_units(self, mock_request):
+        """Weight units that no longer exist on the remote are deleted locally"""
+        # Arrange - sync once to create the weight units
+        sync_ingredients(lambda x: x)
+        ingredient = Ingredient.objects.get(pk=1)
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 2)
+
+        # Add a local-only unit that doesn't exist on the remote
+        IngredientWeightUnit.objects.create(ingredient=ingredient, name='Local only', gram=999)
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 3)
+
+        # Act - sync again
+        sync_ingredients(lambda x: x)
+
+        # Assert - local-only unit should be removed
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 2)
 
     @patch('requests.get', return_value=MockIngredientResponse())
     def test_sync_ingredients_page(self, mock_request):
@@ -158,12 +215,21 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ingredient.code, '0013087245950')
         self.assertEqual(ingredient.license.pk, 5)
         self.assertEqual(ingredient.uuid, UUID('7908c204-907f-4b1e-ad4e-f482e9769ade'))
+        self.assertTrue(ingredient.is_vegan)
+        self.assertTrue(ingredient.is_vegetarian)
+        self.assertEqual(ingredient.nutriscore, 'D')
+
+        # Weight units synced
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 2)
 
         new_ingredient = Ingredient.objects.get(uuid='582f1b7f-a8bd-4951-9edd-247bc68b28f4')
         self.assertEqual(new_ingredient.name, 'Maxi Hot Dog New York Style')
         self.assertEqual(new_ingredient.energy, 256)
         self.assertAlmostEqual(new_ingredient.protein, Decimal(11), 2)
         self.assertEqual(new_ingredient.code, '3181238941963')
+        self.assertIsNone(new_ingredient.is_vegan)
+        self.assertIsNone(new_ingredient.is_vegetarian)
+        self.assertIsNone(new_ingredient.nutriscore)
 
     @patch('requests.get', return_value=MockIngredientResponse())
     def test_ingredient_sync_languages(self, mock_request):

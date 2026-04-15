@@ -16,6 +16,10 @@
 # Standard Library
 import re
 
+# Django
+from django.utils import translation
+from django.utils.translation import gettext
+
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.dataclasses import IngredientData
@@ -55,13 +59,17 @@ def _mass_match_to_gram(match: re.Match) -> int | None:
     return int(round(gram_value))
 
 
-def extract_serving_size_data(serving_size: str) -> tuple[int | None, str | None, float | None]:
+def extract_serving_size_data(
+    serving_size: str,
+    language_code: str | None = None,
+) -> tuple[int | None, str | None, float | None]:
     if not serving_size:
         return None, None, None
 
     # Parse textual amount/unit even if no explicit mass value is present.
     amount = 1.0
-    unit = 'Serving'
+    with translation.override(language_code):
+        unit = gettext('Serving')
 
     no_parentheses = re.sub(r'\([^\)]*\)', '', serving_size)
     no_mass = MASS_PATTERN.sub('', no_parentheses)
@@ -79,7 +87,8 @@ def extract_serving_size_data(serving_size: str) -> tuple[int | None, str | None
         amount = 1.0
 
     if not unit:
-        unit = 'Serving'
+        with translation.override(language_code):
+            unit = gettext('Serving')
 
     # Prefer mass values in parenthesis, e.g. "200 ml (206 g)".
     parenthesis_matches = [
@@ -131,8 +140,9 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     brand = product_data.get('brands', '')
     serving_size = product_data.get('serving_size', '')
 
+    language_code = product_data.get('lang')
     serving_size_gram, serving_size_unit, serving_size_amount = extract_serving_size_data(
-        serving_size
+        serving_size, language_code
     )
 
     # Dietary properties from OFF ingredients analysis

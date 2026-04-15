@@ -30,9 +30,6 @@ class SyncMode(enum.Enum):
     UPDATE = enum.auto()
 
 
-MEALITEM_WEIGHT_GRAM = '1'
-MEALITEM_WEIGHT_UNIT = '2'
-
 ENERGY_FACTOR = {
     'protein': {'kg': 4, 'lb': 113},
     'carbohydrates': {'kg': 4, 'lb': 113},
