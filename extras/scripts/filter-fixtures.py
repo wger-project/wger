@@ -30,6 +30,7 @@ After dumping the database (or parts of it), just copy the file and filter it:
 import json
 import sys
 
+
 def filter_dump(data, model_list, filename):
     """
     Helper function
