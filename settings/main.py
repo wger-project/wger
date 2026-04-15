@@ -224,6 +224,12 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 )
 
 #
+# Django-allauth
+# Dj-rest-auth
+#
+WGER_SETTINGS['USE_SOCIAL_AUTH'] = env.bool('USE_SOCIAL_AUTH', False)
+
+#
 # Django Rest Framework SimpleJWT
 #
 SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int('ACCESS_TOKEN_LIFETIME', 15))

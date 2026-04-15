@@ -464,6 +464,16 @@ wheels = [
 ]
 
 [[package]]
+name = "dj-rest-auth"
+version = "7.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "djangorestframework" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/14/fd/c8a185a98f6860b802dc5e663c652efc01cd68f4e046c65f8cb9328c0077/dj_rest_auth-7.2.0.tar.gz", hash = "sha256:f77af37da5cf6ee28f03f283a378a2f5761860e72d1d6f2fa3d50e6286000482", size = 490126, upload-time = "2026-03-15T04:05:39.272Z" }
+
+[[package]]
 name = "django"
 version = "5.2.13"
 source = { registry = "https://pypi.org/simple" }
@@ -1834,6 +1844,7 @@ dependencies = [
     { name = "boto3" },
     { name = "celery", extra = ["redis"] },
     { name = "crispy-bootstrap5" },
+    { name = "dj-rest-auth" },
     { name = "django" },
     { name = "django-activity-stream" },
     { name = "django-allauth" },
@@ -1894,6 +1905,7 @@ requires-dist = [
     { name = "boto3", specifier = "~=1.42.71" },
     { name = "celery", extras = ["redis"], specifier = "~=5.6.0" },
     { name = "crispy-bootstrap5", specifier = "~=2026.3" },
+    { name = "dj-rest-auth", specifier = "~=7.2.0" },
     { name = "django", specifier = "~=5.2.8" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
     { name = "django-allauth", specifier = "~=65.15.0" },
