@@ -1,11 +1,26 @@
 {% load i18n socialaccount %}
 
-<div class="row">
+<div class="row mt-3">
     <div class="col-md-12 text-center">
         <hr>
-        <h4>{% translate "Login with Google" %}</h4>
-        <a href="{% provider_login_url 'google' %}" class="btn btn-primary">
-            <i class="fab fa-google"></i> {% translate "Login" %}
+        <h4>{% translate "Or login with" %}</h4>
+
+        {% if use_social_auth %}
+        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger me-2 mb-2">
+            <i class="fab fa-google me-1"></i> {% translate "Google" %}
         </a>
+        {% endif %}
+
+        {% if use_github_auth %}
+        <a href="{% provider_login_url 'github' %}" class="btn btn-outline-dark me-2 mb-2">
+            <i class="fab fa-github me-1"></i> {% translate "GitHub" %}
+        </a>
+        {% endif %}
+
+        {% if use_facebook_auth %}
+        <a href="{% provider_login_url 'facebook' %}" class="btn btn-outline-primary me-2 mb-2">
+            <i class="fab fa-facebook me-1"></i> {% translate "Facebook" %}
+        </a>
+        {% endif %}
     </div>
 </div>
