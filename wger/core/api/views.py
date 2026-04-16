@@ -121,7 +121,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         return UserProfile.objects.filter(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -508,60 +509,69 @@ def upload_powersync_data(request):
 
     user_id = request.user.id
     data = request.data
-
-    # get the http verb
     http_verb = request.method
 
-    logger.info(f'Received PowerSync data: {data} via {http_verb} for user {user_id}')
-    match data['table']:
-        # Body weight
-        case 'weight_weightentry':
-            if http_verb == 'PUT':
-                ps_weight.handle_create(payload=data['data'], user_id=user_id, request=request)
-            elif http_verb == 'PATCH':
-                ps_weight.handle_update(payload=data['data'], user_id=user_id, request=request)
-            elif http_verb == 'DELETE':
-                ps_weight.handle_delete(payload=data['data'], user_id=user_id)
+    try:
+        table = data['table']
+        payload = data['data']
+    except (KeyError, TypeError):
+        return JsonResponse(
+            {'error': 'Missing required fields: table, data'},
+            status=200,
+        )
 
-        # Measurements
-        case 'measurements_category':
-            if http_verb == 'PUT':
-                ps_measurements.handle_create_category(payload=data['data'], user_id=user_id)
-            elif http_verb == 'PATCH':
-                ps_measurements.handle_update_category(payload=data['data'], user_id=user_id)
-            elif http_verb == 'DELETE':
-                ps_measurements.handle_delete_category(payload=data['data'], user_id=user_id)
+    logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
 
-        case 'measurements_measurement':
-            if http_verb == 'PUT':
-                ps_measurements.handle_create_measurement(payload=data['data'], user_id=user_id)
-            elif http_verb == 'PATCH':
-                ps_measurements.handle_update_measurement(payload=data['data'], user_id=user_id)
-            elif http_verb == 'DELETE':
-                ps_measurements.handle_delete_measurement(payload=data['data'], user_id=user_id)
+    try:
+        match table:
+            # Body weight
+            case 'weight_weightentry':
+                if http_verb == 'PUT':
+                    ps_weight.handle_create(payload=payload, user_id=user_id, request=request)
+                elif http_verb == 'PATCH':
+                    ps_weight.handle_update(payload=payload, user_id=user_id, request=request)
+                elif http_verb == 'DELETE':
+                    ps_weight.handle_delete(payload=payload, user_id=user_id)
 
-        # Routines
-        case 'manager_workoutlog':
-            if http_verb == 'PUT':
-                ps_manager.handle_create_log(payload=data['data'], user_id=user_id)
-            elif http_verb == 'PATCH':
-                ps_manager.handle_update_log(payload=data['data'], user_id=user_id)
-            elif http_verb == 'DELETE':
-                ps_manager.handle_delete_log(payload=data['data'], user_id=user_id)
+            # Measurements
+            case 'measurements_category':
+                if http_verb == 'PUT':
+                    ps_measurements.handle_create_category(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
+                    ps_measurements.handle_update_category(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    ps_measurements.handle_delete_category(payload=payload, user_id=user_id)
 
-        case 'manager_workoutsession':
-            if http_verb == 'PUT':
-                ps_manager.handle_create_session(payload=data['data'], user_id=user_id)
-            elif http_verb == 'PATCH':
-                ps_manager.handle_update_session(payload=data['data'], user_id=user_id)
-            elif http_verb == 'DELETE':
-                ps_manager.handle_delete_session(payload=data['data'], user_id=user_id)
+            case 'measurements_measurement':
+                if http_verb == 'PUT':
+                    ps_measurements.handle_create_measurement(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
+                    ps_measurements.handle_update_measurement(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    ps_measurements.handle_delete_measurement(payload=payload, user_id=user_id)
 
-        case _:
-            logger.warning('Received unknown PowerSync table')
-            raise ValueError('Unknown PowerSync table')
+            # Routines
+            case 'manager_workoutlog':
+                if http_verb == 'PUT':
+                    ps_manager.handle_create_log(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
+                    ps_manager.handle_update_log(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    ps_manager.handle_delete_log(payload=payload, user_id=user_id)
 
-    return JsonResponse(
-        {'status': 'ok!'},
-        status=200,
-    )
+            case 'manager_workoutsession':
+                if http_verb == 'PUT':
+                    ps_manager.handle_create_session(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
+                    ps_manager.handle_update_session(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    ps_manager.handle_delete_session(payload=payload, user_id=user_id)
+
+            case _:
+                logger.warning(f'Received unknown PowerSync table: {table}')
+                return JsonResponse({'error': f'Unknown table: {table}'}, status=200)
+    except Exception as e:
+        logger.exception(f'Error processing PowerSync data for table {table}')
+        return JsonResponse({'error': str(e)}, status=200)
+
+    return JsonResponse({'status': 'ok!'}, status=200)
