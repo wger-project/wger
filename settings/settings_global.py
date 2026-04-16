@@ -233,7 +233,23 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         },
         'OAUTH_PKCE_ENABLED': True,
-    }
+    },
+    'github': {
+        'SCOPE': ['user:email'],
+        'APP': {
+            'client_id': '',
+            'secret': '',
+            'key': '',
+        },
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'FIELDS': ['id', 'email', 'name', 'first_name', 'last_name'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'en_US',
+        'VERSION': 'v18.0',
+    },
 }
 
 ACCOUNT_LOGOUT_ON_GET = True
@@ -512,7 +528,9 @@ WGER_SETTINGS = {
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
     # Social authentication/Oauth
-    'USE_SOCIAL_AUTH': False,
+    'USE_SOCIAL_AUTH': True, # GOOGLE
+    'USE_GITHUB_AUTH': True,
+    'USE_FACEBOOK_AUTH': False,
 }
 
 #
@@ -520,7 +538,7 @@ WGER_SETTINGS = {
 # Dj-rest-auth
 #
 if WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
-    INSTALLED_APPS += [
+    _social_apps = [
 
         'allauth.socialaccount',
         'allauth.socialaccount.providers.google',
@@ -529,6 +547,14 @@ if WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
         'dj_rest_auth.registration',
 
     ]
+
+    if WGER_SETTINGS.get('USE_GITHUB_AUTH', False):
+        _social_apps.append('allauth.socialaccount.providers.github')
+
+    if WGER_SETTINGS.get('USE_FACEBOOK_AUTH', False):
+        _social_apps.append('allauth.socialaccount.providers.facebook')
+
+    INSTALLED_APPS += _social_apps
 
 #
 # Auth Proxy Authentication

@@ -359,6 +359,24 @@ if settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
         path('auth/google/', core_api_views.GoogleLogin.as_view(), name='google_rest_login'),
     ]
 
+    if settings.WGER_SETTINGS.get('USE_GITHUB_AUTH', False):
+        urlpatterns += [
+            path(
+                'auth/github/',
+                core_api_views.GithubLogin.as_view(),
+                name='github_rest_login',
+            ),
+        ]
+
+    # Facebook REST endpoint — only added when Facebook auth is enabled
+    if settings.WGER_SETTINGS.get('USE_FACEBOOK_AUTH', False):
+        urlpatterns += [
+            path(
+                'auth/facebook/',
+                core_api_views.FacebookLogin.as_view(),
+                name='facebook_rest_login',
+            ),
+        ]
 
 #
 # URL for user uploaded files, served like this during development only

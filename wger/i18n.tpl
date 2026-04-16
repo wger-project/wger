@@ -81,3 +81,6 @@
 {% translate "Work out on January 1st" %}
 {% translate "Return to training after being inactive for 30 days" %}
 {% translate "Achieve a new Personal Record on any exercise" %}
+{% translate "Google" %}
+{% translate "Github" %}
+{% translate "Facebook" %}
