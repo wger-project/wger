@@ -276,7 +276,8 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -309,7 +310,8 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -343,7 +345,8 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
 
         return Day.objects.filter(routine__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -374,7 +377,8 @@ class SlotViewSet(WgerOwnerObjectModelViewSet):
 
         return Slot.objects.filter(day__routine__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -411,7 +415,8 @@ class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
 
         return SlotEntry.objects.filter(slot__day__routine__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -427,7 +432,8 @@ class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = BASE_CONFIG_FIELDS
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """

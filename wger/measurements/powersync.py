@@ -18,12 +18,16 @@ import logging
 from typing import Any
 
 # wger
-from wger.measurements.api.serializers import MeasurementSerializer
-from wger.measurements.api.views import CategorySerializer
+from wger.measurements.api.serializers import (
+    CategorySerializer,
+    MeasurementSerializer,
+)
+from wger.measurements.api.views import MeasurementViewSet
 from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.utils.viewsets import check_fk_ownership
 
 
 logger = logging.getLogger(__name__)
@@ -32,9 +36,9 @@ logger = logging.getLogger(__name__)
 def handle_update_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
-    entry = Category.objects.get(pk=payload['id'], user_id=user_id)
-
-    if not entry:
+    try:
+        entry = Category.objects.get(pk=payload['id'], user_id=user_id)
+    except Category.DoesNotExist:
         logger.warning(
             f'Category with UUID {payload["id"]} and user {user_id} not found for update.'
         )
@@ -50,9 +54,7 @@ def handle_update_category(payload: dict[str, Any], user_id: int) -> None:
 
 def handle_create_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a create event from PowerSync"""
-    logger.debug(
-        f'Received PowerSync payload for create: {payload}',
-    )
+    logger.debug(f'Received PowerSync payload for create: {payload}')
     serializer = CategorySerializer(data=payload)
     if serializer.is_valid():
         serializer.save(user_id=user_id)
@@ -63,8 +65,9 @@ def handle_create_category(payload: dict[str, Any], user_id: int) -> None:
 def handle_delete_category(payload: dict[str, Any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
-    entry = Category.objects.get(pk=payload['id'], user_id=user_id)
-    if not entry:
+    try:
+        entry = Category.objects.get(pk=payload['id'], user_id=user_id)
+    except Category.DoesNotExist:
         logger.warning(f'Category with UUID {payload["id"]} not found for delete.')
         return
     entry.delete()
@@ -73,12 +76,15 @@ def handle_delete_category(payload: dict[str, Any], user_id: int) -> None:
 def handle_update_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
-    entry = Measurement.objects.get(pk=payload['id'], user_id=user_id)
-
-    if not entry:
+    try:
+        entry = Measurement.objects.get(pk=payload['id'], category__user_id=user_id)
+    except Measurement.DoesNotExist:
         logger.warning(
             f'Measurement with UUID {payload["id"]} and user {user_id} not found for update.'
         )
+        return
+
+    if not check_fk_ownership(payload, MeasurementViewSet.get_owner_objects(), user_id):
         return
 
     serializer = MeasurementSerializer(entry, data=payload, partial=True)
@@ -92,9 +98,13 @@ def handle_update_measurement(payload: dict[str, Any], user_id: int) -> None:
 def handle_create_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a create event from PowerSync"""
     logger.debug(f'Received PowerSync payload for create: {payload}')
+
+    if not check_fk_ownership(payload, MeasurementViewSet.get_owner_objects(), user_id):
+        return
+
     serializer = MeasurementSerializer(data=payload)
     if serializer.is_valid():
-        serializer.save(user_id=user_id)
+        serializer.save()
     else:
         logger.warning(f'PowerSync create validation failed: {serializer.errors}')
 
@@ -102,8 +112,9 @@ def handle_create_measurement(payload: dict[str, Any], user_id: int) -> None:
 def handle_delete_measurement(payload: dict[str, Any], user_id: int) -> None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
-    entry = Measurement.objects.get(pk=payload['id'], user_id=user_id)
-    if not entry:
+    try:
+        entry = Measurement.objects.get(pk=payload['id'], category__user_id=user_id)
+    except Measurement.DoesNotExist:
         logger.warning(f'Measurement with UUID {payload["id"]} not found for delete.')
         return
     entry.delete()

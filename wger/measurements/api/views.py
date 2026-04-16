@@ -68,7 +68,8 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -86,7 +87,8 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_class = MeasurementEntryFilterSet
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
