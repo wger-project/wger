@@ -269,7 +269,8 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(order=1)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -316,7 +317,8 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(order=1)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -350,7 +352,8 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
 
         return LogItem.objects.select_related('plan').filter(plan__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """

@@ -16,6 +16,7 @@
 
 # Standard Library
 from decimal import Decimal
+from uuid import uuid4
 
 # Django
 from django.contrib.auth.models import User
@@ -24,12 +25,19 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class WeightEntry(models.Model):
     """
     Model for a weight point
     """
+
+    uuid = models.UUIDField(
+        default=uuid4,
+        editable=True,
+        null=False,
+    )
 
     date = models.DateTimeField(verbose_name='Date')
     weight = models.DecimalField(
@@ -38,6 +46,7 @@ class WeightEntry(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(Decimal(30)), MaxValueValidator(Decimal(600))],
     )
+
     user = models.ForeignKey(
         User,
         verbose_name='User',

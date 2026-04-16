@@ -352,3 +352,10 @@ if USE_S3_MEDIA_FILES or USE_S3_STATIC_FILES:
         }
         if env.bool('USE_S3_URL_FOR_STATIC', True):
             STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
+#
+# PowerSync configuration
+#
+POWERSYNC_JWKS_PUBLIC_KEY = env.str('POWERSYNC_JWKS_PUBLIC_KEY', '')
+POWERSYNC_JWKS_PRIVATE_KEY = env.str('POWERSYNC_JWKS_PRIVATE_KEY', '')
+POWERSYNC_URL = env.str('POWERSYNC_URL', 'http://localhost:8000')

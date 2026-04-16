@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+import uuid
 
 # Django
 from django.core.validators import (
@@ -26,6 +27,7 @@ from django.db import models
 
 # wger
 from wger.measurements.models import Category
+from wger.utils.uuid import uuid7
 
 
 class Measurement(models.Model):
@@ -34,9 +36,17 @@ class Measurement(models.Model):
             '-date',
         ]
 
+    id = models.UUIDField(
+        default=uuid7,
+        editable=False,
+        null=False,
+        unique=True,
+        primary_key=True,
+    )
+
     category = models.ForeignKey(
         Category,
-        verbose_name='User',
+        verbose_name='Category',
         on_delete=models.CASCADE,
     )
 

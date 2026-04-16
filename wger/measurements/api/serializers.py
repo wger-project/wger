@@ -26,9 +26,9 @@ from wger.measurements.models import (
 )
 
 
-class UnitSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     """
-    Measurement unit serializer
+    Measurement category serializer
     """
 
     class Meta:

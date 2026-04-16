@@ -14,6 +14,10 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+from uuid import uuid4
+
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -37,6 +41,7 @@ from wger.manager.validators import (
     validate_rir,
 )
 from wger.utils.cache import reset_workout_log_cache
+from wger.utils.uuid import uuid7
 
 
 class WorkoutLog(models.Model):
@@ -45,6 +50,13 @@ class WorkoutLog(models.Model):
     """
 
     objects = WorkoutLogManager()
+
+    id = models.UUIDField(
+        default=uuid7,
+        editable=False,
+        null=False,
+        primary_key=True,
+    )
 
     date = models.DateTimeField(
         verbose_name='Date',

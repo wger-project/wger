@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+from uuid import uuid4
 
 # Django
 from django.contrib.auth.models import User
@@ -25,6 +26,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.cache import reset_workout_log_cache
+from wger.utils.uuid import uuid7
 
 
 class WorkoutSession(models.Model):
@@ -52,6 +54,13 @@ class WorkoutSession(models.Model):
 
     See note in weight.models.WeightEntry about why this is not editable=False
     """
+
+    id = models.UUIDField(
+        default=uuid7,
+        editable=False,
+        null=False,
+        primary_key=True,
+    )
 
     routine = models.ForeignKey(
         'Routine',
