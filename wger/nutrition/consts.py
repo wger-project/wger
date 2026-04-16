@@ -40,3 +40,5 @@ Simple approximation of energy (kcal) provided per gram or ounce
 """
 
 KJ_PER_KCAL = 4.184
+
+OFF_FULL_DUMP_URL = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'

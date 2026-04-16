@@ -21,7 +21,10 @@ import requests
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.consts import SyncMode
+from wger.nutrition.consts import (
+    OFF_FULL_DUMP_URL,
+    SyncMode,
+)
 from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.management.products import ImportProductCommand
 
@@ -47,7 +50,6 @@ class Command(ImportProductCommand):
     help = 'Import an Open Food Facts dump'
 
     deltas_base_url = 'https://static.openfoodfacts.org/data/delta/'
-    full_off_dump_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
 
     def add_arguments(self, parser):
         super().add_arguments(parser)
@@ -122,8 +124,8 @@ class Command(ImportProductCommand):
     def import_full_dump(self, languages: dict[str, int], destination: str):
         download_folder, tmp_folder = self.get_download_folder(destination)
 
-        file_path = os.path.join(download_folder, os.path.basename(self.full_off_dump_url))
-        self.download_file(self.full_off_dump_url, file_path)
+        file_path = os.path.join(download_folder, os.path.basename(OFF_FULL_DUMP_URL))
+        self.download_file(OFF_FULL_DUMP_URL, file_path)
 
         self.stdout.write('Start processing...')
         for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
