@@ -20,7 +20,7 @@ def gen_uuids(apps: StateApps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('measurements', '0002_auto_20210722_1042'),
+        ('measurements', '0003_alter_measurement_unique_together_and_more'),
     ]
 
     operations = [

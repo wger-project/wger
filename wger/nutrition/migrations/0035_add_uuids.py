@@ -31,7 +31,7 @@ def gen_uuids(apps: StateApps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('nutrition', '0028_ingredient_dietary_properties'),
+        ('nutrition', '0034_ingredient_trigram_gin_index'),
     ]
 
     operations = [

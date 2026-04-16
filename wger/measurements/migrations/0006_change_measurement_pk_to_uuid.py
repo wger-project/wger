@@ -6,7 +6,7 @@ from wger.utils.uuid import uuid7
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('measurements', '0004_change_category_pk_type_to_uuid'),
+        ('measurements', '0005_change_category_pk_type_to_uuid'),
     ]
 
     operations = [

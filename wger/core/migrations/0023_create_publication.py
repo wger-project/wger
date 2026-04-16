@@ -31,7 +31,7 @@ def remove_publication(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor)
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('core', '0021_add_unit_type_to_repetitionunit'),
+        ('core', '0022_move_email_verified_to_emailaddress'),
     ]
 
     operations = [

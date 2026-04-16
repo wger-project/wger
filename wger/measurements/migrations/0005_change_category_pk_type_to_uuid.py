@@ -39,7 +39,7 @@ def reverse_populate_category_tmp(apps: StateApps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('measurements', '0003_add_uuids'),
+        ('measurements', '0004_add_uuids'),
     ]
 
     operations = [
