@@ -22,6 +22,8 @@ from wger.exercises.models import (
     Exercise,
     Translation,
 )
+from wger.manager.models import WorkoutLog
+from wger.manager.models.slot_entry import SlotEntry
 
 
 class DeletionLogTestCase(WgerTestCase):
@@ -39,34 +41,25 @@ class DeletionLogTestCase(WgerTestCase):
         exercise.delete()
 
         # Exercise is deleted
-        count_exercise_logs = DeletionLog.objects.filter(
+        log = DeletionLog.objects.get(
             model_type=DeletionLog.MODEL_EXERCISE,
             uuid=exercise.uuid,
-        ).count()
-        log = DeletionLog.objects.get(pk=1)
-
-        self.assertEqual(count_exercise_logs, 1)
-        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
-        self.assertEqual(log.uuid, exercise.uuid)
+        )
         self.assertEqual(log.comment, 'Exercise base of An exercise')
         self.assertEqual(log.replaced_by, None)
 
         # All translations are also deleted
-        count = DeletionLog.objects.filter(model_type=DeletionLog.MODEL_TRANSLATION).count()
-        self.assertEqual(count, 2)
+        translation_logs = DeletionLog.objects.filter(
+            model_type=DeletionLog.MODEL_TRANSLATION,
+        ).order_by('uuid')
+        self.assertEqual(translation_logs.count(), 2)
 
-        # First translation
-        log2 = DeletionLog.objects.get(pk=4)
-        self.assertEqual(log2.model_type, DeletionLog.MODEL_TRANSLATION)
-        self.assertEqual(log2.uuid, UUID('9838235c-e38f-4ca6-921e-9d237d8e0813'))
-        self.assertEqual(log2.comment, 'An exercise')
+        log2 = translation_logs.get(uuid=UUID('13b532f9-d208-462e-a000-7b9982b2b53e'))
+        self.assertEqual(log2.comment, 'Test exercise 123')
         self.assertEqual(log2.replaced_by, None)
 
-        # Second translation
-        log3 = DeletionLog.objects.get(pk=5)
-        self.assertEqual(log3.model_type, DeletionLog.MODEL_TRANSLATION)
-        self.assertEqual(log3.uuid, UUID('13b532f9-d208-462e-a000-7b9982b2b53e'))
-        self.assertEqual(log3.comment, 'Test exercise 123')
+        log3 = translation_logs.get(uuid=UUID('9838235c-e38f-4ca6-921e-9d237d8e0813'))
+        self.assertEqual(log3.comment, 'An exercise')
         self.assertEqual(log3.replaced_by, None)
 
     def test_exercise_with_replaced_by(self):
@@ -80,11 +73,58 @@ class DeletionLogTestCase(WgerTestCase):
         exercise.delete(replace_by='ae3328ba-9a35-4731-bc23-5da50720c5aa')
 
         # Exercise is deleted
-        log = DeletionLog.objects.get(pk=1)
-
-        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
-        self.assertEqual(log.uuid, exercise.uuid)
+        log = DeletionLog.objects.get(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=exercise.uuid,
+        )
         self.assertEqual(log.replaced_by, UUID('ae3328ba-9a35-4731-bc23-5da50720c5aa'))
+
+    def test_exercise_replace_by_updates_workout_logs(self):
+        """
+        Test that workout logs referencing the deleted exercise are updated
+        to point to the replacement exercise
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        # Exercise 1 has 4 workout logs, exercise 2 has 1
+        self.assertEqual(WorkoutLog.objects.filter(exercise=exercise_to_delete).count(), 4)
+        self.assertEqual(WorkoutLog.objects.filter(exercise=replacement).count(), 1)
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid))
+
+        # All workout logs should now point to the replacement
+        self.assertEqual(WorkoutLog.objects.filter(exercise=replacement).count(), 5)
+
+    def test_exercise_replace_by_updates_slot_entries(self):
+        """
+        Test that routine slot entries referencing the deleted exercise are
+        updated to point to the replacement exercise
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        # Exercise 1 has 1 slot entry, exercise 2 has 1
+        self.assertEqual(SlotEntry.objects.filter(exercise=exercise_to_delete).count(), 1)
+        self.assertEqual(SlotEntry.objects.filter(exercise=replacement).count(), 1)
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid))
+
+        # The slot entry should now point to the replacement
+        self.assertEqual(SlotEntry.objects.filter(exercise=replacement).count(), 2)
+
+    def test_exercise_delete_without_replace_by_does_not_keep_references(self):
+        """
+        Test that deleting without replace_by does not attempt to update
+        references (they will be cascade-deleted)
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        self.assertEqual(WorkoutLog.objects.filter(exercise=exercise_to_delete).count(), 4)
+
+        exercise_to_delete.delete()
+
+        # Workout logs for this exercise should be gone (cascade)
+        self.assertEqual(WorkoutLog.objects.filter(exercise_id=1).count(), 0)
 
     def test_exercise_with_nonexistent_replaced_by(self):
         """
@@ -97,9 +137,10 @@ class DeletionLogTestCase(WgerTestCase):
         exercise.delete(replace_by='12345678-1234-1234-1234-1234567890ab')
 
         # Exercise is deleted
-        log = DeletionLog.objects.get(pk=1)
-
-        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
+        log = DeletionLog.objects.get(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=exercise.uuid,
+        )
         self.assertEqual(log.replaced_by, None)
 
     def test_translation(self):

@@ -25,10 +25,12 @@ from wger.exercises.models import (
     Equipment,
     Exercise,
     ExerciseCategory,
+    ExerciseImage,
     Muscle,
     Translation,
 )
 from wger.exercises.sync import (
+    download_exercise_images,
     handle_deleted_entries,
     sync_categories,
     sync_equipment,
@@ -390,7 +392,8 @@ class MockExerciseResponse:
                             "uuid": "c788d643-150a-4ac7-97ef-84643c6419bf",
                             "name": "Zweihandiges Kettlebell",
                             "exercise": 123,
-                            "description": "Hier könnte Ihre Werbung stehen!",
+                            "description": "<p>Hier könnte Ihre Werbung stehen!</p>",
+                            "description_source": "Hier könnte Ihre Werbung stehen!",
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
@@ -421,7 +424,8 @@ class MockExerciseResponse:
                             "uuid": "ab4185dd-2e68-4579-af1f-0c03957c0a9e",
                             "name": "2 Handed Kettlebell Swing",
                             "exercise": 123,
-                            "description": "TBD",
+                            "description": "<p>TBD</p>",
+                            "description_source": "TBD",
                             "created": "2023-08-03",
                             "language": 2,
                             "aliases": [],
@@ -434,7 +438,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": 47,
+                    "variation_group": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mrs Winterbottom"
@@ -497,7 +501,8 @@ class MockExerciseResponse:
                             "uuid": "7524ca8d-032e-482d-ab18-40e8a97851f6",
                             "name": "A new, better, updated name",
                             "exercise": 2,
-                            "description": "Two Handed Russian Style Kettlebell swing",
+                            "description": "<p>Two Handed Russian Style Kettlebell swing</p>",
+                            "description_source": "Two Handed Russian Style Kettlebell swing",
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
@@ -515,9 +520,15 @@ class MockExerciseResponse:
                             "notes": [
                                 {
                                     "id": 147,
-                                    "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
+                                    "uuid": "a0271147-faca-4a08-af5e-0c02e8ae1310",
                                     "translation": 123,
-                                    "comment": "Foobar"
+                                    "comment": "Updated note"
+                                },
+                                {
+                                    "id": 12345,
+                                    "uuid": "1cc583ab-4c84-4a8a-9689-8c0ba4c44802",
+                                    "translation": 123,
+                                    "comment": "A new note"
                                 },
                             ],
                             "license": 2,
@@ -531,7 +542,8 @@ class MockExerciseResponse:
                             "uuid": "581338a1-8e52-405b-99eb-f0724c528bc8",
                             "name": "Balançoire Kettlebell à 2 mains",
                             "exercise": 2,
-                            "description": "Balançoire Kettlebell à deux mains de style russe",
+                            "description": "<p>Balançoire Kettlebell à deux mains de style russe</p>",
+                            "description_source": "Balançoire Kettlebell à deux mains de style russe",
                             "created": "2015-08-03",
                             "language": 3,
                             "aliases": [],
@@ -544,7 +556,7 @@ class MockExerciseResponse:
                             ]
                         }
                     ],
-                    "variations": 47,
+                    "variation_group": "4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7",
                     "videos": [],
                     "author_history": [
                         "Mr X"
@@ -554,6 +566,59 @@ class MockExerciseResponse:
                         "Mr Z"
                     ]
                 },
+            ]
+        }
+    # yapf: enable
+
+
+class MockImageResponse:
+    def __init__(self):
+        self.status_code = 200
+        self.content = b''
+
+    # yapf: disable
+    @staticmethod
+    def json():
+        return {
+            "count": 2,
+            "next": None,
+            "previous": None,
+            "results": [
+                # existing image, will be updated
+                {
+                    "id": 1,
+                    "uuid": "00000000-0000-0000-0000-000000000001",
+                    "exercise": 1,
+                    "exercise_uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
+                    "image": "https://wger.de/media/exercise-images/1/test.jpg",
+                    "is_main": True,
+                    "style": "2",
+                    "license": 2,
+                    "license_title": "Updated Image Title",
+                    "license_object_url": "https://example.com/updated",
+                    "license_author": "Updated Author",
+                    "license_author_url": "https://author.updated.com",
+                    "license_derivative_source_url": "https://source.updated.com",
+                    "author_history": ["Author 1"]
+                },
+
+                # new image, will be created
+                {
+                    "id": 2,
+                    "uuid": "00000002-1d00-4e9d-a1a4-5f5ebd15e819",
+                    "exercise": 2,
+                    "exercise_uuid": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
+                    "image": "https://wger.de/media/exercise-images/2/newtest.jpg",
+                    "is_main": False,
+                    "style": "4",
+                    "license": 1,
+                    "license_title": "New Image Title",
+                    "license_object_url": "https://example.com/new",
+                    "license_author": "New Author",
+                    "license_author_url": "https://author.new.com",
+                    "license_derivative_source_url": "https://source.new.com",
+                    "author_history": ["Author 2"]
+                }
             ]
         }
     # yapf: enable
@@ -578,7 +643,7 @@ class TestSyncMethods(WgerTestCase):
         language1 = Language.objects.get(pk=1)
         self.assertEqual(language1.full_name, 'Daitsch')
         self.assertEqual(language1.full_name_en, 'Kraut')
-        self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
+        self.assertEqual(Language.objects.get(short_name='eo').full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
 
     @patch('requests.get', return_value=MockLicenseResponse())
@@ -596,7 +661,7 @@ class TestSyncMethods(WgerTestCase):
             'http://creativecommons.org/licenses/aca/fl/4.0/',
         )
         self.assertEqual(
-            License.objects.get(pk=6).full_name,
+            License.objects.get(short_name='CC-BY-SA 4').full_name,
             'Creative Commons Attribution Share Alike 4',
         )
         self.assertEqual(License.objects.count(), 4)
@@ -701,7 +766,14 @@ class TestSyncMethods(WgerTestCase):
         translation_de = new_exercise.get_translation('de')
         self.assertEqual(translation_de.language_id, 1)
         self.assertEqual(translation_de.name, 'Zweihandiges Kettlebell')
-        self.assertEqual(translation_de.description, 'Hier könnte Ihre Werbung stehen!')
+        self.assertEqual(
+            translation_de.description_source,
+            'Hier könnte Ihre Werbung stehen!',
+        )
+        self.assertEqual(
+            translation_de.description,
+            '<p>Hier könnte Ihre Werbung stehen!</p>\n',
+        )
         self.assertEqual(translation_de.alias_set.first().alias, 'Kettlebell mit zwei Händen')
         self.assertEqual(
             translation_de.exercisecomment_set.first().comment,
@@ -711,7 +783,8 @@ class TestSyncMethods(WgerTestCase):
         translation_en = new_exercise.get_translation('en')
         self.assertEqual(translation_en.language_id, 2)
         self.assertEqual(translation_en.name, '2 Handed Kettlebell Swing')
-        self.assertEqual(translation_en.description, 'TBD')
+        self.assertEqual(translation_en.description_source, 'TBD')
+        self.assertEqual(translation_en.description, '<p>TBD</p>\n')
 
         # Existing exercise was updated
         exercise = Exercise.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
@@ -725,7 +798,56 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(translation_de.alias_set.all()[1].alias, 'yet another name')
 
         self.assertEqual(translation_de.exercisecomment_set.count(), 2)
-        self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
+        comments = translation_de.exercisecomment_set.all()
+        self.assertEqual(str(comments[0].uuid), 'a0271147-faca-4a08-af5e-0c02e8ae1310')
+        self.assertEqual(comments[0].comment, 'Updated note')
+        self.assertEqual(str(comments[1].uuid), '1cc583ab-4c84-4a8a-9689-8c0ba4c44802')
+        self.assertEqual(comments[1].comment, 'A new note')
 
         translation_fr = exercise.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
+
+        # Both exercises should be in the same variation group
+        self.assertIsNotNone(new_exercise.variation_group)
+        self.assertIsNotNone(exercise.variation_group)
+        self.assertEqual(new_exercise.variation_group, exercise.variation_group)
+        self.assertEqual(
+            str(new_exercise.variation_group),
+            '4e1bb2fc-3b0e-4a1a-bd3e-3728a0e6d8a7',
+        )
+
+    @patch('requests.get', return_value=MockImageResponse())
+    def test_image_sync(self, mock_request):
+        """Test that download_exercise_images updates existing images and creates new ones"""
+
+        # Arrange
+        initial_image_count = ExerciseImage.objects.count()
+
+        # Act
+        download_exercise_images()
+
+        # Assert
+        existing_image = ExerciseImage.objects.get(uuid='00000000-0000-0000-0000-000000000001')
+        mock_request.assert_called()
+        self.assertEqual(ExerciseImage.objects.count(), initial_image_count + 1)
+
+        self.assertEqual(existing_image.is_main, True)
+        self.assertEqual(existing_image.style, '2')
+        self.assertEqual(existing_image.license_id, 2)
+        self.assertEqual(existing_image.license_title, 'Updated Image Title')
+        self.assertEqual(existing_image.license_author, 'Updated Author')
+        self.assertEqual(existing_image.license_object_url, 'https://example.com/updated')
+        self.assertEqual(existing_image.license_author_url, 'https://author.updated.com')
+        self.assertEqual(
+            existing_image.license_derivative_source_url,
+            'https://source.updated.com',
+        )
+
+        # Check that a new image was created
+        new_image = ExerciseImage.objects.get(uuid='00000002-1d00-4e9d-a1a4-5f5ebd15e819')
+        self.assertEqual(new_image.exercise_id, 2)
+        self.assertEqual(new_image.is_main, True)  # the only image will be marked as "main"
+        self.assertEqual(new_image.style, '4')
+        self.assertEqual(new_image.license_id, 1)
+        self.assertEqual(new_image.license_title, 'New Image Title')
+        self.assertEqual(new_image.license_author, 'New Author')

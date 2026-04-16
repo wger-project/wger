@@ -22,10 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-from django.forms import (
-    ModelChoiceField,
-    ModelForm,
-)
+from django.forms import ModelForm
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
@@ -39,13 +36,11 @@ from django.views.generic import (
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
-    WeightUnit,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
 )
-from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
@@ -79,15 +74,13 @@ class WeightUnitIngredientCreateView(
 
     def get_form_class(self):
         """
-        The form can only show units in the user's language
+        Return the form class for the weight unit
         """
 
         class IngredientWeightUnitForm(ModelForm):
-            unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
-
             class Meta:
                 model = IngredientWeightUnit
-                fields = ('unit', 'gram', 'amount')
+                fields = ('name', 'gram')
 
         return IngredientWeightUnitForm
 
@@ -111,15 +104,13 @@ class WeightUnitIngredientUpdateView(
 
     def get_form_class(self):
         """
-        The form can only show units in the user's language
+        Return the form class for the weight unit
         """
 
         class IngredientWeightUnitForm(ModelForm):
-            unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
-
             class Meta:
                 model = IngredientWeightUnit
-                fields = ('unit', 'gram', 'amount')
+                fields = ('name', 'gram')
 
         return IngredientWeightUnitForm
 

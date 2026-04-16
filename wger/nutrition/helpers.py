@@ -24,11 +24,7 @@ from decimal import Decimal
 from typing import Union
 
 # wger
-from wger.nutrition.consts import (
-    KJ_PER_KCAL,
-    MEALITEM_WEIGHT_GRAM,
-    MEALITEM_WEIGHT_UNIT,
-)
+from wger.nutrition.consts import KJ_PER_KCAL
 from wger.utils.constants import (
     CHARACTERS_TO_REMOVE_FROM_INGREDIENT_NAME,
     HTML_ENTITY_PATTERN,
@@ -43,18 +39,6 @@ class BaseMealItem:
     This just provides some common helper functions
     """
 
-    def get_unit_type(self):
-        """
-        Returns the type of unit used:
-        - a value in grams
-        - a 'human' unit like 'a cup' or 'a slice'
-        """
-
-        if self.weight_unit:
-            return MEALITEM_WEIGHT_UNIT
-        else:
-            return MEALITEM_WEIGHT_GRAM
-
     def get_nutritional_values(self, use_metric=True):
         """
         Sums the nutritional info for the ingredient in the MealItem
@@ -64,10 +48,10 @@ class BaseMealItem:
         values = NutritionalValues()
 
         # Calculate the base weight of the item
-        if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
-            item_weight = self.amount
+        if self.weight_unit:
+            item_weight = self.amount * Decimal(self.weight_unit.gram)
         else:
-            item_weight = self.amount * self.weight_unit.amount * self.weight_unit.gram
+            item_weight = self.amount
 
         values.energy = self.ingredient.energy * item_weight / 100
         values.protein = self.ingredient.protein * item_weight / 100

@@ -22,6 +22,9 @@ from django.urls import (
     reverse_lazy,
 )
 
+# Third Party
+from allauth.account.models import EmailAddress
+
 # wger
 from wger.core.demo import create_temporary_user
 from wger.core.tests.base_testcase import (
@@ -288,7 +291,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         # Get a temporary user
         user = create_temporary_user(self.request)
         user.userprofile.is_temporary = False
-        user.userprofile.email_verified = True
+        EmailAddress.objects.create(user=user, email=user.email, verified=True)
         user.date_joined = datetime.datetime.now()
 
         # User does not pass trustworthiness check
@@ -302,7 +305,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         # Get a temporary user
         user = create_temporary_user(self.request)
         user.userprofile.is_temporary = False
-        user.userprofile.email_verified = False
+        EmailAddress.objects.create(user=user, email=user.email, verified=False)
         user.date_joined = datetime.datetime.now() - datetime.timedelta(days=30)
 
         # User does not pass trustworthiness check
@@ -310,29 +313,29 @@ class UserTrustworthinessTestCase(WgerTestCase):
 
     def test_is_trustworthy_old_email(self):
         """
-        Tests that old accounts are not considered trustworthy
+        Tests that old accounts with verified email are considered trustworthy
         """
 
         # Get a temporary user
         user = create_temporary_user(self.request)
         user.userprofile.is_temporary = False
-        user.userprofile.email_verified = True
+        EmailAddress.objects.create(user=user, email=user.email, verified=True)
         user.date_joined = datetime.datetime.now() - datetime.timedelta(days=30)
 
-        # User does not pass trustworthiness check
+        # User pass trustworthiness check
         self.assertTrue(user.userprofile.is_trustworthy)
 
     def test_is_trustworthy_admin(self):
         """
-        Tests that superusers are always trustworthy
+        Tests that superusers are always trustworthy even if email is unverified
         """
 
         # Get a temporary user
         user = create_temporary_user(self.request)
         user.is_superuser = True
         user.userprofile.is_temporary = False
-        user.userprofile.email_verified = False
+        EmailAddress.objects.create(user=user, email=user.email, verified=False)
         user.date_joined = datetime.datetime.now()
 
-        # User does not pass trustworthiness check
+        # User pass trustworthiness check
         self.assertTrue(user.userprofile.is_trustworthy)

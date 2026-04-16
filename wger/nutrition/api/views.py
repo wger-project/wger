@@ -50,7 +50,6 @@ from wger.nutrition.api.serializers import (
     NutritionalValuesSerializer,
     NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
-    WeightUnitSerializer,
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
@@ -61,7 +60,6 @@ from wger.nutrition.models import (
     Meal,
     MealItem,
     NutritionPlan,
-    WeightUnit,
 )
 from wger.utils.constants import (
     ENGLISH_SHORT_NAME,
@@ -84,7 +82,10 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.select_related(
+        'language',
+        'license',
+    ).prefetch_related('ingredientweightunit_set')
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
@@ -172,30 +173,18 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
         return Image.objects.select_related('ingredient')
 
 
-class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint for weight unit objects
-    """
-
-    queryset = WeightUnit.objects.all()
-    serializer_class = WeightUnitSerializer
-    ordering_fields = '__all__'
-    filterset_fields = ('language', 'name')
-
-
 class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for many-to-many table ingredient-weight unit objects
+    API endpoint for ingredient weight unit objects
     """
 
     queryset = IngredientWeightUnit.objects.all()
     serializer_class = IngredientWeightUnitSerializer
     ordering_fields = '__all__'
     filterset_fields = (
-        'amount',
         'gram',
         'ingredient',
-        'unit',
+        'name',
     )
 
 

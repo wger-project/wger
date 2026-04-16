@@ -74,9 +74,16 @@ class IngredientFilterSet(filters.FilterSet):
         """
 
         if is_postgres_db():
+            # Note: this uses the default value for pg_trgm.similarity_threshold (0.3) which
+            # might be too strict (doesn't find "butter" from "buttr"). If this needs to be
+            # changed later, e.g.:
+
+            # with connection.cursor() as cursor:
+            #     cursor.execute('SET LOCAL pg_trgm.similarity_threshold = 0.15')
+
             return (
-                queryset.annotate(similarity=TrigramSimilarity('name', value))
-                .filter(similarity__gt=0.15)
+                queryset.filter(name__trigram_similar=value)
+                .annotate(similarity=TrigramSimilarity('name', value))
                 .order_by('-similarity', 'name')
             )
         else:
@@ -113,6 +120,7 @@ class IngredientFilterSet(filters.FilterSet):
             'sodium': ['exact'],
             'is_vegan': ['exact'],
             'is_vegetarian': ['exact'],
+            'nutriscore': ['exact', 'in'],
             'created': ['exact', 'gt', 'lt'],
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],

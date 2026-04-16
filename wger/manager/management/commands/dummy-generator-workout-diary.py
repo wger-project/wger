@@ -13,13 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 import logging
 import random
-from datetime import time
 
 # Django
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+from django.utils.timezone import make_aware
 
 # wger
 from wger.manager.consts import RIR_OPTIONS
@@ -50,7 +51,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(f'** Generating dummy workout log entries')
+        self.stdout.write('** Generating dummy workout log entries')
 
         users = (
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
@@ -62,6 +63,9 @@ class Command(BaseCommand):
             logs = []
             for routine in Routine.objects.filter(user=user):
                 for day_data in routine.date_sequence:
+                    aware_date = make_aware(
+                        datetime.datetime.combine(day_data.date, datetime.time())
+                    )
                     if day_data.day is None:
                         continue
 
@@ -91,12 +95,12 @@ class Command(BaseCommand):
                                 )
 
                                 hour_start = random.randint(8, 20)
-                                time_start = time(
+                                time_start = datetime.time(
                                     hour_start,
                                     random.randint(0, 59),
                                     random.randint(0, 59),
                                 )
-                                time_end = time(
+                                time_end = datetime.time(
                                     hour_start + random.randint(1, 3),
                                     random.randint(0, 59),
                                     random.randint(0, 59),
@@ -133,7 +137,7 @@ class Command(BaseCommand):
                                         weight=weight,
                                         weight_target=set_data.weight,
                                         weight_unit_id=set_data.weight_unit,
-                                        date=day_data.date,
+                                        date=aware_date,
                                         rir=rir,
                                         rir_target=set_data.rir,
                                         rest=rest,

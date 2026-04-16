@@ -14,13 +14,38 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # wger
-from wger.nutrition.dataclasses import IngredientData
+from wger.nutrition.dataclasses import (
+    IngredientData,
+    WeightUnitData,
+)
 from wger.utils.constants import ODBL_LICENSE_ID
+
+
+def extract_weight_unit_info_from_wger_api(product_data: dict) -> list[WeightUnitData] | None:
+    """
+    Extract weight unit data from a wger API ingredient response.
+
+    Returns a list of WeightUnitData, or None if the response does not
+    contain weight unit data.
+    """
+    weight_units = product_data.get('weight_units')
+    if weight_units is None:
+        return None
+
+    return [
+        WeightUnitData(
+            uuid=unit['uuid'],
+            name=unit['name'],
+            gram=unit['gram'],
+        )
+        for unit in weight_units
+        if 'uuid' in unit and 'name' in unit and 'gram' in unit
+    ]
 
 
 def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     # Basics
-    name = product_data.get('name')
+    name = product_data.get('name', '')
     common_name = product_data.get('common_name', '')
     code = product_data['code']
     energy = float(product_data['energy'])
@@ -47,6 +72,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     # Dietary properties
     is_vegan = product_data.get('is_vegan', None)
     is_vegetarian = product_data.get('is_vegetarian', None)
+    nutriscore = product_data.get('nutriscore', None)
 
     # License and author info
     source_name = product_data.get('source_name', '')
@@ -55,7 +81,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     license_id = product_data.get('license', ODBL_LICENSE_ID)
     license_title = product_data.get('license_title', '')
     license_object_url = product_data.get('license_object_url', '')
-    license_authors = product_data.get('authors', '')
+    license_authors = product_data.get('license_author', '')
     license_author_url = product_data.get('license_author_url', '')
     license_derivative_source_url = product_data.get('license_derivative_source_url', '')
 
@@ -84,5 +110,6 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
         license_derivative_source_url=license_derivative_source_url,
         is_vegan=is_vegan,
         is_vegetarian=is_vegetarian,
+        nutriscore=nutriscore,
     )
     return ingredient_data

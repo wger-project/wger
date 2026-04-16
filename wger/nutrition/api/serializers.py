@@ -29,7 +29,6 @@ from wger.nutrition.models import (
     Meal,
     MealItem,
     NutritionPlan,
-    WeightUnit,
 )
 
 
@@ -42,10 +41,9 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
         model = IngredientWeightUnit
         fields = (
             'id',
-            'amount',
             'gram',
             'ingredient',
-            'unit',
+            'name',
         )
 
 
@@ -56,24 +54,10 @@ class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientWeightUnit
-        depth = 1
-        fields = (
-            'gram',
-            'amount',
-            'unit',
-        )
-
-
-class WeightUnitSerializer(serializers.ModelSerializer):
-    """
-    WeightUnit serializer
-    """
-
-    class Meta:
-        model = WeightUnit
         fields = (
             'id',
-            'language',
+            'uuid',
+            'gram',
             'name',
         )
 
@@ -113,6 +97,8 @@ class IngredientSerializer(serializers.ModelSerializer):
     Ingredient serializer
     """
 
+    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+
     class Meta:
         model = Ingredient
         fields = (
@@ -138,6 +124,8 @@ class IngredientSerializer(serializers.ModelSerializer):
             'sodium',
             'is_vegan',
             'is_vegetarian',
+            'weight_units',
+            'nutriscore',
             'license',
             'license_title',
             'license_object_url',
@@ -183,6 +171,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'sodium',
             'is_vegan',
             'is_vegetarian',
+            'nutriscore',
             'weight_units',
             'language',
             'license',

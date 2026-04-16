@@ -38,13 +38,13 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           # Think if we want to also build branches, PRs, tags, etc.
           # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
-            type=raw,value=2.5-dev
+            type=raw,value=2.6-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
@@ -53,7 +53,7 @@ jobs:
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
         with:
           install: true
 
@@ -100,7 +100,7 @@ jobs:
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: digests-${{ env.PLATFORM_PAIR }}
           path: /tmp/digests/*
@@ -125,15 +125,15 @@ jobs:
           merge-multiple: true
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           tags: |
             type=raw,value=latest
-            type=raw,value=2.5-dev
+            type=raw,value=2.6-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
 

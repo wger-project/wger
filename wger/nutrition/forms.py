@@ -49,6 +49,15 @@ from wger.utils.widgets import Html5NumberInput
 logger = logging.getLogger(__name__)
 
 
+class IngredientWeightUnitChoiceField(forms.ModelChoiceField):
+    """
+    Display ingredient units with their gram conversion.
+    """
+
+    def label_from_instance(self, obj):
+        return f'{obj.name} = {obj.gram}g'
+
+
 class UnitChooserForm(forms.Form):
     """
     A small form to select an amount and a unit for an ingredient
@@ -194,9 +203,10 @@ class DailyCaloriesForm(forms.ModelForm):
 
 
 class MealItemForm(forms.ModelForm):
-    weight_unit = forms.ModelChoiceField(
+    weight_unit = IngredientWeightUnitChoiceField(
         queryset=IngredientWeightUnit.objects.none(),
-        empty_label='g',
+        label=gettext_lazy('Unit'),
+        empty_label=gettext_lazy('grams (g)'),
         required=False,
     )
     ingredient = forms.ModelChoiceField(
@@ -226,6 +236,10 @@ class MealItemForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
+        self.fields['amount'].label = gettext_lazy('Quantity')
+        self.fields['amount'].help_text = gettext_lazy(
+            'Enter a quantity and choose grams (g) or one of the serving units.'
+        )
 
         # Get the ingredient_id
         ingredient_id = None
@@ -234,7 +248,13 @@ class MealItemForm(forms.ModelForm):
             ingredient_id = kwargs['instance'].ingredient_id
 
         if kwargs.get('data'):
-            ingredient_id = kwargs['data']['ingredient']
+            data = kwargs['data']
+            ingredient_id = data.get('ingredient') or data.get('ingredient_id')
+
+        try:
+            ingredient_id = int(ingredient_id) if ingredient_id else None
+        except (TypeError, ValueError):
+            ingredient_id = None
 
         # Filter the available ingredients
         if ingredient_id:
@@ -310,6 +330,7 @@ class IngredientForm(forms.ModelForm):
             'license_author',
             'is_vegan',
             'is_vegetarian',
+            'nutriscore',
         )
         widgets = {'category': forms.TextInput}
 
@@ -341,6 +362,7 @@ class IngredientForm(forms.ModelForm):
                 Column('is_vegetarian', css_class='col-6'),
                 css_class='form-row',
             ),
+            'nutriscore',
             Row(
                 Column('license', css_class='col-6'),
                 Column('license_author', css_class='col-6'),

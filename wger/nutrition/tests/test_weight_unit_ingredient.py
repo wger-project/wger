@@ -14,10 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.urls import (
-    reverse,
-    reverse_lazy,
-)
+from django.urls import reverse_lazy
 
 # wger
 from wger.core.tests import api_base_test
@@ -27,10 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerEditTestCase,
     WgerTestCase,
 )
-from wger.nutrition.models import (
-    IngredientWeightUnit,
-    WeightUnit,
-)
+from wger.nutrition.models import IngredientWeightUnit
 
 
 class WeightUnitIngredientRepresentationTestCase(WgerTestCase):
@@ -53,9 +47,8 @@ class AddWeightUnitIngredientTestCase(WgerAddTestCase):
     object_class = IngredientWeightUnit
     url = reverse_lazy('nutrition:unit_ingredient:add', kwargs={'ingredient_pk': 1})
     data = {
-        'unit': 5,
+        'name': 'Cup',
         'gram': 123,
-        'amount': 1,
     }
 
 
@@ -78,46 +71,9 @@ class EditWeightUnitTestCase(WgerEditTestCase):
     url = 'nutrition:unit_ingredient:edit'
     pk = 1
     data = {
-        'unit': 5,
+        'name': 'Tablespoon',
         'gram': 10,
-        'amount': 0.3,
     }
-
-
-class WeightUnitFormTestCase(WgerTestCase):
-    """
-    Tests the form for the weight units
-    """
-
-    def test_add_weight_unit(self):
-        """
-        Tests the form in the add view
-        """
-        self.user_login('admin')
-        response = self.client.get(
-            reverse('nutrition:unit_ingredient:add', kwargs={'ingredient_pk': 1})
-        )
-
-        choices = [text for value, text in response.context['form']['unit'].field.choices]
-        for unit in WeightUnit.objects.all():
-            if unit.language_id == 1:
-                self.assertNotIn(unit.name, choices)
-            else:
-                self.assertIn(unit.name, choices)
-
-    def test_edit_weight_unit(self):
-        """
-        Tests that the form in the edit view only shows weight units in the user's language
-        """
-        self.user_login('admin')
-        response = self.client.get(reverse('nutrition:unit_ingredient:edit', kwargs={'pk': 1}))
-
-        choices = [text for value, text in response.context['form']['unit'].field.choices]
-        for unit in WeightUnit.objects.all():
-            if unit.language_id == 1:
-                self.assertNotIn(unit.name, choices)
-            else:
-                self.assertIn(unit.name, choices)
 
 
 class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -129,9 +85,8 @@ class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = IngredientWeightUnit
     private_resource = False
     data = {
-        'amount': '1',
         'gram': 240,
         'id': 1,
         'ingredient': '1',
-        'unit': '1',
+        'name': 'Spoon',
     }

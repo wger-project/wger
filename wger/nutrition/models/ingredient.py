@@ -24,7 +24,6 @@ from json import JSONDecodeError
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
     MinLengthValidator,
@@ -33,7 +32,9 @@ from django.core.validators import (
 from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
+from django.utils import translation
 from django.utils.text import slugify
+from django.utils.translation import gettext
 
 # Third Party
 from openfoodfacts import API
@@ -45,10 +46,8 @@ from requests import (
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.consts import (
-    ENERGY_FACTOR,
-    KJ_PER_KCAL,
-)
+from wger.nutrition.consts import KJ_PER_KCAL
+from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.managers import ApproximateCountManager
 from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
@@ -66,6 +65,40 @@ class Ingredient(AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
+
+    class Meta:
+        ordering = [
+            'name',
+        ]
+        indexes = (
+            GinIndex(
+                fields=['name'],
+                name='idx_ingredient_name_trgm',
+                opclasses=['gin_trgm_ops'],
+            ),
+            models.Index(
+                fields=['last_update'],
+                name='idx_ingredient_last_update',
+            ),
+            models.Index(
+                fields=['last_imported'],
+                name='idx_ingredient_last_imported',
+            ),
+            models.Index(
+                fields=['is_vegan'],
+                name='idx_ingredient_vegan',
+                condition=models.Q(is_vegan=True),
+            ),
+            models.Index(
+                fields=['is_vegetarian'],
+                name='idx_ingredient_vegetarian',
+                condition=models.Q(is_vegetarian=True),
+            ),
+            models.Index(
+                fields=['nutriscore'],
+                name='idx_ingredient_nutriscore',
+            ),
+        )
 
     ENERGY_APPROXIMATION = 15
     """
@@ -272,12 +305,24 @@ class Ingredient(AbstractLicenseModel, models.Model):
     )
     """Dietary classification from Open Food Facts ingredients_analysis_tags"""
 
-    # Metaclass to set some other properties
-    class Meta:
-        ordering = [
-            'name',
-        ]
-        indexes = (GinIndex(fields=['name']),)
+    NUTRISCORE_CHOICES = [
+        ('a', 'A'),
+        ('b', 'B'),
+        ('c', 'C'),
+        ('d', 'D'),
+        ('e', 'E'),
+    ]
+
+    nutriscore = models.CharField(
+        max_length=1,
+        choices=NUTRISCORE_CHOICES,
+        verbose_name='Nutri-Score',
+        help_text='Nutri-Score grade from Open Food Facts',
+        null=True,
+        blank=True,
+        default=None,
+    )
+    """Nutri-Score from Open Food Facts"""
 
     #
     # Django methods
@@ -296,47 +341,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id})
         else:
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
-
-    def clean(self):
-        """
-        Do a very broad sanity check on the nutritional values according to
-        the following rules:
-        - 1g of protein: 4kcal
-        - 1g of carbohydrates: 4kcal
-        - 1g of fat: 9kcal
-
-        The sum is then compared to the given total energy, with ENERGY_APPROXIMATION
-        percent tolerance.
-        """
-
-        # Note: calculations in 100 grams, to save us the '/100' everywhere
-        energy_protein = 0
-        if self.protein:
-            energy_protein = self.protein * ENERGY_FACTOR['protein']['kg']
-
-        energy_carbohydrates = 0
-        if self.carbohydrates:
-            energy_carbohydrates = self.carbohydrates * ENERGY_FACTOR['carbohydrates']['kg']
-
-        energy_fat = 0
-        if self.fat:
-            # TODO: for some reason, during the tests the fat value is not
-            #       converted to decimal (django 1.9)
-            energy_fat = Decimal(self.fat * ENERGY_FACTOR['fat']['kg'])
-
-        energy_calculated = energy_protein + energy_carbohydrates + energy_fat
-
-        # Compare the values, but be generous
-        if self.energy:
-            energy_upper = self.energy * (1 + (self.ENERGY_APPROXIMATION / Decimal(100.0)))
-            energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
-
-            if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-                raise ValidationError(
-                    f'The total energy ({self.energy}kcal) is not the approximate sum of the '
-                    f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
-                    f' +/-{self.ENERGY_APPROXIMATION}%)'
-                )
 
     def save(self, *args, **kwargs):
         """
@@ -445,36 +449,160 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         fetch_ingredient_image_task.delay(self.pk)
 
+    def update_or_create_serving_unit_from_off(self, ingredient_data: IngredientData):
+        """
+        Fetch serving size from OFF and update or create a record of it.
+
+        Returns (boolean, boolean). First boolean is whether serving unit was created,
+        second boolean whether it was updated.
+        """
+        if not ingredient_data.serving_size_unit:
+            return False, False
+
+        gram = ingredient_data.serving_size_gram
+        if not gram:
+            gram = self._derive_serving_size_gram(
+                ingredient_data.serving_size_amount,
+                ingredient_data.serving_size_unit,
+            )
+
+        if not gram:
+            return False, False
+
+        # Local import to avoid model import cycles.
+        # wger
+        from wger.nutrition.models import IngredientWeightUnit
+
+        amount = ingredient_data.serving_size_amount or 1
+        unit = ingredient_data.serving_size_unit
+
+        # Build a descriptive name, e.g. "1 Portion (2 biscuits)" for amount > 1
+        if amount > 1:
+            with translation.override(self.language.short_name):
+                portion = gettext('Portion')
+            name = f'1 {portion} ({amount:g} {unit})'
+        else:
+            name = unit
+
+        existing_weight_unit = IngredientWeightUnit.objects.filter(
+            ingredient=self,
+            name__iexact=name,
+        ).first()
+
+        if existing_weight_unit:
+            existing_weight_unit.gram = gram
+            existing_weight_unit.save(update_fields=['gram'])
+            return False, True  # (created, updated)
+        else:
+            IngredientWeightUnit.objects.create(
+                ingredient=self,
+                name=name,
+                gram=gram,
+            )
+            return True, False  # (created, updated)
+
+    @staticmethod
+    def _derive_serving_size_gram(amount, unit):
+        """
+        Derive gram equivalents for volume-based servings using 1 g/ml fallback.
+        """
+        if not amount or not unit:
+            return None
+
+        normalized_unit = unit.strip().lower()
+        conversion = {
+            'ml': 1,
+            'milliliter': 1,
+            'millilitre': 1,
+            'cl': 10,
+            'centiliter': 10,
+            'centilitre': 10,
+            'dl': 100,
+            'deciliter': 100,
+            'decilitre': 100,
+            'l': 1000,
+            'liter': 1000,
+            'litre': 1000,
+        }
+
+        if normalized_unit not in conversion:
+            return None
+
+        try:
+            return int(round(float(amount) * conversion[normalized_unit]))
+        except (TypeError, ValueError):
+            return None
+
+    @staticmethod
+    def _fetch_off_product(code: str, context: str = ''):
+        """
+        Fetch product data from OFF and handle transient API errors.
+        """
+        try:
+            api = API(user_agent=wger_user_agent(), timeout=3)
+            return api.product.get(code)
+        except JSONDecodeError as e:
+            logger.info(f'Got JSONDecodeError from OFF{context}: {e}')
+        except (ReadTimeout, ConnectTimeout):
+            logger.info(f'Timeout from OFF{context}')
+        except HTTPError as e:
+            logger.info(f'Got HTTPError from OFF{context}: {e}')
+
+        return None
+
+    @staticmethod
+    def _extract_off_ingredient_data(result: dict, language_id: int):
+        """
+        Extract normalized ingredient data from an OFF payload.
+        """
+        # wger
+        from wger.nutrition.extract_info.off import extract_info_from_off
+
+        try:
+            return extract_info_from_off(result, language_id)
+        except (KeyError, ValueError) as e:
+            logger.debug(f'Error extracting data from OFF: {e}')
+            return None
+
+    def sync_serving_unit_from_off_if_missing(self):
+        """
+        Fetch serving-size data from OFF for existing ingredients missing local units.
+        """
+        if self.source_name != Source.OPEN_FOOD_FACTS.value or not self.code:
+            return (False, False)
+
+        if self.ingredientweightunit_set.exists():
+            return (False, False)
+
+        result = self._fetch_off_product(self.code, ' while syncing serving size')
+
+        if not result:
+            return (False, False)
+
+        ingredient_data = self._extract_off_ingredient_data(result, self.language_id)
+        if not ingredient_data:
+            return (False, False)
+
+        return self.update_or_create_serving_unit_from_off(ingredient_data)
+
     @classmethod
     def fetch_ingredient_from_off(cls, code: str):
         """
         Searches OFF by barcode and creates a local ingredient from the result
         """
-        # wger
-        from wger.nutrition.extract_info.off import extract_info_from_off
-
         logger.info(f'Searching for ingredient {code} in OFF')
-        try:
-            api = API(user_agent=wger_user_agent(), timeout=3)
-            result = api.product.get(code)
-        except JSONDecodeError as e:
-            logger.info(f'Got JSONDecodeError from OFF: {e}')
-            return None
-        except (ReadTimeout, ConnectTimeout):
-            logger.info('Timeout from OFF')
-            return None
-        except HTTPError as e:
-            logger.info(f'Got HTTPError from OFF: {e}')
-            return None
+        result = cls._fetch_off_product(code)
 
         if not result:
             logger.info('Product not found')
             return None
 
-        try:
-            ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
-        except (KeyError, ValueError) as e:
-            logger.debug(f'Error extracting data from OFF: {e}')
+        language = load_language(result.get('lang'))
+        if not language:
+            return None
+
+        ingredient_data = cls._extract_off_ingredient_data(result, language.pk)
+        if not ingredient_data:
             return None
 
         if not ingredient_data.name:
@@ -482,5 +610,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         ingredient = cls(**ingredient_data.dict())
         ingredient.save()
+        ingredient.update_or_create_serving_unit_from_off(ingredient_data)
         logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
         return ingredient

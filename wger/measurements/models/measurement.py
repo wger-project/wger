@@ -32,7 +32,6 @@ from wger.utils.uuid import uuid7
 
 class Measurement(models.Model):
     class Meta:
-        unique_together = ('date', 'category')
         ordering = [
             '-date',
         ]
@@ -51,7 +50,7 @@ class Measurement(models.Model):
         on_delete=models.CASCADE,
     )
 
-    date = models.DateField(
+    date = models.DateTimeField(
         verbose_name='Date',
         default=datetime.datetime.now,
     )

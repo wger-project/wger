@@ -38,14 +38,6 @@
         <meta property="og:image" content="{{ image_absolute_path }}">
     {% endblock %}
 
-    {% block twittercard %}
-        {% if twitter %}
-            <!-- twitter cards -->
-            <meta content="summary" name="twitter:card">
-            <meta content="@{{ twitter }}" name="twitter:site">
-        {% endif %}
-    {% endblock %}
-
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-compiled.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">

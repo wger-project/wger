@@ -14,6 +14,10 @@
 
 # ruff: noqa: F405
 
+# Standard Library
+import secrets
+import warnings
+
 # Third Party
 import environ
 
@@ -31,6 +35,14 @@ env = environ.Env(
     # set casting, default value
     DJANGO_DEBUG=(bool, False)
 )
+
+# A list of keys used in the docker repo as defaults. To prevent instances using
+# these defaults in production, servers with these keys will warn and generate
+# random ones
+_DEFAULT_KEYS = {
+    'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)',
+    'wger-docker-secret-jwtkey-1234567890!@#$%^&*(-_=+)',
+}
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = env('DJANGO_DEBUG')
@@ -63,9 +75,17 @@ else:
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = env.str('TIME_ZONE', 'Europe/Berlin')
 
-# Make this unique, and don't share it with anybody.
+# Django's secret key
 # Generate e.g. with: python -c "import secrets; print(secrets.token_urlsafe(50))" or https://djecrety.ir/
-SECRET_KEY = env.str('SECRET_KEY', 'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)')
+SECRET_KEY = env.str('SECRET_KEY', '')
+if not SECRET_KEY or SECRET_KEY in _DEFAULT_KEYS:
+    SECRET_KEY = secrets.token_urlsafe(50)
+    warnings.warn(
+        'SECRET_KEY is not set or uses the default value so '
+        'a random key was generated, sessions will not persist across restarts. '
+        'Set SECRET_KEY in your environment for production use.',
+        stacklevel=1,
+    )
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
@@ -126,7 +146,10 @@ WGER_SETTINGS['SYNC_EXERCISES_CELERY'] = env.bool('SYNC_EXERCISES_CELERY', False
 WGER_SETTINGS['SYNC_EXERCISE_IMAGES_CELERY'] = env.bool('SYNC_EXERCISE_IMAGES_CELERY', False)
 WGER_SETTINGS['SYNC_EXERCISE_VIDEOS_CELERY'] = env.bool('SYNC_EXERCISE_VIDEOS_CELERY', False)
 WGER_SETTINGS['SYNC_INGREDIENTS_CELERY'] = env.bool('SYNC_INGREDIENTS_CELERY', False)
+if env.str('SYNC_INGREDIENTS_DUMP_URL', ''):
+    WGER_SETTINGS['SYNC_INGREDIENTS_DUMP_URL'] = env.str('SYNC_INGREDIENTS_DUMP_URL')
 WGER_SETTINGS['SYNC_OFF_DAILY_DELTA_CELERY'] = env.bool('SYNC_OFF_DAILY_DELTA_CELERY', False)
+WGER_SETTINGS['EXPORT_INGREDIENTS_BULK_CELERY'] = env.bool('EXPORT_INGREDIENTS_BULK_CELERY', False)
 WGER_SETTINGS['USE_RECAPTCHA'] = env.bool('USE_RECAPTCHA', False)
 WGER_SETTINGS['USE_CELERY'] = env.bool('USE_CELERY', False)
 WGER_SETTINGS['CACHE_API_EXERCISES_CELERY'] = env.bool('CACHE_API_EXERCISES_CELERY', False)
@@ -205,7 +228,16 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 #
 SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int('ACCESS_TOKEN_LIFETIME', 15))
 SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=env.int('REFRESH_TOKEN_LIFETIME', 24))
-SIMPLE_JWT['SIGNING_KEY'] = env.str('SIGNING_KEY', SECRET_KEY)
+_SIGNING_KEY = env.str('SIGNING_KEY', '')
+if not _SIGNING_KEY or _SIGNING_KEY in _DEFAULT_KEYS:
+    _SIGNING_KEY = secrets.token_urlsafe(50)
+    warnings.warn(
+        'SIGNING_KEY is not set or uses the default value so '
+        'a random key was generated, sessions will not persist across restarts. '
+        'Set SIGNING_KEY in your environment for production use.',
+        stacklevel=1,
+    )
+SIMPLE_JWT['SIGNING_KEY'] = _SIGNING_KEY
 
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/
@@ -265,7 +297,8 @@ LOGGING = {
 STORAGES = {
     'default': {
         'BACKEND': env.str(
-            'DJANGO_STORAGES_DEFAULT_BACKEND', 'django.core.files.storage.FileSystemStorage'
+            'DJANGO_STORAGES_DEFAULT_BACKEND',
+            'django.core.files.storage.FileSystemStorage',
         ),
     },
     # django.contrib.staticfiles.storage.StaticFilesStorage
@@ -276,6 +309,49 @@ STORAGES = {
         ),
     },
 }
+
+
+#
+# S3 object storage config
+# See https://wger.readthedocs.io/en/latest/production/docker.html#s3-object-storage
+#
+USE_S3_MEDIA_FILES = env.bool('USE_S3_MEDIA_FILES', False)
+USE_S3_STATIC_FILES = env.bool('USE_S3_STATIC_FILES', False)
+if USE_S3_MEDIA_FILES or USE_S3_STATIC_FILES:
+    AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = env.str('AWS_S3_REGION_NAME')
+    AWS_S3_DOMAIN = env.str('AWS_S3_DOMAIN')
+    AWS_S3_ENDPOINT_URL = env.str(
+        'AWS_S3_ENDPOINT_URL',
+        f'https://{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}',
+    )
+    AWS_S3_CUSTOM_DOMAIN = env.str(
+        'AWS_S3_CUSTOM_DOMAIN',
+        f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.{AWS_S3_DOMAIN}',
+    )
+    AWS_QUERYSTRING_AUTH = False
+
+    if USE_S3_MEDIA_FILES:
+        STORAGES['default'] = {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+            'OPTIONS': {
+                'location': env.str('S3_MEDIA_FILES_LOCATION', 'media'),
+            },
+        }
+        if env.bool('USE_S3_URL_FOR_MEDIA', True):
+            MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
+    if USE_S3_STATIC_FILES:
+        STORAGES['staticfiles'] = {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+            'OPTIONS': {
+                'location': env.str('S3_STATIC_FILES_LOCATION', 'static'),
+            },
+        }
+        if env.bool('USE_S3_URL_FOR_STATIC', True):
+            STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 #
 # PowerSync configuration

@@ -11,9 +11,13 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 # Standard Library
 from io import StringIO
-from unittest.mock import patch
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
 
 # Django
 from django.core.management import call_command
@@ -37,13 +41,13 @@ class TestSyncManagementCommands(SimpleTestCase):
     @patch('wger.exercises.sync.sync_licenses')
     def test_sync_exercises(
         self,
-        mock_sync_licenses,
-        mock_sync_categories,
-        mock_sync_equipment,
-        mock_sync_exercises,
-        mock_sync_languages,
-        mock_sync_muscles,
-        mock_delete_entries,
+        mock_sync_licenses: MagicMock,
+        mock_sync_categories: MagicMock,
+        mock_sync_equipment: MagicMock,
+        mock_sync_exercises: MagicMock,
+        mock_sync_languages: MagicMock,
+        mock_sync_muscles: MagicMock,
+        mock_delete_entries: MagicMock,
     ):
         call_command('sync-exercises')
 
@@ -55,7 +59,7 @@ class TestSyncManagementCommands(SimpleTestCase):
         mock_sync_muscles.assert_called()
         mock_delete_entries.assert_called()
 
-    @patch('wger.core.api.min_server_version.check_min_server_version')
+    @patch('wger.core.management.wger_command.check_min_server_version')
     @patch('wger.exercises.sync.download_exercise_images')
     def test_download_exercise_images(self, mock_download_exercise_images, mock_check_min_version):
         call_command('download-exercise-images')
@@ -63,12 +67,12 @@ class TestSyncManagementCommands(SimpleTestCase):
         mock_check_min_version.assert_called()
         mock_download_exercise_images.assert_called()
 
-    @patch('wger.core.api.min_server_version.check_min_server_version')
+    @patch('wger.core.management.wger_command.check_min_server_version')
     @patch('wger.exercises.sync.download_exercise_videos')
     def test_download_exercise_videos(self, mock_download_exercise_videos, mock_check_min_version):
         call_command('download-exercise-videos')
 
-        # mock_check_min_version.assert_called()
+        mock_check_min_version.assert_called()
         mock_download_exercise_videos.assert_called()
 
 
@@ -115,3 +119,38 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         call_command('exercises-health-check', '--delete-no-english', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
+
+    def test_find_orphan_variation_single(self):
+        """Variation group with 1 exercise is reported"""
+        # Standard Library
+        import uuid
+
+        # Set one exercise to a unique variation group alone
+        exercise = Exercise.objects.get(pk=5)
+        group_uuid = uuid.uuid4()
+        exercise.variation_group = group_uuid
+        exercise.save()
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertIn(f'Variation group {group_uuid} has only 1 exercise!', self.out.getvalue())
+
+    def test_fix_orphan_variations(self):
+        """--delete-orphan-variations cleans up single-exercise groups"""
+        # Standard Library
+        import uuid
+
+        exercise = Exercise.objects.get(pk=5)
+        group_uuid = uuid.uuid4()
+        exercise.variation_group = group_uuid
+        exercise.save()
+
+        call_command('exercises-health-check', '--delete-orphan-variations', stdout=self.out)
+        self.assertIn('-> cleaned up', self.out.getvalue())
+        exercise.refresh_from_db()
+        self.assertIsNone(exercise.variation_group)
+
+    def test_healthy_variations_not_affected(self):
+        """Variation groups with 2+ exercises are not reported"""
+
+        call_command('exercises-health-check', stdout=self.out)
+        self.assertNotIn('Variation', self.out.getvalue())

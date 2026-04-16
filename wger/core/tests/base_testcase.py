@@ -124,7 +124,6 @@ class BaseTestCase:
         'test-muscles',
         'test-exercises',
         'test-exercise-images',
-        'test-weight-units',
         'test-ingredients',
         'test-nutrition-data',
         'test-nutrition-diary',

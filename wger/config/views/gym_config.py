@@ -24,19 +24,23 @@ from django.views.generic import UpdateView
 
 # wger
 from wger.config.models import GymConfig
-from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerPermissionMixin,
+)
 
 
 logger = logging.getLogger(__name__)
 
 
-class GymConfigUpdateView(WgerFormMixin, UpdateView):
+class GymConfigUpdateView(WgerPermissionMixin, WgerFormMixin, UpdateView):
     """
     Generic view to edit the gym config table
     """
 
     model = GymConfig
     fields = ('default_gym',)
+    login_required = True
     permission_required = 'config.change_gymconfig'
     success_url = reverse_lazy('gym:gym:list')
     title = gettext_lazy('Edit')

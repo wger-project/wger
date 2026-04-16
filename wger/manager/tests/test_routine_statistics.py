@@ -300,6 +300,49 @@ class RoutineStatisticsTestCase(WgerTestCase):
             ),
         )
 
+    def test_intensity_calculations(self):
+        """Test that intensity (Brzycki) is correctly averaged across all grouping levels"""
+        stats = self.routine.calculate_log_statistics()
+
+        # Pre-calculated Brzycki intensities:
+        # Log 1: 10kg x 5 reps → intensity ≈ 0.8888
+        # Log 2: 10kg x 1 rep  → intensity ≈ 1.0
+        # Log 3: 10kg x 1 rep  → intensity ≈ 1.0
+        # (Log 4 is in lb and filtered out)
+
+        # Mesocycle: average of 3 logs
+        self.assertAlmostEqual(float(stats.intensity.mesocycle.total), 0.9629, places=3)
+
+        # Daily (each day has 1 log, so average = the single value)
+        self.assertAlmostEqual(
+            float(stats.intensity.daily[datetime.date(2024, 2, 1)].total), 0.8888, places=3
+        )
+        self.assertAlmostEqual(
+            float(stats.intensity.daily[datetime.date(2024, 2, 2)].total), 1.0, places=3
+        )
+        self.assertAlmostEqual(
+            float(stats.intensity.daily[datetime.date(2024, 2, 10)].total), 1.0, places=3
+        )
+
+        # Weekly: week 5 has 2 logs (avg of 0.8888 and 1.0), week 6 has 1 log
+        self.assertAlmostEqual(float(stats.intensity.weekly[5].total), 0.9444, places=3)
+        self.assertAlmostEqual(float(stats.intensity.weekly[6].total), 1.0, places=3)
+
+        # Iteration
+        self.assertAlmostEqual(float(stats.intensity.iteration[1].total), 0.8888, places=3)
+        self.assertAlmostEqual(float(stats.intensity.iteration[2].total), 1.0, places=3)
+        self.assertAlmostEqual(float(stats.intensity.iteration[3].total), 1.0, places=3)
+
+        # Muscle-level intensity averages
+        # Muscle 1: 3 logs (i1 + i2 + i3), muscle 2: 2 logs (i1 + i2, only exercise 1)
+        self.assertAlmostEqual(float(stats.intensity.mesocycle.muscle[1]), 0.9629, places=3)
+        self.assertAlmostEqual(float(stats.intensity.mesocycle.muscle[2]), 0.9444, places=3)
+
+        # Exercise-level intensity averages
+        # Exercise 1: 2 logs (i1 + i2), exercise 3: 1 log (i3)
+        self.assertAlmostEqual(float(stats.intensity.mesocycle.exercises[1]), 0.9444, places=3)
+        self.assertAlmostEqual(float(stats.intensity.mesocycle.exercises[3]), 1.0, places=3)
+
     def test_handle_null_weight(self):
         WorkoutLog(
             user_id=1,

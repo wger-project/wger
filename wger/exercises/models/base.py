@@ -55,7 +55,6 @@ from wger.utils.models import (
 from .category import ExerciseCategory
 from .equipment import Equipment
 from .muscle import Muscle
-from .variation import Variation
 
 
 class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -106,14 +105,13 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Equipment needed by this exercise"""
 
-    variations = models.ForeignKey(
-        Variation,
-        verbose_name='Variations',
-        on_delete=models.SET_NULL,
+    variation_group = models.UUIDField(
+        verbose_name='Variation group',
         null=True,
         blank=True,
+        db_index=True,
     )
-    """Variations of this exercise"""
+    """Exercises with the same variation_group UUID belong together"""
 
     created = models.DateTimeField(
         'Creation date',
@@ -213,9 +211,9 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Returns the variations of this exercise base, excluding itself
         """
-        if not self.variations:
+        if not self.variation_group:
             return []
-        return self.variations.exercise_set.filter(~Q(id=self.id))
+        return Exercise.objects.filter(variation_group=self.variation_group).exclude(id=self.id)
 
     def get_translation(self, language: Optional[str] = None):
         """
@@ -251,14 +249,18 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     def delete(self, using=None, keep_parents=False, replace_by: str = None):
         """
-        Save entry to log
+        Save entry to deletion log and optionally replace references in
+        workout logs and routines before deleting.
         """
         # wger
         from wger.exercises.models import DeletionLog
+        from wger.manager.models import WorkoutLog
+        from wger.manager.models.slot_entry import SlotEntry
 
+        replacement = None
         if replace_by:
             try:
-                Exercise.objects.get(uuid=replace_by)
+                replacement = Exercise.objects.get(uuid=replace_by)
             except Exercise.DoesNotExist:
                 replace_by = None
 
@@ -270,6 +272,12 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         )
         log.save()
 
-        reset_exercise_api_cache(self.uuid)
+        # Replace references in workout logs and routines before deleting,
+        # so that user data is not lost on this instance
+        if replacement:
+            SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
+            WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
+
+        reset_exercise_api_cache(str(self.uuid))
 
         return super().delete(using, keep_parents)

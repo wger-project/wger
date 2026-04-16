@@ -20,6 +20,7 @@ from random import randint
 from django.conf import settings
 from django.core.cache import cache
 from django.core.management import call_command
+from django.core.management.base import CommandError
 
 # Third Party
 import requests
@@ -28,11 +29,15 @@ from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
+from wger.core.api.min_server_version import check_min_server_version
 from wger.nutrition.api.endpoints import INGREDIENTS_ENDPOINT
 from wger.nutrition.sync import (
+    download_ingredient_dump,
     download_ingredient_images,
+    export_ingredient_dump,
     fetch_ingredient_image,
     sync_ingredients,
+    sync_ingredients_from_dump,
     sync_ingredients_page,
 )
 from wger.utils.cache import CacheKeyMapper
@@ -140,6 +145,45 @@ def sync_all_ingredients_chunked_task(
     return None
 
 
+@app.task(
+    autoretry_for=(requests.exceptions.RequestException,),
+    retry_backoff=True,
+    retry_jitter=True,
+    retry_kwargs={'max_retries': 3},
+)
+def sync_ingredients_bulk_or_api_task():
+    """
+    Sync ingredients from a remote wger instance.
+
+    Tries to download a bulk JSONL dump first. If the dump is not available
+    (e.g. the remote server hasn't generated one), falls back to the paginated
+    API sync.
+    """
+    try:
+        check_min_server_version(settings.WGER_SETTINGS['WGER_INSTANCE'])
+    except CommandError as e:
+        logger.error(f'Ingredient sync aborted, server incompatible: {e}')
+        return
+
+    try:
+        file_path = download_ingredient_dump(logger.info)
+        try:
+            sync_ingredients_from_dump(logger.info, file_path)
+        finally:
+            file_path.unlink(missing_ok=True)
+    except FileNotFoundError:
+        logger.info('Bulk dump not available, falling back to API sync.')
+        sync_all_ingredients_chunked_task.delay()
+
+
+@app.task
+def export_ingredients_dump_task():
+    """
+    Export all ingredients as a gzipped JSONL file for bulk synchronization.
+    """
+    export_ingredient_dump(logger.info)
+
+
 @app.task
 def sync_off_daily_delta():
     """
@@ -150,6 +194,8 @@ def sync_off_daily_delta():
 
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
+
+    # Sync ingredients via celery once a month (prefers bulk dump, falls back to API)
     if settings.WGER_SETTINGS['SYNC_INGREDIENTS_CELERY']:
         sender.add_periodic_task(
             crontab(
@@ -157,10 +203,23 @@ def setup_periodic_tasks(sender, **kwargs):
                 minute=str(randint(0, 59)),
                 day_of_month=str(randint(1, 28)),
             ),
-            sync_all_ingredients_chunked_task.s(),
+            sync_ingredients_bulk_or_api_task.s(),
             name='Sync ingredients',
         )
 
+    # Generate the ingredient export on the 1st and 15th of every month
+    if settings.WGER_SETTINGS['EXPORT_INGREDIENTS_BULK_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=str(randint(0, 23)),
+                minute=str(randint(0, 59)),
+                day_of_month='1,15',
+            ),
+            export_ingredients_dump_task.s(),
+            name='Export ingredients bulk dump',
+        )
+
+    # Sync the OFF daily delta updates once a day
     if settings.WGER_SETTINGS['SYNC_OFF_DAILY_DELTA_CELERY']:
         sender.add_periodic_task(
             crontab(

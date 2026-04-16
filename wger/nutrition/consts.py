@@ -14,8 +14,21 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-MEALITEM_WEIGHT_GRAM = '1'
-MEALITEM_WEIGHT_UNIT = '2'
+# Standard Library
+import enum
+
+
+class SyncMode(enum.Enum):
+    """
+    Mode for ingredient sync/import scripts.
+
+    INSERT: bulk-insert new ingredients (very fast, use for empty databases)
+    UPDATE: update existing ingredients or create new ones (slower, 2 queries per product)
+    """
+
+    INSERT = enum.auto()
+    UPDATE = enum.auto()
+
 
 ENERGY_FACTOR = {
     'protein': {'kg': 4, 'lb': 113},
@@ -27,3 +40,5 @@ Simple approximation of energy (kcal) provided per gram or ounce
 """
 
 KJ_PER_KCAL = 4.184
+
+OFF_FULL_DUMP_URL = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'

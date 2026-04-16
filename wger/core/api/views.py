@@ -32,7 +32,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from django_email_verification import send_email
+from allauth.account.models import EmailAddress
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -149,9 +149,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             if data.get('email') and request.user.email != data['email']:
                 request.user.email = data['email']
                 request.user.save()
-                request.user.userprofile.email_verified = False
                 request.user.userprofile.save()
-                logger.debug('resetting verified flag')
+                # adds new email if it is not already registered
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    request.user.email,
+                    confirm=True,
+                )
+                logger.debug('adding new email with verified flag , send verification email')
 
             return Response(serializer.data)
 
@@ -167,14 +173,17 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     @action(detail=False, url_name='verify-email', url_path='verify-email')
     def verify_email(self, request):
         """
-        Return the username
+        Verify the user's email address
         """
+        email_obj = request.user.userprofile.get_allauth_email
 
-        profile = request.user.userprofile
-        if profile.email_verified:
+        if email_obj is None:
+            return Response({'result': 'not sent', 'message': 'The user has no associated email'})
+
+        if email_obj.verified:
             return Response({'status': 'verified', 'message': 'This email is already verified'})
 
-        send_email(request.user)
+        email_obj.send_confirmation(request)
         return Response(
             {'status': 'sent', 'message': f'A verification email was sent to {request.user.email}'}
         )
@@ -371,8 +380,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         user.userprofile.save()
         token = create_token(user)
 
-        # Email the user with the activation link
-        send_email(user)
+        EmailAddress.objects.add_email(request, user, user.email, confirm=True)
 
         return Response(
             {'message': 'api user successfully registered', 'token': token.key},

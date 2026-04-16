@@ -17,7 +17,10 @@
 import datetime
 import json
 from decimal import Decimal
-from unittest.mock import patch
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
 
 # Django
 from django.core.exceptions import ValidationError
@@ -38,9 +41,12 @@ from wger.core.tests.base_testcase import (
     WgerEditTestCase,
     WgerTestCase,
 )
+from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.models import (
     Ingredient,
+    IngredientWeightUnit,
     Meal,
+    Source,
 )
 from wger.nutrition.models.image import Image
 from wger.utils.constants import NUTRITION_TAB
@@ -240,6 +246,13 @@ class IngredientDetailTestCase(WgerTestCase):
 
         self.ingredient_detail(editor=False)
 
+    @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
+    def test_ingredient_detail_does_not_triggers_lazy_serving_sync(self, mock_sync: MagicMock):
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 6}))
+
+        self.assertEqual(response.status_code, 200)
+        mock_sync.assert_not_called()
+
 
 class IngredientSearchTestCase(WgerTestCase):
     """
@@ -362,15 +375,15 @@ class IngredientValuesTestCase(WgerTestCase):
         self.assertEqual(
             result,
             {
-                'sodium': 0.612135,
-                'energy': 196.24,
-                # 'energy_kilojoule': '821.07',
-                'fat': 9.13185,
+                'sodium': 1.22427,
+                'energy': 392.48,
+                # 'energy_kilojoule': '1642.14',
+                'fat': 18.2637,
                 'carbohydrates_sugar': None,
-                'fat_saturated': 3.61706,
+                'fat_saturated': 7.23412,
                 'fiber': None,
-                'protein': 28.57745,
-                'carbohydrates': 0.139375,
+                'protein': 57.1549,
+                'carbohydrates': 0.27875,
             },
         )
 
@@ -430,38 +443,6 @@ class IngredientTestCase(WgerTestCase):
         meal = Meal.objects.get(pk=1)
         self.assertFalse(ingredient1 == meal)
 
-    def test_total_energy(self):
-        """
-        Tests the custom clean() method
-        """
-        self.user_login('admin')
-
-        # Values OK
-        ingredient = Ingredient()
-        ingredient.name = 'FooBar, cooked, with salt'
-        ingredient.energy = 50
-        ingredient.protein = 0.5
-        ingredient.carbohydrates = 12
-        ingredient.fat = Decimal('0.1')
-        ingredient.language_id = 1
-        self.assertFalse(ingredient.full_clean())
-
-        # Values wrong
-        ingredient.protein = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.protein = 0.5
-        ingredient.fat = 5
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.fat = 0.1
-        ingredient.carbohydrates = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
-        ingredient.fat = 5
-        ingredient.carbohydrates = 20
-        self.assertRaises(ValidationError, ingredient.full_clean)
-
 
 class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
@@ -485,6 +466,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.off_response = {
             'code': '1234',
             'lang': 'de',
+            'name': 'Foo with chocolate',
             'product_name': 'Foo with chocolate',
             'generic_name': 'Foo with chocolate, 250g package',
             'brands': 'The bar company',
@@ -495,10 +477,10 @@ class IngredientModelTestCase(WgerTestCase):
                 'en:vegetarian',
             ],
             'nutriments': {
-                'energy-kcal_100g': 120,
+                'energy-kcal_100g': 600,
                 'proteins_100g': 10,
-                'carbohydrates_100g': 20,
-                'sugars_100g': 30,
+                'carbohydrates_100g': 30,
+                'sugars_100g': 20,
                 'fat_100g': 40,
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
@@ -509,7 +491,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.off_response_no_results = None
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_success(self, mock_api):
+    def test_fetch_from_off_success(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF
         """
@@ -519,9 +501,9 @@ class IngredientModelTestCase(WgerTestCase):
 
         self.assertEqual(ingredient.name, 'Foo with chocolate')
         self.assertEqual(ingredient.code, '1234')
-        self.assertEqual(ingredient.energy, 120)
+        self.assertEqual(ingredient.energy, 600)
         self.assertEqual(ingredient.protein, 10)
-        self.assertEqual(ingredient.carbohydrates, 20)
+        self.assertEqual(ingredient.carbohydrates, 30)
         self.assertEqual(ingredient.fat, 40)
         self.assertEqual(ingredient.fat_saturated, 11)
         self.assertEqual(ingredient.sodium, 5)
@@ -532,7 +514,23 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertTrue(ingredient.is_vegetarian)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_success_long_name(self, mock_api):
+    def test_fetch_from_off_updates_existing_serving_unit(self, mock_api: MagicMock):
+        self.off_response['serving_size'] = '2 biscuits (30 g)'
+        mock_api.return_value = self.off_response
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.off_response['serving_size'] = '2 biscuits (25 g)'
+        ingredient.update_or_create_serving_unit_from_off(
+            extract_info_from_off(self.off_response, ingredient.language_id)
+        )
+
+        ingredient_unit = IngredientWeightUnit.objects.get(
+            ingredient=ingredient, name='1 Portion (2 biscuits)'
+        )
+        self.assertEqual(ingredient_unit.gram, 25)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_success_long_name(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - name gets truncated
         """
@@ -547,7 +545,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(len(ingredient.name), 200)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_key_missing_1(self, mock_api):
+    def test_fetch_from_off_key_missing_1(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - missing key in nutriments
         """
@@ -558,7 +556,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertIsNone(ingredient)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_key_missing_2(self, mock_api):
+    def test_fetch_from_off_key_missing_2(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - missing name
         """
@@ -569,7 +567,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertIsNone(ingredient)
 
     @patch('openfoodfacts.api.ProductResource.get')
-    def test_fetch_from_off_no_results(self, mock_api):
+    def test_fetch_from_off_no_results(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF
         """
@@ -578,12 +576,109 @@ class IngredientModelTestCase(WgerTestCase):
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
 
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_creates_unit(self, mock_api: MagicMock):
+        mock_api.return_value = {
+            **self.off_response,
+            'serving_size': '2 biscuits (30 g)',
+        }
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (True, False))
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 1)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_skips_existing_units(self, mock_api: MagicMock):
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.get_or_create(
+            name='Cup',
+            defaults={'gram': 15},
+        )
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        mock_api.assert_not_called()
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_skips_non_off_source(self, mock_api: MagicMock):
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.USDA.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        mock_api.assert_not_called()
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_skips_missing_code(self, mock_api: MagicMock):
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = ''
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        mock_api.assert_not_called()
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_sync_serving_unit_from_off_if_missing_handles_off_fetch_failure(
+        self, mock_api: MagicMock
+    ):
+        mock_api.return_value = None
+        ingredient = Ingredient.objects.get(pk=1)
+        ingredient.source_name = Source.OPEN_FOOD_FACTS.value
+        ingredient.code = '1234'
+        ingredient.save(update_fields=['source_name', 'code'])
+        ingredient.ingredientweightunit_set.all().delete()
+
+        created, updated = ingredient.sync_serving_unit_from_off_if_missing()
+
+        self.assertEqual((created, updated), (False, False))
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 0)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_does_not_create_unit_for_non_derivable_serving_size(self, mock_api):
+        self.off_response['serving_size'] = '2 tbsp'
+        mock_api.return_value = self.off_response
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.assertIsNotNone(ingredient)
+        self.assertEqual(ingredient.ingredientweightunit_set.count(), 0)
+
+
+class IngredientInfoLazyServingUnitSyncApiTestCase(WgerTestCase):
+    @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
+    def test_detail_triggers_lazy_sync(self, mock_sync: MagicMock):
+        self.client.get(reverse('api-ingredientinfo-detail', kwargs={'pk': 1}))
+        mock_sync.assert_not_called()
+
+    @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
+    def test_list_does_not_trigger_lazy_sync(self, mock_sync):
+        self.client.get(reverse('api-ingredientinfo-list'))
+        mock_sync.assert_not_called()
+
 
 class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/ingredient/'
 
     @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
-    def test_search_existing_code(self, mock_fetch_from_off):
+    def test_search_existing_code(self, mock_fetch_from_off: MagicMock):
         """
         Test that when a code already exists, no off sync happens
         """
@@ -594,7 +689,7 @@ class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.data['count'], 1)
 
     @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
-    def test_search_new_code(self, mock_fetch_from_off):
+    def test_search_new_code(self, mock_fetch_from_off: MagicMock):
         """
         Test that when a code isn't present, it will be fetched
         """

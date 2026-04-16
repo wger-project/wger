@@ -59,7 +59,13 @@ class Alias(models.Model):
     """Edit history"""
 
     class Meta:
-        indexes = (GinIndex(fields=['alias']),)
+        indexes = (
+            GinIndex(
+                fields=['alias'],
+                name='idx_alias_alias_trgm',
+                opclasses=['gin_trgm_ops'],
+            ),
+        )
 
     def __str__(self):
         """

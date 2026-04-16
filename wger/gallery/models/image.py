@@ -15,7 +15,6 @@
 # Standard Library
 
 # Standard Library
-import datetime
 import pathlib
 import uuid
 
@@ -43,7 +42,6 @@ class Image(models.Model):
 
     date = models.DateField(
         verbose_name='Date',
-        default=datetime.datetime.now,
     )
 
     user = models.ForeignKey(
@@ -93,20 +91,16 @@ class Image(models.Model):
 @receiver(models.signals.post_delete, sender=Image)
 def auto_delete_file_on_delete(sender, instance: Image, **kwargs):
     """
-    Deletes file from filesystem
-    when corresponding `MediaFile` object is deleted.
+    Deletes file when corresponding `MediaFile` object is deleted.
     """
     if instance.image:
-        path = pathlib.Path(instance.image.path)
-        if path.exists():
-            path.unlink()
+        instance.image.delete(save=False)
 
 
 @receiver(models.signals.pre_save, sender=Image)
 def auto_delete_file_on_change(sender, instance: Image, **kwargs):
     """
-    Deletes old file from filesystem
-    when corresponding `MediaFile` object is updated
+    Deletes old file when corresponding `MediaFile` object is updated
     with new file.
     """
     if not instance.pk:
@@ -118,7 +112,6 @@ def auto_delete_file_on_change(sender, instance: Image, **kwargs):
         return False
 
     new_file = instance.image
-    if not old_file == new_file:
-        path = pathlib.Path(old_file.path)
-        if path.is_file():
-            path.unlink()
+    if not old_file == new_file and old_file:
+        old_file.delete(save=False)
+    return None

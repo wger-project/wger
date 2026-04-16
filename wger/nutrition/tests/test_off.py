@@ -42,17 +42,19 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
                 'en:vegan',
                 'en:vegetarian',
             ],
+            'nutrition_grades': 'c',
             'nutriments': {
-                'energy-kcal_100g': 120,
+                'energy-kcal_100g': 600,
                 'proteins_100g': 10,
-                'carbohydrates_100g': 20,
-                'sugars_100g': 30,
+                'carbohydrates_100g': 30,
+                'sugars_100g': 20,
                 'fat_100g': 40,
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
                 'fiber_100g': None,
                 'other_stuff': 'is ignored',
             },
+            'serving_size': '',
         }
 
     def test_regular_response(self):
@@ -64,10 +66,10 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             name='Foo with chocolate',
             remote_id='1234',
             language_id=1,
-            energy=120,
+            energy=600,
             protein=10,
-            carbohydrates=20,
-            carbohydrates_sugar=30,
+            carbohydrates=30,
+            carbohydrates_sugar=20,
             fat=40,
             fat_saturated=11,
             fiber=None,
@@ -83,6 +85,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             license_object_url='https://world.openfoodfacts.org/product/1234/',
             is_vegan=True,
             is_vegetarian=True,
+            nutriscore='c',
         )
 
         self.assertEqual(result, data)
@@ -93,12 +96,12 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         we convert it to kcal per 100 g
         """
         del self.off_data1['nutriments']['energy-kcal_100g']
-        self.off_data1['nutriments']['energy-kj_100g'] = 120
+        self.off_data1['nutriments']['energy-kj_100g'] = 2510.4
 
         result = extract_info_from_off(self.off_data1, 1)
 
         # 120 / KJ_PER_KCAL
-        self.assertAlmostEqual(result.energy, 28.6806, 3)
+        self.assertAlmostEqual(result.energy, 600, 3)
 
     def test_no_energy(self):
         """
@@ -175,6 +178,29 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         self.assertIsNone(result.is_vegan)
         self.assertIsNone(result.is_vegetarian)
 
+    def test_nutriscore_extracted(self):
+        """
+        Test that nutriscore is correctly extracted
+        """
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertEqual(result.nutriscore, 'c')
+
+    def test_nutriscore_missing(self):
+        """
+        Test that missing nutrition_grades returns None
+        """
+        del self.off_data1['nutrition_grades']
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertIsNone(result.nutriscore)
+
+    def test_nutriscore_invalid(self):
+        """
+        Test that invalid nutrition_grades value returns None
+        """
+        self.off_data1['nutrition_grades'] = 'z'
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertIsNone(result.nutriscore)
+
     def test_ingredient_clean_name(self):
         data = IngredientData(
             name='Stonebaked Pizza &quot;the amer\x96ican \x99pepperoni&quot;',
@@ -200,3 +226,39 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         )
         data.clean_name()
         self.assertEqual(data.name, 'Stonebaked Pizza "the american pepperoni"')
+
+    def test_serving_size_parsed(self):
+        self.off_data1['serving_size'] = '2 biscuits (30 g)'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.serving_size_gram, 30)
+        self.assertEqual(result.serving_size_unit, 'biscuits')
+        self.assertEqual(result.serving_size_amount, 2)
+
+    def test_serving_size_only_grams(self):
+        self.off_data1['serving_size'] = '30 g'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.serving_size_gram, 30)
+        self.assertEqual(result.serving_size_unit, 'Serving')
+        self.assertEqual(result.serving_size_amount, 1)
+
+    def test_serving_size_volume_with_gram_equivalent(self):
+        self.off_data1['serving_size'] = '200 ml (206 g)'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.serving_size_gram, 206)
+        self.assertEqual(result.serving_size_unit, 'ml')
+        self.assertEqual(result.serving_size_amount, 200)
+
+    def test_serving_size_without_mass_is_parsed(self):
+        self.off_data1['serving_size'] = '200 ml'
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertIsNone(result.serving_size_gram)
+        self.assertEqual(result.serving_size_unit, 'ml')
+        self.assertEqual(result.serving_size_amount, 200)

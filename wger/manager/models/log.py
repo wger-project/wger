@@ -22,6 +22,7 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 # wger
 from wger.core.models import (
@@ -59,7 +60,7 @@ class WorkoutLog(models.Model):
 
     date = models.DateTimeField(
         verbose_name='Date',
-        default=datetime.datetime.now,
+        default=timezone.now,
     )
 
     user = models.ForeignKey(

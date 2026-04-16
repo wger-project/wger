@@ -274,21 +274,6 @@
           "ingredientweightunit"
         ],
         [
-          "add_weightunit",
-          "nutrition",
-          "weightunit"
-        ],
-        [
-          "change_weightunit",
-          "nutrition",
-          "weightunit"
-        ],
-        [
-          "delete_weightunit",
-          "nutrition",
-          "weightunit"
-        ],
-        [
           "add_trophy",
           "trophies",
           "trophy"
