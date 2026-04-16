@@ -113,7 +113,13 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         ordering = [
             'name',
         ]
-        indexes = (GinIndex(fields=['name'], name='exercises_e_name_ac11f4_gin'),)
+        indexes = (
+            GinIndex(
+                fields=['name'],
+                name='idx_translation_name_trgm',
+                opclasses=['gin_trgm_ops'],
+            ),
+        )
         constraints = [
             models.UniqueConstraint(
                 fields=['exercise', 'language'],

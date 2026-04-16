@@ -73,7 +73,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         indexes = (
             GinIndex(
                 fields=['name'],
-                name='nutrition_i_search__f274b7_gin',
+                name='idx_ingredient_name_trgm',
+                opclasses=['gin_trgm_ops'],
             ),
             models.Index(
                 fields=['last_update'],

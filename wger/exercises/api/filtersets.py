@@ -15,7 +15,6 @@
 
 
 # Django
-from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import (
     Exists,
     OuterRef,
@@ -53,12 +52,13 @@ class ExerciseFilterSet(filters.FilterSet):
             languages = [load_language(code) for code in set(languages_param.split(','))]
 
         if is_postgres_db():
+            # Note: this uses the default value for pg_trgm.similarity_threshold (0.3)
             translation_subquery = Translation.objects.filter(exercise=OuterRef('pk'))
             if languages:
                 translation_subquery = translation_subquery.filter(language__in=languages)
-            translation_subquery = translation_subquery.annotate(
-                similarity=TrigramSimilarity('name', value)
-            ).filter(Q(similarity__gt=0.15) | Q(alias__alias__icontains=value))
+            translation_subquery = translation_subquery.filter(
+                Q(name__trigram_similar=value) | Q(alias__alias__icontains=value)
+            )
 
             qs = queryset.filter(Exists(translation_subquery))
         else:
