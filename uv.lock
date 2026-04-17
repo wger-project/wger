@@ -491,15 +491,15 @@ wheels = [
 
 [[package]]
 name = "django-allauth"
-version = "65.15.1"
+version = "65.16.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/01/91/826ec2c0e81b36ed392995b23604cfb3bb993b6ee66017898c25d2fc33f0/django_allauth-65.15.1.tar.gz", hash = "sha256:94c5b9df0c3458019613983ba9e938518acf5c2e4cc6e0f262fc3684ffe45a95", size = 2216647, upload-time = "2026-04-02T09:18:57.62Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3d/df/357187dfff18c7783e4911827a6c69437e290d7259a32a99c23fcd85997f/django_allauth-65.16.1.tar.gz", hash = "sha256:4425ac3088541c4c54983e16e08f6e3eb9f438dc1b1009534fa51c8bb739ed31", size = 2232835, upload-time = "2026-04-17T18:53:59.475Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ef/20/a6cfe9d5b03bbc76af92060c86682c49df1b8a7a924179da3d20de71dd3a/django_allauth-65.15.1-py3-none-any.whl", hash = "sha256:c32a1031f5601cb66b0aba276fb482d5d1460045a8094795a4db2af0231ee432", size = 2023723, upload-time = "2026-04-02T09:18:33.177Z" },
+    { url = "https://files.pythonhosted.org/packages/ad/58/d95b6c3088d83697bfd93782ee57bc6a6462e41eb19121a947b8a015396a/django_allauth-65.16.1-py3-none-any.whl", hash = "sha256:e49df24056bf37c44e56aaad1e51f78994b7d175bc3476d65e8f8f58390a8ce8", size = 2051868, upload-time = "2026-04-17T18:54:12.032Z" },
 ]
 
 [[package]]
@@ -1896,7 +1896,7 @@ requires-dist = [
     { name = "crispy-bootstrap5", specifier = "~=2026.3" },
     { name = "django", specifier = "~=5.2.8" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
-    { name = "django-allauth", specifier = "~=65.15.0" },
+    { name = "django-allauth", specifier = "~=65.16.1" },
     { name = "django-axes", extras = ["ipware"], specifier = "~=8.3.1" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },
