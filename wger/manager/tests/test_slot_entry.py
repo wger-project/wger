@@ -35,6 +35,8 @@ from wger.manager.models import (
     WorkoutLog,
 )
 from wger.manager.models.abstract_config import (
+    MAX_COMPOUND_RIR,
+    MAX_COMPOUND_VALUE,
     OperationChoices,
     StepChoices,
 )
@@ -810,3 +812,48 @@ class SlotEntryDuplicateConfigTestCase(SimpleTestCase):
         self.assertEqual(result[5].iteration, 6)
         self.assertEqual(result[5].value, 3)
         self.assertTrue(result[5].repeat)
+
+
+class CalculateConfigValueTestCase(SimpleTestCase):
+    def test_compound_weight_is_capped(self):
+        """Percent progressions can't push the output past MAX_COMPOUND_VALUE"""
+
+        configs = [
+            WeightConfig(iteration=1, value=100, operation=OperationChoices.REPLACE),
+            # +50% per iteration, repeated enough times to blow past 9999.99
+            *[
+                WeightConfig(
+                    iteration=i,
+                    value=50,
+                    operation=OperationChoices.PLUS,
+                    step=StepChoices.PERCENT,
+                )
+                for i in range(2, 20)
+            ],
+        ]
+
+        result = SlotEntry.calculate_config_value(configs)
+
+        self.assertEqual(result, MAX_COMPOUND_VALUE)
+
+    def test_rir_is_capped_at_rir_max(self):
+        """RiR uses the tighter cap (max_digits=2, decimal_places=1)"""
+
+        configs = [
+            RiRConfig(iteration=1, value=2, operation=OperationChoices.REPLACE),
+            RiRConfig(iteration=2, value=50, operation=OperationChoices.PLUS),
+        ]
+
+        result = SlotEntry.calculate_config_value(configs, max_value=MAX_COMPOUND_RIR)
+
+        self.assertEqual(result, MAX_COMPOUND_RIR)
+
+    def test_value_below_cap_is_unchanged(self):
+        configs = [
+            WeightConfig(iteration=1, value=80, operation=OperationChoices.REPLACE),
+            WeightConfig(iteration=2, value=5, operation=OperationChoices.PLUS),
+        ]
+
+        result = SlotEntry.calculate_config_value(configs)
+
+        self.assertEqual(result, Decimal(85))
