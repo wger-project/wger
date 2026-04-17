@@ -47,6 +47,8 @@ from wger.manager.dataclasses import (
 )
 from wger.manager.models import WorkoutLog
 from wger.manager.models.abstract_config import (
+    MAX_COMPOUND_RIR,
+    MAX_COMPOUND_VALUE,
     AbstractChangeConfig,
     OperationChoices,
     StepChoices,
@@ -285,7 +287,17 @@ class SlotEntry(models.Model):
         return [c for c in configs if c.iteration <= iteration]
 
     @staticmethod
-    def calculate_config_value(configs: List[AbstractChangeConfig]) -> Decimal | None:
+    def calculate_config_value(
+        configs: List[AbstractChangeConfig],
+        max_value: Decimal = MAX_COMPOUND_VALUE,
+    ) -> Decimal | None:
+        """
+        Calculates the result of a list of configs.
+
+        ``max_value`` clamps the running result so e.g. repeated percent progressions
+        can't overflow the display field's ``max_digits``. Callers for RiR-like
+        fields should pass ``MAX_COMPOUND_RIR``.
+        """
         if not configs:
             return None
 
@@ -293,14 +305,17 @@ class SlotEntry(models.Model):
         for config in configs:
             if config.replace:
                 out = config.value
-                continue
-
-            step = config.value if config.step == StepChoices.ABSOLUTE else out * config.value / 100
-
-            if config.operation == OperationChoices.PLUS:
-                out += step
             else:
-                out -= step
+                step = config.value if config.step == StepChoices.ABSOLUTE else out * config.value / 100
+
+                if config.operation == OperationChoices.PLUS:
+                    out += step
+                else:
+                    out -= step
+
+            # Safety net
+            if out > max_value:
+                out = max_value
 
         return out
 
@@ -560,7 +575,8 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.RIR, iteration),
-            )
+            ),
+            max_value=MAX_COMPOUND_RIR,
         )
 
     def calculate_maxrir(self, iteration: int) -> Decimal | None:
@@ -568,7 +584,8 @@ class SlotEntry(models.Model):
             self.duplicate_configs(
                 iteration,
                 self.get_configuration_entries(ConfigType.MAXRIR, iteration),
-            )
+            ),
+            max_value=MAX_COMPOUND_RIR,
         )
 
     def calculate_rest(self, iteration: int) -> Decimal | None:

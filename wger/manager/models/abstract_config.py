@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from decimal import Decimal
+
 # Django
 from django.core.validators import (
     MaxValueValidator,
@@ -23,6 +26,17 @@ from django.db import models
 
 # wger
 from wger.manager.dataclasses import ConfigRequirements
+
+
+# Upper bounds for progression output. Whilr individual progression rules
+# are already capped, percent operations can potetially grow beyond that
+# limit. These caps MUST mirror the ``max_digits`` / ``decimal_places`` of the
+# display serializer fields (see ``SetConfigDataSerializer``) and this model
+MAX_COMPOUND_VALUE = Decimal('9999.99')
+"""Cap for weight / repetitions / rest: max_digits=6, decimal_places=2."""
+
+MAX_COMPOUND_RIR = Decimal('9.9')
+"""Cap for RiR / RPE: max_digits=2, decimal_places=1."""
 
 
 class OperationChoices(models.TextChoices):
