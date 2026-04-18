@@ -530,6 +530,26 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient_unit.gram, 25)
 
     @patch('openfoodfacts.api.ProductResource.get')
+    def test_reimport_same_gram_different_name_does_not_duplicate(self, mock_api: MagicMock):
+        """
+        When OFF changes the serving_size text but the gram value stays,
+        the existing unit is reused (matched by gram) instead of creating a duplicate.
+        """
+        self.off_response['serving_size'] = '2 biscuits (30 g)'
+        mock_api.return_value = self.off_response
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.off_response['serving_size'] = '3 biscuits (30 g)'
+        ingredient.update_or_create_serving_unit_from_off(
+            extract_info_from_off(self.off_response, ingredient.language_id)
+        )
+
+        units = IngredientWeightUnit.objects.filter(ingredient=ingredient)
+        self.assertEqual(units.count(), 1)
+        self.assertEqual(units.first().name, '1 Portion (3 biscuits)')
+        self.assertEqual(units.first().gram, 30)
+
+    @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api: MagicMock):
         """
         Tests creating an ingredient from OFF - name gets truncated

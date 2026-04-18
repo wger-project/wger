@@ -484,14 +484,19 @@ class Ingredient(AbstractLicenseModel, models.Model):
         else:
             name = unit
 
-        existing_weight_unit = IngredientWeightUnit.objects.filter(
-            ingredient=self,
-            name__iexact=name,
-        ).first()
+        # Try to find the unit locally. This can happen either because the name matches or
+        # the exact gram amount. This would cover scenarios where the name was changed on
+        # OFF's side or our serving size parser, e.g.: "2 biscuits" -> "1 Portion (2 biscuits)"
+        existing_weight_unit = (
+            IngredientWeightUnit.objects.filter(ingredient=self)
+            .filter(models.Q(name__iexact=name) | models.Q(gram=gram))
+            .first()
+        )
 
         if existing_weight_unit:
+            existing_weight_unit.name = name
             existing_weight_unit.gram = gram
-            existing_weight_unit.save(update_fields=['gram'])
+            existing_weight_unit.save(update_fields=['name', 'gram'])
             return False, True  # (created, updated)
         else:
             IngredientWeightUnit.objects.create(
