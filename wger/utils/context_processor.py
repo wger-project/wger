@@ -35,8 +35,7 @@ def processor(request):
     context = {
         'mastodon': settings.WGER_SETTINGS.get('MASTODON', ''),
         'allow_registration': settings.WGER_SETTINGS.get('ALLOW_REGISTRATION', False),
-        # 'use_social_auth': settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH', False),
-        'use_social_auth': True,
+        'use_social_auth': settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH', False),
         'use_github_auth':   settings.WGER_SETTINGS.get('USE_GITHUB_AUTH', False),
         'use_facebook_auth': settings.WGER_SETTINGS.get('USE_FACEBOOK_AUTH', False),
 
