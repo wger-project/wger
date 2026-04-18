@@ -319,10 +319,16 @@ class TrophyServiceTestCase(WgerTestCase):
         )
 
         ut1 = TrophyService.award_trophy(
-            self.user, pr_trophy, progress=100.0, context_data={'log_id': 1}
+            self.user,
+            pr_trophy,
+            progress=100.0,
+            context_data={'log_id': '0194c3f0-0000-7000-8000-000000000001'},
         )
         ut2 = TrophyService.award_trophy(
-            self.user, pr_trophy, progress=100.0, context_data={'log_id': 2}
+            self.user,
+            pr_trophy,
+            progress=100.0,
+            context_data={'log_id': '0194c3f0-0000-7000-8000-000000000002'},
         )
 
         self.assertEqual(UserTrophy.objects.filter(user=self.user, trophy=pr_trophy).count(), 2)

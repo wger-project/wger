@@ -99,7 +99,7 @@ def workout_log_saved(sender, instance: WorkoutLog, created: bool, **kwargs):
             checker = CheckerRegistry.create_checker(instance.user, trophy)
             checker.params = {'log': instance}
             existing = UserTrophy.objects.filter(
-                user=instance.user, trophy=trophy, context_data__log_id=instance.id
+                user=instance.user, trophy=trophy, context_data__log_id=str(instance.id)
             ).exists()
             if not existing and checker and checker.check():
                 context = checker.get_context_data()
