@@ -21,6 +21,8 @@ from django.test import (
 )
 from django.urls import reverse
 
+# Third party
+from allauth.socialaccount.models import SocialApp
 
 User = get_user_model()
 
@@ -48,6 +50,11 @@ class AuthProxyMiddlewareTests(TestCase):
         )
         self.protected_url = reverse('core:dashboard')
         self.login_url = reverse('core:user:login')
+
+        # oauth
+        SocialApp.objects.create(
+            provider='google', name='Google', client_id='dummy', secret='dummy'
+        )
 
     # Helper to make requests with specific IP and header
     def make_request(
