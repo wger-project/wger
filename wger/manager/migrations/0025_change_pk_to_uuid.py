@@ -3,7 +3,6 @@
 from django.db import migrations, models
 from django.db.migrations.state import StateApps
 
-from wger.utils.uuid import uuid7
 from django.db.models import Subquery, OuterRef
 
 
@@ -49,94 +48,10 @@ class Migration(migrations.Migration):
             field=models.UUIDField(null=True, editable=False),
         ),
         # Populate tmp fields
+        #
+        # The schema swap that consumes these temporary fields lives in
+        # 0026_change_pk_to_uuid_swap. Splitting the data and schema parts
+        # so that each runs in its own transaction, otherwise errors might
+        # occur.
         migrations.RunPython(populate_tmp_fields, reverse_populate_tmp_fields),
-        # --- Remove FKs ---
-        migrations.RemoveField(
-            model_name='workoutlog',
-            name='session',
-        ),
-        migrations.RemoveField(
-            model_name='workoutlog',
-            name='next_log',
-        ),
-        # --- Change PKs ---
-        # WorkoutSession
-        migrations.RemoveField(
-            model_name='workoutsession',
-            name='id',
-        ),
-        migrations.RenameField(
-            model_name='workoutsession',
-            old_name='uuid',
-            new_name='id',
-        ),
-        migrations.AlterField(
-            model_name='workoutsession',
-            name='id',
-            field=models.UUIDField(
-                default=uuid7, editable=False, primary_key=True, serialize=False
-            ),
-        ),
-        # WorkoutLog
-        migrations.RemoveField(
-            model_name='workoutlog',
-            name='id',
-        ),
-        migrations.RenameField(
-            model_name='workoutlog',
-            old_name='uuid',
-            new_name='id',
-        ),
-        migrations.AlterField(
-            model_name='workoutlog',
-            name='id',
-            field=models.UUIDField(
-                default=uuid7, editable=False, primary_key=True, serialize=False
-            ),
-        ),
-        # --- Restore FKs ---
-        # WorkoutLog.session
-        migrations.RenameField(
-            model_name='workoutlog',
-            old_name='session_tmp',
-            new_name='session',
-        ),
-        migrations.AlterField(
-            model_name='workoutlog',
-            name='session',
-            field=models.UUIDField(db_column='session_id', null=True, editable=False),
-        ),
-        migrations.AlterField(
-            model_name='workoutlog',
-            name='session',
-            field=models.ForeignKey(
-                to='manager.WorkoutSession',
-                verbose_name='Session',
-                on_delete=models.CASCADE,
-                null=True,
-                related_name='logs',
-            ),
-        ),
-        # WorkoutLog.next_log
-        migrations.RenameField(
-            model_name='workoutlog',
-            old_name='next_log_tmp',
-            new_name='next_log',
-        ),
-        migrations.AlterField(
-            model_name='workoutlog',
-            name='next_log',
-            field=models.UUIDField(db_column='next_log_id', null=True, editable=False),
-        ),
-        migrations.AlterField(
-            model_name='workoutlog',
-            name='next_log',
-            field=models.ForeignKey(
-                to='manager.WorkoutLog',
-                editable=True,
-                on_delete=models.CASCADE,
-                null=True,
-                default=None,
-            ),
-        ),
     ]

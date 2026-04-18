@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         ('core', '0023_create_publication'),
-        ('manager', '0025_change_pk_to_uuid'),
+        ('manager', '0026_change_pk_to_uuid_swap'),
     ]
 
     operations = [
