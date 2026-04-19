@@ -96,3 +96,57 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 7)
+
+    def test_filter_nutriscore_exact(self):
+        """
+        Exact match on nutriscore returns only ingredients with that grade
+        """
+        response = self.client.get(self.url + '?nutriscore=a')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 3)
+
+    def test_filter_nutriscore_in(self):
+        """
+        `in` lookup accepts a comma-separated list of grades
+        """
+        response = self.client.get(self.url + '?nutriscore__in=a,b')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 7)
+
+    def test_filter_nutriscore_lt(self):
+        """
+        `lt` lookup returns ingredients with a better grade (e.g. better than C → A, B)
+        """
+        response = self.client.get(self.url + '?nutriscore__lt=c')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 7)
+
+    def test_filter_nutriscore_lte(self):
+        """
+        `lte` lookup is inclusive (e.g. C or better → A, B, C)
+        """
+        response = self.client.get(self.url + '?nutriscore__lte=c')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 10)
+
+    def test_filter_nutriscore_gt(self):
+        """
+        `gt` lookup returns ingredients with a worse grade (e.g. worse than C → D, E)
+        """
+        response = self.client.get(self.url + '?nutriscore__gt=c')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 3)
+
+    def test_filter_nutriscore_gte(self):
+        """
+        `gte` lookup is inclusive (e.g. C or worse → C, D, E)
+        """
+        response = self.client.get(self.url + '?nutriscore__gte=c')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 6)
