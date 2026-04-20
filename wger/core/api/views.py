@@ -52,7 +52,6 @@ from rest_framework.permissions import (
 )
 from rest_framework.response import Response
 
-
 # wger
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
