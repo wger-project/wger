@@ -16,10 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import json
 import logging
-import time
-from base64 import urlsafe_b64decode
 
 # Django
 from django.conf import settings
@@ -40,9 +37,6 @@ from drf_spectacular.utils import (
     extend_schema,
     inline_serializer,
 )
-from jose.constants import ALGORITHMS
-from jose.exceptions import JWKError
-from jose.jwt import encode
 from rest_framework import (
     status,
     viewsets,
@@ -50,6 +44,7 @@ from rest_framework import (
 from rest_framework.decorators import (
     action,
     api_view,
+    permission_classes,
 )
 from rest_framework.fields import (
     BooleanField,
@@ -60,12 +55,12 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import AccessToken
 
 # wger
 import wger.manager.powersync as ps_manager
 import wger.measurements.powersync as ps_measurements
 import wger.weight.powersync as ps_weight
+from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
     LanguageSerializer,
@@ -452,54 +447,20 @@ def check_language(request):
     return Response({'result': True})
 
 
-def create_jwt_token(user_id):
-    power_sync_private_key_bytes = urlsafe_b64decode(settings.POWERSYNC_JWKS_PRIVATE_KEY)
-    power_sync_private_key_json = json.loads(power_sync_private_key_bytes.decode('utf-8'))
-
-    try:
-        jwt_header = {
-            'alg': power_sync_private_key_json['alg'],
-            'kid': power_sync_private_key_json['kid'],
-        }
-
-        jwt_payload = {
-            'sub': user_id,
-            'iat': time.time(),
-            'aud': 'powersync',
-            'exp': int(time.time()) + 300,  # 5 minutes expiration
-        }
-
-        token = encode(
-            jwt_payload, power_sync_private_key_json, algorithm=ALGORITHMS.RS256, headers=jwt_header
-        )
-
-        return token
-
-    except (JWKError, ValueError, KeyError) as e:
-        raise Exception(f'Error creating JWT token: {str(e)}')
-
-
 @api_view()
+@permission_classes([IsAuthenticated])
 def get_powersync_token(request):
-    if not request.user.is_authenticated:
-        return HttpResponseForbidden()
-
-    token = create_jwt_token(request.user.id)
-
-    try:
-        return JsonResponse({'token': token, 'powersync_url': settings.POWERSYNC_URL}, status=200)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse(
+        {
+            'token': powersync.create_token(request.user.id),
+            'powersync_url': settings.POWERSYNC_URL,
+        }
+    )
 
 
 @api_view()
 def get_powersync_keys(request):
-    power_sync_public_key_bytes = urlsafe_b64decode(settings.POWERSYNC_JWKS_PUBLIC_KEY)
-
-    return JsonResponse(
-        {'keys': [json.loads(power_sync_public_key_bytes.decode('utf-8'))]},
-        status=200,
-    )
+    return JsonResponse({'keys': [powersync.public_jwk()]})
 
 
 @api_view(['PUT', 'PATCH', 'DELETE'])
