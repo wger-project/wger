@@ -31,7 +31,8 @@ class CanContributeExercises(BasePermission):
     """
 
     SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
-    ADD_METHODS = ['POST', 'PUT', 'PATCH']
+    ADD_METHODS = ['POST']
+    CHANGE_METHODS = ['PUT', 'PATCH']
     DELETE_METHODS = ['DELETE']
 
     def has_permission(self, request, view):
@@ -49,6 +50,13 @@ class CanContributeExercises(BasePermission):
                 'exercises.add_exercise'
             )
 
+        if request.method in self.CHANGE_METHODS:
+            return request.user.userprofile.is_trustworthy or request.user.has_perm(
+                'exercises.change_exercise'
+            )
+
         # Only admins are allowed to delete entries
         if request.method in self.DELETE_METHODS:
             return request.user.has_perm('exercises.delete_exercise')
+
+        return False
