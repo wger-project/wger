@@ -53,19 +53,6 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 
-if settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH'):
-    # Third Party
-    from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-    from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-    from dj_rest_auth.registration.views import SocialLoginView
-
-    if settings.WGER_SETTINGS.get('USE_GITHUB_AUTH'):
-        # Third Party
-        from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
-
-    if settings.WGER_SETTINGS.get('USE_FACEBOOK_AUTH'):
-        from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
-
 # wger
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
@@ -387,52 +374,6 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
             {'message': 'api user successfully registered', 'token': token.key},
             status=status.HTTP_201_CREATED,
         )
-
-
-if settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
-
-    class GoogleLogin(SocialLoginView):
-        """
-        REST endpoint to exchange a Google Access Token for a wger API JWT.
-        Flutter sends the Google accessToken here.
-        """
-
-        adapter_class = GoogleOAuth2Adapter
-        client_class = OAuth2Client
-
-        @property
-        def callback_url():
-            base_url = Site.objects.get_current()
-            return f'http://${base_url.domain}/accounts/google/login/callback/'
-
-    if settings.WGER_SETTINGS.get('USE_GITHUB_AUTH', False):
-        """
-            REST endpoint to exchange a GitHub OAuth2 Access Token for a wger API JWT.
-            Flutter sends the GitHub accessToken here."""
-
-        class GithubLogin(SocialLoginView):
-            adapter_class = GitHubOAuth2Adapter
-            client_class = OAuth2Client
-
-            @property
-            def callback_url(self):
-                base_url = Site.objects.get_current()
-                return f'http://{base_url.domain}/accounts/github/login/callback/'
-
-    if settings.WGER_SETTINGS.get('USE_FACEBOOK_AUTH'):
-
-        class FacebookLogin(SocialLoginView):
-            """
-            REST endpoint to exchange a Facebook Access Token for a wger API JWT.
-            Flutter sends the Facebook accessToken here."""
-
-            adaptor_class = FacebookOAuth2Adapter
-            client_class = OAuth2Client
-
-            @property
-            def callback(self):
-                base_url = Site.objects.get_current()
-                return f'{base_url.domain}/accounts/facebook/login/callback'
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
