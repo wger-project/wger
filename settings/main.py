@@ -228,8 +228,6 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 # Dj-rest-auth
 #
 WGER_SETTINGS['USE_SOCIAL_AUTH'] = env.bool('USE_SOCIAL_AUTH', False)
-WGER_SETTINGS['USE_GITHUB_AUTH'] = env.bool('USE_GITHUB_AUTH', False)
-WGER_SETTINGS['USE_FACEBOOK_AUTH'] = env.bool('USE_FACEBOOK_AUTH', False)
 #
 # Django Rest Framework SimpleJWT
 #
