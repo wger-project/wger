@@ -10,17 +10,5 @@
             <i class="fab fa-google me-1"></i> {% translate "Google" %}
         </a>
         {% endif %}
-
-        {% if use_github_auth %}
-        <a href="{% provider_login_url 'github' %}" class="btn btn-outline-dark me-2 mb-2">
-            <i class="fab fa-github me-1"></i> {% translate "GitHub" %}
-        </a>
-        {% endif %}
-
-        {% if use_facebook_auth %}
-        <a href="{% provider_login_url 'facebook' %}" class="btn btn-outline-primary me-2 mb-2">
-            <i class="fab fa-facebook me-1"></i> {% translate "Facebook" %}
-        </a>
-        {% endif %}
     </div>
 </div>
