@@ -16,28 +16,29 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-10 10:20+0000\n"
-"PO-Revision-Date: 2026-03-15 16:09+0000\n"
-"Last-Translator: Edson Wolf <edsonwolf@vivaldi.net>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"PO-Revision-Date: 2026-04-21 18:09+0000\n"
+"Last-Translator: Ninguém Mesmo <weblate@rasparta.org>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
-msgstr "Academia principal"
+msgstr "Ginásio por defeito"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
-"Selecione a academia principal para essa instalação. Isto atribuirá todos os "
-"novos utilizadores registados e os utilizadores sem academia à essa academia."
+"Selecione o ginásio por defeito para essa instalação. Isto atribuirá todos "
+"os novos utilizadores a este ginásio e atualizará todos os utilizadores "
+"existentes sem um ginásio."
 
 #: config/views/gym_config.py:42 core/templates/language/view.html:64
 #: core/templates/license/list.html:17
@@ -129,7 +130,7 @@ msgstr "Senha"
 
 #: core/forms.py:261
 msgid "Please enter your current password."
-msgstr "Por favor informe a sua senha atual."
+msgstr "Por favor introduz a tua senha atual."
 
 #: core/forms.py:270 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
@@ -196,11 +197,11 @@ msgstr "Abreviação, por exemplo CC-BY-SA 3"
 
 #: core/models/license.py:45
 msgid "Link"
-msgstr "Link"
+msgstr "Ligação"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
-msgstr "Link para a licença ou outra informação"
+msgstr "Ligação para o texto da licença ou outra informação"
 
 #: core/models/profile.py:60
 #, python-format
@@ -407,10 +408,8 @@ msgid "Time"
 msgstr "Tempo"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Elástico"
+msgstr "Distância"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:283 core/views/user.py:605
@@ -423,14 +422,12 @@ msgid "Name"
 msgstr "Nome"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Unidade"
+msgstr "Tipo de unidade"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "O tipo da unidade (repetições, tempo ou distância)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -464,37 +461,32 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Quase lá!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
 msgstr ""
-"Recebeu este e-mail por requisitar a redefinição da palavra-passe da sua "
-"conta de utilizador no %(site_name)s."
+"Recebeu este e-mail por \"%(user_display)s\" ter fornecido o teu endereço de "
+"email para registar uma conta em %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"O teu código de verificação de email está listado abaixo. Por favor, "
+"introduz na janela aberta do navegador."
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr "Clique no seguinte link para confirmar seu e-mail: %(link)s"
+msgstr "Clique no seguinte botão para confirmar o seu endereço de email."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "E-mail não verificado"
+msgstr "Verifique o email"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -502,10 +494,12 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"A ligação é válida por %(expire_hours)s horas (até %(date)s, %(time)s). "
+"Podes requisitar outro nas configurações do perfil."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
-msgstr ""
+msgstr "Se o botão não funcionar, copia e cola esta ligação no navegador:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -850,7 +844,7 @@ msgstr "Termos de uso"
 
 #: core/templates/template.html:181 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Linguagem do navegador"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -1350,7 +1344,7 @@ msgstr "Adicionar músculo"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Se a data ficar em branco, será lida a partir da imagem"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -1801,10 +1795,8 @@ msgid "Until Failure"
 msgstr "Até falhar"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Quilômetros"
+msgstr "Metros"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2143,7 +2135,7 @@ msgstr "Treino para %s"
 
 #: nutrition/extract_info/off.py:72 nutrition/extract_info/off.py:91
 msgid "Serving"
-msgstr ""
+msgstr "Porção"
 
 #: nutrition/forms.py:71 nutrition/forms.py:208
 msgid "Unit"
@@ -2171,7 +2163,7 @@ msgstr ""
 
 #: nutrition/forms.py:209
 msgid "grams (g)"
-msgstr ""
+msgstr "Gramas (g)"
 
 #: nutrition/forms.py:219
 msgid "Ingredient"
@@ -2183,17 +2175,15 @@ msgstr "Também buscar nomes em inglês"
 
 #: nutrition/forms.py:239
 msgid "Quantity"
-msgstr ""
+msgstr "Qualidade"
 
 #: nutrition/forms.py:241
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Introduz uma quantidade e escolhe gramas (g) ou uma medida de porção."
 
 #: nutrition/models/ingredient.py:526
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Correção"
+msgstr "Porção"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2248,15 +2238,13 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:68
 #: nutrition/templates/ingredient/view.html:143
 msgid "Vegan"
-msgstr ""
+msgstr "Vegano"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:79
 #: nutrition/templates/ingredient/view.html:155
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Variações"
+msgstr "Vegetariano"
 
 #: nutrition/templates/ingredient/overview.html:43
 msgid "No ingredients."
@@ -2267,18 +2255,16 @@ msgid "Search"
 msgstr "Pesquisa"
 
 #: nutrition/templates/ingredient/overview.html:57
-#, fuzzy
-#| msgid "No filter"
 msgid "Filter"
-msgstr "Sem filtro"
+msgstr "Filtro"
 
 #: nutrition/templates/ingredient/overview.html:83
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: nutrition/templates/ingredient/overview.html:85
 msgid "Reset"
-msgstr ""
+msgstr "Reincício"
 
 #: nutrition/templates/ingredient/view.html:46 nutrition/views/plan.py:236
 msgid "Macronutrients"
@@ -2316,10 +2302,8 @@ msgid "Sodium"
 msgstr "Sódio"
 
 #: nutrition/templates/ingredient/view.html:136
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "Dietary information"
-msgstr "Click aqui para mais informações"
+msgstr "Informação dietética"
 
 #: nutrition/templates/ingredient/view.html:184
 msgid "Add new weight unit"
