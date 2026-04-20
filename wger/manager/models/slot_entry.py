@@ -306,7 +306,11 @@ class SlotEntry(models.Model):
             if config.replace:
                 out = config.value
             else:
-                step = config.value if config.step == StepChoices.ABSOLUTE else out * config.value / 100
+                step = (
+                    config.value
+                    if config.step == StepChoices.ABSOLUTE
+                    else out * config.value / 100
+                )
 
                 if config.operation == OperationChoices.PLUS:
                     out += step
