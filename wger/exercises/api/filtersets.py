@@ -19,6 +19,7 @@ from django.db.models import (
     Exists,
     OuterRef,
     Q,
+    QuerySet,
 )
 
 # Third Party
@@ -40,40 +41,62 @@ class ExerciseFilterSet(filters.FilterSet):
     """
 
     name__search = filters.CharFilter(method='search_name_fulltext')
-    language__code = filters.CharFilter(method='search_languagecode')
+    name__exact = filters.CharFilter(method='search_name_exact')
+    language__code = filters.CharFilter(method='search_language_code')
 
-    def search_name_fulltext(self, queryset, name, value):
+    def _languages_from_params(self):
+        if languages_param := self.data.get('language__code'):
+            return [load_language(code) for code in set(languages_param.split(','))]
+        return None
+
+    def _filter_by_translation(self, queryset: QuerySet, q_expr: Q) -> QuerySet:
+        translation_subquery = Translation.objects.filter(exercise=OuterRef('pk')).filter(q_expr)
+        if languages := self._languages_from_params():
+            translation_subquery = translation_subquery.filter(language__in=languages)
+        return queryset.filter(Exists(translation_subquery)).distinct()
+
+    def search_name_fulltext(self, queryset: QuerySet, name: str, value: str):
+        """
+        Searches for exercise matches with the given name.
+
+        If the database is postgres a fuzzy full-text search is used, otherwise a simple
+        exact match,
+        """
+
         if not value:
             return queryset
 
-        languages_param = self.data.get('language__code')
-        languages = None
-        if languages_param:
-            languages = [load_language(code) for code in set(languages_param.split(','))]
+        if not is_postgres_db():
+            return self.search_name_exact(queryset, name, value)
 
-        if is_postgres_db():
-            # Note: this uses the default value for pg_trgm.similarity_threshold (0.3)
-            translation_subquery = Translation.objects.filter(exercise=OuterRef('pk'))
-            if languages:
-                translation_subquery = translation_subquery.filter(language__in=languages)
-            translation_subquery = translation_subquery.filter(
-                Q(name__trigram_similar=value) | Q(alias__alias__icontains=value)
-            )
+        # Note: this uses the default value for pg_trgm.similarity_threshold (0.3)
+        return self._filter_by_translation(
+            queryset=queryset,
+            q_expr=Q(name__trigram_similar=value) | Q(alias__alias__icontains=value),
+        )
 
-            qs = queryset.filter(Exists(translation_subquery))
-        else:
-            translation_subquery = Translation.objects.filter(exercise=OuterRef('pk')).filter(
-                Q(name__icontains=value) | Q(alias__alias__icontains=value)
-            )
-            if languages:
-                translation_subquery = translation_subquery.filter(language__in=languages)
-            qs = queryset.filter(Exists(translation_subquery))
+    def search_name_exact(self, queryset: QuerySet, name: str, value: str):
+        """
+        Searches for exact exercise matches with the given name
+        """
 
-        return qs.distinct()
-
-    def search_languagecode(self, queryset, name, value):
         if not value:
             return queryset
+
+        return self._filter_by_translation(
+            queryset=queryset,
+            q_expr=Q(name__icontains=value) | Q(alias__alias__icontains=value),
+        )
+
+    def search_language_code(self, queryset: QuerySet, name: str, value: str):
+        if not value:
+            return queryset
+
+        # If a name filter is active, it already restricts translations, so
+        # applying it again here would produce a redundant WHERE clause.
+        if self.data.get('name__search') or self.data.get('name__exact'):
+            return queryset
+
         languages = [load_language(code) for code in set(value.split(','))]
         if not languages:
             return queryset
