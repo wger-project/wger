@@ -57,7 +57,6 @@ from rest_framework.permissions import (
 )
 from rest_framework.response import Response
 
-
 # wger
 # The per-app powersync modules are imported for their side effect: each one
 # registers its handlers with wger.utils.powersync.REGISTRY at import time.

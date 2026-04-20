@@ -25,16 +25,16 @@ from django.core.management.base import (
     CommandError,
 )
 
-# Third Party
-from allauth.socialaccount.models import SocialApp
+
+if settings.WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
+    # Third Party
+    from allauth.socialaccount.models import SocialApp
 
 
 SUPPORTED_PROVIDERS = ('google', 'github', 'facebook')
 
 ENV_KEY_MAP = {
     'google': ('GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET'),
-    'github': ('GITHUB_CLIENT_ID', 'GITHUB_CLIENT_SECRET'),
-    'facebook': ('FACEBOOK_CLIENT_ID', 'FACEBOOK_CLIENT_SECRET'),
 }
 
 PROVIDER_DISPLAY_NAMES = {
@@ -46,20 +46,31 @@ PROVIDER_DISPLAY_NAMES = {
 
 class Command(BaseCommand):
     """
-    Management command to create or update a SocialApp (allauth) for a given provider.
+    Management command to create or update a SocialApp (allauth) for a Google OAuth provider.
+
+    This command seeds the single database record that allauth requires to perform
+    Google OAuth2 authentication. Run it once after initial deployment, or whenever
+    your Google OAuth credentials change.
+
+    NOTE: To perform full CRUD management of SocialApp records (listing all apps, deleting
+    a provider, or editing individual fields), use the Django admin interface. Enable the admin
+    in settings_global.py and add '/admin' to urls.py.
 
     Usage:
-        python manage.py setup_social_oauth --provider google \
-            --client_id YOUR_ID --client_secret YOUR_SECRET
+        python3 manage.py setup_social_oauth \\
+            --provider "google" \\
+            --client_id "YOUR_GOOGLE_CLIENT_ID" \\
+            --client_secret "YOUR_GOOGLE_CLIENT_SECRET" \\
+            --domain localhost:8000
 
-        python manage.py setup_social_oauth --provider github \
-            --client_id YOUR_ID --client_secret YOUR_SECRET
-
-        python manage.py setup_social_oauth --provider facebook \
-            --client_id YOUR_ID --client_secret YOUR_SECRET
+    Google Cloud Console setup:
+        1. Go to APIs & Services → Credentials → Create OAuth 2.0 Client ID
+        2. Application type: Web application
+        3. Authorized redirect URI: http://YOUR_DOMAIN/accounts/google/login/callback/
+        4. Copy the client ID and secret, then run this command.
     """
 
-    help = 'Creates or updates allauth SocialApp credentials for Google, GitHub, or Facebook.'
+    help = 'Creates or updates allauth SocialApp credentials for Google'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -67,7 +78,7 @@ class Command(BaseCommand):
             type=str,
             required=True,
             choices=SUPPORTED_PROVIDERS,
-            help='OAuth provider name: google | github | facebook',
+            help='OAuth provider name: google',
         )
         parser.add_argument('--client_id', type=str, help='Oauth App Client ID')
         parser.add_argument('--client_secret', type=str, help='Oauth App Client Secret')
@@ -102,14 +113,7 @@ class Command(BaseCommand):
 
         domain = options['domain']
 
-        # Link the Site to the Social App
-
-        site, _ = Site.objects.get_or_create(
-            id=1,
-            defaults={'domain': domain, 'name': domain},
-        )
-
-        app, created = SocialApp.objects.update_or_create(
+        app, created = SocialApp.objects.get_or_create(
             provider=provider,
             defaults={
                 'name': PROVIDER_DISPLAY_NAMES[provider],
@@ -117,6 +121,15 @@ class Command(BaseCommand):
                 'secret': client_secret,
             },
         )
+        if not created:
+            # Update existing record
+            app.client_id = client_id
+            app.secret = client_secret
+            app.save()
+
+        # Link the Site to the Social App
+
+        site, _ = Site.objects.get_or_create(id=1, defaults={'domain': domain, 'name': domain})
         app.sites.add(site)
 
         status = 'Created' if created else 'Updated'
