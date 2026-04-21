@@ -75,6 +75,16 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a class="dropdown-item" href="{% url 'favorites:overview' %}"
+                                   rel="nofollow">
+                                    {% if not user.is_authenticated %}
+                                        <span class="{% fa_class 'lock' %}"></span>
+                                    {% endif %}
+                                    {% translate "My Favorites" %}
+                                </a>
+                            </li>
+
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Workout templates" %}</li>
                             <li>

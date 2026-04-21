@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load i18n static wger_extras thumbnail django_bootstrap_breadcrumbs %}
+
+{% block title %}{% translate "My Favorites" %}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "My Favorites" "favorites:overview" %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>{% translate "My Favorites" %}</h3>
+            <span class="text-muted">
+                {% blocktranslate count counter=favorites|length %}
+                    {{ counter }} exercise
+                {% plural %}
+                    {{ counter }} exercises
+                {% endblocktranslate %}
+            </span>
+        </div>
+
+        {% if favorites %}
+        <div class="row g-4">
+            {% for favorite in favorites %}
+                {% with exercise=favorite.exercise %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <a href="{{ exercise.get_absolute_url }}">
+                                    {{ exercise.get_translation.name }}
+                                </a>
+                            </h5>
+                            <form 
+                                action="{% url 'favorites:delete' favorite.pk %}" 
+                                method="post"
+                                class="d-inline"
+                            >
+                                {% csrf_token %}
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="{% translate 'Remove from favorites' %}"
+                                >
+                                    <span class="{% fa_class 'heart-broken' %}"></span>
+                                </button>
+                            </form>
+                        </div>
+                        
+                        {% if exercise.main_image %}
+                        <div class="text-center p-3">
+                            {% thumbnail exercise.main_image.image "200x200" as im %}
+                                <img 
+                                    src="{{ im.url }}" 
+                                    alt="{{ exercise.get_translation.name }}"
+                                    class="img-fluid rounded"
+                                >
+                            {% endthumbnail %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            {% if exercise.category %}
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {% translate "Category" %}: {{ exercise.category }}
+                                </small>
+                            </p>
+                            {% endif %}
+                            
+                            {% if exercise.muscles.all %}
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {% translate "Muscles" %}:
+                                    {% for muscle in exercise.muscles.all %}
+                                        {{ muscle.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </small>
+                            </p>
+                            {% endif %}
+                            
+                            {% if exercise.equipment.all %}
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {% translate "Equipment" %}:
+                                    {% for equip in exercise.equipment.all %}
+                                        {{ equip.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </small>
+                            </p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-footer text-muted">
+                            <small>
+                                {% translate "Added" %}: {{ favorite.created|date:"SHORT_DATE_FORMAT" }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+        
+        {% if is_paginated %}
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                        {% translate "Previous" %}
+                    </a>
+                </li>
+                {% endif %}
+                
+                <li class="page-item active">
+                    <span class="page-link">
+                        {% translate "Page" %} {{ page_obj.number }} {% translate "of" %} {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        {% translate "Next" %}
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">{% translate "No favorites yet" %}</h4>
+            <p>{% translate "You haven't added any exercises to your favorites yet." %}</p>
+            <hr>
+            <p class="mb-0">
+                <a href="{% url 'exercise:exercise:overview' %}" class="alert-link">
+                    {% translate "Browse exercises" %}
+                </a>
+                {% translate "and start adding your favorites!" %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

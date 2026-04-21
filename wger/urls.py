@@ -43,6 +43,7 @@ from rest_framework_simplejwt.views import (
 from wger.core.api import views as core_api_views
 from wger.exercises.api import views as exercises_api_views
 from wger.exercises.sitemap import ExercisesSitemap
+from wger.favorites.api import views as favorites_api_views
 from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
@@ -252,6 +253,9 @@ router.register(
     basename='user-statistics',
 )
 
+# Favorites app
+router.register(r'favorite', favorites_api_views.FavoriteViewSet, basename='favorite')
+
 #
 # Sitemaps
 #
@@ -273,6 +277,7 @@ urlpatterns = i18n_patterns(
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
     path('trophies/', include(('wger.trophies.urls', 'trophies'), namespace='trophies')),
+    path('favorites/', include(('wger.favorites.urls', 'favorites'), namespace='favorites')),
     path(
         'measurement/',
         include(('wger.measurements.urls', 'measurements'), namespace='measurements'),
