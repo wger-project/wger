@@ -20,7 +20,7 @@ def migrate_context_data_uuids(apps: StateApps, schema_editor):
             cache[old_id] = model.objects.filter(id=old_id).values_list('uuid', flat=True).first()
         return cache[old_id]
 
-    for user_trophy in  UserTrophy.objects.exclude(context_data__isnull=True).iterator():
+    for user_trophy in UserTrophy.objects.exclude(context_data__isnull=True).iterator():
         context = user_trophy.context_data
         if not isinstance(context, dict):
             continue
