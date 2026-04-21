@@ -42,10 +42,10 @@ def create_token(user_id):
     jwk = _private_jwk()
     return encode(
         {
-            'sub': user_id,
+            'sub': str(user_id),
             'iat': time.time(),
             'aud': 'powersync',
-            'exp': int(time.time()) + 300,
+            'exp': int(time.time()) + 600,
         },
         jwk,
         algorithm=jwk['alg'],
