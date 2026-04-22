@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 self.style.ERROR(
                     f"PS_STORAGE_PG_URI targets database '{target_db}' but Django is "
                     f"connected to '{wger_db}'. Bootstrap that database manually: "
-                    "https://docs.powersync.com/configuration/powersync-service/self-hosted-instances#postgres-storage"
+                    'https://docs.powersync.com/configuration/powersync-service/self-hosted-instances#postgres-storage'
                 )
             )
             return

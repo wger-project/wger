@@ -450,10 +450,17 @@ def check_language(request):
 @api_view()
 @permission_classes([IsAuthenticated])
 def get_powersync_token(request):
+
+    url = (
+        f'{settings.SITE_URL}/{settings.POWERSYNC_URL_PATH.strip("/")}/'
+        if not settings.POWERSYNC_URL
+        else settings.POWERSYNC_URL
+    )
+
     return JsonResponse(
         {
             'token': powersync.create_token(request.user.id),
-            'powersync_url': settings.POWERSYNC_URL,
+            'powersync_url': url,
         }
     )
 

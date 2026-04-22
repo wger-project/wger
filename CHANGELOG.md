@@ -12,4 +12,6 @@ The type for the ID for Measurement and MeasurementCategory was changed from int
 to UUID. This was made to allow for clients to generate IDs locally and affects
 `/api/v2/measurement-category/` and `/api/v2/measurement/`.
 
+Make sure you have set the values for `SITE_URL`.
+
 ## Others
