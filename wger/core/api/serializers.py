@@ -48,8 +48,8 @@ class UserprofileSerializer(serializers.ModelSerializer):
     """
 
     email = serializers.EmailField(source='user.email', read_only=True)
-    username = serializers.EmailField(source='user.username', read_only=True)
-    date_joined = serializers.EmailField(source='user.date_joined', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
+    date_joined = serializers.DateTimeField(source='user.date_joined', read_only=True)
     email_verified = serializers.BooleanField(source='is_verified', read_only=True)
 
     class Meta:
@@ -92,7 +92,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
 class UserLoginSerializer(serializers.ModelSerializer):
     """Serializer to map to User model in relation to api user"""
 
-    email = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
     username = serializers.CharField(required=False)
     password = serializers.CharField(required=True, min_length=8)
 
