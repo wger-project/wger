@@ -264,19 +264,23 @@ class IngredientSearchTestCase(WgerTestCase):
         Helper function - Searches in English
         """
 
+        # The query has to be long enough to clear the trigram similarity
+        # threshold (default 0.3) — short terms like "test" get diluted by
+        # the trigrams of longer ingredient names and find nothing.
         response = self.client.get(
             reverse('api-ingredientinfo-list'),
-            {'name__search': 'test', 'language__code': 'en'},
+            {'name__search': 'Ingredient', 'language__code': 'en'},
         )
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
 
-        self.assertEqual(result['count'], 2)
+        self.assertEqual(result['count'], 4)
 
+        # Trigram ranks shorter names higher (the query is a larger fraction
+        # of their trigrams). "Pending ingredient" beats "Test ingredient 1".
         ingredient_1 = result['results'][0]
-        self.assertEqual(ingredient_1['id'], 2)
-        self.assertEqual(ingredient_1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(ingredient_1['uuid'], '44dc5966-73a2-4df7-8b15-f6d37a8990d9')
+        self.assertEqual(ingredient_1['id'], 7)
+        self.assertEqual(ingredient_1['name'], 'Pending ingredient')
         self.assertEqual(ingredient_1['language']['id'], 2)
         self.assertEqual(ingredient_1['image'], None)
         self.assertEqual(ingredient_1['thumbnails'], None)
@@ -294,9 +298,10 @@ class IngredientSearchTestCase(WgerTestCase):
         Helper function - Searches in German
         """
 
+        # See search_ingredient_en for why "test" doesn't work as a query.
         response = self.client.get(
             reverse('api-ingredientinfo-list'),
-            {'name__search': 'test', 'language__code': 'de'},
+            {'name__search': 'Testzutat', 'language__code': 'de'},
         )
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))

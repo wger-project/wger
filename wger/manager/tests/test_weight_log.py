@@ -29,7 +29,9 @@ class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the workout log overview resource
     """
 
-    pk = 5
+    # WorkoutLog has a UUIDField PK. Test fixtures use a recognisable
+    # `aaaaaaaa-...-NNN` pattern so test UUIDs stand out from real data.
+    pk = 'aaaaaaaa-aaaa-aaaa-aaaa-000000000005'
     resource = WorkoutLog
     private_resource = True
     data = {

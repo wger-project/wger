@@ -28,26 +28,32 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Logged-out users are also allowed to use the search
         """
-        response = self.client.get(self.url + '?name__search=test&language__code=en')
+        # The query has to be long enough to clear the trigram similarity
+        # threshold (default 0.3) — short terms like "test" get diluted by
+        # the trigrams of longer ingredient names and find nothing.
+        response = self.client.get(self.url + '?name__search=Ingredient&language__code=en')
         result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 2)
-        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['id'], 2)
+        self.assertEqual(response.data['count'], 4)
+        # Trigram ranks shorter names higher (the query is a larger fraction
+        # of their trigrams). "Pending ingredient" beats "Test ingredient 1"
+        # which beats the longer "Ingredient, test, 2, organic, raw".
+        self.assertEqual(result1['name'], 'Pending ingredient')
+        self.assertEqual(result1['id'], 7)
 
     def test_basic_search_logged_in(self):
         """
         Logged-in users get the same results
         """
         self.authenticate('test')
-        response = self.client.get(self.url + '?name__search=test&language__code=en')
+        response = self.client.get(self.url + '?name__search=Ingredient&language__code=en')
         result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 2)
-        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['id'], 2)
+        self.assertEqual(response.data['count'], 4)
+        self.assertEqual(result1['name'], 'Pending ingredient')
+        self.assertEqual(result1['id'], 7)
 
     def test_search_language_code_en_no_results(self):
         """
@@ -74,7 +80,7 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Passing different language codes works correctly
         """
-        response = self.client.get(self.url + '?name__search=guest&language__code=en,de')
+        response = self.client.get(self.url + '?name__search=Needed&language__code=en,de')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 5)
@@ -83,7 +89,7 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Unknown language codes are ignored
         """
-        response = self.client.get(self.url + '?name__search=guest&language__code=en,de,kg')
+        response = self.client.get(self.url + '?name__search=Needed&language__code=en,de,kg')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 5)
@@ -92,7 +98,7 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Disable all language filters
         """
-        response = self.client.get(self.url + '?name__search=guest')
+        response = self.client.get(self.url + '?name__search=Needed')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 7)

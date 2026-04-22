@@ -1,6 +1,6 @@
 [
     {
-        "pk": 1,
+        "pk": "cccccccc-cccc-cccc-cccc-000000000001",
         "model": "measurements.category",
         "fields": {
             "user": 2,
@@ -9,7 +9,7 @@
         }
     },
     {
-        "pk": 2,
+        "pk": "cccccccc-cccc-cccc-cccc-000000000002",
         "model": "measurements.category",
         "fields": {
             "user": 2,
@@ -18,7 +18,7 @@
         }
     },
     {
-        "pk": 3,
+        "pk": "cccccccc-cccc-cccc-cccc-000000000003",
         "model": "measurements.category",
         "fields": {
             "user": 2,

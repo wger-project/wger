@@ -57,8 +57,8 @@ class LogModelTestCase(WgerTestCase):
 
         self.assertEqual(WorkoutSession.objects.count(), 5)
 
-        log = WorkoutLog.objects.get(pk=1)
-        log.session_id = 1
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        log.session_id = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000001'
 
         self.assertEqual(WorkoutSession.objects.count(), 5)
 
@@ -66,13 +66,13 @@ class LogModelTestCase(WgerTestCase):
         """
         Test that the session foreign key checks ownership
         """
-        session1 = WorkoutSession.objects.get(pk=1)
-        session5 = WorkoutSession.objects.get(pk=5)
+        session1 = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        session5 = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005')
 
         self.assertEqual(session1.user_id, 1)
         self.assertEqual(session5.user_id, 2)
 
-        log = WorkoutLog.objects.get(pk=1)
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         log.session = session5
         log.save()
 
@@ -83,12 +83,12 @@ class LogModelTestCase(WgerTestCase):
         Test that the routine foreign key checks ownership
         """
 
-        log = WorkoutLog.objects.get(pk=1)
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         log.routine_id = 3
         log.save()
 
         # Reload from db
-        log = WorkoutLog.objects.get(pk=1)
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
 
         self.assertEqual(log.routine_id, 1)
 
@@ -97,11 +97,11 @@ class LogModelTestCase(WgerTestCase):
         Test that the next log foreign key checks ownership
         """
 
-        log2 = WorkoutLog.objects.get(pk=2)
+        log2 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000002')
         log2.user_id = 2
         log2.save()
 
-        log1 = WorkoutLog.objects.get(pk=1)
+        log1 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         log1.user_id = 1
         log1.next_log = log2
         log1.save()
@@ -113,8 +113,8 @@ class LogModelTestCase(WgerTestCase):
         Test that the next log foreign key checks ownership
         """
 
-        log1 = WorkoutLog.objects.get(pk=1)
-        log2 = WorkoutLog.objects.get(pk=2)
+        log1 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        log2 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000002')
 
         self.assertEqual(log1.user_id, 1)
         self.assertEqual(log2.user_id, 1)
