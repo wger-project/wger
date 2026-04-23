@@ -49,7 +49,7 @@ class StepChoices(models.TextChoices):
     NOT_APPLICABLE = 'na'
     ABSOLUTE = 'abs'
     PERCENT = 'percent'
-    RIR_PERCENT = 'rir_pct'   # % of the RiR=0 baseline weight
+    RIR_PERCENT = 'rir_pct'  # % of the RiR=0 baseline weight
 
 
 class AbstractChangeConfig(models.Model):

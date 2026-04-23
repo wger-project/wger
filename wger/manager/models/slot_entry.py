@@ -324,7 +324,6 @@ class SlotEntry(models.Model):
             else:
                 step = config.value  # fallback: treat as absolute
 
-
             if config.operation == OperationChoices.PLUS:
                 out += step
             else:
@@ -557,16 +556,13 @@ class SlotEntry(models.Model):
 
     def calculate_weight(self, iteration: int) -> Decimal | None:
         configs = self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.WEIGHT, iteration),
-            )
+            iteration,
+            self.get_configuration_entries(ConfigType.WEIGHT, iteration),
+        )
 
         # Resolve RiR baseline: check if any config in the list uses rir_pct step
         rir_baseline = None
-        if any(
-            getattr(c, "step", None) == StepChoices.RIR_PERCENT
-            for c in configs
-        ):
+        if any(getattr(c, 'step', None) == StepChoices.RIR_PERCENT for c in configs):
             # Use the LAST config in the list (most recent) to resolve baseline.
             # All configs in a single SlotEntry share the same baseline.
             last_rir_pct_config = next(
@@ -580,19 +576,16 @@ class SlotEntry(models.Model):
 
     def calculate_maxweight(self, iteration: int) -> Decimal | None:
         configs = self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.MAXWEIGHT, iteration),
-            )
+            iteration,
+            self.get_configuration_entries(ConfigType.MAXWEIGHT, iteration),
+        )
 
         rir_baseline = None
-        if any(getattr(c, "step", None) == StepChoices.RIR_PERCENT for c in configs):
-            last = next(
-                (c for c in reversed(configs) if c.step == StepChoices.RIR_PERCENT), None
-            )
+        if any(getattr(c, 'step', None) == StepChoices.RIR_PERCENT for c in configs):
+            last = next((c for c in reversed(configs) if c.step == StepChoices.RIR_PERCENT), None)
             if last:
                 rir_baseline = self.get_rir_baseline(last)
         return self.calculate_config_value(configs, rir_baseline=rir_baseline)
-
 
     def calculate_repetitions(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(
@@ -660,16 +653,15 @@ class SlotEntry(models.Model):
         Returns:
             Decimal baseline weight or None.
         """
-        if hasattr(config, "rir_baseline") and config.rir_baseline is not None:
+        if hasattr(config, 'rir_baseline') and config.rir_baseline is not None:
             return config.rir_baseline
 
+        # Django
         from django.db.models import Max
+
         result = (
-            self.workoutlog_set
-            .filter(rir=Decimal("0.0"))   # only true RiR=0 logs
+            self.workoutlog_set.filter(rir=Decimal('0.0'))  # only true RiR=0 logs
             .filter(weight__isnull=False)
-            .aggregate(max_weight=Max("weight"))
+            .aggregate(max_weight=Max('weight'))
         )
-        return result["max_weight"]  # None if no RiR=0 logs exist
-
-
+        return result['max_weight']  # None if no RiR=0 logs exist
