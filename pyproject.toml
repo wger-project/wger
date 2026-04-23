@@ -32,7 +32,7 @@ dependencies = [
     "celery[redis]~=5.6.0",
     "crispy-bootstrap5~=2026.3",
     "django-activity-stream~=2.0.0",
-    "django-allauth~=65.15.0",
+    "django-allauth~=65.16.1",
     "django-axes[ipware]~=8.3.1",
     "django-bootstrap-breadcrumbs2==1.0.0",
     "django-cors-headers~=4.9.0",
@@ -75,12 +75,12 @@ dev = [
     "coverage~=7.13.0",
     "django-debug-toolbar~=6.3.0",
     "django-extensions~=4.1",
-    "faker~=40.13.0",
+    "faker~=40.15.0",
     "hatchling~=1.29.0",
     "isort~=8.0.1",
     "ruff~=0.15.2",
     "tblib~=3.2.0",
-    "wheel==0.46.3",
+    "wheel~=0.47.0",
 ]
 
 docker = [
