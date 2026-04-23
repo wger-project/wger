@@ -27,7 +27,7 @@ import environ
 
 class Command(BaseCommand):
     """
-    Bootstrap the PowerSync bucket storage in the wger Postgres database (itempotent).
+    Bootstrap the PowerSync bucket storage in the wger Postgres database (idempotent).
 
     PowerSync needs its own dedicated user and schema inside the Postgres database
     to store its sync state. This command makes sure the database side matches by
@@ -57,17 +57,11 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        uri = os.environ.get('PS_STORAGE_PG_URI', '').strip()
+
+        # Extract storage connection details
+        uri =  getattr(settings, 'PS_STORAGE_PG_URI', '').strip()
         if not uri:
             self.stdout.write('PS_STORAGE_PG_URI not set — skipping PowerSync storage setup.')
-            return
-
-        if 'postgresql' not in settings.DATABASES['default']['ENGINE']:
-            self.stdout.write(
-                self.style.WARNING(
-                    'wger database is not Postgres; PowerSync requires Postgres. Skipping.'
-                )
-            )
             return
 
         parsed = environ.Env.db_url_config(uri)
@@ -83,10 +77,15 @@ class Command(BaseCommand):
             )
             return
 
-        # Sanity check: we can only bootstrap into the Postgres database that
-        # Django itself is connected to. If the configuration differs and points
-        # to a different one, the administrator needs to do the bootstrap there
-        # manually.
+        # Postgres sanity check
+        if 'postgresql' not in settings.DATABASES['default']['ENGINE']:
+            self.stdout.write(
+                self.style.WARNING(
+                    'wger database is not Postgres; PowerSync requires Postgres. Skipping.'
+                )
+            )
+            return
+
         wger_db = settings.DATABASES['default']['NAME']
         if target_db != wger_db:
             self.stdout.write(
