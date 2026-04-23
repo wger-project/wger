@@ -99,7 +99,7 @@ class WeightConfigSerializer(BaseConfigSerializer):
 
     class Meta:
         model = WeightConfig
-        fields = BASE_CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS + ('rir_baseline',)
 
 
 class MaxWeightConfigSerializer(BaseConfigSerializer):
@@ -109,7 +109,7 @@ class MaxWeightConfigSerializer(BaseConfigSerializer):
 
     class Meta:
         model = MaxWeightConfig
-        fields = BASE_CONFIG_FIELDS
+        fields = BASE_CONFIG_FIELDS + ('rir_baseline',)
 
 
 class RepetitionsConfigSerializer(BaseConfigSerializer):
