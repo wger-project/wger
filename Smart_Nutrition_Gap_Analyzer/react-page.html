@@ -1,0 +1,50 @@
+{% extends "base_wide.html" %}
+{% load i18n static wger_extras thumbnail cache django_bootstrap_breadcrumbs %}
+
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+{% endblock %}
+{% block opengraphimages %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% endblock %}
+
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+    {% if request.resolver_match.namespace == "nutrition:plan" and request.resolver_match.url_name == "view" and view.kwargs.id %}
+        <div class="mb-3">
+            <a
+                href="{% url 'nutrition:plan:smart-nutrition-gap' pk=view.kwargs.id %}"
+                class="btn btn-primary"
+            >
+                Smart Gap Analyzer
+            </a>
+        </div>
+    {% endif %}
+    <div id="{{ div_id }}"></div>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% endblock %}

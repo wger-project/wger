@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Smart nutrition gap analyzer" %}{% endblock %}
+
+{% block content %}
+    <p class="text-muted">
+        {% if plan.description %}
+            {% blocktranslate with plan_description=plan.description %}
+                Analysis for {{ plan_description }}
+            {% endblocktranslate %}
+        {% else %}
+            {% translate "Analysis for nutrition plan" %}
+        {% endif %}
+    </p>
+
+    <form method="get" class="row gy-2 gx-2 align-items-end mb-4">
+        <div class="col-sm-6">
+            <label for="analysis-date" class="form-label">{% translate "Date analyzed" %}</label>
+            <input
+                type="date"
+                class="form-control"
+                id="analysis-date"
+                name="date"
+                value="{{ analysis.date|date:'Y-m-d' }}"
+            >
+        </div>
+        <div class="col-sm-6">
+            <button type="submit" class="btn btn-primary">{% translate "Analyze date" %}</button>
+        </div>
+    </form>
+
+    {% if date_error %}
+        <div class="alert alert-warning">{{ date_error }}</div>
+    {% endif %}
+
+    {% if coaching_message %}
+        <div class="card mb-4">
+            <div class="card-header">
+                {% translate "Coaching summary" %}
+            </div>
+            <div class="card-body">
+                <p class="mb-0">{{ coaching_message }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <h3>{% translate "Nutrient progress" %}</h3>
+    <div class="table-responsive mb-4">
+        <table class="table table-sm align-middle">
+            <thead>
+            <tr>
+                <th>{% translate "Nutrient" %}</th>
+                <th>{% translate "Consumed" %}</th>
+                <th>{% translate "Target" %}</th>
+                <th>{% translate "Gap" %}</th>
+                <th>{% translate "Status" %}</th>
+                <th>{% translate "Target source" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for nutrient, gap in analysis.gaps.items %}
+                <tr>
+                    <td>{{ nutrient|capfirst }}</td>
+                    <td>{{ gap.consumed|floatformat:2 }}</td>
+                    <td>{{ gap.target|floatformat:2 }}</td>
+                    <td>{{ gap.gap|floatformat:2 }}</td>
+                    <td>
+                        {% if gap.status == "met" %}
+                            <span class="badge bg-success">{{ gap.status }}</span>
+                        {% elif gap.status == "exceeded" %}
+                            <span class="badge bg-warning text-dark">{{ gap.status }}</span>
+                        {% else %}
+                            <span class="badge bg-info text-dark">{{ gap.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ gap.goal_source }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if analysis.missing_goals %}
+        <div class="alert alert-info">
+            <strong>{% translate "Targets using fallback/default values:" %}</strong>
+            {{ analysis.missing_goals|join:", " }}
+        </div>
+    {% endif %}
+
+    <h3>{% translate "Ingredient suggestions" %}</h3>
+    {% if suggestions.suggestions %}
+        {% for nutrient, nutrient_suggestions in suggestions.suggestions.items %}
+            <section class="mb-4">
+                <h4>{{ nutrient|capfirst }}</h4>
+                {% if nutrient_suggestions %}
+                    <div class="list-group">
+                        {% for suggestion in nutrient_suggestions %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    <strong>{{ suggestion.ingredient_name }}</strong>
+                                    <span class="badge bg-light text-dark">
+                                        {{ suggestion.score|floatformat:2 }}
+                                    </span>
+                                </div>
+                                <div class="small text-muted">
+                                    {% blocktranslate with amount=suggestion.suggested_amount_grams|floatformat:0 nutrient_name=nutrient contribution=suggestion.estimated_contribution|floatformat:2 %}
+                                        Suggested serving: {{ amount }}g, estimated {{ nutrient_name }} contribution: {{ contribution }}
+                                    {% endblocktranslate %}
+                                </div>
+                                <div class="small">
+                                    {% blocktranslate with remaining=suggestion.remaining_gap_after_suggestion|floatformat:2 %}
+                                        Remaining gap after suggestion: {{ remaining }}
+                                    {% endblocktranslate %}
+                                </div>
+                                {% if suggestion.also_addresses %}
+                                    <div class="small text-muted">
+                                        {% translate "Also helps with:" %}
+                                        {{ suggestion.also_addresses|join:", " }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">{% translate "No ingredient suggestions found for this nutrient." %}</p>
+                {% endif %}
+            </section>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">
+            {% translate "No suggestions are needed for this date because there are no positive nutrient gaps." %}
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <h4>{% translate "About this page" %}</h4>
+    <p>
+        {% blocktranslate %}
+            This page compares logged intake against nutrition targets and shows simple rule-based ingredient suggestions grouped by nutrient.
+        {% endblocktranslate %}
+    </p>
+    <p class="small text-muted">
+        {% translate "Suggestions are generated only for positive gaps." %}
+    </p>
+{% endblock %}
