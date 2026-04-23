@@ -15,6 +15,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # wger
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 from wger.manager.models import AbstractChangeConfig
 
 
@@ -23,7 +25,19 @@ class WeightConfig(AbstractChangeConfig):
     Configuration model for the weight for a workout set
     """
 
-    pass
+    rir_baseline = models.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(3000)],
+        help_text=(
+            'The weight the user can lift at RiR=0 (i.e. true 1RM or '
+            'max effort weight). Used when step=rir_pct to compute the '
+            'weekly weight as a percentage of this baseline. '
+            'Leave blank to auto-detect from logs (max weight where rir=0).'
+        ),
+    )
 
 
 class MaxWeightConfig(AbstractChangeConfig):
@@ -31,4 +45,11 @@ class MaxWeightConfig(AbstractChangeConfig):
     Configuration model for the upper limit of the weight for a workout set
     """
 
-    pass
+    rir_baseline = models.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(3000)],
+        help_text='The max weight the user can lift at RiR=0.',
+    )

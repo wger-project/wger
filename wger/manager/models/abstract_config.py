@@ -28,7 +28,7 @@ from django.db import models
 from wger.manager.dataclasses import ConfigRequirements
 
 
-# Upper bounds for progression output. Whilr individual progression rules
+# Upper bounds for progression output. While individual progression rules
 # are already capped, percent operations can potetially grow beyond that
 # limit. These caps MUST mirror the ``max_digits`` / ``decimal_places`` of the
 # display serializer fields (see ``SetConfigDataSerializer``) and this model
@@ -49,6 +49,7 @@ class StepChoices(models.TextChoices):
     NOT_APPLICABLE = 'na'
     ABSOLUTE = 'abs'
     PERCENT = 'percent'
+    RIR_PERCENT = 'rir_pct'   # % of the RiR=0 baseline weight
 
 
 class AbstractChangeConfig(models.Model):
