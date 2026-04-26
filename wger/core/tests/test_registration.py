@@ -180,6 +180,36 @@ class RegistrationTestCase(WgerTestCase):
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()
 
+    def test_register_rejects_secondary_email_address(self):
+        """
+        Uniqueness must also cover allauth's ``EmailAddress`` table —
+        secondary addresses owned by another user must not be claimable
+        through the HTML registration form either.
+        """
+        admin = User.objects.get(username='admin')
+        EmailAddress.objects.create(
+            user=admin,
+            email='secondary@example.com',
+            primary=False,
+            verified=False,
+        )
+
+        registration_data = {
+            'username': 'newuser',
+            'password1': 'quai8fai7Zae',
+            'password2': 'quai8fai7Zae',
+            'email': 'secondary@example.com',
+            'g-recaptcha-response': 'PASSED',
+        }
+        count_before = User.objects.count()
+        response = self.client.post(reverse('core:user:registration'), registration_data)
+
+        # A passing form would 302-redirect after creating the user; the
+        # rejection path re-renders the page with the form context.
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context['form'].is_valid())
+        self.assertEqual(User.objects.count(), count_before)
+
     @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
     def test_registration_sends_verification_email(self):
         """
@@ -330,6 +360,48 @@ class ApiRegistrationTestCase(WgerTestCase):
         )
 
         # Assert
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+
+    def test_post_unsuccessfully_registration_email_case_insensitive(self):
+        """
+        Email collisions must be detected case-insensitively — Django's
+        password reset filters with ``email__iexact``, so registering
+        ``Admin@Example.com`` while ``admin@example.com`` exists would
+        still cause cross-account reset delivery.
+        """
+        response = self.client.post(
+            reverse('api_register'),
+            {
+                'username': 'restapi',
+                'email': 'ADMIN@EXAMPLE.COM',
+                'password': 'AekaiLe0ga',
+            },
+        )
+
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+
+    def test_post_unsuccessfully_registration_email_in_emailaddress_table(self):
+        """
+        Uniqueness must also cover allauth's ``EmailAddress`` table —
+        secondary addresses owned by another user must not be claimable.
+        """
+        admin = User.objects.get(username='admin')
+        EmailAddress.objects.create(
+            user=admin,
+            email='secondary@example.com',
+            primary=False,
+            verified=False,
+        )
+
+        response = self.client.post(
+            reverse('api_register'),
+            {
+                'username': 'restapi',
+                'email': 'secondary@example.com',
+                'password': 'AekaiLe0ga',
+            },
+        )
+
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
 
     def test_post_valid_data_registration_deactivated(self):

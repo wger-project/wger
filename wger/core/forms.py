@@ -39,6 +39,7 @@ from django.utils.translation import (
 )
 
 # Third Party
+from allauth.account.utils import filter_users_by_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -216,26 +217,21 @@ class UserEmailForm(forms.ModelForm):
 
     def clean_email(self):
         """
-        E-mail must be unique system-wide
+        E-mail must be unique system-wide.
 
-        However, this check should only be performed when the user changes
-        e-mail address, otherwise the uniqueness check will because it will find one user
-        (the current one) using the same e-mail. Only when the user changes it, do
-        we want to check that nobody else has that e-mail address.
+        Uniqueness is checked case-insensitively across both ``User.email``
+        and allauth's ``EmailAddress`` table (which also tracks secondary,
+        unverified addresses)
         """
 
         email = self.cleaned_data['email']
         if not email:
             return email
-        try:
-            # Performs a case-insensitive lookup
-            user = User.objects.get(email__iexact=email)
-            if user.email == self.instance.email:
-                return email
-        except User.DoesNotExist:
-            return email
 
-        raise ValidationError(_('This e-mail address is already in use.'))
+        own_pk = self.instance.pk if self.instance and self.instance.pk else None
+        if any(u.pk != own_pk for u in filter_users_by_email(email)):
+            raise ValidationError(_('This e-mail address is already in use.'))
+        return email
 
 
 class UserPersonalInformationForm(UserEmailForm):

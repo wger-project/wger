@@ -126,26 +126,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         return self.list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
-        data = request.data
-        serializer = self.serializer_class(request.user.userprofile, data=data)
-        if serializer.is_valid():
-            serializer.save()
-
-            # New email, update the user and reset the email verification flag
-            if data.get('email') and request.user.email != data['email']:
-                request.user.email = data['email']
-                request.user.save()
-                request.user.userprofile.save()
-                # adds new email if it is not already registered
-                EmailAddress.objects.add_email(
-                    request,
-                    request.user,
-                    request.user.email,
-                    confirm=True,
-                )
-                logger.debug('adding new email with verified flag , send verification email')
-
-            return Response(serializer.data)
+        serializer = self.get_serializer(request.user.userprofile, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
