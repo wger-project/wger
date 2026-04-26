@@ -59,7 +59,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Extract storage connection details
-        uri =  getattr(settings, 'PS_STORAGE_PG_URI', '').strip()
+        uri = getattr(settings, 'PS_STORAGE_PG_URI', '').strip()
         if not uri:
             self.stdout.write('PS_STORAGE_PG_URI not set — skipping PowerSync storage setup.')
             return

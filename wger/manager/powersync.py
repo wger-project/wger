@@ -36,7 +36,7 @@ from wger.utils.viewsets import check_fk_ownership
 logger = logging.getLogger(__name__)
 
 
-def handle_update_log(payload: dict[str, Any], user_id: int) -> None:
+def handle_update_log(payload: dict[str, Any], user_id: int) -> dict | None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
     try:
@@ -45,45 +45,48 @@ def handle_update_log(payload: dict[str, Any], user_id: int) -> None:
         logger.warning(
             f'WorkoutLog with UUID {payload["id"]} and user {user_id} not found for update.'
         )
-        return
+        return {'error': 'Not found', 'details': f'WorkoutLog with UUID {payload["id"]} not found'}
 
     if not check_fk_ownership(payload, WorkoutLogViewSet.get_owner_objects(), user_id):
-        return
+        return {'error': 'Forbidden', 'details': 'WorkoutLog references an object you do not own'}
 
     serializer = WorkoutLogSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
         logger.info(f'Updated WorkoutLog {entry.pk} for user {user_id}')
-    else:
-        logger.warning(f'PowerSync update validation failed: {serializer.errors}')
+        return None
+    logger.warning(f'PowerSync update validation failed: {serializer.errors}')
+    return {'error': 'Validation failed', 'details': serializer.errors}
 
 
-def handle_create_log(payload: dict[str, Any], user_id: int) -> None:
+def handle_create_log(payload: dict[str, Any], user_id: int) -> dict | None:
     """Handle a create event from PowerSync"""
     logger.debug(f'Received PowerSync payload for create: {payload}')
 
     if not check_fk_ownership(payload, WorkoutLogViewSet.get_owner_objects(), user_id):
-        return
+        return {'error': 'Forbidden', 'details': 'WorkoutLog references an object you do not own'}
 
     serializer = WorkoutLogSerializer(data=payload)
     if serializer.is_valid():
         serializer.save(user_id=user_id)
-    else:
-        logger.warning(f'PowerSync create validation failed: {serializer.errors}')
+        return None
+    logger.warning(f'PowerSync create validation failed: {serializer.errors}')
+    return {'error': 'Validation failed', 'details': serializer.errors}
 
 
-def handle_delete_log(payload: dict[str, Any], user_id: int) -> None:
+def handle_delete_log(payload: dict[str, Any], user_id: int) -> dict | None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
     try:
         entry = WorkoutLog.objects.get(pk=payload['id'], user_id=user_id)
     except WorkoutLog.DoesNotExist:
         logger.warning(f'WorkoutLog with UUID {payload["id"]} not found for delete.')
-        return
+        return {'error': 'Not found', 'details': f'WorkoutLog with UUID {payload["id"]} not found'}
     entry.delete()
+    return None
 
 
-def handle_update_session(payload: dict[str, Any], user_id: int) -> None:
+def handle_update_session(payload: dict[str, Any], user_id: int) -> dict | None:
     """Handle a push event from PowerSync"""
     logger.debug(f'Received PowerSync payload for update: {payload}')
     try:
@@ -92,39 +95,54 @@ def handle_update_session(payload: dict[str, Any], user_id: int) -> None:
         logger.warning(
             f'WorkoutSession with UUID {payload["id"]} and user {user_id} not found for update.'
         )
-        return
+        return {
+            'error': 'Not found',
+            'details': f'WorkoutSession with UUID {payload["id"]} not found',
+        }
 
     if not check_fk_ownership(payload, WorkoutSessionViewSet.get_owner_objects(), user_id):
-        return
+        return {
+            'error': 'Forbidden',
+            'details': 'WorkoutSession references an object you do not own',
+        }
 
     serializer = WorkoutSessionSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
         logger.info(f'Updated WorkoutSession {entry.pk} for user {user_id}')
-    else:
-        logger.warning(f'PowerSync update validation failed: {serializer.errors}')
+        return None
+    logger.warning(f'PowerSync update validation failed: {serializer.errors}')
+    return {'error': 'Validation failed', 'details': serializer.errors}
 
 
-def handle_create_session(payload: dict[str, Any], user_id: int) -> None:
+def handle_create_session(payload: dict[str, Any], user_id: int) -> dict | None:
     """Handle a create event from PowerSync"""
     logger.debug(f'Received PowerSync payload for create: {payload}')
 
     if not check_fk_ownership(payload, WorkoutSessionViewSet.get_owner_objects(), user_id):
-        return
+        return {
+            'error': 'Forbidden',
+            'details': 'WorkoutSession references an object you do not own',
+        }
 
     serializer = WorkoutSessionSerializer(data=payload)
     if serializer.is_valid():
         serializer.save(user_id=user_id)
-    else:
-        logger.warning(f'PowerSync create validation failed: {serializer.errors}')
+        return None
+    logger.warning(f'PowerSync create validation failed: {serializer.errors}')
+    return {'error': 'Validation failed', 'details': serializer.errors}
 
 
-def handle_delete_session(payload: dict[str, Any], user_id: int) -> None:
+def handle_delete_session(payload: dict[str, Any], user_id: int) -> dict | None:
     """Handle a delete event from PowerSync"""
     logger.debug(f'Received PowerSync payload for delete: {payload}')
     try:
         entry = WorkoutSession.objects.get(pk=payload['id'], user_id=user_id)
     except WorkoutSession.DoesNotExist:
         logger.warning(f'WorkoutSession with UUID {payload["id"]} not found for delete.')
-        return
+        return {
+            'error': 'Not found',
+            'details': f'WorkoutSession with UUID {payload["id"]} not found',
+        }
     entry.delete()
+    return None

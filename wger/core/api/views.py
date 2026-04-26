@@ -490,50 +490,75 @@ def upload_powersync_data(request):
 
     logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
 
+    # Each handler returns either `None` (operation processed successfully) or
+    # an error dict which we propagate back to the client. The HTTP status stays
+    # at 200 even on logical errors since powersync treats non-2xx statuses as
+    # "retry forever".
+    result: dict | None = None
     try:
         match table:
             # Body weight
             case 'weight_weightentry':
                 if http_verb == 'PUT':
-                    ps_weight.handle_create(payload=payload, user_id=user_id, request=request)
+                    result = ps_weight.handle_create(
+                        payload=payload,
+                        user_id=user_id,
+                        request=request,
+                    )
                 elif http_verb == 'PATCH':
-                    ps_weight.handle_update(payload=payload, user_id=user_id, request=request)
+                    result = ps_weight.handle_update(
+                        payload=payload,
+                        user_id=user_id,
+                        request=request,
+                    )
                 elif http_verb == 'DELETE':
-                    ps_weight.handle_delete(payload=payload, user_id=user_id)
+                    result = ps_weight.handle_delete(payload=payload, user_id=user_id)
 
             # Measurements
             case 'measurements_category':
                 if http_verb == 'PUT':
-                    ps_measurements.handle_create_category(payload=payload, user_id=user_id)
+                    result = ps_measurements.handle_create_category(
+                        payload=payload, user_id=user_id
+                    )
                 elif http_verb == 'PATCH':
-                    ps_measurements.handle_update_category(payload=payload, user_id=user_id)
+                    result = ps_measurements.handle_update_category(
+                        payload=payload, user_id=user_id
+                    )
                 elif http_verb == 'DELETE':
-                    ps_measurements.handle_delete_category(payload=payload, user_id=user_id)
+                    result = ps_measurements.handle_delete_category(
+                        payload=payload, user_id=user_id
+                    )
 
             case 'measurements_measurement':
                 if http_verb == 'PUT':
-                    ps_measurements.handle_create_measurement(payload=payload, user_id=user_id)
+                    result = ps_measurements.handle_create_measurement(
+                        payload=payload, user_id=user_id
+                    )
                 elif http_verb == 'PATCH':
-                    ps_measurements.handle_update_measurement(payload=payload, user_id=user_id)
+                    result = ps_measurements.handle_update_measurement(
+                        payload=payload, user_id=user_id
+                    )
                 elif http_verb == 'DELETE':
-                    ps_measurements.handle_delete_measurement(payload=payload, user_id=user_id)
+                    result = ps_measurements.handle_delete_measurement(
+                        payload=payload, user_id=user_id
+                    )
 
             # Routines
             case 'manager_workoutlog':
                 if http_verb == 'PUT':
-                    ps_manager.handle_create_log(payload=payload, user_id=user_id)
+                    result = ps_manager.handle_create_log(payload=payload, user_id=user_id)
                 elif http_verb == 'PATCH':
-                    ps_manager.handle_update_log(payload=payload, user_id=user_id)
+                    result = ps_manager.handle_update_log(payload=payload, user_id=user_id)
                 elif http_verb == 'DELETE':
-                    ps_manager.handle_delete_log(payload=payload, user_id=user_id)
+                    result = ps_manager.handle_delete_log(payload=payload, user_id=user_id)
 
             case 'manager_workoutsession':
                 if http_verb == 'PUT':
-                    ps_manager.handle_create_session(payload=payload, user_id=user_id)
+                    result = ps_manager.handle_create_session(payload=payload, user_id=user_id)
                 elif http_verb == 'PATCH':
-                    ps_manager.handle_update_session(payload=payload, user_id=user_id)
+                    result = ps_manager.handle_update_session(payload=payload, user_id=user_id)
                 elif http_verb == 'DELETE':
-                    ps_manager.handle_delete_session(payload=payload, user_id=user_id)
+                    result = ps_manager.handle_delete_session(payload=payload, user_id=user_id)
 
             case _:
                 logger.warning(f'Received unknown PowerSync table: {table}')
@@ -542,4 +567,6 @@ def upload_powersync_data(request):
         logger.exception(f'Error processing PowerSync data for table {table}')
         return JsonResponse({'error': str(e)}, status=200)
 
+    if result is not None:
+        return JsonResponse(result, status=200)
     return JsonResponse({'status': 'ok!'}, status=200)
