@@ -115,7 +115,10 @@ class UserprofileSerializer(serializers.ModelSerializer):
             user_email(user, new_email)
             user.save()
             EmailAddress.objects.add_email(
-                self.context['request'], user, new_email, confirm=True,
+                self.context['request'],
+                user,
+                new_email,
+                confirm=True,
             )
 
         return instance
