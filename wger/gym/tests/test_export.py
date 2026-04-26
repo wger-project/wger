@@ -13,9 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import csv
 import datetime
+import io
 
 # Django
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
@@ -82,3 +85,27 @@ class GymMembersCsvExportTestCase(WgerTestCase):
         """
         self.user_logout()
         self.export_csv(fail=True)
+
+    def test_export_neutralises_csv_formula_payload(self):
+        member = User.objects.get(username='member1')
+        member.first_name = '=HYPERLINK("http://attacker.example", "click")'
+        member.last_name = '+SUM(1+2)'
+        member.save()
+        member.userprofile.phone = '@evil'
+        member.userprofile.city = '-bad'
+        member.userprofile.save()
+
+        self.user_login('manager1')
+        response = self.client.get(reverse('gym:export:users', kwargs={'gym_pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+        rows = list(csv.reader(io.StringIO(response.content.decode()), delimiter='\t'))
+        member_row = next(row for row in rows if row and row[2] == 'member1')
+
+        for cell in member_row:
+            if cell:
+                self.assertNotIn(
+                    cell[0],
+                    ('=', '+', '-', '@'),
+                    msg=f'unsanitised formula cell in export: {cell!r}',
+                )

@@ -52,6 +52,19 @@ def get_user_last_activity(user):
     return last_activity
 
 
+_CSV_FORMULA_PREFIXES = ('=', '+', '-', '@', '\t', '\r')
+
+
+def sanitize_csv_cell(value):
+    """
+    Neutralise spreadsheet formula triggers in a CSV/TSV cell.
+    """
+    s = '' if value is None else str(value)
+    if s and s[0] in _CSV_FORMULA_PREFIXES:
+        return "'" + s
+    return s
+
+
 def is_same_gym(user_a, user_b):
     """
     Check whether two users belong to the same gym.

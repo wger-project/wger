@@ -68,6 +68,7 @@ from wger.gym.helpers import (
     get_permission_list,
     is_any_gym_admin,
     is_same_gym,
+    sanitize_csv_cell,
 )
 from wger.gym.models import (
     Gym,
@@ -218,11 +219,14 @@ def gym_new_user_info_export(request):
     writer.writerow([_('Username'), _('First name'), _('Last name'), _('Gym'), _('Password')])
     writer.writerow(
         [
-            new_username,
-            new_user.first_name,
-            new_user.last_name,
-            new_user.userprofile.gym.name,
-            password,
+            sanitize_csv_cell(value)
+            for value in [
+                new_username,
+                new_user.first_name,
+                new_user.last_name,
+                new_user.userprofile.gym.name,
+                password,
+            ]
         ]
     )
 
