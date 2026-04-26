@@ -234,7 +234,7 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertFalse(self.client.session.get('trainer.identity'))
 
 
-class GymBypassTestCase(WgerTestCase):
+class GymScopeGuardsTestCase(WgerTestCase):
     """
     Test the gym-scope guards
     """
@@ -321,6 +321,62 @@ class GymBypassTestCase(WgerTestCase):
         )
         self.assertIn(response.status_code, (403, 404))
         self.assertFalse(self.client.session.get('trainer.identity'))
+
+    def test_admin_notes_list_blocked_when_both_gyms_none(self):
+        """
+        A trainer with gym=None must not list admin notes attached to
+        another gym=None user.
+        """
+        self._set_gym(4, None)  # trainer1
+        self._set_gym(14, None)  # member1, owner of admin note pk=1
+        self.user_login('trainer1')
+
+        response = self.client.get(reverse('gym:admin_note:list', kwargs={'user_pk': 14}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_admin_notes_update_blocked_when_both_gyms_none(self):
+        """
+        Editing an admin note that belongs to a gym=None member must be
+        blocked for a gym=None trainer.
+        """
+        self._set_gym(4, None)
+        self._set_gym(14, None)
+        self.user_login('trainer1')
+
+        response = self.client.get(reverse('gym:admin_note:edit', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_documents_list_blocked_when_both_gyms_none(self):
+        self._set_gym(4, None)
+        self._set_gym(14, None)
+        self.user_login('trainer1')
+
+        response = self.client.get(reverse('gym:document:list', kwargs={'user_pk': 14}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_documents_update_blocked_when_both_gyms_none(self):
+        self._set_gym(4, None)
+        self._set_gym(14, None)
+        self.user_login('trainer1')
+
+        response = self.client.get(reverse('gym:document:edit', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_contracts_list_blocked_when_both_gyms_none(self):
+        self._set_gym(9, None)  # manager1
+        self._set_gym(15, None)  # member2, owner of contract pk=1
+        self.user_login('manager1')
+
+        response = self.client.get(reverse('gym:contract:list', kwargs={'user_pk': 15}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_contracts_update_blocked_when_both_gyms_none(self):
+        self._set_gym(9, None)
+        self._set_gym(15, None)
+        self.user_login('manager1')
+
+        response = self.client.get(reverse('gym:contract:edit', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 403)
 
 
 class TrainerLogoutTestCase(WgerTestCase):
