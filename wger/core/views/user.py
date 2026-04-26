@@ -54,6 +54,7 @@ from django.urls import (
     reverse_lazy,
 )
 from django.utils import translation
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -201,10 +202,14 @@ def trainer_login(request, user_pk):
 
     if not own:
         request.session['trainer.identity'] = orig_user_pk
-        if request.GET.get('next'):
-            return HttpResponseRedirect(request.GET['next'])
-        else:
-            return HttpResponseRedirect(reverse('core:index'))
+        next_url = request.GET.get('next')
+        if next_url and url_has_allowed_host_and_scheme(
+            next_url,
+            allowed_hosts={request.get_host()},
+            require_https=request.is_secure(),
+        ):
+            return HttpResponseRedirect(next_url)
+        return HttpResponseRedirect(reverse('core:index'))
     else:
         return HttpResponseRedirect(
             reverse('gym:gym:user-list', kwargs={'pk': user.userprofile.gym_id})

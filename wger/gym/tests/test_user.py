@@ -219,6 +219,26 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.client.session.get('trainer.identity'))
 
+    def test_open_redirect_external_next_blocked(self):
+        """
+        The ?next= parameter must only redirect to the same origin.
+        """
+        self.user_login('admin')
+        for evil in ('https://evil.example/', '//evil.example/x', '%2F%2Fevil.example'):
+            response = self.client.get(
+                reverse('core:user:trainer-login', kwargs={'user_pk': 2}) + f'?next={evil}'
+            )
+            self.assertEqual(response.status_code, 302)
+            self.assertNotIn('evil.example', response['Location'])
+
+    def test_safe_next_passes_through(self):
+        self.user_login('admin')
+        response = self.client.get(
+            reverse('core:user:trainer-login', kwargs={'user_pk': 2}) + '?next=/exercise/overview'
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/exercise/overview')
+
     def test_gyms_manager(self):
         """
         Test changing the identity to a user with gyms management rights
