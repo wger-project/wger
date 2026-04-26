@@ -64,7 +64,7 @@ class ApiKeyTestCase(WgerTestCase):
         user = User.objects.get(username='test')
         key_before = Token.objects.get(user=user)
 
-        response = self.client.get(reverse('core:user:api-key'), {'new_key': True})
+        response = self.client.post(reverse('core:user:api-key'), {'new_key': True})
         self.assertEqual(response.status_code, 302)
         response = self.client.get(response['Location'])
         self.assertEqual(response.status_code, 200)
@@ -75,3 +75,19 @@ class ApiKeyTestCase(WgerTestCase):
 
         # New key is different from the one before
         self.assertNotEqual(key_before.key, key_after.key)
+
+    def test_api_key_rotation_requires_post(self):
+        """
+        Token rotation is a state-changing action and must not be triggered
+        by a GET request — otherwise an attacker could embed a link or
+        image that silently rotates a victim's token.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+        key_before = Token.objects.get(user=user)
+
+        response = self.client.get(reverse('core:user:api-key'), {'new_key': True})
+        self.assertEqual(response.status_code, 200)
+
+        key_after = Token.objects.get(user=user)
+        self.assertEqual(key_before.key, key_after.key)

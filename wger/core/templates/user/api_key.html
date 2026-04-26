@@ -41,13 +41,21 @@ curl -X GET https://wger.de/api/v2/routine/ \
     <h4>{% translate "Options" %}</h4>
 
     <p>
-        {% if token %}
-            <a href="{% url 'core:user:api-key' %}?new_key=true"
-               class="btn btn-block btn-light">{% translate 'Delete current API key and generate new one' %}</a>
-        {% else %}
-            <a href="{% url 'core:user:api-key' %}?new_key=true"
-               class="btn btn-block btn-light">{% translate 'Generate new API key' %}</a>
-        {% endif %}
+        <button
+            type="button"
+            class="btn btn-block btn-light"
+            hx-post="{% url 'core:user:api-key' %}"
+            hx-vals='{"new_key": "true"}'
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="body"
+            hx-push-url="true"
+        >
+            {% if token %}
+                {% translate 'Delete current API key and generate new one' %}
+            {% else %}
+                {% translate 'Generate new API key' %}
+            {% endif %}
+        </button>
     </p>
 
     <p>

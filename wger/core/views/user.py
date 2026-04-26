@@ -501,10 +501,10 @@ def api_key(request):
     except Token.DoesNotExist:
         token = None
 
-    if request.GET.get('new_key'):
-        token = create_token(request.user, request.GET.get('new_key'))
+    if request.method == 'POST' and request.POST.get('new_key'):
+        token = create_token(request.user, request.POST.get('new_key'))
 
-        # Redirect to get rid of the GET parameter
+        # Redirect so a refresh doesn't try to rotate again
         return HttpResponseRedirect(reverse('core:user:api-key'))
 
     context['token'] = token
