@@ -25,6 +25,7 @@ def _build_mock_request(user):
 def _build_mock_user(gym_name, is_trainer=False):
     user = mock.Mock()
     user.userprofile.gym = gym_name
+    user.userprofile.gym_id = gym_name
 
     def request_has_perm(perm):
         if perm in ['gym.gym_trainer', 'gym.manage_gym', 'gym.manage_gyms']:

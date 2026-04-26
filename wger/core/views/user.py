@@ -87,6 +87,7 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
+from wger.gym.helpers import is_same_gym
 from wger.gym.models import (
     AdminUserNote,
     Contract,
@@ -178,7 +179,7 @@ def trainer_login(request, user_pk):
         return HttpResponseForbidden()
 
     # Changing is only allowed between the same gym
-    if request.user.userprofile.gym != user.userprofile.gym:
+    if not is_same_gym(request.user, user):
         return HttpResponseNotFound(
             f'There are no users in gym "{request.user.userprofile.gym}" with user ID "{user_pk}".'
         )
@@ -463,7 +464,7 @@ class UserEditView(
         if (
             user.has_perm('gym.manage_gym')
             and not user.has_perm('gym.manage_gyms')
-            and user.userprofile.gym != self.get_object().userprofile.gym
+            and not is_same_gym(user, self.get_object())
         ):
             return HttpResponseForbidden()
 
@@ -531,7 +532,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         if (
             (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer'))
             and not user.has_perm('gym.manage_gyms')
-            and user.userprofile.gym != self.get_object().userprofile.gym
+            and not is_same_gym(user, self.get_object())
         ):
             return HttpResponseForbidden()
 

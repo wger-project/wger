@@ -52,6 +52,17 @@ def get_user_last_activity(user):
     return last_activity
 
 
+def is_same_gym(user_a, user_b):
+    """
+    Check whether two users belong to the same gym.
+
+    Returns ``True`` only when both users are members of the same, non-null gym
+    """
+    gym_a = user_a.userprofile.gym_id
+    gym_b = user_b.userprofile.gym_id
+    return gym_a is not None and gym_a == gym_b
+
+
 def is_any_gym_admin(user):
     """
     Small utility that checks that the user object has any administrator

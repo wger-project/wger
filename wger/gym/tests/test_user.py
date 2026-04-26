@@ -234,6 +234,95 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertFalse(self.client.session.get('trainer.identity'))
 
 
+class GymBypassTestCase(WgerTestCase):
+    """
+    Test the gym-scope guards
+    """
+
+    VICTIM_USER_PK = 2  # 'test'
+
+    def _set_gym(self, user_pk, gym_id):
+        profile = UserProfile.objects.get(user_id=user_pk)
+        profile.gym_id = gym_id
+        profile.save()
+
+    def _both_gyms_none(self, attacker_pk):
+        self._set_gym(attacker_pk, None)
+        self._set_gym(self.VICTIM_USER_PK, None)
+
+    def test_reset_password_blocked_when_both_gyms_none(self):
+        """
+        A manager with gym=None must not reset another gym=None user's
+        password.
+        """
+        self._both_gyms_none(attacker_pk=9)  # manager1
+        self.user_login('manager1')
+
+        response = self.client.get(
+            reverse('gym:gym:reset-user-password', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_reset_password_blocked_attacker_none_victim_real_gym(self):
+        """
+        Sanity check: an attacker with gym=None must not be able to reset
+        the password of a user that is in a real gym either.
+        """
+        self._set_gym(9, None)  # manager1; victim keeps fixture gym=1
+        self.user_login('manager1')
+
+        response = self.client.get(
+            reverse('gym:gym:reset-user-password', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_reset_password_allowed_same_gym(self):
+        """
+        Sanity check: the legitimate same-gym flow must keep working.
+        """
+        self.user_login('manager1')
+
+        response = self.client.get(
+            reverse('gym:gym:reset-user-password', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_permissions_edit_blocked_when_both_gyms_none(self):
+        self._both_gyms_none(attacker_pk=9)
+        self.user_login('manager1')
+
+        response = self.client.get(
+            reverse('gym:gym:edit-user-permission', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_user_edit_blocked_when_both_gyms_none(self):
+        self._both_gyms_none(attacker_pk=9)
+        self.user_login('manager1')
+
+        response = self.client.get(reverse('core:user:edit', kwargs={'pk': self.VICTIM_USER_PK}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_user_overview_blocked_when_both_gyms_none(self):
+        self._both_gyms_none(attacker_pk=9)
+        self.user_login('manager1')
+
+        response = self.client.get(
+            reverse('core:user:overview', kwargs={'pk': self.VICTIM_USER_PK})
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_trainer_login_blocked_when_both_gyms_none(self):
+        self._both_gyms_none(attacker_pk=4)  # trainer1
+        self.user_login('trainer1')
+
+        response = self.client.get(
+            reverse('core:user:trainer-login', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+        self.assertIn(response.status_code, (403, 404))
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+
 class TrainerLogoutTestCase(WgerTestCase):
     """
     Tests the trainer logout view (switching back to trainer ID)

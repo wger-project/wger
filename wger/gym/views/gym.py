@@ -67,6 +67,7 @@ from wger.gym.forms import (
 from wger.gym.helpers import (
     get_permission_list,
     is_any_gym_admin,
+    is_same_gym,
 )
 from wger.gym.models import (
     Gym,
@@ -248,10 +249,7 @@ def reset_user_password(request, user_pk):
     if not request.user.has_perm('gym.manage_gyms') and not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    if (
-        request.user.has_perm('gym.manage_gym')
-        and request.user.userprofile.gym != user.userprofile.gym
-    ):
+    if request.user.has_perm('gym.manage_gym') and not is_same_gym(request.user, user):
         return HttpResponseForbidden()
 
     password = password_generator()
@@ -275,7 +273,7 @@ def gym_permissions_user_edit(request, user_pk):
     if not user.has_perm('gym.manage_gyms') and not user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    if user.has_perm('gym.manage_gym') and user.userprofile.gym != member.userprofile.gym:
+    if user.has_perm('gym.manage_gym') and not is_same_gym(user, member):
         return HttpResponseForbidden()
 
     # Calculate available user permissions
