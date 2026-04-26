@@ -166,12 +166,21 @@ def trainer_login(request, user_pk):
     """
     user = get_object_or_404(User, pk=user_pk)
     orig_user_pk = request.user.pk
+    trainer_identity_pk = request.session.get('trainer.identity')
 
-    # No changing if identity is not set
-    if not request.user.has_perm('gym.gym_trainer') and not request.session.get('trainer.identity'):
-        return HttpResponseForbidden()
+    # If the request user is not a trainer themselves they may only act within
+    # an established trainer session and only ever to switch back to that
+    # original trainer.
+    if not request.user.has_perm('gym.gym_trainer'):
+        if not trainer_identity_pk:
+            return HttpResponseForbidden()
+        original_trainer = get_object_or_404(User, pk=trainer_identity_pk)
+        if not original_trainer.has_perm('gym.gym_trainer'):
+            return HttpResponseForbidden()
+        if user.pk != trainer_identity_pk:
+            return HttpResponseForbidden()
 
-    # Changing between trainers or managers is not allowed
+    # Direct trainer-login: target must not itself be a privileged account.
     if request.user.has_perm('gym.gym_trainer') and (
         user.has_perm('gym.gym_trainer')
         or user.has_perm('gym.manage_gym')

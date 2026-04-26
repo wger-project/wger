@@ -219,17 +219,36 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.client.session.get('trainer.identity'))
 
+    def test_chained_hop_into_manager_is_blocked(self):
+        """
+        After a trainer legitimately switches into a regular user, the
+        session flag ``trainer.identity`` is set. Calling trainer-login
+        again must not let the (now non-trainer) session climb into a
+        gym manager account just because that flag is present.
+        """
+
+        # Step 1: legitimate hop — trainer1 (user 4) into test (user 2)
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(self.client.session.get('trainer.identity'))
+
+        # Step 2: chained hop — now-as-test, target manager1 (user 9, has manage_gym)
+        response = self.client.get(reverse('core:user:trainer-login', kwargs={'user_pk': 9}))
+        self.assertEqual(response.status_code, 403)
+
     def test_open_redirect_external_next_blocked(self):
         """
         The ?next= parameter must only redirect to the same origin.
         """
-        self.user_login('admin')
         for evil in ('https://evil.example/', '//evil.example/x', '%2F%2Fevil.example'):
+            self.user_login('admin')
             response = self.client.get(
                 reverse('core:user:trainer-login', kwargs={'user_pk': 2}) + f'?next={evil}'
             )
             self.assertEqual(response.status_code, 302)
             self.assertNotIn('evil.example', response['Location'])
+            self.user_logout()
 
     def test_safe_next_passes_through(self):
         self.user_login('admin')
