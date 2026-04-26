@@ -27,6 +27,11 @@ class RoutinePermission(permissions.BasePermission):
 
         return request.user and request.user.is_authenticated
 
+    # Routine actions that expose the owner's personal training history
+    # rather than the public template structure. They must stay
+    # owner-only, even on public templates.
+    OWNER_ONLY_ACTIONS = frozenset({'logs', 'stats'})
+
     def has_object_permission(self, request, view, obj):
         """
         If the routine is a public template, allow read-only access for everyone.
@@ -35,7 +40,7 @@ class RoutinePermission(permissions.BasePermission):
         if obj.user == request.user:
             return True
 
-        if obj.is_template:
+        if obj.is_template and getattr(view, 'action', None) not in self.OWNER_ONLY_ACTIONS:
             return request.method in permissions.SAFE_METHODS
 
         return False
