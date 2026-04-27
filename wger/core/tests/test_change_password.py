@@ -16,7 +16,9 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.test import Client
 from django.urls import reverse
 
 # wger
@@ -71,3 +73,42 @@ class ChangePasswordTestCase(WgerTestCase):
 
         self.user_login('test')
         self.change_password(fail=False)
+
+    def test_other_sessions_are_invalidated_after_password_change(self):
+        """
+        When the same user is signed in from two different browsers and
+        changes their password in one of them, the other browser's
+        session must no longer be authenticated.
+        """
+        protected_url = reverse('core:user:preferences')
+
+        # Browser A logs in and confirms the protected page is reachable
+        browser_a = Client()
+        browser_a.login(username='test', password='testtest')
+        self.assertEqual(browser_a.get(protected_url).status_code, 200)
+
+        # Browser B logs in independently, also reaches the protected page
+        browser_b = Client()
+        browser_b.login(username='test', password='testtest')
+        self.assertEqual(browser_b.get(protected_url).status_code, 200)
+
+        # Browser A changes the password
+        response = browser_a.post(
+            reverse('core:user:change-password'),
+            {
+                'old_password': 'testtest',
+                'new_password1': 'shuZoh2oGu7i',
+                'new_password2': 'shuZoh2oGu7i',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+
+        # Browser A's session keeps working (update_session_auth_hash)
+        self.assertEqual(browser_a.get(protected_url).status_code, 200)
+
+        # Browser B's session is silently invalidated, the next request is treated
+        # as anonymous and bounced to the login page. Note that ``@login_required``
+        # redirects to ``settings.LOGIN_URL`` directly, without any locale prefix
+        response = browser_b.get(protected_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response['Location'].startswith(settings.LOGIN_URL))
