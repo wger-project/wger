@@ -660,3 +660,8 @@ class WgerLoginView(AllauthLoginView):
                 request, *args, **kwargs
             )
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['use_social_auth'] = bool(settings.WGER_SOCIAL_PROVIDERS)
+        return context
