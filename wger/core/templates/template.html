@@ -50,6 +50,7 @@
     <script src="{% static 'node/@popperjs/core/dist/umd/popper.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
     <script src="{% static 'js/language.js' %}"></script>
+    <script>window.WGER_I18N_PATHS = {% react_translation_paths %};</script>
     <script src="{% static 'node/@wger-project/react-components/build/main.js' %}" type="module" defer="defer"></script>
 
     {% block header %}{% endblock %}

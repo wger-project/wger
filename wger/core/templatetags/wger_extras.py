@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,11 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-from collections.abc import Iterable
+import json
+import re
+from functools import lru_cache
 
 # Django
 from django import template
-from django.templatetags.static import static
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     gettext_lazy as _,
@@ -160,3 +160,26 @@ def format_username(user):
         return user.email
     else:
         return user.username
+
+
+@lru_cache(maxsize=1)
+def _react_translation_paths_json():
+    locale_re = re.compile(r'.*/react-components/build/locales/([^/]+)/translation\.json$')
+
+    paths = {}
+    hashed_files = getattr(staticfiles_storage, 'hashed_files', None) or {}
+    for original, hashed in hashed_files.items():
+        m = locale_re.match(original)
+        if m:
+            paths[m.group(1)] = staticfiles_storage.base_url + hashed
+    return json.dumps(paths)
+
+
+@register.simple_tag
+def react_translation_paths():
+    """
+    Emit a JSON object mapping language code -> hashed URL of the React app's
+    translation file, calculated from the staticfiles manifest. Used by the
+    React app's i18next backend so it can load the translation file directly.
+    """
+    return mark_safe(_react_translation_paths_json())
