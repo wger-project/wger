@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-10 10:20+0000\n"
-"PO-Revision-Date: 2026-04-07 08:09+0000\n"
+"PO-Revision-Date: 2026-04-27 09:09+0000\n"
 "Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -159,7 +159,7 @@ msgstr "تسجيل"
 
 #: core/forms.py:360 weight/templates/import_csv_form.html:9
 msgid "Submit"
-msgstr ""
+msgstr "إرسال"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -391,7 +391,7 @@ msgstr "يجب أن يكون مجموع جميع الساعات ٢٤"
 
 #: core/models/rep_unit.py:32 i18n.tpl:30
 msgid "Repetitions"
-msgstr ""
+msgstr "التكرارات"
 
 #: core/models/rep_unit.py:33 core/templates/user/overview.html:82
 #: exercises/templates/history/overview.html:30
@@ -400,7 +400,7 @@ msgstr "الوقت"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "المسافة"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:283 core/views/user.py:605
@@ -414,11 +414,11 @@ msgstr "الاسم"
 
 #: core/models/rep_unit.py:53
 msgid "Unit Type"
-msgstr ""
+msgstr "نوع الوحدة"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "نوع الوحدة (التكرارات، الوقت، أو المسافة)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -452,7 +452,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "اقتربنا!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, fuzzy, python-format
