@@ -195,3 +195,29 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 18)
         call_command('delete-temp-users')
         self.assertEqual(self.count_temp_users(), 2)
+
+    def test_temporary_user_deleted_on_logout(self):
+        """
+        Logging out a temporary user must delete the account
+        """
+        before = self.count_temp_users()
+        temp_user = create_temporary_user(HttpRequest())
+        self.assertEqual(self.count_temp_users(), before + 1)
+
+        self.client.force_login(temp_user)
+        self.client.post(reverse('account_logout'))
+
+        self.assertFalse(User.objects.filter(pk=temp_user.pk).exists())
+        self.assertEqual(self.count_temp_users(), before)
+
+    def test_regular_user_kept_on_logout(self):
+        """
+        Logging out a regular (non-temporary) user must not delete the account.
+        """
+        regular = User.objects.get(username='admin')
+        self.assertFalse(regular.userprofile.is_temporary)
+
+        self.client.force_login(regular)
+        self.client.post(reverse('account_logout'))
+
+        self.assertTrue(User.objects.filter(pk=regular.pk).exists())

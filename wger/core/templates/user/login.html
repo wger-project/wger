@@ -9,8 +9,11 @@
 
 {% block content %}
     {% crispy form %}
-{% endblock %}
 
+    {% if use_social_auth %}
+       {% include "user/social_login.html" %}
+    {% endif %}
+{% endblock %}
 
 {% block sidebar %}
 {% if allow_registration %}
