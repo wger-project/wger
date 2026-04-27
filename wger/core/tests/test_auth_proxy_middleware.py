@@ -21,9 +21,6 @@ from django.test import (
 )
 from django.urls import reverse
 
-# Third Party
-from allauth.socialaccount.models import SocialApp
-
 
 User = get_user_model()
 

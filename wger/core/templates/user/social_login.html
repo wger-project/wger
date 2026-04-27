@@ -1,14 +1,19 @@
 {% load i18n socialaccount %}
+{% get_providers as socialaccount_providers %}
 
+{% if socialaccount_providers %}
 <div class="row mt-3">
     <div class="col-md-12 text-center">
-        <hr>
-        <h4>{% translate "Or login with" %}</h4>
+        <h4>&mdash; {% translate "or login with" %} &mdash;</h4>
 
-        {% if use_social_auth %}
-        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger me-2 mb-2">
-            <i class="fab fa-google me-1"></i> {% translate "Google" %}
-        </a>
-        {% endif %}
+        {% for provider in socialaccount_providers %}
+            <form method="post" action="{% provider_login_url provider %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary me-2 mb-2">
+                    {{ provider.name }}
+                </button>
+            </form>
+        {% endfor %}
     </div>
 </div>
+{% endif %}

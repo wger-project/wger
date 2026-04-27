@@ -1,18 +1,16 @@
-#  This file is part of wger Workout Manager <https://github.com/wger-project>.
-#  Copyright (C) 2013 - 2026 wger Team
+# This file is part of wger Workout Manager.
 #
-#  wger Workout Manager is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU Affero General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
+# wger Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#  wger Workout Manager is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU Affero General Public License for more details.
+# wger Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#  You should have received a copy of the GNU Affero General Public License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU Affero General Public License
 
 # ruff: noqa: F405, F403
 
@@ -33,8 +31,6 @@ WGER_SETTINGS['ALLOW_GUEST_USERS'] = True
 WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS'] = False
 WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST'] = 21  # in days
 WGER_SETTINGS['EXERCISE_CACHE_TTL'] = 3600  # in seconds
-WGER_SETTINGS['USE_GOOGLE_AUTH'] = False
-WGER_SETTINGS['USE_SOCIAL_AUTH'] = False
 
 DATABASES = {
     'default': {

@@ -222,28 +222,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'OAUTH_PKCE_ENABLED': True,
-    },
-}
-
-ACCOUNT_LOGOUT_ON_GET = True
-SOCIALACCOUNT_LOGIN_ON_GET = True
-
 #
 # Login
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = LOGIN_URL
 
 #
 # Internationalization
@@ -446,11 +430,6 @@ SIMPLE_JWT = {
 }
 
 #
-# Dj-rest-auth
-#
-REST_USE_JWT = True
-
-#
 # CORS headers: allow all hosts to access the API
 #
 CORS_ORIGIN_ALLOW_ALL = True
@@ -503,37 +482,24 @@ WGER_SETTINGS = {
     'EXPORT_INGREDIENTS_BULK_CELERY': False,
     'CACHE_API_EXERCISES_CELERY': False,
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': False,
+
+    # Socials
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
+
     # Trophy system settings
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
-    # Social authentication/Oauth
-    'USE_GOOGLE_AUTH': True, # GOOGLE
 }
 
-WGER_SETTINGS['USE_SOCIAL_AUTH'] = (
-    WGER_SETTINGS.get('USE_GOOGLE_AUTH', False)
-    or WGER_SETTINGS.get('USE_GITHUB_AUTH', False)
-    or WGER_SETTINGS.get('USE_FACEBOOK_AUTH', False)
-)
-
 #
-# Django-allauth
-# Dj-rest-auth
-#
-if WGER_SETTINGS.get('USE_SOCIAL_AUTH', False):
-    _social_apps = [
+# Social authentication / OAuth
+# List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
+WGER_SOCIAL_PROVIDERS = []
 
-        'allauth.socialaccount',
-        'allauth.socialaccount.providers.google',
-
-    ]
-
-    INSTALLED_APPS += _social_apps
 
 #
 # Auth Proxy Authentication

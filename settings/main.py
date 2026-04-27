@@ -224,10 +224,15 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 )
 
 #
-# Django-allauth
-# Dj-rest-auth
+# Django-allauth social providers
 #
-WGER_SETTINGS['USE_SOCIAL_AUTH'] = env.bool('USE_SOCIAL_AUTH', False)
+WGER_SOCIAL_PROVIDERS = env.list('WGER_SOCIAL_PROVIDERS', default=[])
+if WGER_SOCIAL_PROVIDERS:
+    INSTALLED_APPS += [
+        'allauth.socialaccount',
+        *[f'allauth.socialaccount.providers.{p}' for p in WGER_SOCIAL_PROVIDERS],
+    ]
+
 #
 # Django Rest Framework SimpleJWT
 #
