@@ -47,7 +47,28 @@
 
 
     <div style="padding-top:3em;"></div>
-    {% pagination paginator page_obj %}
+    <nav aria-label="{% translate 'Ingredient pagination' %}">
+        <ul class="pagination justify-content-center">
+            {% if is_paginated %}
+                <li class="page-item">
+                    <a href="{{ first_url }}" class="page-link">
+                        « {% translate "Back to start" %}
+                    </a>
+                </li>
+            {% endif %}
+            {% if has_next %}
+                <li class="page-item">
+                    <a href="{{ next_url }}" class="page-link">
+                        {% translate "next" %} »
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a href="#" class="page-link">{% translate "next" %} »</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}
 
 {% block sidebar %}

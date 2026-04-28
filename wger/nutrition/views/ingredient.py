@@ -30,12 +30,10 @@ from django.shortcuts import (
     render,
 )
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
-from django.views.decorators.cache import cache_page
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -65,27 +63,80 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
-@method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']), name='dispatch')
 class IngredientListView(ListView):
     """
-    Show an overview of all ingredients
+    Show an overview of all ingredients using cursor-based pagination.
+
+    This is more efficient than OFFSET-based pagination for large lists because it
+    can use an index on id to jump directly to the next page, while OFFSET
+    requires scanning and counting rows up to the offset.
+
+    This also allows to keep the list public so that crawlers can index it
+
+    The query string interface:
+        - no parameter           -> first page
+        - ?after=<id>            -> rows with id > <id>, ascending
     """
 
     model = Ingredient
     template_name = 'ingredient/overview.html'
     context_object_name = 'ingredients_list'
-    paginate_by = PAGINATION_OBJECTS_PER_PAGE
+    paginate_by = None  # disabled — cursor handled in get_context_data
     filterset_class = IngredientFilterSet
+
+    PAGE_SIZE = PAGINATION_OBJECTS_PER_PAGE
 
     def get_queryset(self):
         """
-        Filter the ingredients the user will see by its language, optionally
-        also filtering by other properties
+        Apply language + filterset, then cursor logic. We fetch one extra row
+        beyond PAGE_SIZE so we know whether a next page exists without an
+        extra COUNT query.
         """
         language = load_language()
         queryset = Ingredient.objects.filter(language=language)
         filterset = self.filterset_class(self.request.GET or None, queryset=queryset)
-        return filterset.qs
+        qs = filterset.qs.order_by('id')
+
+        after = self.request.GET.get('after')
+        if after:
+            try:
+                qs = qs.filter(id__gt=int(after))
+            except (TypeError, ValueError):
+                # fall through to first page
+                pass
+
+        return qs[: self.PAGE_SIZE + 1]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ingredients = list(context['ingredients_list'])
+
+        # We fetched PAGE_SIZE + 1 to peek at the next-page existence.
+        has_next = len(ingredients) > self.PAGE_SIZE
+        if has_next:
+            ingredients = ingredients[: self.PAGE_SIZE]
+
+        # Pre-build the pagination URLs here
+        next_url = None
+        if has_next and ingredients:
+            params = self.request.GET.copy()
+            params['after'] = str(ingredients[-1].id)
+            next_url = f'?{params.urlencode()}'
+
+        is_paginated = bool(self.request.GET.get('after'))
+        first_url = None
+        if is_paginated:
+            params = self.request.GET.copy()
+            params.pop('after', None)
+            first_url = f'?{params.urlencode()}' if params else '?'
+
+        context['ingredients_list'] = ingredients
+        context['has_next'] = has_next
+        context['next_url'] = next_url
+        context['first_url'] = first_url
+        context['is_paginated'] = is_paginated
+
+        return context
 
 
 def view(request, pk, slug=None):
