@@ -67,6 +67,7 @@ from wger.utils.constants import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
+from wger.utils.pagination import IngredientCursorPagination
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -86,6 +87,18 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'language',
         'license',
     ).prefetch_related('ingredientweightunit_set')
+    throttle_scope = 'ingredient_list'
+
+    def get_throttles(self):
+        """
+        Apply distinct throttle scopes to list and detail actions.
+
+        List queries on a 3M-row table are expensive (sort, deep pagination);
+        detail queries are cheap PK lookups. Separate buckets keep autocomplete
+        and detail loads from competing for the same quota.
+        """
+        self.throttle_scope = ('ingredient_list' if self.action == 'list' else 'ingredient_detail')
+        return super().get_throttles()
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def list(self, request, *args, **kwargs):

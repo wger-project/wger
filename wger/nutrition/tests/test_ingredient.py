@@ -16,14 +16,12 @@
 # Standard Library
 import datetime
 import json
-from decimal import Decimal
 from unittest.mock import (
     MagicMock,
     patch,
 )
 
 # Django
-from django.core.exceptions import ValidationError
 from django.test import SimpleTestCase
 from django.urls import reverse
 
@@ -40,6 +38,10 @@ from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerEditTestCase,
     WgerTestCase,
+)
+from wger.nutrition.api.views import (
+    IngredientSyncViewSet,
+    IngredientViewSet,
 )
 from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.models import (
@@ -767,3 +769,29 @@ class ImageFromJsonSimpleTests(SimpleTestCase):
         self.assertIsInstance(img, Image)
         self.assertNotEqual(str(img.uuid), json_data['uuid'])
         self.assertEqual(img.size, 54321)
+
+
+class IngredientThrottleScopeTestCase(WgerTestCase):
+    """
+    Tests that ingredient viewsets are wired up with the right throttle scopes.
+
+    We don't exercise the rate limits themselves (the rates are config) — we
+    just assert that scopes are picked correctly per action so accidental
+    refactors can't silently strip throttling.
+    """
+
+    def test_ingredient_list_uses_list_scope(self):
+        view = IngredientViewSet()
+        view.action = 'list'
+        view.get_throttles()
+        self.assertEqual(view.throttle_scope, 'ingredient_list')
+
+    def test_ingredient_detail_uses_detail_scope(self):
+        view = IngredientViewSet()
+        view.action = 'retrieve'
+        view.get_throttles()
+        self.assertEqual(view.throttle_scope, 'ingredient_detail')
+
+    def test_ingredient_sync_uses_sync_scope(self):
+        self.assertEqual(IngredientSyncViewSet.throttle_scope, 'ingredient_sync')
+
