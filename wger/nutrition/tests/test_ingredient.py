@@ -794,3 +794,59 @@ class IngredientThrottleScopeTestCase(WgerTestCase):
 
     def test_ingredient_sync_uses_sync_scope(self):
         self.assertEqual(IngredientSyncViewSet.throttle_scope, 'ingredient_sync')
+
+
+class IngredientSyncViewSetTestCase(WgerTestCase):
+    """
+    Tests for the /api/v2/ingredient-sync endpoint.
+    """
+
+    url = reverse('api-ingredient-sync-list')
+
+    def test_list_returns_cursor_pagination_shape(self):
+        """The response has `next`/`previous`, but no `count`."""
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('results', response.data)
+        self.assertIn('next', response.data)
+        self.assertIn('previous', response.data)
+        self.assertNotIn('count', response.data)
+
+    def test_list_paginates_through_all_ingredients(self):
+        """Following `next` returns disjoint pages that together cover all rows."""
+
+        total = Ingredient.objects.count()
+        self.assertGreater(total, 0, 'Fixture must contain ingredients')
+
+        seen_ids = []
+        url = self.url + '?page_size=5'
+        while url:
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            seen_ids.extend(item['id'] for item in response.data['results'])
+            url = response.data['next']
+
+        # No duplicates and every ingredient seen exactly once.
+        self.assertEqual(len(seen_ids), len(set(seen_ids)))
+        self.assertEqual(set(seen_ids), set(Ingredient.objects.values_list('id', flat=True)))
+
+    def test_page_size_query_param_is_capped(self):
+        """`?page_size=` is honored but capped at `max_page_size`."""
+
+        # Way above max_page_size=1000 — must be capped, not error
+        response = self.client.get(self.url + '?page_size=999999')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertLessEqual(len(response.data['results']), 1000)
+
+    def test_filterset_supports_incremental_sync(self):
+        """`last_update__gt` filter narrows the result set for incremental syncs."""
+
+        # Pick a timestamp newer than all fixture rows -> empty result
+        future = '2999-01-01T00:00:00Z'
+        response = self.client.get(f'{self.url}?last_update__gt={future}')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['results'], [])
+        self.assertIsNone(response.data['next'])

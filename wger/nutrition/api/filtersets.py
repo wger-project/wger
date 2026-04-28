@@ -105,7 +105,7 @@ class IngredientFilterSet(filters.FilterSet):
     class Meta:
         model = Ingredient
         fields = {
-            'id': ['exact', 'in'],
+            'id': ['exact', 'in', 'gt', 'gte', 'lt', 'lte'],
             'uuid': ['exact'],
             'code': ['exact'],
             'source_name': ['exact'],

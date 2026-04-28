@@ -88,51 +88,97 @@ class IngredientListView(ListView):
 
     def get_queryset(self):
         """
-        Apply language + filterset, then cursor logic. We fetch one extra row
-        beyond PAGE_SIZE so we know whether a next page exists without an
-        extra COUNT query.
+        Apply language + filterset, then the cursor logic.
+
+        We fetch one extra row beyond PAGE_SIZE so we know whether a further
+        page exists without an extra COUNT query.
+
+        Three modes:
+          - first page (no cursor): id ASC LIMIT N+1
+          - forward (?after=X):     id > X, id ASC LIMIT N+1
+          - backward (?before=Y):   id < Y, id DESC LIMIT N+1
+                                    (rows are reversed in get_context_data)
         """
         language = load_language()
         queryset = Ingredient.objects.filter(language=language)
         filterset = self.filterset_class(self.request.GET or None, queryset=queryset)
-        qs = filterset.qs.order_by('id')
+        qs = filterset.qs
+
+        self._cursor_mode = 'first'
+
+        before = self.request.GET.get('before')
+        if before:
+            try:
+                qs = qs.filter(id__lt=int(before))
+                self._cursor_mode = 'before'
+                return qs.order_by('-id')[: self.PAGE_SIZE + 1]
+            except (TypeError, ValueError):
+                # invalid cursor → fall through to first page
+                pass
 
         after = self.request.GET.get('after')
         if after:
             try:
                 qs = qs.filter(id__gt=int(after))
+                self._cursor_mode = 'after'
             except (TypeError, ValueError):
-                # fall through to first page
                 pass
 
-        return qs[: self.PAGE_SIZE + 1]
+        return qs.order_by('id')[: self.PAGE_SIZE + 1]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        ingredients = list(context['ingredients_list'])
+        rows = list(context['ingredients_list'])
 
-        # We fetched PAGE_SIZE + 1 to peek at the next-page existence.
-        has_next = len(ingredients) > self.PAGE_SIZE
-        if has_next:
-            ingredients = ingredients[: self.PAGE_SIZE]
+        if self._cursor_mode == 'before':
+            # Backward query returned descending; flip back to ascending for
+            # display. The "+1 peek" is at the FRONT (smallest id) and tells
+            # us whether further previous pages exist.
+            rows.reverse()
+            has_prev = len(rows) > self.PAGE_SIZE
+            if has_prev:
+                rows = rows[1:]
+            # Going back, "next" always exists — it's the page we came from.
+            has_next = True
+        elif self._cursor_mode == 'after':
+            has_next = len(rows) > self.PAGE_SIZE
+            if has_next:
+                rows = rows[: self.PAGE_SIZE]
+            has_prev = True
+        else:  # first page
+            has_next = len(rows) > self.PAGE_SIZE
+            if has_next:
+                rows = rows[: self.PAGE_SIZE]
+            has_prev = False
 
-        # Pre-build the pagination URLs here
+        # Pre-build the pagination URLs (Python urlencode dodges template L10N).
         next_url = None
-        if has_next and ingredients:
+        if has_next and rows:
             params = self.request.GET.copy()
-            params['after'] = str(ingredients[-1].id)
+            params.pop('before', None)
+            params['after'] = str(rows[-1].id)
             next_url = f'?{params.urlencode()}'
 
-        is_paginated = bool(self.request.GET.get('after'))
+        prev_url = None
+        if has_prev and rows:
+            params = self.request.GET.copy()
+            params.pop('after', None)
+            params['before'] = str(rows[0].id)
+            prev_url = f'?{params.urlencode()}'
+
+        is_paginated = self._cursor_mode != 'first'
         first_url = None
         if is_paginated:
             params = self.request.GET.copy()
             params.pop('after', None)
+            params.pop('before', None)
             first_url = f'?{params.urlencode()}' if params else '?'
 
-        context['ingredients_list'] = ingredients
+        context['ingredients_list'] = rows
         context['has_next'] = has_next
+        context['has_prev'] = has_prev
         context['next_url'] = next_url
+        context['prev_url'] = prev_url
         context['first_url'] = first_url
         context['is_paginated'] = is_paginated
 

@@ -52,19 +52,30 @@
             {% if is_paginated %}
                 <li class="page-item">
                     <a href="{{ first_url }}" class="page-link">
-                        « {% translate "Back to start" %}
+                        « {% translate "First page" %}
                     </a>
+                </li>
+            {% endif %}
+            {% if has_prev %}
+                <li class="page-item">
+                    <a href="{{ prev_url }}" class="page-link">
+                        ‹ {% translate "previous" %}
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a href="#" class="page-link">‹ {% translate "previous" %}</a>
                 </li>
             {% endif %}
             {% if has_next %}
                 <li class="page-item">
                     <a href="{{ next_url }}" class="page-link">
-                        {% translate "next" %} »
+                        {% translate "next" %} ›
                     </a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
-                    <a href="#" class="page-link">{% translate "next" %} »</a>
+                    <a href="#" class="page-link">{% translate "next" %} ›</a>
                 </li>
             {% endif %}
         </ul>

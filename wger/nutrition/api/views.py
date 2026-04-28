@@ -55,6 +55,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+from wger.utils.pagination import IngredientCursorPagination
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -147,6 +148,33 @@ class IngredientInfoViewSet(IngredientViewSet):
     def get_queryset(self):
         """Optimize the queryset with select_related to avoid n+1 queries"""
 
+        return Ingredient.objects.select_related(
+            'language',
+            'license',
+            'image',
+        )
+
+
+class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Cursor-paginated read-only endpoint designed for syncing the ingredient
+    catalogue.
+
+    Unlike /api/v2/ingredient/, this endpoint uses cursor pagination so deep
+    pagination stays fast and is intended for clients such as local wger instances.
+
+    For incremental syncs, combine with the `last_update__gt` filter to only
+    fetch ingredients that changed since that time.
+
+    Note: the response does not contain a `count` key.
+    """
+
+    serializer_class = IngredientInfoSerializer
+    pagination_class = IngredientCursorPagination
+    filterset_class = IngredientFilterSet
+    throttle_scope = 'ingredient_sync'
+
+    def get_queryset(self):
         return Ingredient.objects.select_related(
             'language',
             'license',

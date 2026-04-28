@@ -20,7 +20,10 @@ from django.core.management.base import CommandError
 from wger.core.api.min_server_version import check_min_server_version
 from wger.core.management.wger_command import WgerCommand
 from wger.nutrition.sync import sync_ingredients
-from wger.utils.validators import validate_language_code
+from wger.utils.validators import (
+    validate_iso_date,
+    validate_language_code,
+)
 
 
 class Command(WgerCommand):
@@ -41,18 +44,31 @@ class Command(WgerCommand):
             default=None,
             help='Specify a comma-separated subset of languages to sync. Example: en,fr,es',
         )
+        parser.add_argument(
+            '--since',
+            action='store',
+            dest='since',
+            default=None,
+            help=(
+                'Only sync ingredients updated after this ISO-8601 timestamp '
+                '(e.g. 2026-04-20T00:00:00Z). Useful for incremental syncs.'
+            ),
+        )
 
     def handle(self, **options):
         super().handle(**options)
 
         remote_url = options['remote_url']
         languages = options['languages']
+        since = options['since']
 
         check_min_server_version(remote_url)
         try:
             if languages is not None:
                 for language in languages.split(','):
                     validate_language_code(language)
+            if since is not None:
+                validate_iso_date(since)
         except ValidationError as e:
             raise CommandError('\n'.join([str(arg) for arg in e.args if arg is not None]))
 
@@ -62,4 +78,5 @@ class Command(WgerCommand):
             languages,
             self.style.SUCCESS,
             show_progress_bar=True,
+            last_update_gt=since,
         )
