@@ -17,6 +17,9 @@ from decimal import Decimal
 from unittest.mock import patch
 from uuid import UUID
 
+# Django
+from django.core.management import CommandError
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import (
@@ -27,6 +30,7 @@ from wger.nutrition.sync import (
     sync_ingredients,
     sync_ingredients_page,
 )
+from wger.nutrition.tasks import sync_all_ingredients_chunked_task
 from wger.utils.requests import wger_headers
 
 
@@ -242,3 +246,19 @@ class TestSyncMethods(WgerTestCase):
             expected_url,
             headers=wger_headers(),
         )
+
+    @patch('wger.nutrition.tasks.requests.get')
+    @patch('wger.nutrition.tasks.check_min_server_version')
+    def test_chunked_sync_aborts_on_incompatible_remote(self, mock_check_version, mock_request):
+        """The chunked orchestrator must refuse to sync against an incompatible remote.
+
+        This protects users on outdated wger versions whose Celery beat schedule
+        still calls this task directly (instead of going through the bulk wrapper).
+        """
+        mock_check_version.side_effect = CommandError('Remote requires version 2.5.0')
+
+        sync_all_ingredients_chunked_task(remote_url='https://example.com')
+
+        mock_check_version.assert_called_once_with('https://example.com')
+        # No API requests must be made when the version check fails.
+        mock_request.assert_not_called()

@@ -122,8 +122,15 @@ def sync_all_ingredients_chunked_task(
     Runs in parallel depending on the concurrency settings of the Celery worker.
     """
 
-    # Calculate number of pages
     remote = remote_url or settings.WGER_SETTINGS['WGER_INSTANCE']
+
+    try:
+        check_min_server_version(remote)
+    except CommandError as e:
+        logger.error(f'Ingredient sync aborted, server incompatible: {e}')
+        return None
+
+    # Calculate number of pages
     url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote, query={'limit': 1})
     data = requests.get(url, headers=wger_headers(), timeout=30).json()
     total = data['count']
