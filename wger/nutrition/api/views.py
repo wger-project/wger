@@ -22,11 +22,10 @@ import logging
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+
 # Third Party
 from rest_framework import viewsets
-from rest_framework.decorators import (
-    action,
-)
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
