@@ -97,7 +97,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         detail queries are cheap PK lookups. Separate buckets keep autocomplete
         and detail loads from competing for the same quota.
         """
-        self.throttle_scope = ('ingredient_list' if self.action == 'list' else 'ingredient_detail')
+        self.throttle_scope = 'ingredient_list' if self.action == 'list' else 'ingredient_detail'
         return super().get_throttles()
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))

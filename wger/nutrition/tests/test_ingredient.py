@@ -794,4 +794,3 @@ class IngredientThrottleScopeTestCase(WgerTestCase):
 
     def test_ingredient_sync_uses_sync_scope(self):
         self.assertEqual(IngredientSyncViewSet.throttle_scope, 'ingredient_sync')
-
