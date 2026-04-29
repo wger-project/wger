@@ -19,6 +19,7 @@ from typing import Any
 
 # wger
 from wger.manager.api.serializers import (
+    RoutineSerializer,
     WorkoutLogSerializer,
     WorkoutSessionSerializer,
 )
@@ -27,6 +28,7 @@ from wger.manager.api.views import (
     WorkoutSessionViewSet,
 )
 from wger.manager.models import (
+    Routine,
     WorkoutLog,
     WorkoutSession,
 )
@@ -145,4 +147,53 @@ def handle_delete_session(payload: dict[str, Any], user_id: int) -> dict | None:
             'details': f'WorkoutSession with UUID {payload["id"]} not found',
         }
     entry.delete()
+    return None
+
+
+def handle_update_routine(payload: dict[str, Any], user_id: int) -> dict | None:
+    """Handle a PowerSync PATCH event for a routine.
+
+    Creation still goes through REST (the backend assigns the integer PK and
+    `created` timestamp), so there is no `handle_create_routine` here — only
+    edit and delete are part of the PowerSync upload pipeline.
+    """
+    logger.debug(f'Received PowerSync payload for routine update: {payload}')
+    try:
+        entry = Routine.objects.get(pk=payload['id'], user_id=user_id)
+    except Routine.DoesNotExist:
+        logger.warning(
+            f'Routine with id {payload["id"]} and user {user_id} not found for update.'
+        )
+        return {
+            'error': 'Not found',
+            'details': f'Routine with id {payload["id"]} not found',
+        }
+
+    serializer = RoutineSerializer(entry, data=payload, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        logger.info(f'Updated Routine {entry.pk} for user {user_id}')
+        return None
+    logger.warning(f'PowerSync routine update validation failed: {serializer.errors}')
+    return {'error': 'Validation failed', 'details': serializer.errors}
+
+
+def handle_delete_routine(payload: dict[str, Any], user_id: int) -> dict | None:
+    """
+    Handle a PowerSync DELETE event for a routine.
+
+    Django's FK CASCADE removes all dependent days, slots, set configs,
+    sessions and logs in the same transaction.
+    """
+    logger.debug(f'Received PowerSync payload for routine delete: {payload}')
+    try:
+        entry = Routine.objects.get(pk=payload['id'], user_id=user_id)
+    except Routine.DoesNotExist:
+        logger.warning(f'Routine with id {payload["id"]} not found for delete.')
+        return {
+            'error': 'Not found',
+            'details': f'Routine with id {payload["id"]} not found',
+        }
+    entry.delete()
+    logger.info(f'Deleted Routine {payload["id"]} for user {user_id}')
     return None

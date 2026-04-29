@@ -59,6 +59,7 @@ from rest_framework.response import Response
 # wger
 import wger.manager.powersync as ps_manager
 import wger.measurements.powersync as ps_measurements
+import wger.nutrition.powersync as ps_nutrition
 import wger.weight.powersync as ps_weight
 from wger.core.api import powersync
 from wger.core.api.serializers import (
@@ -559,6 +560,31 @@ def upload_powersync_data(request):
                     result = ps_manager.handle_update_session(payload=payload, user_id=user_id)
                 elif http_verb == 'DELETE':
                     result = ps_manager.handle_delete_session(payload=payload, user_id=user_id)
+
+            case 'manager_routine':
+                # Creation still goes through REST; only edit and delete reach us via PowerSync
+                if http_verb == 'PATCH':
+                    result = ps_manager.handle_update_routine(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    result = ps_manager.handle_delete_routine(payload=payload, user_id=user_id)
+                elif http_verb == 'PUT':
+                    result = {
+                        'error': 'Method not allowed',
+                        'details': 'Routine creation must go through the REST API',
+                    }
+
+            # Nutrition
+            case 'nutrition_nutritionplan':
+                # Creation still goes through REST; only edit and delete reach us via PowerSync
+                if http_verb == 'PATCH':
+                    result = ps_nutrition.handle_update_plan(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    result = ps_nutrition.handle_delete_plan(payload=payload, user_id=user_id)
+                elif http_verb == 'PUT':
+                    result = {
+                        'error': 'Method not allowed',
+                        'details': 'NutritionPlan creation must go through the REST API',
+                    }
 
             case _:
                 logger.warning(f'Received unknown PowerSync table: {table}')
