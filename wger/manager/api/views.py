@@ -199,6 +199,10 @@ class RoutineViewSet(viewsets.ModelViewSet):
 
         return Response(out)
 
+    @staticmethod
+    def get_owner_objects():
+        return []
+
 
 class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """

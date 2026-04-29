@@ -50,33 +50,67 @@ class LogModelTestCase(WgerTestCase):
 
         self.assertEqual(WorkoutSession.objects.count(), 1)
 
-    def test_dont_create_session(self):
+    def test_dont_create_session_when_already_set(self):
         """
-        Test that no session is created if the log already has one
+        If the log already has a (valid, own) session, the auto-create magic must
+        not run and no extra session must be created.
         """
 
-        self.assertEqual(WorkoutSession.objects.count(), 5)
+        initial_count = WorkoutSession.objects.count()
+        self.assertEqual(initial_count, 5)
 
         log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
-        log.session_id = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000001'
+        target = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
+        self.assertEqual(log.user_id, target.user_id)
+        self.assertNotEqual(log.date.date(), target.date)
 
-        self.assertEqual(WorkoutSession.objects.count(), 5)
+        log.session = target
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(str(log.session_id), 'bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
+        self.assertEqual(WorkoutSession.objects.count(), initial_count)
+
+    def test_keep_explicit_own_session(self):
+        """
+        When the client provides an explicit, matching session, save() must not
+        replace it with a freshly created one.
+        """
+
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        own_session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+
+        log.session = own_session
+        log.weight = 99  # force a change
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(str(log.session_id), 'bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
 
     def test_session_ownership(self):
         """
-        Test that the session foreign key checks ownership
+        A log must never end up attached to another user's session, even if the
+        caller tries to set ``log.session`` to a foreign one.
         """
-        session1 = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
-        session5 = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005')
 
-        self.assertEqual(session1.user_id, 1)
-        self.assertEqual(session5.user_id, 2)
+        own_session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        foreign_session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005')
+
+        self.assertEqual(own_session.user_id, 1)
+        self.assertEqual(foreign_session.user_id, 2)
 
         log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
-        log.session = session5
+        self.assertEqual(log.user_id, 1)
+
+        log.session = foreign_session
         log.save()
 
-        self.assertNotEqual(log.session_id, 4)
+        log.refresh_from_db()
+        self.assertNotEqual(log.session_id, foreign_session.pk)
+
+        # Whatever session was assigned by the auto-create fallback must belong
+        # to the same user as the log.
+        self.assertEqual(log.session.user_id, log.user_id)
 
     def test_routine_ownership(self):
         """

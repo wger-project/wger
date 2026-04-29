@@ -264,12 +264,20 @@ class WorkoutLog(models.Model):
         if self.routine and self.routine.user != self.user:
             return
 
-        # If there is no session for this date and routine, create one
-        self.session = WorkoutSession.objects.get_or_create(
-            user=self.user,
-            date=self.date,
-            routine=self.routine,
-        )[0]
+        # If a session was explicitly provided but belongs to a different
+        # user, drop the reference so we don't accidentally tie this log
+        # to someone else's session. The auto-create branch below will
+        # then provide the correct one.
+        if self.session_id and self.session.user_id != self.user_id:
+            self.session = None
+
+        # Auto-create a session only if the client didn't provide one.
+        if not self.session_id:
+            self.session = WorkoutSession.objects.get_or_create(
+                user=self.user,
+                date=self.date,
+                routine=self.routine,
+            )[0]
 
         # Reset cache
         reset_workout_log_cache(

@@ -229,6 +229,10 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
+    @staticmethod
+    def get_owner_objects():
+        return []
+
 
 class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     """

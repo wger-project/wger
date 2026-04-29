@@ -24,6 +24,7 @@ from wger.manager.api.serializers import (
     WorkoutSessionSerializer,
 )
 from wger.manager.api.views import (
+    RoutineViewSet,
     WorkoutLogViewSet,
     WorkoutSessionViewSet,
 )
@@ -52,7 +53,9 @@ def handle_update_log(payload: dict[str, Any], user_id: int) -> dict | None:
     if not check_fk_ownership(payload, WorkoutLogViewSet.get_owner_objects(), user_id):
         return {'error': 'Forbidden', 'details': 'WorkoutLog references an object you do not own'}
 
-    serializer = WorkoutLogSerializer(entry, data=payload, partial=True)
+    serializer = WorkoutLogSerializer(
+        entry, data=payload, partial=True, context={'user_id': user_id}
+    )
     if serializer.is_valid():
         serializer.save()
         logger.info(f'Updated WorkoutLog {entry.pk} for user {user_id}')
@@ -68,7 +71,7 @@ def handle_create_log(payload: dict[str, Any], user_id: int) -> dict | None:
     if not check_fk_ownership(payload, WorkoutLogViewSet.get_owner_objects(), user_id):
         return {'error': 'Forbidden', 'details': 'WorkoutLog references an object you do not own'}
 
-    serializer = WorkoutLogSerializer(data=payload)
+    serializer = WorkoutLogSerializer(data=payload, context={'user_id': user_id})
     if serializer.is_valid():
         serializer.save(user_id=user_id)
         return None
@@ -168,6 +171,9 @@ def handle_update_routine(payload: dict[str, Any], user_id: int) -> dict | None:
             'error': 'Not found',
             'details': f'Routine with id {payload["id"]} not found',
         }
+
+    if not check_fk_ownership(payload, RoutineViewSet.get_owner_objects(), user_id):
+        return {'error': 'Forbidden', 'details': 'Routine references an object you do not own'}
 
     serializer = RoutineSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():

@@ -420,12 +420,35 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
         )
 
 
-class WorkoutLogSerializer(serializers.ModelSerializer):
+class OwnerScopedSessionField(serializers.PrimaryKeyRelatedField):
     """
-    Workout session serializer
+    A writeable session FK that only resolves UUIDs of sessions owned by the
+    current user.
+
+    If neither the request or an explicit context is available (e.g. a serializer
+    instantiated for read-only display without a user context), the queryset
+    becomes empty so that no FK can be set; reads continue to work because
+    ``PrimaryKeyRelatedField`` only consults the queryset on write.
     """
 
-    session = serializers.PrimaryKeyRelatedField(read_only=True)
+    def get_queryset(self):
+        user_id = self.context.get('user_id')
+        if user_id is None:
+            request = self.context.get('request')
+            user = getattr(request, 'user', None) if request else None
+            if user is not None and user.is_authenticated:
+                user_id = user.pk
+        if user_id is None:
+            return WorkoutSession.objects.none()
+        return WorkoutSession.objects.filter(user_id=user_id)
+
+
+class WorkoutLogSerializer(serializers.ModelSerializer):
+    """
+    Workout log serializer
+    """
+
+    session = OwnerScopedSessionField(required=False, allow_null=True)
 
     class Meta:
         model = WorkoutLog

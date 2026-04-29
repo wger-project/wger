@@ -19,7 +19,9 @@ from typing import Any
 
 # wger
 from wger.nutrition.api.serializers import NutritionPlanSerializer
+from wger.nutrition.api.views import NutritionPlanViewSet
 from wger.nutrition.models import NutritionPlan
+from wger.utils.viewsets import check_fk_ownership
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +46,9 @@ def handle_update_plan(payload: dict[str, Any], user_id: int) -> dict | None:
             'details': f'NutritionPlan with id {payload["id"]} not found',
         }
 
+    if not check_fk_ownership(payload, NutritionPlanViewSet.get_owner_objects(), user_id):
+        return {'error': 'Forbidden', 'details': 'NutritionPlan references an object you do not own'}
+
     serializer = NutritionPlanSerializer(entry, data=payload, partial=True)
     if serializer.is_valid():
         serializer.save()
@@ -54,7 +59,8 @@ def handle_update_plan(payload: dict[str, Any], user_id: int) -> dict | None:
 
 
 def handle_delete_plan(payload: dict[str, Any], user_id: int) -> dict | None:
-    """Handle a PowerSync DELETE event for a nutritional plan.
+    """
+    Handle a PowerSync DELETE event for a nutritional plan.
 
     Django's FK CASCADE removes all dependent meals, meal items and diary
     log entries in the same transaction.
