@@ -6,7 +6,8 @@
             "ingredient": 5,
             "comment": "",
             "amount": "2",
-            "weight_unit": 1
+            "weight_unit": 1,
+            "uuid": "ee000000-0000-0000-0000-000000000001"
         },
         "pk": 1,
         "model": "nutrition.logitem"

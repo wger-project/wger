@@ -25,5 +25,14 @@
             "name": "The way I like it",
             "unit": "rods to the hogshead"
         }
+    },
+    {
+        "pk": "cccccccc-cccc-cccc-cccc-0000000000aa",
+        "model": "measurements.category",
+        "fields": {
+            "user": 1,
+            "name": "Admin's chest",
+            "unit": "cm"
+        }
     }
 ]

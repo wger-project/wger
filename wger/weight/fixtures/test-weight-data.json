@@ -3,6 +3,7 @@
         "pk": 1,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000001",
             "user": 2,
             "weight": 77,
             "date": "2012-10-01T14:30:21.592Z"
@@ -12,6 +13,7 @@
         "pk": 2,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000002",
             "user": 2,
             "weight": 77.2,
             "date": "2012-10-10T14:30:21.592Z"
@@ -21,6 +23,7 @@
         "pk": 3,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000003",
             "user": 2,
             "weight": 80.6,
             "date": "2012-11-01T14:30:21.592Z"
@@ -30,6 +33,7 @@
         "pk": 4,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000004",
             "user": 2,
             "weight": 80,
             "date": "2013-01-01T14:30:21.592Z"
@@ -39,6 +43,7 @@
         "pk": 5,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000005",
             "user": 2,
             "weight": 81,
             "date": "2013-01-10T14:30:21.592Z"
@@ -48,6 +53,7 @@
         "pk": 6,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000006",
             "user": 2,
             "weight": 82,
             "date": "2013-01-20T14:30:21.592Z"
@@ -57,6 +63,7 @@
         "pk": 7,
         "model": "weight.weightentry",
         "fields": {
+            "uuid": "11111111-1111-1111-1111-000000000007",
             "user": 2,
             "weight": 83,
             "date": "2013-01-30T14:30:21.592Z"
