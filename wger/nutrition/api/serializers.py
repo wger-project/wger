@@ -41,22 +41,8 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
         model = IngredientWeightUnit
         fields = (
             'id',
-            'gram',
-            'ingredient',
-            'name',
-        )
-
-
-class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
-    """
-    IngredientWeightUnit info serializer
-    """
-
-    class Meta:
-        model = IngredientWeightUnit
-        fields = (
-            'id',
             'uuid',
+            'ingredient',
             'gram',
             'name',
         )
@@ -97,7 +83,7 @@ class IngredientSerializer(serializers.ModelSerializer):
     Ingredient serializer
     """
 
-    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+    weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
 
     class Meta:
         model = Ingredient
@@ -141,7 +127,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     Ingredient info serializer
     """
 
-    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+    weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
     image = IngredientImageSerializer(read_only=True)
     thumbnails = serializers.SerializerMethodField()
 

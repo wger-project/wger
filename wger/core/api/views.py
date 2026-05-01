@@ -586,6 +586,14 @@ def upload_powersync_data(request):
                         'details': 'NutritionPlan creation must go through the REST API',
                     }
 
+            case 'nutrition_logitem':
+                if http_verb == 'PUT':
+                    result = ps_nutrition.handle_create_log(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
+                    result = ps_nutrition.handle_update_log(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    result = ps_nutrition.handle_delete_log(payload=payload, user_id=user_id)
+
             case _:
                 logger.warning(f'Received unknown PowerSync table: {table}')
                 return JsonResponse({'error': f'Unknown table: {table}'}, status=200)

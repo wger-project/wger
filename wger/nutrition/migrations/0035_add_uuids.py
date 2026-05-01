@@ -116,7 +116,7 @@ class Migration(migrations.Migration):
             name='uuid',
             field=models.UUIDField(
                 default=uuid.uuid4,
-                editable=False,
+                editable=True,
                 null=False,
                 unique=True,
             ),
