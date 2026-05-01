@@ -16,13 +16,19 @@
 from wger.core.tests import powersync_base_test
 from wger.nutrition.models import (
     LogItem,
+    Meal,
+    MealItem,
     NutritionPlan,
 )
 
 
-# Pinned in test-nutrition-data.json
-PLAN_OWNED = 1  # user 'test'
-PLAN_OTHER = 2  # user 'admin'
+# Pinned in test-nutrition-data.json (uuid field on the matching pk)
+PLAN_OWNED_UUID = 'cc000000-0000-0000-0000-000000000001'  # user 'test'
+PLAN_OTHER_UUID = 'cc000000-0000-0000-0000-000000000002'  # user 'admin'
+MEAL_OWNED_UUID = 'aa000000-0000-0000-0000-000000000001'
+MEAL_OTHER_UUID = 'aa000000-0000-0000-0000-000000000003'
+MEAL_ITEM_OWNED_UUID = 'bb000000-0000-0000-0000-000000000001'
+MEAL_ITEM_OTHER_UUID = 'bb000000-0000-0000-0000-000000000004'
 
 # Pinned in test-nutrition-diary.json (linked to PLAN_OWNED)
 LOG_OWNED_UUID = 'ee000000-0000-0000-0000-000000000001'
@@ -30,35 +36,110 @@ LOG_OWNED_UUID = 'ee000000-0000-0000-0000-000000000001'
 INGREDIENT_PUBLIC = 1
 
 
-class NutritionPlanPowerSyncTestCase(
-    powersync_base_test.PowerSyncBaseTestCase,
-    powersync_base_test.PowerSyncCreateNotAllowedTestCase,
-    powersync_base_test.PowerSyncUpdateTestCase,
-    powersync_base_test.PowerSyncDeleteTestCase,
-):
+class NutritionPlanPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     """
-    PowerSync handlers for nutrition.NutritionPlan. Creation must go through
-    REST (the dispatcher rejects PUT), so only PATCH/DELETE are tested.
+    PowerSync handlers for nutrition.NutritionPlan. Full CRUD via PowerSync —
+    the handler keys rows by uuid (Pattern A).
     """
 
     table = 'nutrition_nutritionplan'
     resource = NutritionPlan
 
-    pk_owned = PLAN_OWNED
+    pk_owned = PLAN_OWNED_UUID
 
     update_payload = {
         'id': pk_owned,
         'description': 'Renamed via PowerSync',
     }
 
-    create_payload = {'id': 9999, 'description': 'should not be created'}
+    create_payload = {
+        'id': 'cc000000-0000-0000-0000-000000000099',
+        'description': 'created via PowerSync',
+        'creation_date': '2030-01-15',
+        'start': '2030-01-15',
+        'end': None,
+        'only_logging': False,
+        'has_goal_calories': False,
+        'goal_energy': None,
+        'goal_protein': None,
+        'goal_carbohydrates': None,
+        'goal_fat': None,
+        'goal_fiber': None,
+    }
+
+    def _get_entry_for_update(self):
+        return NutritionPlan.objects.get(uuid=self.update_payload['id'])
+
+
+class MealPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
+    """
+    PowerSync handlers for nutrition.Meal. Full CRUD via PowerSync — the
+    handler keys rows by uuid; the `plan` FK in the payload is a uuid string
+    that the handler resolves to the integer PK before saving.
+    """
+
+    table = 'nutrition_meal'
+    resource = Meal
+
+    pk_owned = MEAL_OWNED_UUID
+
+    update_payload = {
+        'id': pk_owned,
+        'name': 'Renamed via PowerSync',
+    }
+
+    create_payload = {
+        'id': 'aa000000-0000-0000-0000-000000000099',
+        'plan': PLAN_OWNED_UUID,
+        'name': 'created via PowerSync',
+    }
+
+    fk_ownership = (
+        ('plan', PLAN_OTHER_UUID),
+    )
+
+    def _get_entry_for_update(self):
+        return Meal.objects.get(uuid=self.update_payload['id'])
+
+
+class MealItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
+    """
+    PowerSync handlers for nutrition.MealItem. Full CRUD via PowerSync — the
+    handler keys rows by uuid; the `meal` FK in the payload is a uuid string
+    that the handler resolves to the integer PK before saving.
+    """
+
+    table = 'nutrition_mealitem'
+    resource = MealItem
+
+    pk_owned = MEAL_ITEM_OWNED_UUID
+
+    update_payload = {
+        'id': pk_owned,
+        'amount': '99',
+    }
+
+    create_payload = {
+        'id': 'bb000000-0000-0000-0000-000000000099',
+        'meal': MEAL_OWNED_UUID,
+        'ingredient': INGREDIENT_PUBLIC,
+        'amount': '50',
+    }
+
+    fk_ownership = (
+        ('meal', MEAL_OTHER_UUID),
+    )
+
+    def _get_entry_for_update(self):
+        return MealItem.objects.get(uuid=self.update_payload['id'])
 
 
 class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     """
     PowerSync handlers for nutrition.LogItem. The handler runs
     check_fk_ownership against (NutritionPlan, 'plan') and (Meal, 'meal').
-    Lookup uses the uuid field, not the integer pk.
+    Lookup uses the uuid field; the `plan` and `meal` FKs in the payload are
+    uuid strings that the handler resolves to the integer PKs before saving.
     """
 
     table = 'nutrition_logitem'
@@ -68,7 +149,7 @@ class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
 
     create_payload = {
         'id': 'ee000000-0000-0000-0000-000000000099',
-        'plan': PLAN_OWNED,
+        'plan': PLAN_OWNED_UUID,
         'datetime': '2030-01-15T10:00:00Z',
         'ingredient': INGREDIENT_PUBLIC,
         'amount': '50',
@@ -79,7 +160,7 @@ class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     }
 
     fk_ownership = (
-        ('plan', PLAN_OTHER),
+        ('plan', PLAN_OTHER_UUID),
     )
 
     def _get_entry_for_update(self):

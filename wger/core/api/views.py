@@ -576,16 +576,34 @@ def upload_powersync_data(request):
 
             # Nutrition
             case 'nutrition_nutritionplan':
-                # Creation still goes through REST; only edit and delete reach us via PowerSync
-                if http_verb == 'PATCH':
+                if http_verb == 'PUT':
+                    result = ps_nutrition.handle_create_plan(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
                     result = ps_nutrition.handle_update_plan(payload=payload, user_id=user_id)
                 elif http_verb == 'DELETE':
                     result = ps_nutrition.handle_delete_plan(payload=payload, user_id=user_id)
-                elif http_verb == 'PUT':
-                    result = {
-                        'error': 'Method not allowed',
-                        'details': 'NutritionPlan creation must go through the REST API',
-                    }
+
+            case 'nutrition_meal':
+                if http_verb == 'PUT':
+                    result = ps_nutrition.handle_create_meal(payload=payload, user_id=user_id)
+                elif http_verb == 'PATCH':
+                    result = ps_nutrition.handle_update_meal(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    result = ps_nutrition.handle_delete_meal(payload=payload, user_id=user_id)
+
+            case 'nutrition_mealitem':
+                if http_verb == 'PUT':
+                    result = ps_nutrition.handle_create_mealitem(
+                        payload=payload, user_id=user_id
+                    )
+                elif http_verb == 'PATCH':
+                    result = ps_nutrition.handle_update_mealitem(
+                        payload=payload, user_id=user_id
+                    )
+                elif http_verb == 'DELETE':
+                    result = ps_nutrition.handle_delete_mealitem(
+                        payload=payload, user_id=user_id
+                    )
 
             case 'nutrition_logitem':
                 if http_verb == 'PUT':

@@ -45,7 +45,7 @@ class MealItem(BaseMealItem, models.Model):
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
-        editable=False,
+        editable=True,
         null=False,
         unique=True,
     )
