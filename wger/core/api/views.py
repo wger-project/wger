@@ -57,6 +57,7 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 # wger
+import wger.gallery.powersync as ps_gallery
 import wger.manager.powersync as ps_manager
 import wger.measurements.powersync as ps_measurements
 import wger.nutrition.powersync as ps_nutrition
@@ -593,6 +594,21 @@ def upload_powersync_data(request):
                     result = ps_nutrition.handle_update_log(payload=payload, user_id=user_id)
                 elif http_verb == 'DELETE':
                     result = ps_nutrition.handle_delete_log(payload=payload, user_id=user_id)
+
+            # Gallery
+            case 'gallery_image':
+                # Creation (and edits that swap the file) still go through REST,
+                # because PowerSync can't carry the binary upload. Only metadata
+                # edits and deletes reach us via PowerSync.
+                if http_verb == 'PATCH':
+                    result = ps_gallery.handle_update_image(payload=payload, user_id=user_id)
+                elif http_verb == 'DELETE':
+                    result = ps_gallery.handle_delete_image(payload=payload, user_id=user_id)
+                elif http_verb == 'PUT':
+                    result = {
+                        'error': 'Method not allowed',
+                        'details': 'Gallery image creation must go through the REST API',
+                    }
 
             case _:
                 logger.warning(f'Received unknown PowerSync table: {table}')
