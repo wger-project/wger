@@ -57,11 +57,13 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 # wger
-import wger.gallery.powersync as ps_gallery
-import wger.manager.powersync as ps_manager
-import wger.measurements.powersync as ps_measurements
-import wger.nutrition.powersync as ps_nutrition
-import wger.weight.powersync as ps_weight
+# The per-app powersync modules are imported for their side effect: each one
+# registers its handlers with wger.utils.powersync.REGISTRY at import time.
+import wger.gallery.powersync  # noqa: F401
+import wger.manager.powersync  # noqa: F401
+import wger.measurements.powersync  # noqa: F401
+import wger.nutrition.powersync  # noqa: F401
+import wger.weight.powersync  # noqa: F401
 from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
@@ -83,6 +85,7 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
+from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
     MIN_APP_VERSION,
     MIN_SERVER_VERSION,
@@ -492,145 +495,17 @@ def upload_powersync_data(request):
 
     logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
 
-    # Each handler returns either `None` (operation processed successfully) or
-    # an error dict which we propagate back to the client. The HTTP status stays
-    # at 200 even on logical errors since powersync treats non-2xx statuses as
-    # "retry forever".
-    result: dict | None = None
+    handler = POWERSYNC_REGISTRY.get(table)
+    if handler is None:
+        logger.warning(f'Received unknown PowerSync table: {table}')
+        return JsonResponse({'error': f'Unknown table: {table}'}, status=200)
+
+    # Handlers return either `None` (operation processed successfully) or an
+    # error dict which we propagate back to the client. The HTTP status stays
+    # at 200 even on logical errors, since powersync treats non-2xx statuses
+    # as "retry forever".
     try:
-        match table:
-            # Body weight
-            case 'weight_weightentry':
-                if http_verb == 'PUT':
-                    result = ps_weight.handle_create(
-                        payload=payload,
-                        user_id=user_id,
-                        request=request,
-                    )
-                elif http_verb == 'PATCH':
-                    result = ps_weight.handle_update(
-                        payload=payload,
-                        user_id=user_id,
-                        request=request,
-                    )
-                elif http_verb == 'DELETE':
-                    result = ps_weight.handle_delete(payload=payload, user_id=user_id)
-
-            # Measurements
-            case 'measurements_category':
-                if http_verb == 'PUT':
-                    result = ps_measurements.handle_create_category(
-                        payload=payload, user_id=user_id
-                    )
-                elif http_verb == 'PATCH':
-                    result = ps_measurements.handle_update_category(
-                        payload=payload, user_id=user_id
-                    )
-                elif http_verb == 'DELETE':
-                    result = ps_measurements.handle_delete_category(
-                        payload=payload, user_id=user_id
-                    )
-
-            case 'measurements_measurement':
-                if http_verb == 'PUT':
-                    result = ps_measurements.handle_create_measurement(
-                        payload=payload, user_id=user_id
-                    )
-                elif http_verb == 'PATCH':
-                    result = ps_measurements.handle_update_measurement(
-                        payload=payload, user_id=user_id
-                    )
-                elif http_verb == 'DELETE':
-                    result = ps_measurements.handle_delete_measurement(
-                        payload=payload, user_id=user_id
-                    )
-
-            # Routines
-            case 'manager_workoutlog':
-                if http_verb == 'PUT':
-                    result = ps_manager.handle_create_log(payload=payload, user_id=user_id)
-                elif http_verb == 'PATCH':
-                    result = ps_manager.handle_update_log(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_manager.handle_delete_log(payload=payload, user_id=user_id)
-
-            case 'manager_workoutsession':
-                if http_verb == 'PUT':
-                    result = ps_manager.handle_create_session(payload=payload, user_id=user_id)
-                elif http_verb == 'PATCH':
-                    result = ps_manager.handle_update_session(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_manager.handle_delete_session(payload=payload, user_id=user_id)
-
-            case 'manager_routine':
-                # Creation still goes through REST; only edit and delete reach us via PowerSync
-                if http_verb == 'PATCH':
-                    result = ps_manager.handle_update_routine(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_manager.handle_delete_routine(payload=payload, user_id=user_id)
-                elif http_verb == 'PUT':
-                    result = {
-                        'error': 'Method not allowed',
-                        'details': 'Routine creation must go through the REST API',
-                    }
-
-            # Nutrition
-            case 'nutrition_nutritionplan':
-                if http_verb == 'PUT':
-                    result = ps_nutrition.handle_create_plan(payload=payload, user_id=user_id)
-                elif http_verb == 'PATCH':
-                    result = ps_nutrition.handle_update_plan(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_nutrition.handle_delete_plan(payload=payload, user_id=user_id)
-
-            case 'nutrition_meal':
-                if http_verb == 'PUT':
-                    result = ps_nutrition.handle_create_meal(payload=payload, user_id=user_id)
-                elif http_verb == 'PATCH':
-                    result = ps_nutrition.handle_update_meal(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_nutrition.handle_delete_meal(payload=payload, user_id=user_id)
-
-            case 'nutrition_mealitem':
-                if http_verb == 'PUT':
-                    result = ps_nutrition.handle_create_mealitem(
-                        payload=payload, user_id=user_id
-                    )
-                elif http_verb == 'PATCH':
-                    result = ps_nutrition.handle_update_mealitem(
-                        payload=payload, user_id=user_id
-                    )
-                elif http_verb == 'DELETE':
-                    result = ps_nutrition.handle_delete_mealitem(
-                        payload=payload, user_id=user_id
-                    )
-
-            case 'nutrition_logitem':
-                if http_verb == 'PUT':
-                    result = ps_nutrition.handle_create_log(payload=payload, user_id=user_id)
-                elif http_verb == 'PATCH':
-                    result = ps_nutrition.handle_update_log(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_nutrition.handle_delete_log(payload=payload, user_id=user_id)
-
-            # Gallery
-            case 'gallery_image':
-                # Creation (and edits that swap the file) still go through REST,
-                # because PowerSync can't carry the binary upload. Only metadata
-                # edits and deletes reach us via PowerSync.
-                if http_verb == 'PATCH':
-                    result = ps_gallery.handle_update_image(payload=payload, user_id=user_id)
-                elif http_verb == 'DELETE':
-                    result = ps_gallery.handle_delete_image(payload=payload, user_id=user_id)
-                elif http_verb == 'PUT':
-                    result = {
-                        'error': 'Method not allowed',
-                        'details': 'Gallery image creation must go through the REST API',
-                    }
-
-            case _:
-                logger.warning(f'Received unknown PowerSync table: {table}')
-                return JsonResponse({'error': f'Unknown table: {table}'}, status=200)
+        result = handler.dispatch(http_verb, payload=payload, user_id=user_id)
     except Exception as e:
         logger.exception(f'Error processing PowerSync data for table {table}')
         return JsonResponse({'error': str(e)}, status=200)

@@ -23,15 +23,12 @@ from rest_framework import status
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.core.tests.powersync_base_test import PowerSyncBaseTestCase
+from wger.manager.api.serializers import WorkoutLogSerializer
 from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
-from wger.manager.powersync import (
-    handle_create_log,
-    handle_update_log,
-)
-
 
 
 OWN_SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000001'
@@ -64,7 +61,6 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.user_login('admin')
-
 
     def test_create_log_with_explicit_own_session(self):
         """POST with an own session UUID pins the log to that session."""
@@ -108,9 +104,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
         """POST without a session falls back to the legacy auto-create."""
 
         new_date = datetime.date(2030, 6, 15)
-        before = WorkoutSession.objects.filter(
-            user_id=1, routine_id=1, date=new_date
-        ).count()
+        before = WorkoutSession.objects.filter(user_id=1, routine_id=1, date=new_date).count()
         self.assertEqual(before, 0)
 
         response = self.client.post(
@@ -157,14 +151,20 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
         self.assertEqual(str(log.session_id), OWN_SESSION_OTHER_DATE)
 
 
-class WorkoutLogSessionPinningPowerSyncTestCase(WgerTestCase):
+class WorkoutLogSessionPinningPowerSyncTestCase(PowerSyncBaseTestCase):
     """
-    Same scenarios, but exercising the PowerSync upload handlers directly.
+    Same scenarios as the REST suite, but pushed through the PowerSync upload
+    endpoint. Logs in this fixture are owned by ``admin`` (user 1).
     """
+
+    table = 'manager_workoutlog'
+    user_access = 'admin'
 
     def test_create_log_with_explicit_own_session(self):
         before = WorkoutLog.objects.filter(session_id=OWN_SESSION_OTHER_DATE).count()
-        result = handle_create_log(
+        self.authenticate()
+        response = self.push(
+            'PUT',
             {
                 'exercise': 1,
                 'routine': 1,
@@ -173,15 +173,17 @@ class WorkoutLogSessionPinningPowerSyncTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
-            user_id=1,
         )
-        self.assertIsNone(result)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
         after = WorkoutLog.objects.filter(session_id=OWN_SESSION_OTHER_DATE).count()
         self.assertEqual(after, before + 1)
 
     def test_create_log_with_foreign_session_returns_forbidden(self):
         before = WorkoutLog.objects.count()
-        result = handle_create_log(
+        self.authenticate()
+        response = self.push(
+            'PUT',
             {
                 'exercise': 1,
                 'routine': 1,
@@ -190,29 +192,25 @@ class WorkoutLogSessionPinningPowerSyncTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
-            user_id=1,
         )
-        self.assertIsNotNone(result)
-        self.assertEqual(result.get('error'), 'Forbidden')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json().get('error'), 'Forbidden')
         self.assertEqual(WorkoutLog.objects.count(), before)
 
     def test_update_log_with_foreign_session_returns_forbidden(self):
-        result = handle_update_log(
-            {'id': OWN_LOG, 'session': FOREIGN_SESSION},
-            user_id=1,
-        )
-        self.assertIsNotNone(result)
-        self.assertEqual(result.get('error'), 'Forbidden')
+        self.authenticate()
+        response = self.push('PATCH', {'id': OWN_LOG, 'session': FOREIGN_SESSION})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json().get('error'), 'Forbidden')
 
         log = WorkoutLog.objects.get(pk=OWN_LOG)
         self.assertEqual(str(log.session_id), OWN_SESSION)
 
     def test_update_log_pins_own_session(self):
-        result = handle_update_log(
-            {'id': OWN_LOG, 'session': OWN_SESSION_OTHER_DATE},
-            user_id=1,
-        )
-        self.assertIsNone(result)
+        self.authenticate()
+        response = self.push('PATCH', {'id': OWN_LOG, 'session': OWN_SESSION_OTHER_DATE})
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
 
         log = WorkoutLog.objects.get(pk=OWN_LOG)
         self.assertEqual(str(log.session_id), OWN_SESSION_OTHER_DATE)
@@ -226,8 +224,6 @@ class WorkoutLogSerializerSessionFilterTestCase(WgerTestCase):
     """
 
     def test_serializer_rejects_foreign_session_via_user_id_context(self):
-        from wger.manager.api.serializers import WorkoutLogSerializer
-
         serializer = WorkoutLogSerializer(
             data={
                 'exercise': 1,
@@ -243,8 +239,6 @@ class WorkoutLogSerializerSessionFilterTestCase(WgerTestCase):
         self.assertIn('session', serializer.errors)
 
     def test_serializer_accepts_own_session_via_user_id_context(self):
-        from wger.manager.api.serializers import WorkoutLogSerializer
-
         serializer = WorkoutLogSerializer(
             data={
                 'exercise': 1,
@@ -265,8 +259,6 @@ class WorkoutLogSerializerSessionFilterTestCase(WgerTestCase):
         able to resolve any session UUID — the queryset is empty by
         default, so the call falls through to a validation error.
         """
-        from wger.manager.api.serializers import WorkoutLogSerializer
-
         serializer = WorkoutLogSerializer(
             data={
                 'exercise': 1,

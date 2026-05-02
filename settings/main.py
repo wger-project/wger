@@ -105,7 +105,7 @@ POWERSYNC_JWKS_PRIVATE_KEY = env.str('POWERSYNC_JWKS_PRIVATE_KEY', '')
 POWERSYNC_URL_PATH = env.str('POWERSYNC_URL_PATH', 'ps')
 POWERSYNC_URL = env.str('POWERSYNC_URL', '')
 if not DEBUG and any(
-    POWERSYNC_JWKS_PUBLIC_KEY and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_POWERSYNC_KEY_HASHES
+    key and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_POWERSYNC_KEY_HASHES
     for key in (POWERSYNC_JWKS_PUBLIC_KEY, POWERSYNC_JWKS_PRIVATE_KEY)
 ):
     warnings.warn(

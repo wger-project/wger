@@ -14,69 +14,28 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import logging
 from typing import Any
 
-# Django
-from django.http import HttpRequest
-
 # wger
+from wger.utils.powersync import (
+    PowerSyncHandler,
+    register_handler,
+)
 from wger.weight.api.serializers import WeightEntrySerializer
 from wger.weight.models import WeightEntry
 
 
-logger = logging.getLogger(__name__)
+@register_handler
+class WeightEntryHandler(PowerSyncHandler):
+    """
+    Body weight uses a client-supplied UUID as the synchronised primary key,
+    so the handler must round-trip the payload's ``id`` into the ``uuid``
+    column on create.
+    """
 
+    model = WeightEntry
+    serializer_class = WeightEntrySerializer
+    lookup_field = 'uuid'
 
-def handle_update(payload: dict[str, Any], user_id: int, request: HttpRequest) -> dict | None:
-    """Handle a push event from PowerSync"""
-    logger.debug(f'Received PowerSync payload for update: {payload}')
-    try:
-        entry = WeightEntry.objects.get(uuid=payload['id'], user_id=user_id)
-    except WeightEntry.DoesNotExist:
-        logger.warning(
-            f'WeightEntry with UUID {payload["id"]} and user {user_id} not found for update.'
-        )
-        return {
-            'error': 'Not found',
-            'details': f'WeightEntry with UUID {payload["id"]} not found',
-        }
-
-    serializer = WeightEntrySerializer(
-        entry,
-        data=payload,
-        partial=True,
-        context={'request': request},
-    )
-    if serializer.is_valid():
-        serializer.save()
-        logger.info(f'Updated WeightEntry {entry.pk} (uuid={entry.uuid}) for user {user_id}')
-        return None
-    logger.warning(f'PowerSync update validation failed: {serializer.errors}')
-    return {'error': 'Validation failed', 'details': serializer.errors}
-
-
-def handle_create(payload: dict[str, Any], user_id: int, request: HttpRequest) -> dict | None:
-    """Handle a create event from PowerSync"""
-    logger.debug(f'Received PowerSync payload for create: {payload}')
-    serializer = WeightEntrySerializer(data=payload, context={'request': request})
-    if serializer.is_valid():
-        serializer.save(user_id=user_id, uuid=payload['id'])
-        return None
-    logger.warning(f'PowerSync create validation failed: {serializer.errors}')
-    return {'error': 'Validation failed', 'details': serializer.errors}
-
-
-def handle_delete(payload: dict[str, Any], user_id: int) -> dict | None:
-    """Handle a delete event from PowerSync"""
-    logger.debug(f'Received PowerSync payload for delete: {payload}')
-    try:
-        entry = WeightEntry.objects.get(uuid=payload['id'], user_id=user_id)
-    except WeightEntry.DoesNotExist:
-        logger.warning(f'WeightEntry with UUID {payload["id"]} not found for delete.')
-        return {
-            'error': 'Not found',
-            'details': f'WeightEntry with UUID {payload["id"]} not found',
-        }
-    entry.delete()
-    return None
+    def create_save_kwargs(self, payload: dict[str, Any], user_id: int) -> dict[str, Any]:
+        return {'user_id': user_id, 'uuid': payload['id']}

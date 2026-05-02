@@ -44,3 +44,8 @@ class WeightEntryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase
     def _get_entry_for_update(self):
         # WeightEntry's PowerSync handler looks up by uuid, not pk
         return WeightEntry.objects.get(uuid=self.update_payload['id'])
+
+    def _client_supplied_id_field(self, obj):
+        # WeightEntry has an integer PK plus a separate uuid column; the
+        # client-supplied id round-trips into uuid, not pk.
+        return obj.uuid

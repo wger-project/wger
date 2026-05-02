@@ -95,6 +95,15 @@ class PowerSyncCreateTestCase:
         )
         return self.resource.objects.get(pk=new_pks.pop())
 
+    def _client_supplied_id_field(self, obj):
+        """
+        Return the value of the field that the client-supplied ``id`` should
+        round-trip into. Defaults to ``pk`` (correct for UUID-PK models like
+        Category). Models with an integer PK and a separate UUID column
+        (WeightEntry) override this to return ``obj.uuid``.
+        """
+        return obj.pk
+
     def test_create_anonymous_forbidden(self):
         if self.resource is None or self.create_payload is None:
             return
@@ -132,7 +141,7 @@ class PowerSyncCreateTestCase:
 
         new_obj = self._diff_new_object(pks_before)
         self.assertEqual(
-            str(new_obj.pk),
+            str(self._client_supplied_id_field(new_obj)),
             str(self.create_payload['id']),
             'Server replaced the client-supplied id with a fresh one',
         )
