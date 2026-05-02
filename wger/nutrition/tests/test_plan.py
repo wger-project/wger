@@ -34,12 +34,15 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
           cached, but we don't really use it. This should be removed
     """
 
-    pk = 4
+    pk = '11111111-1111-1111-1111-000000000004'
     resource = NutritionPlan
     private_resource = True
     overview_cached = False
     special_endpoints = ('nutritional_values',)
     data = {'description': 'The description'}
+
+
+PLAN_OWNED_BY_TEST_USER = 'cc000000-0000-0000-0000-000000000002'
 
 
 class PlanCopyTestCase(WgerTestCase):
@@ -48,31 +51,34 @@ class PlanCopyTestCase(WgerTestCase):
         Tests making a copy of a meal plan
         """
         self.user_login()
-        orig_plan = NutritionPlan.objects.get(pk=2)
-        response = self.client.get(reverse('nutrition:plan:copy', kwargs={'pk': 2}))
-        copied_plan_pk = int(resolve(response.url).kwargs['id'])
+        orig_plan = NutritionPlan.objects.get(pk=PLAN_OWNED_BY_TEST_USER)
+        response = self.client.get(
+            reverse('nutrition:plan:copy', kwargs={'pk': PLAN_OWNED_BY_TEST_USER}),
+        )
+        copied_plan_pk = resolve(response.url).kwargs['id']
         copied_plan = NutritionPlan.objects.get(pk=copied_plan_pk)
 
         # Convert plans to dictionaries and compare. The copy gets a fresh
-        # uuid (PowerSync row identity), so we exclude it alongside the pk.
-        orig_plan_dict = model_to_dict(orig_plan, exclude=['id', 'uuid'])
-        copied_plan_dict = model_to_dict(copied_plan, exclude=['id', 'uuid'])
+        # UUID primary key, so we exclude `id` from the comparison.
+        orig_plan_dict = model_to_dict(orig_plan, exclude=['id'])
+        copied_plan_dict = model_to_dict(copied_plan, exclude=['id'])
         self.assertEqual(orig_plan_dict, copied_plan_dict)
+        self.assertNotEqual(orig_plan.id, copied_plan.id)
 
         orig_plan_meals = orig_plan.meal_set.all()
         copied_plan_meals = copied_plan.meal_set.all()
 
         for orig_meal, copied_meal in zip(orig_plan_meals, copied_plan_meals):
-            orig_meal_dict = model_to_dict(orig_meal, exclude=['id', 'uuid', 'plan'])
-            copied_meal_dict = model_to_dict(copied_meal, exclude=['id', 'uuid', 'plan'])
+            orig_meal_dict = model_to_dict(orig_meal, exclude=['id', 'plan'])
+            copied_meal_dict = model_to_dict(copied_meal, exclude=['id', 'plan'])
             self.assertEqual(orig_meal_dict, copied_meal_dict)
-            self.assertNotEqual(orig_meal.uuid, copied_meal.uuid)
+            self.assertNotEqual(orig_meal.id, copied_meal.id)
 
             orig_meal_items = orig_meal.mealitem_set.all()
             copied_meal_items = copied_meal.mealitem_set.all()
 
             for orig_meal_item, copied_meal_item in zip(orig_meal_items, copied_meal_items):
-                orig_dict = model_to_dict(orig_meal_item, exclude=['id', 'uuid', 'meal'])
-                copied_dict = model_to_dict(copied_meal_item, exclude=['id', 'uuid', 'meal'])
+                orig_dict = model_to_dict(orig_meal_item, exclude=['id', 'meal'])
+                copied_dict = model_to_dict(copied_meal_item, exclude=['id', 'meal'])
                 self.assertEqual(orig_dict, copied_dict)
-                self.assertNotEqual(orig_meal_item.uuid, copied_meal_item.uuid)
+                self.assertNotEqual(orig_meal_item.id, copied_meal_item.id)

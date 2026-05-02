@@ -20,24 +20,21 @@ from wger.measurements.models import (
 )
 
 
-# Pinned in test-measurement-categories.json
-CATEGORY_OWNED = 'cccccccc-cccc-cccc-cccc-000000000001'  # user 'test'
-CATEGORY_OTHER = 'cccccccc-cccc-cccc-cccc-0000000000aa'  # user 'admin'
+# Pinned in test-measurement-categories.json (uuid field on the matching pk)
+CATEGORY_OWNED_UUID = 'cccccccc-cccc-cccc-cccc-000000000001'  # user 'test'
+CATEGORY_OTHER_UUID = 'cccccccc-cccc-cccc-cccc-0000000000aa'  # user 'admin'
 
-# Pinned in test-measurements.json (owned via CATEGORY_OWNED)
-MEASUREMENT_OWNED = 'dddddddd-dddd-dddd-dddd-000000000001'
+# Pinned in test-measurements.json (owned via CATEGORY_OWNED_UUID)
+MEASUREMENT_OWNED_UUID = 'dddddddd-dddd-dddd-dddd-000000000001'
 
 
 class CategoryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
-    """
-    PowerSync handlers for measurements.Category. No check_fk_ownership step
-    in the handler because Category only has a User FK.
-    """
+    """PowerSync handlers for measurements.Category."""
 
     table = 'measurements_category'
     resource = Category
 
-    pk_owned = CATEGORY_OWNED
+    pk_owned = CATEGORY_OWNED_UUID
 
     create_payload = {
         'id': 'cccccccc-cccc-cccc-cccc-000000000099',
@@ -52,19 +49,18 @@ class CategoryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
 
 class MeasurementPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     """
-    PowerSync handlers for measurements.Measurement. The handler runs
-    check_fk_ownership against the `category` FK so payloads pointing at
-    another user's category must be rejected.
+    PowerSync handlers for measurements.Measurement. ``check_fk_ownership``
+    rejects payloads pointing at another user's category.
     """
 
     table = 'measurements_measurement'
     resource = Measurement
 
-    pk_owned = MEASUREMENT_OWNED
+    pk_owned = MEASUREMENT_OWNED_UUID
 
     create_payload = {
         'id': 'dddddddd-dddd-dddd-dddd-000000000099',
-        'category': CATEGORY_OWNED,
+        'category': CATEGORY_OWNED_UUID,
         'date': '2030-01-15T10:00:00Z',
         'value': 22.5,
     }
@@ -74,5 +70,5 @@ class MeasurementPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase
     }
 
     fk_ownership = (
-        ('category', CATEGORY_OTHER),
+        ('category', CATEGORY_OTHER_UUID),
     )

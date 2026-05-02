@@ -1,30 +1,28 @@
 [
     {
-        "pk": 1,
+        "pk": "cc000000-0000-0000-0000-000000000001",
         "model": "nutrition.nutritionplan",
         "fields": {
             "description": "",
             "user": 2,
             "creation_date": "2012-09-22",
             "start": "2012-09-22",
-            "end": null,
-            "uuid": "cc000000-0000-0000-0000-000000000001"
+            "end": null
         }
     },
     {
-        "pk": 2,
+        "pk": "cc000000-0000-0000-0000-000000000002",
         "model": "nutrition.nutritionplan",
         "fields": {
             "description": "",
             "user": 1,
             "creation_date": "2012-10-29",
             "start": "2012-11-01",
-            "end": "2012-11-30",
-            "uuid": "cc000000-0000-0000-0000-000000000002"
+            "end": "2012-11-30"
         }
     },
     {
-        "pk": 3,
+        "pk": "11111111-1111-1111-1111-000000000003",
         "model": "nutrition.nutritionplan",
         "fields": {
             "description": "",
@@ -35,7 +33,7 @@
         }
     },
     {
-        "pk": 4,
+        "pk": "11111111-1111-1111-1111-000000000004",
         "model": "nutrition.nutritionplan",
         "fields": {
             "description": "My plan to do xyz",
@@ -46,7 +44,7 @@
         }
     },
     {
-        "pk": 5,
+        "pk": "11111111-1111-1111-1111-000000000005",
         "model": "nutrition.nutritionplan",
         "fields": {
             "description": "Description 1",
@@ -57,315 +55,311 @@
         }
     },
     {
-        "pk": 1,
+        "pk": "aa000000-0000-0000-0000-000000000001",
         "model": "nutrition.meal",
         "fields": {
             "time": null,
-            "plan": 1,
-            "order": 1,
-            "uuid": "aa000000-0000-0000-0000-000000000001"
+            "plan": "cc000000-0000-0000-0000-000000000001",
+            "order": 1
         }
     },
     {
-        "pk": 2,
+        "pk": "22222222-2222-2222-2222-000000000002",
         "model": "nutrition.meal",
         "fields": {
             "time": "07:00:00",
-            "plan": 4,
+            "plan": "11111111-1111-1111-1111-000000000004",
             "order": 1
         }
     },
     {
-        "pk": 3,
+        "pk": "aa000000-0000-0000-0000-000000000003",
         "model": "nutrition.meal",
         "fields": {
             "time": "08:00:00",
-            "plan": 2,
-            "order": 1,
-            "uuid": "aa000000-0000-0000-0000-000000000003"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "nutrition.meal",
-        "fields": {
-            "time": "08:00:00",
-            "plan": 3,
+            "plan": "cc000000-0000-0000-0000-000000000002",
             "order": 1
         }
     },
     {
-        "pk": 5,
+        "pk": "22222222-2222-2222-2222-000000000004",
         "model": "nutrition.meal",
         "fields": {
             "time": "08:00:00",
-            "plan": 2,
+            "plan": "11111111-1111-1111-1111-000000000003",
             "order": 1
         }
     },
     {
-        "pk": 6,
+        "pk": "22222222-2222-2222-2222-000000000005",
         "model": "nutrition.meal",
         "fields": {
             "time": "08:00:00",
-            "plan": 5,
+            "plan": "cc000000-0000-0000-0000-000000000002",
             "order": 1
         }
     },
     {
-        "pk": 7,
+        "pk": "22222222-2222-2222-2222-000000000006",
+        "model": "nutrition.meal",
+        "fields": {
+            "time": "08:00:00",
+            "plan": "11111111-1111-1111-1111-000000000005",
+            "order": 1
+        }
+    },
+    {
+        "pk": "22222222-2222-2222-2222-000000000007",
         "model": "nutrition.meal",
         "fields": {
             "time": "08:02:00",
-            "plan": 4,
+            "plan": "11111111-1111-1111-1111-000000000004",
             "order": 1
         }
     },
     {
-        "pk": 8,
+        "pk": "22222222-2222-2222-2222-000000000008",
         "model": "nutrition.meal",
         "fields": {
             "time": "10:00:00",
-            "plan": 2,
+            "plan": "cc000000-0000-0000-0000-000000000002",
             "order": 1
         }
     },
     {
-        "pk": 9,
+        "pk": "22222222-2222-2222-2222-000000000009",
         "model": "nutrition.meal",
         "fields": {
             "time": "10:00:00",
-            "plan": 4,
+            "plan": "11111111-1111-1111-1111-000000000004",
             "order": 1
         }
     },
     {
-        "pk": 10,
+        "pk": "22222222-2222-2222-2222-000000000010",
         "model": "nutrition.meal",
         "fields": {
             "time": "19:02:00",
-            "plan": 4,
+            "plan": "11111111-1111-1111-1111-000000000004",
             "order": 1
         }
     },
     {
-        "pk": 11,
+        "pk": "22222222-2222-2222-2222-000000000011",
         "model": "nutrition.meal",
         "fields": {
             "time": "22:00:00",
-            "plan": 4,
+            "plan": "11111111-1111-1111-1111-000000000004",
             "order": 1
         }
     },
     {
-        "pk": 1,
+        "pk": "bb000000-0000-0000-0000-000000000001",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 1,
             "amount": 200,
-            "meal": 1,
-            "order": 1,
-            "uuid": "bb000000-0000-0000-0000-000000000001"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "nutrition.mealitem",
-        "fields": {
-            "ingredient": 1,
-            "amount": 200,
-            "meal": 1,
+            "meal": "aa000000-0000-0000-0000-000000000001",
             "order": 1
         }
     },
     {
-        "pk": 3,
+        "pk": "33333333-3333-3333-3333-000000000002",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 1,
             "amount": 200,
-            "meal": 1,
+            "meal": "aa000000-0000-0000-0000-000000000001",
             "order": 1
         }
     },
     {
-        "pk": 4,
+        "pk": "33333333-3333-3333-3333-000000000003",
+        "model": "nutrition.mealitem",
+        "fields": {
+            "ingredient": 1,
+            "amount": 200,
+            "meal": "aa000000-0000-0000-0000-000000000001",
+            "order": 1
+        }
+    },
+    {
+        "pk": "bb000000-0000-0000-0000-000000000004",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 4,
             "amount": 300,
-            "meal": 3,
-            "order": 1,
-            "uuid": "bb000000-0000-0000-0000-000000000004"
-        }
-    },
-    {
-        "pk": 5,
-        "model": "nutrition.mealitem",
-        "fields": {
-            "ingredient": 2,
-            "amount": 100,
-            "meal": 8,
+            "meal": "aa000000-0000-0000-0000-000000000003",
             "order": 1
         }
     },
     {
-        "pk": 6,
+        "pk": "33333333-3333-3333-3333-000000000005",
+        "model": "nutrition.mealitem",
+        "fields": {
+            "ingredient": 2,
+            "amount": 100,
+            "meal": "22222222-2222-2222-2222-000000000008",
+            "order": 1
+        }
+    },
+    {
+        "pk": "33333333-3333-3333-3333-000000000006",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 5,
             "amount": 100,
-            "meal": 8,
+            "meal": "22222222-2222-2222-2222-000000000008",
             "order": 1
         }
     },
     {
-        "pk": 7,
+        "pk": "33333333-3333-3333-3333-000000000007",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 3,
             "amount": 300,
-            "meal": 7,
+            "meal": "22222222-2222-2222-2222-000000000007",
             "order": 1
         }
     },
     {
-        "pk": 8,
+        "pk": "33333333-3333-3333-3333-000000000008",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 1,
             "amount": 101,
-            "meal": 9,
+            "meal": "22222222-2222-2222-2222-000000000009",
             "order": 1
         }
     },
     {
-        "pk": 9,
+        "pk": "33333333-3333-3333-3333-000000000009",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 2,
             "amount": 100,
-            "meal": 9,
+            "meal": "22222222-2222-2222-2222-000000000009",
             "order": 1
         }
     },
     {
-        "pk": 10,
+        "pk": "33333333-3333-3333-3333-000000000010",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 3,
             "amount": 100,
-            "meal": 2,
+            "meal": "22222222-2222-2222-2222-000000000002",
             "order": 1
         }
     },
     {
-        "pk": 11,
+        "pk": "33333333-3333-3333-3333-000000000011",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 4,
             "amount": 200,
-            "meal": 10,
+            "meal": "22222222-2222-2222-2222-000000000010",
             "order": 1
         }
     },
     {
-        "pk": 12,
+        "pk": "33333333-3333-3333-3333-000000000012",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 4,
             "amount": 200,
-            "meal": 10,
+            "meal": "22222222-2222-2222-2222-000000000010",
             "order": 1
         }
     },
     {
-        "pk": 13,
+        "pk": "33333333-3333-3333-3333-000000000013",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 3,
             "amount": 100,
-            "meal": 7,
+            "meal": "22222222-2222-2222-2222-000000000007",
             "order": 1
         }
     },
     {
-        "pk": 14,
+        "pk": "33333333-3333-3333-3333-000000000014",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 6,
             "amount": 30,
-            "meal": 7,
+            "meal": "22222222-2222-2222-2222-000000000007",
             "order": 1
         }
     },
     {
-        "pk": 15,
+        "pk": "33333333-3333-3333-3333-000000000015",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 3,
             "amount": 150,
-            "meal": 10,
+            "meal": "22222222-2222-2222-2222-000000000010",
             "order": 1
         }
     },
     {
-        "pk": 16,
+        "pk": "33333333-3333-3333-3333-000000000016",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 1,
             "amount": 500,
-            "meal": 11,
+            "meal": "22222222-2222-2222-2222-000000000011",
             "order": 1
         }
     },
     {
-        "pk": 17,
+        "pk": "33333333-3333-3333-3333-000000000017",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 6,
             "amount": 100,
-            "meal": 6,
+            "meal": "22222222-2222-2222-2222-000000000006",
             "order": 1
         }
     },
     {
-        "pk": 18,
+        "pk": "33333333-3333-3333-3333-000000000018",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 4,
             "amount": 100,
-            "meal": 6,
+            "meal": "22222222-2222-2222-2222-000000000006",
             "order": 1
         }
     },
     {
-        "pk": 19,
+        "pk": "33333333-3333-3333-3333-000000000019",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 3,
             "amount": 100,
-            "meal": 6,
+            "meal": "22222222-2222-2222-2222-000000000006",
             "order": 1
         }
     },
     {
-        "pk": 20,
+        "pk": "33333333-3333-3333-3333-000000000020",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 2,
             "amount": 100,
-            "meal": 6,
+            "meal": "22222222-2222-2222-2222-000000000006",
             "order": 1
         }
     },
     {
-        "pk": 21,
+        "pk": "33333333-3333-3333-3333-000000000021",
         "model": "nutrition.mealitem",
         "fields": {
             "ingredient": 1,
             "amount": 100,
-            "meal": 6,
+            "meal": "22222222-2222-2222-2222-000000000006",
             "order": 1
         }
     }

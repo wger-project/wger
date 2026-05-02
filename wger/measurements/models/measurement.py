@@ -34,9 +34,6 @@ class Measurement(models.Model):
 
     id = models.UUIDField(
         default=uuid7,
-        editable=False,
-        null=False,
-        unique=True,
         primary_key=True,
     )
 

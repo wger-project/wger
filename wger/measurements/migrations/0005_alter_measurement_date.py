@@ -6,7 +6,7 @@ class Migration(migrations.Migration):
     """This only changes de default"""
 
     dependencies = [
-        ('measurements', '0006_change_measurement_pk_to_uuid'),
+        ('measurements', '0004_add_uuids'),
     ]
 
     operations = [

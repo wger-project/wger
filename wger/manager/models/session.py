@@ -57,7 +57,6 @@ class WorkoutSession(models.Model):
 
     id = models.UUIDField(
         default=uuid7,
-        editable=False,
         null=False,
         primary_key=True,
     )

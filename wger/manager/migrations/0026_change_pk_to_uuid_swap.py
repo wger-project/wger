@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             model_name='workoutsession',
             name='id',
             field=models.UUIDField(
-                default=uuid7, editable=False, primary_key=True, serialize=False
+                default=uuid7, primary_key=True, serialize=False
             ),
         ),
         # WorkoutLog
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
             model_name='workoutlog',
             name='id',
             field=models.UUIDField(
-                default=uuid7, editable=False, primary_key=True, serialize=False
+                default=uuid7, primary_key=True, serialize=False
             ),
         ),
         # --- Restore FKs ---

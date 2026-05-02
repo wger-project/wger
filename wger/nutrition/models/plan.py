@@ -17,7 +17,6 @@
 # Standard Library
 import datetime
 import logging
-import uuid
 
 # Django
 from django.contrib.auth.models import User
@@ -30,6 +29,7 @@ from django.utils.timezone import make_aware
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
+from wger.utils.uuid import uuid7
 from wger.weight.models import WeightEntry
 
 
@@ -47,11 +47,9 @@ class NutritionPlan(models.Model):
             '-start',
         ]
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=True,
-        null=False,
-        unique=True,
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
     )
 
     user = models.ForeignKey(

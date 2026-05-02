@@ -27,7 +27,7 @@ urlpatterns = [
         name='overview',
     ),
     path(
-        'category/<int:pk>',
+        'category/<uuid:pk>',
         ReactView.as_view(login_required=True),
         name='detail',
     ),

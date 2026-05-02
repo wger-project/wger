@@ -70,12 +70,10 @@ def copy(request, pk):
     """
     orig_plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
-    # Convert the original plan to a dictionary and remove the primary key.
-    # uuid is editable so the copy gets a fresh one (otherwise we'd collide
-    # with the original plan's uuid).
+    # Convert the original plan to a dictionary and remove the primary key
+    # so the copy gets a fresh UUID.
     plan_data = model_to_dict(orig_plan)
-    plan_data.pop('id')
-    plan_data.pop('uuid', None)
+    plan_data.pop('id', None)
 
     plan_copy = NutritionPlan.objects.create(user=request.user, **plan_data)
 
@@ -83,10 +81,7 @@ def copy(request, pk):
     orig_meals = orig_plan.meal_set.all()
     for orig_meal in orig_meals:
         meal_data = model_to_dict(orig_meal)
-        meal_data.pop('id')
-        # uuid is editable so the copy gets a fresh one (otherwise we'd
-        # collide with the original meal's uuid)
-        meal_data.pop('uuid', None)
+        meal_data.pop('id', None)
         meal_data['plan'] = plan_copy
         # setting manually due to "editable" False
         meal_data['order'] = orig_meal.order
@@ -96,8 +91,7 @@ def copy(request, pk):
         orig_meal_items = orig_meal.mealitem_set.all()
         for orig_meal_item in orig_meal_items:
             meal_item_data = model_to_dict(orig_meal_item)
-            meal_item_data.pop('id')
-            meal_item_data.pop('uuid', None)
+            meal_item_data.pop('id', None)
             meal_item_data.pop('ingredient')
             meal_item_data['meal'] = meal_copy
             meal_item_data['ingredient_id'] = orig_meal_item.ingredient_id

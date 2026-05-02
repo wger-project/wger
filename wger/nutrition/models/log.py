@@ -15,7 +15,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import uuid
 from decimal import Decimal
 
 # Django
@@ -28,6 +27,7 @@ from django.utils import timezone
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
+from wger.utils.uuid import uuid7
 
 # Local
 from .ingredient import Ingredient
@@ -47,11 +47,9 @@ class LogItem(BaseMealItem, models.Model):
             '-datetime',
         ]
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=True,
-        null=False,
-        unique=True,
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
     )
 
     plan = models.ForeignKey(

@@ -221,7 +221,7 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         :return:
         """
         self.user_login('test')
-        plan = models.NutritionPlan.objects.get(pk=4)
+        plan = models.NutritionPlan.objects.get(pk='11111111-1111-1111-1111-000000000004')
         values = plan.get_nutritional_values()
 
         self.assertAlmostEqual(values['percent']['carbohydrates'], Decimal(29.79), 2)

@@ -37,10 +37,7 @@ INGREDIENT_PUBLIC = 1
 
 
 class NutritionPlanPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
-    """
-    PowerSync handlers for nutrition.NutritionPlan. Full CRUD via PowerSync —
-    the handler keys rows by uuid (Pattern A).
-    """
+    """PowerSync handlers for nutrition.NutritionPlan."""
 
     table = 'nutrition_nutritionplan'
     resource = NutritionPlan
@@ -67,16 +64,9 @@ class NutritionPlanPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCa
         'goal_fiber': None,
     }
 
-    def _get_entry_for_update(self):
-        return NutritionPlan.objects.get(uuid=self.update_payload['id'])
-
 
 class MealPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
-    """
-    PowerSync handlers for nutrition.Meal. Full CRUD via PowerSync — the
-    handler keys rows by uuid; the `plan` FK in the payload is a uuid string
-    that the handler resolves to the integer PK before saving.
-    """
+    """PowerSync handlers for nutrition.Meal."""
 
     table = 'nutrition_meal'
     resource = Meal
@@ -98,16 +88,9 @@ class MealPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
         ('plan', PLAN_OTHER_UUID),
     )
 
-    def _get_entry_for_update(self):
-        return Meal.objects.get(uuid=self.update_payload['id'])
-
 
 class MealItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
-    """
-    PowerSync handlers for nutrition.MealItem. Full CRUD via PowerSync — the
-    handler keys rows by uuid; the `meal` FK in the payload is a uuid string
-    that the handler resolves to the integer PK before saving.
-    """
+    """PowerSync handlers for nutrition.MealItem."""
 
     table = 'nutrition_mealitem'
     resource = MealItem
@@ -130,16 +113,11 @@ class MealItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
         ('meal', MEAL_OTHER_UUID),
     )
 
-    def _get_entry_for_update(self):
-        return MealItem.objects.get(uuid=self.update_payload['id'])
-
 
 class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     """
     PowerSync handlers for nutrition.LogItem. The handler runs
     check_fk_ownership against (NutritionPlan, 'plan') and (Meal, 'meal').
-    Lookup uses the uuid field; the `plan` and `meal` FKs in the payload are
-    uuid strings that the handler resolves to the integer PKs before saving.
     """
 
     table = 'nutrition_logitem'
@@ -162,7 +140,3 @@ class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     fk_ownership = (
         ('plan', PLAN_OTHER_UUID),
     )
-
-    def _get_entry_for_update(self):
-        # LogItem's PowerSync handler looks up by uuid, not pk
-        return LogItem.objects.get(uuid=self.update_payload['id'])

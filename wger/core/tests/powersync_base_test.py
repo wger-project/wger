@@ -115,6 +115,28 @@ class PowerSyncCreateTestCase:
         new_obj = self._diff_new_object(pks_before)
         self.assertEqual(self.get_owner_username(new_obj), self.user_access)
 
+    def test_create_preserves_client_supplied_id(self):
+        """
+        For tables where the client generates the row's primary key (UUID PK
+        models), the server must store exactly that id rather than generate a
+        new one — otherwise PowerSync's local copy and the server diverge.
+        """
+        if self.resource is None or self.create_payload is None:
+            return
+        if 'id' not in self.create_payload:
+            return
+        self.authenticate()
+        pks_before = set(self.resource.objects.values_list('pk', flat=True))
+        response = self.push('PUT', self.create_payload)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+
+        new_obj = self._diff_new_object(pks_before)
+        self.assertEqual(
+            str(new_obj.pk),
+            str(self.create_payload['id']),
+            'Server replaced the client-supplied id with a fresh one',
+        )
+
     def test_create_ignores_user_in_payload(self):
         """A user/user_id smuggled in the payload must not change the owner."""
         if self.resource is None or self.create_payload is None:

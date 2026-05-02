@@ -16,7 +16,6 @@
 
 # Standard Library
 import logging
-import uuid
 from decimal import Decimal
 
 # Django
@@ -28,6 +27,7 @@ from django.db import models
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
+from wger.utils.uuid import uuid7
 
 # Local
 from .ingredient import Ingredient
@@ -43,11 +43,9 @@ class MealItem(BaseMealItem, models.Model):
     An item (component) of a meal
     """
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=True,
-        null=False,
-        unique=True,
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
     )
 
     meal = models.ForeignKey(

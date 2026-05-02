@@ -1,63 +1,62 @@
 [
     {
         "fields": {
-            "plan": 1,
+            "plan": "cc000000-0000-0000-0000-000000000001",
             "datetime": "2016-05-15T12:01:00Z",
             "ingredient": 5,
             "comment": "",
             "amount": "2",
-            "weight_unit": 1,
-            "uuid": "ee000000-0000-0000-0000-000000000001"
+            "weight_unit": 1
         },
-        "pk": 1,
+        "pk": "ee000000-0000-0000-0000-000000000001",
         "model": "nutrition.logitem"
     },
     {
         "fields": {
-            "plan": 1,
+            "plan": "cc000000-0000-0000-0000-000000000001",
             "datetime": "2016-05-15T12:01:15Z",
             "ingredient": 4,
             "comment": "",
             "amount": "100",
             "weight_unit": null
         },
-        "pk": 2,
+        "pk": "44444444-4444-4444-4444-000000000002",
         "model": "nutrition.logitem"
     },
     {
         "fields": {
-            "plan": 1,
+            "plan": "cc000000-0000-0000-0000-000000000001",
             "datetime": "2016-05-15T12:01:00Z",
             "ingredient": 1,
             "comment": "",
             "amount": "75",
             "weight_unit": null
         },
-        "pk": 3,
+        "pk": "44444444-4444-4444-4444-000000000003",
         "model": "nutrition.logitem"
     },
     {
         "fields": {
-            "plan": 1,
+            "plan": "cc000000-0000-0000-0000-000000000001",
             "datetime": "2016-05-14T17:11:33Z",
             "ingredient": 1,
             "comment": "",
             "amount": "75",
             "weight_unit": null
         },
-        "pk": 4,
+        "pk": "44444444-4444-4444-4444-000000000004",
         "model": "nutrition.logitem"
     },
     {
         "fields": {
-            "plan": 2,
+            "plan": "cc000000-0000-0000-0000-000000000002",
             "datetime": "2016-05-14T17:11:33Z",
             "ingredient": 1,
             "comment": "",
             "amount": "75",
             "weight_unit": null
         },
-        "pk": 4,
+        "pk": "44444444-4444-4444-4444-000000000004",
         "model": "nutrition.logitem"
     }
 ]

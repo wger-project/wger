@@ -16,13 +16,13 @@
 
 # Standard Library
 import logging
-import uuid
 
 # Django
 from django.db import models
 
 # wger
 from wger.utils.fields import Html5TimeField
+from wger.utils.uuid import uuid7
 
 # Local
 from ..helpers import NutritionalValues
@@ -43,11 +43,9 @@ class Meal(models.Model):
             'time',
         ]
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=True,
-        null=False,
-        unique=True,
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
     )
 
     plan = models.ForeignKey(
