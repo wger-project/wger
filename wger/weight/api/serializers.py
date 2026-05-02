@@ -27,9 +27,7 @@ class WeightEntrySerializer(serializers.ModelSerializer):
     Weight serializer
     """
 
-    user = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
-    )
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = WeightEntry

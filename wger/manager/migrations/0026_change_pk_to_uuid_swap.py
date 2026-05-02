@@ -42,9 +42,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workoutsession',
             name='id',
-            field=models.UUIDField(
-                default=uuid7, primary_key=True, serialize=False
-            ),
+            field=models.UUIDField(default=uuid7, primary_key=True, serialize=False),
         ),
         # WorkoutLog
         migrations.RemoveField(
@@ -59,9 +57,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workoutlog',
             name='id',
-            field=models.UUIDField(
-                default=uuid7, primary_key=True, serialize=False
-            ),
+            field=models.UUIDField(default=uuid7, primary_key=True, serialize=False),
         ),
         # --- Restore FKs ---
         # WorkoutLog.session

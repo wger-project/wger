@@ -90,9 +90,7 @@ class PowerSyncCreateTestCase:
         """Return the single object whose pk wasn't in ``pks_before``."""
         pks_after = set(self.resource.objects.values_list('pk', flat=True))
         new_pks = pks_after - pks_before
-        self.assertEqual(
-            len(new_pks), 1, f'Exactly one new {self.resource.__name__} row expected'
-        )
+        self.assertEqual(len(new_pks), 1, f'Exactly one new {self.resource.__name__} row expected')
         return self.resource.objects.get(pk=new_pks.pop())
 
     def _client_supplied_id_field(self, obj):

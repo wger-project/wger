@@ -84,9 +84,7 @@ class MealPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
         'name': 'created via PowerSync',
     }
 
-    fk_ownership = (
-        ('plan', PLAN_OTHER_UUID),
-    )
+    fk_ownership = (('plan', PLAN_OTHER_UUID),)
 
 
 class MealItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
@@ -109,9 +107,7 @@ class MealItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
         'amount': '50',
     }
 
-    fk_ownership = (
-        ('meal', MEAL_OTHER_UUID),
-    )
+    fk_ownership = (('meal', MEAL_OTHER_UUID),)
 
 
 class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
@@ -137,6 +133,4 @@ class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
         'amount': '99',
     }
 
-    fk_ownership = (
-        ('plan', PLAN_OTHER_UUID),
-    )
+    fk_ownership = (('plan', PLAN_OTHER_UUID),)

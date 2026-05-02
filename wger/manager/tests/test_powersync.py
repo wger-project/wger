@@ -89,9 +89,7 @@ class WorkoutSessionPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestC
         'notes': 'edited via PowerSync',
     }
 
-    fk_ownership = (
-        ('routine', ROUTINE_OTHER),
-    )
+    fk_ownership = (('routine', ROUTINE_OTHER),)
 
 
 class RoutinePowerSyncTestCase(

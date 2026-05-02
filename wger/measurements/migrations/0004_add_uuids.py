@@ -81,7 +81,9 @@ class Migration(migrations.Migration):
             name='category_tmp',
             field=models.UUIDField(editable=False, null=True),
         ),
-        migrations.RunPython(populate_measurement_category_tmp, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(
+            populate_measurement_category_tmp, reverse_code=migrations.RunPython.noop
+        ),
         migrations.RemoveField(model_name='measurement', name='category'),
         # ------------------------------------------------------------------
         # 3. Promote uuid -> primary key

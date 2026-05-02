@@ -145,7 +145,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RunPython(populate_meal_plan_tmp, reverse_code=migrations.RunPython.noop),
         migrations.RemoveField(model_name='meal', name='plan'),
-
         migrations.AddField(
             model_name='mealitem',
             name='meal_tmp',
@@ -153,7 +152,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RunPython(populate_mealitem_meal_tmp, reverse_code=migrations.RunPython.noop),
         migrations.RemoveField(model_name='mealitem', name='meal'),
-
         migrations.AddField(
             model_name='logitem',
             name='plan_tmp',
@@ -168,7 +166,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RunPython(populate_logitem_meal_tmp, reverse_code=migrations.RunPython.noop),
         migrations.RemoveField(model_name='logitem', name='meal'),
-
         # ------------------------------------------------------------------
         # 3. Promote uuid to primary key on every table
         # ------------------------------------------------------------------

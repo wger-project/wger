@@ -69,6 +69,4 @@ class MeasurementPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase
         'value': 23.5,
     }
 
-    fk_ownership = (
-        ('category', CATEGORY_OTHER_UUID),
-    )
+    fk_ownership = (('category', CATEGORY_OTHER_UUID),)
