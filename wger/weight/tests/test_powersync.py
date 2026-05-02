@@ -29,7 +29,10 @@ class WeightEntryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase
     # owned by user 'test'
     pk_owned = '11111111-1111-1111-1111-000000000003'
 
+    # The client generates the row's UUID locally and sends it as `id`, the handler
+    # must round-trip exactly that value
     create_payload = {
+        'id': '22222222-2222-2222-2222-000000000099',
         'date': '2030-01-15T10:00:00Z',
         'weight': '95.5',
     }

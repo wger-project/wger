@@ -61,7 +61,7 @@ def handle_create(payload: dict[str, Any], user_id: int, request: HttpRequest) -
     logger.debug(f'Received PowerSync payload for create: {payload}')
     serializer = WeightEntrySerializer(data=payload, context={'request': request})
     if serializer.is_valid():
-        serializer.save(user_id=user_id)
+        serializer.save(user_id=user_id, uuid=payload['id'])
         return None
     logger.warning(f'PowerSync create validation failed: {serializer.errors}')
     return {'error': 'Validation failed', 'details': serializer.errors}
