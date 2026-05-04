@@ -187,6 +187,65 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         translation = Translation.objects.get(pk=self.pk)
         self.assertEqual(translation.license_id, CC_BY_SA_4_LICENSE_ID)
 
+    def test_post_without_description_succeeds(self):
+        """
+        POSTing only with ``description_source`` must succeed.
+        """
+        payload = {
+            'name': 'A new translation',
+            'description_source': 'Bend your knees and squat down.',
+            'language': 1,
+            'exercise': 1,
+        }
+        Translation.objects.filter(exercise_id=1, language_id=1).delete()
+
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=payload)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        translation = Translation.objects.get(pk=response.json()['id'])
+        self.assertEqual(translation.description_source, 'Bend your knees and squat down.')
+        # Backend rendered the markdown into description on save()
+        self.assertIn('Bend your knees', translation.description)
+
+    def test_cant_set_description_directly(self):
+        """
+        ``description`` is read-only, passing it on POST must be silently
+        dropped, not stored as raw HTML.
+        """
+        payload = {
+            'name': 'A new translation',
+            'description': '<script>alert(1)</script><p>raw html</p>',
+            'description_source': 'safe markdown',
+            'language': 1,
+            'exercise': 1,
+        }
+        Translation.objects.filter(exercise_id=1, language_id=1).delete()
+
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=payload)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        translation = Translation.objects.get(pk=response.json()['id'])
+
+        self.assertNotIn('<script>', translation.description)
+        self.assertNotIn('raw html', translation.description)
+        self.assertIn('safe markdown', translation.description)
+
+    def test_cant_patch_description_directly(self):
+        """
+        PATCHing ``description`` on an existing translation must not store the raw API input
+        """
+        self.authenticate('trainer1')
+        response = self.client.patch(
+            self.url_detail,
+            data={'description': '<p>injected via API</p>'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertNotIn('injected via API', translation.description)
+
     def test_patch_clean_html(self):
         """
         Test that HTML in description_source is sanitized (script tags stripped) before saving
