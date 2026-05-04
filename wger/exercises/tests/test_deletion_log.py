@@ -158,3 +158,40 @@ class DeletionLogTestCase(WgerTestCase):
             uuid=translation.uuid,
         ).count()
         self.assertEqual(count, 1)
+
+    def test_exercise_delete_with_existing_deletion_log(self):
+        """
+        Test that re-deleting an exercise whose UUID already has a deletion log
+        entry (e.g. it was deleted before, then re-imported via sync) updates
+        the existing entry instead of raising an IntegrityError.
+        """
+        exercise = Exercise.objects.get(pk=1)
+        DeletionLog.objects.create(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=exercise.uuid,
+            comment='stale entry from a previous deletion',
+        )
+
+        exercise.delete()
+
+        log = DeletionLog.objects.get(uuid=exercise.uuid)
+        self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
+        self.assertEqual(log.comment, 'Exercise base of An exercise')
+
+    def test_translation_delete_with_existing_deletion_log(self):
+        """
+        Test that re-deleting a translation whose UUID already has a deletion log
+        entry updates the existing entry instead of raising an IntegrityError.
+        """
+        translation = Translation.objects.get(pk=1)
+        DeletionLog.objects.create(
+            model_type=DeletionLog.MODEL_TRANSLATION,
+            uuid=translation.uuid,
+            comment='stale entry',
+        )
+
+        translation.delete()
+
+        log = DeletionLog.objects.get(uuid=translation.uuid)
+        self.assertEqual(log.model_type, DeletionLog.MODEL_TRANSLATION)
+        self.assertEqual(log.comment, translation.name)

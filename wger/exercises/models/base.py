@@ -264,13 +264,14 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             except Exercise.DoesNotExist:
                 replace_by = None
 
-        log = DeletionLog(
-            model_type=DeletionLog.MODEL_EXERCISE,
+        DeletionLog.objects.update_or_create(
             uuid=self.uuid,
-            comment=f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
-            replaced_by=replace_by,
+            defaults={
+                'model_type': DeletionLog.MODEL_EXERCISE,
+                'comment': f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
+                'replaced_by': replace_by,
+            },
         )
-        log.save()
 
         # Replace references in workout logs and routines before deleting,
         # so that user data is not lost on this instance
