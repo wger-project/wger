@@ -24,19 +24,22 @@ from wger.manager.models import (
 
 
 class RoutineGeneratorTestCase(WgerTestCase):
-    def test_generator_routines(self):
-        # Arrange
+    def setUp(self):
+        super().setUp()
+
         Routine.objects.all().delete()
+
+    def test_generator_routines(self):
 
         # Act
-        call_command('dummy-generator-routines', '--routines', 10)
+        call_command('dummy-generator-routines', '--routines', 3, '--user-id', 1)
 
         # Assert
-        self.assertEqual(Routine.objects.filter(user_id=1).count(), 10)
+        self.assertEqual(Routine.objects.filter(user_id=1).count(), 3)
+        self.assertEqual(Routine.objects.filter(user_id=2).count(), 0)
+        self.assertEqual(Routine.objects.filter(user_id=3).count(), 0)
 
     def test_generator_diary_entries(self):
-        # Arrange
-        Routine.objects.all().delete()
 
         # Act
         call_command('dummy-generator-routines', '--routines', 1, '--user-id', 1)
