@@ -3,7 +3,7 @@
     "pk": 1,
     "model": "exercises.exercisevideo",
     "fields": {
-      "image": "exercise-images/1/protestschwein.jpg",
+      "video": "exercise-images/1/protestschwein.jpg",
       "exercise": 1,
       "is_main": true,
       "license": "1",
@@ -20,7 +20,7 @@
     "pk": 2,
     "model": "exercises.exercisevideo",
     "fields": {
-      "image": "exercise-images/1/wildschwein.jpg",
+      "video": "exercise-images/1/wildschwein.jpg",
       "exercise": 1,
       "is_main": false,
       "license": "2",
@@ -36,7 +36,7 @@
     "pk": 3,
     "model": "exercises.exercisevideo",
     "fields": {
-      "image": "exercise-images/1/wildschwein.jpg",
+      "video": "exercise-images/1/wildschwein.jpg",
       "exercise": 2,
       "is_main": false,
       "license": "2",

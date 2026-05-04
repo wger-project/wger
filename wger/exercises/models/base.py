@@ -247,13 +247,31 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         reset_exercise_api_cache(self.uuid)
 
-    def delete(self, using=None, keep_parents=False, replace_by: str = None):
+    def delete(
+        self,
+        using=None,
+        keep_parents=False,
+        replace_by: str = None,
+        transfer_media: bool = False,
+        transfer_translations: bool = False,
+    ):
         """
         Save entry to deletion log and optionally replace references in
         workout logs and routines before deleting.
+
+        If ``transfer_media`` is set and a replacement is given, all images and
+        videos of this exercise are reassigned to the replacement before
+        deletion.
+
+        If ``transfer_translations`` is set and a replacement is given, all
+        translations whose language is not yet present on the replacement are
+        reassigned.
         """
         # wger
         from wger.exercises.models import DeletionLog
+        from wger.exercises.models.image import ExerciseImage
+        from wger.exercises.models.translation import Translation
+        from wger.exercises.models.video import ExerciseVideo
         from wger.manager.models import WorkoutLog
         from wger.manager.models.slot_entry import SlotEntry
 
@@ -279,6 +297,20 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
             WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
 
+            if transfer_media:
+                ExerciseImage.objects.filter(exercise=self).update(exercise=replacement)
+                ExerciseVideo.objects.filter(exercise=self).update(exercise=replacement)
+
+            if transfer_translations:
+                existing_languages = Translation.objects.filter(
+                    exercise=replacement,
+                ).values_list('language_id', flat=True)
+                Translation.objects.filter(exercise=self).exclude(
+                    language_id__in=list(existing_languages),
+                ).update(exercise=replacement)
+
         reset_exercise_api_cache(str(self.uuid))
+        if replacement:
+            reset_exercise_api_cache(str(replacement.uuid))
 
         return super().delete(using, keep_parents)

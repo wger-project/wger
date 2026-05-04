@@ -114,7 +114,11 @@ class ExerciseViewSet(ModelViewSet):
         except ValueError:
             uuid = None
 
-        instance.delete(replace_by=uuid)
+        instance.delete(
+            replace_by=uuid,
+            transfer_media='transfer_media' in self.request.query_params,
+            transfer_translations='transfer_translations' in self.request.query_params,
+        )
 
 
 class ExerciseTranslationViewSet(ModelViewSet):

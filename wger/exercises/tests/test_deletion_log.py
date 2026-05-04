@@ -22,6 +22,8 @@ from wger.exercises.models import (
     Exercise,
     Translation,
 )
+from wger.exercises.models.image import ExerciseImage
+from wger.exercises.models.video import ExerciseVideo
 from wger.manager.models import WorkoutLog
 from wger.manager.models.slot_entry import SlotEntry
 
@@ -112,6 +114,97 @@ class DeletionLogTestCase(WgerTestCase):
 
         # The slot entry should now point to the replacement
         self.assertEqual(SlotEntry.objects.filter(exercise=replacement).count(), 2)
+
+    def test_exercise_replace_by_transfers_media(self):
+        """
+        Test that images and videos of the deleted exercise are reassigned to
+        the replacement when transfer_media is set.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        self.assertEqual(ExerciseImage.objects.filter(exercise=exercise_to_delete).count(), 2)
+        self.assertEqual(ExerciseImage.objects.filter(exercise=replacement).count(), 1)
+        self.assertEqual(ExerciseVideo.objects.filter(exercise=exercise_to_delete).count(), 2)
+        self.assertEqual(ExerciseVideo.objects.filter(exercise=replacement).count(), 1)
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid), transfer_media=True)
+
+        self.assertEqual(ExerciseImage.objects.filter(exercise=replacement).count(), 3)
+        self.assertEqual(ExerciseVideo.objects.filter(exercise=replacement).count(), 3)
+
+    def test_exercise_replace_by_does_not_transfer_media_by_default(self):
+        """
+        Test that images and videos are cascade-deleted with the exercise when
+        transfer_media is not set, even if a replacement is provided.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        self.assertEqual(ExerciseImage.objects.filter(exercise=replacement).count(), 1)
+        self.assertEqual(ExerciseVideo.objects.filter(exercise=replacement).count(), 1)
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid))
+
+        self.assertEqual(ExerciseImage.objects.filter(exercise=replacement).count(), 1)
+        self.assertEqual(ExerciseVideo.objects.filter(exercise=replacement).count(), 1)
+
+    def test_exercise_replace_by_transfers_translations_in_missing_languages(self):
+        """
+        Test that translations of the deleted exercise whose language is not
+        yet present on the replacement are reassigned. Translations in
+        languages already present on the replacement are cascade-deleted.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        # ex1 has lang 2 ("An exercise", pk=1) and lang 3 ("Test exercise 123", pk=5)
+        # ex2 has lang 2 ("Very cool exercise", pk=2)
+        self.assertEqual(set(replacement.translations.values_list('language_id', flat=True)), {2})
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid), transfer_translations=True)
+
+        replacement.refresh_from_db()
+        languages_on_replacement = set(
+            replacement.translations.values_list('language_id', flat=True)
+        )
+        self.assertEqual(languages_on_replacement, {2, 3})
+
+        # The lang 3 translation moved over (pk preserved)
+        moved = Translation.objects.get(pk=5)
+        self.assertEqual(moved.exercise_id, replacement.pk)
+        self.assertEqual(moved.name, 'Test exercise 123')
+
+        # The lang 2 translation on the source was cascade-deleted
+        self.assertFalse(Translation.objects.filter(pk=1).exists())
+
+    def test_exercise_replace_by_does_not_transfer_translations_by_default(self):
+        """
+        Test that translations are cascade-deleted with the exercise when
+        transfer_translations is not set, even with a replacement.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid))
+
+        replacement.refresh_from_db()
+        languages_on_replacement = set(
+            replacement.translations.values_list('language_id', flat=True)
+        )
+        self.assertEqual(languages_on_replacement, {2})
+
+    def test_exercise_replace_by_transfer_flags_ignored_without_replacement(self):
+        """
+        Test that transfer flags have no effect if no replacement is given —
+        everything cascades as usual.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        exercise_to_delete.delete(transfer_media=True, transfer_translations=True)
+
+        self.assertFalse(Exercise.objects.filter(pk=1).exists())
+        self.assertEqual(ExerciseImage.objects.filter(exercise_id=1).count(), 0)
+        self.assertEqual(ExerciseVideo.objects.filter(exercise_id=1).count(), 0)
 
     def test_exercise_delete_without_replace_by_does_not_keep_references(self):
         """
