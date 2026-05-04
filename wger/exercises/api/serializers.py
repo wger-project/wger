@@ -386,6 +386,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             'name',
             'exercise',
             'description',
+            'description_source',
             'created',
             'language',
             'aliases',
