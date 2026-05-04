@@ -73,9 +73,7 @@ class ExerciseDeleteApiTestCase(BaseTestCase, ApiBaseTestCase):
         """transfer_media moves both images and videos to the replacement."""
         self.authenticate('admin')
 
-        response = self.client.delete(
-            f'{self.url()}?replaced_by={self.target_uuid}&transfer_media'
-        )
+        response = self.client.delete(f'{self.url()}?replaced_by={self.target_uuid}&transfer_media')
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         target = Exercise.objects.get(pk=self.target_pk)
@@ -110,8 +108,7 @@ class ExerciseDeleteApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.authenticate('admin')
 
         response = self.client.delete(
-            f'{self.url()}?replaced_by={self.target_uuid}'
-            '&transfer_media&transfer_translations'
+            f'{self.url()}?replaced_by={self.target_uuid}&transfer_media&transfer_translations'
         )
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -124,9 +121,7 @@ class ExerciseDeleteApiTestCase(BaseTestCase, ApiBaseTestCase):
         """Transfer flags without replace_by have no effect — full cascade."""
         self.authenticate('admin')
 
-        response = self.client.delete(
-            f'{self.url()}?transfer_media&transfer_translations'
-        )
+        response = self.client.delete(f'{self.url()}?transfer_media&transfer_translations')
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Exercise.objects.filter(pk=self.source_pk).exists())
