@@ -131,6 +131,61 @@ class PreferencesTestCase(WgerTestCase):
             },
         )
 
+    def test_duplicate_email_shows_error_and_saves_nothing(self):
+        """
+        Submitting the preferences form with an email that already belongs to
+        another account must show an inline field error AND a top-of-page
+        banner, and must not persist any of the submitted fields.
+
+        Regression test for the silent-failure / half-save behavior in the
+        preferences view: previously the duplicate-email error lived on a
+        second form that wasn't put in the context, so the page reloaded
+        silently while UserProfile fields had already been saved.
+        """
+        self.user_login('test')
+
+        user_before = User.objects.get(username='test')
+        snapshot = {
+            'email': user_before.email,
+            'first_name': user_before.first_name,
+            'last_name': user_before.last_name,
+            'height': user_before.userprofile.height,
+            'birthdate': user_before.userprofile.birthdate,
+        }
+
+        response = self.client.post(
+            reverse('core:user:preferences'),
+            {
+                'show_comments': True,
+                'show_english_ingredients': True,
+                'email': 'admin@example.com',
+                'first_name': 'Brand',
+                'last_name': 'New',
+                'workout_reminder_active': True,
+                'workout_reminder': 30,
+                'workout_duration': 12,
+                'notification_language': 2,
+                'num_days_weight_reminder': 10,
+                'weight_unit': 'kg',
+                'birthdate': '01/01/2000',
+                'height': 175,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'This e-mail address is already in use.')
+        self.assertContains(response, 'is-invalid')
+        self.assertContains(response, 'invalid-feedback')
+        self.assertContains(response, 'alert-danger')
+        self.assertContains(response, 'Please correct the errors below.')
+
+        user_after = User.objects.get(username='test')
+        self.assertEqual(user_after.email, snapshot['email'])
+        self.assertEqual(user_after.first_name, snapshot['first_name'])
+        self.assertEqual(user_after.last_name, snapshot['last_name'])
+        self.assertEqual(user_after.userprofile.height, snapshot['height'])
+        self.assertEqual(user_after.userprofile.birthdate, snapshot['birthdate'])
+
 
 class UserBodyweightTestCase(WgerTestCase):
     """
