@@ -320,59 +320,62 @@ def preferences(request):
     """
     context = {}
     context.update(csrf(request))
-    redirect = False
 
     email_verified = request.user.userprofile.is_verified
 
-    # Process the preferences form
     if request.method == 'POST':
         form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
         form.user = request.user
+        email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
 
-        # Save the data if it validates
-        if form.is_valid():
+        # Validate both forms before saving anything, so a single bad field
+        # (e.g. a duplicate email) never half-persists the submission.
+        prefs_valid = form.is_valid()
+        email_valid = email_form.is_valid()
+
+        if prefs_valid and email_valid:
+            # If the user changes the email, it is no longer verified
+            if request.user.email != email_form.cleaned_data.get('email'):
+                logger.debug('adding email with verified flag and also, sends email confirmation')
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    email_form.cleaned_data['email'],
+                    confirm=True,
+                )
+
+            email_form.save()
             form.save()
-            redirect = True
+
+            messages.success(request, _('Settings successfully updated'))
+            return HttpResponseRedirect(reverse('core:user:preferences'))
+
+        # The template only renders `form`, so copy any errors from
+        # `email_form` onto the rendered form so they show up inline next
+        # to the offending field. Skip duplicates that already exist on
+        # `form` (the email field's format validator runs on both forms).
+        for field, errors in email_form.errors.items():
+            target = field if field in form.fields else None
+            existing = set(form.errors.get(target or '__all__', []))
+            for err in errors:
+                if err in existing:
+                    continue
+                form.add_error(target, err)
+                existing.add(err)
+
+        messages.error(request, _('Please correct the errors below.'))
     else:
         data = {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
             'email': request.user.email,
         }
-
         form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
-
-    # Process the email form
-    if request.method == 'POST':
-        user_email = request.user.email
-        email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
-
-        if email_form.is_valid() and redirect:
-            # If the user changes the email, it is no longer verified
-            if user_email != email_form.instance.email:
-                logger.debug('adding email with verified flag and also, sends email confirmation')
-                EmailAddress.objects.add_email(
-                    request,
-                    request.user,
-                    request.user.email,
-                    confirm=True,
-                )
-                request.user.userprofile.save()
-
-            # Save as normal
-            email_form.save()
-            redirect = True
-        else:
-            redirect = False
 
     context['form'] = form
     context['email_verified'] = email_verified
 
-    if redirect:
-        messages.success(request, _('Settings successfully updated'))
-        return HttpResponseRedirect(reverse('core:user:preferences'))
-    else:
-        return render(request, 'user/preferences.html', context)
+    return render(request, 'user/preferences.html', context)
 
 
 class UserDeactivateView(

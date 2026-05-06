@@ -171,6 +171,10 @@ class UserPreferencesForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
+        # Disable browser-side HTML5 validation so invalid emails and empty
+        # required fields submit through to Django, which surfaces a proper
+        # error message inline instead of the browser's own popover.
+        self.helper.attrs = {'novalidate': True}
         self.helper.layout = Layout(
             Fieldset(
                 _('Personal data'),
