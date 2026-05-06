@@ -17,8 +17,6 @@ import decimal
 import logging
 import os
 import pathlib
-import shutil
-import tempfile
 
 # Django
 from django.conf import settings
@@ -100,13 +98,12 @@ class BaseTestCase:
     REST API tests
     """
 
-    media_root = None
-
     fixtures = (
         'gym_config',
         'groups',
         'setting_repetition_units',
         'setting_weight_units',
+        'initial_trophies',
         'test-languages',
         'test-licenses',
         'test-gyms',
@@ -166,44 +163,6 @@ class BaseTestCase:
 
         # del os.environ['RECAPTCHA_TESTING']
         cache.clear()
-
-        # Clear MEDIA_ROOT folder
-        if self.media_root:
-            self.media_root.cleanup()
-
-    def init_media_root(self):
-        """
-        Init the media root and copy the used images to it
-
-        This is error-prone and ugly, but it's probably ok for the time being
-        """
-        self.media_root = tempfile.TemporaryDirectory()
-        settings.MEDIA_ROOT = self.media_root.name
-
-        pathlib.Path(self.media_root.name, 'exercise-images', '1').mkdir(
-            parents=True, exist_ok=True
-        )
-        pathlib.Path(self.media_root.name, 'exercise-images', '2').mkdir(
-            parents=True, exist_ok=True
-        )
-
-        pathlib.Path(
-            self.media_root.name, 'exercise-images', '1', 'protestschwein.jpg'
-        ).write_bytes(
-            pathlib.Path('wger/exercises/tests/protestschwein.jpg').read_bytes(),
-        )
-        pathlib.Path(
-            self.media_root.name,
-            'exercise-images',
-            '1',
-            'wildschwein.jpg',
-        ).write_bytes(pathlib.Path('wger/exercises/tests/wildschwein.jpg').read_bytes())
-        pathlib.Path(
-            self.media_root.name,
-            'exercise-images',
-            '2',
-            'wildschwein.jpg',
-        ).write_bytes(pathlib.Path('wger/exercises/tests/wildschwein.jpg').read_bytes())
 
 
 class WgerTestCase(BaseTestCase, TestCase):

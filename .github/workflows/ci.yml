@@ -50,7 +50,9 @@ jobs:
           uv sync --group dev
           mkdir /tmp/wger-test
 
-      # Only run the tests with coverage for one version of python
+      # Only run the tests with coverage for one version of python.
+      # Coverage is not parallelised because `coverage run` doesn't combine the
+      # per-process subprocess data files automatically with Django's runner.
       - name: Test the application with coverage
         if: matrix.python-version == 3.13
         run: |
@@ -60,7 +62,7 @@ jobs:
       - name: Test the application
         if: matrix.python-version != 3.13
         run: |
-          uv run ./manage.py test
+          uv run ./manage.py test --parallel auto
 
       - name: Coveralls
         if: matrix.python-version == 3.13
