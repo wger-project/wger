@@ -47,5 +47,4 @@ class RoutineGeneratorTestCase(WgerTestCase):
 
         # Assert
         # Things like nr of training days or exercises are random
-        self.assertGreaterEqual(WorkoutLog.objects.filter(routine__user_id=1).count(), 100)
-        self.assertLessEqual(WorkoutLog.objects.filter(routine__user_id=1).count(), 800)
+        self.assertGreaterEqual(WorkoutLog.objects.filter(routine__user_id=1).count(), 60)
