@@ -36,6 +36,24 @@ class PreferencesTestCase(WgerTestCase):
     Tests the preferences page
     """
 
+    def setUp(self):
+        super().setUp()
+        self.form_data = {
+            'show_comments': True,
+            'show_english_ingredients': True,
+            'email': '',
+            'first_name': '',
+            'last_name': '',
+            'workout_reminder_active': True,
+            'workout_reminder': 30,
+            'workout_duration': 12,
+            'notification_language': 2,
+            'num_days_weight_reminder': 10,
+            'weight_unit': 'kg',
+            'birthdate': '02/25/1987',
+            'height': 180,
+        }
+
     def test_preferences(self):
         """
         Helper function to test the preferences page
@@ -53,19 +71,7 @@ class PreferencesTestCase(WgerTestCase):
         # Change some preferences
         response = self.client.post(
             reverse('core:user:preferences'),
-            {
-                'show_comments': True,
-                'show_english_ingredients': True,
-                'email': 'my-new-email@example.com',
-                'workout_reminder_active': True,
-                'workout_reminder': '30',
-                'workout_duration': 12,
-                'notification_language': 2,
-                'num_days_weight_reminder': 10,
-                'weight_unit': 'kg',
-                'birthdate': '02/25/1987',
-                'height': 180,
-            },
+            {**self.form_data, 'email': 'my-new-email@example.com'},
         )
 
         self.assertEqual(response.status_code, 302)
@@ -81,16 +87,11 @@ class PreferencesTestCase(WgerTestCase):
         response = self.client.post(
             reverse('core:user:preferences'),
             {
+                **self.form_data,
                 'show_comments': False,
-                'show_english_ingredients': True,
-                'email': '',
-                'workout_reminder_active': True,
                 'workout_reminder': 22,
                 'workout_duration': 10,
-                'notification_language': 2,
-                'num_days_weight_reminder': 10,
                 'weight_unit': 'lb',
-                'birthdate': '02/25/1987',
                 'height': 170,
             },
         )
@@ -156,17 +157,10 @@ class PreferencesTestCase(WgerTestCase):
         response = self.client.post(
             reverse('core:user:preferences'),
             {
-                'show_comments': True,
-                'show_english_ingredients': True,
+                **self.form_data,
                 'email': 'admin@example.com',
                 'first_name': 'Brand',
                 'last_name': 'New',
-                'workout_reminder_active': True,
-                'workout_reminder': 30,
-                'workout_duration': 12,
-                'notification_language': 2,
-                'num_days_weight_reminder': 10,
-                'weight_unit': 'kg',
                 'birthdate': '01/01/2000',
                 'height': 175,
             },
@@ -174,6 +168,48 @@ class PreferencesTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'This e-mail address is already in use.')
+        self.assertContains(response, 'is-invalid')
+        self.assertContains(response, 'invalid-feedback')
+        self.assertContains(response, 'alert-danger')
+        self.assertContains(response, 'Please correct the errors below.')
+
+        user_after = User.objects.get(username='test')
+        self.assertEqual(user_after.email, snapshot['email'])
+        self.assertEqual(user_after.first_name, snapshot['first_name'])
+        self.assertEqual(user_after.last_name, snapshot['last_name'])
+        self.assertEqual(user_after.userprofile.height, snapshot['height'])
+        self.assertEqual(user_after.userprofile.birthdate, snapshot['birthdate'])
+
+    def test_invalid_email_format_shows_error_and_saves_nothing(self):
+        """
+        Submitting the preferences form with a malformed email must show an inline
+        field error AND a banner, and not persist any submitted fields
+        """
+        self.user_login('test')
+
+        user_before = User.objects.get(username='test')
+        snapshot = {
+            'email': user_before.email,
+            'first_name': user_before.first_name,
+            'last_name': user_before.last_name,
+            'height': user_before.userprofile.height,
+            'birthdate': user_before.userprofile.birthdate,
+        }
+
+        response = self.client.post(
+            reverse('core:user:preferences'),
+            {
+                **self.form_data,
+                'email': 'not an email',
+                'first_name': 'Brand',
+                'last_name': 'New',
+                'birthdate': '01/01/2000',
+                'height': 175,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Enter a valid email address.')
         self.assertContains(response, 'is-invalid')
         self.assertContains(response, 'invalid-feedback')
         self.assertContains(response, 'alert-danger')
