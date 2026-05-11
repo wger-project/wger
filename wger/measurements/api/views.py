@@ -42,6 +42,29 @@ from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 logger = logging.getLogger(__name__)
 
+def calculate_bmi(user):
+    from wger.weight.models import WeightEntry
+    
+    profile = getattr(user, 'userprofile', None)
+    if not profile or not profile.height or profile.height <= 0:
+        return []
+
+    # height_sq will be a float
+    height_sq = (profile.height / 100) ** 2
+    
+    weights = WeightEntry.objects.filter(user=user).order_by('date')
+
+    return [
+        {
+            'id': f'bmi-{w.id}',
+            'category': -1,
+            'date': w.date,
+            # Cast w.weight to float to avoid the Decimal/Float TypeError
+            'value': round(float(w.weight) / height_sq, 2),
+            'notes': 'Auto-calculated from weight entry'
+        }
+        for w in weights
+    ]
 
 class CategoryViewSet(WgerOwnerObjectModelViewSet):
     """
@@ -120,3 +143,24 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
             return Measurement.objects.none()
 
         return Measurement.objects.filter(category__user=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        """
+        Intercept requests for dynamic categories before the filterset blocks them
+        """
+        category_id = request.query_params.get('category')
+        is_dynamic = request.query_params.get('is_dynamic')
+
+        print(request.query_params)
+        print("is_dynamic", is_dynamic)
+
+        if category_id == '19':
+            bmi_data = calculate_bmi(request.user)
+            return Response({
+                        "count": len(bmi_data),
+                        "next": None,
+                        "previous": None,
+                        "results": bmi_data
+                    })
+
+        return super().list(request, *args, **kwargs)
