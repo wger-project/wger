@@ -41,6 +41,12 @@ class Category(models.Model):
         max_length=30,
     )
 
+    is_dynamic = models.BooleanField(
+        verbose_name='Is Dynamic',
+        default=False,
+        help_text='Indicates if this category is automatically calculated.',
+    )
+
     def get_owner_object(self):
         """
         Returns the object that has owner information
