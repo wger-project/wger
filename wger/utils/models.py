@@ -67,7 +67,7 @@ class AbstractLicenseModel(models.Model):
         verbose_name=_('Author(s)'),
         max_length=3500,
         blank=True,
-        null=True,
+        default='',
         help_text=_('If you are not the author, enter the name or source here.'),
     )
 
