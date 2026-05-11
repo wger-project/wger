@@ -23,7 +23,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 # Third Party
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # wger
 from wger.measurements.api.filtersets import MeasurementEntryFilterSet
@@ -73,6 +75,23 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(User, 'user')]
+
+    @action(detail=False, methods=['get'])
+    def dynamic(self, request):
+        """
+        Dedicated route for virtual/calculated categories
+        URL: /api/v2/measurement-category/dynamic/
+        """
+        data = [
+            {
+                'id': -1, 
+                'name': 'BMI', 
+                'unit': 'kg/m²', 
+                'is_dynamic': True
+            }
+            # easy to append more objects here later
+        ]
+        return Response(data)
 
 
 class MeasurementViewSet(WgerOwnerObjectModelViewSet):
