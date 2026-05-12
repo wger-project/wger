@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('measurements', '0003_alter_measurement_unique_together_and_more'),
     ]
@@ -13,6 +12,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='is_dynamic',
-            field=models.BooleanField(default=False, help_text='Indicates if this category is automatically calculated.', verbose_name='Is Dynamic'),
+            field=models.BooleanField(
+                default=False,
+                help_text='Indicates if this category is automatically calculated.',
+                verbose_name='Is Dynamic',
+            ),
         ),
     ]

@@ -37,39 +37,19 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.utils.bmi import calculate_bmi
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
 logger = logging.getLogger(__name__)
 
-def calculate_bmi(user, category_id):
-    from wger.weight.models import WeightEntry
-    
-    profile = getattr(user, 'userprofile', None)
-    if not profile or not profile.height or profile.height <= 0:
-        return []
-
-    # height_sq will be a float
-    height_sq = (profile.height / 100) ** 2
-    
-    weights = WeightEntry.objects.filter(user=user).order_by('date')
-
-    return [
-        {
-            'id': w.id, # Use integer IDs so the frontend state manager doesn't complain
-            'category': int(category_id), # Link it to the requested category
-            'date': w.date.isoformat() if hasattr(w.date, 'isoformat') else w.date,
-            'value': round(float(w.weight) / height_sq, 2),
-            'notes': 'Auto-calculated from weight entry'
-        }
-        for w in weights
-    ]
 
 # Map the dynamic_type enum to the math function
 DYNAMIC_REGISTRY = {
     Category.DynamicType.BMI: calculate_bmi,
     # add squat 1rm later
 }
+
 
 class CategoryViewSet(WgerOwnerObjectModelViewSet):
     """
@@ -112,8 +92,7 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         URL: /api/v2/measurement-category/dynamic-types/
         """
         choices = [
-            {"value": choice.value, "label": choice.label}
-            for choice in Category.DynamicType
+            {'value': choice.value, 'label': choice.label} for choice in Category.DynamicType
         ]
         return Response(choices)
 
@@ -155,19 +134,16 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
             try:
                 # look up the category and check its enum value
                 category = Category.objects.get(id=category_id, user=request.user)
-                
+
                 if category.dynamic_type != Category.DynamicType.NONE:
                     calc_func = DYNAMIC_REGISTRY.get(category.dynamic_type)
-                    
+
                     if calc_func:
                         # execute the math function and wrap it in the DRF pagination envelope
                         data = calc_func(request.user, category_id)
-                        return Response({
-                            "count": len(data),
-                            "next": None,
-                            "previous": None,
-                            "results": data
-                        })
+                        return Response(
+                            {'count': len(data), 'next': None, 'previous': None, 'results': data}
+                        )
             except (Category.DoesNotExist, ValueError):
                 # fallback to standard behavior
                 pass

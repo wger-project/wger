@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('measurements', '0004_category_is_dynamic'),
     ]
@@ -17,6 +16,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='dynamic_type',
-            field=models.CharField(choices=[('NONE', 'None'), ('BMI', 'Bmi'), ('SQUAT_1RM', 'Squat 1Rm')], db_index=True, default='NONE', max_length=20),
+            field=models.CharField(
+                choices=[('NONE', 'None'), ('BMI', 'Bmi'), ('SQUAT_1RM', 'Squat 1Rm')],
+                db_index=True,
+                default='NONE',
+                max_length=20,
+            ),
         ),
     ]
