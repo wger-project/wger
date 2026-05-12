@@ -12,3 +12,10 @@
   this makes refresh tokens single-use and lets a leaked token live only until
   the next refresh call. It's recommended to update your `prod.env` and set
   `REFRESH_TOKEN_LIFETIME` to a value like 3000.
+
+* Add support for dynamic measurement categories. The (`/api/v2/measurement/`) endpoint now
+  intercepts requests for dynamic categories (such as BMI) and auto-calculates the
+  results on-the-fly using existing user data (e.g., profile height and weight entries).
+  A new endpoint at (`/api/v2/measurement-category/dynamic-types/`) has been added to
+  expose the available dynamic options.
+  An enum is used for the different options and can be extended for more dynamic types.
