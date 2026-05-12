@@ -41,10 +41,16 @@ class Category(models.Model):
         max_length=30,
     )
 
-    is_dynamic = models.BooleanField(
-        verbose_name='Is Dynamic',
-        default=False,
-        help_text='Indicates if this category is automatically calculated.',
+    class DynamicType(models.TextChoices):
+        NONE = 'NONE',
+        BMI = 'BMI',
+        # SQUAT_1RM = 'SQUAT_1RM', can be added in future
+
+    dynamic_type = models.CharField(
+        max_length=20,
+        choices=DynamicType.choices,
+        default=DynamicType.NONE,
+        db_index=True
     )
 
     def get_owner_object(self):

@@ -42,7 +42,7 @@ from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 logger = logging.getLogger(__name__)
 
-def calculate_bmi(user):
+def calculate_bmi(user, category_id):
     from wger.weight.models import WeightEntry
     
     profile = getattr(user, 'userprofile', None)
@@ -56,15 +56,20 @@ def calculate_bmi(user):
 
     return [
         {
-            'id': f'bmi-{w.id}',
-            'category': -1,
-            'date': w.date,
-            # Cast w.weight to float to avoid the Decimal/Float TypeError
+            'id': w.id, # Use integer IDs so the frontend state manager doesn't complain
+            'category': int(category_id), # Link it to the requested category
+            'date': w.date.isoformat() if hasattr(w.date, 'isoformat') else w.date,
             'value': round(float(w.weight) / height_sq, 2),
             'notes': 'Auto-calculated from weight entry'
         }
         for w in weights
     ]
+
+# Map the dynamic_type enum to the math function
+DYNAMIC_REGISTRY = {
+    Category.DynamicType.BMI: calculate_bmi,
+    # add squat 1rm later
+}
 
 class CategoryViewSet(WgerOwnerObjectModelViewSet):
     """
@@ -99,22 +104,18 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(User, 'user')]
 
-    @action(detail=False, methods=['get'])
-    def dynamic(self, request):
+    @action(detail=False, methods=['get'], url_path='dynamic-types')
+    def dynamic_types(self, request):
         """
         Dedicated route for virtual/calculated categories
-        URL: /api/v2/measurement-category/dynamic/
+        Returns a list of available dynamic calculation types from the model Enum.
+        URL: /api/v2/measurement-category/dynamic-types/
         """
-        data = [
-            {
-                'id': -1, 
-                'name': 'BMI', 
-                'unit': 'kg/m²', 
-                'is_dynamic': True
-            }
-            # easy to append more objects here later
+        choices = [
+            {"value": choice.value, "label": choice.label}
+            for choice in Category.DynamicType
         ]
-        return Response(data)
+        return Response(choices)
 
 
 class MeasurementViewSet(WgerOwnerObjectModelViewSet):
@@ -149,18 +150,26 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
         Intercept requests for dynamic categories before the filterset blocks them
         """
         category_id = request.query_params.get('category')
-        is_dynamic = request.query_params.get('is_dynamic')
 
-        print(request.query_params)
-        print("is_dynamic", is_dynamic)
-
-        if category_id == '19':
-            bmi_data = calculate_bmi(request.user)
-            return Response({
-                        "count": len(bmi_data),
-                        "next": None,
-                        "previous": None,
-                        "results": bmi_data
-                    })
+        if category_id:
+            try:
+                # look up the category and check its enum value
+                category = Category.objects.get(id=category_id, user=request.user)
+                
+                if category.dynamic_type != Category.DynamicType.NONE:
+                    calc_func = DYNAMIC_REGISTRY.get(category.dynamic_type)
+                    
+                    if calc_func:
+                        # execute the math function and wrap it in the DRF pagination envelope
+                        data = calc_func(request.user, category_id)
+                        return Response({
+                            "count": len(data),
+                            "next": None,
+                            "previous": None,
+                            "results": data
+                        })
+            except (Category.DoesNotExist, ValueError):
+                # fallback to standard behavior
+                pass
 
         return super().list(request, *args, **kwargs)
