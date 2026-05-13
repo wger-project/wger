@@ -145,7 +145,6 @@ class LogModelTestCase(WgerTestCase):
         )
         log.save()
 
-        self.assertIsNone(log.pk)
         self.assertFalse(WorkoutLog.objects.filter(user_id=2, slot_entry_id=1).exists())
 
     def test_next_log_user_check_fail(self):

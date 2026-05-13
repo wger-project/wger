@@ -2,8 +2,8 @@
 
 ## Powersync
 
-Adds powersync support. This allows clients (i.e. the mobile app) to finally 
-implement offline support. The data is saved in a local sqlite database and 
+Adds powersync support. This allows clients (i.e. the mobile app) to finally
+implement offline support. The data is saved in a local sqlite database and
 synced with the server when possible.
 
 Incompatible changes:
