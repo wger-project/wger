@@ -10,6 +10,13 @@ on:
 env:
   REGISTRY_IMAGE: ${{ vars.REGISTRY_REPO }}/server
 
+permissions:
+  contents: read
+
+concurrency:
+  group: docker-prod-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build-prod:
     name: Build production image ${{ matrix.platform }}
@@ -61,7 +68,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: /tmp/.buildx-cache
-          key: multi-buildx-${{ matrix.platform }}-${{ hashFiles('requirements*.txt') }}
+          key: multi-buildx-${{ matrix.platform }}-${{ hashFiles('pyproject.toml', 'package-lock.json') }}
           restore-keys: |
             multi-buildx-${{ matrix.platform }}
 

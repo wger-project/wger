@@ -37,6 +37,7 @@ from django.views.generic import (
 )
 
 # wger
+from wger.gym.helpers import is_same_gym
 from wger.gym.models import Contract
 from wger.utils.generic_views import WgerFormMixin
 
@@ -106,7 +107,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
         user = get_object_or_404(User, pk=self.kwargs['user_pk'])
         self.member = user
-        if user.userprofile.gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(user, request.user):
             return HttpResponseForbidden()
         return super(AddView, self).dispatch(request, *args, **kwargs)
 
@@ -136,7 +137,7 @@ class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
             return HttpResponseForbidden()
 
         contract = self.get_object()
-        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(contract.member, request.user):
             return HttpResponseForbidden()
         return super(DetailView, self).dispatch(request, *args, **kwargs)
 
@@ -174,7 +175,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
             return HttpResponseForbidden()
 
         contract = self.get_object()
-        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(contract.member, request.user):
             return HttpResponseForbidden()
         return super(UpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -211,7 +212,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
             return HttpResponseForbidden()
 
         self.member = get_object_or_404(User, id=self.kwargs['user_pk'])
-        if request.user.userprofile.gym_id != self.member.userprofile.gym_id:
+        if not is_same_gym(request.user, self.member):
             return HttpResponseForbidden()
 
         return super(ListView, self).dispatch(request, *args, **kwargs)

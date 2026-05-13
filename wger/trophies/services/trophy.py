@@ -203,7 +203,10 @@ class TrophyService:
         result = []
 
         # Get all active trophies
-        trophies = Trophy.objects.filter(is_active=True).order_by('order', 'name')
+        trophies = Trophy.objects.filter(is_active=True)
+        if not include_repeatable:
+            trophies = trophies.filter(is_repeatable=False)
+        trophies = trophies.order_by('order', 'name')
 
         # Get user's earned trophies
         earned = {

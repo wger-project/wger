@@ -65,7 +65,7 @@ class RoutineApiTrainerTestCase(WgerTestCase):
         from the user, plus their own.
         """
         self.user_login('admin')
-        self.client.get(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
+        self.client.post(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
 
         request = self.client.get(reverse('routine-list'))
         self.assertEqual(request.status_code, 200)
@@ -99,7 +99,7 @@ class RoutineApiTrainerTestCase(WgerTestCase):
         from the user, plus their own.
         """
         self.user_login('admin')
-        self.client.get(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
+        self.client.post(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
 
         request = self.client.get(reverse('templates-list'))
         self.assertEqual(request.status_code, 200)

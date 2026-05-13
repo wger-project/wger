@@ -59,6 +59,21 @@ class RoutineSerializer(serializers.ModelSerializer):
             'is_public',
         )
 
+    def validate(self, data):
+        start = data.get('start') or getattr(self.instance, 'start', None)
+        end = data.get('end') or getattr(self.instance, 'end', None)
+        if start and end:
+            if start > end:
+                raise serializers.ValidationError(
+                    {'end': 'The end date cannot be before the start date.'}
+                )
+
+            if (end - start).days > Routine.MAX_DURATION_DAYS:
+                raise serializers.ValidationError(
+                    {'end': f'A routine cannot span more than {Routine.MAX_DURATION_DAYS} days.'}
+                )
+        return data
+
 
 class DaySerializer(serializers.ModelSerializer):
     """

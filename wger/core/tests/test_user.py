@@ -143,6 +143,67 @@ class StatusUserTestCase(WgerTestCase):
         self.deactivate(fail=True)
 
 
+class TrainerCannotDeactivatePrivilegedUsersTestCase(WgerTestCase):
+    """
+    A user with only ``gym.gym_trainer`` must not be able to (de)activate other
+    privileged accounts (managers, general managers, fellow trainers), that
+    would let a low-privileged role lock out the very administrators that
+    supervise them.
+    """
+
+    TRAINER = 'trainer1'  # gym 1, gym_trainer only
+    MANAGER_PK = 9  # manager1, gym 1, gym_manager
+    GENERAL_MANAGER_PK = 12  # general_manager1, gym 1
+    FELLOW_TRAINER_PK = 5  # trainer2, gym 1
+    REGULAR_MEMBER_PK = 14  # member1, gym 1
+
+    def _set_active(self, pk, active):
+        user = User.objects.get(pk=pk)
+        user.is_active = active
+        user.save()
+
+    def test_trainer_cannot_deactivate_manager(self):
+        self.user_login(self.TRAINER)
+        response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': self.MANAGER_PK}))
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(User.objects.get(pk=self.MANAGER_PK).is_active)
+
+    def test_trainer_cannot_activate_manager(self):
+        self._set_active(self.MANAGER_PK, False)
+        self.user_login(self.TRAINER)
+        response = self.client.get(reverse('core:user:activate', kwargs={'pk': self.MANAGER_PK}))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(User.objects.get(pk=self.MANAGER_PK).is_active)
+
+    def test_trainer_cannot_deactivate_general_manager(self):
+        self.user_login(self.TRAINER)
+        response = self.client.get(
+            reverse('core:user:deactivate', kwargs={'pk': self.GENERAL_MANAGER_PK})
+        )
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(User.objects.get(pk=self.GENERAL_MANAGER_PK).is_active)
+
+    def test_trainer_cannot_deactivate_fellow_trainer(self):
+        self.user_login(self.TRAINER)
+        response = self.client.get(
+            reverse('core:user:deactivate', kwargs={'pk': self.FELLOW_TRAINER_PK})
+        )
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(User.objects.get(pk=self.FELLOW_TRAINER_PK).is_active)
+
+    def test_trainer_can_still_deactivate_regular_member(self):
+        """
+        Sanity check: the legitimate flow (trainer disables a misbehaving
+        member of their own gym) must keep working.
+        """
+        self.user_login(self.TRAINER)
+        response = self.client.get(
+            reverse('core:user:deactivate', kwargs={'pk': self.REGULAR_MEMBER_PK})
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(User.objects.get(pk=self.REGULAR_MEMBER_PK).is_active)
+
+
 class EditUserTestCase(WgerEditTestCase):
     """
     Test editing a user

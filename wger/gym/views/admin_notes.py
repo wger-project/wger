@@ -37,6 +37,7 @@ from django.views.generic import (
 )
 
 # wger
+from wger.gym.helpers import is_same_gym
 from wger.gym.models import AdminUserNote
 from wger.utils.generic_views import (
     WgerDeleteMixin,
@@ -72,7 +73,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
         user = User.objects.get(pk=self.kwargs['user_pk'])
         self.member = user
-        if user.userprofile.gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(user, request.user):
             return HttpResponseForbidden()
         return super(ListView, self).dispatch(request, *args, **kwargs)
 
@@ -111,8 +112,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
         user = User.objects.get(pk=self.kwargs['user_pk'])
         self.member = user
-        gym_id = user.userprofile.gym_id
-        if gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(user, request.user):
             return HttpResponseForbidden()
         return super(AddView, self).dispatch(request, *args, **kwargs)
 
@@ -149,7 +149,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
             return HttpResponseForbidden()
 
         note = self.get_object()
-        if note.member.userprofile.gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(note.member, request.user):
             return HttpResponseForbidden()
         return super(UpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -184,7 +184,7 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
             return HttpResponseForbidden()
 
         note = self.get_object()
-        if note.member.userprofile.gym_id != request.user.userprofile.gym_id:
+        if not is_same_gym(note.member, request.user):
             return HttpResponseForbidden()
         return super(DeleteView, self).dispatch(request, *args, **kwargs)
 

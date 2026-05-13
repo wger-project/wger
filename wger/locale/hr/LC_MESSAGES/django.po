@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-10 10:20+0000\n"
-"PO-Revision-Date: 2026-03-19 12:09+0000\n"
+"PO-Revision-Date: 2026-05-05 10:11+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -397,10 +397,8 @@ msgid "Time"
 msgstr "Vrijeme"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Elastična vrpca"
+msgstr "Udaljenost"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:283 core/views/user.py:605
@@ -413,14 +411,12 @@ msgid "Name"
 msgstr "Ime"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Jedinica"
+msgstr "Vrsta jedinice"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Vrsta jedinice (ponavljanja, vrijeme ili udaljenost)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -454,38 +450,32 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Skoro pa gotovo!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
 msgstr ""
-"Poslali smo ti ovu e-mail poruku jer si zatražio/la ponovno postavljanje "
-"lozinke za tvoj korisnički račun na %(site_name)s."
+"Primate ovu e-poruku jer je korisnik „%(user_display)s” dao tvoju e-mail "
+"adresu za registraciju računa na %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Kod za potvrđivanje tvoje e-mail adrese naveden je u nastavku. Unesi ga u "
+"otvoreni prozor preglednika."
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr ""
-"Pritisni sljedeću poveznicu za potvrđivanje tvoje e-mail adrese: %(link)s"
+msgstr "Pritisni sljedeću poveznicu za potvrđivanje tvoje e-mail adrese."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "Neovjerena e-mail adresa"
+msgstr "Potvrdi e-mail adresu"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -493,10 +483,12 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Poveznica vrijedi %(expire_hours)s h (do %(date)s, %(time)s). Novu poveznicu "
+"možeš zatražiti u postavkama profila."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
-msgstr ""
+msgstr "Ako gumb ne radi, kopiraj i zalijepi ovu poveznicu u preglednik:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -839,7 +831,7 @@ msgstr "Uvjeti usluge"
 
 #: core/templates/template.html:181 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Jezik preglednika"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -1337,7 +1329,7 @@ msgstr "Dodaj mičić"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Ako se datum ostavi prazno, on će se umjesto toga pročitati od slike"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -1784,10 +1776,8 @@ msgid "Until Failure"
 msgstr "Do neuspjeha"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometri"
+msgstr "Metri"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2122,7 +2112,7 @@ msgstr "Trening za %s"
 
 #: nutrition/extract_info/off.py:72 nutrition/extract_info/off.py:91
 msgid "Serving"
-msgstr ""
+msgstr "Porcija"
 
 #: nutrition/forms.py:71 nutrition/forms.py:208
 msgid "Unit"
@@ -2150,7 +2140,7 @@ msgstr ""
 
 #: nutrition/forms.py:209
 msgid "grams (g)"
-msgstr ""
+msgstr "grama (g)"
 
 #: nutrition/forms.py:219
 msgid "Ingredient"
@@ -2162,17 +2152,15 @@ msgstr "Također traži imena na engleskom jeziku"
 
 #: nutrition/forms.py:239
 msgid "Quantity"
-msgstr ""
+msgstr "Količina"
 
 #: nutrition/forms.py:241
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Unesi količinu i odaberi grame (g) ili jednu od jedinica porcija."
 
 #: nutrition/models/ingredient.py:526
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Ispravak"
+msgstr "Porcija"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2225,15 +2213,13 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:68
 #: nutrition/templates/ingredient/view.html:143
 msgid "Vegan"
-msgstr ""
+msgstr "Veganski"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:79
 #: nutrition/templates/ingredient/view.html:155
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Varijante"
+msgstr "Vegetarijanski"
 
 #: nutrition/templates/ingredient/overview.html:43
 msgid "No ingredients."
@@ -2245,15 +2231,15 @@ msgstr "Traži"
 
 #: nutrition/templates/ingredient/overview.html:57
 msgid "Filter"
-msgstr ""
+msgstr "Filtar"
 
 #: nutrition/templates/ingredient/overview.html:83
 msgid "Apply"
-msgstr ""
+msgstr "Primijeni"
 
 #: nutrition/templates/ingredient/overview.html:85
 msgid "Reset"
-msgstr ""
+msgstr "Resetiraj"
 
 #: nutrition/templates/ingredient/view.html:46 nutrition/views/plan.py:236
 msgid "Macronutrients"
@@ -2291,10 +2277,8 @@ msgid "Sodium"
 msgstr "Natrij"
 
 #: nutrition/templates/ingredient/view.html:136
-#, fuzzy
-#| msgid "Date format"
 msgid "Dietary information"
-msgstr "Format datuma"
+msgstr "Informacije o prehrani"
 
 #: nutrition/templates/ingredient/view.html:184
 msgid "Add new weight unit"

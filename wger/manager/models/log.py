@@ -40,7 +40,6 @@ from wger.manager.validators import (
     NullMinValueValidator,
     validate_rir,
 )
-from wger.utils.cache import reset_workout_log_cache
 from wger.utils.uuid import uuid7
 
 
@@ -263,6 +262,10 @@ class WorkoutLog(models.Model):
         if self.routine and self.routine.user != self.user:
             return
 
+        # Same check for slot_entry's owning routine
+        if self.slot_entry and self.slot_entry.slot.day.routine.user != self.user:
+            return
+
         # If a session was explicitly provided but belongs to a different
         # user, drop the reference so we don't accidentally tie this log
         # to someone else's session. The auto-create branch below will
@@ -278,14 +281,6 @@ class WorkoutLog(models.Model):
                 routine=self.routine,
             )[0]
 
-        # Reset cache
-        reset_workout_log_cache(
-            self.user_id,
-            self.session.date.year,
-            self.session.date.month,
-            self.session.date.day,
-        )
-
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:
             self.next_log = None
@@ -297,19 +292,3 @@ class WorkoutLog(models.Model):
 
         # Save to db
         super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset cache
-        """
-        try:
-            reset_workout_log_cache(
-                self.user_id,
-                self.session.date.year,
-                self.session.date.month,
-                self.session.date.day,
-            )
-        # Catch case when there is no session -> RelatedObjectDoesNotExist
-        except WorkoutSession.DoesNotExist:
-            pass
-        super(WorkoutLog, self).delete(*args, **kwargs)

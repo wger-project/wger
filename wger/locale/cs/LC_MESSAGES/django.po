@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-10 10:20+0000\n"
-"PO-Revision-Date: 2024-02-21 11:02+0000\n"
-"Last-Translator: Fjuro <fjuro@alius.cz>\n"
+"PO-Revision-Date: 2026-04-27 09:09+0000\n"
+"Last-Translator: greeenos <xnitte@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -172,10 +172,8 @@ msgid "Language full name"
 msgstr "Plný název jazyka"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Plný název jazyka"
+msgstr "Celý název jazyka v angličtině"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -386,11 +384,11 @@ msgstr ""
 
 #: core/models/profile.py:379
 msgid "Enable trophies"
-msgstr ""
+msgstr "Povolit trofeje"
 
 #: core/models/profile.py:380
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Zapnout nebo vypnout systém trofejí pro tohoto uživatele"
 
 #: core/models/profile.py:457
 msgid "The sum of all hours has to be 24"
@@ -407,7 +405,7 @@ msgstr "Čas"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "Vzdálenost"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:283 core/views/user.py:605
@@ -420,14 +418,12 @@ msgid "Name"
 msgstr "Název"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Jednotka"
+msgstr "Typ jednotky"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Typ jednotky (počet opakování, čas nebo vzdálenost)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -461,37 +457,32 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Skoro jsi tam!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
 msgstr ""
-"Tento email jste obdržel, protože jste na stránce %(site_name)s požádali o "
-"obnovu hesla k uživatelskému účtu."
+"Tento e-mail jste obdrželi, protože uživatel „%(user_display)s“ uvedl vaši e-"
+"mailovou adresu při registraci účtu na %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Níže je uveden váš ověřovací kód zaslaný e-mailem. Zadejte jej prosím do "
+"otevřeného okna prohlížeče."
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr "Pro potvrzení e-mailu klikněte na následující odkaz: %(link)s"
+msgstr "Klikněte prosím na tlačítko níže a potvrďte svou e-mailovou adresu."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "Neověřený email"
+msgstr "Potvrďte email"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -499,30 +490,26 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Odkaz je platný po dobu %(expire_hours)s hodin (do %(date)s, %(time)s). Nový "
+"odkaz si můžete vyžádat v nastavení svého profilu."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Pokud tlačítko nefunguje, zkopírujte tento odkaz a vložte jej do prohlížeče:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
 msgstr "Tým wger"
 
 #: core/templates/base.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Prohlížíš web\n"
-"jako uživatel \"%(current_user)s\". Všechny akce jsou prováděny na jeho "
-"datech.\n"
-"            "
+"Prohlížíte si tento web jako uživatel „%(current_user)s“; všechny akce se "
+"provádějí na jeho datech."
 
 #: core/templates/base.html:15 core/templates/base_wide.html:12
 #, python-format
@@ -530,12 +517,7 @@ msgid "Back to \"%(target)s\""
 msgstr "Zpět na \"%(target)s\""
 
 #: core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "                browsing the site as the user \"%(current_user)s\", all "
-#| "actions are performed on their data.\n"
-#| "            "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -543,9 +525,10 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Prohlížíš web\n"
-"jako uživatel \"%(current_user)s\". Všechny akce jsou prováděny na jeho "
-"datech.\n"
+"Prohlížíte\n"
+"                stránky jako uživatel „%(current_user)s“; všechny akce se "
+"provádějí na\n"
+"                jeho datech.\n"
 "            "
 
 #: core/templates/delete.html:4
@@ -627,7 +610,7 @@ msgstr "Trénink"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
 msgid "Routines"
-msgstr ""
+msgstr "Rutiny"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:73
 msgid "Calendar"
@@ -644,7 +627,7 @@ msgstr "Galerie"
 #: core/templates/navigation.html:74 core/templates/navigation.html:400
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Trofeje"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -719,7 +702,7 @@ msgstr "O aplikaci"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Podpora a zapojení se"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
@@ -782,7 +765,7 @@ msgstr "Obnova hesla je kompletní"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Heslob ylo nastaveno. Nyní můžete pokračovat a přihlásit se."
+msgstr "Heslo bylo nastaveno. Nyní můžete pokračovat a přihlásit se."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
@@ -790,7 +773,7 @@ msgstr "Přihlásit"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr "Obnova hesla bla dokončena"
+msgstr "Obnova hesla byla dokončena"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
@@ -798,7 +781,7 @@ msgid ""
 "address you submitted. You should be receiving it shortly."
 msgstr ""
 "Instrukce, jak obnovit heslo, zašleme na emailovou adresu, kterou jste "
-"zadali. Email obdržíte brzy."
+"zadali. Brzy obdržíte email."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format

@@ -27,10 +27,6 @@ from wger.core.tests.base_testcase import BaseTestCase
 class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/exerciseinfo/'
 
-    def setUp(self):
-        super().setUp()
-        self.init_media_root()
-
     def _results(self, response):
         if isinstance(response.data, dict) and 'results' in response.data:
             return response.data['results']

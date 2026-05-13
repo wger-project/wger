@@ -132,7 +132,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return a more human-readable representation
         """
-        return f'base {self.uuid} ({self.get_translation()})'
+        return f'exercise {self.uuid} ({self.get_translation()})'
 
     def get_absolute_url(self):
         """
@@ -247,13 +247,31 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         reset_exercise_api_cache(self.uuid)
 
-    def delete(self, using=None, keep_parents=False, replace_by: str = None):
+    def delete(
+        self,
+        using=None,
+        keep_parents=False,
+        replace_by: str = None,
+        transfer_media: bool = False,
+        transfer_translations: bool = False,
+    ):
         """
         Save entry to deletion log and optionally replace references in
         workout logs and routines before deleting.
+
+        If ``transfer_media`` is set and a replacement is given, all images and
+        videos of this exercise are reassigned to the replacement before
+        deletion.
+
+        If ``transfer_translations`` is set and a replacement is given, all
+        translations whose language is not yet present on the replacement are
+        reassigned.
         """
         # wger
         from wger.exercises.models import DeletionLog
+        from wger.exercises.models.image import ExerciseImage
+        from wger.exercises.models.translation import Translation
+        from wger.exercises.models.video import ExerciseVideo
         from wger.manager.models import WorkoutLog
         from wger.manager.models.slot_entry import SlotEntry
 
@@ -264,13 +282,14 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             except Exercise.DoesNotExist:
                 replace_by = None
 
-        log = DeletionLog(
-            model_type=DeletionLog.MODEL_EXERCISE,
+        DeletionLog.objects.update_or_create(
             uuid=self.uuid,
-            comment=f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
-            replaced_by=replace_by,
+            defaults={
+                'model_type': DeletionLog.MODEL_EXERCISE,
+                'comment': f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
+                'replaced_by': replace_by,
+            },
         )
-        log.save()
 
         # Replace references in workout logs and routines before deleting,
         # so that user data is not lost on this instance
@@ -278,6 +297,20 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
             WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
 
+            if transfer_media:
+                ExerciseImage.objects.filter(exercise=self).update(exercise=replacement)
+                ExerciseVideo.objects.filter(exercise=self).update(exercise=replacement)
+
+            if transfer_translations:
+                existing_languages = Translation.objects.filter(
+                    exercise=replacement,
+                ).values_list('language_id', flat=True)
+                Translation.objects.filter(exercise=self).exclude(
+                    language_id__in=list(existing_languages),
+                ).update(exercise=replacement)
+
         reset_exercise_api_cache(str(self.uuid))
+        if replacement:
+            reset_exercise_api_cache(str(replacement.uuid))
 
         return super().delete(using, keep_parents)

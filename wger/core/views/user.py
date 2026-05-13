@@ -54,10 +54,12 @@ from django.urls import (
     reverse_lazy,
 )
 from django.utils import translation
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
+from django.views.decorators.http import require_POST
 from django.views.generic import (
     DetailView,
     ListView,
@@ -87,6 +89,7 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
+from wger.gym.helpers import is_same_gym
 from wger.gym.models import (
     AdminUserNote,
     Contract,
@@ -98,7 +101,11 @@ from wger.manager.models import (
     WorkoutSession,
 )
 from wger.nutrition.models import NutritionPlan
-from wger.utils.api_token import create_token
+from wger.utils.api_token import (
+    blacklist_jwt_refresh_tokens,
+    count_active_jwt_refresh_tokens,
+    create_token,
+)
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin,
@@ -126,7 +133,7 @@ def delete(request, user_pk=None):
         # gym or is an admin as well. General admins can delete all users.
         if not request.user.has_perm('gym.manage_gyms') and (
             not request.user.has_perm('gym.manage_gym')
-            or request.user.userprofile.gym_id != user.userprofile.gym_id
+            or not is_same_gym(request.user, user)
             or user.has_perm('gym.manage_gym')
             or user.has_perm('gym.gym_trainer')
             or user.has_perm('gym.manage_gyms')
@@ -150,6 +157,8 @@ def delete(request, user_pk=None):
                 return HttpResponseRedirect(reverse('software:features'))
             else:
                 gym_pk = request.user.userprofile.gym_id
+                if gym_pk is None:
+                    return HttpResponseRedirect(reverse('core:dashboard'))
                 return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
     form.helper.form_action = request.path
     context = {'form': form, 'user_delete': user}
@@ -158,18 +167,31 @@ def delete(request, user_pk=None):
 
 
 @login_required()
+@require_POST
 def trainer_login(request, user_pk):
     """
-    Allows a trainer to 'log in' as the selected user
+    Allows a trainer to 'log in' as the selected user.
+
+    POST-only: rebinding the session is a state change and must go through
+    Django's CSRF protection, which only applies to unsafe HTTP methods.
     """
     user = get_object_or_404(User, pk=user_pk)
     orig_user_pk = request.user.pk
+    trainer_identity_pk = request.session.get('trainer.identity')
 
-    # No changing if identity is not set
-    if not request.user.has_perm('gym.gym_trainer') and not request.session.get('trainer.identity'):
-        return HttpResponseForbidden()
+    # If the request user is not a trainer themselves they may only act within
+    # an established trainer session and only ever to switch back to that
+    # original trainer.
+    if not request.user.has_perm('gym.gym_trainer'):
+        if not trainer_identity_pk:
+            return HttpResponseForbidden()
+        original_trainer = get_object_or_404(User, pk=trainer_identity_pk)
+        if not original_trainer.has_perm('gym.gym_trainer'):
+            return HttpResponseForbidden()
+        if user.pk != trainer_identity_pk:
+            return HttpResponseForbidden()
 
-    # Changing between trainers or managers is not allowed
+    # Direct trainer-login: target must not itself be a privileged account.
     if request.user.has_perm('gym.gym_trainer') and (
         user.has_perm('gym.gym_trainer')
         or user.has_perm('gym.manage_gym')
@@ -178,7 +200,7 @@ def trainer_login(request, user_pk):
         return HttpResponseForbidden()
 
     # Changing is only allowed between the same gym
-    if request.user.userprofile.gym != user.userprofile.gym:
+    if not is_same_gym(request.user, user):
         return HttpResponseNotFound(
             f'There are no users in gym "{request.user.userprofile.gym}" with user ID "{user_pk}".'
         )
@@ -200,10 +222,14 @@ def trainer_login(request, user_pk):
 
     if not own:
         request.session['trainer.identity'] = orig_user_pk
-        if request.GET.get('next'):
-            return HttpResponseRedirect(request.GET['next'])
-        else:
-            return HttpResponseRedirect(reverse('core:index'))
+        next_url = request.POST.get('next') or request.GET.get('next')
+        if next_url and url_has_allowed_host_and_scheme(
+            next_url,
+            allowed_hosts={request.get_host()},
+            require_https=request.is_secure(),
+        ):
+            return HttpResponseRedirect(next_url)
+        return HttpResponseRedirect(reverse('core:index'))
     else:
         return HttpResponseRedirect(
             reverse('gym:gym:user-list', kwargs={'pk': user.userprofile.gym_id})
@@ -305,59 +331,62 @@ def preferences(request):
     """
     context = {}
     context.update(csrf(request))
-    redirect = False
 
     email_verified = request.user.userprofile.is_verified
 
-    # Process the preferences form
     if request.method == 'POST':
         form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
         form.user = request.user
+        email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
 
-        # Save the data if it validates
-        if form.is_valid():
+        # Validate both forms before saving anything, so a single bad field
+        # (e.g. a duplicate email) never half-persists the submission.
+        prefs_valid = form.is_valid()
+        email_valid = email_form.is_valid()
+
+        if prefs_valid and email_valid:
+            # If the user changes the email, it is no longer verified
+            if request.user.email != email_form.cleaned_data.get('email'):
+                logger.debug('adding email with verified flag and also, sends email confirmation')
+                EmailAddress.objects.add_email(
+                    request,
+                    request.user,
+                    email_form.cleaned_data['email'],
+                    confirm=True,
+                )
+
+            email_form.save()
             form.save()
-            redirect = True
+
+            messages.success(request, _('Settings successfully updated'))
+            return HttpResponseRedirect(reverse('core:user:preferences'))
+
+        # The template only renders `form`, so copy any errors from
+        # `email_form` onto the rendered form so they show up inline next
+        # to the offending field. Skip duplicates that already exist on
+        # `form` (the email field's format validator runs on both forms).
+        for field, errors in email_form.errors.items():
+            target = field if field in form.fields else None
+            existing = set(form.errors.get(target or '__all__', []))
+            for err in errors:
+                if err in existing:
+                    continue
+                form.add_error(target, err)
+                existing.add(err)
+
+        messages.error(request, _('Please correct the errors below.'))
     else:
         data = {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
             'email': request.user.email,
         }
-
         form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
-
-    # Process the email form
-    if request.method == 'POST':
-        user_email = request.user.email
-        email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
-
-        if email_form.is_valid() and redirect:
-            # If the user changes the email, it is no longer verified
-            if user_email != email_form.instance.email:
-                logger.debug('adding email with verified flag and also, sends email confirmation')
-                EmailAddress.objects.add_email(
-                    request,
-                    request.user,
-                    request.user.email,
-                    confirm=True,
-                )
-                request.user.userprofile.save()
-
-            # Save as normal
-            email_form.save()
-            redirect = True
-        else:
-            redirect = False
 
     context['form'] = form
     context['email_verified'] = email_verified
 
-    if redirect:
-        messages.success(request, _('Settings successfully updated'))
-        return HttpResponseRedirect(reverse('core:user:preferences'))
-    else:
-        return render(request, 'user/preferences.html', context)
+    return render(request, 'user/preferences.html', context)
 
 
 class UserDeactivateView(
@@ -384,7 +413,22 @@ class UserDeactivateView(
 
         if (
             request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
-        ) and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+        ) and not is_same_gym(request.user, edit_user):
+            return HttpResponseForbidden()
+
+        # A user with only the trainer permission must not be able to (de)activate
+        # other gym staff (managers, fellow trainers, general managers). Group
+        # membership is checked directly so the rule still applies when the
+        # target account is currently deactivated (``has_perm`` returns ``False``
+        # for inactive users).
+        if (
+            request.user.has_perm('gym.gym_trainer')
+            and not request.user.has_perm('gym.manage_gym')
+            and not request.user.has_perm('gym.manage_gyms')
+            and edit_user.groups.filter(
+                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
+            ).exists()
+        ):
             return HttpResponseForbidden()
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
@@ -421,7 +465,22 @@ class UserActivateView(
 
         if (
             request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
-        ) and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+        ) and not is_same_gym(request.user, edit_user):
+            return HttpResponseForbidden()
+
+        # A user with only the trainer permission must not be able to
+        # (de)activate other gym staff (managers, fellow trainers,
+        # general managers). Group membership is checked directly so the
+        # rule still applies when the target account is currently
+        # deactivated (``has_perm`` returns ``False`` for inactive users).
+        if (
+            request.user.has_perm('gym.gym_trainer')
+            and not request.user.has_perm('gym.manage_gym')
+            and not request.user.has_perm('gym.manage_gyms')
+            and edit_user.groups.filter(
+                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
+            ).exists()
+        ):
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
@@ -463,7 +522,7 @@ class UserEditView(
         if (
             user.has_perm('gym.manage_gym')
             and not user.has_perm('gym.manage_gyms')
-            and user.userprofile.gym != self.get_object().userprofile.gym
+            and not is_same_gym(user, self.get_object())
         ):
             return HttpResponseForbidden()
 
@@ -495,13 +554,24 @@ def api_key(request):
     except Token.DoesNotExist:
         token = None
 
-    if request.GET.get('new_key'):
-        token = create_token(request.user, request.GET.get('new_key'))
+    if request.method == 'POST' and request.POST.get('new_key'):
+        token = create_token(request.user, request.POST.get('new_key'))
 
-        # Redirect to get rid of the GET parameter
+        # Redirect so a refresh doesn't try to rotate again
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
+    if request.method == 'POST' and request.POST.get('delete_key'):
+        Token.objects.filter(user=request.user).delete()
+        messages.success(request, _('API key was deleted'))
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
+    if request.method == 'POST' and request.POST.get('revoke_jwt_sessions'):
+        blacklist_jwt_refresh_tokens(request.user)
+        messages.success(request, _('All API sessions were revoked'))
         return HttpResponseRedirect(reverse('core:user:api-key'))
 
     context['token'] = token
+    context['active_jwt_sessions'] = count_active_jwt_refresh_tokens(request.user)
 
     return render(request, 'user/api_key.html', context)
 
@@ -531,7 +601,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         if (
             (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer'))
             and not user.has_perm('gym.manage_gyms')
-            and user.userprofile.gym != self.get_object().userprofile.gym
+            and not is_same_gym(user, self.get_object())
         ):
             return HttpResponseForbidden()
 
@@ -566,8 +636,9 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
 
         page_user = self.object  # type: User
         request_user = self.request.user  # type: User
-        same_gym_id = request_user.userprofile.gym_id == page_user.userprofile.gym_id
-        context['enable_login_button'] = request_user.has_perm('gym.gym_trainer') and same_gym_id
+        context['enable_login_button'] = request_user.has_perm('gym.gym_trainer') and is_same_gym(
+            request_user, page_user
+        )
         context['gym_name'] = None  # request_user.userprofile.gym.name
         return context
 

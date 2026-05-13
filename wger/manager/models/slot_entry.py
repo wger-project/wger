@@ -364,7 +364,11 @@ class SlotEntry(models.Model):
         if result and not self.has_progression:
             return result
 
-        logs = list(self.workoutlog_set.all())
+        # Defence-in-depth: ignore any log rows that don't belong to the
+        # routine's owner. The API ownership check should already prevent
+        # cross-user logs from being attached to a slot entry, but this
+        # filter ensures progression calculations stay user-scoped.
+        logs = list(self.workoutlog_set.filter(user=self.slot.day.routine.user))
 
         # If there is a custom class set, pass all responsibilities to it
         if self.class_name:

@@ -95,6 +95,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
     'drf_spectacular_sidecar',
 
@@ -394,7 +395,17 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
-    'DEFAULT_THROTTLE_RATES': {'login': '10/min', 'registration': '5/min'},
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '10/min',
+        'registration': '5/min',
+
+        # Ingredient endpoints — protect the multi-million-row table from
+        # crawlers and older sync clients. Throttling is per-IP for anonymous
+        # callers and per-user for authenticated ones.
+        'ingredient_list': '120/min',
+        'ingredient_detail': '300/min',
+        'ingredient_sync': '600/min',
+    },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
@@ -423,9 +434,9 @@ SPECTACULAR_SETTINGS = {
 #
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False,
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=120),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
 }
 
@@ -479,6 +490,7 @@ WGER_SETTINGS = {
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'SYNC_INGREDIENTS_CELERY': False,
     'SYNC_OFF_DAILY_DELTA_CELERY': False,
+    'SYNC_INGREDIENTS_DUMP_URL': 'https://wger.de/media/ingredients/ingredients.jsonl.gz',
     'EXPORT_INGREDIENTS_BULK_CELERY': False,
     'CACHE_API_EXERCISES_CELERY': False,
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': False,
@@ -496,7 +508,7 @@ WGER_SETTINGS = {
 # Auth Proxy Authentication
 #
 # Please read the documentation before enabling this feature:
-# https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
+# https://wger.readthedocs.io/en/latest/administration/storage.html#s3-object-storage
 #
 AUTH_PROXY_HEADER = ''
 AUTH_PROXY_USER_EMAIL_HEADER = ''

@@ -8,9 +8,12 @@
                 browsing the site as the user "{{ current_user }}", all actions are performed on
                 their data.
             {% endblocktranslate %}
-            <a href="{% url 'core:user:trainer-login' trainer_identity %}" class="alert-link">
-                {% blocktranslate with target=user.userprofile.gym.name trimmed %}Back to "{{ target }}"{% endblocktranslate %}
-            </a>
+            <form method="post" action="{% url 'core:user:trainer-login' trainer_identity %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link alert-link p-0 align-baseline border-0">
+                    {% blocktranslate with target=user.userprofile.gym.name trimmed %}Back to "{{ target }}"{% endblocktranslate %}
+                </button>
+            </form>
         </div>
     {% endif %}
 
@@ -39,7 +42,7 @@
             {% if messages and not no_messages %}
                 {% for message in messages %}
                     <div
-                        class="alert {% if message.tags == 'warning' %}alert-error{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
+                        class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
                         <a href="#" class="close extra-bold" data-bs-dismiss="alert">&times;</a>
                         {{ message }}
                     </div>

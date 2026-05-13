@@ -15,8 +15,15 @@
 # Standard Library
 import logging
 
+# Django
+from django.utils import timezone
+
 # Third Party
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.token_blacklist.models import (
+    BlacklistedToken,
+    OutstandingToken,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -42,3 +49,34 @@ def create_token(user, force_new=False):
         token = Token.objects.create(user=user)
 
     return token
+
+
+def _active_jwt_refresh_tokens(user):
+    """
+    Outstanding refresh tokens for ``user`` that are still usable: not yet
+    expired and not already blacklisted.
+    """
+    return OutstandingToken.objects.filter(
+        user=user,
+        expires_at__gt=timezone.now(),
+        blacklistedtoken__isnull=True,
+    )
+
+
+def count_active_jwt_refresh_tokens(user):
+    """
+    How many JWT refresh tokens are currently usable for ``user``.
+    """
+    return _active_jwt_refresh_tokens(user).count()
+
+
+def blacklist_jwt_refresh_tokens(user):
+    """
+    Blacklist every outstanding JWT refresh token belonging to ``user``.
+
+    Subsequent calls to ``/api/v2/token/refresh`` with these tokens are
+    rejected; the matching access tokens still work until their (much
+    shorter) lifetime expires.
+    """
+    for outstanding in _active_jwt_refresh_tokens(user):
+        BlacklistedToken.objects.get_or_create(token=outstanding)

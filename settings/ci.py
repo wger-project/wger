@@ -22,7 +22,23 @@ from .settings_global import *
 
 env = environ.Env()
 
-DEBUG = True
+DEBUG = False
+
+"""
+Settings for CI:
+
+The basic changes are
+
+* skip migrations
+* use a faster password hasher
+* use plain (un-hashed) static file storage
+* use an in-memory backend for media files
+"""
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+]
 
 # Application settings
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
@@ -36,6 +52,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'database.sqlite',
+        'TEST': {
+            'MIGRATE': False,
+        },
     }
 }
 
@@ -62,3 +81,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_PAGE_DOMAIN = SITE_URL
 AXES_ENABLED = False
+
+STORAGES = {
+    # In-memory storage avoids disk writes for media uploads during tests.
+    'default': {
+        'BACKEND': 'django.core.files.storage.InMemoryStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
+}

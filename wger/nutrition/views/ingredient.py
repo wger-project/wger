@@ -18,24 +18,20 @@
 import logging
 
 # Django
-from django.conf import settings
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-from django.core.cache import cache
 from django.http import HttpResponseForbidden
 from django.shortcuts import (
     get_object_or_404,
     render,
 )
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
-from django.views.decorators.cache import cache_page
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -50,7 +46,6 @@ from wger.nutrition.forms import (
     UnitChooserForm,
 )
 from wger.nutrition.models import Ingredient
-from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
@@ -65,40 +60,132 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
-@method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']), name='dispatch')
 class IngredientListView(ListView):
     """
-    Show an overview of all ingredients
+    Show an overview of all ingredients using cursor-based pagination.
+
+    This is more efficient than OFFSET-based pagination for large lists because it
+    can use an index on id to jump directly to the next page, while OFFSET
+    requires scanning and counting rows up to the offset.
+
+    This also allows to keep the list public so that crawlers can index it
+
+    The query string interface:
+        - no parameter           -> first page
+        - ?after=<id>            -> rows with id > <id>, ascending
     """
 
     model = Ingredient
     template_name = 'ingredient/overview.html'
     context_object_name = 'ingredients_list'
-    paginate_by = PAGINATION_OBJECTS_PER_PAGE
+    paginate_by = None  # disabled — cursor handled in get_context_data
     filterset_class = IngredientFilterSet
+
+    PAGE_SIZE = PAGINATION_OBJECTS_PER_PAGE
 
     def get_queryset(self):
         """
-        Filter the ingredients the user will see by its language, optionally
-        also filtering by other properties
+        Apply language + filterset, then the cursor logic.
+
+        We fetch one extra row beyond PAGE_SIZE so we know whether a further
+        page exists without an extra COUNT query.
+
+        Three modes:
+          - first page (no cursor): id ASC LIMIT N+1
+          - forward (?after=X):     id > X, id ASC LIMIT N+1
+          - backward (?before=Y):   id < Y, id DESC LIMIT N+1
+                                    (rows are reversed in get_context_data)
         """
         language = load_language()
         queryset = Ingredient.objects.filter(language=language)
         filterset = self.filterset_class(self.request.GET or None, queryset=queryset)
-        return filterset.qs
+        qs = filterset.qs
+
+        self._cursor_mode = 'first'
+
+        before = self.request.GET.get('before')
+        if before:
+            try:
+                qs = qs.filter(id__lt=int(before))
+                self._cursor_mode = 'before'
+                return qs.order_by('-id')[: self.PAGE_SIZE + 1]
+            except (TypeError, ValueError):
+                # invalid cursor → fall through to first page
+                pass
+
+        after = self.request.GET.get('after')
+        if after:
+            try:
+                qs = qs.filter(id__gt=int(after))
+                self._cursor_mode = 'after'
+            except (TypeError, ValueError):
+                pass
+
+        return qs.order_by('id')[: self.PAGE_SIZE + 1]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        rows = list(context['ingredients_list'])
+
+        if self._cursor_mode == 'before':
+            # Backward query returned descending; flip back to ascending for
+            # display. The "+1 peek" is at the FRONT (smallest id) and tells
+            # us whether further previous pages exist.
+            rows.reverse()
+            has_prev = len(rows) > self.PAGE_SIZE
+            if has_prev:
+                rows = rows[1:]
+            # Going back, "next" always exists — it's the page we came from.
+            has_next = True
+        elif self._cursor_mode == 'after':
+            has_next = len(rows) > self.PAGE_SIZE
+            if has_next:
+                rows = rows[: self.PAGE_SIZE]
+            has_prev = True
+        else:  # first page
+            has_next = len(rows) > self.PAGE_SIZE
+            if has_next:
+                rows = rows[: self.PAGE_SIZE]
+            has_prev = False
+
+        # Pre-build the pagination URLs (Python urlencode dodges template L10N).
+        next_url = None
+        if has_next and rows:
+            params = self.request.GET.copy()
+            params.pop('before', None)
+            params['after'] = str(rows[-1].id)
+            next_url = f'?{params.urlencode()}'
+
+        prev_url = None
+        if has_prev and rows:
+            params = self.request.GET.copy()
+            params.pop('after', None)
+            params['before'] = str(rows[0].id)
+            prev_url = f'?{params.urlencode()}'
+
+        is_paginated = self._cursor_mode != 'first'
+        first_url = None
+        if is_paginated:
+            params = self.request.GET.copy()
+            params.pop('after', None)
+            params.pop('before', None)
+            first_url = f'?{params.urlencode()}' if params else '?'
+
+        context['ingredients_list'] = rows
+        context['has_next'] = has_next
+        context['has_prev'] = has_prev
+        context['next_url'] = next_url
+        context['prev_url'] = prev_url
+        context['first_url'] = first_url
+        context['is_paginated'] = is_paginated
+
+        return context
 
 
 def view(request, pk, slug=None):
     context = {}
 
-    ingredient = cache.get(cache_mapper.get_ingredient_key(int(pk)))
-    if not ingredient:
-        ingredient = get_object_or_404(Ingredient, pk=pk)
-        cache.set(
-            cache_mapper.get_ingredient_key(ingredient),
-            ingredient,
-            settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL'],
-        )
+    ingredient = get_object_or_404(Ingredient, pk=pk)
 
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)

@@ -24,6 +24,10 @@ from django.http import HttpRequest
 
 # Third Party
 from allauth.account.models import EmailAddress
+from allauth.account.utils import (
+    filter_users_by_email,
+    user_email,
+)
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
 from rest_framework.fields import empty
@@ -47,9 +51,9 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    email = serializers.EmailField(source='user.email', read_only=True)
-    username = serializers.EmailField(source='user.username', read_only=True)
-    date_joined = serializers.EmailField(source='user.date_joined', read_only=True)
+    email = serializers.EmailField(source='user.email', required=False)
+    username = serializers.CharField(source='user.username', read_only=True)
+    date_joined = serializers.DateTimeField(source='user.date_joined', read_only=True)
     email_verified = serializers.BooleanField(source='is_verified', read_only=True)
 
     class Meta:
@@ -88,11 +92,42 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'num_days_weight_reminder',
         )
 
+    def validate_email(self, value):
+        if not value:
+            return value
+        user = self.context['request'].user
+
+        # Re-submitting one's own email is fine
+        if value.lower() == (user.email or '').lower():
+            return value
+
+        # Uniqueness across `User.email` and allauth's `EmailAddress` table
+        if any(u.pk != user.pk for u in filter_users_by_email(value)):
+            raise serializers.ValidationError('A user with this email already exists.')
+        return value
+
+    def update(self, instance, validated_data):
+        new_email = validated_data.pop('user', {}).get('email')
+        instance = super().update(instance, validated_data)
+
+        user = instance.user
+        if new_email and new_email.lower() != (user.email or '').lower():
+            user_email(user, new_email)
+            user.save()
+            EmailAddress.objects.add_email(
+                self.context['request'],
+                user,
+                new_email,
+                confirm=True,
+            )
+
+        return instance
+
 
 class UserLoginSerializer(serializers.ModelSerializer):
     """Serializer to map to User model in relation to api user"""
 
-    email = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
     username = serializers.CharField(required=False)
     password = serializers.CharField(required=True, min_length=8)
 
@@ -126,12 +161,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-        required=False,
-        validators=[
-            UniqueValidator(queryset=User.objects.all()),
-        ],
-    )
+    email = serializers.EmailField(required=False)
     username = serializers.CharField(
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())],
@@ -141,6 +171,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+
+    def validate_email(self, value):
+        # Case-insensitive uniqueness across both User.email and the allauth
+        # EmailAddress table (which holds secondary addresses too)
+        if value and filter_users_by_email(value):
+            raise serializers.ValidationError('A user with this email already exists.')
+        return value
 
     def create(self, validated_data):
         user = User.objects.create(username=validated_data['username'])
@@ -233,15 +270,23 @@ class LanguageCheckSerializer(serializers.Serializer):
                 )
 
         # Try to detect the language
-        detector = (
-            LanguageDetectorBuilder.from_all_languages()
-            .with_low_accuracy_mode()
-            .with_preloaded_language_models()
-            .build()
-        )
+        detector = LanguageDetectorBuilder.from_all_languages().build()
         input_str = data.get('input')
 
         detected_language = detector.detect_language_of(input_str)
+        if detected_language is None:
+            raise serializers.ValidationError(
+                {
+                    'check': {
+                        'result': False,
+                        'detected_language': None,
+                        'message': 'Could not detect the language of the input. Try '
+                        'adding more content or rephrasing your text, language '
+                        'detection works better with longer or more complete sentences.',
+                    }
+                }
+            )
+
         detected_language_code = detected_language.iso_code_639_1.name.lower()
         confidence_values = detector.compute_language_confidence_values(input_str)
         logger.debug(

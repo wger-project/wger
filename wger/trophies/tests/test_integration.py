@@ -261,6 +261,20 @@ class TrophyIntegrationTestCase(WgerTestCase):
         self.assertEqual(lifter_progress['current_value'], 2500)
         self.assertEqual(lifter_progress['target_value'], 5000)
 
+    def test_get_all_trophy_progress_excludes_repeatable_by_default(self):
+        """Repeatable (PR) trophies are excluded from progress by default"""
+        progress_list = TrophyService.get_all_trophy_progress(self.user)
+
+        pr_in_list = any(p['trophy'].id == self.personal_record_trophy.id for p in progress_list)
+        self.assertFalse(pr_in_list)
+
+    def test_get_all_trophy_progress_includes_repeatable_when_requested(self):
+        """Repeatable (PR) trophies are included when include_repeatable=True"""
+        progress_list = TrophyService.get_all_trophy_progress(self.user, include_repeatable=True)
+
+        pr_in_list = any(p['trophy'].id == self.personal_record_trophy.id for p in progress_list)
+        self.assertTrue(pr_in_list)
+
     def test_trophy_not_awarded_twice(self):
         """Test same trophy is not awarded twice"""
         # Create user statistics

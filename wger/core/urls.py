@@ -180,7 +180,7 @@ patterns_weight_units = [
         name='add',
     ),
     path(
-        '<int:pk>)/edit',
+        '<int:pk>/edit',
         weight_units.UnitUpdateView.as_view(),
         name='edit',
     ),

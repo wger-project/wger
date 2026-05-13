@@ -27,8 +27,11 @@
 
 <h4>{% translate "Routines" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:routine:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
-{#<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% translate "Add workout" %}</a>#}
+<form method="post" action="{{trainer_login}}" class="d-inline">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'manager:routine:overview' %}">
+    <button type="submit" class="btn btn-light btn-sm">{% translate "Overview" %}</button>
+</form>
 {% endif %}
 
 <table class="table">
@@ -47,7 +50,11 @@
         {{entry.routine.created}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={{ entry.routine.get_absolute_url }}">{{entry.routine}}</a>
+        <form method="post" action="{{trainer_login}}" class="d-inline">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ entry.routine.get_absolute_url }}">
+            <button type="submit" class="btn btn-link p-0 align-baseline border-0">{{entry.routine}}</button>
+        </form>
     </td>
     <td>
         {{entry.logs|default:'-/-'}}
@@ -70,7 +77,11 @@
 
 <h4>{% translate "Log" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:routine:calendar' %}" class="btn btn-light btn-sm">{% translate "Calendar" %}</a>
+<form method="post" action="{{trainer_login}}" class="d-inline">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'manager:routine:calendar' %}">
+    <button type="submit" class="btn btn-light btn-sm">{% translate "Calendar" %}</button>
+</form>
 {% endif %}
 
 <table class="table">
@@ -114,7 +125,11 @@
 
 <h4>{% translate "Weight" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight:overview' %}" class="btn btn-light btn-sm">{% translate "Weight overview" %}</a>
+<form method="post" action="{{trainer_login}}" class="d-inline">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'weight:overview' %}">
+    <button type="submit" class="btn btn-light btn-sm">{% translate "Weight overview" %}</button>
+</form>
 {% endif %}
 
 <table class="table">
@@ -146,7 +161,11 @@
 
 <h4>{% translate "Nutrition plans" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
+    <form method="post" action="{{trainer_login}}" class="d-inline">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'nutrition:plan:overview' %}">
+        <button type="submit" class="btn btn-light btn-sm">{% translate "Overview" %}</button>
+    </form>
 {% endif %}
 
 <table class="table">
@@ -167,7 +186,11 @@
         {{nutrition_plan.creation_date}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={{ nutrition_plan.get_absolute_url }}">{{nutrition_plan}}</a>
+        <form method="post" action="{{trainer_login}}" class="d-inline">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ nutrition_plan.get_absolute_url }}">
+            <button type="submit" class="btn btn-link p-0 align-baseline border-0">{{nutrition_plan}}</button>
+        </form>
     </td>
     <td>
         {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% translate "kcal" %}
@@ -504,17 +527,19 @@
         }
     </style>
 
-    <a
-       {% if enable_login_button %}
-        href="{% url 'core:user:trainer-login' current_user.pk %}"
-        class="btn btn-sm btn-success"
-       {% else %}
-        href="#"
-        title="{% blocktranslate %}Admin login is only available for users in {{gym_name}}{% endblocktranslate %}"
-        class="btn btn-sm btn-secondary"
-       {% endif %}
-    >
+    {% if enable_login_button %}
+    <form method="post" action="{% url 'core:user:trainer-login' current_user.pk %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-success">
+            {% translate "Log in as this user" %}
+        </button>
+    </form>
+    {% else %}
+    <a href="#"
+       title="{% blocktranslate %}Admin login is only available for users in {{gym_name}}{% endblocktranslate %}"
+       class="btn btn-sm btn-secondary">
        {% translate "Log in as this user" %}
     </a>
+    {% endif %}
 {% endif %}
 {% endblock %}

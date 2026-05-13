@@ -61,11 +61,11 @@ def delete_exercise_image_on_update(sender, instance: ExerciseImage, **kwargs):
         return False
 
     new_file = instance.image
-    if not old_file == new_file:
-        # Deletes the image as well as the thumbnails
-        thumbnailer = get_thumbnailer(instance.image)
+    if not old_file == new_file and old_file:
+        # Deletes the old image as well as its thumbnails
+        thumbnailer = get_thumbnailer(old_file)
         thumbnailer.delete_thumbnails()
-        instance.image.delete(save=False)
+        old_file.delete(save=False)
     return None
 
 
@@ -103,24 +103,26 @@ def delete_exercise_video_on_update(sender, instance: ExerciseVideo, **kwargs):
 
 @receiver(pre_delete, sender=Translation)
 def add_deletion_log_translation(sender, instance: Translation, **kwargs):
-    DeletionLog(
-        model_type=DeletionLog.MODEL_TRANSLATION,
+    DeletionLog.objects.update_or_create(
         uuid=instance.uuid,
-        comment=instance.name,
-    ).save()
+        defaults={
+            'model_type': DeletionLog.MODEL_TRANSLATION,
+            'comment': instance.name,
+        },
+    )
 
 
 @receiver(pre_delete, sender=ExerciseImage)
 def add_deletion_log_image(sender, instance: ExerciseImage, **kwargs):
-    DeletionLog(
-        model_type=DeletionLog.MODEL_IMAGE,
+    DeletionLog.objects.update_or_create(
         uuid=instance.uuid,
-    ).save()
+        defaults={'model_type': DeletionLog.MODEL_IMAGE},
+    )
 
 
 @receiver(pre_delete, sender=ExerciseVideo)
 def add_deletion_log_video(sender, instance: ExerciseVideo, **kwargs):
-    DeletionLog(
-        model_type=DeletionLog.MODEL_VIDEO,
+    DeletionLog.objects.update_or_create(
         uuid=instance.uuid,
-    ).save()
+        defaults={'model_type': DeletionLog.MODEL_VIDEO},
+    )

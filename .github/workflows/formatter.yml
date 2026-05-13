@@ -8,6 +8,9 @@ on:
       - '**.py'
 
 
+permissions:
+  contents: write
+
 jobs:
   linting:
     runs-on: ubuntu-latest

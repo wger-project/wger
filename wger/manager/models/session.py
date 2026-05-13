@@ -25,8 +25,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.utils.cache import reset_workout_log_cache
 from wger.utils.uuid import uuid7
+
 
 
 class WorkoutSession(models.Model):
@@ -157,17 +157,3 @@ class WorkoutSession(models.Model):
         Returns the object that has owner information
         """
         return self
-
-    def save(self, *args, **kwargs):
-        """
-        Reset cache
-        """
-        reset_workout_log_cache(self.user_id, self.date.year, self.date.month)
-        super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset cache
-        """
-        reset_workout_log_cache(self.user_id, self.date.year, self.date.month)
-        super().delete(*args, **kwargs)

@@ -13,6 +13,9 @@ on:
   schedule:
     - cron: '0 5 1 * *'
 
+permissions:
+  contents: read
+
 jobs:
   path-context:
     runs-on: ubuntu-latest

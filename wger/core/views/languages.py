@@ -24,7 +24,11 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
 )
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy,
+)
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -118,6 +122,12 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
 def use_browser_language(request):
     # Remove language prefix from URL so middleware can re-detect language
     next_url = remove_language_code(request.GET.get('next', '/'))
+    if not url_has_allowed_host_and_scheme(
+        next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        next_url = reverse('core:index')
     response = HttpResponseRedirect(next_url)
     response.delete_cookie(
         settings.LANGUAGE_COOKIE_NAME,

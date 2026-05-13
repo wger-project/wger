@@ -28,12 +28,10 @@ from typing import List
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Prefetch
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.exercises.models import Exercise
@@ -66,6 +64,11 @@ class Routine(models.Model):
     objects = RoutineManager()
     templates = RoutineTemplateManager()
     public = PublicRoutineTemplateManager()
+
+    MAX_DURATION_DAYS = 120
+    """
+    Maximum duration of a routine in days (~4 months)
+    """
 
     class Meta:
         ordering = [
@@ -147,12 +150,6 @@ class Routine(models.Model):
         Returns the object that has owner information
         """
         return self
-
-    def clean(self):
-        """Validations"""
-
-        if self.end and self.start and self.start > self.end:
-            raise ValidationError(_('The start time cannot be after the end time.'))
 
     def save(self, *args, **kwargs):
         """The is_public flag cannot be set if the routine is not a template"""

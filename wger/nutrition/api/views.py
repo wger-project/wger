@@ -20,18 +20,12 @@ import logging
 
 # Django
 from django.conf import settings
-from django.contrib.postgres.search import TrigramSimilarity
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from easy_thumbnails.alias import aliases
-from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
-from rest_framework.decorators import (
-    action,
-    api_view,
-)
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
@@ -61,12 +55,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
-from wger.utils.constants import (
-    ENGLISH_SHORT_NAME,
-    SEARCH_ALL_LANGUAGES,
-)
-from wger.utils.db import is_postgres_db
-from wger.utils.language import load_language
+from wger.utils.pagination import IngredientCursorPagination
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -82,14 +71,21 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
-    queryset = Ingredient.objects.select_related(
-        'language',
-        'license',
-    ).prefetch_related('ingredientweightunit_set')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+    # Strip default ordering ('name'), this makes the API/DB more performant
+    queryset = Ingredient.objects.prefetch_related('ingredientweightunit_set').order_by()
+    throttle_scope = 'ingredient_list'
+
+    def get_throttles(self):
+        """
+        Apply distinct throttle scopes to list and detail actions.
+
+        List queries on a 3M-row table are expensive (sort, deep pagination);
+        detail queries are cheap PK lookups. Separate buckets keep autocomplete
+        and detail loads from competing for the same quota.
+        """
+        self.throttle_scope = 'ingredient_list' if self.action == 'list' else 'ingredient_detail'
+        return super().get_throttles()
 
     @action(detail=True)
     def get_values(self, request, pk):
@@ -147,11 +143,39 @@ class IngredientInfoViewSet(IngredientViewSet):
     def get_queryset(self):
         """Optimize the queryset with select_related to avoid n+1 queries"""
 
+        # See IngredientViewSet.queryset for the rationale behind .order_by().
+        return (
+            Ingredient.objects.select_related('language', 'license', 'image')
+            .prefetch_related('ingredientweightunit_set')
+            .order_by()
+        )
+
+
+class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Cursor-paginated read-only endpoint designed for syncing the ingredient
+    catalogue.
+
+    Unlike /api/v2/ingredient/, this endpoint uses cursor pagination so deep
+    pagination stays fast and is intended for clients such as local wger instances.
+
+    For incremental syncs, combine with the `last_update__gt` filter to only
+    fetch ingredients that changed since that time.
+
+    Note: the response does not contain a `count` key.
+    """
+
+    serializer_class = IngredientInfoSerializer
+    pagination_class = IngredientCursorPagination
+    filterset_class = IngredientFilterSet
+    throttle_scope = 'ingredient_sync'
+
+    def get_queryset(self):
         return Ingredient.objects.select_related(
             'language',
             'license',
             'image',
-        )
+        ).prefetch_related('ingredientweightunit_set')
 
 
 class ImageViewSet(viewsets.ReadOnlyModelViewSet):

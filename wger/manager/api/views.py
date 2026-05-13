@@ -285,7 +285,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Routine, 'routine')]
+        return [(Routine, 'routine'), (Day, 'day')]
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
@@ -319,7 +319,12 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(Routine, 'routine'), (WorkoutSession, 'session')]
+        return [
+            (Routine, 'routine'),
+            (WorkoutSession, 'session'),
+            (SlotEntry, 'slot_entry'),
+            (WorkoutLog, 'next_log'),
+        ]
 
 
 class RoutineDayViewSet(WgerOwnerObjectModelViewSet):

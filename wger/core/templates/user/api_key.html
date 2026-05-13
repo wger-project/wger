@@ -1,19 +1,88 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% translate "API key" %}{% endblock %}
+{% block title %}{% translate "API access" %}{% endblock %}
 
 
 {% block content %}
     <p>
-        Please use JWT authentication if possible. More details in the
-        <a href="https://wger.readthedocs.io/en/latest/">online documentation</a>.
+        {% blocktranslate trimmed %}
+            Theare are two ways to authenticate against the API: JWT is the preferred
+            mechanism for client applications, the static API key is intended for personal
+            scripts or one-off integrations.
+        {% endblocktranslate %}
     </p>
 
-    <div class="card mb-4 {% if token %}text-white bg-success{% else %}bg-light{% endif %}">
-        <div class="card-header">
-            {% translate "Your API key" %}
+    <h4 class="mt-4">{% translate "JWT sessions" %}</h4>
+
+    <p>
+        <button
+            type="button"
+            class="btn btn-block btn-light"
+            {% if not active_jwt_sessions %}disabled{% endif %}
+            hx-post="{% url 'core:user:api-key' %}"
+            hx-vals='{"revoke_jwt_sessions": "true"}'
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="body"
+            hx-push-url="true"
+        >
+            {% translate 'Revoke all JWT sessions' %}
+        </button>
+    </p>
+
+    <div class="card mb-4 {% if active_jwt_sessions %}text-white bg-success{% else %}bg-light{% endif %}">
+        <div class="card-body">
+            {% blocktranslate count counter=active_jwt_sessions %}
+                There is currently <strong>{{ counter }}</strong> active JWT session
+            {% plural %}
+                There are currently <strong>{{ counter }}</strong> active JWT sessions
+            {% endblocktranslate %}
         </div>
+    </div>
+
+    <p>
+    {% blocktranslate trimmed %}
+        Revoking JWT sessions logs out every device that obtained a refresh token via the JWT login endpoint.
+    {%  endblocktranslate %}
+    </p>
+
+    <h4 class="mt-4">{% translate "API key" %}</h4>
+
+        <p>
+        <button
+            type="button"
+            class="btn btn-block btn-light"
+            hx-post="{% url 'core:user:api-key' %}"
+            hx-vals='{"new_key": "true"}'
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="body"
+            hx-push-url="true"
+        >
+            {% if token %}
+                {% translate 'Delete current API key and generate new one' %}
+            {% else %}
+                {% translate 'Generate new API key' %}
+            {% endif %}
+        </button>
+    </p>
+
+    {% if token %}
+        <p>
+            <button
+                type="button"
+                class="btn btn-block btn-light"
+                hx-post="{% url 'core:user:api-key' %}"
+                hx-vals='{"delete_key": "true"}'
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-target="body"
+                hx-push-url="true"
+            >
+                {% translate 'Delete API key' %}
+            </button>
+        </p>
+    {% endif %}
+
+    <div class="card mb-4 {% if token %}text-white bg-success{% else %}bg-light{% endif %}">
         <div class="card-body">
             {% if token %}
                 <strong>{{ token.key }}</strong>
@@ -24,11 +93,13 @@
     </div>
 
     <p>
-        Pass "Token {% if token %}{{ token.key }}{% else %}1234567890abcde...{% endif %}" in the
-        <code>Authorization</code> header to use it
+        {% blocktranslate with key=token.key|default:"1234567890abcde..." %}
+            Pass <code>Token {{ key }}</code> in the
+            <code>Authorization</code> header to use it.
+        {% endblocktranslate %}
     </p>
 
-    <p>Example with curl:</p>
+    <p>{% translate "Example with curl:" %}</p>
     <pre>
 curl -X GET https://wger.de/api/v2/routine/ \
      -H 'Authorization: Token {% if token %}{{ token.key }}{% else %}1234567890abcde...{% endif %}'
@@ -37,21 +108,14 @@ curl -X GET https://wger.de/api/v2/routine/ \
 {% endblock %}
 
 
+{#         #}
+{# Sidebar #}
+{#         #}
 {% block sidebar %}
-    <h4>{% translate "Options" %}</h4>
+
+    <h5 class="mt-4">{% translate "Documentation" %}</h5>
 
     <p>
-        {% if token %}
-            <a href="{% url 'core:user:api-key' %}?new_key=true"
-               class="btn btn-block btn-light">{% translate 'Delete current API key and generate new one' %}</a>
-        {% else %}
-            <a href="{% url 'core:user:api-key' %}?new_key=true"
-               class="btn btn-block btn-light">{% translate 'Generate new API key' %}</a>
-        {% endif %}
-    </p>
-
-    <p>
-        <a href="{% url 'software:api' %}"
-           class="btn btn-block btn-light">{% translate 'Documentation' %}</a>
+        <a href="{% url 'software:api' %}">{% translate 'API documentation' %}</a>
     </p>
 {% endblock %}

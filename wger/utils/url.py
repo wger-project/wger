@@ -14,6 +14,7 @@
 
 # Standard Library
 from typing import (
+    Any,
     Dict,
     Optional,
 )
@@ -30,7 +31,7 @@ def make_uri(
     path: str,
     object_id: Optional[int] = None,
     object_method: Optional[str] = None,
-    query: Optional[Dict[str, any]] = None,
+    query: Optional[Dict[str, Any]] = None,
     server_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
 ):
     uri_server = urlparse(server_url)

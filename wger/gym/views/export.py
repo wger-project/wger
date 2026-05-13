@@ -29,6 +29,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
 # wger
+from wger.gym.helpers import sanitize_csv_cell
 from wger.gym.models import Gym
 
 
@@ -72,18 +73,21 @@ def users(request, gym_pk):
         address = user.userprofile.address
         writer.writerow(
             [
-                user.id,
-                gym.name,
-                user.username,
-                user.email,
-                user.first_name,
-                user.last_name,
-                user.userprofile.get_gender_display(),
-                user.userprofile.age,
-                address['zip_code'],
-                address['city'],
-                address['street'],
-                address['phone'],
+                sanitize_csv_cell(value)
+                for value in [
+                    user.id,
+                    gym.name,
+                    user.username,
+                    user.email,
+                    user.first_name,
+                    user.last_name,
+                    user.userprofile.get_gender_display(),
+                    user.userprofile.age,
+                    address['zip_code'],
+                    address['city'],
+                    address['street'],
+                    address['phone'],
+                ]
             ]
         )
 

@@ -27,18 +27,6 @@ def reset_exercise_api_cache(uuid: str):
     cache.delete(CacheKeyMapper.get_exercise_api_key(uuid))
 
 
-def reset_workout_log_cache(user_pk, year, month, day=None):
-    """
-    Resets the cached workout logs
-    """
-
-    log_hash = hash((user_pk, year, month))
-    cache.delete(cache_mapper.get_workout_log_list(log_hash))
-
-    log_hash = hash((user_pk, year, month, day))
-    cache.delete(cache_mapper.get_workout_log_list(log_hash))
-
-
 class CacheKeyMapper:
     """
     Simple class for mapping the cache keys of different objects
@@ -55,18 +43,6 @@ class CacheKeyMapper:
         Return the language cache key
         """
         return f'language-{self.get_pk(param)}'
-
-    def get_ingredient_key(self, param):
-        """
-        Return the ingredient cache key
-        """
-        return f'ingredient-{self.get_pk(param)}'
-
-    def get_workout_log_list(self, hash_value):
-        """
-        Return the workout canonical representation
-        """
-        return f'workout-log-hash-{hash_value}'
 
     def get_nutrition_cache_by_key(self, params):
         """
@@ -108,10 +84,6 @@ class CacheKeyMapper:
     @classmethod
     def slot_entry_configs_key(cls, pk: int):
         return f'slot-entry-configs-{pk}'
-
-    @classmethod
-    def ingredient_celery_sync(cls, page: int):
-        return f'ingredients-sync-page-{page}'
 
 
 cache_mapper = CacheKeyMapper()

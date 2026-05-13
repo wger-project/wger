@@ -2,158 +2,288 @@
 {% load i18n %}
 {% load static %}
 {% load wger_extras %}
-{% load cache %}
-{% load thumbnail %}
 
-<!--
-        Title
--->
+
 {% block title %}{% translate "Exercise admin history" %}{% endblock %}
 
 
-
-{% block header %}
-
-{% endblock %}
-
-
-<!--
-        Main Content
--->
 {% block content %}
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col" style="width: 5%">{% translate 'Action' %}</th>
-            <th scope="col" style="width: 5%">{% translate 'User' %}</th>
-            <th scope="col" style="width: 45%">{% translate 'Object' %}</th>
-            <th scope="col" style="width: 15%">{% translate 'Time' %}</th>
-            <th scope="col" style="width: 15%">{% translate 'Changes' %}</th>
-            <th scope="col" style="width: 15%">{% translate 'Revert' %}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for event in context %}
-            <tr>
-                <td>
-                    {% if event.stream.verb == verbs.CREATED.value %}
-                        <span class="{% fa_class 'circle-plus' %}"></span>
-                    {% elif event.stream.verb == verbs.UPDATED.value %}
-                        <span class="{% fa_class 'pen' %}"></span>
-                    {% else %}
-                        {{ event.verb }}
-                    {% endif %}
-                </td>
-                <td>{{ event.stream.actor }}</td>
-                <td>
-                    {% if event.stream.action_object.get_absolute_url %}
-                        <a href="{{ event.stream.action_object.get_absolute_url }}">{{ event.stream.action_object }}</a>
-                    {% else %}
-                        {{ event.stream.action_object }}
-                    {% endif %}
 
-                    {% if event.stream.data.info %}
-                        <span class="badge badge-secondary">{{ event.stream.data.info }}</span>
-                    {% endif %}
-                </td>
-                <td>{{ event.stream.timesince }}</td>
-                {% if event.stream.verb == verbs.CREATED.value %}
-                    <td>
-                        <a href="{{ event.stream.action_object.get_absolute_url }}" id="view-changes"
-                           class="btn btn-success btn-sm btn-block">
-                            {% translate "View Object" %}
-                        </a>
-                    </td>
-                    <td>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body py-2">
+                    <small class="text-muted">{% translate "Edits last 24h" %}</small>
+                    <h4 class="mb-0">{{ stats.last_24h }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body py-2">
+                    <small class="text-muted">{% translate "Edits last 7d" %}</small>
+                    <h4 class="mb-0">{{ stats.last_7d }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body py-2">
+                    <small class="text-muted">{% translate "Edits last 30d" %}</small>
+                    <h4 class="mb-0">{{ stats.last_30d }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    </td>
-                {% elif event.stream.verb == verbs.UPDATED.value %}
-                    <td>
-                        <a class="btn btn-success btn-sm btn-block" data-bs-toggle="collapse"
-                           href="#collapse-{{ event.stream.id }}"
-                           role="button">
-                            {% translate "View changes" %}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#"
-                           id="revert-changes"
-                           data-bs-toggle="modal"
-                           data-bs-target="#revert-modal-{{ event.stream.id }}"
-                           class="btn btn-danger btn-sm btn-block"
-                           {% if not event.history_id %}disabled{% endif %}
-                        >
-                            {% translate "Revert changes" %}
-                        </a>
-                        {% if event.history_id %}
-                            <div class="modal fade" id="revert-modal-{{ event.stream.id }}">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{% translate 'Are you sure?' %}</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <a href="{% url 'exercise:history:revert' event.history_id event.content_type_id %}"
-                                               id="view-changes"
-                                               class="btn btn-danger btn-sm btn-block">
-                                                {% translate "Yes" %}
+    {#  #}
+    {# Filter form #}
+    <form method="get" class="row g-2 align-items-end mb-4">
+        {% for field in filter.form %}
+            <div class="col-md-2">
+                <label for="{{ field.id_for_label }}" class="form-label mb-0">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+        <div class="col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-sm btn-primary">{% translate "Apply" %}</button>
+            <a href="{% url 'exercise:history:overview' %}" class="btn btn-sm btn-outline-secondary">{% translate "Reset" %}</a>
+        </div>
+    </form>
+
+    {#  #}
+    {# Feed #}
+    {% if context %}
+        {% regroup context by stream.timestamp.date as days %}
+        {% for day in days %}
+            <h6 class="text-uppercase text-muted small mt-4 mb-2">
+                {{ day.grouper|date:"l, j F Y" }}
+            </h6>
+            <ul class="list-group list-group-flush mb-3">
+                {% for event in day.list %}
+                    <li class="list-group-item px-2 {% if event.is_new_contributor %}border-start border-warning border-4{% endif %}">
+                        <div class="d-flex align-items-start gap-3">
+
+                            {# Action icon #}
+                            <div class="pt-1">
+                                {% if event.stream.verb == verbs.CREATED.value %}
+                                    <span class="text-success {% fa_class 'circle-plus' %}"></span>
+                                {% elif event.stream.verb == verbs.UPDATED.value %}
+                                    <span class="text-primary {% fa_class 'pen' %}"></span>
+                                {% elif event.stream.verb == verbs.DELETED.value %}
+                                    <span class="text-danger {% fa_class 'trash' %}"></span>
+                                {% elif event.stream.verb == verbs.MERGED.value %}
+                                    <span class="text-warning {% fa_class 'code-merge' %}"></span>
+                                {% else %}
+                                    <span class="text-muted {% fa_class 'circle-question' %}"></span>
+                                {% endif %}
+                            </div>
+
+                            {# Main column #}
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="d-flex flex-wrap align-items-center gap-2">
+                                    <strong>{{ event.stream.actor }}</strong>
+                                    {% if event.is_new_contributor %}
+                                        <span class="badge text-bg-warning"
+                                              title="{% translate 'Account younger than 60 days' %}">
+                                            {% translate 'new' %}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if event.stream.verb == verbs.CREATED.value %}
+                                        <span class="text-muted">{% translate "created" %}</span>
+                                    {% elif event.stream.verb == verbs.UPDATED.value %}
+                                        <span class="text-muted">{% translate "edited" %}</span>
+                                    {% elif event.stream.verb == verbs.DELETED.value %}
+                                        <span class="text-muted">{% translate "deleted" %}</span>
+                                    {% elif event.stream.verb == verbs.MERGED.value %}
+                                        <span class="text-muted">{% translate "merged" %}</span>
+                                    {% else %}
+                                        <span class="text-muted">{{ event.verb }}</span>
+                                    {% endif %}
+
+                                    {% if event.model_key %}
+                                        <span class="badge {{ event.badge_class }}">{{ event.model_key }}</span>
+                                    {% endif %}
+
+                                    {% if event.stream.verb == verbs.DELETED.value %}
+                                        <em>{{ event.stream.data.deleted_repr }}</em>
+                                    {% elif event.stream.verb == verbs.MERGED.value %}
+                                        <em>{{ event.stream.data.deleted_repr }}</em>
+                                        <span class="text-muted">{% translate "into" %}</span>
+                                        {% if event.stream.action_object.get_absolute_url %}
+                                            <a href="{{ event.stream.action_object.get_absolute_url }}"
+                                               class="fw-semibold text-decoration-none">
+                                                {{ event.stream.action_object }}
                                             </a>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button"
-                                                    class="btn btn-light"
-                                                    data-bs-dismiss="modal">
-                                                {% translate "No" %}
-                                            </button>
+                                        {% else %}
+                                            {{ event.stream.action_object }}
+                                        {% endif %}
+                                        {% if event.stream.data.transfer_media %}
+                                            <span class="badge text-bg-light">+{% translate "media" %}</span>
+                                        {% endif %}
+                                        {% if event.stream.data.transfer_translations %}
+                                            <span class="badge text-bg-light">+{% translate "translations" %}</span>
+                                        {% endif %}
+                                    {% elif event.object_missing %}
+                                        <em class="text-muted">{% translate "Object was deleted" %}</em>
+                                    {% elif event.stream.action_object.get_absolute_url %}
+                                        <a href="{{ event.stream.action_object.get_absolute_url }}"
+                                           class="fw-semibold text-decoration-none">
+                                            {{ event.stream.action_object }}
+                                        </a>
+                                    {% else %}
+                                        {{ event.stream.action_object }}
+                                    {% endif %}
+
+                                    {% if event.stream.data.info %}
+                                        <span class="badge text-bg-light">{{ event.stream.data.info }}</span>
+                                    {% endif %}
+                                </div>
+
+                                {# Diff: one compact line per changed field #}
+                                {% if event.delta and event.delta.changes %}
+                                    <div class="small font-monospace mt-1">
+                                        {% for change in event.delta.changes %}
+                                            <div class="text-truncate">
+                                                <span class="text-muted">{{ change.field }}:</span>
+                                                <span class="text-decoration-line-through text-danger">{{ change.old|default_if_none:""|truncatechars:60 }}</span>
+                                                →
+                                                <span class="text-success">{{ change.new|default_if_none:""|truncatechars:60 }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            {# Right column: timestamp + revert dropdown #}
+                            <div class="d-flex flex-column align-items-end text-nowrap">
+                                <small class="text-muted"
+                                       title="{{ event.stream.timestamp|date:'Y-m-d H:i:s' }}">
+                                    {{ event.stream.timesince }}
+                                </small>
+
+                                {% if event.history_id %}
+                                    <div class="dropdown mt-1">
+                                        <button type="button"
+                                                class="btn btn-sm btn-link text-muted p-0"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <span class="{% fa_class 'ellipsis-vertical' %}"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button type="button"
+                                                        class="dropdown-item text-danger"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#revert-modal-{{ event.stream.id }}">
+                                                    {% translate "Revert change" %}
+                                                </button>
+                                            </li>
+                                            {% if not event.object_missing and event.stream.action_object.get_absolute_url %}
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       href="{{ event.stream.action_object.get_absolute_url }}">
+                                                        {% translate "Open object" %}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="modal fade" id="revert-modal-{{ event.stream.id }}" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">{% translate 'Revert this change?' %}</h4>
+                                                    <button type="button"
+                                                            class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="{% translate 'Close' %}"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="mb-0 text-muted small">
+                                                        {% translate "The object will be restored to its previous state." %}
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-light"
+                                                            data-bs-dismiss="modal">
+                                                        {% translate "Cancel" %}
+                                                    </button>
+                                                    <form method="post"
+                                                          action="{% url 'exercise:history:revert' event.history_id event.content_type_id %}"
+                                                          class="d-inline">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-danger">
+                                                            {% translate "Revert" %}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                    </td>
-                {% endif %}
-            </tr>
-            <tr class="collapse" id="collapse-{{ event.stream.id }}">
-                <td colspan="6">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <td>Field</td>
-                            <td>Old</td>
-                            <td>New</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% if event.delta %}
-                            {% for change in event.delta.changes %}
-                                <tr>
-                                    <td>{{ change.field }}</td>
-                                    <td>{{ change.old }}</td>
-                                    <td>{{ change.new }}</td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
-                        </tbody>
-                    </table>
-                </td>
-
-
-            </tr>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
         {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+    {% else %}
+        <div class="text-center text-muted py-5">
+            <p>{% translate "No changes match the filters." %}</p>
+            <a href="{% url 'exercise:history:overview' %}" class="btn btn-link btn-sm">
+                {% translate "Reset filters" %}
+            </a>
+        </div>
+    {% endif %}
 
+    {#  #}
+    {# Pagination #}
+    {% if is_paginated %}
+        <nav aria-label="{% translate 'History pagination' %}">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                            « {% translate "First" %}
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                            ‹ {% translate "Previous" %}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">« {% translate "First" %}</span></li>
+                    <li class="page-item disabled"><span class="page-link">‹ {% translate "Previous" %}</span></li>
+                {% endif %}
 
-<!--
-        Sidebar
--->
-{% block sidebar %}
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        {% blocktranslate with current=page_obj.number total=paginator.num_pages %}Page {{ current }} of {{ total }}{% endblocktranslate %}
+                    </span>
+                </li>
 
-{% endblock %}
-
-
-
-{% block options %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                            {% translate "Next" %} ›
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ paginator.num_pages }}{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                            {% translate "Last" %} »
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">{% translate "Next" %} ›</span></li>
+                    <li class="page-item disabled"><span class="page-link">{% translate "Last" %} »</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 
 {% endblock %}

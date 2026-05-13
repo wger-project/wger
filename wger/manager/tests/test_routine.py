@@ -15,6 +15,9 @@
 # Standard Library
 import datetime
 
+# Django
+from django.urls import reverse
+
 # wger
 from wger.core.tests.api_base_test import ApiBaseResourceTestCase
 from wger.core.tests.base_testcase import WgerTestCase
@@ -505,3 +508,94 @@ class RoutineApiTestCase(ApiBaseResourceTestCase):
         'start': '2024-03-11',
         'end': '2024-06-20',
     }
+
+
+class RoutineDateValidationTestCase(WgerTestCase):
+    """
+    The routine API must enforce sane date bounds:
+    - ``end`` may not be before ``start``
+    - the duration may not exceed ``Routine.MAX_DURATION_DAYS``, otherwise
+      walking the ``date_sequence`` could be abused to consume server CPU.
+    """
+
+    def _post_routine(self, start, end):
+        self.user_login('test')
+        return self.client.post(
+            reverse('routine-list'),
+            data={
+                'name': 'duration test',
+                'start': start.isoformat(),
+                'end': end.isoformat(),
+            },
+            content_type='application/json',
+        )
+
+    def test_rejects_routine_longer_than_limit(self):
+        start = datetime.date(2024, 1, 1)
+        end = start + datetime.timedelta(days=Routine.MAX_DURATION_DAYS + 1)
+        response = self._post_routine(start, end)
+        self.assertEqual(response.status_code, 400)
+
+    def test_accepts_routine_at_limit(self):
+        start = datetime.date(2024, 1, 1)
+        end = start + datetime.timedelta(days=Routine.MAX_DURATION_DAYS)
+        response = self._post_routine(start, end)
+        self.assertEqual(response.status_code, 201)
+
+    def test_rejects_end_before_start(self):
+        start = datetime.date(2024, 6, 1)
+        end = datetime.date(2024, 1, 1)
+        response = self._post_routine(start, end)
+        self.assertEqual(response.status_code, 400)
+
+
+class RoutineLogsAndStatsScopeTestCase(WgerTestCase):
+    """
+    The /logs/ and /stats/ actions of a routine return the owner's
+    private workout history. They must never be accessible to anyone but
+    the routine owner, even when the routine is a public template.
+    """
+
+    PUBLIC_TEMPLATE_PK = 5
+    # owned by trainer2 (user 5), is_template + is_public
+
+    @property
+    def logs_url(self):
+        return reverse('routine-logs', kwargs={'pk': self.PUBLIC_TEMPLATE_PK})
+
+    @property
+    def stats_url(self):
+        return reverse('routine-stats', kwargs={'pk': self.PUBLIC_TEMPLATE_PK})
+
+    @property
+    def detail_url(self):
+        return reverse('routine-detail', kwargs={'pk': self.PUBLIC_TEMPLATE_PK})
+
+    def test_non_owner_cannot_read_template_logs(self):
+        self.user_login('test')
+        response = self.client.get(self.logs_url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_non_owner_cannot_read_template_stats(self):
+        self.user_login('test')
+        response = self.client.get(self.stats_url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_owner_can_read_own_template_logs(self):
+        self.user_login('trainer2')
+        response = self.client.get(self.logs_url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_owner_can_read_own_template_stats(self):
+        self.user_login('trainer2')
+        response = self.client.get(self.stats_url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_template_structure_remains_publicly_readable(self):
+        """
+        The template's exercise structure is the public part of the
+        feature — only logs/stats need to be restricted.
+        """
+        self.user_login('test')
+        response = self.client.get(self.detail_url)
+        self.assertEqual(response.status_code, 200)

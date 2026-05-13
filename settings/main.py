@@ -175,8 +175,10 @@ WGER_SETTINGS['SYNC_EXERCISES_CELERY'] = env.bool('SYNC_EXERCISES_CELERY', False
 WGER_SETTINGS['SYNC_EXERCISE_IMAGES_CELERY'] = env.bool('SYNC_EXERCISE_IMAGES_CELERY', False)
 WGER_SETTINGS['SYNC_EXERCISE_VIDEOS_CELERY'] = env.bool('SYNC_EXERCISE_VIDEOS_CELERY', False)
 WGER_SETTINGS['SYNC_INGREDIENTS_CELERY'] = env.bool('SYNC_INGREDIENTS_CELERY', False)
-if env.str('SYNC_INGREDIENTS_DUMP_URL', ''):
-    WGER_SETTINGS['SYNC_INGREDIENTS_DUMP_URL'] = env.str('SYNC_INGREDIENTS_DUMP_URL')
+WGER_SETTINGS['SYNC_INGREDIENTS_DUMP_URL'] = env.str(
+    'SYNC_INGREDIENTS_DUMP_URL',
+    'https://wger.de/media/ingredients/ingredients.jsonl.gz',
+)
 WGER_SETTINGS['SYNC_OFF_DAILY_DELTA_CELERY'] = env.bool('SYNC_OFF_DAILY_DELTA_CELERY', False)
 WGER_SETTINGS['EXPORT_INGREDIENTS_BULK_CELERY'] = env.bool('EXPORT_INGREDIENTS_BULK_CELERY', False)
 WGER_SETTINGS['USE_RECAPTCHA'] = env.bool('USE_RECAPTCHA', False)
@@ -227,14 +229,6 @@ if os.environ.get('DJANGO_CACHE_BACKEND'):
     if CONNECTION_POOL_KWARGS:
         CACHES['default']['OPTIONS']['CONNECTION_POOL_KWARGS'] = CONNECTION_POOL_KWARGS
 
-#
-# Django Compressor
-# Consult https://django-compressor.readthedocs.io/en/stable/ for more information
-# (specially the offline compression part)
-#
-COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', not DEBUG)
-COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', False)
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL
@@ -256,7 +250,9 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 # Django Rest Framework SimpleJWT
 #
 SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int('ACCESS_TOKEN_LIFETIME', 15))
-SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=env.int('REFRESH_TOKEN_LIFETIME', 24))
+SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(
+    hours=env.int('REFRESH_TOKEN_LIFETIME', 24 * 30 * 4)
+)
 _SIGNING_KEY = env.str('SIGNING_KEY', '')
 # In DEBUG mode, keep a known default so JWTs minted before a restart still
 # verify after it. Outside DEBUG, replace + warn.
@@ -345,7 +341,7 @@ STORAGES = {
 
 #
 # S3 object storage config
-# See https://wger.readthedocs.io/en/latest/production/docker.html#s3-object-storage
+# See https://wger.readthedocs.io/en/latest/administration/storage.html#s3-object-storage
 #
 USE_S3_MEDIA_FILES = env.bool('USE_S3_MEDIA_FILES', False)
 USE_S3_STATIC_FILES = env.bool('USE_S3_STATIC_FILES', False)

@@ -87,7 +87,9 @@ class IngredientFilterSet(filters.FilterSet):
                 .order_by('-similarity', 'name')
             )
         else:
-            return queryset.filter(name__icontains=value)
+            # Explicit order_by('name') because the viewset strips Meta.ordering.
+            # Search results are small, so sorting them is cheap.
+            return queryset.filter(name__icontains=value).order_by('name')
 
     def search_languagecode(self, queryset, name, value):
         """
@@ -105,7 +107,7 @@ class IngredientFilterSet(filters.FilterSet):
     class Meta:
         model = Ingredient
         fields = {
-            'id': ['exact', 'in'],
+            'id': ['exact', 'in', 'gt', 'gte', 'lt', 'lte'],
             'uuid': ['exact'],
             'code': ['exact'],
             'source_name': ['exact'],
@@ -120,7 +122,7 @@ class IngredientFilterSet(filters.FilterSet):
             'sodium': ['exact'],
             'is_vegan': ['exact'],
             'is_vegetarian': ['exact'],
-            'nutriscore': ['exact', 'in'],
+            'nutriscore': ['exact', 'in', 'gt', 'gte', 'lt', 'lte'],
             'created': ['exact', 'gt', 'lt'],
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],

@@ -16,14 +16,12 @@
 # Standard Library
 import datetime
 import json
-from decimal import Decimal
 from unittest.mock import (
     MagicMock,
     patch,
 )
 
 # Django
-from django.core.exceptions import ValidationError
 from django.test import SimpleTestCase
 from django.urls import reverse
 
@@ -40,6 +38,10 @@ from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerEditTestCase,
     WgerTestCase,
+)
+from wger.nutrition.api.views import (
+    IngredientSyncViewSet,
+    IngredientViewSet,
 )
 from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.models import (
@@ -457,7 +459,7 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = Ingredient
     private_resource = False
-    overview_cached = True
+    overview_cached = False
     data = {'language': 1, 'license': 2}
 
 
@@ -533,6 +535,26 @@ class IngredientModelTestCase(WgerTestCase):
             ingredient=ingredient, name='1 Portion (2 biscuits)'
         )
         self.assertEqual(ingredient_unit.gram, 25)
+
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_reimport_same_gram_different_name_does_not_duplicate(self, mock_api: MagicMock):
+        """
+        When OFF changes the serving_size text but the gram value stays,
+        the existing unit is reused (matched by gram) instead of creating a duplicate.
+        """
+        self.off_response['serving_size'] = '2 biscuits (30 g)'
+        mock_api.return_value = self.off_response
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.off_response['serving_size'] = '3 biscuits (30 g)'
+        ingredient.update_or_create_serving_unit_from_off(
+            extract_info_from_off(self.off_response, ingredient.language_id)
+        )
+
+        units = IngredientWeightUnit.objects.filter(ingredient=ingredient)
+        self.assertEqual(units.count(), 1)
+        self.assertEqual(units.first().name, '1 Portion (3 biscuits)')
+        self.assertEqual(units.first().gram, 30)
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success_long_name(self, mock_api: MagicMock):
@@ -752,3 +774,84 @@ class ImageFromJsonSimpleTests(SimpleTestCase):
         self.assertIsInstance(img, Image)
         self.assertNotEqual(str(img.uuid), json_data['uuid'])
         self.assertEqual(img.size, 54321)
+
+
+class IngredientThrottleScopeTestCase(WgerTestCase):
+    """
+    Tests that ingredient viewsets are wired up with the right throttle scopes.
+
+    We don't exercise the rate limits themselves (the rates are config) — we
+    just assert that scopes are picked correctly per action so accidental
+    refactors can't silently strip throttling.
+    """
+
+    def test_ingredient_list_uses_list_scope(self):
+        view = IngredientViewSet()
+        view.action = 'list'
+        view.get_throttles()
+        self.assertEqual(view.throttle_scope, 'ingredient_list')
+
+    def test_ingredient_detail_uses_detail_scope(self):
+        view = IngredientViewSet()
+        view.action = 'retrieve'
+        view.get_throttles()
+        self.assertEqual(view.throttle_scope, 'ingredient_detail')
+
+    def test_ingredient_sync_uses_sync_scope(self):
+        self.assertEqual(IngredientSyncViewSet.throttle_scope, 'ingredient_sync')
+
+
+class IngredientSyncViewSetTestCase(WgerTestCase):
+    """
+    Tests for the /api/v2/ingredient-sync endpoint.
+    """
+
+    url = reverse('api-ingredient-sync-list')
+
+    def test_list_returns_cursor_pagination_shape(self):
+        """The response has `next`/`previous`, but no `count`."""
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('results', response.data)
+        self.assertIn('next', response.data)
+        self.assertIn('previous', response.data)
+        self.assertNotIn('count', response.data)
+
+    def test_list_paginates_through_all_ingredients(self):
+        """Following `next` returns disjoint pages that together cover all rows."""
+
+        total = Ingredient.objects.count()
+        self.assertGreater(total, 0, 'Fixture must contain ingredients')
+
+        seen_ids = []
+        url = self.url + '?page_size=5'
+        while url:
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            seen_ids.extend(item['id'] for item in response.data['results'])
+            url = response.data['next']
+
+        # No duplicates and every ingredient seen exactly once.
+        self.assertEqual(len(seen_ids), len(set(seen_ids)))
+        self.assertEqual(set(seen_ids), set(Ingredient.objects.values_list('id', flat=True)))
+
+    def test_page_size_query_param_is_capped(self):
+        """`?page_size=` is honored but capped at `max_page_size`."""
+
+        # Way above max_page_size=1000 — must be capped, not error
+        response = self.client.get(self.url + '?page_size=999999')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertLessEqual(len(response.data['results']), 1000)
+
+    def test_filterset_supports_incremental_sync(self):
+        """`last_update__gt` filter narrows the result set for incremental syncs."""
+
+        # Pick a timestamp newer than all fixture rows -> empty result
+        future = '2999-01-01T00:00:00Z'
+        response = self.client.get(f'{self.url}?last_update__gt={future}')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['results'], [])
+        self.assertIsNone(response.data['next'])

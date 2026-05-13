@@ -126,6 +126,28 @@ class LogModelTestCase(WgerTestCase):
 
         self.assertEqual(log.routine_id, 1)
 
+    def test_slot_entry_ownership(self):
+        """
+        Test that the slot_entry foreign key checks ownership at the
+        model layer, parallel to the existing routine guard.
+
+        SlotEntry pk=1 belongs to user 1; the new log is for user 2 with
+        no routine. Without a guard, super().save() persists a row; with
+        the guard, save() returns early and nothing is written.
+        """
+
+        log = WorkoutLog(
+            user_id=2,
+            exercise_id=1,
+            slot_entry_id=1,
+            repetitions=5,
+            weight=50,
+        )
+        log.save()
+
+        self.assertIsNone(log.pk)
+        self.assertFalse(WorkoutLog.objects.filter(user_id=2, slot_entry_id=1).exists())
+
     def test_next_log_user_check_fail(self):
         """
         Test that the next log foreign key checks ownership

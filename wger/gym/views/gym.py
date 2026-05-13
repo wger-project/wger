@@ -67,6 +67,8 @@ from wger.gym.forms import (
 from wger.gym.helpers import (
     get_permission_list,
     is_any_gym_admin,
+    is_same_gym,
+    sanitize_csv_cell,
 )
 from wger.gym.models import (
     Gym,
@@ -217,11 +219,14 @@ def gym_new_user_info_export(request):
     writer.writerow([_('Username'), _('First name'), _('Last name'), _('Gym'), _('Password')])
     writer.writerow(
         [
-            new_username,
-            new_user.first_name,
-            new_user.last_name,
-            new_user.userprofile.gym.name,
-            password,
+            sanitize_csv_cell(value)
+            for value in [
+                new_username,
+                new_user.first_name,
+                new_user.last_name,
+                new_user.userprofile.gym.name,
+                password,
+            ]
         ]
     )
 
@@ -248,10 +253,7 @@ def reset_user_password(request, user_pk):
     if not request.user.has_perm('gym.manage_gyms') and not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    if (
-        request.user.has_perm('gym.manage_gym')
-        and request.user.userprofile.gym != user.userprofile.gym
-    ):
+    if request.user.has_perm('gym.manage_gym') and not is_same_gym(request.user, user):
         return HttpResponseForbidden()
 
     password = password_generator()
@@ -275,7 +277,7 @@ def gym_permissions_user_edit(request, user_pk):
     if not user.has_perm('gym.manage_gyms') and not user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    if user.has_perm('gym.manage_gym') and user.userprofile.gym != member.userprofile.gym:
+    if user.has_perm('gym.manage_gym') and not is_same_gym(user, member):
         return HttpResponseForbidden()
 
     # Calculate available user permissions

@@ -23,7 +23,6 @@ from json import JSONDecodeError
 # Django
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
-from django.core.cache import cache
 from django.core.validators import (
     MaxValueValidator,
     MinLengthValidator,
@@ -51,7 +50,6 @@ from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.managers import ApproximateCountManager
 from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
-from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
@@ -342,14 +340,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
         else:
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
 
-    def save(self, *args, **kwargs):
-        """
-        Reset the cache
-        """
-
-        super(Ingredient, self).save(*args, **kwargs)
-        cache.delete(cache_mapper.get_ingredient_key(self.id))
-
     def __str__(self):
         """
         Return a more human-readable representation
@@ -484,14 +474,19 @@ class Ingredient(AbstractLicenseModel, models.Model):
         else:
             name = unit
 
-        existing_weight_unit = IngredientWeightUnit.objects.filter(
-            ingredient=self,
-            name__iexact=name,
-        ).first()
+        # Try to find the unit locally. This can happen either because the name matches or
+        # the exact gram amount. This would cover scenarios where the name was changed on
+        # OFF's side or our serving size parser, e.g.: "2 biscuits" -> "1 Portion (2 biscuits)"
+        existing_weight_unit = (
+            IngredientWeightUnit.objects.filter(ingredient=self)
+            .filter(models.Q(name__iexact=name) | models.Q(gram=gram))
+            .first()
+        )
 
         if existing_weight_unit:
+            existing_weight_unit.name = name
             existing_weight_unit.gram = gram
-            existing_weight_unit.save(update_fields=['gram'])
+            existing_weight_unit.save(update_fields=['name', 'gram'])
             return False, True  # (created, updated)
         else:
             IngredientWeightUnit.objects.create(

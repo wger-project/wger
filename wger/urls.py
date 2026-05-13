@@ -210,6 +210,11 @@ router.register(
     r'ingredientinfo', nutrition_api_views.IngredientInfoViewSet, basename='api-ingredientinfo'
 )
 router.register(
+    r'ingredient-sync',
+    nutrition_api_views.IngredientSyncViewSet,
+    basename='api-ingredient-sync',
+)
+router.register(
     r'ingredientweightunit',
     nutrition_api_views.IngredientWeightUnitViewSet,
     basename='ingredientweightunit',

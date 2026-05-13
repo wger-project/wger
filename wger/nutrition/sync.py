@@ -49,6 +49,7 @@ from wger.nutrition.api.endpoints import (
     IMAGE_ENDPOINT,
     INGREDIENT_BULK_EXPORT_PATH,
     INGREDIENTS_ENDPOINT,
+    INGREDIENTS_SYNC_ENDPOINT,
 )
 from wger.nutrition.api.serializers import IngredientSerializer
 from wger.nutrition.consts import SyncMode
@@ -309,46 +310,29 @@ def download_ingredient_images(
         print_fn(style_fn('    successfully saved'))
 
 
-def sync_ingredients_page(
-    page: int,
-    limit: int = API_MAX_ITEMS,
-    remote_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
-    language_codes: Optional[str] = None,
-) -> int:
-    """
-    Sync a single paginated page (0-based index). Returns number of processed ingredients.
-    Safe to rerun (idempotent).
-    """
-    try:
-        language_ids = _resolve_language_codes(language_codes)
-    except Language.DoesNotExist:
-        logger.warning(f'Language code not found, skipping page {page}.')
-        return 0
-
-    offset = page * limit
-    query: dict[str, str | int] = {'limit': limit, 'offset': offset}
-    if language_ids:
-        query['language__in'] = ','.join(language_ids)
-
-    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query=query)
-    response = requests.get(url, headers=wger_headers(), timeout=30).json()
-    results = response.get('results', [])
-    processed = 0
-    for data in results:
-        _sync_ingredient_from_api_data(data)
-        processed += 1
-    logger.debug(f'Page {page} synced ({processed} ingredients)')
-    return processed
-
-
 def sync_ingredients(
     print_fn,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     language_codes: Optional[str] = None,
     style_fn=lambda x: x,
     show_progress_bar: bool = False,
+    last_update_gt: Optional[str] = None,
+    id_gte: Optional[int] = None,
+    id_lt: Optional[int] = None,
 ):
-    """Synchronize the ingredients from the remote server"""
+    """
+    Synchronize ingredients from a remote wger instance
+
+    Uses /api/v2/ingredient-sync which is backed by an indexed cursor instead
+    of /api/v2/ingredientinfo which is OFFSET-based.
+
+    For incremental syncs, pass an ISO-8601 timestamp via `last_update_gt` to
+    only fetch ingredients that changed since the last sync.
+
+    For parallel range-based syncs (used by the celery orchestrator), pass
+    `id_gte` and/or `id_lt` to restrict the worker to one slice of the id
+    space; combined with cursor pagination this is fast at any catalogue size.
+    """
     print_fn('*** Synchronizing ingredients...')
 
     try:
@@ -359,48 +343,61 @@ def sync_ingredients(
         )
         return 0
 
-    query: dict[str, str | int] = {'limit': API_MAX_ITEMS}
+    filter_query: dict[str, str] = {}
     if language_ids is not None:
-        query['language__in'] = ','.join(language_ids)
+        filter_query['language__in'] = ','.join(language_ids)
+    if last_update_gt:
+        filter_query['last_update__gt'] = last_update_gt
+    if id_gte is not None:
+        filter_query['id__gte'] = str(id_gte)
+    if id_lt is not None:
+        filter_query['id__lt'] = str(id_lt)
+
+    # Total count is only used for the progress bar's ETA / percentage. Skip
+    # the probe when nobody is watching (e.g. inside the celery range-worker)
+    # to avoid an unnecessary request against the throttled `ingredient_list`
+    # scope.
+    total = None
+    if show_progress_bar:
+        count_url = make_uri(
+            INGREDIENTS_ENDPOINT,
+            server_url=remote_url,
+            query={**filter_query, 'limit': 1},
+        )
+        try:
+            count_response = requests.get(count_url, headers=wger_headers(), timeout=30).json()
+            total = count_response.get('count')
+        except (requests.RequestException, ValueError) as e:
+            logger.info(f'Could not fetch total ingredient count: {e}')
 
     url = make_uri(
-        INGREDIENTS_ENDPOINT,
+        INGREDIENTS_SYNC_ENDPOINT,
         server_url=remote_url,
-        query=query,
+        query={**filter_query, 'page_size': API_MAX_ITEMS},
     )
 
-    # Fetch once to retrieve the number of results
-    response = requests.get(url, headers=wger_headers()).json()
-    total_ingredients = response['count']
-    total_pages = total_ingredients // API_MAX_ITEMS
-
-    ingredient_nr = 1
-    page_nr = 1
     pbar = tqdm(
-        total=total_ingredients,
+        total=total,
         unit='ingredients',
         desc='Syncing progress',
         unit_scale=True,
         smoothing=0.1,
         mininterval=1.0,
+        disable=not show_progress_bar,
     )
+
+    count = 0
     for data in get_paginated(url, headers=wger_headers()):
         _sync_ingredient_from_api_data(data)
-
-        if show_progress_bar:
-            pbar.update(1)
-        else:
-            # Note that get_paginated returns the individual result entries from the pages.
-            # To get the current page, we need to calculate this ourselves.
-            ingredient_nr += 1
-            if ingredient_nr % API_MAX_ITEMS == 0:
-                page_nr += 1
-                print_fn(f'Processing ingredients, page {page_nr: >4} of {total_pages}')
+        count += 1
+        pbar.update(1)
+        if not show_progress_bar and count % API_MAX_ITEMS == 0:
+            print_fn(f'Processed {count} ingredients...')
 
     pbar.close()
 
-    print_fn(style_fn('done!\n'))
-    return None
+    print_fn(style_fn(f'done! Processed {count} ingredients.\n'))
+    return count
 
 
 BULK_SIZE = 500
