@@ -39,6 +39,7 @@ from django.utils.translation import (
 )
 
 # Third Party
+from allauth.account.forms import LoginForm as AllauthLoginForm
 from allauth.account.utils import filter_users_by_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
@@ -123,6 +124,17 @@ class UserLoginForm(AuthenticationForm):
                 raise self.get_invalid_login_error()
             else:
                 self.confirm_login_allowed(self.user_cache)
+
+
+class WgerLoginForm(AllauthLoginForm):
+    """allauth's login form with wger's password-visibility toggle widget."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['login'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget = PasswordInputWithToggle(
+            attrs={'autocomplete': 'current-password'}
+        )
 
 
 class UserPreferencesForm(forms.ModelForm):

@@ -33,7 +33,6 @@ from django.contrib.auth.mixins import (
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.views import (
-    LoginView,
     PasswordChangeView,
     PasswordResetConfirmView,
     PasswordResetView,
@@ -45,7 +44,6 @@ from django.http import (
 )
 from django.shortcuts import (
     get_object_or_404,
-    redirect,
     render,
 )
 from django.template.context_processors import csrf
@@ -68,7 +66,9 @@ from django.views.generic import (
 )
 
 # Third Party
+from allauth.account.mixins import RedirectAuthenticatedUserMixin
 from allauth.account.models import EmailAddress
+from allauth.account.views import LoginView as AllauthLoginView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -706,15 +706,17 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         return form
 
 
-class WgerLoginView(LoginView):
+class WgerLoginView(AllauthLoginView):
     """
-    If the user is already logged in and there's a "next" parameter in the URL,
-    redirect there. Otherwise, proceed with the normal login logic from Django
+    allauth's login view, with one wger carve-out: temporary (guest) users are
+    still allowed to reach the login page so they can sign in as a real
+    account. allauth would otherwise redirect every authenticated user away.
     """
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and not request.user.userprofile.is_temporary:
-            return redirect(request.GET.get('next', reverse('core:dashboard')))
-
-        # Proceed with the normal login page logic
+        if request.user.is_authenticated and request.user.userprofile.is_temporary:
+            # Skip RedirectAuthenticatedUserMixin's "already logged in" redirect
+            return super(RedirectAuthenticatedUserMixin, self).dispatch(
+                request, *args, **kwargs
+            )
         return super().dispatch(request, *args, **kwargs)

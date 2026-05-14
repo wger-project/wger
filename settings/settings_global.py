@@ -233,6 +233,15 @@ ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 # confirmed via the verification link.
 ACCOUNT_CHANGE_EMAIL = True
 
+# Use wger's login form (allauth's LoginForm + the password-visibility toggle).
+ACCOUNT_FORMS = {'login': 'wger.core.forms.WgerLoginForm'}
+
+# django-axes handles login brute-force protection at the backend level (it
+# wraps every authenticate() call, so it also covers the API login endpoints).
+# Disable allauth's overlapping login throttles to avoid running two systems;
+# the non-login limits (signup, password reset, ...) stay at allauth's defaults.
+ACCOUNT_RATE_LIMITS = {'login_failed': None, 'login': None}
+
 #
 # Login
 #
