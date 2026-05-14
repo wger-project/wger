@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n wger_extras %}
+
+{% block title %}{% translate "Email address" %}{% endblock %}
+
+
+{% block content %}
+    <p>
+        {% blocktranslate trimmed %}
+            Your email address is used for password resets and, optionally, workout
+            reminders. A new address only becomes active once you confirm it via the
+            link sent to it.
+        {% endblocktranslate %}
+    </p>
+
+    {% if current_emailaddress %}
+        <div class="card mb-3 text-white bg-success">
+            <div class="card-body">
+                <span class="{% fa_class 'envelope-circle-check' %}"></span>
+                {% translate "Current email" %}: <strong>{{ current_emailaddress.email }}</strong>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if new_emailaddress %}
+        <div class="card mb-3 bg-light">
+            <div class="card-body">
+                <p>
+                    <span class="{% fa_class 'envelope' %}"></span>
+                    {% blocktranslate with email=new_emailaddress.email trimmed %}
+                        Pending confirmation: <strong>{{ email }}</strong>
+                    {% endblocktranslate %}
+                </p>
+                <form method="post" action="{% url 'account_email' %}" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="email" value="{{ new_emailaddress.email }}">
+                    <button type="submit" name="action_send" class="btn btn-sm btn-light">
+                        {% translate "Resend confirmation email" %}
+                    </button>
+                    {% if current_emailaddress %}
+                        <button type="submit" name="action_remove" class="btn btn-sm btn-light">
+                            {% translate "Cancel change" %}
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'account_email' %}" class="wger-form" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.email.id_for_label }}" class="form-label">
+                {% translate "Change to" %}
+            </label>
+            <input type="email"
+                   name="email"
+                   id="{{ form.email.id_for_label }}"
+                   value="{{ form.email.value|default:'' }}"
+                   class="form-control {% if form.email.errors %}is-invalid{% endif %}">
+            {% for error in form.email.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <button type="submit" name="action_add" class="btn btn-success btn-block">
+            {% translate "Change email" %}
+        </button>
+    </form>
+{% endblock %}
