@@ -169,7 +169,7 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 TEMPLATES = [
@@ -223,6 +223,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
+
+# Allow logging in with either the username or the email address. allauth's
+# authentication backend resolves the email against its EmailAddress table.
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
 #
 # Login

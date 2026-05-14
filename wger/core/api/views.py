@@ -286,9 +286,8 @@ class UserAPILoginView(viewsets.ViewSet):
         serializer = self.serializer_class(data=request.data, request=request)
         serializer.is_valid(raise_exception=True)
 
-        # This is a bit hacky, but saving the email or username as the username
-        # allows us to simply use the helpers.EmailAuthBackend backend which also
-        # uses emails
+        # The login form's username field accepts either value: allauth's
+        # authentication backend resolves it as a username or an email address.
         username = serializer.data.get('username', serializer.data.get('email', None))
         data = {'username': username, 'password': serializer.data['password']}
         form = UserLoginForm(data=data, authenticate_on_clean=False)
