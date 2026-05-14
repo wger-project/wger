@@ -21,7 +21,6 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
-    authenticate,
     login as django_login,
     logout as django_logout,
 )
@@ -51,7 +50,6 @@ from django.urls import (
     reverse,
     reverse_lazy,
 )
-from django.utils import translation
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import (
     gettext as _,
@@ -67,8 +65,10 @@ from django.views.generic import (
 
 # Third Party
 from allauth.account.mixins import RedirectAuthenticatedUserMixin
-from allauth.account.models import EmailAddress
-from allauth.account.views import LoginView as AllauthLoginView
+from allauth.account.views import (
+    LoginView as AllauthLoginView,
+    SignupView as AllauthSignupView,
+)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -80,12 +80,9 @@ from crispy_forms.layout import (
 from rest_framework.authtoken.models import Token
 
 # wger
-from wger.config.models import GymConfig
 from wger.core.forms import (
     PasswordConfirmationForm,
     PasswordResetFormCaptcha,
-    RegistrationForm,
-    RegistrationFormNoCaptcha,
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
@@ -93,7 +90,6 @@ from wger.gym.helpers import is_same_gym
 from wger.gym.models import (
     AdminUserNote,
     Contract,
-    GymUserConfig,
 )
 from wger.manager.models import (
     Routine,
@@ -110,7 +106,6 @@ from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin,
 )
-from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
 
 
@@ -247,81 +242,26 @@ def logout(request):
     return HttpResponseRedirect(reverse('core:user:login'))
 
 
-def registration(request):
+class WgerSignupView(AllauthSignupView):
     """
-    A form to allow for registration of new users
+    allauth's signup view, with two wger carve-outs: registration disabled
+    globally redirects to the features page (instead of allauth's "signup
+    closed" page), and temporary (guest) users may still reach the
+    registration page so they can create a real account.
+
+    The wger-specific profile setup (notification language, default gym) lives
+    in WgerAccountAdapter.save_user().
     """
 
-    # If global user registration is deactivated, redirect
-    if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
-        return HttpResponseRedirect(reverse('software:features'))
-
-    template_data = {}
-    template_data.update(csrf(request))
-
-    # Don't show captcha if the global parameter is false
-    FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
-    )
-
-    # Redirect regular users, in case they reached the registration page
-    if request.user.is_authenticated and not request.user.userprofile.is_temporary:
-        return HttpResponseRedirect(reverse('core:dashboard'))
-
-    if request.method == 'POST':
-        form = FormClass(data=request.POST)
-
-        # If the data is valid, log in and redirect
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            email = form.cleaned_data['email']
-            user = User.objects.create_user(username, email, password)
-            user.save()
-
-            # Pre-set some values of the user's profile
-            language = load_language(translation.get_language())
-            user.userprofile.notification_language = language
-
-            # Set default gym, if needed
-            gym_config = GymConfig.objects.get(pk=1)
-            if gym_config.default_gym:
-                user.userprofile.gym = gym_config.default_gym
-
-                # Create gym user configuration object
-                config = GymUserConfig()
-                config.gym = gym_config.default_gym
-                config.user = user
-                config.save()
-
-            user.userprofile.save()
-            user = authenticate(request=request, username=username, password=password)
-
-            # Log the user in
-            django_login(request, user)
-
-            # Email the user with the activation link
-            if email:
-                EmailAddress.objects.add_email(
-                    request,
-                    request.user,
-                    request.user.email,
-                    confirm=True,
-                )
-
-            # Redirect to the dashboard
-            messages.success(request, _('You were successfully registered'))
-            return HttpResponseRedirect(reverse('core:dashboard'))
-    else:
-        form = FormClass()
-
-    template_data['form'] = form
-    template_data['title'] = _('Register')
-
-    # Add this line to use the new registration-specific sidebar
-    template_data['sidebar'] = 'user/registration_sidebar.html'
-
-    return render(request, 'form_content.html', template_data)
+    def dispatch(self, request, *args, **kwargs):
+        if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
+            return HttpResponseRedirect(reverse('software:features'))
+        if request.user.is_authenticated and request.user.userprofile.is_temporary:
+            # Skip RedirectAuthenticatedUserMixin's "already logged in" redirect
+            return super(RedirectAuthenticatedUserMixin, self).dispatch(
+                request, *args, **kwargs
+            )
+        return super().dispatch(request, *args, **kwargs)
 
 
 @login_required

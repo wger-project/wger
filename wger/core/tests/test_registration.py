@@ -33,10 +33,6 @@ from rest_framework.status import (
 )
 
 # wger
-from wger.core.forms import (
-    RegistrationForm,
-    RegistrationFormNoCaptcha,
-)
 from wger.core.tests.base_testcase import WgerTestCase
 
 
@@ -50,8 +46,7 @@ class RegistrationTestCase(WgerTestCase):
 
     def test_registration_captcha(self):
         """
-        Tests that the correct form is used depending on global
-        configuration settings
+        The signup form shows a reCAPTCHA field only when USE_RECAPTCHA is set.
         """
         with self.settings(
             WGER_SETTINGS={
@@ -63,7 +58,7 @@ class RegistrationTestCase(WgerTestCase):
             }
         ):
             response = self.client.get(reverse('core:user:registration'))
-            self.assertIsInstance(response.context['form'], RegistrationForm)
+            self.assertIn('captcha', response.context['form'].fields)
 
         with self.settings(
             WGER_SETTINGS={
@@ -75,7 +70,7 @@ class RegistrationTestCase(WgerTestCase):
             }
         ):
             response = self.client.get(reverse('core:user:registration'))
-            self.assertIsInstance(response.context['form'], RegistrationFormNoCaptcha)
+            self.assertNotIn('captcha', response.context['form'].fields)
 
     def test_register(self):
         # Fetch the registration page

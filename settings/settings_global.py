@@ -233,8 +233,12 @@ ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 # confirmed via the verification link.
 ACCOUNT_CHANGE_EMAIL = True
 
-# Use wger's login form (allauth's LoginForm + the password-visibility toggle).
-ACCOUNT_FORMS = {'login': 'wger.core.forms.WgerLoginForm'}
+# Use wger's own login/signup forms (allauth's forms + the password-visibility
+# toggle, and a conditional reCAPTCHA field on signup).
+ACCOUNT_FORMS = {
+    'login': 'wger.core.forms.WgerLoginForm',
+    'signup': 'wger.core.forms.WgerSignupForm',
+}
 
 # django-axes handles login brute-force protection at the backend level (it
 # wraps every authenticate() call, so it also covers the API login endpoints).
