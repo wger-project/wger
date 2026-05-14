@@ -233,6 +233,11 @@ ACCOUNT_CHANGE_EMAIL = True
 # authentication backend resolves the email against its EmailAddress table.
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
+# Treat a user as having a single email address: changing it adds a pending
+# address that only replaces the current one (and updates User.email) once
+# confirmed via the verification link.
+ACCOUNT_CHANGE_EMAIL = True
+
 #
 # Login
 #
