@@ -19,11 +19,11 @@ from datetime import date
 
 # Django
 from django import forms
+from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordResetForm,
-    UserCreationForm,
 )
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -39,7 +39,10 @@ from django.utils.translation import (
 )
 
 # Third Party
-from allauth.account.forms import LoginForm as AllauthLoginForm
+from allauth.account.forms import (
+    LoginForm as AllauthLoginForm,
+    SignupForm as AllauthSignupForm,
+)
 from allauth.account.utils import filter_users_by_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
@@ -134,6 +137,48 @@ class WgerLoginForm(AllauthLoginForm):
         self.fields['login'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget = PasswordInputWithToggle(
             attrs={'autocomplete': 'current-password'}
+        )
+
+
+class WgerSignupForm(AllauthSignupForm):
+    """
+    allauth's signup form with wger's password-toggle widgets and an optional
+    reCAPTCHA field (shown when WGER_SETTINGS['USE_RECAPTCHA'] is set).
+
+    The crispy helper uses ``form_tag = False`` because both consumers — the
+    dedicated signup page and the landing page — provide their own ``<form>``.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for name in ('password1', 'password2'):
+            if name in self.fields:
+                self.fields[name].widget = PasswordInputWithToggle()
+
+        layout_fields = [
+            'username',
+            'email',
+            Row(
+                Column('password1', css_class='col-md-6 col-12'),
+                Column('password2', css_class='col-md-6 col-12'),
+                css_class='form-row',
+            ),
+        ]
+        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
+            self.fields['captcha'] = ReCaptchaField(
+                widget=ReCaptchaV3(action='register'),
+                label='reCaptcha',
+                help_text=gettext_lazy('The form is secured with reCAPTCHA'),
+            )
+            layout_fields.append('captcha')
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            *layout_fields,
+            ButtonHolder(Submit('submit', _('Register'), css_class='btn-success btn-block')),
         )
 
 
@@ -294,68 +339,6 @@ class PasswordConfirmationForm(Form):
         if not self.user.check_password(password):
             raise ValidationError(_('Invalid password'))
         return self.cleaned_data.get('password')
-
-
-class RegistrationForm(UserCreationForm, UserEmailForm):
-    """
-    Registration form with reCAPTCHA field
-    """
-
-    captcha = ReCaptchaField(
-        widget=ReCaptchaV3(action='register'),
-        label='reCaptcha',
-        help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Apply custom password widgets
-        self.fields['password1'].widget = PasswordInputWithToggle()
-        self.fields['password2'].widget = PasswordInputWithToggle()
-
-        self.helper = FormHelper()
-        self.helper.form_class = 'wger-form'
-        self.helper.layout = Layout(
-            'username',
-            'email',
-            Row(
-                Column('password1', css_class='col-md-6 col-12'),
-                Column('password2', css_class='col-md-6 col-12'),
-                css_class='form-row',
-            ),
-            'captcha',
-            ButtonHolder(Submit('submitBtn', _('Register'), css_class='btn-success btn-block')),
-        )
-
-
-class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
-    """
-    Registration form without CAPTCHA field
-    """
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Apply custom password widgets
-        self.fields['password1'].widget = PasswordInputWithToggle()
-        self.fields['password2'].widget = PasswordInputWithToggle()
-
-        self.helper = FormHelper()
-        self.helper.form_class = 'wger-form'
-        self.helper.layout = Layout(
-            'username',
-            'email',
-            Row(
-                Column('password1', css_class='col-md-6 col-12'),
-                Column('password2', css_class='col-md-6 col-12'),
-                css_class='form-row',
-            ),
-            ButtonHolder(
-                Submit('submit', _('Register'), css_class='btn-success col-sm-6 col-12'),
-                css_class='text-center',
-            ),
-        )
 
 
 class PasswordResetFormCaptcha(PasswordResetForm):
