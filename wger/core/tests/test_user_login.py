@@ -1,6 +1,10 @@
 # Standard Library
 from unittest import mock
 
+# Django
+from django.contrib.auth.models import User
+from django.urls import reverse
+
 # Third Party
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
@@ -176,3 +180,37 @@ class JwtTokenEmailLoginTestCase(BaseTestCase, ApiBaseTestCase):
             {'username': 'admin@example.com', 'password': 'wrong-password'},
         )
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class WebLoginViewTestCase(WgerTestCase):
+    """
+    The web login view (core:user:login) is allauth's LoginView, with one wger
+    carve-out: temporary (guest) users may still reach the login page.
+    """
+
+    def test_login_page_renders(self):
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_login_via_view_succeeds(self):
+        response = self.client.post(
+            reverse('core:user:login'),
+            {'login': 'test', 'password': 'testtest'},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(int(self.client.session['_auth_user_id']), 2)
+
+    def test_authenticated_user_is_redirected_away(self):
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_temporary_user_can_reach_login_page(self):
+        user = User.objects.get(username='test')
+        user.userprofile.is_temporary = True
+        user.userprofile.save()
+        self.user_login('test')
+
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
