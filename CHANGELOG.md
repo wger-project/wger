@@ -8,7 +8,7 @@
   for synchronizing the local database with an upstream wger server (note that
   this is a fallback, the regular sync is still via the db dump)
 
-* JWT refresh tokens now rotate on every use. Combined with blacklist-after-rotation 
+* JWT refresh tokens now rotate on every use. Combined with blacklist-after-rotation
   this makes refresh tokens single-use and lets a leaked token live only until
   the next refresh call. It's recommended to update your `prod.env` and set
   `REFRESH_TOKEN_LIFETIME` to a value like 3000.
@@ -19,3 +19,6 @@
   A new endpoint at (`/api/v2/measurement-category/dynamic-types/`) has been added to
   expose the available dynamic options.
   An enum is used for the different options and can be extended for more dynamic types.
+  
+* Exercise language are now also checked when performing edits, instead of only
+ during submission.

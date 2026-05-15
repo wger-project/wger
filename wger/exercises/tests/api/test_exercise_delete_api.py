@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
+from actstream.models import Action
 from rest_framework import status
 
 # wger
@@ -25,6 +26,7 @@ from wger.exercises.models import (
 )
 from wger.exercises.models.image import ExerciseImage
 from wger.exercises.models.video import ExerciseVideo
+from wger.exercises.views.helper import StreamVerbs
 
 
 class ExerciseDeleteApiTestCase(BaseTestCase, ApiBaseTestCase):
@@ -137,6 +139,75 @@ class ExerciseDeleteApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Exercise.objects.filter(pk=self.source_pk).exists())
+
+    def test_delete_without_replacement_emits_deleted_event(self):
+        """A plain delete fires a DELETED actstream event with the model_type."""
+        self.authenticate('admin')
+
+        before = Action.objects.filter(verb=StreamVerbs.DELETED.value).count()
+        source = Exercise.objects.get(pk=self.source_pk)
+        deleted_uuid = str(source.uuid)
+        deleted_repr = str(source)
+
+        response = self.client.delete(self.url())
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        self.assertEqual(
+            Action.objects.filter(verb=StreamVerbs.DELETED.value).count(),
+            before + 1,
+        )
+        event = Action.objects.filter(verb=StreamVerbs.DELETED.value).latest('timestamp')
+        self.assertIsNone(event.action_object)
+        self.assertEqual(event.data['deleted_uuid'], deleted_uuid)
+        self.assertEqual(event.data['deleted_repr'], deleted_repr)
+        self.assertEqual(event.data['model_type'], 'exercise')
+
+    def test_delete_with_replacement_emits_merged_event(self):
+        """A delete with replace_by fires a MERGED event pointing at the target."""
+        self.authenticate('admin')
+
+        before = Action.objects.filter(verb=StreamVerbs.MERGED.value).count()
+        source = Exercise.objects.get(pk=self.source_pk)
+        deleted_uuid = str(source.uuid)
+        deleted_repr = str(source)
+
+        response = self.client.delete(
+            f'{self.url()}?replaced_by={self.target_uuid}&transfer_media&transfer_translations'
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        self.assertEqual(
+            Action.objects.filter(verb=StreamVerbs.MERGED.value).count(),
+            before + 1,
+        )
+        event = Action.objects.filter(verb=StreamVerbs.MERGED.value).latest('timestamp')
+        self.assertEqual(event.action_object, Exercise.objects.get(pk=self.target_pk))
+        self.assertEqual(event.data['deleted_uuid'], deleted_uuid)
+        self.assertEqual(event.data['deleted_repr'], deleted_repr)
+        self.assertTrue(event.data['transfer_media'])
+        self.assertTrue(event.data['transfer_translations'])
+
+    def test_delete_with_invalid_replacement_emits_deleted_event(self):
+        """
+        An unresolvable replaced_by must fall through to a DELETED event, not
+        emit a MERGED one referencing a non-existent target.
+        """
+        self.authenticate('admin')
+
+        before_deleted = Action.objects.filter(verb=StreamVerbs.DELETED.value).count()
+        before_merged = Action.objects.filter(verb=StreamVerbs.MERGED.value).count()
+
+        response = self.client.delete(f'{self.url()}?replaced_by=not-a-uuid')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        self.assertEqual(
+            Action.objects.filter(verb=StreamVerbs.DELETED.value).count(),
+            before_deleted + 1,
+        )
+        self.assertEqual(
+            Action.objects.filter(verb=StreamVerbs.MERGED.value).count(),
+            before_merged,
+        )
 
     def test_delete_requires_authentication(self):
         """Anonymous users cannot delete exercises."""

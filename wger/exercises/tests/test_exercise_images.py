@@ -24,6 +24,7 @@ from wger.exercises.models import (
     ExerciseImage,
     Translation,
 )
+from wger.exercises.tests.api_mixins import ActstreamUpdateMixin
 
 
 class MainImageTestCase(WgerTestCase):
@@ -206,6 +207,7 @@ class ExerciseImageFromJsonSimpleTests(SimpleTestCase):
 
 # TODO: add POST and DELETE tests
 class ExerciseImagesApiTestCase(
+    ActstreamUpdateMixin,
     api_base_test.BaseTestCase,
     api_base_test.ApiBaseTestCase,
     api_base_test.ApiGetTestCase,
@@ -218,3 +220,4 @@ class ExerciseImagesApiTestCase(
     private_resource = False
     resource = ExerciseImage
     overview_cached = True
+    data = {'is_main': True}

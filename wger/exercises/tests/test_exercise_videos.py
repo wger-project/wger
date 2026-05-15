@@ -13,19 +13,28 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # wger
-from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
-from wger.exercises.models import Alias
-from wger.exercises.tests.api_mixins import ActstreamApiMixin
+from wger.core.tests import api_base_test
+from wger.exercises.models import ExerciseVideo
+from wger.exercises.tests.api_mixins import ActstreamUpdateMixin
 
 
-class AliasCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
+# TODO: add POST and DELETE tests
+class ExerciseVideosApiTestCase(
+    ActstreamUpdateMixin,
+    api_base_test.BaseTestCase,
+    api_base_test.ApiBaseTestCase,
+    api_base_test.ApiGetTestCase,
+):
+    """
+    Tests the exercise video resource
+    """
+
     pk = 1
-    resource = Alias
-
-    data = {
-        'translation': 1,
-        'alias': 'Alias 123',
-    }
+    private_resource = False
+    resource = ExerciseVideo
+    overview_cached = False
+    data = {'is_main': True}
 
     def get_resource_name(self):
-        return 'exercisealias'
+        # The video endpoint is registered as ``video``, not ``exercisevideo``.
+        return 'video'

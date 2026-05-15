@@ -270,15 +270,23 @@ class LanguageCheckSerializer(serializers.Serializer):
                 )
 
         # Try to detect the language
-        detector = (
-            LanguageDetectorBuilder.from_all_languages()
-            .with_low_accuracy_mode()
-            .with_preloaded_language_models()
-            .build()
-        )
+        detector = LanguageDetectorBuilder.from_all_languages().build()
         input_str = data.get('input')
 
         detected_language = detector.detect_language_of(input_str)
+        if detected_language is None:
+            raise serializers.ValidationError(
+                {
+                    'check': {
+                        'result': False,
+                        'detected_language': None,
+                        'message': 'Could not detect the language of the input. Try '
+                        'adding more content or rephrasing your text, language '
+                        'detection works better with longer or more complete sentences.',
+                    }
+                }
+            )
+
         detected_language_code = detected_language.iso_code_639_1.name.lower()
         confidence_values = detector.compute_language_confidence_values(input_str)
         logger.debug(

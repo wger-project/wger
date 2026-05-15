@@ -18,3 +18,5 @@ import enum
 class StreamVerbs(enum.Enum):
     CREATED = 'created'
     UPDATED = 'updated'
+    DELETED = 'deleted'
+    MERGED = 'merged'

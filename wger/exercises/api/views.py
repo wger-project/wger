@@ -98,7 +98,7 @@ class ExerciseViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
+        super().perform_update(serializer)
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
@@ -114,11 +114,38 @@ class ExerciseViewSet(ModelViewSet):
         except ValueError:
             uuid = None
 
+        transfer_media = 'transfer_media' in self.request.query_params
+        transfer_translations = 'transfer_translations' in self.request.query_params
+
+        replacement = Exercise.objects.filter(uuid=uuid).first() if uuid else None
+
+        deleted_repr = str(instance)
+        deleted_uuid = str(instance.uuid)
+
         instance.delete(
             replace_by=uuid,
-            transfer_media='transfer_media' in self.request.query_params,
-            transfer_translations='transfer_translations' in self.request.query_params,
+            transfer_media=transfer_media,
+            transfer_translations=transfer_translations,
         )
+
+        if replacement:
+            actstream_action.send(
+                self.request.user,
+                verb=StreamVerbs.MERGED.value,
+                action_object=replacement,
+                deleted_uuid=deleted_uuid,
+                deleted_repr=deleted_repr,
+                transfer_media=transfer_media,
+                transfer_translations=transfer_translations,
+            )
+        else:
+            actstream_action.send(
+                self.request.user,
+                verb=StreamVerbs.DELETED.value,
+                deleted_uuid=deleted_uuid,
+                deleted_repr=deleted_repr,
+                model_type='exercise',
+            )
 
 
 class ExerciseTranslationViewSet(ModelViewSet):
@@ -329,7 +356,7 @@ class ExerciseImageViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
+        super().perform_update(serializer)
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
@@ -368,7 +395,7 @@ class ExerciseVideoViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
+        super().perform_update(serializer)
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
@@ -410,7 +437,7 @@ class ExerciseCommentViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
+        super().perform_update(serializer)
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
@@ -444,7 +471,7 @@ class ExerciseAliasViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
+        super().perform_update(serializer)
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,

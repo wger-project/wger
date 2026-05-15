@@ -309,7 +309,7 @@ STORAGES = {
 
 #
 # S3 object storage config
-# See https://wger.readthedocs.io/en/latest/production/docker.html#s3-object-storage
+# See https://wger.readthedocs.io/en/latest/administration/storage.html#s3-object-storage
 #
 USE_S3_MEDIA_FILES = env.bool('USE_S3_MEDIA_FILES', False)
 USE_S3_STATIC_FILES = env.bool('USE_S3_STATIC_FILES', False)

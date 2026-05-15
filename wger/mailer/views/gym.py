@@ -18,6 +18,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import mail
+from django.core.exceptions import PermissionDenied
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect,
@@ -82,26 +83,23 @@ class EmailListFormPreview(FormPreview):
     list_type = None
     gym = None
 
-    def parse_params(self, *args, **kwargs):
+    def parse_params(self, request, *args, **kwargs):
         """
-        Save the current recipient type
+        Resolve the target gym and enforce authorization.
         """
         self.gym = get_object_or_404(Gym, pk=int(kwargs['gym_pk']))
 
-    def get_context(self, request, form):
-        """
-        Context for template rendering
-
-        Also, check for permissions here. While it is ugly and doesn't really
-        belong here, it seems it's the best way to do it in a FormPreview
-        """
         if (
             not request.user.is_authenticated
             or request.user.userprofile.gym_id != self.gym.id
             or not request.user.has_perm('mailer.change_log')
         ):
-            return HttpResponseForbidden()
+            raise PermissionDenied
 
+    def get_context(self, request, form):
+        """
+        Context for template rendering
+        """
         context = super(EmailListFormPreview, self).get_context(request, form)
         context['gym'] = self.gym
         return context

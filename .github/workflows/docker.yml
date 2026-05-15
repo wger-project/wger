@@ -21,6 +21,8 @@ jobs:
   build-prod:
     name: Build production image ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     strategy:
       fail-fast: false
       matrix:
@@ -43,6 +45,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Read version from wger/version.py
+        id: version
+        run: |
+          VERSION=$(sed -n "s/^VERSION = Version('\(.*\)')/\1/p" wger/version.py)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v6
@@ -51,7 +59,7 @@ jobs:
           # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
-            type=raw,value=2.6-dev
+            type=raw,value=${{ steps.version.outputs.version }}
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
@@ -140,7 +148,7 @@ jobs:
         with:
           tags: |
             type=raw,value=latest
-            type=raw,value=2.6-dev
+            type=raw,value=${{ needs.build-prod.outputs.version }}
           images: |
             ${{ env.REGISTRY_IMAGE }}
 

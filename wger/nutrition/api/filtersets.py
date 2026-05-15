@@ -87,7 +87,9 @@ class IngredientFilterSet(filters.FilterSet):
                 .order_by('-similarity', 'name')
             )
         else:
-            return queryset.filter(name__icontains=value)
+            # Explicit order_by('name') because the viewset strips Meta.ordering.
+            # Search results are small, so sorting them is cheap.
+            return queryset.filter(name__icontains=value).order_by('name')
 
     def search_languagecode(self, queryset, name, value):
         """

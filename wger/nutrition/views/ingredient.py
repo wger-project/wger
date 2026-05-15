@@ -18,12 +18,10 @@
 import logging
 
 # Django
-from django.conf import settings
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-from django.core.cache import cache
 from django.http import HttpResponseForbidden
 from django.shortcuts import (
     get_object_or_404,
@@ -48,7 +46,6 @@ from wger.nutrition.forms import (
     UnitChooserForm,
 )
 from wger.nutrition.models import Ingredient
-from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
@@ -188,14 +185,7 @@ class IngredientListView(ListView):
 def view(request, pk, slug=None):
     context = {}
 
-    ingredient = cache.get(cache_mapper.get_ingredient_key(int(pk)))
-    if not ingredient:
-        ingredient = get_object_or_404(Ingredient, pk=pk)
-        cache.set(
-            cache_mapper.get_ingredient_key(ingredient),
-            ingredient,
-            settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL'],
-        )
+    ingredient = get_object_or_404(Ingredient, pk=pk)
 
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)
@@ -249,7 +239,7 @@ class IngredientEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
         return context
 
 
-class IngredientCreateView(WgerFormMixin, CreateView):
+class IngredientCreateView(WgerFormMixin, PermissionRequiredMixin, CreateView):
     """
     Generic view to add a new ingredient
     """
@@ -258,6 +248,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
     model = Ingredient
     form_class = IngredientForm
     title = gettext_lazy('Add a new ingredient')
+    permission_required = 'nutrition.add_ingredient'
 
     def form_valid(self, form):
         form.instance.language = load_language()

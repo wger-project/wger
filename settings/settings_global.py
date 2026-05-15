@@ -508,7 +508,7 @@ WGER_SETTINGS = {
 # Auth Proxy Authentication
 #
 # Please read the documentation before enabling this feature:
-# https://wger.readthedocs.io/en/latest/administration/auth_proxy.html
+# https://wger.readthedocs.io/en/latest/administration/storage.html#s3-object-storage
 #
 AUTH_PROXY_HEADER = ''
 AUTH_PROXY_USER_EMAIL_HEADER = ''
