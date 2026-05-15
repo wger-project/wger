@@ -52,6 +52,7 @@ WSGI_APPLICATION = 'wger.wsgi.application'
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',  # used by allauth's mfa/webauthn templates
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -123,6 +124,7 @@ INSTALLED_APPS = [
     # Django-allauth
     'allauth',
     'allauth.account',
+    'allauth.mfa',
 ]
 
 MIDDLEWARE = [
@@ -245,6 +247,16 @@ ACCOUNT_FORMS = {
 # Disable allauth's overlapping login throttles to avoid running two systems;
 # the non-login limits (signup, password reset, ...) stay at allauth's defaults.
 ACCOUNT_RATE_LIMITS = {'login_failed': None, 'login': None}
+
+#
+# Two-factor authentication (allauth.mfa)
+#
+MFA_SUPPORTED_TYPES = ['totp', 'recovery_codes', 'webauthn']
+MFA_TOTP_ISSUER = 'wger'
+# Passkeys may also be used for passwordless login (a "Sign in with a passkey"
+# button), but not for passwordless signup.
+MFA_PASSKEY_LOGIN_ENABLED = True
+MFA_PASSKEY_SIGNUP_ENABLED = False
 
 #
 # Login

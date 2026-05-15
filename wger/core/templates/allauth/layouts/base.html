@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% comment %}
+    Routes every allauth page (mfa, email confirmation, ...) that isn't
+    overridden with a native wger template through wger's own chrome.
+{% endcomment %}
+
+{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
