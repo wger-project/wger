@@ -231,17 +231,6 @@ def trainer_login(request, user_pk):
         )
 
 
-def logout(request):
-    """
-    Logout the user. For temporary users, delete them.
-    """
-    user = request.user
-    django_logout(request)
-    if user.is_authenticated and user.userprofile.is_temporary:
-        user.delete()
-    return HttpResponseRedirect(reverse('core:user:login'))
-
-
 class WgerSignupView(AllauthSignupView):
     """
     allauth's signup view, with two wger carve-outs: registration disabled
@@ -660,3 +649,8 @@ class WgerLoginView(AllauthLoginView):
                 request, *args, **kwargs
             )
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['use_social_auth'] = bool(settings.WGER_SOCIAL_PROVIDERS)
+        return context

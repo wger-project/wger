@@ -64,6 +64,10 @@
             {% translate "Sign in with a passkey" %}
         </button>
     {% endif %}
+
+    {% if use_social_auth %}
+        {% include "user/social_login.html" %}
+    {% endif %}
 {% endblock %}
 
 

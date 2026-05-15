@@ -263,6 +263,7 @@ MFA_PASSKEY_SIGNUP_ENABLED = False
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = LOGIN_URL
 
 #
 # Internationalization
@@ -528,15 +529,24 @@ WGER_SETTINGS = {
     'EXPORT_INGREDIENTS_BULK_CELERY': False,
     'CACHE_API_EXERCISES_CELERY': False,
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': False,
+
+    # Socials
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
+
     # Trophy system settings
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
+
+#
+# Social authentication / OAuth
+# List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
+WGER_SOCIAL_PROVIDERS = []
+
 
 #
 # Auth Proxy Authentication

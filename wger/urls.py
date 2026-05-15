@@ -295,6 +295,14 @@ urlpatterns = i18n_patterns(
     path('account/2fa/', include('allauth.mfa.urls')),
 )
 
+# Social login (only mounted when at least one provider is configured via the
+# WGER_SOCIAL_PROVIDERS env var, which is what adds allauth.socialaccount to
+# INSTALLED_APPS).
+if 'allauth.socialaccount' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        path('account/', include('allauth.socialaccount.urls')),
+    ]
+
 #
 # URLs without language prefix
 #
