@@ -121,6 +121,35 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/email_change.html')
 
+    def test_preferences_links_to_2fa(self):
+        """The preferences page links to allauth's MFA management page."""
+
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('mfa_index'))
+
+    def test_mfa_page_renders_inside_wger_chrome(self):
+        """
+        allauth's MFA pages render through wger's base template (the
+        allauth/layouts/base.html override), not allauth's bare layout.
+        """
+
+        self.user_login('test')
+        response = self.client.get(reverse('mfa_index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'mfa/index.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_mfa_webauthn_page_renders(self):
+        """
+        The WebAuthn authenticator list uses ``{% load humanize %}``, so
+        django.contrib.humanize must be in INSTALLED_APPS.
+        """
+
+        self.user_login('test')
+        response = self.client.get(reverse('mfa_list_webauthn'))
+        self.assertEqual(response.status_code, 200)
+
     def test_address(self):
         """
         Test that the address property works correctly

@@ -236,6 +236,17 @@ if os.environ.get('DJANGO_CACHE_BACKEND'):
 EMAIL_PAGE_DOMAIN = SITE_URL
 
 #
+# Two-factor authentication (allauth.mfa)
+#
+# Lets self-hosted instances drop a factor, most notably 'webauthn', which
+# needs a secure context (HTTPS or localhost) and therefore does not work on
+# plain-HTTP deployments.
+MFA_SUPPORTED_TYPES = env.list(
+    'MFA_SUPPORTED_TYPES',
+    default=['totp', 'recovery_codes', 'webauthn'],
+)
+
+#
 # Django Axes
 #
 AXES_ENABLED = env.bool('AXES_ENABLED', True)

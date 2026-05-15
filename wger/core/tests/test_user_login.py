@@ -214,3 +214,11 @@ class WebLoginViewTestCase(WgerTestCase):
 
         response = self.client.get(reverse('core:user:login'))
         self.assertEqual(response.status_code, 200)
+
+    def test_login_page_shows_passkey_button(self):
+        """
+        With MFA_PASSKEY_LOGIN_ENABLED the login page offers passwordless
+        sign-in via a passkey.
+        """
+        response = self.client.get(reverse('core:user:login'))
+        self.assertContains(response, 'id="passkey_login"')

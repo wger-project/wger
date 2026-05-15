@@ -290,6 +290,9 @@ urlpatterns = i18n_patterns(
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap',
     ),
+
+    path('account/', include('allauth.account.urls')),
+    path('account/2fa/', include('allauth.mfa.urls')),
 )
 
 #
@@ -370,7 +373,6 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
     ),
-    path('account/', include('allauth.account.urls')),
 ]
 
 #

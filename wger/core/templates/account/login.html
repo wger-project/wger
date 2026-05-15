@@ -54,6 +54,23 @@
             {% translate "Login" %}
         </button>
     </form>
+
+    {% if PASSKEY_LOGIN_ENABLED %}
+        <hr>
+        <button type="submit"
+                form="mfa_login"
+                id="passkey_login"
+                class="btn btn-outline-primary btn-block">
+            {% translate "Sign in with a passkey" %}
+        </button>
+    {% endif %}
+{% endblock %}
+
+
+{% block extra_body %}
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {% include "mfa/webauthn/snippets/login_script.html" %}
+    {% endif %}
 {% endblock %}
 
 
