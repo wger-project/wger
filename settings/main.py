@@ -291,6 +291,10 @@ SIMPLE_JWT['SIGNING_KEY'] = _SIGNING_KEY
 # allauth.headless JWT signs with the same secret during the sunset window
 # where both surfaces coexist. HS256 is configured in settings_global.py.
 HEADLESS_JWT_PRIVATE_KEY = _SIGNING_KEY
+# Refresh-token lifetime in seconds. Mirrors the legacy REFRESH_TOKEN_LIFETIME
+# env var (hours) used for SimpleJWT, so the long-lived-refresh-token page on
+# the web matches the rest of the headless surface.
+HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = env.int('REFRESH_TOKEN_LIFETIME', 24 * 30 * 4) * 3600
 
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/

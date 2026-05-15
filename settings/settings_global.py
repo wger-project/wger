@@ -271,6 +271,9 @@ HEADLESS_TOKEN_STRATEGY = 'allauth.headless.tokens.strategies.jwt.strategy.JWTTo
 # HS256 with SECRET_KEY by default; main.py mirrors SIMPLE_JWT['SIGNING_KEY']
 # into HEADLESS_JWT_PRIVATE_KEY so both surfaces share the same secret.
 HEADLESS_JWT_ALGORITHM = 'HS256'
+# 120 days, parity with the legacy SIMPLE_JWT REFRESH_TOKEN_LIFETIME default.
+# main.py overrides via the REFRESH_TOKEN_LIFETIME env var (hours).
+HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
 
 #
 # Login
