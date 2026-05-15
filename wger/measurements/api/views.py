@@ -139,11 +139,16 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
                     calc_func = DYNAMIC_REGISTRY.get(category.dynamic_type)
 
                     if calc_func:
-                        # execute the math function and wrap it in the DRF pagination envelope
-                        data = calc_func(request.user, category_id)
-                        return Response(
-                            {'count': len(data), 'next': None, 'previous': None, 'results': data}
-                        )
+                        # get the raw list of calculated dictionaries
+                        raw_data = calc_func(request.user, category_id)
+
+                        # paginate the list
+                        page = self.paginate_queryset(raw_data)
+                        if page is not None:
+                            return self.get_paginated_response(page)
+
+                        # fallback
+                        return Response(raw_data)
             except (Category.DoesNotExist, ValueError):
                 # fallback to standard behavior
                 pass

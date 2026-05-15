@@ -20,7 +20,7 @@ def calculate_bmi(user, category_id):
     # wger
     from wger.weight.models import WeightEntry
 
-    profile = getattr(user, 'userprofile', None)
+    profile = user.userprofile
     if not profile or not profile.height or profile.height <= 0:
         return []
 
@@ -31,9 +31,9 @@ def calculate_bmi(user, category_id):
 
     return [
         {
-            'id': w.id,  # Use integer IDs so the frontend state manager doesn't complain
-            'category': int(category_id),  # Link it to the requested category
-            'date': w.date.isoformat() if hasattr(w.date, 'isoformat') else w.date,
+            'id': w.id,
+            'category': int(category_id),  # link it to the requested category
+            'date': w.date.isoformat(),
             'value': round(float(w.weight) / height_sq, 2),
             'notes': 'Auto-calculated from weight entry',
         }
