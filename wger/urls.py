@@ -309,6 +309,8 @@ if 'allauth.socialaccount' in settings.INSTALLED_APPS:
 urlpatterns += [
     path('i18n/', include('django.conf.urls.i18n')),
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
+    # allauth.headless — REST auth API consumed by the Flutter app.
+    path('_allauth/', include('allauth.headless.urls')),
     # API
     path(
         'api/v2/exercise-submission/',

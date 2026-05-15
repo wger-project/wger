@@ -125,6 +125,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.mfa',
+    'allauth.headless',
 ]
 
 MIDDLEWARE = [
@@ -257,6 +258,19 @@ MFA_TOTP_ISSUER = 'wger'
 # button), but not for passwordless signup.
 MFA_PASSKEY_LOGIN_ENABLED = True
 MFA_PASSKEY_SIGNUP_ENABLED = False
+
+#
+# allauth.headless — REST API used by the Flutter app for the full auth flow
+# (login + multi-step MFA challenge + email/password management).
+#
+# The web frontend continues to use the regular allauth views, so only the
+# 'app' client is enabled.
+#
+HEADLESS_CLIENTS = ('app',)
+HEADLESS_TOKEN_STRATEGY = 'allauth.headless.tokens.strategies.jwt.strategy.JWTTokenStrategy'
+# HS256 with SECRET_KEY by default; main.py mirrors SIMPLE_JWT['SIGNING_KEY']
+# into HEADLESS_JWT_PRIVATE_KEY so both surfaces share the same secret.
+HEADLESS_JWT_ALGORITHM = 'HS256'
 
 #
 # Login
@@ -423,6 +437,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'wger.utils.headless_auth.HeadlessJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
