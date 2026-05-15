@@ -290,6 +290,10 @@ if not _SIGNING_KEY or (_SIGNING_KEY in _DEFAULT_KEYS and not DEBUG):
         )
 SIMPLE_JWT['SIGNING_KEY'] = _SIGNING_KEY
 
+# allauth.headless JWT signs with the same secret during the sunset window
+# where both surfaces coexist. HS256 is configured in settings_global.py.
+HEADLESS_JWT_PRIVATE_KEY = _SIGNING_KEY
+
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/
 #
