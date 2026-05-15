@@ -25,10 +25,7 @@ from django.shortcuts import render
 import requests
 
 # wger
-from wger.core.forms import (
-    RegistrationForm,
-    RegistrationFormNoCaptcha,
-)
+from wger.core.forms import WgerSignupForm
 from wger.exercises.models import Exercise
 from wger.nutrition.models import Ingredient
 
@@ -70,10 +67,7 @@ def features(request):
 
     context = fetch_github_stats()
 
-    FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
-    )
-    form = FormClass()
+    form = WgerSignupForm()
     form.fields['username'].widget.attrs.pop('autofocus', None)
 
     context['form'] = form

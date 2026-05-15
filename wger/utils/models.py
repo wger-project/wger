@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from urllib.parse import urlsplit
+
 # Django
 from django.db import models
 from django.utils.html import (
@@ -28,6 +31,23 @@ from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 """
 Abstract model classes
 """
+
+
+def _safe_attribution_url(url: str) -> str:
+    """
+    Return ``url`` only if it uses an http(s) scheme, otherwise an empty string.
+
+    ``attribution_link`` embeds these values into ``<a href="...">``; a
+    ``javascript:`` (or ``data:`` etc.) scheme would otherwise become a
+    clickable stored-XSS payload once the rendered link reaches a template.
+    """
+    if not url:
+        return ''
+    try:
+        scheme = urlsplit(url).scheme
+    except ValueError:
+        return ''
+    return url if scheme in ('http', 'https') else ''
 
 
 class AbstractLicenseModel(models.Model):
@@ -90,25 +110,34 @@ class AbstractLicenseModel(models.Model):
 
     @property
     def attribution_link(self):
-        if self.license_object_url:
-            title = format_html('<a href="{}">{}</a>', self.license_object_url, self.license_title)
+        # Only http(s) URLs may be embedded as links — a javascript:/data: URL
+        # in any of these (sync-populated) fields would otherwise be rendered
+        # as a clickable stored-XSS payload.
+        object_url = _safe_attribution_url(self.license_object_url)
+        author_url = _safe_attribution_url(self.license_author_url)
+        derivative_url = _safe_attribution_url(self.license_derivative_source_url)
+        license_url = _safe_attribution_url(self.license.url)
+
+        if object_url:
+            title = format_html('<a href="{}">{}</a>', object_url, self.license_title)
         else:
             title = escape(self.license_title)
 
-        if self.license_author_url:
-            author = format_html(
-                '<a href="{}">{}</a>', self.license_author_url, self.license_author
-            )
+        if author_url:
+            author = format_html('<a href="{}">{}</a>', author_url, self.license_author)
         else:
             author = escape(self.license_author)
 
-        license_link = format_html('<a href="{}">{}</a>', self.license.url, self.license.short_name)
+        if license_url:
+            license_link = format_html('<a href="{}">{}</a>', license_url, self.license.short_name)
+        else:
+            license_link = escape(self.license.short_name)
 
         derivative = ''
-        if self.license_derivative_source_url:
+        if derivative_url:
             derivative = format_html(
                 ' / A derivative work from <a href="{}">the original work</a>',
-                self.license_derivative_source_url,
+                derivative_url,
             )
 
         return format_html(

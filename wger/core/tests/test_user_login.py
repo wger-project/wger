@@ -1,6 +1,10 @@
 # Standard Library
 from unittest import mock
 
+# Django
+from django.contrib.auth.models import User
+from django.urls import reverse
+
 # Third Party
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
@@ -142,3 +146,79 @@ class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
             result['non_field_errors'],
             [ErrorDetail(string='Please provide an "email" or a "username"', code='invalid')],
         )
+
+
+class JwtTokenEmailLoginTestCase(BaseTestCase, ApiBaseTestCase):
+    """
+    The SimpleJWT token endpoint forwards its credential as ``username``.
+    allauth's authentication backend must resolve that value as an email
+    address too, so a user can obtain a JWT with either identifier.
+    """
+
+    url = '/api/v2/token'
+
+    def test_obtain_token_with_email(self):
+        response = self.client.post(
+            self.url,
+            {'username': 'admin@example.com', 'password': 'adminadmin'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('access', response.data)
+        self.assertIn('refresh', response.data)
+
+    def test_obtain_token_with_username(self):
+        response = self.client.post(
+            self.url,
+            {'username': 'admin', 'password': 'adminadmin'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('access', response.data)
+
+    def test_obtain_token_with_email_wrong_password(self):
+        response = self.client.post(
+            self.url,
+            {'username': 'admin@example.com', 'password': 'wrong-password'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class WebLoginViewTestCase(WgerTestCase):
+    """
+    The web login view (core:user:login) is allauth's LoginView, with one wger
+    carve-out: temporary (guest) users may still reach the login page.
+    """
+
+    def test_login_page_renders(self):
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_login_via_view_succeeds(self):
+        response = self.client.post(
+            reverse('core:user:login'),
+            {'login': 'test', 'password': 'testtest'},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(int(self.client.session['_auth_user_id']), 2)
+
+    def test_authenticated_user_is_redirected_away(self):
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_temporary_user_can_reach_login_page(self):
+        user = User.objects.get(username='test')
+        user.userprofile.is_temporary = True
+        user.userprofile.save()
+        self.user_login('test')
+
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_page_shows_passkey_button(self):
+        """
+        With MFA_PASSKEY_LOGIN_ENABLED the login page offers passwordless
+        sign-in via a passkey.
+        """
+        response = self.client.get(reverse('core:user:login'))
+        self.assertContains(response, 'id="passkey_login"')

@@ -29,7 +29,10 @@ from django.urls import reverse
 from rest_framework import status
 
 # wger
-from wger.core.models import Language
+from wger.core.models import (
+    Language,
+    License,
+)
 from wger.core.tests import api_base_test
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import (
@@ -117,7 +120,6 @@ class AddIngredientTestCase(WgerAddTestCase):
 
     object_class = Ingredient
     url = 'nutrition:ingredient:add'
-    user_fail = False
     data = {
         'name': 'A new ingredient',
         'sodium': 2,
@@ -134,7 +136,7 @@ class AddIngredientTestCase(WgerAddTestCase):
 
     def post_test_hook(self):
         """
-        Test that the creation date and the status are correctly set
+        Test that the creation date is correctly set
         """
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
@@ -142,8 +144,6 @@ class AddIngredientTestCase(WgerAddTestCase):
                 ingredient.created.replace(microsecond=0),
                 datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
-        elif self.current_user == 'test':
-            ingredient = Ingredient.objects.get(pk=self.pk_after)
 
 
 class IngredientNameShortTestCase(WgerTestCase):
@@ -774,6 +774,51 @@ class ImageFromJsonSimpleTests(SimpleTestCase):
         self.assertIsInstance(img, Image)
         self.assertNotEqual(str(img.uuid), json_data['uuid'])
         self.assertEqual(img.size, 54321)
+
+
+class AttributionLinkTestCase(SimpleTestCase):
+    """
+    Tests that AbstractLicenseModel.attribution_link only emits http(s) links.
+
+    Image is used as a representative concrete subclass; attribution_link is
+    defined once on the shared AbstractLicenseModel.
+    """
+
+    def test_javascript_scheme_is_not_rendered_as_link(self):
+        """A javascript: URL must never end up inside an href attribute."""
+
+        image = Image(
+            license=License(pk=1, short_name='CC', url='javascript:alert(1)'),
+            license_title='A photo',
+            license_author='Some Author',
+            license_object_url='javascript:alert(2)',
+            license_author_url='javascript:alert(document.cookie)',
+            license_derivative_source_url='javascript:void(0)',
+        )
+
+        result = image.attribution_link
+
+        self.assertNotIn('javascript:', result)
+        # The text content is still shown, just no longer linked
+        self.assertIn('A photo', result)
+        self.assertIn('Some Author', result)
+
+    def test_http_urls_are_rendered_as_links(self):
+        """Valid http(s) URLs are still emitted as links."""
+
+        image = Image(
+            license=License(pk=1, short_name='CC', url='https://example.com/license'),
+            license_title='A photo',
+            license_author='Some Author',
+            license_object_url='https://example.com/photo',
+            license_author_url='http://example.com/author',
+        )
+
+        result = image.attribution_link
+
+        self.assertIn('href="https://example.com/photo"', result)
+        self.assertIn('href="http://example.com/author"', result)
+        self.assertIn('href="https://example.com/license"', result)
 
 
 class IngredientThrottleScopeTestCase(WgerTestCase):

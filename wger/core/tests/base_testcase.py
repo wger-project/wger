@@ -517,7 +517,7 @@ class WgerAddTestCase(WgerTestCase):
 
         if self.user_fail:
             for user in get_user_list(self.user_fail):
-                self.user_login(self.user_fail)
+                self.user_login(user)
                 self.add_object(fail=True)
 
 

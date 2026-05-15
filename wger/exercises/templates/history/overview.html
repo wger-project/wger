@@ -247,12 +247,12 @@
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page=1{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                        <a class="page-link" href="{% querystring page=1 %}">
                             « {% translate "First" %}
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                        <a class="page-link" href="{% querystring page=page_obj.previous_page_number %}">
                             ‹ {% translate "Previous" %}
                         </a>
                     </li>
@@ -269,12 +269,12 @@
 
                 {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                        <a class="page-link" href="{% querystring page=page_obj.next_page_number %}">
                             {% translate "Next" %} ›
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ paginator.num_pages }}{% if querystring %}&amp;{{ querystring }}{% endif %}">
+                        <a class="page-link" href="{% querystring page=paginator.num_pages %}">
                             {% translate "Last" %} »
                         </a>
                     </li>

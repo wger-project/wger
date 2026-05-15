@@ -58,7 +58,7 @@ DATABASES = {
     }
 }
 
-ADMINS = (('Your name', 'your_email@example.com'),)
+ADMINS = ['"Your name" <your_email@example.com>']
 MANAGERS = ADMINS
 
 TIME_ZONE = 'Europe/Berlin'

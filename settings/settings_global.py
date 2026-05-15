@@ -52,6 +52,7 @@ WSGI_APPLICATION = 'wger.wsgi.application'
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',  # used by allauth's mfa/webauthn templates
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -123,6 +124,7 @@ INSTALLED_APPS = [
     # Django-allauth
     'allauth',
     'allauth.account',
+    'allauth.mfa',
 ]
 
 MIDDLEWARE = [
@@ -169,7 +171,7 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 TEMPLATES = [
@@ -224,11 +226,44 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 
+# Allow logging in with either the username or the email address. allauth's
+# authentication backend resolves the email against its EmailAddress table.
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+
+# Treat a user as having a single email address: changing it adds a pending
+# address that only replaces the current one (and updates User.email) once
+# confirmed via the verification link.
+ACCOUNT_CHANGE_EMAIL = True
+
+# Use wger's own login/signup forms (allauth's forms + the password-visibility
+# toggle, and a conditional reCAPTCHA field on signup).
+ACCOUNT_FORMS = {
+    'login': 'wger.core.forms.WgerLoginForm',
+    'signup': 'wger.core.forms.WgerSignupForm',
+}
+
+# django-axes handles login brute-force protection at the backend level (it
+# wraps every authenticate() call, so it also covers the API login endpoints).
+# Disable allauth's overlapping login throttles to avoid running two systems;
+# the non-login limits (signup, password reset, ...) stay at allauth's defaults.
+ACCOUNT_RATE_LIMITS = {'login_failed': None, 'login': None}
+
+#
+# Two-factor authentication (allauth.mfa)
+#
+MFA_SUPPORTED_TYPES = ['totp', 'recovery_codes', 'webauthn']
+MFA_TOTP_ISSUER = 'wger'
+# Passkeys may also be used for passwordless login (a "Sign in with a passkey"
+# button), but not for passwordless signup.
+MFA_PASSKEY_LOGIN_ENABLED = True
+MFA_PASSKEY_SIGNUP_ENABLED = False
+
 #
 # Login
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = LOGIN_URL
 
 #
 # Internationalization
@@ -494,15 +529,24 @@ WGER_SETTINGS = {
     'EXPORT_INGREDIENTS_BULK_CELERY': False,
     'CACHE_API_EXERCISES_CELERY': False,
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': False,
+
+    # Socials
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
+
     # Trophy system settings
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
+
+#
+# Social authentication / OAuth
+# List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
+WGER_SOCIAL_PROVIDERS = []
+
 
 #
 # Auth Proxy Authentication

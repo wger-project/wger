@@ -19,6 +19,7 @@ import datetime
 
 # Django
 from django.contrib.auth.models import User
+from django.contrib.auth.signals import user_logged_out
 from django.db.models.signals import (
     post_save,
     pre_save,
@@ -67,3 +68,20 @@ def set_user_age(sender, instance, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(create_user_cache, sender=User)
+
+
+@receiver(user_logged_out)
+def delete_temporary_user_on_logout(sender, request, user, **kwargs):
+    """
+    Temporary (guest) users are deleted when they log out.
+    """
+    if user is None or not user.is_authenticated:
+        return
+    try:
+        is_temporary = user.userprofile.is_temporary
+    except UserProfile.DoesNotExist:
+        # User was already deleted (e.g. via the account-deletion flow,
+        # which deletes the user before django_logout runs).
+        return
+    if is_temporary:
+        user.delete()

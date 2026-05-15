@@ -24,7 +24,6 @@ from django.urls import (
 from django.views.generic import TemplateView
 
 # wger
-from wger.core.forms import UserLoginForm
 from wger.core.views import (
     languages,
     license,
@@ -68,20 +67,11 @@ patterns_language = [
 
 # sub patterns for user
 patterns_user = [
-    path(
-        'login',
-        user.WgerLoginView.as_view(
-            template_name='user/login.html',
-            authentication_form=UserLoginForm,
-        ),
-        name='login',
-    ),
-    path('logout', user.logout, name='logout'),
+    path('login', user.WgerLoginView.as_view(), name='login'),
     path('delete', user.delete, name='delete'),
     path('<int:user_pk>/delete', user.delete, name='delete'),
-    path('confirm-email', user.confirm_email, name='confirm-email'),
     path('<int:user_pk>/trainer-login', user.trainer_login, name='trainer-login'),
-    path('registration', user.registration, name='registration'),
+    path('registration', user.WgerSignupView.as_view(), name='registration'),
     path('preferences', user.preferences, name='preferences'),
     path('api-key', user.api_key, name='api-key'),
     path('demo-entries', misc.demo_entries, name='demo-entries'),

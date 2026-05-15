@@ -290,7 +290,18 @@ urlpatterns = i18n_patterns(
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap',
     ),
+
+    path('account/', include('allauth.account.urls')),
+    path('account/2fa/', include('allauth.mfa.urls')),
 )
+
+# Social login (only mounted when at least one provider is configured via the
+# WGER_SOCIAL_PROVIDERS env var, which is what adds allauth.socialaccount to
+# INSTALLED_APPS).
+if 'allauth.socialaccount' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        path('account/', include('allauth.socialaccount.urls')),
+    ]
 
 #
 # URLs without language prefix
@@ -370,7 +381,6 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
     ),
-    path('account/', include('allauth.account.urls')),
 ]
 
 #

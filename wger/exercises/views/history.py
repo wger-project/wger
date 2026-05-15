@@ -279,11 +279,6 @@ def control(request: HttpRequest) -> HttpResponse:
 
         out.append(data)
 
-    # GET parameters without ``page`` so pagination links keep filters intact.
-    qs_no_page = request.GET.copy()
-    qs_no_page.pop('page', None)
-    querystring = qs_no_page.urlencode()
-
     return render(
         request,
         'history/overview.html',
@@ -293,7 +288,6 @@ def control(request: HttpRequest) -> HttpResponse:
             'page_obj': page,
             'paginator': paginator,
             'is_paginated': page.has_other_pages(),
-            'querystring': querystring,
             'stats': stats,
             # We can't pass the enum to the template, so we have to do this
             # https://stackoverflow.com/questions/35953132/

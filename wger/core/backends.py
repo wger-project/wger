@@ -19,6 +19,10 @@ import logging
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
+from django.db import IntegrityError
+
+# Third Party
+from allauth.account.models import EmailAddress
 
 
 logger = logging.getLogger(__name__)
@@ -60,6 +64,23 @@ class AuthProxyUserBackend(BaseBackend):
                 except Exception as e:
                     logger.error(f"AuthProxy: Failed to create user '{username}': {e}")
                     return None
+
+                # Register the email with allauth so login by email works. The
+                # proxy is a trusted identity source, so the address counts as
+                # verified.
+                if email:
+                    try:
+                        EmailAddress.objects.create(
+                            user=user,
+                            email=email,
+                            verified=True,
+                            primary=True,
+                        )
+                    except IntegrityError:
+                        logger.warning(
+                            f"AuthProxy: email '{email}' already registered, "
+                            f"skipping EmailAddress row for '{username}'"
+                        )
             else:
                 logger.warning(
                     f"AuthProxy: User '{username}' not found and auto-creation is disabled."

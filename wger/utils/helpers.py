@@ -20,8 +20,8 @@ import decimal
 import json
 import logging
 import os
-import random
 import re
+import secrets
 import string
 from decimal import Decimal
 from functools import wraps
@@ -36,25 +36,11 @@ from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
+# wger
+from wger.utils.images import validate_image_static_no_animation
+
 
 logger = logging.getLogger(__name__)
-
-
-class EmailAuthBackend:
-    def authenticate(self, request, username=None, password=None):
-        try:
-            user = User.objects.get(email=username)
-            if user.check_password(password):
-                return user
-            return None
-        except User.DoesNotExist:
-            return None
-
-    def get_user(self, user_id):
-        try:
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return None
 
 
 class DecimalJsonEncoder(json.JSONEncoder):
@@ -107,11 +93,10 @@ def password_generator(length=15):
     :return: the generated password
     """
     chars = string.ascii_letters + string.digits
-    random.seed = os.urandom(1024)
     for char in ('I', '1', 'l', 'O', '0', 'o'):
         chars = chars.replace(char, '')
 
-    return ''.join(random.choice(chars) for i in range(length))
+    return ''.join(secrets.choice(chars) for _ in range(length))
 
 
 def check_access(request_user, username=None):
@@ -169,7 +154,7 @@ def random_string(length=32):
     """
     Generates a random string
     """
-    return ''.join(random.choice(string.ascii_uppercase) for i in range(length))
+    return ''.join(secrets.choice(string.ascii_uppercase) for _ in range(length))
 
 
 class BaseImageMixin:
@@ -183,9 +168,13 @@ class BaseImageMixin:
         img_temp.write(retrieved_image.content)
         img_temp.flush()
 
+        # Validate image
+        image_file = File(img_temp)
+        validate_image_static_no_animation(image_file)
+
         self.image.save(
             os.path.basename(json_data['image']),
-            File(img_temp),
+            image_file,
         )
 
     @classmethod

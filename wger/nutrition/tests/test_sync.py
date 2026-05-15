@@ -76,7 +76,7 @@ class MockIngredientResponse:
                     'language': 2,
                     'is_vegan': True,
                     'is_vegetarian': True,
-                    'nutriscore': 'D',
+                    'nutriscore': 'd',
                     'weight_units': [
                         {
                             'id': 100,
@@ -156,7 +156,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ingredient.uuid, UUID('7908c204-907f-4b1e-ad4e-f482e9769ade'))
         self.assertTrue(ingredient.is_vegan)
         self.assertTrue(ingredient.is_vegetarian)
-        self.assertEqual(ingredient.nutriscore, 'D')
+        self.assertEqual(ingredient.nutriscore, 'd')
 
         # Weight units synced
         units = ingredient.ingredientweightunit_set.order_by('gram')
@@ -193,6 +193,66 @@ class TestSyncMethods(WgerTestCase):
 
         # Assert - local-only unit should be removed
         self.assertEqual(ingredient.ingredientweightunit_set.count(), 2)
+
+    @patch('requests.get')
+    def test_sync_skips_ingredient_failing_sanity_checks(self, mock_request):
+        """A record that fails sanity_checks() is skipped without aborting the sync."""
+        response = MagicMock()
+        response.json.return_value = {
+            'count': 2,
+            'next': None,
+            'previous': None,
+            'results': [
+                {
+                    # protein > 100 -> fails IngredientData.sanity_checks()
+                    'id': 1,
+                    'uuid': 'baaaaaad-0000-0000-0000-000000000001',
+                    'code': 'bogus-code',
+                    'name': 'Bogus ingredient',
+                    'created': '2020-12-20T01:00:00+01:00',
+                    'last_update': '2020-12-20T01:00:00+01:00',
+                    'energy': 200,
+                    'protein': '150.000',
+                    'carbohydrates': '10.000',
+                    'fat': '10.000',
+                    'language': 2,
+                    'license': 5,
+                    'license_author': 'Open Food Facts',
+                    'weight_units': [],
+                },
+                {
+                    'id': 2,
+                    'uuid': '582f1b7f-a8bd-4951-9edd-247bc68b28f4',
+                    'code': '3181238941963',
+                    'name': 'Maxi Hot Dog New York Style',
+                    'created': '2020-12-20T01:00:00+01:00',
+                    'last_update': '2020-12-20T01:00:00+01:00',
+                    'energy': 256,
+                    'protein': '11.000',
+                    'carbohydrates': '27.000',
+                    'fat': '11.000',
+                    'language': 3,
+                    'license': 5,
+                    'license_author': 'Open Food Facts',
+                    'weight_units': [],
+                },
+            ],
+        }
+        mock_request.return_value = response
+
+        count_before = Ingredient.objects.count()
+
+        # A single malformed record must not abort the whole run
+        sync_ingredients(lambda x: x)
+
+        # The valid ingredient was synced, the malformed one was skipped
+        self.assertTrue(
+            Ingredient.objects.filter(uuid='582f1b7f-a8bd-4951-9edd-247bc68b28f4').exists()
+        )
+        self.assertFalse(
+            Ingredient.objects.filter(uuid='baaaaaad-0000-0000-0000-000000000001').exists()
+        )
+        self.assertEqual(Ingredient.objects.count(), count_before + 1)
 
     @patch('requests.get', return_value=MockIngredientResponse())
     def test_ingredient_sync_languages(self, mock_request):

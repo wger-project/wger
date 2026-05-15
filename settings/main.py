@@ -234,6 +234,17 @@ if os.environ.get('DJANGO_CACHE_BACKEND'):
 EMAIL_PAGE_DOMAIN = SITE_URL
 
 #
+# Two-factor authentication (allauth.mfa)
+#
+# Lets self-hosted instances drop a factor, most notably 'webauthn', which
+# needs a secure context (HTTPS or localhost) and therefore does not work on
+# plain-HTTP deployments.
+MFA_SUPPORTED_TYPES = env.list(
+    'MFA_SUPPORTED_TYPES',
+    default=['totp', 'recovery_codes', 'webauthn'],
+)
+
+#
 # Django Axes
 #
 AXES_ENABLED = env.bool('AXES_ENABLED', True)
@@ -245,6 +256,16 @@ AXES_IPWARE_PROXY_COUNT = env.int('AXES_IPWARE_PROXY_COUNT', 0)
 AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
     'AXES_IPWARE_META_PRECEDENCE_ORDER', default=['REMOTE_ADDR']
 )
+
+#
+# Django-allauth social providers
+#
+WGER_SOCIAL_PROVIDERS = env.list('WGER_SOCIAL_PROVIDERS', default=[])
+if WGER_SOCIAL_PROVIDERS:
+    INSTALLED_APPS += [
+        'allauth.socialaccount',
+        *[f'allauth.socialaccount.providers.{p}' for p in WGER_SOCIAL_PROVIDERS],
+    ]
 
 #
 # Django Rest Framework SimpleJWT

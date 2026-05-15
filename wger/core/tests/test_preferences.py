@@ -41,7 +41,6 @@ class PreferencesTestCase(WgerTestCase):
         self.form_data = {
             'show_comments': True,
             'show_english_ingredients': True,
-            'email': '',
             'first_name': '',
             'last_name': '',
             'workout_reminder_active': True,
@@ -56,7 +55,8 @@ class PreferencesTestCase(WgerTestCase):
 
     def test_preferences(self):
         """
-        Helper function to test the preferences page
+        Submitting the preferences form persists the UserProfile settings as
+        well as the first/last name on the related User.
         """
 
         self.user_login('test')
@@ -71,17 +71,19 @@ class PreferencesTestCase(WgerTestCase):
         # Change some preferences
         response = self.client.post(
             reverse('core:user:preferences'),
-            {**self.form_data, 'email': 'my-new-email@example.com'},
+            {**self.form_data, 'first_name': 'Test', 'last_name': 'User'},
         )
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
-        profile = User.objects.get(username='test').userprofile
+        user = User.objects.get(username='test')
+        profile = user.userprofile
         self.assertTrue(profile.show_english_ingredients)
         self.assertTrue(profile.workout_reminder_active)
         self.assertEqual(profile.workout_reminder, 30)
         self.assertEqual(profile.workout_duration, 12)
-        self.assertEqual(User.objects.get(username='test').email, 'my-new-email@example.com')
+        self.assertEqual(user.first_name, 'Test')
+        self.assertEqual(user.last_name, 'User')
 
         # Change some preferences
         response = self.client.post(
@@ -101,7 +103,52 @@ class PreferencesTestCase(WgerTestCase):
         profile = response.context['user'].userprofile
         self.assertFalse(profile.show_comments)
         self.assertTrue(profile.show_english_ingredients)
-        self.assertEqual(response.context['user'].email, '')
+
+    def test_email_is_not_editable_from_preferences(self):
+        """
+        Email management was moved to allauth's EmailView: the preferences
+        page no longer renders an email field and links to it instead.
+        """
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertNotContains(response, 'name="email"')
+        self.assertContains(response, reverse('account_email'))
+
+    def test_account_email_page_renders(self):
+        """The allauth email page uses wger's template and is reachable."""
+        self.user_login('test')
+        response = self.client.get(reverse('account_email'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/email_change.html')
+
+    def test_preferences_links_to_2fa(self):
+        """The preferences page links to allauth's MFA management page."""
+
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('mfa_index'))
+
+    def test_mfa_page_renders_inside_wger_chrome(self):
+        """
+        allauth's MFA pages render through wger's base template (the
+        allauth/layouts/base.html override), not allauth's bare layout.
+        """
+
+        self.user_login('test')
+        response = self.client.get(reverse('mfa_index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'mfa/index.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_mfa_webauthn_page_renders(self):
+        """
+        The WebAuthn authenticator list uses ``{% load humanize %}``, so
+        django.contrib.humanize must be in INSTALLED_APPS.
+        """
+
+        self.user_login('test')
+        response = self.client.get(reverse('mfa_list_webauthn'))
+        self.assertEqual(response.status_code, 200)
 
     def test_address(self):
         """
@@ -132,22 +179,15 @@ class PreferencesTestCase(WgerTestCase):
             },
         )
 
-    def test_duplicate_email_shows_error_and_saves_nothing(self):
+    def test_invalid_field_shows_error_and_saves_nothing(self):
         """
-        Submitting the preferences form with an email that already belongs to
-        another account must show an inline field error AND a top-of-page
-        banner, and must not persist any of the submitted fields.
-
-        Regression test for the silent-failure / half-save behavior in the
-        preferences view: previously the duplicate-email error lived on a
-        second form that wasn't put in the context, so the page reloaded
-        silently while UserProfile fields had already been saved.
+        A validation error on the preferences form shows a banner and persists
+        nothing — neither the UserProfile fields nor the first/last name.
         """
         self.user_login('test')
 
         user_before = User.objects.get(username='test')
         snapshot = {
-            'email': user_before.email,
             'first_name': user_before.first_name,
             'last_name': user_before.last_name,
             'height': user_before.userprofile.height,
@@ -158,65 +198,18 @@ class PreferencesTestCase(WgerTestCase):
             reverse('core:user:preferences'),
             {
                 **self.form_data,
-                'email': 'admin@example.com',
                 'first_name': 'Brand',
                 'last_name': 'New',
                 'birthdate': '01/01/2000',
-                'height': 175,
+                'height': '',  # required field left blank
             },
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'This e-mail address is already in use.')
-        self.assertContains(response, 'is-invalid')
-        self.assertContains(response, 'invalid-feedback')
         self.assertContains(response, 'alert-danger')
         self.assertContains(response, 'Please correct the errors below.')
 
         user_after = User.objects.get(username='test')
-        self.assertEqual(user_after.email, snapshot['email'])
-        self.assertEqual(user_after.first_name, snapshot['first_name'])
-        self.assertEqual(user_after.last_name, snapshot['last_name'])
-        self.assertEqual(user_after.userprofile.height, snapshot['height'])
-        self.assertEqual(user_after.userprofile.birthdate, snapshot['birthdate'])
-
-    def test_invalid_email_format_shows_error_and_saves_nothing(self):
-        """
-        Submitting the preferences form with a malformed email must show an inline
-        field error AND a banner, and not persist any submitted fields
-        """
-        self.user_login('test')
-
-        user_before = User.objects.get(username='test')
-        snapshot = {
-            'email': user_before.email,
-            'first_name': user_before.first_name,
-            'last_name': user_before.last_name,
-            'height': user_before.userprofile.height,
-            'birthdate': user_before.userprofile.birthdate,
-        }
-
-        response = self.client.post(
-            reverse('core:user:preferences'),
-            {
-                **self.form_data,
-                'email': 'not an email',
-                'first_name': 'Brand',
-                'last_name': 'New',
-                'birthdate': '01/01/2000',
-                'height': 175,
-            },
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Enter a valid email address.')
-        self.assertContains(response, 'is-invalid')
-        self.assertContains(response, 'invalid-feedback')
-        self.assertContains(response, 'alert-danger')
-        self.assertContains(response, 'Please correct the errors below.')
-
-        user_after = User.objects.get(username='test')
-        self.assertEqual(user_after.email, snapshot['email'])
         self.assertEqual(user_after.first_name, snapshot['first_name'])
         self.assertEqual(user_after.last_name, snapshot['last_name'])
         self.assertEqual(user_after.userprofile.height, snapshot['height'])
