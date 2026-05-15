@@ -44,7 +44,7 @@ class Category(models.Model):
     class DynamicType(models.TextChoices):
         NONE = ('NONE',)
         BMI = ('BMI',)
-        # SQUAT_1RM = 'SQUAT_1RM', can be added in future
+        # ONE_REP_MAX = ('ONE_REP_MAX'), can be added in future
 
     dynamic_type = models.CharField(
         max_length=20, choices=DynamicType.choices, default=DynamicType.NONE, db_index=True

@@ -17,6 +17,7 @@
 from decimal import Decimal
 
 # Third Party
+import jsonschema
 from rest_framework import serializers
 
 # wger
@@ -34,6 +35,45 @@ class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'name', 'unit', 'dynamic_type', 'dynamic_params')
+
+    def validate(self, data):
+        """
+        Validate the dynamic_params JSON matches the required schema for the selected dynamic_type.
+        """
+        # get type and params
+        dynamic_type = data.get(
+            'dynamic_type', getattr(self.instance, 'dynamic_type', Category.DynamicType.NONE)
+        )
+        dynamic_params = data.get('dynamic_params', getattr(self.instance, 'dynamic_params', {}))
+
+        # if dynamic type is none, just clear params to avoid excessive validation
+        if dynamic_type == Category.DynamicType.NONE:
+            data['dynamic_params'] = {}
+            return super().validate(data)
+
+        # define the allowed JSON structures
+        schemas = {
+            Category.DynamicType.BMI: {
+                'type': 'object',
+                'additionalProperties': False,
+            },
+            # when one rep max is added it can go here
+            # Category.DynamicType.ONE_REP_MAX: {
+            #     "type": "object",
+            #     "properties": {"exercise_id": {"type": "integer"}, "max_reps": {"type": "integer"}},
+            #     "required": ["exercise_id"],
+            #     "additionalProperties": False
+            # }
+        }
+
+        schema = schemas.get(dynamic_type)
+        if schema:
+            try:
+                jsonschema.validate(instance=dynamic_params, schema=schema)
+            except jsonschema.exceptions.ValidationError as e:
+                raise serializers.ValidationError({'dynamic_params': e.message})
+
+        return super().validate(data)
 
 
 class MeasurementSerializer(serializers.ModelSerializer):
