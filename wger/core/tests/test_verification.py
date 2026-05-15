@@ -25,10 +25,7 @@ from django.urls import reverse
 
 # Third Party
 from allauth.account.models import EmailAddress
-from rest_framework.status import (
-    HTTP_200_OK,
-    HTTP_400_BAD_REQUEST,
-)
+from rest_framework.status import HTTP_200_OK
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -193,106 +190,26 @@ class EmailVerificationFromAPITestCase(WgerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
 
-@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
-class UserProfileEmailUpdateTestCase(WgerTestCase):
+class UserProfileEmailReadOnlyTestCase(WgerTestCase):
     """
-    Tests that updating the email address through the user profile API
-    enforces format and uniqueness validation. Without it, an attacker
-    could claim another user's email and poison password-reset delivery.
+    Email is read-only on the userprofile endpoint; clients change addresses
+    through the allauth.headless ``account/email`` endpoint instead.
     """
 
     URL = '/api/v2/userprofile/'
 
-    def _post(self, payload):
-        return self.client.post(
+    def test_email_in_payload_is_ignored(self):
+        self.user_login('test')
+        original_email = User.objects.get(username='test').email
+
+        response = self.client.post(
             self.URL,
-            data=json.dumps(payload),
+            data=json.dumps({'email': 'attempted-change@example.com'}),
             content_type='application/json',
         )
 
-    def test_email_collision_is_rejected(self):
-        """
-        Claiming another user's email must fail with 400.
-        """
-        self.user_login('test')
-        # Make sure admin has a known email so the collision is meaningful
-        admin = User.objects.get(username='admin')
-        admin.email = 'admin@example.com'
-        admin.save()
-
-        response = self._post({'email': 'admin@example.com'})
-        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
-        self.assertNotEqual(
-            User.objects.get(username='test').email,
-            'admin@example.com',
-        )
-
-    def test_email_collision_case_insensitive(self):
-        """
-        Email comparison must be case-insensitive — Django's password reset
-        already filters with ``email__iexact``.
-        """
-        self.user_login('test')
-        admin = User.objects.get(username='admin')
-        admin.email = 'admin@example.com'
-        admin.save()
-
-        response = self._post({'email': 'ADMIN@EXAMPLE.COM'})
-        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
-
-    def test_invalid_email_format_is_rejected(self):
-        self.user_login('test')
-
-        response = self._post({'email': 'not-an-email'})
-        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
-        self.assertNotEqual(
-            User.objects.get(username='test').email,
-            'not-an-email',
-        )
-
-    def test_unique_email_is_accepted(self):
-        """
-        Sanity: a fresh, well-formed email passes validation and updates
-        the user record.
-        """
-        self.user_login('test')
-
-        response = self._post({'email': 'fresh-address@example.com'})
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(
             User.objects.get(username='test').email,
-            'fresh-address@example.com',
-        )
-
-    def test_unchanged_email_is_accepted(self):
-        """
-        Re-posting one's own email must not trigger a uniqueness error.
-        """
-        self.user_login('test')
-        own_email = User.objects.get(username='test').email
-
-        response = self._post({'email': own_email})
-        self.assertEqual(response.status_code, HTTP_200_OK)
-
-    def test_collision_with_secondary_email_address_is_rejected(self):
-        """
-        Uniqueness must also cover the allauth ``EmailAddress`` table —
-        i.e. addresses that another user has registered as a secondary
-        (non-primary) address. Otherwise an attacker could claim such an
-        address as their primary ``User.email``.
-        """
-        admin = User.objects.get(username='admin')
-        EmailAddress.objects.create(
-            user=admin,
-            email='secondary@example.com',
-            primary=False,
-            verified=False,
-        )
-
-        self.user_login('test')
-        response = self._post({'email': 'secondary@example.com'})
-        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
-        self.assertNotEqual(
-            User.objects.get(username='test').email,
-            'secondary@example.com',
+            original_email,
         )

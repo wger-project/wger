@@ -271,7 +271,6 @@ MFA_PASSKEY_LOGIN_ENABLED = True
 MFA_PASSKEY_SIGNUP_ENABLED = False
 
 #
-<<<<<<< HEAD
 # Social account providers
 #
 SOCIALACCOUNT_PROVIDERS = {
@@ -289,7 +288,8 @@ SOCIALACCOUNT_PROVIDERS = {
 
 ACCOUNT_LOGOUT_ON_GET = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
-=======
+
+#
 # allauth.headless — REST API used by the Flutter app for the full auth flow
 # (login + multi-step MFA challenge + email/password management).
 #
@@ -301,7 +301,9 @@ HEADLESS_TOKEN_STRATEGY = 'allauth.headless.tokens.strategies.jwt.strategy.JWTTo
 # HS256 with SECRET_KEY by default; main.py mirrors SIMPLE_JWT['SIGNING_KEY']
 # into HEADLESS_JWT_PRIVATE_KEY so both surfaces share the same secret.
 HEADLESS_JWT_ALGORITHM = 'HS256'
->>>>>>> 677f1ea67 (Start adding the allauth headless app for API authentication)
+# 120 days, parity with the legacy SIMPLE_JWT REFRESH_TOKEN_LIFETIME default.
+# main.py overrides via the REFRESH_TOKEN_LIFETIME env var (hours).
+HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
 
 #
 # Login

@@ -23,11 +23,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
 
 # Third Party
-from allauth.account.models import EmailAddress
-from allauth.account.utils import (
-    filter_users_by_email,
-    user_email,
-)
+from allauth.account.utils import filter_users_by_email
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
 from rest_framework.fields import empty
@@ -51,7 +47,9 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    email = serializers.EmailField(source='user.email', required=False)
+    # Email is read-only here; the app manages email changes through
+    # allauth.headless (POST /_allauth/app/v1/account/email).
+    email = serializers.EmailField(source='user.email', read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
     date_joined = serializers.DateTimeField(source='user.date_joined', read_only=True)
     email_verified = serializers.BooleanField(source='is_verified', read_only=True)
@@ -91,37 +89,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         )
-
-    def validate_email(self, value):
-        if not value:
-            return value
-        user = self.context['request'].user
-
-        # Re-submitting one's own email is fine
-        if value.lower() == (user.email or '').lower():
-            return value
-
-        # Uniqueness across `User.email` and allauth's `EmailAddress` table
-        if any(u.pk != user.pk for u in filter_users_by_email(value)):
-            raise serializers.ValidationError('A user with this email already exists.')
-        return value
-
-    def update(self, instance, validated_data):
-        new_email = validated_data.pop('user', {}).get('email')
-        instance = super().update(instance, validated_data)
-
-        user = instance.user
-        if new_email and new_email.lower() != (user.email or '').lower():
-            user_email(user, new_email)
-            user.save()
-            EmailAddress.objects.add_email(
-                self.context['request'],
-                user,
-                new_email,
-                confirm=True,
-            )
-
-        return instance
 
 
 class UserLoginSerializer(serializers.ModelSerializer):

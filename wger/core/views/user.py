@@ -102,6 +102,12 @@ from wger.utils.api_token import (
     count_active_jwt_refresh_tokens,
     create_token,
 )
+from wger.utils.headless_long_lived import (
+    list_long_lived_sessions,
+    mint_long_lived_refresh_token,
+    revoke_all_long_lived_sessions,
+    revoke_long_lived_session,
+)
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin,
@@ -476,10 +482,46 @@ def api_key(request):
         messages.success(request, _('All API sessions were revoked'))
         return HttpResponseRedirect(reverse('core:user:api-key'))
 
+    # Long-lived refresh tokens (headless JWT, backed by a dedicated session).
+    if request.method == 'POST' and request.POST.get('new_refresh_token'):
+        new_refresh_token = mint_long_lived_refresh_token(
+            request.user,
+            settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
+        )
+        # Carry the freshly minted token across the post-redirect step so the
+        # next render can show it exactly once.
+        request.session[_NEW_REFRESH_TOKEN_SESSION_KEY] = new_refresh_token
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
+    if request.method == 'POST' and request.POST.get('revoke_refresh_token'):
+        if revoke_long_lived_session(request.user, request.POST['revoke_refresh_token']):
+            messages.success(request, _('Refresh token was revoked'))
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
+    if request.method == 'POST' and request.POST.get('revoke_all_refresh_tokens'):
+        count = revoke_all_long_lived_sessions(request.user)
+        if count:
+            messages.success(
+                request,
+                _('Revoked {count} refresh token(s)').format(count=count),
+            )
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
     context['token'] = token
     context['active_jwt_sessions'] = count_active_jwt_refresh_tokens(request.user)
+    context['new_refresh_token'] = request.session.pop(_NEW_REFRESH_TOKEN_SESSION_KEY, None)
+    context['long_lived_sessions'] = list_long_lived_sessions(request.user)
+    context['refresh_token_lifetime_days'] = (
+        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN // 86400
+    )
 
     return render(request, 'user/api_key.html', context)
+
+
+# Session key used to carry a freshly minted refresh token across the
+# post-redirect step on the api-key page. The token is shown once and then
+# immediately popped.
+_NEW_REFRESH_TOKEN_SESSION_KEY = '_wger_new_long_lived_refresh_token'
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):
