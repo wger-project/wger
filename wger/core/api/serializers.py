@@ -17,16 +17,13 @@
 import logging
 
 # Django
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-from django.http import HttpRequest
 
 # Third Party
 from allauth.account.utils import filter_users_by_email
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
-from rest_framework.fields import empty
 from rest_framework.validators import UniqueValidator
 
 # wger
@@ -89,42 +86,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         )
-
-
-class UserLoginSerializer(serializers.ModelSerializer):
-    """Serializer to map to User model in relation to api user"""
-
-    email = serializers.EmailField(required=False)
-    username = serializers.CharField(required=False)
-    password = serializers.CharField(required=True, min_length=8)
-
-    request: HttpRequest
-
-    class Meta:
-        model = User
-        fields = ('username', 'password', 'email')
-
-    def __init__(self, request: HttpRequest = None, instance=None, data=empty, **kwargs):
-        self.request = request
-        super().__init__(instance, data, **kwargs)
-
-    def validate(self, data):
-        email = data.get('email', None)
-        username = data.get('username', None)
-        password = data.get('password', None)
-
-        if email is None and username is None:
-            raise serializers.ValidationError('Please provide an "email" or a "username"')
-
-        user_username = authenticate(request=self.request, username=username, password=password)
-        user_email = authenticate(request=self.request, username=email, password=password)
-        user = user_username or user_email
-
-        if user is None:
-            logger.info(f"Tried logging via API with unknown user: '{username}'")
-            raise serializers.ValidationError('Username or password unknown')
-
-        return data
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

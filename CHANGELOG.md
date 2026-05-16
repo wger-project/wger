@@ -26,6 +26,12 @@ to UUID. This was made to allow for clients to generate IDs locally and affects
 
 Make sure you have set the values for `SITE_URL`.
 
+
+**`/api/v2/login/` endpoint removed.** This endpoint returned a permanent token
+If you want to generate a new token, visit the "API key" page in the user settings
+and paste it into scripts.
+
+
 ## Others
 
 * The ingredient API filter now supports range lookups on `nutriscore`

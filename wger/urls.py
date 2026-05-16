@@ -290,7 +290,6 @@ urlpatterns = i18n_patterns(
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap',
     ),
-
     path('account/', include('allauth.account.urls')),
     path('account/2fa/', include('allauth.mfa.urls')),
 )
@@ -311,10 +310,6 @@ urlpatterns += [
     ),
     path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
     path('api/v2/', include(router.urls)),
-    # The api user login
-    path(
-        'api/v2/login/', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
-    ),
     path(
         'api/v2/register/',
         core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),

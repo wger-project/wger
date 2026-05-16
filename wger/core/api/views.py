@@ -71,11 +71,9 @@ from wger.core.api.serializers import (
     LicenseSerializer,
     RepetitionUnitSerializer,
     RoutineWeightUnitSerializer,
-    UserLoginSerializer,
     UserprofileSerializer,
     UserRegistrationSerializer,
 )
-from wger.core.forms import UserLoginForm
 from wger.core.models import (
     Language,
     License,
@@ -270,59 +268,6 @@ class RequiredServerVersionView(viewsets.ViewSet):
     )
     def get(request):
         return Response(str(MIN_SERVER_VERSION))
-
-
-class UserAPILoginView(viewsets.ViewSet):
-    """
-    API login endpoint. Returns a token that can subsequently passed in the
-    header.
-
-    Note that it is recommended to use token authorization instead.
-    """
-
-    permission_classes = (AllowAny,)
-    queryset = User.objects.all()
-    serializer_class = UserLoginSerializer
-    throttle_scope = 'login'
-
-    def get(self, request):
-        return Response(data={'message': "You must send a 'username' and 'password' via POST"})
-
-    @extend_schema(
-        parameters=[],
-        responses={
-            status.HTTP_200_OK: inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
-        },
-    )
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data, request=request)
-        serializer.is_valid(raise_exception=True)
-
-        # The login form's username field accepts either value: allauth's
-        # authentication backend resolves it as a username or an email address.
-        username = serializer.data.get('username', serializer.data.get('email', None))
-        data = {'username': username, 'password': serializer.data['password']}
-        form = UserLoginForm(data=data, authenticate_on_clean=False)
-
-        if not form.is_valid():
-            logger.info(f"Tried logging via API with unknown user : '{username}'")
-            return Response(
-                {'detail': 'Username or password unknown'},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-
-        form.authenticate(request)
-        token = create_token(form.get_user())
-        return Response(
-            data={'token': token.key},
-            status=status.HTTP_200_OK,
-            headers={
-                'Deprecation': 'Sat, 01 Oct 2022 23:59:59 GMT',
-            },
-        )
 
 
 class UserAPIRegistrationViewSet(viewsets.ViewSet):
