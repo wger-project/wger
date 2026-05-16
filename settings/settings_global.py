@@ -129,10 +129,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Per-provider apps (allauth.socialaccount.providers.google, ...) are
     # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
-
-    # Dj-rest-auth
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
