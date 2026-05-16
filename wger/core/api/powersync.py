@@ -30,12 +30,12 @@ from jose.jwt import encode
 
 @lru_cache(maxsize=1)
 def _private_jwk():
-    return json.loads(urlsafe_b64decode(settings.POWERSYNC_JWKS_PRIVATE_KEY))
+    return json.loads(urlsafe_b64decode(settings.JWT_PRIVATE_KEY))
 
 
 @lru_cache(maxsize=1)
 def public_jwk():
-    return json.loads(urlsafe_b64decode(settings.POWERSYNC_JWKS_PUBLIC_KEY))
+    return json.loads(urlsafe_b64decode(settings.JWT_PUBLIC_KEY))
 
 
 def create_token(user_id):

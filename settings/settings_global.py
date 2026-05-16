@@ -14,11 +14,16 @@
 
 # Standard Library
 import datetime
+import json
 import os
 import re
 import sys
+from base64 import urlsafe_b64decode
 from datetime import timedelta
 from pathlib import Path
+
+# Third Party
+from jose import jwk as jose_jwk
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
@@ -277,12 +282,22 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 #
 HEADLESS_CLIENTS = ('app',)
 HEADLESS_TOKEN_STRATEGY = 'allauth.headless.tokens.strategies.jwt.strategy.JWTTokenStrategy'
-# HS256 with SECRET_KEY by default; main.py mirrors SIMPLE_JWT['SIGNING_KEY']
-# into HEADLESS_JWT_PRIVATE_KEY so both surfaces share the same secret.
-HEADLESS_JWT_ALGORITHM = 'HS256'
-# 120 days, parity with the legacy SIMPLE_JWT REFRESH_TOKEN_LIFETIME default.
-# main.py overrides via the REFRESH_TOKEN_LIFETIME env var (hours).
+HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
+
+
+def jwk_b64_to_pem(b64_jwk_str: str):
+    """
+    Decode a base64-wrapped JWK (as written by generate-jwt-keys) into a PEM
+    string suitable for SimpleJWT and allauth.headless.
+    """
+
+    if not b64_jwk_str:
+        return ''
+
+    jwk_dict = json.loads(urlsafe_b64decode(b64_jwk_str))
+    pem = jose_jwk.construct(jwk_dict).to_pem()
+    return pem.decode() if isinstance(pem, bytes) else pem
 
 #
 # Login
@@ -500,6 +515,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
+    'ALGORITHM': 'RS256',
 }
 
 #
