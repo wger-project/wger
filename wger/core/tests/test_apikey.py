@@ -24,6 +24,7 @@ from django.urls import reverse
 # Third Party
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import (
     BlacklistedToken,
     OutstandingToken,
@@ -140,13 +141,8 @@ class ApiKeyTestCase(WgerTestCase):
         and a previously-issued refresh must stop minting access tokens.
         """
         api = APIClient()
-        obtain = api.post(
-            '/api/v2/token',
-            {'username': 'test', 'password': 'testtest'},
-            format='json',
-        )
-        self.assertEqual(obtain.status_code, 200)
-        old_refresh = obtain.data['refresh']
+        user = User.objects.get(username='test')
+        old_refresh = str(RefreshToken.for_user(user))
 
         # Sanity baseline before the revoke
         refresh_before = api.post(
@@ -183,13 +179,8 @@ class ApiKeyTestCase(WgerTestCase):
         leakage here would be a one-call DoS.
         """
         api_admin = APIClient()
-        admin_obtain = api_admin.post(
-            '/api/v2/token',
-            {'username': 'admin', 'password': 'adminadmin'},
-            format='json',
-        )
-        self.assertEqual(admin_obtain.status_code, 200)
-        admin_refresh = admin_obtain.data['refresh']
+        admin = User.objects.get(username='admin')
+        admin_refresh = str(RefreshToken.for_user(admin))
 
         self.user_login('test')
         response = self.client.post(
@@ -213,12 +204,8 @@ class ApiKeyTestCase(WgerTestCase):
         kills the victim's mobile sessions.
         """
         api = APIClient()
-        obtain = api.post(
-            '/api/v2/token',
-            {'username': 'test', 'password': 'testtest'},
-            format='json',
-        )
-        old_refresh = obtain.data['refresh']
+        user = User.objects.get(username='test')
+        old_refresh = str(RefreshToken.for_user(user))
 
         self.user_login('test')
         response = self.client.get(
@@ -378,9 +365,7 @@ class LongLivedRefreshTokenTestCase(WgerTestCase):
 
         # And the marker really is what gates inclusion.
         browser_sessions = [
-            s
-            for s in Session.objects.all()
-            if s.get_decoded().get('_auth_user_id') == str(user.pk)
+            s for s in Session.objects.all() if s.get_decoded().get('_auth_user_id') == str(user.pk)
         ]
         self.assertTrue(browser_sessions)
         for s in browser_sessions:

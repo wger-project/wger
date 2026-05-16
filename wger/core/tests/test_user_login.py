@@ -5,15 +5,8 @@ from unittest import mock
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-# Third Party
-from rest_framework import status
-
 # wger
-from wger.core.tests.api_base_test import ApiBaseTestCase
-from wger.core.tests.base_testcase import (
-    BaseTestCase,
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.core.views.user import trainer_login
 
 
@@ -82,40 +75,6 @@ class TrainerLoginTestCase(WgerTestCase):
             resp = trainer_login(request, 'primary-key-not-needed-because-of-mock')
 
         self.assertEqual(404, resp.status_code)
-
-
-class JwtTokenEmailLoginTestCase(BaseTestCase, ApiBaseTestCase):
-    """
-    The SimpleJWT token endpoint forwards its credential as ``username``.
-    allauth's authentication backend must resolve that value as an email
-    address too, so a user can obtain a JWT with either identifier.
-    """
-
-    url = '/api/v2/token'
-
-    def test_obtain_token_with_email(self):
-        response = self.client.post(
-            self.url,
-            {'username': 'admin@example.com', 'password': 'adminadmin'},
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('access', response.data)
-        self.assertIn('refresh', response.data)
-
-    def test_obtain_token_with_username(self):
-        response = self.client.post(
-            self.url,
-            {'username': 'admin', 'password': 'adminadmin'},
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('access', response.data)
-
-    def test_obtain_token_with_email_wrong_password(self):
-        response = self.client.post(
-            self.url,
-            {'username': 'admin@example.com', 'password': 'wrong-password'},
-        )
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class WebLoginViewTestCase(WgerTestCase):

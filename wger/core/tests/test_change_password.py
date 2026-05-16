@@ -24,6 +24,7 @@ from django.urls import reverse
 # Third Party
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -129,13 +130,7 @@ class ChangePasswordTestCase(WgerTestCase):
         drf_token_key = Token.objects.get(user=user).key
 
         api = APIClient()
-        obtain = api.post(
-            '/api/v2/token',
-            {'username': 'test', 'password': 'testtest'},
-            format='json',
-        )
-        self.assertEqual(obtain.status_code, 200)
-        old_refresh = obtain.data['refresh']
+        old_refresh = str(RefreshToken.for_user(user))
 
         self.user_login('test')
         response = self.client.post(

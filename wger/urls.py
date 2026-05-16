@@ -34,7 +34,6 @@ from drf_spectacular.views import (
 )
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
@@ -315,7 +314,6 @@ urlpatterns += [
         core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
         name='api_register',
     ),
-    path('api/v2/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
     # Others
