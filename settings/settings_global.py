@@ -127,7 +127,8 @@ INSTALLED_APPS = [
     'allauth.mfa',
     'allauth.headless',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # Per-provider apps (allauth.socialaccount.providers.google, ...) are
+    # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
 
     # Dj-rest-auth
     'dj_rest_auth',
@@ -241,11 +242,6 @@ ACCOUNT_CHANGE_EMAIL = True
 # Allow logging in with either the username or the email address. allauth's
 # authentication backend resolves the email against its EmailAddress table.
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
-
-# Treat a user as having a single email address: changing it adds a pending
-# address that only replaces the current one (and updates User.email) once
-# confirmed via the verification link.
-ACCOUNT_CHANGE_EMAIL = True
 
 # Use wger's own login/signup forms (allauth's forms + the password-visibility
 # toggle, and a conditional reCAPTCHA field on signup).

@@ -17,7 +17,6 @@
 from unittest import mock
 
 # Django
-from django.conf import settings
 from django.test import (
     RequestFactory,
     SimpleTestCase,
@@ -43,10 +42,7 @@ class _StubProvider:
         return '/accounts/wger-social/login/'
 
 
-@override_settings(
-    INSTALLED_APPS=[*settings.INSTALLED_APPS, 'allauth.socialaccount'],
-    WGER_SOCIAL_PROVIDERS=['wger'],
-)
+@override_settings(WGER_SOCIAL_PROVIDERS=['wger'])
 class SocialAuthEnabledLoginPageTestCase(WgerTestCase):
     """When social auth is enabled, the login page renders the provider section."""
 

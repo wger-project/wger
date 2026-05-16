@@ -263,10 +263,11 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 # Django-allauth social providers
 #
 WGER_SOCIAL_PROVIDERS = env.list('WGER_SOCIAL_PROVIDERS', default=[])
+# allauth.socialaccount itself is always installed (see settings_global.py) so
+# its models stay importable. Only the per-provider apps are env-gated.
 if WGER_SOCIAL_PROVIDERS:
     INSTALLED_APPS += [
-        'allauth.socialaccount',
-        *[f'allauth.socialaccount.providers.{p}' for p in WGER_SOCIAL_PROVIDERS],
+        f'allauth.socialaccount.providers.{p}' for p in WGER_SOCIAL_PROVIDERS
     ]
 
 #

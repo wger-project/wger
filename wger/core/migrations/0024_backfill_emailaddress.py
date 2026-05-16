@@ -39,7 +39,7 @@ def backfill_email_addresses(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('core', '0022_move_email_verified_to_emailaddress'),
+        ('core', '0023_create_publication'),
         ('account', '0001_initial'),
     ]
 
