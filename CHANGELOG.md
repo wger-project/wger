@@ -1,5 +1,8 @@
 # Changelog for the next release
 
+* Some unused thumbnail sizes have been deleted, run `./manage.py prune-thumbnails`
+  to delete dangling files 
+
 * The ingredient API filter now supports range lookups on `nutriscore`
   (`gt`, `gte`, `lt`, `lte`) in addition to `exact` and `in`, enabling queries
   like "better than C" (#2295).

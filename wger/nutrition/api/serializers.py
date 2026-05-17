@@ -189,7 +189,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             return None
 
         request = self.context.get('request')
-        aliases = ['small', 'small_cropped', 'medium', 'medium_cropped', 'large', 'large_cropped']
+        aliases = ['small', 'medium']
         result = {}
 
         thumbnailer = get_thumbnailer(obj.image.image)
