@@ -126,7 +126,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     # If product name is still not found, throw error
     if not name:
         raise KeyError('Missing required product name')
-    
+
     common_name = product_data.get('generic_name', '')
 
     # If the energy is not available in kcal, convert from kJ
