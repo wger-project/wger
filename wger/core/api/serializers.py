@@ -41,6 +41,7 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
+from wger.utils.username import generate_username_suggestions
 
 
 logger = logging.getLogger(__name__)
@@ -164,13 +165,22 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False)
     username = serializers.CharField(
         required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())],
+        # validators=[UniqueValidator(queryset=User.objects.all())],
     )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+
+    def validate_username(self, value):
+        if User.objects.filter(username__iexact=value).exists():
+            suggestions = generate_username_suggestions(value)
+            suggestions_string = ', '.join(suggestions)
+            raise serializers.ValidationError(
+                f'A user with this username already exists. \nSuggestions: {suggestions_string}'
+                )
+        return value
 
     def validate_email(self, value):
         # Case-insensitive uniqueness across both User.email and the allauth
