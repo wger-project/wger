@@ -132,6 +132,7 @@ class UserPreferencesForm(forms.ModelForm):
         label=gettext_lazy('Date of Birth'),
         required=False,
         widget=forms.DateInput(
+            format='%Y-%m-%d',
             attrs={
                 'type': 'date',
                 'max': str(date(date.today().year - 10, 1, 1)),
