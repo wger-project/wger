@@ -75,6 +75,7 @@ patterns_user = [
     path('registration', user.WgerSignupView.as_view(), name='registration'),
     path('preferences', user.preferences, name='preferences'),
     path('api-key', user.api_key, name='api-key'),
+    path('app-auth/', user.app_auth_handoff, name='app-auth-handoff'),
     path('demo-entries', misc.demo_entries, name='demo-entries'),
     path('<int:pk>/activate', user.UserActivateView.as_view(), name='activate'),
     path('<int:pk>/deactivate', user.UserDeactivateView.as_view(), name='deactivate'),

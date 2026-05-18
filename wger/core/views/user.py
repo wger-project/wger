@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+from urllib.parse import quote
 
 # Django
 from django.conf import settings
@@ -117,6 +118,15 @@ from wger.weight.models import WeightEntry
 
 logger = logging.getLogger(__name__)
 
+
+# Session key used to carry a freshly minted refresh token across the
+# post-redirect step on the api-key page. The token is shown once and then
+# immediately popped.
+_NEW_REFRESH_TOKEN_SESSION_KEY = '_wger_new_long_lived_refresh_token'
+
+
+# Custom URL scheme registered by the flutter app in Info.plist, AndroidManifest.xml, etc.
+_APP_AUTH_SCHEME = 'wger'
 
 @login_required()
 def delete(request, user_pk=None):
@@ -518,10 +528,30 @@ def api_key(request):
     return render(request, 'user/api_key.html', context)
 
 
-# Session key used to carry a freshly minted refresh token across the
-# post-redirect step on the api-key page. The token is shown once and then
-# immediately popped.
-_NEW_REFRESH_TOKEN_SESSION_KEY = '_wger_new_long_lived_refresh_token'
+@login_required
+def app_auth_handoff(request):
+    """
+    Browser-side endpoint that mints a long-lived headless refresh token for
+    the authenticated user and redirects to a custom URL scheme so the wger
+    mobile app can pick it up.
+
+    The user must already be authenticated; @login_required redirects through
+    the normal allauth login flow first
+    """
+    token = mint_long_lived_refresh_token(
+        request.user,
+        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
+    )
+
+    # Token goes in the URL fragment, not the query string, so it never lands
+    # in server access logs or referer headers. Refresh-token rotation is
+    # the backstop against the one remaining leak surface (browser history).
+    return_uri = f'{_APP_AUTH_SCHEME}://app-auth#token={quote(token, safe="")}'
+    return render(
+        request,
+        'user/app_auth_handoff.html',
+        {'return_uri': return_uri},
+    )
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):
