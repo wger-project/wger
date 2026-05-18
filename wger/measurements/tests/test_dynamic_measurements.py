@@ -1,4 +1,20 @@
+# This file is part of wger Workout Manager.
+#
+# wger Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wger Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
 # Standard Library
+import datetime
 import unittest
 from unittest.mock import (
     MagicMock,
@@ -22,7 +38,7 @@ class BMILogicTest(unittest.TestCase):
 
         weight_entry = MagicMock()
         weight_entry.weight = 80.0
-        weight_entry.date = '2026-05-12'
+        weight_entry.date = datetime.date(2026, 5, 12)
 
         mock_filter.return_value.order_by.return_value = [weight_entry]
 
@@ -45,8 +61,8 @@ class BMILogicTest(unittest.TestCase):
         user = MagicMock()
         user.userprofile.height = 175  # 1.75m
 
-        w1 = MagicMock(weight=70.0, date='2026-05-01')
-        w2 = MagicMock(weight=75.0, date='2026-05-10')
+        w1 = MagicMock(weight=70.0, date=datetime.date(2026, 5, 1))
+        w2 = MagicMock(weight=75.0, date=datetime.date(2026, 5, 10))
 
         mock_filter.return_value.order_by.return_value = [w1, w2]
 
