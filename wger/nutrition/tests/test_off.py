@@ -111,6 +111,53 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
 
         self.assertRaises(KeyError, extract_info_from_off, self.off_data1, 1)
 
+    def test_product_name_fallback_to_english(self):
+        """
+        If 'product_name' is missing, fall back to 'product_name_en'
+        """
+
+        del self.off_data1['product_name']
+        self.off_data1['product_name_en'] = 'Foo English'
+
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertEqual(result.name, 'Foo English')
+
+    def test_product_name_prefers_request_language(self):
+        """
+        If 'product_name' is missing, prefer the localized name matching 'lang'
+        over the English fallback
+        """
+
+        del self.off_data1['product_name']
+        self.off_data1['lang'] = 'de'
+        self.off_data1['product_name_de'] = 'Foo Deutsch'
+        self.off_data1['product_name_en'] = 'Foo English'
+        self.off_data1['product_name_fr'] = 'Foo Français'
+
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertEqual(result.name, 'Foo Deutsch')
+
+    def test_product_name_fallback_to_any_localized(self):
+        """
+        If neither 'product_name' nor 'product_name_en' is set, fall back to
+        any localized 'product_name_*' key
+        """
+
+        del self.off_data1['product_name']
+        self.off_data1['product_name_de'] = 'Foo Deutsch'
+
+        result = extract_info_from_off(self.off_data1, 1)
+        self.assertEqual(result.name, 'Foo Deutsch')
+
+    def test_no_product_name_at_all(self):
+        """
+        If no product name is present, raise KeyError
+        """
+
+        del self.off_data1['product_name']
+
+        self.assertRaises(KeyError, extract_info_from_off, self.off_data1, 1)
+
     def test_no_sugar_or_saturated_fat(self):
         """
         No sugar or saturated fat available
