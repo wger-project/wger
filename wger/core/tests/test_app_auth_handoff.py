@@ -44,6 +44,34 @@ class AppAuthHandoffTestCase(WgerTestCase):
         self.assertContains(response, 'http-equiv="refresh"')
         self.assertContains(response, 'wger://app-auth#token=')
 
+    def test_state_is_echoed_back_in_fragment(self):
+        self.user_login('test')
+        response = self.client.get(
+            reverse('core:user:app-auth-handoff') + '?state=abc123_-XYZ',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'state=abc123_-XYZ')
+        self.assertContains(response, 'token=')
+
+    def test_state_with_disallowed_characters_is_dropped(self):
+        self.user_login('test')
+        response = self.client.get(
+            reverse('core:user:app-auth-handoff') + '?state=abc%20def',
+        )
+        self.assertEqual(response.status_code, 200)
+        # No reflected state in the redirect URL, but the token is still issued.
+        self.assertContains(response, 'token=')
+        self.assertNotContains(response, 'state=')
+
+    def test_oversized_state_is_dropped(self):
+        self.user_login('test')
+        long_state = 'a' * 200
+        response = self.client.get(
+            reverse('core:user:app-auth-handoff') + f'?state={long_state}',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'state=')
+
     def test_token_is_in_fragment_not_query(self):
         self.user_login('test')
         response = self.client.get(reverse('core:user:app-auth-handoff'))

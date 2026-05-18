@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+import re
 from urllib.parse import quote
 
 # Django
@@ -127,6 +128,14 @@ _NEW_REFRESH_TOKEN_SESSION_KEY = '_wger_new_long_lived_refresh_token'
 
 # Custom URL scheme registered by the flutter app in Info.plist, AndroidManifest.xml, etc.
 _APP_AUTH_SCHEME = 'wger'
+_APP_AUTH_HOST = 'app-auth'
+
+# Hard cap on the echoed ?state= value. The app generates 256 bits of
+# entropy (~43 base64url chars); anything wildly larger is junk we refuse
+# to reflect into the redirect URL.
+_APP_AUTH_STATE_MAX_LEN = 128
+_APP_AUTH_STATE_ALLOWED = re.compile(r'\A[A-Za-z0-9_\-]+\Z')
+
 
 @login_required()
 def delete(request, user_pk=None):
@@ -536,17 +545,31 @@ def app_auth_handoff(request):
     mobile app can pick it up.
 
     The user must already be authenticated; @login_required redirects through
-    the normal allauth login flow first
+    the normal allauth login flow first.
+
+    A ``?state=<nonce>`` query parameter is echoed back into the redirect
+    fragment so the app can verify the response came from a handoff it started
+    itself. The value is treated as opaque but constrained to base64url characters
+    and a sane length to prevent abuse of the reflection.
     """
     token = mint_long_lived_refresh_token(
         request.user,
         settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
     )
 
+    state = request.GET.get('state', '')
+    if state and (
+        len(state) > _APP_AUTH_STATE_MAX_LEN or not _APP_AUTH_STATE_ALLOWED.match(state)
+    ):
+        state = ''
+
     # Token goes in the URL fragment, not the query string, so it never lands
     # in server access logs or referer headers. Refresh-token rotation is
     # the backstop against the one remaining leak surface (browser history).
-    return_uri = f'{_APP_AUTH_SCHEME}://app-auth#token={quote(token, safe="")}'
+    fragment = f'token={quote(token, safe="")}'
+    if state:
+        fragment += f'&state={quote(state, safe="")}'
+    return_uri = f'{_APP_AUTH_SCHEME}://{_APP_AUTH_HOST}#{fragment}'
     return render(
         request,
         'user/app_auth_handoff.html',
