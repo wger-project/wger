@@ -239,7 +239,7 @@ class IngredientEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
         return context
 
 
-class IngredientCreateView(WgerFormMixin, CreateView):
+class IngredientCreateView(WgerFormMixin, PermissionRequiredMixin, CreateView):
     """
     Generic view to add a new ingredient
     """
@@ -248,6 +248,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
     model = Ingredient
     form_class = IngredientForm
     title = gettext_lazy('Add a new ingredient')
+    permission_required = 'nutrition.add_ingredient'
 
     def form_valid(self, form):
         form.instance.language = load_language()

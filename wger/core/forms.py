@@ -128,15 +128,11 @@ class UserLoginForm(AuthenticationForm):
 class UserPreferencesForm(forms.ModelForm):
     first_name = forms.CharField(label=gettext_lazy('First name'), required=False)
     last_name = forms.CharField(label=gettext_lazy('Last name'), required=False)
-    email = EmailField(
-        label=gettext_lazy('Email'),
-        help_text=gettext_lazy('Used for password resets and, optionally, e-mail reminders.'),
-        required=False,
-    )
     birthdate = forms.DateField(
         label=gettext_lazy('Date of Birth'),
         required=False,
         widget=forms.DateInput(
+            format='%Y-%m-%d',
             attrs={
                 'type': 'date',
                 'max': str(date(date.today().year - 10, 1, 1)),
@@ -178,7 +174,6 @@ class UserPreferencesForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 _('Personal data'),
-                'email',
                 Row(
                     Column('first_name', css_class='col-6'),
                     Column('last_name', css_class='col-6'),
@@ -206,6 +201,15 @@ class UserPreferencesForm(forms.ModelForm):
             ),
             ButtonHolder(Submit('submit', _('Save'), css_class='btn-success btn-block')),
         )
+
+    def save(self, commit=True):
+        """Also persist the first/last name onto the related User."""
+        profile = super().save(commit=commit)
+        if commit:
+            self.user.first_name = self.cleaned_data['first_name']
+            self.user.last_name = self.cleaned_data['last_name']
+            self.user.save(update_fields=['first_name', 'last_name'])
+        return profile
 
 
 class UserEmailForm(forms.ModelForm):

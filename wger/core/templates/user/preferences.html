@@ -22,10 +22,11 @@
         <p>
             <span class="{% fa_class 'envelope' %}"></span>
             {% translate "Unverified email" %}
-            <br>
-            <a href="{% url 'core:user:confirm-email' %}">{% translate "Send verification email" %}</a>
         </p>
     {% endif %}
+    <p>
+        <a href="{% url 'account_email' %}">{% translate "Manage email address" %}</a>
+    </p>
     <p>
         <small class="text-muted">
             {% translate "You need to verify your email to contribute exercises" %}
@@ -50,6 +51,10 @@
                 {% translate "Options" %}
             </button>
             <div class="dropdown-menu">
+                <a href="{% url 'account_email' %}" class="dropdown-item">
+                    <span class="{% fa_class 'envelope' %}"></span>
+                    {% translate "Email address" %}
+                </a>
                 <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
                     <span class="{% fa_class 'key' %}"></span>
                     {% translate "Change password" %}

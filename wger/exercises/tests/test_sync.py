@@ -13,7 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import io
 from unittest.mock import patch
+
+# Django
+from django.core.exceptions import ValidationError
+
+# Third Party
+from PIL import Image as PILImage
 
 # wger
 from wger.core.models import (
@@ -26,11 +33,13 @@ from wger.exercises.models import (
     Exercise,
     ExerciseCategory,
     ExerciseImage,
+    ExerciseVideo,
     Muscle,
     Translation,
 )
 from wger.exercises.sync import (
     download_exercise_images,
+    download_exercise_videos,
     handle_deleted_entries,
     sync_categories,
     sync_equipment,
@@ -44,6 +53,13 @@ from wger.manager.models import (
     WorkoutLog,
 )
 from wger.utils.requests import wger_headers
+
+
+def _valid_png_bytes():
+    """Return the bytes of a minimal valid PNG, used as fake downloaded image content."""
+    buffer = io.BytesIO()
+    PILImage.new('RGB', (1, 1)).save(buffer, format='PNG')
+    return buffer.getvalue()
 
 
 class MockLanguageResponse:
@@ -574,7 +590,7 @@ class MockExerciseResponse:
 class MockImageResponse:
     def __init__(self):
         self.status_code = 200
-        self.content = b''
+        self.content = _valid_png_bytes()
 
     # yapf: disable
     @staticmethod
@@ -622,6 +638,72 @@ class MockImageResponse:
             ]
         }
     # yapf: enable
+
+
+class MockInvalidImageResponse:
+    """Image endpoint returns one record whose downloaded bytes are not a valid image."""
+
+    def __init__(self):
+        self.status_code = 200
+        self.content = b'<html><script>alert(1)</script></html>'
+
+    @staticmethod
+    def json():
+        return {
+            'count': 1,
+            'next': None,
+            'previous': None,
+            'results': [
+                {
+                    'id': 99,
+                    'uuid': '00000099-1d00-4e9d-a1a4-5f5ebd15e819',
+                    'exercise': 2,
+                    'exercise_uuid': 'ae3328ba-9a35-4731-bc23-5da50720c5aa',
+                    'image': 'https://wger.de/media/exercise-images/2/evil.jpg',
+                    'is_main': False,
+                    'style': '4',
+                    'license': 1,
+                    'license_title': 'Bad image',
+                    'license_object_url': '',
+                    'license_author': 'Attacker',
+                    'license_author_url': '',
+                    'license_derivative_source_url': '',
+                    'author_history': [],
+                }
+            ],
+        }
+
+
+class MockVideoResponse:
+    def __init__(self):
+        self.status_code = 200
+        self.content = b'fake video bytes'
+
+    @staticmethod
+    def json():
+        return {
+            'count': 1,
+            'next': None,
+            'previous': None,
+            'results': [
+                {
+                    'id': 88,
+                    'uuid': '00000088-1d00-4e9d-a1a4-5f5ebd15e819',
+                    'exercise': 2,
+                    'exercise_uuid': 'ae3328ba-9a35-4731-bc23-5da50720c5aa',
+                    'video': 'https://wger.de/media/exercise-video/2/evil.html',
+                    'is_main': False,
+                    'license': 1,
+                    'license_author': 'Attacker',
+                    'size': 123,
+                    'width': 0,
+                    'height': 0,
+                    'codec': '',
+                    'codec_long': '',
+                    'duration': 0,
+                }
+            ],
+        }
 
 
 class TestSyncMethods(WgerTestCase):
@@ -851,3 +933,33 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(new_image.license_id, 1)
         self.assertEqual(new_image.license_title, 'New Image Title')
         self.assertEqual(new_image.license_author, 'New Author')
+
+    @patch('requests.get', return_value=MockInvalidImageResponse())
+    def test_image_sync_skips_invalid_image(self, mock_request):
+        """A download whose bytes are not a valid image is skipped, not stored."""
+
+        count_before = ExerciseImage.objects.count()
+
+        # A malformed image must not abort the run or get stored
+        download_exercise_images()
+
+        self.assertFalse(
+            ExerciseImage.objects.filter(uuid='00000099-1d00-4e9d-a1a4-5f5ebd15e819').exists()
+        )
+        self.assertEqual(ExerciseImage.objects.count(), count_before)
+
+    @patch('wger.exercises.sync.validate_video', side_effect=ValidationError('invalid video'))
+    @patch('requests.get', return_value=MockVideoResponse())
+    def test_video_sync_skips_invalid_video(self, mock_request, mock_validate):
+        """A video rejected by validate_video is skipped, not stored."""
+
+        count_before = ExerciseVideo.objects.count()
+
+        # An invalid video must not abort the run or get stored
+        download_exercise_videos(lambda x: x)
+
+        mock_validate.assert_called()
+        self.assertFalse(
+            ExerciseVideo.objects.filter(uuid='00000088-1d00-4e9d-a1a4-5f5ebd15e819').exists()
+        )
+        self.assertEqual(ExerciseVideo.objects.count(), count_before)

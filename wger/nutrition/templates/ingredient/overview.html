@@ -38,10 +38,14 @@
         </div>
     {% else %}
         <p>
-            <a href="{% url 'nutrition:ingredient:add' %}"
-               class="btn btn-light btn-block">
-                {% translate "No ingredients." %} {% translate "Add one now." %}
-            </a>
+            {% if perms.nutrition.add_ingredient %}
+                <a href="{% url 'nutrition:ingredient:add' %}"
+                   class="btn btn-light btn-block">
+                    {% translate "No ingredients." %} {% translate "Add one now." %}
+                </a>
+            {% else %}
+                {% translate "No ingredients." %}
+            {% endif %}
         </p>
     {% endif %}
 

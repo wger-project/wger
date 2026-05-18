@@ -79,7 +79,6 @@ patterns_user = [
     path('logout', user.logout, name='logout'),
     path('delete', user.delete, name='delete'),
     path('<int:user_pk>/delete', user.delete, name='delete'),
-    path('confirm-email', user.confirm_email, name='confirm-email'),
     path('<int:user_pk>/trainer-login', user.trainer_login, name='trainer-login'),
     path('registration', user.registration, name='registration'),
     path('preferences', user.preferences, name='preferences'),
