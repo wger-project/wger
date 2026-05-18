@@ -36,7 +36,6 @@ from wger.manager.validators import (
     NullMinValueValidator,
     validate_rir,
 )
-from wger.utils.cache import reset_workout_log_cache
 
 
 class WorkoutLog(models.Model):
@@ -263,14 +262,6 @@ class WorkoutLog(models.Model):
             routine=self.routine,
         )[0]
 
-        # Reset cache
-        reset_workout_log_cache(
-            self.user_id,
-            self.session.date.year,
-            self.session.date.month,
-            self.session.date.day,
-        )
-
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:
             self.next_log = None
@@ -282,19 +273,3 @@ class WorkoutLog(models.Model):
 
         # Save to db
         super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset cache
-        """
-        try:
-            reset_workout_log_cache(
-                self.user_id,
-                self.session.date.year,
-                self.session.date.month,
-                self.session.date.day,
-            )
-        # Catch case when there is no session -> RelatedObjectDoesNotExist
-        except WorkoutSession.DoesNotExist:
-            pass
-        super(WorkoutLog, self).delete(*args, **kwargs)

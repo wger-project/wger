@@ -9,7 +9,7 @@ from .settings_global import *
 DEBUG = True
 
 # List of administrators
-ADMINS = (('Your name', 'your_email@example.com'),)
+ADMINS = ['"Your name" <your_email@example.com>']
 MANAGERS = ADMINS
 
 # Don't use this key in production!

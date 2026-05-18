@@ -71,10 +71,9 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
-    queryset = Ingredient.objects.select_related(
-        'language',
-        'license',
-    ).prefetch_related('ingredientweightunit_set')
+
+    # Strip default ordering ('name'), this makes the API/DB more performant
+    queryset = Ingredient.objects.prefetch_related('ingredientweightunit_set').order_by()
     throttle_scope = 'ingredient_list'
 
     def get_throttles(self):
@@ -87,10 +86,6 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         """
         self.throttle_scope = 'ingredient_list' if self.action == 'list' else 'ingredient_detail'
         return super().get_throttles()
-
-    @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
 
     @action(detail=True)
     def get_values(self, request, pk):
@@ -148,10 +143,11 @@ class IngredientInfoViewSet(IngredientViewSet):
     def get_queryset(self):
         """Optimize the queryset with select_related to avoid n+1 queries"""
 
-        return Ingredient.objects.select_related(
-            'language',
-            'license',
-            'image',
+        # See IngredientViewSet.queryset for the rationale behind .order_by().
+        return (
+            Ingredient.objects.select_related('language', 'license', 'image')
+            .prefetch_related('ingredientweightunit_set')
+            .order_by()
         )
 
 
@@ -179,7 +175,7 @@ class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
             'language',
             'license',
             'image',
-        )
+        ).prefetch_related('ingredientweightunit_set')
 
 
 class ImageViewSet(viewsets.ReadOnlyModelViewSet):

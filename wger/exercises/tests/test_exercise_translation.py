@@ -24,6 +24,7 @@ from wger.exercises.models import (
     Muscle,
     Translation,
 )
+from wger.exercises.tests.api_mixins import ActstreamApiMixin
 from wger.utils.constants import (
     CC_0_LICENSE_ID,
     CC_BY_SA_4_LICENSE_ID,
@@ -114,8 +115,9 @@ class ExerciseInfoApiTestCase(
         return 'exerciseinfo'
 
 
-class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
+class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
     pk = 1
+    resource = Translation
 
     data = {
         'name': 'A new name',
@@ -193,7 +195,10 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         """
         payload = {
             'name': 'A new translation',
-            'description_source': 'Bend your knees and squat down.',
+            'description_source': (
+                'Beuge die Knie und gehe in die tiefe Hocke, halte dabei den '
+                'Rücken gerade und die Brust aufrecht.'
+            ),
             'language': 1,
             'exercise': 1,
         }
@@ -204,9 +209,9 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         translation = Translation.objects.get(pk=response.json()['id'])
-        self.assertEqual(translation.description_source, 'Bend your knees and squat down.')
+        self.assertEqual(translation.description_source, payload['description_source'])
         # Backend rendered the markdown into description on save()
-        self.assertIn('Bend your knees', translation.description)
+        self.assertIn('Beuge die Knie', translation.description)
 
     def test_cant_set_description_directly(self):
         """
@@ -216,7 +221,10 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
         payload = {
             'name': 'A new translation',
             'description': '<script>alert(1)</script><p>raw html</p>',
-            'description_source': 'safe markdown',
+            'description_source': (
+                'Sicherer Markdown-Text der nur in deutscher Sprache geschrieben '
+                'ist um die Spracherkennung zuverlässig zu bestehen.'
+            ),
             'language': 1,
             'exercise': 1,
         }
@@ -230,7 +238,7 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
 
         self.assertNotIn('<script>', translation.description)
         self.assertNotIn('raw html', translation.description)
-        self.assertIn('safe markdown', translation.description)
+        self.assertIn('Sicherer Markdown-Text', translation.description)
 
     def test_cant_patch_description_directly(self):
         """
@@ -257,6 +265,71 @@ class ExerciseTranslationCustomApiTestCase(ExerciseCrudApiTestCase):
 
         translation = Translation.objects.get(pk=self.pk)
         self.assertEqual(translation.description, ' The wild boar is a suid native...')
+
+    def test_post_accepts_matching_language(self):
+        """
+        POSTing a translation whose description is in the declared language
+        succeeds (positive counterpart to ``test_post_rejects_language_mismatch``).
+        """
+        Translation.objects.filter(exercise_id=1, language_id=1).delete()
+
+        payload = {
+            'name': 'Eine neue Übersetzung',
+            'description_source': (
+                'Halte die Hantel mit beiden Händen und führe die Bewegung '
+                'kontrolliert aus, dabei den Rücken stets gerade.'
+            ),
+            'language': 1,
+            'exercise': 1,
+        }
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=payload)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_post_rejects_language_mismatch(self):
+        """
+        POSTing a translation whose description language doesn't match the
+        declared language field is rejected.
+        """
+
+        # Free up exercise=1/language=2 so the duplicate-translation check
+        # doesn't fire before the language-mismatch check.
+        Translation.objects.filter(exercise_id=1, language_id=2).delete()
+
+        payload = {
+            'name': 'A new translation',
+            'description_source': (
+                'Das ist eine deutsche Beschreibung der Übung, mit ausreichend '
+                'Text damit die Spracherkennung sie zuverlässig erkennen kann.'
+            ),
+            'language': 2,
+            'exercise': 1,
+        }
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=payload)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('language', response.json())
+
+    def test_patch_rejects_language_mismatch(self):
+        """
+        PATCHing ``description_source`` to text in a different language than
+        the (existing) translation's language is rejected.
+        """
+
+        # Translation pk=1 has language=2 (en); push a clearly German
+        # description and expect the validator to reject it.
+        self.authenticate('trainer1')
+        response = self.client.patch(
+            self.url_detail,
+            data={
+                'description_source': (
+                    'Eine ausreichend lange deutsche Beschreibung, damit die '
+                    'Spracherkennung sicher greifen kann.'
+                ),
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('language', response.json())
 
     def test_post_only_one_language_per_base(self):
         """

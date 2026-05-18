@@ -17,6 +17,7 @@ import os
 
 # Django
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
@@ -53,6 +54,7 @@ from wger.exercises.models import (
     Muscle,
     Translation,
 )
+from wger.exercises.models.video import validate_video
 from wger.manager.models import (
     SlotEntry,
     WorkoutLog,
@@ -410,7 +412,11 @@ def download_exercise_images(
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(image_data['image'], headers=headers)
-            ExerciseImage.from_json(exercise, retrieved_image, image_data)
+            try:
+                ExerciseImage.from_json(exercise, retrieved_image, image_data)
+            except ValidationError as e:
+                print_fn(style_fn(f'    invalid image, skipping: {"; ".join(e.messages)}'))
+                continue
 
         print_fn(style_fn('    successfully saved'))
 
@@ -466,9 +472,17 @@ def download_exercise_videos(
         img_temp.write(retrieved_video.content)
         img_temp.flush()
 
+        # Validate file
+        video_file = File(img_temp)
+        try:
+            validate_video(video_file)
+        except ValidationError as e:
+            print_fn(style_fn(f'    invalid video, skipping: {"; ".join(e.messages)}'))
+            continue
+
         video.video.save(
             os.path.basename(os.path.basename(video_data['video'])),
-            File(img_temp),
+            video_file,
         )
         video.save()
         print_fn(style_fn('    saved successfully'))

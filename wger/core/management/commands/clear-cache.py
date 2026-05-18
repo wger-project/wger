@@ -13,21 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.management.base import (
     BaseCommand,
     CommandError,
 )
 
-# wger
-from wger.manager.models import WorkoutLog
-from wger.utils.cache import reset_workout_log_cache
-
 
 class Command(BaseCommand):
     """
-    Clears caches (HTML, etc.)
+    Clears caches
     """
 
     help = (
@@ -36,13 +31,6 @@ class Command(BaseCommand):
     )
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            '--clear-template',
-            action='store_true',
-            dest='clear_template',
-            default=False,
-            help='Clear only template caches',
-        )
 
         parser.add_argument(
             '--clear-all',
@@ -57,39 +45,8 @@ class Command(BaseCommand):
         Process the options
         """
 
-        if (
-            not options['clear_template']
-            and not options['clear_workout']
-            and not options['clear_all']
-        ):
+        if not options['clear_all']:
             raise CommandError('Please select what cache you need to delete, see help')
-
-        # Exercises, cached template fragments
-        if options['clear_template']:
-            if int(options['verbosity']) >= 2:
-                self.stdout.write('*** Clearing templates')
-
-            for user in User.objects.all():
-                if int(options['verbosity']) >= 2:
-                    self.stdout.write(f'* Processing user {user.username}')
-
-                for entry in WorkoutLog.objects.filter(user=user).dates('date', 'year'):
-                    if int(options['verbosity']) >= 3:
-                        self.stdout.write(f'  Year {entry.year}')
-                    for month in WorkoutLog.objects.filter(user=user, date__year=entry.year).dates(
-                        'date', 'month'
-                    ):
-                        if int(options['verbosity']) >= 3:
-                            self.stdout.write(f'    Month {entry.month}')
-                        reset_workout_log_cache(user.id, entry.year, entry.month)
-                        for day in WorkoutLog.objects.filter(
-                            user=user,
-                            date__year=entry.year,
-                            date__month=month.month,
-                        ).dates('date', 'day'):
-                            if int(options['verbosity']) >= 3:
-                                self.stdout.write(f'      Day {day.day}')
-                            reset_workout_log_cache(user.id, entry.year, entry.month, day)
 
         # Nuclear option, clear all
         if options['clear_all']:

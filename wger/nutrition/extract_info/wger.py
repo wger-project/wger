@@ -112,4 +112,5 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
         is_vegetarian=is_vegetarian,
         nutriscore=nutriscore,
     )
+    ingredient_data.sanity_checks()
     return ingredient_data

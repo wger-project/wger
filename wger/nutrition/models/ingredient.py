@@ -23,7 +23,6 @@ from json import JSONDecodeError
 # Django
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
-from django.core.cache import cache
 from django.core.validators import (
     MaxValueValidator,
     MinLengthValidator,
@@ -51,7 +50,6 @@ from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.managers import ApproximateCountManager
 from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
-from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
@@ -341,14 +339,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id})
         else:
             return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
-
-    def save(self, *args, **kwargs):
-        """
-        Reset the cache
-        """
-
-        super(Ingredient, self).save(*args, **kwargs)
-        cache.delete(cache_mapper.get_ingredient_key(self.id))
 
     def __str__(self):
         """

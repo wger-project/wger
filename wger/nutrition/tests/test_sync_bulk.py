@@ -35,10 +35,7 @@ from django.test import SimpleTestCase
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.consts import SyncMode
-from wger.nutrition.models import (
-    Ingredient,
-    IngredientWeightUnit,
-)
+from wger.nutrition.models import Ingredient
 from wger.nutrition.sync import (
     _open_jsonl,
     download_ingredient_dump,
@@ -336,6 +333,31 @@ class TestSyncIngredientsFromDump(WgerTestCase):
             # but we can verify only valid entries are processed
             count = sync_ingredients_from_dump(lambda x: x, tmp.name)
             self.assertEqual(count, 1)
+        finally:
+            Path(tmp.name).unlink()
+
+    def test_skips_ingredient_failing_sanity_checks(self):
+        """An entry that fails sanity_checks() is skipped and the import continues."""
+        bad_entry = {**SAMPLE_INGREDIENTS[0]}
+        bad_entry['uuid'] = 'baaaaaad-0000-0000-0000-000000000001'
+        bad_entry['protein'] = '150.000'  # > 100 -> fails sanity_checks()
+
+        tmp = tempfile.NamedTemporaryFile(suffix='.jsonl', delete=False, mode='w')
+        tmp.write(json.dumps(bad_entry) + '\n')
+        tmp.write(json.dumps(SAMPLE_INGREDIENTS[1]) + '\n')
+        tmp.close()
+
+        try:
+            count = sync_ingredients_from_dump(lambda x: x, tmp.name)
+
+            # Only the valid entry was imported; the malformed one was skipped
+            self.assertEqual(count, 1)
+            self.assertFalse(
+                Ingredient.objects.filter(uuid='baaaaaad-0000-0000-0000-000000000001').exists()
+            )
+            self.assertTrue(
+                Ingredient.objects.filter(uuid='582f1b7f-a8bd-4951-9edd-247bc68b28f4').exists()
+            )
         finally:
             Path(tmp.name).unlink()
 

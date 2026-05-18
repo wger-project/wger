@@ -1,2 +1,6 @@
 [run]
-omit = *migrations*
+omit =
+    */migrations/*
+    */settings/*
+parallel = true
+concurrency = multiprocessing,thread
