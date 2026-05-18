@@ -61,7 +61,9 @@ if os.environ.get('DJANGO_ADMINS'):
     ]
     MANAGERS = ADMINS
 
-if os.environ.get('DJANGO_DB_ENGINE'):
+if os.environ.get('PS_DATABASE_URI'):
+    DATABASES = {'default': env.db_url('PS_DATABASE_URI')}
+elif os.environ.get('DJANGO_DB_ENGINE'):
     DATABASES = {
         'default': {
             'ENGINE': env.str('DJANGO_DB_ENGINE'),

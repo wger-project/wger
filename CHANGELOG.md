@@ -1,5 +1,17 @@
 # Changelog for the next release
 
+## Upgrade steps
+
+* Set the `PS_DATABASE_URI` with the wger db password in the usual format
+  `postgres://<user>:<password>@<host>:<port>/<dbname>`. Note that if you didn't
+  change the default db config, you just need to update the docker compose files,
+  and you're good to go.
+
+* The Postgres container in the docker-compose setup now reads its credentials
+  (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) from `prod.env` instead
+  of having them hardcoded in `services/postgres.yaml`. As above, you only need
+  to change this if you are using some non-standard password.
+
 ## Powersync
 
 Adds powersync support. This allows clients (i.e. the mobile app) to finally
