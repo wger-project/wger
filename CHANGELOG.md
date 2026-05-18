@@ -5,7 +5,7 @@
 * Some unused thumbnail sizes have been deleted, run `./manage.py prune-thumbnails`
   to delete dangling files
 
-* The default location for ingredient images has changed. Please run 
+* The default location for ingredient images has changed. Please run
   `./manage migrate-ingredient-image-paths` to migrate existing entries. Note
   that this is technically optional, as the old paths will continue working,
   but it is advised for consistency.
