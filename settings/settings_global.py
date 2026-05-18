@@ -224,6 +224,11 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 
+# Treat a user as having a single email address: changing it adds a pending
+# address that only replaces the current one (and updates User.email) once
+# confirmed via the verification link.
+ACCOUNT_CHANGE_EMAIL = True
+
 #
 # Login
 #
