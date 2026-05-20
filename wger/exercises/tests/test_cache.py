@@ -4,13 +4,20 @@ from unittest.mock import (
     patch,
 )
 
+# Django
+from django.test import override_settings
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.api.serializers import ExerciseInfoSerializer
 from wger.exercises.cache import (
     cache_api_exercises,
     cache_exercise,
 )
-from wger.exercises.models import Exercise
+from wger.exercises.models import (
+    Exercise,
+    ExerciseImage,
+)
 
 
 class TestCacheExercise(WgerTestCase):
@@ -58,3 +65,35 @@ class TestCacheExercise(WgerTestCase):
         cache_api_exercises(print_fn=output.append, force=True)
 
         self.assertTrue(len(called_exercises) > 0)
+
+    @override_settings(SITE_URL='https://example.com')
+    def test_cached_media_urls_are_absolute(self):
+        """
+        Media URLs are absolute even when the serializer has no request.
+
+        The exercise cache is warmed by a celery task, which has no HTTP request
+        to build absolute URLs from. Without the SITE_URL fallback the cached
+        representation would carry host-less media paths.
+        """
+        exercise = ExerciseImage.objects.first().exercise
+
+        data = ExerciseInfoSerializer(exercise).data
+
+        self.assertTrue(data['images'], 'exercise needs at least one image')
+        for image in data['images']:
+            self.assertTrue(
+                image['image'].startswith('https://example.com/'),
+                f'Image URL is not absolute: {image["image"]}',
+            )
+
+        for video in data['videos']:
+            self.assertTrue(
+                video['video'].startswith('https://example.com/'),
+                f'Video URL is not absolute: {video["video"]}',
+            )
+
+        for muscle in data['muscles']:
+            self.assertTrue(
+                muscle['image_url_main'].startswith('https://example.com/'),
+                f'Muscle image URL is not absolute: {muscle["image_url_main"]}',
+            )

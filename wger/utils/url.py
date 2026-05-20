@@ -19,12 +19,14 @@ from typing import (
     Optional,
 )
 from urllib.parse import (
+    urljoin,
     urlparse,
     urlunparse,
 )
 
 # Django
 from django.conf import settings
+from django.http import HttpRequest
 
 
 def make_uri(
@@ -56,3 +58,25 @@ def make_uri(
     )
 
     return uri
+
+
+def make_absolute_url(path: Optional[str], request: Optional[HttpRequest] = None) -> Optional[str]:
+    """
+    Return an absolute URL for a path.
+
+    When a request is available the URL is built from it, so the host the client
+    connected to is preserved. When there is no request, e.g. while the exercise
+    cache is warmed by a celery task, the URL is built from settings.SITE_URL.
+    Empty paths are returned unchanged. Paths that are already absolute pass
+    through untouched, since neither build_absolute_uri nor urljoin alter them.
+    """
+    if not path:
+        return path
+
+    if request is not None:
+        return request.build_absolute_uri(path)
+
+    if site_url := getattr(settings, 'SITE_URL', None):
+        return urljoin(site_url, path)
+
+    return path

@@ -15,8 +15,17 @@
 # Standard Library
 import unittest
 
+# Django
+from django.test import (
+    RequestFactory,
+    override_settings,
+)
+
 # wger
-from wger.utils.url import make_uri
+from wger.utils.url import (
+    make_absolute_url,
+    make_uri,
+)
 
 
 class TestMakeUri(unittest.TestCase):
@@ -56,6 +65,26 @@ class TestMakeUri(unittest.TestCase):
             make_uri('test', object_id=123, object_method='create', query={'key1': 'value1'}),
             'https://wger.de/api/v2/test/123/create/?key1=value1',
         )
+
+
+class TestMakeAbsoluteUrl(unittest.TestCase):
+    def test_with_request_uses_request_host(self):
+        request = RequestFactory().get('/')
+        self.assertEqual(
+            make_absolute_url('/media/exercise-images/foo.png', request),
+            'http://testserver/media/exercise-images/foo.png',
+        )
+
+    def test_without_request_falls_back_to_site_url(self):
+        with override_settings(SITE_URL='https://example.com'):
+            self.assertEqual(
+                make_absolute_url('/media/exercise-images/foo.png'),
+                'https://example.com/media/exercise-images/foo.png',
+            )
+
+    def test_empty_path_is_returned_unchanged(self):
+        self.assertIsNone(make_absolute_url(None))
+        self.assertEqual(make_absolute_url(''), '')
 
 
 if __name__ == '__main__':

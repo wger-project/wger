@@ -13,13 +13,15 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import logging
 import uuid
 
 # Django
 from django.conf import settings
 from django.core.cache import cache
-from django.db import transaction
+from django.db import (
+    models,
+    transaction,
+)
 from django.db.models import Q
 
 # Third Party
@@ -44,9 +46,7 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
-
-
-logger = logging.getLogger(__name__)
+from wger.utils.url import make_absolute_url
 
 
 def _log_action_creation(serializer, instance):
@@ -113,10 +113,39 @@ class DeletionLogSerializer(serializers.ModelSerializer):
         )
 
 
+class AbsoluteUrlImageField(serializers.ImageField):
+    """
+    ImageField whose representation is always an absolute URL.
+
+    DRF returns a host-less media path when the serializer has no request in
+    its context, which happens when the exercise cache is warmed by a celery
+    task. The SITE_URL fallback keeps the cached representation usable.
+    """
+
+    def to_representation(self, value):
+        if not value:
+            return None
+        return make_absolute_url(value.url, self.context.get('request'))
+
+
+class AbsoluteUrlFileField(serializers.FileField):
+    """FileField variant of AbsoluteUrlImageField, see there for details."""
+
+    def to_representation(self, value):
+        if not value:
+            return None
+        return make_absolute_url(value.url, self.context.get('request'))
+
+
 class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
+
+    serializer_field_mapping = {
+        **serializers.ModelSerializer.serializer_field_mapping,
+        models.ImageField: AbsoluteUrlImageField,
+    }
 
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
     exercise_uuid = serializers.ReadOnlyField(source='exercise.uuid')
@@ -179,6 +208,11 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
     """
     ExerciseVideo serializer for the info endpoint
     """
+
+    serializer_field_mapping = {
+        **serializers.ModelSerializer.serializer_field_mapping,
+        models.FileField: AbsoluteUrlFileField,
+    }
 
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
 
@@ -289,26 +323,12 @@ class MuscleSerializer(serializers.ModelSerializer):
         )
 
     def get_image_url_main(self, obj: Muscle):
-        """Build absolute URL to muscle image"""
-
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.image_url_main)
-
-        # no host available
-        logger.info('Cannot build absolute URL for main muscle image without request context')
-        return None
+        """Absolute URL to the main muscle image"""
+        return make_absolute_url(obj.image_url_main, self.context.get('request'))
 
     def get_image_url_secondary(self, obj: Muscle):
-        """Build absolute URL to muscle image"""
-
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.image_url_secondary)
-
-        # no host available
-        logger.info('Cannot build absolute URL for secondary muscle image without request context')
-        return None
+        """Absolute URL to the secondary muscle image"""
+        return make_absolute_url(obj.image_url_secondary, self.context.get('request'))
 
 
 class ExerciseTranslationInfoSerializer(serializers.ModelSerializer):
