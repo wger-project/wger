@@ -172,7 +172,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password')
 
     def validate_username(self, value):
-        if User.objects.filter(username__iexact=value).exists():
+        if User.objects.filter(username__exact=value).exists():
             suggestions = generate_username_suggestions(value)
             suggestions_string = ', '.join(suggestions)
             raise serializers.ValidationError(

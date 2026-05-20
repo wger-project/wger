@@ -294,7 +294,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if User.objects.filter(username__iexact=username).exists():
+        if User.objects.filter(username__exact=username).exists():
             suggestions = generate_username_suggestions(username)
             suggestions_string = ', '.join(suggestions)
             raise forms.ValidationError(
@@ -331,7 +331,7 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if User.objects.filter(username__iexact=username).exists():
+        if User.objects.filter(username__exact=username).exists():
             suggestions = generate_username_suggestions(username)
             suggestions_string = ', '.join(suggestions)
             raise forms.ValidationError(
