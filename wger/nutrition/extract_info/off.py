@@ -28,7 +28,6 @@ from wger.utils.constants import ODBL_LICENSE_ID
 
 
 OFF_REQUIRED_TOP_LEVEL = [
-    'product_name',
     'code',
     'nutriments',
 ]
@@ -116,7 +115,22 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         raise KeyError('Missing required nutrition key')
 
     # Basics
-    name = product_data.get('product_name', '')
+    # Prefer the generic product_name, then the product's own language, then English,
+    # then any other localized name
+    lang = product_data.get('lang', '')
+    name = (
+        product_data.get('product_name')
+        or product_data.get(f'product_name_{lang}')
+        or product_data.get('product_name_en')
+    )
+    if not name:
+        for key, value in product_data.items():
+            if key.startswith('product_name_') and value:
+                name = value
+                break
+    if not name:
+        raise KeyError('Missing required product name')
+
     common_name = product_data.get('generic_name', '')
 
     # If the energy is not available in kcal, convert from kJ

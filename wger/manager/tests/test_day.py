@@ -19,7 +19,11 @@ from decimal import Decimal
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import SetConfigData
-from wger.manager.models import Day
+from wger.manager.models import (
+    Day,
+    Slot,
+    SlotEntry,
+)
 
 
 class DaySlotTestCase(WgerTestCase):
@@ -181,6 +185,23 @@ class DaySlotTestCase(WgerTestCase):
                 )
             ),
         )
+
+    def test_slots_display_mode_superset_resets_grouping(self):
+        """
+        Test that a superset between two single-exercise slots of the same
+        exercise does not crash the display-mode grouping
+        """
+
+        day = Day.objects.get(pk=1)
+
+        # Prepend a single-exercise slot for the same exercise used after the
+        # superset, producing the sequence: single(3), superset(1, 2), single(3)
+        slot = Slot.objects.create(day=day, order=0, comment='leading slot')
+        SlotEntry.objects.create(slot=slot, exercise_id=3, order=1)
+
+        slots = day.get_slots_display_mode(1)
+
+        self.assertEqual([s.exercises for s in slots], [[3], [1, 2], [3]])
 
 
 class DayModelTestCase(WgerTestCase):

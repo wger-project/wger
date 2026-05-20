@@ -444,3 +444,33 @@ class TrophyIntegrationTestCase(WgerTestCase):
         # Verify final trophy count
         total_trophies = UserTrophy.objects.filter(user=self.user).count()
         self.assertEqual(total_trophies, 3)  # Beginner, Lifter, Unstoppable
+
+
+class UserDeletionTestCase(WgerTestCase):
+    """
+    Deleting a user with workout history must not be broken by the trophies
+    statistics signals
+    """
+
+    def test_delete_user_does_not_recreate_statistics(self):
+        """
+        Deleting a user does not leave an orphaned UserStatistics row.
+
+        The post_delete signals on WorkoutLog/WorkoutSession must not recreate
+        a statistics row for the user being deleted, which would orphan it and
+        break the deletion transaction's foreign key check.
+        """
+        user = User.objects.create_user('to_delete', 'to_delete@example.com', 'pass')
+        exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='cat'))
+
+        WorkoutSession.objects.create(user=user, date=datetime.date(2024, 1, 1))
+        WorkoutLog.objects.create(user=user, exercise=exercise, repetitions=10, weight=100)
+
+        # The statistics row is already gone when the workout-deletion signals
+        UserStatistics.objects.filter(user=user).delete()
+
+        user_id = user.pk
+        user.delete()
+
+        self.assertFalse(User.objects.filter(pk=user_id).exists())
+        self.assertFalse(UserStatistics.objects.filter(user_id=user_id).exists())

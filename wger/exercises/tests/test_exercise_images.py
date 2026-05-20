@@ -15,6 +15,7 @@
 # Django
 from django.core.files import File
 from django.test import SimpleTestCase
+from django.urls import reverse
 
 # wger
 from wger.core.tests import api_base_test
@@ -203,6 +204,20 @@ class ExerciseImageFromJsonSimpleTests(SimpleTestCase):
         self.assertIsInstance(img, ExerciseImage)
         self.assertNotEqual(str(img.uuid), json_data['uuid'])
         self.assertFalse(img.is_main)
+
+
+class ExerciseImageThumbnailsApiTestCase(WgerTestCase):
+    """
+    Tests the thumbnails action of the exercise image API endpoint
+    """
+
+    def test_thumbnails_non_numeric_pk(self):
+        """A non-numeric pk yields a 404 instead of raising a 500"""
+        response = self.client.get(
+            reverse('exerciseimage-thumbnails', kwargs={'pk': 'not-a-number'})
+        )
+
+        self.assertEqual(response.status_code, 404)
 
 
 # TODO: add POST and DELETE tests

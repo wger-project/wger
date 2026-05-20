@@ -13,12 +13,17 @@
   the next refresh call. It's recommended to update your `prod.env` and set
   `REFRESH_TOKEN_LIFETIME` to a value like 3000.
 
+* When a username is already taken during registration, the system now suggests available
+  alternatives. This replaces the default DRF UniqueValidator with a custom validator that
+  includes suggested usernames in the error response. Suggestions are supported in both the
+  serializer and web registration form validation.
+
 * Add support for dynamic measurement categories. The (`/api/v2/measurement/`) endpoint now
   intercepts requests for dynamic categories (such as BMI) and auto-calculates the
   results on-the-fly using existing user data (e.g., profile height and weight entries).
   A new endpoint at (`/api/v2/measurement-category/dynamic-types/`) has been added to
   expose the available dynamic options.
   An enum is used for the different options and can be extended for more dynamic types.
-  
+
 * Exercise language are now also checked when performing edits, instead of only
  during submission.

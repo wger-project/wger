@@ -17,6 +17,9 @@
 import logging
 from decimal import Decimal
 
+# Django
+from django.urls import reverse
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition import models
@@ -231,3 +234,18 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         self.assertAlmostEqual(values['per_kg']['carbohydrates'], Decimal(4.96), 2)
         self.assertAlmostEqual(values['per_kg']['fat'], Decimal(1.51), 2)
         self.assertAlmostEqual(values['per_kg']['protein'], Decimal(4.33), 2)
+
+
+class NutritionalValuesApiTestCase(WgerTestCase):
+    """
+    Tests the nutritional_values action of the nutrition diary API endpoint
+    """
+
+    def test_nutritional_values_non_numeric_pk(self):
+        """A non-numeric pk yields a 404 instead of raising a 500"""
+        self.user_login('test')
+        response = self.client.get(
+            reverse('nutritiondiary-nutritional-values', kwargs={'pk': 'not-a-number'})
+        )
+
+        self.assertEqual(response.status_code, 404)
