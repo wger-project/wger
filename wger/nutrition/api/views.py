@@ -385,6 +385,4 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(
-            LogItem.objects.get(pk=pk, plan__user=self.request.user).get_nutritional_values()
-        )
+        return Response(self.get_object().get_nutritional_values())
