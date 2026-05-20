@@ -13,12 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 from decimal import Decimal
 from unittest.mock import patch
 
 # Django
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -201,7 +199,7 @@ class TrophyServiceTestCase(WgerTestCase):
     def test_evaluate_all_trophies(self):
         """Test evaluating all trophies for a user"""
         # Create multiple trophies
-        trophy2 = Trophy.objects.create(
+        Trophy.objects.create(
             name='Trophy 2',
             trophy_type=Trophy.TYPE_SEQUENCE,
             checker_class='streak',
