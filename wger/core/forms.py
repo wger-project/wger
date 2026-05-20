@@ -55,6 +55,7 @@ from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
+from wger.core.validators import validate_username
 
 
 class PasswordInputWithToggle(PasswordInput):
@@ -295,6 +296,11 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
         help_text=gettext_lazy('The form is secured with reCAPTCHA'),
     )
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        validate_username(username)
+        return username
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -321,6 +327,11 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     """
     Registration form without CAPTCHA field
     """
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        validate_username(username)
+        return username
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
