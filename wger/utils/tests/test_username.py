@@ -52,3 +52,11 @@ class TestGenerateUsernameSuggestions(TestCase):
         suggestions = generate_username_suggestions('john.doe!!')
         for suggestion in suggestions:
             self.assertIn('johndoe', suggestion)
+
+    def test_empty_username_falls_back_to_user(self):
+        """
+        If the username is all special characters, suggestions should fall back to 'user'
+        """
+        suggestions = generate_username_suggestions('!!!!!')
+        for suggestion in suggestions:
+            self.assertIn('user', suggestion)

@@ -24,7 +24,7 @@ def generate_username_suggestions(username: str, count: int = 3):
     """
     Given a username, generates a list of available unique usernames.
     """
-    text = re.sub(r'[^\w]', '', username)
+    text = re.sub(r'[^\w]', '', username) or 'user'
 
     candidates = [
         f'{text}{random.randint(1, 99)}',
