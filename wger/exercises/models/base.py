@@ -28,8 +28,8 @@ from django.db import (
     OperationalError,
     ProgrammingError,
     models,
+    transaction,
 )
-from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import get_language
 
@@ -150,8 +150,8 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 errors.append(
                     Warning(
                         'exercises without translations',
-                        hint=f'There are {no_translations} exercises without translations, this will '
-                        'cause problems! You can output or delete them with "python manage.py '
+                        hint=f'There are {no_translations} exercises without translations, this '
+                        'will cause problems! You can output or delete them with "python manage.py '
                         'exercises-health-check --help"',
                         id='wger.W002',
                     )
@@ -282,35 +282,40 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             except Exercise.DoesNotExist:
                 replace_by = None
 
-        DeletionLog.objects.update_or_create(
-            uuid=self.uuid,
-            defaults={
-                'model_type': DeletionLog.MODEL_EXERCISE,
-                'comment': f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
-                'replaced_by': replace_by,
-            },
-        )
+        # Wrap everything in a single transaction so the deletion-log entry,
+        # the reference repointing and the delete itself are all-or-nothing.
+        # Otherwise a failing delete would leave the exercise behind with its
+        # references already moved to the replacement.
+        with transaction.atomic():
+            DeletionLog.objects.update_or_create(
+                uuid=self.uuid,
+                defaults={
+                    'model_type': DeletionLog.MODEL_EXERCISE,
+                    'comment': f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
+                    'replaced_by': replace_by,
+                },
+            )
 
-        # Replace references in workout logs and routines before deleting,
-        # so that user data is not lost on this instance
-        if replacement:
-            SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
-            WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
+            # Replace references in workout logs and routines before deleting,
+            # so that user data is not lost on this instance
+            if replacement:
+                SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
+                WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
 
-            if transfer_media:
-                ExerciseImage.objects.filter(exercise=self).update(exercise=replacement)
-                ExerciseVideo.objects.filter(exercise=self).update(exercise=replacement)
+                if transfer_media:
+                    ExerciseImage.objects.filter(exercise=self).update(exercise=replacement)
+                    ExerciseVideo.objects.filter(exercise=self).update(exercise=replacement)
 
-            if transfer_translations:
-                existing_languages = Translation.objects.filter(
-                    exercise=replacement,
-                ).values_list('language_id', flat=True)
-                Translation.objects.filter(exercise=self).exclude(
-                    language_id__in=list(existing_languages),
-                ).update(exercise=replacement)
+                if transfer_translations:
+                    existing_languages = Translation.objects.filter(
+                        exercise=replacement,
+                    ).values_list('language_id', flat=True)
+                    Translation.objects.filter(exercise=self).exclude(
+                        language_id__in=list(existing_languages),
+                    ).update(exercise=replacement)
 
-        reset_exercise_api_cache(str(self.uuid))
-        if replacement:
-            reset_exercise_api_cache(str(replacement.uuid))
+            reset_exercise_api_cache(str(self.uuid))
+            if replacement:
+                reset_exercise_api_cache(str(replacement.uuid))
 
-        return super().delete(using, keep_parents)
+            return super().delete(using, keep_parents)
