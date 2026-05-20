@@ -31,7 +31,6 @@ from allauth.account.utils import (
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
 from rest_framework.fields import empty
-from rest_framework.validators import UniqueValidator
 
 # wger
 from wger.core.models import (
@@ -165,7 +164,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False)
     username = serializers.CharField(
         required=True,
-        # validators=[UniqueValidator(queryset=User.objects.all())],
     )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
 
