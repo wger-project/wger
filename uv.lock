@@ -605,14 +605,14 @@ wheels = [
 
 [[package]]
 name = "django-formtools"
-version = "2.5.1"
+version = "2.6.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/73/f8/bb9b228fc33230186f3612a6fc96274a81bab3509817498f2632d7aa6367/django-formtools-2.5.1.tar.gz", hash = "sha256:47cb34552c6efca088863d693284d04fc36eaaf350eb21e1a1d935e0df523c93", size = 88637, upload-time = "2023-12-19T10:30:59.78Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7a/fe/0b3c56822d4ba217a169d5a6493b4e3610c6efcda3081d68dcbb2a3dd994/django_formtools-2.6.1.tar.gz", hash = "sha256:603ebc69a4b76b9bf38534f6e0245face007c7ed31bdfa073f8bf45cff5d7122", size = 91174, upload-time = "2026-05-16T13:30:07.26Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/63/91a107e3aaaf3987bad036494dfd8cc2675f4a66d22e65ffd6711f84ba70/django_formtools-2.5.1-py3-none-any.whl", hash = "sha256:bce9b64eda52cc1eef6961cc649cf75aacd1a707c2fff08d6c3efcbc8e7e761a", size = 170651, upload-time = "2023-12-19T10:30:02.816Z" },
+    { url = "https://files.pythonhosted.org/packages/41/b8/0f711b0953d8234c6084ab071108a73b755da81de445e1296d83f0261ab1/django_formtools-2.6.1-py3-none-any.whl", hash = "sha256:2848516dc66a7acde1cb595d225b30c1b837528948cad32bf0faafc6d8cc7af8", size = 157971, upload-time = "2026-05-16T13:30:06Z" },
 ]
 
 [[package]]
@@ -1906,7 +1906,7 @@ requires-dist = [
     { name = "django-crispy-forms", specifier = "~=2.5" },
     { name = "django-environ", specifier = "~=0.13.0" },
     { name = "django-filter", specifier = "~=25.2" },
-    { name = "django-formtools", specifier = "~=2.5" },
+    { name = "django-formtools", specifier = "~=2.6" },
     { name = "django-prometheus", specifier = "~=2.4.0" },
     { name = "django-recaptcha", specifier = "~=4.1.0" },
     { name = "django-redis", specifier = "~=6.0.0" },
