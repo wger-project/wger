@@ -55,7 +55,7 @@ from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
-from wger.utils.username import generate_username_suggestions
+from wger.core.validators import validate_username
 
 
 class PasswordInputWithToggle(PasswordInput):
@@ -294,12 +294,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if User.objects.filter(username__exact=username).exists():
-            suggestions = generate_username_suggestions(username)
-            suggestions_string = ', '.join(suggestions)
-            raise forms.ValidationError(
-                f'A user with this username already exists. Suggestions: {suggestions_string}'
-            )
+        validate_username(username)
         return username
 
     def __init__(self, *args, **kwargs):
@@ -331,12 +326,7 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if User.objects.filter(username__exact=username).exists():
-            suggestions = generate_username_suggestions(username)
-            suggestions_string = ', '.join(suggestions)
-            raise forms.ValidationError(
-                f'A user with this username already exists. Suggestions: {suggestions_string}'
-            )
+        validate_username(username)
         return username
 
     def __init__(self, *args, **kwargs):
