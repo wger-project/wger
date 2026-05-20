@@ -12,12 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import random
+# Standard library
+import re
+
 # Django
 from django.contrib.auth.models import User
-
-#Standard library
-import re
-import random
 
 
 def generate_username_suggestions(username: str, count: int = 3):
@@ -31,7 +32,7 @@ def generate_username_suggestions(username: str, count: int = 3):
         f'{text}{random.randint(100, 999)}',
         f'{text[0]}{text}{random.randint(1, 10)}',
         f'{text}{text[-1]}{random.randint(1, 10)}',
-        f'{text}_{random.randint(1,99)}',
+        f'{text}_{random.randint(1, 99)}',
     ]
     random.shuffle(candidates)
 

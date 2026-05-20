@@ -177,7 +177,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             suggestions_string = ', '.join(suggestions)
             raise serializers.ValidationError(
                 f'A user with this username already exists. \nSuggestions: {suggestions_string}'
-                )
+            )
         return value
 
     def validate_email(self, value):

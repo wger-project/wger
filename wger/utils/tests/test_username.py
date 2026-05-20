@@ -33,7 +33,9 @@ class TestGenerateUsernameSuggestions(TestCase):
         Suggestions should not exist in the database
         """
         suggestions = generate_username_suggestions('john', 100)
-        taken = set(User.objects.filter(username__in=suggestions).values_list('username', flat=True))
+        taken = set(
+            User.objects.filter(username__in=suggestions).values_list('username', flat=True)
+        )
         for suggestion in suggestions:
             self.assertNotIn(suggestion, taken)
 
