@@ -15,6 +15,7 @@
 
 # Standard Library
 import datetime
+import io
 import json
 from unittest.mock import (
     MagicMock,
@@ -22,10 +23,12 @@ from unittest.mock import (
 )
 
 # Django
+from django.core.files.base import ContentFile
 from django.test import SimpleTestCase
 from django.urls import reverse
 
 # Third Party
+from PIL import Image as PILImage
 from rest_framework import status
 
 # wger
@@ -895,3 +898,24 @@ class IngredientSyncViewSetTestCase(WgerTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'], [])
         self.assertIsNone(response.data['next'])
+
+    def test_unprocessable_image_does_not_break_page(self):
+        """An image that cannot be thumbnailed yields `thumbnails: None`, not a 500."""
+
+        # An extreme aspect ratio makes easy_thumbnails scale one dimension down
+        # to zero, which raises a ValueError from Pillow during thumbnailing
+        source = PILImage.new('RGB', (1, 800))
+        buffer = io.BytesIO()
+        source.save(buffer, format='PNG')
+
+        image = Image(ingredient=Ingredient.objects.get(pk=1), size=buffer.getbuffer().nbytes)
+        image.image.save('bad.png', ContentFile(buffer.getvalue()), save=False)
+        image.width = source.width
+        image.height = source.height
+        image.save()
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        entry = next(i for i in response.data['results'] if i['id'] == 1)
+        self.assertIsNone(entry['thumbnails'])

@@ -13,10 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
 # Django
 from django.conf import settings
 
 # Third Party
+from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
@@ -30,6 +34,9 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 class IngredientWeightUnitSerializer(serializers.ModelSerializer):
@@ -195,7 +202,11 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
         thumbnailer = get_thumbnailer(obj.image.image)
         for alias in aliases:
             opts = settings.THUMBNAIL_ALIASES[''][alias]
-            thumb = thumbnailer.get_thumbnail(opts)
+            try:
+                thumb = thumbnailer.get_thumbnail(opts)
+            except (EasyThumbnailsError, OSError, ValueError):
+                logger.warning('Could not generate thumbnails for image %s', obj.image.pk)
+                return None
             result[alias] = request.build_absolute_uri(thumb.url)
         return result
 
