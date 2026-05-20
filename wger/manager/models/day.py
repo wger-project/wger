@@ -172,7 +172,7 @@ class Day(models.Model):
             # one exercise
             else:
                 exercise_id = exercises[0]
-                if exercise_id != last_exercise_id:
+                if current_slot is None or exercise_id != last_exercise_id:
                     current_slot = slot_data
                     out.append(slot_data)
                     last_exercise_id = exercise_id
