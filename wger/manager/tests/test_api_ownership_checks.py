@@ -102,14 +102,14 @@ class WorkoutLogNextLogOwnershipTestCase(WgerTestCase):
     nulls the field, but the API should respond with 403 for consistency
     with the other foreign keys on this resource.
 
-    WorkoutLog pk=1 belongs to user 'admin' (pk=1).
+    The seed log belongs to user 'admin' (pk=1).
     Routine pk=3 belongs to user 'test' (pk=2).
     """
 
     def test_create_with_foreign_next_log_is_forbidden(self):
         self.user_login('test')
 
-        victim_log = WorkoutLog.objects.get(pk=1)
+        victim_log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         self.assertEqual(victim_log.user_id, 1)
 
         response = self.client.post(

@@ -15,10 +15,9 @@ RUN wget -O- https://deb.nodesource.com/setup_22.x | bash - \
         git \
         vim \
         nodejs \
-        sassc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -s /usr/bin/sassc /usr/bin/sass
+    && npm install -g sass
 
 USER wger
 COPY --chown=wger:wger . /home/wger/src

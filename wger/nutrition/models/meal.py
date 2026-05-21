@@ -22,6 +22,7 @@ from django.db import models
 
 # wger
 from wger.utils.fields import Html5TimeField
+from wger.utils.uuid import uuid7
 
 # Local
 from ..helpers import NutritionalValues
@@ -41,6 +42,11 @@ class Meal(models.Model):
         ordering = [
             'time',
         ]
+
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
+    )
 
     plan = models.ForeignKey(
         NutritionPlan,

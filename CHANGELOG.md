@@ -1,5 +1,33 @@
 # Changelog for the next release
 
+## Upgrade steps
+
+* Set the `PS_DATABASE_URI` with the wger db password in the usual format
+  `postgres://<user>:<password>@<host>:<port>/<dbname>`. Note that if you didn't
+  change the default db config, you just need to update the docker compose files,
+  and you're good to go.
+
+* The Postgres container in the docker-compose setup now reads its credentials
+  (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) from `prod.env` instead
+  of having them hardcoded in `services/postgres.yaml`. As above, you only need
+  to change this if you are using some non-standard password.
+
+## Powersync
+
+Adds powersync support. This allows clients (i.e. the mobile app) to finally
+implement offline support. The data is saved in a local sqlite database and
+synced with the server when possible.
+
+Incompatible changes:
+
+The type for the ID for Measurement and MeasurementCategory was changed from integer
+to UUID. This was made to allow for clients to generate IDs locally and affects
+`/api/v2/measurement-category/` and `/api/v2/measurement/`.
+
+Make sure you have set the values for `SITE_URL`.
+
+## Others
+
 * The ingredient API filter now supports range lookups on `nutriscore`
   (`gt`, `gte`, `lt`, `lte`) in addition to `exact` and `in`, enabling queries
   like "better than C" (#2295).

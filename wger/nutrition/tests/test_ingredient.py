@@ -445,7 +445,7 @@ class IngredientTestCase(WgerTestCase):
         ingredient2.protein = 30
         self.assertEqual(ingredient1, ingredient2)
 
-        meal = Meal.objects.get(pk=1)
+        meal = Meal.objects.get(pk='aa000000-0000-0000-0000-000000000001')
         self.assertFalse(ingredient1 == meal)
 
 
