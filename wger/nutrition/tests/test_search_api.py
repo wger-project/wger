@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from unittest.mock import patch
+
 # Third Party
 from rest_framework import status
 
@@ -96,6 +99,38 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 7)
+
+    @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
+    def test_search_name_with_valid_barcode(self, mock_fetch):
+        """
+        Searching for an 8-14 digit number in the name field should trigger the OFF API lookup
+        """
+        self.client.get(self.url + '?name__search=1300000000000')
+        mock_fetch.assert_called_once_with('1300000000000')
+
+    @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
+    def test_search_name_with_text(self, mock_fetch):
+        """
+        Searching for a standard text string should fall back to full-text search
+        """
+        self.client.get(self.url + '?name__search=apples')
+        mock_fetch.assert_not_called()
+
+    @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
+    def test_search_name_with_short_number(self, mock_fetch):
+        """
+        Searching for a short number (<8) should fall back to full-text search
+        """
+        self.client.get(self.url + '?name__search=7000000')
+        mock_fetch.assert_not_called()
+
+    @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
+    def test_search_name_with_long_number(self, mock_fetch):
+        """
+        Searching for a long number (>14) should fall back to full-text search
+        """
+        self.client.get(self.url + '?name__search=150000000000000')
+        mock_fetch.assert_not_called()
 
     def test_filter_nutriscore_exact(self):
         """
