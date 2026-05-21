@@ -714,7 +714,14 @@ class WgerLoginView(LoginView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and not request.user.userprofile.is_temporary:
-            return redirect(request.GET.get('next', reverse('core:dashboard')))
+            next_url = request.GET.get('next')
+            if next_url and url_has_allowed_host_and_scheme(
+                next_url,
+                allowed_hosts={request.get_host()},
+                require_https=request.is_secure(),
+            ):
+                return redirect(next_url)
+            return redirect(reverse('core:dashboard'))
 
         # Proceed with the normal login page logic
         return super().dispatch(request, *args, **kwargs)
