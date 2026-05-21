@@ -16,6 +16,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+
+
+from django.urls import include
+
+
+
 from django.contrib.auth.decorators import login_required
 from django.urls import (
     path,
@@ -29,6 +35,9 @@ from wger.weight.forms import WeightCsvImportForm
 
 
 urlpatterns = [
+
+    path('api/', include('wger.weight.api.urls')),
+
     path(
         'export-csv/',
         views.export_csv,
@@ -45,3 +54,4 @@ urlpatterns = [
         name='overview',
     ),
 ]
+
