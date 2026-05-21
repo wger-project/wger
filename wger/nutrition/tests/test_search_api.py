@@ -129,7 +129,7 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Searching for a long number (>14) should fall back to full-text search
         """
-        self.client.get(self.url + '?name__search=140000000000000')
+        self.client.get(self.url + '?name__search=150000000000000')
         mock_fetch.assert_not_called()
 
     def test_filter_nutriscore_exact(self):

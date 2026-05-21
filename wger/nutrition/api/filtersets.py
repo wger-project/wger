@@ -70,7 +70,7 @@ class IngredientFilterSet(filters.FilterSet):
 
     def search_name_fulltext(self, queryset, name, value):
         """
-        Perform a fulltext search when a barcode is entered or postgres is available
+        Try a barcode lookup first, then perform a fulltext search when Postgres is available
         """
 
         # If a numeric value looks like a barcode (EAN-8, UPC-A, EAN-13, GTIN-14),
