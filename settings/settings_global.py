@@ -278,6 +278,7 @@ AVAILABLE_LANGUAGES = (
     ('hr', 'Croatian'),
     ('it', 'Italian'),
     ('ko', 'Korean'),
+    ('mk', 'Macedonian'),
     ('nl', 'Dutch'),
     ('nb', 'Norwegian'),
     ('pl', 'Polish'),
