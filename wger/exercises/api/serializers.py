@@ -344,26 +344,12 @@ class MuscleSerializer(serializers.ModelSerializer):
         )
 
     def get_image_url_main(self, obj: Muscle):
-        """Build absolute URL to muscle image"""
-
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.image_url_main)
-
-        # no host available
-        logger.info('Cannot build absolute URL for main muscle image without request context')
-        return None
+        """Absolute URL to the main muscle image"""
+        return make_absolute_url(obj.image_url_main, self.context.get('request'))
 
     def get_image_url_secondary(self, obj: Muscle):
-        """Build absolute URL to muscle image"""
-
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.image_url_secondary)
-
-        # no host available
-        logger.info('Cannot build absolute URL for secondary muscle image without request context')
-        return None
+        """Absolute URL to the secondary muscle image"""
+        return make_absolute_url(obj.image_url_secondary, self.context.get('request'))
 
 
 class ExerciseTranslationInfoSerializer(serializers.ModelSerializer):
