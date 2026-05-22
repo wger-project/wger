@@ -49,6 +49,17 @@ from wger.trophies.tasks import evaluate_user_trophies_task
 logger = logging.getLogger(__name__)
 
 
+def _deletion_originates_from_user(origin) -> bool:
+    """
+    True if this delete is part of removing a User account.
+
+    During a user deletion the statistics row is cascade-deleted too;
+    recreating it from a workout-deletion signal would leave an orphan row
+    and break the transaction's foreign key check at COMMIT.
+    """
+    return isinstance(origin, User) or getattr(origin, 'model', None) is User
+
+
 def _trigger_trophy_evaluation(user_id: int):
     """
     Trigger async trophy evaluation for a user.
@@ -120,13 +131,16 @@ def workout_log_saved(sender, instance: WorkoutLog, created: bool, **kwargs):
 
 
 @receiver(post_delete, sender=WorkoutLog)
-def workout_log_deleted(sender, instance: WorkoutLog, **kwargs):
+def workout_log_deleted(sender, instance: WorkoutLog, origin=None, **kwargs):
     """
     Handle WorkoutLog delete events.
 
     Triggers full statistics recalculation when a log is deleted.
     """
     if not instance.user_id:
+        return
+
+    if _deletion_originates_from_user(origin):
         return
 
     try:
@@ -175,13 +189,16 @@ def workout_session_saved(sender, instance: WorkoutSession, created: bool, **kwa
 
 
 @receiver(post_delete, sender=WorkoutSession)
-def workout_session_deleted(sender, instance: WorkoutSession, **kwargs):
+def workout_session_deleted(sender, instance: WorkoutSession, origin=None, **kwargs):
     """
     Handle WorkoutSession delete events.
 
     Triggers full statistics recalculation when a session is deleted.
     """
     if not instance.user_id:
+        return
+
+    if _deletion_originates_from_user(origin):
         return
 
     try:

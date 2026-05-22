@@ -268,5 +268,23 @@
       "full_name": "தமிழ்",
       "full_name_en": "Tamil"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 31,
+    "fields": {
+      "short_name": "ro",
+      "full_name": "Română",
+      "full_name_en": "Romanian"
+    }
+  },
+  {
+    "model": "core.language",
+    "pk": 32,
+    "fields": {
+      "short_name": "ca",
+      "full_name": "Català",
+      "full_name_en": "Catalan"
+    }
   }
 ]

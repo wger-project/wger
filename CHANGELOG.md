@@ -28,5 +28,10 @@
   the next refresh call. It's recommended to update your `prod.env` and set
   `REFRESH_TOKEN_LIFETIME` to a value like 3000.
 
+* When a username is already taken during registration, the system now suggests available
+  alternatives. This replaces the default DRF UniqueValidator with a custom validator that
+  includes suggested usernames in the error response. Suggestions are supported in both the
+  serializer and web registration form validation.
+  
 * Exercise language are now also checked when performing edits, instead of only
  during submission.

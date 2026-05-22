@@ -1,6 +1,9 @@
 # Standard Library
 from unittest import mock
 
+# Django
+from django.urls import reverse
+
 # Third Party
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
@@ -79,6 +82,29 @@ class TrainerLoginTestCase(WgerTestCase):
             resp = trainer_login(request, 'primary-key-not-needed-because-of-mock')
 
         self.assertEqual(404, resp.status_code)
+
+
+class WgerLoginViewRedirectTestCase(WgerTestCase):
+    """
+    Tests the "next" parameter handling when an already-authenticated user
+    visits the login page
+    """
+
+    def test_already_logged_in_rejects_offsite_next(self):
+        """An off-site "next" URL is ignored and the user lands on the dashboard"""
+        self.user_login('admin')
+        response = self.client.get(
+            reverse('core:user:login'),
+            {'next': 'https://attacker.example/phish'},
+        )
+        self.assertRedirects(response, reverse('core:dashboard'), fetch_redirect_response=False)
+
+    def test_already_logged_in_allows_local_next(self):
+        """A safe, same-host relative "next" URL is honoured"""
+        self.user_login('admin')
+        target = reverse('core:dashboard')
+        response = self.client.get(reverse('core:user:login'), {'next': target})
+        self.assertRedirects(response, target, fetch_redirect_response=False)
 
 
 class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):

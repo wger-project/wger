@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+from unittest.mock import patch
 from uuid import UUID
 
 # wger
@@ -114,6 +115,28 @@ class DeletionLogTestCase(WgerTestCase):
 
         # The slot entry should now point to the replacement
         self.assertEqual(SlotEntry.objects.filter(exercise=replacement).count(), 2)
+
+    def test_exercise_replace_by_delete_is_atomic_on_failure(self):
+        """
+        Test that a failure during the delete rolls back the deletion log and
+        the reference repointing instead of leaving them half-applied
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        # Make the delete fail after the deletion log and the repointing
+        with patch(
+            'wger.exercises.models.base.reset_exercise_api_cache',
+            side_effect=RuntimeError('boom'),
+        ):
+            with self.assertRaises(RuntimeError):
+                exercise_to_delete.delete(replace_by=str(replacement.uuid))
+
+        # Nothing was committed: no deletion log, and the slot entry still
+        # points to the original exercise
+        self.assertFalse(DeletionLog.objects.filter(uuid=exercise_to_delete.uuid).exists())
+        self.assertEqual(SlotEntry.objects.filter(exercise=exercise_to_delete).count(), 1)
+        self.assertEqual(SlotEntry.objects.filter(exercise=replacement).count(), 1)
 
     def test_exercise_replace_by_transfers_media(self):
         """

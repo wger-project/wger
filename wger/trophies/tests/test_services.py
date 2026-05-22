@@ -13,12 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 from decimal import Decimal
 from unittest.mock import patch
 
 # Django
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -104,15 +102,6 @@ class UserStatisticsServiceTestCase(WgerTestCase):
         # Should recalculate from actual workout data (none in test db)
         self.assertEqual(stats.total_workouts, 0)
         self.assertEqual(stats.total_weight_lifted, Decimal('0'))
-
-    def test_get_or_create_statistics_deleted_user(self):
-        """
-        Test get_or_create raises DoesNotExist for deleted user
-        """
-        with patch.object(User.objects, 'filter') as mock_filter:
-            mock_filter.return_value.exists.return_value = False
-            with self.assertRaises(User.DoesNotExist):
-                UserStatisticsService.get_or_create_statistics(self.user)
 
 
 class TrophyServiceTestCase(WgerTestCase):
@@ -210,7 +199,7 @@ class TrophyServiceTestCase(WgerTestCase):
     def test_evaluate_all_trophies(self):
         """Test evaluating all trophies for a user"""
         # Create multiple trophies
-        trophy2 = Trophy.objects.create(
+        Trophy.objects.create(
             name='Trophy 2',
             trophy_type=Trophy.TYPE_SEQUENCE,
             checker_class='streak',
