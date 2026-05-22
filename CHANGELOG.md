@@ -12,6 +12,9 @@
 
 ## Other changes
 
+* The exercise image API now exposes `thumbnails` with `small` and `medium`
+  URLs, consistent with the ingredient API
+
 * The ingredient API filter now supports range lookups on `nutriscore`
   (`gt`, `gte`, `lt`, `lte`) in addition to `exact` and `in`, enabling queries
   like "better than C" (#2295).
