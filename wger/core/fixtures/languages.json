@@ -277,5 +277,14 @@
       "full_name": "Română",
       "full_name_en": "Romanian"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 32,
+    "fields": {
+      "short_name": "ca",
+      "full_name": "Català",
+      "full_name_en": "Catalan"
+    }
   }
 ]
