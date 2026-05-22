@@ -59,6 +59,7 @@ from rest_framework.response import Response
 # wger
 # The per-app powersync modules are imported for their side effect: each one
 # registers its handlers with wger.utils.powersync.REGISTRY at import time.
+import wger.core.powersync  # noqa: F401
 import wger.gallery.powersync  # noqa: F401
 import wger.manager.powersync  # noqa: F401
 import wger.measurements.powersync  # noqa: F401
