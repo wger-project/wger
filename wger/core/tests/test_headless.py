@@ -18,6 +18,9 @@
 # Standard Library
 import json
 
+# Django
+from django.contrib.auth.models import User
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 
@@ -60,6 +63,46 @@ class HeadlessSmokeTestCase(WgerTestCase):
             HTTP_AUTHORIZATION=f'Bearer {access_token}',
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_signup_respects_allow_registration_setting(self):
+        """
+        With ``ALLOW_REGISTRATION=False`` the WgerAccountAdapter must report
+        the site as closed for signup, so the headless signup endpoint
+        rejects the request and no user is created.
+        """
+        signup_data = {
+            'username': 'headlessnew',
+            'email': 'headlessnew@example.com',
+            'password': 'AekaiLe0ga',
+        }
+
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': False,
+                'ALLOW_GUEST_USERS': True,
+                'ALLOW_REGISTRATION': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+            }
+        ):
+            count_before = User.objects.count()
+            response = self.client.post(
+                '/_allauth/app/v1/auth/signup',
+                data=json.dumps(signup_data),
+                content_type='application/json',
+            )
+            self.assertEqual(response.status_code, 403, response.content)
+            self.assertEqual(User.objects.count(), count_before)
+
+        # Sanity-check the opposite path: with registration enabled the same
+        # payload creates a user via the headless endpoint.
+        count_before = User.objects.count()
+        response = self.client.post(
+            '/_allauth/app/v1/auth/signup',
+            data=json.dumps(signup_data),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(User.objects.count(), count_before + 1)
 
     def test_invalid_jwt_does_not_break_auth_chain(self):
         """

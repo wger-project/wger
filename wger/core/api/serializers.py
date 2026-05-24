@@ -16,15 +16,9 @@
 # Standard Library
 import logging
 
-# Django
-from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
-
 # Third Party
-from allauth.account.utils import filter_users_by_email
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 
 # wger
 from wger.core.models import (
@@ -86,35 +80,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         )
-
-
-class UserRegistrationSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=False)
-    username = serializers.CharField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())],
-    )
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password')
-
-    def validate_email(self, value):
-        # Case-insensitive uniqueness across both User.email and the allauth
-        # EmailAddress table (which holds secondary addresses too)
-        if value and filter_users_by_email(value):
-            raise serializers.ValidationError('A user with this email already exists.')
-        return value
-
-    def create(self, validated_data):
-        user = User.objects.create(username=validated_data['username'])
-        user.set_password(validated_data['password'])
-        if validated_data.get('email'):
-            user.email = validated_data['email']
-        user.save()
-
-        return user
 
 
 class LanguageSerializer(serializers.ModelSerializer):

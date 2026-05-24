@@ -309,11 +309,6 @@ urlpatterns += [
     ),
     path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
     path('api/v2/', include(router.urls)),
-    path(
-        'api/v2/register/',
-        core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
-        name='api_register',
-    ),
     path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
     # Others

@@ -29,7 +29,6 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from allauth.account.models import EmailAddress
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -46,10 +45,7 @@ from rest_framework.decorators import (
     api_view,
     permission_classes,
 )
-from rest_framework.fields import (
-    BooleanField,
-    CharField,
-)
+from rest_framework.fields import BooleanField
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -73,7 +69,6 @@ from wger.core.api.serializers import (
     RepetitionUnitSerializer,
     RoutineWeightUnitSerializer,
     UserprofileSerializer,
-    UserRegistrationSerializer,
 )
 from wger.core.models import (
     Language,
@@ -82,7 +77,6 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
-from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
 from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
@@ -269,53 +263,6 @@ class RequiredServerVersionView(viewsets.ViewSet):
     )
     def get(request):
         return Response(str(MIN_SERVER_VERSION))
-
-
-class UserAPIRegistrationViewSet(viewsets.ViewSet):
-    """
-    API endpoint
-    """
-
-    # permission_classes = (AllowRegisterUser,)
-    serializer_class = UserRegistrationSerializer
-    throttle_scope = 'registration'
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        return UserProfile.objects.filter(user=self.request.user)
-
-    @extend_schema(
-        parameters=[],
-        responses={
-            status.HTTP_200_OK: inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
-        },
-    )
-    def post(self, request):
-        if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
-            return Response(
-                {'message': 'Registration is not allowed on this instance'},
-                status=status.HTTP_200_OK,
-            )
-
-        data = request.data
-        serializer = self.serializer_class(data=data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        # user.userprofile.added_by = request.user
-        user.userprofile.save()
-        token = create_token(user)
-
-        EmailAddress.objects.add_email(request, user, user.email, confirm=True)
-
-        return Response(
-            {'message': 'api user successfully registered', 'token': token.key},
-            status=status.HTTP_201_CREATED,
-        )
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):

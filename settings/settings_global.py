@@ -474,7 +474,6 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
         'login': '10/min',
-        'registration': '5/min',
 
         # Ingredient endpoints — protect the multi-million-row table from
         # crawlers and older sync clients. Throttling is per-IP for anonymous

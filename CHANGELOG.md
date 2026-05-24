@@ -74,9 +74,9 @@ The type for the ID for Measurement and MeasurementCategory was changed from int
 to string (UUID). This was made to allow for clients to generate IDs locally and affects
 `/api/v2/measurement-category/` and `/api/v2/measurement/`.
 
-**`/api/v2/login/` endpoint removed.** This endpoint returned a permanent token
-If you want to generate a new token, visit the "API key" page in the user settings
-and paste it into scripts.
+**`/api/v2/login/` and `/api/v2/register/` endpoints removed.** These endpoints returned
+a permanent token, use the allauth ones instead (JWT based).  If you still need a permanent
+one, visit the "API key" page in the user settings and paste it into scripts.
 
 **`/api/v2/token` endpoint removed.** Exchanging username + password for a JWT
 pair via this endpoint bypassed 2FA. To get tokens, either use
