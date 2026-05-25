@@ -39,7 +39,7 @@ class _StubProvider:
     uses_apps = False
 
     def get_login_url(self, request, **kwargs):
-        return '/accounts/wger-social/login/'
+        return '/account/wger-social/login/'
 
 
 @override_settings(WGER_SOCIAL_PROVIDERS=['wger'])
@@ -59,7 +59,7 @@ class SocialAuthEnabledLoginPageTestCase(WgerTestCase):
         # The button must POST (CSRF-safe), not GET.
         self.assertContains(
             response,
-            '<form method="post" action="/accounts/wger-social/login/"',
+            '<form method="post" action="/account/wger-social/login/"',
         )
 
     @mock.patch(
