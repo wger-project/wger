@@ -351,7 +351,8 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(self.get_object().get_nutritional_values())
+        serializer = NutritionalValuesSerializer(self.get_object().get_nutritional_values())
+        return Response(serializer.data)
 
 
 class LogItemViewSet(WgerOwnerObjectModelViewSet):
@@ -385,4 +386,5 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(self.get_object().get_nutritional_values())
+        serializer = NutritionalValuesSerializer(self.get_object().get_nutritional_values())
+        return Response(serializer.data)
