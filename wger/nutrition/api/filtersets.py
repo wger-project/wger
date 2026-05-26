@@ -72,8 +72,16 @@ class IngredientFilterSet(filters.FilterSet):
 
     def search_name_fulltext(self, queryset, name, value):
         """
-        Perform a fulltext search when postgres is available
+        Try a barcode lookup first, then perform a fulltext search when Postgres is available
         """
+
+        # If a numeric value looks like a barcode (EAN-8, UPC-A, EAN-13, GTIN-14),
+        # try an exact barcode lookup first.
+        if value.isdigit() and len(value) in (8, 12, 13, 14):
+            barcode_qs = self.search_barcode(queryset, 'code', value)
+
+            if barcode_qs.exists():
+                return barcode_qs
 
         if is_postgres_db():
             # Note: this uses the default value for pg_trgm.similarity_threshold (0.3) which

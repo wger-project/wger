@@ -101,6 +101,57 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 7)
 
+    @patch('wger.nutrition.api.filtersets.IngredientFilterSet.search_barcode')
+    def test_search_name_with_valid_barcode(self, mock_search_barcode):
+        """
+        Searching for an 8-14 digit number in the name field should trigger the OFF API lookup
+        """
+        mock_search_barcode.return_value = Ingredient.objects.none()
+        self.client.get(self.url + '?name__search=1300000000000')
+
+        args, kwargs = mock_search_barcode.call_args
+        self.assertEqual(args[1], 'code')
+        self.assertEqual(args[2], '1300000000000')
+
+    @patch('wger.nutrition.api.filtersets.IngredientFilterSet.search_barcode')
+    def test_search_name_with_text(self, mock_search_barcode):
+        """
+        Searching for a standard text string should fall back to full-text search
+        """
+        self.client.get(self.url + '?name__search=apples')
+        mock_search_barcode.assert_not_called()
+
+    @patch('wger.nutrition.api.filtersets.IngredientFilterSet.search_barcode')
+    def test_search_name_with_short_number(self, mock_search_barcode):
+        """
+        Searching for a short number (<8) should fall back to full-text search
+        """
+        self.client.get(self.url + '?name__search=7000000')
+        mock_search_barcode.assert_not_called()
+
+    @patch('wger.nutrition.api.filtersets.IngredientFilterSet.search_barcode')
+    def test_search_name_with_long_number(self, mock_search_barcode):
+        """
+        Searching for a long number (>14) should fall back to full-text search
+        """
+        self.client.get(self.url + '?name__search=150000000000000')
+        mock_search_barcode.assert_not_called()
+
+    @patch('wger.nutrition.api.filtersets.IngredientFilterSet.search_barcode')
+    def test_search_name_returns_barcode(self, mock_search_barcode):
+        """
+        If search_barcode finds a match, it should return it
+        """
+        mock_search_barcode.return_value = Ingredient.objects.filter(pk=2)
+
+        response = self.client.get(self.url + '?name__search=1300000000000')
+        result1 = response.data['results'][0]
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result1['id'], 2)
+
     def test_filter_nutriscore_exact(self):
         """
         Exact match on nutriscore returns only ingredients with that grade
