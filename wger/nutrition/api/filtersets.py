@@ -23,6 +23,7 @@ from django.contrib.postgres.search import TrigramSimilarity
 from django_filters import rest_framework as filters
 
 # wger
+from wger.core.models import Language
 from wger.nutrition.models import (
     Ingredient,
     LogItem,
@@ -108,7 +109,12 @@ class IngredientFilterSet(filters.FilterSet):
         Also accepts a comma-separated list of codes. Unknown codes are ignored
         and duplicates removed.
         """
-        languages = [load_language(l) for l in set(value.split(','))]
+        languages = []
+        for code in set(value.split(',')):
+            try:
+                languages.append(load_language(code, default_to_english=False))
+            except Language.DoesNotExist:
+                pass
         if languages:
             queryset = queryset.filter(language__in=languages)
 

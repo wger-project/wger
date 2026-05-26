@@ -92,6 +92,15 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 5)
 
+    def test_search_only_unknown_language_codes(self):
+        """
+        When all language codes are unknown the filter has no effect, not a silent English fallback
+        """
+        response = self.client.get(self.url + '?name__search=guest&language__code=kg')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 7)
+
     def test_search_all_languages(self):
         """
         Disable all language filters
