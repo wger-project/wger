@@ -1,4 +1,4 @@
-﻿# wger
+# wger
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png" width="100" height="100" alt="wger logo">
@@ -46,7 +46,7 @@ For a live system, visit: <https://wger.de>
 Hosting your own instance is basically just a `docker compose up -d` away. For
 more detailed setup instructions take a look at the provided
 [docker compose file](https://github.com/wger-project/docker) and the
-[corresponding documentation](https://wger.readthedocs.io/en/latest/production/docker.html).
+[corresponding documentation](https://wger.readthedocs.io/en/latest/installation/docker.html).
 
 ## Developing and contributing
 
