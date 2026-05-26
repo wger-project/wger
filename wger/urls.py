@@ -310,6 +310,11 @@ urlpatterns += [
     path('api/v2/', include(router.urls)),
     path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
+    path(
+        'api/v2/issue-refresh-token',
+        core_api_views.issue_refresh_token,
+        name='issue_refresh_token',
+    ),
     # Others
     path(
         'api/v2/version/',

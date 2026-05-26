@@ -77,6 +77,7 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
+from wger.utils.headless_long_lived import mint_long_lived_refresh_token
 from wger.utils.permissions import WgerPermission
 from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
@@ -326,6 +327,24 @@ def check_language(request):
     serializer.is_valid(raise_exception=True)
 
     return Response({'result': True})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def issue_refresh_token(request):
+    """
+    Temporary endpoint for issuing refresh tokens for authenticated users.
+
+    This endpoint is used to allow users of the mobile app to seamlessly move from
+    permanent tokens to JWT ones.
+
+    TODO: remove one version after the iniial offline-mode release
+    """
+    refresh_token = mint_long_lived_refresh_token(
+        request.user,
+        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
+    )
+    return Response({'refresh_token': refresh_token})
 
 
 @api_view()
