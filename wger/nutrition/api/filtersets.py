@@ -61,12 +61,14 @@ class IngredientFilterSet(filters.FilterSet):
         if not value:
             return queryset
 
-        queryset = queryset.filter(code=value)
-        if queryset.count() == 0:
+        result = queryset.filter(code=value)
+        if not result.exists():
             logger.debug('barcode not found locally, trying to fetch ingredient from OFF')
-            Ingredient.fetch_ingredient_from_off(value)
+            ingredient = Ingredient.fetch_ingredient_from_off(value)
+            if ingredient is not None:
+                result = queryset.filter(pk=ingredient.pk)
 
-        return queryset
+        return result
 
     def search_name_fulltext(self, queryset, name, value):
         """
