@@ -718,6 +718,11 @@ class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
         """
         Test that when a code isn't present, it will be fetched
         """
+        # The barcode filter calls queryset.filter(pk=ingredient.pk) when OFF
+        # returns something, which fails on the default MagicMock. Simulate the
+        # "not found upstream" branch by returning None.
+        mock_fetch_from_off.return_value = None
+
         response = self.client.get(self.url + '?code=122333444455555666666')
         mock_fetch_from_off.assert_called_with('122333444455555666666')
 
