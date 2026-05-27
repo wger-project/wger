@@ -12,11 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-# Standard Library
 
 # Django
 from django.contrib.auth.models import User
 from django.db import models
+
+# wger
+from wger.utils.uuid import uuid7
 
 
 class Category(models.Model):
@@ -24,6 +26,11 @@ class Category(models.Model):
         ordering = [
             '-name',
         ]
+
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
+    )
 
     user = models.ForeignKey(
         User,

@@ -28,11 +28,11 @@ class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the meal overview resource
     """
 
-    pk = 10
+    pk = '33333333-3333-3333-3333-000000000010'
     resource = MealItem
     private_resource = True
     data = {
-        'meal': 2,
+        'meal': '22222222-2222-2222-2222-000000000002',
         'amount': 100,
         'ingredient': 1,
     }

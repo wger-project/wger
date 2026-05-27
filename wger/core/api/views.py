@@ -21,6 +21,10 @@ import logging
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.http import (
+    HttpResponseForbidden,
+    JsonResponse,
+)
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -40,6 +44,7 @@ from rest_framework import (
 from rest_framework.decorators import (
     action,
     api_view,
+    permission_classes,
 )
 from rest_framework.fields import (
     BooleanField,
@@ -52,6 +57,14 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 # wger
+# The per-app powersync modules are imported for their side effect: each one
+# registers its handlers with wger.utils.powersync.REGISTRY at import time.
+import wger.gallery.powersync  # noqa: F401
+import wger.manager.powersync  # noqa: F401
+import wger.measurements.powersync  # noqa: F401
+import wger.nutrition.powersync  # noqa: F401
+import wger.weight.powersync  # noqa: F401
+from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
     LanguageSerializer,
@@ -72,6 +85,7 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
+from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
     MIN_APP_VERSION,
     MIN_SERVER_VERSION,
@@ -107,7 +121,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         return UserProfile.objects.filter(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -419,3 +434,66 @@ def check_language(request):
     serializer.is_valid(raise_exception=True)
 
     return Response({'result': True})
+
+
+@api_view()
+@permission_classes([IsAuthenticated])
+def get_powersync_token(request):
+
+    url = (
+        f'{settings.SITE_URL}/{settings.POWERSYNC_URL_PATH.strip("/")}/'
+        if not settings.POWERSYNC_URL
+        else settings.POWERSYNC_URL
+    )
+
+    return JsonResponse(
+        {
+            'token': powersync.create_token(request.user.id),
+            'powersync_url': url,
+        }
+    )
+
+
+@api_view()
+def get_powersync_keys(request):
+    return JsonResponse({'keys': [powersync.public_jwk()]})
+
+
+@api_view(['PUT', 'PATCH', 'DELETE'])
+def upload_powersync_data(request):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
+    user_id = request.user.id
+    data = request.data
+    http_verb = request.method
+
+    try:
+        table = data['table']
+        payload = data['data']
+    except (KeyError, TypeError):
+        return JsonResponse(
+            {'error': 'Missing required fields: table, data'},
+            status=200,
+        )
+
+    logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
+
+    handler = POWERSYNC_REGISTRY.get(table)
+    if handler is None:
+        logger.warning(f'Received unknown PowerSync table: {table}')
+        return JsonResponse({'error': f'Unknown table: {table}'}, status=200)
+
+    # Handlers return either `None` (operation processed successfully) or an
+    # error dict which we propagate back to the client. The HTTP status stays
+    # at 200 even on logical errors, since powersync treats non-2xx statuses
+    # as "retry forever".
+    try:
+        result = handler.dispatch(http_verb, payload=payload, user_id=user_id)
+    except Exception as e:
+        logger.exception(f'Error processing PowerSync data for table {table}')
+        return JsonResponse({'error': str(e)}, status=200)
+
+    if result is not None:
+        return JsonResponse(result, status=200)
+    return JsonResponse({'status': 'ok!'}, status=200)

@@ -29,6 +29,7 @@ from django.utils.timezone import make_aware
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
+from wger.utils.uuid import uuid7
 from wger.weight.models import WeightEntry
 
 
@@ -45,6 +46,11 @@ class NutritionPlan(models.Model):
         ordering = [
             '-start',
         ]
+
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
+    )
 
     user = models.ForeignKey(
         User,

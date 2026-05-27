@@ -33,7 +33,12 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
         """
 
         # Get a plan
-        response = self.client.get(reverse('nutrition:plan:export-pdf', kwargs={'id': 4}))
+        response = self.client.get(
+            reverse(
+                'nutrition:plan:export-pdf',
+                kwargs={'id': '11111111-1111-1111-1111-000000000004'},
+            ),
+        )
 
         if fail:
             self.assertIn(response.status_code, (404, 403))

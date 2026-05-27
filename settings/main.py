@@ -15,6 +15,7 @@
 # ruff: noqa: F405
 
 # Standard Library
+import hashlib
 import secrets
 import warnings
 
@@ -44,6 +45,13 @@ _DEFAULT_KEYS = {
     'wger-docker-secret-jwtkey-1234567890!@#$%^&*(-_=+)',
 }
 
+# SHA256 of the PowerSync JWKS keys shipped as defaults in docker/config/prod.env.
+# Using hashes instead of inlining the ~1KB base64 JWKs
+_DEFAULT_POWERSYNC_KEY_HASHES = {
+    '993583b530ed307419c1fd54eef8c7010ac29fa9ee6ddfa3ed0e5204e2b5e99a',  # public
+    '964a4ebdb0d1b9f7ac461711a8861d74bd887a955b0e10d79b93c532f1e13d98',  # private
+}
+
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = env('DJANGO_DEBUG')
 
@@ -53,7 +61,9 @@ if os.environ.get('DJANGO_ADMINS'):
     ]
     MANAGERS = ADMINS
 
-if os.environ.get('DJANGO_DB_ENGINE'):
+if os.environ.get('PS_DATABASE_URI'):
+    DATABASES = {'default': env.db_url('PS_DATABASE_URI')}
+elif os.environ.get('DJANGO_DB_ENGINE'):
     DATABASES = {
         'default': {
             'ENGINE': env.str('DJANGO_DB_ENGINE'),
@@ -75,17 +85,38 @@ else:
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = env.str('TIME_ZONE', 'Europe/Berlin')
 
-# Django's secret key
-# Generate e.g. with: python -c "import secrets; print(secrets.token_urlsafe(50))" or https://djecrety.ir/
+#
+# Secret keys
+#
+
+# Django
 SECRET_KEY = env.str('SECRET_KEY', '')
-if not SECRET_KEY or SECRET_KEY in _DEFAULT_KEYS:
+if not SECRET_KEY or (SECRET_KEY in _DEFAULT_KEYS and not DEBUG):
     SECRET_KEY = secrets.token_urlsafe(50)
+    if not DEBUG:
+        warnings.warn(
+            'SECRET_KEY is not set or uses the default value so '
+            'a random key was generated, sessions will not persist across restarts. '
+            'Set SECRET_KEY in your environment for production use.',
+            stacklevel=1,
+        )
+
+# PowerSync
+POWERSYNC_JWKS_PUBLIC_KEY = env.str('POWERSYNC_JWKS_PUBLIC_KEY', '')
+POWERSYNC_JWKS_PRIVATE_KEY = env.str('POWERSYNC_JWKS_PRIVATE_KEY', '')
+POWERSYNC_URL_PATH = env.str('POWERSYNC_URL_PATH', 'ps')
+POWERSYNC_URL = env.str('POWERSYNC_URL', '')
+if not DEBUG and any(
+    key and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_POWERSYNC_KEY_HASHES
+    for key in (POWERSYNC_JWKS_PUBLIC_KEY, POWERSYNC_JWKS_PRIVATE_KEY)
+):
     warnings.warn(
-        'SECRET_KEY is not set or uses the default value so '
-        'a random key was generated, sessions will not persist across restarts. '
-        'Set SECRET_KEY in your environment for production use.',
+        'POWERSYNC_JWKS_PUBLIC_KEY / POWERSYNC_JWKS_PRIVATE_KEY are set to the '
+        'shipped default values, this is a security risk! Please generate a fresh keypair '
+        'with `./manage.py generate-powersync-keys`',
         stacklevel=1,
     )
+
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
@@ -225,14 +256,17 @@ SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(
     hours=env.int('REFRESH_TOKEN_LIFETIME', 24 * 30 * 4)
 )
 _SIGNING_KEY = env.str('SIGNING_KEY', '')
-if not _SIGNING_KEY or _SIGNING_KEY in _DEFAULT_KEYS:
+# In DEBUG mode, keep a known default so JWTs minted before a restart still
+# verify after it. Outside DEBUG, replace + warn.
+if not _SIGNING_KEY or (_SIGNING_KEY in _DEFAULT_KEYS and not DEBUG):
     _SIGNING_KEY = secrets.token_urlsafe(50)
-    warnings.warn(
-        'SIGNING_KEY is not set or uses the default value so '
-        'a random key was generated, sessions will not persist across restarts. '
-        'Set SIGNING_KEY in your environment for production use.',
-        stacklevel=1,
-    )
+    if not DEBUG:
+        warnings.warn(
+            'SIGNING_KEY is not set or uses the default value so '
+            'a random key was generated, sessions will not persist across restarts. '
+            'Set SIGNING_KEY in your environment for production use.',
+            stacklevel=1,
+        )
 SIMPLE_JWT['SIGNING_KEY'] = _SIGNING_KEY
 
 #
