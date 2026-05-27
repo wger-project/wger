@@ -71,13 +71,6 @@ Also, we now support two-factor authentication like security codes or passkeys.
 
 * Make sure you have set `SITE_URL` with your server's URL
 
-* *(ignore if you didn't change the db password)* Set the `PS_DATABASE_URI` with
-  the wger db password in the usual format `postgres://<user>:<password>@<host>:<port>/<dbname>`.
-
-* *(ignore if you didn't change the db password)* The Postgres container in the
-  docker-compose setup now reads its credentials (`POSTGRES_USER`, `POSTGRES_PASSWORD`,
-  `POSTGRES_DB`) from `prod.env` instead  of having them hardcoded in the yaml file.
-
 * Some unused thumbnail sizes have been deleted, run `./manage.py prune-thumbnails`
   to delete dangling files
 
@@ -85,6 +78,15 @@ Also, we now support two-factor authentication like security codes or passkeys.
   `./manage migrate-ingredient-image-paths` to migrate existing entries. Note
   that this is technically optional, as the old paths will continue working,
   but it is advised for consistency.
+
+*(ignore these if you didn't change the default db password)*
+
+* Set the `PS_DATABASE_URI` with the wger db password in the usual format
+  `postgres://<user>:<password>@<host>:<port>/<dbname>`.
+
+* The Postgres container in the  docker-compose setup now reads its credentials
+  (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) from `prod.env` instead
+  of having them hardcoded in the yaml file.
 
 ## Breaking changes
 
