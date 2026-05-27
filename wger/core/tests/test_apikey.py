@@ -24,11 +24,11 @@ from django.urls import reverse
 # Third Party
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import (
     BlacklistedToken,
     OutstandingToken,
 )
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase

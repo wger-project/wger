@@ -86,4 +86,3 @@ class AppAuthHandoffTestCase(WgerTestCase):
         self.assertEqual(parsed.query, '')
         self.assertTrue(parsed.fragment.startswith('token='))
         self.assertGreater(len(parsed.fragment), len('token='))
-
