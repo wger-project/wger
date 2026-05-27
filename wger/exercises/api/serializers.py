@@ -13,16 +13,21 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import re
 import uuid
 
 # Django
 from django.conf import settings
+from django.contrib.postgres.search import TrigramSimilarity
 from django.core.cache import cache
 from django.db import (
     models,
     transaction,
 )
-from django.db.models import Q
+from django.db.models import (
+    Length,
+    Q,
+)
 
 # Third Party
 from actstream import action as actstream_action
@@ -49,6 +54,10 @@ from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 from wger.utils.url import make_absolute_url
 
 
+# Configuration threshold
+SIMILARITY_THRESHOLD = 0.85
+
+
 def _log_action_creation(serializer, instance):
     """
     Emit an actstream ``created`` event for a freshly-created instance.
@@ -64,6 +73,42 @@ def _log_action_creation(serializer, instance):
         verb=StreamVerbs.CREATED.value,
         action_object=instance,
     )
+
+
+def _normalise_name(name: str) -> str:
+    """
+    Regex: matches space, hyphen and underscore, and replaces with an empty string.
+    """
+    return re.sub(r'[\s\-_]+', '', name.strip().lower())
+
+
+def _check_duplicates(name, language, exclude_pk=None):
+    base_qs = Translation.objects.filter(language=language)
+    if exclude_pk:
+        base_qs = base_qs.exclude(pk=exclude_pk)
+
+    norm_new = _normalise_name(name)
+    input_len = len(name)
+
+    # Filter by length for exact match
+    candidates = base_qs.annotate(n_len=Length('name')).filter(
+        n_len__gte=input_len - 4, n_len__lte=input_len + 4
+    )
+
+    for candidate in candidates:
+        if _normalise_name(candidate.name) == norm_new:
+            return candidate.name
+
+    # Trigram Similarity
+    hit = (
+        base_qs.annotate(similarity=TrigramSimilarity('name', name))
+        .filter(similarity__gte=SIMILARITY_THRESHOLD)
+        .order_by('-similarity')
+        .values_list('name', flat=True)
+        .first()
+    )
+
+    return hit
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -436,6 +481,18 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
         language = value.get('language') or (self.instance and self.instance.language)
         if description and language:
             validate_language_matches(description, language, 'description')
+
+        # Check for duplicates
+        name = value.get('name')
+        if name and language:
+            exclude_pk = self.instance.pk if self.instance else None
+            duplicate_hit = _check_duplicates(name, language, exclude_pk=exclude_pk)
+            if duplicate_hit:
+                raise serializers.ValidationError(
+                    {
+                        'name': f'The name "{name}" is too similar to the existing exercise "{duplicate_hit}". Please choose a more distinct name or submit a variation instead.'
+                    }
+                )
 
         return super().validate(value)
 
