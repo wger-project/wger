@@ -23,8 +23,8 @@ Buttons and menus will be grayed out if they can't currently be used.
 It's now possible to login with social auth providers like Google, Facebook, etc.
 Also, we now support two-factor authentication like security codes or passkeys.
 
-* https://wger.readthedocs.io/en/latest/administration/mfa.html
-* https://wger.readthedocs.io/en/latest/administration/social_auth.html
+* <https://wger.readthedocs.io/en/latest/administration/mfa.html>
+* <https://wger.readthedocs.io/en/latest/administration/social_auth.html>
 
 
 ### Others
@@ -57,7 +57,7 @@ Also, we now support two-factor authentication like security codes or passkeys.
 
 ## Upgrade steps
 
-* If you are using docker, make sure to pull the latest changes from the 
+* If you are using docker, make sure to pull the latest changes from the
   [docker repo](https://github.com/wger-project/docker) as there is a new service
   ("powersync") and configs (e.g. for nginx/Caddy).
 
