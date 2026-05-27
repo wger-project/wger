@@ -31,10 +31,14 @@ from .ingredient import Ingredient
 
 def ingredient_image_upload_dir(instance, filename):
     """
-    Returns the upload target for exercise images
+    Returns the upload target for ingredient images.
+
+    Sharded by the first two pairs of hex chars from the UUID so the directory
+    tree stays balanced even at millions of files.
     """
     ext = pathlib.Path(filename).suffix
-    return f'ingredients/{instance.ingredient.pk}/{instance.uuid}{ext}'
+    u = str(instance.uuid)
+    return f'ingredients/{u[0:2]}/{u[2:4]}/{u}{ext}'
 
 
 class Image(AbstractLicenseModel, models.Model, BaseImageMixin):
