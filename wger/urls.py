@@ -34,7 +34,6 @@ from drf_spectacular.views import (
 )
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
@@ -290,6 +289,7 @@ urlpatterns = i18n_patterns(
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap',
     ),
+    path('account/', include('allauth.urls')),
 )
 
 #
@@ -298,6 +298,8 @@ urlpatterns = i18n_patterns(
 urlpatterns += [
     path('i18n/', include('django.conf.urls.i18n')),
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
+    # allauth.headless — REST auth API consumed by the Flutter app.
+    path('_allauth/', include('allauth.headless.urls')),
     # API
     path(
         'api/v2/exercise-submission/',
@@ -306,18 +308,13 @@ urlpatterns += [
     ),
     path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
     path('api/v2/', include(router.urls)),
-    # The api user login
-    path(
-        'api/v2/login/', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
-    ),
-    path(
-        'api/v2/register/',
-        core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
-        name='api_register',
-    ),
-    path('api/v2/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
+    path(
+        'api/v2/issue-refresh-token',
+        core_api_views.issue_refresh_token,
+        name='issue_refresh_token',
+    ),
     # Others
     path(
         'api/v2/version/',
@@ -370,8 +367,8 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
     ),
-    path('account/', include('allauth.account.urls')),
 ]
+
 
 #
 # URL for user uploaded files, served like this during development only

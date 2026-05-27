@@ -15,39 +15,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-import json
-import time
-from base64 import urlsafe_b64decode
-from functools import lru_cache
-
-# Django
-from django.conf import settings
-
 # Third Party
-from jose.jwt import encode
+from allauth.headless.contrib.rest_framework.authentication import JWTTokenAuthentication
+from rest_framework.exceptions import AuthenticationFailed
 
 
-@lru_cache(maxsize=1)
-def _private_jwk():
-    return json.loads(urlsafe_b64decode(settings.JWT_PRIVATE_KEY))
+class HeadlessJWTAuthentication(JWTTokenAuthentication):
+    """
+    Lenient variant of allauth's JWTTokenAuthentication.
 
+    Returns ``None`` for tokens that don't validate as a headless JWT instead of
+    raising. ``Authorization: Bearer`` is shared with ``rest_framework_simplejwt``
+    raising would abort the DRF auth chain and stop the next class from getting a
+    chance at the token.
+    """
 
-@lru_cache(maxsize=1)
-def public_jwk():
-    return json.loads(urlsafe_b64decode(settings.JWT_PUBLIC_KEY))
-
-
-def create_token(user_id):
-    jwk = _private_jwk()
-    return encode(
-        {
-            'sub': str(user_id),
-            'iat': time.time(),
-            'aud': 'powersync',
-            'exp': int(time.time()) + 600,
-        },
-        jwk,
-        algorithm=jwk['alg'],
-        headers={'alg': jwk['alg'], 'kid': jwk['kid']},
-    )
+    def authenticate(self, request):
+        try:
+            return super().authenticate(request)
+        except AuthenticationFailed:
+            return None

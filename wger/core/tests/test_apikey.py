@@ -13,15 +13,18 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import json
 import logging
 
 # Django
 from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from django.urls import reverse
 
 # Third Party
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import (
     BlacklistedToken,
     OutstandingToken,
@@ -29,6 +32,11 @@ from rest_framework_simplejwt.token_blacklist.models import (
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.utils.headless_long_lived import (
+    LONG_LIVED_FLAG,
+    list_long_lived_sessions,
+    mint_long_lived_refresh_token,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -133,13 +141,8 @@ class ApiKeyTestCase(WgerTestCase):
         and a previously-issued refresh must stop minting access tokens.
         """
         api = APIClient()
-        obtain = api.post(
-            '/api/v2/token',
-            {'username': 'test', 'password': 'testtest'},
-            format='json',
-        )
-        self.assertEqual(obtain.status_code, 200)
-        old_refresh = obtain.data['refresh']
+        user = User.objects.get(username='test')
+        old_refresh = str(RefreshToken.for_user(user))
 
         # Sanity baseline before the revoke
         refresh_before = api.post(
@@ -176,13 +179,8 @@ class ApiKeyTestCase(WgerTestCase):
         leakage here would be a one-call DoS.
         """
         api_admin = APIClient()
-        admin_obtain = api_admin.post(
-            '/api/v2/token',
-            {'username': 'admin', 'password': 'adminadmin'},
-            format='json',
-        )
-        self.assertEqual(admin_obtain.status_code, 200)
-        admin_refresh = admin_obtain.data['refresh']
+        admin = User.objects.get(username='admin')
+        admin_refresh = str(RefreshToken.for_user(admin))
 
         self.user_login('test')
         response = self.client.post(
@@ -206,12 +204,8 @@ class ApiKeyTestCase(WgerTestCase):
         kills the victim's mobile sessions.
         """
         api = APIClient()
-        obtain = api.post(
-            '/api/v2/token',
-            {'username': 'test', 'password': 'testtest'},
-            format='json',
-        )
-        old_refresh = obtain.data['refresh']
+        user = User.objects.get(username='test')
+        old_refresh = str(RefreshToken.for_user(user))
 
         self.user_login('test')
         response = self.client.get(
@@ -226,3 +220,153 @@ class ApiKeyTestCase(WgerTestCase):
             format='json',
         )
         self.assertEqual(refresh_after.status_code, 200)
+
+
+class LongLivedRefreshTokenTestCase(WgerTestCase):
+    """
+    Mint, list, and revoke long-lived headless JWT refresh tokens from the
+    /user/api-key page.
+    """
+
+    def test_generate_shows_token_once(self):
+        """
+        POST ``new_refresh_token`` mints a token and the next page render
+        displays it exactly once. Refreshing the page does not show it again.
+        """
+        self.user_login('test')
+
+        response = self.client.post(
+            reverse('core:user:api-key'),
+            {'new_refresh_token': 'true'},
+        )
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get(response['Location'])
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Copy this token now.')
+        self.assertContains(response, 'Revoke')
+
+        # Refreshing must not show the token again.
+        response = self.client.get(reverse('core:user:api-key'))
+        self.assertNotContains(response, 'Copy this token now.')
+
+    def test_generated_token_works_against_headless_refresh(self):
+        """
+        The minted refresh token actually validates against the headless
+        token-refresh endpoint and returns a new access token.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        token = mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+
+        api = APIClient()
+        response = api.post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': token}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        body = response.json()
+        self.assertIn('access_token', body['data'])
+
+    def test_revoke_invalidates_token(self):
+        """
+        Revoking a long-lived session breaks the matching refresh token.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        token = mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        sessions = list_long_lived_sessions(user)
+        self.assertEqual(len(sessions), 1)
+        session_key = sessions[0].session_key
+
+        response = self.client.post(
+            reverse('core:user:api-key'),
+            {'revoke_refresh_token': session_key},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(list_long_lived_sessions(user), [])
+
+        api = APIClient()
+        refresh = api.post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': token}),
+            content_type='application/json',
+        )
+        self.assertGreaterEqual(refresh.status_code, 400)
+
+    def test_revoke_all(self):
+        """
+        Bulk revocation kills every long-lived session of the current user.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        for _ in range(3):
+            mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        self.assertEqual(len(list_long_lived_sessions(user)), 3)
+
+        response = self.client.post(
+            reverse('core:user:api-key'),
+            {'revoke_all_refresh_tokens': 'true'},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(list_long_lived_sessions(user), [])
+
+    def test_revoke_cannot_target_other_users_session(self):
+        """
+        Posting another user's session_key must not delete that user's
+        long-lived session — same cross-user defense as the JWT-revoke flow.
+        """
+        admin = User.objects.get(username='admin')
+        mint_long_lived_refresh_token(admin, lifetime_seconds=120 * 86400)
+        admin_sessions = list_long_lived_sessions(admin)
+        self.assertEqual(len(admin_sessions), 1)
+        admin_session_key = admin_sessions[0].session_key
+
+        self.user_login('test')
+        response = self.client.post(
+            reverse('core:user:api-key'),
+            {'revoke_refresh_token': admin_session_key},
+        )
+        self.assertEqual(response.status_code, 302)
+
+        # Admin's long-lived session is still there.
+        self.assertEqual(len(list_long_lived_sessions(admin)), 1)
+
+    def test_generate_requires_post(self):
+        """
+        State-changing actions must not be triggered by a GET (CSRF defense).
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        response = self.client.get(
+            reverse('core:user:api-key'),
+            {'new_refresh_token': 'true'},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list_long_lived_sessions(user), [])
+
+    def test_browser_session_is_not_listed(self):
+        """
+        The user's regular browser session must not show up in the list of
+        long-lived refresh tokens — only sessions tagged with
+        ``LONG_LIVED_FLAG`` count.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        # The login above created a browser session; confirm it exists and is
+        # *not* listed (no long-lived marker).
+        self.assertEqual(list_long_lived_sessions(user), [])
+
+        # And the marker really is what gates inclusion.
+        browser_sessions = [
+            s for s in Session.objects.all() if s.get_decoded().get('_auth_user_id') == str(user.pk)
+        ]
+        self.assertTrue(browser_sessions)
+        for s in browser_sessions:
+            self.assertFalse(s.get_decoded().get(LONG_LIVED_FLAG))

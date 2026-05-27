@@ -261,8 +261,7 @@ class PowerSyncUpdateTestCase:
 class PowerSyncCreateNotAllowedTestCase:
     """
     Mixin for tables where PUT (create) is explicitly rejected by the dispatcher
-    because creation must go through the REST API (Routine, NutritionPlan,
-    GalleryImage). PATCH and DELETE still work via PowerSync.
+    because creation must go through the REST API (GalleryImage, etc.)
     """
 
     def test_create_method_not_allowed(self):

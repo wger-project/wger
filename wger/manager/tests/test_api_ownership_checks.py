@@ -102,7 +102,7 @@ class WorkoutLogNextLogOwnershipTestCase(WgerTestCase):
     nulls the field, but the API should respond with 403 for consistency
     with the other foreign keys on this resource.
 
-    The seed log belongs to user 'admin' (pk=1).
+    WorkoutLog aaaaaaaa-aaaa-aaaa-aaaa-000000000001 belongs to user 'admin' (pk=1).
     Routine pk=3 belongs to user 'test' (pk=2).
     """
 

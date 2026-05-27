@@ -16,12 +16,13 @@
 
 # Standard Library
 import logging
+import re
+from urllib.parse import quote
 
 # Django
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
-    authenticate,
     login as django_login,
     logout as django_logout,
 )
@@ -33,7 +34,6 @@ from django.contrib.auth.mixins import (
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.views import (
-    LoginView,
     PasswordChangeView,
     PasswordResetConfirmView,
     PasswordResetView,
@@ -45,7 +45,6 @@ from django.http import (
 )
 from django.shortcuts import (
     get_object_or_404,
-    redirect,
     render,
 )
 from django.template.context_processors import csrf
@@ -53,7 +52,6 @@ from django.urls import (
     reverse,
     reverse_lazy,
 )
-from django.utils import translation
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import (
     gettext as _,
@@ -68,7 +66,11 @@ from django.views.generic import (
 )
 
 # Third Party
-from allauth.account.models import EmailAddress
+from allauth.account.mixins import RedirectAuthenticatedUserMixin
+from allauth.account.views import (
+    LoginView as AllauthLoginView,
+    SignupView as AllauthSignupView,
+)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -80,12 +82,9 @@ from crispy_forms.layout import (
 from rest_framework.authtoken.models import Token
 
 # wger
-from wger.config.models import GymConfig
 from wger.core.forms import (
     PasswordConfirmationForm,
     PasswordResetFormCaptcha,
-    RegistrationForm,
-    RegistrationFormNoCaptcha,
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
@@ -93,7 +92,6 @@ from wger.gym.helpers import is_same_gym
 from wger.gym.models import (
     AdminUserNote,
     Contract,
-    GymUserConfig,
 )
 from wger.manager.models import (
     Routine,
@@ -106,15 +104,37 @@ from wger.utils.api_token import (
     count_active_jwt_refresh_tokens,
     create_token,
 )
+from wger.utils.headless_long_lived import (
+    list_long_lived_sessions,
+    mint_long_lived_refresh_token,
+    revoke_all_long_lived_sessions,
+    revoke_long_lived_session,
+)
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin,
 )
-from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)
+
+
+# Session key used to carry a freshly minted refresh token across the
+# post-redirect step on the api-key page. The token is shown once and then
+# immediately popped.
+_NEW_REFRESH_TOKEN_SESSION_KEY = '_wger_new_long_lived_refresh_token'
+
+
+# Custom URL scheme registered by the flutter app in Info.plist, AndroidManifest.xml, etc.
+_APP_AUTH_SCHEME = 'wger'
+_APP_AUTH_HOST = 'app-auth'
+
+# Hard cap on the echoed ?state= value. The app generates 256 bits of
+# entropy (~43 base64url chars); anything wildly larger is junk we refuse
+# to reflect into the redirect URL.
+_APP_AUTH_STATE_MAX_LEN = 128
+_APP_AUTH_STATE_ALLOWED = re.compile(r'\A[A-Za-z0-9_\-]+\Z')
 
 
 @login_required()
@@ -247,81 +267,26 @@ def logout(request):
     return HttpResponseRedirect(reverse('core:user:login'))
 
 
-def registration(request):
+class WgerSignupView(AllauthSignupView):
     """
-    A form to allow for registration of new users
+    allauth's signup view, with two wger carve-outs: registration disabled
+    globally redirects to the features page (instead of allauth's "signup
+    closed" page), and temporary (guest) users may still reach the
+    registration page so they can create a real account.
+
+    The wger-specific profile setup (notification language, default gym) lives
+    in WgerAccountAdapter.save_user().
     """
 
-    # If global user registration is deactivated, redirect
-    if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
-        return HttpResponseRedirect(reverse('software:features'))
-
-    template_data = {}
-    template_data.update(csrf(request))
-
-    # Don't show captcha if the global parameter is false
-    FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
-    )
-
-    # Redirect regular users, in case they reached the registration page
-    if request.user.is_authenticated and not request.user.userprofile.is_temporary:
-        return HttpResponseRedirect(reverse('core:dashboard'))
-
-    if request.method == 'POST':
-        form = FormClass(data=request.POST)
-
-        # If the data is valid, log in and redirect
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            email = form.cleaned_data['email']
-            user = User.objects.create_user(username, email, password)
-            user.save()
-
-            # Pre-set some values of the user's profile
-            language = load_language(translation.get_language())
-            user.userprofile.notification_language = language
-
-            # Set default gym, if needed
-            gym_config = GymConfig.objects.get(pk=1)
-            if gym_config.default_gym:
-                user.userprofile.gym = gym_config.default_gym
-
-                # Create gym user configuration object
-                config = GymUserConfig()
-                config.gym = gym_config.default_gym
-                config.user = user
-                config.save()
-
-            user.userprofile.save()
-            user = authenticate(request=request, username=username, password=password)
-
-            # Log the user in
-            django_login(request, user)
-
-            # Email the user with the activation link
-            if email:
-                EmailAddress.objects.add_email(
-                    request,
-                    request.user,
-                    request.user.email,
-                    confirm=True,
-                )
-
-            # Redirect to the dashboard
-            messages.success(request, _('You were successfully registered'))
-            return HttpResponseRedirect(reverse('core:dashboard'))
-    else:
-        form = FormClass()
-
-    template_data['form'] = form
-    template_data['title'] = _('Register')
-
-    # Add this line to use the new registration-specific sidebar
-    template_data['sidebar'] = 'user/registration_sidebar.html'
-
-    return render(request, 'form_content.html', template_data)
+    def dispatch(self, request, *args, **kwargs):
+        if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
+            return HttpResponseRedirect(reverse('software:features'))
+        if request.user.is_authenticated and request.user.userprofile.is_temporary:
+            # Skip RedirectAuthenticatedUserMixin's "already logged in" redirect
+            return super(RedirectAuthenticatedUserMixin, self).dispatch(
+                request, *args, **kwargs
+            )
+        return super().dispatch(request, *args, **kwargs)
 
 
 @login_required
@@ -536,10 +501,80 @@ def api_key(request):
         messages.success(request, _('All API sessions were revoked'))
         return HttpResponseRedirect(reverse('core:user:api-key'))
 
+    # Long-lived refresh tokens (headless JWT, backed by a dedicated session).
+    if request.method == 'POST' and request.POST.get('new_refresh_token'):
+        new_refresh_token = mint_long_lived_refresh_token(
+            request.user,
+            settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
+        )
+        # Carry the freshly minted token across the post-redirect step so the
+        # next render can show it exactly once.
+        request.session[_NEW_REFRESH_TOKEN_SESSION_KEY] = new_refresh_token
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
+    if request.method == 'POST' and request.POST.get('revoke_refresh_token'):
+        if revoke_long_lived_session(request.user, request.POST['revoke_refresh_token']):
+            messages.success(request, _('Refresh token was revoked'))
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
+    if request.method == 'POST' and request.POST.get('revoke_all_refresh_tokens'):
+        count = revoke_all_long_lived_sessions(request.user)
+        if count:
+            messages.success(
+                request,
+                _('Revoked {count} refresh token(s)').format(count=count),
+            )
+        return HttpResponseRedirect(reverse('core:user:api-key'))
+
     context['token'] = token
     context['active_jwt_sessions'] = count_active_jwt_refresh_tokens(request.user)
+    context['new_refresh_token'] = request.session.pop(_NEW_REFRESH_TOKEN_SESSION_KEY, None)
+    context['long_lived_sessions'] = list_long_lived_sessions(request.user)
+    context['refresh_token_lifetime_days'] = (
+        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN // 86400
+    )
 
     return render(request, 'user/api_key.html', context)
+
+
+@login_required
+def app_auth_handoff(request):
+    """
+    Browser-side endpoint that mints a long-lived headless refresh token for
+    the authenticated user and redirects to a custom URL scheme so the wger
+    mobile app can pick it up.
+
+    The user must already be authenticated; @login_required redirects through
+    the normal allauth login flow first.
+
+    A ``?state=<nonce>`` query parameter is echoed back into the redirect
+    fragment so the app can verify the response came from a handoff it started
+    itself. The value is treated as opaque but constrained to base64url characters
+    and a sane length to prevent abuse of the reflection.
+    """
+    token = mint_long_lived_refresh_token(
+        request.user,
+        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
+    )
+
+    state = request.GET.get('state', '')
+    if state and (
+        len(state) > _APP_AUTH_STATE_MAX_LEN or not _APP_AUTH_STATE_ALLOWED.match(state)
+    ):
+        state = ''
+
+    # Token goes in the URL fragment, not the query string, so it never lands
+    # in server access logs or referer headers. Refresh-token rotation is
+    # the backstop against the one remaining leak surface (browser history).
+    fragment = f'token={quote(token, safe="")}'
+    if state:
+        fragment += f'&state={quote(state, safe="")}'
+    return_uri = f'{_APP_AUTH_SCHEME}://{_APP_AUTH_HOST}#{fragment}'
+    return render(
+        request,
+        'user/app_auth_handoff.html',
+        {'return_uri': return_uri},
+    )
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):
@@ -706,14 +741,23 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         return form
 
 
-class WgerLoginView(LoginView):
+class WgerLoginView(AllauthLoginView):
     """
-    If the user is already logged in and there's a "next" parameter in the URL,
-    redirect there. Otherwise, proceed with the normal login logic from Django
+    allauth's login view, with one wger carve-out: temporary (guest) users are
+    still allowed to reach the login page so they can sign in as a real
+    account. allauth would otherwise redirect every authenticated user away.
     """
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and not request.user.userprofile.is_temporary:
+        if request.user.is_authenticated:
+            if request.user.userprofile.is_temporary:
+                # Skip RedirectAuthenticatedUserMixin's "already logged in"
+                # redirect so temp users can sign in as a real account.
+                return super(RedirectAuthenticatedUserMixin, self).dispatch(
+                    request, *args, **kwargs
+                )
+
+            # Real authenticated user: respect ?next= or send them to the dashboard.
             next_url = request.GET.get('next')
             if next_url and url_has_allowed_host_and_scheme(
                 next_url,
@@ -723,5 +767,9 @@ class WgerLoginView(LoginView):
                 return redirect(next_url)
             return redirect(reverse('core:dashboard'))
 
-        # Proceed with the normal login page logic
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['use_social_auth'] = bool(settings.WGER_SOCIAL_PROVIDERS)
+        return context

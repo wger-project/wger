@@ -32,19 +32,23 @@ from jose import jwk
 
 class Command(BaseCommand):
     """
-    Generates a fresh RS256 keypair for PowerSync JWT signing.
+    Generates a fresh RS256 keypair for JWT signing.
+
+    The same key is used by SimpleJWT, allauth.headless, and the PowerSync
+    token endpoint; the JWT 'aud' claim separates the use cases.
     """
 
     help = (
-        'Generate a fresh RS256 keypair for PowerSync JWT signing/verification. '
-        'The output can be pasted into the docker compose env file.'
+        'Generate a fresh RS256 keypair for JWT signing/verification (SimpleJWT, '
+        'allauth.headless, PowerSync). The output can be pasted into the docker '
+        'compose env file.'
     )
 
     def add_arguments(self, parser):
         parser.add_argument(
             '--kid',
-            default='powersync',
-            help='Key ID written into the JWK and the JWT header (default: powersync).',
+            default='wger',
+            help='Key ID written into the JWK and the JWT header (default: wger).',
         )
         parser.add_argument(
             '--key-size',
@@ -83,9 +87,9 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.WARNING(
                 '# Paste these into your environment file (e.g. docker/config/prod.env).\n'
-                '# Keep POWERSYNC_JWKS_PRIVATE_KEY secret — never commit it to a public repo.'
+                '# Keep JWT_PRIVATE_KEY secret, never commit it to a public repo.'
             )
         )
         self.stdout.write('')
-        self.stdout.write(f'POWERSYNC_JWKS_PRIVATE_KEY={b64_jwk(priv_jwk)}')
-        self.stdout.write(f'POWERSYNC_JWKS_PUBLIC_KEY={b64_jwk(pub_jwk)}')
+        self.stdout.write(f'JWT_PRIVATE_KEY={b64_jwk(priv_jwk)}')
+        self.stdout.write(f'JWT_PUBLIC_KEY={b64_jwk(pub_jwk)}')

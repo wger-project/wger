@@ -79,6 +79,11 @@ class PowerSyncHandler:
     # running the create handler.
     supports_create: bool = True
 
+    # Set to False for tables that must never be deleted through PowerSync
+    # (UserProfile). handle_delete then returns "Method not allowed" instead
+    # of deleting the row.
+    supports_delete: bool = True
+
     # If True, the handler passes ``user_id`` into the serializer context so
     # that owner-scoped fields (e.g. WorkoutLogSerializer.session) can filter
     # their queryset.
@@ -163,6 +168,12 @@ class PowerSyncHandler:
         return self._validation_failed(serializer.errors)
 
     def handle_delete(self, payload: dict[str, Any], user_id: int) -> dict | None:
+        if not self.supports_delete:
+            return {
+                'error': 'Method not allowed',
+                'details': f'{self.label} cannot be deleted',
+            }
+
         logger.debug(f'Received PowerSync payload for {self.label} delete: {payload}')
         entry = self._get_or_none(payload, user_id)
         if entry is None:

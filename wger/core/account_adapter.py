@@ -17,7 +17,10 @@ from datetime import timedelta
 
 # Django
 from django.conf import settings
-from django.utils import timezone
+from django.utils import (
+    timezone,
+    translation,
+)
 
 # Third Party
 from allauth.account.adapter import DefaultAccountAdapter
@@ -25,6 +28,36 @@ from allauth.account.adapter import DefaultAccountAdapter
 
 class WgerAccountAdapter(DefaultAccountAdapter):
     """Wger Account Adapter for allauth"""
+
+    def is_open_for_signup(self, request):
+        return settings.WGER_SETTINGS['ALLOW_REGISTRATION']
+
+    def save_user(self, request, user, form, commit=True):
+        """
+        Create the user via allauth, then pre-fill the wger profile bits the
+        old registration view used to set (notification language, default gym).
+        """
+        # wger
+        from wger.config.models import GymConfig
+        from wger.gym.models import GymUserConfig
+        from wger.utils.language import load_language
+
+        user = super().save_user(request, user, form, commit=commit)
+        if not commit:
+            return user
+
+        profile = user.userprofile
+        profile.notification_language = load_language(translation.get_language())
+
+        gym_config = GymConfig.objects.get(pk=1)
+        if gym_config.default_gym:
+            profile.gym = gym_config.default_gym
+        profile.save()
+
+        if gym_config.default_gym:
+            GymUserConfig.objects.get_or_create(gym=gym_config.default_gym, user=user)
+
+        return user
 
     def send_mail(self, template_prefix, email, context):
         """
