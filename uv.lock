@@ -797,14 +797,14 @@ wheels = [
 
 [[package]]
 name = "faker"
-version = "40.18.0"
+version = "40.19.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "tzdata", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/18/06/70886e82d8f1d2b73454f3a7c1b7405300128df22e70d85a828951366932/faker-40.18.0.tar.gz", hash = "sha256:2207575c0e8f90e6ccd6dbef764de875c614d16d3db4eee9712d9a00087f2e70", size = 1968243, upload-time = "2026-05-14T16:43:04.834Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/15/01/28c8ddae8caaf82c929655000963d83e3f01265a9af34e823c2ef2eee8ac/faker-40.19.1.tar.gz", hash = "sha256:76fa71fd3bf320db25e5504eb356f9a76b8a95cd6098524d006f446035b6b89d", size = 1969318, upload-time = "2026-05-22T15:57:37.433Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/84/0b/5c0b2d3a4b7a715f1835dd3f963bfbe841a02ae5cad1df8ee0325dfad235/faker-40.18.0-py3-none-any.whl", hash = "sha256:61a6b94b74605ddb090a065deb197a1c585ae7a874c094cf6693671d271e6083", size = 2006355, upload-time = "2026-05-14T16:43:02.489Z" },
+    { url = "https://files.pythonhosted.org/packages/49/b4/40a1ec12ec834604f3848143343baf1c67bc9a1096e401907eaa0d25876a/faker-40.19.1-py3-none-any.whl", hash = "sha256:265259b37c013838baaae34940207288170df385d6c5281413fce56a3504d580", size = 2007643, upload-time = "2026-05-22T15:57:35.867Z" },
 ]
 
 [[package]]
@@ -2021,7 +2021,7 @@ dev = [
     { name = "coverage", specifier = "~=7.14.0" },
     { name = "django-debug-toolbar", specifier = "~=6.3.0" },
     { name = "django-extensions", specifier = "~=4.1" },
-    { name = "faker", specifier = "~=40.18.0" },
+    { name = "faker", specifier = "~=40.19.1" },
     { name = "hatchling", specifier = "~=1.29.0" },
     { name = "isort", specifier = "~=8.0.1" },
     { name = "ruff", specifier = "~=0.15.2" },
