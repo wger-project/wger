@@ -15,6 +15,7 @@
 # Standard Library
 import re
 import uuid
+from difflib import SequenceMatcher
 
 # Django
 from django.conf import settings
@@ -24,10 +25,8 @@ from django.db import (
     models,
     transaction,
 )
-from django.db.models import (
-    Length,
-    Q,
-)
+from django.db.models import Q
+from django.db.models.functions import Length
 
 # Third Party
 from actstream import action as actstream_action
@@ -51,6 +50,7 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
+from wger.utils.db import is_postgres_db
 from wger.utils.url import make_absolute_url
 
 
@@ -87,6 +87,16 @@ def _check_duplicates(name, language, exclude_pk=None):
     if exclude_pk:
         base_qs = base_qs.exclude(pk=exclude_pk)
 
+    # Trigram Similarity
+    if is_postgres_db():
+        return (
+            base_qs.annotate(similarity=TrigramSimilarity('name', name))
+            .filter(similarity__gte=SIMILARITY_THRESHOLD)
+            .order_by('-similarity')
+            .values_list('name', flat=True)
+            .first()
+        )
+
     norm_new = _normalise_name(name)
     input_len = len(name)
 
@@ -95,20 +105,16 @@ def _check_duplicates(name, language, exclude_pk=None):
         n_len__gte=input_len - 4, n_len__lte=input_len + 4
     )
 
+    # SequenceMatcher
     for candidate in candidates:
         if _normalise_name(candidate.name) == norm_new:
             return candidate.name
 
-    # Trigram Similarity
-    hit = (
-        base_qs.annotate(similarity=TrigramSimilarity('name', name))
-        .filter(similarity__gte=SIMILARITY_THRESHOLD)
-        .order_by('-similarity')
-        .values_list('name', flat=True)
-        .first()
-    )
-
-    return hit
+        if (
+            SequenceMatcher(None, norm_new, _normalise_name(candidate.name)).ratio()
+            >= SIMILARITY_THRESHOLD
+        ):
+            return candidate.name
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
