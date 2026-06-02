@@ -119,7 +119,6 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
         before = self.get_counts()
         response_data = self.client.post(self.url, data=payload).json()
         after = self.get_counts()
-        print(response_data)
         exercise = Exercise.objects.get(pk=response_data.get('id'))
 
         self.assertEqual(exercise.category_id, 3)
