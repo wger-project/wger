@@ -62,6 +62,10 @@ logger = logging.getLogger(__name__)
 class Ingredient(AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
+
+    IMPORTANT: when changing, adding or removing fields here, make sure to add
+               them to the ingredient shadow sync table. See the comment in the
+               0037_powersync_synced_ingredient_tables migration for details.
     """
 
     class Meta:

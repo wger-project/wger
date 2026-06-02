@@ -59,15 +59,15 @@ Also, we now support two-factor authentication like security codes or passkeys.
 
 * If you are using docker, make sure to pull the latest changes from the
   [docker repo](https://github.com/wger-project/docker) as there is a new service
-  ("powersync") and configs (e.g. for nginx/Caddy).
-
-* `SIGNING_KEY` is replaced by `JWT_PRIVATE_KEY` and `JWT_PUBLIC_KEY`.
-  Run `docker compose exec web ./manage.py generate-jwt-keys` to generate a new pair.
+  ("powersync") and configs (e.g. for nginx/Caddy) and settings (prod.env)
 
 * The new powersync service needs its own dedicated user and schema inside the
   Postgres database to store its sync state, run
   `docker compose exec web ./manage.py setup-powersync-storage` to apply.
   If you want to change the defaults, this can be configured in `PS_STORAGE_PG_URI`.
+
+* `SIGNING_KEY` is replaced by `JWT_PRIVATE_KEY` and `JWT_PUBLIC_KEY`.
+  Run `docker compose exec web ./manage.py generate-jwt-keys` to generate a new pair.
 
 * Make sure you have set `SITE_URL` with your server's URL
 
