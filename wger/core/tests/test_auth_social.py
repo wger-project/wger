@@ -19,7 +19,7 @@ from unittest import mock
 # Django
 from django.test import (
     RequestFactory,
-    SimpleTestCase,
+    TestCase,
     override_settings,
 )
 from django.urls import reverse
@@ -73,7 +73,7 @@ class SocialAuthEnabledLoginPageTestCase(WgerTestCase):
         self.assertNotContains(response, 'or login with')
 
 
-class WgerLoginViewContextTestCase(SimpleTestCase):
+class WgerLoginViewContextTestCase(TestCase):
     """Unit tests for ``WgerLoginView.get_context_data``."""
 
     def _build_view(self):
