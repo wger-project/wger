@@ -52,7 +52,13 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     protein = float(product_data['protein'])
     carbs = float(product_data['carbohydrates'])
     fat = float(product_data['fat'])
-    language = product_data['language']['id']
+
+    # The sync API nests relations as sub-objects ({'id': ...}), while the bulk
+    # JSONL dump (IngredientSerializer, no depth) emits plain integer PKs. Accept
+    # both shapes so the same extractor serves both import paths.
+    language = product_data['language']
+    if isinstance(language, dict):
+        language = language['id']
 
     # Optional
     sodium = product_data.get('sodium', None)
@@ -78,7 +84,15 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     source_name = product_data.get('source_name', '')
     source_url = product_data.get('source_url', '')
 
-    license_id = product_data.get('license', {}).get('id', ODBL_LICENSE_ID)
+    # Same dual shape as `language`: nested sub-object from the sync API or a
+    # plain integer PK from the bulk dump.
+    license_raw = product_data.get('license')
+    if isinstance(license_raw, dict):
+        license_id = license_raw.get('id', ODBL_LICENSE_ID)
+    elif license_raw is not None:
+        license_id = license_raw
+    else:
+        license_id = ODBL_LICENSE_ID
     license_title = product_data.get('license_title', '')
     license_object_url = product_data.get('license_object_url', '')
     license_authors = product_data.get('license_author', '')
