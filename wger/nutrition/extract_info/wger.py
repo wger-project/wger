@@ -46,13 +46,13 @@ def extract_weight_unit_info_from_wger_api(product_data: dict) -> list[WeightUni
 def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     # Basics
     name = product_data.get('name', '')
-    common_name = product_data.get('common_name', '')
+    common_name = product_data.get('common_name')
     code = product_data['code']
     energy = float(product_data['energy'])
     protein = float(product_data['protein'])
     carbs = float(product_data['carbohydrates'])
     fat = float(product_data['fat'])
-    language = product_data['language']
+    language = product_data['language']['id']
 
     # Optional
     sodium = product_data.get('sodium', None)
@@ -67,7 +67,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     fiber = product_data.get('fiber', None)
     fiber = float(fiber) if fiber is not None else None
 
-    brand = product_data.get('brand', '')
+    brand = product_data.get('brand')
 
     # Dietary properties
     is_vegan = product_data.get('is_vegan', None)
@@ -78,7 +78,7 @@ def extract_info_from_wger_api(product_data: dict) -> IngredientData:
     source_name = product_data.get('source_name', '')
     source_url = product_data.get('source_url', '')
 
-    license_id = product_data.get('license', ODBL_LICENSE_ID)
+    license_id = product_data.get('license', {}).get('id', ODBL_LICENSE_ID)
     license_title = product_data.get('license_title', '')
     license_object_url = product_data.get('license_object_url', '')
     license_authors = product_data.get('license_author', '')

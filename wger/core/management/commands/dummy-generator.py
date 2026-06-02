@@ -40,5 +40,5 @@ class Command(BaseCommand):
         call_command('dummy-generator-nutrition')
         call_command('dummy-generator-measurement-categories')
         call_command('dummy-generator-measurements')
-        call_command('dummy-generator-workout-plans')
+        call_command('dummy-generator-routines')
         call_command('dummy-generator-workout-diary')

@@ -67,13 +67,19 @@ class MockIngredientResponse:
                     'fat_saturated': '4.500',
                     'fiber': '2.000',
                     'sodium': '0.356',
-                    'license': 5,
+                    'license': {
+                        'id': 5,
+                        'name': 'Test license'
+                    },
                     'license_title': ' Gâteau double chocolat ',
                     'license_object_url': '',
                     'license_author': 'Open Food Facts',
                     'license_author_url': '',
                     'license_derivative_source_url': '',
-                    'language': 2,
+                    'language': {
+                        'id': 2,
+                        'short_name': 'de'
+                    },
                     'is_vegan': True,
                     'is_vegetarian': True,
                     'nutriscore': 'd',
@@ -107,13 +113,18 @@ class MockIngredientResponse:
                     'fat_saturated': '4.600',
                     'fiber': None,
                     'sodium': '0.820',
-                    'license': 5,
+                    'license': {
+                        'id': 5,
+                        'name': 'Test license'
+                    },
                     'license_title': ' Maxi Hot Dog New York Style',
                     'license_object_url': '',
                     'license_author': 'Open Food Facts',
                     'license_author_url': '',
                     'license_derivative_source_url': '',
-                    'language': 3,
+                    'language': {
+                        'id': 3
+                    },
                     'is_vegan': None,
                     'is_vegetarian': None,
                     'nutriscore': None,
@@ -215,8 +226,12 @@ class TestSyncMethods(WgerTestCase):
                     'protein': '150.000',
                     'carbohydrates': '10.000',
                     'fat': '10.000',
-                    'language': 2,
-                    'license': 5,
+                    'language': {
+                        'id': 2
+                    },
+                    'license': {
+                        'id': 5
+                    },
                     'license_author': 'Open Food Facts',
                     'weight_units': [],
                 },
@@ -231,8 +246,12 @@ class TestSyncMethods(WgerTestCase):
                     'protein': '11.000',
                     'carbohydrates': '27.000',
                     'fat': '11.000',
-                    'language': 3,
-                    'license': 5,
+                    'language': {
+                        'id': 3
+                    },
+                    'license':{
+                        'id': 5
+                    },
                     'license_author': 'Open Food Facts',
                     'weight_units': [],
                 },
@@ -243,7 +262,7 @@ class TestSyncMethods(WgerTestCase):
         count_before = Ingredient.objects.count()
 
         # A single malformed record must not abort the whole run
-        sync_ingredients(lambda x: x)
+        sync_ingredients(print)
 
         # The valid ingredient was synced, the malformed one was skipped
         self.assertTrue(
