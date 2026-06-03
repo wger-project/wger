@@ -17,6 +17,10 @@ from functools import wraps
 
 # Django
 from django.conf import settings
+from django.db import models
+
+# wger
+from wger.utils.uuid import uuid7
 
 
 def is_postgres_db():
@@ -34,3 +38,32 @@ def postgres_only(func):
             return None
 
     return wrapper
+
+
+def backfill_uuid_column(
+    model: type[models.Model],
+    column: str = 'uuid',
+    batch_size: int = 2000,
+) -> None:
+    """
+    Populate a freshly added UUID column for every existing row, in batches using
+    the column's own model default.
+
+    Every row is rewritten unconditionally: ``AddField`` with a callable default
+    evaluates that default only once and fills *all* existing rows with the same
+    value (``ADD COLUMN ... DEFAULT <one-value>``).
+    """
+
+    default = model._meta.get_field(column).default
+    if not callable(default):
+        default = uuid7
+
+    batch = []
+    for row in model.objects.all().only('pk').iterator(chunk_size=batch_size):
+        setattr(row, column, default())
+        batch.append(row)
+        if len(batch) >= batch_size:
+            model.objects.bulk_update(batch, [column])
+            batch = []
+    if batch:
+        model.objects.bulk_update(batch, [column])

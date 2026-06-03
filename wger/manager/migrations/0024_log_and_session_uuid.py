@@ -3,18 +3,12 @@
 import uuid
 from django.db import migrations, models
 
+from wger.utils.db import backfill_uuid_column
+
 
 def gen_uuids(apps, schema_editor):
-    WorkoutLog = apps.get_model('manager', 'WorkoutLog')
-    WorkoutSession = apps.get_model('manager', 'WorkoutSession')
-
-    for entry in WorkoutLog.objects.all():
-        entry.uuid = uuid.uuid4()
-        entry.save(update_fields=['uuid'])
-
-    for entry in WorkoutSession.objects.all():
-        entry.uuid = uuid.uuid4()
-        entry.save(update_fields=['uuid'])
+    backfill_uuid_column(apps.get_model('manager', 'WorkoutLog'))
+    backfill_uuid_column(apps.get_model('manager', 'WorkoutSession'))
 
 
 class Migration(migrations.Migration):

@@ -19,30 +19,13 @@ from django.db import migrations, models
 from django.db.migrations.state import StateApps
 from django.db.models import OuterRef, Subquery
 
+from wger.utils.db import backfill_uuid_column
 from wger.utils.uuid import uuid7
 
 
 def gen_uuids(apps: StateApps, schema_editor):
-    NutritionPlan = apps.get_model('nutrition', 'NutritionPlan')
-    Meal = apps.get_model('nutrition', 'Meal')
-    MealItem = apps.get_model('nutrition', 'MealItem')
-    LogItem = apps.get_model('nutrition', 'LogItem')
-
-    for plan in NutritionPlan.objects.all():
-        plan.uuid = uuid7()
-        plan.save(update_fields=['uuid'])
-
-    for meal in Meal.objects.all():
-        meal.uuid = uuid7()
-        meal.save(update_fields=['uuid'])
-
-    for item in MealItem.objects.all():
-        item.uuid = uuid7()
-        item.save(update_fields=['uuid'])
-
-    for item in LogItem.objects.all():
-        item.uuid = uuid7()
-        item.save(update_fields=['uuid'])
+    for model_name in ('NutritionPlan', 'Meal', 'MealItem', 'LogItem'):
+        backfill_uuid_column(apps.get_model('nutrition', model_name))
 
 
 def populate_meal_plan_tmp(apps: StateApps, schema_editor):

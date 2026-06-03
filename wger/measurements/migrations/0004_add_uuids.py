@@ -17,20 +17,13 @@ from django.db import migrations, models
 from django.db.migrations.state import StateApps
 from django.db.models import OuterRef, Subquery
 
+from wger.utils.db import backfill_uuid_column
 from wger.utils.uuid import uuid7
 
 
 def gen_uuids(apps: StateApps, schema_editor):
-    Category = apps.get_model('measurements', 'Category')
-    Measurement = apps.get_model('measurements', 'Measurement')
-
-    for item in Category.objects.all():
-        item.uuid = uuid7()
-        item.save(update_fields=['uuid'])
-
-    for item in Measurement.objects.all():
-        item.uuid = uuid7()
-        item.save(update_fields=['uuid'])
+    backfill_uuid_column(apps.get_model('measurements', 'Category'))
+    backfill_uuid_column(apps.get_model('measurements', 'Measurement'))
 
 
 def populate_measurement_category_tmp(apps: StateApps, schema_editor):
