@@ -22,6 +22,9 @@ Other tables such as ``nutrition_image`` and ``nutrition_ingredientweightunit``
 are synced directly, since at least currently it doesn't seem necessary to add
 any shadow tables of their own.
 
+Note that currently the shadow table will grow monotonically, as no ingredients
+are ever removed from there. Should this ever become a problem in the future,
+new triggers will need to be added.
 
 Keeping the shadow table in lockstep when the ingredient schema changes
 -----------------------------------------------------------------------

@@ -30,16 +30,16 @@ def migrate_context_data_uuids(apps: StateApps, schema_editor):
         log_id = context.get('log_id')
         if isinstance(log_id, int):
             uuid = resolve(log_uuid_cache, WorkoutLog, log_id)
-            if uuid is not None:
-                context['log_id'] = str(uuid)
-                changed = True
+            # Replace the int PK with the UUID string, or clear a dangling
+            # reference to a log that no longer exists
+            context['log_id'] = str(uuid) if uuid is not None else None
+            changed = True
 
         session_id = context.get('session_id')
         if isinstance(session_id, int):
             uuid = resolve(session_uuid_cache, WorkoutSession, session_id)
-            if uuid is not None:
-                context['session_id'] = str(uuid)
-                changed = True
+            context['session_id'] = str(uuid) if uuid is not None else None
+            changed = True
 
         if changed:
             user_trophy.context_data = context
