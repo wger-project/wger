@@ -129,6 +129,11 @@ class PowerSyncHandler:
         logger.debug(f'Received PowerSync payload for {self.label} create: {payload}')
         payload = self.preprocess_payload(payload)
 
+        # Idempotent create: a redelivered PUT for a row this user already owns is
+        # a no-op success, not a PK-conflict error (PowerSync redelivers writes).
+        if 'id' in payload and self._get_or_none(payload, user_id) is not None:
+            return self._ack_existing(payload['id'])
+
         fk_err = self._check_fk(payload, user_id)
         if fk_err is not None:
             return fk_err
@@ -149,7 +154,7 @@ class PowerSyncHandler:
 
         entry = self._get_or_none(payload, user_id)
         if entry is None:
-            return self._not_found(payload['id'])
+            return self._ack_missing('update', payload['id'])
 
         fk_err = self._check_fk(payload, user_id)
         if fk_err is not None:
@@ -177,7 +182,7 @@ class PowerSyncHandler:
         logger.debug(f'Received PowerSync payload for {self.label} delete: {payload}')
         entry = self._get_or_none(payload, user_id)
         if entry is None:
-            return self._not_found(payload['id'])
+            return self._ack_missing('delete', payload['id'])
         entry.delete()
         logger.debug(f'Deleted {self.label} {payload["id"]} for user {user_id}')
         return None
@@ -223,10 +228,29 @@ class PowerSyncHandler:
         except self.model.DoesNotExist:
             return None
 
-    def _not_found(self, ident) -> dict:
-        msg = f'{self.label} with id {ident} not found'
-        logger.warning(msg)
-        return {'error': 'Not found', 'details': msg}
+    def _ack_missing(self, verb: str, ident) -> None:
+        """
+        Acknowledge a write whose target row is gone as an idempotent no-op.
+
+        PowerSync redelivers operations and is server-authoritative, so a missing
+        target (already deleted, or a redelivered op) is the desired end state,
+        not an error: returning an error would surface a spurious failure on the
+        client and block nothing useful. This is also what a cross-user write
+        resolves to (the owner filter matches nothing), which stays a safe no-op.
+        """
+        logger.info(f'PowerSync {verb} for missing {self.label} {ident}, acknowledged as no-op')
+        return None
+
+    def _ack_existing(self, ident) -> None:
+        """
+        Acknowledge a redelivered create as an idempotent no-op.
+
+        The row already exists and is owned by this user, so re-inserting it would
+        only raise a PK/unique conflict. PowerSync may redeliver the same create,
+        so this is the desired end state, not an error.
+        """
+        logger.info(f'PowerSync create for existing {self.label} {ident}, acknowledged as no-op')
+        return None
 
     def _validation_failed(self, errors) -> dict:
         logger.warning(f'PowerSync {self.label} validation failed: {errors}')

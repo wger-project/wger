@@ -144,6 +144,33 @@ class PowerSyncCreateTestCase:
             'Server replaced the client-supplied id with a fresh one',
         )
 
+    def test_create_is_idempotent(self):
+        """A redelivered PUT for an already-created row is a no-op, not a conflict error."""
+        if self.resource is None or self.create_payload is None:
+            return
+        # Only meaningful where the client supplies the id (Pattern A models).
+        if 'id' not in self.create_payload:
+            return
+        self.authenticate()
+        first = self.push('PUT', self.create_payload)
+        self.assertEqual(first.status_code, status.HTTP_200_OK, first.content)
+        self.assertEqual(first.json(), {'status': 'ok!'})
+        count_after_first = self.resource.objects.count()
+
+        # Redeliver the same create: the row already exists.
+        second = self.push('PUT', self.create_payload)
+        self.assertEqual(second.status_code, status.HTTP_200_OK, second.content)
+        self.assertEqual(
+            second.json(),
+            {'status': 'ok!'},
+            'A redelivered create must be acknowledged as a no-op, not an error',
+        )
+        self.assertEqual(
+            self.resource.objects.count(),
+            count_after_first,
+            'A redelivered create must not create a second row',
+        )
+
     def test_create_ignores_user_in_payload(self):
         """A user/user_id smuggled in the payload must not change the owner."""
         if self.resource is None or self.create_payload is None:
@@ -214,8 +241,8 @@ class PowerSyncUpdateTestCase:
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
         self.assertEqual(response.json(), {'status': 'ok!'})
 
-    def test_update_other_user_not_found(self):
-        """A different user must not be able to PATCH someone else's row."""
+    def test_update_other_user_noop(self):
+        """A PATCH targeting another user's row resolves to a safe no-op success."""
         if self.resource is None or self.update_payload is None:
             return
         owned = self._get_entry_for_update()
@@ -225,12 +252,7 @@ class PowerSyncUpdateTestCase:
         self.authenticate(self.user_fail)
         response = self.push('PATCH', self.update_payload)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        body = response.json()
-        self.assertEqual(
-            body.get('error'),
-            'Not found',
-            f'PATCH by foreign user should return Not found, got {body}',
-        )
+        self.assertEqual(response.json(), {'status': 'ok!'})
 
         # Re-fetch a fresh instance instead of refresh_from_db: the latter
         # forces ImageField models (gallery.Image) to recompute width/height
@@ -239,7 +261,7 @@ class PowerSyncUpdateTestCase:
         self.assertEqual(
             self.get_owner_username(fresh),
             owner_before,
-            'Owner must not change after a rejected update',
+            "A foreign user's PATCH must not modify the row",
         )
 
     def test_update_fk_ownership_rejected(self):
@@ -298,23 +320,43 @@ class PowerSyncDeleteTestCase:
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(self.resource.objects.count(), before)
 
-    def test_delete_other_user_not_found(self):
+    def test_delete_other_user_noop(self):
+        """A DELETE targeting another user's row resolves to a safe no-op success."""
         if self.resource is None or self.pk_owned is None:
             return
         before = self.resource.objects.count()
         self.authenticate(self.user_fail)
         response = self.push('DELETE', self._delete_payload())
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        body = response.json()
-        self.assertEqual(
-            body.get('error'),
-            'Not found',
-            f'DELETE by foreign user should return Not found, got {body}',
-        )
+        self.assertEqual(response.json(), {'status': 'ok!'})
         self.assertEqual(
             self.resource.objects.count(),
             before,
-            'No row should be deleted on a rejected delete',
+            "A foreign user's DELETE must not remove any row",
+        )
+
+    def test_delete_is_idempotent(self):
+        """A redelivered DELETE for an already-removed row is a no-op success, not an error."""
+        if self.resource is None or self.pk_owned is None:
+            return
+        self.authenticate()
+        first = self.push('DELETE', self._delete_payload())
+        self.assertEqual(first.status_code, status.HTTP_200_OK, first.content)
+        self.assertEqual(first.json(), {'status': 'ok!'})
+        count_after_first = self.resource.objects.count()
+
+        # Redeliver the same DELETE: the row is already gone.
+        second = self.push('DELETE', self._delete_payload())
+        self.assertEqual(second.status_code, status.HTTP_200_OK, second.content)
+        self.assertEqual(
+            second.json(),
+            {'status': 'ok!'},
+            'A redelivered DELETE must be acknowledged as a no-op, not an error',
+        )
+        self.assertEqual(
+            self.resource.objects.count(),
+            count_after_first,
+            'A redelivered DELETE must not change anything',
         )
 
     def test_delete_owner_succeeds(self):
