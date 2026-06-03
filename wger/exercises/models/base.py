@@ -272,7 +272,11 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         from wger.exercises.models.image import ExerciseImage
         from wger.exercises.models.translation import Translation
         from wger.exercises.models.video import ExerciseVideo
-        from wger.manager.models import WorkoutLog
+        from wger.manager.helpers import reset_routine_cache
+        from wger.manager.models import (
+            Routine,
+            WorkoutLog,
+        )
         from wger.manager.models.slot_entry import SlotEntry
 
         replacement = None
@@ -299,8 +303,26 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             # Replace references in workout logs and routines before deleting,
             # so that user data is not lost on this instance
             if replacement:
+                # Repointing the references with a bulk .update() bypasses the
+                # signals that keep the routine caches fresh. Collect the
+                # affected ones first, then reset their caches explicitly,
+                # otherwise the cached routine structure keeps pointing at this
+                # now-deleted exercise.
+                routine_ids = set(
+                    SlotEntry.objects.filter(exercise=self).values_list(
+                        'slot__day__routine_id', flat=True
+                    )
+                )
+                routine_ids.update(
+                    WorkoutLog.objects.filter(exercise=self).values_list('routine_id', flat=True)
+                )
+                routine_ids.discard(None)
+
                 SlotEntry.objects.filter(exercise=self).update(exercise=replacement)
                 WorkoutLog.objects.filter(exercise=self).update(exercise=replacement)
+
+                for routine in Routine.objects.filter(id__in=routine_ids):
+                    reset_routine_cache(routine)
 
                 if transfer_media:
                     ExerciseImage.objects.filter(exercise=self).update(exercise=replacement)

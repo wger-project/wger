@@ -17,6 +17,7 @@ import io
 from unittest.mock import patch
 
 # Django
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 
 # Third Party
@@ -52,6 +53,7 @@ from wger.manager.models import (
     SlotEntry,
     WorkoutLog,
 )
+from wger.utils.cache import CacheKeyMapper
 from wger.utils.requests import wger_headers
 
 
@@ -821,6 +823,23 @@ class TestSyncMethods(WgerTestCase):
             self.assertEqual(SlotEntry.objects.get(pk=pk).exercise_id, 2)
         for pk in logs:
             self.assertEqual(WorkoutLog.objects.get(pk=pk).exercise_id, 2)
+
+    @patch('requests.get', return_value=MockDeletionLogResponse())
+    def test_deletion_log_resets_routine_cache(self, mock_request):
+        """
+        Test that syncing a deletion that replaces an exercise invalidates the
+        cache of every routine that referenced it. Otherwise the cached routine
+        structure keeps pointing at the now-deleted exercise.
+        """
+        exercise1 = Exercise.objects.get(pk=1)
+        routine = SlotEntry.objects.filter(exercise=exercise1).first().slot.day.routine
+        cache_key = CacheKeyMapper.routine_api_structure_key(routine.id, routine.user_id)
+        cache.set(cache_key, {'stale': 'data'})
+        self.assertIsNotNone(cache.get(cache_key))
+
+        handle_deleted_entries(print)
+
+        self.assertIsNone(cache.get(cache_key))
 
     @patch('requests.get', return_value=MockExerciseResponse())
     def test_exercise_sync(self, mock_request):
