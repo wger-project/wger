@@ -14,7 +14,6 @@
 
 # Standard Library
 import datetime
-import json
 import os
 import re
 import sys
@@ -23,7 +22,9 @@ from datetime import timedelta
 from pathlib import Path
 
 # Third Party
-from jose import jwk as jose_jwk
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
+from jwt.algorithms import RSAAlgorithm
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
@@ -295,9 +296,19 @@ def jwk_b64_to_pem(b64_jwk_str: str):
     if not b64_jwk_str:
         return ''
 
-    jwk_dict = json.loads(urlsafe_b64decode(b64_jwk_str))
-    pem = jose_jwk.construct(jwk_dict).to_pem()
-    return pem.decode() if isinstance(pem, bytes) else pem
+    key = RSAAlgorithm.from_jwk(urlsafe_b64decode(b64_jwk_str).decode())
+    if isinstance(key, RSAPrivateKey):
+        pem = key.private_bytes(
+            serialization.Encoding.PEM,
+            serialization.PrivateFormat.PKCS8,
+            serialization.NoEncryption(),
+        )
+    else:
+        pem = key.public_bytes(
+            serialization.Encoding.PEM,
+            serialization.PublicFormat.SubjectPublicKeyInfo,
+        )
+    return pem.decode()
 
 #
 # Login

@@ -20,8 +20,13 @@ import json
 
 # Django
 from django.contrib.auth.models import User
+from django.urls import reverse
+
+# Third Party
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # wger
+from wger.core.api.powersync import create_token
 from wger.core.tests.base_testcase import WgerTestCase
 
 
@@ -116,4 +121,26 @@ class HeadlessSmokeTestCase(WgerTestCase):
             '/api/v2/workoutsession/',
             HTTP_AUTHORIZATION='Bearer not-a-real-token',
         )
+        self.assertIn(response.status_code, (401, 403))
+
+    def test_powersync_token_is_rejected_by_the_rest_api(self):
+        """
+        PowerSync tokens and the REST API are signed with the same RS256
+        keypair, so a valid signature alone must not grant API access: the
+        PowerSync token (``aud='powersync'``, no access-token type claim) has
+        to be rejected by the ``/api/v2/`` auth chain. A regular SimpleJWT
+        access token is accepted on the same endpoint, proving it is the token
+        type and not the endpoint that gates access.
+        """
+        user = User.objects.get(username='test')
+        url = reverse('workoutsession-list')
+
+        # Control: a genuine access token authenticates.
+        access_token = str(RefreshToken.for_user(user).access_token)
+        response = self.client.get(url, HTTP_AUTHORIZATION=f'Bearer {access_token}')
+        self.assertEqual(response.status_code, 200, response.content)
+
+        # The PowerSync token, though signed with the same key, must not.
+        ps_token = create_token(user.id)
+        response = self.client.get(url, HTTP_AUTHORIZATION=f'Bearer {ps_token}')
         self.assertIn(response.status_code, (401, 403))

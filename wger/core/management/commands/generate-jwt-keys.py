@@ -22,12 +22,7 @@ from django.core.management.base import BaseCommand
 
 # Third Party
 from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives.serialization import (
-    Encoding,
-    NoEncryption,
-    PrivateFormat,
-)
-from jose import jwk
+from jwt.algorithms import RSAAlgorithm
 
 
 class Command(BaseCommand):
@@ -61,20 +56,9 @@ class Command(BaseCommand):
         kid = options['kid']
         key_size = options['key_size']
 
-        # Generate RSA keypair via cryptography (python-jose's `jwk.construct`
-        # consumes a PEM string).
+        # Generate an RSA keypair and export it as a JWK.
         rsa_key = rsa.generate_private_key(public_exponent=65537, key_size=key_size)
-        priv_pem = rsa_key.private_bytes(
-            encoding=Encoding.PEM,
-            format=PrivateFormat.PKCS8,
-            encryption_algorithm=NoEncryption(),
-        )
-
-        # Convert to JWK; jose returns bytes for the encoded values, normalise to str.
-        jose_key = jwk.construct(priv_pem.decode(), algorithm='RS256')
-        priv_jwk = {
-            k: (v.decode() if isinstance(v, bytes) else v) for k, v in jose_key.to_dict().items()
-        }
+        priv_jwk = json.loads(RSAAlgorithm.to_jwk(rsa_key))
         priv_jwk['alg'] = 'RS256'
         priv_jwk['kid'] = kid
 

@@ -25,12 +25,18 @@ from functools import lru_cache
 from django.conf import settings
 
 # Third Party
-from jose.jwt import encode
+import jwt
+from jwt.algorithms import RSAAlgorithm
 
 
 @lru_cache(maxsize=1)
 def _private_jwk():
     return json.loads(urlsafe_b64decode(settings.JWT_PRIVATE_KEY))
+
+
+@lru_cache(maxsize=1)
+def _private_key():
+    return RSAAlgorithm.from_jwk(json.dumps(_private_jwk()))
 
 
 @lru_cache(maxsize=1)
@@ -40,14 +46,15 @@ def public_jwk():
 
 def create_token(user_id):
     jwk = _private_jwk()
-    return encode(
+    now = int(time.time())
+    return jwt.encode(
         {
             'sub': str(user_id),
-            'iat': time.time(),
+            'iat': now,
             'aud': 'powersync',
-            'exp': int(time.time()) + 600,
+            'exp': now + 600,
         },
-        jwk,
+        _private_key(),
         algorithm=jwk['alg'],
-        headers={'alg': jwk['alg'], 'kid': jwk['kid']},
+        headers={'kid': jwk['kid']},
     )
