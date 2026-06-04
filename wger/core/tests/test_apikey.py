@@ -15,22 +15,25 @@
 # Standard Library
 import json
 import logging
+from datetime import timedelta
 
 # Django
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.urls import reverse
+from django.utils import timezone
 
 # Third Party
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import (
     BlacklistedToken,
     OutstandingToken,
 )
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # wger
+from wger.core.tasks import flush_expired_long_lived_sessions_task
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.headless_long_lived import (
     LONG_LIVED_FLAG,
@@ -370,3 +373,25 @@ class LongLivedRefreshTokenTestCase(WgerTestCase):
         self.assertTrue(browser_sessions)
         for s in browser_sessions:
             self.assertFalse(s.get_decoded().get(LONG_LIVED_FLAG))
+
+    def test_flush_expired_long_lived_sessions_task(self):
+        """
+        The periodic cleanup task deletes expired DB-backed long-lived sessions
+        while leaving still-valid ones untouched.
+        """
+        user = User.objects.get(username='test')
+
+        before = set(Session.objects.values_list('session_key', flat=True))
+        mint_long_lived_refresh_token(user, 3600)
+        mint_long_lived_refresh_token(user, 3600)
+        expired_key, live_key = set(Session.objects.values_list('session_key', flat=True)) - before
+
+        # Force one of the two sessions past its expiry.
+        Session.objects.filter(session_key=expired_key).update(
+            expire_date=timezone.now() - timedelta(days=1),
+        )
+
+        flush_expired_long_lived_sessions_task()
+
+        self.assertFalse(Session.objects.filter(session_key=expired_key).exists())
+        self.assertTrue(Session.objects.filter(session_key=live_key).exists())

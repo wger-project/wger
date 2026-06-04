@@ -17,6 +17,7 @@ import logging
 import random
 
 # Django
+from django.contrib.sessions.backends.db import SessionStore
 from django.core.management import call_command
 
 # Third Party
@@ -43,6 +44,14 @@ def flush_expired_jwt_tokens_task():
     call_command('flushexpiredtokens')
 
 
+@app.task
+def flush_expired_long_lived_sessions_task():
+    """
+    Delete expired DB-backed sessions, i.e. the headless long-lived refresh tokens
+    """
+    SessionStore.clear_expired()
+
+
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
@@ -52,4 +61,12 @@ def setup_periodic_tasks(sender, **kwargs):
         ),
         flush_expired_jwt_tokens_task.s(),
         name='Flush expired JWT tokens',
+    )
+    sender.add_periodic_task(
+        crontab(
+            hour=str(random.randint(0, 23)),
+            minute=str(random.randint(0, 59)),
+        ),
+        flush_expired_long_lived_sessions_task.s(),
+        name='Flush expired long-lived sessions',
     )
