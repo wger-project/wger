@@ -629,14 +629,15 @@ wheels = [
 
 [[package]]
 name = "django-prometheus"
-version = "2.4.0"
+version = "2.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "django" },
     { name = "prometheus-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e8/b9/c758675671d71a1800feaad5c5fbcdecbd8d34296b63f9dc5662db39abda/django_prometheus-2.4.0.tar.gz", hash = "sha256:67da5c73d8e859aa73f6e11f52341c482691b17f8bd9844157cff6cdf51ce9bc", size = 24393, upload-time = "2025-06-18T18:06:28.673Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7b/c7/dc39c4c19f7b35e827a486d08376de1fad31c50decb26c56e32668314f13/django_prometheus-2.5.0.tar.gz", hash = "sha256:4837b3c3734d8350880839ab8235aafd250b668c348e159d4aecc3cbefeee53e", size = 26465, upload-time = "2026-05-26T19:04:00.77Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/38/05/d980950fb8c3f6f96c644599b1a025fb50e827477b1acf36daef72aa7e76/django_prometheus-2.4.0-py2.py3-none-any.whl", hash = "sha256:5b46b5f07b02ba8dd7abdb03a3c39073e8fd9120e2293a1ecb949bbb865378ac", size = 29528, upload-time = "2025-06-18T18:06:27.079Z" },
+    { url = "https://files.pythonhosted.org/packages/5d/5d/6ec3083ba69545696c962ae505a0e52e280e7592d4c278c2f3803cabb688/django_prometheus-2.5.0-py2.py3-none-any.whl", hash = "sha256:f15efb526cd53f9cf12da72dc55506322f5566b017a819ff27be1da302303134", size = 31801, upload-time = "2026-05-26T19:03:59.505Z" },
 ]
 
 [[package]]
@@ -1908,7 +1909,7 @@ requires-dist = [
     { name = "django-environ", specifier = "~=0.13.0" },
     { name = "django-filter", specifier = "~=25.2" },
     { name = "django-formtools", specifier = "~=2.6" },
-    { name = "django-prometheus", specifier = "~=2.4.0" },
+    { name = "django-prometheus", specifier = "~=2.5.0" },
     { name = "django-recaptcha", specifier = "~=4.1.0" },
     { name = "django-redis", specifier = "~=7.0.0" },
     { name = "django-simple-history", specifier = "~=3.11.0" },
