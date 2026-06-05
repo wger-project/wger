@@ -56,7 +56,6 @@
     font-style: normal;
 }
 
-
 /* sticky footer */
 
 html {
@@ -360,4 +359,36 @@ circle.color-17becf:hover {
 
 .dt-container {
     margin-bottom: 1.5rem;
+}
+/*
+ * Scroll to top button
+ */
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: #2A4C7D;
+    color: white;
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.3s ease,
+                visibility 0.3s ease;
+
+    z-index: 1000;
+}
+
+.scroll-to-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top-btn:hover {
+    opacity: 0.9;
 }
