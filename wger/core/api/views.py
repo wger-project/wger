@@ -21,6 +21,13 @@ import logging
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.db import (
+    DataError,
+    IntegrityError,
+    InterfaceError,
+    OperationalError,
+)
 from django.http import (
     HttpResponseForbidden,
     JsonResponse,
@@ -45,6 +52,7 @@ from rest_framework.decorators import (
     api_view,
     permission_classes,
 )
+from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.fields import BooleanField
 from rest_framework.permissions import (
     AllowAny,
@@ -395,15 +403,33 @@ def upload_powersync_data(request):
         logger.warning(f'Received unknown PowerSync table: {table}')
         return JsonResponse({'error': f'Unknown table: {table}'}, status=200)
 
-    # Handlers return either `None` (operation processed successfully) or an
-    # error dict which we propagate back to the client. The HTTP status stays
-    # at 200 even on logical errors, since powersync treats non-2xx statuses
-    # as "retry forever".
+    # Handlers return either `None` (processed) or an error dict for a
+    # deterministic refusal (validation, FK ownership, etc). We propagate these
+    # as 200 + `{error}` since powersync treats a non-2xx status as "retry", so
+    # a permanent refusal must stay 200 or the client loops forever.
+    #
+    # The except ladder classifies transient infrastructure errors as retry (5xx)
     try:
         result = handler.dispatch(http_verb, payload=payload, user_id=user_id)
+
+    except (OperationalError, InterfaceError):
+        # Transient infrastructure error (deadlock, lock timeout, dropped
+        # connection, etc.). Expected to clear on its own, so let the client
+        # retry.
+        logger.warning(f'Transient DB error for PowerSync table {table}, asking client to retry')
+        return JsonResponse({'error': 'Temporarily unavailable'}, status=503)
+
+    except (DjangoValidationError, DRFValidationError, IntegrityError, DataError) as e:
+        # Deterministic refusal raised from save() (constraint, model clean,
+        # custom create). Retry can't fix it, so reject permanently
+        logger.warning(f'PowerSync {table} rejected: {e}')
+        return JsonResponse({'error': 'Validation failed', 'details': str(e)}, status=200)
+
     except Exception as e:
+        # Unexpected and unclassified. Retry rather than silently drop the write;
+        # a failure that persists is a server bug, made visible by these logs.
         logger.exception(f'Error processing PowerSync data for table {table}')
-        return JsonResponse({'error': str(e)}, status=200)
+        return JsonResponse({'error': str(e)}, status=500)
 
     if result is not None:
         return JsonResponse(result, status=200)
