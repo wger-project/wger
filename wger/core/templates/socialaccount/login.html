@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n allauth wger_extras %}
+
+{% block title %}
+    {% if process == "connect" %}
+        {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
+    {% else %}
+        {% blocktrans with provider.name as provider %}Sign in via {{ provider }}{% endblocktrans %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if process == "connect" %}
+        <p>
+            {% blocktrans with provider.name as provider %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}
+        </p>
+    {% else %}
+        <p>
+            {% blocktrans with provider.name as provider %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}
+        </p>
+    {% endif %}
+
+    <form method="post" class="wger-form" novalidate>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">
+            {% trans "Continue" %}
+        </button>
+    </form>
+{% endblock %}
+
+{% block sidebar %}
+    <p>
+        <a href="{% url 'core:user:login' %}">
+            <span class="{% fa_class 'sign-in-alt' %}"></span>
+            {% trans "Back to login" %}
+        </a>
+    </p>
+{% endblock %}

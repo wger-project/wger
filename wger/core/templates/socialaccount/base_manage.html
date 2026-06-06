@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% block head_title %}{% endblock head_title %}
+{% endblock %}
+
+{% block sidebar %}
+    <p>
+        <a href="{% url 'core:user:preferences' %}">Preferences</a>
+    </p>
+    <p>
+        <a href="{% url 'account_email' %}">Manage email address</a>
+    </p>
+{% endblock %}
