@@ -69,6 +69,7 @@ from django.views.generic import (
 
 # Third Party
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialAccount
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -351,6 +352,10 @@ def preferences(request):
 
     context['form'] = form
     context['email_verified'] = request.user.userprofile.is_verified
+    context['keycloak_connected'] = SocialAccount.objects.filter(
+        user=request.user,
+        provider=getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak'),
+    ).exists()
 
     return render(request, 'user/preferences.html', context)
 

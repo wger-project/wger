@@ -123,6 +123,8 @@ INSTALLED_APPS = [
     # Django-allauth
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.openid_connect',
 ]
 
 MIDDLEWARE = [
@@ -169,6 +171,7 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
 
@@ -228,6 +231,33 @@ ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 # address that only replaces the current one (and updates User.email) once
 # confirmed via the verification link.
 ACCOUNT_CHANGE_EMAIL = True
+
+KEYCLOAK_OIDC_PROVIDER_ID = os.environ.get('KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak')
+KEYCLOAK_OIDC_PROVIDER_NAME = os.environ.get('KEYCLOAK_OIDC_PROVIDER_NAME', 'Keycloak')
+KEYCLOAK_OIDC_WELL_KNOWN_URL = os.environ.get('KEYCLOAK_OIDC_WELL_KNOWN_URL', '')
+KEYCLOAK_OIDC_CLIENT_ID = os.environ.get('KEYCLOAK_OIDC_CLIENT_ID', '')
+KEYCLOAK_OIDC_CLIENT_SECRET = os.environ.get('KEYCLOAK_OIDC_CLIENT_SECRET', '')
+KEYCLOAK_OIDC_ENABLED = all(
+    (KEYCLOAK_OIDC_WELL_KNOWN_URL, KEYCLOAK_OIDC_CLIENT_ID, KEYCLOAK_OIDC_CLIENT_SECRET)
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'openid_connect': {
+        'APPS': [
+            {
+                'provider_id': KEYCLOAK_OIDC_PROVIDER_ID,
+                'name': KEYCLOAK_OIDC_PROVIDER_NAME,
+                'client_id': KEYCLOAK_OIDC_CLIENT_ID,
+                'secret': KEYCLOAK_OIDC_CLIENT_SECRET,
+                'settings': {
+                    'server_url': KEYCLOAK_OIDC_WELL_KNOWN_URL,
+                },
+            },
+        ]
+        if KEYCLOAK_OIDC_ENABLED
+        else []
+    }
+}
 
 #
 # Login

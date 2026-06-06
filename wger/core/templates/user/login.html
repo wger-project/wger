@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 {% block title %}{% translate "Login" %}{% endblock %}
 
@@ -30,4 +30,15 @@
         {% translate "Reset password" %}
     </a>
 </p>
+
+{% if keycloak_enabled %}
+<h4>{% translate "Single sign-on" %}</h4>
+<p>
+    {% provider_login_url keycloak_provider_id as keycloak_login_url %}
+    <a href="{{ keycloak_login_url }}">
+        <span class="{% fa_class 'sign-in-alt' %}"></span>
+        {% translate "Login using Keycloak" %}
+    </a>
+</p>
+{% endif %}
 {% endblock %}

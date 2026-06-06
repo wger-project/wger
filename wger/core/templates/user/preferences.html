@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 {% block title %}{% translate "Preferences" %}{% endblock %}
 
@@ -32,6 +32,24 @@
             {% translate "You need to verify your email to contribute exercises" %}
         </small>
     </p>
+    {% if keycloak_enabled and user.has_usable_password %}
+        {% if keycloak_connected %}
+            <p>
+                <a href="{% url 'socialaccount_connections' %}">
+                    <span class="{% fa_class 'unlink' %}"></span>
+                    {% translate "Disconnect Keycloak" %}
+                </a>
+            </p>
+        {% else %}
+            <p>
+                {% provider_login_url keycloak_provider_id process='connect' as keycloak_connect_url %}
+                <a href="{{ keycloak_connect_url }}">
+                    <span class="{% fa_class 'link' %}"></span>
+                    {% translate "Connect to Keycloak" %}
+                </a>
+            </p>
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 

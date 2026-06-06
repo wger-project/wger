@@ -1,5 +1,5 @@
 
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 
 
@@ -12,6 +12,15 @@
             {% trans "Login" %}
         </a>
     </p>
+    {% if keycloak_enabled %}
+        <p>
+            {% provider_login_url keycloak_provider_id as keycloak_login_url %}
+            <a href="{{ keycloak_login_url }}">
+                <span class="{% fa_class 'sign-in-alt' %}"></span>
+                {% trans "Login using Keycloak" %}
+            </a>
+        </p>
+    {% endif %}
 {% endif %}
 {% endblock %}
 
