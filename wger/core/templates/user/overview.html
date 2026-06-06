@@ -248,9 +248,9 @@
             class="dropdown-item">
             {% translate "Reset user password" %}
         </a>
-        {% if keycloak_enabled and current_user_keycloak_connected %}
-            <a href="{% url 'core:user:disconnect-keycloak' current_user.pk %}" class="dropdown-item">
-                {% translate "Disconnect Keycloak" %}
+        {% if oidc_enabled and current_user_oidc_connected %}
+            <a href="{% url 'core:user:disconnect-oidc' current_user.pk %}" class="dropdown-item">
+                {% blocktranslate with name=oidc_provider_name %}Disconnect {{ name }}{% endblocktranslate %}
             </a>
         {% endif %}
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}

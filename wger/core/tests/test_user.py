@@ -206,9 +206,9 @@ class TrainerCannotDeactivatePrivilegedUsersTestCase(WgerTestCase):
         self.assertFalse(User.objects.get(pk=self.REGULAR_MEMBER_PK).is_active)
 
 
-class DisconnectKeycloakUserTestCase(WgerTestCase):
+class DisconnectOidcUserTestCase(WgerTestCase):
     """
-    Test disconnecting Keycloak accounts from the admin user overview.
+    Test disconnecting OIDC accounts from the admin user overview.
     """
 
     user_success = (
@@ -230,15 +230,15 @@ class DisconnectKeycloakUserTestCase(WgerTestCase):
 
     def disconnect(self, fail=False):
         target_user = User.objects.get(pk=2)
-        provider_id = getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak')
+        provider_id = getattr(settings, 'OIDC_PROVIDER_ID', 'oidc')
         SocialAccount.objects.filter(user=target_user, provider=provider_id).delete()
-        SocialAccount.objects.create(user=target_user, provider=provider_id, uid='keycloak-uid-2')
+        SocialAccount.objects.create(user=target_user, provider=provider_id, uid='oidc-uid-2')
 
         self.assertTrue(
             SocialAccount.objects.filter(user=target_user, provider=provider_id).exists()
         )
 
-        response = self.client.get(reverse('core:user:disconnect-keycloak', kwargs={'pk': 2}))
+        response = self.client.get(reverse('core:user:disconnect-oidc', kwargs={'pk': 2}))
 
         self.assertIn(response.status_code, (302, 403))
         account_exists = SocialAccount.objects.filter(
@@ -249,19 +249,19 @@ class DisconnectKeycloakUserTestCase(WgerTestCase):
         else:
             self.assertFalse(account_exists)
 
-    def test_disconnect_keycloak_authorized(self):
+    def test_disconnect_oidc_authorized(self):
         for username in self.user_success:
             self.user_login(username)
             self.disconnect()
             self.user_logout()
 
-    def test_disconnect_keycloak_unauthorized(self):
+    def test_disconnect_oidc_unauthorized(self):
         for username in self.user_fail:
             self.user_login(username)
             self.disconnect(fail=True)
             self.user_logout()
 
-    def test_disconnect_keycloak_logged_out(self):
+    def test_disconnect_oidc_logged_out(self):
         self.disconnect(fail=True)
 
 

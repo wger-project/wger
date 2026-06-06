@@ -32,21 +32,21 @@
             {% translate "You need to verify your email to contribute exercises" %}
         </small>
     </p>
-    {% if keycloak_enabled and user.has_usable_password %}
-        {% if keycloak_connected %}
-            <form method="post" action="{% url 'core:user:disconnect-keycloak' %}" class="d-inline">
+    {% if oidc_enabled and user.has_usable_password %}
+        {% if oidc_connected %}
+            <form method="post" action="{% url 'core:user:disconnect-oidc' %}" class="d-inline">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-link p-0 align-baseline">
                     <span class="{% fa_class 'unlink' %}"></span>
-                    {% translate "Disconnect Keycloak" %}
+                    {% blocktranslate with name=oidc_provider_name %}Disconnect {{ name }}{% endblocktranslate %}
                 </button>
             </form>
         {% else %}
             <p>
-                {% provider_login_url keycloak_provider_id process='connect' as keycloak_connect_url %}
-                <a href="{{ keycloak_connect_url }}">
+                {% provider_login_url oidc_provider_id process='connect' as oidc_connect_url %}
+                <a href="{{ oidc_connect_url }}">
                     <span class="{% fa_class 'link' %}"></span>
-                    {% translate "Connect to Keycloak" %}
+                    {% blocktranslate with name=oidc_provider_name %}Connect to {{ name }}{% endblocktranslate %}
                 </a>
             </p>
         {% endif %}

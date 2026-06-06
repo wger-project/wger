@@ -12,12 +12,12 @@
             {% trans "Login" %}
         </a>
     </p>
-    {% if keycloak_enabled %}
+    {% if oidc_enabled %}
         <p>
-            {% provider_login_url keycloak_provider_id as keycloak_login_url %}
-            <a href="{{ keycloak_login_url }}">
+            {% provider_login_url oidc_provider_id as oidc_login_url %}
+            <a href="{{ oidc_login_url }}">
                 <span class="{% fa_class 'sign-in-alt' %}"></span>
-                {% trans "Login using Keycloak" %}
+                {% blocktranslate with name=oidc_provider_name %}Login using {{ name }}{% endblocktranslate %}
             </a>
         </p>
     {% endif %}

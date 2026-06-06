@@ -232,29 +232,29 @@ ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 # confirmed via the verification link.
 ACCOUNT_CHANGE_EMAIL = True
 
-KEYCLOAK_OIDC_PROVIDER_ID = os.environ.get('KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak')
-KEYCLOAK_OIDC_PROVIDER_NAME = os.environ.get('KEYCLOAK_OIDC_PROVIDER_NAME', 'Keycloak')
-KEYCLOAK_OIDC_WELL_KNOWN_URL = os.environ.get('KEYCLOAK_OIDC_WELL_KNOWN_URL', '')
-KEYCLOAK_OIDC_CLIENT_ID = os.environ.get('KEYCLOAK_OIDC_CLIENT_ID', '')
-KEYCLOAK_OIDC_CLIENT_SECRET = os.environ.get('KEYCLOAK_OIDC_CLIENT_SECRET', '')
-KEYCLOAK_OIDC_ENABLED = all(
-    (KEYCLOAK_OIDC_WELL_KNOWN_URL, KEYCLOAK_OIDC_CLIENT_ID, KEYCLOAK_OIDC_CLIENT_SECRET)
+OIDC_PROVIDER_ID = os.environ.get('OIDC_PROVIDER_ID', 'oidc')
+OIDC_PROVIDER_NAME = os.environ.get('OIDC_PROVIDER_NAME', 'Single Sign-On')
+OIDC_WELL_KNOWN_URL = os.environ.get('OIDC_WELL_KNOWN_URL', '')
+OIDC_CLIENT_ID = os.environ.get('OIDC_CLIENT_ID', '')
+OIDC_CLIENT_SECRET = os.environ.get('OIDC_CLIENT_SECRET', '')
+OIDC_ENABLED = all(
+    (OIDC_WELL_KNOWN_URL, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET)
 )
 
 SOCIALACCOUNT_PROVIDERS = {
     'openid_connect': {
         'APPS': [
             {
-                'provider_id': KEYCLOAK_OIDC_PROVIDER_ID,
-                'name': KEYCLOAK_OIDC_PROVIDER_NAME,
-                'client_id': KEYCLOAK_OIDC_CLIENT_ID,
-                'secret': KEYCLOAK_OIDC_CLIENT_SECRET,
+                'provider_id': OIDC_PROVIDER_ID,
+                'name': OIDC_PROVIDER_NAME,
+                'client_id': OIDC_CLIENT_ID,
+                'secret': OIDC_CLIENT_SECRET,
                 'settings': {
-                    'server_url': KEYCLOAK_OIDC_WELL_KNOWN_URL,
+                    'server_url': OIDC_WELL_KNOWN_URL,
                 },
             },
         ]
-        if KEYCLOAK_OIDC_ENABLED
+        if OIDC_ENABLED
         else []
     }
 }

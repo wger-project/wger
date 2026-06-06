@@ -34,8 +34,9 @@ def processor(request):
     context = {
         'mastodon': settings.WGER_SETTINGS.get('MASTODON', ''),
         'allow_registration': settings.WGER_SETTINGS.get('ALLOW_REGISTRATION', False),
-        'keycloak_enabled': getattr(settings, 'KEYCLOAK_OIDC_ENABLED', False),
-        'keycloak_provider_id': getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak'),
+        'oidc_enabled': getattr(settings, 'OIDC_ENABLED', False),
+        'oidc_provider_id': getattr(settings, 'OIDC_PROVIDER_ID', 'oidc'),
+        'oidc_provider_name': getattr(settings, 'OIDC_PROVIDER_NAME', 'Single Sign-On'),
 
         # Languages
         'i18n_language': get_language_data(
