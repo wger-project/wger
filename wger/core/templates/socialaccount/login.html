@@ -26,14 +26,10 @@
         <button type="submit" class="btn btn-primary">
             {% trans "Continue" %}
         </button>
+        <a href="{% url 'core:user:preferences' %}" class="btn btn-link">
+            {% trans "Back" %}
+        </a>
     </form>
 {% endblock %}
 
-{% block sidebar %}
-    <p>
-        <a href="{% url 'core:user:login' %}">
-            <span class="{% fa_class 'sign-in-alt' %}"></span>
-            {% trans "Back to login" %}
-        </a>
-    </p>
-{% endblock %}
+{% block sidebar %}{% endblock %}
