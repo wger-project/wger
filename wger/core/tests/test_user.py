@@ -241,7 +241,9 @@ class DisconnectKeycloakUserTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:disconnect-keycloak', kwargs={'pk': 2}))
 
         self.assertIn(response.status_code, (302, 403))
-        account_exists = SocialAccount.objects.filter(user=target_user, provider=provider_id).exists()
+        account_exists = SocialAccount.objects.filter(
+            user=target_user, provider=provider_id
+        ).exists()
         if fail:
             self.assertTrue(account_exists)
         else:
