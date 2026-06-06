@@ -34,12 +34,13 @@
     </p>
     {% if keycloak_enabled and user.has_usable_password %}
         {% if keycloak_connected %}
-            <p>
-                <a href="{% url 'socialaccount_connections' %}">
+            <form method="post" action="{% url 'core:user:disconnect-keycloak' %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link p-0 align-baseline">
                     <span class="{% fa_class 'unlink' %}"></span>
                     {% translate "Disconnect Keycloak" %}
-                </a>
-            </p>
+                </button>
+            </form>
         {% else %}
             <p>
                 {% provider_login_url keycloak_provider_id process='connect' as keycloak_connect_url %}

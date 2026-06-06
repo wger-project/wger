@@ -25,6 +25,7 @@ from django.contrib.sitemaps.views import (
     sitemap,
 )
 from django.urls import path
+from django.views.generic import RedirectView
 
 # Third Party
 from drf_spectacular.views import (
@@ -354,6 +355,11 @@ urlpatterns += [
         'api/v2/schema/redoc',
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
+    ),
+    path(
+        'account/3rdparty/',
+        RedirectView.as_view(pattern_name='core:user:preferences', permanent=False),
+        name='account-connections-redirect',
     ),
     path('account/', include('allauth.urls')),
 ]

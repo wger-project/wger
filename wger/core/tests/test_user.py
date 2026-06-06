@@ -15,6 +15,7 @@
 import datetime
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.urls import (
@@ -24,6 +25,7 @@ from django.urls import (
 
 # Third Party
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialAccount
 
 # wger
 from wger.core.demo import create_temporary_user
@@ -202,6 +204,63 @@ class TrainerCannotDeactivatePrivilegedUsersTestCase(WgerTestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(User.objects.get(pk=self.REGULAR_MEMBER_PK).is_active)
+
+
+class DisconnectKeycloakUserTestCase(WgerTestCase):
+    """
+    Test disconnecting Keycloak accounts from the admin user overview.
+    """
+
+    user_success = (
+        'admin',
+        'general_manager1',
+        'general_manager2',
+        'manager1',
+        'manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'manager3',
+        'trainer1',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+    )
+
+    def disconnect(self, fail=False):
+        target_user = User.objects.get(pk=2)
+        provider_id = getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak')
+        SocialAccount.objects.filter(user=target_user, provider=provider_id).delete()
+        SocialAccount.objects.create(user=target_user, provider=provider_id, uid='keycloak-uid-2')
+
+        self.assertTrue(
+            SocialAccount.objects.filter(user=target_user, provider=provider_id).exists()
+        )
+
+        response = self.client.get(reverse('core:user:disconnect-keycloak', kwargs={'pk': 2}))
+
+        self.assertIn(response.status_code, (302, 403))
+        account_exists = SocialAccount.objects.filter(user=target_user, provider=provider_id).exists()
+        if fail:
+            self.assertTrue(account_exists)
+        else:
+            self.assertFalse(account_exists)
+
+    def test_disconnect_keycloak_authorized(self):
+        for username in self.user_success:
+            self.user_login(username)
+            self.disconnect()
+            self.user_logout()
+
+    def test_disconnect_keycloak_unauthorized(self):
+        for username in self.user_fail:
+            self.user_login(username)
+            self.disconnect(fail=True)
+            self.user_logout()
+
+    def test_disconnect_keycloak_logged_out(self):
+        self.disconnect(fail=True)
 
 
 class EditUserTestCase(WgerEditTestCase):

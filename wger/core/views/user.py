@@ -360,6 +360,26 @@ def preferences(request):
     return render(request, 'user/preferences.html', context)
 
 
+@login_required
+@require_POST
+def disconnect_keycloak(request):
+    """
+    Disconnect the configured Keycloak social account from the current user.
+    """
+    provider_id = getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak')
+    deleted_count, _details = SocialAccount.objects.filter(
+        user=request.user,
+        provider=provider_id,
+    ).delete()
+
+    if deleted_count:
+        messages.success(request, _('Keycloak account disconnected'))
+    else:
+        messages.info(request, _('No connected Keycloak account was found'))
+
+    return redirect('core:user:preferences')
+
+
 class UserDeactivateView(
     LoginRequiredMixin,
     WgerMultiplePermissionRequiredMixin,
@@ -511,6 +531,50 @@ class UserEditView(
         return context
 
 
+class UserDisconnectKeycloakView(
+    LoginRequiredMixin,
+    WgerMultiplePermissionRequiredMixin,
+    RedirectView,
+):
+    """
+    Disconnect the configured Keycloak account for a user.
+    """
+
+    permanent = False
+    model = User
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms')
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return HttpResponseForbidden()
+
+        target_user = get_object_or_404(User, pk=self.kwargs['pk'])
+        if (
+            user.has_perm('gym.manage_gym')
+            and not user.has_perm('gym.manage_gyms')
+            and not is_same_gym(user, target_user)
+        ):
+            return HttpResponseForbidden()
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_redirect_url(self, pk):
+        target_user = get_object_or_404(User, pk=pk)
+        provider_id = getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak')
+        deleted_count, _details = SocialAccount.objects.filter(
+            user=target_user,
+            provider=provider_id,
+        ).delete()
+
+        if deleted_count:
+            messages.success(self.request, _('Keycloak account disconnected'))
+        else:
+            messages.info(self.request, _('No connected Keycloak account was found'))
+
+        return reverse('core:user:overview', kwargs={'pk': pk})
+
+
 @login_required
 def api_key(request):
     """
@@ -604,6 +668,10 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
+        context['current_user_keycloak_connected'] = SocialAccount.objects.filter(
+            user=self.object,
+            provider=getattr(settings, 'KEYCLOAK_OIDC_PROVIDER_ID', 'keycloak'),
+        ).exists()
 
         page_user = self.object  # type: User
         request_user = self.request.user  # type: User
