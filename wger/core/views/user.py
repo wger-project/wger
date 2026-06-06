@@ -572,7 +572,9 @@ class UserDisconnectOidcView(
         if deleted_count:
             messages.success(self.request, _('{} account disconnected').format(provider_name))
         else:
-            messages.info(self.request, _('No connected {} account was found').format(provider_name))
+            messages.info(
+                self.request, _('No connected {} account was found').format(provider_name)
+            )
 
         return reverse('core:user:overview', kwargs={'pk': pk})
 
