@@ -34,6 +34,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent / 'wger'
 SITE_ROOT = Path(__file__).resolve().parent.parent / 'wger'
 
 
+def _env_bool(name, default=False):
+    """Parse a boolean environment variable from common truthy values."""
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
 # Static and media files (only during development)
 MEDIA_ROOT = BASE_DIR.parent / 'media'
 STATIC_ROOT = BASE_DIR.parent / 'static'
@@ -264,6 +272,14 @@ SOCIALACCOUNT_PROVIDERS = {
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+
+# Trust the reverse proxy protocol/host headers when explicitly enabled.
+USE_X_FORWARDED_HOST = _env_bool('USE_X_FORWARDED_HOST', False)
+if _env_bool('TRUST_X_FORWARDED_PROTO', False) or _env_bool('X_FORWARDED_PROTO_HEADER_SET', False):
+    SECURE_PROXY_SSL_HEADER = (
+        os.environ.get('SECURE_PROXY_SSL_HEADER', 'HTTP_X_FORWARDED_PROTO'),
+        os.environ.get('SECURE_PROXY_SSL_HEADER_VALUE', 'https'),
+    )
 
 #
 # Internationalization
