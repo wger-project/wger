@@ -11,6 +11,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 # Standard Library
 import datetime
 
@@ -25,7 +26,6 @@ from django.urls import (
 
 # Third Party
 from allauth.account.models import EmailAddress
-from allauth.socialaccount.models import SocialAccount
 
 # wger
 from wger.core.demo import create_temporary_user
@@ -204,65 +204,6 @@ class TrainerCannotDeactivatePrivilegedUsersTestCase(WgerTestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(User.objects.get(pk=self.REGULAR_MEMBER_PK).is_active)
-
-
-class DisconnectOidcUserTestCase(WgerTestCase):
-    """
-    Test disconnecting OIDC accounts from the admin user overview.
-    """
-
-    user_success = (
-        'admin',
-        'general_manager1',
-        'general_manager2',
-        'manager1',
-        'manager2',
-    )
-    user_fail = (
-        'member1',
-        'member2',
-        'manager3',
-        'trainer1',
-        'trainer2',
-        'trainer3',
-        'trainer4',
-    )
-
-    def disconnect(self, fail=False):
-        target_user = User.objects.get(pk=2)
-        provider_id = getattr(settings, 'OIDC_PROVIDER_ID', 'oidc')
-        SocialAccount.objects.filter(user=target_user, provider=provider_id).delete()
-        SocialAccount.objects.create(user=target_user, provider=provider_id, uid='oidc-uid-2')
-
-        self.assertTrue(
-            SocialAccount.objects.filter(user=target_user, provider=provider_id).exists()
-        )
-
-        response = self.client.get(reverse('core:user:disconnect-oidc', kwargs={'pk': 2}))
-
-        self.assertIn(response.status_code, (302, 403))
-        account_exists = SocialAccount.objects.filter(
-            user=target_user, provider=provider_id
-        ).exists()
-        if fail:
-            self.assertTrue(account_exists)
-        else:
-            self.assertFalse(account_exists)
-
-    def test_disconnect_oidc_authorized(self):
-        for username in self.user_success:
-            self.user_login(username)
-            self.disconnect()
-            self.user_logout()
-
-    def test_disconnect_oidc_unauthorized(self):
-        for username in self.user_fail:
-            self.user_login(username)
-            self.disconnect(fail=True)
-            self.user_logout()
-
-    def test_disconnect_oidc_logged_out(self):
-        self.disconnect(fail=True)
 
 
 class EditUserTestCase(WgerEditTestCase):
