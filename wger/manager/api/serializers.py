@@ -463,6 +463,10 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rir_target',
             'rest',
             'rest_target',
+                        # --- NEUE FELDER ---
+            'bpm_max',
+            'bpm_avg',
+            'duration',
         )
 
 
