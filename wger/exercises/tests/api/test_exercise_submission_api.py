@@ -63,7 +63,10 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
                 },
                 {
                     'name': '2 Handed Kettlebell Swing',
-                    'description_source': 'das ist die Beschreibung für die Übung',
+                    'description_source': (
+                        'Das ist eine ausführliche deutsche Beschreibung der Übung mit '
+                        'genügend Text, damit die Spracherkennung sie zuverlässig erkennt.'
+                    ),
                     'language': 1,
                     'license_author': 'tester',
                 },
@@ -256,3 +259,22 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(exercise.variation_group)
         self.assertEqual(exercise.variation_group, connected_exercise.variation_group)
+
+    def test_submission_without_description_fails(self):
+        """
+        A submission whose translations carry no description is rejected — a
+        description is mandatory when creating an exercise.
+        """
+        self.authenticate('admin')
+
+        payload = self.get_payload()
+        for translation in payload['translations']:
+            translation.pop('description_source', None)
+
+        before = self.get_counts()
+        response = self.client.post(self.url, data=payload)
+        after = self.get_counts()
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        # Nothing was created (the create runs in a transaction)
+        self.assertEqual(before, after)

@@ -49,14 +49,16 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     description = models.TextField(
         max_length=2000,
         verbose_name='Description',
-        validators=[MinLengthValidator(40)],
+        blank=True,
     )
-    """Description on how to perform the exercise"""
+    """
+    Rendered HTML describing how to perform the exercise, generated from
+    ``description_source`` on save
+    """
 
     description_source = models.TextField(
         verbose_name='Description (Source)',
-        blank=True,
-        default='',
+        validators=[MinLengthValidator(40)],
     )
     """The raw Markdown source"""
 

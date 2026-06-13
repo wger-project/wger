@@ -121,13 +121,32 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
 
     data = {
         'name': 'A new name',
-        'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
+        'description_source': (
+            'Beuge die Knie und gehe in die tiefe Hocke, halte dabei den '
+            'Rücken gerade und die Brust aufrecht.'
+        ),
         'language': 1,
         'exercise': 1,
     }
 
     def get_resource_name(self):
         return 'exercise-translation'
+
+    def test_patch_user_verified_email(self):
+        """
+        PATCH each field individually. ``pk=1`` is an English translation, so
+        the German ``description_source`` from ``self.data`` would trip the
+        language-match validator when patched on its own
+        """
+        self.authenticate('trainer1')
+        patches = dict(self.data)
+        patches['description_source'] = (
+            'A sufficiently long English description so the language detector '
+            'can reliably recognise it as English.'
+        )
+        for key, value in patches.items():
+            response = self.client.patch(self.url_detail, data={key: value})
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cant_change_exercise_id(self):
         """
@@ -212,6 +231,24 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         self.assertEqual(translation.description_source, payload['description_source'])
         # Backend rendered the markdown into description on save()
         self.assertIn('Beuge die Knie', translation.description)
+
+    def test_post_without_description_fails(self):
+        """
+        Creating a translation without a description is rejected, the model
+        requires one, and the API must enforce it on create.
+        """
+        payload = {
+            'name': 'A new translation',
+            'language': 1,
+            'exercise': 1,
+        }
+        Translation.objects.filter(exercise_id=1, language_id=1).delete()
+
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=payload)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('description_source', response.json())
 
     def test_cant_set_description_directly(self):
         """
