@@ -533,7 +533,10 @@ class SlotEntryTestCase(WgerTestCase):
     def test_weight_config_with_logs_and_range(self):
         """
         Test that the weight is correctly calculated for each step / iteration
-        if there are logs and there is a weight / rep range
+        if there are logs and there is a weight / rep range.
+
+        Also covers that the upper bound of the range progresses across iterations
+        and is not pinned to the value of the first iteration.
         """
 
         self.slot_entry.weight_rounding = 2.5
@@ -554,6 +557,10 @@ class SlotEntryTestCase(WgerTestCase):
             iteration=1,
             value=100,
         ).save()
+
+        # Upper bound rises to 8 reps x 120 kg at iteration 3
+        MaxWeightConfig(slot_entry=self.slot_entry, iteration=3, value=120).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=3, value=8).save()
 
         # Only did 4x82.5 at iteration 2
         WorkoutLog(
@@ -614,6 +621,28 @@ class SlotEntryTestCase(WgerTestCase):
                 repetitions_unit_name='Repetitions',
                 repetitions_rounding=2,
                 max_repetitions=Decimal(6),
+                rir=None,
+                rest=None,
+            ),
+        )
+
+        # The upper bound has progressed to its iteration-3 value
+        self.assertEqual(
+            self.slot_entry.get_config_data(3),
+            SetConfigData(
+                slot_entry_id=self.slot_entry.pk,
+                exercise=1,
+                sets=1,
+                weight=Decimal(80),
+                weight_unit=1,
+                weight_unit_name='kg',
+                max_weight=Decimal(120),
+                weight_rounding=Decimal('2.5'),
+                repetitions=Decimal(4),
+                repetitions_unit=1,
+                repetitions_unit_name='Repetitions',
+                repetitions_rounding=2,
+                max_repetitions=Decimal(8),
                 rir=None,
                 rest=None,
             ),
