@@ -14,7 +14,18 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
-from rest_framework.pagination import CursorPagination
+from rest_framework.pagination import (
+    CursorPagination,
+    LimitOffsetPagination,
+)
+
+
+class WgerLimitOffsetPagination(LimitOffsetPagination):
+    """
+    Default offset pagination with a hard upper bound on ``limit``.
+    """
+
+    max_limit = 999
 
 
 class IngredientCursorPagination(CursorPagination):

@@ -70,7 +70,17 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = IngredientSerializer
-    ordering_fields = '__all__'
+    # Restrict ordering to indexed columns
+    ordering_fields = (
+        'id',
+        'name',
+        'code',
+        'uuid',
+        'remote_id',
+        'last_update',
+        'last_imported',
+        'nutriscore',
+    )
     filterset_class = IngredientFilterSet
 
     # Strip default ordering ('name'), this makes the API/DB more performant
