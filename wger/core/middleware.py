@@ -27,6 +27,7 @@ from django.contrib.auth import (
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.http import url_has_allowed_host_and_scheme
 
 # wger
 from wger.utils.helpers import remove_language_code
@@ -140,7 +141,13 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
                 f"AuthProxyMiddleware: User '{username}' authenticated via header from "
                 f"trusted IP '{client_ip}'."
             )
-            next_url = request.GET.get('next', reverse('core:dashboard'))
+            next_url = request.GET.get('next')
+            if not next_url or not url_has_allowed_host_and_scheme(
+                next_url,
+                allowed_hosts={request.get_host()},
+                require_https=request.is_secure(),
+            ):
+                next_url = reverse('core:dashboard')
             if request.user.is_authenticated:
                 return redirect(next_url)
         else:

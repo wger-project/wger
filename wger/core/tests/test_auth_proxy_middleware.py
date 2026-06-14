@@ -220,3 +220,36 @@ class AuthProxyMiddlewareTests(TestCase):
         response_exact = self.make_request(TRUSTED_IP, USERNAME)
         self.assertEqual(response_exact.status_code, 200)
         self.assertEqual(int(self.client.session.get('_auth_user_id', 0)), self.existing_user.pk)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_external_next_is_not_followed(self):
+        """An external ``next`` URL must not be honored after proxy auth."""
+        response = self.client.get(
+            self.login_url,
+            {'next': 'https://evil.example.com/'},
+            REMOTE_ADDR=TRUSTED_IP,
+            **{PROXY_HEADER_KEY: USERNAME},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], self.protected_url)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_safe_local_next_is_followed(self):
+        """A same-host ``next`` URL is still honored after proxy auth."""
+        safe_next = f'http://testserver{self.protected_url}'
+        response = self.client.get(
+            self.login_url,
+            {'next': safe_next},
+            REMOTE_ADDR=TRUSTED_IP,
+            **{PROXY_HEADER_KEY: USERNAME},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], safe_next)
