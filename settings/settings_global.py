@@ -406,12 +406,17 @@ REST_FRAMEWORK = {
         'login': '10/min',
         'registration': '5/min',
 
-        # Ingredient endpoints — protect the multi-million-row table from
+        # Ingredient endpoints: protect the multi-million-row table from
         # crawlers and older sync clients. Throttling is per-IP for anonymous
         # callers and per-user for authenticated ones.
         'ingredient_list': '120/min',
         'ingredient_detail': '300/min',
         'ingredient_sync': '600/min',
+
+        # Exercise endpoints: Shared cap across all create endpoints (submission,
+        # exercise, translation) to stop scripts from bulk-creating exercises. Only
+        # POSTs are throttled, reads and edits are not (see CreateScopedRateThrottle).
+        'exercise_create': '20/hour',
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

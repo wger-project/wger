@@ -24,7 +24,6 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
-from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -36,6 +35,7 @@ from rest_framework.viewsets import ModelViewSet
 # wger
 from wger.exercises.api.filtersets import ExerciseFilterSet
 from wger.exercises.api.permissions import CanContributeExercises
+from wger.exercises.api.throttling import CreateScopedRateThrottle
 from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
@@ -75,6 +75,8 @@ class ExerciseViewSet(ModelViewSet):
     queryset = Exercise.with_translations.all()
     serializer_class = ExerciseSerializer
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_create'
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -155,6 +157,8 @@ class ExerciseTranslationViewSet(ModelViewSet):
 
     queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_create'
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -254,6 +258,8 @@ class ExerciseSubmissionViewSet(CreateAPIView):
     serializer_class = ExerciseSubmissionSerializer
     queryset = Exercise.objects.all()
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_create'
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
