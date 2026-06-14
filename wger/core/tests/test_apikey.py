@@ -20,6 +20,7 @@ from datetime import timedelta
 # Django
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
+from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -272,6 +273,47 @@ class LongLivedRefreshTokenTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200, response.content)
         body = response.json()
         self.assertIn('access_token', body['data'])
+
+    @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
+    def test_refresh_works_under_cache_backed_engine(self):
+        """
+        With the production-style cache-backed engine, the DB-persisted session
+        is still resolved on refresh (via the engine's DB fallback) and returns a
+        new access token.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        token = mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+
+        api = APIClient()
+        response = api.post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': token}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertIn('access_token', response.json()['data'])
+
+    @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cache')
+    def test_refresh_fails_under_pure_cache_engine(self):
+        """
+        A pure-cache session engine cannot read the DB-persisted long-lived
+        session, so refresh is rejected. This pins down why the feature requires
+        a DB-backed engine in production.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        token = mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+
+        api = APIClient()
+        response = api.post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': token}),
+            content_type='application/json',
+        )
+        self.assertGreaterEqual(response.status_code, 400)
 
     def test_revoke_invalidates_token(self):
         """

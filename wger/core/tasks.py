@@ -47,7 +47,7 @@ def flush_expired_jwt_tokens_task():
 @app.task
 def flush_expired_long_lived_sessions_task():
     """
-    Delete expired DB-backed sessions, i.e. the headless long-lived refresh tokens
+    Delete all expired DB-backed sessions
     """
     SessionStore.clear_expired()
 

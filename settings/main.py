@@ -151,7 +151,7 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Configure a real backend in production
 if DEBUG:

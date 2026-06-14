@@ -88,6 +88,8 @@ Also, we now support two-factor authentication like security codes or passkeys.
   (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) from `prod.env` instead
   of having them hardcoded in the yaml file.
 
+* Due to changes in the auth system, you will need to re-login on the website
+
 ## Breaking changes
 
 *(only relevant if you have your own scripts or interact with the REST API)*
