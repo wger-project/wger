@@ -79,7 +79,6 @@ ALLOWED_HOSTS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
-EMAIL_PAGE_DOMAIN = SITE_URL
 AXES_ENABLED = False
 
 STORAGES = {

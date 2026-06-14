@@ -390,7 +390,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
     'DEFAULT_PAGINATION_CLASS': 'wger.utils.pagination.WgerLimitOffsetPagination',
     'PAGE_SIZE': 20,
-    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -532,7 +531,6 @@ AUTH_PROXY_CREATE_UNKNOWN_USER = False
 # Prometheus metrics
 #
 EXPOSE_PROMETHEUS_METRICS = False
-PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #

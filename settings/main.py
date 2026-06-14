@@ -201,9 +201,6 @@ if os.environ.get('DJANGO_CACHE_BACKEND'):
         CACHES['default']['OPTIONS']['CONNECTION_POOL_KWARGS'] = CONNECTION_POOL_KWARGS
 
 
-# The site's domain as used by the email verification workflow
-EMAIL_PAGE_DOMAIN = SITE_URL
-
 #
 # Django Axes
 #
@@ -261,7 +258,6 @@ CELERY_RESULT_BACKEND = env.str('CELERY_BACKEND', 'redis://cache:6379/2')
 # Prometheus metrics
 #
 EXPOSE_PROMETHEUS_METRICS = env.bool('EXPOSE_PROMETHEUS_METRICS', False)
-PROMETHEUS_URL_PATH = env.str('PROMETHEUS_URL_PATH', 'super-secret-path')
 
 #
 # Logging
