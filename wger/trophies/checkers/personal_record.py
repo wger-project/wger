@@ -129,9 +129,9 @@ class PersonalRecordChecker(BaseTrophyChecker):
             one_rm_estimate = None
 
         return {
-            'log_id': log.id,
+            'log_id': str(log.id),
             'date': log.date.isoformat(),
-            'session_id': session.id if session else None,
+            'session_id': str(session.id) if session else None,
             'exercise_id': exercise.id if exercise else None,
             'repetitions_unit_id': repetitions_unit.id if repetitions_unit else None,
             'repetitions': float(repetitions) if repetitions else None,

@@ -59,6 +59,10 @@
                     <span class="{% fa_class 'key' %}"></span>
                     {% translate "Change password" %}
                 </a>
+                <a href="{% url 'mfa_index' %}" class="dropdown-item">
+                    <span class="{% fa_class 'shield-halved' %}"></span>
+                    {% translate "Two-factor authentication" %}
+                </a>
                 <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
                     <span class="{% fa_class 'globe' %}"></span>
                     {% translate "API key" %}

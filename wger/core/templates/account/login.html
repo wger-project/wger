@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n wger_extras %}
+
+{% block title %}{% translate "Login" %}{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+{% block content %}
+    <form method="post" class="wger-form" novalidate>
+        {% csrf_token %}
+        {% if redirect_field_value %}
+            <input type="hidden"
+                   name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}">
+        {% endif %}
+
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
+
+        <div class="mb-3">
+            <label for="{{ form.login.id_for_label }}" class="form-label">
+                {{ form.login.label }}
+            </label>
+            {{ form.login }}
+            {% for error in form.login.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">
+                {{ form.password.label }}
+            </label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        {% if form.remember %}
+            <div class="form-check mb-3">
+                {{ form.remember }}
+                <label for="{{ form.remember.id_for_label }}" class="form-check-label">
+                    {{ form.remember.label }}
+                </label>
+            </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-success btn-block">
+            {% translate "Login" %}
+        </button>
+    </form>
+
+    {% if PASSKEY_LOGIN_ENABLED %}
+        <hr>
+        <button type="submit"
+                form="mfa_login"
+                id="passkey_login"
+                class="btn btn-outline-primary btn-block">
+            {% translate "Sign in with a passkey" %}
+        </button>
+    {% endif %}
+
+    {% if use_social_auth %}
+        {% include "user/social_login.html" %}
+    {% endif %}
+{% endblock %}
+
+
+{% block extra_body %}
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {% include "mfa/webauthn/snippets/login_script.html" %}
+    {% endif %}
+{% endblock %}
+
+
+{% block sidebar %}
+    {% if allow_registration %}
+        <h4>{% translate "No account?" %}</h4>
+        <p>
+            <a href="{% url 'core:user:registration' %}">
+                <span class="{% fa_class 'sign-in-alt' %}"></span>
+                {% translate "Register" %}
+            </a>
+        </p>
+    {% endif %}
+
+    <h4>{% translate "Forgot password?" %}</h4>
+    <p>
+        <a href="{% url 'core:user:password_reset' %}">
+            <span class="{% fa_class 'key' %}"></span>
+            {% translate "Reset password" %}
+        </a>
+    </p>
+{% endblock %}

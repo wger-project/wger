@@ -12,8 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-# Standard Library
-
 # wger
 from wger.core.tests import api_base_test
 from wger.measurements.models import Measurement
@@ -24,11 +22,11 @@ class MeasurementsApiTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the measurements endpoint
     """
 
-    pk = 1
+    pk = 'dddddddd-dddd-dddd-dddd-000000000001'
     resource = Measurement
     private_resource = True
     data = {
-        'category': 2,
+        'category': 'cccccccc-cccc-cccc-cccc-000000000002',
         'date': '2021-08-12',
         'value': 99.99,
     }

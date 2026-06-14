@@ -130,6 +130,21 @@ class MainImageTestCase(WgerTestCase):
 
         self.assertTrue(image.is_ai_generated)
 
+    def test_api_exposes_thumbnails(self):
+        """
+        Tests that the exercise image API exposes thumbnail URLs
+        """
+        translation = Translation.objects.get(pk=2)
+        pk = self.save_image(translation.exercise, 'protestschwein.jpg')
+
+        response = self.client.get(reverse('exerciseimage-detail', kwargs={'pk': pk}))
+        self.assertEqual(response.status_code, 200)
+
+        thumbnails = response.json()['thumbnails']
+        self.assertEqual(set(thumbnails.keys()), {'small', 'medium'})
+        for url in thumbnails.values():
+            self.assertTrue(url.startswith('http'))
+
     def test_replacing_image_keeps_new_file(self):
         """
         Replacing the file on an existing ExerciseImage must keep the new file

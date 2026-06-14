@@ -55,6 +55,7 @@ from django.views.generic import (
 )
 
 # Third Party
+from allauth.account.models import EmailAddress
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
@@ -409,6 +410,11 @@ class GymAddUserView(
         user.userprofile.gym = gym
         user.userprofile.birthdate = form.cleaned_data['birthdate']
         user.userprofile.save()
+
+        # Register the email with allauth so the member can log in by email
+        # and receive a confirmation link
+        if user.email:
+            EmailAddress.objects.add_email(self.request, user, user.email, confirm=True)
 
         # Set appropriate permission groups
         if 'user' in form.cleaned_data['role']:

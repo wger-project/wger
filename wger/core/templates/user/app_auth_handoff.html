@@ -1,0 +1,27 @@
+{% load i18n %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0;url={{ return_uri }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% translate "Return to app" %}</title>
+    <style>
+        body { font-family: sans-serif; max-width: 32rem; margin: 4rem auto; padding: 0 1rem; text-align: center; }
+        a.btn { display: inline-block; padding: 0.75rem 1.5rem; background: #1976d2; color: #fff; text-decoration: none; border-radius: 4px; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <p>{% translate "Returning to the wger app…" %}</p>
+    <p>
+        {% blocktranslate trimmed %}
+            If nothing happens, tap the button below. Make sure the wger app
+            is installed on this device.
+        {% endblocktranslate %}
+    </p>
+    <p>
+        <a class="btn" href="{{ return_uri }}">
+            {% translate "Tap to return to app" %}
+        </a>
+    </p>
+</body>
+</html>
