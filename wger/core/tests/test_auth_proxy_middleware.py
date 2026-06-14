@@ -21,6 +21,10 @@ from django.test import (
 )
 from django.urls import reverse
 
+# Third Party
+from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialApp
+
 
 User = get_user_model()
 
@@ -105,6 +109,49 @@ class AuthProxyMiddlewareTests(TestCase):
         self.assertEqual(new_user.email, 'admin@google.com')
         self.assertEqual(new_user.first_name, 'Admin User')
         self.assertEqual(int(self.client.session['_auth_user_id']), new_user.pk)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        AUTH_PROXY_CREATE_UNKNOWN_USER=True,
+        AUTH_PROXY_USER_EMAIL_HEADER=PROXY_EMAIL_HEADER_KEY,
+        AUTH_PROXY_USER_NAME_HEADER=PROXY_NAME_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_new_user_gets_verified_emailaddress(self):
+        """
+        A user auto-created by the trusted proxy gets a verified allauth
+        EmailAddress row: the proxy is the trusted identity source, so login
+        by email works without a separate confirmation step.
+        """
+        self.make_request(
+            TRUSTED_IP,
+            proxy_header_value=NEW_USER_VALUE,
+            email_header_value='admin@google.com',
+            name_header_value='Admin User',
+        )
+        new_user = User.objects.get(username=NEW_USER_VALUE)
+        email_address = EmailAddress.objects.get(user=new_user)
+        self.assertEqual(email_address.email, 'admin@google.com')
+        self.assertTrue(email_address.primary)
+        self.assertTrue(email_address.verified)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        AUTH_PROXY_CREATE_UNKNOWN_USER=True,
+        AUTH_PROXY_USER_NAME_HEADER=PROXY_NAME_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_new_user_without_email_gets_no_emailaddress(self):
+        """A proxy user created without an email header gets no row and no crash."""
+        self.make_request(
+            TRUSTED_IP,
+            proxy_header_value=NEW_USER_VALUE,
+            name_header_value='Admin User',
+        )
+        new_user = User.objects.get(username=NEW_USER_VALUE)
+        self.assertFalse(EmailAddress.objects.filter(user=new_user).exists())
 
     @override_settings(
         AUTH_PROXY_HEADER=PROXY_HEADER_KEY,

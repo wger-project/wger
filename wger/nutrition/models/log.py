@@ -27,6 +27,7 @@ from django.utils import timezone
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
+from wger.utils.uuid import uuid7
 
 # Local
 from .ingredient import Ingredient
@@ -45,6 +46,11 @@ class LogItem(BaseMealItem, models.Model):
         ordering = [
             '-datetime',
         ]
+
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
+    )
 
     plan = models.ForeignKey(
         NutritionPlan,

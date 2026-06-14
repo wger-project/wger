@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n wger_extras crispy_forms_tags %}
+
+{% block title %}{% translate "Register" %}{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+{% block content %}
+    <form method="post" action="{% url 'core:user:registration' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+            <input type="hidden"
+                   name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}">
+        {% endif %}
+        {% crispy form %}
+    </form>
+{% endblock %}
+
+
+{% block sidebar %}
+    {% if user.is_anonymous %}
+        <h4>{% translate "Already have an account?" %}</h4>
+        <p>
+            <a href="{% url 'core:user:login' %}">
+                <span class="{% fa_class 'sign-in-alt' %}"></span>
+                {% translate "Login" %}
+            </a>
+        </p>
+    {% endif %}
+{% endblock %}

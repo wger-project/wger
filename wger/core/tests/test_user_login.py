@@ -2,18 +2,11 @@
 from unittest import mock
 
 # Django
+from django.contrib.auth.models import User
 from django.urls import reverse
 
-# Third Party
-from rest_framework import status
-from rest_framework.exceptions import ErrorDetail
-
 # wger
-from wger.core.tests.api_base_test import ApiBaseTestCase
-from wger.core.tests.base_testcase import (
-    BaseTestCase,
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.core.views.user import trainer_login
 
 
@@ -84,11 +77,29 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertEqual(404, resp.status_code)
 
 
-class WgerLoginViewRedirectTestCase(WgerTestCase):
+class WebLoginViewTestCase(WgerTestCase):
     """
-    Tests the "next" parameter handling when an already-authenticated user
-    visits the login page
+    The web login view (core:user:login) is allauth's LoginView, with one wger
+    carve-out: temporary (guest) users may still reach the login page.
     """
+
+    def test_login_page_renders(self):
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_login_via_view_succeeds(self):
+        response = self.client.post(
+            reverse('core:user:login'),
+            {'login': 'test', 'password': 'testtest'},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(int(self.client.session['_auth_user_id']), 2)
+
+    def test_authenticated_user_is_redirected_away(self):
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 302)
 
     def test_already_logged_in_rejects_offsite_next(self):
         """An off-site "next" URL is ignored and the user lands on the dashboard"""
@@ -106,65 +117,19 @@ class WgerLoginViewRedirectTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:login'), {'next': target})
         self.assertRedirects(response, target, fetch_redirect_response=False)
 
+    def test_temporary_user_can_reach_login_page(self):
+        user = User.objects.get(username='test')
+        user.userprofile.is_temporary = True
+        user.userprofile.save()
+        self.user_login('test')
 
-class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
-    url = '/api/v2/login/'
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
 
-    def test_access_logged_out(self):
+    def test_login_page_shows_passkey_button(self):
         """
-        Logged-out users are also allowed to use the search
+        With MFA_PASSKEY_LOGIN_ENABLED the login page offers passwordless
+        sign-in via a passkey.
         """
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_login_username_success(self):
-        response = self.client.post(
-            self.url,
-            {'username': 'admin', 'password': 'adminadmin'},
-        )
-        result = response.data
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(result, {'token': 'apikey-admin'})
-
-    def test_login_username_fail(self):
-        response = self.client.post(self.url, {'username': 'admin', 'password': 'adminadmin123'})
-        result = response.data
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(
-            result['non_field_errors'],
-            [ErrorDetail(string='Username or password unknown', code='invalid')],
-        )
-
-    def test_login_email_success(self):
-        response = self.client.post(
-            self.url,
-            {'email': 'admin@example.com', 'password': 'adminadmin'},
-        )
-        result = response.data
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(result, {'token': 'apikey-admin'})
-
-    def test_login_email_fail(self):
-        response = self.client.post(
-            self.url, {'email': 'admin@example.com', 'password': 'adminadmin123'}
-        )
-        result = response.data
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(
-            result['non_field_errors'],
-            [ErrorDetail(string='Username or password unknown', code='invalid')],
-        )
-
-    def test_no_parameters(self):
-        response = self.client.post(self.url, {'foo': 'bar', 'password': 'adminadmin123'})
-        result = response.data
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(
-            result['non_field_errors'],
-            [ErrorDetail(string='Please provide an "email" or a "username"', code='invalid')],
-        )
+        response = self.client.get(reverse('core:user:login'))
+        self.assertContains(response, 'id="passkey_login"')

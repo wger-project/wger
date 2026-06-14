@@ -292,11 +292,13 @@
                                 {%  if user.userprofile.is_temporary %}
                                 <li class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item"
-                                           href="{% url 'core:user:logout' %}">
-                                            <span class="{% fa_class 'sign-out-alt' %}"></span>
-                                            {% translate "Logout" %}
-                                        </a>
+                                        <form method="post" action="{% url 'account_logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item">
+                                                <span class="{% fa_class 'sign-out-alt' %}"></span>
+                                                {% translate "Logout" %}
+                                            </button>
+                                        </form>
                                     </li>
                                 {% endif %}
                             </ul>
@@ -320,11 +322,13 @@
                                 {% if not trainer_identity %}
                                     <li class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item"
-                                           href="{% url 'core:user:logout' %}">
-                                            <span class="{% fa_class 'sign-out-alt' %}"></span>
-                                            {% translate "Logout" %}
-                                        </a>
+                                        <form method="post" action="{% url 'account_logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item">
+                                                <span class="{% fa_class 'sign-out-alt' %}"></span>
+                                                {% translate "Logout" %}
+                                            </button>
+                                        </form>
                                     </li>
                                 {% endif %}
 

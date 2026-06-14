@@ -16,21 +16,9 @@
 # Standard Library
 import logging
 
-# Django
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
-from django.http import HttpRequest
-
 # Third Party
-from allauth.account.models import EmailAddress
-from allauth.account.utils import (
-    filter_users_by_email,
-    user_email,
-)
 from lingua import LanguageDetectorBuilder
 from rest_framework import serializers
-from rest_framework.fields import empty
 
 # wger
 from wger.core.models import (
@@ -40,7 +28,6 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
-from wger.utils.username import generate_username_suggestions
 
 
 logger = logging.getLogger(__name__)
@@ -51,7 +38,9 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    email = serializers.EmailField(source='user.email', required=False)
+    # Email is read-only here; the app manages email changes through
+    # allauth.headless (POST /_allauth/app/v1/account/email).
+    email = serializers.EmailField(source='user.email', read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
     date_joined = serializers.DateTimeField(source='user.date_joined', read_only=True)
     email_verified = serializers.BooleanField(source='is_verified', read_only=True)
@@ -91,110 +80,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         )
-
-    def validate_email(self, value):
-        if not value:
-            return value
-        user = self.context['request'].user
-
-        # Re-submitting one's own email is fine
-        if value.lower() == (user.email or '').lower():
-            return value
-
-        # Uniqueness across `User.email` and allauth's `EmailAddress` table
-        if any(u.pk != user.pk for u in filter_users_by_email(value)):
-            raise serializers.ValidationError('A user with this email already exists.')
-        return value
-
-    def update(self, instance, validated_data):
-        new_email = validated_data.pop('user', {}).get('email')
-        instance = super().update(instance, validated_data)
-
-        user = instance.user
-        if new_email and new_email.lower() != (user.email or '').lower():
-            user_email(user, new_email)
-            user.save()
-            EmailAddress.objects.add_email(
-                self.context['request'],
-                user,
-                new_email,
-                confirm=True,
-            )
-
-        return instance
-
-
-class UserLoginSerializer(serializers.ModelSerializer):
-    """Serializer to map to User model in relation to api user"""
-
-    email = serializers.EmailField(required=False)
-    username = serializers.CharField(required=False)
-    password = serializers.CharField(required=True, min_length=8)
-
-    request: HttpRequest
-
-    class Meta:
-        model = User
-        fields = ('username', 'password', 'email')
-
-    def __init__(self, request: HttpRequest = None, instance=None, data=empty, **kwargs):
-        self.request = request
-        super().__init__(instance, data, **kwargs)
-
-    def validate(self, data):
-        email = data.get('email', None)
-        username = data.get('username', None)
-        password = data.get('password', None)
-
-        if email is None and username is None:
-            raise serializers.ValidationError('Please provide an "email" or a "username"')
-
-        user_username = authenticate(request=self.request, username=username, password=password)
-        user_email = authenticate(request=self.request, username=email, password=password)
-        user = user_username or user_email
-
-        if user is None:
-            logger.info(f"Tried logging via API with unknown user: '{username}'")
-            raise serializers.ValidationError('Username or password unknown')
-
-        return data
-
-
-class UserRegistrationSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=False)
-    username = serializers.CharField(
-        required=True,
-    )
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password')
-
-    def validate_username(self, value):
-        if User.objects.filter(username__exact=value).exists():
-            suggestions = generate_username_suggestions(value)
-            suggestions_string = ', '.join(suggestions)
-            raise serializers.ValidationError(
-                f'A user with this username already exists. \nSuggestions: {suggestions_string}'
-            )
-        return value
-
-    def validate_email(self, value):
-        # Case-insensitive uniqueness across both User.email and the allauth
-        # EmailAddress table (which holds secondary addresses too)
-        if value and filter_users_by_email(value):
-            raise serializers.ValidationError('A user with this email already exists.')
-        return value
-
-    def create(self, validated_data):
-        user = User.objects.create(username=validated_data['username'])
-        user.set_password(validated_data['password'])
-        if validated_data.get('email'):
-            user.email = validated_data['email']
-        user.save()
-
-        return user
 
 
 class LanguageSerializer(serializers.ModelSerializer):

@@ -21,11 +21,14 @@ import logging
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.http import (
+    HttpResponseForbidden,
+    JsonResponse,
+)
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from allauth.account.models import EmailAddress
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -40,11 +43,9 @@ from rest_framework import (
 from rest_framework.decorators import (
     action,
     api_view,
+    permission_classes,
 )
-from rest_framework.fields import (
-    BooleanField,
-    CharField,
-)
+from rest_framework.fields import BooleanField
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -52,17 +53,23 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 # wger
+# The per-app powersync modules are imported for their side effect: each one
+# registers its handlers with wger.utils.powersync.REGISTRY at import time.
+import wger.core.powersync  # noqa: F401
+import wger.gallery.powersync  # noqa: F401
+import wger.manager.powersync  # noqa: F401
+import wger.measurements.powersync  # noqa: F401
+import wger.nutrition.powersync  # noqa: F401
+import wger.weight.powersync  # noqa: F401
+from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
     RoutineWeightUnitSerializer,
-    UserLoginSerializer,
     UserprofileSerializer,
-    UserRegistrationSerializer,
 )
-from wger.core.forms import UserLoginForm
 from wger.core.models import (
     Language,
     License,
@@ -70,8 +77,9 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
-from wger.utils.api_token import create_token
+from wger.utils.headless_long_lived import mint_long_lived_refresh_token
 from wger.utils.permissions import WgerPermission
+from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
     MIN_APP_VERSION,
     MIN_SERVER_VERSION,
@@ -107,7 +115,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         return UserProfile.objects.filter(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -257,107 +266,6 @@ class RequiredServerVersionView(viewsets.ViewSet):
         return Response(str(MIN_SERVER_VERSION))
 
 
-class UserAPILoginView(viewsets.ViewSet):
-    """
-    API login endpoint. Returns a token that can subsequently passed in the
-    header.
-
-    Note that it is recommended to use token authorization instead.
-    """
-
-    permission_classes = (AllowAny,)
-    queryset = User.objects.all()
-    serializer_class = UserLoginSerializer
-    throttle_scope = 'login'
-
-    def get(self, request):
-        return Response(data={'message': "You must send a 'username' and 'password' via POST"})
-
-    @extend_schema(
-        parameters=[],
-        responses={
-            status.HTTP_200_OK: inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
-        },
-    )
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data, request=request)
-        serializer.is_valid(raise_exception=True)
-
-        # This is a bit hacky, but saving the email or username as the username
-        # allows us to simply use the helpers.EmailAuthBackend backend which also
-        # uses emails
-        username = serializer.data.get('username', serializer.data.get('email', None))
-        data = {'username': username, 'password': serializer.data['password']}
-        form = UserLoginForm(data=data, authenticate_on_clean=False)
-
-        if not form.is_valid():
-            logger.info(f"Tried logging via API with unknown user : '{username}'")
-            return Response(
-                {'detail': 'Username or password unknown'},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-
-        form.authenticate(request)
-        token = create_token(form.get_user())
-        return Response(
-            data={'token': token.key},
-            status=status.HTTP_200_OK,
-            headers={
-                'Deprecation': 'Sat, 01 Oct 2022 23:59:59 GMT',
-            },
-        )
-
-
-class UserAPIRegistrationViewSet(viewsets.ViewSet):
-    """
-    API endpoint
-    """
-
-    # permission_classes = (AllowRegisterUser,)
-    serializer_class = UserRegistrationSerializer
-    throttle_scope = 'registration'
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        return UserProfile.objects.filter(user=self.request.user)
-
-    @extend_schema(
-        parameters=[],
-        responses={
-            status.HTTP_200_OK: inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
-        },
-    )
-    def post(self, request):
-        if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
-            return Response(
-                {'message': 'Registration is not allowed on this instance'},
-                status=status.HTTP_200_OK,
-            )
-
-        data = request.data
-        serializer = self.serializer_class(data=data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        # user.userprofile.added_by = request.user
-        user.userprofile.save()
-        token = create_token(user)
-
-        EmailAddress.objects.add_email(request, user, user.email, confirm=True)
-
-        return Response(
-            {'message': 'api user successfully registered', 'token': token.key},
-            status=status.HTTP_201_CREATED,
-        )
-
-
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for the languages used in the application
@@ -419,3 +327,84 @@ def check_language(request):
     serializer.is_valid(raise_exception=True)
 
     return Response({'result': True})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def issue_refresh_token(request):
+    """
+    Temporary endpoint for issuing refresh tokens for authenticated users.
+
+    This endpoint is used to allow users of the mobile app to seamlessly move from
+    permanent tokens to JWT ones.
+
+    TODO: remove one version after the iniial offline-mode release
+    """
+    refresh_token = mint_long_lived_refresh_token(
+        request.user,
+        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
+    )
+    return Response({'refresh_token': refresh_token})
+
+
+@api_view()
+@permission_classes([IsAuthenticated])
+def get_powersync_token(request):
+
+    url = (
+        f'{settings.SITE_URL}/{settings.POWERSYNC_URL_PATH.strip("/")}/'
+        if not settings.POWERSYNC_URL
+        else settings.POWERSYNC_URL
+    )
+
+    return JsonResponse(
+        {
+            'token': powersync.create_token(request.user.id),
+            'powersync_url': url,
+        }
+    )
+
+
+@api_view()
+def get_powersync_keys(request):
+    return JsonResponse({'keys': [powersync.public_jwk()]})
+
+
+@api_view(['PUT', 'PATCH', 'DELETE'])
+def upload_powersync_data(request):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
+    user_id = request.user.id
+    data = request.data
+    http_verb = request.method
+
+    try:
+        table = data['table']
+        payload = data['data']
+    except (KeyError, TypeError):
+        return JsonResponse(
+            {'error': 'Missing required fields: table, data'},
+            status=200,
+        )
+
+    logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
+
+    handler = POWERSYNC_REGISTRY.get(table)
+    if handler is None:
+        logger.warning(f'Received unknown PowerSync table: {table}')
+        return JsonResponse({'error': f'Unknown table: {table}'}, status=200)
+
+    # Handlers return either `None` (operation processed successfully) or an
+    # error dict which we propagate back to the client. The HTTP status stays
+    # at 200 even on logical errors, since powersync treats non-2xx statuses
+    # as "retry forever".
+    try:
+        result = handler.dispatch(http_verb, payload=payload, user_id=user_id)
+    except Exception as e:
+        logger.exception(f'Error processing PowerSync data for table {table}')
+        return JsonResponse({'error': str(e)}, status=200)
+
+    if result is not None:
+        return JsonResponse(result, status=200)
+    return JsonResponse({'status': 'ok!'}, status=200)

@@ -34,6 +34,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+from wger.utils.url import make_absolute_url
 
 
 logger = logging.getLogger(__name__)
@@ -48,22 +49,8 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
         model = IngredientWeightUnit
         fields = (
             'id',
-            'gram',
-            'ingredient',
-            'name',
-        )
-
-
-class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
-    """
-    IngredientWeightUnit info serializer
-    """
-
-    class Meta:
-        model = IngredientWeightUnit
-        fields = (
-            'id',
             'uuid',
+            'ingredient',
             'gram',
             'name',
         )
@@ -104,7 +91,7 @@ class IngredientSerializer(serializers.ModelSerializer):
     Ingredient serializer
     """
 
-    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+    weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
 
     class Meta:
         model = Ingredient
@@ -148,7 +135,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     Ingredient info serializer
     """
 
-    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+    weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
     image = IngredientImageSerializer(read_only=True)
     thumbnails = serializers.SerializerMethodField()
 
@@ -196,7 +183,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             return None
 
         request = self.context.get('request')
-        aliases = ['small', 'small_cropped', 'medium', 'medium_cropped', 'large', 'large_cropped']
+        aliases = ['small', 'medium']
         result = {}
 
         thumbnailer = get_thumbnailer(obj.image.image)
@@ -207,7 +194,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             except (EasyThumbnailsError, OSError, ValueError):
                 logger.warning('Could not generate thumbnails for image %s', obj.image.pk)
                 return None
-            result[alias] = request.build_absolute_uri(thumb.url)
+            result[alias] = make_absolute_url(thumb.url, request)
         return result
 
 

@@ -28,7 +28,6 @@ from functools import wraps
 from typing import Any
 
 # Django
-from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -42,34 +41,6 @@ from wger.utils.images import validate_image_static_no_animation
 
 
 logger = logging.getLogger(__name__)
-
-
-class EmailAuthBackend(ModelBackend):
-    """
-    Authenticates against the email address instead of the username.
-
-    Subclasses ModelBackend so the is_active check (user_can_authenticate) and
-    the timing-attack mitigation are inherited rather than reimplemented;
-    get_user (which also rejects inactive users) comes for free.
-    """
-
-    def authenticate(self, request, username=None, password=None, **kwargs):
-        if not username or password is None:
-            return None
-
-        # email has no DB-level unique constraint, so the lookup can match
-        # more than one row. Treat an ambiguous match as a failed login
-        # instead of raising MultipleObjectsReturned
-        users = list(User.objects.filter(email__iexact=username)[:2])
-        if len(users) != 1:
-            # Run the hasher once anyway to keep the timing close to a real hit
-            User().set_password(password)
-            return None
-
-        user = users[0]
-        if user.check_password(password) and self.user_can_authenticate(user):
-            return user
-        return None
 
 
 class DecimalJsonEncoder(json.JSONEncoder):
