@@ -35,7 +35,6 @@ from rest_framework.viewsets import ModelViewSet
 # wger
 from wger.exercises.api.filtersets import ExerciseFilterSet
 from wger.exercises.api.permissions import CanContributeExercises
-from wger.exercises.api.throttling import CreateScopedRateThrottle
 from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
@@ -50,6 +49,7 @@ from wger.exercises.api.serializers import (
     ExerciseVideoSerializer,
     MuscleSerializer,
 )
+from wger.exercises.api.throttling import CreateScopedRateThrottle
 from wger.exercises.models import (
     Alias,
     DeletionLog,
