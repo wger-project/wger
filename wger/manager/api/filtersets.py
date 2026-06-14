@@ -14,20 +14,10 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
-from django_filters import (
-    UnknownFieldBehavior,
-    rest_framework as filters,
-)
+from django_filters import rest_framework as filters
 
 # wger
-from wger.manager.api.consts import BASE_CONFIG_FILTER_FIELDS
 from wger.manager.models import WorkoutLog
-
-
-class BaseConfigFilterSet(filters.FilterSet):
-    class Meta:
-        fields = BASE_CONFIG_FILTER_FIELDS
-        unknown_field_behavior = UnknownFieldBehavior.IGNORE
 
 
 class WorkoutLogFilterSet(filters.FilterSet):
