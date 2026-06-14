@@ -195,10 +195,10 @@ class SlotEntry(models.Model):
     @property
     def has_progression(self) -> bool:
         """
-        Returns true if any config set has more than one entry (is a progression)
+        Returns true if the calculated config data can change across iterations
         """
         return any(
-            len(getattr(self, f'{field}config_set').all()) > 1
+            config.iteration != 1
             for field in [
                 'weight',
                 'maxweight',
@@ -211,6 +211,7 @@ class SlotEntry(models.Model):
                 'sets',
                 'maxsets',
             ]
+            for config in getattr(self, f'{field}config_set').all()
         )
 
     def save(self, *args, **kwargs):

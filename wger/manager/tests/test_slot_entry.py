@@ -730,6 +730,20 @@ class SlotEntryTestCase(WgerTestCase):
         set_config.save()
         self.assertIsNone(cache.get(key))
 
+    def test_delayed_config_not_served_from_constant_cache(self):
+        """
+        A config that only takes effect after the first iteration yields a different
+        result per iteration, so priming the cache with iteration 1 must not poison
+        the result of a later iteration
+        """
+        WeightConfig(slot_entry=self.slot_entry, iteration=3, value=100).save()
+
+        # Iteration 1, where the config is not active yet, populates the cache
+        self.assertIsNone(self.slot_entry.get_config_data(1).weight)
+
+        # Iteration 3 must reflect the config, not the cached iteration-1 result
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(100))
+
 
 class SlotEntryDuplicateConfigTestCase(SimpleTestCase):
     def test_duplicate_configs(self):
