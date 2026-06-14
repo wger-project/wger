@@ -20,6 +20,7 @@ import logging
 
 # Django
 from django.conf import settings
+from django.db.models import Prefetch
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -261,6 +262,37 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     """
 
     serializer_class = NutritionPlanInfoSerializer
+
+    def get_queryset(self):
+        """
+        Prefetch the nutritional plan sub-objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return NutritionPlan.objects.none()
+
+        return NutritionPlan.objects.filter(user=self.request.user).prefetch_related(
+            Prefetch(
+                'meal_set',
+                queryset=Meal.objects.prefetch_related(
+                    Prefetch(
+                        'mealitem_set',
+                        queryset=MealItem.objects.select_related(
+                            'ingredient',
+                            'ingredient__language',
+                            'ingredient__license',
+                            'ingredient__image',
+                            'weight_unit',
+                        ).prefetch_related(
+                            Prefetch(
+                                'ingredient__ingredientweightunit_set',
+                                queryset=IngredientWeightUnit.objects.select_related('ingredient'),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        )
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
