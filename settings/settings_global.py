@@ -34,6 +34,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent / 'wger'
 SITE_ROOT = Path(__file__).resolve().parent.parent / 'wger'
 
 
+def _env_bool(name, default=False):
+    """Parse a boolean environment variable from common truthy values."""
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
 # Static and media files (only during development)
 MEDIA_ROOT = BASE_DIR.parent / 'media'
 STATIC_ROOT = BASE_DIR.parent / 'static'
@@ -123,6 +131,8 @@ INSTALLED_APPS = [
     # Django-allauth
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.openid_connect',
 ]
 
 MIDDLEWARE = [
@@ -169,6 +179,7 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
 
@@ -223,17 +234,53 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # Treat a user as having a single email address: changing it adds a pending
 # address that only replaces the current one (and updates User.email) once
 # confirmed via the verification link.
 ACCOUNT_CHANGE_EMAIL = True
 
+OIDC_PROVIDER_ID = os.environ.get('OIDC_PROVIDER_ID', 'oidc')
+OIDC_PROVIDER_NAME = os.environ.get('OIDC_PROVIDER_NAME', 'Single Sign-On')
+OIDC_WELL_KNOWN_URL = os.environ.get('OIDC_WELL_KNOWN_URL', '')
+OIDC_CLIENT_ID = os.environ.get('OIDC_CLIENT_ID', '')
+OIDC_CLIENT_SECRET = os.environ.get('OIDC_CLIENT_SECRET', '')
+OIDC_ENABLED = all(
+    (OIDC_WELL_KNOWN_URL, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET)
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'openid_connect': {
+        'APPS': [
+            {
+                'provider_id': OIDC_PROVIDER_ID,
+                'name': OIDC_PROVIDER_NAME,
+                'client_id': OIDC_CLIENT_ID,
+                'secret': OIDC_CLIENT_SECRET,
+                'settings': {
+                    'server_url': OIDC_WELL_KNOWN_URL,
+                },
+            },
+        ]
+        if OIDC_ENABLED
+        else []
+    }
+}
+
 #
 # Login
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+
+# Trust the reverse proxy protocol/host headers when explicitly enabled.
+USE_X_FORWARDED_HOST = _env_bool('USE_X_FORWARDED_HOST', False)
+if _env_bool('TRUST_X_FORWARDED_PROTO', False) or _env_bool('X_FORWARDED_PROTO_HEADER_SET', False):
+    SECURE_PROXY_SSL_HEADER = (
+        os.environ.get('SECURE_PROXY_SSL_HEADER', 'HTTP_X_FORWARDED_PROTO'),
+        os.environ.get('SECURE_PROXY_SSL_HEADER_VALUE', 'https'),
+    )
 
 #
 # Internationalization

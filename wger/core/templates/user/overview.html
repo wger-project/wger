@@ -248,6 +248,11 @@
             class="dropdown-item">
             {% translate "Reset user password" %}
         </a>
+        {% if oidc_enabled and current_user_oidc_connected %}
+            <a href="{% url 'core:user:disconnect-oidc' current_user.pk %}" class="dropdown-item">
+                {% blocktranslate with name=oidc_provider_name %}Disconnect {{ name }}{% endblocktranslate %}
+            </a>
+        {% endif %}
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         {% if current_user.userprofile.gym %}
             {% translate 'Roles' as text %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 {% block title %}{% translate "Preferences" %}{% endblock %}
 
@@ -32,6 +32,25 @@
             {% translate "You need to verify your email to contribute exercises" %}
         </small>
     </p>
+    {% if oidc_enabled and user.has_usable_password %}
+        {% if oidc_connected %}
+            <form method="post" action="{% url 'core:user:disconnect-oidc' %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link p-0 align-baseline">
+                    <span class="{% fa_class 'unlink' %}"></span>
+                    {% blocktranslate with name=oidc_provider_name %}Disconnect {{ name }}{% endblocktranslate %}
+                </button>
+            </form>
+        {% else %}
+            <p>
+                {% provider_login_url oidc_provider_id process='connect' as oidc_connect_url %}
+                <a href="{{ oidc_connect_url }}">
+                    <span class="{% fa_class 'link' %}"></span>
+                    {% blocktranslate with name=oidc_provider_name %}Connect to {{ name }}{% endblocktranslate %}
+                </a>
+            </p>
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 
