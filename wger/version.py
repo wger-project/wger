@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 # For more details and possibilities, see:
 # https://packaging.python.org/en/latest/specifications/version-specifiers/
 
-MIN_APP_VERSION = Version('1.11.0')
+MIN_APP_VERSION = Version('2.0.0')
 """
 Minimum version of the mobile app required to access this server.
 
