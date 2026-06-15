@@ -29,6 +29,7 @@ from django.forms import (
     Form,
     PasswordInput,
 )
+from django.utils.text import format_lazy
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -42,7 +43,6 @@ from allauth.account.forms import (
 from allauth.account.utils import filter_users_by_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
-    HTML,
     ButtonHolder,
     Column,
     Fieldset,
@@ -274,7 +274,44 @@ class PasswordConfirmationForm(Form):
         password = self.cleaned_data.get('password', None)
         if not self.user.check_password(password):
             raise ValidationError(_('Invalid password'))
-        return self.cleaned_data.get('password')
+        return password
+
+
+class UsernameConfirmationForm(Form):
+    """
+    A username confirmation form.
+
+    Same purpose as PasswordConfirmationForm, but for accounts without a usable
+    password (e.g. social logins, which have no password to check): the user
+    confirms by typing the exact username of the account being acted on.
+    """
+
+    username = CharField(label=gettext_lazy('Confirm'))
+
+    def __init__(self, user, confirm_username=None, data=None):
+        self.user = user
+        self.confirm_username = confirm_username or user.username
+        super().__init__(data=data)
+        self.fields['username'].help_text = format_lazy(
+            gettext_lazy(
+                'Your account has no password. Type the username "{username}" to confirm.'
+            ),
+            username=self.confirm_username,
+        )
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'username',
+            ButtonHolder(Submit('submit', _('Delete'), css_class='btn-danger btn-block')),
+        )
+
+    def clean_username(self):
+        """
+        Check that the typed username matches the account being acted on
+        """
+        username = self.cleaned_data.get('username', None)
+        if username != self.confirm_username:
+            raise ValidationError(_('The entered username does not match'))
+        return username
 
 
 class PasswordResetFormCaptcha(PasswordResetForm):

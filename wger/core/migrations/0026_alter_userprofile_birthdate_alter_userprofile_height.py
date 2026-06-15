@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='userprofile',
             name='birthdate',
-            field=models.DateField(blank=True, null=True, validators=[wger.core.models.profile.birthdate_validator], verbose_name='Date of Birth'),
+            field=models.DateField(blank=True, null=True, validators=[wger.core.models.profile.birthdate_validator], verbose_name='Date of Birth',),
         ),
         migrations.AlterField(
             model_name='userprofile',
             name='height',
-            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(140), django.core.validators.MaxValueValidator(230)], verbose_name='Height (cm)'),
+            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(140), django.core.validators.MaxValueValidator(230)], verbose_name='Height (cm)',),
         ),
     ]

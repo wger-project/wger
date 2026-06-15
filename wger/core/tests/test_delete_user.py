@@ -82,6 +82,36 @@ class DeleteUserTestCase(WgerTestCase):
         self.delete_user(fail=True)
 
 
+class DeleteUserWithoutPasswordTestCase(WgerTestCase):
+    """
+    Accounts without a usable password (e.g. social logins) confirm the
+    deletion by typing their username instead of a password.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create(username='socialuser', email='social@example.com')
+        self.user.set_unusable_password()
+        self.user.save()
+        self.client.force_login(self.user)
+
+    def test_form_asks_for_username(self):
+        response = self.client.get(reverse('core:user:delete'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="username"')
+        self.assertNotContains(response, 'name="password"')
+
+    def test_wrong_username_does_not_delete(self):
+        response = self.client.post(reverse('core:user:delete'), {'username': 'not-my-name'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.filter(username='socialuser').count(), 1)
+
+    def test_correct_username_deletes(self):
+        response = self.client.post(reverse('core:user:delete'), {'username': 'socialuser'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(User.objects.filter(username='socialuser').count(), 0)
+
+
 class DeleteUserByAdminTestCase(WgerTestCase):
     """
     Tests deleting a user account by a gym administrator

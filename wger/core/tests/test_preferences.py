@@ -108,6 +108,24 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertIsNone(User.objects.get(username='test').userprofile.height)
 
+    def test_change_password_link_for_password_user(self):
+        """Accounts with a usable password see the change-password link."""
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('core:user:change-password'))
+        self.assertNotContains(response, reverse('account_set_password'))
+
+    def test_set_password_link_for_passwordless_user(self):
+        """Accounts without a usable password see a set-password link instead."""
+        user = User.objects.create(username='socialprefs', email='socialprefs@example.com')
+        user.set_unusable_password()
+        user.save()
+        self.client.force_login(user)
+
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('account_set_password'))
+        self.assertNotContains(response, reverse('core:user:change-password'))
+
     def test_email_is_not_editable_from_preferences(self):
         """
         Email management was moved to allauth's EmailView: the preferences

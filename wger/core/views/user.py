@@ -72,6 +72,7 @@ from allauth.account.views import (
     LoginView as AllauthLoginView,
     SignupView as AllauthSignupView,
 )
+from allauth.mfa.utils import is_mfa_enabled
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -86,6 +87,7 @@ from rest_framework.authtoken.models import Token
 from wger.core.forms import (
     PasswordConfirmationForm,
     PasswordResetFormCaptcha,
+    UsernameConfirmationForm,
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
@@ -163,24 +165,30 @@ def delete(request, user_pk=None):
     else:
         user = request.user
 
-    form = PasswordConfirmationForm(user=request.user)
+    # Accounts without a usable password (e.g. social logins) can't confirm with
+    # a password, so they confirm by typing the username instead.
+    data = request.POST or None
+    if request.user.has_usable_password():
+        form = PasswordConfirmationForm(user=request.user, data=data)
+    else:
+        form = UsernameConfirmationForm(
+            user=request.user, confirm_username=user.username, data=data
+        )
 
-    if request.method == 'POST':
-        form = PasswordConfirmationForm(data=request.POST, user=request.user)
-        if form.is_valid():
-            user.delete()
-            messages.success(
-                request, _('Account "{0}" was successfully deleted').format(user.username)
-            )
+    if request.method == 'POST' and form.is_valid():
+        user.delete()
+        messages.success(
+            request, _('Account "{0}" was successfully deleted').format(user.username)
+        )
 
-            if not user_pk:
-                django_logout(request)
-                return HttpResponseRedirect(reverse('software:features'))
-            else:
-                gym_pk = request.user.userprofile.gym_id
-                if gym_pk is None:
-                    return HttpResponseRedirect(reverse('core:dashboard'))
-                return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
+        if not user_pk:
+            django_logout(request)
+            return HttpResponseRedirect(reverse('software:features'))
+        else:
+            gym_pk = request.user.userprofile.gym_id
+            if gym_pk is None:
+                return HttpResponseRedirect(reverse('core:dashboard'))
+            return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
     form.helper.form_action = request.path
     context = {'form': form, 'user_delete': user}
 
@@ -317,6 +325,8 @@ def preferences(request):
 
     context['form'] = form
     context['email_verified'] = request.user.userprofile.is_verified
+    context['mfa_enabled'] = is_mfa_enabled(request.user)
+    context['has_usable_password'] = request.user.has_usable_password()
 
     return render(request, 'user/preferences.html', context)
 
