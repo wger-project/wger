@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 {% block title %}{% translate "Preferences" %}{% endblock %}
 
@@ -63,6 +63,13 @@
                     <span class="{% fa_class 'shield-halved' %}"></span>
                     {% translate "Two-factor authentication" %}
                 </a>
+                {% get_providers as socialaccount_providers %}
+                {% if socialaccount_providers %}
+                    <a href="{% url 'socialaccount_connections' %}" class="dropdown-item">
+                        <span class="{% fa_class 'link' %}"></span>
+                        {% translate "Connected accounts" %}
+                    </a>
+                {% endif %}
                 <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
                     <span class="{% fa_class 'globe' %}"></span>
                     {% translate "API key" %}

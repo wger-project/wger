@@ -273,6 +273,7 @@ MFA_PASSKEY_SIGNUP_ENABLED = False
 #
 ACCOUNT_LOGOUT_ON_GET = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_QUERY_EMAIL = True
 
 #
 # allauth.headless — REST API used by the Flutter app for the full auth flow

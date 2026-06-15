@@ -74,6 +74,29 @@ class SocialAuthEnabledLoginPageTestCase(WgerTestCase):
         self.assertNotContains(response, 'or login with')
 
 
+@override_settings(WGER_SOCIAL_PROVIDERS=['wger'])
+class SocialAuthConnectionsLinkTestCase(WgerTestCase):
+    """The preferences page links to the connected-accounts page when social auth is enabled."""
+
+    @mock.patch(
+        'allauth.socialaccount.adapter.DefaultSocialAccountAdapter.list_providers',
+        return_value=[_StubProvider()],
+    )
+    def test_link_shown_when_providers_configured(self, _):
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('socialaccount_connections'))
+
+    @mock.patch(
+        'allauth.socialaccount.adapter.DefaultSocialAccountAdapter.list_providers',
+        return_value=[],
+    )
+    def test_link_hidden_without_providers(self, _):
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertNotContains(response, reverse('socialaccount_connections'))
+
+
 class WgerLoginViewContextTestCase(TestCase):
     """Unit tests for ``WgerLoginView.get_context_data``."""
 
