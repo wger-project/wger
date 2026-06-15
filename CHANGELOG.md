@@ -111,5 +111,5 @@ one, visit the "API key" page in the user settings and paste it into scripts.
 
 **`/api/v2/token` endpoint removed.** Exchanging username + password for a JWT
 pair via this endpoint bypassed 2FA. To get tokens, either use
-`/_allauth/app/v1/auth/login` (which respects the MFA challenge flow) or mint
+`/allauth/app/v1/auth/login` (which respects the MFA challenge flow) or mint
 a long-lived refresh token from the "API key" page in the user settings.

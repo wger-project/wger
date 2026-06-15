@@ -38,8 +38,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    # Email is read-only here; the app manages email changes through
-    # allauth.headless (POST /_allauth/app/v1/account/email).
+    # Email is read-only here; the app manages email changes through allauth.headless
     email = serializers.EmailField(source='user.email', read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
     date_joined = serializers.DateTimeField(source='user.date_joined', read_only=True)

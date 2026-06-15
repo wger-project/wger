@@ -43,14 +43,14 @@ class HeadlessSmokeTestCase(WgerTestCase):
     """
 
     def test_config_endpoint(self):
-        response = self.client.get('/_allauth/app/v1/config')
+        response = self.client.get(reverse('headless:app:config'))
         self.assertEqual(response.status_code, 200)
         body = response.json()
         self.assertEqual(body['status'], 200)
 
     def test_login_mints_jwt_and_authenticates_drf(self):
         response = self.client.post(
-            '/_allauth/app/v1/auth/login',
+            reverse('headless:app:account:login'),
             data=json.dumps({'username': 'test', 'password': 'testtest'}),
             content_type='application/json',
         )
@@ -91,7 +91,7 @@ class HeadlessSmokeTestCase(WgerTestCase):
         ):
             count_before = User.objects.count()
             response = self.client.post(
-                '/_allauth/app/v1/auth/signup',
+                reverse('headless:app:account:signup'),
                 data=json.dumps(signup_data),
                 content_type='application/json',
             )
@@ -102,7 +102,7 @@ class HeadlessSmokeTestCase(WgerTestCase):
         # payload creates a user via the headless endpoint.
         count_before = User.objects.count()
         response = self.client.post(
-            '/_allauth/app/v1/auth/signup',
+            reverse('headless:app:account:signup'),
             data=json.dumps(signup_data),
             content_type='application/json',
         )

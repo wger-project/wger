@@ -303,7 +303,7 @@ urlpatterns += [
     path('account/', include('allauth.urls')),
 
     # REST auth API consumed by the Flutter app.
-    path('_allauth/', include('allauth.headless.urls')),
+    path('allauth/', include('allauth.headless.urls')),
     # API
     path(
         'api/v2/exercise-submission/',

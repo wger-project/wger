@@ -16,6 +16,7 @@
 # Django
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
+from django.urls import reverse
 
 # Third Party
 from rest_framework.authtoken.models import Token
@@ -58,7 +59,7 @@ class IssueRefreshTokenApiTestCase(WgerTestCase):
         # exchange endpoint without us having to know its internal shape.
         anon = APIClient()
         exchange = anon.post(
-            '/_allauth/app/v1/tokens/refresh',
+            reverse('headless:app:tokens:refresh'),
             data={'refresh_token': refresh_token},
             format='json',
         )
