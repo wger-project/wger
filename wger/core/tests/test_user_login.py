@@ -3,6 +3,7 @@ from unittest import mock
 
 # Django
 from django.contrib.auth.models import User
+from django.test import override_settings
 from django.urls import reverse
 
 # wger
@@ -133,3 +134,14 @@ class WebLoginViewTestCase(WgerTestCase):
         """
         response = self.client.get(reverse('core:user:login'))
         self.assertContains(response, 'id="passkey_login"')
+
+    @override_settings(MFA_PASSKEY_LOGIN_ENABLED=False, WGER_SOCIAL_PROVIDERS=[])
+    def test_login_page_without_quick_sign_in_methods(self):
+        """
+        Without passkey or social providers the page renders just the
+        credentials form, not an empty quick-sign-in panel.
+        """
+        response = self.client.get(reverse('core:user:login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'id="passkey_login"')
+        self.assertNotContains(response, 'Faster sign in')
