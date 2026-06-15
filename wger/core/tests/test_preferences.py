@@ -39,8 +39,6 @@ class PreferencesTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.form_data = {
-            'show_comments': True,
-            'show_english_ingredients': True,
             'first_name': '',
             'last_name': '',
             'workout_reminder_active': True,
@@ -62,9 +60,6 @@ class PreferencesTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(reverse('core:user:preferences'))
 
-        profile = User.objects.get(username='test').userprofile
-        self.assertFalse(profile.show_comments)
-
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('preferences.html')
 
@@ -78,7 +73,6 @@ class PreferencesTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:preferences'))
         user = User.objects.get(username='test')
         profile = user.userprofile
-        self.assertTrue(profile.show_english_ingredients)
         self.assertTrue(profile.workout_reminder_active)
         self.assertEqual(profile.workout_reminder, 30)
         self.assertEqual(profile.workout_duration, 12)
@@ -90,7 +84,6 @@ class PreferencesTestCase(WgerTestCase):
             reverse('core:user:preferences'),
             {
                 **self.form_data,
-                'show_comments': False,
                 'workout_reminder': 22,
                 'workout_duration': 10,
                 'weight_unit': 'lb',
@@ -101,8 +94,8 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
         profile = response.context['user'].userprofile
-        self.assertFalse(profile.show_comments)
-        self.assertTrue(profile.show_english_ingredients)
+        self.assertEqual(profile.workout_reminder, 22)
+        self.assertEqual(profile.weight_unit, 'lb')
 
     def test_email_is_not_editable_from_preferences(self):
         """

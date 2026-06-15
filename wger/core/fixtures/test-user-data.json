@@ -480,8 +480,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 1,
             "gender": "1",
             "age": 30,
@@ -500,7 +498,6 @@
             "notification_language": 1,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": true,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -511,8 +508,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 2,
             "gender": "1",
             "age": 20,
@@ -531,7 +526,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 3,
             "added_by": null,
             "can_add_user": true
@@ -542,8 +536,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": true,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 3,
             "gender": "2",
             "age": 50,
@@ -562,7 +554,6 @@
             "notification_language": 2,
             "gym": 2,
             "weight_unit": "kg",
-            "ro_access": true,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -573,8 +564,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 4,
             "gender": "1",
             "age": 20,
@@ -593,7 +582,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": 2,
             "can_add_user": false
@@ -604,8 +592,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 5,
             "gender": "1",
             "age": 20,
@@ -624,7 +610,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": 2,
             "can_add_user": false
@@ -635,8 +620,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 6,
             "gender": "1",
             "age": 20,
@@ -655,7 +638,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -666,8 +648,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 7,
             "gender": "1",
             "age": 20,
@@ -686,7 +666,6 @@
             "notification_language": 2,
             "gym": 2,
             "weight_unit": "lb",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -697,8 +676,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 8,
             "gender": "1",
             "age": 20,
@@ -717,7 +694,6 @@
             "notification_language": 2,
             "gym": 2,
             "weight_unit": "lb",
-            "ro_access": true,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -728,8 +704,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 9,
             "gender": "1",
             "age": 20,
@@ -748,7 +722,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -759,8 +732,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 10,
             "gender": "1",
             "age": 20,
@@ -779,7 +750,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -790,8 +760,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 11,
             "gender": "1",
             "age": 20,
@@ -810,7 +778,6 @@
             "notification_language": 2,
             "gym": 2,
             "weight_unit": "lb",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -821,8 +788,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 12,
             "gender": "1",
             "age": 20,
@@ -841,7 +806,6 @@
             "notification_language": 2,
             "gym": 1,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -852,8 +816,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 13,
             "gender": "1",
             "age": 20,
@@ -872,7 +834,6 @@
             "notification_language": 2,
             "gym": 2,
             "weight_unit": "lb",
-            "ro_access": true,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -884,8 +845,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -903,7 +862,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -915,8 +873,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -934,7 +890,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -946,8 +901,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -965,7 +918,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -977,8 +929,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -996,7 +946,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1008,8 +957,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1027,7 +974,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1039,8 +985,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1058,7 +1002,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "lb",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1070,8 +1013,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1089,7 +1030,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "lb",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1101,8 +1041,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1120,7 +1058,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1132,8 +1069,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1151,7 +1086,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1163,8 +1097,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1182,7 +1114,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false
@@ -1194,8 +1125,6 @@
         "fields": {
             "workout_reminder": 20,
             "height": 180,
-            "show_english_ingredients": false,
-            "show_comments": false,
             "workout_duration": 8,
             "sleep_hours": 7,
             "freetime_hours": 8,
@@ -1213,7 +1142,6 @@
             "sport_hours": 6,
             "is_temporary": false,
             "weight_unit": "kg",
-            "ro_access": false,
             "num_days_weight_reminder": 0,
             "added_by": null,
             "can_add_user": false

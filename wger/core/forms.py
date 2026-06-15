@@ -143,14 +143,11 @@ class UserPreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = (
-            'show_comments',
-            'show_english_ingredients',
             'workout_reminder_active',
             'workout_reminder',
             'workout_duration',
             'notification_language',
             'weight_unit',
-            'ro_access',
             'num_days_weight_reminder',
             'birthdate',
             'height',
@@ -180,23 +177,20 @@ class UserPreferencesForm(forms.ModelForm):
                 ),
                 'birthdate',
                 'height',
-                HTML('<hr>'),
+                # HTML('<hr>'),
             ),
-            Fieldset(
-                _('Workout reminders'),
-                'workout_reminder_active',
-                'workout_reminder',
-                'workout_duration',
-                HTML('<hr>'),
-            ),
+            # Fieldset(
+            #     _('Workout reminders'),
+            #     'workout_reminder_active',
+            #     'workout_reminder',
+            #     'workout_duration',
+            #     HTML('<hr>'),
+            # ),
             Fieldset(
                 _('Other settings'),
-                'ro_access',
                 'notification_language',
                 'weight_unit',
-                'show_comments',
-                'show_english_ingredients',
-                'num_days_weight_reminder',
+                # 'num_days_weight_reminder',
             ),
             ButtonHolder(Submit('submit', _('Save'), css_class='btn-success btn-block')),
         )

@@ -58,8 +58,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'weight_rounding',
             'repetitions_rounding',
             'is_temporary',
-            'show_comments',
-            'show_english_ingredients',
             'workout_reminder_active',
             'workout_reminder',
             'workout_duration',
@@ -78,7 +76,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'freetime_intensity',
             'calories',
             'weight_unit',
-            'ro_access',
             'num_days_weight_reminder',
         )
 

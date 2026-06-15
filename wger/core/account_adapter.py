@@ -25,6 +25,9 @@ from django.utils import (
 # Third Party
 from allauth.account.adapter import DefaultAccountAdapter
 
+# wger
+from wger.core.models import UserProfile
+
 
 class WgerAccountAdapter(DefaultAccountAdapter):
     """Wger Account Adapter for allauth"""
@@ -59,9 +62,26 @@ class WgerAccountAdapter(DefaultAccountAdapter):
 
         return user
 
+    def get_notification_language(self, context):
+        """
+        Return the locale code of the recipient's preferred notification
+        language, or None if it can't be determined from the email context.
+        """
+        user = context.get('user')
+        if user is None or user.pk is None:
+            return None
+
+        profile = (
+            UserProfile.objects.filter(user=user)
+            .select_related('notification_language')
+            .first()
+        )
+        return profile.notification_language.short_name if profile else None
+
     def send_mail(self, template_prefix, email, context):
         """
-        Add token expiration info to the email context.
+        Add token expiration info to the email context and render the email in
+        the recipient's preferred notification language.
 
         Note that we add this to the context of all emails, even if this
         doesn't make sense for some of them. However, this is acceptable since it's
@@ -72,4 +92,11 @@ class WgerAccountAdapter(DefaultAccountAdapter):
         expire_days = settings.ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS
         context['expire_hours'] = expire_days * 24
         context['expire_date'] = timezone.now() + timedelta(days=expire_days)
-        super().send_mail(template_prefix, email, context)
+
+        # Emails without a known recipient keep the request's active language.
+        language = self.get_notification_language(context)
+        if language:
+            with translation.override(language):
+                super().send_mail(template_prefix, email, context)
+        else:
+            super().send_mail(template_prefix, email, context)
