@@ -97,6 +97,17 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(profile.workout_reminder, 22)
         self.assertEqual(profile.weight_unit, 'lb')
 
+    def test_height_is_optional(self):
+        """The preferences form saves without a height."""
+        self.user_login('test')
+        response = self.client.post(
+            reverse('core:user:preferences'),
+            {**self.form_data, 'height': ''},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIsNone(User.objects.get(username='test').userprofile.height)
+
     def test_email_is_not_editable_from_preferences(self):
         """
         Email management was moved to allauth's EmailView: the preferences
@@ -194,7 +205,7 @@ class PreferencesTestCase(WgerTestCase):
                 'first_name': 'Brand',
                 'last_name': 'New',
                 'birthdate': '01/01/2000',
-                'height': '',  # required field left blank
+                'height': 999,  # above the valid 140-230 range
             },
         )
 

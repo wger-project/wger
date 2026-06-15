@@ -24,6 +24,7 @@ from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.nutrition.forms import BmrForm
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
@@ -82,6 +83,12 @@ class CaloriesCalculatorTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(result, {'bmr': '1780'})
+
+    def test_bmr_requires_height(self):
+        """The BMR form requires a height, even though it is optional on the profile."""
+        form = BmrForm(data={'age': 30, 'gender': 1, 'weight': 80})
+        self.assertFalse(form.is_valid())
+        self.assertIn('height', form.errors)
 
     def test_automatic_weight_entry_bmr(self):
         """

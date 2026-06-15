@@ -198,7 +198,7 @@ class UserProfile(models.Model):
 
     birthdate = models.DateField(
         verbose_name=_('Date of Birth'),
-        blank=False,
+        blank=True,
         null=True,
         validators=[birthdate_validator],
     )
@@ -206,7 +206,7 @@ class UserProfile(models.Model):
 
     height = IntegerField(
         verbose_name=_('Height (cm)'),
-        blank=False,
+        blank=True,
         validators=[MinValueValidator(140), MaxValueValidator(230)],
         null=True,
     )
