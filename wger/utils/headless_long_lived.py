@@ -54,6 +54,7 @@ def mint_long_lived_refresh_token(user, lifetime_seconds: int) -> str:
 
     # Imported lazily to avoid a hard dependency on the headless app at import
     # time (lets self-hosters with headless disabled still import this module).
+    # Third Party
     from allauth.headless.tokens.strategies.jwt.internal import create_refresh_token
 
     backend = getattr(user, 'backend', None) or _DEFAULT_BACKEND

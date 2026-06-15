@@ -72,9 +72,7 @@ class WgerAccountAdapter(DefaultAccountAdapter):
             return None
 
         profile = (
-            UserProfile.objects.filter(user=user)
-            .select_related('notification_language')
-            .first()
+            UserProfile.objects.filter(user=user).select_related('notification_language').first()
         )
         return profile.notification_language.short_name if profile else None
 

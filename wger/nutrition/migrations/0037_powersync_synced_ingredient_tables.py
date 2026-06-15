@@ -50,7 +50,6 @@ be mirrored here, in the SAME migration that alters the source model:
 """
 
 
-
 SQL = [
     # Shadow table: structure cloned incl. PK (= replica identity for logical
     # replication). EXCLUDING IDENTITY so we can insert the explicit ids copied
@@ -60,7 +59,6 @@ SQL = [
         LIKE nutrition_ingredient INCLUDING ALL EXCLUDING IDENTITY
     );
     """,
-
     # Copy an ingredient into the shadow set
     """
     CREATE OR REPLACE FUNCTION powersync_ensure_ingredient_synced(ing_id bigint)
@@ -70,7 +68,6 @@ SQL = [
             ON CONFLICT (id) DO NOTHING;
     $$;
     """,
-
     # On every log and meal item, pull its ingredient into the shadow set.
     """
     CREATE OR REPLACE FUNCTION powersync_sync_ingredient_from_item()
@@ -90,7 +87,6 @@ SQL = [
         AFTER INSERT OR UPDATE OF ingredient_id ON nutrition_mealitem
         FOR EACH ROW EXECUTE FUNCTION powersync_sync_ingredient_from_item();
     """,
-
     # Keep already-synced ingredient rows fresh when the source changes.
     """
     CREATE OR REPLACE FUNCTION powersync_propagate_ingredient()
@@ -109,7 +105,6 @@ SQL = [
         AFTER UPDATE ON nutrition_ingredient
         FOR EACH ROW EXECUTE FUNCTION powersync_propagate_ingredient();
     """,
-
     # Backfill everything already referenced by a log or meal item.
     """
     SELECT powersync_ensure_ingredient_synced(id) FROM (
@@ -121,13 +116,13 @@ SQL = [
 ]
 
 REVERSE_SQL = [
-    "DROP TRIGGER IF EXISTS powersync_propagate ON nutrition_ingredient;",
-    "DROP TRIGGER IF EXISTS powersync_sync_ingredient ON nutrition_mealitem;",
-    "DROP TRIGGER IF EXISTS powersync_sync_ingredient ON nutrition_logitem;",
-    "DROP FUNCTION IF EXISTS powersync_propagate_ingredient();",
-    "DROP FUNCTION IF EXISTS powersync_sync_ingredient_from_item();",
-    "DROP FUNCTION IF EXISTS powersync_ensure_ingredient_synced(bigint);",
-    "DROP TABLE IF EXISTS nutrition_synced_ingredient;",
+    'DROP TRIGGER IF EXISTS powersync_propagate ON nutrition_ingredient;',
+    'DROP TRIGGER IF EXISTS powersync_sync_ingredient ON nutrition_mealitem;',
+    'DROP TRIGGER IF EXISTS powersync_sync_ingredient ON nutrition_logitem;',
+    'DROP FUNCTION IF EXISTS powersync_propagate_ingredient();',
+    'DROP FUNCTION IF EXISTS powersync_sync_ingredient_from_item();',
+    'DROP FUNCTION IF EXISTS powersync_ensure_ingredient_synced(bigint);',
+    'DROP TABLE IF EXISTS nutrition_synced_ingredient;',
 ]
 
 

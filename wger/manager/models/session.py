@@ -28,7 +28,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.utils.uuid import uuid7
 
 
-
 class WorkoutSession(models.Model):
     """
     Model for a workout session

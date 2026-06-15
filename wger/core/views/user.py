@@ -107,15 +107,15 @@ from wger.utils.api_token import (
     count_active_jwt_refresh_tokens,
     create_token,
 )
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerMultiplePermissionRequiredMixin,
+)
 from wger.utils.headless_long_lived import (
     list_long_lived_sessions,
     mint_long_lived_refresh_token,
     revoke_all_long_lived_sessions,
     revoke_long_lived_session,
-)
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin,
 )
 from wger.weight.models import WeightEntry
 
@@ -177,9 +177,7 @@ def delete(request, user_pk=None):
 
     if request.method == 'POST' and form.is_valid():
         user.delete()
-        messages.success(
-            request, _('Account "{0}" was successfully deleted').format(user.username)
-        )
+        messages.success(request, _('Account "{0}" was successfully deleted').format(user.username))
 
         if not user_pk:
             django_logout(request)
@@ -292,9 +290,7 @@ class WgerSignupView(AllauthSignupView):
             return HttpResponseRedirect(reverse('software:features'))
         if request.user.is_authenticated and request.user.userprofile.is_temporary:
             # Skip RedirectAuthenticatedUserMixin's "already logged in" redirect
-            return super(RedirectAuthenticatedUserMixin, self).dispatch(
-                request, *args, **kwargs
-            )
+            return super(RedirectAuthenticatedUserMixin, self).dispatch(request, *args, **kwargs)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -541,9 +537,7 @@ def api_key(request):
     context['active_jwt_sessions'] = count_active_jwt_refresh_tokens(request.user)
     context['new_refresh_token'] = request.session.pop(_NEW_REFRESH_TOKEN_SESSION_KEY, None)
     context['long_lived_sessions'] = list_long_lived_sessions(request.user)
-    context['refresh_token_lifetime_days'] = (
-        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN // 86400
-    )
+    context['refresh_token_lifetime_days'] = settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN // 86400
 
     return render(request, 'user/api_key.html', context)
 
@@ -569,9 +563,7 @@ def app_auth_handoff(request):
     )
 
     state = request.GET.get('state', '')
-    if state and (
-        len(state) > _APP_AUTH_STATE_MAX_LEN or not _APP_AUTH_STATE_ALLOWED.match(state)
-    ):
+    if state and (len(state) > _APP_AUTH_STATE_MAX_LEN or not _APP_AUTH_STATE_ALLOWED.match(state)):
         state = ''
 
     # Token goes in the URL fragment, not the query string, so it never lands
