@@ -289,7 +289,6 @@ urlpatterns = i18n_patterns(
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap',
     ),
-    path('account/', include('allauth.urls')),
 )
 
 #
@@ -298,7 +297,12 @@ urlpatterns = i18n_patterns(
 urlpatterns += [
     path('i18n/', include('django.conf.urls.i18n')),
     path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
-    # allauth.headless — REST auth API consumed by the Flutter app.
+
+    # allauth account pages are mounted without a language prefix: the OAuth
+    # callback's redirect_uri has to be stable
+    path('account/', include('allauth.urls')),
+
+    # REST auth API consumed by the Flutter app.
     path('_allauth/', include('allauth.headless.urls')),
     # API
     path(

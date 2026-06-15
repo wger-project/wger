@@ -23,6 +23,7 @@ from django.test import (
     override_settings,
 )
 from django.urls import reverse
+from django.utils import translation
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -91,3 +92,21 @@ class WgerLoginViewContextTestCase(TestCase):
     def test_use_social_auth_true_when_providers_configured(self):
         ctx = self._build_view().get_context_data()
         self.assertTrue(ctx['use_social_auth'])
+
+
+class AccountUrlLanguagePrefixTestCase(WgerTestCase):
+    """
+    allauth's account URLs (including the providers' OAuth callback) are mounted
+    without a language prefix so the redirect_uri registered with the provider
+    stays stable, yet the pages remain localized via LocaleMiddleware.
+    """
+
+    @translation.override('de')
+    def test_account_urls_have_no_language_prefix(self):
+        self.assertEqual(reverse('account_login'), '/account/login/')
+
+    def test_account_page_is_localized_from_accept_language(self):
+        """Without a URL prefix the page language comes from Accept-Language."""
+        response = self.client.get(reverse('account_login'), headers={'accept-language': 'de'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers['Content-Language'], 'de')
