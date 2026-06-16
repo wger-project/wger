@@ -23,7 +23,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 # Third Party
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # wger
 from wger.measurements.api.filtersets import MeasurementEntryFilterSet
@@ -35,10 +37,18 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.utils.bmi import calculate_bmi
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
 logger = logging.getLogger(__name__)
+
+
+# Map the dynamic_type enum to the math function
+DYNAMIC_REGISTRY = {
+    Category.DynamicType.BMI: calculate_bmi,
+    # add squat 1rm later
+}
 
 
 class CategoryViewSet(WgerOwnerObjectModelViewSet):
@@ -74,6 +84,18 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(User, 'user')]
 
+    @action(detail=False, methods=['get'], url_path='dynamic-types')
+    def dynamic_types(self, request):
+        """
+        Dedicated route for virtual/calculated categories
+        Returns a list of available dynamic calculation types from the model Enum.
+        URL: /api/v2/measurement-category/dynamic-types/
+        """
+        choices = [
+            {'value': choice.value, 'label': choice.label} for choice in Category.DynamicType
+        ]
+        return Response(choices)
+
 
 class MeasurementViewSet(WgerOwnerObjectModelViewSet):
     """
@@ -101,3 +123,34 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
             return Measurement.objects.none()
 
         return Measurement.objects.filter(category__user=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        """
+        Intercept requests for dynamic categories before the filterset blocks them
+        """
+        category_id = request.query_params.get('category')
+
+        if category_id:
+            try:
+                # look up the category and check its enum value
+                category = Category.objects.get(id=category_id, user=request.user)
+
+                if category.dynamic_type != Category.DynamicType.NONE:
+                    calc_func = DYNAMIC_REGISTRY.get(category.dynamic_type)
+
+                    if calc_func:
+                        # get the raw list of calculated dictionaries
+                        raw_data = calc_func(request.user, category_id)
+
+                        # paginate the list
+                        page = self.paginate_queryset(raw_data)
+                        if page is not None:
+                            return self.get_paginated_response(page)
+
+                        # fallback
+                        return Response(raw_data)
+            except (Category.DoesNotExist, ValueError):
+                # fallback to standard behavior
+                pass
+
+        return super().list(request, *args, **kwargs)
