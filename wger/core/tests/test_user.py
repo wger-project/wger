@@ -11,10 +11,12 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 # Standard Library
 import datetime
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.urls import (

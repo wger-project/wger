@@ -69,6 +69,7 @@ from django.views.generic import (
 
 # Third Party
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialAccount
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -351,8 +352,33 @@ def preferences(request):
 
     context['form'] = form
     context['email_verified'] = request.user.userprofile.is_verified
+    context['oidc_connected'] = SocialAccount.objects.filter(
+        user=request.user,
+        provider=getattr(settings, 'OIDC_PROVIDER_ID', 'oidc'),
+    ).exists()
 
     return render(request, 'user/preferences.html', context)
+
+
+@login_required
+@require_POST
+def disconnect_oidc(request):
+    """
+    Disconnect the configured OIDC social account from the current user.
+    """
+    provider_id = getattr(settings, 'OIDC_PROVIDER_ID', 'oidc')
+    provider_name = getattr(settings, 'OIDC_PROVIDER_NAME', 'Single Sign-On')
+    deleted_count, _details = SocialAccount.objects.filter(
+        user=request.user,
+        provider=provider_id,
+    ).delete()
+
+    if deleted_count:
+        messages.success(request, _('{} account disconnected').format(provider_name))
+    else:
+        messages.info(request, _('No connected {} account was found').format(provider_name))
+
+    return redirect('core:user:preferences')
 
 
 class UserDeactivateView(
@@ -506,6 +532,53 @@ class UserEditView(
         return context
 
 
+class UserDisconnectOidcView(
+    LoginRequiredMixin,
+    WgerMultiplePermissionRequiredMixin,
+    RedirectView,
+):
+    """
+    Disconnect the configured OIDC account for a user.
+    """
+
+    permanent = False
+    model = User
+    permission_required = ('gym.manage_gym', 'gym.manage_gyms')
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return HttpResponseForbidden()
+
+        target_user = get_object_or_404(User, pk=self.kwargs['pk'])
+        if (
+            user.has_perm('gym.manage_gym')
+            and not user.has_perm('gym.manage_gyms')
+            and not is_same_gym(user, target_user)
+        ):
+            return HttpResponseForbidden()
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_redirect_url(self, pk):
+        target_user = get_object_or_404(User, pk=pk)
+        provider_id = getattr(settings, 'OIDC_PROVIDER_ID', 'oidc')
+        provider_name = getattr(settings, 'OIDC_PROVIDER_NAME', 'Single Sign-On')
+        deleted_count, _details = SocialAccount.objects.filter(
+            user=target_user,
+            provider=provider_id,
+        ).delete()
+
+        if deleted_count:
+            messages.success(self.request, _('{} account disconnected').format(provider_name))
+        else:
+            messages.info(
+                self.request, _('No connected {} account was found').format(provider_name)
+            )
+
+        return reverse('core:user:overview', kwargs={'pk': pk})
+
+
 @login_required
 def api_key(request):
     """
@@ -599,6 +672,10 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
+        context['current_user_oidc_connected'] = SocialAccount.objects.filter(
+            user=self.object,
+            provider=getattr(settings, 'OIDC_PROVIDER_ID', 'oidc'),
+        ).exists()
 
         page_user = self.object  # type: User
         request_user = self.request.user  # type: User
