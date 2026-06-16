@@ -21,7 +21,8 @@ Buttons and menus will be grayed out if they can't currently be used.
 ### Social login and 2FA
 
 It's now possible to login with social auth providers like Google, Facebook, etc.
-Also, we now support two-factor authentication like security codes or passkeys.
+Also, we now support two-factor authentication like security codes or passkeys
+(note that due to these changes, you will need to re-login on the website).
 
 * <https://wger.readthedocs.io/en/latest/administration/mfa.html>
 * <https://wger.readthedocs.io/en/latest/administration/social_auth.html>
@@ -58,8 +59,10 @@ Also, we now support two-factor authentication like security codes or passkeys.
 ## Upgrade steps
 
 * If you are using docker, make sure to pull the latest changes from the
-  [docker repo](https://github.com/wger-project/docker) as there is a new service
-  ("powersync") and configs (e.g. for nginx/Caddy) and settings (prod.env)
+  [docker repo](https://github.com/wger-project/docker) as there is a new
+  service ("powersync"), configs (e.g. for nginx/Caddy) and settings (prod.env).
+  Take a look at https://wger.readthedocs.io/en/latest/administration/powersync.html
+  for administration details. 
 
 * The new powersync service needs its own dedicated user and schema inside the
   Postgres database to store its sync state, run
@@ -88,8 +91,6 @@ Also, we now support two-factor authentication like security codes or passkeys.
   (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) from `prod.env` instead
   of having them hardcoded in the yaml file.
 
-* Due to changes in the auth system, you will need to re-login on the website
-
 ## Breaking changes
 
 *(only relevant if you have your own scripts or interact with the REST API)*
@@ -111,5 +112,5 @@ one, visit the "API key" page in the user settings and paste it into scripts.
 
 **`/api/v2/token` endpoint removed.** Exchanging username + password for a JWT
 pair via this endpoint bypassed 2FA. To get tokens, either use
-`/allauth/app/v1/auth/login` (which respects the MFA challenge flow) or mint
-a long-lived refresh token from the "API key" page in the user settings.
+`/allauth/app/v1/auth/login` (which respects the MFA challenge flow) or manually
+mint a long-lived refresh token from the "API key" page in the user settings.
