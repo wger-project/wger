@@ -55,7 +55,7 @@ class SocialAuthEnabledLoginPageTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:login'))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['use_social_auth'])
-        self.assertContains(response, 'or login with')
+        self.assertContains(response, 'or sign in with')
         self.assertContains(response, 'Wger Test Provider')
         # The button must POST (CSRF-safe), not GET.
         self.assertContains(
