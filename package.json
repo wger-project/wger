@@ -17,7 +17,7 @@
     "jquery": "^4.0.0"
   },
   "devDependencies": {
-    "@wger-project/react-components": "26.5.9"
+    "@wger-project/react-components": "26.6.16"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"
