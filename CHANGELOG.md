@@ -61,8 +61,8 @@ Also, we now support two-factor authentication like security codes or passkeys
 * If you are using docker, make sure to pull the latest changes from the
   [docker repo](https://github.com/wger-project/docker) as there is a new
   service ("powersync"), configs (e.g. for nginx/Caddy) and settings (prod.env).
-  Take a look at https://wger.readthedocs.io/en/latest/administration/powersync.html
-  for administration details. 
+  Take a look at <https://wger.readthedocs.io/en/latest/administration/powersync.html>
+  for administration details.
 
 * The new powersync service needs its own dedicated user and schema inside the
   Postgres database to store its sync state, run
