@@ -81,6 +81,7 @@ else:
             'NAME': env.str('DJANGO_DB_DATABASE', '/home/wger/db/database.sqlite'),
         }
     }
+PS_STORAGE_PG_URI = env.str('PS_STORAGE_PG_URI', 'postgres://powersync_storage:powersync_password@db:5432/wger')
 
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = env.str('TIME_ZONE', 'Europe/Berlin')
