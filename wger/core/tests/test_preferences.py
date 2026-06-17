@@ -39,8 +39,6 @@ class PreferencesTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.form_data = {
-            'show_comments': True,
-            'show_english_ingredients': True,
             'first_name': '',
             'last_name': '',
             'workout_reminder_active': True,
@@ -62,9 +60,6 @@ class PreferencesTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(reverse('core:user:preferences'))
 
-        profile = User.objects.get(username='test').userprofile
-        self.assertFalse(profile.show_comments)
-
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('preferences.html')
 
@@ -78,7 +73,6 @@ class PreferencesTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:preferences'))
         user = User.objects.get(username='test')
         profile = user.userprofile
-        self.assertTrue(profile.show_english_ingredients)
         self.assertTrue(profile.workout_reminder_active)
         self.assertEqual(profile.workout_reminder, 30)
         self.assertEqual(profile.workout_duration, 12)
@@ -90,7 +84,6 @@ class PreferencesTestCase(WgerTestCase):
             reverse('core:user:preferences'),
             {
                 **self.form_data,
-                'show_comments': False,
                 'workout_reminder': 22,
                 'workout_duration': 10,
                 'weight_unit': 'lb',
@@ -101,8 +94,37 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
         profile = response.context['user'].userprofile
-        self.assertFalse(profile.show_comments)
-        self.assertTrue(profile.show_english_ingredients)
+        self.assertEqual(profile.workout_reminder, 22)
+        self.assertEqual(profile.weight_unit, 'lb')
+
+    def test_height_is_optional(self):
+        """The preferences form saves without a height."""
+        self.user_login('test')
+        response = self.client.post(
+            reverse('core:user:preferences'),
+            {**self.form_data, 'height': ''},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIsNone(User.objects.get(username='test').userprofile.height)
+
+    def test_change_password_link_for_password_user(self):
+        """Accounts with a usable password see the change-password link."""
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('core:user:change-password'))
+        self.assertNotContains(response, reverse('account_set_password'))
+
+    def test_set_password_link_for_passwordless_user(self):
+        """Accounts without a usable password see a set-password link instead."""
+        user = User.objects.create(username='socialprefs', email='socialprefs@example.com')
+        user.set_unusable_password()
+        user.save()
+        self.client.force_login(user)
+
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('account_set_password'))
+        self.assertNotContains(response, reverse('core:user:change-password'))
 
     def test_email_is_not_editable_from_preferences(self):
         """
@@ -120,6 +142,35 @@ class PreferencesTestCase(WgerTestCase):
         response = self.client.get(reverse('account_email'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/email_change.html')
+
+    def test_preferences_links_to_2fa(self):
+        """The preferences page links to allauth's MFA management page."""
+
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, reverse('mfa_index'))
+
+    def test_mfa_page_renders_inside_wger_chrome(self):
+        """
+        allauth's MFA pages render through wger's base template (the
+        allauth/layouts/base.html override), not allauth's bare layout.
+        """
+
+        self.user_login('test')
+        response = self.client.get(reverse('mfa_index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'mfa/index.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_mfa_webauthn_page_renders(self):
+        """
+        The WebAuthn authenticator list uses ``{% load humanize %}``, so
+        django.contrib.humanize must be in INSTALLED_APPS.
+        """
+
+        self.user_login('test')
+        response = self.client.get(reverse('mfa_list_webauthn'))
+        self.assertEqual(response.status_code, 200)
 
     def test_address(self):
         """
@@ -172,7 +223,7 @@ class PreferencesTestCase(WgerTestCase):
                 'first_name': 'Brand',
                 'last_name': 'New',
                 'birthdate': '01/01/2000',
-                'height': '',  # required field left blank
+                'height': 999,  # above the valid 140-230 range
             },
         )
 

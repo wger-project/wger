@@ -27,6 +27,7 @@ from django.db import models
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
+from wger.utils.uuid import uuid7
 
 # Local
 from .ingredient import Ingredient
@@ -41,6 +42,11 @@ class MealItem(BaseMealItem, models.Model):
     """
     An item (component) of a meal
     """
+
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
+    )
 
     meal = models.ForeignKey(
         Meal,

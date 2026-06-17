@@ -15,6 +15,7 @@
 # ruff: noqa: F405
 
 # Standard Library
+import hashlib
 import secrets
 import warnings
 
@@ -44,6 +45,13 @@ _DEFAULT_KEYS = {
     'wger-docker-secret-jwtkey-1234567890!@#$%^&*(-_=+)',
 }
 
+# SHA256 of the JWT keys shipped as defaults in docker/config/prod.env.
+# Using hashes instead of inlining the ~1KB base64 JWKs
+_DEFAULT_JWT_KEY_HASHES = {
+    '993583b530ed307419c1fd54eef8c7010ac29fa9ee6ddfa3ed0e5204e2b5e99a',  # public
+    '964a4ebdb0d1b9f7ac461711a8861d74bd887a955b0e10d79b93c532f1e13d98',  # private
+}
+
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = env('DJANGO_DEBUG')
 
@@ -53,7 +61,9 @@ if os.environ.get('DJANGO_ADMINS'):
     ]
     MANAGERS = ADMINS
 
-if os.environ.get('DJANGO_DB_ENGINE'):
+if os.environ.get('PS_DATABASE_URI'):
+    DATABASES = {'default': env.db_url('PS_DATABASE_URI')}
+elif os.environ.get('DJANGO_DB_ENGINE'):
     DATABASES = {
         'default': {
             'ENGINE': env.str('DJANGO_DB_ENGINE'),
@@ -75,17 +85,45 @@ else:
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = env.str('TIME_ZONE', 'Europe/Berlin')
 
-# Django's secret key
-# Generate e.g. with: python -c "import secrets; print(secrets.token_urlsafe(50))" or https://djecrety.ir/
+#
+# Secret keys
+#
+
+# Django
 SECRET_KEY = env.str('SECRET_KEY', '')
-if not SECRET_KEY or SECRET_KEY in _DEFAULT_KEYS:
+if not SECRET_KEY or (SECRET_KEY in _DEFAULT_KEYS and not DEBUG):
     SECRET_KEY = secrets.token_urlsafe(50)
+    if not DEBUG:
+        warnings.warn(
+            'SECRET_KEY is not set or uses the default value so '
+            'a random key was generated, sessions will not persist across restarts. '
+            'Set SECRET_KEY in your environment for production use.',
+            stacklevel=1,
+        )
+
+# JWT keypair (RS256)
+JWT_PUBLIC_KEY = env.str('JWT_PUBLIC_KEY', '')
+JWT_PRIVATE_KEY = env.str('JWT_PRIVATE_KEY', '')
+POWERSYNC_URL_PATH = env.str('POWERSYNC_URL_PATH', 'ps')
+POWERSYNC_URL = env.str('POWERSYNC_URL', '')
+if not DEBUG and any(
+    key and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_JWT_KEY_HASHES
+    for key in (JWT_PUBLIC_KEY, JWT_PRIVATE_KEY)
+):
     warnings.warn(
-        'SECRET_KEY is not set or uses the default value so '
-        'a random key was generated, sessions will not persist across restarts. '
-        'Set SECRET_KEY in your environment for production use.',
+        'JWT_PUBLIC_KEY / JWT_PRIVATE_KEY are set to the shipped default values, '
+        'this is a security risk! Please generate a fresh keypair with '
+        '`./manage.py generate-jwt-keys`',
         stacklevel=1,
     )
+if not DEBUG and not (JWT_PRIVATE_KEY and JWT_PUBLIC_KEY):
+    warnings.warn(
+        'JWT_PRIVATE_KEY / JWT_PUBLIC_KEY are not set. JWT authentication '
+        'will not work until you run `./manage.py generate-jwt-keys` and '
+        'add the output to your environment.',
+        stacklevel=1,
+    )
+
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
@@ -113,7 +151,7 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Configure a real backend in production
 if DEBUG:
@@ -202,6 +240,17 @@ if os.environ.get('DJANGO_CACHE_BACKEND'):
 
 
 #
+# Two-factor authentication (allauth.mfa)
+#
+# Lets self-hosted instances drop a factor, most notably 'webauthn', which
+# needs a secure context (HTTPS or localhost) and therefore does not work on
+# plain-HTTP deployments.
+MFA_SUPPORTED_TYPES = env.list(
+    'MFA_SUPPORTED_TYPES',
+    default=['totp', 'recovery_codes', 'webauthn'],
+)
+
+#
 # Django Axes
 #
 AXES_ENABLED = env.bool('AXES_ENABLED', True)
@@ -215,22 +264,25 @@ AXES_IPWARE_META_PRECEDENCE_ORDER = env.list(
 )
 
 #
-# Django Rest Framework SimpleJWT
+# Django-allauth social providers
 #
+WGER_SOCIAL_PROVIDERS = env.list('WGER_SOCIAL_PROVIDERS', default=[])
+# allauth.socialaccount itself is always installed (see settings_global.py) so
+# its models stay importable. Only the per-provider apps are env-gated.
+if WGER_SOCIAL_PROVIDERS:
+    INSTALLED_APPS += [f'allauth.socialaccount.providers.{p}' for p in WGER_SOCIAL_PROVIDERS]
+
+#
+# Django Rest Framework SimpleJWT + allauth.headless JWT
+REFRESH_TOKEN_LIFETIME_HOURS = env.int('REFRESH_TOKEN_LIFETIME', 24 * 30 * 4)
 SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int('ACCESS_TOKEN_LIFETIME', 15))
-SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(
-    hours=env.int('REFRESH_TOKEN_LIFETIME', 24 * 30 * 4)
-)
-_SIGNING_KEY = env.str('SIGNING_KEY', '')
-if not _SIGNING_KEY or _SIGNING_KEY in _DEFAULT_KEYS:
-    _SIGNING_KEY = secrets.token_urlsafe(50)
-    warnings.warn(
-        'SIGNING_KEY is not set or uses the default value so '
-        'a random key was generated, sessions will not persist across restarts. '
-        'Set SIGNING_KEY in your environment for production use.',
-        stacklevel=1,
-    )
-SIMPLE_JWT['SIGNING_KEY'] = _SIGNING_KEY
+SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=REFRESH_TOKEN_LIFETIME_HOURS)
+_JWT_PRIVATE_PEM = jwk_b64_to_pem(JWT_PRIVATE_KEY)
+_JWT_PUBLIC_PEM = jwk_b64_to_pem(JWT_PUBLIC_KEY)
+SIMPLE_JWT['SIGNING_KEY'] = _JWT_PRIVATE_PEM
+SIMPLE_JWT['VERIFYING_KEY'] = _JWT_PUBLIC_PEM
+HEADLESS_JWT_PRIVATE_KEY = _JWT_PRIVATE_PEM
+HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = REFRESH_TOKEN_LIFETIME_HOURS * 3600
 
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/

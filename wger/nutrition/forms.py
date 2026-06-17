@@ -119,6 +119,10 @@ class BmrForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BmrForm, self).__init__(*args, **kwargs)
+
+        # height is optional on the profile, but the BMR calculation needs it
+        self.fields['height'].required = True
+
         self.helper = FormHelper()
         self.helper.layout = Layout(
             'age',

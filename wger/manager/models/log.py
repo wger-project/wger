@@ -14,6 +14,10 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+from uuid import uuid4
+
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -36,6 +40,7 @@ from wger.manager.validators import (
     NullMinValueValidator,
     validate_rir,
 )
+from wger.utils.uuid import uuid7
 
 
 class WorkoutLog(models.Model):
@@ -44,6 +49,12 @@ class WorkoutLog(models.Model):
     """
 
     objects = WorkoutLogManager()
+
+    id = models.UUIDField(
+        default=uuid7,
+        null=False,
+        primary_key=True,
+    )
 
     date = models.DateTimeField(
         verbose_name='Date',
@@ -255,12 +266,20 @@ class WorkoutLog(models.Model):
         if self.slot_entry and self.slot_entry.slot.day.routine.user != self.user:
             return
 
-        # If there is no session for this date and routine, create one
-        self.session = WorkoutSession.objects.get_or_create(
-            user=self.user,
-            date=self.date,
-            routine=self.routine,
-        )[0]
+        # If a session was explicitly provided but belongs to a different
+        # user, drop the reference so we don't accidentally tie this log
+        # to someone else's session. The auto-create branch below will
+        # then provide the correct one.
+        if self.session_id and self.session.user_id != self.user_id:
+            self.session = None
+
+        # Auto-create a session only if the client didn't provide one.
+        if not self.session_id:
+            self.session = WorkoutSession.objects.get_or_create(
+                user=self.user,
+                date=self.date,
+                routine=self.routine,
+            )[0]
 
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:

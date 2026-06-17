@@ -23,6 +23,9 @@ from django.contrib.auth.models import (
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 
+# Third Party
+from allauth.account.models import EmailAddress
+
 # wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WgerTestCase
@@ -88,6 +91,18 @@ class GymAddUserTestCase(WgerTestCase):
         """
         self.user_login('general_manager1')
         self.add_user()
+
+    def test_add_user_registers_email_with_allauth(self):
+        """
+        A member created by an admin gets an allauth EmailAddress row, so they
+        can log in by email and receive the confirmation link.
+        """
+        self.user_login('admin')
+        self.add_user()
+        new_user = User.objects.get(pk=self.client.session['gym.user']['user_pk'])
+        email_address = EmailAddress.objects.get(user=new_user)
+        self.assertEqual(email_address.email, 'cletus@spuckle-megacorp.com')
+        self.assertFalse(email_address.verified)
 
     def test_add_user_unauthorized(self):
         """

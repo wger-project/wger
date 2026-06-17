@@ -41,15 +41,15 @@
         {{current_user.obj}}
 
         {% if current_user.perms.gym_trainer %}
-            <span class="badge badge-primary">{% translate "Trainer" %}</span>
+            <span class="badge text-bg-primary">{% translate "Trainer" %}</span>
         {% endif %}
 
         {% if current_user.perms.manage_gym %}
-            <span class="badge badge-primary">{% translate "Gym manager" %}</span>
+            <span class="badge text-bg-primary">{% translate "Gym manager" %}</span>
         {% endif %}
 
         {% if current_user.perms.manage_gyms %}
-            <span class="badge badge-primary">{% translate "General manager" %}</span>
+            <span class="badge text-bg-primary">{% translate "General manager" %}</span>
         {% endif %}
     </td>
     <td>

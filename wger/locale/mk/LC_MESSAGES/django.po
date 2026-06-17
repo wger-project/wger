@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 09:11+0000\n"
+"POT-Creation-Date: 2026-06-17 07:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,46 +48,46 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: core/forms.py:91 core/templates/navigation.html:268
-#: core/templates/navigation.html:275 core/templates/user/login.html:4
-#: core/templates/user/registration_sidebar.html:12
-#: software/templates/features.html:82 software/templates/features.html:448
-msgid "Login"
+#: core/forms.py:114 core/forms.py:321
+msgid "The form is secured with reCAPTCHA"
 msgstr ""
 
-#: core/forms.py:130 core/forms.py:247 gym/views/export.py:62
-#: gym/views/gym.py:219
+#: core/forms.py:123 core/templates/account/login.html:93
+#: core/templates/account/signup.html:4 core/templates/navigation.html:269
+#: core/templates/navigation.html:282 core/templates/template.html:114
+#: software/templates/features.html:87 software/templates/features.html:442
+msgid "Register"
+msgstr ""
+
+#: core/forms.py:128 core/forms.py:239 gym/views/export.py:62
+#: gym/views/gym.py:220
 msgid "First name"
 msgstr ""
 
-#: core/forms.py:131 core/forms.py:248 core/templates/user/overview.html:310
-#: gym/views/export.py:63 gym/views/gym.py:219
+#: core/forms.py:129 core/forms.py:240 core/templates/user/overview.html:310
+#: gym/views/export.py:63 gym/views/gym.py:220
 msgid "Last name"
 msgstr ""
 
-#: core/forms.py:133 core/models/profile.py:222
+#: core/forms.py:131 core/models/profile.py:200
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr ""
 
-#: core/forms.py:177
+#: core/forms.py:172
 msgid "Personal data"
 msgstr ""
 
-#: core/forms.py:188
-msgid "Workout reminders"
-msgstr ""
-
-#: core/forms.py:195
+#: core/forms.py:190
 msgid "Other settings"
 msgstr ""
 
-#: core/forms.py:203 core/views/user.py:667 core/views/user.py:691
-#: core/views/user.py:705 gym/forms.py:73 utils/generic_views.py:132
+#: core/forms.py:195 core/views/user.py:705 core/views/user.py:729
+#: core/views/user.py:743 gym/forms.py:73 utils/generic_views.py:132
 msgid "Save"
 msgstr ""
 
-#: core/forms.py:218 core/templates/user/overview.html:314
+#: core/forms.py:210 core/templates/user/overview.html:314
 #: gym/models/contract.py:256 gym/models/gym.py:58
 #: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:116
 #: gym/templates/gym/new_user.html:30 gym/views/export.py:61
@@ -97,24 +97,24 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: core/forms.py:219
+#: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
 
-#: core/forms.py:242
+#: core/forms.py:234
 msgid "This e-mail address is already in use."
 msgstr ""
 
-#: core/forms.py:264 gym/templates/gym/new_user.html:26
-#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:219
+#: core/forms.py:256 gym/templates/gym/new_user.html:26
+#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:220
 msgid "Password"
 msgstr ""
 
-#: core/forms.py:266
+#: core/forms.py:258
 msgid "Please enter your current password."
 msgstr ""
 
-#: core/forms.py:275 core/templates/language/view.html:70
+#: core/forms.py:267 core/forms.py:304 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
 #: core/templates/repetition_unit/list.html:22
 #: core/templates/user/overview.html:259
@@ -130,22 +130,25 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: core/forms.py:284
+#: core/forms.py:276
 msgid "Invalid password"
 msgstr ""
 
-#: core/forms.py:296 core/forms.py:364
-msgid "The form is secured with reCAPTCHA"
+#: core/forms.py:289
+msgid "Confirm"
 msgstr ""
 
-#: core/forms.py:322 core/forms.py:354 core/templates/navigation.html:269
-#: core/templates/navigation.html:282 core/templates/template.html:114
-#: core/templates/user/login.html:21 core/views/user.py:319
-#: software/templates/features.html:87 software/templates/features.html:442
-msgid "Register"
+#: core/forms.py:297
+#, python-brace-format
+msgid ""
+"Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
 
-#: core/forms.py:375 weight/templates/import_csv_form.html:9
+#: core/forms.py:313
+msgid "The entered username does not match"
+msgstr ""
+
+#: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
 msgstr ""
 
@@ -217,148 +220,118 @@ msgid "Imperial (pound)"
 msgstr ""
 
 #: core/models/profile.py:119
-msgid "Show exercise comments"
-msgstr ""
-
-#: core/models/profile.py:120
-msgid "Check to show exercise comments on the workout view"
-msgstr ""
-
-#: core/models/profile.py:130
-msgid "Also use ingredients in English"
-msgstr ""
-
-#: core/models/profile.py:132
-msgid ""
-"Check to also show ingredients in English while creating\n"
-"a nutritional plan. These ingredients are extracted from a list provided\n"
-"by the US Department of Agriculture. It is extremely complete, with around\n"
-"7000 entries, but can be somewhat overwhelming and make the search difficult."
-msgstr ""
-
-#: core/models/profile.py:141
 msgid "Activate workout reminders"
 msgstr ""
 
-#: core/models/profile.py:143
+#: core/models/profile.py:121
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
 
-#: core/models/profile.py:152
+#: core/models/profile.py:130
 msgid "Remind before expiration"
 msgstr ""
 
-#: core/models/profile.py:153
+#: core/models/profile.py:131
 msgid "The number of days you want to be reminded before a workout expires."
 msgstr ""
 
-#: core/models/profile.py:159
+#: core/models/profile.py:137
 msgid "Default duration of workouts"
 msgstr ""
 
-#: core/models/profile.py:161
+#: core/models/profile.py:139
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
 
-#: core/models/profile.py:179
+#: core/models/profile.py:157
 msgid "Notification language"
 msgstr ""
 
-#: core/models/profile.py:181
+#: core/models/profile.py:159
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
 
-#: core/models/profile.py:214 gym/views/export.py:65
+#: core/models/profile.py:192 gym/views/export.py:65
 msgid "Age"
 msgstr ""
 
-#: core/models/profile.py:230
+#: core/models/profile.py:208
 msgid "Height (cm)"
 msgstr ""
 
-#: core/models/profile.py:247
+#: core/models/profile.py:225
 msgid "Hours of sleep"
 msgstr ""
 
-#: core/models/profile.py:248
+#: core/models/profile.py:226
 msgid "The average hours of sleep per day"
 msgstr ""
 
-#: core/models/profile.py:257
+#: core/models/profile.py:235
 msgid "Work"
 msgstr ""
 
-#: core/models/profile.py:258 core/models/profile.py:300
+#: core/models/profile.py:236 core/models/profile.py:278
 msgid "Average hours per day"
 msgstr ""
 
-#: core/models/profile.py:267 core/models/profile.py:288
-#: core/models/profile.py:309
+#: core/models/profile.py:245 core/models/profile.py:266
+#: core/models/profile.py:287
 msgid "Physical intensity"
 msgstr ""
 
-#: core/models/profile.py:268 core/models/profile.py:289
-#: core/models/profile.py:310
+#: core/models/profile.py:246 core/models/profile.py:267
+#: core/models/profile.py:288
 msgid "Approximately"
 msgstr ""
 
-#: core/models/profile.py:278
+#: core/models/profile.py:256
 msgid "Sport"
 msgstr ""
 
-#: core/models/profile.py:279
+#: core/models/profile.py:257
 msgid "Average hours per week"
 msgstr ""
 
-#: core/models/profile.py:299
+#: core/models/profile.py:277
 msgid "Free time"
 msgstr ""
 
-#: core/models/profile.py:320 nutrition/templates/rate/form.html:67
+#: core/models/profile.py:298 nutrition/templates/rate/form.html:67
 msgid "Total daily calories"
 msgstr ""
 
-#: core/models/profile.py:321
+#: core/models/profile.py:299
 msgid "Total caloric intake, including e.g. any surplus"
 msgstr ""
 
-#: core/models/profile.py:333
+#: core/models/profile.py:311
 msgid "Weight unit"
 msgstr ""
 
-#: core/models/profile.py:341
-msgid "Allow external access"
-msgstr ""
-
-#: core/models/profile.py:343
-msgid ""
-"Allow external users to access your workouts and logs in a read-only mode. "
-"You need to set this before you can share links e.g. to social media."
-msgstr ""
-
-#: core/models/profile.py:352
+#: core/models/profile.py:319
 msgid "Automatic reminders for weight entries"
 msgstr ""
 
-#: core/models/profile.py:353
+#: core/models/profile.py:320
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
 
-#: core/models/profile.py:379
+#: core/models/profile.py:346
 msgid "Enable trophies"
 msgstr ""
 
-#: core/models/profile.py:380
+#: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
 msgstr ""
 
-#: core/models/profile.py:457
+#: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
 msgstr ""
 
@@ -375,12 +348,12 @@ msgid "Distance"
 msgstr ""
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
-#: core/templates/user/overview.html:306 core/views/user.py:642
+#: core/templates/user/overview.html:306 core/views/user.py:680
 #: exercises/models/muscle.py:36 gym/models/contract.py:52
 #: gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
-#: gym/views/gym.py:160 nutrition/templates/ingredient/view.html:242
+#: gym/views/gym.py:161 nutrition/templates/ingredient/view.html:242
 msgid "Name"
 msgstr ""
 
@@ -460,7 +433,7 @@ msgid "the wger Team"
 msgstr ""
 
 #: core/templates/account/email_change.html:4
-#: core/templates/user/preferences.html:56
+#: core/templates/user/preferences.html:25
 msgid "Email address"
 msgstr ""
 
@@ -496,6 +469,37 @@ msgstr ""
 msgid "Change email"
 msgstr ""
 
+#: core/templates/account/login.html:4 core/templates/account/login.html:29
+#: core/templates/account/login.html:81 core/templates/account/signup.html:30
+#: core/templates/navigation.html:268 core/templates/navigation.html:275
+#: software/templates/features.html:82 software/templates/features.html:448
+msgid "Login"
+msgstr ""
+
+#: core/templates/account/login.html:76
+msgid "Forgot password?"
+msgstr ""
+
+#: core/templates/account/login.html:88
+msgid "No account?"
+msgstr ""
+
+#: core/templates/account/login.html:104
+msgid "Faster sign in"
+msgstr ""
+
+#: core/templates/account/login.html:113
+msgid "Sign in with a passkey"
+msgstr ""
+
+#: core/templates/account/login.html:120
+msgid "or sign in with"
+msgstr ""
+
+#: core/templates/account/signup.html:26
+msgid "Already have an account?"
+msgstr ""
+
 #: core/templates/base.html:10
 #, python-format
 msgid ""
@@ -522,7 +526,7 @@ msgstr ""
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr ""
 
-#: core/templates/language/overview.html:4 core/templates/navigation.html:341
+#: core/templates/language/overview.html:4 core/templates/navigation.html:345
 msgid "Languages"
 msgstr ""
 
@@ -557,9 +561,8 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: core/templates/language/view.html:61 core/templates/user/preferences.html:51
-#: gym/models/contract.py:203 gym/templates/contract/view.html:41
-#: gym/templates/gym/member_list.html:270
+#: core/templates/language/view.html:61 gym/models/contract.py:203
+#: gym/templates/contract/view.html:41 gym/templates/gym/member_list.html:270
 #: nutrition/templates/ingredient/view.html:295
 msgid "Options"
 msgstr ""
@@ -611,7 +614,7 @@ msgstr ""
 msgid "Gallery"
 msgstr ""
 
-#: core/templates/navigation.html:74 core/templates/navigation.html:400
+#: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
 msgstr ""
@@ -633,7 +636,7 @@ msgstr ""
 msgid "Exercises"
 msgstr ""
 
-#: core/templates/navigation.html:109 core/templates/navigation.html:336
+#: core/templates/navigation.html:109 core/templates/navigation.html:340
 msgid "Administration"
 msgstr ""
 
@@ -712,37 +715,37 @@ msgstr ""
 msgid "Translate"
 msgstr ""
 
-#: core/templates/navigation.html:289 core/templates/user/login.html:30
+#: core/templates/navigation.html:289
 msgid "Reset password"
 msgstr ""
 
-#: core/templates/navigation.html:298 core/templates/navigation.html:326
+#: core/templates/navigation.html:299 core/templates/navigation.html:329
 msgid "Logout"
 msgstr ""
 
-#: core/templates/navigation.html:317
+#: core/templates/navigation.html:319
 msgid "My preferences"
 msgstr ""
 
-#: core/templates/navigation.html:349
+#: core/templates/navigation.html:353
 msgid "Licenses"
 msgstr ""
 
-#: core/templates/navigation.html:357
+#: core/templates/navigation.html:361
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr ""
 
-#: core/templates/navigation.html:365 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:232
 msgid "Weight units"
 msgstr ""
 
-#: core/templates/navigation.html:373 core/templates/user/list.html:4
+#: core/templates/navigation.html:377 core/templates/user/list.html:4
 msgid "User list"
 msgstr ""
 
-#: core/templates/navigation.html:379
+#: core/templates/navigation.html:383
 msgid "Gyms"
 msgstr ""
 
@@ -831,14 +834,61 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:16
-msgid "JWT sessions"
+msgid "Long-lived refresh tokens"
 msgstr ""
 
-#: core/templates/user/api_key.html:29
-msgid "Revoke all JWT sessions"
+#: core/templates/user/api_key.html:19
+msgid ""
+"Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
+"flow without logging in interactively each time."
 msgstr ""
 
 #: core/templates/user/api_key.html:35
+msgid "Generate a new refresh token"
+msgstr ""
+
+#: core/templates/user/api_key.html:41
+msgid "Copy this token now."
+msgstr ""
+
+#: core/templates/user/api_key.html:42
+msgid ""
+"It is shown only once. If you lose it, generate a new one and revoke the old "
+"session below."
+msgstr ""
+
+#: core/templates/user/api_key.html:56
+#, python-format
+msgid ""
+"Refresh tokens expire %(days)s days after they were generated, unless you "
+"revoke them sooner."
+msgstr ""
+
+#: core/templates/user/api_key.html:65
+msgid "Created"
+msgstr ""
+
+#: core/templates/user/api_key.html:66
+msgid "Expires"
+msgstr ""
+
+#: core/templates/user/api_key.html:86
+msgid "Revoke"
+msgstr ""
+
+#: core/templates/user/api_key.html:105
+msgid "Revoke all refresh tokens"
+msgstr ""
+
+#: core/templates/user/api_key.html:110
+msgid "JWT sessions"
+msgstr ""
+
+#: core/templates/user/api_key.html:123
+msgid "Revoke all JWT sessions"
+msgstr ""
+
+#: core/templates/user/api_key.html:129
 #, python-format
 msgid ""
 "\n"
@@ -853,33 +903,33 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/templates/user/api_key.html:44
+#: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
 
-#: core/templates/user/api_key.html:49 core/templates/user/preferences.html:64
+#: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
 msgstr ""
 
-#: core/templates/user/api_key.html:62
+#: core/templates/user/api_key.html:156
 msgid "Delete current API key and generate new one"
 msgstr ""
 
-#: core/templates/user/api_key.html:64
+#: core/templates/user/api_key.html:158
 msgid "Generate new API key"
 msgstr ""
 
-#: core/templates/user/api_key.html:80
+#: core/templates/user/api_key.html:174
 msgid "Delete API key"
 msgstr ""
 
-#: core/templates/user/api_key.html:90
+#: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
 msgstr ""
 
-#: core/templates/user/api_key.html:96
+#: core/templates/user/api_key.html:190
 #, python-format
 msgid ""
 "\n"
@@ -888,20 +938,38 @@ msgid ""
 "        "
 msgstr ""
 
-#: core/templates/user/api_key.html:102
+#: core/templates/user/api_key.html:196
 msgid "Example with curl:"
 msgstr ""
 
-#: core/templates/user/api_key.html:116 software/templates/features.html:533
+#: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
 msgstr ""
 
-#: core/templates/user/api_key.html:119
+#: core/templates/user/api_key.html:213
 msgid "API documentation"
 msgstr ""
 
+#: core/templates/user/app_auth_handoff.html:7
+msgid "Return to app"
+msgstr ""
+
+#: core/templates/user/app_auth_handoff.html:14
+msgid "Returning to the wger app…"
+msgstr ""
+
+#: core/templates/user/app_auth_handoff.html:16
+msgid ""
+"If nothing happens, tap the button below. Make sure the wger app is "
+"installed on this device."
+msgstr ""
+
+#: core/templates/user/app_auth_handoff.html:23
+msgid "Tap to return to app"
+msgstr ""
+
 #: core/templates/user/delete_account.html:3
-#: core/templates/user/preferences.html:67
+#: core/templates/user/preferences.html:82
 msgid "Delete account"
 msgstr ""
 
@@ -916,14 +984,6 @@ msgid ""
 "It will also  irrevocably remove all the data associated with it (workouts, "
 "logs, etc.)\n"
 "and can't be undone. "
-msgstr ""
-
-#: core/templates/user/login.html:17
-msgid "No account?"
-msgstr ""
-
-#: core/templates/user/login.html:26
-msgid "Forgot password?"
 msgstr ""
 
 #: core/templates/user/overview.html:28 core/templates/user/overview.html:78
@@ -959,8 +1019,8 @@ msgstr ""
 msgid "Number of logs (days)"
 msgstr ""
 
-#: core/templates/user/overview.html:43 core/views/user.py:643
-#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:160
+#: core/templates/user/overview.html:43 core/views/user.py:681
+#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:161
 msgid "Last activity"
 msgstr ""
 
@@ -987,22 +1047,22 @@ msgid "Weight"
 msgstr ""
 
 #: core/templates/user/overview.html:176
-#: nutrition/templates/ingredient/view.html:84 nutrition/views/plan.py:244
+#: nutrition/templates/ingredient/view.html:84 nutrition/views/plan.py:245
 msgid "Energy"
 msgstr ""
 
 #: core/templates/user/overview.html:177
-#: nutrition/templates/ingredient/view.html:91 nutrition/views/plan.py:250
+#: nutrition/templates/ingredient/view.html:91 nutrition/views/plan.py:251
 msgid "Protein"
 msgstr ""
 
 #: core/templates/user/overview.html:178
-#: nutrition/templates/ingredient/view.html:97 nutrition/views/plan.py:258
+#: nutrition/templates/ingredient/view.html:97 nutrition/views/plan.py:259
 msgid "Carbohydrates"
 msgstr ""
 
 #: core/templates/user/overview.html:179
-#: nutrition/templates/ingredient/view.html:113 nutrition/views/plan.py:272
+#: nutrition/templates/ingredient/view.html:113 nutrition/views/plan.py:273
 msgid "Fat"
 msgstr ""
 
@@ -1063,8 +1123,8 @@ msgid "Details"
 msgstr ""
 
 #: core/templates/user/overview.html:302 gym/views/export.py:58
-#: manager/helpers.py:89 nutrition/views/plan.py:150
-#: nutrition/views/plan.py:156
+#: manager/helpers.py:89 nutrition/views/plan.py:151
+#: nutrition/views/plan.py:157
 msgid "Nr."
 msgstr ""
 
@@ -1135,27 +1195,47 @@ msgid "Preferences"
 msgstr ""
 
 #: core/templates/user/preferences.html:19
+msgid "Account & security"
+msgstr ""
+
+#: core/templates/user/preferences.html:27
 msgid "Verified email"
 msgstr ""
 
-#: core/templates/user/preferences.html:24
+#: core/templates/user/preferences.html:29
 msgid "Unverified email"
 msgstr ""
 
-#: core/templates/user/preferences.html:28
-msgid "Manage email address"
-msgstr ""
-
-#: core/templates/user/preferences.html:32
-msgid "You need to verify your email to contribute exercises"
-msgstr ""
-
-#: core/templates/user/preferences.html:60 core/views/user.py:654
+#: core/templates/user/preferences.html:36 core/views/user.py:692
 msgid "Change password"
 msgstr ""
 
-#: core/templates/user/registration_sidebar.html:8
-msgid "Already have an account?"
+#: core/templates/user/preferences.html:42
+msgid "Set password"
+msgstr ""
+
+#: core/templates/user/preferences.html:48
+msgid "Two-factor authentication"
+msgstr ""
+
+#: core/templates/user/preferences.html:50
+msgid "On"
+msgstr ""
+
+#: core/templates/user/preferences.html:52
+msgid "Off"
+msgstr ""
+
+#: core/templates/user/preferences.html:60
+msgid "Connected accounts"
+msgstr ""
+
+#: core/templates/user/preferences.html:74
+msgid "Danger zone"
+msgstr ""
+
+#: core/templates/user/preferences.html:79
+msgid "Your account and all training data will be permanently deleted."
 msgstr ""
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
@@ -1193,20 +1273,20 @@ msgstr ""
 #: core/views/repetition_units.py:114 core/views/weight_units.py:115
 #: exercises/views/categories.py:128 exercises/views/muscles.py:106
 #: gallery/views/images.py:124 gym/views/admin_notes.py:196
-#: gym/views/document.py:207 gym/views/gym.py:483
+#: gym/views/document.py:207 gym/views/gym.py:489
 #: nutrition/views/ingredient.py:219
 #, python-brace-format
 msgid "Delete {0}?"
 msgstr ""
 
 #: core/views/languages.py:118 core/views/license.py:85
-#: core/views/repetition_units.py:96 core/views/user.py:505
+#: core/views/repetition_units.py:96 core/views/user.py:477
 #: core/views/weight_units.py:86 exercises/views/categories.py:98
 #: exercises/views/equipment.py:81 exercises/views/muscles.py:87
 #: gym/views/admin_notes.py:161 gym/views/config.py:68
 #: gym/views/contract.py:187 gym/views/contract_option.py:123
 #: gym/views/contract_type.py:123 gym/views/document.py:172
-#: gym/views/gym.py:465 nutrition/views/ingredient.py:238
+#: gym/views/gym.py:471 nutrition/views/ingredient.py:238
 #, python-brace-format
 msgid "Edit {0}"
 msgstr ""
@@ -1218,56 +1298,61 @@ msgid ""
 "do. Feel free to edit or delete them!"
 msgstr ""
 
-#: core/views/user.py:152
+#: core/views/user.py:180
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
 msgstr ""
 
-#: core/views/user.py:313
-msgid "You were successfully registered"
-msgstr ""
-
-#: core/views/user.py:341
+#: core/views/user.py:311
 msgid "Settings successfully updated"
 msgstr ""
 
-#: core/views/user.py:344
+#: core/views/user.py:314
 msgid "Please correct the errors below."
 msgstr ""
 
-#: core/views/user.py:406
+#: core/views/user.py:378
 msgid "The user was successfully deactivated"
 msgstr ""
 
-#: core/views/user.py:458
+#: core/views/user.py:430
 msgid "The user was successfully activated"
 msgstr ""
 
-#: core/views/user.py:473
+#: core/views/user.py:445
 msgid "Edit user"
 msgstr ""
 
-#: core/views/user.py:531
+#: core/views/user.py:503
 msgid "API key was deleted"
 msgstr ""
 
-#: core/views/user.py:536
+#: core/views/user.py:508
 msgid "All API sessions were revoked"
 msgstr ""
 
-#: core/views/user.py:640 gym/templates/gym/member_list.html:26
-#: gym/views/gym.py:160
+#: core/views/user.py:524
+msgid "Refresh token was revoked"
+msgstr ""
+
+#: core/views/user.py:532
+#, python-brace-format
+msgid "Revoked {count} refresh token(s)"
+msgstr ""
+
+#: core/views/user.py:678 gym/templates/gym/member_list.html:26
+#: gym/views/gym.py:161
 msgid "ID"
 msgstr ""
 
-#: core/views/user.py:641 gym/forms.py:95 gym/templates/contract/view.html:55
+#: core/views/user.py:679 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:60
-#: gym/views/gym.py:160 gym/views/gym.py:219
+#: gym/views/gym.py:161 gym/views/gym.py:220
 msgid "Username"
 msgstr ""
 
-#: core/views/user.py:644 gym/templates/gym/new_user.html:34
-#: gym/views/export.py:59 gym/views/gym.py:219
+#: core/views/user.py:682 gym/templates/gym/new_user.html:34
+#: gym/views/export.py:59 gym/views/gym.py:220
 msgid "Gym"
 msgstr ""
 
@@ -1672,7 +1757,7 @@ msgstr ""
 msgid "Global gym configuration"
 msgstr ""
 
-#: gym/templates/gym/list.html:69 gym/views/gym.py:173
+#: gym/templates/gym/list.html:69 gym/views/gym.py:174
 msgid "Add new gym"
 msgstr ""
 
@@ -1771,11 +1856,11 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: gym/views/gym.py:346
+#: gym/views/gym.py:347
 msgid "Add user to gym"
 msgstr ""
 
-#: gym/views/gym.py:445
+#: gym/views/gym.py:451
 msgid "Edit gym"
 msgstr ""
 
@@ -2173,23 +2258,23 @@ msgstr ""
 msgid "Routine will expire soon"
 msgstr ""
 
-#: manager/models/session.py:37
+#: manager/models/session.py:41
 msgid "Bad"
 msgstr ""
 
-#: manager/models/session.py:38
+#: manager/models/session.py:42
 msgid "Neutral"
 msgstr ""
 
-#: manager/models/session.py:39
+#: manager/models/session.py:43
 msgid "Good"
 msgstr ""
 
-#: manager/models/session.py:139
+#: manager/models/session.py:149
 msgid "If you enter a time, you must enter both start and end time."
 msgstr ""
 
-#: manager/models/session.py:142
+#: manager/models/session.py:152
 msgid "The start time cannot be after the end time."
 msgstr ""
 
@@ -2249,49 +2334,49 @@ msgstr ""
 msgid "Serving"
 msgstr ""
 
-#: nutrition/forms.py:71 nutrition/forms.py:208
+#: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
 msgstr ""
 
-#: nutrition/forms.py:179 nutrition/templates/rate/form.html:77
+#: nutrition/forms.py:183 nutrition/templates/rate/form.html:77
 msgid "Basic caloric intake"
 msgstr ""
 
-#: nutrition/forms.py:180
+#: nutrition/forms.py:184
 msgid "Your basic caloric intake as calculated for your data"
 msgstr ""
 
-#: nutrition/forms.py:185
+#: nutrition/forms.py:189
 msgid "Additional calories"
 msgstr ""
 
-#: nutrition/forms.py:187
+#: nutrition/forms.py:191
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
 
-#: nutrition/forms.py:209
+#: nutrition/forms.py:213
 msgid "grams (g)"
 msgstr ""
 
-#: nutrition/forms.py:219
+#: nutrition/forms.py:223
 msgid "Ingredient"
 msgstr ""
 
-#: nutrition/forms.py:223
+#: nutrition/forms.py:227
 msgid "Also search for names in English"
 msgstr ""
 
-#: nutrition/forms.py:239
+#: nutrition/forms.py:243
 msgid "Quantity"
 msgstr ""
 
-#: nutrition/forms.py:241
+#: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
-#: nutrition/models/ingredient.py:472
+#: nutrition/models/ingredient.py:476
 msgid "Portion"
 msgstr ""
 
@@ -2375,7 +2460,7 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:236
+#: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
 msgstr ""
 
@@ -2383,7 +2468,7 @@ msgstr ""
 msgid "kJ"
 msgstr ""
 
-#: nutrition/templates/ingredient/view.html:103 nutrition/views/plan.py:266
+#: nutrition/templates/ingredient/view.html:103 nutrition/views/plan.py:267
 msgid "Sugar content in carbohydrates"
 msgstr ""
 
@@ -2397,7 +2482,7 @@ msgstr ""
 msgid "n.A."
 msgstr ""
 
-#: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:280
+#: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
 msgstr ""
 
@@ -2405,11 +2490,11 @@ msgstr ""
 msgid "Others"
 msgstr ""
 
-#: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:286
+#: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
 msgid "Fiber"
 msgstr ""
 
-#: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:292
+#: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
 msgid "Sodium"
 msgstr ""
 
@@ -2497,32 +2582,32 @@ msgstr ""
 msgid "Add a new ingredient"
 msgstr ""
 
-#: nutrition/views/plan.py:127
+#: nutrition/views/plan.py:128
 msgid "Nutritional plan"
 msgstr ""
 
-#: nutrition/views/plan.py:129
+#: nutrition/views/plan.py:130
 #, python-format
 msgid "Nutritional plan for %s"
 msgstr ""
 
-#: nutrition/views/plan.py:201
+#: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
-#: nutrition/views/plan.py:229
+#: nutrition/views/plan.py:230
 msgid "Nutritional data"
 msgstr ""
 
-#: nutrition/views/plan.py:237
+#: nutrition/views/plan.py:238
 msgid "Total"
 msgstr ""
 
-#: nutrition/views/plan.py:238
+#: nutrition/views/plan.py:239
 msgid "Percent of energy"
 msgstr ""
 
-#: nutrition/views/plan.py:239
+#: nutrition/views/plan.py:240
 msgid "g per body kg"
 msgstr ""
 

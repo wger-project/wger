@@ -12,10 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-# Standard Library
-
-# Standard Library
-import datetime
 
 # Django
 from django.core.validators import (
@@ -23,9 +19,11 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.utils import timezone
 
 # wger
 from wger.measurements.models import Category
+from wger.utils.uuid import uuid7
 
 
 class Measurement(models.Model):
@@ -34,15 +32,20 @@ class Measurement(models.Model):
             '-date',
         ]
 
+    id = models.UUIDField(
+        default=uuid7,
+        primary_key=True,
+    )
+
     category = models.ForeignKey(
         Category,
-        verbose_name='User',
+        verbose_name='Category',
         on_delete=models.CASCADE,
     )
 
     date = models.DateTimeField(
         verbose_name='Date',
-        default=datetime.datetime.now,
+        default=timezone.now,
     )
 
     value = models.DecimalField(

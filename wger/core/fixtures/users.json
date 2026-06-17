@@ -38,8 +38,6 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
-            "show_comments": false,
-            "show_english_ingredients": false,
             "user": 1,
             "gym": 1
         }

@@ -38,17 +38,17 @@ patterns_plan = [
         name='overview',
     ),
     path(
-        '<int:id>/view/',
+        '<uuid:id>/view/',
         ReactView.as_view(login_required=True),
         name='view',
     ),
     path(
-        '<int:pk>/copy',
+        '<uuid:pk>/copy',
         plan.copy,
         name='copy',
     ),
     path(
-        '<int:id>/pdf',
+        '<uuid:id>/pdf',
         plan.export_pdf,
         name='export-pdf',
     ),
