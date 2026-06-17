@@ -66,6 +66,24 @@ class RegistrationTestCase(WgerTestCase):
             response = self.client.get(reverse('core:user:registration'))
             self.assertNotIn('captcha', response.context['form'].fields)
 
+    def test_signup_submit_button_not_named_submit(self):
+        """
+        The submit button must not be named "submit": a control with that name
+        shadows HTMLFormElement.submit(), which the reCAPTCHA v3 widget calls to
+        submit the form once the token is set.
+        """
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': True,
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'MASTODON': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+            }
+        ):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertNotContains(response, 'name="submit"')
+
     def test_register(self):
         # Fetch the registration page
         response = self.client.get(reverse('core:user:registration'))

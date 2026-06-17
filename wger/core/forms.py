@@ -120,7 +120,11 @@ class WgerSignupForm(AllauthSignupForm):
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
             *layout_fields,
-            ButtonHolder(Submit('submit', _('Register'), css_class='btn-success btn-block')),
+            # The submit button must not be named "submit": a form control named
+            # "submit" shadows the native HTMLFormElement.submit() method, which
+            # the django-recaptcha v3 widget calls to submit the form after the
+            # token is set
+            ButtonHolder(Submit('submitBtn', _('Register'), css_class='btn-success btn-block')),
         )
 
 
