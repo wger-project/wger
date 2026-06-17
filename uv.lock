@@ -1151,16 +1151,16 @@ wheels = [
 
 [[package]]
 name = "openfoodfacts"
-version = "5.1.0"
+version = "5.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
     { name = "requests" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4c/fd/bae21aa405c72935b6a294d0c66b4cc18988a3145e14edde50f9ab58351f/openfoodfacts-5.1.0.tar.gz", hash = "sha256:b263273db42de3d4845512ceea0303d2a57241975531bd9098c8079787c91180", size = 60189, upload-time = "2026-05-29T08:48:21.543Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a5/f0/f0363bf207e2083d6c25e01bb395e6095838cc2a8d2a664277c254d440e6/openfoodfacts-5.2.0.tar.gz", hash = "sha256:19d25beb232179080ceb25ad6cefc31695a9c2a1ccf449f30e04e0c04aae7243", size = 61282, upload-time = "2026-06-16T07:47:12.135Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c7/34/a6f1b079174d43d5cc52f94f2ee81f124f9532b455ce08f64ee1269e7549/openfoodfacts-5.1.0-py3-none-any.whl", hash = "sha256:1cb6596d32ee73bce11a7c5d14cb2c3c90829fdf563ac6063db7927d3362a496", size = 63805, upload-time = "2026-05-29T08:48:20.502Z" },
+    { url = "https://files.pythonhosted.org/packages/88/1e/c0b161915ca182aef853aec5e6b764d458f0cc5c3bfa4e455f5c64f23a9c/openfoodfacts-5.2.0-py3-none-any.whl", hash = "sha256:06cd366adaa337b485efddbcca833d56cbb2c9afadd6cf33a00bb39cbb1607ed", size = 64777, upload-time = "2026-06-16T07:47:12.984Z" },
 ]
 
 [[package]]
@@ -1939,7 +1939,7 @@ requires-dist = [
     { name = "markdown-it-py", specifier = "~=4.2" },
     { name = "markdownify", specifier = "~=1.2" },
     { name = "nh3", specifier = "~=0.3" },
-    { name = "openfoodfacts", specifier = "~=5.1.0" },
+    { name = "openfoodfacts", specifier = "~=5.2.0" },
     { name = "packaging", specifier = "~=26.2" },
     { name = "pillow", specifier = "~=12.2.0" },
     { name = "psycopg", extras = ["binary"], specifier = "~=3.3.2" },
