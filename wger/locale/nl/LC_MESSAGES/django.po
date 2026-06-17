@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2025-12-20 11:00+0000\n"
-"Last-Translator: Floris C <floris.contactmail@gmail.com>\n"
+"PO-Revision-Date: 2026-05-27 18:11+0000\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -67,7 +67,7 @@ msgstr "Dit formulier is beveiligd met reCAPTCHA"
 #: core/templates/navigation.html:282 core/templates/template.html:114
 #: software/templates/features.html:87 software/templates/features.html:442
 msgid "Register"
-msgstr "Registreer"
+msgstr "Registreren"
 
 #: core/forms.py:128 core/forms.py:239 gym/views/export.py:62
 #: gym/views/gym.py:220
@@ -148,7 +148,6 @@ msgstr "Ongeldig wachtwoord"
 
 #: core/forms.py:289
 #, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
 msgstr "Niet geverifieerde email"
 
@@ -351,11 +350,11 @@ msgstr ""
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Trofeeën inschakelen"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Schakel het trofee­systeem voor deze gebruiker in of uit"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -370,10 +369,8 @@ msgid "Time"
 msgstr "Tijd"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Weerstandsband"
+msgstr "Afstand"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -386,14 +383,12 @@ msgid "Name"
 msgstr "Naam"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Eenheid"
+msgstr "Eenheids­type"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Het type eenheid (herhalingen, tijd of afstand)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -427,13 +422,10 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Bijna klaar!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
@@ -449,13 +441,11 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
 #, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
 msgstr "Aub, klik op de volgende link om je email te bevestigen %(link)s"
 
 #: core/templates/account/email/email_confirmation_message.html:106
 #, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
 msgstr "Niet geverifieerde email"
 
@@ -472,12 +462,11 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
-msgstr "het wger Team"
+msgstr "het wger-team"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
 #, fuzzy
-#| msgid "Emails"
 msgid "Email address"
 msgstr "E-mails"
 
@@ -490,7 +479,6 @@ msgstr ""
 
 #: core/templates/account/email_change.html:20
 #, fuzzy
-#| msgid "Current version"
 msgid "Current email"
 msgstr "Huidige versie"
 
@@ -501,25 +489,21 @@ msgstr ""
 
 #: core/templates/account/email_change.html:38
 #, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
 msgstr "Verzend verificatie email"
 
 #: core/templates/account/email_change.html:42
 #, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
 msgstr "Bekijk wijzigingen"
 
 #: core/templates/account/email_change.html:54
 #, fuzzy
-#| msgid "Changes"
 msgid "Change to"
 msgstr "Wijzigingen"
 
 #: core/templates/account/email_change.html:66
 #, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
 msgstr "Niet geverifieerde email"
 
@@ -680,7 +664,7 @@ msgstr "Gallerij"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Trofeeën"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -914,7 +898,6 @@ msgstr ""
 
 #: core/templates/user/api_key.html:35
 #, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
 msgstr "Genereer nieuwe API-sleutel"
 
@@ -937,7 +920,6 @@ msgstr ""
 
 #: core/templates/user/api_key.html:65
 #, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
 msgstr "Schema aanmaken"
 
@@ -955,7 +937,6 @@ msgstr ""
 
 #: core/templates/user/api_key.html:110
 #, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
 msgstr "Trainingssessie"
 
@@ -998,7 +979,6 @@ msgstr "Genereer nieuwe API-sleutel"
 
 #: core/templates/user/api_key.html:174
 #, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
 msgstr "Genereer nieuwe API-sleutel"
 
@@ -1025,7 +1005,6 @@ msgstr "Documentatie"
 
 #: core/templates/user/api_key.html:213
 #, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
 msgstr "Documentatie"
 
@@ -1293,7 +1272,6 @@ msgstr "Verander wachtwoord"
 
 #: core/templates/user/preferences.html:42
 #, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
 msgstr "Reset wachtwoord"
 
@@ -1311,7 +1289,6 @@ msgstr ""
 
 #: core/templates/user/preferences.html:60
 #, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
 msgstr "Verwijder account"
 
@@ -1397,7 +1374,6 @@ msgstr "Instellingen met succes aangepast"
 
 #: core/views/user.py:314
 #, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
 msgstr "Gelieve één van de opties hieronder te kiezen."
 
@@ -1415,7 +1391,6 @@ msgstr "Bewerk gebruiker"
 
 #: core/views/user.py:503
 #, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
 msgstr "Ja, verwijder"
 
@@ -1483,19 +1458,16 @@ msgstr "Admin oefening geschiedenis"
 
 #: exercises/templates/history/overview.html:16
 #, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
 msgstr "Bewerk set"
 
 #: exercises/templates/history/overview.html:24
 #, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
 msgstr "Bewerk set"
 
 #: exercises/templates/history/overview.html:32
 #, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
 msgstr "Bewerk set"
 
@@ -1527,7 +1499,6 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:98
 #, fuzzy
-#| msgid "Delete"
 msgid "deleted"
 msgstr "Verwijder"
 
@@ -1545,31 +1516,26 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:126
 #, fuzzy
-#| msgid "Translation"
 msgid "translations"
 msgstr "Vertaling"
 
 #: exercises/templates/history/overview.html:129
 #, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
 msgstr "Ja, verwijder"
 
 #: exercises/templates/history/overview.html:180
 #, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
 msgstr "Draai veranderingen terug"
 
 #: exercises/templates/history/overview.html:187
 #, fuzzy
-#| msgid "Object"
 msgid "Open object"
 msgstr "Onderwerp"
 
 #: exercises/templates/history/overview.html:198
 #, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
 msgstr "Draai veranderingen terug"
 
@@ -1595,21 +1561,18 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:246
 #, fuzzy
-#| msgid "Click here for more information"
 msgid "History pagination"
 msgstr "Klik hier voor meer informatie"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
 #, fuzzy
-#| msgid "First name"
 msgid "First"
 msgstr "Voornaam"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
 #, fuzzy
-#| msgid "previous"
 msgid "Previous"
 msgstr "vorige"
 
@@ -1626,7 +1589,6 @@ msgstr ""
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
 #, fuzzy
-#| msgid "Last name"
 msgid "Last"
 msgstr "Achternaam"
 
@@ -2132,10 +2094,8 @@ msgid "Until Failure"
 msgstr "Tot je faalt"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometer"
+msgstr "Meters"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2143,22 +2103,19 @@ msgstr "Geen (oefening met lichaamsgewicht)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Beginner"
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Inhoud"
+msgstr "Consistent"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Toegewijd"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Geobsedeerd"
 
 #: i18n.tpl:46
 msgid "Legend"
@@ -2166,15 +2123,15 @@ msgstr "Legende"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Veteraan"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titan"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Onstuitbaar"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
@@ -2202,11 +2159,11 @@ msgstr ""
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Miljonair"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:58
 msgid "Early Bird"
@@ -2214,7 +2171,6 @@ msgstr ""
 
 #: i18n.tpl:59
 #, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
 msgstr "Gewichtlog"
 
@@ -2224,53 +2180,45 @@ msgstr ""
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Feniks"
 
 #: i18n.tpl:62
 #, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
 msgstr "Persoonlijke gegevens"
 
 #: i18n.tpl:63
 #, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
 msgstr "Kopieer workout"
 
 #: i18n.tpl:64
 #, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
 msgstr "Voorbeeldworkout"
 
 #: i18n.tpl:65
 #, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
 msgstr "Voorbeeldworkout"
 
 #: i18n.tpl:66
 #, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
 msgstr "Voorbeeldworkout"
 
 #: i18n.tpl:67
 #, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
 msgstr "Voorbeeldworkout"
 
 #: i18n.tpl:68
 #, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
 msgstr "Voorbeeldworkout"
 
 #: i18n.tpl:69
 #, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
 msgstr "Voorbeeldworkout"
 
@@ -2320,7 +2268,6 @@ msgstr ""
 
 #: i18n.tpl:81
 #, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
 msgstr "Workout voor %s"
 
@@ -2497,7 +2444,7 @@ msgstr "Workout voor %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Portie"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
@@ -2537,17 +2484,15 @@ msgstr "Zoek ook in Engelse namen"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Aantal"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Verbetering"
+msgstr "Portie"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2610,7 +2555,6 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
 #, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
 msgstr "Variaties"
 
@@ -2621,13 +2565,11 @@ msgstr "Geen ingrediënten."
 
 #: nutrition/templates/ingredient/overview.html:54
 #, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
 msgstr "Ingrediënt Categorieën"
 
 #: nutrition/templates/ingredient/overview.html:59
 #, fuzzy
-#| msgid "First name"
 msgid "First page"
 msgstr "Voornaam"
 
@@ -2647,7 +2589,6 @@ msgstr "Zoek"
 
 #: nutrition/templates/ingredient/overview.html:93
 #, fuzzy
-#| msgid "No filter"
 msgid "Filter"
 msgstr "Geen filter"
 
@@ -2691,13 +2632,11 @@ msgstr "Natrium"
 
 #: nutrition/templates/ingredient/view.html:167
 #, fuzzy
-#| msgid "Click here for more information"
 msgid "Dietary information"
 msgstr "Klik hier voor meer informatie"
 
 #: nutrition/templates/ingredient/view.html:203
 #, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
 msgstr "Voeding"
 
@@ -3760,7 +3699,6 @@ msgstr "Her-indienen"
 #~ msgstr "Voeg gewichtmeting toe"
 
 #, fuzzy
-#~| msgid "Placeholder image for exercise"
 #~ msgid "Placeholder image for translation"
 #~ msgstr "Aanduiding afbeelding voor oefening"
 
@@ -5058,3 +4996,33 @@ msgstr "Her-indienen"
 
 #~ msgid "Edit weight"
 #~ msgstr "Gewicht bewerken"
+
+#~ msgid "Send verification email"
+#~ msgstr "Verzend verificatie email"
+
+#~ msgid "Object"
+#~ msgstr "Onderwerp"
+
+#~ msgid "Changes"
+#~ msgstr "Wijzigingen"
+
+#~ msgid "View changes"
+#~ msgstr "Bekijk wijzigingen"
+
+#~ msgid "Revert changes"
+#~ msgstr "Draai veranderingen terug"
+
+#~ msgid "Ingredient Categories"
+#~ msgstr "Ingrediënt Categorieën"
+
+#~ msgid "Workout session"
+#~ msgstr "Trainingssessie"
+
+#~ msgid "Edit set"
+#~ msgstr "Bewerk set"
+
+#~ msgid "Create schedule"
+#~ msgstr "Schema aanmaken"
+
+#~ msgid "Please select one of the options below."
+#~ msgstr "Gelieve één van de opties hieronder te kiezen."
