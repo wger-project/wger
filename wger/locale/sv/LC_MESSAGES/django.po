@@ -419,8 +419,8 @@ msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
 msgstr ""
-"Du får detta mejl eftersom du begärt en lösenordsåterställning för ditt "
-"användarkonto på %(site_name)s."
+"Du får detta mejl eftersom användaren \"%(user_display)s\" har angett din "
+"e-postadress för att registrera ett konto på %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""

@@ -164,8 +164,8 @@ msgstr "Email non vérifié"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
-"Votre compte n'a pas de mot de passe. Écrivez votre pseudonyme "
-"\"pseudonyme\" pour confirmer."
+"Votre compte n'a pas de mot de passe. Écrivez le pseudonyme \"{username}\" "
+"pour confirmer."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
