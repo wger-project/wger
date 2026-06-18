@@ -15,7 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
+from datetime import timedelta
 from uuid import uuid4
 
 # Django
@@ -257,6 +257,27 @@ class WorkoutLog(models.Model):
         Plumbing
         """
         self.clean()
+
+        if not self.pk:
+            latest_session = WorkoutSession.objects.filter(
+                user=self.user,
+                routine=self.routine,
+            ).order_by('-date', '-pk').first()
+
+            if latest_session:
+                log_date = self.date.date()
+                if latest_session.date == log_date - timedelta(days=1):
+                    is_explicit_overnight = bool(
+                        latest_session.time_start
+                        and latest_session.time_end
+                        and latest_session.time_start > latest_session.time_end
+                    )
+                    is_active_live_workout = bool(
+                        latest_session.time_start and not latest_session.time_end
+                    )
+
+                    if is_explicit_overnight or is_active_live_workout:
+                        self.date -= timedelta(days=1)
 
         # If the routine does not belong to this user, do not save
         if self.routine and self.routine.user != self.user:
