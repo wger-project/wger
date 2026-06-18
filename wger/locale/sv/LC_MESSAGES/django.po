@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2025-04-08 08:05+0000\n"
-"Last-Translator: wonnock <janemilgustafsson@gmail.com>\n"
+"PO-Revision-Date: 2026-06-18 10:05+0000\n"
+"Last-Translator: Jonas <frassefraze@hotmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -107,7 +107,7 @@ msgstr "E-post"
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Används för lösenordsåterställning och, frivilligt, för epostpåminnelser"
+"Används för lösenordsåterställning och, frivilligt, för e-postpåminnelser"
 
 #: core/forms.py:234
 msgid "This e-mail address is already in use."
@@ -143,20 +143,20 @@ msgid "Invalid password"
 msgstr "Ogiltigt lösenord"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm"
-msgstr "Konfiguration"
+msgstr "Bekräfta"
 
 #: core/forms.py:297
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Ditt konto har inget lösenord. Skriv användarnamnet \"{username}\" för att "
+"bekräfta."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Användarnamnet stämmer inte överens"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -342,11 +342,11 @@ msgstr "Antal dagar sedan senaste viktnotering (Ange 0 för att avaktivera)"
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Aktivera troféer"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Aktivera eller inaktivera troféer för den här användaren"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -362,7 +362,7 @@ msgstr "Tid"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "Distans"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -375,14 +375,12 @@ msgid "Name"
 msgstr "Namn"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Enhet"
+msgstr "Enhetstyp"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Typ av enhete (repetitioner, tid eller distans)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -416,15 +414,12 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
 msgstr ""
-"Du får detta mail eftersom du begärt en lösenordsåterställning för ditt "
+"Du får detta mejl eftersom du begärt en lösenordsåterställning för ditt "
 "användarkonto på %(site_name)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
@@ -432,16 +427,15 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Din verifieringskod listas nedan. Vänligen skriv in den i din webläsare."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
-msgstr ""
+msgstr "Vänligt tryck på knappen nedan för att bekräfta din e-postadress."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm email"
-msgstr "Konfiguration"
+msgstr "Verifiera e-post"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -449,21 +443,23 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Länken är giltig i %(expire_hours)s timmar (till %(date)s, %(time)s). Du kan "
+"begära en ny från dina profilinställningar."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Om knappen inte fungerar, kopiera och klistra in den här länken i din "
+"webbläsare:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
-msgstr ""
+msgstr "wger-teamet"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "E-postmeddelanden"
+msgstr "E-postadress"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -471,23 +467,22 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Din epost-adress används för lösenordsåterställning och, eventuellt, "
+"påminnelser. En ny adress aktiveras enbart genom att verifiera den genom "
+"länken som skickas."
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Aktuell version"
+msgstr "Aktuell e-post"
 
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Väntar på verifiering: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Configuration"
 msgid "Resend confirmation email"
-msgstr "Konfiguration"
+msgstr "Skicka om e-postverifiering"
 
 #: core/templates/account/email_change.html:42
 #, fuzzy
@@ -504,10 +499,8 @@ msgid "Change to"
 msgstr "Ändra"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Configuration"
 msgid "Change email"
-msgstr "Konfiguration"
+msgstr "Ändra e-post"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -1265,11 +1258,11 @@ msgstr ""
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
-msgstr ""
+msgstr "Verifierad e-post"
 
 #: core/templates/user/preferences.html:29
 msgid "Unverified email"
-msgstr ""
+msgstr "Overifierad e-post"
 
 #: core/templates/user/preferences.html:36 core/views/user.py:692
 msgid "Change password"
@@ -2359,7 +2352,7 @@ msgstr "Fyll i formuläret"
 #: mailer/templates/mailer/gym/form.html:31
 #: mailer/templates/mailer/gym/preview.html:65
 msgid "You will receive a preview email for you to review"
-msgstr "Du kommer få ett förhandsvisningsmail du kan granska"
+msgstr "Du kommer få ett förhandsvisningsmejl du kan granska"
 
 #: mailer/templates/mailer/gym/form.html:32
 #: mailer/templates/mailer/gym/preview.html:66
@@ -2368,7 +2361,7 @@ msgid ""
 "the emails"
 msgstr ""
 "Du kan uppdatera och ändra innehållet så ofta du behöver innan du skickar "
-"mailen"
+"mejlen"
 
 #: mailer/templates/mailer/gym/preview.html:22
 #: software/templates/about_us.html:167
@@ -2377,7 +2370,7 @@ msgstr "Aktuell version"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Skicka e-postmeddelanden"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2596,9 +2589,10 @@ msgid ""
 msgstr ""
 "När du har skickat formuläret kommer administratörerna att meddelas.\n"
 "När det är granskat, kommer det att läggas till i databasen. Tills detta "
-"händer syns den inte i översikten eller i sökresultat. Om du lagt till din e-"
-"postadress när du registrerade dig kommer du bli meddelad när processen är "
-"slutförd."
+"händer\n"
+"syns den inte i översikten eller i sökresultat. Om du lagt till din e-"
+"postadress \n"
+"när du registrerade dig kommer du bli meddelad när processen är slutförd."
 
 #: nutrition/templates/ingredient/overview.html:32
 #: nutrition/templates/ingredient/overview.html:104
