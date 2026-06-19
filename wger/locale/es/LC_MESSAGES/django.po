@@ -2204,27 +2204,27 @@ msgstr "Levantar un peso acumulado de 5000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr "Levantar un peso acumulado de 20000 kg"
+msgstr "Levantar un peso acumulado de 20 000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr "Levantar un peso acumulado de 50000 kg"
+msgstr "Levantar un peso acumulado de 50 000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr "Levantar un peso acumulado de 150000 kg"
+msgstr "Levantar un peso acumulado de 150 000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr "Levantar un peso acumulado de 450000 kg"
+msgstr "Levantar un peso acumulado de 450 000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr "Levantar un peso acumulado de 1000000 kg"
+msgstr "Levantar un peso acumulado de 1 000 000 kg"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr "Levantar un peso acumulado de 10000000 kg"
+msgstr "Levantar un peso acumulado de 10 000 000 kg"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"

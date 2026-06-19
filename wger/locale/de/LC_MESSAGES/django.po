@@ -2162,7 +2162,7 @@ msgstr "Phoenix"
 
 #: i18n.tpl:62
 msgid "Personal Record"
-msgstr "Persönlicher Datensatz"
+msgstr "Persönlicher Rekord"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
@@ -2243,11 +2243,11 @@ msgstr "Trainiere am 1. Januar"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr "Trainiere nach einer Inkativität von 30 Tagen wieder"
+msgstr "Trainiere nach einer Inaktivität von 30 Tagen wieder"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr "Schaffe einen neuen Persönlichen Rekord in einem beliebigen Training"
+msgstr "Schaffe einen neuen Persönlichen Rekord in einer beliebigen Übung"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
