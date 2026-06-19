@@ -148,10 +148,8 @@ msgid "Invalid password"
 msgstr "Password non valida"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Confirm"
-msgstr "Conferma email"
+msgstr "Conferma"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -473,10 +471,8 @@ msgstr "Il team wger"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "E-mail"
+msgstr "Indirizzo email"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -486,10 +482,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Versione attuale"
+msgstr "Email attuale"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -497,28 +491,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Invia email di verifica"
+msgstr "Invia di nuovo l'email di conferma"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Guarda cambiamenti"
+msgstr "Annulla modifica"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Variazioni"
+msgstr "Cambia in"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Change email"
-msgstr "Conferma email"
+msgstr "Cambia email"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -909,10 +895,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Genera una nuova chiave API"
+msgstr "Genera un nuovo refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -932,10 +916,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Crea programmazione"
+msgstr "Creato"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -950,10 +932,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "Sessione di allenamento"
+msgstr "Sessioni JWT"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -993,10 +973,8 @@ msgid "Generate new API key"
 msgstr "Genera una nuova chiave API"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Genera una nuova chiave API"
+msgstr "Elimina chiave API"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1020,10 +998,8 @@ msgid "Documentation"
 msgstr "Documentazione"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Documentazione"
+msgstr "Documentazione API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1290,10 +1266,8 @@ msgid "Change password"
 msgstr "Cambia la password"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Reimposta la password"
+msgstr "Imposta password"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1308,10 +1282,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Cancella account"
+msgstr "Account collegati"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1395,10 +1367,8 @@ msgid "Settings successfully updated"
 msgstr "Impostazioni aggiornate con successo"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Per favore seleziona una delle opzione specificate."
+msgstr "Correggi gli errori qui sotto."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1413,10 +1383,8 @@ msgid "Edit user"
 msgstr "Modifica utente"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Sì, elimina"
+msgstr "La chiave API è stata eliminata"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1481,22 +1449,16 @@ msgid "Exercise admin history"
 msgstr "Storico allenamenti admin"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Modifica serie"
+msgstr "Modifiche nelle ultime 24 ore"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Modifica serie"
+msgstr "Modifiche negli ultimi 7 giorni"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Modifica serie"
+msgstr "Modifiche negli ultimi 30 giorni"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1517,20 +1479,16 @@ msgid "new"
 msgstr ""
 
 #: exercises/templates/history/overview.html:94
-#, fuzzy
-#| msgid "Dedicated"
 msgid "created"
-msgstr "Impegnato"
+msgstr "creato"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Elimina"
+msgstr "eliminato"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1545,34 +1503,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
-msgstr "Traduzione"
+msgstr "traduzioni"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Sì, elimina"
+msgstr "L'oggetto è stato eliminato"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Ripristina cambiamenti"
+msgstr "Annulla modifica"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Oggetto"
+msgstr "Apri oggetto"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Ripristina cambiamenti"
+msgstr "Annullare questa modifica?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1595,24 +1543,18 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Dietary information"
 msgid "History pagination"
-msgstr "Informazioni nutrizionali"
+msgstr "Paginazione cronologia"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Nome"
+msgstr "Prima"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "precedente"
+msgstr "Precedente"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1626,10 +1568,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Cognome"
+msgstr "Ultima"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2596,16 +2536,12 @@ msgid "No ingredients."
 msgstr "Nessun ingrediente."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
-msgstr "Categorie ingredienti"
+msgstr "Paginazione ingredienti"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Nome"
+msgstr "Prima pagina"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2668,10 +2604,8 @@ msgid "Dietary information"
 msgstr "Informazioni nutrizionali"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Piano nutrizionale"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"

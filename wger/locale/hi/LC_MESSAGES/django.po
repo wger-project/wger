@@ -129,9 +129,8 @@ msgstr ""
 #: gym/templates/contract_type/list.html:36 gym/templates/document/list.html:46
 #: gym/templates/gym/list.html:23 nutrition/templates/ingredient/view.html:259
 #: nutrition/templates/ingredient/view.html:304
-#, fuzzy
 msgid "Delete"
-msgstr "मितादे"
+msgstr "मिटाएँ"
 
 #: core/forms.py:276
 msgid "Invalid password"
@@ -644,10 +643,8 @@ msgid "Administration"
 msgstr ""
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercises"
 msgid "Exercise edit history"
-msgstr "व्यायाम"
+msgstr "व्यायाम संपादन इतिहास"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -927,9 +924,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
 msgid "Delete API key"
-msgstr "मितादे"
+msgstr "API कुंजी मिटाएँ"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1217,10 +1213,8 @@ msgid "Change password"
 msgstr ""
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Invalid password"
 msgid "Set password"
-msgstr "अवैध पासवर्ड"
+msgstr "पासवर्ड सेट करें"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1436,9 +1430,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
 msgid "deleted"
-msgstr "मितादे"
+msgstr "मिटाया गया"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1498,10 +1491,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "पहला नाम"
+msgstr "पहला"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
@@ -1520,10 +1511,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "उपनाम"
+msgstr "अंतिम"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2114,40 +2103,28 @@ msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "उदाहरणात्मक वर्कआउट"
+msgstr "10 वर्कआउट पूरे करें"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "उदाहरणात्मक वर्कआउट"
+msgstr "50 वर्कआउट पूरे करें"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "उदाहरणात्मक वर्कआउट"
+msgstr "100 वर्कआउट पूरे करें"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "उदाहरणात्मक वर्कआउट"
+msgstr "200 वर्कआउट पूरे करें"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "उदाहरणात्मक वर्कआउट"
+msgstr "500 वर्कआउट पूरे करें"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "उदाहरणात्मक वर्कआउट"
+msgstr "1000 वर्कआउट पूरे करें"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2460,16 +2437,12 @@ msgid "No ingredients."
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredients"
 msgid "Ingredient pagination"
-msgstr "सामग्री"
+msgstr "सामग्री पृष्ठ नेविगेशन"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "पहला नाम"
+msgstr "पहला पृष्ठ"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2625,10 +2598,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Sample nutritional plan"
 msgid "Nutritional data"
-msgstr "उदाहरणात्मक पोषण योजना"
+msgstr "पोषण संबंधी डेटा"
 
 #: nutrition/views/plan.py:238
 msgid "Total"

@@ -143,10 +143,8 @@ msgid "Invalid password"
 msgstr "Parolă invalidă"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
-msgstr "E-mail neverificat"
+msgstr "Confirmă"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -366,10 +364,8 @@ msgid "Time"
 msgstr "Timp"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Bandă de rezistență"
+msgstr "Distanță"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -382,10 +378,8 @@ msgid "Name"
 msgstr "Nume"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Unitate"
+msgstr "Tip de unitate"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -427,16 +421,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"Primești acest e-mail pentru că ai solicitat resetarea parolei pentru contul "
-"tău de utilizator pe %(site_name)s."
+msgstr "Primești acest e-mail pentru că utilizatorul „%(user_display)s” a furnizat adresa ta de e-mail pentru a înregistra un cont pe %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -445,17 +434,12 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr ""
-"Te rugăm să accesezi următorul link pentru a-ți confirma e-mailul: %(link)s"
+msgstr "Te rugăm să apeși butonul de mai jos pentru a-ți confirma adresa de e-mail."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "E-mail neverificat"
+msgstr "Confirmă e-mailul"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -474,10 +458,8 @@ msgstr "Echipa wger"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "E-mailuri"
+msgstr "Adresă de e-mail"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -487,10 +469,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Versiunea curentă"
+msgstr "E-mailul curent"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -498,28 +478,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Trimite e-mail de verificare"
+msgstr "Retrimite e-mailul de confirmare"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Vezi modificări"
+msgstr "Anulează modificarea"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Modificări"
+msgstr "Schimbă în"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
-msgstr "E-mail neverificat"
+msgstr "Schimbă e-mailul"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -913,10 +885,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Generează o nouă cheie API"
+msgstr "Generează un nou refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -936,10 +906,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Dedicated"
 msgid "Created"
-msgstr "Dedicat"
+msgstr "Creat"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -996,10 +964,8 @@ msgid "Generate new API key"
 msgstr "Generează o nouă cheie API"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Generează o nouă cheie API"
+msgstr "Șterge cheia API"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1023,10 +989,8 @@ msgid "Documentation"
 msgstr "Documentație"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Documentație"
+msgstr "Documentație API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1294,10 +1258,8 @@ msgid "Change password"
 msgstr "Schimbă parola"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Resetează parola"
+msgstr "Setează parola"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1312,10 +1274,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Șterge contul"
+msgstr "Conturi conectate"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1399,10 +1359,8 @@ msgid "Settings successfully updated"
 msgstr "Setările au fost actualizate cu succes"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Selectați una dintre opțiunile de mai jos."
+msgstr "Te rugăm să corectezi erorile de mai jos."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1417,10 +1375,8 @@ msgid "Edit user"
 msgstr "Editează utilizatorul"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Da, șterge"
+msgstr "Cheia API a fost ștearsă"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1515,20 +1471,16 @@ msgid "new"
 msgstr ""
 
 #: exercises/templates/history/overview.html:94
-#, fuzzy
-#| msgid "Dedicated"
 msgid "created"
-msgstr "Dedicat"
+msgstr "creat"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Șterge"
+msgstr "șters"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1543,34 +1495,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
-msgstr "Traducere"
+msgstr "traduceri"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Da, șterge"
+msgstr "Obiectul a fost șters"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Revocă modificările"
+msgstr "Anulează modificarea"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Obiect"
+msgstr "Deschide obiectul"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Revocă modificările"
+msgstr "Anulezi această modificare?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1593,24 +1535,18 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Date format"
 msgid "History pagination"
-msgstr "Formatul datei"
+msgstr "Paginare istoric"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Prenume"
+msgstr "Prima"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "anterior"
+msgstr "Anterioara"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1624,10 +1560,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Nume de familie"
+msgstr "Ultima"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1657,10 +1591,8 @@ msgid "User"
 msgstr "Utilizator"
 
 #: exercises/views/history.py:117
-#, fuzzy
-#| msgid "Types"
 msgid "Type"
-msgstr "Tipuri"
+msgstr "Tip"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
@@ -2136,10 +2068,8 @@ msgid "Until Failure"
 msgstr "Până la epuizare"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometri"
+msgstr "Metri"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2528,10 +2458,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Corectare"
+msgstr "Porție"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2601,16 +2529,12 @@ msgid "No ingredients."
 msgstr "Nu există ingrediente."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient"
 msgid "Ingredient pagination"
-msgstr "Ingredient"
+msgstr "Paginare ingrediente"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Prenume"
+msgstr "Prima pagină"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2627,10 +2551,8 @@ msgid "Search"
 msgstr "Caută"
 
 #: nutrition/templates/ingredient/overview.html:93
-#, fuzzy
-#| msgid "No filter"
 msgid "Filter"
-msgstr "Fără filtru"
+msgstr "Filtru"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
@@ -2671,16 +2593,12 @@ msgid "Sodium"
 msgstr "Sodiu"
 
 #: nutrition/templates/ingredient/view.html:167
-#, fuzzy
-#| msgid "Date format"
 msgid "Dietary information"
-msgstr "Formatul datei"
+msgstr "Informații dietetice"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Nutriție"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"

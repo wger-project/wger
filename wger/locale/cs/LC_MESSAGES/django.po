@@ -145,10 +145,8 @@ msgid "Invalid password"
 msgstr "Chybné heslo"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Confirm"
-msgstr "Potvrďte email"
+msgstr "Potvrdit"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -467,10 +465,8 @@ msgstr "Tým wger"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "Emaily"
+msgstr "E-mailová adresa"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -480,10 +476,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Aktuální verze"
+msgstr "Aktuální e-mail"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -491,28 +485,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Odeslat ověřovací email"
+msgstr "Znovu odeslat potvrzovací e-mail"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Zobrazit změny"
+msgstr "Zrušit změnu"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Změny"
+msgstr "Změnit na"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Change email"
-msgstr "Potvrďte email"
+msgstr "Změnit e-mail"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -901,10 +887,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Vytvořit nový API klíč"
+msgstr "Vygenerovat nový refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -924,10 +908,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Vytvořit rozvrh"
+msgstr "Vytvořeno"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -942,10 +924,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "Tréninková relace"
+msgstr "Relace JWT"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -987,10 +967,8 @@ msgid "Generate new API key"
 msgstr "Vytvořit nový API klíč"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Vytvořit nový API klíč"
+msgstr "Smazat API klíč"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1014,10 +992,8 @@ msgid "Documentation"
 msgstr "Dokumentace"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Dokumentace"
+msgstr "Dokumentace API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1283,10 +1259,8 @@ msgid "Change password"
 msgstr "Změna hesla"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Reset hesla"
+msgstr "Nastavit heslo"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1301,10 +1275,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Smazání účtu"
+msgstr "Propojené účty"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1387,10 +1359,8 @@ msgid "Settings successfully updated"
 msgstr "Nastavení bylo aktualizováno"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Vyberte si jednu z možností níže."
+msgstr "Opravte prosím chyby níže."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1405,10 +1375,8 @@ msgid "Edit user"
 msgstr "Upravit uživatele"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Ano, smazat"
+msgstr "API klíč byl smazán"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1473,22 +1441,16 @@ msgid "Exercise admin history"
 msgstr "Administrativní historie cvičení"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Upravit sérii"
+msgstr "Úpravy za posledních 24 h"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Upravit sérii"
+msgstr "Úpravy za posledních 7 dní"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Upravit sérii"
+msgstr "Úpravy za posledních 30 dní"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1517,10 +1479,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Smazat"
+msgstr "smazal"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1535,34 +1495,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
-msgstr "Překlad"
+msgstr "překlady"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Ano, smazat"
+msgstr "Objekt byl smazán"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Zvrátit změny"
+msgstr "Vrátit změnu"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Objekt"
+msgstr "Otevřít objekt"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Zvrátit změny"
+msgstr "Vrátit tuto změnu?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1585,24 +1535,18 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "History pagination"
-msgstr "Klikněte zde pro více informací"
+msgstr "Stránkování historie"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Jméno"
+msgstr "První"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "předchozí"
+msgstr "Předchozí"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1616,10 +1560,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Příjmení"
+msgstr "Poslední"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2125,10 +2067,8 @@ msgid "Until Failure"
 msgstr "Do selhání"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometry"
+msgstr "Metry"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2139,11 +2079,8 @@ msgid "Beginner"
 msgstr ""
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Obsah"
+msgstr "Důsledný"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2206,10 +2143,8 @@ msgid "Early Bird"
 msgstr ""
 
 #: i18n.tpl:59
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Záznam váhy"
+msgstr "Noční sova"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
@@ -2220,52 +2155,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Osobní data"
+msgstr "Osobní rekord"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Kopírovat trénink"
+msgstr "Dokonči svůj první trénink"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Ukázkový trénink"
+msgstr "Dokonči 10 tréninků"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Ukázkový trénink"
+msgstr "Dokonči 50 tréninků"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Ukázkový trénink"
+msgstr "Dokonči 100 tréninků"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Ukázkový trénink"
+msgstr "Dokonči 200 tréninků"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Ukázkový trénink"
+msgstr "Dokonči 500 tréninků"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Ukázkový trénink"
+msgstr "Dokonči 1000 tréninků"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2312,10 +2231,8 @@ msgid "Complete a workout after 9:00 PM"
 msgstr ""
 
 #: i18n.tpl:81
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Trénink pro %s"
+msgstr "Cvič 1. ledna"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2402,10 +2319,8 @@ msgid "Exercise"
 msgstr "Cvik"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Trénink bude brzy expirovat"
+msgstr "Plán brzy vyprší"
 
 #: manager/models/session.py:41
 msgid "Bad"
@@ -2428,17 +2343,14 @@ msgid "The start time cannot be after the end time."
 msgstr "Čas začátku nemůže být po čase ukončení."
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Váš aktuální trénink „%(workout)s“ vypršel před %(days)s dny."
+msgstr "Váš aktuální plán „%(routine)s“ vypršel před %(days)s dny."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Váš aktuální trénink '%(workout)s' bude expirovat za %(days)s dny."
+msgstr "Váš aktuální plán „%(routine)s“ vyprší za %(days)s dní."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2541,10 +2453,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Oprava"
+msgstr "Porce"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2604,10 +2514,8 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Variace"
+msgstr "Vegetariánské"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2615,16 +2523,12 @@ msgid "No ingredients."
 msgstr "Bez položek."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
-msgstr "Kategorie přísad"
+msgstr "Stránkování ingrediencí"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Jméno"
+msgstr "První stránka"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2641,10 +2545,8 @@ msgid "Search"
 msgstr "Vyhledat"
 
 #: nutrition/templates/ingredient/overview.html:93
-#, fuzzy
-#| msgid "No filter"
 msgid "Filter"
-msgstr "Bez filtru"
+msgstr "Filtr"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
@@ -2685,16 +2587,12 @@ msgid "Sodium"
 msgstr "Sodík"
 
 #: nutrition/templates/ingredient/view.html:167
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "Dietary information"
-msgstr "Klikněte zde pro více informací"
+msgstr "Informace o stravě"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Výživa"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2853,16 +2751,12 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "Komunita"
+msgstr "Připojte se ke komunitě"
 
 #: software/templates/about_us.html:46
-#, fuzzy
-#| msgid "Go to the discord server"
 msgid "Join the Discord server"
-msgstr "Jít na Discord server"
+msgstr "Připojte se na server Discord"
 
 #: software/templates/about_us.html:47
 msgid ""
@@ -2881,36 +2775,28 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute"
 msgid "Contribute your skills"
-msgstr "Přispějte"
+msgstr "Přispějte svými dovednostmi"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
 msgstr ""
 
 #: software/templates/about_us.html:78
-#, fuzzy
-#| msgid "Have a problem or idea?"
 msgid "Have a problem or idea? Let us know!"
-msgstr "Máte problém nebo nápad?"
+msgstr "Máte problém nebo nápad? Dejte nám vědět!"
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Odeslat cvikya"
+msgstr "Vylepšete cviky"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Přeložit s Transifex"
+msgstr "Přeložte aplikaci"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2918,10 +2804,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Dokumentace vývojáře"
+msgstr "Přispějte kódem nebo dokumentací"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
@@ -2942,10 +2826,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:135
-#, fuzzy
-#| msgid "stars <br> on GitHub"
 msgid "Sponsor on GitHub"
-msgstr "hvězdiček <br> na GitHubu"
+msgstr "Sponzorujte na GitHubu"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
@@ -2962,21 +2844,11 @@ msgid "Our goal"
 msgstr "Váš cíl"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
-msgstr ""
-"Cílem je vytvořit úžasnou\n"
-"                a flexibilní fitness manager aplikaci, spolu s komplexním a "
-"úplným seznamem cviků a\n"
-"                ingrediencemi, vše pod svobodnou licencí."
+msgstr "Cílem je vytvořit úžasnou a flexibilní aplikaci pro správu fitness, spolu s rozsáhlým a úplným seznamem cviků a ingrediencí, vše vydané pod svobodnou licencí."
 
 #: software/templates/features.html:11
 msgid ""
@@ -3030,8 +2902,6 @@ msgid "exercises <br> for workout creation"
 msgstr "cvičení <br> pro tvorbu tréninku"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
 msgstr "potravin <br> pro plánování jídel"
 

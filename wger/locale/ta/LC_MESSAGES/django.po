@@ -923,10 +923,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete API key"
-msgstr "நீக்கு"
+msgstr "API விசையை நீக்கு"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1214,10 +1212,8 @@ msgid "Change password"
 msgstr ""
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Password"
 msgid "Set password"
-msgstr "கடவுச்சொல்"
+msgstr "கடவுச்சொல்லை அமை"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1433,10 +1429,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "நீக்கு"
+msgstr "நீக்கப்பட்டது"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1496,10 +1490,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "முதல் பெயர்"
+msgstr "முதல்"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
@@ -1518,10 +1510,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "கடைசி பெயர்"
+msgstr "கடைசி"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2450,10 +2440,8 @@ msgid "Ingredient pagination"
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "முதல் பெயர்"
+msgstr "முதல் பக்கம்"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71

@@ -141,10 +141,8 @@ msgid "Invalid password"
 msgstr "كلمة مرور غير صالحة"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Confirm"
-msgstr "توثيق عنوان البريد الإلكتروني"
+msgstr "تأكيد"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -459,10 +457,8 @@ msgstr "فريق wger"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "عناوين البريد الإلكتروني"
+msgstr "عنوان البريد الإلكتروني"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -472,10 +468,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Current email"
-msgstr "توثيق عنوان البريد الإلكتروني"
+msgstr "البريد الإلكتروني الحالي"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -483,28 +477,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "إرسال بريد إلكتروني للتوثيق"
+msgstr "إعادة إرسال بريد التأكيد"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "عرض التغييرات"
+msgstr "إلغاء التغيير"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "تغييرات"
+msgstr "التغيير إلى"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Change email"
-msgstr "توثيق عنوان البريد الإلكتروني"
+msgstr "تغيير البريد الإلكتروني"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -890,10 +876,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "إنشاء مفتاح API جديد"
+msgstr "إنشاء رمز تحديث جديد"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -974,10 +958,8 @@ msgid "Generate new API key"
 msgstr "إنشاء مفتاح API جديد"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "إنشاء مفتاح API جديد"
+msgstr "حذف مفتاح API"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1001,10 +983,8 @@ msgid "Documentation"
 msgstr "وثائق"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "وثائق"
+msgstr "وثائق API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1271,10 +1251,8 @@ msgid "Change password"
 msgstr "تغيير كلمة المرور"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "إعادة تعيين كلمة المرور"
+msgstr "تعيين كلمة المرور"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1289,10 +1267,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "حذف الحساب"
+msgstr "الحسابات المرتبطة"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1495,10 +1471,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "حذف"
+msgstr "محذوف"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1513,32 +1487,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
-msgstr "الترجمة"
+msgstr "الترجمات"
 
 #: exercises/templates/history/overview.html:129
 msgid "Object was deleted"
 msgstr ""
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "التراجع عن التغييرات"
+msgstr "التراجع عن التغيير"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "هدف"
+msgstr "فتح العنصر"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "التراجع عن التغييرات"
+msgstr "هل تريد التراجع عن هذا التغيير؟"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1566,15 +1532,11 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "الاسم الأول"
+msgstr "الأول"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
 msgstr "السابق"
 
@@ -1590,10 +1552,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "الاسم الأخير"
+msgstr "الأخير"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1623,10 +1583,8 @@ msgid "User"
 msgstr "المستخدم"
 
 #: exercises/views/history.py:117
-#, fuzzy
-#| msgid "Types"
 msgid "Type"
-msgstr "الأنواع"
+msgstr "النوع"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
@@ -2184,50 +2142,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "المعلومات الشخصية"
+msgstr "رقم قياسي شخصي"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "عينة تمارين"
+msgstr "أكمل 10 تمارين"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "عينة تمارين"
+msgstr "أكمل 50 تمريناً"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "عينة تمارين"
+msgstr "أكمل 100 تمرين"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "عينة تمارين"
+msgstr "أكمل 200 تمرين"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "عينة تمارين"
+msgstr "أكمل 500 تمرين"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "عينة تمارين"
+msgstr "أكمل 1000 تمرين"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2482,10 +2426,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Portion"
-msgstr "تغذية"
+msgstr "حصة"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2542,16 +2484,12 @@ msgid "No ingredients."
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient weight units"
 msgid "Ingredient pagination"
-msgstr "وحدات وزن المكون"
+msgstr "تنقل صفحات المكونات"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "الاسم الأول"
+msgstr "الصفحة الأولى"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2614,10 +2552,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "تغذية"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2709,10 +2645,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Personal data"
 msgid "Nutritional data"
-msgstr "المعلومات الشخصية"
+msgstr "البيانات الغذائية"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2808,10 +2742,8 @@ msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translation"
 msgid "Translate the application"
-msgstr "الترجمة"
+msgstr "ترجمة التطبيق"
 
 #: software/templates/about_us.html:86
 msgid ""

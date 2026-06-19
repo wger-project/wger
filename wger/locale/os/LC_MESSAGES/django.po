@@ -162,10 +162,8 @@ msgid "Language full name"
 msgstr "Ӕвзаджы ӕнӕхъӕн ном"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Ӕвзаджы ӕнӕхъӕн ном"
+msgstr "Ӕвзаджы ӕнӕхъӕн ном англисагау"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -644,10 +642,8 @@ msgid "Administration"
 msgstr "Администраци"
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercise Categories"
 msgid "Exercise edit history"
-msgstr "Фӕлтӕрӕнты ӕмбырд"
+msgstr "Фӕлтӕрӕны ивдты истори"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -927,10 +923,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete API key"
-msgstr "Схафын"
+msgstr "API-ы дзуапп схафын"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -954,10 +948,8 @@ msgid "Documentation"
 msgstr ""
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Administration"
 msgid "API documentation"
-msgstr "Администраци"
+msgstr "API документаци"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1370,10 +1362,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr ""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "фӕлтӕрӕны ном"
+msgstr "Ӕндӕр ном"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1397,10 +1387,8 @@ msgid "Equipment list"
 msgstr ""
 
 #: exercises/templates/history/overview.html:7
-#, fuzzy
-#| msgid "Exercise Categories"
 msgid "Exercise admin history"
-msgstr "Фӕлтӕрӕнты ӕмбырд"
+msgstr "Фӕлтӕрӕны админы истори"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
@@ -1441,10 +1429,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Схафын"
+msgstr "схафта"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1563,10 +1549,8 @@ msgid "All"
 msgstr ""
 
 #: exercises/views/history.py:124
-#, fuzzy
-#| msgid "Options"
 msgid "Action"
-msgstr "Фадӕттӕ"
+msgstr "Архайд"
 
 #: exercises/views/history.py:131
 msgid "From"
@@ -1585,10 +1569,8 @@ msgid "If date is left empty, it will be read from the image instead"
 msgstr ""
 
 #: gallery/templates/images/overview.html:69
-#, fuzzy
-#| msgid "Add muscle"
 msgid "Add image"
-msgstr "Мускул бафтауын"
+msgstr "Ныв бафтауын"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2396,10 +2378,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Options"
 msgid "Portion"
-msgstr "Фадӕттӕ"
+msgstr "Хай"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2670,10 +2650,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "Хъуыды"
+msgstr "Ӕхсӕнадмӕ бахауын"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2794,10 +2772,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Хъуыды"
+msgstr "Ӕхсӕнад"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"

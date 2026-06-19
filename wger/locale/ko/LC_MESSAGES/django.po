@@ -139,10 +139,8 @@ msgid "Invalid password"
 msgstr "유효하지 않은 비밀번호"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
-msgstr "확인되지 않은 이메일"
+msgstr "확인"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -370,10 +368,8 @@ msgid "Name"
 msgstr "이름"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "단위"
+msgstr "단위 종류"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -414,16 +410,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"%(site_name)s 사용자 계정에 대한 비밀번호 재설정을 요청하셨기 때문에 이 이메"
-"일을 보내드립니다."
+msgstr "사용자 \"%(user_display)s\"님이 %(site_domain)s에서 계정을 등록하기 위해 회원님의 이메일 주소를 입력했기 때문에 이 이메일을 받으셨습니다."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -432,16 +423,12 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr "다음 링크를 클릭하여 이메일을 확인하세요: %(link)s"
+msgstr "이메일 주소를 확인하려면 아래 버튼을 클릭하세요."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "확인되지 않은 이메일"
+msgstr "이메일 확인"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -460,10 +447,8 @@ msgstr "wger 팀"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "이메일"
+msgstr "이메일 주소"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -473,10 +458,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "현재 버젼"
+msgstr "현재 이메일"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -484,28 +467,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "확인 이메일 보내기"
+msgstr "확인 이메일 다시 보내기"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "변경 보기"
+msgstr "변경 취소"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "변경"
+msgstr "변경할 주소"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
-msgstr "확인되지 않은 이메일"
+msgstr "이메일 변경"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -894,10 +869,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "새로운 API key 생성"
+msgstr "새 refresh token 생성"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -917,10 +890,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "일정 생성"
+msgstr "생성됨"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -935,10 +906,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Session"
 msgid "JWT sessions"
-msgstr "세션"
+msgstr "JWT 세션"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -977,10 +946,8 @@ msgid "Generate new API key"
 msgstr "새로운 API key 생성"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "새로운 API key 생성"
+msgstr "API 키 삭제"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1004,10 +971,8 @@ msgid "Documentation"
 msgstr "문서"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "문서"
+msgstr "API 문서"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1273,10 +1238,8 @@ msgid "Change password"
 msgstr "비밀번호 변경"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "비밀번호 변경"
+msgstr "비밀번호 설정"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1291,10 +1254,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "계정 삭제"
+msgstr "연결된 계정"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1392,10 +1353,8 @@ msgid "Edit user"
 msgstr "사용자 편집"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "예, 삭제합니다"
+msgstr "API 키가 삭제되었습니다"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1498,10 +1457,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "삭제"
+msgstr "삭제됨"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1516,34 +1473,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
 msgstr "번역"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "예, 삭제합니다"
+msgstr "오브젝트가 삭제되었습니다"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "변경사항 되돌리기"
+msgstr "변경 되돌리기"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "오브젝트"
+msgstr "오브젝트 열기"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "변경사항 되돌리기"
+msgstr "이 변경을 되돌리시겠습니까?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1566,22 +1513,16 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Date format"
 msgid "History pagination"
-msgstr "날짜 포맷"
+msgstr "기록 페이지 탐색"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "이름"
+msgstr "처음"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
 msgstr "이전"
 
@@ -1597,10 +1538,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "성"
+msgstr "마지막"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1630,8 +1569,6 @@ msgid "User"
 msgstr "사용자"
 
 #: exercises/views/history.py:117
-#, fuzzy
-#| msgid "Types"
 msgid "Type"
 msgstr "유형"
 
@@ -2104,10 +2041,8 @@ msgid "Until Failure"
 msgstr "실패 전까지"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "킬로미터"
+msgstr "미터"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2118,11 +2053,8 @@ msgid "Beginner"
 msgstr ""
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "내용"
+msgstr "꾸준함"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2197,50 +2129,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "개인 정보"
+msgstr "개인 기록"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "샘플 Workout"
+msgstr "운동 10회 완료하기"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "샘플 Workout"
+msgstr "운동 50회 완료하기"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "샘플 Workout"
+msgstr "운동 100회 완료하기"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "샘플 Workout"
+msgstr "운동 200회 완료하기"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "샘플 Workout"
+msgstr "운동 500회 완료하기"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "샘플 Workout"
+msgstr "운동 1000회 완료하기"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2287,10 +2205,8 @@ msgid "Complete a workout after 9:00 PM"
 msgstr ""
 
 #: i18n.tpl:81
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "%s 를 위한 운동"
+msgstr "1월 1일에 운동하기"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2505,10 +2421,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "보정"
+msgstr "1회 제공량"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2566,10 +2480,8 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "변형"
+msgstr "채식"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2577,16 +2489,12 @@ msgid "No ingredients."
 msgstr "성분이 없습니다."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
-msgstr "성분 카테고리"
+msgstr "재료 페이지 탐색"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "이름"
+msgstr "첫 페이지"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2603,10 +2511,8 @@ msgid "Search"
 msgstr "검색"
 
 #: nutrition/templates/ingredient/overview.html:93
-#, fuzzy
-#| msgid "No filter"
 msgid "Filter"
-msgstr "필터 없음"
+msgstr "필터"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
@@ -2647,16 +2553,12 @@ msgid "Sodium"
 msgstr "나트륨"
 
 #: nutrition/templates/ingredient/view.html:167
-#, fuzzy
-#| msgid "Date format"
 msgid "Dietary information"
-msgstr "날짜 포맷"
+msgstr "식이 정보"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "영양"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2989,10 +2891,8 @@ msgid "exercises <br> for workout creation"
 msgstr "운동 만들기를 위한 <br>운동"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
-msgstr "식사 계획을 위한 <br>음식"
+msgstr "식단 계획을 위한 <br> 음식"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"

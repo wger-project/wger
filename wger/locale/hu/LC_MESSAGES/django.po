@@ -141,10 +141,8 @@ msgid "Invalid password"
 msgstr "Érvénytelen jelszó"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm"
-msgstr "Beállítás"
+msgstr "Megerősítés"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -169,10 +167,8 @@ msgid "Language full name"
 msgstr "Nyelv teljes neve"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Nyelv teljes neve"
+msgstr "A nyelv teljes neve angolul"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -428,10 +424,8 @@ msgid "Please click the button below to confirm your email address."
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm email"
-msgstr "Beállítás"
+msgstr "E-mail-cím megerősítése"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -450,10 +444,8 @@ msgstr ""
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Address"
 msgid "Email address"
-msgstr "Cím"
+msgstr "E-mail-cím"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -463,10 +455,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Configuration"
 msgid "Current email"
-msgstr "Beállítás"
+msgstr "Jelenlegi e-mail-cím"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -474,28 +464,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Configuration"
 msgid "Resend confirmation email"
-msgstr "Beállítás"
+msgstr "Megerősítő e-mail újraküldése"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "Change password"
 msgid "Cancel change"
-msgstr "Jelszó megváltoztatása"
+msgstr "Módosítás megszakítása"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Change password"
 msgid "Change to"
-msgstr "Jelszó megváltoztatása"
+msgstr "Módosítás erre"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Configuration"
 msgid "Change email"
-msgstr "Beállítás"
+msgstr "E-mail-cím módosítása"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -648,16 +630,12 @@ msgid "Trophies"
 msgstr ""
 
 #: core/templates/navigation.html:79
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Edzés befejezve!"
+msgstr "Edzéssablonok"
 
 #: core/templates/navigation.html:86
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Ütemterveid"
+msgstr "Sablonjaid"
 
 #: core/templates/navigation.html:95
 msgid "Public templates"
@@ -673,10 +651,8 @@ msgid "Administration"
 msgstr "Adminisztráció"
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercises pending review"
 msgid "Exercise edit history"
-msgstr "Ellenőrzésre váró gyakorlatok"
+msgstr "Gyakorlat szerkesztési előzményei"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -880,10 +856,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Új API kulcs generálása"
+msgstr "Új frissítési token generálása"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -903,10 +877,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Ütemterv létrehozása"
+msgstr "Létrehozva"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -962,10 +934,8 @@ msgid "Generate new API key"
 msgstr "Új API kulcs generálása"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Új API kulcs generálása"
+msgstr "API-kulcs törlése"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -989,10 +959,8 @@ msgid "Documentation"
 msgstr "Dokumentáció"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Dokumentáció"
+msgstr "API-dokumentáció"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1255,10 +1223,8 @@ msgid "Change password"
 msgstr "Jelszó megváltoztatása"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Új jelszó igénylése"
+msgstr "Jelszó beállítása"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1273,10 +1239,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Fiók törlése"
+msgstr "Összekapcsolt fiókok"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1356,10 +1320,8 @@ msgid "Settings successfully updated"
 msgstr "Beállítások sikeresen frissítve"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Kérlek válassz egyet az alábbi lehetőség közül."
+msgstr "Kérlek javítsd ki az alábbi hibákat."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1374,10 +1336,8 @@ msgid "Edit user"
 msgstr "Felhasználó módosítása"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Igen, töröld"
+msgstr "Az API-kulcs törölve lett"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1413,10 +1373,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Latinul, pl.: \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "gyakorlat neve"
+msgstr "Alternatív név"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1440,10 +1398,8 @@ msgid "Equipment list"
 msgstr "Felszerelés lista"
 
 #: exercises/templates/history/overview.html:7
-#, fuzzy
-#| msgid "Exercise Categories"
 msgid "Exercise admin history"
-msgstr "Gyakorlati kategóriák"
+msgstr "Gyakorlat adminisztrációs előzményei"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
@@ -1484,10 +1440,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Törlés"
+msgstr "törölte"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1502,16 +1456,12 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "Lefordítás"
+msgstr "fordítás"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Igen, töröld"
+msgstr "Az objektum törölve lett"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
@@ -1551,17 +1501,13 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Keresztnév"
+msgstr "Első"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "előző"
+msgstr "Előző"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1575,10 +1521,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Vezetéknév"
+msgstr "Utolsó"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1616,10 +1560,8 @@ msgid "All"
 msgstr ""
 
 #: exercises/views/history.py:124
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Műveletek"
+msgstr "Művelet"
 
 #: exercises/views/history.py:131
 msgid "From"
@@ -1638,10 +1580,8 @@ msgid "If date is left empty, it will be read from the image instead"
 msgstr ""
 
 #: gallery/templates/images/overview.html:69
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Új kép hozzáadása"
+msgstr "Kép hozzáadása"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -1963,10 +1903,8 @@ msgid "Biceps"
 msgstr ""
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Weight"
 msgid "Body Weight"
-msgstr "Súly"
+msgstr "Testsúly"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2025,10 +1963,8 @@ msgid "Lower back"
 msgstr ""
 
 #: i18n.tpl:23
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Ismétlés"
+msgstr "Max. ismétlés"
 
 #: i18n.tpl:24
 msgid "Miles"
@@ -2159,10 +2095,8 @@ msgid "Early Bird"
 msgstr ""
 
 #: i18n.tpl:59
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Testsúly napló"
+msgstr "Éjjeli bagoly"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
@@ -2173,52 +2107,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Személyes adat"
+msgstr "Egyéni csúcs"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Edzés másolása"
+msgstr "Végezd el az első edzésedet"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Minta edzés"
+msgstr "Végezz el 10 edzést"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Minta edzés"
+msgstr "Végezz el 50 edzést"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Minta edzés"
+msgstr "Végezz el 100 edzést"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Minta edzés"
+msgstr "Végezz el 200 edzést"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Minta edzés"
+msgstr "Végezz el 500 edzést"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Minta edzés"
+msgstr "Végezz el 1000 edzést"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2461,10 +2379,8 @@ msgid "Ingredient"
 msgstr ""
 
 #: nutrition/forms.py:227
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Használjon hozzávalókat Angolul is"
+msgstr "Keresés a nevekre angolul is"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
@@ -2475,10 +2391,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Duration"
 msgid "Portion"
-msgstr "Időtartam"
+msgstr "Adag"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2535,16 +2449,12 @@ msgid "No ingredients."
 msgstr "Nincs összetevő."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "ingredient name"
 msgid "Ingredient pagination"
-msgstr "összetevő neve"
+msgstr "Összetevők lapozása"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Keresztnév"
+msgstr "Első oldal"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2607,10 +2517,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Táplálkozás"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2702,10 +2610,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Nutrition plan"
 msgid "Nutritional data"
-msgstr "Táplálkozási terv"
+msgstr "Tápértékadatok"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2757,10 +2663,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "Hozzászólás"
+msgstr "Csatlakozz a közösséghez"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2783,10 +2687,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute your skills"
-msgstr "Vegyél részt!"
+msgstr "Tedd hozzá a tudásod"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
@@ -2805,10 +2707,8 @@ msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Lefordítás Transifex segítségével"
+msgstr "Fordítsd le az alkalmazást"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2885,10 +2785,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Hozzászólás"
+msgstr "Közösség"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
@@ -2900,20 +2798,16 @@ msgid ""
 msgstr ""
 
 #: software/templates/features.html:123
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Szerezd meg a kódot"
+msgstr "Kezdés"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
 msgstr ""
 
 #: software/templates/features.html:137
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Gyakorlat hozzáadása ehhez az edzés naphoz"
+msgstr "gyakorlat <br> edzéskészítéshez"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
@@ -2971,10 +2865,8 @@ msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
 
 #: software/templates/features.html:259
-#, fuzzy
-#| msgid "Add note"
 msgid "Add custom notes"
-msgstr "Új megjegyzés hozzáadása"
+msgstr "Egyéni jegyzetek hozzáadása"
 
 #: software/templates/features.html:262
 msgid "Record your weight"
@@ -3013,10 +2905,8 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:331
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "Vegyél részt!"
+msgstr "Közreműködés"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
@@ -3027,10 +2917,8 @@ msgid "Web version not enough?"
 msgstr ""
 
 #: software/templates/features.html:371
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Szerezd meg a kódot"
+msgstr "Szerezd meg a kódot is!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
@@ -3061,20 +2949,16 @@ msgid ""
 msgstr ""
 
 #: software/templates/features.html:437
-#, fuzzy
-#| msgid "No account?"
 msgid "Account"
-msgstr "Nincs fiókod?"
+msgstr "Fiók"
 
 #: software/templates/features.html:453
 msgid "Dashboard"
 msgstr "Irányítópult"
 
 #: software/templates/features.html:485
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "Edzés emlékeztetők"
+msgstr "Edzéstervek"
 
 #: software/templates/features.html:491
 msgid "Discord"
@@ -3093,10 +2977,8 @@ msgid "Source Code"
 msgstr ""
 
 #: software/templates/features.html:524
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Lefordítás"
+msgstr "Fordítás"
 
 #: utils/generic_views.py:241
 msgid "Yes, delete"

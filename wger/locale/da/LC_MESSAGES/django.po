@@ -140,10 +140,8 @@ msgid "Invalid password"
 msgstr "Ukorrekt kodeord"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
-msgstr "Email ikke bekræftet"
+msgstr "Bekræft"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -360,10 +358,8 @@ msgid "Time"
 msgstr "Tid"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Elastik"
+msgstr "Distance"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -376,10 +372,8 @@ msgid "Name"
 msgstr "Navn"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Enhed"
+msgstr "Enhedstype"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -421,16 +415,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"Du modtager denne email fordi du anmodede om at nulstille dit kodeord for "
-"din bruger på %(site_name)s."
+msgstr "Du modtager denne email, fordi brugeren \"%(user_display)s\" har angivet din emailadresse til at oprette en konto på %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -439,16 +428,12 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr "Klik venligst følgende link for at bekræfte din email: %(link)s"
+msgstr "Klik venligst på knappen nedenfor for at bekræfte din emailadresse."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "Email ikke bekræftet"
+msgstr "Bekræft email"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -467,10 +452,8 @@ msgstr "wger Holdet"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "Emails"
+msgstr "Emailadresse"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -480,10 +463,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Nuværende version"
+msgstr "Nuværende email"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -491,28 +472,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Send bekræftelsesemail"
+msgstr "Send bekræftelsesemail igen"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Vis ændringer"
+msgstr "Annuller ændring"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Ændringer"
+msgstr "Skift til"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
-msgstr "Email ikke bekræftet"
+msgstr "Skift email"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -650,7 +623,6 @@ msgid "Training"
 msgstr "Træning"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
-#, fuzzy
 msgid "Routines"
 msgstr "Rutiner"
 
@@ -743,9 +715,8 @@ msgid "About this software"
 msgstr "Om denne software"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
-#, fuzzy
 msgid "Support & Get Involved"
-msgstr "Støt & bidrag til fællesskabet"
+msgstr "Støt & bliv involveret"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
@@ -902,10 +873,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Lav en ny API nøgle"
+msgstr "Generer en ny refresh-token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -925,10 +894,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Creation date"
 msgid "Created"
-msgstr "Oprettelsesdato"
+msgstr "Oprettet"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -943,10 +910,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "Træningssession"
+msgstr "JWT-sessioner"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -986,10 +951,8 @@ msgid "Generate new API key"
 msgstr "Lav en ny API nøgle"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Lav en ny API nøgle"
+msgstr "Slet API-nøgle"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1013,10 +976,8 @@ msgid "Documentation"
 msgstr "Dokumentation"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Dokumentation"
+msgstr "API-dokumentation"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1283,10 +1244,8 @@ msgid "Change password"
 msgstr "Ændre kodeord"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Nulstil kodeord"
+msgstr "Angiv kodeord"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1301,10 +1260,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Slet konto"
+msgstr "Tilknyttede konti"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1469,22 +1426,16 @@ msgid "Exercise admin history"
 msgstr "Øvelses administrator historik"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Rediger sæt"
+msgstr "Redigeringer sidste 24 t"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Rediger sæt"
+msgstr "Redigeringer sidste 7 d"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Rediger sæt"
+msgstr "Redigeringer sidste 30 d"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1513,10 +1464,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Slet"
+msgstr "slettede"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1531,32 +1480,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "Oversæt"
+msgstr "oversættelser"
 
 #: exercises/templates/history/overview.html:129
 msgid "Object was deleted"
 msgstr ""
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Fortryd ændringer"
+msgstr "Fortryd ændring"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Objekt"
+msgstr "Åbn objekt"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Fortryd ændringer"
+msgstr "Fortryd denne ændring?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1584,17 +1525,13 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Fornavn"
+msgstr "Første"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "forrige"
+msgstr "Forrige"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1608,10 +1545,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Efternavn"
+msgstr "Sidste"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1641,10 +1576,8 @@ msgid "User"
 msgstr "Bruger"
 
 #: exercises/views/history.py:117
-#, fuzzy
-#| msgid "Types"
 msgid "Type"
-msgstr "Typer"
+msgstr "Type"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
@@ -1773,7 +1706,6 @@ msgid "Street"
 msgstr "Vejnavn"
 
 #: gym/models/contract.py:295 gym/templates/contract/view.html:92
-#, fuzzy
 msgid "Profession"
 msgstr "Profession"
 
@@ -2118,10 +2050,8 @@ msgid "Until Failure"
 msgstr "Indtil Fejl"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometre"
+msgstr "Meter"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2132,11 +2062,8 @@ msgid "Beginner"
 msgstr ""
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Indhold"
+msgstr "Vedholdende"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2199,10 +2126,8 @@ msgid "Early Bird"
 msgstr ""
 
 #: i18n.tpl:59
-#, fuzzy
-#| msgid "New weight log"
 msgid "Night Owl"
-msgstr "Ny vægtlog"
+msgstr "Natugle"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
@@ -2213,50 +2138,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Personlige oplysninger"
+msgstr "Personlig rekord"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Eksempel-træning"
+msgstr "Gennemfør 10 træninger"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Eksempel-træning"
+msgstr "Gennemfør 50 træninger"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Eksempel-træning"
+msgstr "Gennemfør 100 træninger"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Eksempel-træning"
+msgstr "Gennemfør 200 træninger"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Eksempel-træning"
+msgstr "Gennemfør 500 træninger"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Eksempel-træning"
+msgstr "Gennemfør 1000 træninger"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2390,10 +2301,8 @@ msgid "Exercise"
 msgstr "Øvelse"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Træning vil udløbe snart"
+msgstr "Rutinen udløber snart"
 
 #: manager/models/session.py:41
 msgid "Bad"
@@ -2514,10 +2423,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Rettelse"
+msgstr "Portion"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2565,10 +2472,8 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Variationer"
+msgstr "Vegetarisk"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2576,16 +2481,12 @@ msgid "No ingredients."
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredients pending review"
 msgid "Ingredient pagination"
-msgstr "Ingredienser afventer gennemgang"
+msgstr "Sidenavigation for ingredienser"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Fornavn"
+msgstr "Første side"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2648,10 +2549,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Ernæring"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2743,10 +2642,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Nutrition plan"
 msgid "Nutritional data"
-msgstr "Ernæringsplan"
+msgstr "Ernæringsdata"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2798,10 +2695,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "Kommentar"
+msgstr "Bliv en del af fællesskabet"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2853,10 +2748,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Udviklerdokumentation"
+msgstr "Bidrag med kode eller dokumentation"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
@@ -2924,10 +2817,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Kommentar"
+msgstr "Fællesskab"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
@@ -3098,10 +2989,8 @@ msgid "Dashboard"
 msgstr "Instrumentbrættet"
 
 #: software/templates/features.html:485
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "Træningspåmindelser"
+msgstr "Træningsrutiner"
 
 #: software/templates/features.html:491
 msgid "Discord"

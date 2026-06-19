@@ -109,10 +109,8 @@ msgid "Used for password resets and, optionally, email reminders."
 msgstr "パスワードのリセットと、メールでのリマインドに使われます。"
 
 #: core/forms.py:234
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "このメールアドレスは既に登録済みです。"
+msgstr "このメールアドレスは既に使用されています。"
 
 #: core/forms.py:256 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:220
@@ -144,10 +142,8 @@ msgid "Invalid password"
 msgstr "パスワードは無効です。"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm"
-msgstr "設定"
+msgstr "確認"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -172,10 +168,8 @@ msgid "Language full name"
 msgstr "言語正式名"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "言語正式名"
+msgstr "英語での言語の正式名称"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -371,10 +365,8 @@ msgid "Name"
 msgstr ""
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "単位"
+msgstr "単位の種類"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -429,10 +421,8 @@ msgid "Please click the button below to confirm your email address."
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm email"
-msgstr "設定"
+msgstr "メールアドレスを確認"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -462,10 +452,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Configuration"
 msgid "Current email"
-msgstr "設定"
+msgstr "現在のメールアドレス"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -473,10 +461,8 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Configuration"
 msgid "Resend confirmation email"
-msgstr "設定"
+msgstr "確認メールを再送信"
 
 #: core/templates/account/email_change.html:42
 msgid "Cancel change"
@@ -487,10 +473,8 @@ msgid "Change to"
 msgstr ""
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Configuration"
 msgid "Change email"
-msgstr "設定"
+msgstr "メールアドレスを変更"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -664,10 +648,8 @@ msgid "Administration"
 msgstr ""
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercises"
 msgid "Exercise edit history"
-msgstr "運動"
+msgstr "エクササイズの編集履歴"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -946,10 +928,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "API key"
 msgid "Delete API key"
-msgstr "APIキー"
+msgstr "APIキーを削除"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1237,10 +1217,8 @@ msgid "Change password"
 msgstr ""
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "パスワード再設定"
+msgstr "パスワードを設定"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1456,10 +1434,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "削除"
+msgstr "削除しました"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1474,8 +1450,6 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
 msgstr "翻訳"
 
@@ -1521,10 +1495,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "名前"
+msgstr "最初"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
@@ -1543,10 +1515,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "姓"
+msgstr "最後"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1576,20 +1546,16 @@ msgid "User"
 msgstr ""
 
 #: exercises/views/history.py:117
-#, fuzzy
-#| msgid "Unit"
 msgid "Type"
-msgstr "単位"
+msgstr "種類"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
 msgstr ""
 
 #: exercises/views/history.py:124
-#, fuzzy
-#| msgid "Options"
 msgid "Action"
-msgstr "オプション"
+msgstr "操作"
 
 #: exercises/views/history.py:131
 msgid "From"
@@ -1608,10 +1574,8 @@ msgid "If date is left empty, it will be read from the image instead"
 msgstr ""
 
 #: gallery/templates/images/overview.html:69
-#, fuzzy
-#| msgid "Add member"
 msgid "Add image"
-msgstr "メンバーを追加"
+msgstr "画像を追加"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -1927,14 +1891,10 @@ msgid "Bench"
 msgstr "ベンチ"
 
 #: i18n.tpl:7
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
 msgstr "上腕二頭筋"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Weight"
 msgid "Body Weight"
 msgstr "体重"
 
@@ -1995,10 +1955,8 @@ msgid "Lower back"
 msgstr ""
 
 #: i18n.tpl:23
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "回"
+msgstr "最大レップ数"
 
 #: i18n.tpl:24
 msgid "Miles"
@@ -2045,8 +2003,6 @@ msgid "Swiss Ball"
 msgstr "バランスボール"
 
 #: i18n.tpl:36
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
 msgstr "上腕三頭筋"
 
@@ -2143,10 +2099,8 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "パーソナルデータ"
+msgstr "自己ベスト記録"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
@@ -2429,10 +2383,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Options"
 msgid "Portion"
-msgstr "オプション"
+msgstr "分量"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2489,16 +2441,12 @@ msgid "No ingredients."
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient"
 msgid "Ingredient pagination"
-msgstr "材料"
+msgstr "材料のページ送り"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "名前"
+msgstr "最初のページ"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2654,10 +2602,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Personal data"
 msgid "Nutritional data"
-msgstr "パーソナルデータ"
+msgstr "栄養データ"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2709,10 +2655,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "コメント"
+msgstr "コミュニティに参加"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2755,10 +2699,8 @@ msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Transfexで翻訳する"
+msgstr "アプリケーションを翻訳する"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2835,10 +2777,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "コメント"
+msgstr "コミュニティ"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
@@ -2917,10 +2857,8 @@ msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
 
 #: software/templates/features.html:259
-#, fuzzy
-#| msgid "Add note"
 msgid "Add custom notes"
-msgstr "ノート追加"
+msgstr "カスタムメモを追加"
 
 #: software/templates/features.html:262
 msgid "Record your weight"
@@ -3031,8 +2969,6 @@ msgid "Source Code"
 msgstr ""
 
 #: software/templates/features.html:524
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
 msgstr "翻訳"
 

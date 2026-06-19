@@ -106,10 +106,8 @@ msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
 
 #: core/forms.py:234
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Този email е вече използван."
+msgstr "Този имейл адрес вече се използва."
 
 #: core/forms.py:256 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:220
@@ -167,10 +165,8 @@ msgid "Language full name"
 msgstr "Пълно име на език"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Пълно име на език"
+msgstr "Пълно име на езика на английски"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -405,16 +401,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"Получавате този е-мейл защото сте задали запитване за нулиране на парола за "
-"потребител в %(site_name)s."
+msgstr "Получавате този имейл, защото потребителят „%(user_display)s“ е посочил вашия имейл адрес, за да регистрира акаунт в %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -467,28 +458,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Password reset confirmation"
 msgid "Resend confirmation email"
-msgstr "Потвърждение за нулиране на паролата"
+msgstr "Повторно изпращане на имейл за потвърждение"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "Change password"
 msgid "Cancel change"
-msgstr "Смени парола"
+msgstr "Отказ от промяната"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Change password"
 msgid "Change to"
-msgstr "Смени парола"
+msgstr "Промени на"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Change password"
 msgid "Change email"
-msgstr "Смени парола"
+msgstr "Промяна на имейла"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -628,10 +611,8 @@ msgid "Calendar"
 msgstr ""
 
 #: core/templates/navigation.html:53
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "Макронутриенти"
+msgstr "Измервания"
 
 #: core/templates/navigation.html:64 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -643,16 +624,12 @@ msgid "Trophies"
 msgstr ""
 
 #: core/templates/navigation.html:79
-#, fuzzy
-#| msgid "Workouts schedules"
 msgid "Workout templates"
-msgstr "График на тренировки"
+msgstr "Шаблони за тренировки"
 
 #: core/templates/navigation.html:86
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Твоите графици"
+msgstr "Вашите шаблони"
 
 #: core/templates/navigation.html:95
 msgid "Public templates"
@@ -668,10 +645,8 @@ msgid "Administration"
 msgstr "Администрация"
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Ден за упражнение"
+msgstr "История на редакциите на упражнението"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -900,10 +875,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Направи график"
+msgstr "Създадено"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -959,10 +932,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete API key"
-msgstr "Изтрии"
+msgstr "Изтриване на API ключ"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -986,10 +957,8 @@ msgid "Documentation"
 msgstr ""
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Administration"
 msgid "API documentation"
-msgstr "Администрация"
+msgstr "API документация"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1252,10 +1221,8 @@ msgid "Change password"
 msgstr "Смени парола"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Промени парола"
+msgstr "Задаване на парола"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1270,10 +1237,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "No account?"
 msgid "Connected accounts"
-msgstr "Нямаш акаунт?"
+msgstr "Свързани акаунти"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1357,10 +1322,8 @@ msgid "Settings successfully updated"
 msgstr "Настройките бяха успешно обновени"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Моля изберете една опция от изброените по-долу."
+msgstr "Моля, поправете грешките по-долу."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1412,10 +1375,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr ""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "име на упражнение"
+msgstr "Алтернативно име"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1439,28 +1400,20 @@ msgid "Equipment list"
 msgstr ""
 
 #: exercises/templates/history/overview.html:7
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Ден за упражнение"
+msgstr "Административна история на упражнението"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Редактирай серия"
+msgstr "Редакции за последните 24 ч."
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Редактирай серия"
+msgstr "Редакции за последните 7 дни"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Редактирай серия"
+msgstr "Редакции за последните 30 дни"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1489,10 +1442,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Изтрии"
+msgstr "изтри"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1507,10 +1458,8 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "Преведи"
+msgstr "преводи"
 
 #: exercises/templates/history/overview.html:129
 msgid "Object was deleted"
@@ -1559,10 +1508,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "предишно"
+msgstr "Предишна"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1615,10 +1562,8 @@ msgid "All"
 msgstr ""
 
 #: exercises/views/history.py:124
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Действия"
+msgstr "Действие"
 
 #: exercises/views/history.py:131
 msgid "From"
@@ -1637,10 +1582,8 @@ msgid "If date is left empty, it will be read from the image instead"
 msgstr ""
 
 #: gallery/templates/images/overview.html:69
-#, fuzzy
-#| msgid "Add muscle"
 msgid "Add image"
-msgstr "Добави мускул"
+msgstr "Добавяне на изображение"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -1960,10 +1903,8 @@ msgid "Biceps"
 msgstr ""
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Weight"
 msgid "Body Weight"
-msgstr "Тегло"
+msgstr "Телесно тегло"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2022,10 +1963,8 @@ msgid "Lower back"
 msgstr ""
 
 #: i18n.tpl:23
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Повторения"
+msgstr "Макс. повторения"
 
 #: i18n.tpl:24
 msgid "Miles"
@@ -2092,10 +2031,8 @@ msgid "Beginner"
 msgstr ""
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgid "Contents"
 msgid "Consistent"
-msgstr "Съставки"
+msgstr "Постоянен"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2158,10 +2095,8 @@ msgid "Early Bird"
 msgstr ""
 
 #: i18n.tpl:59
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Запис на тегло"
+msgstr "Нощна птица"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
@@ -2176,46 +2111,32 @@ msgid "Personal Record"
 msgstr ""
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Копирай тренировка"
+msgstr "Завършете първата си тренировка"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Примерна тренировка"
+msgstr "Завършете 10 тренировки"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Примерна тренировка"
+msgstr "Завършете 50 тренировки"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Примерна тренировка"
+msgstr "Завършете 100 тренировки"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Примерна тренировка"
+msgstr "Завършете 200 тренировки"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Примерна тренировка"
+msgstr "Завършете 500 тренировки"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Примерна тренировка"
+msgstr "Завършете 1000 тренировки"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2262,10 +2183,8 @@ msgid "Complete a workout after 9:00 PM"
 msgstr ""
 
 #: i18n.tpl:81
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Тренировка за %s"
+msgstr "Тренирайте на 1 януари"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2460,10 +2379,8 @@ msgid "Ingredient"
 msgstr "Съставка"
 
 #: nutrition/forms.py:227
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Също използвай съставки на Английски"
+msgstr "Търсете имена и на английски"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
@@ -2474,10 +2391,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Duration"
 msgid "Portion"
-msgstr "Времетраене"
+msgstr "Порция"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2542,10 +2457,8 @@ msgid "No ingredients."
 msgstr "Няма съставки."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "ingredient name"
 msgid "Ingredient pagination"
-msgstr "Име на съставка"
+msgstr "Странициране на съставките"
 
 #: nutrition/templates/ingredient/overview.html:59
 msgid "First page"
@@ -2612,10 +2525,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Хранене"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2760,10 +2671,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "Коментирай"
+msgstr "Присъединете се към общността"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2786,10 +2695,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute your skills"
-msgstr "Допринеси!"
+msgstr "Допринесете с уменията си"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
@@ -2800,20 +2707,16 @@ msgid "Have a problem or idea? Let us know!"
 msgstr ""
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Въведи упражненията"
+msgstr "Подобрете упражненията"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Преведи с Transifex"
+msgstr "Преведете приложението"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2861,21 +2764,11 @@ msgid "Our goal"
 msgstr ""
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
-msgstr ""
-"Целта е да се изгради едно страхотно \n"
-"и гъвкаво управление на фитнес, заедно с подробен и пълен списък от "
-"упражнения и \n"
-"съставки, всички под свободен лиценз."
+msgstr "Целта е да се изгради страхотен и гъвкав фитнес мениджър, заедно с подробен и пълен списък от упражнения и съставки, всички под свободен лиценз."
 
 #: software/templates/features.html:11
 msgid ""
@@ -2900,10 +2793,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Коментирай"
+msgstr "Общност"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
@@ -2915,20 +2806,16 @@ msgid ""
 msgstr ""
 
 #: software/templates/features.html:123
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Грабни кода"
+msgstr "Започнете"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
 msgstr ""
 
 #: software/templates/features.html:137
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Добави упражнения за този тренировъчен ден"
+msgstr "упражнения <br> за съставяне на тренировки"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
@@ -3026,10 +2913,8 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:331
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "Допринеси!"
+msgstr "Допринесете"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
@@ -3040,10 +2925,8 @@ msgid "Web version not enough?"
 msgstr ""
 
 #: software/templates/features.html:371
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Грабни кода"
+msgstr "Вземете и кода!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
@@ -3074,20 +2957,16 @@ msgid ""
 msgstr ""
 
 #: software/templates/features.html:437
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Количество"
+msgstr "Акаунт"
 
 #: software/templates/features.html:453
 msgid "Dashboard"
 msgstr "Табло"
 
 #: software/templates/features.html:485
-#, fuzzy
-#| msgid "Workouts schedules"
 msgid "Workout routines"
-msgstr "График на тренировки"
+msgstr "Тренировъчни програми"
 
 #: software/templates/features.html:491
 msgid "Discord"
@@ -3106,10 +2985,8 @@ msgid "Source Code"
 msgstr ""
 
 #: software/templates/features.html:524
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Преведи"
+msgstr "Превод"
 
 #: utils/generic_views.py:241
 msgid "Yes, delete"

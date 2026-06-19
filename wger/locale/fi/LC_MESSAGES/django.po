@@ -142,10 +142,8 @@ msgid "Invalid password"
 msgstr "Väärä salasana"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
-msgstr "Vahvistamaton sähköpostiosoite"
+msgstr "Vahvista"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -364,10 +362,8 @@ msgid "Time"
 msgstr "Aika"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Vastuskuminauha"
+msgstr "Matka"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -380,10 +376,8 @@ msgid "Name"
 msgstr "Nimi"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Yksikkö"
+msgstr "Yksikkötyyppi"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -424,16 +418,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"Sait tämän sähköpostin, koska pyysit salasanan nollaamista käyttäjätilillesi "
-"%(site_name)s:lla."
+msgstr "Sait tämän sähköpostin, koska käyttäjä \"%(user_display)s\" on antanut sähköpostiosoitteesi rekisteröidäkseen tilin palveluun %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -442,17 +431,12 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr ""
-"Napsauta seuraavaa linkkiä vahvistaaksesi sähköpostiosoitteesi: %(link)s"
+msgstr "Vahvista sähköpostiosoitteesi napsauttamalla alla olevaa painiketta."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "Vahvistamaton sähköpostiosoite"
+msgstr "Vahvista sähköposti"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -471,10 +455,8 @@ msgstr "wger-joukkue"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "Sähköpostiosoitteet"
+msgstr "Sähköpostiosoite"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -484,10 +466,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Nykyinen versio"
+msgstr "Nykyinen sähköposti"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -495,28 +475,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Lähetä vahvistussähköposti"
+msgstr "Lähetä vahvistussähköposti uudelleen"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Näytä muutokset"
+msgstr "Peruuta muutos"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Muutokset"
+msgstr "Vaihda osoitteeseen"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
-msgstr "Vahvistamaton sähköpostiosoite"
+msgstr "Vaihda sähköposti"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -904,10 +876,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Luo uusi API-avain"
+msgstr "Luo uusi päivitystunnus"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -927,10 +897,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Creation date"
 msgid "Created"
-msgstr "Luontipäivä"
+msgstr "Luotu"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -945,10 +913,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Session"
 msgid "JWT sessions"
-msgstr "Harjoituskerta"
+msgstr "JWT-istunnot"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -988,10 +954,8 @@ msgid "Generate new API key"
 msgstr "Luo uusi API-avain"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Luo uusi API-avain"
+msgstr "Poista API-avain"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1015,10 +979,8 @@ msgid "Documentation"
 msgstr "Dokumentaatio"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Dokumentaatio"
+msgstr "API-dokumentaatio"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1287,10 +1249,8 @@ msgid "Change password"
 msgstr "Vaihda salasana"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Nollaa salasana"
+msgstr "Aseta salasana"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1305,10 +1265,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Poista tili"
+msgstr "Yhdistetyt tilit"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1511,10 +1469,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Poista"
+msgstr "poistettu"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1529,32 +1485,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "Käännä"
+msgstr "käännökset"
 
 #: exercises/templates/history/overview.html:129
 msgid "Object was deleted"
 msgstr ""
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Palauta muutokset"
+msgstr "Peru muutos"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Esine"
+msgstr "Avaa kohde"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Palauta muutokset"
+msgstr "Perutaanko tämä muutos?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1582,17 +1530,13 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Etunimi"
+msgstr "Ensimmäinen"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "edellinen"
+msgstr "Edellinen"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1606,10 +1550,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Sukunimi"
+msgstr "Viimeinen"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2114,10 +2056,8 @@ msgid "Until Failure"
 msgstr "Epäonnistumiseen saakka"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometrit"
+msgstr "Metrit"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2128,11 +2068,8 @@ msgid "Beginner"
 msgstr ""
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Sisältö"
+msgstr "Johdonmukainen"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2207,50 +2144,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Henkilökohtaiset tiedot"
+msgstr "Henkilökohtainen ennätys"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Näyteharjoittelu"
+msgstr "Suorita 10 harjoitusta"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Näyteharjoittelu"
+msgstr "Suorita 50 harjoitusta"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Näyteharjoittelu"
+msgstr "Suorita 100 harjoitusta"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Näyteharjoittelu"
+msgstr "Suorita 200 harjoitusta"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Näyteharjoittelu"
+msgstr "Suorita 500 harjoitusta"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Näyteharjoittelu"
+msgstr "Suorita 1000 harjoitusta"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2297,10 +2220,8 @@ msgid "Complete a workout after 9:00 PM"
 msgstr ""
 
 #: i18n.tpl:81
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Harjoitus %s"
+msgstr "Harjoittele tammikuun 1. päivänä"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2519,10 +2440,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Korjaus"
+msgstr "Annos"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2570,10 +2489,8 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Muunnelmat"
+msgstr "Kasvisruoka"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2581,16 +2498,12 @@ msgid "No ingredients."
 msgstr "Ei raaka-aineita."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient"
 msgid "Ingredient pagination"
-msgstr "Ainesosa"
+msgstr "Ainesosien sivutus"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Etunimi"
+msgstr "Ensimmäinen sivu"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2653,10 +2566,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Ravitsemus"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2748,10 +2659,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutritional data"
-msgstr "Ravitsemus"
+msgstr "Ravintotiedot"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2803,10 +2712,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Community"
 msgid "Join the Community"
-msgstr "Yhteisö"
+msgstr "Liity yhteisöön"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2858,10 +2765,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Kehittäjädokumentaatio"
+msgstr "Osallistu koodiin tai dokumentaatioon"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."

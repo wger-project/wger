@@ -137,10 +137,8 @@ msgid "Invalid password"
 msgstr "סיסמה שגויה"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm"
-msgstr "הגדרה"
+msgstr "אישור"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -418,10 +416,8 @@ msgid "Please click the button below to confirm your email address."
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm email"
-msgstr "הגדרה"
+msgstr "אישור כתובת דוא\"ל"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -440,10 +436,8 @@ msgstr "צוות wger"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Address"
 msgid "Email address"
-msgstr "כתובת"
+msgstr "כתובת דוא\"ל"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -453,10 +447,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Configuration"
 msgid "Current email"
-msgstr "הגדרה"
+msgstr "כתובת הדוא\"ל הנוכחית"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -464,10 +456,8 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Configuration"
 msgid "Resend confirmation email"
-msgstr "הגדרה"
+msgstr "שליחת הודעת האישור מחדש"
 
 #: core/templates/account/email_change.html:42
 msgid "Cancel change"
@@ -478,10 +468,8 @@ msgid "Change to"
 msgstr ""
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Configuration"
 msgid "Change email"
-msgstr "הגדרה"
+msgstr "שינוי כתובת הדוא\"ל"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -936,10 +924,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "API key"
 msgid "Delete API key"
-msgstr "מפתח API"
+msgstr "מחיקת מפתח API"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -963,10 +949,8 @@ msgid "Documentation"
 msgstr "תיעוד"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "תיעוד"
+msgstr "תיעוד API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1229,10 +1213,8 @@ msgid "Change password"
 msgstr ""
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "איפוס סיסמה"
+msgstr "הגדרת סיסמה"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1247,10 +1229,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "מחיקת חשבון"
+msgstr "חשבונות מקושרים"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1450,10 +1430,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "מחיקה"
+msgstr "נמחק"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1468,10 +1446,8 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "תרגום"
+msgstr "תרגומים"
 
 #: exercises/templates/history/overview.html:129
 msgid "Object was deleted"
@@ -1515,10 +1491,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "שם פרטי"
+msgstr "ראשון"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
@@ -1537,10 +1511,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "שם משפחה"
+msgstr "אחרון"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2123,50 +2095,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "נתונים אישיים"
+msgstr "שיא אישי"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "אימון לדוגמא"
+msgstr "להשלים 10 אימונים"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "אימון לדוגמא"
+msgstr "להשלים 50 אימונים"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "אימון לדוגמא"
+msgstr "להשלים 100 אימונים"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "אימון לדוגמא"
+msgstr "להשלים 200 אימונים"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "אימון לדוגמא"
+msgstr "להשלים 500 אימונים"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "אימון לדוגמא"
+msgstr "להשלים 1000 אימונים"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2421,10 +2379,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Portion"
-msgstr "תזונה"
+msgstr "מנה"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2485,10 +2441,8 @@ msgid "Ingredient pagination"
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "שם פרטי"
+msgstr "עמוד ראשון"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2551,10 +2505,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "תזונה"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2646,10 +2598,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Sample nutritional plan"
 msgid "Nutritional data"
-msgstr "דיאטה לדוגמא"
+msgstr "נתונים תזונתיים"
 
 #: nutrition/views/plan.py:238
 msgid "Total"

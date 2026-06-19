@@ -485,18 +485,12 @@ msgid "Resend confirmation email"
 msgstr "Skicka om e-postverifiering"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Cancel change"
-msgstr "Ändra"
+msgstr "Avbryt ändring"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Change to"
-msgstr "Ändra"
+msgstr "Ändra till"
 
 #: core/templates/account/email_change.html:66
 msgid "Change email"
@@ -641,10 +635,8 @@ msgid "Calendar"
 msgstr "Kalender"
 
 #: core/templates/navigation.html:53
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "Makronäringsämnen"
+msgstr "Mätningar"
 
 #: core/templates/navigation.html:64 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -656,8 +648,6 @@ msgid "Trophies"
 msgstr ""
 
 #: core/templates/navigation.html:79
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
 msgstr "Träningsmallar"
 
@@ -679,10 +669,8 @@ msgid "Administration"
 msgstr "Administration"
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Träningsdag"
+msgstr "Övningens redigeringshistorik"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -888,10 +876,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Generera nya API key"
+msgstr "Generera en ny refresh-token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -911,10 +897,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Skapa schema"
+msgstr "Skapad"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -929,10 +913,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "Träningssession"
+msgstr "JWT-sessioner"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -972,10 +954,8 @@ msgid "Generate new API key"
 msgstr "Generera nya API key"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Generera nya API key"
+msgstr "Ta bort API-nyckel"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -999,10 +979,8 @@ msgid "Documentation"
 msgstr "Dokumentation"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Dokumentation"
+msgstr "API-dokumentation"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1269,10 +1247,8 @@ msgid "Change password"
 msgstr "Ändra lösenord"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Återställ lösenord"
+msgstr "Ange lösenord"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1287,10 +1263,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Ta bort konto"
+msgstr "Anslutna konton"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1373,10 +1347,8 @@ msgid "Settings successfully updated"
 msgstr "Inställningar uppdaterade"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Vänligen välj ett av alternativen nedan."
+msgstr "Vänligen korrigera felen nedan."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1391,10 +1363,8 @@ msgid "Edit user"
 msgstr "Redigera användare"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Ja, ta bort"
+msgstr "API-nyckeln togs bort"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1430,10 +1400,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "På latin, e.g. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "Övningsnamn"
+msgstr "Alternativt namn"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1457,28 +1425,20 @@ msgid "Equipment list"
 msgstr "Utrustningslista"
 
 #: exercises/templates/history/overview.html:7
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Träningsdag"
+msgstr "Övningens adminhistorik"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Redigera set"
+msgstr "Redigeringar senaste 24h"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Redigera set"
+msgstr "Redigeringar senaste 7d"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Redigera set"
+msgstr "Redigeringar senaste 30d"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1507,10 +1467,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Ta bort"
+msgstr "tog bort"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1525,27 +1483,20 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "Översätt"
+msgstr "översättningar"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Ja, ta bort"
+msgstr "Objektet togs bort"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
 msgstr ""
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Open object"
-msgstr "Ämne"
+msgstr "Öppna objekt"
 
 #: exercises/templates/history/overview.html:198
 msgid "Revert this change?"
@@ -1572,24 +1523,18 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "History pagination"
-msgstr "Klicka här för mer information"
+msgstr "Historiksidnavigering"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Förnamn"
+msgstr "Första"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "tidigare"
+msgstr "Föregående"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1603,10 +1548,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Efternamn"
+msgstr "Sista"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1644,10 +1587,8 @@ msgid "All"
 msgstr ""
 
 #: exercises/views/history.py:124
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Åtgärder"
+msgstr "Åtgärd"
 
 #: exercises/views/history.py:131
 msgid "From"
@@ -1666,10 +1607,8 @@ msgid "If date is left empty, it will be read from the image instead"
 msgstr ""
 
 #: gallery/templates/images/overview.html:69
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Lägg till ny bild"
+msgstr "Lägg till bild"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -1995,16 +1934,12 @@ msgid "Bench"
 msgstr "Bänk"
 
 #: i18n.tpl:7
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
-msgstr "Biceps brachii"
+msgstr "Biceps"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Weight"
 msgid "Body Weight"
-msgstr "Vikt"
+msgstr "Kroppsvikt"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2023,10 +1958,8 @@ msgid "Dumbbell"
 msgstr "Hantel"
 
 #: i18n.tpl:13
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minuter"
+msgstr "Sätesmuskler"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -2049,10 +1982,8 @@ msgid "Kilometers"
 msgstr "Kilometer"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Kilometer"
+msgstr "Kilometer i timmen"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2115,20 +2046,16 @@ msgid "Swiss Ball"
 msgstr "Schweizisk boll"
 
 #: i18n.tpl:36
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "Tricepsbrachii"
+msgstr "Triceps"
 
 #: i18n.tpl:37
 msgid "Until Failure"
 msgstr "Tills Misslyckande"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "Kilometer"
+msgstr "Meter"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2139,11 +2066,8 @@ msgid "Beginner"
 msgstr ""
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Innehåll"
+msgstr "Konsekvent"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2206,10 +2130,8 @@ msgid "Early Bird"
 msgstr ""
 
 #: i18n.tpl:59
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Viktlogg"
+msgstr "Nattuggla"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
@@ -2220,52 +2142,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Personlig data"
+msgstr "Personligt rekord"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Kopiera träningspass"
+msgstr "Slutför ditt första träningspass"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Exempelpass"
+msgstr "Slutför 10 träningspass"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Exempelpass"
+msgstr "Slutför 50 träningspass"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Exempelpass"
+msgstr "Slutför 100 träningspass"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Exempelpass"
+msgstr "Slutför 200 träningspass"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Exempelpass"
+msgstr "Slutför 500 träningspass"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Exempelpass"
+msgstr "Slutför 1000 träningspass"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2312,10 +2218,8 @@ msgid "Complete a workout after 9:00 PM"
 msgstr ""
 
 #: i18n.tpl:81
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Träning för %s"
+msgstr "Träna den 1 januari"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2402,10 +2306,8 @@ msgid "Exercise"
 msgstr "Träning"
 
 #: manager/management/commands/email-reminders.py:89
-#, fuzzy
-#| msgid "Workout will expire soon"
 msgid "Routine will expire soon"
-msgstr "Träningspass snart löper ut"
+msgstr "Rutinen löper snart ut"
 
 #: manager/models/session.py:41
 msgid "Bad"
@@ -2428,18 +2330,14 @@ msgid "The start time cannot be after the end time."
 msgstr "Starttiden kan inte vara efter sluttiden."
 
 #: manager/templates/routines/email_reminder.tpl:3
-#, fuzzy, python-format
-#| msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+#, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr ""
-"Ditt nuvarande träningspass '%(workout)s' upphörde %(days)s dagar sedan."
+msgstr "Din nuvarande rutin '%(routine)s' upphörde för %(days)s dagar sedan."
 
 #: manager/templates/routines/email_reminder.tpl:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Your current workout '%(workout)s' is about to expire in %(days)s days."
+#, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Ditt nuvarande träningspass '%(workout)s' går ut om %(days)s dagar."
+msgstr "Din nuvarande rutin '%(routine)s' löper ut om %(days)s dagar."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2530,10 +2428,8 @@ msgid "Ingredient"
 msgstr "Ingrediens"
 
 #: nutrition/forms.py:227
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Också använda ingredienser i Svenska"
+msgstr "Sök även efter namn på engelska"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
@@ -2544,10 +2440,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Korrigering"
+msgstr "Portion"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2603,10 +2497,8 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Variationer"
+msgstr "Vegetariskt"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2614,16 +2506,12 @@ msgid "No ingredients."
 msgstr "Inga ingredienser."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "ingredient name"
 msgid "Ingredient pagination"
-msgstr "ingrediensnamn"
+msgstr "Ingredienssidnavigering"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Förnamn"
+msgstr "Första sidan"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2640,10 +2528,8 @@ msgid "Search"
 msgstr "Sök"
 
 #: nutrition/templates/ingredient/overview.html:93
-#, fuzzy
-#| msgid "No filter"
 msgid "Filter"
-msgstr "Ingen filter"
+msgstr "Filter"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
@@ -2684,16 +2570,12 @@ msgid "Sodium"
 msgstr "Natrium"
 
 #: nutrition/templates/ingredient/view.html:167
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "Dietary information"
-msgstr "Klicka här för mer information"
+msgstr "Kostinformation"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Kost"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2853,10 +2735,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "Kommentar"
+msgstr "Gå med i gemenskapen"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2879,10 +2759,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute your skills"
-msgstr "Bidra!"
+msgstr "Bidra med dina färdigheter"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
@@ -2893,20 +2771,16 @@ msgid "Have a problem or idea? Let us know!"
 msgstr ""
 
 #: software/templates/about_us.html:81
-#, fuzzy
-#| msgid "Submit exercises"
 msgid "Improve the exercises"
-msgstr "Ladda upp övningar"
+msgstr "Förbättra övningarna"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
 msgstr ""
 
 #: software/templates/about_us.html:85
-#, fuzzy
-#| msgid "Translate with Transifex"
 msgid "Translate the application"
-msgstr "Översätt med Transifex"
+msgstr "Översätt applikationen"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2914,10 +2788,8 @@ msgid ""
 msgstr ""
 
 #: software/templates/about_us.html:89
-#, fuzzy
-#| msgid "Developer documentation"
 msgid "Contribute code or documentation"
-msgstr "Dokument för utvecklare"
+msgstr "Bidra med kod eller dokumentation"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
@@ -2956,32 +2828,17 @@ msgid "Our goal"
 msgstr "Vårt mål"
 
 #: software/templates/about_us.html:158
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
-msgstr ""
-"Målet är att bygga en fantastisk och flexibel fitness manager tillsammans "
-"med en omfattande och fullständig lista av övningar och ingredienser, allt "
-"släppt under en fri licens!"
+msgstr "Målet är att bygga en fantastisk och flexibel fitness manager, tillsammans med en omfattande och fullständig lista av övningar och ingredienser, allt släppt under en fri licens."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
-msgstr ""
-"wger Workout Manager är en webapp med fri och öppen källkod som hanterar "
-"dina övningar, träningspass och din kost. "
+msgstr "wger Workout Manager är en gratis webbapplikation med öppen källkod som hanterar dina övningar och träningspass."
 
 #: software/templates/features.html:45
 msgid "Contact"
@@ -3000,10 +2857,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Kommentar"
+msgstr "Gemenskap"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
@@ -3015,20 +2870,16 @@ msgid ""
 msgstr ""
 
 #: software/templates/features.html:123
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Hämta koden"
+msgstr "Kom igång"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
 msgstr ""
 
 #: software/templates/features.html:137
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Lägg till övningar i denna träningsdag"
+msgstr "övningar <br> för att skapa träningspass"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
@@ -3086,16 +2937,12 @@ msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
 
 #: software/templates/features.html:259
-#, fuzzy
-#| msgid "Add note"
 msgid "Add custom notes"
-msgstr "Lägga till anteckning"
+msgstr "Lägg till egna anteckningar"
 
 #: software/templates/features.html:262
-#, fuzzy
-#| msgid "You have to enter your weight"
 msgid "Record your weight"
-msgstr "Du måste ange din vikt"
+msgstr "Registrera din vikt"
 
 #: software/templates/features.html:265
 msgid "Keep a photo log to see your progress"
@@ -3106,10 +2953,8 @@ msgid "Use the calendar view to see past entries"
 msgstr ""
 
 #: software/templates/features.html:287
-#, fuzzy
-#| msgid "Try it now"
 msgid "Try wger now"
-msgstr "Prova nu"
+msgstr "Prova wger nu"
 
 #: software/templates/features.html:308
 msgid "Powered By <span>the community</span>"
@@ -3132,10 +2977,8 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:331
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "Bidra!"
+msgstr "Bidra"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
@@ -3146,10 +2989,8 @@ msgid "Web version not enough?"
 msgstr ""
 
 #: software/templates/features.html:371
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Hämta koden"
+msgstr "Hämta koden också!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
@@ -3170,10 +3011,8 @@ msgid "wger offers an open API that you can use for your app."
 msgstr ""
 
 #: software/templates/features.html:413
-#, fuzzy
-#| msgid "Current version"
 msgid "Create your own version"
-msgstr "Aktuell version"
+msgstr "Skapa din egen version"
 
 #: software/templates/features.html:416
 msgid ""
@@ -3182,20 +3021,16 @@ msgid ""
 msgstr ""
 
 #: software/templates/features.html:437
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Mängd"
+msgstr "Konto"
 
 #: software/templates/features.html:453
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
 #: software/templates/features.html:485
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "Träningspåminnelser"
+msgstr "Träningsrutiner"
 
 #: software/templates/features.html:491
 msgid "Discord"
@@ -3214,10 +3049,8 @@ msgid "Source Code"
 msgstr ""
 
 #: software/templates/features.html:524
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Översätt"
+msgstr "Översättning"
 
 #: utils/generic_views.py:241
 msgid "Yes, delete"
@@ -3232,20 +3065,12 @@ msgid "Link to original object, if available"
 msgstr ""
 
 #: utils/models.py:87
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
 msgstr "Skapare"
 
 #: utils/models.py:91
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Om du inte är skapaen, ange namn eller källa här. Detta är nödvändigt för "
-"vissa licenser e.g. CC-BY-SA."
+msgstr "Om du inte är skaparen, ange namn eller källa här."
 
 #: utils/models.py:95
 msgid "Link to author profile, if available"

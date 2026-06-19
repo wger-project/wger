@@ -140,10 +140,8 @@ msgid "Invalid password"
 msgstr "Nevaljana lozinka"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Confirm"
-msgstr "Potvrdi e-mail adresu"
+msgstr "Potvrdi"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -458,10 +456,8 @@ msgstr "wger tim"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "E-mail adrese"
+msgstr "E-mail adresa"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -471,10 +467,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Trenutačna verzija"
+msgstr "Trenutačna e-mail adresa"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -482,28 +476,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Pošalji e-mail za ovjeru"
+msgstr "Ponovno pošalji e-mail za potvrdu"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Prikaži promjene"
+msgstr "Odustani od promjene"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Promjene"
+msgstr "Promijeni u"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Confirm email"
 msgid "Change email"
-msgstr "Potvrdi e-mail adresu"
+msgstr "Promijeni e-mail adresu"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -892,10 +878,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Generiraj novi API ključ"
+msgstr "Generiraj novi refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -915,10 +899,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Stvori raspored"
+msgstr "Stvoreno"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -933,10 +915,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "Sesija treninga"
+msgstr "JWT sesije"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -977,10 +957,8 @@ msgid "Generate new API key"
 msgstr "Generiraj novi API ključ"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Generiraj novi API ključ"
+msgstr "Izbriši API ključ"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1004,10 +982,8 @@ msgid "Documentation"
 msgstr "Dokumentacija"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Dokumentacija"
+msgstr "API dokumentacija"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1274,10 +1250,8 @@ msgid "Change password"
 msgstr "Promjeni lozinku"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Obnovi lozinku"
+msgstr "Postavi lozinku"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1292,10 +1266,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Izbriši račun"
+msgstr "Povezani računi"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1378,10 +1350,8 @@ msgid "Settings successfully updated"
 msgstr "Postavke su uspješno aktualizirane"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Odaberi jednu od donjih opcija."
+msgstr "Ispravi pogreške u nastavku."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1396,10 +1366,8 @@ msgid "Edit user"
 msgstr "Uredi korisnika"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Da, izbriši"
+msgstr "API ključ je izbrisan"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1464,22 +1432,16 @@ msgid "Exercise admin history"
 msgstr "Povijest administratora vježbe"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Uredi set"
+msgstr "Uređivanja u zadnja 24 h"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Uredi set"
+msgstr "Uređivanja u zadnjih 7 dana"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Uredi set"
+msgstr "Uređivanja u zadnjih 30 dana"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1500,20 +1462,16 @@ msgid "new"
 msgstr ""
 
 #: exercises/templates/history/overview.html:94
-#, fuzzy
-#| msgid "Dedicated"
 msgid "created"
-msgstr "Posvećen"
+msgstr "stvorio"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Izbriši"
+msgstr "izbrisao"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1528,34 +1486,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
-msgstr "Prijevod"
+msgstr "prijevodi"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Da, izbriši"
+msgstr "Objekt je izbrisan"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Obnovi promjene"
+msgstr "Poništi promjenu"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Objekt"
+msgstr "Otvori objekt"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Obnovi promjene"
+msgstr "Poništiti ovu promjenu?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1578,24 +1526,18 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Dietary information"
 msgid "History pagination"
-msgstr "Informacije o prehrani"
+msgstr "Navigacija kroz povijest"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Ime"
+msgstr "Prva"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "prethodno"
+msgstr "Prethodna"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1609,10 +1551,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Prezime"
+msgstr "Posljednja"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2565,16 +2505,12 @@ msgid "No ingredients."
 msgstr "Nema satojaka."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
-msgstr "Kategorije sastojaka"
+msgstr "Navigacija kroz sastojke"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Ime"
+msgstr "Prva stranica"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2637,10 +2573,8 @@ msgid "Dietary information"
 msgstr "Informacije o prehrani"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Prehrana"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"

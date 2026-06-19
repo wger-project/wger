@@ -139,10 +139,8 @@ msgid "Invalid password"
 msgstr "رمز نامعتبر"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm"
-msgstr "تنظیمات"
+msgstr "تأیید"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -416,16 +414,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"شما این ایمیل را دریافت کردید به دلیل اینکه درخواست تغییر رمز عبور خود را "
-"داشته اید در %(site_name)s"
+msgstr "شما این ایمیل را دریافت کردید زیرا کاربر «%(user_display)s» نشانی ایمیل شما را برای ثبت‌نام یک حساب در %(site_domain)s وارد کرده است."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -434,16 +427,12 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr "لطفاً برای تأیید ایمیل خود روی لینک زیر کلیک کنید: %(link)s"
+msgstr "لطفاً برای تأیید نشانی ایمیل خود روی دکمه زیر کلیک کنید."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Configuration"
 msgid "Confirm email"
-msgstr "تنظیمات"
+msgstr "تأیید ایمیل"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -473,10 +462,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Configuration"
 msgid "Current email"
-msgstr "تنظیمات"
+msgstr "ایمیل فعلی"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -484,10 +471,8 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Configuration"
 msgid "Resend confirmation email"
-msgstr "تنظیمات"
+msgstr "ارسال مجدد ایمیل تأیید"
 
 #: core/templates/account/email_change.html:42
 msgid "Cancel change"
@@ -498,10 +483,8 @@ msgid "Change to"
 msgstr ""
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Configuration"
 msgid "Change email"
-msgstr "تنظیمات"
+msgstr "تغییر ایمیل"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -629,19 +612,16 @@ msgid "Nothing found"
 msgstr "چیزی یافت نشد"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:151
-#, fuzzy
 msgid "Imprint"
-msgstr "نشان دادن"
+msgstr "اطلاعات ناشر"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
-#, fuzzy
 msgid "Training"
-msgstr "تمرینات"
+msgstr "تمرین"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
-#, fuzzy
 msgid "Routines"
-msgstr "برنامه ها"
+msgstr "برنامه‌ها"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:83
 msgid "Calendar"
@@ -661,19 +641,16 @@ msgid "Trophies"
 msgstr ""
 
 #: core/templates/navigation.html:79
-#, fuzzy
-#| msgid "Workouts schedules"
 msgid "Workout templates"
-msgstr "الگو تمرین ورزشی"
+msgstr "الگوهای تمرین"
 
 #: core/templates/navigation.html:86
 msgid "Your templates"
 msgstr "الگو های شما"
 
 #: core/templates/navigation.html:95
-#, fuzzy
 msgid "Public templates"
-msgstr "الگو های عمومی"
+msgstr "الگوهای عمومی"
 
 #: core/templates/navigation.html:103 software/templates/features.html:51
 #: software/templates/features.html:480
@@ -685,10 +662,8 @@ msgid "Administration"
 msgstr ""
 
 #: core/templates/navigation.html:113
-#, fuzzy
-#| msgid "Exercises"
 msgid "Exercise edit history"
-msgstr "تمرینات"
+msgstr "تاریخچه ویرایش تمرین"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -749,9 +724,8 @@ msgid "License"
 msgstr "مجوز"
 
 #: core/templates/navigation.html:238
-#, fuzzy
 msgid "Developer documentation"
-msgstr "مستندات برنامه نوبیسان"
+msgstr "مستندات توسعه‌دهنده"
 
 #: core/templates/navigation.html:245
 msgid "Get the code"
@@ -780,9 +754,8 @@ msgstr "مجوز ها"
 
 #: core/templates/navigation.html:361
 #: core/templates/repetition_unit/list.html:4
-#, fuzzy
 msgid "Repetition units"
-msgstr "واحد تکرار"
+msgstr "واحدهای تکرار"
 
 #: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:232
@@ -974,10 +947,8 @@ msgid "Generate new API key"
 msgstr ""
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete API key"
-msgstr "حذف"
+msgstr "حذف کلید API"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1001,9 +972,8 @@ msgid "Documentation"
 msgstr ""
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
 msgid "API documentation"
-msgstr "مستندات برنامه نوبیسان"
+msgstr "مستندات API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1266,10 +1236,8 @@ msgid "Change password"
 msgstr ""
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "بازنشانی رمز عبور"
+msgstr "تنظیم رمز عبور"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1381,10 +1349,8 @@ msgid "Edit user"
 msgstr ""
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "بله، حذف"
+msgstr "کلید API حذف شد"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1437,10 +1403,8 @@ msgid "File type is not supported"
 msgstr ""
 
 #: exercises/models/video.py:72
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s روز تولد معتبر نمی باشد"
+msgstr "فایل یک ویدیوی معتبر نیست"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1489,10 +1453,8 @@ msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "حذف"
+msgstr "حذف کرد"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1507,16 +1469,12 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translate"
 msgid "translations"
-msgstr "ترجمه"
+msgstr "ترجمه‌ها"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "بله، حذف"
+msgstr "شیء حذف شد"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
@@ -1556,10 +1514,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "نام"
+msgstr "اول"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
@@ -1578,10 +1534,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "نام خانوادگی"
+msgstr "آخر"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1619,10 +1573,8 @@ msgid "All"
 msgstr ""
 
 #: exercises/views/history.py:124
-#, fuzzy
-#| msgid "Options"
 msgid "Action"
-msgstr "امکانات"
+msgstr "عملیات"
 
 #: exercises/views/history.py:131
 msgid "From"
@@ -1962,10 +1914,8 @@ msgid "Biceps"
 msgstr ""
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Weight"
 msgid "Body Weight"
-msgstr "وزن"
+msgstr "وزن بدن"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -1984,10 +1934,8 @@ msgid "Dumbbell"
 msgstr ""
 
 #: i18n.tpl:13
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "دقیقه"
+msgstr "سرینی"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -2010,10 +1958,8 @@ msgid "Kilometers"
 msgstr "کیلوگرم"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "کیلوگرم"
+msgstr "کیلومتر در ساعت"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2076,20 +2022,16 @@ msgid "Swiss Ball"
 msgstr ""
 
 #: i18n.tpl:36
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "سه سر بازو"
+msgstr "سه‌سر بازو"
 
 #: i18n.tpl:37
 msgid "Until Failure"
 msgstr "تا حد ناتوانی"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "کیلوگرم"
+msgstr "متر"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2176,50 +2118,36 @@ msgid "Phoenix"
 msgstr ""
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "اطلاعات شخصی"
+msgstr "رکورد شخصی"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
 msgstr ""
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "نمونه تمرینات"
+msgstr "۱۰ تمرین را کامل کنید"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "نمونه تمرینات"
+msgstr "۵۰ تمرین را کامل کنید"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "نمونه تمرینات"
+msgstr "۱۰۰ تمرین را کامل کنید"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "نمونه تمرینات"
+msgstr "۲۰۰ تمرین را کامل کنید"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "نمونه تمرینات"
+msgstr "۵۰۰ تمرین را کامل کنید"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "نمونه تمرینات"
+msgstr "۱۰۰۰ تمرین را کامل کنید"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2462,10 +2390,8 @@ msgid "Ingredient"
 msgstr ""
 
 #: nutrition/forms.py:227
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "همچنین عناصر مورد نیاز را به انگلیسی نمایش بده"
+msgstr "همچنین نام‌ها را به انگلیسی جستجو کن"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
@@ -2476,10 +2402,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Portion"
-msgstr "مواد غذایی"
+msgstr "وعده"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2536,16 +2460,12 @@ msgid "No ingredients."
 msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient weight units"
 msgid "Ingredient pagination"
-msgstr "واحدهای وزن مواد تشکیل دهنده"
+msgstr "صفحه‌بندی مواد تشکیل‌دهنده"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "نام"
+msgstr "صفحه اول"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2608,10 +2528,8 @@ msgid "Dietary information"
 msgstr ""
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "مواد غذایی"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2703,10 +2621,8 @@ msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr ""
 
 #: nutrition/views/plan.py:230
-#, fuzzy
-#| msgid "Nutrition plan"
 msgid "Nutritional data"
-msgstr "برنامه غذایی"
+msgstr "داده‌های تغذیه‌ای"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2758,10 +2674,8 @@ msgid "How you can help"
 msgstr ""
 
 #: software/templates/about_us.html:40
-#, fuzzy
-#| msgid "Comment"
 msgid "Join the Community"
-msgstr "نظر"
+msgstr "به انجمن بپیوندید"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
@@ -2882,10 +2796,8 @@ msgid "Develop"
 msgstr ""
 
 #: software/templates/features.html:73 software/templates/features.html:476
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "نظر"
+msgstr "انجمن"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
@@ -3056,10 +2968,8 @@ msgid "Dashboard"
 msgstr "داشبورد"
 
 #: software/templates/features.html:485
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "یاداوری تمرین"
+msgstr "برنامه‌های تمرینی"
 
 #: software/templates/features.html:491
 msgid "Discord"

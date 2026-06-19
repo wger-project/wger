@@ -145,10 +145,8 @@ msgid "Invalid password"
 msgstr "密码无效"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
-msgstr "未验证的邮箱"
+msgstr "确认"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -362,10 +360,8 @@ msgid "Time"
 msgstr "时间"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "弹力带"
+msgstr "距离"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -378,10 +374,8 @@ msgid "Name"
 msgstr "名称"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "单元"
+msgstr "单位类型"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -421,15 +415,11 @@ msgid "Almost there!"
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"你收到这封邮件是因为你在%(site_name)s站点为你的账户提交了重置密码的请求。"
+msgstr "你收到这封邮件，是因为用户 \"%(user_display)s\" 使用你的邮箱地址在 %(site_domain)s 上注册了账户。"
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -438,16 +428,12 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr "请点击以下连接以确认您的邮箱：%(link)s"
+msgstr "请点击下方按钮以确认你的邮箱地址。"
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "未验证的邮箱"
+msgstr "确认邮箱"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -466,10 +452,8 @@ msgstr "维格小组"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "邮件"
+msgstr "邮箱地址"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -479,10 +463,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "当前版本"
+msgstr "当前邮箱"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -490,28 +472,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr ""
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "发送验证邮件"
+msgstr "重新发送确认邮件"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "查看更改"
+msgstr "取消更改"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "修改"
+msgstr "更改为"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
-msgstr "未验证的邮箱"
+msgstr "更改邮箱"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -896,10 +870,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "生成一个新的API密钥"
+msgstr "生成新的刷新令牌"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -919,10 +891,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "创建规划"
+msgstr "已创建"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -937,10 +907,8 @@ msgid "Revoke all refresh tokens"
 msgstr ""
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "锻炼课程"
+msgstr "JWT 会话"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -979,10 +947,8 @@ msgid "Generate new API key"
 msgstr "生成一个新的API密钥"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "生成一个新的API密钥"
+msgstr "删除 API 密钥"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1006,10 +972,8 @@ msgid "Documentation"
 msgstr "文档"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "文档"
+msgstr "API 文档"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1275,10 +1239,8 @@ msgid "Change password"
 msgstr "修改密码"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "重设密码"
+msgstr "设置密码"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1293,10 +1255,8 @@ msgid "Off"
 msgstr ""
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "删除账户"
+msgstr "已关联账户"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1379,10 +1339,8 @@ msgid "Settings successfully updated"
 msgstr "设置更新成功"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "请选择通过或者拒绝."
+msgstr "请更正下方的错误。"
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1397,10 +1355,8 @@ msgid "Edit user"
 msgstr "编辑用户"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "是,删除"
+msgstr "API 密钥已删除"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1465,22 +1421,16 @@ msgid "Exercise admin history"
 msgstr "训练管理历史"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "编辑组"
+msgstr "最近 24 小时的编辑数"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "编辑组"
+msgstr "最近 7 天的编辑数"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "编辑组"
+msgstr "最近 30 天的编辑数"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1501,20 +1451,16 @@ msgid "new"
 msgstr ""
 
 #: exercises/templates/history/overview.html:94
-#, fuzzy
-#| msgid "Dedicated"
 msgid "created"
-msgstr "资深"
+msgstr "创建了"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
 msgstr ""
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "删除"
+msgstr "删除了"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1529,34 +1475,24 @@ msgid "media"
 msgstr ""
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
 msgstr "翻译"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "是,删除"
+msgstr "对象已删除"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "还原更改"
+msgstr "还原此更改"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "对象"
+msgstr "打开对象"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "还原更改"
+msgstr "要还原此更改吗？"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1579,24 +1515,18 @@ msgid "Reset filters"
 msgstr ""
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "History pagination"
-msgstr "点击获取更多信息"
+msgstr "历史记录分页"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "名字"
+msgstr "首页"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "前"
+msgstr "上一页"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1610,10 +1540,8 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "姓氏"
+msgstr "末页"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2111,10 +2039,8 @@ msgid "Until Failure"
 msgstr "直到力竭"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "公里"
+msgstr "米"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2201,10 +2127,8 @@ msgid "Phoenix"
 msgstr "不死鸟"
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "个人数据"
+msgstr "个人纪录"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
@@ -2243,9 +2167,8 @@ msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
 msgstr "连续 4 周在周六和周日完成训练"
 
 #: i18n.tpl:72
-#, fuzzy
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr "累计负重达到 5,000 kg"
+msgstr "累计举起 5,000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
@@ -2495,10 +2418,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "修正"
+msgstr "份量"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2556,10 +2477,8 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "变体"
+msgstr "素食"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2567,16 +2486,12 @@ msgid "No ingredients."
 msgstr "没有成分。"
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
-msgstr "成分类别"
+msgstr "食材分页"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "名字"
+msgstr "首页"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2635,16 +2550,12 @@ msgid "Sodium"
 msgstr "钠"
 
 #: nutrition/templates/ingredient/view.html:167
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "Dietary information"
-msgstr "点击获取更多信息"
+msgstr "膳食信息"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "营养"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2965,10 +2876,8 @@ msgid "exercises <br> for workout creation"
 msgstr "动作<br> 健身安排"
 
 #: software/templates/features.html:141
-#, fuzzy
-#| msgid "foods <br> for meal planing"
 msgid "foods <br> for meal planning"
-msgstr "食物<br> 备营养餐"
+msgstr "食物<br>用于膳食计划"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
