@@ -157,11 +157,11 @@ msgstr "Correo electrónico no verificado"
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
-msgstr ""
+msgstr "Tu cuenta no tiene contraseña. Escribe el nombre de usuario \"{username}\" para confirmar."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "El nombre de usuario introducido no coincide"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -396,7 +396,7 @@ msgstr "Unidad"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "El tipo de unidad (repeticiones, tiempo o distancia)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -431,7 +431,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "¡Casi listo!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, fuzzy, python-format
@@ -449,7 +449,7 @@ msgstr ""
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
+msgstr "Tu código de verificación de correo electrónico aparece a continuación. Introdúcelo en la ventana del navegador que tienes abierta."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 #, fuzzy
@@ -470,11 +470,11 @@ msgstr "Correo electrónico no verificado"
 msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
-msgstr ""
+msgstr "El enlace es válido durante %(expire_hours)s horas (hasta el %(date)s, %(time)s). Puedes solicitar uno nuevo desde los ajustes de tu perfil."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
-msgstr ""
+msgstr "Si el botón no funciona, copia y pega este enlace en tu navegador:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -492,7 +492,7 @@ msgid ""
 "Your email address is used for password resets and, optionally, workout "
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
-msgstr ""
+msgstr "Tu dirección de correo electrónico se utiliza para restablecer la contraseña y, opcionalmente, para los recordatorios de entrenamiento. Una nueva dirección solo se activa cuando la confirmas mediante el enlace que se le envía."
 
 #: core/templates/account/email_change.html:20
 #, fuzzy
@@ -503,7 +503,7 @@ msgstr "Versión actual"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Confirmación pendiente: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 #, fuzzy
@@ -546,15 +546,15 @@ msgstr "¿No tienes cuenta?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Inicio de sesión más rápido"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Iniciar sesión con una passkey"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "o inicia sesión con"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
@@ -891,7 +891,7 @@ msgstr "Términos de servicio"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Idioma del navegador"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -899,24 +899,24 @@ msgstr "Funciones"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "Acceso a la API"
 
 #: core/templates/user/api_key.html:9
 msgid ""
 "Theare are two ways to authenticate against the API: JWT is the preferred "
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
-msgstr ""
+msgstr "Hay dos formas de autenticarse en la API: JWT es el mecanismo preferido para las aplicaciones cliente, la clave de API estática está pensada para scripts personales o integraciones puntuales."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Tokens de actualización de larga duración"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
-msgstr ""
+msgstr "Los tokens de actualización permiten que los scripts y las herramientas de CLI se comuniquen con la API de wger mediante el flujo JWT sin iniciar sesión de forma interactiva cada vez."
 
 #: core/templates/user/api_key.html:35
 #, fuzzy
@@ -926,20 +926,20 @@ msgstr "Generar una nueva llave de API"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Copia este token ahora."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
-msgstr ""
+msgstr "Solo se muestra una vez. Si lo pierdes, genera uno nuevo y revoca la sesión anterior más abajo."
 
 #: core/templates/user/api_key.html:56
 #, python-format
 msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
-msgstr ""
+msgstr "Los tokens de actualización caducan %(days)s días después de generarse, a menos que los revoques antes."
 
 #: core/templates/user/api_key.html:65
 #, fuzzy
@@ -949,15 +949,15 @@ msgstr "Crear programa"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Caduca"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Revocar"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Revocar todos los tokens de actualización"
 
 #: core/templates/user/api_key.html:110
 #, fuzzy
@@ -967,7 +967,7 @@ msgstr "Session de entrenamiento"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Revocar todas las sesiones JWT"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -981,14 +981,14 @@ msgid_plural ""
 "                There are currently <strong>%(counter)s</strong> active JWT "
 "sessions\n"
 "            "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                Actualmente hay <strong>%(counter)s</strong> sesión JWT activa\n            "
+msgstr[1] "\n                Actualmente hay <strong>%(counter)s</strong> sesiones JWT activas\n            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
-msgstr ""
+msgstr "Revocar las sesiones JWT cierra la sesión en todos los dispositivos que obtuvieron un token de actualización a través del endpoint de inicio de sesión JWT."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
@@ -1019,11 +1019,11 @@ msgid ""
 "            Pass <code>Token %(key)s</code> in the\n"
 "            <code>Authorization</code> header to use it.\n"
 "        "
-msgstr ""
+msgstr "\n            Pasa <code>Token %(key)s</code> en el\n            encabezado <code>Authorization</code> para usarlo.\n        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Ejemplo con curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -1037,21 +1037,21 @@ msgstr "Documentación"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Volver a la aplicación"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Volviendo a la aplicación wger…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
-msgstr ""
+msgstr "Si no ocurre nada, toca el botón de abajo. Asegúrate de que la aplicación wger esté instalada en este dispositivo."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Toca para volver a la aplicación"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1287,7 +1287,7 @@ msgstr "Preferencias"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Cuenta y seguridad"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1309,15 +1309,15 @@ msgstr "Restablecer la contraseña"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Autenticación de dos factores"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Activado"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Desactivado"
 
 #: core/templates/user/preferences.html:60
 #, fuzzy
@@ -1327,11 +1327,11 @@ msgstr "Eliminar cuenta"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Zona de peligro"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Tu cuenta y todos los datos de entrenamiento se eliminarán de forma permanente."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1431,16 +1431,16 @@ msgstr "Sí, eliminar"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Se revocaron todas las sesiones de la API"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Se revocó el token de actualización"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Se revocaron {count} token(s) de actualización"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1512,20 +1512,20 @@ msgstr "Editar serie"
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Restablecer"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Cuenta con menos de 60 días"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "nuevo"
 
 #: exercises/templates/history/overview.html:94
 #, fuzzy
@@ -1535,7 +1535,7 @@ msgstr "Dedicado"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "editado"
 
 #: exercises/templates/history/overview.html:98
 #, fuzzy
@@ -1545,15 +1545,15 @@ msgstr "Borrar"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "fusionado"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "en"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "medios"
 
 #: exercises/templates/history/overview.html:126
 #, fuzzy
@@ -1587,11 +1587,11 @@ msgstr "Revertir cambios"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "El objeto se restaurará a su estado anterior."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1599,11 +1599,11 @@ msgstr "Revertir"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Ningún cambio coincide con los filtros."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Restablecer filtros"
 
 #: exercises/templates/history/overview.html:246
 #, fuzzy
@@ -1628,12 +1628,12 @@ msgstr "anterior"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Página %(current)s de %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1675,7 +1675,7 @@ msgstr "Tipo"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1683,11 +1683,11 @@ msgstr "Acción"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Desde"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Hasta"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1695,7 +1695,7 @@ msgstr "Añadir músculo"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Si se deja la fecha vacía, se leerá de la imagen en su lugar"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -2489,7 +2489,7 @@ msgstr "Rutina para %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Porción"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
@@ -2517,7 +2517,7 @@ msgstr ""
 
 #: nutrition/forms.py:213
 msgid "grams (g)"
-msgstr ""
+msgstr "gramos (g)"
 
 #: nutrition/forms.py:223
 msgid "Ingredient"
@@ -2529,11 +2529,11 @@ msgstr "Busque también los nombres en inglés"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Cantidad"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Introduce una cantidad y elige gramos (g) o una de las unidades de porción."
 
 #: nutrition/models/ingredient.py:476
 #, fuzzy
@@ -2591,7 +2591,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Vegano"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
