@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2024-08-20 18:09+0000\n"
-"Last-Translator: GS Bacon <gs@gsvoren.no>\n"
+"PO-Revision-Date: 2026-06-19 14:49+0000\n"
+"Last-Translator: Para <ahh-produktivitet@tutanota.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
 "web/nb_NO/>\n"
 "Language: no\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -417,7 +417,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Snart ferdig!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -509,19 +509,19 @@ msgstr "Ingen konto?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Raskere innlogging"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Logg inn med en passnøkkel"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "eller logg inn med"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Har du allerede en konto?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -666,7 +666,7 @@ msgstr "Administrasjon"
 
 #: core/templates/navigation.html:113
 msgid "Exercise edit history"
-msgstr "Redigeringshistorikk for øvelser"
+msgstr "Endringshistorikk for øvelse"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -716,7 +716,7 @@ msgstr "Om denne programvaren"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Støtt og bli involvert"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
@@ -844,7 +844,7 @@ msgstr "Vilkår for bruk"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Nettleserspråk"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -898,7 +898,7 @@ msgstr "Opprettet"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Utløper"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
@@ -1227,15 +1227,15 @@ msgstr "Preferanser"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Konto og sikkerhet"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
-msgstr "Bekreftet e-post"
+msgstr "Verifisert e-post"
 
 #: core/templates/user/preferences.html:29
 msgid "Unverified email"
-msgstr ""
+msgstr "Uverifisert e-post"
 
 #: core/templates/user/preferences.html:36 core/views/user.py:692
 msgid "Change password"
@@ -1247,27 +1247,27 @@ msgstr "Angi passord"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Tofaktorautentisering"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "På"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Av"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
-msgstr "Tilknyttede kontoer"
+msgstr "Tilkoblede konti"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Faresone"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Kontoen din og all dine treningsdata vil bli slettet permanent."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1343,7 +1343,7 @@ msgstr "Innstillinger ble vellykket oppdatert"
 
 #: core/views/user.py:314
 msgid "Please correct the errors below."
-msgstr "Rett opp feilene nedenfor."
+msgstr "Korriger feilene under."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1359,7 +1359,7 @@ msgstr "Rediger bruker"
 
 #: core/views/user.py:503
 msgid "API key was deleted"
-msgstr "API-nøkkelen ble slettet"
+msgstr "API-nøkkel ble slettet"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1451,15 +1451,15 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "ny"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "opprettet"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "redigert"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
@@ -1467,7 +1467,7 @@ msgstr "slettet"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "sammenslått"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
@@ -1503,7 +1503,7 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1534,12 +1534,12 @@ msgstr "Forrige"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Side %(current)s av %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Neste"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1579,7 +1579,7 @@ msgstr "Type"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1587,11 +1587,11 @@ msgstr "Handling"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Fra"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Til"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1857,7 +1857,7 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Vennligst skriv ned brukerpassordet eller lagre eksportert\n"
+"Skriv ned brukerpassordet eller lagre eksportert\n"
 "fil, som inneholder all brukerdata , og oppbevar den på et trygt sted. "
 "Passord\n"
 "kan ikke gjenopprettes senere."
@@ -1941,7 +1941,7 @@ msgstr "Legg"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Kondisjonstrening"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -2001,7 +2001,7 @@ msgstr "Miles"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Miles i timen"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2021,7 +2021,7 @@ msgstr ""
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Motstandsbånd"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -2057,7 +2057,7 @@ msgstr "ingen (kroppsvekt øvelse)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Nybegynner"
 
 #: i18n.tpl:43
 msgid "Consistent"
@@ -2065,63 +2065,63 @@ msgstr "Konsekvent"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Dedikert"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Besatt"
 
 #: i18n.tpl:46
 msgid "Legend"
-msgstr "Forklaring"
+msgstr "Legende"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Veteran"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titan"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Ustoppelig"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Helgekriger"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Elefantløfter"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Bussløfter"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Flyløfter"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Blåhvalløfter"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Romstasjonsløfter"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Millionær"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Morgenfugl"
 
 #: i18n.tpl:59
 msgid "Night Owl"
@@ -2129,11 +2129,11 @@ msgstr "Nattugle"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Nytt år, ny meg"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Føniks"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2169,47 +2169,47 @@ msgstr "Fullfør 1000 treningsøkter"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Oppretthold en 30-dagers treningsrekke"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Tren på lørdag og søndag i 4 helger på rad"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Løft totalt 5000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Løft totalt 20 000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Løft totalt 50 000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Løft totalt 150 000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Løft totalt 450 000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Løft totalt 1 000 000 kg"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Løft totalt 10 000 000 kg"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Fullfør en treningsøkt før kl. 06:00"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Fullfør en treningsøkt etter kl. 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
@@ -2217,11 +2217,11 @@ msgstr "Tren 1. januar"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Vend tilbake til trening etter 30 dagers inaktivitet"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Sett ny personlig rekord i en hvilken som helst øvelse"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2289,7 +2289,7 @@ msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "hvile"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2414,7 +2414,7 @@ msgstr ""
 
 #: nutrition/forms.py:213
 msgid "grams (g)"
-msgstr ""
+msgstr "gram (g)"
 
 #: nutrition/forms.py:223
 msgid "Ingredient"
@@ -2426,11 +2426,11 @@ msgstr "Søk også etter navn på engelsk"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Kvantitet"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Angi en mengde og velg gram (g) eller en av serveringsenhetene."
 
 #: nutrition/models/ingredient.py:476
 msgid "Portion"
@@ -2488,7 +2488,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Vegansk"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
@@ -2503,7 +2503,7 @@ msgstr "Ingen ingredienser."
 
 #: nutrition/templates/ingredient/overview.html:54
 msgid "Ingredient pagination"
-msgstr "Sidenavigering for ingredienser"
+msgstr "Ingredienspaginering"
 
 #: nutrition/templates/ingredient/overview.html:59
 msgid "First page"
@@ -2559,7 +2559,7 @@ msgstr "Andre"
 
 #: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Fiber"
 
 #: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
 msgid "Sodium"
@@ -2571,7 +2571,7 @@ msgstr "Kostholdsinformasjon"
 
 #: nutrition/templates/ingredient/view.html:203
 msgid "Nutri-Score"
-msgstr "Nutri-Score"
+msgstr "Næringsscore"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
@@ -2579,7 +2579,7 @@ msgstr "Legg til vekt enhet"
 
 #: nutrition/templates/rate/form.html:26
 msgid "Basal metabolic rate"
-msgstr "Basal metabolic rate"
+msgstr "Basal metabolsk hastighet"
 
 #: nutrition/templates/rate/form.html:27
 msgid ""
@@ -2613,7 +2613,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:60
 msgid "Factor for daily activities: "
-msgstr "Faktor for daglige aktiviteter:"
+msgstr "Faktor for daglige aktiviteter: "
 
 #: nutrition/templates/rate/form.html:68
 msgid ""
@@ -2717,7 +2717,7 @@ msgstr ""
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Åpen kildekode og gratis å bruke ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2730,7 +2730,7 @@ msgstr ""
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Hvordan du kan bidra"
 
 #: software/templates/about_us.html:40
 msgid "Join the Community"
@@ -2745,16 +2745,20 @@ msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Gå inn på Discord-serveren for å chatte med utviklerne og andre brukere, "
+"stille spørsmål eller diskutere nye funksjoner."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Få nyheter, oppdateringer og kunngjøringer om prosjektet på Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Spre ordet: Fortell vennene dine, treningskameratene dine eller del på "
+"sosiale medier! Din entusiasme hjelper oss å vokse og nå flere mennesker."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
@@ -2762,11 +2766,11 @@ msgstr "Bidra med dine ferdigheter"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Rapporter feil eller foreslå funksjoner"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
-msgstr "Har du et problem eller en idé? Si fra til oss!"
+msgstr "Har du et problem eller en idé? Gi oss beskjed!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
@@ -2774,7 +2778,7 @@ msgstr "Forbedre øvelsene"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Bidra med nye øvelser, og rediger eller oversett de eksisterende."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
@@ -2784,18 +2788,20 @@ msgstr "Oversett applikasjonen"
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Bidra til å gjøre appen tilgjengelig på flere språk for brukere over hele "
+"verden."
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
-msgstr "Bidra med kode eller dokumentasjon"
+msgstr "Bidra til kode eller dokumentasjon"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Sjekk ut kildekoden og hjelp oss med å bygge neste versjon."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Gi en donasjon"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2806,20 +2812,28 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Selv om prosjektet er gratis og alltid vil forbli det, er det ikke gratis å "
+"drifte serveren! Å tilby den hostede versjonen av wger innebærer reelle, "
+"løpende kostnader for serverhosting, båndbredde, sikkerhetskopiering osv. "
+"Utvikling tar også betydelig tid og innsats fra frivillige. Ditt bidrag "
+"støtter direkte disse viktige kostnadene, og bidrar til å holde tjenesten "
+"pålitelig, forbedrende og gratis for alle."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Sponsor på GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Tusen takk!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Takk for at du er en del av fellesskapet! Vi setter pris på bruken din, "
+"tilbakemeldingene dine og all støtte du kan tilby."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
@@ -2830,13 +2844,18 @@ msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
-msgstr "Målet er å bygge en fantastisk og fleksibel treningsadministrator, sammen med en omfattende og komplett liste over øvelser og ingredienser, alt utgitt under en fri lisens."
+msgstr ""
+"Målet er å bygge en fantastisk og fleksibel treningsmanager, sammen med en "
+"omfattende og komplett liste over øvelser og ingredienser, alt utgitt under "
+"en fri lisens."
 
 #: software/templates/features.html:11
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
-msgstr "wger Workout Manager er en gratis nettapplikasjon med åpen kildekode som administrerer øvelsene og treningsøktene dine."
+msgstr ""
+"wger Workout Manager er en gratis, åpen kildekode web-applikasjon som "
+"håndterer dine øvelser og treningsøkter."
 
 #: software/templates/features.html:45
 msgid "Contact"
@@ -2844,15 +2863,15 @@ msgstr "Kontakt"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobilapp"
 
 #: software/templates/features.html:63 software/templates/features.html:337
 msgid "Donate"
-msgstr ""
+msgstr "Donere"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Utvikle"
 
 #: software/templates/features.html:73 software/templates/features.html:476
 msgid "Community"
@@ -2860,12 +2879,14 @@ msgstr "Fellesskap"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Spor din <br> vei til din <br> ideelle kropp"
 
 #: software/templates/features.html:113
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Bli med i wger - den fellesskapsdrevne <b>gratis og åpen kildekode-"
+"aktivitetsmåleren</b>"
 
 #: software/templates/features.html:123
 msgid "Get Started"
