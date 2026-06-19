@@ -566,7 +566,7 @@ WGER_SETTINGS = {
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
-    'EXERCISE_CACHE_TTL': 3600,
+    'EXERCISE_CACHE_TTL': 4 * 604800,  # one month; entries are invalidated on write
     'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'INGREDIENT_CACHE_TTL': 604800,  # one week
     'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(weeks=12),
