@@ -154,10 +154,8 @@ msgid "Invalid password"
 msgstr "Mot de passe invalide"
 
 #: core/forms.py:289
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm"
-msgstr "Email non vérifié"
+msgstr "Confirmer"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -379,10 +377,8 @@ msgid "Time"
 msgstr "Temps"
 
 #: core/models/rep_unit.py:34
-#, fuzzy
-#| msgid "Resistance band"
 msgid "Distance"
-msgstr "Bande de résistance"
+msgstr "Distance"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -395,10 +391,8 @@ msgid "Name"
 msgstr "Nom"
 
 #: core/models/rep_unit.py:53
-#, fuzzy
-#| msgid "Unit"
 msgid "Unit Type"
-msgstr "Unité"
+msgstr "Type d'unité"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
@@ -440,16 +434,11 @@ msgid "Almost there!"
 msgstr "Vous y êtes presque !"
 
 #: core/templates/account/email/email_confirmation_message.html:85
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you requested a password reset for "
-#| "your user account at %(site_name)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr ""
-"Vous recevez ce courriel parce que vous avez demandé un nouveau mot de passe "
-"pour votre compte sur %(site_name)s."
+msgstr "Vous recevez cet e-mail parce que l'utilisateur «%(user_display)s» a indiqué votre adresse e-mail pour créer un compte sur %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -458,17 +447,12 @@ msgid ""
 msgstr "Votre code de vérification d'e-mail est indiqué ci-dessous. Veuillez le saisir dans la fenêtre de navigateur ouverte."
 
 #: core/templates/account/email/email_confirmation_message.html:100
-#, fuzzy
-#| msgid "Please click the following link to confirm your email: %(link)s"
 msgid "Please click the button below to confirm your email address."
-msgstr ""
-"Veuillez cliquer sur le lien suivant pour confirmer votre e-mail : %(link)s"
+msgstr "Veuillez cliquer sur le bouton ci-dessous pour confirmer votre adresse e-mail."
 
 #: core/templates/account/email/email_confirmation_message.html:106
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Confirm email"
-msgstr "Email non vérifié"
+msgstr "Confirmer l'adresse e-mail"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -488,10 +472,8 @@ msgstr "L'équipe wger"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
-#| msgid "Emails"
 msgid "Email address"
-msgstr "Courriels"
+msgstr "Adresse e-mail"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -501,10 +483,8 @@ msgid ""
 msgstr "Votre adresse e-mail est utilisée pour la réinitialisation du mot de passe et, en option, pour les rappels d'entraînement. Une nouvelle adresse n'est activée qu'une fois que vous la confirmez via le lien qui lui est envoyé."
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current version"
 msgid "Current email"
-msgstr "Version actuelle"
+msgstr "Adresse e-mail actuelle"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -512,28 +492,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr "Confirmation en attente : <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
-#| msgid "Send verification email"
 msgid "Resend confirmation email"
-msgstr "Envoyer un email de vérification"
+msgstr "Renvoyer l'e-mail de confirmation"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
-#| msgid "View changes"
 msgid "Cancel change"
-msgstr "Voir les modifications"
+msgstr "Annuler la modification"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
-#| msgid "Changes"
 msgid "Change to"
-msgstr "Modifications"
+msgstr "Remplacer par"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
-#| msgid "Unverified email"
 msgid "Change email"
-msgstr "Email non vérifié"
+msgstr "Changer d'adresse e-mail"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -926,10 +898,8 @@ msgid ""
 msgstr "Les jetons de rafraîchissement permettent aux scripts et aux outils en ligne de commande de communiquer avec l'API de wger via le flux JWT sans se connecter de manière interactive à chaque fois."
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Generate a new refresh token"
-msgstr "Générer votre nouvelle clé API"
+msgstr "Générer un nouveau jeton de rafraîchissement"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -949,10 +919,8 @@ msgid ""
 msgstr "Les jetons de rafraîchissement expirent %(days)s jours après leur génération, sauf si vous les révoquez plus tôt."
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
-#| msgid "Create schedule"
 msgid "Created"
-msgstr "Créer un programme"
+msgstr "Créé"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -967,10 +935,8 @@ msgid "Revoke all refresh tokens"
 msgstr "Révoquer tous les jetons de rafraîchissement"
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
-#| msgid "Workout session"
 msgid "JWT sessions"
-msgstr "Séance d'entraînement"
+msgstr "Sessions JWT"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -1010,10 +976,8 @@ msgid "Generate new API key"
 msgstr "Générer votre nouvelle clé API"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
-#| msgid "Generate new API key"
 msgid "Delete API key"
-msgstr "Générer votre nouvelle clé API"
+msgstr "Supprimer la clé API"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1037,10 +1001,8 @@ msgid "Documentation"
 msgstr "Documentation"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
-#| msgid "Documentation"
 msgid "API documentation"
-msgstr "Documentation"
+msgstr "Documentation de l'API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1309,10 +1271,8 @@ msgid "Change password"
 msgstr "Changer le mot de passe"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
-#| msgid "Reset password"
 msgid "Set password"
-msgstr "Réinitialiser le mot de passe"
+msgstr "Définir le mot de passe"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1327,10 +1287,8 @@ msgid "Off"
 msgstr "Désactivé"
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
-#| msgid "Delete account"
 msgid "Connected accounts"
-msgstr "Supprimer votre compte"
+msgstr "Comptes connectés"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1414,10 +1372,8 @@ msgid "Settings successfully updated"
 msgstr "Paramètres mis à jour"
 
 #: core/views/user.py:314
-#, fuzzy
-#| msgid "Please select one of the options below."
 msgid "Please correct the errors below."
-msgstr "Merci de choisir une des options suivantes."
+msgstr "Veuillez corriger les erreurs ci-dessous."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1432,10 +1388,8 @@ msgid "Edit user"
 msgstr "Modifier l’utilisateur"
 
 #: core/views/user.py:503
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "API key was deleted"
-msgstr "Oui, supprimer"
+msgstr "La clé API a été supprimée"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1500,22 +1454,16 @@ msgid "Exercise admin history"
 msgstr "Historique d'exercice admin"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 24h"
-msgstr "Modifier la série"
+msgstr "Modifications dernières 24 h"
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 7d"
-msgstr "Modifier la série"
+msgstr "Modifications 7 derniers jours"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
-#| msgid "Edit set"
 msgid "Edits last 30d"
-msgstr "Modifier la série"
+msgstr "Modifications 30 derniers jours"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1544,10 +1492,8 @@ msgid "edited"
 msgstr "modifié"
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
-#| msgid "Delete"
 msgid "deleted"
-msgstr "Supprimer"
+msgstr "supprimé"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1562,34 +1508,24 @@ msgid "media"
 msgstr "média"
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
-#| msgid "Translation"
 msgid "translations"
-msgstr "Traduction"
+msgstr "Traductions"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
-#| msgid "Yes, delete"
 msgid "Object was deleted"
-msgstr "Oui, supprimer"
+msgstr "L'objet a été supprimé"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert change"
-msgstr "Annuler les modifications"
+msgstr "Annuler la modification"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
-#| msgid "Object"
 msgid "Open object"
-msgstr "Objet"
+msgstr "Ouvrir l'objet"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
-#| msgid "Revert changes"
 msgid "Revert this change?"
-msgstr "Annuler les modifications"
+msgstr "Annuler cette modification ?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1612,24 +1548,18 @@ msgid "Reset filters"
 msgstr "Réinitialiser les filtres"
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "History pagination"
-msgstr "Cliquez ici pour plus d'informations"
+msgstr "Pagination de l'historique"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
-#| msgid "First name"
 msgid "First"
-msgstr "Prénom"
+msgstr "Première"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
-#| msgid "previous"
 msgid "Previous"
-msgstr "précédent"
+msgstr "Précédent"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1643,10 +1573,8 @@ msgstr "Suivant"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
-#| msgid "Last name"
 msgid "Last"
-msgstr "Nom"
+msgstr "Dernière"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2157,10 +2085,8 @@ msgid "Until Failure"
 msgstr "Jusqu'à l'échec"
 
 #: i18n.tpl:38
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Meters"
-msgstr "kilomètres"
+msgstr "Mètres"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
@@ -2171,11 +2097,8 @@ msgid "Beginner"
 msgstr "Débutant"
 
 #: i18n.tpl:43
-#, fuzzy
-#| msgctxt "As in \"content of an email\""
-#| msgid "Content"
 msgid "Consistent"
-msgstr "Contenu"
+msgstr "Régulier"
 
 #: i18n.tpl:44
 msgid "Dedicated"
@@ -2238,10 +2161,8 @@ msgid "Early Bird"
 msgstr "Lève-tôt"
 
 #: i18n.tpl:59
-#, fuzzy
-#| msgid "Weight log"
 msgid "Night Owl"
-msgstr "Journal de pesée"
+msgstr "Oiseau de nuit"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
@@ -2252,52 +2173,36 @@ msgid "Phoenix"
 msgstr "Phénix"
 
 #: i18n.tpl:62
-#, fuzzy
-#| msgid "Personal data"
 msgid "Personal Record"
-msgstr "Données personnelles"
+msgstr "Record personnel"
 
 #: i18n.tpl:63
-#, fuzzy
-#| msgid "Copy workout"
 msgid "Complete your first workout"
-msgstr "Copier une séance"
+msgstr "Terminer votre premier entraînement"
 
 #: i18n.tpl:64
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 10 workouts"
-msgstr "Exemple de séance"
+msgstr "Terminer 10 entraînements"
 
 #: i18n.tpl:65
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 50 workouts"
-msgstr "Exemple de séance"
+msgstr "Terminer 50 entraînements"
 
 #: i18n.tpl:66
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 100 workouts"
-msgstr "Exemple de séance"
+msgstr "Terminer 100 entraînements"
 
 #: i18n.tpl:67
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 200 workouts"
-msgstr "Exemple de séance"
+msgstr "Terminer 200 entraînements"
 
 #: i18n.tpl:68
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 500 workouts"
-msgstr "Exemple de séance"
+msgstr "Terminer 500 entraînements"
 
 #: i18n.tpl:69
-#, fuzzy
-#| msgid "Sample workout"
 msgid "Complete 1000 workouts"
-msgstr "Exemple de séance"
+msgstr "Terminer 1000 entraînements"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2344,10 +2249,8 @@ msgid "Complete a workout after 9:00 PM"
 msgstr "Terminer un entraînement après 21h00"
 
 #: i18n.tpl:81
-#, fuzzy
-#| msgid "Workout for %s"
 msgid "Work out on January 1st"
-msgstr "Séance pour %s"
+msgstr "S'entraîner le 1er janvier"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2573,10 +2476,8 @@ msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr "Saisissez une quantité et choisissez les grammes (g) ou l'une des unités de portion."
 
 #: nutrition/models/ingredient.py:476
-#, fuzzy
-#| msgid "Correction"
 msgid "Portion"
-msgstr "Correction"
+msgstr "Portion"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -2637,10 +2538,8 @@ msgstr "Végan"
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
-#, fuzzy
-#| msgid "Variations"
 msgid "Vegetarian"
-msgstr "Variations"
+msgstr "Végétarien"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2648,16 +2547,12 @@ msgid "No ingredients."
 msgstr "Aucun ingrédient."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
-#| msgid "Ingredient Categories"
 msgid "Ingredient pagination"
-msgstr "Catégories d’ingrédients"
+msgstr "Pagination des ingrédients"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
-#| msgid "First name"
 msgid "First page"
-msgstr "Prénom"
+msgstr "Première page"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2674,10 +2569,8 @@ msgid "Search"
 msgstr "Recherche"
 
 #: nutrition/templates/ingredient/overview.html:93
-#, fuzzy
-#| msgid "No filter"
 msgid "Filter"
-msgstr "Pas de filtre"
+msgstr "Filtre"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
@@ -2718,16 +2611,12 @@ msgid "Sodium"
 msgstr "Sodium"
 
 #: nutrition/templates/ingredient/view.html:167
-#, fuzzy
-#| msgid "Click here for more information"
 msgid "Dietary information"
-msgstr "Cliquez ici pour plus d'informations"
+msgstr "Informations diététiques"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
-#| msgid "Nutrition"
 msgid "Nutri-Score"
-msgstr "Nutrition"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"

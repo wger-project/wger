@@ -144,9 +144,8 @@ msgid "Invalid password"
 msgstr "Ungültiges Passwort"
 
 #: core/forms.py:289
-#, fuzzy
 msgid "Confirm"
-msgstr "Nicht verifizierte E-Mail-Adresse"
+msgstr "Bestätigen"
 
 #: core/forms.py:297
 #, python-brace-format
@@ -471,9 +470,8 @@ msgstr "Das wger Team"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
-#, fuzzy
 msgid "Email address"
-msgstr "E-Mails"
+msgstr "E-Mail-Adresse"
 
 #: core/templates/account/email_change.html:9
 msgid ""
@@ -483,9 +481,8 @@ msgid ""
 msgstr "Deine E-Mail-Adresse wird für das Zurücksetzen des Passworts und optional für Trainingserinnerungen verwendet. Eine neue Adresse wird erst aktiv, wenn du sie über den zugesandten Link bestätigst."
 
 #: core/templates/account/email_change.html:20
-#, fuzzy
 msgid "Current email"
-msgstr "Aktuelle Version"
+msgstr "Aktuelle E-Mail-Adresse"
 
 #: core/templates/account/email_change.html:30
 #, python-format
@@ -493,24 +490,20 @@ msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr "Bestätigung ausstehend: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
-#, fuzzy
 msgid "Resend confirmation email"
-msgstr "Sende Bestätigungs-E-Mail"
+msgstr "Bestätigungs-E-Mail erneut senden"
 
 #: core/templates/account/email_change.html:42
-#, fuzzy
 msgid "Cancel change"
-msgstr "Änderungen anzeigen"
+msgstr "Änderung abbrechen"
 
 #: core/templates/account/email_change.html:54
-#, fuzzy
 msgid "Change to"
-msgstr "Änderungen"
+msgstr "Ändern in"
 
 #: core/templates/account/email_change.html:66
-#, fuzzy
 msgid "Change email"
-msgstr "Nicht verifizierte E-Mail-Adresse"
+msgstr "E-Mail-Adresse ändern"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -900,9 +893,8 @@ msgid ""
 msgstr "Mit Refresh-Token können Skripte und CLI-Tools über den JWT-Flow mit der wger-API kommunizieren, ohne sich jedes Mal interaktiv anzumelden."
 
 #: core/templates/user/api_key.html:35
-#, fuzzy
 msgid "Generate a new refresh token"
-msgstr "Generiere einen neuen API-Schlüssel"
+msgstr "Neuen Refresh-Token generieren"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -922,9 +914,8 @@ msgid ""
 msgstr "Refresh-Token laufen %(days)s Tage nach ihrer Erzeugung ab, sofern du sie nicht früher widerrufst."
 
 #: core/templates/user/api_key.html:65
-#, fuzzy
 msgid "Created"
-msgstr "Zeitplan erstellen"
+msgstr "Erstellt"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
@@ -939,9 +930,8 @@ msgid "Revoke all refresh tokens"
 msgstr "Alle Refresh-Token widerrufen"
 
 #: core/templates/user/api_key.html:110
-#, fuzzy
 msgid "JWT sessions"
-msgstr "Trainingseinheit"
+msgstr "JWT-Sitzungen"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
@@ -981,9 +971,8 @@ msgid "Generate new API key"
 msgstr "Generiere einen neuen API-Schlüssel"
 
 #: core/templates/user/api_key.html:174
-#, fuzzy
 msgid "Delete API key"
-msgstr "Generiere einen neuen API-Schlüssel"
+msgstr "API-Schlüssel löschen"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
@@ -1007,9 +996,8 @@ msgid "Documentation"
 msgstr "Dokumentation"
 
 #: core/templates/user/api_key.html:213
-#, fuzzy
 msgid "API documentation"
-msgstr "Dokumentation"
+msgstr "API-Dokumentation"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
@@ -1276,9 +1264,8 @@ msgid "Change password"
 msgstr "Passwort ändern"
 
 #: core/templates/user/preferences.html:42
-#, fuzzy
 msgid "Set password"
-msgstr "Passwort zurücketzen"
+msgstr "Passwort festlegen"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
@@ -1293,9 +1280,8 @@ msgid "Off"
 msgstr "Aus"
 
 #: core/templates/user/preferences.html:60
-#, fuzzy
 msgid "Connected accounts"
-msgstr "Konto löschen"
+msgstr "Verbundene Konten"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
@@ -1379,9 +1365,8 @@ msgid "Settings successfully updated"
 msgstr "Einstellungen erfolgreich aktualisiert"
 
 #: core/views/user.py:314
-#, fuzzy
 msgid "Please correct the errors below."
-msgstr "Wähle bitte eine der folgenden Optionen."
+msgstr "Bitte korrigiere die folgenden Fehler."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1396,9 +1381,8 @@ msgid "Edit user"
 msgstr "Benutzer bearbeiten"
 
 #: core/views/user.py:503
-#, fuzzy
 msgid "API key was deleted"
-msgstr "Löschen bestätigen"
+msgstr "API-Schlüssel wurde gelöscht"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1463,19 +1447,16 @@ msgid "Exercise admin history"
 msgstr "Übungsadministrationsverlauf"
 
 #: exercises/templates/history/overview.html:16
-#, fuzzy
 msgid "Edits last 24h"
-msgstr "Satz bearbeiten"
+msgstr "Bearbeitungen letzte 24 Std."
 
 #: exercises/templates/history/overview.html:24
-#, fuzzy
 msgid "Edits last 7d"
-msgstr "Satz bearbeiten"
+msgstr "Bearbeitungen letzte 7 Tage"
 
 #: exercises/templates/history/overview.html:32
-#, fuzzy
 msgid "Edits last 30d"
-msgstr "Satz bearbeiten"
+msgstr "Bearbeitungen letzte 30 Tage"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1504,9 +1485,8 @@ msgid "edited"
 msgstr "bearbeitet"
 
 #: exercises/templates/history/overview.html:98
-#, fuzzy
 msgid "deleted"
-msgstr "Löschen"
+msgstr "gelöscht"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
@@ -1521,29 +1501,24 @@ msgid "media"
 msgstr "Medien"
 
 #: exercises/templates/history/overview.html:126
-#, fuzzy
 msgid "translations"
-msgstr "Übersetzung"
+msgstr "Übersetzungen"
 
 #: exercises/templates/history/overview.html:129
-#, fuzzy
 msgid "Object was deleted"
-msgstr "Löschen bestätigen"
+msgstr "Objekt wurde gelöscht"
 
 #: exercises/templates/history/overview.html:180
-#, fuzzy
 msgid "Revert change"
-msgstr "Änderungen rückgängig machen"
+msgstr "Änderung rückgängig machen"
 
 #: exercises/templates/history/overview.html:187
-#, fuzzy
 msgid "Open object"
-msgstr "Objekt"
+msgstr "Objekt öffnen"
 
 #: exercises/templates/history/overview.html:198
-#, fuzzy
 msgid "Revert this change?"
-msgstr "Änderungen rückgängig machen"
+msgstr "Diese Änderung rückgängig machen?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
@@ -1566,21 +1541,18 @@ msgid "Reset filters"
 msgstr "Filter zurücksetzen"
 
 #: exercises/templates/history/overview.html:246
-#, fuzzy
 msgid "History pagination"
-msgstr "Hier klicken für mehr Informationen"
+msgstr "Verlaufs-Seitennavigation"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
-#, fuzzy
 msgid "First"
-msgstr "Vorname"
+msgstr "Erste"
 
 #: exercises/templates/history/overview.html:256
 #: exercises/templates/history/overview.html:261
-#, fuzzy
 msgid "Previous"
-msgstr "zurück"
+msgstr "Zurück"
 
 #: exercises/templates/history/overview.html:266
 #, python-format
@@ -1594,9 +1566,8 @@ msgstr "Weiter"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
-#, fuzzy
 msgid "Last"
-msgstr "Nachname"
+msgstr "Letzte"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2561,14 +2532,12 @@ msgid "No ingredients."
 msgstr "Keine Zutaten."
 
 #: nutrition/templates/ingredient/overview.html:54
-#, fuzzy
 msgid "Ingredient pagination"
-msgstr "Zutatenkategorien"
+msgstr "Zutaten-Seitennavigation"
 
 #: nutrition/templates/ingredient/overview.html:59
-#, fuzzy
 msgid "First page"
-msgstr "Vorname"
+msgstr "Erste Seite"
 
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
@@ -2631,9 +2600,8 @@ msgid "Dietary information"
 msgstr "Nährwerte"
 
 #: nutrition/templates/ingredient/view.html:203
-#, fuzzy
 msgid "Nutri-Score"
-msgstr "Ernährung"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
