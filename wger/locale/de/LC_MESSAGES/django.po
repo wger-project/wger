@@ -152,11 +152,11 @@ msgstr "Nicht verifizierte E-Mail-Adresse"
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
-msgstr ""
+msgstr "Dein Konto hat kein Passwort. Gib zur Bestätigung den Benutzernamen \"{username}\" ein."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Der eingegebene Benutzername stimmt nicht überein"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -480,7 +480,7 @@ msgid ""
 "Your email address is used for password resets and, optionally, workout "
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
-msgstr ""
+msgstr "Deine E-Mail-Adresse wird für das Zurücksetzen des Passworts und optional für Trainingserinnerungen verwendet. Eine neue Adresse wird erst aktiv, wenn du sie über den zugesandten Link bestätigst."
 
 #: core/templates/account/email_change.html:20
 #, fuzzy
@@ -490,7 +490,7 @@ msgstr "Aktuelle Version"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Bestätigung ausstehend: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 #, fuzzy
@@ -529,15 +529,15 @@ msgstr "Kein Konto?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Schnelleres Anmelden"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Mit einem Passkey anmelden"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "oder anmelden mit"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
@@ -880,24 +880,24 @@ msgstr "Funktionen"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "API-Zugriff"
 
 #: core/templates/user/api_key.html:9
 msgid ""
 "Theare are two ways to authenticate against the API: JWT is the preferred "
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
-msgstr ""
+msgstr "Es gibt zwei Möglichkeiten, sich gegenüber der API zu authentifizieren: JWT ist der bevorzugte Mechanismus für Client-Anwendungen, der statische API-Schlüssel ist für persönliche Skripte oder einmalige Integrationen gedacht."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Langlebige Refresh-Token"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
-msgstr ""
+msgstr "Mit Refresh-Token können Skripte und CLI-Tools über den JWT-Flow mit der wger-API kommunizieren, ohne sich jedes Mal interaktiv anzumelden."
 
 #: core/templates/user/api_key.html:35
 #, fuzzy
@@ -906,20 +906,20 @@ msgstr "Generiere einen neuen API-Schlüssel"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Kopiere diesen Token jetzt."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
-msgstr ""
+msgstr "Er wird nur einmal angezeigt. Falls du ihn verlierst, erzeuge einen neuen und widerrufe unten die alte Sitzung."
 
 #: core/templates/user/api_key.html:56
 #, python-format
 msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
-msgstr ""
+msgstr "Refresh-Token laufen %(days)s Tage nach ihrer Erzeugung ab, sofern du sie nicht früher widerrufst."
 
 #: core/templates/user/api_key.html:65
 #, fuzzy
@@ -928,15 +928,15 @@ msgstr "Zeitplan erstellen"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Läuft ab"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Widerrufen"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Alle Refresh-Token widerrufen"
 
 #: core/templates/user/api_key.html:110
 #, fuzzy
@@ -945,7 +945,7 @@ msgstr "Trainingseinheit"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Alle JWT-Sitzungen widerrufen"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -959,14 +959,14 @@ msgid_plural ""
 "                There are currently <strong>%(counter)s</strong> active JWT "
 "sessions\n"
 "            "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                Es gibt derzeit <strong>%(counter)s</strong> aktive JWT-Sitzung\n            "
+msgstr[1] "\n                Es gibt derzeit <strong>%(counter)s</strong> aktive JWT-Sitzungen\n            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
-msgstr ""
+msgstr "Das Widerrufen von JWT-Sitzungen meldet jedes Gerät ab, das über den JWT-Login-Endpunkt einen Refresh-Token erhalten hat."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
@@ -996,11 +996,11 @@ msgid ""
 "            Pass <code>Token %(key)s</code> in the\n"
 "            <code>Authorization</code> header to use it.\n"
 "        "
-msgstr ""
+msgstr "\n            Übergib <code>Token %(key)s</code> im\n            <code>Authorization</code>-Header, um ihn zu verwenden.\n        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Beispiel mit curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -1013,21 +1013,21 @@ msgstr "Dokumentation"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Zurück zur App"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Kehre zur wger-App zurück…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
-msgstr ""
+msgstr "Wenn nichts passiert, tippe auf die Schaltfläche unten. Stelle sicher, dass die wger-App auf diesem Gerät installiert ist."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Tippen, um zur App zurückzukehren"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1261,7 +1261,7 @@ msgstr "Einstellungen"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Konto & Sicherheit"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1282,15 +1282,15 @@ msgstr "Passwort zurücketzen"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Zwei-Faktor-Authentifizierung"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Ein"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Aus"
 
 #: core/templates/user/preferences.html:60
 #, fuzzy
@@ -1299,11 +1299,11 @@ msgstr "Konto löschen"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Gefahrenbereich"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Dein Konto und alle Trainingsdaten werden dauerhaft gelöscht."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1402,16 +1402,16 @@ msgstr "Löschen bestätigen"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Alle API-Sitzungen wurden widerrufen"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Refresh-Token wurde widerrufen"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "{count} Refresh-Token widerrufen"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1489,19 +1489,19 @@ msgstr "Zurücksetzen"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Konto jünger als 60 Tage"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "neu"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "erstellt"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "bearbeitet"
 
 #: exercises/templates/history/overview.html:98
 #, fuzzy
@@ -1510,15 +1510,15 @@ msgstr "Löschen"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "zusammengeführt"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "in"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "Medien"
 
 #: exercises/templates/history/overview.html:126
 #, fuzzy
@@ -1547,11 +1547,11 @@ msgstr "Änderungen rückgängig machen"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Das Objekt wird in seinen vorherigen Zustand zurückversetzt."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1559,11 +1559,11 @@ msgstr "Rückgängig machen"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Keine Änderungen entsprechen den Filtern."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Filter zurücksetzen"
 
 #: exercises/templates/history/overview.html:246
 #, fuzzy
@@ -1585,12 +1585,12 @@ msgstr "zurück"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Seite %(current)s von %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Weiter"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1631,7 +1631,7 @@ msgstr "Typ"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1639,11 +1639,11 @@ msgstr "Aktionen"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Von"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Bis"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -2143,7 +2143,7 @@ msgstr "Unstoppbar"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Wochenendkrieger"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
