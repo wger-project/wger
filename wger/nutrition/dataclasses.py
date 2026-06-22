@@ -16,9 +16,12 @@
 from dataclasses import (
     asdict,
     dataclass,
-    field
+    field,
 )
-from typing import List, Optional
+from typing import (
+    List,
+    Optional,
+)
 
 # wger
 from wger.nutrition.helpers import (
