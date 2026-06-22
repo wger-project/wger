@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-05-13 13:14+0000\n"
-"Last-Translator: \"E. Ta.\" <eta00823@gmail.com>\n"
+"PO-Revision-Date: 2026-06-22 08:11+0000\n"
+"Last-Translator: E Sa <lkjhgfdsa73h@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
 "Language: ar_SA\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 2026.5.dev0\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -148,7 +148,7 @@ msgstr "تأكيد"
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
-msgstr ""
+msgstr "حسابك لا يحتوي على كلمة مرور. اكتب اسم المستخدم ”{username}“ للتأكيد."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
