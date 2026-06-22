@@ -274,11 +274,10 @@ class Ingredient(AbstractLicenseModel, models.Model):
         blank=True,
     )
 
-    category = models.ForeignKey(
+    category = models.ManyToManyField(
         IngredientCategory,
         verbose_name='Category',
-        on_delete=models.CASCADE,
-        null=True,
+        related_name='ingredients',
         blank=True,
     )
 
