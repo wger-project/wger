@@ -16,8 +16,9 @@
 from dataclasses import (
     asdict,
     dataclass,
+    field
 )
-from typing import Optional
+from typing import List, Optional
 
 # wger
 from wger.nutrition.helpers import (
@@ -63,6 +64,7 @@ class IngredientData:
     serving_size_unit: Optional[str] = None
     serving_size_amount: Optional[float] = None
     nutriscore: Optional[str] = None
+    categories: List[str] = field(default_factory=list)
 
     def sanity_checks(self):
         if not self.name:
