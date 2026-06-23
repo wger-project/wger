@@ -15,8 +15,11 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
-from uuid import uuid4
+from datetime import (
+    date,
+    datetime,
+    timedelta,
+)
 
 # Django
 from django.contrib.auth.models import User
@@ -78,7 +81,7 @@ class WorkoutSession(models.Model):
 
     date = models.DateField(
         verbose_name='Date',
-        default=datetime.date.today,
+        default=date.today,
     )
     """
     The date the workout session was performed
@@ -149,7 +152,17 @@ class WorkoutSession(models.Model):
             raise ValidationError(_('If you enter a time, you must enter both start and end time.'))
 
         if self.time_end and self.time_start and self.time_start > self.time_end:
-            raise ValidationError(_('The start time cannot be after the end time.'))
+            start_dt = datetime.combine(date.today(), self.time_start)
+            end_dt = datetime.combine(date.today() + timedelta(days=1), self.time_end)
+            duration = end_dt - start_dt
+
+            if duration > timedelta(hours=12):
+                raise ValidationError(
+                    _(
+                        'The start time cannot be after the end time unless it is a valid '
+                        'overnight session (max 12 hours).'
+                    )
+                )
 
     def get_owner_object(self):
         """
