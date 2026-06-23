@@ -41,11 +41,7 @@ class PreferencesTestCase(WgerTestCase):
         self.form_data = {
             'first_name': '',
             'last_name': '',
-            'workout_reminder_active': True,
-            'workout_reminder': 30,
-            'workout_duration': 12,
             'notification_language': 2,
-            'num_days_weight_reminder': 10,
             'weight_unit': 'kg',
             'birthdate': '02/25/1987',
             'height': 180,
@@ -72,10 +68,6 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
         user = User.objects.get(username='test')
-        profile = user.userprofile
-        self.assertTrue(profile.workout_reminder_active)
-        self.assertEqual(profile.workout_reminder, 30)
-        self.assertEqual(profile.workout_duration, 12)
         self.assertEqual(user.first_name, 'Test')
         self.assertEqual(user.last_name, 'User')
 
@@ -84,8 +76,6 @@ class PreferencesTestCase(WgerTestCase):
             reverse('core:user:preferences'),
             {
                 **self.form_data,
-                'workout_reminder': 22,
-                'workout_duration': 10,
                 'weight_unit': 'lb',
                 'height': 170,
             },
@@ -94,8 +84,8 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
         profile = response.context['user'].userprofile
-        self.assertEqual(profile.workout_reminder, 22)
         self.assertEqual(profile.weight_unit, 'lb')
+        self.assertEqual(profile.height, 170)
 
     def test_height_is_optional(self):
         """The preferences form saves without a height."""
