@@ -114,6 +114,7 @@ class IngredientData:
         data.pop('serving_size_gram', None)
         data.pop('serving_size_unit', None)
         data.pop('serving_size_amount', None)
+        data.pop('categories', None)
         return data
 
     def clean_name(self):

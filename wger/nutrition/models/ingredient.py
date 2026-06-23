@@ -602,12 +602,17 @@ class Ingredient(AbstractLicenseModel, models.Model):
         ingredient_data = cls._extract_off_ingredient_data(result, language.pk)
         if not ingredient_data:
             return None
-
         if not ingredient_data.name:
             return None
+        extracted_categories = ingredient_data.categories
 
         ingredient = cls(**ingredient_data.dict())
         ingredient.save()
+
+        for category_name in extracted_categories:
+            category_obj, created = IngredientCategory.objects.get_or_create(name=category_name)
+            ingredient.category.add(category_obj)
+
         ingredient.update_or_create_serving_unit_from_off(ingredient_data)
         logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
         return ingredient
