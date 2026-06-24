@@ -12,9 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from decimal import Decimal
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.manager.dataclasses import SetConfigData
+from wger.manager.api.serializers import SetConfigDataSerializer
+from wger.manager.dataclasses import (
+    SetConfigData,
+    round_value,
+)
+from wger.manager.models.abstract_config import MAX_COMPOUND_RIR
 
 
 class SetConfigDataTestCase(WgerTestCase):
@@ -148,3 +156,34 @@ class SetConfigDataTestCase(WgerTestCase):
     def test_high_rpe_calculation(self):
         self.config.rir = 7
         self.assertEqual(self.config.rpe, 4)
+
+    def test_rpe_max_effort(self):
+        """RiR 0 (no reps in reserve = maximum effort) maps to RPE 10, not None."""
+        self.config.rir = 0
+        self.assertEqual(self.config.rpe, 10)
+
+    def test_rpe_10_serializes_without_overflow(self):
+        """
+        RPE 10 (derived from RiR 0) must fit the serializer's DecimalField; a
+        two-digit field would raise decimal.InvalidOperation on the routine
+        date-sequence endpoints.
+        """
+        self.config.rir = 0
+
+        data = SetConfigDataSerializer(self.config).data
+
+        self.assertEqual(Decimal(data['rpe']), Decimal('10'))
+
+    def test_capped_rir_serializes_without_overflow(self):
+        """
+        get_config rounds RiR to the nearest 0.5 before serialization, so the
+        compound safety cap must round to a value that still fits the two-digit
+        DecimalField. A cap that rounds up to 10.0 raises
+        decimal.InvalidOperation and 500s the routine date-sequence endpoints.
+        """
+        capped_rir = round_value(MAX_COMPOUND_RIR, 0.5)
+        self.config.rir = capped_rir
+
+        data = SetConfigDataSerializer(self.config).data
+
+        self.assertEqual(Decimal(data['rir']), capped_rir)

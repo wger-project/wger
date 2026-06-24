@@ -35,8 +35,14 @@ from wger.manager.dataclasses import ConfigRequirements
 MAX_COMPOUND_VALUE = Decimal('9999.99')
 """Cap for weight / repetitions / rest: max_digits=6, decimal_places=2."""
 
-MAX_COMPOUND_RIR = Decimal('9.9')
-"""Cap for RiR / RPE: max_digits=2, decimal_places=1."""
+MAX_COMPOUND_RIR = Decimal('9.5')
+"""
+Cap for RiR / RPE (display serializer field: max_digits=2, decimal_places=1).
+
+Capped at 9.5 rather than 9.9 because ``get_config`` rounds the value to the
+nearest 0.5 before serialization: 9.9 would round up to 10.0, which needs three
+digits and overflows the two-digit ``DecimalField`` with ``decimal.InvalidOperation``.
+"""
 
 
 class OperationChoices(models.TextChoices):

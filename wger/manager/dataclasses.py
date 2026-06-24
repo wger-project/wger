@@ -36,10 +36,6 @@ from typing import (
 from django.utils.translation import gettext as _
 
 # wger
-from wger.core.models import (
-    RepetitionUnit,
-    WeightUnit,
-)
 from wger.manager.consts import (
     REP_UNIT_REPETITIONS,
     REP_UNIT_TILL_FAILURE,
@@ -79,7 +75,9 @@ class SetConfigData:
     def rpe(self):
         """Converts the RiR scale to RPE"""
 
-        if not self.rir:
+        # Check for None rather than falsiness, so RiR 0 (no reps in reserve,
+        # i.e. maximum effort) maps to RPE 10 instead of being dropped.
+        if self.rir is None:
             return None
 
         # If the RiR is too high, just approximate to 4

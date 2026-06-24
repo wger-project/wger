@@ -373,7 +373,9 @@ class SetConfigDataSerializer(serializers.Serializer):
     repetitions_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
     max_rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
-    rpe = DecimalOrIntegerField(max_digits=2, decimal_places=1)
+    # max_digits=3 (not 2 like rir): RPE = 10 - RiR, so a RiR of 0 yields RPE 10,
+    # which needs three digits to serialize.
+    rpe = DecimalOrIntegerField(max_digits=3, decimal_places=1)
     rest = DecimalOrIntegerField(max_digits=6, decimal_places=2)
     max_rest = DecimalOrIntegerField(max_digits=6, decimal_places=2)
     type = serializers.CharField()
