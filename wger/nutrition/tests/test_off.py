@@ -55,6 +55,11 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
                 'other_stuff': 'is ignored',
             },
             'serving_size': '',
+            'categories_tags': [
+                'en:snacks',
+                'en:cocoa-and-its-products',
+                'en:dark-chocolates',
+            ],
         }
 
     def test_regular_response(self):
@@ -86,6 +91,11 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             is_vegan=True,
             is_vegetarian=True,
             nutriscore='c',
+            categories=[
+                'Snacks',
+                'Cocoa And Its Products',
+                'Dark Chocolates',
+            ],
         )
 
         self.assertEqual(result, data)
@@ -309,3 +319,14 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         self.assertIsNone(result.serving_size_gram)
         self.assertEqual(result.serving_size_unit, 'ml')
         self.assertEqual(result.serving_size_amount, 200)
+
+    def test_categories_extraction_parsing(self):
+        """Ensure categories lists are parsed, cleaned, and properly assigned into intermediate dataclass"""
+        self.off_data1['categories_tags'] = [
+            'en:snacks',
+            'en:sweet-snacks-cocoa',
+        ]
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.categories, ['Snacks', 'Sweet Snacks Cocoa'])
+        self.assertIn('Sweet Snacks Cocoa', result.categories)

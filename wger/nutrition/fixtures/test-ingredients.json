@@ -26,7 +26,10 @@
       "brand": "the food brand",
       "is_vegan": false,
       "is_vegetarian": true,
-      "nutriscore": "b"
+      "nutriscore": "b",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -56,7 +59,10 @@
       "brand": "the food brand",
       "is_vegan": true,
       "is_vegetarian": true,
-      "nutriscore": "a"
+      "nutriscore": "a",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -86,7 +92,10 @@
       "brand": "the food brand",
       "is_vegan": false,
       "is_vegetarian": false,
-      "nutriscore": "c"
+      "nutriscore": "c",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -116,7 +125,10 @@
       "brand": "the food brand",
       "is_vegan": true,
       "is_vegetarian": true,
-      "nutriscore": "e"
+      "nutriscore": "e",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -146,7 +158,10 @@
       "brand": "the food brand",
       "is_vegan": null,
       "is_vegetarian": true,
-      "nutriscore": "b"
+      "nutriscore": "b",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -176,7 +191,10 @@
       "brand": "the food brand",
       "is_vegan": false,
       "is_vegetarian": true,
-      "nutriscore": "a"
+      "nutriscore": "a",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -206,7 +224,10 @@
       "brand": "the food brand",
       "is_vegan": null,
       "is_vegetarian": null,
-      "nutriscore": null
+      "nutriscore": null,
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -236,7 +257,10 @@
       "brand": "the food brand",
       "is_vegan": true,
       "is_vegetarian": true,
-      "nutriscore": "b"
+      "nutriscore": "b",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -266,7 +290,10 @@
       "brand": "the food brand",
       "is_vegan": false,
       "is_vegetarian": false,
-      "nutriscore": "d"
+      "nutriscore": "d",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -296,7 +323,10 @@
       "brand": "the food brand",
       "is_vegan": true,
       "is_vegetarian": true,
-      "nutriscore": "a"
+      "nutriscore": "a",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -326,7 +356,10 @@
       "brand": "the food brand",
       "is_vegan": false,
       "is_vegetarian": true,
-      "nutriscore": "c"
+      "nutriscore": "c",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -356,7 +389,10 @@
       "brand": "the food brand",
       "is_vegan": null,
       "is_vegetarian": false,
-      "nutriscore": "d"
+      "nutriscore": "d",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -386,7 +422,10 @@
       "brand": "the food brand",
       "is_vegan": true,
       "is_vegetarian": true,
-      "nutriscore": "b"
+      "nutriscore": "b",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {
@@ -416,7 +455,10 @@
       "brand": "the food brand",
       "is_vegan": false,
       "is_vegetarian": true,
-      "nutriscore": "c"
+      "nutriscore": "c",
+      "category": [
+        1, 2, 3, 4, 5, 6
+      ]
     }
   },
   {

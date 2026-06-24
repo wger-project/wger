@@ -50,6 +50,7 @@ from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
     Image,
     Ingredient,
+    IngredientCategory,
     IngredientWeightUnit,
     LogItem,
     Meal,
@@ -301,6 +302,10 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
                             Prefetch(
                                 'ingredient__ingredientweightunit_set',
                                 queryset=IngredientWeightUnit.objects.select_related('ingredient'),
+                            ),
+                            Prefetch(
+                                'ingredient__category',
+                                queryset=IngredientCategory.objects.all(),
                             ),
                         ),
                     ),

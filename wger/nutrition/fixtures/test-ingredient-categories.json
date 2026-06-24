@@ -1,0 +1,44 @@
+[
+  {
+    "model": "nutrition.ingredientcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Snacks"
+    }
+  },
+  {
+    "model": "nutrition.ingredientcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Sweet Snacks"
+    }
+  },
+  {
+    "model": "nutrition.ingredientcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Cocoa And Its Products"
+    }
+  },
+  {
+    "model": "nutrition.ingredientcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Chocolates"
+    }
+  },
+  {
+    "model": "nutrition.ingredientcategory",
+    "pk": 5,
+    "fields": {
+      "name": "Dark Chocolates"
+    }
+  },
+  {
+    "model": "nutrition.ingredientcategory",
+    "pk": 6,
+    "fields": {
+      "name": "Dark Chocolate Bar With More Than 70 Cocoa"
+    }
+  }
+]

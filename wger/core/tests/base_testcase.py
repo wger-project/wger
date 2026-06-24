@@ -122,6 +122,7 @@ class BaseTestCase:
         'test-exercises',
         'test-exercise-images',
         'test-exercise-videos',
+        'test-ingredient-categories',
         'test-ingredients',
         'test-nutrition-data',
         'test-nutrition-diary',

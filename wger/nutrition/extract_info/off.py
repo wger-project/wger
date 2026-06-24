@@ -194,8 +194,14 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         ]
     cleaned_categories = []
     for tag in raw_categories_tags:
-        # Strip prefixes like 'en:', 'fr:'
-        cleaned_tag = tag.split(':')[1].replace('-', ' ').title()
+        if not tag:
+            continue
+        if ':' in tag:
+            # Strip prefixes like 'en:', 'fr:'
+            parts = tag.split(':', 1)
+            cleaned_tag = parts[1].replace('-', ' ').title()
+        else:
+            cleaned_tag = tag.replace('-', ' ').title()
         if cleaned_tag:
             cleaned_categories.append(cleaned_tag)
 
