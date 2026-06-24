@@ -283,7 +283,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 # 'app' client is enabled.
 #
 HEADLESS_CLIENTS = ('app',)
-HEADLESS_TOKEN_STRATEGY = 'allauth.headless.tokens.strategies.jwt.strategy.JWTTokenStrategy'
+HEADLESS_TOKEN_STRATEGY = 'wger.utils.headless_auth.WgerJWTTokenStrategy'
 HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
 

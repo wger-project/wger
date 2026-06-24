@@ -17,6 +17,8 @@
 
 # Third Party
 from allauth.headless.contrib.rest_framework.authentication import JWTTokenAuthentication
+from allauth.headless.tokens.strategies.jwt import internal
+from allauth.headless.tokens.strategies.jwt.strategy import JWTTokenStrategy
 from rest_framework.exceptions import AuthenticationFailed
 
 
@@ -35,3 +37,25 @@ class HeadlessJWTAuthentication(JWTTokenAuthentication):
             return super().authenticate(request)
         except AuthenticationFailed:
             return None
+
+
+class WgerJWTTokenStrategy(JWTTokenStrategy):
+    """
+    Hardened variant of allauth's JWTTokenStrategy.
+
+    ``internal.validate_refresh_token`` returns a ``(None, session, payload)``
+    tuple when the refresh token and its backing session are valid but the
+    session no longer resolves to a user, e.g. after a password change rotates
+    the session auth hash, or the user was deleted/deactivated.
+
+    Allauth's ``refresh_token`` logic hands the None-User to ``create_access_token``,
+    which asserts ``user.is_authenticated`` and raises a 500. Reject the token
+    cleanly instead, so the endpoint answers with the same error a client already
+    handles for an expired token.
+    """
+
+    def refresh_token(self, refresh_token: str) -> tuple[str, str] | None:
+        validated = internal.validate_refresh_token(refresh_token)
+        if validated is None or validated[0] is None:
+            return None
+        return super().refresh_token(refresh_token)

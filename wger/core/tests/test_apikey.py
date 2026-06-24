@@ -274,6 +274,29 @@ class LongLivedRefreshTokenTestCase(WgerTestCase):
         body = response.json()
         self.assertIn('access_token', body['data'])
 
+    def test_refresh_for_session_without_user_is_rejected(self):
+        """
+        A refresh token whose session no longer resolves to a user (here: a
+        password change rotates the session auth hash) is rejected with a 4xx
+        instead of raising a 500.
+        """
+        self.user_login('test')
+        user = User.objects.get(username='test')
+
+        token = mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+
+        user.set_password('a-different-password')
+        user.save()
+
+        api = APIClient()
+        response = api.post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': token}),
+            content_type='application/json',
+        )
+        self.assertGreaterEqual(response.status_code, 400)
+        self.assertLess(response.status_code, 500)
+
     @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
     def test_refresh_works_under_cache_backed_engine(self):
         """
