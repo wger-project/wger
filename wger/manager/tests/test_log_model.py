@@ -50,6 +50,34 @@ class LogModelTestCase(WgerTestCase):
 
         self.assertEqual(WorkoutSession.objects.count(), 1)
 
+    def test_save_reuses_session_when_duplicates_exist(self):
+        """
+        Duplicate routine-less sessions can exist for one (user, date) because the
+        unique_together does not cover a NULL routine. A new log's save() must
+        reuse an existing session instead of raising MultipleObjectsReturned.
+        """
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+        # First log auto-creates a routine-less session for today.
+        WorkoutLog(user_id=1, exercise_id=1, weight=10, repetitions=10).save()
+        session = WorkoutSession.objects.get()
+        self.assertIsNone(session.routine_id)
+
+        # A duplicate (user, date, routine=None) — only possible because a NULL
+        # routine escapes the unique_together guard.
+        WorkoutSession.objects.create(user_id=1, date=session.date, routine=None)
+        self.assertEqual(WorkoutSession.objects.count(), 2)
+
+        # A second log for the same day must not crash and must not add a session.
+        log = WorkoutLog(user_id=1, exercise_id=1, weight=20, repetitions=8)
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(WorkoutSession.objects.count(), 2)
+        existing_ids = set(WorkoutSession.objects.values_list('id', flat=True))
+        self.assertIn(log.session_id, existing_ids)
+
     def test_dont_create_session_when_already_set(self):
         """
         If the log already has a (valid, own) session, the auto-create magic must

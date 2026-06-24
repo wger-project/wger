@@ -14,10 +14,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-import datetime
-from uuid import uuid4
-
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -275,11 +271,28 @@ class WorkoutLog(models.Model):
 
         # Auto-create a session only if the client didn't provide one.
         if not self.session_id:
-            self.session = WorkoutSession.objects.get_or_create(
-                user=self.user,
-                date=self.date,
-                routine=self.routine,
-            )[0]
+            try:
+                self.session = WorkoutSession.objects.get_or_create(
+                    user=self.user,
+                    date=self.date,
+                    routine=self.routine,
+                )[0]
+            except WorkoutSession.MultipleObjectsReturned:
+                # TODO: duplicate sessions can exist for the same (user, date, routine)
+                #       when routine is NULL, as the unique_together does not cover a NULL
+                #       routine in PostgreSQL.
+                #       This is a fix till we correctly take care of the problem, we just
+                #       reuse one session (ids are uuid7, so ordering by id yields the
+                #       earliest) instead of crashing the log POST with MultipleObjectsReturned.
+                self.session = (
+                    WorkoutSession.objects.filter(
+                        user=self.user,
+                        date=self.date,
+                        routine=self.routine,
+                    )
+                    .order_by('id')
+                    .first()
+                )
 
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:
