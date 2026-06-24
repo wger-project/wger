@@ -44,6 +44,7 @@ from wger.trophies.models.user_trophy import UserTrophy
 from wger.trophies.services import UserStatisticsService
 from wger.trophies.services.trophy import TrophyService
 from wger.trophies.tasks import evaluate_user_trophies_task
+from wger.utils.helpers import disable_for_loaddata
 
 
 logger = logging.getLogger(__name__)
@@ -86,6 +87,7 @@ def _trigger_trophy_evaluation(user_id: int):
 
 
 @receiver(post_save, sender=WorkoutLog)
+@disable_for_loaddata
 def workout_log_saved(sender, instance: WorkoutLog, created: bool, **kwargs):
     """
     Handle WorkoutLog save events.
@@ -155,6 +157,7 @@ def workout_log_deleted(sender, instance: WorkoutLog, origin=None, **kwargs):
 
 
 @receiver(post_save, sender=WorkoutSession)
+@disable_for_loaddata
 def workout_session_saved(sender, instance: WorkoutSession, created: bool, **kwargs):
     """
     Handle WorkoutSession save events.
