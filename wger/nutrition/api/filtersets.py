@@ -143,6 +143,7 @@ class IngredientFilterSet(filters.FilterSet):
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],
             'language': ['exact', 'in'],
+            'category': ['exact', 'in'],
             'license': ['exact'],
             'license_author': ['exact'],
         }

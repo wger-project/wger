@@ -157,7 +157,7 @@ class IngredientInfoViewSet(IngredientViewSet):
         # See IngredientViewSet.queryset for the rationale behind .order_by().
         return (
             Ingredient.objects.select_related('language', 'license', 'image')
-            .prefetch_related('ingredientweightunit_set')
+            .prefetch_related('ingredientweightunit_set', 'category')
             .order_by()
         )
 
@@ -186,7 +186,7 @@ class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
             'language',
             'license',
             'image',
-        ).prefetch_related('ingredientweightunit_set')
+        ).prefetch_related('ingredientweightunit_set', 'category')
 
 
 class ImageViewSet(viewsets.ReadOnlyModelViewSet):
