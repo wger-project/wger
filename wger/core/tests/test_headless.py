@@ -109,6 +109,33 @@ class HeadlessSmokeTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200, response.content)
         self.assertEqual(User.objects.count(), count_before + 1)
 
+    def test_access_token_for_deleted_user_is_rejected(self):
+        """
+        A JWT access token stays cryptographically valid after its user is
+        deleted, so allauth's lazy user lookup would otherwise raise
+        DoesNotExist on first access and surface as a 500 later on. The auth
+        layer rejects it here cleanly instead, with the same outcome as an
+        expired token.
+        """
+        response = self.client.post(
+            reverse('headless:app:account:login'),
+            data=json.dumps({'username': 'test', 'password': 'testtest'}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        access_token = response.json()['meta']['access_token']
+
+        # Drop the session cookie the login set, then delete the user so the
+        # still-valid token points at a row that no longer exists.
+        self.client.logout()
+        User.objects.get(username='test').delete()
+
+        response = self.client.get(
+            '/api/v2/workoutsession/',
+            HTTP_AUTHORIZATION=f'Bearer {access_token}',
+        )
+        self.assertIn(response.status_code, (401, 403))
+
     def test_invalid_jwt_does_not_break_auth_chain(self):
         """
         A malformed Bearer token must not raise AuthenticationFailed in our

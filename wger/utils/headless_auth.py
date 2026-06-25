@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.contrib.auth import get_user_model
+
 # Third Party
 from allauth.headless.contrib.rest_framework.authentication import JWTTokenAuthentication
 from allauth.headless.tokens.strategies.jwt import internal
@@ -37,6 +40,18 @@ class HeadlessJWTAuthentication(JWTTokenAuthentication):
             return super().authenticate(request)
         except AuthenticationFailed:
             return None
+
+    def authenticate_credentials(self, key):
+        user, payload = super().authenticate_credentials(key)
+        # validate_access_token hands back a SimpleLazyObject that only hits the
+        # DB on first access. Force the lookup now so an access token whose user
+        # was deleted fails as a clean 401 here, instead of raising DoesNotExist
+        # later on and raising an uncaught 500.
+        try:
+            _ = user.pk
+        except get_user_model().DoesNotExist as exc:
+            raise AuthenticationFailed('Invalid token') from exc
+        return user, payload
 
 
 class WgerJWTTokenStrategy(JWTTokenStrategy):
