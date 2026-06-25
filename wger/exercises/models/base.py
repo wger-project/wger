@@ -281,10 +281,14 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         replacement = None
         if replace_by:
-            try:
-                replacement = Exercise.objects.get(uuid=replace_by)
-            except Exercise.DoesNotExist:
+            # An exercise can't be replaced by itself
+            if str(replace_by) == str(self.uuid):
                 replace_by = None
+            else:
+                try:
+                    replacement = Exercise.objects.get(uuid=replace_by)
+                except Exercise.DoesNotExist:
+                    replace_by = None
 
         # Wrap everything in a single transaction so the deletion-log entry,
         # the reference repointing and the delete itself are all-or-nothing.

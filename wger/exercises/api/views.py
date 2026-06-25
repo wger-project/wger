@@ -118,6 +118,10 @@ class ExerciseViewSet(ModelViewSet):
         except ValueError:
             uuid = None
 
+        # An exercise can't be replaced by itself, treat it as a plain deletion
+        if uuid == str(instance.uuid):
+            uuid = None
+
         transfer_media = 'transfer_media' in self.request.query_params
         transfer_translations = 'transfer_translations' in self.request.query_params
 
