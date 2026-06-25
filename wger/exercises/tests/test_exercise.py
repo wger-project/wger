@@ -128,6 +128,21 @@ class ExerciseCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
         )
         self.assertEqual(log.replaced_by, UUID('ae3328ba-9a35-4731-bc23-5da50720c5aa'))
 
+    def test_delete_replace_by_self_is_ignored(self):
+        """Test that an exercise can't be replaced by itself on deletion"""
+
+        self.authenticate('admin')
+
+        url = self.url_detail + '?replaced_by=acad3949-36fb-4481-9a72-be2ddae2bc05'
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        log = DeletionLog.objects.get(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=UUID('acad3949-36fb-4481-9a72-be2ddae2bc05'),
+        )
+        self.assertIsNone(log.replaced_by)
+
     def test_cant_change_license(self):
         """
         Test that it is not possible to change the license of an existing

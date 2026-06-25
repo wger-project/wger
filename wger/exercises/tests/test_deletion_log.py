@@ -285,6 +285,24 @@ class DeletionLogTestCase(WgerTestCase):
         )
         self.assertEqual(log.replaced_by, None)
 
+    def test_exercise_replace_by_self_is_ignored(self):
+        """
+        Test that deleting an exercise that points to its own UUID as the
+        replacement is treated as a plain deletion: the deletion log entry must
+        not reference itself, otherwise the exercise would be served in both the
+        active feed and the deletion log and trigger an endless sync loop.
+        """
+        exercise = Exercise.objects.get(pk=1)
+
+        exercise.delete(replace_by=str(exercise.uuid))
+
+        log = DeletionLog.objects.get(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=exercise.uuid,
+        )
+        self.assertIsNone(log.replaced_by)
+        self.assertFalse(Exercise.objects.filter(pk=1).exists())
+
     def test_translation(self):
         """
         Test that an entry is generated when a translation is deleted
