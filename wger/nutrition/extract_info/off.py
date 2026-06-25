@@ -187,6 +187,18 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     if nutriscore_value not in ('a', 'b', 'c', 'd', 'e'):
         nutriscore_value = None
 
+    raw_categories_tags = product_data.get('categories_tags', [])
+    if not raw_categories_tags and 'categories' in product_data:
+        raw_categories_tags = [
+            c.strip() for c in product_data['categories'].split(',') if c.strip()
+        ]
+    cleaned_categories = []
+    for tag in raw_categories_tags:
+        # Strip prefixes like 'en:', 'fr:'
+        cleaned_tag = tag.split(':')[1].replace('-', ' ').title()
+        if cleaned_tag:
+            cleaned_categories.append(cleaned_tag)
+
     # License and author info
     source_name = Source.OPEN_FOOD_FACTS.value
     source_url = f'https://world.openfoodfacts.org/api/v2/product/{code}.json'
@@ -220,6 +232,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         serving_size_unit=serving_size_unit,
         serving_size_amount=serving_size_amount,
         nutriscore=nutriscore_value,
+        categories=cleaned_categories,
     )
     ingredient_data.sanity_checks()
     return ingredient_data
