@@ -29,6 +29,7 @@ REP_UNIT_MILES = 5
 
 WEIGHT_UNIT_KG = 1
 WEIGHT_UNIT_LB = 2
+WEIGHT_UNIT_KCAL = 7
 
 # Unit type constants (matching RepetitionUnit.UNIT_TYPE_* choices)
 UNIT_TYPE_REPETITIONS = 'REPETITIONS'
