@@ -67,7 +67,7 @@ class StatusUserTestCase(WgerTestCase):
         user.save()
         self.assertFalse(user.is_active)
 
-        response = self.client.get(reverse('core:user:activate', kwargs={'pk': user.pk}))
+        response = self.client.post(reverse('core:user:activate', kwargs={'pk': user.pk}))
         user = User.objects.get(pk=2)
 
         self.assertIn(response.status_code, (302, 403))
@@ -109,7 +109,7 @@ class StatusUserTestCase(WgerTestCase):
         user.save()
         self.assertTrue(user.is_active)
 
-        response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
+        response = self.client.post(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
         user = User.objects.get(pk=2)
 
         self.assertIn(response.status_code, (302, 403))
@@ -141,6 +141,38 @@ class StatusUserTestCase(WgerTestCase):
         Tests deactivating a user a logged out user
         """
         self.deactivate(fail=True)
+
+    def test_activate_get_does_not_mutate(self):
+        """
+        Regression test: GET must only render a confirmation form, since
+        Django's CSRF protection does not apply to GET requests. The state
+        change must require POST.
+        """
+        user = User.objects.get(pk=2)
+        user.is_active = False
+        user.save()
+
+        self.user_login(self.user_success[0])
+        response = self.client.get(reverse('core:user:activate', kwargs={'pk': user.pk}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(User.objects.get(pk=2).is_active)
+
+    def test_deactivate_get_does_not_mutate(self):
+        """
+        Regression test: GET must only render a confirmation form, since
+        Django's CSRF protection does not apply to GET requests. The state
+        change must require POST.
+        """
+        user = User.objects.get(pk=2)
+        user.is_active = True
+        user.save()
+
+        self.user_login(self.user_success[0])
+        response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(User.objects.get(pk=2).is_active)
 
 
 class TrainerCannotDeactivatePrivilegedUsersTestCase(WgerTestCase):
@@ -197,7 +229,7 @@ class TrainerCannotDeactivatePrivilegedUsersTestCase(WgerTestCase):
         member of their own gym) must keep working.
         """
         self.user_login(self.TRAINER)
-        response = self.client.get(
+        response = self.client.post(
             reverse('core:user:deactivate', kwargs={'pk': self.REGULAR_MEMBER_PK})
         )
         self.assertEqual(response.status_code, 302)

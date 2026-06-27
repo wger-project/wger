@@ -241,13 +241,9 @@
                 {% url 'core:user:activate' current_user.pk as url %}
                 {% modal_link url=url text=text css_class='dropdown-item' %}
             {% endif %}
-        <a
-            data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}"
-            data-bs-toggle="modal"
-            data-bs-target="#confirmation-modal"
-            class="dropdown-item">
-            {% translate "Reset user password" %}
-        </a>
+        {% translate 'Reset user password' as text %}
+        {% url 'gym:gym:reset-user-password' current_user.pk as url %}
+        {% modal_link url=url text=text css_class='dropdown-item' %}
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         {% if current_user.userprofile.gym %}
             {% translate 'Roles' as text %}
@@ -261,38 +257,6 @@
         {% modal_link url=url text=text css_class='dropdown-item' %}
     </div>
 </div>
-
-<div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">{% translate 'Password reset confirmation' %}</h4>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <p>{% translate 'Do you really want to change this user&#39;s password?' %}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{% translate 'No' %}</button>
-                <button type="button" class="btn btn-success">{% translate 'Yes' %}</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-        $('#confirmation-modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var url = button.data('url');
-            var modal = $(this);
-
-            modal.find('button.btn-success').click(function() {
-                window.location.href = url;
-            });
-        });
-    });
-</script>
 
 {% endif %}
 <h4>{% translate "Details" %}</h4>

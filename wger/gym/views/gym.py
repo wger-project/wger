@@ -20,6 +20,7 @@ import datetime
 import logging
 
 # Django
+from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -57,7 +58,11 @@ from django.views.generic import (
 # Third Party
 from allauth.account.models import EmailAddress
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import (
+    ButtonHolder,
+    Layout,
+    Submit,
+)
 
 # wger
 from wger.config.models import GymConfig as GlobalGymConfig
@@ -244,6 +249,10 @@ def gym_new_user_info_export(request):
 def reset_user_password(request, user_pk):
     """
     Resets the password of the selected user to random password
+
+    GET only renders a confirmation form: resetting a password is a state
+    change and must go through Django's CSRF protection, which only applies
+    to unsafe HTTP methods (e.g. POST), not GET.
     """
 
     user = get_object_or_404(User, pk=user_pk)
@@ -256,6 +265,25 @@ def reset_user_password(request, user_pk):
 
     if request.user.has_perm('gym.manage_gym') and not is_same_gym(request.user, user):
         return HttpResponseForbidden()
+
+    if request.method != 'POST':
+        form = forms.Form()
+        form.helper = FormHelper()
+        form.helper.form_method = 'post'
+        form.helper.form_action = request.path
+        form.helper.layout = Layout(
+            ButtonHolder(
+                Submit('submit', _('Yes, reset the password'), css_class='btn-warning btn-block')
+            )
+        )
+        return render(
+            request,
+            'delete.html',
+            {
+                'title': _('Reset the password for %(user)s?') % {'user': user},
+                'form': form,
+            },
+        )
 
     password = password_generator()
     user.set_password(password)
