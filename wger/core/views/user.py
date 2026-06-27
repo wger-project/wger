@@ -20,6 +20,7 @@ import re
 from urllib.parse import quote
 
 # Django
+from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
@@ -58,11 +59,11 @@ from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
+from django.views import generic
 from django.views.decorators.http import require_POST
 from django.views.generic import (
     DetailView,
     ListView,
-    RedirectView,
     UpdateView,
 )
 
@@ -327,18 +328,60 @@ def preferences(request):
     return render(request, 'user/preferences.html', context)
 
 
+class UserActivationConfirmMixin:
+    """
+    GET renders a confirmation form; only POST applies the activation state
+    change. (De)activating a user is a state change and must go through
+    Django's CSRF protection, which only applies to unsafe HTTP methods
+    (e.g. POST), not GET.
+    """
+
+    confirm_message = ''
+    success_message = ''
+    new_is_active = None
+
+    def get(self, request, pk):
+        edit_user = get_object_or_404(User, pk=pk)
+        form = forms.Form()
+        form.helper = FormHelper()
+        form.helper.form_method = 'post'
+        form.helper.form_action = request.path
+        form.helper.layout = Layout(
+            ButtonHolder(Submit('submit', self.confirm_message, css_class='btn-warning btn-block'))
+        )
+        return render(
+            request,
+            'delete.html',
+            {
+                'title': self.confirm_message,
+                'delete_message': str(edit_user),
+                'form': form,
+            },
+        )
+
+    def post(self, request, pk):
+        edit_user = get_object_or_404(User, pk=pk)
+        edit_user.is_active = self.new_is_active
+        edit_user.save()
+        messages.success(request, self.success_message)
+        return HttpResponseRedirect(reverse('core:user:overview', kwargs={'pk': pk}))
+
+
 class UserDeactivateView(
     LoginRequiredMixin,
     WgerMultiplePermissionRequiredMixin,
-    RedirectView,
+    UserActivationConfirmMixin,
+    generic.View,
 ):
     """
     Deactivates a user
     """
 
-    permanent = False
     model = User
     permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
+    confirm_message = gettext_lazy('Deactivate this user?')
+    success_message = gettext_lazy('The user was successfully deactivated')
+    new_is_active = False
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -371,26 +414,22 @@ class UserDeactivateView(
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
 
-    def get_redirect_url(self, pk):
-        edit_user = get_object_or_404(User, pk=pk)
-        edit_user.is_active = False
-        edit_user.save()
-        messages.success(self.request, _('The user was successfully deactivated'))
-        return reverse('core:user:overview', kwargs=({'pk': pk}))
-
 
 class UserActivateView(
     LoginRequiredMixin,
     WgerMultiplePermissionRequiredMixin,
-    RedirectView,
+    UserActivationConfirmMixin,
+    generic.View,
 ):
     """
     Activates a previously deactivated user
     """
 
-    permanent = False
     model = User
     permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
+    confirm_message = gettext_lazy('Activate this user?')
+    success_message = gettext_lazy('The user was successfully activated')
+    new_is_active = True
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -422,13 +461,6 @@ class UserActivateView(
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
-
-    def get_redirect_url(self, pk):
-        edit_user = get_object_or_404(User, pk=pk)
-        edit_user.is_active = True
-        edit_user.save()
-        messages.success(self.request, _('The user was successfully activated'))
-        return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
 class UserEditView(
