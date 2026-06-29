@@ -18,6 +18,9 @@
 # Standard Library
 import logging
 
+# Django
+from django.core.exceptions import ValidationError
+
 # Third Party
 from rest_framework import (
     exceptions,
@@ -49,6 +52,11 @@ def check_fk_ownership(payload: dict, owner_objects: list[tuple], user_id: int) 
         except model_class.DoesNotExist:
             logger.warning(f'{model_class.__name__} with pk {pk} not found during ownership check')
             return False
+        except (ValidationError, ValueError, TypeError):
+            # The pk itself is malformed, so skip the ownership check here
+            # and let the serializer reject the field with a 400
+            logger.warning(f'{model_class.__name__} pk {pk!r} is malformed during ownership check')
+            continue
 
         owner = obj.get_owner_object()
         if owner and hasattr(owner, 'user') and owner.user_id != user_id:
