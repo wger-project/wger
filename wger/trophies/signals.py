@@ -71,12 +71,6 @@ def _trigger_trophy_evaluation(user_id: int):
         evaluate_user_trophies_task.delay(user_id)
     else:
         # Celery not available or configured - evaluate synchronously
-        # Django
-        from django.contrib.auth.models import User
-
-        # wger
-        from wger.trophies.services import TrophyService
-
         try:
             user = User.objects.get(id=user_id)
             TrophyService.evaluate_all_trophies(user)
@@ -107,18 +101,19 @@ def workout_log_saved(sender, instance: WorkoutLog, created: bool, **kwargs):
                 workout_log=instance,
             )
 
-            # Personal Record award
-            trophy = Trophy.objects.get(name='Personal Record', is_active=True)
-            checker = CheckerRegistry.create_checker(instance.user, trophy)
-            checker.params = {'log': instance}
-            existing = UserTrophy.objects.filter(
-                user=instance.user, trophy=trophy, context_data__log_id=str(instance.id)
-            ).exists()
-            if not existing and checker and checker.check():
-                context = checker.get_context_data()
-                TrophyService.award_trophy(
-                    instance.user, trophy, progress=100.0, context_data=context
-                )
+            # Personal Record award (respect the same skip rules as full evaluation)
+            if not TrophyService.should_skip_user(instance.user):
+                trophy = Trophy.objects.get(name='Personal Record', is_active=True)
+                checker = CheckerRegistry.create_checker(instance.user, trophy)
+                checker.params = {'log': instance}
+                existing = UserTrophy.objects.filter(
+                    user=instance.user, trophy=trophy, context_data__log_id=str(instance.id)
+                ).exists()
+                if not existing and checker and checker.check():
+                    context = checker.get_context_data()
+                    TrophyService.award_trophy(
+                        instance.user, trophy, progress=100.0, context_data=context
+                    )
 
         else:
             # Edited log - full recalculation for accuracy
