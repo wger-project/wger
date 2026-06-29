@@ -276,6 +276,7 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     """
 
     serializer_class = NutritionPlanInfoSerializer
+    http_method_names = ['get', 'head', 'options']
 
     def get_queryset(self):
         """

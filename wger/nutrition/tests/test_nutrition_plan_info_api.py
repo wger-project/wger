@@ -62,3 +62,17 @@ class NutritionPlanInfoQueryCountTestCase(WgerTestCase):
         count_many = self._info_query_count(self._build_plan(user, items_per_meal=5))
 
         self.assertEqual(count_few, count_many)
+
+
+class NutritionPlanInfoReadOnlyTestCase(WgerTestCase):
+    """
+    The nutritionplaninfo endpoint is read-only and must reject write methods.
+    """
+
+    def test_write_methods_are_rejected(self):
+        self.user_login('test')
+        list_url = reverse('nutritionplaninfo-list')
+
+        for method in (self.client.post, self.client.put, self.client.patch, self.client.delete):
+            response = method(list_url)
+            self.assertEqual(response.status_code, 405)
