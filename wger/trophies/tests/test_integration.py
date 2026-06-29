@@ -163,6 +163,18 @@ class TrophyIntegrationTestCase(WgerTestCase):
         context = pr_trophies.first().context_data
         self.assertIsNotNone(context)
 
+    def test_personal_record_not_awarded_when_user_disabled_trophies(self):
+        """No Personal Record is awarded on log creation if the user disabled trophies"""
+        UserTrophy.objects.filter(user=self.user).delete()
+        self.user.userprofile.trophies_enabled = False
+        self.user.userprofile.save()
+
+        exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='pr_cat'))
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=100)
+
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 0)
+
     def test_lifting_5000kg_earns_lifter_trophy(self):
         """Test that lifting 5000kg total earns Lifter trophy"""
         # Create user statistics
