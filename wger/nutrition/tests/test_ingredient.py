@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import base64
 import datetime
 import io
 import json
@@ -903,6 +904,16 @@ class IngredientSyncViewSetTestCase(WgerTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'], [])
         self.assertIsNone(response.data['next'])
+
+    def test_malformed_cursor_is_rejected_cleanly(self):
+        """A cursor whose position is not a valid `id` returns 404, not a 500."""
+
+        # base64 of "p=not-a-number" — a non-numeric position for the integer
+        # ordering field, as produced by truncated or hand-crafted cursors.
+        bad_cursor = base64.b64encode(b'p=not-a-number').decode('ascii')
+        response = self.client.get(self.url, {'cursor': bad_cursor})
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_unprocessable_image_does_not_break_page(self):
         """An image that cannot be thumbnailed yields `thumbnails: None`, not a 500."""
