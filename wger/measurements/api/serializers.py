@@ -33,7 +33,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'unit')
+        fields = ('id', 'name', 'unit', 'metric_type', 'externally_synced')
 
 
 class MeasurementSerializer(serializers.ModelSerializer):
@@ -58,4 +58,6 @@ class MeasurementSerializer(serializers.ModelSerializer):
             'date',
             'value',
             'notes',
+            'source',
+            'external_id',
         )

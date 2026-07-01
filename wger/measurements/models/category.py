@@ -21,6 +21,23 @@ from django.db import models
 from wger.utils.uuid import uuid7
 
 
+class MetricType(models.TextChoices):
+    """
+    Semantic type of a measurement category
+    """
+
+    CUSTOM = 'custom'  # free-form, no mapping
+    BODY_WEIGHT = 'body_weight'
+    BODY_FAT = 'body_fat'
+    HEIGHT = 'height'
+    BLOOD_PRESSURE = 'blood_pressure'
+    HEART_RATE = 'heart_rate'
+    STEPS = 'steps'
+    DISTANCE = 'distance'
+    ENERGY = 'energy'
+    SLEEP = 'sleep'
+
+
 class Category(models.Model):
     class Meta:
         ordering = [
@@ -46,6 +63,18 @@ class Category(models.Model):
     unit = models.CharField(
         verbose_name='Unit',
         max_length=30,
+    )
+
+    metric_type = models.CharField(
+        verbose_name='Metric type',
+        max_length=20,
+        choices=MetricType.choices,
+        default=MetricType.CUSTOM,
+    )
+
+    externally_synced = models.BooleanField(
+        verbose_name='Externally synced',
+        default=False,
     )
 
     def get_owner_object(self):

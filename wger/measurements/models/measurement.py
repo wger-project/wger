@@ -26,6 +26,12 @@ from wger.measurements.models import Category
 from wger.utils.uuid import uuid7
 
 
+class MeasurementSource(models.TextChoices):
+    USER = 'user'
+    GOOGLE = 'google'
+    APPLE = 'apple'
+
+
 class Measurement(models.Model):
     class Meta:
         ordering = [
@@ -62,6 +68,19 @@ class Measurement(models.Model):
         verbose_name='Description',
         max_length=100,
         blank=True,
+    )
+
+    source = models.CharField(
+        verbose_name='Source',
+        max_length=10,
+        choices=MeasurementSource.choices,
+        default=MeasurementSource.USER,
+    )
+
+    external_id = models.UUIDField(
+        verbose_name='External ID',
+        blank=True,
+        null=True,
     )
 
     def get_owner_object(self):
