@@ -50,4 +50,12 @@ class Migration(migrations.Migration):
                 verbose_name='Source',
             ),
         ),
+        migrations.AddConstraint(
+            model_name='measurement',
+            constraint=models.UniqueConstraint(
+                condition=models.Q(('external_id__isnull', False)),
+                fields=('category', 'source', 'external_id'),
+                name='unique_external_measurement',
+            ),
+        ),
     ]

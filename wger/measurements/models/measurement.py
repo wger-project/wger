@@ -37,6 +37,13 @@ class Measurement(models.Model):
         ordering = [
             '-date',
         ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['category', 'source', 'external_id'],
+                condition=models.Q(external_id__isnull=False),
+                name='unique_external_measurement',
+            ),
+        ]
 
     id = models.UUIDField(
         default=uuid7,
