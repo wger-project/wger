@@ -34,6 +34,10 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'name', 'unit', 'metric_type', 'externally_synced')
+        # A category is flagged as externally synced by the server, not by the
+        # client — the flag marks it read-only in the UI, so clients may read it
+        # but never set it (this also applies to the shared PowerSync write path).
+        read_only_fields = ('externally_synced',)
 
 
 class MeasurementSerializer(serializers.ModelSerializer):

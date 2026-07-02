@@ -30,4 +30,6 @@ class MeasurementEntryFilterSet(filters.FilterSet):
                 'in',
             ],
             'date': ['exact', 'gt', 'gte', 'lt', 'lte'],
+            'source': ['exact'],
+            'external_id': ['exact'],
         }

@@ -50,7 +50,7 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = CategorySerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('id', 'name', 'unit')
+    filterset_fields = ('id', 'name', 'unit', 'metric_type')
 
     def get_queryset(self):
         """
