@@ -14,6 +14,7 @@
 
 # Standard Library
 import logging
+from unittest import mock
 
 # Django
 from django.contrib.auth.models import User
@@ -26,7 +27,6 @@ from wger.manager.models import WorkoutSession
 from wger.trophies.models import (
     Trophy,
     UserStatistics,
-    UserTrophy,
 )
 from wger.trophies.services.statistics import UserStatisticsService
 from wger.trophies.services.trophy import TrophyService
@@ -80,6 +80,36 @@ class DeleteUserTestCase(WgerTestCase):
         Tests deleting the own account as an anonymous user
         """
         self.delete_user(fail=True)
+
+
+class DeleteUserWithoutPasswordTestCase(WgerTestCase):
+    """
+    Accounts without a usable password (e.g. social logins) confirm the
+    deletion by typing their username instead of a password.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create(username='socialuser', email='social@example.com')
+        self.user.set_unusable_password()
+        self.user.save()
+        self.client.force_login(self.user)
+
+    def test_form_asks_for_username(self):
+        response = self.client.get(reverse('core:user:delete'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="username"')
+        self.assertNotContains(response, 'name="password"')
+
+    def test_wrong_username_does_not_delete(self):
+        response = self.client.post(reverse('core:user:delete'), {'username': 'not-my-name'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.filter(username='socialuser').count(), 1)
+
+    def test_correct_username_deletes(self):
+        response = self.client.post(reverse('core:user:delete'), {'username': 'socialuser'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(User.objects.filter(username='socialuser').count(), 0)
 
 
 class DeleteUserByAdminTestCase(WgerTestCase):
@@ -214,15 +244,15 @@ class UserDeleteTrophyIntegrationTestCase(WgerTestCase):
 
     def test_delete_user_with_trophy_records(self):
         """
-        Adds sessions/records, calls trophy system, ensures delete works without IntegrityError
+        Deleting a user removes the account without the workout cascade signals
+        recreating its statistics (a re-inserted UserStatistics row would orphan
+        and fail the deferred FK check on PostgreSQL).
         """
-        logger.info('Testing user deletion after trophy system invocation')
         user = User.objects.create_user(
             username='trophyuser', email='trophy@test.com', password='testpass'
         )
-        session = WorkoutSession.objects.create(user=user, date=timezone.now().date())
-        logger.info('Created WorkoutSession')
-        trophy = Trophy.objects.create(
+        WorkoutSession.objects.create(user=user, date=timezone.now().date())
+        Trophy.objects.create(
             name='DeleteTestTrophy',
             trophy_type=0,
             checker_class='workout_count_based',
@@ -230,10 +260,13 @@ class UserDeleteTrophyIntegrationTestCase(WgerTestCase):
             is_active=True,
         )
         UserStatistics.objects.update_or_create(user=user, defaults={'total_workouts': 1})
-        logger.info('Created Trophy and updated UserStatistics')
         UserStatisticsService.update_statistics(user)
         TrophyService.evaluate_all_trophies(user)
-        logger.info('Trophy services invoked')
-        user.delete()
-        logger.info('User deleted')
+
+        with mock.patch(
+            'wger.trophies.signals.UserStatisticsService.handle_workout_deletion'
+        ) as handle_deletion:
+            user.delete()
+
+        handle_deletion.assert_not_called()
         self.assertEqual(User.objects.filter(username='trophyuser').count(), 0)

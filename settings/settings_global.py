@@ -17,8 +17,14 @@ import datetime
 import os
 import re
 import sys
+from base64 import urlsafe_b64decode
 from datetime import timedelta
 from pathlib import Path
+
+# Third Party
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
+from jwt.algorithms import RSAAlgorithm
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
@@ -52,6 +58,7 @@ WSGI_APPLICATION = 'wger.wsgi.application'
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',  # used by allauth's mfa/webauthn templates
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -123,6 +130,11 @@ INSTALLED_APPS = [
     # Django-allauth
     'allauth',
     'allauth.account',
+    'allauth.mfa',
+    'allauth.headless',
+    'allauth.socialaccount',
+    # Per-provider apps (allauth.socialaccount.providers.google, ...) are
+    # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
 ]
 
 MIDDLEWARE = [
@@ -169,7 +181,7 @@ AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'wger.core.backends.AuthProxyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 TEMPLATES = [
@@ -229,11 +241,82 @@ ACCOUNT_ADAPTER = 'wger.core.account_adapter.WgerAccountAdapter'
 # confirmed via the verification link.
 ACCOUNT_CHANGE_EMAIL = True
 
+# Allow logging in with either the username or the email address. allauth's
+# authentication backend resolves the email against its EmailAddress table.
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+
+# Use wger's own login/signup forms (allauth's forms + the password-visibility
+# toggle, and a conditional reCAPTCHA field on signup).
+ACCOUNT_FORMS = {
+    'login': 'wger.core.forms.WgerLoginForm',
+    'signup': 'wger.core.forms.WgerSignupForm',
+}
+
+# django-axes handles login brute-force protection at the backend level (it
+# wraps every authenticate() call, so it also covers the API login endpoints).
+# Disable allauth's overlapping login throttles to avoid running two systems;
+# the non-login limits (signup, password reset, ...) stay at allauth's defaults.
+ACCOUNT_RATE_LIMITS = {'login_failed': None, 'login': None}
+
+#
+# Two-factor authentication (allauth.mfa)
+#
+MFA_SUPPORTED_TYPES = ['totp', 'recovery_codes', 'webauthn']
+MFA_TOTP_ISSUER = 'wger'
+# Passkeys may also be used for passwordless login (a "Sign in with a passkey"
+# button), but not for passwordless signup.
+MFA_PASSKEY_LOGIN_ENABLED = True
+MFA_PASSKEY_SIGNUP_ENABLED = False
+
+#
+# Social account providers
+#
+ACCOUNT_LOGOUT_ON_GET = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+#
+# allauth.headless — REST API used by the Flutter app for the full auth flow
+# (login + multi-step MFA challenge + email/password management).
+#
+# The web frontend continues to use the regular allauth views, so only the
+# 'app' client is enabled.
+#
+HEADLESS_CLIENTS = ('app',)
+HEADLESS_TOKEN_STRATEGY = 'wger.utils.headless_auth.WgerJWTTokenStrategy'
+HEADLESS_JWT_ALGORITHM = 'RS256'
+HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
+
+
+def jwk_b64_to_pem(b64_jwk_str: str):
+    """
+    Decode a base64-wrapped JWK (as written by generate-jwt-keys) into a PEM
+    string suitable for SimpleJWT and allauth.headless.
+    """
+
+    if not b64_jwk_str:
+        return ''
+
+    key = RSAAlgorithm.from_jwk(urlsafe_b64decode(b64_jwk_str).decode())
+    if isinstance(key, RSAPrivateKey):
+        pem = key.private_bytes(
+            serialization.Encoding.PEM,
+            serialization.PrivateFormat.PKCS8,
+            serialization.NoEncryption(),
+        )
+    else:
+        pem = key.public_bytes(
+            serialization.Encoding.PEM,
+            serialization.PublicFormat.SubjectPublicKeyInfo,
+        )
+    return pem.decode()
+
 #
 # Login
 #
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = LOGIN_URL
 
 #
 # Internationalization
@@ -368,16 +451,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 #
 THUMBNAIL_ALIASES = {
     '': {
-        'micro': {'size': (30, 30)},
-        'micro_cropped': {'size': (30, 30), 'crop': 'smart'},
-        'thumbnail': {'size': (80, 80)},
-        'thumbnail_cropped': {'size': (80, 80), 'crop': 'smart'},
         'small': {'size': (200, 200)},
-        'small_cropped': {'size': (200, 200), 'crop': 'smart'},
         'medium': {'size': (400, 400)},
-        'medium_cropped': {'size': (400, 400), 'crop': 'smart'},
-        'large': {'size': (800, 800), 'quality': 90},
-        'large_cropped': {'size': (800, 800), 'crop': 'smart', 'quality': 90},
     },
 }
 
@@ -388,13 +463,13 @@ THUMBNAIL_ALIASES = {
 #
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'wger.utils.pagination.WgerLimitOffsetPagination',
     'PAGE_SIZE': 20,
-    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'wger.utils.headless_auth.HeadlessJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
@@ -404,14 +479,18 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
         'login': '10/min',
-        'registration': '5/min',
 
-        # Ingredient endpoints — protect the multi-million-row table from
+        # Ingredient endpoints: protect the multi-million-row table from
         # crawlers and older sync clients. Throttling is per-IP for anonymous
         # callers and per-user for authenticated ones.
         'ingredient_list': '120/min',
         'ingredient_detail': '300/min',
         'ingredient_sync': '600/min',
+
+        # Exercise endpoints: Shared cap across all create endpoints (submission,
+        # exercise, translation) to stop scripts from bulk-creating exercises. Only
+        # POSTs are throttled, reads and edits are not (see CreateScopedRateThrottle).
+        'exercise_create': '20/hour',
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
@@ -445,6 +524,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
+    'ALGORITHM': 'RS256',
 }
 
 #
@@ -486,7 +566,7 @@ WGER_SETTINGS = {
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
-    'EXERCISE_CACHE_TTL': 3600,
+    'EXERCISE_CACHE_TTL': 4 * 604800,  # one month; entries are invalidated on write
     'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'INGREDIENT_CACHE_TTL': 604800,  # one week
     'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(weeks=12),
@@ -501,15 +581,24 @@ WGER_SETTINGS = {
     'EXPORT_INGREDIENTS_BULK_CELERY': False,
     'CACHE_API_EXERCISES_CELERY': False,
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE': False,
+
+    # Socials
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
+
     # Trophy system settings
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
+
+#
+# Social authentication / OAuth
+# List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
+WGER_SOCIAL_PROVIDERS = []
+
 
 #
 # Auth Proxy Authentication
@@ -527,7 +616,6 @@ AUTH_PROXY_CREATE_UNKNOWN_USER = False
 # Prometheus metrics
 #
 EXPOSE_PROMETHEUS_METRICS = False
-PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #

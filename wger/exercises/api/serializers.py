@@ -30,6 +30,8 @@ from django.db.models.functions import Length
 
 # Third Party
 from actstream import action as actstream_action
+from easy_thumbnails.exceptions import InvalidImageFormatError
+from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
 # wger
@@ -200,6 +202,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
 
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
     exercise_uuid = serializers.ReadOnlyField(source='exercise.uuid')
+    thumbnails = serializers.SerializerMethodField()
 
     class Meta:
         model = ExerciseImage
@@ -209,6 +212,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'exercise',
             'exercise_uuid',
             'image',
+            'thumbnails',
             'is_main',
             'style',
             'license',
@@ -220,6 +224,23 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'author_history',
             'is_ai_generated',
         )
+
+    def get_thumbnails(self, obj: ExerciseImage):
+        if not obj.image:
+            return None
+
+        request = self.context.get('request')
+        result = {}
+
+        thumbnailer = get_thumbnailer(obj.image)
+        try:
+            for alias in ('small', 'medium'):
+                opts = settings.THUMBNAIL_ALIASES[''][alias]
+                thumb = thumbnailer.get_thumbnail(opts)
+                result[alias] = make_absolute_url(thumb.url, request)
+        except (InvalidImageFormatError, OSError):
+            return None
+        return result
 
 
 class ExerciseVideoSerializer(serializers.ModelSerializer):
@@ -427,7 +448,6 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
-    description_source = serializers.CharField(required=False, allow_blank=True)
     exercise = serializers.PrimaryKeyRelatedField(
         queryset=Exercise.objects.all(),
         required=True,

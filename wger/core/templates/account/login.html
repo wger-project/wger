@@ -1,0 +1,143 @@
+{% extends "template.html" %}
+{% load i18n wger_extras %}
+
+{% block title %}{% translate "Login" %}{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+{% block template %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
+                <a href="#" class="close extra-bold" data-bs-dismiss="alert">&times;</a>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card my-4">
+                <div class="row g-0">
+
+                    {# Credentials login #}
+                    <div class="{% if PASSKEY_LOGIN_ENABLED or use_social_auth %}col-md-8{% else %}col-md-12{% endif %}">
+                        <div class="card-body p-4">
+                            <h2 class="mb-1">{% translate "Login" %}</h2>
+
+                            <form method="post" class="wger-form" novalidate>
+                                {% csrf_token %}
+                                {% if redirect_field_value %}
+                                    <input type="hidden"
+                                           name="{{ redirect_field_name }}"
+                                           value="{{ redirect_field_value }}">
+                                {% endif %}
+
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+
+                                <div class="mb-3">
+                                    <label for="{{ form.login.id_for_label }}" class="form-label">
+                                        {{ form.login.label }}
+                                    </label>
+                                    {{ form.login }}
+                                    {% for error in form.login.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="{{ form.password.id_for_label }}" class="form-label">
+                                        {{ form.password.label }}
+                                    </label>
+                                    {{ form.password }}
+                                    {% for error in form.password.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    {% if form.remember %}
+                                        <div class="form-check mb-0">
+                                            {{ form.remember }}
+                                            <label for="{{ form.remember.id_for_label }}"
+                                                   class="form-check-label">
+                                                {{ form.remember.label }}
+                                            </label>
+                                        </div>
+                                    {% else %}
+                                        <span></span>
+                                    {% endif %}
+                                    <a href="{% url 'core:user:password_reset' %}">
+                                        {% translate "Forgot password?" %}
+                                    </a>
+                                </div>
+
+                                <button type="submit" class="btn btn-success w-100">
+                                    {% translate "Login" %}
+                                </button>
+                            </form>
+
+                            {% if allow_registration %}
+                                <div class="d-flex align-items-center text-muted mt-5 mb-3">
+                                    <hr class="flex-grow-1 my-0">
+                                    <span class="px-3">{% translate "No account?" %}</span>
+                                    <hr class="flex-grow-1 my-0">
+                                </div>
+                                <a href="{% url 'core:user:registration' %}"
+                                   class="btn btn-outline-primary w-100">
+                                    {% translate "Register" %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {# Quick sign-in: only rendered when at least one method is available #}
+                    {% if PASSKEY_LOGIN_ENABLED or use_social_auth %}
+                        <div class="col-md-4 bg-light">
+                            <div class="card-body p-4">
+                                <h6 class="text-uppercase text-muted mb-3">
+                                    {% translate "Faster sign in" %}
+                                </h6>
+
+                                {% if PASSKEY_LOGIN_ENABLED %}
+                                    <button type="submit"
+                                            form="mfa_login"
+                                            id="passkey_login"
+                                            class="btn btn-outline-primary w-100 mb-2">
+                                        <span class="{% fa_class 'key' %} me-1"></span>
+                                        {% translate "Sign in with a passkey" %}
+                                    </button>
+                                {% endif %}
+
+                                {% if PASSKEY_LOGIN_ENABLED and use_social_auth %}
+                                    <div class="d-flex align-items-center text-muted small my-3">
+                                        <hr class="flex-grow-1 my-0">
+                                        <span class="px-2">{% translate "or sign in with" %}</span>
+                                        <hr class="flex-grow-1 my-0">
+                                    </div>
+                                {% endif %}
+
+                                {% if use_social_auth %}
+                                    {% include "user/social_login.html" %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_body %}
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {% include "mfa/webauthn/snippets/login_script.html" %}
+    {% endif %}
+{% endblock %}

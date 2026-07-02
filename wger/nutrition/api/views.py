@@ -20,6 +20,7 @@ import logging
 
 # Django
 from django.conf import settings
+from django.db.models import Prefetch
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -69,7 +70,17 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = IngredientSerializer
-    ordering_fields = '__all__'
+    # Restrict ordering to indexed columns
+    ordering_fields = (
+        'id',
+        'name',
+        'code',
+        'uuid',
+        'remote_id',
+        'last_update',
+        'last_imported',
+        'nutriscore',
+    )
     filterset_class = IngredientFilterSet
 
     # Strip default ordering ('name'), this makes the API/DB more performant
@@ -253,6 +264,10 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
+    @staticmethod
+    def get_owner_objects():
+        return []
+
 
 class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     """
@@ -261,6 +276,38 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     """
 
     serializer_class = NutritionPlanInfoSerializer
+    http_method_names = ['get', 'head', 'options']
+
+    def get_queryset(self):
+        """
+        Prefetch the nutritional plan sub-objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return NutritionPlan.objects.none()
+
+        return NutritionPlan.objects.filter(user=self.request.user).prefetch_related(
+            Prefetch(
+                'meal_set',
+                queryset=Meal.objects.prefetch_related(
+                    Prefetch(
+                        'mealitem_set',
+                        queryset=MealItem.objects.select_related(
+                            'ingredient',
+                            'ingredient__language',
+                            'ingredient__license',
+                            'ingredient__image',
+                            'weight_unit',
+                        ).prefetch_related(
+                            Prefetch(
+                                'ingredient__ingredientweightunit_set',
+                                queryset=IngredientWeightUnit.objects.select_related('ingredient'),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        )
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
@@ -293,7 +340,8 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(order=1)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -340,7 +388,8 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(order=1)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -375,7 +424,8 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
 
         return LogItem.objects.select_related('plan').filter(plan__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """

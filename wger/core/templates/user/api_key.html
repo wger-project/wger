@@ -13,6 +13,100 @@
         {% endblocktranslate %}
     </p>
 
+    <h4 class="mt-4">{% translate "Long-lived refresh tokens" %}</h4>
+
+    <p>
+        {% blocktranslate trimmed %}
+            Refresh tokens let scripts and CLI tools talk to the wger API using
+            the JWT flow without logging in interactively each time.
+        {% endblocktranslate %}
+    </p>
+
+    <p>
+        <button
+            type="button"
+            class="btn btn-block btn-light"
+            hx-post="{% url 'core:user:api-key' %}"
+            hx-vals='{"new_refresh_token": "true"}'
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="body"
+            hx-push-url="true"
+        >
+            {% translate "Generate a new refresh token" %}
+        </button>
+    </p>
+
+    {% if new_refresh_token %}
+        <div class="alert alert-warning">
+            <strong>{% translate "Copy this token now." %}</strong>
+            {% blocktranslate trimmed %}
+                It is shown only once. If you lose it, generate a new one and
+                revoke the old session below.
+            {% endblocktranslate %}
+        </div>
+        <div class="card mb-4 text-white bg-success">
+            <div class="card-body">
+                <code class="text-white" style="word-break: break-all;">{{ new_refresh_token }}</code>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if long_lived_sessions %}
+        <p>
+            {% blocktranslate trimmed with days=refresh_token_lifetime_days %}
+                Refresh tokens expire {{ days }} days after they were
+                generated, unless you revoke them sooner.
+            {% endblocktranslate %}
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{% translate "Created" %}</th>
+                    <th>{% translate "Expires" %}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in long_lived_sessions %}
+                    {% with data=session.get_decoded %}
+                        <tr>
+                            <td>{{ data.wger_long_lived_refresh_created_at|default:"—" }}</td>
+                            <td>{{ session.expire_date|date:"Y-m-d H:i" }}</td>
+                            <td>
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    hx-post="{% url 'core:user:api-key' %}"
+                                    hx-vals='{"revoke_refresh_token": "{{ session.session_key }}"}'
+                                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                    hx-target="body"
+                                    hx-push-url="true"
+                                >
+                                    {% translate "Revoke" %}
+                                </button>
+                            </td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p>
+            <button
+                type="button"
+                class="btn btn-block btn-light"
+                hx-post="{% url 'core:user:api-key' %}"
+                hx-vals='{"revoke_all_refresh_tokens": "true"}'
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-target="body"
+                hx-push-url="true"
+            >
+                {% translate "Revoke all refresh tokens" %}
+            </button>
+        </p>
+    {% endif %}
+
     <h4 class="mt-4">{% translate "JWT sessions" %}</h4>
 
     <p>

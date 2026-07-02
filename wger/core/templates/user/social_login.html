@@ -1,0 +1,12 @@
+{% load i18n socialaccount wger_extras %}
+{% get_providers as socialaccount_providers %}
+
+{% for provider in socialaccount_providers %}
+    <form method="post" action="{% provider_login_url provider %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-dark w-100 mb-2">
+            <span class="{% fa_class provider.id icon_type='fab' %} me-2"></span>
+            {{ provider.name }}
+        </button>
+    </form>
+{% endfor %}

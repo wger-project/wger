@@ -36,6 +36,7 @@ from wger.manager.validators import (
     NullMinValueValidator,
     validate_rir,
 )
+from wger.utils.uuid import uuid7
 
 
 class WorkoutLog(models.Model):
@@ -44,6 +45,12 @@ class WorkoutLog(models.Model):
     """
 
     objects = WorkoutLogManager()
+
+    id = models.UUIDField(
+        default=uuid7,
+        null=False,
+        primary_key=True,
+    )
 
     date = models.DateTimeField(
         verbose_name='Date',
@@ -255,12 +262,37 @@ class WorkoutLog(models.Model):
         if self.slot_entry and self.slot_entry.slot.day.routine.user != self.user:
             return
 
-        # If there is no session for this date and routine, create one
-        self.session = WorkoutSession.objects.get_or_create(
-            user=self.user,
-            date=self.date,
-            routine=self.routine,
-        )[0]
+        # If a session was explicitly provided but belongs to a different
+        # user, drop the reference so we don't accidentally tie this log
+        # to someone else's session. The auto-create branch below will
+        # then provide the correct one.
+        if self.session_id and self.session.user_id != self.user_id:
+            self.session = None
+
+        # Auto-create a session only if the client didn't provide one.
+        if not self.session_id:
+            try:
+                self.session = WorkoutSession.objects.get_or_create(
+                    user=self.user,
+                    date=self.date,
+                    routine=self.routine,
+                )[0]
+            except WorkoutSession.MultipleObjectsReturned:
+                # TODO: duplicate sessions can exist for the same (user, date, routine)
+                #       when routine is NULL, as the unique_together does not cover a NULL
+                #       routine in PostgreSQL.
+                #       This is a fix till we correctly take care of the problem, we just
+                #       reuse one session (ids are uuid7, so ordering by id yields the
+                #       earliest) instead of crashing the log POST with MultipleObjectsReturned.
+                self.session = (
+                    WorkoutSession.objects.filter(
+                        user=self.user,
+                        date=self.date,
+                        routine=self.routine,
+                    )
+                    .order_by('id')
+                    .first()
+                )
 
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:

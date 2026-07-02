@@ -26,11 +26,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
-from wger.manager.api.consts import BASE_CONFIG_FIELDS
-from wger.manager.api.filtersets import (
-    BaseConfigFilterSet,
-    WorkoutLogFilterSet,
-)
+from wger.manager.api.consts import BASE_CONFIG_FILTER_FIELDS
+from wger.manager.api.filtersets import WorkoutLogFilterSet
 from wger.manager.api.permissions import RoutinePermission
 from wger.manager.api.serializers import (
     DaySerializer,
@@ -199,6 +196,10 @@ class RoutineViewSet(viewsets.ModelViewSet):
 
         return Response(out)
 
+    @staticmethod
+    def get_owner_objects():
+        return []
+
 
 class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -276,7 +277,8 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -309,7 +311,8 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -348,7 +351,8 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
 
         return Day.objects.filter(routine__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -379,7 +383,8 @@ class SlotViewSet(WgerOwnerObjectModelViewSet):
 
         return Slot.objects.filter(day__routine__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -416,7 +421,8 @@ class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
 
         return SlotEntry.objects.filter(slot__day__routine__user=self.request.user)
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -430,9 +436,10 @@ class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
 
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = BASE_CONFIG_FIELDS
+    filterset_fields = BASE_CONFIG_FILTER_FIELDS
 
-    def get_owner_objects(self):
+    @staticmethod
+    def get_owner_objects():
         """
         Return objects to check for ownership permission
         """
@@ -445,7 +452,6 @@ class WeightConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = WeightConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -464,7 +470,6 @@ class MaxWeightConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxWeightConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -485,7 +490,6 @@ class RepetitionsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = RepetitionsConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -506,7 +510,6 @@ class MaxRepetitionsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxRepetitionsConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -527,7 +530,6 @@ class SetsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = SetNrConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -546,7 +548,6 @@ class MaxSetsConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxSetNrConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -565,7 +566,6 @@ class RestConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = RestConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -584,7 +584,6 @@ class MaxRestConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxRestConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -603,7 +602,6 @@ class RiRConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = RiRConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """
@@ -622,7 +620,6 @@ class MaxRiRConfigViewSet(AbstractConfigViewSet):
     """
 
     serializer_class = MaxRiRConfigSerializer
-    filterset_class = BaseConfigFilterSet
 
     def get_queryset(self):
         """

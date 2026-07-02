@@ -16,6 +16,9 @@
 from unittest.mock import patch
 from uuid import UUID
 
+# Django
+from django.core.cache import cache
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
@@ -27,6 +30,7 @@ from wger.exercises.models.image import ExerciseImage
 from wger.exercises.models.video import ExerciseVideo
 from wger.manager.models import WorkoutLog
 from wger.manager.models.slot_entry import SlotEntry
+from wger.utils.cache import CacheKeyMapper
 
 
 class DeletionLogTestCase(WgerTestCase):
@@ -115,6 +119,28 @@ class DeletionLogTestCase(WgerTestCase):
 
         # The slot entry should now point to the replacement
         self.assertEqual(SlotEntry.objects.filter(exercise=replacement).count(), 2)
+
+    def test_exercise_replace_by_resets_routine_cache(self):
+        """
+        Test that replacing a deleted exercise invalidates the cache of every
+        routine that referenced it.
+
+        The references are repointed with a bulk update that does not fire the
+        signals which normally refresh the routine caches. If the cache is not
+        reset explicitly, the cached routine structure keeps pointing at the
+        now-deleted exercise.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        routine = SlotEntry.objects.get(exercise=exercise_to_delete).slot.day.routine
+        cache_key = CacheKeyMapper.routine_api_structure_key(routine.id, routine.user_id)
+        cache.set(cache_key, {'stale': 'data'})
+        self.assertIsNotNone(cache.get(cache_key))
+
+        exercise_to_delete.delete(replace_by=str(replacement.uuid))
+
+        self.assertIsNone(cache.get(cache_key))
 
     def test_exercise_replace_by_delete_is_atomic_on_failure(self):
         """
@@ -258,6 +284,24 @@ class DeletionLogTestCase(WgerTestCase):
             uuid=exercise.uuid,
         )
         self.assertEqual(log.replaced_by, None)
+
+    def test_exercise_replace_by_self_is_ignored(self):
+        """
+        Test that deleting an exercise that points to its own UUID as the
+        replacement is treated as a plain deletion: the deletion log entry must
+        not reference itself, otherwise the exercise would be served in both the
+        active feed and the deletion log and trigger an endless sync loop.
+        """
+        exercise = Exercise.objects.get(pk=1)
+
+        exercise.delete(replace_by=str(exercise.uuid))
+
+        log = DeletionLog.objects.get(
+            model_type=DeletionLog.MODEL_EXERCISE,
+            uuid=exercise.uuid,
+        )
+        self.assertIsNone(log.replaced_by)
+        self.assertFalse(Exercise.objects.filter(pk=1).exists())
 
     def test_translation(self):
         """

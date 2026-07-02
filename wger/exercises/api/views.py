@@ -18,13 +18,13 @@ from uuid import UUID
 
 # Django
 from django.conf import settings
+from django.core.cache import cache
 from django.db.models import Prefetch
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
-from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -50,6 +50,7 @@ from wger.exercises.api.serializers import (
     ExerciseVideoSerializer,
     MuscleSerializer,
 )
+from wger.exercises.api.throttling import CreateScopedRateThrottle
 from wger.exercises.models import (
     Alias,
     DeletionLog,
@@ -63,6 +64,7 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.cache import CacheKeyMapper
 
 
 class ExerciseViewSet(ModelViewSet):
@@ -75,6 +77,8 @@ class ExerciseViewSet(ModelViewSet):
     queryset = Exercise.with_translations.all()
     serializer_class = ExerciseSerializer
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_create'
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -112,6 +116,10 @@ class ExerciseViewSet(ModelViewSet):
         try:
             UUID(uuid, version=4)
         except ValueError:
+            uuid = None
+
+        # An exercise can't be replaced by itself, treat it as a plain deletion
+        if uuid == str(instance.uuid):
             uuid = None
 
         transfer_media = 'transfer_media' in self.request.query_params
@@ -155,6 +163,8 @@ class ExerciseTranslationViewSet(ModelViewSet):
 
     queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_create'
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -222,14 +232,11 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         """
-        Optimize the queryset with select_related and prefetch_related to avoid
-        n+1 queries
+        Heavy queryset with select_related/prefetch_related to avoid n+1 queries.
 
-        One improvement is that we access the historical records of the exercise
-        from the django-simple-history package, which are not really prefetchable
-        since they are a manager.
+        Used by retrieve() and the cache-miss path in list(); warm list() requests
+        skip it entirely (see list()).
         """
-
         return Exercise.objects.select_related(
             'category',
             'license',
@@ -245,6 +252,34 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
             ),
         )
 
+    def list(self, request, *args, **kwargs):
+        """Serve the list from the per-exercise cache, hitting the DB only for misses."""
+
+        # Only id + uuid are needed to build the cache keys: filtering/ordering
+        # still apply, but no related rows are pulled.
+        queryset = self.filter_queryset(Exercise.objects.only('id', 'uuid'))
+        page = self.paginate_queryset(queryset)
+        exercises = page if page is not None else list(queryset)
+
+        keys = {
+            exercise.uuid: CacheKeyMapper.get_exercise_api_key(exercise.uuid)
+            for exercise in exercises
+        }
+        representations = cache.get_many(keys.values())
+
+        missing = [uuid for uuid, key in keys.items() if key not in representations]
+        if missing:
+            # to_representation() repopulates the cache as a side effect
+            for exercise in self.get_queryset().filter(uuid__in=missing):
+                representations[keys[exercise.uuid]] = self.get_serializer(exercise).data
+
+        data = [
+            representations[keys[exercise.uuid]]
+            for exercise in exercises
+            if keys[exercise.uuid] in representations
+        ]
+        return self.get_paginated_response(data) if page is not None else Response(data)
+
 
 class ExerciseSubmissionViewSet(CreateAPIView):
     """
@@ -254,6 +289,8 @@ class ExerciseSubmissionViewSet(CreateAPIView):
     serializer_class = ExerciseSubmissionSerializer
     queryset = Exercise.objects.all()
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_create'
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):

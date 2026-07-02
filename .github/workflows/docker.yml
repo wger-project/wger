@@ -43,7 +43,7 @@ jobs:
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Read version from wger/version.py
         id: version
@@ -73,7 +73,7 @@ jobs:
           install: true
 
       - name: Cache Docker layers
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: /tmp/.buildx-cache
           key: multi-buildx-${{ matrix.platform }}-${{ hashFiles('pyproject.toml', 'package-lock.json') }}

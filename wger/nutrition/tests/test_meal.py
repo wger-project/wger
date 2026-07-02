@@ -15,9 +15,14 @@
 
 # Standard Library
 import datetime
+import json
+
+# Django
+from django.urls import reverse
 
 # wger
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import Meal
 
 
@@ -26,12 +31,28 @@ class MealApiTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the meal overview resource
     """
 
-    pk = 2
+    pk = '22222222-2222-2222-2222-000000000002'
     resource = Meal
     private_resource = True
     special_endpoints = ('nutritional_values',)
     data = {
         'time': datetime.time(9, 2),
-        'plan': 4,
+        'plan': '11111111-1111-1111-1111-000000000004',
         'order': 1,
     }
+
+
+class MealMalformedFkTestCase(WgerTestCase):
+    """
+    A malformed FK reference must not crash the ownership check.
+    """
+
+    def test_malformed_plan_reference_is_rejected_cleanly(self):
+        self.user_login('test')
+        response = self.client.post(
+            reverse('meal-list'),
+            data=json.dumps({'plan': '', 'time': '09:02'}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('plan', response.json())

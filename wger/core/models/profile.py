@@ -115,28 +115,6 @@ class UserProfile(models.Model):
     # User preferences
     #
 
-    show_comments = models.BooleanField(
-        verbose_name=_('Show exercise comments'),
-        help_text=_('Check to show exercise comments on the workout view'),
-        default=True,
-    )
-    """
-    Show exercise comments on workout view
-    """
-
-    # Also show ingredients in english while composing a nutritional plan
-    # (obviously this is only meaningful if the user has a language other than english)
-    show_english_ingredients = models.BooleanField(
-        verbose_name=_('Also use ingredients in English'),
-        help_text=_(
-            """Check to also show ingredients in English while creating
-a nutritional plan. These ingredients are extracted from a list provided
-by the US Department of Agriculture. It is extremely complete, with around
-7000 entries, but can be somewhat overwhelming and make the search difficult."""
-        ),
-        default=True,
-    )
-
     workout_reminder_active = models.BooleanField(
         verbose_name=_('Activate workout reminders'),
         help_text=_(
@@ -220,7 +198,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
     birthdate = models.DateField(
         verbose_name=_('Date of Birth'),
-        blank=False,
+        blank=True,
         null=True,
         validators=[birthdate_validator],
     )
@@ -228,7 +206,7 @@ by the US Department of Agriculture. It is extremely complete, with around
 
     height = IntegerField(
         verbose_name=_('Height (cm)'),
-        blank=False,
+        blank=True,
         validators=[MinValueValidator(140), MaxValueValidator(230)],
         null=True,
     )
@@ -336,17 +314,6 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=UNITS_KG,
     )
     """Preferred weight unit"""
-
-    ro_access = models.BooleanField(
-        verbose_name=_('Allow external access'),
-        help_text=_(
-            'Allow external users to access your workouts and '
-            'logs in a read-only mode. You need to set this '
-            'before you can share links e.g. to social media.'
-        ),
-        default=False,
-    )
-    """Allow anonymous read-only access"""
 
     num_days_weight_reminder = models.IntegerField(
         verbose_name=_('Automatic reminders for weight entries'),

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags socialaccount %}
 
 {% block title %}{% translate "Preferences" %}{% endblock %}
 
@@ -13,25 +13,76 @@
 
 
 {% block sidebar %}
-    {% if email_verified %}
-        <p>
-            <span class="{% fa_class 'envelope-circle-check' %}  text-success"></span>
-            {% translate "Verified email" %}
-        </p>
-    {% else %}
-        <p>
-            <span class="{% fa_class 'envelope' %}"></span>
-            {% translate "Unverified email" %}
-        </p>
-    {% endif %}
-    <p>
-        <a href="{% url 'account_email' %}">{% translate "Manage email address" %}</a>
-    </p>
-    <p>
-        <small class="text-muted">
-            {% translate "You need to verify your email to contribute exercises" %}
-        </small>
-    </p>
+    <div class="card mb-3">
+        <div class="card-header">
+            <span class="{% fa_class 'shield-halved' %} me-1"></span>
+            {% translate "Account & security" %}
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="{% url 'account_email' %}" class="list-group-item list-group-item-action">
+                <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                <span class="{% fa_class 'envelope' %} me-2 text-muted"></span>
+                {% translate "Email address" %}
+                {% if email_verified %}
+                    <small class="d-block ms-4 text-success">{% translate "Verified email" %}</small>
+                {% else %}
+                    <small class="d-block ms-4 text-muted">{% translate "Unverified email" %}</small>
+                {% endif %}
+            </a>
+            {% if has_usable_password %}
+                <a href="{% url 'core:user:change-password' %}" class="list-group-item list-group-item-action">
+                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                    <span class="{% fa_class 'key' %} me-2 text-muted"></span>
+                    {% translate "Change password" %}
+                </a>
+            {% else %}
+                <a href="{% url 'account_set_password' %}" class="list-group-item list-group-item-action">
+                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                    <span class="{% fa_class 'key' %} me-2 text-muted"></span>
+                    {% translate "Set password" %}
+                </a>
+            {% endif %}
+            <a href="{% url 'mfa_index' %}" class="list-group-item list-group-item-action">
+                <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                <span class="{% fa_class 'shield-halved' %} me-2 text-muted"></span>
+                {% translate "Two-factor authentication" %}
+                {% if mfa_enabled %}
+                    <span class="badge text-bg-success ms-1">{% translate "On" %}</span>
+                {% else %}
+                    <span class="badge text-bg-secondary ms-1">{% translate "Off" %}</span>
+                {% endif %}
+            </a>
+            {% get_providers as socialaccount_providers %}
+            {% if socialaccount_providers %}
+                <a href="{% url 'socialaccount_connections' %}" class="list-group-item list-group-item-action">
+                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                    <span class="{% fa_class 'link' %} me-2 text-muted"></span>
+                    {% translate "Connected accounts" %}
+                </a>
+            {% endif %}
+            <a href="{% url 'core:user:api-key' %}" class="list-group-item list-group-item-action">
+                <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                <span class="{% fa_class 'globe' %} me-2 text-muted"></span>
+                {% translate "API key" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-danger mb-3">
+        <div class="card-header text-danger">
+            <span class="{% fa_class 'trash' %} me-1"></span>
+            {% translate "Danger zone" %}
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <small class="text-muted">
+                    {% translate "Your account and all training data will be permanently deleted." %}
+                </small>
+            </p>
+            {% translate 'Delete account' as text %}
+            {% modal_link url='core:user:delete' text=text css_class='btn btn-outline-danger btn-sm' %}
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -40,33 +91,4 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <div class="btn-group">
-        <div class="btn-group" role="group">
-            <button type="button"
-                    class="btn btn-primary btn-sm dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                <span class="{% fa_class 'cog' %}"></span>
-                {% translate "Options" %}
-            </button>
-            <div class="dropdown-menu">
-                <a href="{% url 'account_email' %}" class="dropdown-item">
-                    <span class="{% fa_class 'envelope' %}"></span>
-                    {% translate "Email address" %}
-                </a>
-                <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
-                    <span class="{% fa_class 'key' %}"></span>
-                    {% translate "Change password" %}
-                </a>
-                <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
-                    <span class="{% fa_class 'globe' %}"></span>
-                    {% translate "API key" %}
-                </a>
-                <div role="separator" class="dropdown-divider"></div>
-                {% translate 'Delete account' as text %}
-                {% modal_link url='core:user:delete' text=text css_class='dropdown-item' %}
-            </div>
-        </div>
-    </div>
 {% endblock %}

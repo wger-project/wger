@@ -87,7 +87,7 @@ class AbstractLicenseModel(models.Model):
         verbose_name=_('Author(s)'),
         max_length=3500,
         blank=True,
-        null=True,
+        default='',
         help_text=_('If you are not the author, enter the name or source here.'),
     )
 
@@ -166,10 +166,9 @@ def collect_model_author_history(model):
     """
     Get unique set of license authors from historical records from model.
     """
-    out = set()
-    for author in [h.license_author for h in set(model.history.all()) if h.license_author]:
-        out.add(author)
-    return out
+    return set(
+        model.history.exclude(license_author='').values_list('license_author', flat=True).distinct()
+    )
 
 
 def collect_models_author_history(model_list):

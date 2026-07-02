@@ -50,45 +50,107 @@ class LogModelTestCase(WgerTestCase):
 
         self.assertEqual(WorkoutSession.objects.count(), 1)
 
-    def test_dont_create_session(self):
+    def test_save_reuses_session_when_duplicates_exist(self):
         """
-        Test that no session is created if the log already has one
+        Duplicate routine-less sessions can exist for one (user, date) because the
+        unique_together does not cover a NULL routine. A new log's save() must
+        reuse an existing session instead of raising MultipleObjectsReturned.
+        """
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+        # First log auto-creates a routine-less session for today.
+        WorkoutLog(user_id=1, exercise_id=1, weight=10, repetitions=10).save()
+        session = WorkoutSession.objects.get()
+        self.assertIsNone(session.routine_id)
+
+        # A duplicate (user, date, routine=None) — only possible because a NULL
+        # routine escapes the unique_together guard.
+        WorkoutSession.objects.create(user_id=1, date=session.date, routine=None)
+        self.assertEqual(WorkoutSession.objects.count(), 2)
+
+        # A second log for the same day must not crash and must not add a session.
+        log = WorkoutLog(user_id=1, exercise_id=1, weight=20, repetitions=8)
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(WorkoutSession.objects.count(), 2)
+        existing_ids = set(WorkoutSession.objects.values_list('id', flat=True))
+        self.assertIn(log.session_id, existing_ids)
+
+    def test_dont_create_session_when_already_set(self):
+        """
+        If the log already has a (valid, own) session, the auto-create magic must
+        not run and no extra session must be created.
         """
 
-        self.assertEqual(WorkoutSession.objects.count(), 5)
+        initial_count = WorkoutSession.objects.count()
+        self.assertEqual(initial_count, 5)
 
-        log = WorkoutLog.objects.get(pk=1)
-        log.session_id = 1
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        target = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
+        self.assertEqual(log.user_id, target.user_id)
+        self.assertNotEqual(log.date.date(), target.date)
 
-        self.assertEqual(WorkoutSession.objects.count(), 5)
+        log.session = target
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(str(log.session_id), 'bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
+        self.assertEqual(WorkoutSession.objects.count(), initial_count)
+
+    def test_keep_explicit_own_session(self):
+        """
+        When the client provides an explicit, matching session, save() must not
+        replace it with a freshly created one.
+        """
+
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        own_session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+
+        log.session = own_session
+        log.weight = 99  # force a change
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(str(log.session_id), 'bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
 
     def test_session_ownership(self):
         """
-        Test that the session foreign key checks ownership
+        A log must never end up attached to another user's session, even if the
+        caller tries to set ``log.session`` to a foreign one.
         """
-        session1 = WorkoutSession.objects.get(pk=1)
-        session5 = WorkoutSession.objects.get(pk=5)
 
-        self.assertEqual(session1.user_id, 1)
-        self.assertEqual(session5.user_id, 2)
+        own_session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        foreign_session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005')
 
-        log = WorkoutLog.objects.get(pk=1)
-        log.session = session5
+        self.assertEqual(own_session.user_id, 1)
+        self.assertEqual(foreign_session.user_id, 2)
+
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        self.assertEqual(log.user_id, 1)
+
+        log.session = foreign_session
         log.save()
 
-        self.assertNotEqual(log.session_id, 4)
+        log.refresh_from_db()
+        self.assertNotEqual(log.session_id, foreign_session.pk)
+
+        # Whatever session was assigned by the auto-create fallback must belong
+        # to the same user as the log.
+        self.assertEqual(log.session.user_id, log.user_id)
 
     def test_routine_ownership(self):
         """
         Test that the routine foreign key checks ownership
         """
 
-        log = WorkoutLog.objects.get(pk=1)
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         log.routine_id = 3
         log.save()
 
         # Reload from db
-        log = WorkoutLog.objects.get(pk=1)
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
 
         self.assertEqual(log.routine_id, 1)
 
@@ -111,7 +173,6 @@ class LogModelTestCase(WgerTestCase):
         )
         log.save()
 
-        self.assertIsNone(log.pk)
         self.assertFalse(WorkoutLog.objects.filter(user_id=2, slot_entry_id=1).exists())
 
     def test_next_log_user_check_fail(self):
@@ -119,11 +180,11 @@ class LogModelTestCase(WgerTestCase):
         Test that the next log foreign key checks ownership
         """
 
-        log2 = WorkoutLog.objects.get(pk=2)
+        log2 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000002')
         log2.user_id = 2
         log2.save()
 
-        log1 = WorkoutLog.objects.get(pk=1)
+        log1 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         log1.user_id = 1
         log1.next_log = log2
         log1.save()
@@ -135,8 +196,8 @@ class LogModelTestCase(WgerTestCase):
         Test that the next log foreign key checks ownership
         """
 
-        log1 = WorkoutLog.objects.get(pk=1)
-        log2 = WorkoutLog.objects.get(pk=2)
+        log1 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        log2 = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000002')
 
         self.assertEqual(log1.user_id, 1)
         self.assertEqual(log2.user_id, 1)

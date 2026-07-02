@@ -14,7 +14,19 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
-from rest_framework.pagination import CursorPagination
+from rest_framework.exceptions import NotFound
+from rest_framework.pagination import (
+    CursorPagination,
+    LimitOffsetPagination,
+)
+
+
+class WgerLimitOffsetPagination(LimitOffsetPagination):
+    """
+    Default offset pagination with a hard upper bound on ``limit``.
+    """
+
+    max_limit = 999
 
 
 class IngredientCursorPagination(CursorPagination):
@@ -41,3 +53,15 @@ class IngredientCursorPagination(CursorPagination):
     page_size_query_param = 'page_size'
     ordering = 'id'
     cursor_query_param = 'cursor'
+
+    def decode_cursor(self, request):
+        cursor = super().decode_cursor(request)
+
+        # Reject any non-numeric cursors
+        if cursor is not None and cursor.position is not None:
+            try:
+                int(cursor.position)
+            except (TypeError, ValueError):
+                raise NotFound(self.invalid_cursor_message)
+
+        return cursor

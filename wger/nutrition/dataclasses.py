@@ -49,8 +49,8 @@ class IngredientData:
     code: Optional[str]
     source_name: str
     source_url: str
-    common_name: str
-    brand: str
+    common_name: str | None
+    brand: str | None
     license_id: int
     license_author: str
     license_title: str
@@ -68,8 +68,8 @@ class IngredientData:
         if not self.name:
             raise ValueError('Name is empty!')
         self.name = self.name[:200]
-        self.brand = self.brand[:200]
-        self.common_name = self.common_name[:200]
+        self.brand = self.brand[:200] if self.brand is not None else None
+        self.common_name = self.common_name[:200] if self.common_name is not None else None
         self.license_title = self.license_title[:200]
 
         # Mass checks (not more than 100g of something per 100g of product etc)

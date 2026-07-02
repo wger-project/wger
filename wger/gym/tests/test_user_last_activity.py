@@ -40,8 +40,8 @@ class UserLastActivityTestCase(WgerTestCase):
         """
         self.user_login('admin')
         user = User.objects.get(username='admin')
-        log = WorkoutLog.objects.get(pk=1)
-        session = WorkoutSession.objects.get(pk=1)
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
 
         self.assertEqual(user.usercache.last_activity, datetime.date(2025, 11, 1))
         self.assertEqual(

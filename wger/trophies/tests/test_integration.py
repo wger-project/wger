@@ -34,6 +34,10 @@ from wger.trophies.models import (
 )
 from wger.trophies.services.statistics import UserStatisticsService
 from wger.trophies.services.trophy import TrophyService
+from wger.trophies.signals import (
+    workout_log_saved,
+    workout_session_saved,
+)
 
 
 class TrophyIntegrationTestCase(WgerTestCase):
@@ -158,6 +162,18 @@ class TrophyIntegrationTestCase(WgerTestCase):
 
         context = pr_trophies.first().context_data
         self.assertIsNotNone(context)
+
+    def test_personal_record_not_awarded_when_user_disabled_trophies(self):
+        """No Personal Record is awarded on log creation if the user disabled trophies"""
+        UserTrophy.objects.filter(user=self.user).delete()
+        self.user.userprofile.trophies_enabled = False
+        self.user.userprofile.save()
+
+        exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='pr_cat'))
+        WorkoutLog.objects.create(user=self.user, exercise=exercise, repetitions=10, weight=100)
+
+        pr_trophies = UserTrophy.objects.filter(user=self.user, trophy=self.personal_record_trophy)
+        self.assertEqual(pr_trophies.count(), 0)
 
     def test_lifting_5000kg_earns_lifter_trophy(self):
         """Test that lifting 5000kg total earns Lifter trophy"""
@@ -474,3 +490,53 @@ class UserDeletionTestCase(WgerTestCase):
 
         self.assertFalse(User.objects.filter(pk=user_id).exists())
         self.assertFalse(UserStatistics.objects.filter(user_id=user_id).exists())
+
+
+class LoadDataSignalGuardTestCase(WgerTestCase):
+    """
+    Fixture loading (loaddata) fires post_save with raw=True. The trophy and
+    statistics side effects must be skipped on those raw saves.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.get(username='admin')
+        self.exercise = Exercise.objects.create(
+            category=ExerciseCategory.objects.create(name='raw_cat')
+        )
+
+        Trophy.objects.all().delete()
+        Trophy.objects.create(
+            name='Personal Record',
+            trophy_type=Trophy.TYPE_OTHER,
+            checker_class='personal_record',
+            checker_params={},
+            is_active=True,
+            is_repeatable=True,
+        )
+
+    def test_raw_workout_log_save_skips_trophy_and_statistics(self):
+        """A raw WorkoutLog save awards no trophy and creates no statistics row"""
+        log = WorkoutLog.objects.create(
+            user=self.user, exercise=self.exercise, repetitions=10, weight=100
+        )
+
+        # Discard side effects produced by the normal (non-raw) create above.
+        UserTrophy.objects.filter(user=self.user).delete()
+        UserStatistics.objects.filter(user=self.user).delete()
+
+        # Replay the save as loaddata would: raw=True.
+        workout_log_saved(sender=WorkoutLog, instance=log, created=True, raw=True)
+
+        self.assertFalse(UserTrophy.objects.filter(user=self.user).exists())
+        self.assertFalse(UserStatistics.objects.filter(user=self.user).exists())
+
+    def test_raw_workout_session_save_skips_statistics(self):
+        """A raw WorkoutSession save creates no statistics row"""
+        session = WorkoutSession.objects.create(user=self.user, date=datetime.date(2024, 1, 1))
+
+        UserStatistics.objects.filter(user=self.user).delete()
+
+        workout_session_saved(sender=WorkoutSession, instance=session, created=True, raw=True)
+
+        self.assertFalse(UserStatistics.objects.filter(user=self.user).exists())

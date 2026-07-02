@@ -14,8 +14,10 @@
 
 # Standard Library
 import datetime
+from unittest import mock
 
 # Django
+from django.conf import settings
 from django.urls import reverse
 
 # wger
@@ -485,6 +487,35 @@ class RoutineTestCase(WgerTestCase):
             self.routine.data_for_day(datetime.date(2024, 1, 7)),
             WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7)),
         )
+
+    def _date_sequence_cache_ttl(self):
+        """Capture the timeout date_sequence passes to cache.set, forcing a cache miss."""
+        with (
+            mock.patch('wger.manager.models.routine.cache.get', return_value=None),
+            mock.patch('wger.manager.models.routine.cache.set') as mock_set,
+        ):
+            _ = self.routine.date_sequence
+        return mock_set.call_args.args[2]
+
+    def test_date_sequence_cache_keeps_full_ttl_without_need_logs(self):
+        """
+        A sequence that does not depend on the current date keeps the full cache TTL
+        """
+        self.assertEqual(
+            self._date_sequence_cache_ttl(),
+            settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'],
+        )
+
+    def test_date_sequence_cache_capped_to_day_with_need_logs(self):
+        """
+        A sequence that bakes in today's date must expire by the next local midnight
+        """
+        self.day1.need_logs_to_advance = True
+        self.day1.save()
+
+        ttl = self._date_sequence_cache_ttl()
+        self.assertLessEqual(ttl, 24 * 60 * 60)
+        self.assertLess(ttl, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
 
 class RoutineApiTestCase(ApiBaseResourceTestCase):

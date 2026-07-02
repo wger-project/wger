@@ -320,17 +320,17 @@ def handle_deleted_entries(
             try:
                 old_exercise = Exercise.objects.get(uuid=uuid)
 
-                # Replace exercise in routines and logs
+                # Count the references before they are repointed, so we can
+                # report how many were moved to the replacement
                 if obj_replaced:
-                    nr_slot_entries = SlotEntry.objects.filter(exercise=old_exercise).update(
-                        exercise=obj_replaced
-                    )
+                    nr_slot_entries = SlotEntry.objects.filter(exercise=old_exercise).count()
+                    nr_logs = WorkoutLog.objects.filter(exercise=old_exercise).count()
 
-                    nr_logs = WorkoutLog.objects.filter(exercise=old_exercise).update(
-                        exercise=obj_replaced
-                    )
+                # Let the model repoint the references in routines and logs to
+                # the replacement (and reset the affected routine caches) before
+                # deleting, so that user data is not lost on this instance
+                old_exercise.delete(replace_by=replaced_by_uuid if obj_replaced else None)
 
-                old_exercise.delete()
                 replaced_by_info = f' (replaced by {obj_replaced.uuid})' if obj_replaced else ''
                 print_fn(f'Deleted exercise {uuid}{replaced_by_info}')
                 if nr_slot_entries:

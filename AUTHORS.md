@@ -2,7 +2,7 @@
 
 Thank you all for contributing to the project, you are true heroes! 🫶
 
-*Generated on 2026-05-13*
+*Generated on 2026-06-17*
 
 ---
 
@@ -163,6 +163,10 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Helen Sherwood-Taylor - [https://github.com/helenst](https://github.com/helenst)
 - Sean Hussey - [https://github.com/seanhussey](https://github.com/seanhussey)
 - dashdrum - [https://github.com/dashdrum](https://github.com/dashdrum)
+- Anja Klipic - [https://github.com/anjakDev](https://github.com/anjakDev)
+- Marcello Mendo - [https://github.com/Marcelluxx](https://github.com/Marcelluxx)
+- Ewin7 - [https://github.com/Ewin7](https://github.com/Ewin7)
+- birjd002 - [https://github.com/birjd002](https://github.com/birjd002)
 
 ## Translators
 
@@ -326,6 +330,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 - J. Lavoie
 - Stefano Rossi - [https://github.com/stefanorossiti](https://github.com/stefanorossiti)
+- Dario Coltri - [https://github.com/casacoltri](https://github.com/casacoltri)
 
 ### Japanese
 

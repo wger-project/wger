@@ -195,10 +195,10 @@ class SlotEntry(models.Model):
     @property
     def has_progression(self) -> bool:
         """
-        Returns true if any config set has more than one entry (is a progression)
+        Returns true if the calculated config data can change across iterations
         """
         return any(
-            len(getattr(self, f'{field}config_set').all()) > 1
+            config.iteration != 1
             for field in [
                 'weight',
                 'maxweight',
@@ -211,6 +211,7 @@ class SlotEntry(models.Model):
                 'sets',
                 'maxsets',
             ]
+            for config in getattr(self, f'{field}config_set').all()
         )
 
     def save(self, *args, **kwargs):
@@ -399,15 +400,15 @@ class SlotEntry(models.Model):
 
         max_iterations = {
             'weight': 1,
-            'max_weight': 1,
+            'maxweight': 1,
             'repetitions': 1,
-            'max_repetitions': 1,
+            'maxrepetitions': 1,
             'rir': 1,
-            'max_rir': 1,
+            'maxrir': 1,
             'rest': 1,
-            'max_rest': 1,
+            'maxrest': 1,
             'sets': 1,
-            'max_sets': 1,
+            'maxsets': 1,
         }
 
         def _requirement_met(log: WorkoutLog, field_name: str) -> bool:
@@ -474,19 +475,19 @@ class SlotEntry(models.Model):
                         break
 
         sets = self.calculate_sets(max_iterations['sets'])
-        max_sets = self.calculate_maxsets(max_iterations['max_sets'])
+        max_sets = self.calculate_maxsets(max_iterations['maxsets'])
 
         weight = self.calculate_weight(max_iterations['weight'])
-        max_weight = self.calculate_maxweight(max_iterations['max_weight'])
+        max_weight = self.calculate_maxweight(max_iterations['maxweight'])
 
         repetitions = self.calculate_repetitions(max_iterations['repetitions'])
-        max_repetitions = self.calculate_maxrepetitions(max_iterations['max_repetitions'])
+        max_repetitions = self.calculate_maxrepetitions(max_iterations['maxrepetitions'])
 
         rir = self.calculate_rir(max_iterations['rir'])
-        max_rir = self.calculate_maxrir(max_iterations['max_rir'])
+        max_rir = self.calculate_maxrir(max_iterations['maxrir'])
 
         rest = self.calculate_rest(max_iterations['rest'])
-        max_rest = self.calculate_maxrest(max_iterations['max_rest'])
+        max_rest = self.calculate_maxrest(max_iterations['maxrest'])
 
         result = SetConfigData(
             slot_entry_id=self.id,
