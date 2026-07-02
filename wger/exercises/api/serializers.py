@@ -508,15 +508,21 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
         if description and language:
             validate_language_matches(description, language, 'description')
 
-        # Check for duplicates
+        # Check for duplicates, but only when the name is actually being
+        # changed since there are possibly near-duplicates in the existing db
         name = value.get('name')
-        if name and language:
+        name_changed = not self.instance or _normalise_name(name or '') != _normalise_name(
+            self.instance.name
+        )
+        if name and language and name_changed:
             exclude_pk = self.instance.pk if self.instance else None
             duplicate_hit = _check_duplicates(name, language, exclude_pk=exclude_pk)
             if duplicate_hit:
                 raise serializers.ValidationError(
                     {
-                        'name': f'The name "{name}" is too similar to the existing exercise "{duplicate_hit}". Please choose a more distinct name or submit a variation instead.'
+                        'name': f'The name "{name}" is too similar to the existing exercise '
+                        f'"{duplicate_hit}". Please choose a more distinct name or submit '
+                        f'a variation instead.'
                     }
                 )
 

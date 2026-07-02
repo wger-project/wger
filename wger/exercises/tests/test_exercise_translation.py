@@ -21,6 +21,7 @@ from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
+    ExerciseCategory,
     Muscle,
     Translation,
 )
@@ -404,10 +405,6 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         Test that submitting a name structurally identical (ignoring spaces/hyphens)
         to an existing exercise in the same language is rejected.
         """
-
-        # wger
-        from wger.exercises.models import ExerciseCategory
-
         category = ExerciseCategory.objects.first()
 
         exercise_a = Exercise.objects.create(
@@ -444,12 +441,11 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
 
     def test_post_rejects_fuzzy_duplicate_name(self):
         """
-        Test that submitting a name semantically similar (trigram)
-        to an existing exercise in the same language is rejected.
+        Test that submitting a name that is only fuzzily similar to an existing
+        one in the same language is rejected. The names differ even after
+        normalisation (stripping spaces/hyphens leaves the trailing "s"), so
+        this exercises the similarity fallback rather than exact matching.
         """
-        # wger
-        from wger.exercises.models import ExerciseCategory
-
         category = ExerciseCategory.objects.first()
 
         exercise_a = Exercise.objects.create(
@@ -460,8 +456,8 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         Translation.objects.create(
             exercise=exercise_a,
             language_id=2,
-            name='Bench Press',
-            description_source='A base description for the bench press seed translation.',
+            name='Deadlift',
+            description_source='A base description for the deadlift seed translation.',
         )
 
         exercise_b = Exercise.objects.create(
@@ -471,8 +467,8 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         )
 
         payload = {
-            'name': 'Benchpress',  # fuzzy duplicate
-            'description_source': 'A new description for the benchpress duplicate test.',
+            'name': 'Deadlifts',  # fuzzy duplicate (plural variant)
+            'description_source': 'A new description for the deadlifts duplicate test.',
             'exercise': exercise_b.pk,
             'language': 2,
         }
@@ -497,7 +493,13 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         # passing the same name back
         response = self.client.patch(
             self.url_detail,
-            data={'description_source': 'Updating the description only', 'name': original_name},
+            data={
+                'description_source': (
+                    'A sufficiently long English description so the language '
+                    'detector can reliably recognise it as English.'
+                ),
+                'name': original_name,
+            },
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -507,10 +509,6 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         Test that editing an existing translation's name to collide with
         a DIFFERENT existing translation's name is rejected.
         """
-
-        # wger
-        from wger.exercises.models import ExerciseCategory
-
         other_exercise = Exercise.objects.create(
             category=ExerciseCategory.objects.first(),
             license_id=2,
@@ -531,3 +529,38 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('name', response.json())
+
+    def test_patch_allows_edit_when_unchanged_name_collides_with_existing(self):
+        """
+        Test that editing a translation without changing its name succeeds even
+        when another, pre-existing near-duplicate already lives in the database
+        """
+        translation = Translation.objects.get(pk=self.pk)
+
+        # Seed a near-duplicate of the edited translation in the same language
+        twin_exercise = Exercise.objects.create(
+            category=ExerciseCategory.objects.first(),
+            license_id=2,
+            license_author='test',
+        )
+        Translation.objects.create(
+            exercise=twin_exercise,
+            language_id=translation.language_id,
+            name=translation.name.replace(' ', '-'),
+            description_source='Base description for the pre-existing near-duplicate.',
+        )
+
+        self.authenticate('trainer1')
+        # Resubmit the unchanged name together with a new description
+        response = self.client.patch(
+            self.url_detail,
+            data={
+                'name': translation.name,
+                'description_source': (
+                    'A sufficiently long English description so the language '
+                    'detector can reliably recognise it as English.'
+                ),
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
