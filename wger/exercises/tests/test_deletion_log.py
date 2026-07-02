@@ -18,6 +18,7 @@ from uuid import UUID
 
 # Django
 from django.core.cache import cache
+from django.core.files import File
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -197,6 +198,35 @@ class DeletionLogTestCase(WgerTestCase):
 
         self.assertEqual(ExerciseImage.objects.filter(exercise=replacement).count(), 1)
         self.assertEqual(ExerciseVideo.objects.filter(exercise=replacement).count(), 1)
+
+    def test_exercise_replace_by_transfers_media_moves_the_file(self):
+        """
+        When media is transferred, the underlying file is physically moved so its
+        stored path reflects the new owner, not just the database reference.
+        """
+        exercise_to_delete = Exercise.objects.get(pk=1)
+        replacement = Exercise.objects.get(pk=2)
+
+        image = ExerciseImage(exercise=exercise_to_delete)
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as raw:
+            image.image.save('protestschwein.jpg', File(raw))
+        image.save()
+        storage = image.image.storage
+        old_name = image.image.name
+        self.addCleanup(storage.delete, old_name)
+        self.assertIn(f'exercise-images/{exercise_to_delete.id}/', old_name)
+        self.assertTrue(storage.exists(old_name))
+
+        with self.captureOnCommitCallbacks(execute=True):
+            exercise_to_delete.delete(replace_by=str(replacement.uuid), transfer_media=True)
+
+        image.refresh_from_db()
+        new_name = image.image.name
+        self.addCleanup(storage.delete, new_name)
+        self.assertIn(f'exercise-images/{replacement.id}/', new_name)
+        self.assertNotEqual(new_name, old_name)
+        self.assertTrue(storage.exists(new_name))
+        self.assertFalse(storage.exists(old_name))
 
     def test_exercise_replace_by_transfers_translations_in_missing_languages(self):
         """

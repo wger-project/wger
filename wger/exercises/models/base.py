@@ -18,8 +18,10 @@
 import datetime
 import uuid
 from typing import (
+    Callable,
     List,
     Optional,
+    Type,
 )
 
 # Django
@@ -55,6 +57,34 @@ from wger.utils.models import (
 from .category import ExerciseCategory
 from .equipment import Equipment
 from .muscle import Muscle
+
+
+def _relocate_media_files(
+    model: Type[models.Model],
+    pks: List[int],
+    field_name: str,
+    upload_to: Callable,
+) -> None:
+    """
+    Move each media file to the path that ``upload_to`` computes for its (already
+    reassigned) exercise, then update the stored name
+    """
+
+    for obj in model.objects.filter(pk__in=pks):
+        field = getattr(obj, field_name)
+        old_name = field.name
+        if not old_name:
+            continue
+
+        target = upload_to(obj, old_name)
+        storage = field.storage
+        if target == old_name or not storage.exists(old_name):
+            continue
+
+        with storage.open(old_name) as media_file:
+            new_name = storage.save(target, media_file)
+        storage.delete(old_name)
+        model.objects.filter(pk=obj.pk).update(**{field_name: new_name})
 
 
 class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -269,9 +299,15 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         # wger
         from wger.exercises.models import DeletionLog
-        from wger.exercises.models.image import ExerciseImage
+        from wger.exercises.models.image import (
+            ExerciseImage,
+            exercise_image_upload_dir,
+        )
         from wger.exercises.models.translation import Translation
-        from wger.exercises.models.video import ExerciseVideo
+        from wger.exercises.models.video import (
+            ExerciseVideo,
+            exercise_video_upload_dir,
+        )
         from wger.manager.helpers import reset_routine_cache
         from wger.manager.models import (
             Routine,
@@ -329,8 +365,29 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                     reset_routine_cache(routine)
 
                 if transfer_media:
-                    ExerciseImage.objects.filter(exercise=self).update(exercise=replacement)
-                    ExerciseVideo.objects.filter(exercise=self).update(exercise=replacement)
+                    image_pks = list(
+                        ExerciseImage.objects.filter(exercise=self).values_list('pk', flat=True)
+                    )
+                    video_pks = list(
+                        ExerciseVideo.objects.filter(exercise=self).values_list('pk', flat=True)
+                    )
+                    ExerciseImage.objects.filter(pk__in=image_pks).update(exercise=replacement)
+                    ExerciseVideo.objects.filter(pk__in=video_pks).update(exercise=replacement)
+
+                    # Move the underlying files so their path (keyed on the exercise
+                    # id) matches the new owner. Deferred to on_commit because the
+                    # file operations are not part of this transaction so if the delete
+                    # rolls back, no file is touched.
+                    transaction.on_commit(
+                        lambda: _relocate_media_files(
+                            ExerciseImage, image_pks, 'image', exercise_image_upload_dir
+                        )
+                    )
+                    transaction.on_commit(
+                        lambda: _relocate_media_files(
+                            ExerciseVideo, video_pks, 'video', exercise_video_upload_dir
+                        )
+                    )
 
                 if transfer_translations:
                     existing_languages = Translation.objects.filter(
