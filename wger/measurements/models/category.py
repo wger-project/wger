@@ -43,6 +43,15 @@ class Category(models.Model):
         ordering = [
             '-name',
         ]
+        constraints = [
+            # official category per (user, metric_type) where is_official=True
+            # user-created categories are unaffected
+            models.UniqueConstraint(
+                fields=['user', 'metric_type'],
+                condition=models.Q(is_official=True),
+                name='unique_official_category_per_metric_type',
+            )
+        ]
 
     id = models.UUIDField(
         default=uuid7,
@@ -77,8 +86,27 @@ class Category(models.Model):
         default=False,
     )
 
+    is_official = models.BooleanField(
+        verbose_name='Official category',
+        default=False,
+    )
+
     def get_owner_object(self):
         """
         Returns the object that has owner information
         """
         return self
+
+    @classmethod
+    def get_or_create_official(cls, user, metric_type, *, name, unit):
+        """
+        Returns the user's official category for `metric_type`. Used also by
+        the legacy weight endpoint
+        """
+        category, _ = cls.objects.get_or_create(
+            user=user,
+            metric_type=metric_type,
+            is_official=True,
+            defaults={'name': name, 'unit': unit},
+        )
+        return category

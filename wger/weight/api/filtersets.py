@@ -17,14 +17,17 @@
 from django_filters import rest_framework as filters
 
 # wger
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 class WeightEntryFilterSet(filters.FilterSet):
+    weight = filters.NumberFilter(field_name='value', lookup_expr='exact')
+    weight__gte = filters.NumberFilter(field_name='value', lookup_expr='gte')
+    weight__lte = filters.NumberFilter(field_name='value', lookup_expr='lte')
+
     class Meta:
-        model = WeightEntry
+        model = Measurement
         fields = {
             'id': ['exact', 'in'],
-            'weight': ['exact', 'gt', 'gte', 'lt', 'lte'],
             'date': ['exact', 'gt', 'gte', 'lt', 'lte'],
         }

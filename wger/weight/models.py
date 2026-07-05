@@ -32,6 +32,9 @@ from wger.utils.uuid import uuid7
 class WeightEntry(models.Model):
     """
     Model for a weight point
+
+    DEPRECATED (wger#2328): new weight data is written to
+    measurements.Measurement under the user's official 'body_weight'
     """
 
     uuid = models.UUIDField(

@@ -19,14 +19,20 @@
 from rest_framework import viewsets
 
 # wger
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
+from wger.measurements.models.category import MetricType
 from wger.weight.api.filtersets import WeightEntryFilterSet
 from wger.weight.api.serializers import WeightEntrySerializer
-from wger.weight.models import WeightEntry
 
 
 class WeightEntryViewSet(viewsets.ModelViewSet):
     """
     API endpoint for nutrition plan objects
+
+    CHANGED (wger#2328): reads/writes measurements.Measurement rows
     """
 
     serializer_class = WeightEntrySerializer
@@ -41,12 +47,19 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return WeightEntry.objects.none()
+            return Measurement.objects.none()
 
-        return WeightEntry.objects.filter(user=self.request.user)
+        return Measurement.objects.filter(
+            category__user=self.request.user,
+            category__metric_type=MetricType.BODY_WEIGHT,
+            category__is_official=True,
+        )
 
     def perform_create(self, serializer):
         """
-        Set the owner
+        Route the new entry into the user's official body-weight category
         """
-        serializer.save(user=self.request.user)
+        category = Category.get_or_create_official(
+            self.request.user, MetricType.BODY_WEIGHT, name='Body weight', unit='kg'
+        )
+        serializer.save(category=category)
