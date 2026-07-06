@@ -423,6 +423,8 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
+    date = serializers.SerializerMethodField()
+
     class Meta:
         model = WorkoutSession
         fields = (
@@ -432,9 +434,15 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
             'date',
             'notes',
             'impression',
-            'time_start',
-            'time_end',
+            'datetime_start',
+            'datetime_end',
         )
+
+    def get_date(self, obj):
+        if obj.datetime_start:
+            from django.utils import timezone
+            return timezone.localtime(obj.datetime_start).date()
+        return None
 
 
 class OwnerScopedSessionField(serializers.PrimaryKeyRelatedField):

@@ -18,6 +18,7 @@ from unittest import mock
 
 # Django
 from django.conf import settings
+from django.utils import timezone
 from django.urls import reverse
 
 # wger
@@ -301,7 +302,7 @@ class RoutineTestCase(WgerTestCase):
         WorkoutSession.objects.create(
             day=self.day1,
             routine=self.routine,
-            date=start + datetime.timedelta(days=2),
+            datetime_start=timezone.make_aware(datetime.datetime.combine(start + datetime.timedelta(days=2), datetime.time())),
             user=self.routine.user,
         )
 

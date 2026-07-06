@@ -249,12 +249,11 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
-        'date',
         'routine',
         'notes',
         'impression',
-        'time_start',
-        'time_end',
+        'datetime_start',
+        'datetime_end',
     )
 
     def get_queryset(self):

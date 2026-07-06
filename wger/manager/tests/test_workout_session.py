@@ -15,6 +15,8 @@
 # Standard Library
 import datetime
 
+from django.utils import timezone
+
 # wger
 from wger.core.tests import api_base_test
 from wger.manager.models import WorkoutSession
@@ -29,10 +31,9 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = WorkoutSession
     private_resource = True
     data = {
-        'workout': 3,
-        'date': datetime.date(2014, 1, 25),
+        'routine': 3,
         'notes': 'My new insights',
         'impression': '3',
-        'time_start': datetime.time(10, 0),
-        'time_end': datetime.time(13, 0),
+        'datetime_start': timezone.make_aware(datetime.datetime(2014, 1, 25, 10, 0)),
+        'datetime_end': timezone.make_aware(datetime.datetime(2014, 1, 25, 13, 0)),
     }

@@ -87,11 +87,11 @@ class UserStatisticsService:
         stats.total_weight_lifted = total_weight
 
         # Get all workout sessions
-        sessions = WorkoutSession.objects.filter(user=user).order_by('date')
+        sessions = WorkoutSession.objects.filter(user=user).order_by('datetime_start')
         stats.total_workouts = sessions.count()
 
         # Calculate streaks and other date-based stats
-        workout_dates = list(sessions.values_list('date', flat=True).distinct().order_by('date'))
+        workout_dates = list(sessions.values_list('datetime_start__date', flat=True).distinct().order_by('datetime_start__date'))
         current_streak, longest_streak = cls._calculate_streaks(workout_dates)
         stats.current_streak = current_streak
         stats.longest_streak = longest_streak
@@ -154,9 +154,9 @@ class UserStatisticsService:
         # Get the session date
         session_date = None
         if session:
-            session_date = session.date
+            session_date = session.datetime_start
         elif workout_log and workout_log.session:
-            session_date = workout_log.session.date
+            session_date = workout_log.session.datetime_start
 
         if session_date:
             # Convert datetime to date if needed for comparison
@@ -198,14 +198,15 @@ class UserStatisticsService:
                 cls._update_weekend_streak_incremental(stats, session_date)
 
         # Update workout times if session has time info
-        if session and session.time_start:
+        if session and session.datetime_start:
+            session_time = session.datetime_start.time()
             if (
                 stats.earliest_workout_time is None
-                or session.time_start < stats.earliest_workout_time
+                or session_time < stats.earliest_workout_time
             ):
-                stats.earliest_workout_time = session.time_start
-            if stats.latest_workout_time is None or session.time_start > stats.latest_workout_time:
-                stats.latest_workout_time = session.time_start
+                stats.earliest_workout_time = session_time
+            if stats.latest_workout_time is None or session_time > stats.latest_workout_time:
+                stats.latest_workout_time = session_time
 
         # Count sessions for total workouts (recalculate to be accurate)
         stats.total_workouts = WorkoutSession.objects.filter(user=user).count()
@@ -318,7 +319,7 @@ class UserStatisticsService:
         Returns:
             Tuple of (earliest_time, latest_time)
         """
-        times = [s.time_start for s in sessions if s.time_start is not None]
+        times = [s.datetime_start.time() for s in sessions if s.datetime_start is not None]
         if not times:
             return None, None
         return min(times), max(times)
@@ -415,8 +416,14 @@ class UserStatisticsService:
         sunday = saturday + datetime.timedelta(days=1)
 
         # Check if both days have workouts
-        has_saturday = WorkoutSession.objects.filter(user=stats.user, date=saturday).exists()
-        has_sunday = WorkoutSession.objects.filter(user=stats.user, date=sunday).exists()
+        has_saturday = WorkoutSession.objects.filter(
+            user=stats.user,
+            datetime_start__date=saturday
+        ).exists()
+        has_sunday = WorkoutSession.objects.filter(
+            user=stats.user,
+            datetime_start__date=sunday
+        ).exists()
 
         if has_saturday and has_sunday:
             # This weekend is complete
