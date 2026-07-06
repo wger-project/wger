@@ -271,9 +271,12 @@ class WorkoutLog(models.Model):
 
         # Auto-create a session only if the client didn't provide one.
         if not self.session_id:
+            # Standard Library
             import datetime
+
+            # Django
             from django.utils import timezone
-            
+
             # Ensure self.date is a timezone-aware datetime for comparisons
             log_date = self.date
             if isinstance(log_date, datetime.date) and not isinstance(log_date, datetime.datetime):
@@ -293,14 +296,18 @@ class WorkoutLog(models.Model):
             if not matching_session:
                 max_duration = datetime.timedelta(hours=WorkoutSession.MAX_SESSION_LENGTH_HOURS)
                 time_threshold = log_date - max_duration
-                
-                matching_session = WorkoutSession.objects.filter(
-                    user=self.user,
-                    routine=self.routine,
-                    datetime_end__isnull=True,
-                    datetime_start__gte=time_threshold,
-                    datetime_start__lte=log_date,
-                ).order_by('-datetime_start').first()
+
+                matching_session = (
+                    WorkoutSession.objects.filter(
+                        user=self.user,
+                        routine=self.routine,
+                        datetime_end__isnull=True,
+                        datetime_start__gte=time_threshold,
+                        datetime_start__lte=log_date,
+                    )
+                    .order_by('-datetime_start')
+                    .first()
+                )
 
             if matching_session:
                 self.session = matching_session

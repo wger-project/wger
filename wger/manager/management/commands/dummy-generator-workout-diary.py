@@ -95,14 +95,16 @@ class Command(BaseCommand):
                                 )
 
                                 hour_start = random.randint(8, 20)
-                                datetime_start = make_aware(datetime.datetime.combine(
-                                    day_data.date,
-                                    datetime.time(
-                                        hour_start,
-                                        random.randint(0, 59),
-                                        random.randint(0, 59),
+                                datetime_start = make_aware(
+                                    datetime.datetime.combine(
+                                        day_data.date,
+                                        datetime.time(
+                                            hour_start,
+                                            random.randint(0, 59),
+                                            random.randint(0, 59),
+                                        ),
                                     )
-                                ))
+                                )
                                 datetime_end = datetime_start + datetime.timedelta(
                                     hours=random.randint(1, 3),
                                     minutes=random.randint(0, 59),
@@ -114,7 +116,7 @@ class Command(BaseCommand):
                                     routine=routine,
                                     datetime_start__date=day_data.date,
                                 ).first()
-                                
+
                                 if not session:
                                     session = WorkoutSession.objects.create(
                                         user=user,

@@ -91,7 +91,11 @@ class UserStatisticsService:
         stats.total_workouts = sessions.count()
 
         # Calculate streaks and other date-based stats
-        workout_dates = list(sessions.values_list('datetime_start__date', flat=True).distinct().order_by('datetime_start__date'))
+        workout_dates = list(
+            sessions.values_list('datetime_start__date', flat=True)
+            .distinct()
+            .order_by('datetime_start__date')
+        )
         current_streak, longest_streak = cls._calculate_streaks(workout_dates)
         stats.current_streak = current_streak
         stats.longest_streak = longest_streak
@@ -200,10 +204,7 @@ class UserStatisticsService:
         # Update workout times if session has time info
         if session and session.datetime_start:
             session_time = session.datetime_start.time()
-            if (
-                stats.earliest_workout_time is None
-                or session_time < stats.earliest_workout_time
-            ):
+            if stats.earliest_workout_time is None or session_time < stats.earliest_workout_time:
                 stats.earliest_workout_time = session_time
             if stats.latest_workout_time is None or session_time > stats.latest_workout_time:
                 stats.latest_workout_time = session_time
@@ -417,12 +418,10 @@ class UserStatisticsService:
 
         # Check if both days have workouts
         has_saturday = WorkoutSession.objects.filter(
-            user=stats.user,
-            datetime_start__date=saturday
+            user=stats.user, datetime_start__date=saturday
         ).exists()
         has_sunday = WorkoutSession.objects.filter(
-            user=stats.user,
-            datetime_start__date=sunday
+            user=stats.user, datetime_start__date=sunday
         ).exists()
 
         if has_saturday and has_sunday:

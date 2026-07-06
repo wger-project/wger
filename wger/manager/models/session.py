@@ -22,8 +22,8 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.uuid import uuid7
@@ -145,7 +145,9 @@ class WorkoutSession(models.Model):
         if self.datetime_end and self.datetime_start:
             duration = self.datetime_end - self.datetime_start
             if duration > datetime.timedelta(hours=self.MAX_SESSION_LENGTH_HOURS):
-                raise ValidationError(_(f'A session cannot be longer than {self.MAX_SESSION_LENGTH_HOURS} hours.'))
+                raise ValidationError(
+                    _(f'A session cannot be longer than {self.MAX_SESSION_LENGTH_HOURS} hours.')
+                )
 
     def get_owner_object(self):
         """

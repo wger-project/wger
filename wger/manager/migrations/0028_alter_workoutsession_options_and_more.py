@@ -15,7 +15,7 @@ def forward_func(apps, schema_editor):
         # Handle cases where date might be None, though default is today, just in case
         date = session.date if session.date else datetime.date.today()
         session.datetime_start = make_aware(datetime.datetime.combine(date, start_time))
-        
+
         if session.time_end:
             session.datetime_end = make_aware(datetime.datetime.combine(date, session.time_end))
             if session.time_end < start_time:
@@ -24,7 +24,6 @@ def forward_func(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0027_cleanup_fields'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -51,9 +50,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workoutsession',
             name='datetime_start',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Start date and time'),
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name='Start date and time'
+            ),
         ),
-
         migrations.AlterField(
             model_name='workoutlog',
             name='date',
@@ -61,7 +61,9 @@ class Migration(migrations.Migration):
         ),
         migrations.AddIndex(
             model_name='workoutsession',
-            index=models.Index(fields=['routine', 'datetime_start'], name='manager_wor_routine_46e75a_idx'),
+            index=models.Index(
+                fields=['routine', 'datetime_start'], name='manager_wor_routine_46e75a_idx'
+            ),
         ),
         migrations.RunPython(forward_func),
         migrations.RemoveField(

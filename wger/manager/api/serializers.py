@@ -440,7 +440,9 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
 
     def get_date(self, obj):
         if obj.datetime_start:
+            # Django
             from django.utils import timezone
+
             return timezone.localtime(obj.datetime_start).date()
         return None
 
