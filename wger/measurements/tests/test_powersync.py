@@ -29,7 +29,10 @@ MEASUREMENT_OWNED_UUID = 'dddddddd-dddd-dddd-dddd-000000000001'
 
 
 class CategoryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
-    """PowerSync handlers for measurements.Category."""
+    """
+    PowerSync handlers for measurements.Category. ``check_fk_ownership``
+    rejects payloads pointing at another user's category via ``parent``.
+    """
 
     table = 'measurements_category'
     resource = Category
@@ -45,6 +48,8 @@ class CategoryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
         'id': pk_owned,
         'name': 'Biceps (renamed)',
     }
+
+    fk_ownership = (('parent', CATEGORY_OTHER_UUID),)
 
 
 class MeasurementPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):

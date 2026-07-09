@@ -33,7 +33,34 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'unit', 'metric_type')
+        fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'order')
+
+    def validate_parent(self, parent):
+        """
+        Enforce the structural rules for multi-value groups: one level of
+        nesting, no cycles, and parents stay measurement-free.
+        """
+        if parent is None:
+            return parent
+
+        if self.instance:
+            if parent.pk == self.instance.pk:
+                raise serializers.ValidationError('A category cannot be its own parent')
+
+            if self.instance.children.exists():
+                raise serializers.ValidationError(
+                    'A category with subcategories cannot itself have a parent'
+                )
+
+        if parent.parent_id is not None:
+            raise serializers.ValidationError('Categories can only be nested one level deep')
+
+        if parent.measurement_set.exists():
+            raise serializers.ValidationError(
+                'A category with measurements cannot be used as a parent'
+            )
+
+        return parent
 
 
 class MeasurementSerializer(serializers.ModelSerializer):
@@ -61,3 +88,13 @@ class MeasurementSerializer(serializers.ModelSerializer):
             'source',
             'external_id',
         )
+
+    def validate_category(self, category):
+        """
+        Only leaf categories carry measurements; group parents are containers
+        """
+        if category.children.exists():
+            raise serializers.ValidationError(
+                'Measurements cannot be added to a category with subcategories'
+            )
+        return category

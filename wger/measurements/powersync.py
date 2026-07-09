@@ -18,7 +18,10 @@ from wger.measurements.api.serializers import (
     CategorySerializer,
     MeasurementSerializer,
 )
-from wger.measurements.api.views import MeasurementViewSet
+from wger.measurements.api.views import (
+    CategoryViewSet,
+    MeasurementViewSet,
+)
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -31,10 +34,14 @@ from wger.utils.powersync import (
 
 @register_handler
 class CategoryHandler(PowerSyncHandler):
-    """Measurement categories — directly owned by ``user`` so no FK ownership check is needed."""
+    """
+    Measurement categories — directly owned by ``user``; the ``parent`` FK
+    (multi-value groups) additionally needs an ownership check.
+    """
 
     model = Category
     serializer_class = CategorySerializer
+    viewset_class = CategoryViewSet
 
 
 @register_handler

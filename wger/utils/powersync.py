@@ -63,7 +63,7 @@ class PowerSyncHandler:
 
     # Set to a ViewSet class to enable check_fk_ownership against
     # ``ViewSetClass.get_owner_objects()``. Leave as None if the model has
-    # no FKs that need ownership-validation (e.g. WeightEntry, Category).
+    # no FKs that need ownership-validation (e.g. WeightEntry).
     viewset_class = None
 
     # Lookup config for update/delete:
