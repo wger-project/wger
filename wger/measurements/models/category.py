@@ -72,11 +72,6 @@ class Category(models.Model):
         default=MetricType.CUSTOM,
     )
 
-    externally_synced = models.BooleanField(
-        verbose_name='Externally synced',
-        default=False,
-    )
-
     def get_owner_object(self):
         """
         Returns the object that has owner information

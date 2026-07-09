@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='category',
-            name='externally_synced',
-            field=models.BooleanField(default=False, verbose_name='Externally synced'),
-        ),
-        migrations.AddField(
-            model_name='category',
             name='metric_type',
             field=models.CharField(
                 choices=[
