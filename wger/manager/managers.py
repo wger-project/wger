@@ -16,6 +16,7 @@
 
 # Django
 from django.db import models
+from django.utils import timezone
 
 # wger
 from wger.manager.consts import (
@@ -58,9 +59,20 @@ class WorkoutLogManager(models.Manager):
         return self.get_queryset().reps()
 
 
+class RoutineQuerySet(models.QuerySet):
+    def active(self):
+        """Return only routines whose date range includes today"""
+        today = timezone.localdate()
+        return self.filter(start__lte=today, end__gte=today)
+
+
 class RoutineManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset()
+        return RoutineQuerySet(self.model, using=self._db)
+
+    def active(self):
+        """Return only routines whose date range includes today"""
+        return self.get_queryset().active()
 
 
 class RoutineTemplateManager(models.Manager):

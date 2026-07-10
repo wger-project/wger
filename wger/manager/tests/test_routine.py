@@ -18,7 +18,9 @@ from unittest import mock
 
 # Django
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests.api_base_test import ApiBaseResourceTestCase
@@ -630,3 +632,131 @@ class RoutineLogsAndStatsScopeTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(self.detail_url)
         self.assertEqual(response.status_code, 200)
+
+
+class RoutineActiveDetectionTestCase(WgerTestCase):
+    """
+    A routine that is currently running (today falls within its start/end
+    dates) must be preferred over more recently created routines, both via
+    the model/manager helpers and the `/current/` API action.
+
+    See https://github.com/wger-project/wger/issues/2361
+    """
+
+    PASSWORD = 'active-detection-pw'
+
+    def setUp(self):
+        super().setUp()
+        self.today = timezone.localdate()
+        # Use a dedicated user without fixture routines so the assertions
+        # (especially the "no active routine" and fallback cases) don't
+        # depend on the state or dates of the shared test fixtures.
+        self.user = User.objects.create_user(
+            username='active-detection',
+            password=self.PASSWORD,
+        )
+
+    def _make_routine(self, name, start, end, is_template=False):
+        routine = Routine(
+            user=self.user,
+            name=name,
+            start=start,
+            end=end,
+            is_template=is_template,
+        )
+        routine.save()
+        return routine
+
+    def _login(self):
+        self.client.login(username=self.user.username, password=self.PASSWORD)
+
+    def test_manager_active_prefers_running_routine_over_newer_ones(self):
+        """
+        A routine created earlier but currently running must be returned by
+        `.active()`, even though a routine created afterwards (but scheduled
+        for the future) sorts first under the default `-start, -created`
+        ordering.
+        """
+        active = self._make_routine(
+            'currently running',
+            self.today - datetime.timedelta(days=5),
+            self.today + datetime.timedelta(days=5),
+        )
+        self._make_routine(
+            'created later, starts in the future',
+            self.today + datetime.timedelta(days=1),
+            self.today + datetime.timedelta(days=30),
+        )
+
+        result = Routine.objects.filter(user=self.user).active().first()
+        self.assertEqual(result, active)
+
+    def test_manager_active_returns_empty_queryset_when_none_is_running(self):
+        self._make_routine(
+            'past',
+            self.today - datetime.timedelta(days=20),
+            self.today - datetime.timedelta(days=10),
+        )
+
+        self.assertFalse(Routine.objects.filter(user=self.user).active().exists())
+
+    def test_api_current_returns_active_routine_over_most_recently_created(self):
+        active = self._make_routine(
+            'currently running',
+            self.today - datetime.timedelta(days=5),
+            self.today + datetime.timedelta(days=5),
+        )
+        self._make_routine(
+            'created later, starts in the future',
+            self.today + datetime.timedelta(days=1),
+            self.today + datetime.timedelta(days=30),
+        )
+
+        self._login()
+        response = self.client.get(reverse('routine-current'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], active.id)
+
+    def test_api_current_falls_back_to_most_recent_when_none_active(self):
+        self._make_routine(
+            'older',
+            self.today - datetime.timedelta(days=20),
+            self.today - datetime.timedelta(days=10),
+        )
+        newest = self._make_routine(
+            'newest, but scheduled for the future',
+            self.today + datetime.timedelta(days=10),
+            self.today + datetime.timedelta(days=20),
+        )
+
+        self._login()
+        response = self.client.get(reverse('routine-current'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], newest.id)
+
+    def test_api_current_ignores_templates(self):
+        self._make_routine(
+            'template, currently running',
+            self.today - datetime.timedelta(days=5),
+            self.today + datetime.timedelta(days=5),
+            is_template=True,
+        )
+        real = self._make_routine(
+            'real routine, not currently running',
+            self.today - datetime.timedelta(days=20),
+            self.today - datetime.timedelta(days=10),
+        )
+
+        self._login()
+        response = self.client.get(reverse('routine-current'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], real.id)
+
+    def test_api_current_returns_404_when_user_has_no_routines(self):
+        self._login()
+        response = self.client.get(reverse('routine-current'))
+
+        self.assertEqual(response.status_code, 404)

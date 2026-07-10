@@ -21,7 +21,10 @@ from django.core.cache import cache
 from django.db.models import Q
 
 # Third Party
-from rest_framework import viewsets
+from rest_framework import (
+    status,
+    viewsets,
+)
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -195,6 +198,21 @@ class RoutineViewSet(viewsets.ModelViewSet):
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
         return Response(out)
+
+    @action(detail=False, url_path='current')
+    def current(self, request):
+        """
+        Return the routine that is currently active (today falls within its
+        start/end dates). Falls back to the most recently created routine if
+        none is currently active.
+        """
+        queryset = self.get_queryset().filter(is_template=False)
+        routine = queryset.active().first() or queryset.first()
+        if routine is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(routine)
+        return Response(serializer.data)
 
     @staticmethod
     def get_owner_objects():
