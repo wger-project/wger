@@ -287,6 +287,11 @@ HEADLESS_TOKEN_STRATEGY = 'wger.utils.headless_auth.WgerJWTTokenStrategy'
 HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
 
+# Lifetime (in seconds) of the JWT the app requests to authenticate against
+# the PowerSync service. Kept short by default; can be raised to reduce how
+# often the mobile client has to refresh the sync token.
+POWERSYNC_ACCESS_TOKEN_EXPIRES_IN = 600
+
 
 def jwk_b64_to_pem(b64_jwk_str: str):
     """

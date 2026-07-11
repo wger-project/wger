@@ -16,16 +16,23 @@
 from unittest import mock
 
 # Django
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import (
     IntegrityError,
     OperationalError,
 )
+from django.test import (
+    SimpleTestCase,
+    override_settings,
+)
 
 # Third Party
+import jwt
 from rest_framework import status
 
 # wger
+from wger.core.api.powersync import create_token
 from wger.core.models import UserProfile
 from wger.core.tests import powersync_base_test
 
@@ -113,3 +120,21 @@ class UserProfilePowerSyncTestCase(
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json().get('error'), 'Validation failed')
+
+
+class PowerSyncTokenLifetimeTestCase(SimpleTestCase):
+    """The PowerSync auth token honours POWERSYNC_ACCESS_TOKEN_EXPIRES_IN."""
+
+    @staticmethod
+    def _token_lifetime():
+        decoded = jwt.decode(create_token(1), options={'verify_signature': False})
+        return decoded['exp'] - decoded['iat']
+
+    def test_default_lifetime_matches_setting(self):
+        """With no override the token expiry equals the configured default."""
+        self.assertEqual(self._token_lifetime(), settings.POWERSYNC_ACCESS_TOKEN_EXPIRES_IN)
+
+    @override_settings(POWERSYNC_ACCESS_TOKEN_EXPIRES_IN=3600)
+    def test_setting_overrides_lifetime(self):
+        """Raising the setting lengthens the token accordingly."""
+        self.assertEqual(self._token_lifetime(), 3600)
