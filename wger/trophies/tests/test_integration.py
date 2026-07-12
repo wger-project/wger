@@ -479,7 +479,7 @@ class UserDeletionTestCase(WgerTestCase):
         user = User.objects.create_user('to_delete', 'to_delete@example.com', 'pass')
         exercise = Exercise.objects.create(category=ExerciseCategory.objects.create(name='cat'))
 
-        WorkoutSession.objects.create(user=user, date=datetime.date(2024, 1, 1))
+        WorkoutSession.objects.create(user=user, datetime_start=datetime.datetime(2024, 1, 1, tzinfo=datetime.timezone.utc))
         WorkoutLog.objects.create(user=user, exercise=exercise, repetitions=10, weight=100)
 
         # The statistics row is already gone when the workout-deletion signals
@@ -533,7 +533,7 @@ class LoadDataSignalGuardTestCase(WgerTestCase):
 
     def test_raw_workout_session_save_skips_statistics(self):
         """A raw WorkoutSession save creates no statistics row"""
-        session = WorkoutSession.objects.create(user=self.user, date=datetime.date(2024, 1, 1))
+        session = WorkoutSession.objects.create(user=self.user, datetime_start=datetime.datetime(2024, 1, 1, tzinfo=datetime.timezone.utc))
 
         UserStatistics.objects.filter(user=self.user).delete()
 
