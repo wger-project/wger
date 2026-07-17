@@ -12,11 +12,13 @@
 <tr>
     <th>{% translate "Date" %}</th>
     <th>{% translate "Weight" %}</th>
+    <th>{% translate "Unit" %}</th>
 </tr>
 {% for entry in weight_list %}
     <tr>
         <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
         <td>{{ entry.weight }}</td>
+        <td>{{ entry.weight_unit }}</td>
     </tr>
 {% endfor %}
 </table>

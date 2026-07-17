@@ -77,6 +77,7 @@ class Command(BaseCommand):
                     entry = WeightEntry(
                         user=user,
                         weight=base_weight + 0.5 * i + random.randint(1, 3),
+                        weight_unit=user.userprofile.weight_unit,
                         date=creation_date,
                     )
                     new_entries.append(entry)

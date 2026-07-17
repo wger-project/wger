@@ -26,5 +26,6 @@ class WeightEntryFilterSet(filters.FilterSet):
         fields = {
             'id': ['exact', 'in'],
             'weight': ['exact', 'gt', 'gte', 'lt', 'lte'],
+            'weight_unit': ['exact'],
             'date': ['exact', 'gt', 'gte', 'lt', 'lte'],
         }

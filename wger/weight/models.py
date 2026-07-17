@@ -24,9 +24,17 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.uuid import uuid7
+
+UNITS_KG = 'kg'
+UNITS_LB = 'lb'
+UNITS = (
+    (UNITS_KG, _('Kilogram')),
+    (UNITS_LB, _('Pound')),
+)
 
 
 class WeightEntry(models.Model):
@@ -47,6 +55,13 @@ class WeightEntry(models.Model):
         max_digits=5,
         decimal_places=2,
         validators=[MinValueValidator(Decimal(30)), MaxValueValidator(Decimal(600))],
+    )
+
+    weight_unit = models.CharField(
+        verbose_name=_('Weight unit'),
+        max_length=2,
+        choices=UNITS,
+        default=UNITS_KG,
     )
 
     user = models.ForeignKey(
@@ -79,7 +94,7 @@ class WeightEntry(models.Model):
         """
         Return a more human-readable representation
         """
-        return '{0}: {1:.2f} kg'.format(self.date, self.weight)
+        return f'{self.date}: {self.weight:.2f} {self.weight_unit}'
 
     def get_owner_object(self):
         """

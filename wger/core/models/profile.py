@@ -525,6 +525,7 @@ class UserProfile(models.Model):
         """
         entry = WeightEntry()
         entry.weight = weight
+        entry.weight_unit = self.weight_unit
         entry.user = self.user
         entry.date = timezone.now()
         entry.save()
