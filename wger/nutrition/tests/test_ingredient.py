@@ -482,6 +482,11 @@ class IngredientModelTestCase(WgerTestCase):
                 'en:vegan',
                 'en:vegetarian',
             ],
+            'categories_tags': [
+                'en:snacks',
+                'en:sweet-snacks',
+                'en:chocolates'
+            ],
             'nutriments': {
                 'energy-kcal_100g': 600,
                 'proteins_100g': 10,
@@ -518,6 +523,11 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
         self.assertTrue(ingredient.is_vegan)
         self.assertTrue(ingredient.is_vegetarian)
+
+        # categories
+        assigned_categories = ingredient.category.all()
+        self.assertEqual(assigned_categories.count(), 3)
+        self.assertIn('Sweet snacks', [cat.name for cat in assigned_categories])
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_updates_existing_serving_unit(self, mock_api: MagicMock):
@@ -935,3 +945,18 @@ class IngredientSyncViewSetTestCase(WgerTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         entry = next(i for i in response.data['results'] if i['id'] == 1)
         self.assertIsNone(entry['thumbnails'])
+
+    def test_api_returns_nested_categories_list(self):
+        """Verify API GET operations return complete nested arrays for category records."""
+
+        response = self.client.get(reverse('api-ingredientinfo-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        results = response.data.get('results', [])
+        target_ingredient = next((item for item in results if item['id'] == 2), None)
+        self.assertIsNotNone(target_ingredient, "Fixture ingredient PK=2 missing from API response")
+
+        self.assertIn('category', target_ingredient)
+        self.assertEqual(len(target_ingredient['category']), 6)
+        first_category = target_ingredient['category'][0]
+        self.assertIn('name', first_category)

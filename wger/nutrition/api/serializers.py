@@ -28,6 +28,7 @@ from rest_framework import serializers
 from wger.nutrition.models import (
     Image,
     Ingredient,
+    IngredientCategory,
     IngredientWeightUnit,
     LogItem,
     Meal,
@@ -86,6 +87,12 @@ class IngredientImageSerializer(serializers.ModelSerializer):
         )
 
 
+class IngredientCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IngredientCategory
+        fields = ('id', 'name')
+
+
 class IngredientSerializer(serializers.ModelSerializer):
     """
     Ingredient serializer
@@ -120,6 +127,7 @@ class IngredientSerializer(serializers.ModelSerializer):
             'is_vegetarian',
             'weight_units',
             'nutriscore',
+            'category',
             'license',
             'license_title',
             'license_object_url',
@@ -136,6 +144,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     """
 
     weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
+    category = IngredientCategorySerializer(many=True, read_only=True)
     image = IngredientImageSerializer(read_only=True)
     thumbnails = serializers.SerializerMethodField()
 
@@ -167,6 +176,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'is_vegetarian',
             'nutriscore',
             'weight_units',
+            'category',
             'language',
             'license',
             'license_title',

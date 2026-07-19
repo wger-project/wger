@@ -19,6 +19,7 @@ import logging
 import uuid as uuid
 from decimal import Decimal
 from json import JSONDecodeError
+from typing import List
 
 # Django
 from django.conf import settings
@@ -28,7 +29,10 @@ from django.core.validators import (
     MinLengthValidator,
     MinValueValidator,
 )
-from django.db import models
+from django.db import (
+    models,
+    transaction,
+)
 from django.http import HttpRequest
 from django.urls import reverse
 from django.utils import translation
@@ -274,11 +278,10 @@ class Ingredient(AbstractLicenseModel, models.Model):
         blank=True,
     )
 
-    category = models.ForeignKey(
+    category = models.ManyToManyField(
         IngredientCategory,
-        verbose_name='Category',
-        on_delete=models.CASCADE,
-        null=True,
+        verbose_name='Categories',
+        related_name='ingredients',
         blank=True,
     )
 
@@ -585,6 +588,31 @@ class Ingredient(AbstractLicenseModel, models.Model):
         return self.update_or_create_serving_unit_from_off(ingredient_data)
 
     @classmethod
+    def _assign_categories(cls, ingredient: 'Ingredient', category_names: List[str]) -> None:
+        """Helper method to assign categories to an ingredient."""
+        normalized_names = [
+            name.strip().capitalize() for name in category_names if name and name.strip()
+        ]
+
+        if not normalized_names:
+            ingredient.category.clear()
+            return
+
+        # Get existing categories
+        existing = IngredientCategory.objects.filter(name__in=normalized_names).values_list(
+            'name', flat=True
+        )
+        missing = [n for n in normalized_names if n not in existing]
+        if missing:
+            IngredientCategory.objects.bulk_create(
+                [IngredientCategory(name=name) for name in missing], ignore_conflicts=True
+            )
+
+        # get newly created categories
+        all_qs = IngredientCategory.objects.filter(name__in=normalized_names)
+        ingredient.category.set(all_qs)
+
+    @classmethod
     def fetch_ingredient_from_off(cls, code: str):
         """
         Searches OFF by barcode and creates a local ingredient from the result
@@ -601,14 +629,16 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return None
 
         ingredient_data = cls._extract_off_ingredient_data(result, language.pk)
-        if not ingredient_data:
+        if not ingredient_data or not ingredient_data.name:
             return None
+        extracted_categories = ingredient_data.categories
 
-        if not ingredient_data.name:
-            return None
+        with transaction.atomic():
+            ingredient = cls(**ingredient_data.dict())
+            ingredient.save()
 
-        ingredient = cls(**ingredient_data.dict())
-        ingredient.save()
-        ingredient.update_or_create_serving_unit_from_off(ingredient_data)
-        logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
+            cls._assign_categories(ingredient, extracted_categories)
+            ingredient.update_or_create_serving_unit_from_off(ingredient_data)
+
+            logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
         return ingredient

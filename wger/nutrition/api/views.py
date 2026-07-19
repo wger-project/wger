@@ -50,6 +50,7 @@ from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
     Image,
     Ingredient,
+    IngredientCategory,
     IngredientWeightUnit,
     LogItem,
     Meal,
@@ -157,7 +158,7 @@ class IngredientInfoViewSet(IngredientViewSet):
         # See IngredientViewSet.queryset for the rationale behind .order_by().
         return (
             Ingredient.objects.select_related('language', 'license', 'image')
-            .prefetch_related('ingredientweightunit_set')
+            .prefetch_related('ingredientweightunit_set', 'category')
             .order_by()
         )
 
@@ -186,7 +187,7 @@ class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
             'language',
             'license',
             'image',
-        ).prefetch_related('ingredientweightunit_set')
+        ).prefetch_related('ingredientweightunit_set', 'category')
 
 
 class ImageViewSet(viewsets.ReadOnlyModelViewSet):
@@ -302,6 +303,10 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
                             Prefetch(
                                 'ingredient__ingredientweightunit_set',
                                 queryset=IngredientWeightUnit.objects.select_related('ingredient'),
+                            ),
+                            Prefetch(
+                                'ingredient__category',
+                                queryset=IngredientCategory.objects.all(),
                             ),
                         ),
                     ),
