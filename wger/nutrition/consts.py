@@ -34,9 +34,25 @@ ENERGY_FACTOR = {
     'protein': {'kg': 4, 'lb': 113},
     'carbohydrates': {'kg': 4, 'lb': 113},
     'fat': {'kg': 9, 'lb': 225},
+    'fiber': {'kg': 2, 'lb': 57},
 }
 """
 Simple approximation of energy (kcal) provided per gram or ounce
+
+The values are the conversion factors from EU Regulation 1169/2011, Annex XIV
+"""
+
+ENERGY_CHECK_MIN_KCAL = 13
+ENERGY_CHECK_TOLERANCE_RELATIVE = 0.3
+ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL = 5
+"""
+Thresholds for comparing the declared energy of an ingredient with the energy
+computed from its macronutrients. These match the ones Open Food Facts uses for
+its "energy-value-in-kcal-does-not-match-value-computed-from-other-nutrients"
+data quality check: values of up to 13 kcal are not checked at all (too many
+false positives) and larger ones may deviate by 30% plus a flat 5 kcal, since
+nutrients we do not track (polyols, organic acids, alcohol) also contribute to
+the declared energy.
 """
 
 KJ_PER_KCAL = 4.184

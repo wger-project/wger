@@ -20,6 +20,12 @@ from dataclasses import (
 from typing import Optional
 
 # wger
+from wger.nutrition.consts import (
+    ENERGY_CHECK_MIN_KCAL,
+    ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL,
+    ENERGY_CHECK_TOLERANCE_RELATIVE,
+    ENERGY_FACTOR,
+)
 from wger.nutrition.helpers import (
     change_html_entities_to_human_readable,
     remove_problematic_characters,
@@ -108,6 +114,31 @@ class IngredientData:
 
         if self.nutriscore is not None and self.nutriscore not in ('a', 'b', 'c', 'd', 'e'):
             raise ValueError(f'Invalid nutriscore value: {self.nutriscore}')
+
+        # Energy plausibility: the declared energy must roughly match the energy
+        # computed from the macronutrients. Fiber counts with 2 kcal/g since it is
+        # usually not included in the carbohydrate value. See the comments on the
+        # threshold constants in consts.py for the tolerances used.
+        energy_computed = (
+            self.protein * ENERGY_FACTOR['protein']['kg']
+            + self.carbohydrates * ENERGY_FACTOR['carbohydrates']['kg']
+            + self.fat * ENERGY_FACTOR['fat']['kg']
+            + (self.fiber or 0) * ENERGY_FACTOR['fiber']['kg']
+        )
+        if self.energy > ENERGY_CHECK_MIN_KCAL or energy_computed > ENERGY_CHECK_MIN_KCAL:
+            energy_lower = (
+                self.energy * (1 - ENERGY_CHECK_TOLERANCE_RELATIVE)
+                - ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL
+            )
+            energy_upper = (
+                self.energy * (1 + ENERGY_CHECK_TOLERANCE_RELATIVE)
+                + ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL
+            )
+            if not (energy_lower <= energy_computed <= energy_upper):
+                raise ValueError(
+                    f'Energy computed from the macronutrients ({energy_computed:.0f} kcal) '
+                    f'does not match the declared energy ({self.energy:.0f} kcal)'
+                )
 
     def dict(self):
         data = asdict(self)

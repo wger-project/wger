@@ -70,6 +70,7 @@ class IngredientDataclassTestCase(SimpleTestCase):
         self.ingredient_data.protein = 12
         self.ingredient_data.carbohydrates = 45
         self.ingredient_data.fat = 47
+        self.ingredient_data.energy = 604
         self.assertEqual(self.ingredient_data.sanity_checks(), None)
 
     def test_validation_macro_sum_over_tolerance(self):
@@ -96,6 +97,42 @@ class IngredientDataclassTestCase(SimpleTestCase):
         self.ingredient_data.carbohydrates = 20
         self.ingredient_data.carbohydrates_sugar = 30
         self.assertRaises(ValueError, self.ingredient_data.sanity_checks)
+
+    def test_validation_energy_mismatch(self):
+        """
+        Test that a declared energy far off the computed one is rejected
+        """
+        self.ingredient_data.energy = 700
+        self.assertRaises(ValueError, self.ingredient_data.sanity_checks)
+
+    def test_validation_energy_within_tolerance(self):
+        """
+        Test that a declared energy within the tolerance is accepted
+        """
+        # Computed energy is 32.1*4 + 3.24*9 = 157.56 kcal
+        self.ingredient_data.energy = 200
+        self.assertEqual(self.ingredient_data.sanity_checks(), None)
+
+    def test_validation_energy_fiber_counts(self):
+        """
+        Test that fiber contributes 2 kcal/g to the computed energy
+        """
+        self.ingredient_data.protein = 0
+        self.ingredient_data.carbohydrates = 0
+        self.ingredient_data.fat = 0
+        self.ingredient_data.fiber = 50
+        self.ingredient_data.energy = 100
+        self.assertEqual(self.ingredient_data.sanity_checks(), None)
+
+    def test_validation_energy_low_values_skipped(self):
+        """
+        Test that very low energy values are not checked at all
+        """
+        self.ingredient_data.protein = 0
+        self.ingredient_data.carbohydrates = 0
+        self.ingredient_data.fat = 0
+        self.ingredient_data.energy = 13
+        self.assertEqual(self.ingredient_data.sanity_checks(), None)
 
     def test_validation_nutriscore_valid(self):
         """
