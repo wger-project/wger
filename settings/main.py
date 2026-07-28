@@ -63,22 +63,15 @@ if os.environ.get('DJANGO_ADMINS'):
 
 if os.environ.get('PS_DATABASE_URI'):
     DATABASES = {'default': env.db_url('PS_DATABASE_URI')}
-elif os.environ.get('DJANGO_DB_ENGINE'):
+else:
     DATABASES = {
         'default': {
             'ENGINE': env.str('DJANGO_DB_ENGINE'),
             'NAME': env.str('DJANGO_DB_DATABASE'),
-            'USER': env.str('DJANGO_DB_USER'),
-            'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
-            'HOST': env.str('DJANGO_DB_HOST'),
-            'PORT': env.int('DJANGO_DB_PORT'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': env.str('DJANGO_DB_DATABASE', '/home/wger/db/database.sqlite'),
+            'USER': env.str('DJANGO_DB_USER', ''),
+            'PASSWORD': env.str('DJANGO_DB_PASSWORD', ''),
+            'HOST': env.str('DJANGO_DB_HOST', ''),
+            'PORT': env.int('DJANGO_DB_PORT', 5432),
         }
     }
 PS_STORAGE_PG_URI = env.str(
