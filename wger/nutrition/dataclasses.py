@@ -98,8 +98,13 @@ class IngredientData:
                 f'{self.carbohydrates_sugar} > {self.carbohydrates}'
             )
 
-        if self.carbohydrates + self.protein + self.fat > 100:
-            raise ValueError('Total of carbohydrates, protein and fat is greater than 100!')
+        # Labels can legally sum to slightly more than 100g per 100g of product because
+        # of the per-nutrient measurement tolerances allowed by EU Regulation 1169/2011:
+        # https://food.ec.europa.eu/system/files/2016-10/labelling_nutrition-vitamins_minerals-guidance_tolerances_1212_en.pdf
+        # The limit of 105 matches the threshold used by Open Food Facts' own data
+        # quality check "nutrition-value-total-over-105".
+        if self.carbohydrates + self.protein + self.fat > 105:
+            raise ValueError('Total of carbohydrates, protein and fat is greater than 105!')
 
         if self.nutriscore is not None and self.nutriscore not in ('a', 'b', 'c', 'd', 'e'):
             raise ValueError(f'Invalid nutriscore value: {self.nutriscore}')

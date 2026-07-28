@@ -63,6 +63,24 @@ class IngredientDataclassTestCase(SimpleTestCase):
         self.ingredient_data.protein = 101
         self.assertRaises(ValueError, self.ingredient_data.sanity_checks)
 
+    def test_validation_macro_sum_within_tolerance(self):
+        """
+        Test that a macro sum slightly over 100 is accepted (label tolerances)
+        """
+        self.ingredient_data.protein = 12
+        self.ingredient_data.carbohydrates = 45
+        self.ingredient_data.fat = 47
+        self.assertEqual(self.ingredient_data.sanity_checks(), None)
+
+    def test_validation_macro_sum_over_tolerance(self):
+        """
+        Test that a macro sum over 105 is rejected
+        """
+        self.ingredient_data.protein = 15
+        self.ingredient_data.carbohydrates = 45
+        self.ingredient_data.fat = 47
+        self.assertRaises(ValueError, self.ingredient_data.sanity_checks)
+
     def test_validation_saturated_fat(self):
         """
         Test the validation for saturated fat
