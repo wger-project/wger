@@ -63,12 +63,11 @@ class PowerSyncHandler:
 
     # Set to a ViewSet class to enable check_fk_ownership against
     # ``ViewSetClass.get_owner_objects()``. Leave as None if the model has
-    # no FKs that need ownership-validation (e.g. WeightEntry).
+    # no FKs that need ownership-validation.
     viewset_class = None
 
     # Lookup config for update/delete:
     #   Model.objects.get(<lookup_field>=payload['id'], <user_filter>=user_id)
-    # ``lookup_field`` is 'pk' (most models) or 'uuid' (WeightEntry).
     # ``user_filter`` is 'user_id' for direct ownership or a chained lookup
     # like 'plan__user_id' / 'meal__plan__user_id' / 'category__user_id'.
     lookup_field: str = 'pk'
@@ -109,9 +108,9 @@ class PowerSyncHandler:
     def create_save_kwargs(self, payload: dict[str, Any], user_id: int) -> dict[str, Any]:
         """
         kwargs forwarded to ``serializer.save()`` on create. Default forces the
-        owning user. Override for client-supplied UUID PKs (WeightEntry),
-        ordering (Meal/MealItem) or models that don't take ``user_id`` because
-        ownership rides on a FK chain (LogItem, MealItem).
+        owning user. Override for ordering (Meal/MealItem) or models that
+        don't take ``user_id`` because ownership rides on a FK chain
+        (LogItem, MealItem).
         """
         return {'user_id': user_id}
 

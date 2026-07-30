@@ -68,7 +68,6 @@ import wger.gallery.powersync  # noqa: F401
 import wger.manager.powersync  # noqa: F401
 import wger.measurements.powersync  # noqa: F401
 import wger.nutrition.powersync  # noqa: F401
-import wger.weight.powersync  # noqa: F401
 from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
