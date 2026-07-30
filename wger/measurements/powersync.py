@@ -13,6 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import json
+from typing import Any
+
 # wger
 from wger.measurements.api.serializers import (
     CategorySerializer,
@@ -61,6 +65,18 @@ class MeasurementHandler(PowerSyncHandler):
     serializer_class = MeasurementSerializer
     viewset_class = MeasurementViewSet
     user_filter = 'category__user_id'
+
+    def preprocess_payload(self, payload: dict[str, Any]) -> dict[str, Any]:
+        # PowerSync clients store JSON columns as text; decode before
+        # validation. Malformed JSON is passed through unchanged so the
+        # serializer rejects it visibly.
+        extra_data = payload.get('extra_data')
+        if isinstance(extra_data, str):
+            try:
+                payload['extra_data'] = json.loads(extra_data) if extra_data else {}
+            except ValueError:
+                pass
+        return payload
 
     def create_save_kwargs(self, payload, user_id):
         # Ownership is enforced through the category FK, not via a direct

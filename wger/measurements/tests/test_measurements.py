@@ -154,6 +154,17 @@ class MeasurementUnitTestCase(WgerTestCase):
         entry.extra_data = {'unit': 'lb'}
         self.assertEqual(entry.value_in('kg'), Decimal('34.93'))
 
+    def test_value_in_rejects_other_units(self):
+        """
+        Test that only weight units can be converted
+        """
+        # a measurement in the 'Biceps' category of user 'test', unit cm
+        entry = Measurement.objects.get(pk='dddddddd-dddd-dddd-dddd-000000000001')
+
+        self.assertEqual(entry.value_in('cm'), entry.value)
+        with self.assertRaises(ValueError):
+            entry.value_in('kg')
+
 
 class MeasurementExtraDataApiTestCase(WgerTestCase):
     """

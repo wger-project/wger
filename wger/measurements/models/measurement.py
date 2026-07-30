@@ -123,10 +123,15 @@ class Measurement(models.Model):
 
     def value_in(self, unit: str) -> Decimal:
         """
-        Returns the value converted to the given weight unit ('kg' or 'lb')
+        Returns the value converted to the given weight unit ('kg' or 'lb').
+
+        Only body weight entries carry convertible units, all other metric
+        types have a fixed unit.
         """
         if self.unit == unit:
             return self.value
+        if unit not in ('kg', 'lb') or self.unit not in ('kg', 'lb'):
+            raise ValueError(f'Cannot convert between {self.unit} and {unit}')
         weight = AbstractWeight(self.value, self.unit)
         return (weight.kg if unit == 'kg' else weight.lb).quantize(TWOPLACES)
 
