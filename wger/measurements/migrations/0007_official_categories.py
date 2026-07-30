@@ -19,51 +19,64 @@ def migrate_weight_to_measurements(apps, schema_editor):
     Measurement = apps.get_model('measurements', 'Measurement')
     UserProfile = apps.get_model('core', 'UserProfile')
 
-    unit_by_user = dict(UserProfile.objects.values_list('user_id', 'weight_unit'))
-
-    category_by_user = {}
-    user_ids = WeightEntry.objects.values_list('user_id', flat=True).distinct()
-    for user_id in user_ids.iterator():
-        category, _ = Category.objects.get_or_create(
-            user_id=user_id,
-            metric_type='body_weight',
-            is_official=True,
-            defaults={'name': 'Body weight', 'unit': unit_by_user.get(user_id, 'kg')},
+    # The is_official flag was added in this very migration, so no official
+    # categories exist yet: every profile unconditionally gets one. New users
+    # get theirs via the post_save signal on registration.
+    batch = []
+    for user_id, unit in UserProfile.objects.values_list('user_id', 'weight_unit').iterator():
+        batch.append(
+            Category(
+                user_id=user_id,
+                metric_type='body_weight',
+                is_official=True,
+                name='Body weight',
+                unit=unit or 'kg',
+            )
         )
-        category_by_user[user_id] = category
+        if len(batch) >= BATCH_SIZE:
+            Category.objects.bulk_create(batch)
+            batch = []
+    Category.objects.bulk_create(batch)
 
-    # Users without weight entries get the official category as well, new
-    # users get it via the post_save signal on registration
-    remaining = [
-        Category(
-            user_id=user_id,
-            metric_type='body_weight',
+    # Only users with weight entries are needed for the FK lookup, and only
+    # as (pk, unit) tuples instead of model instances
+    entry_user_ids = WeightEntry.objects.values_list('user_id', flat=True).distinct()
+    category_by_user = {
+        user_id: (category_id, unit)
+        for category_id, user_id, unit in Category.objects.filter(
             is_official=True,
-            name='Body weight',
-            unit=unit or 'kg',
-        )
-        for user_id, unit in unit_by_user.items()
-        if user_id not in category_by_user
-    ]
-    Category.objects.bulk_create(remaining, batch_size=BATCH_SIZE)
+            user_id__in=entry_user_ids,
+        ).values_list('id', 'user_id', 'unit')
+    }
 
     batch = []
     for entry in WeightEntry.objects.all().iterator():
+        if entry.user_id not in category_by_user:
+            # Entries of users without a profile (created outside the normal
+            # signal path)
+            category, _ = Category.objects.get_or_create(
+                user_id=entry.user_id,
+                metric_type='body_weight',
+                is_official=True,
+                defaults={'name': 'Body weight', 'unit': 'kg'},
+            )
+            category_by_user[entry.user_id] = (category.id, category.unit)
+
+        category_id, unit = category_by_user[entry.user_id]
         batch.append(
             Measurement(
                 id=entry.uuid,
-                category=category_by_user[entry.user_id],
+                category_id=category_id,
                 date=entry.date,
                 value=entry.weight,
                 source='user',
-                extra_data={'unit': unit_by_user.get(entry.user_id, 'kg')},
+                extra_data={'unit': unit},
             )
         )
         if len(batch) >= BATCH_SIZE:
             Measurement.objects.bulk_create(batch)
             batch = []
-    if batch:
-        Measurement.objects.bulk_create(batch)
+    Measurement.objects.bulk_create(batch)
 
 
 def noop_reverse(apps, schema_editor):
