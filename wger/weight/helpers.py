@@ -25,7 +25,11 @@ import logging
 from django.utils.timezone import make_aware
 
 # wger
-from wger.weight.models import WeightEntry
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
+from wger.measurements.models.category import MetricType
 
 
 logger = logging.getLogger(__name__)
@@ -53,9 +57,9 @@ def parse_weight_csv(request, cleaned_data):
                 datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             )
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
-            duplicate_date_in_db = WeightEntry.objects.filter(
-                date=parsed_date, user=request.user
-            ).exists()
+            duplicate_date_in_db = (
+                Measurement.body_weight_for(request.user).filter(date=parsed_date).exists()
+            )
             # within the list there are no duplicate dates
             unique_among_csv = parsed_date not in entry_dates
 
@@ -75,7 +79,22 @@ def parse_weight_csv(request, cleaned_data):
             break
 
     # Create the valid weight entries
-    for date, weight in distinct_weight_entries:
-        weight_list.append(WeightEntry(date=date, weight=weight, user=request.user))
+    if distinct_weight_entries:
+        profile_unit = request.user.userprofile.weight_unit
+        category = Category.get_or_create_official(
+            request.user,
+            MetricType.BODY_WEIGHT,
+            name='Body weight',
+            unit=profile_unit,
+        )
+        for date, weight in distinct_weight_entries:
+            weight_list.append(
+                Measurement(
+                    date=date,
+                    value=weight,
+                    category=category,
+                    extra_data={'unit': profile_unit},
+                )
+            )
 
     return weight_list, error_list

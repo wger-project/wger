@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests import powersync_base_test
 from wger.measurements.models import (
@@ -75,3 +78,30 @@ class MeasurementPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase
     }
 
     fk_ownership = (('category', CATEGORY_OTHER_UUID),)
+
+    def test_create_decodes_extra_data_string(self):
+        """
+        PowerSync clients store JSON columns as text; the handler decodes the
+        string before validation
+        """
+        self.authenticate()
+        payload = {**self.create_payload, 'extra_data': '{"unit": "kg"}'}
+        response = self.push('PUT', payload)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
+        measurement = Measurement.objects.get(pk=payload['id'])
+        self.assertEqual(measurement.extra_data, {'unit': 'kg'})
+
+    def test_create_rejects_malformed_extra_data(self):
+        """
+        A malformed JSON string passes through undecoded and is rejected by the
+        serializer instead of crashing the handler
+        """
+        self.authenticate()
+        payload = {**self.create_payload, 'extra_data': '{not json'}
+        response = self.push('PUT', payload)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.json().get('error'), response.content)
+        self.assertFalse(Measurement.objects.filter(pk=payload['id']).exists())

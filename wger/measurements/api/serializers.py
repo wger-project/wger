@@ -24,6 +24,7 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.models.category import MetricType
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -33,7 +34,20 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'order')
+        fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'order', 'is_official')
+        read_only_fields = ('is_official',)
+
+    def validate_metric_type(self, metric_type):
+        """
+        The metric type of an official category is fixed: the legacy weight
+        endpoint and the health sync rely on it
+        """
+        if self.instance and self.instance.is_official:
+            if metric_type != self.instance.metric_type:
+                raise serializers.ValidationError(
+                    'The metric type of an official category cannot be changed'
+                )
+        return metric_type
 
     def validate_parent(self, parent):
         """
@@ -87,6 +101,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
             'notes',
             'source',
             'external_id',
+            'extra_data',
         )
 
     def validate_category(self, category):
@@ -98,3 +113,26 @@ class MeasurementSerializer(serializers.ModelSerializer):
                 'Measurements cannot be added to a category with subcategories'
             )
         return category
+
+    def validate_extra_data(self, extra_data):
+        """
+        The unit key holds the unit the value was entered in
+        """
+        if not isinstance(extra_data, dict):
+            raise serializers.ValidationError('extra_data must be an object')
+        return extra_data
+
+    def validate(self, data):
+        """
+        Body weight entries only support the weight units of the user profile
+        """
+        category = data.get('category') or (self.instance.category if self.instance else None)
+        extra_data = data.get('extra_data', self.instance.extra_data if self.instance else {})
+        unit = extra_data.get('unit')
+
+        if unit is not None and category is not None:
+            if category.metric_type == MetricType.BODY_WEIGHT and unit not in ('kg', 'lb'):
+                raise serializers.ValidationError(
+                    {'extra_data': 'Body weight entries only support kg and lb as unit'}
+                )
+        return data

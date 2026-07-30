@@ -13,7 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from decimal import Decimal
+
 # Django
+from django.contrib.auth.models import User
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
@@ -23,6 +27,9 @@ from django.utils import timezone
 
 # wger
 from wger.measurements.models import Category
+from wger.measurements.models.category import MetricType
+from wger.utils.constants import TWOPLACES
+from wger.utils.units import AbstractWeight
 from wger.utils.uuid import uuid7
 
 
@@ -90,8 +97,52 @@ class Measurement(models.Model):
         null=True,
     )
 
+    extra_data = models.JSONField(
+        verbose_name='Extra data',
+        default=dict,
+        blank=True,
+    )
+    """
+    Per-entry metadata. ``unit`` holds the unit the value was entered in
+    (falls back to the category unit when absent), external syncs store
+    their provenance (source unit, original value, device) here as well.
+    """
+
     def get_owner_object(self):
         """
         Returns the object that has owner information
         """
         return self.category
+
+    @property
+    def unit(self) -> str:
+        """
+        Returns the unit the value is stored in
+        """
+        return self.extra_data.get('unit') or self.category.unit
+
+    def value_in(self, unit: str) -> Decimal:
+        """
+        Returns the value converted to the given weight unit ('kg' or 'lb').
+
+        Only body weight entries carry convertible units, all other metric
+        types have a fixed unit.
+        """
+        if self.unit == unit:
+            return self.value
+        if unit not in ('kg', 'lb') or self.unit not in ('kg', 'lb'):
+            raise ValueError(f'Cannot convert between {self.unit} and {unit}')
+        weight = AbstractWeight(self.value, self.unit)
+        return (weight.kg if unit == 'kg' else weight.lb).quantize(TWOPLACES)
+
+    @classmethod
+    def body_weight_for(cls, user: User) -> models.QuerySet:
+        """
+        Returns the user's body weight entries: the measurements in the
+        official body-weight category
+        """
+        return cls.objects.filter(
+            category__user=user,
+            category__metric_type=MetricType.BODY_WEIGHT,
+            category__is_official=True,
+        )

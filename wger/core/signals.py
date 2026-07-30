@@ -31,16 +31,24 @@ from wger.core.models import (
     UserCache,
     UserProfile,
 )
+from wger.measurements.models import Category
+from wger.measurements.models.category import MetricType
 from wger.utils.helpers import disable_for_loaddata
 
 
 @disable_for_loaddata
 def create_user_profile(sender, instance, created, **kwargs):
     """
-    Every new user gets a profile
+    Every new user gets a profile and the official body weight category
     """
     if created:
-        UserProfile.objects.create(user=instance)
+        profile = UserProfile.objects.create(user=instance)
+        Category.get_or_create_official(
+            instance,
+            MetricType.BODY_WEIGHT,
+            name='Body weight',
+            unit=profile.weight_unit,
+        )
 
 
 @disable_for_loaddata

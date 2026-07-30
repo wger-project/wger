@@ -19,14 +19,18 @@
 from rest_framework import viewsets
 
 # wger
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
+from wger.measurements.models.category import MetricType
 from wger.weight.api.filtersets import WeightEntryFilterSet
 from wger.weight.api.serializers import WeightEntrySerializer
-from wger.weight.models import WeightEntry
 
 
 class WeightEntryViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for nutrition plan objects
+    API endpoint for weight entry objects
     """
 
     serializer_class = WeightEntrySerializer
@@ -41,12 +45,32 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         """
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
-            return WeightEntry.objects.none()
+            return Measurement.objects.none()
 
-        return WeightEntry.objects.filter(user=self.request.user)
+        # Measurement orders by -date, the historic weight endpoint by date
+        return Measurement.body_weight_for(self.request.user).order_by('date')
 
     def perform_create(self, serializer):
         """
-        Set the owner
+        Route the new entry into the user's official body-weight category.
+        The value is interpreted in the user's preferred weight unit.
         """
-        serializer.save(user=self.request.user)
+        profile = self.request.user.userprofile
+        category = Category.get_or_create_official(
+            self.request.user,
+            MetricType.BODY_WEIGHT,
+            name='Body weight',
+            unit=profile.weight_unit,
+        )
+        serializer.save(category=category, extra_data={'unit': profile.weight_unit})
+
+    def perform_update(self, serializer):
+        """
+        A new value is interpreted in the user's current weight unit, updates
+        without a value keep the stored unit
+        """
+        if 'value' in serializer.validated_data:
+            unit = self.request.user.userprofile.weight_unit
+            serializer.save(extra_data={'unit': unit})
+        else:
+            serializer.save()

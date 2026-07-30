@@ -23,7 +23,11 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 # wger
-from wger.weight.models import WeightEntry
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
+from wger.measurements.models.category import MetricType
 
 
 logger = logging.getLogger(__name__)
@@ -68,18 +72,24 @@ class Command(BaseCommand):
             new_entries = []
             self.stdout.write(f'   - generating for {user.username}')
 
-            existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
+            category = Category.get_or_create_official(
+                user,
+                MetricType.BODY_WEIGHT,
+                name='Body weight',
+                unit=user.userprofile.weight_unit,
+            )
+            existing_entries = [i.date for i in Measurement.objects.filter(category=category)]
 
             # Weight entries
             for i in range(options['nr_entries']):
                 creation_date = timezone.now() - datetime.timedelta(days=i)
                 if creation_date not in existing_entries:
-                    entry = WeightEntry(
-                        user=user,
-                        weight=base_weight + 0.5 * i + random.randint(1, 3),
+                    entry = Measurement(
+                        category=category,
+                        value=base_weight + 0.5 * i + random.randint(1, 3),
                         date=creation_date,
                     )
                     new_entries.append(entry)
 
             # Bulk-create the weight entries
-            WeightEntry.objects.bulk_create(new_entries)
+            Measurement.objects.bulk_create(new_entries)

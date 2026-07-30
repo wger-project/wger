@@ -19,9 +19,11 @@ from decimal import Decimal
 
 # Django
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.measurements.models import Measurement
 from wger.nutrition import models
 
 
@@ -249,3 +251,38 @@ class NutritionalValuesApiTestCase(WgerTestCase):
         )
 
         self.assertEqual(response.status_code, 404)
+
+
+class PerBodyWeightCalculationTestCase(WgerTestCase):
+    """
+    Tests the per-body-weight values with weight entries in imperial units
+    """
+
+    def test_per_kg_converts_units(self):
+        """
+        Test that the per-kg values convert lb entries to kg
+        """
+        plan = models.NutritionPlan(user_id=2)
+        plan.save()
+
+        meal = models.Meal(order=1, plan=plan)
+        meal.save()
+
+        item = models.MealItem(meal=meal, ingredient_id=1, weight_unit_id=None, amount=100, order=1)
+        item.save()
+
+        Measurement.objects.create(
+            category_id='cccccccc-cccc-cccc-cccc-0000000000b0',
+            date=timezone.now(),
+            value=180,
+            extra_data={'unit': 'lb'},
+        )
+
+        values = plan.get_nutritional_values()
+
+        # 180 lb are 81.65 kg
+        self.assertAlmostEqual(
+            float(values['per_kg']['protein']),
+            float(values['total'].protein / Decimal('81.65')),
+            2,
+        )
