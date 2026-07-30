@@ -33,11 +33,10 @@ class WeightEntrySerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(source='category.user', read_only=True)
     weight = serializers.DecimalField(
         source='value',
-        max_digits=6,
+        max_digits=5,
         decimal_places=2,
-        min_value=Decimal(0.0),
-        max_value=Decimal(5000.0),
-        coerce_to_string=False,
+        min_value=Decimal(30),
+        max_value=Decimal(600),
     )
 
     class Meta:

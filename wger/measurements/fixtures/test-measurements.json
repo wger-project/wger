@@ -26,5 +26,23 @@
             "value": 21,
             "notes": "some extra information"
         }
+    },
+    {
+        "pk": "dddddddd-dddd-dddd-dddd-0000000000b1",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2012-10-01T14:30:21.592Z",
+            "value": 77
+        }
+    },
+    {
+        "pk": "dddddddd-dddd-dddd-dddd-0000000000b2",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2012-11-01T14:30:21.592Z",
+            "value": 80.6
+        }
     }
 ]

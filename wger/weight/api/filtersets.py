@@ -22,7 +22,9 @@ from wger.measurements.models import Measurement
 
 class WeightEntryFilterSet(filters.FilterSet):
     weight = filters.NumberFilter(field_name='value', lookup_expr='exact')
+    weight__gt = filters.NumberFilter(field_name='value', lookup_expr='gt')
     weight__gte = filters.NumberFilter(field_name='value', lookup_expr='gte')
+    weight__lt = filters.NumberFilter(field_name='value', lookup_expr='lt')
     weight__lte = filters.NumberFilter(field_name='value', lookup_expr='lte')
 
     class Meta:

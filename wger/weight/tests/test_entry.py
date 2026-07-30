@@ -13,11 +13,17 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
+from wger.measurements.models.category import MetricType
 from wger.weight.models import WeightEntry
 
 
@@ -40,8 +46,55 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the weight entry overview resource
     """
 
-    pk = 3
-    resource = WeightEntry
+    pk = 'dddddddd-dddd-dddd-dddd-0000000000b1'
+    resource = Measurement
     private_resource = True
     date = timezone.now() - timezone.timedelta(days=25)
     data = {'weight': 100, 'date': date}
+
+    def get_resource_name(self):
+        return 'weightentry'
+
+
+class WeightEntryOfficialCategoryTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
+    """
+    Tests the automatic handling of the official body weight category
+    """
+
+    url = '/api/v2/weightentry/'
+
+    def test_post_creates_official_category(self):
+        """
+        Test that POSTing without an official category creates one with the
+        user's preferred weight unit
+        """
+        self.authenticate('admin')
+        user = User.objects.get(username='admin')
+        user.userprofile.weight_unit = 'lb'
+        user.userprofile.save()
+
+        response = self.client.post(self.url, data={'weight': 180, 'date': timezone.now()})
+        self.assertEqual(response.status_code, 201)
+
+        category = Category.objects.get(
+            user=user,
+            metric_type=MetricType.BODY_WEIGHT,
+            is_official=True,
+        )
+        self.assertEqual(category.unit, 'lb')
+
+    def test_post_reuses_official_category(self):
+        """
+        Test that POSTing with an existing official category does not create
+        a second one
+        """
+        self.authenticate('test')
+        count_before = Category.objects.filter(user__username='test').count()
+
+        response = self.client.post(self.url, data={'weight': 82.5, 'date': timezone.now()})
+        self.assertEqual(response.status_code, 201)
+
+        self.assertEqual(
+            Category.objects.filter(user__username='test').count(),
+            count_before,
+        )

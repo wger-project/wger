@@ -30,9 +30,7 @@ from wger.weight.api.serializers import WeightEntrySerializer
 
 class WeightEntryViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for nutrition plan objects
-
-    CHANGED (wger#2328): reads/writes measurements.Measurement rows
+    API endpoint for weight entry objects
     """
 
     serializer_class = WeightEntrySerializer
@@ -49,17 +47,21 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Measurement.objects.none()
 
+        # Measurement orders by -date, the historic weight endpoint by date
         return Measurement.objects.filter(
             category__user=self.request.user,
             category__metric_type=MetricType.BODY_WEIGHT,
             category__is_official=True,
-        )
+        ).order_by('date')
 
     def perform_create(self, serializer):
         """
         Route the new entry into the user's official body-weight category
         """
         category = Category.get_or_create_official(
-            self.request.user, MetricType.BODY_WEIGHT, name='Body weight', unit='kg'
+            self.request.user,
+            MetricType.BODY_WEIGHT,
+            name='Body weight',
+            unit=self.request.user.userprofile.weight_unit,
         )
         serializer.save(category=category)
