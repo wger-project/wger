@@ -41,14 +41,14 @@ class ExerciseCreateThrottleTestCase(BaseTestCase, ApiBaseTestCase):
     """
 
     @staticmethod
-    def get_payload():
+    def get_payload(name='Throttle Test Exercise'):
         return {
             'category': 3,
             'license': 5,
             'license_author': 'tester',
             'translations': [
                 {
-                    'name': 'Throttle Test Exercise',
+                    'name': name,
                     'description_source': (
                         'A sufficiently long English description so the language '
                         'detector recognises it and the minimum length passes.'
@@ -97,7 +97,9 @@ class ExerciseCreateThrottleTestCase(BaseTestCase, ApiBaseTestCase):
 
         with mock.patch.dict(api_settings.DEFAULT_THROTTLE_RATES, {'exercise_create': '1/min'}):
             first = self.client.post(url, data=self.get_payload())
-            second = self.client.post(url, data=self.get_payload())
+            # A distinct name, otherwise the duplicate-name check would reject
+            # the second submission before the throttle exemption is exercised.
+            second = self.client.post(url, data=self.get_payload('Completely Different Movement'))
 
         self.assertEqual(first.status_code, status.HTTP_201_CREATED)
         self.assertEqual(second.status_code, status.HTTP_201_CREATED)

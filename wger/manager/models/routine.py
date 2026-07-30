@@ -269,13 +269,17 @@ class Routine(models.Model):
                 or current_date > timezone.localdate()
             )
 
+            wrapped = False
             if can_proceed and not is_first:
                 iteration_counter[current_day.id] += 1
                 day_index = (day_index + 1) % nr_of_days
+                wrapped = day_index == 0
                 current_day = days_list[day_index]
 
-            # If fit_in_week is set we need to fill the rest of the week with placeholders
-            if self.fit_in_week and nr_of_days % 7 != 0 and day_index == 0 and not is_first:
+            # If fit_in_week is set we need to fill the rest of the week with placeholders.
+            # This must only happen when the cycle actually wrapped around, not when the
+            # first day is stuck at index 0 waiting for logs (need_logs_to_advance).
+            if self.fit_in_week and nr_of_days % 7 != 0 and wrapped:
                 days_to_monday = 7 - current_date.weekday()
                 for i in range(days_to_monday):
                     placeholder_date = current_date + datetime.timedelta(days=i)

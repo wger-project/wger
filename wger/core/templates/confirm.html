@@ -1,0 +1,7 @@
+{% load i18n crispy_forms_tags %}
+
+<h4>{{ title }}</h4>
+{% if confirm_message %}
+    <p>{{ confirm_message }}</p>
+{% endif %}
+{% crispy form %}

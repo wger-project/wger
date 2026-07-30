@@ -4,9 +4,8 @@
 {% block title %}{{ingredient.name}}{% endblock %}
 
 {% block header %}
-<script src="{% static 'node/jquery/dist/jquery.js' %}"></script>
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     wgerInitIngredientDetail("{% url 'api-ingredient-get-values' ingredient.id %}");
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
 });

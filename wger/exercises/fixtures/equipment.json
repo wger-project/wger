@@ -75,5 +75,12 @@
         "fields": {
             "name": "Resistance band"
         }
+    },
+    {
+        "model": "exercises.equipment",
+        "pk": 12,
+        "fields": {
+            "name": "Cable machine"
+        }
     }
 ]

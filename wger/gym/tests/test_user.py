@@ -350,6 +350,38 @@ class GymScopeGuardsTestCase(WgerTestCase):
         )
         self.assertEqual(response.status_code, 200)
 
+    def test_reset_password_get_does_not_mutate(self):
+        """
+        Regression test: GET must only render a confirmation form, since
+        Django's CSRF protection does not apply to GET requests. The actual
+        password reset must require POST.
+        """
+        victim = User.objects.get(pk=self.VICTIM_USER_PK)
+        old_password_hash = victim.password
+        self.user_login('manager1')
+
+        response = self.client.get(
+            reverse('gym:gym:reset-user-password', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.get(pk=self.VICTIM_USER_PK).password, old_password_hash)
+
+    def test_reset_password_post_mutates(self):
+        """
+        Sanity check: POST must perform the actual password reset.
+        """
+        victim = User.objects.get(pk=self.VICTIM_USER_PK)
+        old_password_hash = victim.password
+        self.user_login('manager1')
+
+        response = self.client.post(
+            reverse('gym:gym:reset-user-password', kwargs={'user_pk': self.VICTIM_USER_PK})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(User.objects.get(pk=self.VICTIM_USER_PK).password, old_password_hash)
+
     def test_permissions_edit_blocked_when_both_gyms_none(self):
         self._both_gyms_none(attacker_pk=9)
         self.user_login('manager1')
