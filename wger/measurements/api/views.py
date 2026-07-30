@@ -50,7 +50,7 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = CategorySerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('id', 'name', 'unit', 'metric_type')
+    filterset_fields = ('id', 'name', 'unit', 'metric_type', 'parent')
 
     def get_queryset(self):
         """
@@ -73,7 +73,7 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(User, 'user')]
+        return [(User, 'user'), (Category, 'parent')]
 
 
 class MeasurementViewSet(WgerOwnerObjectModelViewSet):

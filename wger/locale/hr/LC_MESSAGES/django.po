@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-06-24 09:01+0000\n"
+"PO-Revision-Date: 2026-06-25 15:01+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -465,6 +465,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Tvoja se e-mail adresa koristi se za resetiranje lozinke i, opcionalno, za "
+"podsjetnike za vježbanje. Nova adresa postaje aktivna tek nakon što je "
+"potvrdiš putem poslane poveznice na novu adresu."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -473,11 +476,11 @@ msgstr "Trenutačna e-mail adresa"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Potvrda na čekanju: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
-msgstr "Ponovno pošalji e-mail za potvrdu"
+msgstr "Ponovo pošalji e-mail za potvrdu"
 
 #: core/templates/account/email_change.html:42
 msgid "Cancel change"
@@ -508,19 +511,19 @@ msgstr "Nemaš račun?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Brža prijava"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Prijavi se s pristupnim ključem"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "ili se prijavi s"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr "Već imaš korisnički račun?"
+msgstr "Već imaš račun?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -858,7 +861,7 @@ msgstr "Značajke"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "API pristup"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -869,7 +872,7 @@ msgstr ""
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Dugotrajni tokeni za osvježavanje"
 
 #: core/templates/user/api_key.html:19
 msgid ""
@@ -883,13 +886,15 @@ msgstr "Generiraj novi refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Kopiraj ovaj token sada."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Prikazuje se samo jednom. Ako ga izgubiš, generiraj novi i poništi staru "
+"sesiju niše dolje."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -897,6 +902,8 @@ msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr ""
+"Tokeni za osvježavanje isteču %(days)s dana nakon što su generirani, osim "
+"ako ih ranije ne opozoveš."
 
 #: core/templates/user/api_key.html:65
 msgid "Created"
@@ -904,15 +911,15 @@ msgstr "Stvoreno"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Isteče"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Opozovi"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Opozovi sve tokene za osvježavanje"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -920,7 +927,7 @@ msgstr "JWT sesije"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Opozovi sve JWT sesije"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -935,8 +942,20 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Trenutačno postoji <strong>%(counter)s</strong> aktivna JWT "
+"sesija.\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Trenutačno postoje <strong>%(counter)s</strong> aktivne JWT "
+"sesije.\n"
+"            "
 msgstr[2] ""
+"\n"
+"                Trenutačno postoji <strong>%(counter)s</strong> aktivnih JWT "
+"sesija.\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
@@ -975,7 +994,7 @@ msgstr ""
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Primjer sa curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -987,21 +1006,23 @@ msgstr "API dokumentacija"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Vrati se na aplikaciju"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Vraćanje na wger aplikaciju …"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Ako se ništa ne dogodi, dodirni donji gumb. Osiguraj da je aplikacija wger "
+"instalirana na ovom uređaju."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Dodirni za vraćanje na aplikaciju"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1235,7 +1256,7 @@ msgstr "Postavke"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Račun i sigurnost"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1255,15 +1276,15 @@ msgstr "Postavi lozinku"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Dvofaktorska autentifikacija"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Uključeno"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Isključeno"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1271,11 +1292,11 @@ msgstr "Povezani računi"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Opasna zona"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Tvoj račun i svi podaci o treningu će se trajno izbrisati."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1371,16 +1392,16 @@ msgstr "API ključ je izbrisan"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Sve API sesije su opozvane"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Token za osvježavanje je opozvan"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Broj tokena za osvježavanje: {count}"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1455,35 +1476,35 @@ msgstr "Resetiraj"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Račun mlađi od 60 dana"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "novi"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr "stvorio"
+msgstr "stvoren"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "uređen"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
-msgstr "izbrisao"
+msgstr "izbrisan"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "spojen"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "u"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "medij"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1507,11 +1528,11 @@ msgstr "Poništiti ovu promjenu?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Objekt će se obnoviti u prethodno stanje."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Odustani"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1519,11 +1540,11 @@ msgstr "Obnovi"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Nema promjena koje odgovaraju filtru."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Resetiraj filtre"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
@@ -1542,17 +1563,17 @@ msgstr "Prethodna"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Stranica %(current)s od %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Sljedeća"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
 msgid "Last"
-msgstr "Posljednja"
+msgstr "Zadnja"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1587,7 +1608,7 @@ msgstr "Vrsta"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Sve"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1595,11 +1616,11 @@ msgstr "Radnja"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Od"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Do"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1679,7 +1700,7 @@ msgstr "Vrsta ugovora"
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
 #: nutrition/forms.py:67
 msgid "Amount"
-msgstr "Iznos"
+msgstr "Količina"
 
 #: gym/models/contract.py:221 gym/templates/contract/view.html:63
 msgid "Payment type"
@@ -2515,12 +2536,12 @@ msgstr "Prva stranica"
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
 msgid "previous"
-msgstr "prethodno"
+msgstr "prethodna"
 
 #: nutrition/templates/ingredient/overview.html:77
 #: nutrition/templates/ingredient/overview.html:82
 msgid "next"
-msgstr "dalje"
+msgstr "sljedeća"
 
 #: nutrition/templates/ingredient/overview.html:90
 msgid "Search"
@@ -2574,7 +2595,7 @@ msgstr "Informacije o prehrani"
 
 #: nutrition/templates/ingredient/view.html:203
 msgid "Nutri-Score"
-msgstr "Rezultat prehrane"
+msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"

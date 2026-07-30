@@ -12,8 +12,9 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-06-19 14:49+0000\n"
-"Last-Translator: Para <ahh-produktivitet@tutanota.com>\n"
+"PO-Revision-Date: 2026-07-23 21:01+0000\n"
+"Last-Translator: Christoffer Gjønvik Holsæther "
+"<christofferholsaether@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
 "web/nb_NO/>\n"
 "Language: no\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -152,10 +153,12 @@ msgstr "Bekreft"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Brukeren din har ikke et passord. Skriv inn brukernavnet «{username}» for å "
+"bekrefte."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Brukernavnet er feil"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -344,11 +347,11 @@ msgstr ""
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Aktiver trofeer"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Aktiver eller deaktiver trofeesystemet for denne brukeren"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -364,7 +367,7 @@ msgstr "Tid"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "Avstand"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -382,7 +385,7 @@ msgstr "Enhetstype"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Enhetstype (repetisjoner, tid eller distanse)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"

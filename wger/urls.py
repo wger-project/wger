@@ -354,6 +354,10 @@ urlpatterns += [
         name='powersync-data',
     ),
     # Api documentation
+    #
+    # metadata_class=None disables the OPTIONS handler on the HTML views: its
+    # metadata response would otherwise be rendered through the UI template,
+    # which requires context only the GET handler provides, and crash with 500.
     path(
         'api/v2/schema',
         SpectacularAPIView.as_view(),
@@ -361,12 +365,12 @@ urlpatterns += [
     ),
     path(
         'api/v2/schema/ui',
-        SpectacularSwaggerView.as_view(url_name='schema'),
+        SpectacularSwaggerView.as_view(url_name='schema', metadata_class=None),
         name='api-swagger-ui',
     ),
     path(
         'api/v2/schema/redoc',
-        SpectacularRedocView.as_view(url_name='schema'),
+        SpectacularRedocView.as_view(url_name='schema', metadata_class=None),
         name='api-redoc',
     ),
 ]

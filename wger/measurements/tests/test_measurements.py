@@ -19,10 +19,16 @@ from django.db import (
     transaction,
 )
 
+# Django
+from django.urls import reverse
+
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.measurements.models import Measurement
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
 
 
 class MeasurementsApiTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -68,3 +74,33 @@ class ExternalMeasurementConstraintTestCase(WgerTestCase):
         self._create(external_id=None)
         self._create(external_id=None)
         self.assertEqual(Measurement.objects.count(), before + 2)
+
+
+class MeasurementLeafOnlyTestCase(WgerTestCase):
+    """
+    Measurements can only be added to leaf categories, not to group parents
+    """
+
+    parent_id = 'cccccccc-cccc-cccc-cccc-000000000003'  # user 'test', no measurements
+
+    def test_measurement_on_parent_category_rejected(self):
+        self.user_login('test')
+        parent = Category.objects.get(pk=self.parent_id)
+        Category.objects.create(
+            user=parent.user,
+            name='Systolic',
+            unit='mmHg',
+            parent=parent,
+        )
+
+        response = self.client.post(
+            reverse('measurement-list'),
+            {
+                'category': self.parent_id,
+                'date': '2021-08-12',
+                'value': 120,
+            },
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('category', response.data)

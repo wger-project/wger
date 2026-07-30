@@ -102,12 +102,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
             ),
         )
 
-    ENERGY_APPROXIMATION = 15
-    """
-    How much the calculated energy from protein, etc. can deviate from the
-    energy amount given (in percent).
-    """
-
     objects = ApproximateCountManager()
 
     language = models.ForeignKey(

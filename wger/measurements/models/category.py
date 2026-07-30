@@ -41,6 +41,7 @@ class MetricType(models.TextChoices):
 class Category(models.Model):
     class Meta:
         ordering = [
+            'order',
             '-name',
         ]
         constraints = [
@@ -81,9 +82,22 @@ class Category(models.Model):
         default=MetricType.CUSTOM,
     )
 
-    externally_synced = models.BooleanField(
-        verbose_name='Externally synced',
-        default=False,
+    # Multi-value measurements (e.g. blood pressure) are modelled as a parent
+    # category holding one child category per component. Only leaf categories
+    # (no children) carry measurements; nesting is limited to one level.
+    parent = models.ForeignKey(
+        'self',
+        verbose_name='Parent',
+        on_delete=models.CASCADE,
+        related_name='children',
+        blank=True,
+        null=True,
+    )
+
+    # Position in the category list; for children, the position within the group
+    order = models.IntegerField(
+        verbose_name='Order',
+        default=0,
     )
 
     is_official = models.BooleanField(

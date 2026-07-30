@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2023-12-29 22:12+0000\n"
-"Last-Translator: Adam Cool <anthony.kek21@gmail.com>\n"
+"PO-Revision-Date: 2026-07-21 20:01+0000\n"
+"Last-Translator: tomorigabor <tomorigabor89@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/wger/web/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -77,7 +77,7 @@ msgstr "Vezetéknév"
 #: core/forms.py:131 core/models/profile.py:200
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr "Születés Időpontja"
+msgstr "Születés időpontja"
 
 #: core/forms.py:172
 msgid "Personal data"
@@ -149,14 +149,16 @@ msgstr "Megerősítés"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"A profilodnak nincs jelszava. Írd a felhasználóneved \"{username}\" a "
+"jóváhagyáshoz."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "A megadott felhasználónév nem egyezik"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
-msgstr ""
+msgstr "Beküldés"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -179,6 +181,8 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"Ha egy licencet honosítottak, például a Creative Commons licenceket az egyes "
+"országok számára, akkor ezeket külön bejegyzésként add hozzá itt."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -195,7 +199,7 @@ msgstr "Link a licenc szöveghez vagy egyéb információkhoz"
 #: core/models/profile.py:60
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "%(birthdate)s-ek érvénytelen Születési idő"
+msgstr "%(birthdate)s nem érvényes születési dátum"
 
 #: core/models/profile.py:69
 msgid "Male"
@@ -223,7 +227,7 @@ msgstr "Metrikus (kilogramm)"
 
 #: core/models/profile.py:86
 msgid "Imperial (pound)"
-msgstr "Birodalmi (font)"
+msgstr "Angolszász (font)"
 
 #: core/models/profile.py:119
 msgid "Activate workout reminders"
@@ -254,6 +258,8 @@ msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
+"Az ütemtervben nem szereplő edzések alapértelmezett időtartama hetekben. Az "
+"edzésre emlékeztető e-mailekhez használatos."
 
 #: core/models/profile.py:157
 msgid "Notification language"
@@ -265,7 +271,7 @@ msgid ""
 "for workouts. This does not affect the language used on the website."
 msgstr ""
 "A nyelv amit használunk az email értesítésekhez, pl.: edzés email "
-"emlékeztetők. Ez nem befolyásolj a weboldalon használt nyelvet."
+"emlékeztetők. Ez nem befolyásolja a weboldalon használt nyelvet."
 
 #: core/models/profile.py:192 gym/views/export.py:65
 msgid "Age"
@@ -281,7 +287,7 @@ msgstr "Napi alvás órában"
 
 #: core/models/profile.py:226
 msgid "The average hours of sleep per day"
-msgstr "Az átlag alvás órában per nap"
+msgstr "Az átlag alvás órában naponta"
 
 #: core/models/profile.py:235
 msgid "Work"
@@ -289,7 +295,7 @@ msgstr "Munka"
 
 #: core/models/profile.py:236 core/models/profile.py:278
 msgid "Average hours per day"
-msgstr "Átlag órák száma per nap"
+msgstr "Átlag órák száma naponta"
 
 #: core/models/profile.py:245 core/models/profile.py:266
 #: core/models/profile.py:287
@@ -307,7 +313,7 @@ msgstr "Sport"
 
 #: core/models/profile.py:257
 msgid "Average hours per week"
-msgstr "Átlag órák száma per hét"
+msgstr "Átlag órák száma hetente"
 
 #: core/models/profile.py:277
 msgid "Free time"
@@ -327,19 +333,21 @@ msgstr "Súly egység"
 
 #: core/models/profile.py:319
 msgid "Automatic reminders for weight entries"
-msgstr ""
+msgstr "Automatikus emlékeztetők a testsúlybejegyzésekhez"
 
 #: core/models/profile.py:320
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
+"Az utolsó testsúlybejegyzés óta eltelt napok száma (a kikapcsoláshoz írj be "
+"0-t)"
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Trófeák engedélyezése"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "A trófearendszer engedélyezése vagy letiltása ennél a felhasználónál"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -355,7 +363,7 @@ msgstr "Idő"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "Távolság"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -369,11 +377,11 @@ msgstr "Név"
 
 #: core/models/rep_unit.py:53
 msgid "Unit Type"
-msgstr ""
+msgstr "Mértékegység típusa"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "A mértékegység típusa (ismétlés, idő vagy távolság)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -381,7 +389,7 @@ msgstr "Tiltott!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "Nincs jogosultságod az oldal megtekintéséhez"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -393,7 +401,7 @@ msgstr "A kért oldal nem létezik."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Hiba történt"
 
 #: core/templates/500.html:8
 msgid ""
@@ -401,10 +409,13 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Hiba történt a szerveren a kérés feldolgozása közben. Próbáld meg frissíteni "
+"a böngészőt, és ha ez nem segít, próbáld újra később. Ha a probléma továbbra "
+"is fennáll, az alábbi módokon kérhetsz segítséget:"
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Mindjárt kész!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -412,16 +423,20 @@ msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
 msgstr ""
+"Azért kaptad ezt az e-mailt, mert „%(user_display)s” a te e-mail-címedet "
+"adta meg a(z) %(site_domain)s webhelyen történő regisztrációhoz."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Az e-mail-címed megerősítéséhez szükséges kódot alább találod. Kérjük, írd "
+"be a megnyitott böngészőablakban."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
-msgstr ""
+msgstr "Kattints az alábbi gombra az e-mail címed megerősítéséhez."
 
 #: core/templates/account/email/email_confirmation_message.html:106
 msgid "Confirm email"
@@ -433,14 +448,17 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"A hivatkozás %(expire_hours)s órán keresztül érvényes (%(date)s %(time)s "
+"időpontig). A profilbeállításaidban új hivatkozást kérhetsz."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Ha a gomb nem működik, másold ki és illeszd be ezt a linket a böngésződbe:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
-msgstr ""
+msgstr "a wger csapat"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:25
@@ -453,6 +471,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Az e-mail-címedet a jelszó visszaállításához, valamint opcionálisan az "
+"edzésemlékeztetők küldéséhez használjuk. Az új e-mail-cím csak akkor válik "
+"aktívvá, miután megerősítetted a rá küldött hivatkozás segítségével."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -461,7 +482,7 @@ msgstr "Jelenlegi e-mail-cím"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Függőben lévő megerősítés: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
@@ -496,19 +517,19 @@ msgstr "Nincs fiókod?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Gyorsabb bejelentkezés"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Bejelentkezés jelkulccsal"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "vagy belépés ezzel"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Már van profilod?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -516,6 +537,8 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
+"A webhelyet „%(current_user)s” felhasználóként böngészed; minden művelet az "
+"ő adatain történik."
 
 #: core/templates/base.html:17 core/templates/base_wide.html:14
 #, python-format
@@ -531,6 +554,11 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
+"A\n"
+"                webhelyet „%(current_user)s” felhasználóként böngészed, "
+"minden művelet\n"
+"                az ő adatain történik.\n"
+"            "
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -602,15 +630,15 @@ msgstr "Nincs találat"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:151
 msgid "Imprint"
-msgstr ""
+msgstr "Impresszum"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
 msgid "Training"
-msgstr ""
+msgstr "Edzésprogram"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
 msgid "Routines"
-msgstr ""
+msgstr "Gyakorlatsorok"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:83
 msgid "Calendar"
@@ -618,16 +646,16 @@ msgstr "Naptár"
 
 #: core/templates/navigation.html:53
 msgid "Measurements"
-msgstr ""
+msgstr "Mérések"
 
 #: core/templates/navigation.html:64 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galéria"
 
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Trófeák"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -639,7 +667,7 @@ msgstr "Sablonjaid"
 
 #: core/templates/navigation.html:95
 msgid "Public templates"
-msgstr ""
+msgstr "Nyilvános sablonok"
 
 #: core/templates/navigation.html:103 software/templates/features.html:51
 #: software/templates/features.html:480
@@ -690,7 +718,7 @@ msgstr "Összetevő áttekintés"
 
 #: core/templates/navigation.html:193 software/templates/features.html:463
 msgid "Body weight"
-msgstr ""
+msgstr "Test súly"
 
 #: core/templates/navigation.html:200 core/templates/user/overview.html:131
 msgid "Weight overview"
@@ -702,7 +730,7 @@ msgstr "Erről a szoftverről"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Támogatás és közreműködés"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
@@ -714,7 +742,7 @@ msgstr "Licenc"
 
 #: core/templates/navigation.html:238
 msgid "Developer documentation"
-msgstr ""
+msgstr "Fejlesztői dokumentáció"
 
 #: core/templates/navigation.html:245
 msgid "Get the code"
@@ -744,16 +772,16 @@ msgstr "Licencek"
 #: core/templates/navigation.html:361
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
-msgstr ""
+msgstr "Ismétlési egységek"
 
 #: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:232
 msgid "Weight units"
-msgstr ""
+msgstr "Súlyegységek"
 
 #: core/templates/navigation.html:377 core/templates/user/list.html:4
 msgid "User list"
-msgstr ""
+msgstr "Felhasználói lista"
 
 #: core/templates/navigation.html:383
 msgid "Gyms"
@@ -780,6 +808,8 @@ msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
+"Elküldtük a jelszó beállításához szükséges utasításokat a megadott e-mail-"
+"címre. Hamarosan meg kell érkeznie."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -787,10 +817,12 @@ msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Azért kaptad ezt az e-mailt, mert jelszó-visszaállítást kértél a(z) %"
+"(site_name)s webhelyen lévő felhasználói fiókodhoz."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Kérünk lépj a következő oldalra és válassz egy új jelszót:"
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
@@ -824,11 +856,11 @@ msgstr "Készíts egy pár demó bejegyzést"
 #: core/templates/template.html:156 software/templates/features.html:568
 #: software/templates/tos.html:7
 msgid "Terms of service"
-msgstr ""
+msgstr "Felhasználási feltételek"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Böngésző nyelve"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -836,7 +868,7 @@ msgstr "Funkciók"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "API hozzáférés"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -844,16 +876,22 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Az API-val szembeni hitelesítésnek két módja van: a JWT az "
+"ügyfélalkalmazások számára javasolt megoldás, míg a statikus API-kulcs "
+"személyes szkriptekhez vagy egyszeri integrációkhoz készült."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Hosszú élettartamú frissítési tokenek"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"A frissítési tokenek lehetővé teszik, hogy a szkriptek és parancssori "
+"eszközök a JWT-folyamaton keresztül kommunikáljanak a wger API-val anélkül, "
+"hogy minden alkalommal interaktívan be kellene jelentkezni."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -861,13 +899,15 @@ msgstr "Új frissítési token generálása"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Token másolása."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Csak egyszer jelenik meg. Ha elveszíted, hozz létre egy újat, és vond vissza "
+"alább a régi munkamenetet."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -875,6 +915,8 @@ msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr ""
+"A frissítési tokenek a létrehozásuk után %(days)s nappal lejárnak, kivéve, "
+"ha korábban visszavonod őket."
 
 #: core/templates/user/api_key.html:65
 msgid "Created"
@@ -882,23 +924,23 @@ msgstr "Létrehozva"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Lejárat"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Visszavonás"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Az összes frissítési token visszavonása"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
-msgstr ""
+msgstr "JWT-munkamenetek"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Az összes JWT-munkamenet visszavonása"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -913,13 +955,23 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Jelenleg <strong>%(counter)s</strong> aktív JWT-munkamenet "
+"van\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Jelenleg <strong>%(counter)s</strong> aktív JWT-munkamenetek "
+"vannak\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"A JWT-munkamenetek visszavonása kijelentkeztet minden olyan eszközt, amely a "
+"JWT-bejelentkezési végponton keresztül frissítési tokent kapott."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
@@ -949,10 +1001,14 @@ msgid ""
 "            <code>Authorization</code> header to use it.\n"
 "        "
 msgstr ""
+"\n"
+"            A használatához rakd át a <code>Token %(key)s</code> értéket az\n"
+"            <code>Authorization</code> fejlécbe.\n"
+"        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Példa curl használatával:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -964,21 +1020,23 @@ msgstr "API-dokumentáció"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Vissza az alkalmazáshoz"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Visszatérés a wger alkalmazáshoz…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Ha nem történik semmi, koppints az alábbi gombra. Győződj meg róla, hogy a "
+"wger alkalmazás telepítve van ezen az eszközön."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Koppints az alkalmazásba visszatéréshez"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -997,6 +1055,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
+"Ez a művelet törli a(z) „%(username)s” felhasználói fiókot.\n"
+"Emellett   visszavonhatatlanul eltávolít minden hozzá tartozó adatot is "
+"(edzések, naplók stb.)\n"
+"és nem vonható vissza. "
 
 #: core/templates/user/overview.html:28 core/templates/user/overview.html:78
 #: core/templates/user/overview.html:126 core/templates/user/overview.html:162
@@ -1104,7 +1166,7 @@ msgstr "Felhasználó aktiválása"
 
 #: core/templates/user/overview.html:249
 msgid "Reset user password"
-msgstr ""
+msgstr "Jelszó visszaállítása"
 
 #: core/templates/user/overview.html:253 gym/templates/gym/member_list.html:30
 msgid "Roles"
@@ -1116,19 +1178,19 @@ msgstr "Jelszó igénylés megerősítése"
 
 #: core/templates/user/overview.html:273
 msgid "Do you really want to change this user&#39;s password?"
-msgstr ""
+msgstr "Biztosan meg szeretnéd változtatni ennek a felhasználónak a jelszavát?"
 
 #: core/templates/user/overview.html:276
 #: nutrition/templates/ingredient/view.html:180
 #: nutrition/templates/ingredient/view.html:195
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: core/templates/user/overview.html:277
 #: nutrition/templates/ingredient/view.html:178
 #: nutrition/templates/ingredient/view.html:193
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: core/templates/user/overview.html:298 gym/templates/gym/member_list.html:105
 msgid "Details"
@@ -1149,7 +1211,7 @@ msgstr "Telefon"
 #: core/templates/user/overview.html:328 gym/templates/contract/view.html:87
 #: gym/templates/gym/member_list.html:130
 msgid "Address"
-msgstr "Cím"
+msgstr "Lakcím"
 
 #: core/templates/user/overview.html:339
 msgid "Registered"
@@ -1174,7 +1236,7 @@ msgstr "Inaktív"
 #: core/templates/user/overview.html:374 gym/templates/contract/list.html:4
 #: gym/templates/gym/member_list.html:218
 msgid "Contracts"
-msgstr ""
+msgstr "Szerződések"
 
 #: core/templates/user/overview.html:452 gym/templates/document/list.html:4
 msgid "Documents"
@@ -1191,7 +1253,7 @@ msgstr "Beállítás"
 
 #: core/templates/user/overview.html:503 gym/models/user_config.py:92
 msgid "Include in inactive overview"
-msgstr ""
+msgstr "Megjelenítés az inaktívak áttekintésében"
 
 #: core/templates/user/overview.html:534 core/templates/user/overview.html:541
 msgid "Log in as this user"
@@ -1201,6 +1263,8 @@ msgstr "Bejelentkezés mint ez a felhasználó"
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr ""
+"Az adminisztrátori bejelentkezés csak a(z) %(gym_name)s felhasználói számára "
+"érhető el"
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
@@ -1208,15 +1272,15 @@ msgstr "Beállítások"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Profil és biztonság"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
-msgstr ""
+msgstr "Megerősített e-mail"
 
 #: core/templates/user/preferences.html:29
 msgid "Unverified email"
-msgstr ""
+msgstr "Nem megerősített e-mail"
 
 #: core/templates/user/preferences.html:36 core/views/user.py:692
 msgid "Change password"
@@ -1228,15 +1292,15 @@ msgstr "Jelszó beállítása"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Kétfaktoros hitelesítés"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Be"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Ki"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1244,11 +1308,11 @@ msgstr "Összekapcsolt fiókok"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Veszélyes műveletek"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "A fiókod és az összes edzési adatod véglegesen törlődik."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1268,12 +1332,12 @@ msgstr "g"
 
 #: core/templatetags/wger_extras.py:113 i18n.tpl:40
 msgid "lb"
-msgstr ""
+msgstr "font"
 
 #: core/templatetags/wger_extras.py:115
 msgctxt "weight unit, i.e. ounces"
 msgid "oz"
-msgstr ""
+msgstr "uncia"
 
 #: core/views/languages.py:92 exercises/views/categories.py:122
 #: exercises/views/equipment.py:103 exercises/views/muscles.py:99
@@ -1309,6 +1373,9 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
+"Létrehoztunk néhány mintaedzést, edzéstervet, testsúlynapló-bejegyzést, "
+"testtömeg-bejegyzést és étrendi tervet, hogy jobban lásd, mire képes  ez az "
+"oldal. Bátran szerkeszd vagy töröld őket!"
 
 #: core/views/user.py:180
 #, python-brace-format
@@ -1341,16 +1408,16 @@ msgstr "Az API-kulcs törölve lett"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Az összes API-munkamenet visszavonva"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Frissítési token visszavonva"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "{count} db frissítési token visszavonva"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1378,20 +1445,20 @@ msgstr "Alternatív név"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Az izom egyszerűbb neve"
 
 #: exercises/models/video.py:52
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "A maximum fájlméret %(size)sMB."
 
 #: exercises/models/video.py:59 exercises/models/video.py:67
 msgid "File type is not supported"
-msgstr ""
+msgstr "Fájltípus nem támogatott"
 
 #: exercises/models/video.py:72
 msgid "File is not a valid video"
-msgstr ""
+msgstr "A fájl nem érvényes videó"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1403,57 +1470,57 @@ msgstr "Gyakorlat adminisztrációs előzményei"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
-msgstr ""
+msgstr "Az elmúlt 24 óra szerkesztései"
 
 #: exercises/templates/history/overview.html:24
 msgid "Edits last 7d"
-msgstr ""
+msgstr "Az elmúlt 7 nap szerkesztései"
 
 #: exercises/templates/history/overview.html:32
 msgid "Edits last 30d"
-msgstr ""
+msgstr "Az elmúlt 30 nap szerkesztései"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Alkalmaz"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Visszaállít"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "A profil 60 napnál fiatalabb"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "új"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "készített"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "szerkesztett"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
-msgstr "törölte"
+msgstr "törölve"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "egyesített"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "ebbe"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "média"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1465,39 +1532,39 @@ msgstr "Az objektum törölve lett"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
-msgstr ""
+msgstr "Változtatás visszavonása"
 
 #: exercises/templates/history/overview.html:187
 msgid "Open object"
-msgstr ""
+msgstr "Objektum megnyitása"
 
 #: exercises/templates/history/overview.html:198
 msgid "Revert this change?"
-msgstr ""
+msgstr "Visszavonod ezt a módosítást?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Az objektum vissza lesz állítva az előző állapotába."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
-msgstr ""
+msgstr "Visszavonás"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Egyetlen módosítás sem felel meg a szűrőknek."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Szűrők visszaállítása"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
-msgstr ""
+msgstr "Előzmények lapozása"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
@@ -1512,12 +1579,12 @@ msgstr "Előző"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Oldal %(current)s / %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Következő"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1553,11 +1620,11 @@ msgstr "Felhasználó"
 
 #: exercises/views/history.py:117
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Mind"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1565,11 +1632,11 @@ msgstr "Művelet"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Innen"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Eddig"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1577,7 +1644,7 @@ msgstr "Izom hozzáadása"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Ha a dátum üresen marad, a képről kerül kiolvasásra"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -1599,11 +1666,11 @@ msgstr "Általános menedzser"
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Kötelező. 30 karakter vagy kevesebb. Betűk, számok és a következőek vannak "
-"engedélyezve: @/./+/-/_"
+"engedélyezve: @/./+/-/_."
 
 #: gym/forms.py:100
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr "Csak betűt, számot és az alábbi karaktereket tartalmazhatja: @/.//-/_"
+msgstr "Csak betűt, számot és @/.//-/_ karaktereket tartalmazhatja."
 
 #: gym/forms.py:114
 msgid "A user with that username already exists."
@@ -1611,7 +1678,7 @@ msgstr "Ezt a felhasználónevet már egy másik felhasználó használja."
 
 #: gym/management/commands/inactive-members.py:95 gym/models/gym_config.py:44
 msgid "Reminder of inactive members"
-msgstr "Inaktív tagok áttekintése"
+msgstr "Inaktív tagok emlékeztetője"
 
 #: gym/models/admin_user_note.py:67 gym/models/contract.py:305
 #: gym/models/user_document.py:93 gym/templates/contract/view.html:96
@@ -1620,48 +1687,48 @@ msgstr "Megjegyzés"
 
 #: gym/models/contract.py:143
 msgid "Yearly"
-msgstr ""
+msgstr "Éves"
 
 #: gym/models/contract.py:144
 msgid "Half yearly"
-msgstr ""
+msgstr "Fél éves"
 
 #: gym/models/contract.py:145
 msgid "Monthly"
-msgstr ""
+msgstr "Havi"
 
 #: gym/models/contract.py:146
 msgid "Biweekly"
-msgstr ""
+msgstr "Kéthetes"
 
 #: gym/models/contract.py:147
 msgid "Weekly"
-msgstr ""
+msgstr "Heti"
 
 #: gym/models/contract.py:148
 msgid "Daily"
-msgstr ""
+msgstr "Napi"
 
 #: gym/models/contract.py:194 gym/templates/contract/view.html:34
 msgid "Contract type"
-msgstr ""
+msgstr "Szerződés típus"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
 #: nutrition/forms.py:67
 msgid "Amount"
-msgstr ""
+msgstr "Mennyiség"
 
 #: gym/models/contract.py:221 gym/templates/contract/view.html:63
 msgid "Payment type"
-msgstr ""
+msgstr "Fizetési mód"
 
 #: gym/models/contract.py:225
 msgid "How often the amount will be charged to the member"
-msgstr ""
+msgstr "Milyen gyakran kerül a mennyiség számlázásra a tagnak"
 
 #: gym/models/contract.py:231 gym/templates/contract/view.html:24
 msgid "Contract is active"
-msgstr ""
+msgstr "Szerződés aktív"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
 msgid "Start date"
@@ -1669,7 +1736,7 @@ msgstr "Kezdés dátuma"
 
 #: gym/models/contract.py:247 gym/templates/contract/view.html:71
 msgid "End date"
-msgstr ""
+msgstr "Vég dátum"
 
 #: gym/models/contract.py:263 gym/models/gym.py:73 gym/views/export.py:66
 msgid "ZIP code"
@@ -1685,19 +1752,19 @@ msgstr "Utca"
 
 #: gym/models/contract.py:295 gym/templates/contract/view.html:92
 msgid "Profession"
-msgstr ""
+msgstr "Szak"
 
 #: gym/models/gym.py:33
 msgid "Trainer: can see the users for a gym"
-msgstr ""
+msgstr "Edző: láthatja az edzőterem felhasználóit"
 
 #: gym/models/gym.py:34
 msgid "Admin: can manage users for a gym"
-msgstr ""
+msgstr "Admin: kezelheti az edzőterem felhasználóit"
 
 #: gym/models/gym.py:35
 msgid "Admin: can administrate the different gyms"
-msgstr ""
+msgstr "Admin: kezelheti a különböző edzőtermeket"
 
 #: gym/models/gym.py:65 gym/templates/gym/member_list.html:126
 msgid "Owner"
@@ -1708,26 +1775,28 @@ msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
 msgstr ""
+"Az utolsó jelenlét rögzítése óta eltelt hetek száma, amely után a "
+"felhasználó inaktívnak minősül"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
 msgid "Show name in header"
-msgstr ""
+msgstr "Név megjelenítése a fejlécben"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Edzőterem nevének mutatása a fejlécben"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
-msgstr ""
+msgstr "Inaktív tagok áttekintése"
 
 #: gym/models/user_config.py:66
 msgid "Receive email overviews of inactive members"
-msgstr ""
+msgstr "E-mail áttekintők fogadása inaktív tagoktól"
 
 #: gym/models/user_config.py:93
 msgid "Include this user in the email list with inactive members"
-msgstr ""
+msgstr "A felhasználó felvétele az inaktív tagok e-mail-listájára"
 
 #: gym/models/user_document.py:72
 msgid "Document"
@@ -1735,7 +1804,7 @@ msgstr "Dokumentum"
 
 #: gym/models/user_document.py:85
 msgid "Will use file name if nothing provided"
-msgstr ""
+msgstr "Ha nincs megadva semmi, a fájlnevet használja"
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
@@ -1747,21 +1816,23 @@ msgstr "Megmutat"
 
 #: gym/templates/contract/view.html:4
 msgid "Contract"
-msgstr ""
+msgstr "Szerződés"
 
 #: gym/templates/contract_option/list.html:4
 msgid "Contract options"
-msgstr ""
+msgstr "Szerződés opciói"
 
 #: gym/templates/contract_type/list.html:4
 msgid "Contract types"
-msgstr ""
+msgstr "Szerződés típusok"
 
 #: gym/templates/gym/email_inactive_members.html:2
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
 msgstr ""
+"A következő felhasználók nem látogatták az edzőtermet az elmúlt %(weeks)s "
+"hétben"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
@@ -1785,11 +1856,11 @@ msgstr "Edzőterem menedzser"
 
 #: gym/templates/gym/member_list.html:76
 msgid "This gym has no administrators or trainers"
-msgstr ""
+msgstr "Ennek az edzőteremnek nincs adminja vagy edzője"
 
 #: gym/templates/gym/member_list.html:98
 msgid "Export"
-msgstr ""
+msgstr "Exportálás"
 
 #: gym/templates/gym/member_list.html:137
 msgid "Members"
@@ -1813,11 +1884,11 @@ msgstr "Saját beállítás"
 
 #: gym/templates/gym/member_list.html:234
 msgid "Types"
-msgstr ""
+msgstr "Típusok"
 
 #: gym/templates/gym/member_list.html:307
 msgid "Emails"
-msgstr ""
+msgstr "E-mailek"
 
 #: gym/templates/gym/member_list.html:336
 msgid "Add member"
@@ -1834,6 +1905,10 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
+"Kérjük, jegyezd fel a felhasználói jelszót, vagy mentsd el az összes "
+"felhasználói adatot\n"
+"tartalmazó exportált fájlt, és őrizd biztonságos helyen. A jelszó később\n"
+"nem állítható vissza."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -1844,6 +1919,8 @@ msgid ""
 "This user's password has been reset. Please notify the user of their new "
 "password."
 msgstr ""
+"A felhasználó jelszava visszaállítva. Értesítsd a felhasználót az új "
+"jelszaváról."
 
 #: gym/views/admin_notes.py:96 gym/views/document.py:96
 msgid "Add note"
@@ -1851,11 +1928,11 @@ msgstr "Új megjegyzés hozzáadása"
 
 #: gym/views/contract.py:70
 msgid "Add contract"
-msgstr ""
+msgstr "Szerződés hozzáadása"
 
 #: gym/views/contract_option.py:60
 msgid "Add option"
-msgstr ""
+msgstr "Opció hozzáadása"
 
 #: gym/views/contract_option.py:159 gym/views/contract_type.py:159
 #, python-brace-format
@@ -1864,11 +1941,11 @@ msgstr "Töröljem {0}"
 
 #: gym/views/contract_type.py:60
 msgid "Add contract type"
-msgstr ""
+msgstr "Szerződés típus hozzáadása"
 
 #: gym/views/export.py:64
 msgid "Gender"
-msgstr ""
+msgstr "Neme"
 
 #: gym/views/gym.py:347
 msgid "Add user to gym"
@@ -1880,27 +1957,27 @@ msgstr "Edzőterem módosítása"
 
 #: i18n.tpl:2
 msgid "Abs"
-msgstr ""
+msgstr "Hasizom"
 
 #: i18n.tpl:3
 msgid "Arms"
-msgstr ""
+msgstr "Karok"
 
 #: i18n.tpl:4
 msgid "Back"
-msgstr ""
+msgstr "Hát"
 
 #: i18n.tpl:5
 msgid "Barbell"
-msgstr ""
+msgstr "Súlyzórúd"
 
 #: i18n.tpl:6
 msgid "Bench"
-msgstr ""
+msgstr "Pad"
 
 #: i18n.tpl:7
 msgid "Biceps"
-msgstr ""
+msgstr "Bicepsz"
 
 #: i18n.tpl:8
 msgid "Body Weight"
@@ -1908,59 +1985,59 @@ msgstr "Testsúly"
 
 #: i18n.tpl:9
 msgid "Calves"
-msgstr ""
+msgstr "Vádli"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Kardió"
 
 #: i18n.tpl:11
 msgid "Chest"
-msgstr ""
+msgstr "Mellkas"
 
 #: i18n.tpl:12
 msgid "Dumbbell"
-msgstr ""
+msgstr "Kézisúlyzó"
 
 #: i18n.tpl:13
 msgid "Glutes"
-msgstr ""
+msgstr "Farizom"
 
 #: i18n.tpl:14
 msgid "Gym mat"
-msgstr ""
+msgstr "Edzőmatrac"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr ""
+msgstr "Combizom"
 
 #: i18n.tpl:16
 msgid "Incline bench"
-msgstr ""
+msgstr "Döntött pad"
 
 #: i18n.tpl:17
 msgid "Kettlebell"
-msgstr ""
+msgstr "Gömbsúlyzó"
 
 #: i18n.tpl:18
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilométer"
 
 #: i18n.tpl:19
 msgid "Kilometers Per Hour"
-msgstr ""
+msgstr "Kilométer per óra"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "Széles hátizom"
 
 #: i18n.tpl:21
 msgid "Legs"
-msgstr ""
+msgstr "Láb"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Alsó hát"
 
 #: i18n.tpl:23
 msgid "Max Reps"
@@ -1968,131 +2045,131 @@ msgstr "Max. ismétlés"
 
 #: i18n.tpl:24
 msgid "Miles"
-msgstr ""
+msgstr "Mérföld"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Mérföld per óra"
 
 #: i18n.tpl:26
 msgid "Minutes"
-msgstr ""
+msgstr "Perc"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Súlytárcsák"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr ""
+msgstr "Húzódzkodó rúd"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "Négyfejű combizom"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Expander szalag"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
-msgstr ""
+msgstr "EZ-rúd"
 
 #: i18n.tpl:33
 msgid "Seconds"
-msgstr ""
+msgstr "Másodperc"
 
 #: i18n.tpl:34
 msgid "Shoulders"
-msgstr ""
+msgstr "Vállak"
 
 #: i18n.tpl:35
 msgid "Swiss Ball"
-msgstr ""
+msgstr "Fitneszlabda"
 
 #: i18n.tpl:36
 msgid "Triceps"
-msgstr ""
+msgstr "Tricepsz"
 
 #: i18n.tpl:37
 msgid "Until Failure"
-msgstr ""
+msgstr "Sikertelenségig"
 
 #: i18n.tpl:38
 msgid "Meters"
-msgstr ""
+msgstr "Méter"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
-msgstr ""
+msgstr "nincs (saját testsúlyos gyakorlat)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Kezdő"
 
 #: i18n.tpl:43
 msgid "Consistent"
-msgstr ""
+msgstr "Következetes"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Elhivatott"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Megszállott"
 
 #: i18n.tpl:46
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Veterán"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titán"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Megállíthatatlan"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Hétvégi harcos"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Elefántemelő"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Buszemelő"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Repülőgép-emelő"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Kékbálna-emelő"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Űrállomás-emelő"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Milliomos"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlasz"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Korán kelő"
 
 #: i18n.tpl:59
 msgid "Night Owl"
@@ -2100,11 +2177,11 @@ msgstr "Éjjeli bagoly"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Új év, új én"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Főnix"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2140,73 +2217,73 @@ msgstr "Végezz el 1000 edzést"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Edzz 30 napon át megszakítás nélkül"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Edzz szombaton és vasárnap négy egymást követő hétvégén"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 5 000 kg-ot"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 20 000 kg-ot"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 50 000 kg-ot"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 150 000 kg-ot"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 450 000 kg-ot"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 1000000 kg-ot"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Emelj meg összesen 10.000.000 kg-ot"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Teljesíts egy edzést reggel 6 előtt"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Teljesíts egy edzést este 9 után"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
-msgstr ""
+msgstr "Edzz január elsején"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Térj vissza az edzéshez 30 nap inaktivitás után"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Állíts fel új egyéni rekordot bármelyik gyakorlatban"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
 msgid "Subject"
-msgstr ""
+msgstr "Tárgy"
 
 #: mailer/forms.py:35 mailer/templates/mailer/gym/preview.html:40
 msgctxt "As in \"content of an email\""
 msgid "Content"
-msgstr ""
+msgstr "Tartalom"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Előnézet generálása"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2216,12 +2293,12 @@ msgstr "Lépések"
 #: mailer/templates/mailer/gym/form.html:30
 #: mailer/templates/mailer/gym/preview.html:64
 msgid "Fill in the form"
-msgstr ""
+msgstr "Töltsd ki az űrlapot"
 
 #: mailer/templates/mailer/gym/form.html:31
 #: mailer/templates/mailer/gym/preview.html:65
 msgid "You will receive a preview email for you to review"
-msgstr ""
+msgstr "Kapni fogsz egy előnézeti e-mailt, hogy át tudd tekinteni"
 
 #: mailer/templates/mailer/gym/form.html:32
 #: mailer/templates/mailer/gym/preview.html:66
@@ -2229,20 +2306,22 @@ msgid ""
 "You can update and correct the content as often as you need before sending "
 "the emails"
 msgstr ""
+"Az e-mailek elküldése előtt a tartalmat szükség szerint bármikor "
+"frissítheted és javíthatod"
 
 #: mailer/templates/mailer/gym/preview.html:22
 #: software/templates/about_us.html:167
 msgid "Current version"
-msgstr ""
+msgstr "Jelenlegi verzió"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "E-mailek küldése"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
 msgid "Correction"
-msgstr ""
+msgstr "Javítás"
 
 #: manager/dataclasses.py:106
 msgid "Sets"
@@ -2254,11 +2333,11 @@ msgstr "Ismétlés"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr ""
+msgstr "Tartalék Ismétlések"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "pihen"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2270,7 +2349,7 @@ msgstr "Gyakorlat"
 
 #: manager/management/commands/email-reminders.py:89
 msgid "Routine will expire soon"
-msgstr ""
+msgstr "A gyakorlatsor hamarosan lejár"
 
 #: manager/models/session.py:41
 msgid "Bad"
@@ -2286,7 +2365,7 @@ msgstr "Jó"
 
 #: manager/models/session.py:149
 msgid "If you enter a time, you must enter both start and end time."
-msgstr ""
+msgstr "Ha megadsz időt, akkor kezdő és befejező időt is meg kell adnod."
 
 #: manager/models/session.py:152
 msgid "The start time cannot be after the end time."
@@ -2296,11 +2375,13 @@ msgstr "A kezdő időpont nem lehet a vég időpont után."
 #, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
 msgstr ""
+"A jelenlegi „%(routine)s” gyakorlatsorod %(days)s nappal ezelőtt lejárt."
 
 #: manager/templates/routines/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
 msgstr ""
+"A jelenlegi „%(routine)s” gyakorlatsorod %(days)s nap múlva le fog járni."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2308,6 +2389,9 @@ msgid ""
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
 "never produce reminders."
 msgstr ""
+"Rendszeresen kapsz ilyen emlékeztetőket, amíg nem adsz hozzá új edzést.\n"
+"Alternatív megoldásként az edzéseket ciklikus ütemtervhez is hozzáadhatod;\n"
+"az ilyen ütemtervek soha nem küldenek emlékeztetőt."
 
 #: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2315,13 +2399,15 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
+"Ha egyáltalán nem szeretnél e-mailes emlékeztetőket kapni,\n"
+"kapcsold ki ezt a lehetőséget a beállításaidban."
 
 #: manager/templates/routines/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr ""
+msgstr "A(z) %(site)s csapata"
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -2329,11 +2415,16 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
+"Az utolsó testsúlybejegyzésed dátuma: %(date)s (%(days)s nappal ezelőtt).\n"
+"Kattints a hivatkozásra az alkalmazás megnyitásához és egy új bejegyzés "
+"rögzítéséhez."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
 msgstr ""
+"Rendszeresen kapsz ilyen emlékeztetőket, amíg meg nem adod az aktuális "
+"testsúlyodat."
 
 #: manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
@@ -2342,41 +2433,43 @@ msgstr "Edzés"
 #: manager/views/pdf.py:77 manager/views/pdf.py:146
 #, python-format
 msgid "Workout for %s"
-msgstr ""
+msgstr "Edzés %s számára"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Adag"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
-msgstr ""
+msgstr "Egység"
 
 #: nutrition/forms.py:183 nutrition/templates/rate/form.html:77
 msgid "Basic caloric intake"
-msgstr ""
+msgstr "Alap kalóriabevitel"
 
 #: nutrition/forms.py:184
 msgid "Your basic caloric intake as calculated for your data"
-msgstr ""
+msgstr "Az adataid alapján kiszámított alap kalóriabeviteled"
 
 #: nutrition/forms.py:189
 msgid "Additional calories"
-msgstr ""
+msgstr "További kalóriák"
 
 #: nutrition/forms.py:191
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
+"Az alapértékhez hozzáadandó további kalóriák (levonáshoz adj meg negatív "
+"számot)"
 
 #: nutrition/forms.py:213
 msgid "grams (g)"
-msgstr ""
+msgstr "gramm (g)"
 
 #: nutrition/forms.py:223
 msgid "Ingredient"
-msgstr ""
+msgstr "Összetevő"
 
 #: nutrition/forms.py:227
 msgid "Also search for names in English"
@@ -2384,11 +2477,13 @@ msgstr "Keresés a nevekre angolul is"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Mennyiség"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr ""
+"Adj meg egy mennyiséget, majd válaszd ki a grammot (g) vagy valamelyik "
+"adagolási egységet."
 
 #: nutrition/models/ingredient.py:476
 msgid "Portion"
@@ -2400,12 +2495,16 @@ msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
 msgstr ""
+"A(z) „%(ingredient)s” összetevőt sikeresen hozzáadtuk az általános\n"
+"adatbázishoz."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
+"Mostantól elérhető az összetevők áttekintésében, és\n"
+"hozzáadható az étrendi tervekhez. Ezen a címen érheted el:"
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
@@ -2413,13 +2512,15 @@ msgstr "Köszönjük, hogy hozzájárulsz az oldal jobbá tételéhez!"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
-msgstr ""
+msgstr "Összetevő beküldése"
 
 #: nutrition/templates/ingredient/form.html:5
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
 msgstr ""
+"Köszönjük, hogy beküldtél egy összetevőt.\n"
+"Nagyra értékeljük!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -2430,18 +2531,24 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
+"Az űrlap elküldése után az adminisztrátorok értesítést kapnak.\n"
+"Az ellenőrzést követően az összetevő bekerül az adatbázisba. Addig nem "
+"jelenik meg\n"
+"az áttekintésben vagy a keresési találatok között. Ha a regisztrációkor "
+"megadtad az\n"
+"e-mail-címedet, értesítést kapsz, amikor a folyamat sikeresen befejeződik."
 
 #: nutrition/templates/ingredient/overview.html:32
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Vegán"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
 #: nutrition/templates/ingredient/view.html:188
 msgid "Vegetarian"
-msgstr ""
+msgstr "Vegetáriánus"
 
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
@@ -2464,7 +2571,7 @@ msgstr "előző"
 #: nutrition/templates/ingredient/overview.html:77
 #: nutrition/templates/ingredient/overview.html:82
 msgid "next"
-msgstr "következő"
+msgstr "Következő"
 
 #: nutrition/templates/ingredient/overview.html:90
 msgid "Search"
@@ -2472,19 +2579,19 @@ msgstr "Keresés"
 
 #: nutrition/templates/ingredient/overview.html:93
 msgid "Filter"
-msgstr ""
+msgstr "Szűrő"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
-msgstr ""
+msgstr "Makrotápanyagok"
 
 #: nutrition/templates/ingredient/view.html:87
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:103 nutrition/views/plan.py:267
 msgid "Sugar content in carbohydrates"
-msgstr ""
+msgstr "A szénhidrátok cukortartalma"
 
 #: nutrition/templates/ingredient/view.html:108
 #: nutrition/templates/ingredient/view.html:124
@@ -2494,27 +2601,27 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:191
 #: nutrition/templates/ingredient/view.html:212
 msgid "n.A."
-msgstr ""
+msgstr "N/A"
 
 #: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
-msgstr ""
+msgstr "A zsírok telítettzsír-tartalma"
 
 #: nutrition/templates/ingredient/view.html:135
 msgid "Others"
-msgstr ""
+msgstr "Egyéb"
 
 #: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Rost"
 
 #: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
 msgid "Sodium"
-msgstr ""
+msgstr "Nátrium"
 
 #: nutrition/templates/ingredient/view.html:167
 msgid "Dietary information"
-msgstr ""
+msgstr "Táplálkozási információk"
 
 #: nutrition/templates/ingredient/view.html:203
 msgid "Nutri-Score"
@@ -2522,11 +2629,11 @@ msgstr "Nutri-Score"
 
 #: nutrition/templates/ingredient/view.html:234
 msgid "Add new weight unit"
-msgstr ""
+msgstr "Új tömeg mértékegység megadása"
 
 #: nutrition/templates/rate/form.html:26
 msgid "Basal metabolic rate"
-msgstr ""
+msgstr "Alapjárati kalóriaszükséglet"
 
 #: nutrition/templates/rate/form.html:27
 msgid ""
@@ -2535,14 +2642,18 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
+"Az alapjárati kalóriaszükséglet a nyugalmi állapotban naponta\n"
+"felhasznált energiamennyiség. Ez a szervezet működéséhez szükséges "
+"minimális\n"
+"energia, további fizikai aktivitás nélkül."
 
 #: nutrition/templates/rate/form.html:38
 msgid "Your basic metabolic rate is: "
-msgstr ""
+msgstr "A Te alapjárati kalóriaszükségleted: "
 
 #: nutrition/templates/rate/form.html:48
 msgid "Physical activities"
-msgstr ""
+msgstr "Fizikai tevékenységek"
 
 #: nutrition/templates/rate/form.html:49
 msgid ""
@@ -2550,20 +2661,25 @@ msgid ""
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
 msgstr ""
+"A fizikai aktivitási szint (PAL) a további fizikai aktivitás \n"
+"mértékét kifejező tényező, amelyet a napi teljes energiaszükséglet\n"
+"kiszámításához használnak."
 
 #: nutrition/templates/rate/form.html:60
 msgid "Factor for daily activities: "
-msgstr ""
+msgstr "A napi tevékenységekhez tartozó tényező: "
 
 #: nutrition/templates/rate/form.html:68
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
+"Az alap kalóriabevitel az az energiamennyiség, amelyre az \n"
+"anyagcserédnek a fizikai aktivitási szinted alapján szüksége van."
 
 #: nutrition/templates/rate/form.html:82
 msgid "Calculate basic caloric intake"
-msgstr ""
+msgstr "Alap kalóriabevitel számítása"
 
 #: nutrition/templates/rate/form.html:89
 msgid ""
@@ -2572,18 +2688,22 @@ msgid ""
 "Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
+"A teljes kalóriamennyiség a tényleges napi kalóriabevitelt jelenti. Ez \n"
+"például kalóriatöbbletet vagy -hiányt is tartalmazhat, ha tömeget növelsz "
+"vagy szálkásítasz. \n"
+"Ha ismered az értéket, a kalóriamennyiséget kézzel is megadhatod."
 
 #: nutrition/templates/rate/form.html:103
 msgid "Transfer basic intake to total daily calories"
-msgstr ""
+msgstr "Az alap kalóriabevitel átvitele a teljes napi kalóriamennyiséghez"
 
 #: nutrition/templates/rate/form.html:107
 msgid "Add additional calories to total daily calories"
-msgstr ""
+msgstr "További kalóriák hozzáadása a teljes napi kalóriamennyiséghez"
 
 #: nutrition/templates/rate/form.html:111
 msgid "Save total calories to profile"
-msgstr ""
+msgstr "A teljes kalóriamennyiség mentése a profilba"
 
 #: nutrition/templates/rate/form.html:122
 msgid ""
@@ -2591,23 +2711,28 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
+"Kérjük, vedd figyelembe, hogy ezek a számítások csak \n"
+"hozzávetőleges értékeket adnak. Ha ezekre az értékekre alapozod az "
+"étrendedet, \n"
+"néhány héten keresztül figyeld a változásokat, és szükség esetén módosítsd a "
+"teljes kalóriamennyiséget."
 
 #: nutrition/views/ingredient.py:250
 msgid "Add a new ingredient"
-msgstr ""
+msgstr "Új összetevő hozzáadása"
 
 #: nutrition/views/plan.py:128
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Táplálkozási terv"
 
 #: nutrition/views/plan.py:130
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Táplálkozási terv %s-nak/-nek"
 
 #: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
-msgstr ""
+msgstr "<i>Ez egy üres terv, mire számítottál a PDF-ben?</i>"
 
 #: nutrition/views/plan.py:230
 msgid "Nutritional data"
@@ -2615,23 +2740,23 @@ msgstr "Tápértékadatok"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
-msgstr ""
+msgstr "Összesen"
 
 #: nutrition/views/plan.py:239
 msgid "Percent of energy"
-msgstr ""
+msgstr "Energia százalék"
 
 #: nutrition/views/plan.py:240
 msgid "g per body kg"
-msgstr ""
+msgstr "g testtömeg kg-onként"
 
 #: nutrition/views/unit_ingredient.py:64
 msgid "Add a new weight unit"
-msgstr ""
+msgstr "Új súlyegység hozzáadása"
 
 #: nutrition/views/unit_ingredient.py:99
 msgid "Edit a weight unit to ingredient connection"
-msgstr ""
+msgstr "Súlyegység és összetevő közötti kapcsolat szerkesztése"
 
 #: nutrition/views/unit_ingredient.py:129
 msgid "Delete?"
@@ -2644,10 +2769,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"A wger segít nyomon követni az edzéseidet, kezelni a táplálkozásodat és "
+"elérni a fitneszcéljaidat. Ingyenes, nyílt forráskódú szoftverként saját "
+"szerveren is üzemeltetheted, emellett az egyszerű hozzáférés érdekében egy "
+"kényelmes, ingyenes, általunk üzemeltetett változatot is biztosítunk."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Nyílt forráskódú és ingyenesen használható ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2657,10 +2786,16 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"A wger a nyílt forráskód alapelveire épül. Forráskódja nyilvánosan elérhető, "
+"és közösségünk fejleszti, ezáltal biztosítva az átláthatóságot és az adataid "
+"feletti rendelkezést, különösen saját üzemeltetés esetén. Az ingyenes, "
+"általunk üzemeltetett szolgáltatás teljes egészében erre a nyílt forráskódú "
+"alapra épül. Hiszünk abban, hogy a hatékony fitneszeszközöknek mindenki "
+"számára elérhetőnek kell lenniük."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Hogyan tudsz segíteni"
 
 #: software/templates/about_us.html:40
 msgid "Join the Community"
@@ -2668,23 +2803,30 @@ msgstr "Csatlakozz a közösséghez"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Csatlakozz a Discord szerverünkhöz"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Csatlakozz a Discord-szerverhez, ahol beszélgethetsz a fejlesztőkkel és más "
+"felhasználókkal, kérdéseket tehetsz fel, vagy megvitathatod az új funkciókat."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
 msgstr ""
+"Kövesd a projekttel kapcsolatos híreket, frissítéseket és bejelentéseket a "
+"Mastodonon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Terjeszd a hírét: mesélj róla a barátaidnak és edzőtársaidnak, vagy oszd meg "
+"a közösségi médiában! A lelkesedésed segít abban, hogy növekedjünk és még "
+"több emberhez eljussunk."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
@@ -2692,19 +2834,19 @@ msgstr "Tedd hozzá a tudásod"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Hibabejelentés vagy funkcióajánlás"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
-msgstr ""
+msgstr "Problémád vagy ötleted van? Mondd el nekünk!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
-msgstr ""
+msgstr "A gyakorlatok fejlesztése"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Adj hozzá új gyakorlatokat, és szerkeszd vagy fordítsd le a meglévőket."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
@@ -2714,18 +2856,21 @@ msgstr "Fordítsd le az alkalmazást"
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Segíts abban, hogy az alkalmazás világszerte még több nyelven elérhető "
+"legyen a felhasználók számára."
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
-msgstr ""
+msgstr "Járulj hozzá kóddal vagy dokumentációval"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
 msgstr ""
+"Tekintsd meg a forráskódot, és segíts nekünk elkészíteni a következő verziót."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Adományozz"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2736,24 +2881,34 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Bár a projekt ingyenes, és mindig az is marad, a szerver üzemeltetése nem "
+"az! A wger általunk üzemeltetett változatának biztosítása folyamatos, valós "
+"költségekkel jár, például a szerverüzemeltetés, az adatforgalom és a "
+"biztonsági mentések miatt. A fejlesztés emellett jelentős időt és munkát "
+"igényel az önkéntesektől. A hozzájárulásod közvetlenül támogatja ezeket az "
+"alapvető költségeket, és segít abban, hogy a szolgáltatás megbízható, "
+"folyamatosan fejlődő és mindenki számára ingyenes maradjon."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Támogass a GitHubon"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Köszönjük!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Köszönjük, hogy a közösség tagja vagy! Nagyra értékeljük, hogy használod az "
+"alkalmazást, megosztod velünk a visszajelzéseidet, és bármilyen módon "
+"támogatod a projektet."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
-msgstr ""
+msgstr "Célunk"
 
 #: software/templates/about_us.html:158
 msgid ""
@@ -2761,12 +2916,17 @@ msgid ""
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
+"A cél egy nagyszerű és rugalmas fitneszkezelő létrehozása, valamint egy "
+"átfogó és teljes gyakorlat- és összetevő-adatbázis összeállítása, mindez "
+"szabad licenc alatt közzétéve."
 
 #: software/templates/features.html:11
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
+"A wger Workout Manager egy ingyenes, nyílt forráskódú webalkalmazás az "
+"edzések és gyakorlatok kezelésére."
 
 #: software/templates/features.html:45
 msgid "Contact"
@@ -2774,15 +2934,15 @@ msgstr "Kapcsolat"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobilalkalmazás"
 
 #: software/templates/features.html:63 software/templates/features.html:337
 msgid "Donate"
-msgstr ""
+msgstr "Adományozás"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Fejlesztés"
 
 #: software/templates/features.html:73 software/templates/features.html:476
 msgid "Community"
@@ -2790,12 +2950,14 @@ msgstr "Közösség"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Kövesd nyomon <br> az utadat <br> az ideális tested felé"
 
 #: software/templates/features.html:113
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Csatlakozz a wgerhez, a közösség által fejlesztett <b>ingyenes és nyílt "
+"forráskódú fitneszkövetőhöz</b>"
 
 #: software/templates/features.html:123
 msgid "Get Started"
@@ -2803,7 +2965,7 @@ msgstr "Kezdés"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
-msgstr ""
+msgstr "emberek, akik <br> használják a wgert"
 
 #: software/templates/features.html:137
 msgid "exercises <br> for workout creation"
@@ -2811,58 +2973,70 @@ msgstr "gyakorlat <br> edzéskészítéshez"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
-msgstr ""
+msgstr "ételek <br> az étrend megtervezéséhez"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "csillagok <br> GibHubon"
 
 #: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Állítsd össze a tökéletes <span>gyakorlatsoraidat</span>"
 
 #: software/templates/features.html:177
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Állíts össze heti edzéstervet több mint 100 gyakorlatból"
 
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Állíts be ismétlés- és sorozatszámot, időtartamot vagy távolságcélt minden "
+"gyakorlathoz"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Haladj végig az edzéseiden lépésről lépésre, útmutatással"
 
 #: software/templates/features.html:186
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Kövesd nyomon az elvégzett edzéseidet, beleértve azt is, hogyan értékelted a "
+"teljesítményedet"
 
 #: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Tervezd meg a <span>napi étkezéseidet</span>"
 
 #: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Töltsd meg a heted tápláló ételekkel, amelyek segítenek jobb teljesítményt "
+"nyújtani"
 
 #: software/templates/features.html:218
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Állíts össze étkezéseket több mint 2 millió élelmiszert tartalmazó "
+"adatbázisból"
 
 #: software/templates/features.html:221
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Automatikusan kiszámított tápértékeket kapsz (energia, fehérje, szénhidrát "
+"stb.) az egyes étkezésekhez és a teljes heti étrendedhez is"
 
 #: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Kövesd nyomon <span>a fejlődésedet</span>"
 
 #: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
+"Kövesd nyomon és jegyezd fel az étkezéseiddel és edzéseiddel kapcsolatos "
+"minden részletet"
 
 #: software/templates/features.html:259
 msgid "Add custom notes"
@@ -2870,39 +3044,44 @@ msgstr "Egyéni jegyzetek hozzáadása"
 
 #: software/templates/features.html:262
 msgid "Record your weight"
-msgstr ""
+msgstr "Rögzítsd a testsúlyodat"
 
 #: software/templates/features.html:265
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Vezess fotónaplót, hogy lásd a fejlődésedet"
 
 #: software/templates/features.html:268
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Használd a naptárnézetet a korábbi bejegyzések megtekintéséhez"
 
 #: software/templates/features.html:287
 msgid "Try wger now"
-msgstr ""
+msgstr "Próbáld ki a wger-t most"
 
 #: software/templates/features.html:308
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "A <span>közösség</span> erejével"
 
 #: software/templates/features.html:311
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"A wgert a nyílt forráskódú közösség finanszírozza és fejleszti: hozzád "
+"hasonló emberek, akik fordítanak, gyakorlatokat és táplálkozási adatokat "
+"adnak hozzá, fejlesztenek és sok más módon közreműködnek."
 
 #: software/templates/features.html:317
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Nem használunk hirdetéseket, nem adjuk el a személyes adataidat, a "
+"forráskódot pedig ingyenes és nyílt forráskódú licenc alatt tesszük közzé."
 
 #: software/templates/features.html:322
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Szállj be te is, és segíts még jobbá tenni a wgert!"
 
 #: software/templates/features.html:331
 msgid "Contribute"
@@ -2910,11 +3089,11 @@ msgstr "Közreműködés"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Regisztrálj most ingyen"
 
 #: software/templates/features.html:369
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Nem elég a webes verzió?"
 
 #: software/templates/features.html:371
 msgid "Get the code, too!"
@@ -2922,31 +3101,35 @@ msgstr "Szerezd meg a kódot is!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Állíts be egy privát szervert az edzéseidhez"
 
 #: software/templates/features.html:385
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Nem akarod online szervereken tárolni az adataid? Állíts be egy saját wger "
+"felületet a saját szervereden ingyen!"
 
 #: software/templates/features.html:399
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Integráld a saját alkalmazásoddal"
 
 #: software/templates/features.html:402
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "A wger nyílt API-t biztosít az alkalmazásodhoz."
 
 #: software/templates/features.html:413
 msgid "Create your own version"
-msgstr ""
+msgstr "Készíts saját verziót"
 
 #: software/templates/features.html:416
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"A forráskód a GNU AGPLv3 licenc alatt érhető el! Bátran készíts belőle saját "
+"változatot a GitHubon."
 
 #: software/templates/features.html:437
 msgid "Account"
@@ -2962,19 +3145,19 @@ msgstr "Edzéstervek"
 
 #: software/templates/features.html:491
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: software/templates/features.html:506
 msgid "Software"
-msgstr ""
+msgstr "Szoftver"
 
 #: software/templates/features.html:512
 msgid "Report an issue"
-msgstr ""
+msgstr "Hibabejelentés"
 
 #: software/templates/features.html:518
 msgid "Source Code"
-msgstr ""
+msgstr "Forráskód"
 
 #: software/templates/features.html:524
 msgid "Translation"
@@ -2986,27 +3169,27 @@ msgstr "Igen, töröld"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Az objektum eredeti címe, ha elérhető"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Az eredeti objektum linkje, ha elérhető"
 
 #: utils/models.py:87
 msgid "Author(s)"
-msgstr ""
+msgstr "Alkotó(k)"
 
 #: utils/models.py:91
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
+msgstr "Ha nem Te vagy az alkotó, add meg a nevet vagy a forrást itt."
 
 #: utils/models.py:95
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Alkotó profiljának linkje, ha elérhető"
 
 #: utils/models.py:101
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Hivatkozás az eredeti forrásra, ha ez származékos alkotás"
 
 #: utils/models.py:103
 msgid ""
@@ -3014,28 +3197,33 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Megjegyzendő, hogy származékos alkotásnak az minősül, amely nem csupán egy "
+"korábbi alkotáson alapul, hanem elegendő új, kreatív tartalmat is tartalmaz "
+"ahhoz, hogy önálló szerzői jogi védelemben részesüljön."
 
 #: weight/forms.py:53
 msgid "Input"
-msgstr ""
+msgstr "Bevitel"
 
 #: weight/forms.py:54
 msgid "Date format"
-msgstr ""
+msgstr "Dátum formátum"
 
 #: weight/management/commands/email-weight-reminder.py:81
 msgid "You have to enter your weight"
-msgstr ""
+msgstr "Meg kell adnod a súlyod"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
-msgstr ""
+msgstr "Tömegadatok importálása"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
+"Használd ezt az import mezőt hogy az edzéstervezőbe importáld \n"
+"a súlyadataid."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3046,24 +3234,33 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
+"A táblázatkezelőből kimásolt adatokat beillesztheted a szövegmezőbe; \n"
+"a rendszer megpróbálja automatikusan felismerni az importálandó adatok "
+"formátumát. Arra kell \n"
+"ügyelned, hogy az első oszlopban a <strong>dátum</strong>, a másodikban "
+"pedig a <strong>testsúly</strong> \n"
+"szerepeljen. A rendszer minden további oszlopot figyelmen kívül hagy. "
+"Legfeljebb 1000 sor importálható.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
+"Ha vannak hibák, azokat javíthatod, vagy törölheted a\n"
+"második lépésben."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
-msgstr ""
+msgstr "Importált CSV bejegyzések előnézete"
 
 #: weight/templates/import_csv_preview.html:9
 msgid "Successfully converted values"
-msgstr ""
+msgstr "Sikeres értékátalakítás"
 
 #: weight/templates/import_csv_preview.html:10
 msgid "The following values could be converted."
-msgstr ""
+msgstr "Az alábbi értékek konvertálhatóak."
 
 #: weight/templates/import_csv_preview.html:26
 msgid "Errors"
@@ -3071,7 +3268,7 @@ msgstr "Hibák"
 
 #: weight/templates/import_csv_preview.html:29
 msgid "The following values could not be converted."
-msgstr ""
+msgstr "Az alábbi értékek nem konvertálhatóak."
 
 #: weight/templates/import_csv_preview.html:31
 msgid ""
@@ -3084,20 +3281,30 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
+"Ezeket az értékeket nem sikerült testsúlynapló-bejegyzésekké alakítani. \n"
+"    Ennek oka lehet többek között a fel nem ismert dátum- vagy számformátum, "
+"\n"
+"    kódolási probléma vagy más hiba. Ellenőrizd, hogy nincs-e nyilvánvaló "
+"hiba \n"
+"    a listában, szükség esetén javítsd ki, \n"
+"    majd próbáld meg újra importálni."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
+"Ne feledd, hogy az elvárt felépítés szerint az első oszlopban a <strong>"
+"dátum</strong>,\n"
+"    a másodikban pedig a <strong>testsúly</strong> szerepel."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr ""
+msgstr "Nem voltak hibák, minden bejegyzés konvertálható volt!"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
-msgstr ""
+msgstr "Sikeresen konvertált bejegyzések importálása"
 
 #: weight/templates/import_csv_preview.html:59
 msgid ""
@@ -3107,6 +3314,12 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
+"Folytasd itt, ha az összes sikeresen átalakított bejegyzést importálni \n"
+"szeretnéd a testsúlynaplódba. A hibát okozó bejegyzéseket a rendszer "
+"egyszerűen \n"
+"figyelmen kívül hagyja. Neked kell eldöntened, hogy ezek hasznos, de fel nem "
+"ismert \n"
+"bejegyzések-e, vagy sem (például fejlécek, megjegyzések stb.)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -3114,17 +3327,19 @@ msgstr "Importálás"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"
-msgstr ""
+msgstr "Vagy próbáld még egyszer"
 
 #: weight/templates/import_csv_preview.html:76
 msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
+"Itt kijavíthatod a listát, és annyiszor küldheted be újra, \n"
+"ahányszor csak szeretnéd."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
-msgstr ""
+msgstr "Újraküldés"
 
 #~ msgid "Used for password resets and, optionally, e-mail reminders."
 #~ msgstr ""

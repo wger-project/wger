@@ -101,11 +101,14 @@ RUN chmod +x /home/wger/entrypoint.sh \
     && chown wger:wger /home/wger/src
 
 USER wger
+
+# Note: unsetting DJANGO_SETTINGS_MODULE here since we only need django to
+#        compile the message files
 RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
     pip3 install --break-system-packages --no-cache-dir --user /wheels/* \
     && pip3 install --break-system-packages --user . \
     && mkdir -p ~/media ~/static ~/beat ~/db \
     && cd wger \
-    && django-admin compilemessages
+    && env -u DJANGO_SETTINGS_MODULE django-admin compilemessages
 
 CMD ["/home/wger/entrypoint.sh"]

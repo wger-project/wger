@@ -1,19 +1,22 @@
 {% load i18n static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'node/datatables.net-bs5/css/dataTables.bootstrap5.css' %}">
-<script src="{% static 'node/jquery/dist/jquery.js' %}"></script>
 <script src="{% static 'node/datatables.net/js/dataTables.js' %}" ></script>
 <script src="{% static 'node/datatables.net-bs5/js/dataTables.bootstrap5.js' %}" ></script>
 <script>
-    $(document).ready(function () {
-        $('#main_member_list').DataTable({
+    document.addEventListener('DOMContentLoaded', function () {
+        const title = document.createElement('h4');
+        title.textContent = '{% translate "Members" %}';
+
+        new DataTable('#main_member_list', {
             paging: false,
-            bFilter: true,
-            bInfo: false,
-            dom: '<"datatable-header d-flex justify-content-between align-items-center"f>t<"datatable-footer"ip>', // Layout of elements
-            initComplete: function () {
-                const title = $('<div class="datatable-title"><h4>Members</h4></div>');
-                $(".datatable-header").prepend(title);
+            searching: true,
+            info: false,
+            layout: {
+                topStart: title,
+                topEnd: 'search',
+                bottomStart: null,
+                bottomEnd: null
             }
         });
     });
