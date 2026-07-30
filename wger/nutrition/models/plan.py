@@ -30,7 +30,7 @@ from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.utils.uuid import uuid7
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 logger = logging.getLogger(__name__)
@@ -165,12 +165,12 @@ class NutritionPlan(models.Model):
 
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
-            if weight_entry and weight_entry.weight:
-                result['per_kg']['protein'] = nutritional_values.protein / weight_entry.weight
+            if weight_entry and weight_entry.value:
+                result['per_kg']['protein'] = nutritional_values.protein / weight_entry.value
                 result['per_kg']['carbohydrates'] = (
-                    nutritional_values.carbohydrates / weight_entry.weight
+                    nutritional_values.carbohydrates / weight_entry.value
                 )
-                result['per_kg']['fat'] = nutritional_values.fat / weight_entry.weight
+                result['per_kg']['fat'] = nutritional_values.fat / weight_entry.value
 
             nutritional_representation = result
             cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)
@@ -184,13 +184,13 @@ class NutritionPlan(models.Model):
         target = self.creation_date
         target_aware = make_aware(datetime.datetime.combine(target, datetime.time()))
         closest_entry_gte = (
-            WeightEntry.objects.filter(user=self.user)
+            Measurement.body_weight_for(self.user)
             .filter(date__gte=target_aware)
             .order_by('date')
             .first()
         )
         closest_entry_lte = (
-            WeightEntry.objects.filter(user=self.user)
+            Measurement.body_weight_for(self.user)
             .filter(date__lte=target_aware)
             .order_by('-date')
             .first()

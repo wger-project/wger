@@ -46,7 +46,7 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     Tests the weight entry overview resource
     """
 
-    pk = 'dddddddd-dddd-dddd-dddd-0000000000b1'
+    pk = '11111111-1111-1111-1111-000000000003'
     resource = Measurement
     private_resource = True
     date = timezone.now() - timezone.timedelta(days=25)

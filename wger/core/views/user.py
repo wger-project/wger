@@ -118,7 +118,7 @@ from wger.utils.headless_long_lived import (
     revoke_all_long_lived_sessions,
     revoke_long_lived_session,
 )
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 logger = logging.getLogger(__name__)
@@ -660,9 +660,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
                 }
             )
         context['routine_data'] = out
-        context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
-            :5
-        ]
+        context['weight_entries'] = Measurement.body_weight_for(self.object).order_by('-date')[:5]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]

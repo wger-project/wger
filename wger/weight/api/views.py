@@ -48,11 +48,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
             return Measurement.objects.none()
 
         # Measurement orders by -date, the historic weight endpoint by date
-        return Measurement.objects.filter(
-            category__user=self.request.user,
-            category__metric_type=MetricType.BODY_WEIGHT,
-            category__is_official=True,
-        ).order_by('date')
+        return Measurement.body_weight_for(self.request.user).order_by('date')
 
     def perform_create(self, serializer):
         """

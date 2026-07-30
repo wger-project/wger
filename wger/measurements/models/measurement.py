@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
+from django.contrib.auth.models import User
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
@@ -23,6 +24,7 @@ from django.utils import timezone
 
 # wger
 from wger.measurements.models import Category
+from wger.measurements.models.category import MetricType
 from wger.utils.uuid import uuid7
 
 
@@ -95,3 +97,15 @@ class Measurement(models.Model):
         Returns the object that has owner information
         """
         return self.category
+
+    @classmethod
+    def body_weight_for(cls, user: User) -> models.QuerySet:
+        """
+        Returns the user's body weight entries: the measurements in the
+        official body-weight category
+        """
+        return cls.objects.filter(
+            category__user=user,
+            category__metric_type=MetricType.BODY_WEIGHT,
+            category__is_official=True,
+        )

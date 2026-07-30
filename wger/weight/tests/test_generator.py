@@ -17,16 +17,16 @@ from django.core.management import call_command
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 class WeightEntryGeneratorTestCase(WgerTestCase):
     def test_generator(self):
         # Arrange
-        WeightEntry.objects.all().delete()
+        Measurement.objects.all().delete()
 
         # Act
         call_command('dummy-generator-body-weight', '--nr-entries', 100)
 
         # Assert
-        self.assertEqual(WeightEntry.objects.filter(user_id=1).count(), 100)
+        self.assertEqual(Measurement.body_weight_for(1).count(), 100)
