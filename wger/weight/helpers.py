@@ -76,6 +76,13 @@ def parse_weight_csv(request, cleaned_data):
 
     # Create the valid weight entries
     for date, weight in distinct_weight_entries:
-        weight_list.append(WeightEntry(date=date, weight=weight, user=request.user))
+        weight_list.append(
+            WeightEntry(
+                date=date,
+                weight=weight,
+                weight_unit=request.user.userprofile.weight_unit,
+                user=request.user,
+            )
+        )
 
     return weight_list, error_list

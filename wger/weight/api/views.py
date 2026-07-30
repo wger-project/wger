@@ -47,6 +47,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """
-        Set the owner
+        Set the owner and default weight unit from the user's profile
         """
-        serializer.save(user=self.request.user)
+        profile = self.request.user.userprofile
+        serializer.save(user=self.request.user, weight_unit=profile.weight_unit)

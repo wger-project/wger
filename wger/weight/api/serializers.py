@@ -35,5 +35,6 @@ class WeightEntrySerializer(serializers.ModelSerializer):
             'id',
             'date',
             'weight',
+            'weight_unit',
             'user',
         )
