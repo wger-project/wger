@@ -67,7 +67,7 @@ dependencies = [
     "reportlab~=5.0.0",
     "requests~=2.34.0",
     "tqdm~=4.70.0",
-    "tzdata~=2026.2",
+    "tzdata~=2026.3",
 ]
 
 [dependency-groups]
