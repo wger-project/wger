@@ -5,8 +5,8 @@ BATCH_SIZE = 2000
 
 def migrate_weight_to_measurements(apps, schema_editor):
     """
-    For every existing WeightEntry, ensure the owning user has an official
-    'body_weight' Category and create a matching Measurement row.
+    Give every user an official 'body_weight' Category and create a
+    Measurement row for every existing WeightEntry.
 
     The WeightEntry uuid is carried over as the Measurement id so that
     clients that already synchronise weight entries by uuid keep a stable
@@ -30,6 +30,21 @@ def migrate_weight_to_measurements(apps, schema_editor):
             defaults={'name': 'Body weight', 'unit': unit_by_user.get(user_id, 'kg')},
         )
         category_by_user[user_id] = category
+
+    # Users without weight entries get the official category as well, new
+    # users get it via the post_save signal on registration
+    remaining = [
+        Category(
+            user_id=user_id,
+            metric_type='body_weight',
+            is_official=True,
+            name='Body weight',
+            unit=unit or 'kg',
+        )
+        for user_id, unit in unit_by_user.items()
+        if user_id not in category_by_user
+    ]
+    Category.objects.bulk_create(remaining, batch_size=BATCH_SIZE)
 
     batch = []
     for entry in WeightEntry.objects.all().iterator():

@@ -33,7 +33,20 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'order')
+        fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'order', 'is_official')
+        read_only_fields = ('is_official',)
+
+    def validate_metric_type(self, metric_type):
+        """
+        The metric type of an official category is fixed: the legacy weight
+        endpoint and the health sync rely on it
+        """
+        if self.instance and self.instance.is_official:
+            if metric_type != self.instance.metric_type:
+                raise serializers.ValidationError(
+                    'The metric type of an official category cannot be changed'
+                )
+        return metric_type
 
     def validate_parent(self, parent):
         """

@@ -50,7 +50,7 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = CategorySerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('id', 'name', 'unit', 'metric_type', 'parent')
+    filterset_fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'is_official')
 
     def get_queryset(self):
         """
@@ -67,6 +67,15 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         Set the owner
         """
         serializer.save(user=self.request.user)
+
+    def perform_destroy(self, instance):
+        """
+        Official categories hold the data of the legacy weight endpoint and
+        must not be deleted
+        """
+        if instance.is_official:
+            raise PermissionDenied('Official categories cannot be deleted')
+        instance.delete()
 
     @staticmethod
     def get_owner_objects():

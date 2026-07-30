@@ -43,6 +43,15 @@ class CategoryHandler(PowerSyncHandler):
     serializer_class = CategorySerializer
     viewset_class = CategoryViewSet
 
+    def handle_delete(self, payload, user_id):
+        entry = self._get_or_none(payload, user_id)
+        if entry is not None and entry.is_official:
+            return {
+                'error': 'Forbidden',
+                'details': 'Official categories cannot be deleted',
+            }
+        return super().handle_delete(payload, user_id)
+
 
 @register_handler
 class MeasurementHandler(PowerSyncHandler):
