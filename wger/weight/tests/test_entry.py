@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from decimal import Decimal
+
 # Django
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -98,3 +101,74 @@ class WeightEntryOfficialCategoryTestCase(api_base_test.ApiBaseTestCase, WgerTes
             Category.objects.filter(user__username='test').count(),
             count_before,
         )
+
+
+class WeightEntryUnitTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
+    """
+    Per-entry units on the legacy weight endpoint
+    """
+
+    url = '/api/v2/weightentry/'
+    entry_pk = '11111111-1111-1111-1111-000000000001'  # 77, stored in kg
+
+    def test_get_converts_to_profile_unit(self):
+        """
+        Test that entries in other units are converted to the profile unit
+        """
+        entry = Measurement.objects.get(pk=self.entry_pk)
+        entry.extra_data = {'unit': 'lb'}
+        entry.save()
+
+        self.authenticate('test')
+        response = self.client.get(f'{self.url}{self.entry_pk}/')
+
+        self.assertEqual(response.status_code, 200)
+        # 77 lb converted to the kg profile of user 'test'
+        self.assertEqual(response.data['weight'], '34.93')
+
+    def test_post_stamps_profile_unit(self):
+        """
+        Test that new entries are stamped with the user's weight unit
+        """
+        user = User.objects.get(username='test')
+        user.userprofile.weight_unit = 'lb'
+        user.userprofile.save()
+
+        self.authenticate('test')
+        response = self.client.post(self.url, {'weight': 180, 'date': timezone.now()})
+
+        self.assertEqual(response.status_code, 201)
+        entry = Measurement.objects.get(pk=response.data['id'])
+        self.assertEqual(entry.value, Decimal('180.00'))
+        self.assertEqual(entry.extra_data, {'unit': 'lb'})
+
+    def test_patch_weight_restamps_unit(self):
+        """
+        Test that updating the weight re-stamps the current profile unit
+        """
+        user = User.objects.get(username='test')
+        user.userprofile.weight_unit = 'lb'
+        user.userprofile.save()
+
+        self.authenticate('test')
+        response = self.client.patch(f'{self.url}{self.entry_pk}/', {'weight': 170})
+
+        self.assertEqual(response.status_code, 200)
+        entry = Measurement.objects.get(pk=self.entry_pk)
+        self.assertEqual(entry.value, Decimal('170.00'))
+        self.assertEqual(entry.extra_data, {'unit': 'lb'})
+
+    def test_patch_date_keeps_unit(self):
+        """
+        Test that updates without a weight keep the stored unit
+        """
+        entry = Measurement.objects.get(pk=self.entry_pk)
+        entry.extra_data = {'unit': 'lb'}
+        entry.save()
+
+        self.authenticate('test')
+        response = self.client.patch(f'{self.url}{self.entry_pk}/', {'date': timezone.now()})
+
+        self.assertEqual(response.status_code, 200)
+        entry.refresh_from_db()
+        self.assertEqual(entry.extra_data, {'unit': 'lb'})

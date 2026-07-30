@@ -47,3 +47,13 @@ class WeightEntrySerializer(serializers.ModelSerializer):
             'weight',
             'user',
         )
+
+    def to_representation(self, instance):
+        """
+        Weight values are returned in the user's preferred weight unit,
+        entries themselves may be stored in other units
+        """
+        data = super().to_representation(instance)
+        unit = self.context['request'].user.userprofile.weight_unit
+        data['weight'] = self.fields['weight'].to_representation(instance.value_in(unit))
+        return data

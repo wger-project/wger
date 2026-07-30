@@ -660,7 +660,11 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
                 }
             )
         context['routine_data'] = out
-        context['weight_entries'] = Measurement.body_weight_for(self.object).order_by('-date')[:5]
+        profile_unit = self.object.userprofile.weight_unit
+        context['weight_entries'] = [
+            {'date': entry.date, 'value': entry.value_in(profile_unit)}
+            for entry in Measurement.body_weight_for(self.object).order_by('-date')[:5]
+        ]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]

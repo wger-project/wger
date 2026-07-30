@@ -10,8 +10,9 @@ def migrate_weight_to_measurements(apps, schema_editor):
 
     The WeightEntry uuid is carried over as the Measurement id so that
     clients that already synchronise weight entries by uuid keep a stable
-    identity. The category unit follows the user's preferred weight unit,
-    since WeightEntry values are stored in that unit.
+    identity. WeightEntry values are stored in the user's preferred weight
+    unit, so that unit becomes the category unit and is stamped on every
+    migrated entry.
     """
     WeightEntry = apps.get_model('weight', 'WeightEntry')
     Category = apps.get_model('measurements', 'Category')
@@ -55,6 +56,7 @@ def migrate_weight_to_measurements(apps, schema_editor):
                 date=entry.date,
                 value=entry.weight,
                 source='user',
+                extra_data={'unit': unit_by_user.get(entry.user_id, 'kg')},
             )
         )
         if len(batch) >= BATCH_SIZE:
@@ -83,6 +85,11 @@ class Migration(migrations.Migration):
             model_name='category',
             name='is_official',
             field=models.BooleanField(default=False, verbose_name='Official category'),
+        ),
+        migrations.AddField(
+            model_name='measurement',
+            name='extra_data',
+            field=models.JSONField(blank=True, default=dict, verbose_name='Extra data'),
         ),
         migrations.AddConstraint(
             model_name='category',

@@ -166,11 +166,10 @@ class NutritionPlan(models.Model):
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
             if weight_entry and weight_entry.value:
-                result['per_kg']['protein'] = nutritional_values.protein / weight_entry.value
-                result['per_kg']['carbohydrates'] = (
-                    nutritional_values.carbohydrates / weight_entry.value
-                )
-                result['per_kg']['fat'] = nutritional_values.fat / weight_entry.value
+                weight_kg = weight_entry.value_in('kg')
+                result['per_kg']['protein'] = nutritional_values.protein / weight_kg
+                result['per_kg']['carbohydrates'] = nutritional_values.carbohydrates / weight_kg
+                result['per_kg']['fat'] = nutritional_values.fat / weight_kg
 
             nutritional_representation = result
             cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)

@@ -393,7 +393,8 @@ class UserProfile(models.Model):
         more consistent with the other settings (age, height, etc.)
         """
         try:
-            weight = Measurement.body_weight_for(self.user).latest('date').value
+            entry = Measurement.body_weight_for(self.user).latest('date')
+            weight = entry.value_in(self.weight_unit)
         except Measurement.DoesNotExist:
             weight = 0
         return weight
@@ -533,7 +534,12 @@ class UserProfile(models.Model):
             name='Body weight',
             unit=self.weight_unit,
         )
-        entry = Measurement(category=category, value=weight, date=timezone.now())
+        entry = Measurement(
+            category=category,
+            value=weight,
+            date=timezone.now(),
+            extra_data={'unit': self.weight_unit},
+        )
         entry.save()
 
         return entry

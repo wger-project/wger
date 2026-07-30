@@ -51,10 +51,11 @@ def export_csv(request):
     writer = csv.writer(response)
 
     weights = Measurement.body_weight_for(request.user).order_by('date')
+    profile_unit = request.user.userprofile.weight_unit
     writer.writerow([_('Date'), _('Weight')])
 
     for entry in weights:
-        writer.writerow([entry.date, entry.value])
+        writer.writerow([entry.date, entry.value_in(profile_unit)])
 
     # Send the data to the browser
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'

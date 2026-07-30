@@ -52,12 +52,25 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """
-        Route the new entry into the user's official body-weight category
+        Route the new entry into the user's official body-weight category.
+        The value is interpreted in the user's preferred weight unit.
         """
+        profile = self.request.user.userprofile
         category = Category.get_or_create_official(
             self.request.user,
             MetricType.BODY_WEIGHT,
             name='Body weight',
-            unit=self.request.user.userprofile.weight_unit,
+            unit=profile.weight_unit,
         )
-        serializer.save(category=category)
+        serializer.save(category=category, extra_data={'unit': profile.weight_unit})
+
+    def perform_update(self, serializer):
+        """
+        A new value is interpreted in the user's current weight unit, updates
+        without a value keep the stored unit
+        """
+        if 'value' in serializer.validated_data:
+            unit = self.request.user.userprofile.weight_unit
+            serializer.save(extra_data={'unit': unit})
+        else:
+            serializer.save()
