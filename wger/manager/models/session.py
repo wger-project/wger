@@ -51,7 +51,12 @@ class WorkoutSession(models.Model):
     """
     The user the workout session belongs to
 
-    See note in weight.models.WeightEntry about why this is not editable=False
+    NOTE: this field is neither marked as editable=False nor excluded from the
+    form. This is done intentionally because otherwise it's *very* difficult
+    and ugly to validate the uniqueness of unique_together fields when one
+    field is excluded from the form. This does not pose any security risk
+    because the value from the form is ignored and the request's user always
+    used.
     """
 
     id = models.UUIDField(

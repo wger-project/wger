@@ -115,7 +115,6 @@ class BaseTestCase:
         'test-gym-user-documents',
         'test-contracts',
         'test-apikeys',
-        'test-weight-data',
         'test-equipment',
         'test-categories',
         'test-muscles',
