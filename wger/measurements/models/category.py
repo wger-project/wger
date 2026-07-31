@@ -32,6 +32,7 @@ class MetricType(models.TextChoices):
     HEIGHT = 'height'
     BLOOD_PRESSURE = 'blood_pressure'
     HEART_RATE = 'heart_rate'
+    RESTING_HEART_RATE = 'resting_heart_rate'
     STEPS = 'steps'
     DISTANCE = 'distance'
     ENERGY = 'energy'

@@ -42,6 +42,7 @@ class Migration(migrations.Migration):
                     ('height', 'Height'),
                     ('blood_pressure', 'Blood Pressure'),
                     ('heart_rate', 'Heart Rate'),
+                    ('resting_heart_rate', 'Resting Heart Rate'),
                     ('steps', 'Steps'),
                     ('distance', 'Distance'),
                     ('energy', 'Energy'),
