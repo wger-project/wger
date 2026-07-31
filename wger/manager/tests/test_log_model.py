@@ -66,7 +66,7 @@ class LogModelTestCase(WgerTestCase):
 
         # A duplicate (user, date, routine=None) — only possible because a NULL
         # routine escapes the unique_together guard.
-        WorkoutSession.objects.create(user_id=1, date=session.date, routine=None)
+        WorkoutSession.objects.create(user_id=1, datetime_start=session.datetime_start, routine=None)
         self.assertEqual(WorkoutSession.objects.count(), 2)
 
         # A second log for the same day must not crash and must not add a session.
@@ -90,7 +90,7 @@ class LogModelTestCase(WgerTestCase):
         log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         target = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
         self.assertEqual(log.user_id, target.user_id)
-        self.assertNotEqual(log.date.date(), target.date)
+        self.assertNotEqual(log.date.date(), target.datetime_start.date())
 
         log.session = target
         log.save()

@@ -271,27 +271,51 @@ class WorkoutLog(models.Model):
 
         # Auto-create a session only if the client didn't provide one.
         if not self.session_id:
-            try:
-                self.session = WorkoutSession.objects.get_or_create(
-                    user=self.user,
-                    date=self.date,
-                    routine=self.routine,
-                )[0]
-            except WorkoutSession.MultipleObjectsReturned:
-                # TODO: duplicate sessions can exist for the same (user, date, routine)
-                #       when routine is NULL, as the unique_together does not cover a NULL
-                #       routine in PostgreSQL.
-                #       This is a fix till we correctly take care of the problem, we just
-                #       reuse one session (ids are uuid7, so ordering by id yields the
-                #       earliest) instead of crashing the log POST with MultipleObjectsReturned.
-                self.session = (
+            # Standard Library
+            import datetime
+
+            # Django
+            from django.utils import timezone
+
+            # Ensure self.date is a timezone-aware datetime for comparisons
+            log_date = self.date
+            if isinstance(log_date, datetime.date) and not isinstance(log_date, datetime.datetime):
+                log_date = timezone.make_aware(datetime.datetime.combine(log_date, datetime.time()))
+            elif timezone.is_naive(log_date):
+                log_date = timezone.make_aware(log_date)
+
+            # 1. Check if the log falls within an existing closed session's timeframe
+            matching_session = WorkoutSession.objects.filter(
+                user=self.user,
+                routine=self.routine,
+                datetime_start__lte=log_date,
+                datetime_end__gte=log_date,
+            ).first()
+
+            # 2. Check if the log falls within a reasonable window of an "open" session
+            if not matching_session:
+                max_duration = datetime.timedelta(hours=WorkoutSession.MAX_SESSION_LENGTH_HOURS)
+                time_threshold = log_date - max_duration
+
+                matching_session = (
                     WorkoutSession.objects.filter(
                         user=self.user,
-                        date=self.date,
                         routine=self.routine,
+                        datetime_end__isnull=True,
+                        datetime_start__gte=time_threshold,
+                        datetime_start__lte=log_date,
                     )
-                    .order_by('id')
+                    .order_by('-datetime_start')
                     .first()
+                )
+
+            if matching_session:
+                self.session = matching_session
+            else:
+                self.session = WorkoutSession.objects.create(
+                    user=self.user,
+                    datetime_start=log_date,
+                    routine=self.routine,
                 )
 
         # If the user of next_log is not this user, remove foreign key
