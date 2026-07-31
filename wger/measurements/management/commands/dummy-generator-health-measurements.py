@@ -303,7 +303,7 @@ class Command(BaseCommand):
         recording_method: str = 'automatic',
     ) -> Measurement:
         """
-        Builds one entry as the health importer would write it
+        Builds one entry from a single platform record, with its provenance
         """
         device, source_id = DEVICES[self.source]
         extra_data = {
@@ -314,6 +314,57 @@ class Command(BaseCommand):
         }
         extra_data.update(extra or {})
 
+        return self.measurement(
+            category,
+            date,
+            value,
+            extra_data,
+            uuid.uuid5(EXTERNAL_ID_NAMESPACE, key),
+        )
+
+    def aggregate_entry(
+        self,
+        category: Category,
+        day: datetime.datetime,
+        value: float,
+        *,
+        record_type: str,
+        sample_count: int,
+        extra: dict | None = None,
+    ) -> Measurement:
+        """
+        Builds the entry the importer writes for a whole day of a
+        high-frequency or segmented metric.
+
+        It condenses many records, so it carries their spread instead of the
+        provenance of any single one, and is keyed by day rather than by
+        platform record.
+        """
+        extra_data = {'sample_count': sample_count, 'record_type': record_type}
+        extra_data.update(extra or {})
+
+        return self.measurement(
+            category, day, value, extra_data, self.day_external_id(category, day)
+        )
+
+    def day_external_id(self, category: Category, day: datetime.datetime) -> uuid.UUID:
+        """
+        The ID the flutter importer derives for a day's aggregate: uuid5 with
+        the category as namespace and the day as name.
+
+        Deriving it the same way means a generated aggregate and one imported
+        later for the same day are the same row, instead of two.
+        """
+        return uuid.uuid5(category.id, day.date().isoformat())
+
+    def measurement(
+        self,
+        category: Category,
+        date: datetime.datetime,
+        value: float,
+        extra_data: dict,
+        external_id: uuid.UUID,
+    ) -> Measurement:
         decimal_value = Decimal(value).quantize(TWOPLACES)
         if decimal_value > MAX_VALUE:
             self.clamped += 1
@@ -324,7 +375,7 @@ class Command(BaseCommand):
             date=date,
             value=decimal_value,
             source=self.source,
-            external_id=uuid.uuid5(EXTERNAL_ID_NAMESPACE, key),
+            external_id=external_id,
             extra_data=extra_data,
         )
 
@@ -479,17 +530,13 @@ class Command(BaseCommand):
             # calendar day: the day average, with the spread in extra_data
             values = [value for _, value in samples]
             entries.append(
-                self.entry(
+                self.aggregate_entry(
                     category,
                     day,
                     sum(values) / len(values),
                     record_type='HEART_RATE',
-                    key=f'heart_rate:day:{day.date().isoformat()}',
-                    extra={
-                        'min': round(min(values), 2),
-                        'max': round(max(values), 2),
-                        'sample_count': len(values),
-                    },
+                    sample_count=len(values),
+                    extra={'min': round(min(values), 2), 'max': round(max(values), 2)},
                 )
             )
         return entries
@@ -614,42 +661,59 @@ class Command(BaseCommand):
             # starts on the previous evening
             wake_day = self.day_start(offset)
             bedtime = wake_day - datetime.timedelta(minutes=rng.randint(60, 180))
-            duration = rng.uniform(330, 540)
+            segments = self.sleep_segments(rng, bedtime, rng.uniform(330, 540))
 
             if not self.realistic:
+                # The night as the importer condenses it: the summed time
+                # asleep, and the window the segments really cover
                 entries.append(
-                    self.entry(
+                    self.aggregate_entry(
                         category,
                         wake_day,
-                        duration,
+                        sum(minutes for _, _, minutes, _ in segments),
                         record_type='SLEEP_ASLEEP',
-                        key=f'sleep:day:{wake_day.date().isoformat()}',
+                        sample_count=len(segments),
                         extra={
-                            'date_from': bedtime.isoformat(),
-                            'date_to': (bedtime + datetime.timedelta(minutes=duration)).isoformat(),
+                            'date_from': segments[0][0].isoformat(),
+                            'date_to': segments[-1][1].isoformat(),
                         },
                     )
                 )
                 continue
 
-            # The platforms report a night as a series of stage segments
-            start = bedtime
-            remaining = duration
-            while remaining > 10:
-                segment = min(remaining, rng.uniform(30, 110))
-                end = start + datetime.timedelta(minutes=segment)
-                stage = rng.choice(['SLEEP_DEEP', 'SLEEP_LIGHT', 'SLEEP_REM', 'SLEEP_AWAKE'])
-
-                entries.append(
-                    self.entry(
-                        category,
-                        start,
-                        segment,
-                        record_type=stage,
-                        key=f'sleep:{start.isoformat()}',
-                        extra={'date_to': end.isoformat()},
-                    )
+            entries += [
+                self.entry(
+                    category,
+                    start,
+                    minutes,
+                    record_type=stage,
+                    key=f'sleep:{start.isoformat()}',
+                    extra={'date_to': end.isoformat()},
                 )
-                start = end
-                remaining -= segment
+                for start, end, minutes, stage in segments
+            ]
         return entries
+
+    def sleep_segments(
+        self,
+        rng: random.Random,
+        bedtime: datetime.datetime,
+        duration: float,
+    ) -> list[tuple[datetime.datetime, datetime.datetime, float, str]]:
+        """
+        Splits a night into the stage segments the platforms report, as
+        (start, end, minutes, stage)
+        """
+        segments = []
+        start = bedtime
+        remaining = duration
+
+        while remaining > 10:
+            minutes = min(remaining, rng.uniform(30, 110))
+            end = start + datetime.timedelta(minutes=minutes)
+            stage = rng.choice(['SLEEP_DEEP', 'SLEEP_LIGHT', 'SLEEP_REM', 'SLEEP_AWAKE'])
+
+            segments.append((start, end, minutes, stage))
+            start = end
+            remaining -= minutes
+        return segments
