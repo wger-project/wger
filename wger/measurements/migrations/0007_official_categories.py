@@ -79,8 +79,20 @@ def migrate_weight_to_measurements(apps, schema_editor):
     Measurement.objects.bulk_create(batch)
 
 
-def noop_reverse(apps, schema_editor):
-    pass
+def delete_official_categories(apps, schema_editor):
+    """
+    Delete the official categories together with all their measurements.
+
+    The forward migration leaves the WeightEntry rows untouched, so this
+    restores the pre-migration state and lets the migration re-apply
+    cleanly. Body-weight measurements written after the forward migration
+    exist only as measurements and are deleted with their category.
+    """
+    Category = apps.get_model('measurements', 'Category')
+    Measurement = apps.get_model('measurements', 'Measurement')
+
+    Measurement.objects.filter(category__is_official=True).delete()
+    Category.objects.filter(is_official=True).delete()
 
 
 class Migration(migrations.Migration):
@@ -112,5 +124,5 @@ class Migration(migrations.Migration):
                 name='unique_official_category_per_metric_type',
             ),
         ),
-        migrations.RunPython(migrate_weight_to_measurements, noop_reverse),
+        migrations.RunPython(migrate_weight_to_measurements, delete_official_categories),
     ]
