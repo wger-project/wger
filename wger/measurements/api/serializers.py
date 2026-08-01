@@ -123,9 +123,11 @@ class CategorySerializer(serializers.ModelSerializer):
         """
         Only one category per metric type and user.
 
-        The constraint carries a condition, for which DRF generates no validator
-        of its own, so a duplicate would otherwise only surface as an
-        IntegrityError when saving.
+        DRF generates a validator for a UniqueConstraint only when the
+        serializer maps every field of it. The owner is not part of the payload
+        (it is passed to save() by the viewset and the PowerSync handler), so
+        this constraint is skipped and a duplicate would otherwise only surface
+        as an IntegrityError when saving.
         """
         user_id = self._get_user_id()
         if metric_type == MetricType.CUSTOM or user_id is None:

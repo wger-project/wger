@@ -66,7 +66,9 @@ def check_fk_ownership(payload: dict, owner_objects: list[tuple], user_id: int) 
             continue
 
         owner = obj.get_owner_object()
-        if owner and hasattr(owner, 'user') and owner.user_id != user_id:
+        # Ask for the id rather than for ``user``: the latter dereferences the
+        # foreign key and loads the whole user row, which this never looks at
+        if owner and hasattr(owner, 'user_id') and owner.user_id != user_id:
             logger.warning(f'{model_class.__name__} {pk} does not belong to user {user_id}')
             return False
     return True
