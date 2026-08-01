@@ -79,9 +79,6 @@ CATEGORIES = {
     'sleep': (MetricType.SLEEP, 'Sleep', 'min'),
 }
 
-# Components of the blood pressure group, in the order the importer pairs them
-BLOOD_PRESSURE_COMPONENTS = ('Systolic', 'Diastolic')
-
 
 class Command(BaseCommand):
     """
@@ -258,14 +255,16 @@ class Command(BaseCommand):
                 unit=user.userprofile.weight_unit,
             )
 
-        category = Category.objects.filter(user=user, metric_type=metric_type).first()
-        if category is None:
-            category = Category.objects.create(
-                user=user,
-                metric_type=metric_type,
-                name=name,
-                unit=unit,
-            )
+        category, _ = Category.objects.get_or_create(
+            id=Category.deterministic_id(user.pk, metric_type),
+            defaults={
+                'user': user,
+                'metric_type': metric_type,
+                'name': name,
+                'unit': unit,
+            },
+        )
+        category.create_components()
         return category
 
     def get_components(self, group: Category) -> list[Category]:
@@ -274,19 +273,7 @@ class Command(BaseCommand):
 
         Only the leaves carry measurements, the group itself stays empty.
         """
-        components = []
-        for order, name in enumerate(BLOOD_PRESSURE_COMPONENTS):
-            component = group.children.filter(name=name).first()
-            if component is None:
-                component = Category.objects.create(
-                    user=group.user,
-                    name=name,
-                    unit=group.unit,
-                    parent=group,
-                    order=order,
-                )
-            components.append(component)
-        return components
+        return list(group.children.order_by('order'))
 
     #
     # Entries

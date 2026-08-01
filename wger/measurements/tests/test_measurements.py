@@ -32,6 +32,7 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.models.category import MetricType
 
 
 class MeasurementsApiTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -94,6 +95,27 @@ class MeasurementLeafOnlyTestCase(WgerTestCase):
             name='Systolic',
             unit='mmHg',
             parent=parent,
+        )
+
+        response = self.client.post(
+            reverse('measurement-list'),
+            {
+                'category': self.parent_id,
+                'date': '2021-08-12',
+                'value': 120,
+            },
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('category', response.data)
+
+    def test_measurement_on_group_type_rejected(self):
+        """
+        A group type is a container even while it has no children yet
+        """
+        self.user_login('test')
+        Category.objects.filter(pk=self.parent_id).update(
+            metric_type=MetricType.BLOOD_PRESSURE,
         )
 
         response = self.client.post(

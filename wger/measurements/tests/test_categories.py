@@ -120,6 +120,192 @@ class CategoryGroupApiTestCase(WgerTestCase):
         self.assertFalse(Category.objects.filter(pk=child.data['id']).exists())
 
 
+class TypedCategoryTestCase(WgerTestCase):
+    """
+    Identity and structural rules of the categories with a metric type
+    """
+
+    # Pinned in test-measurement-categories.json / test-measurements.json
+    category_empty = 'cccccccc-cccc-cccc-cccc-000000000003'  # user 'test', no measurements
+    category_with_measurements = 'cccccccc-cccc-cccc-cccc-000000000001'  # user 'test'
+
+    def setUp(self):
+        super().setUp()
+        self.url = reverse('measurement-category-list')
+        self.user_login('test')
+        self.user = User.objects.get(username='test')
+
+    def create_category(self, **data):
+        payload = {'name': 'Steps', 'unit': 'count', **data}
+        return self.client.post(self.url, payload)
+
+    def detail_url(self, pk):
+        return reverse('measurement-category-detail', kwargs={'pk': pk})
+
+    def test_typed_category_gets_derived_id(self):
+        """
+        Test that the key of a typed category is derived from user and type
+        """
+        response = self.create_category(metric_type=MetricType.STEPS)
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(
+            response.data['id'],
+            str(Category.deterministic_id(self.user.pk, MetricType.STEPS)),
+        )
+
+    def test_official_category_keeps_random_id(self):
+        """
+        Test that the server-managed body weight category is not derived
+        """
+        category = Category.objects.get(user=self.user, is_official=True)
+
+        self.assertNotEqual(
+            category.pk,
+            Category.deterministic_id(self.user.pk, MetricType.BODY_WEIGHT),
+        )
+
+    def test_second_typed_category_rejected(self):
+        """
+        Test that a metric type can only be used once per user
+        """
+        self.create_category(metric_type=MetricType.STEPS)
+
+        response = self.create_category(name='Steps again', metric_type=MetricType.STEPS)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('metric_type', response.data)
+
+    def test_same_type_of_other_user_allowed(self):
+        """
+        Test that the uniqueness is per user
+        """
+        Category.objects.create(
+            user=User.objects.get(username='admin'),
+            name='Steps',
+            unit='count',
+            metric_type=MetricType.STEPS,
+        )
+
+        response = self.create_category(metric_type=MetricType.STEPS)
+
+        self.assertEqual(response.status_code, 201)
+
+    def test_custom_categories_can_repeat(self):
+        """
+        Test that free-form categories are unaffected by the uniqueness
+        """
+        self.create_category(name='Biceps left', unit='cm')
+
+        response = self.create_category(name='Biceps right', unit='cm')
+
+        self.assertEqual(response.status_code, 201)
+
+    def test_group_creates_components(self):
+        """
+        Test that a group category is created with its component children
+        """
+        response = self.create_category(
+            name='Blood pressure',
+            unit='mmHg',
+            metric_type=MetricType.BLOOD_PRESSURE,
+        )
+
+        self.assertEqual(response.status_code, 201)
+        children = Category.objects.filter(parent_id=response.data['id']).order_by('order')
+        self.assertEqual(
+            [(c.name, c.metric_type, c.unit) for c in children],
+            [
+                ('Systolic', MetricType.BLOOD_PRESSURE_SYSTOLIC, 'mmHg'),
+                ('Diastolic', MetricType.BLOOD_PRESSURE_DIASTOLIC, 'mmHg'),
+            ],
+        )
+
+    def test_adopting_a_category_as_group_creates_components(self):
+        """
+        Test that a category changed into a group also gets its components
+        """
+        response = self.client.patch(
+            self.detail_url(self.category_empty),
+            {'metric_type': MetricType.BLOOD_PRESSURE},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Category.objects.filter(parent_id=self.category_empty).count(), 2)
+
+    def test_category_with_measurements_cannot_become_group(self):
+        """
+        Test that a category holding measurements cannot be turned into a group
+        """
+        response = self.client.patch(
+            self.detail_url(self.category_with_measurements),
+            {'metric_type': MetricType.BLOOD_PRESSURE},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('metric_type', response.data)
+
+    def test_component_without_group_rejected(self):
+        """
+        Test that a component category cannot be created on its own
+        """
+        response = self.create_category(
+            name='Systolic',
+            unit='mmHg',
+            metric_type=MetricType.BLOOD_PRESSURE_SYSTOLIC,
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('parent', response.data)
+
+    def test_component_under_wrong_group_rejected(self):
+        """
+        Test that a component category only fits under its own group type
+        """
+        response = self.create_category(
+            name='Systolic',
+            unit='mmHg',
+            metric_type=MetricType.BLOOD_PRESSURE_SYSTOLIC,
+            parent=self.category_empty,
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('parent', response.data)
+
+    def test_typed_category_cannot_be_nested(self):
+        """
+        Test that a non-component metric type stays top-level
+        """
+        response = self.create_category(
+            metric_type=MetricType.STEPS,
+            parent=self.category_empty,
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('parent', response.data)
+
+    def test_group_only_holds_its_own_components(self):
+        """
+        Test that a group does not take children other than its components
+        """
+        group = self.create_category(
+            name='Blood pressure',
+            unit='mmHg',
+            metric_type=MetricType.BLOOD_PRESSURE,
+        )
+
+        response = self.create_category(
+            name='Something else',
+            unit='mmHg',
+            parent=group.data['id'],
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('metric_type', response.data)
+
+
 class OfficialCategoryTestCase(WgerTestCase):
     """
     Automatic creation and protection of official categories

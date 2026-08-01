@@ -21,6 +21,7 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.models.category import MetricType
 
 
 class MeasurementGeneratorTestCase(WgerTestCase):
@@ -56,3 +57,26 @@ class MeasurementGeneratorTestCase(WgerTestCase):
 
         # Assert
         self.assertEqual(Measurement.objects.filter(category__user_id=1).count(), 10)
+
+    def test_generator_health_blood_pressure(self):
+        """
+        The health generator writes into the components of the group
+        """
+        # Act
+        call_command(
+            'dummy-generator-health-measurements',
+            '--days',
+            5,
+            '--metrics',
+            'blood_pressure',
+        )
+
+        # Assert
+        group = Category.objects.get(user_id=1, metric_type=MetricType.BLOOD_PRESSURE)
+        components = group.children.order_by('order')
+        self.assertEqual(
+            [c.metric_type for c in components],
+            [MetricType.BLOOD_PRESSURE_SYSTOLIC, MetricType.BLOOD_PRESSURE_DIASTOLIC],
+        )
+        self.assertFalse(group.measurement_set.exists())
+        self.assertTrue(all(c.measurement_set.exists() for c in components))

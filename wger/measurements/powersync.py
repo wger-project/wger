@@ -47,6 +47,10 @@ class CategoryHandler(PowerSyncHandler):
     serializer_class = CategorySerializer
     viewset_class = CategoryViewSet
 
+    # The serializer checks the "one category per metric type" rule, for which
+    # it needs to know whose categories to look at
+    pass_user_id_in_context = True
+
     def handle_delete(self, payload, user_id):
         entry = self._get_or_none(payload, user_id)
         if entry is not None and entry.is_official:

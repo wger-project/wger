@@ -41,6 +41,8 @@ class Migration(migrations.Migration):
                     ('body_fat', 'Body Fat'),
                     ('height', 'Height'),
                     ('blood_pressure', 'Blood Pressure'),
+                    ('blood_pressure_systolic', 'Blood Pressure Systolic'),
+                    ('blood_pressure_diastolic', 'Blood Pressure Diastolic'),
                     ('heart_rate', 'Heart Rate'),
                     ('resting_heart_rate', 'Resting Heart Rate'),
                     ('steps', 'Steps'),
@@ -49,8 +51,16 @@ class Migration(migrations.Migration):
                     ('sleep', 'Sleep'),
                 ],
                 default='custom',
-                max_length=20,
+                max_length=30,
                 verbose_name='Metric type',
+            ),
+        ),
+        migrations.AddConstraint(
+            model_name='category',
+            constraint=models.UniqueConstraint(
+                condition=models.Q(('metric_type', 'custom'), _negated=True),
+                fields=('user', 'metric_type'),
+                name='unique_typed_category_per_user',
             ),
         ),
         migrations.AddField(
