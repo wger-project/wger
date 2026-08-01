@@ -41,8 +41,23 @@ class MeasurementSource(models.TextChoices):
 
 class Measurement(models.Model):
     class Meta:
+        # The id breaks ties on the date: entries written by the health sync
+        # share a timestamp (a day aggregate sits on midnight, the components
+        # of a reading on its exact time), and clients page through the entries
+        # of a category with limit/offset, which needs a total order to not
+        # skip or repeat rows
         ordering = [
             '-date',
+            '-id',
+        ]
+        indexes = [
+            # Entries are always read per category and in date order (listing,
+            # charts, date filters, latest entry). Without this the category is
+            # scanned in full and sorted for every page
+            models.Index(
+                fields=['category', '-date', '-id'],
+                name='measurement_category_date',
+            ),
         ]
         constraints = [
             models.UniqueConstraint(

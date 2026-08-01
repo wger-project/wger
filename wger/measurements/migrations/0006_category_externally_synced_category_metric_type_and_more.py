@@ -86,4 +86,15 @@ class Migration(migrations.Migration):
                 name='unique_external_measurement',
             ),
         ),
+        migrations.AlterModelOptions(
+            name='measurement',
+            options={'ordering': ['-date', '-id']},
+        ),
+        migrations.AddIndex(
+            model_name='measurement',
+            index=models.Index(
+                fields=['category', '-date', '-id'],
+                name='measurement_category_date',
+            ),
+        ),
     ]

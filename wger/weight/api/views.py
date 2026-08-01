@@ -47,8 +47,9 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Measurement.objects.none()
 
-        # Measurement orders by -date, the historic weight endpoint by date
-        return Measurement.body_weight_for(self.request.user).order_by('date')
+        # Measurement orders by -date, the historic weight endpoint by date.
+        # The id breaks ties so that paging through the entries is stable
+        return Measurement.body_weight_for(self.request.user).order_by('date', 'id')
 
     def perform_create(self, serializer):
         """
