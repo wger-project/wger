@@ -130,17 +130,14 @@ class Category(models.Model):
             '-name',
         ]
         constraints = [
-            # official category per (user, metric_type) where is_official=True
-            # user-created categories are unaffected
-            models.UniqueConstraint(
-                fields=['user', 'metric_type'],
-                condition=models.Q(is_official=True),
-                name='unique_official_category_per_metric_type',
-            ),
             # A typed category is the one place its metric lives: the health
             # importer looks it up by type, and both manual and synced entries
             # have to end up in the same one. Free-form categories keep the
             # default type and are unaffected.
+            #
+            # This covers the official categories as well, since those are
+            # typed by definition (is_official means the server depends on the
+            # row existing for that metric type).
             models.UniqueConstraint(
                 fields=['user', 'metric_type'],
                 condition=~models.Q(metric_type=MetricType.CUSTOM),

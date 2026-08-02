@@ -80,3 +80,15 @@ class MeasurementGeneratorTestCase(WgerTestCase):
         )
         self.assertFalse(group.measurement_set.exists())
         self.assertTrue(all(c.measurement_set.exists() for c in components))
+
+
+class BodyWeightGeneratorTestCase(WgerTestCase):
+    def test_generator(self):
+        # Arrange
+        Measurement.objects.all().delete()
+
+        # Act
+        call_command('dummy-generator-body-weight', '--nr-entries', 100)
+
+        # Assert
+        self.assertEqual(Measurement.body_weight_for(1).count(), 100)

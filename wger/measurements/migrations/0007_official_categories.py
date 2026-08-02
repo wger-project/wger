@@ -116,13 +116,5 @@ class Migration(migrations.Migration):
             name='extra_data',
             field=models.JSONField(blank=True, default=dict, verbose_name='Extra data'),
         ),
-        migrations.AddConstraint(
-            model_name='category',
-            constraint=models.UniqueConstraint(
-                condition=models.Q(('is_official', True)),
-                fields=('user', 'metric_type'),
-                name='unique_official_category_per_metric_type',
-            ),
-        ),
         migrations.RunPython(migrate_weight_to_measurements, delete_official_categories),
     ]
