@@ -42,6 +42,12 @@ class MetricType(models.TextChoices):
     DISTANCE = 'distance'
     ENERGY = 'energy'
     SLEEP = 'sleep'
+    # Spelled out because the derived labels would read 'Sleep Rem'
+    SLEEP_TOTAL = 'sleep_total', 'Total sleep'
+    SLEEP_LIGHT = 'sleep_light', 'Light sleep'
+    SLEEP_DEEP = 'sleep_deep', 'Deep sleep'
+    SLEEP_REM = 'sleep_rem', 'REM sleep'
+    SLEEP_AWAKE = 'sleep_awake', 'Awake'
 
     #
     # Roles. Each type is exactly one of leaf (top-level, carries the
@@ -84,6 +90,17 @@ GROUP_COMPONENTS: dict[str, list[tuple[str, str]]] = {
     MetricType.BLOOD_PRESSURE: [
         (MetricType.BLOOD_PRESSURE_SYSTOLIC, 'Systolic'),
         (MetricType.BLOOD_PRESSURE_DIASTOLIC, 'Diastolic'),
+    ],
+    # The total is a component of its own because a group carries no
+    # measurements. It is not the sum of the three stages below it: platforms
+    # also report sleep without a stage breakdown, which counts towards the
+    # total and has no stage category to live in
+    MetricType.SLEEP: [
+        (MetricType.SLEEP_TOTAL, 'Total sleep'),
+        (MetricType.SLEEP_LIGHT, 'Light sleep'),
+        (MetricType.SLEEP_DEEP, 'Deep sleep'),
+        (MetricType.SLEEP_REM, 'REM sleep'),
+        (MetricType.SLEEP_AWAKE, 'Awake'),
     ],
 }
 """

@@ -79,6 +79,15 @@ CATEGORIES = {
     'sleep': (MetricType.SLEEP, 'Sleep', 'min'),
 }
 
+# Platform record type each sleep stage category collects, the total excluded:
+# it is an aggregate over several of them rather than a stage of its own
+SLEEP_STAGE_RECORDS = {
+    MetricType.SLEEP_LIGHT: 'SLEEP_LIGHT',
+    MetricType.SLEEP_DEEP: 'SLEEP_DEEP',
+    MetricType.SLEEP_REM: 'SLEEP_REM',
+    MetricType.SLEEP_AWAKE: 'SLEEP_AWAKE',
+}
+
 
 class Command(BaseCommand):
     """
@@ -234,7 +243,7 @@ class Command(BaseCommand):
                     rng, category, record_type='ACTIVE_ENERGY_BURNED', daily_min=250, daily_max=900
                 )
             case 'sleep':
-                return self.generate_sleep(rng, category)
+                return self.generate_sleep(rng, self.get_components(category))
             case _:
                 raise CommandError(f'No generator for metric {metric}')
 
@@ -634,14 +643,20 @@ class Command(BaseCommand):
                 )
         return entries
 
-    def generate_sleep(self, rng: random.Random, category: Category) -> list[Measurement]:
+    def generate_sleep(self, rng: random.Random, components: list[Category]) -> list[Measurement]:
         """
         Generates sleep in minutes, the unit both platforms report.
 
-        Sparse mode writes the night as the importer does: one entry per wake
-        day, the summed time asleep as the value and the window the segments
-        really cover in extra_data. Realistic mode writes the stage segments.
+        A night is written per stage into the stage's own category, plus the
+        total into its own. The total is always a daily aggregate, since that
+        is the only shape it has; the stages follow the mode, sparse writing
+        one entry per wake day and realistic the raw segments.
         """
+        total_category, *stage_categories = components
+        by_stage = {
+            SLEEP_STAGE_RECORDS[category.metric_type]: category for category in stage_categories
+        }
+
         entries = []
         for offset in self.day_range():
             # A night is attributed to the day the user wakes up on, so it
@@ -649,36 +664,54 @@ class Command(BaseCommand):
             wake_day = self.day_start(offset)
             bedtime = wake_day - datetime.timedelta(minutes=rng.randint(60, 180))
             segments = self.sleep_segments(rng, bedtime, rng.uniform(330, 540))
+            asleep = [segment for segment in segments if segment[3] != 'SLEEP_AWAKE']
 
-            if not self.realistic:
-                # The night as the importer condenses it: the summed time
-                # asleep, and the window the segments really cover
+            entries.append(
+                self.aggregate_entry(
+                    total_category,
+                    wake_day,
+                    sum(minutes for _, _, minutes, _ in asleep),
+                    record_type='SLEEP_ASLEEP',
+                    sample_count=len(asleep),
+                    extra={
+                        'date_from': segments[0][0].isoformat(),
+                        'date_to': segments[-1][1].isoformat(),
+                    },
+                )
+            )
+
+            for stage, category in by_stage.items():
+                of_stage = [segment for segment in segments if segment[3] == stage]
+                if not of_stage:
+                    continue
+
+                if self.realistic:
+                    entries += [
+                        self.entry(
+                            category,
+                            start,
+                            minutes,
+                            record_type=stage,
+                            key=f'sleep:{start.isoformat()}',
+                            extra={'date_to': end.isoformat()},
+                        )
+                        for start, end, minutes, _ in of_stage
+                    ]
+                    continue
+
                 entries.append(
                     self.aggregate_entry(
                         category,
                         wake_day,
-                        sum(minutes for _, _, minutes, _ in segments),
-                        record_type='SLEEP_ASLEEP',
-                        sample_count=len(segments),
+                        sum(minutes for _, _, minutes, _ in of_stage),
+                        record_type=stage,
+                        sample_count=len(of_stage),
                         extra={
-                            'date_from': segments[0][0].isoformat(),
-                            'date_to': segments[-1][1].isoformat(),
+                            'date_from': of_stage[0][0].isoformat(),
+                            'date_to': of_stage[-1][1].isoformat(),
                         },
                     )
                 )
-                continue
-
-            entries += [
-                self.entry(
-                    category,
-                    start,
-                    minutes,
-                    record_type=stage,
-                    key=f'sleep:{start.isoformat()}',
-                    extra={'date_to': end.isoformat()},
-                )
-                for start, end, minutes, stage in segments
-            ]
         return entries
 
     def sleep_segments(
