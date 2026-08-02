@@ -39,7 +39,16 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'unit', 'metric_type', 'parent', 'order', 'is_official')
+        fields = (
+            'id',
+            'name',
+            'unit',
+            'metric_type',
+            'chart_type',
+            'parent',
+            'order',
+            'is_official',
+        )
         read_only_fields = ('is_official',)
 
     def validate_metric_type(self, metric_type):

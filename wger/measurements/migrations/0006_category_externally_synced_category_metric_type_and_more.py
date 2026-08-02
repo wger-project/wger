@@ -61,6 +61,17 @@ class Migration(migrations.Migration):
                 verbose_name='Metric type',
             ),
         ),
+        migrations.AddField(
+            model_name='category',
+            name='chart_type',
+            field=models.CharField(
+                blank=True,
+                choices=[('line', 'Line'), ('bar', 'Bar'), ('heatmap', 'Heatmap')],
+                max_length=20,
+                null=True,
+                verbose_name='Chart type',
+            ),
+        ),
         migrations.AddConstraint(
             model_name='category',
             constraint=models.UniqueConstraint(

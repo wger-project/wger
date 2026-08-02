@@ -86,6 +86,16 @@ class MetricType(models.TextChoices):
         return GROUP_COMPONENTS.get(metric_type, [])
 
 
+class ChartType(models.TextChoices):
+    """
+    Chart a category is drawn as, when the user picked one
+    """
+
+    LINE = 'line'
+    BAR = 'bar'
+    HEATMAP = 'heatmap'
+
+
 GROUP_COMPONENTS: dict[str, list[tuple[str, str]]] = {
     MetricType.BLOOD_PRESSURE: [
         (MetricType.BLOOD_PRESSURE_SYSTOLIC, 'Systolic'),
@@ -171,6 +181,20 @@ class Category(models.Model):
         max_length=30,
         choices=MetricType.choices,
         default=MetricType.CUSTOM,
+    )
+
+    # Null means "derive the chart from the metric type", which is what every
+    # category does unless the user picked something else. Which of the values
+    # are offered is a client decision (a step count is a bar or a heatmap, not
+    # a line), and so is what happens to a value that does not fit the category:
+    # the clients fall back to the derived default instead of showing nothing,
+    # which is also what keeps an older client working when a type is added here
+    chart_type = models.CharField(
+        verbose_name='Chart type',
+        max_length=20,
+        choices=ChartType.choices,
+        blank=True,
+        null=True,
     )
 
     # Multi-value measurements (e.g. blood pressure) are modelled as a parent
