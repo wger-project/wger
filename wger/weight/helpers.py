@@ -25,6 +25,7 @@ import logging
 from django.utils.timezone import make_aware
 
 # wger
+from wger.measurements.limits import limits_for
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -50,6 +51,11 @@ def parse_weight_csv(request, cleaned_data):
     MAX_ROW_COUNT = 1000
     row_count = 0
 
+    # The values are read in the unit of the profile, so that is the unit the
+    # bounds are resolved in. This is the one path that writes body weight
+    # without going through a serializer
+    limits = limits_for(MetricType.BODY_WEIGHT, request.user.userprofile.weight_unit)
+
     # Process the CSV items first
     for row in parsed_csv:
         try:
@@ -66,7 +72,9 @@ def parse_weight_csv(request, cleaned_data):
             # there is no existing weight entry in the database for that date
             unique_in_db = not duplicate_date_in_db
 
-            if unique_among_csv and unique_in_db and parsed_weight:
+            plausible_weight = limits.min <= parsed_weight <= limits.max
+
+            if unique_among_csv and unique_in_db and plausible_weight:
                 distinct_weight_entries.append((parsed_date, parsed_weight))
                 entry_dates.add(parsed_date)
             else:

@@ -20,6 +20,11 @@ from decimal import Decimal
 from rest_framework import serializers
 
 # wger
+from wger.measurements.limits import (
+    VALUE_DECIMAL_PLACES,
+    VALUE_MAX_DIGITS,
+    limits_for,
+)
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -186,12 +191,13 @@ class MeasurementSerializer(serializers.ModelSerializer):
     Measurement serializer
     """
 
-    # Manually set the serializer to set the coerce_to_string option
+    # Manually set the serializer to set the coerce_to_string option. The upper
+    # bound is the technical cap of the column, what a value may actually be is
+    # decided by the metric type of its category, see validate()
     value = serializers.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        min_value=Decimal(0.0),
-        max_value=Decimal(5000.0),
+        max_digits=VALUE_MAX_DIGITS,
+        decimal_places=VALUE_DECIMAL_PLACES,
+        min_value=Decimal(0),
         coerce_to_string=False,
     )
 
@@ -235,7 +241,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """
-        Body weight entries only support the weight units of the user profile
+        The unit and the range of the value both depend on the metric type
         """
         category = data.get('category') or (self.instance.category if self.instance else None)
         extra_data = data.get('extra_data', self.instance.extra_data if self.instance else {})
@@ -246,4 +252,25 @@ class MeasurementSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     {'extra_data': 'Body weight entries only support kg and lb as unit'}
                 )
+
+        self._validate_value_range(data, category, unit)
         return data
+
+    def _validate_value_range(self, data, category, unit):
+        """
+        A value has to be in the range its metric type allows.
+
+        The bound hangs off the category the entry lands in, so it is checked
+        here rather than on the field: the same endpoint takes body weights in
+        kilograms and daily step counts. Since a category can hold mixed units,
+        the entry's own unit decides which of them applies.
+        """
+        value = data.get('value', self.instance.value if self.instance else None)
+        if value is None or category is None:
+            return
+
+        limits = limits_for(category.metric_type, unit or category.unit)
+        if not limits.min <= value <= limits.max:
+            raise serializers.ValidationError(
+                {'value': f'Value must be between {limits.min} and {limits.max}'}
+            )

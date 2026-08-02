@@ -17,6 +17,7 @@
 from decimal import Decimal
 
 # Django
+from django.contrib.auth.models import User
 from django.db import (
     IntegrityError,
     transaction,
@@ -186,6 +187,102 @@ class MeasurementUnitTestCase(WgerTestCase):
         self.assertEqual(entry.value_in('cm'), entry.value)
         with self.assertRaises(ValueError):
             entry.value_in('kg')
+
+
+class MeasurementValueLimitsTestCase(WgerTestCase):
+    """
+    The range a value may be in follows the metric type of its category
+    """
+
+    body_weight_id = 'cccccccc-cccc-cccc-cccc-0000000000b0'  # user 'test', kg
+    custom_id = 'cccccccc-cccc-cccc-cccc-000000000001'  # user 'test', cm
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+        self.url = reverse('measurement-list')
+
+    def add_entry(self, category_id, value, extra_data=None):
+        return self.client.post(
+            self.url,
+            {
+                'category': str(category_id),
+                'date': '2023-05-01T12:00:00Z',
+                'value': value,
+                'extra_data': extra_data or {},
+            },
+            content_type='application/json',
+        )
+
+    def create_category(self, metric_type, unit):
+        return Category.objects.create(
+            user=User.objects.get(username='test'),
+            name=metric_type,
+            unit=unit,
+            metric_type=metric_type,
+        )
+
+    def test_daily_step_count(self):
+        """
+        Test that a daily step total is accepted
+        """
+        category = self.create_category(MetricType.STEPS, 'count')
+
+        self.assertEqual(self.add_entry(category.pk, 11000).status_code, 201)
+
+    def test_value_above_limit(self):
+        """
+        Test that a value above the limit of its metric type is rejected
+        """
+        category = self.create_category(MetricType.STEPS, 'count')
+
+        response = self.add_entry(category.pk, 150000)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('value', response.data)
+
+    def test_value_below_limit(self):
+        """
+        Test that a value below the limit of its metric type is rejected
+        """
+        category = self.create_category(MetricType.HEART_RATE, 'bpm')
+
+        response = self.add_entry(category.pk, 5)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('value', response.data)
+
+    def test_body_weight_limits_per_unit(self):
+        """
+        Test that the body weight bounds are resolved in the entry's own unit
+        """
+        self.assertEqual(self.add_entry(self.body_weight_id, 700, {'unit': 'lb'}).status_code, 201)
+
+        response = self.add_entry(self.body_weight_id, 700, {'unit': 'kg'})
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('value', response.data)
+
+    def test_custom_category_limited_by_column(self):
+        """
+        Test that a free-form category is only bounded by the column itself
+        """
+        self.assertEqual(self.add_entry(self.custom_id, 50000).status_code, 201)
+        self.assertEqual(self.add_entry(self.custom_id, 1000000).status_code, 400)
+
+    def test_limits_on_update(self):
+        """
+        Test that updating a value validates it as well
+        """
+        entry = Measurement.objects.filter(category_id=self.body_weight_id).first()
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry.pk}),
+            {'value': 700},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('value', response.data)
 
 
 class MeasurementExtraDataApiTestCase(WgerTestCase):

@@ -18,14 +18,15 @@ from decimal import Decimal
 
 # Django
 from django.contrib.auth.models import User
-from django.core.validators import (
-    MaxValueValidator,
-    MinValueValidator,
-)
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
 
 # wger
+from wger.measurements.limits import (
+    VALUE_DECIMAL_PLACES,
+    VALUE_MAX_DIGITS,
+)
 from wger.measurements.models import Category
 from wger.measurements.models.category import MetricType
 from wger.utils.constants import TWOPLACES
@@ -85,12 +86,12 @@ class Measurement(models.Model):
 
     value = models.DecimalField(
         verbose_name='Value',
-        max_digits=6,
-        decimal_places=2,
-        validators=[
-            MinValueValidator(0),
-            MaxValueValidator(5000),
-        ],
+        max_digits=VALUE_MAX_DIGITS,
+        decimal_places=VALUE_DECIMAL_PLACES,
+        # The column only holds the technical cap, the range a value has to be
+        # in depends on the metric type of its category and is checked in the
+        # serializer (wger.measurements.limits)
+        validators=[MinValueValidator(0)],
     )
 
     notes = models.CharField(

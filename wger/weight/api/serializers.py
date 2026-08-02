@@ -15,14 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-from decimal import Decimal
-
 # Third Party
 from rest_framework import serializers
 
 # wger
+from wger.measurements.limits import (
+    VALUE_DECIMAL_PLACES,
+    VALUE_MAX_DIGITS,
+    limits_for,
+)
 from wger.measurements.models import Measurement
+from wger.measurements.models.category import MetricType
 
 
 class WeightEntrySerializer(serializers.ModelSerializer):
@@ -33,10 +36,8 @@ class WeightEntrySerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(source='category.user', read_only=True)
     weight = serializers.DecimalField(
         source='value',
-        max_digits=5,
-        decimal_places=2,
-        min_value=Decimal(30),
-        max_value=Decimal(600),
+        max_digits=VALUE_MAX_DIGITS,
+        decimal_places=VALUE_DECIMAL_PLACES,
     )
 
     class Meta:
@@ -47,6 +48,24 @@ class WeightEntrySerializer(serializers.ModelSerializer):
             'weight',
             'user',
         )
+
+    def validate_weight(self, value):
+        """
+        The same bounds a body weight measurement has, in the profile unit.
+
+        Values are read and written in the unit of the user profile, so that is
+        the unit the bounds are resolved in: 350 kg and 770 lb are the same
+        limit, a single span covering both would allow 550 kg as readily as
+        550 lb (wger-project/wger#1019).
+        """
+        unit = self.context['request'].user.userprofile.weight_unit
+        limits = limits_for(MetricType.BODY_WEIGHT, unit)
+
+        if not limits.min <= value <= limits.max:
+            raise serializers.ValidationError(
+                f'Weight must be between {limits.min} and {limits.max} {unit}'
+            )
+        return value
 
     def to_representation(self, instance):
         """

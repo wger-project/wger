@@ -157,3 +157,39 @@ class WeightEntryUnitTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
         self.assertEqual(response.status_code, 200)
         entry.refresh_from_db()
         self.assertEqual(entry.extra_data, {'unit': 'lb'})
+
+
+class WeightEntryLimitsTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
+    """
+    The bounds of the legacy weight endpoint are the body weight bounds,
+    resolved in the unit of the user profile
+    """
+
+    url = '/api/v2/weightentry/'
+
+    def set_unit(self, unit):
+        user = User.objects.get(username='test')
+        user.userprofile.weight_unit = unit
+        user.userprofile.save()
+
+    def add_entry(self, weight):
+        self.authenticate('test')
+        return self.client.post(self.url, {'weight': weight, 'date': timezone.now()})
+
+    def test_metric_bounds(self):
+        """
+        Test that a weight in kg is bounded by the kg limits
+        """
+        self.set_unit('kg')
+
+        self.assertEqual(self.add_entry(340).status_code, 201)
+        self.assertEqual(self.add_entry(360).status_code, 400)
+
+    def test_imperial_bounds(self):
+        """
+        Test that the same weight in lb is bounded by the lb limits
+        """
+        self.set_unit('lb')
+
+        self.assertEqual(self.add_entry(360).status_code, 201)
+        self.assertEqual(self.add_entry(800).status_code, 400)

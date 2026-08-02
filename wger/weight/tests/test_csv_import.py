@@ -50,6 +50,7 @@ class WeightCsvImportTestCase(WgerTestCase):
 19.02.10 00:00:00	71	222
 26.02.10 00:00:00	71,9	222
 26.02.10 00:00:00	71,9	222
+07.03.10 00:00:00	7000	222
 19.03.10 00:00:00	72	 222"""
         response = self.client.post(
             reverse('weight:import-csv'),
@@ -58,7 +59,8 @@ class WeightCsvImportTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['weight_list']), 6)
-        self.assertEqual(len(response.context['error_list']), 4)
+        # the unparseable rows, the duplicate date, and the 7000 kg entry
+        self.assertEqual(len(response.context['error_list']), 5)
         hash_value = response.context['hash_value']
 
         # 2nd. step

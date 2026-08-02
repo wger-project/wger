@@ -25,10 +25,10 @@ from django.core.management.base import (
     BaseCommand,
     CommandError,
 )
-from django.core.validators import MaxValueValidator
 from django.utils import timezone
 
 # wger
+from wger.measurements.limits import limits_for
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -45,18 +45,6 @@ logger = logging.getLogger(__name__)
 # second run generates the same IDs and the unique constraint on
 # (category, source, external_id) turns it into a no-op instead of duplicating
 EXTERNAL_ID_NAMESPACE = uuid.UUID('4b3a3b8e-1b4e-4b2a-9c3a-6b1e7f2d5c40')
-
-# Largest value a measurement currently accepts. Real daily step and energy
-# totals are well above it, they are capped so that everything the generator
-# writes stays valid for the API as well
-MAX_VALUE = min(
-    (
-        Decimal(validator.limit_value)
-        for validator in Measurement._meta.get_field('value').validators
-        if isinstance(validator, MaxValueValidator)
-    ),
-    default=Decimal('9999.99'),
-)
 
 # Device the entries claim to come from
 DEVICES = {
@@ -189,8 +177,7 @@ class Command(BaseCommand):
         if self.clamped:
             self.stdout.write(
                 self.style.WARNING(
-                    f'  {self.clamped} values were capped at {MAX_VALUE}: real daily step or '
-                    f'energy totals are above what a measurement currently accepts'
+                    f'  {self.clamped} values were clamped to the limits of their metric type'
                 )
             )
 
@@ -361,10 +348,14 @@ class Command(BaseCommand):
         extra_data: dict,
         external_id: uuid.UUID,
     ) -> Measurement:
+        # Everything the generator writes has to stay valid for the API, whose
+        # bounds depend on the metric type and, for body weight, on the unit
+        # the entry is stamped with
+        limits = limits_for(category.metric_type, extra_data.get('unit') or category.unit)
         decimal_value = Decimal(value).quantize(TWOPLACES)
-        if decimal_value > MAX_VALUE:
+        if not limits.min <= decimal_value <= limits.max:
             self.clamped += 1
-            decimal_value = MAX_VALUE
+            decimal_value = min(max(decimal_value, limits.min), limits.max)
 
         return Measurement(
             category=category,
