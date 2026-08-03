@@ -29,7 +29,10 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
-from wger.measurements.models.category import MetricType
+from wger.measurements.models.category import (
+    BODY_WEIGHT_UNITS,
+    MetricType,
+)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -129,6 +132,15 @@ class CategorySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'metric_type': 'A category with measurements cannot become a group'}
             )
+
+        # Body weight is read through Measurement.value_in(), which converts
+        # between kg and lb and knows no third unit
+        if metric_type == MetricType.BODY_WEIGHT:
+            unit = data.get('unit', instance.unit if instance else None)
+            if unit not in BODY_WEIGHT_UNITS:
+                raise serializers.ValidationError(
+                    {'unit': 'Body weight categories only support kg and lb as unit'}
+                )
 
         self._validate_unique_metric_type(metric_type)
         return data
@@ -256,8 +268,12 @@ class MeasurementSerializer(serializers.ModelSerializer):
         extra_data = data.get('extra_data', self.instance.extra_data if self.instance else {})
         unit = extra_data.get('unit')
 
-        if 'extra_data' in data and unit is not None and category is not None:
-            if category.metric_type == MetricType.BODY_WEIGHT and unit not in ('kg', 'lb'):
+        # Checked whenever the payload restamps the unit or moves the entry
+        # into another category; a unit already stored must not block an
+        # unrelated edit
+        touches_unit = 'extra_data' in data or 'category' in data
+        if touches_unit and unit is not None and category is not None:
+            if category.metric_type == MetricType.BODY_WEIGHT and unit not in BODY_WEIGHT_UNITS:
                 raise serializers.ValidationError(
                     {'extra_data': 'Body weight entries only support kg and lb as unit'}
                 )

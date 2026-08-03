@@ -382,6 +382,31 @@ class MeasurementExtraDataApiTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('extra_data', response.data)
 
+    def test_moving_an_entry_with_a_foreign_unit(self):
+        """
+        Test that an entry cannot be moved into the body weight category while
+        it carries a unit that category does not support
+        """
+        entry = self.client.post(
+            self.url,
+            {
+                'category': 'cccccccc-cccc-cccc-cccc-000000000003',
+                'date': '2023-05-01T12:00:00Z',
+                'value': 42,
+                'extra_data': {'unit': 'rods to the hogshead'},
+            },
+            content_type='application/json',
+        )
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry.data['id']}),
+            {'category': 'cccccccc-cccc-cccc-cccc-0000000000b0'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('extra_data', response.data)
+
     def test_custom_category_unit_free(self):
         """
         Test that custom categories accept any unit in extra_data

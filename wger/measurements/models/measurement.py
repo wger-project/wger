@@ -28,7 +28,10 @@ from wger.measurements.limits import (
     VALUE_MAX_DIGITS,
 )
 from wger.measurements.models import Category
-from wger.measurements.models.category import MetricType
+from wger.measurements.models.category import (
+    BODY_WEIGHT_UNITS,
+    MetricType,
+)
 from wger.utils.constants import TWOPLACES
 from wger.utils.units import AbstractWeight
 from wger.utils.uuid import uuid7
@@ -146,7 +149,7 @@ class Measurement(models.Model):
         """
         if self.unit == unit:
             return self.value
-        if unit not in ('kg', 'lb') or self.unit not in ('kg', 'lb'):
+        if unit not in BODY_WEIGHT_UNITS or self.unit not in BODY_WEIGHT_UNITS:
             raise ValueError(f'Cannot convert between {self.unit} and {unit}')
         weight = AbstractWeight(self.value, self.unit)
         return (weight.kg if unit == 'kg' else weight.lb).quantize(TWOPLACES)

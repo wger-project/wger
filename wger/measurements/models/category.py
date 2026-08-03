@@ -129,6 +129,17 @@ COMPONENT_GROUPS: dict[str, str] = {
 }
 
 
+BODY_WEIGHT_UNITS = ('kg', 'lb')
+"""
+The units a body weight is stored in, on the category as well as per entry.
+
+Body weight is the one metric whose values are converted on read
+(``Measurement.value_in``), so a category holding anything else has no reader:
+the legacy weight endpoint, the BMI, the trainer view and the CSV export all
+go through that conversion.
+"""
+
+
 CATEGORY_NAMESPACE = uuid.UUID('4c5ef6dd-97c9-5b18-9f8b-2a5c1ed70a2f')
 """Namespace for the derived primary keys, see Category.deterministic_id()"""
 

@@ -374,6 +374,33 @@ class OfficialCategoryTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_unit_of_body_weight_restricted(self):
+        """
+        Test that a body weight category only takes kg and lb as unit
+        """
+        response = self.client.patch(
+            self.detail_url(self.official),
+            {'unit': 'stone'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('unit', response.data)
+        self.assertEqual(Category.objects.get(pk=self.official).unit, 'kg')
+
+    def test_unit_of_body_weight_switchable(self):
+        """
+        Test that the category can still be switched between kg and lb
+        """
+        response = self.client.patch(
+            self.detail_url(self.official),
+            {'unit': 'lb'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Category.objects.get(pk=self.official).unit, 'lb')
+
     def test_is_official_read_only(self):
         """
         Test that the official flag cannot be set over the API
