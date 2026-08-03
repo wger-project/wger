@@ -256,7 +256,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
         extra_data = data.get('extra_data', self.instance.extra_data if self.instance else {})
         unit = extra_data.get('unit')
 
-        if unit is not None and category is not None:
+        if 'extra_data' in data and unit is not None and category is not None:
             if category.metric_type == MetricType.BODY_WEIGHT and unit not in ('kg', 'lb'):
                 raise serializers.ValidationError(
                     {'extra_data': 'Body weight entries only support kg and lb as unit'}
@@ -273,8 +273,14 @@ class MeasurementSerializer(serializers.ModelSerializer):
         here rather than on the field: the same endpoint takes body weights in
         kilograms and daily step counts. Since a category can hold mixed units,
         the entry's own unit decides which of them applies.
+
+        Only a value the payload actually carries is checked. Entries predating
+        the limits exist (the weight backfill copies them as they are), and
+        re-checking a stored value would lock every one of them: a PATCH of the
+        notes alone would come back as a 400, and over PowerSync that is a
+        write the client acknowledges and drops.
         """
-        value = data.get('value', self.instance.value if self.instance else None)
+        value = data.get('value')
         if value is None or category is None:
             return
 

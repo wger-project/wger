@@ -284,6 +284,56 @@ class MeasurementValueLimitsTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('value', response.data)
 
+    def test_editing_an_entry_outside_the_limits(self):
+        """
+        Test that a stored value outside the limits does not block other edits
+        """
+        entry = Measurement.objects.filter(category_id=self.body_weight_id).first()
+        Measurement.objects.filter(pk=entry.pk).update(value=550)
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry.pk}),
+            {'notes': 'Wrong unit'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 200)
+        entry.refresh_from_db()
+        self.assertEqual(entry.notes, 'Wrong unit')
+        self.assertEqual(entry.value, Decimal(550))
+
+    def test_correcting_an_entry_outside_the_limits(self):
+        """
+        Test that such an entry can be corrected, but only to a valid value
+        """
+        entry = Measurement.objects.filter(category_id=self.body_weight_id).first()
+        Measurement.objects.filter(pk=entry.pk).update(value=550)
+        url = reverse('measurement-detail', kwargs={'pk': entry.pk})
+
+        self.assertEqual(
+            self.client.patch(url, {'value': 600}, content_type='application/json').status_code,
+            400,
+        )
+        self.assertEqual(
+            self.client.patch(url, {'value': 80}, content_type='application/json').status_code,
+            200,
+        )
+
+    def test_editing_an_entry_whose_stored_unit_is_unknown(self):
+        """
+        Test that a stored unit outside kg and lb does not block other edits
+        """
+        entry = Measurement.objects.filter(category_id=self.body_weight_id).first()
+        Measurement.objects.filter(pk=entry.pk).update(extra_data={'unit': 'st'})
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry.pk}),
+            {'notes': 'Stones'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 200)
+
 
 class MeasurementExtraDataApiTestCase(WgerTestCase):
     """
