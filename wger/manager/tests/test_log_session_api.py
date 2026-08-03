@@ -150,6 +150,40 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
         log = WorkoutLog.objects.get(pk=OWN_LOG)
         self.assertEqual(str(log.session_id), OWN_SESSION_OTHER_DATE)
 
+    def test_create_log_with_notes(self):
+        """POST with notes persists the value and returns it in the response."""
+
+        response = self.client.post(
+            reverse('workoutlog-list'),
+            data={
+                'exercise': 1,
+                'routine': 1,
+                'date': datetime.date(2025, 11, 1).isoformat(),
+                'weight': 80,
+                'repetitions': 5,
+                'notes': 'Felt strong, increase weight next session',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
+        self.assertEqual(response.json()['notes'], 'Felt strong, increase weight next session')
+
+        log = WorkoutLog.objects.get(pk=response.json()['id'])
+        self.assertEqual(log.notes, 'Felt strong, increase weight next session')
+
+    def test_patch_log_notes(self):
+        """PATCH can update the notes field."""
+
+        response = self.client.patch(
+            reverse('workoutlog-detail', kwargs={'pk': OWN_LOG}),
+            data={'notes': 'Updated note'},
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertEqual(response.json()['notes'], 'Updated note')
+
+        log = WorkoutLog.objects.get(pk=OWN_LOG)
+        self.assertEqual(log.notes, 'Updated note')
+
 
 class WorkoutLogSessionPinningPowerSyncTestCase(PowerSyncBaseTestCase):
     """
