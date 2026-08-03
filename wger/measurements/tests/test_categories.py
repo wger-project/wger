@@ -125,9 +125,8 @@ class TypedCategoryTestCase(WgerTestCase):
     Identity and structural rules of the categories with a metric type
     """
 
-    # Pinned in test-measurement-categories.json / test-measurements.json
+    # Pinned in test-measurement-categories.json
     category_empty = 'cccccccc-cccc-cccc-cccc-000000000003'  # user 'test', no measurements
-    category_with_measurements = 'cccccccc-cccc-cccc-cccc-000000000001'  # user 'test'
 
     def setUp(self):
         super().setUp()
@@ -221,31 +220,70 @@ class TypedCategoryTestCase(WgerTestCase):
             ],
         )
 
-    def test_adopting_a_category_as_group_creates_components(self):
+    def test_free_form_category_cannot_be_typed(self):
         """
-        Test that a category changed into a group also gets its components
+        Test that a metric type cannot be assigned to an existing category
         """
         response = self.client.patch(
             self.detail_url(self.category_empty),
-            {'metric_type': MetricType.BLOOD_PRESSURE},
-            content_type='application/json',
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Category.objects.filter(parent_id=self.category_empty).count(), 2)
-
-    def test_category_with_measurements_cannot_become_group(self):
-        """
-        Test that a category holding measurements cannot be turned into a group
-        """
-        response = self.client.patch(
-            self.detail_url(self.category_with_measurements),
-            {'metric_type': MetricType.BLOOD_PRESSURE},
+            {'metric_type': MetricType.DISTANCE},
             content_type='application/json',
         )
 
         self.assertEqual(response.status_code, 400)
         self.assertIn('metric_type', response.data)
+        self.assertEqual(
+            Category.objects.get(pk=self.category_empty).metric_type,
+            MetricType.CUSTOM,
+        )
+
+    def test_typed_category_cannot_be_reset(self):
+        """
+        Test that a typed category cannot go back to being free-form
+        """
+        category = self.create_category(metric_type=MetricType.STEPS)
+
+        response = self.client.patch(
+            self.detail_url(category.data['id']),
+            {'metric_type': MetricType.CUSTOM},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('metric_type', response.data)
+
+    def test_group_cannot_change_its_type(self):
+        """
+        Test that a group keeps its type, and with it its components
+        """
+        group = self.create_category(
+            name='Blood pressure',
+            unit='mmHg',
+            metric_type=MetricType.BLOOD_PRESSURE,
+        )
+
+        response = self.client.patch(
+            self.detail_url(group.data['id']),
+            {'metric_type': MetricType.SLEEP},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(Category.objects.filter(parent_id=group.data['id']).count(), 2)
+
+    def test_unchanged_metric_type_accepted(self):
+        """
+        Test that an edit sending the type along is not read as a change
+        """
+        category = self.create_category(metric_type=MetricType.STEPS)
+
+        response = self.client.patch(
+            self.detail_url(category.data['id']),
+            {'name': 'Schritte', 'metric_type': MetricType.STEPS},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 200)
 
     def test_component_without_group_rejected(self):
         """

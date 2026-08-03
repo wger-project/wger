@@ -56,14 +56,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
     def validate_metric_type(self, metric_type):
         """
-        The metric type of an official category is fixed: the legacy weight
-        endpoint and the health sync rely on it
+        The metric type is fixed once the category exists: the key of a typed
+        one is derived from it (Category.deterministic_id). Assigning a type to
+        an existing category is a move, not a change of this field
         """
-        if self.instance and self.instance.is_official:
-            if metric_type != self.instance.metric_type:
-                raise serializers.ValidationError(
-                    'The metric type of an official category cannot be changed'
-                )
+        if self.instance and metric_type != self.instance.metric_type:
+            raise serializers.ValidationError('The metric type of a category cannot be changed')
         return metric_type
 
     def validate_parent(self, parent):
@@ -125,13 +123,6 @@ class CategorySerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     {'metric_type': f'A {parent.metric_type} group only holds its own components'}
                 )
-
-        # A group is a container. It never carries measurements, so a category
-        # that has some cannot become one
-        if MetricType.is_group(metric_type) and instance and instance.measurement_set.exists():
-            raise serializers.ValidationError(
-                {'metric_type': 'A category with measurements cannot become a group'}
-            )
 
         # Body weight is read through Measurement.value_in(), which converts
         # between kg and lb and knows no third unit
@@ -200,7 +191,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        A category that becomes a group gets its components
+        Fills in the components a group is missing
         """
         category = super().update(instance, validated_data)
         category.create_components()
