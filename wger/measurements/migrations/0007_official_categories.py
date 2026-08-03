@@ -50,7 +50,8 @@ def migrate_weight_to_measurements(apps, schema_editor):
     }
 
     batch = []
-    for entry in WeightEntry.objects.all().iterator():
+    # A zero is not a measurement, but were being added by faulty logic in the BMR calculator
+    for entry in WeightEntry.objects.exclude(weight=0).iterator():
         if entry.user_id not in category_by_user:
             # Entries of users without a profile (created outside the normal
             # signal path)

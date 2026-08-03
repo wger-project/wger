@@ -20,6 +20,10 @@ from datetime import datetime
 
 # Django
 from django import forms
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+)
 from django.forms import BooleanField
 from django.utils.translation import (
     gettext as _,
@@ -37,6 +41,8 @@ from crispy_forms.layout import (
 
 # wger
 from wger.core.models import UserProfile
+from wger.measurements.limits import limits_for
+from wger.measurements.models.category import MetricType
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
@@ -122,6 +128,18 @@ class BmrForm(forms.ModelForm):
 
         # height is optional on the profile, but the BMR calculation needs it
         self.fields['height'].required = True
+
+        # The calculator writes its weight back as a measurement, so it is
+        # bounded like one. The form is prefilled with the profile weight,
+        # which is 0 for a user who has none yet, and submitting that unchanged
+        # is where the stored zeroes come from
+        limits = limits_for(MetricType.BODY_WEIGHT, self.instance.weight_unit)
+        self.fields['weight'].min_value = limits.min
+        self.fields['weight'].max_value = limits.max
+        self.fields['weight'].validators += [
+            MinValueValidator(limits.min),
+            MaxValueValidator(limits.max),
+        ]
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
