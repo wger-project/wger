@@ -129,10 +129,8 @@ class BmrForm(forms.ModelForm):
         # height is optional on the profile, but the BMR calculation needs it
         self.fields['height'].required = True
 
-        # The calculator writes its weight back as a measurement, so it is
-        # bounded like one. The form is prefilled with the profile weight,
-        # which is 0 for a user who has none yet, and submitting that unchanged
-        # is where the stored zeroes come from
+        # The weight is written back as a measurement, so it is bounded like
+        # one. Unbounded, the prefilled 0 of a user without entries was stored
         limits = limits_for(MetricType.BODY_WEIGHT, self.instance.weight_unit)
         self.fields['weight'].min_value = limits.min
         self.fields['weight'].max_value = limits.max

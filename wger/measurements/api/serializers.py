@@ -274,11 +274,8 @@ class MeasurementSerializer(serializers.ModelSerializer):
         kilograms and daily step counts. Since a category can hold mixed units,
         the entry's own unit decides which of them applies.
 
-        Only a value the payload actually carries is checked. Entries predating
-        the limits exist (the weight backfill copies them as they are), and
-        re-checking a stored value would lock every one of them: a PATCH of the
-        notes alone would come back as a 400, and over PowerSync that is a
-        write the client acknowledges and drops.
+        Only a value the payload carries is checked: entries predating the
+        limits exist, and re-checking a stored one would block every edit to it.
         """
         value = data.get('value')
         if value is None or category is None:

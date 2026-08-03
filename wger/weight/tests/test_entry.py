@@ -143,6 +143,34 @@ class WeightEntryUnitTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
         self.assertEqual(entry.value, Decimal('170.00'))
         self.assertEqual(entry.extra_data, {'unit': 'lb'})
 
+    def test_patch_weight_keeps_the_import_provenance(self):
+        """
+        Test that re-stamping the unit leaves the rest of extra_data alone
+        """
+        entry = Measurement.objects.get(pk=self.entry_pk)
+        entry.extra_data = {
+            'unit': 'kg',
+            'source_unit': 'lb',
+            'source_value': 169.76,
+            'recording_method': 'automatic',
+        }
+        entry.save()
+
+        self.authenticate('test')
+        response = self.client.patch(f'{self.url}{self.entry_pk}/', {'weight': 78})
+
+        self.assertEqual(response.status_code, 200)
+        entry.refresh_from_db()
+        self.assertEqual(
+            entry.extra_data,
+            {
+                'unit': 'kg',
+                'source_unit': 'lb',
+                'source_value': 169.76,
+                'recording_method': 'automatic',
+            },
+        )
+
     def test_patch_date_keeps_unit(self):
         """
         Test that updates without a weight keep the stored unit

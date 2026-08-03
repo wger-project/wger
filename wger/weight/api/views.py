@@ -68,10 +68,13 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         """
         A new value is interpreted in the user's current weight unit, updates
-        without a value keep the stored unit
+        without a value keep the stored unit.
+
+        Only the unit key is replaced, the rest of extra_data is the provenance
+        an import left there.
         """
         if 'value' in serializer.validated_data:
             unit = self.request.user.userprofile.weight_unit
-            serializer.save(extra_data={'unit': unit})
+            serializer.save(extra_data={**serializer.instance.extra_data, 'unit': unit})
         else:
             serializer.save()
