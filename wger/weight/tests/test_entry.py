@@ -12,8 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from decimal import Decimal
+
 # Django
+from django.contrib.auth.models import User
 from django.utils import timezone
+
+# Third Party
+from rest_framework import status
 
 # wger
 from wger.core.tests import api_base_test
@@ -45,3 +52,33 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = True
     date = timezone.now() - timezone.timedelta(days=25)
     data = {'weight': 100, 'date': date}
+
+    def test_post_imperial_weight_is_converted_to_kg(self):
+        """
+        Test that users using lb can submit body weight in lb.
+        """
+        self.authenticate('trainer4')
+
+        response = self.client.post(
+            self.url,
+            data={'weight': 365, 'date': self.date},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        entry = WeightEntry.objects.get(pk=response.data['id'])
+        self.assertEqual(entry.user, User.objects.get(username='trainer4'))
+        self.assertEqual(entry.weight, Decimal('165.56'))
+
+    def test_post_imperial_weight_above_kg_limit_fails(self):
+        """
+        Test that lb input is still validated against the kg storage limit.
+        """
+        self.authenticate('trainer4')
+
+        response = self.client.post(
+            self.url,
+            data={'weight': 1323, 'date': self.date},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('weight', response.data)
