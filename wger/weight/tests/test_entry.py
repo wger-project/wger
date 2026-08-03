@@ -27,6 +27,7 @@ from wger.measurements.models import (
     Measurement,
 )
 from wger.measurements.models.category import MetricType
+from wger.utils.api_token import create_token
 
 
 class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -221,3 +222,48 @@ class WeightEntryLimitsTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
 
         self.assertEqual(self.add_entry(360).status_code, 201)
         self.assertEqual(self.add_entry(800).status_code, 400)
+
+
+class WeightEntryTokenAuthTestCase(WgerTestCase):
+    """
+    The legacy token path openScale-sync uses
+
+    It authenticates with `Authorization: Token`, never with JWT, and its
+    update and delete first look an entry up by date. The 2.6 auth migration
+    removed the login endpoints, so this is the contract the sync depends on.
+    """
+
+    url = '/api/v2/weightentry/'
+
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.get(username='test')
+        self.token = create_token(self.user, force_new=True)
+        self.auth = {'HTTP_AUTHORIZATION': f'Token {self.token.key}'}
+
+    def test_crud_with_a_token(self):
+        """
+        Test that a token authenticates the whole find-then-modify cycle
+        """
+        date = timezone.now()
+
+        response = self.client.post(self.url, {'weight': 81.5, 'date': date}, **self.auth)
+        self.assertEqual(response.status_code, 201)
+        pk = response.data['id']
+
+        self.assertEqual(self.client.get(self.url, **self.auth).status_code, 200)
+
+        response = self.client.patch(
+            f'{self.url}{pk}/',
+            {'weight': 82},
+            content_type='application/json',
+            **self.auth,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.client.delete(f'{self.url}{pk}/', **self.auth).status_code, 204)
+
+    def test_without_a_token(self):
+        """
+        Test that the endpoint is not open to anonymous callers
+        """
+        self.assertEqual(self.client.get(self.url).status_code, 403)

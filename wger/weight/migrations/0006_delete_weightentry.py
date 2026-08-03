@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
         # may only be dropped afterwards. On a full rollback this ordering
         # also runs the restore here before measurements.0007 deletes the
         # official categories.
-        ('measurements', '0007_official_categories'),
+        ('measurements', '0007_migrate_weight'),
     ]
 
     operations = [

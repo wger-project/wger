@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
     dependencies = [
         (
             'measurements',
-            '0006_category_externally_synced_category_metric_type_and_more',
+            '0006_health_sync',
         ),
         ('weight', '0005_add_uuid'),
         ('core', '0002_auto_20141225_1512'),
