@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-07-21 20:01+0000\n"
+"PO-Revision-Date: 2026-07-30 17:01+0000\n"
 "Last-Translator: Armando Schiano di Cola <armando.schianodicola@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
@@ -884,7 +884,7 @@ msgstr "Caratteristiche"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "Acceso API"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -892,16 +892,22 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Esistono due modi per autenticarsi tramite API: JWT è il meccanismo "
+"preferito per le applicazioni client, mentre la chiave API statica è pensata "
+"per script personali o integrazioni una tantum."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Refresh token a lunga durata"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"I refresh token consentono agli script e agli strumenti CLI di comunicare "
+"con l'API wger utilizzando il flusso JWT senza dover effettuare l'accesso in "
+"modo interattivo ogni volta."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -934,15 +940,15 @@ msgstr "Creato"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Scade"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Revoca"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Revoca tutti i refresh token"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -950,7 +956,7 @@ msgstr "Sessioni JWT"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Revoca tutte le sessioni JWT"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -965,13 +971,23 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Attualmente c'è <strong>%(counter)s</strong> sessione JWT "
+"attiva\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Attualmente ci sono <strong>%(counter)s</strong> sessioni "
+"JWT attive\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"La revoca delle sessioni JWT disconnette tutti i dispositivi che hanno "
+"ottenuto un refresh token tramite l'endpoint di accesso JWT."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
