@@ -471,7 +471,10 @@ class SlotEntry(models.Model):
                         _requirement_met(log, req_field) for req_field in requirements.rules
                     )
                     if all_fields_met:
-                        max_iterations[field] = i
+                        # Advance exactly one earned increment per qualifying iteration
+                        # instead of jumping to the calendar index, which would
+                        # back-fill increments for skipped, non-qualifying iterations.
+                        max_iterations[field] += 1
                         break
 
         sets = self.calculate_sets(max_iterations['sets'])

@@ -530,6 +530,85 @@ class SlotEntryTestCase(WgerTestCase):
         self.assertEqual(config_data.rir, None)
         self.assertEqual(config_data.weight, 80)
 
+    def _setup_gated_weight_progression(self):
+        """
+        Base weight of 20, +2.5 kg per iteration (repeating), gated on reaching
+        the prescribed 5 repetitions
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=20,
+        ).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['repetitions']},
+        ).save()
+
+    def _log_repetitions(self, iteration: int, repetitions: int):
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_entry=self.slot_entry,
+            iteration=iteration,
+            weight=20,
+            repetitions=repetitions,
+        ).save()
+
+    def test_requirements_no_backfill_after_skipped_iteration(self):
+        """
+        A gated progression only advances one step per qualifying iteration and
+        doesn't back-fill increments for skipped, non-qualifying iterations
+        """
+        self._setup_gated_weight_progression()
+
+        # Didn't qualify at iteration 1, qualified at iteration 2
+        self._log_repetitions(iteration=1, repetitions=3)
+        self._log_repetitions(iteration=2, repetitions=5)
+
+        # No increment earned yet at iteration 2
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(20))
+
+        # Iteration 3 prescribes exactly one earned increment, not two
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('22.5'))
+
+    def test_requirements_gap_between_qualifications(self):
+        """
+        Qualifying at iterations 2 and 4 only earns exactly two increments
+        """
+        self._setup_gated_weight_progression()
+
+        self._log_repetitions(iteration=1, repetitions=3)
+        self._log_repetitions(iteration=2, repetitions=5)
+        self._log_repetitions(iteration=3, repetitions=3)
+        self._log_repetitions(iteration=4, repetitions=5)
+
+        self.assertEqual(self.slot_entry.get_config_data(5).weight, Decimal(25))
+
+    def test_requirements_continuous_qualification(self):
+        """
+        Qualifying at every iteration advances the progression at full speed
+        """
+        self._setup_gated_weight_progression()
+
+        self._log_repetitions(iteration=1, repetitions=5)
+        self._log_repetitions(iteration=2, repetitions=5)
+        self._log_repetitions(iteration=3, repetitions=5)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('22.5'))
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(25))
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal('27.5'))
+
     def test_weight_config_with_logs_and_range(self):
         """
         Test that the weight is correctly calculated for each step / iteration
