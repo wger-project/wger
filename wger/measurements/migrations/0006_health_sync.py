@@ -78,6 +78,11 @@ class Migration(migrations.Migration):
                 verbose_name='Chart type',
             ),
         ),
+        migrations.AddField(
+            model_name='category',
+            name='chart_config',
+            field=models.JSONField(blank=True, default=dict, verbose_name='Chart config'),
+        ),
         migrations.AddConstraint(
             model_name='category',
             constraint=models.UniqueConstraint(

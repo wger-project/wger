@@ -210,6 +210,15 @@ class Category(models.Model):
         null=True,
     )
 
+    # Taste-level chart settings, e.g. {"trend": "sluggish"}: the keys are
+    # client business, a missing one means the client's default. PATCH replaces
+    # the object, so clients merge back keys they do not know (like extra_data)
+    chart_config = models.JSONField(
+        verbose_name='Chart config',
+        default=dict,
+        blank=True,
+    )
+
     # Multi-value measurements (e.g. blood pressure) are modelled as a parent
     # category holding one child category per component. Only leaf categories
     # (no children) carry measurements; nesting is limited to one level.

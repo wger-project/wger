@@ -23,6 +23,7 @@ name and calls ``dispatch(http_verb, ...)``.
 """
 
 # Standard Library
+import json
 import logging
 from typing import Any
 
@@ -88,6 +89,12 @@ class PowerSyncHandler:
     # their queryset.
     pass_user_id_in_context: bool = False
 
+    # JSONField columns of this table. PowerSync clients store them as text, so
+    # they arrive as a string and are decoded before validation. One that is
+    # missing here is refused as "must be an object", permanently, so every
+    # JSONField of the table belongs in this set.
+    json_fields: frozenset[str] = frozenset()
+
     @property
     def label(self) -> str:
         """Human-readable model name used in log lines and error details."""
@@ -103,6 +110,21 @@ class PowerSyncHandler:
         no-op; gallery uses this to drop the binary ``image`` field that only
         REST is allowed to write.
         """
+        return payload
+
+    def _decode_json_fields(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """
+        Decodes the ``json_fields``, which a PowerSync client sends as text.
+        Malformed JSON is passed through unchanged, so the serializer refuses
+        it visibly instead of the field silently arriving empty.
+        """
+        for field in self.json_fields:
+            value = payload.get(field)
+            if isinstance(value, str):
+                try:
+                    payload[field] = json.loads(value) if value else {}
+                except ValueError:
+                    pass
         return payload
 
     def create_save_kwargs(self, payload: dict[str, Any], user_id: int) -> dict[str, Any]:
@@ -126,7 +148,7 @@ class PowerSyncHandler:
             }
 
         logger.debug(f'Received PowerSync payload for {self.label} create: {payload}')
-        payload = self.preprocess_payload(payload)
+        payload = self.preprocess_payload(self._decode_json_fields(payload))
 
         # Idempotent create: a redelivered PUT for a row this user already owns is
         # a no-op success, not a PK-conflict error (PowerSync redelivers writes).
@@ -149,7 +171,7 @@ class PowerSyncHandler:
 
     def handle_update(self, payload: dict[str, Any], user_id: int) -> dict | None:
         logger.debug(f'Received PowerSync payload for {self.label} update: {payload}')
-        payload = self.preprocess_payload(payload)
+        payload = self.preprocess_payload(self._decode_json_fields(payload))
 
         entry = self._get_or_none(payload, user_id)
         if entry is None:

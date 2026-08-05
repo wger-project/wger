@@ -58,6 +58,38 @@ class CategoryPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
 
     fk_ownership = (('parent', CATEGORY_OTHER_UUID),)
 
+    def test_create_decodes_chart_config_string(self):
+        """
+        PowerSync clients store JSON columns as text; the handler decodes the
+        string before validation
+        """
+        self.authenticate()
+        payload = {**self.create_payload, 'chart_config': '{"trend": "sluggish"}'}
+        response = self.push('PUT', payload)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
+        self.assertEqual(
+            Category.objects.get(pk=payload['id']).chart_config,
+            {'trend': 'sluggish'},
+        )
+
+    def test_update_decodes_chart_config_string(self):
+        """
+        Changing the setting on an existing category, which is the path the
+        form takes
+        """
+        self.authenticate()
+        payload = {**self.update_payload, 'chart_config': '{"trend": "reactive"}'}
+        response = self.push('PATCH', payload)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
+        self.assertEqual(
+            Category.objects.get(pk=self.pk_owned).chart_config,
+            {'trend': 'reactive'},
+        )
+
 
 class TypedCategoryPowerSyncTestCase(powersync_base_test.PowerSyncBaseTestCase):
     """

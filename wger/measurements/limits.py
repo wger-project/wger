@@ -37,6 +37,12 @@ unbounded, so this is what keeps clients from pushing arbitrarily large blobs;
 the largest real payload (the importer's provenance) is ~200 bytes.
 """
 
+CHART_CONFIG_MAX_BYTES = 1000
+"""
+Upper bound for a category's ``chart_config``, same purpose as
+``EXTRA_DATA_MAX_BYTES``; the real payload is a few dozen bytes.
+"""
+
 
 class Limits(NamedTuple):
     """

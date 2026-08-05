@@ -120,6 +120,66 @@ class CategoryGroupApiTestCase(WgerTestCase):
         self.assertFalse(Category.objects.filter(pk=child.data['id']).exists())
 
 
+class ChartConfigApiTestCase(WgerTestCase):
+    """
+    The per-category chart settings
+    """
+
+    # Pinned in test-measurement-categories.json
+    category = 'cccccccc-cccc-cccc-cccc-000000000003'  # user 'test'
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+        self.url = reverse('measurement-category-detail', kwargs={'pk': self.category})
+
+    def patch_config(self, chart_config):
+        return self.client.patch(
+            self.url,
+            {'chart_config': chart_config},
+            content_type='application/json',
+        )
+
+    def test_defaults_to_an_empty_object(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['chart_config'], {})
+
+    def test_roundtrip(self):
+        """
+        Test that the keys are stored as sent: they are client business
+        """
+        response = self.patch_config({'trend': 'sluggish', 'average_window': 14})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['chart_config'], {'trend': 'sluggish', 'average_window': 14})
+
+    def test_unknown_keys_are_kept(self):
+        """
+        Test that a key this release knows nothing about is not dropped
+        """
+        response = self.patch_config({'goal_line': 75})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Category.objects.get(pk=self.category).chart_config, {'goal_line': 75})
+
+    def test_non_object_rejected(self):
+        response = self.patch_config(['sluggish'])
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('chart_config', response.data)
+
+    def test_size_bound(self):
+        """
+        Test that the column cannot be used as a blob store
+        """
+        response = self.patch_config({'trend': 'x' * 1000})
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('chart_config', response.data)
+
+
 class TypedCategoryTestCase(WgerTestCase):
     """
     Identity and structural rules of the categories with a metric type

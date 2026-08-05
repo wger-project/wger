@@ -22,6 +22,7 @@ from rest_framework import serializers
 
 # wger
 from wger.measurements.limits import (
+    CHART_CONFIG_MAX_BYTES,
     EXTRA_DATA_MAX_BYTES,
     VALUE_DECIMAL_PLACES,
     VALUE_MAX_DIGITS,
@@ -37,6 +38,20 @@ from wger.measurements.models.category import (
 )
 
 
+def validate_json_object(value, field: str, max_bytes: int):
+    """
+    Refuses anything that is not an object, or whose compact serialization
+    (what the column stores) is larger than ``max_bytes``
+    """
+    if not isinstance(value, dict):
+        raise serializers.ValidationError(f'{field} must be an object')
+
+    size = len(json.dumps(value, separators=(',', ':'), ensure_ascii=False).encode())
+    if size > max_bytes:
+        raise serializers.ValidationError(f'{field} must be at most {max_bytes} bytes, got {size}')
+    return value
+
+
 class CategorySerializer(serializers.ModelSerializer):
     """
     Measurement category serializer
@@ -50,11 +65,18 @@ class CategorySerializer(serializers.ModelSerializer):
             'unit',
             'metric_type',
             'chart_type',
+            'chart_config',
             'parent',
             'order',
             'is_official',
         )
         read_only_fields = ('is_official',)
+
+    def validate_chart_config(self, chart_config):
+        """
+        Only the shape is the server's business, the keys are the clients'
+        """
+        return validate_json_object(chart_config, 'chart_config', CHART_CONFIG_MAX_BYTES)
 
     def validate_metric_type(self, metric_type):
         """
@@ -249,16 +271,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
         """
         The unit key holds the unit the value was entered in
         """
-        if not isinstance(extra_data, dict):
-            raise serializers.ValidationError('extra_data must be an object')
-
-        # Compact separators: measure what the column stores, not whitespace
-        size = len(json.dumps(extra_data, separators=(',', ':'), ensure_ascii=False).encode())
-        if size > EXTRA_DATA_MAX_BYTES:
-            raise serializers.ValidationError(
-                f'extra_data must be at most {EXTRA_DATA_MAX_BYTES} bytes, got {size}'
-            )
-        return extra_data
+        return validate_json_object(extra_data, 'extra_data', EXTRA_DATA_MAX_BYTES)
 
     def validate(self, data):
         """
