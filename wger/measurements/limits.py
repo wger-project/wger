@@ -30,6 +30,13 @@ Largest value the column can hold. It is what a category without a metric type
 is bounded by, since nothing about a free-form category says more.
 """
 
+EXTRA_DATA_MAX_BYTES = 1000
+"""
+Upper bound for one entry's ``extra_data`` (compact UTF-8 JSON). The column is
+unbounded, so this is what keeps clients from pushing arbitrarily large blobs;
+the largest real payload (the importer's provenance) is ~200 bytes.
+"""
+
 
 class Limits(NamedTuple):
     """

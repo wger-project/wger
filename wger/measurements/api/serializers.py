@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import json
 from decimal import Decimal
 
 # Third Party
@@ -21,6 +22,7 @@ from rest_framework import serializers
 
 # wger
 from wger.measurements.limits import (
+    EXTRA_DATA_MAX_BYTES,
     VALUE_DECIMAL_PLACES,
     VALUE_MAX_DIGITS,
     limits_for,
@@ -249,6 +251,13 @@ class MeasurementSerializer(serializers.ModelSerializer):
         """
         if not isinstance(extra_data, dict):
             raise serializers.ValidationError('extra_data must be an object')
+
+        # Compact separators: measure what the column stores, not whitespace
+        size = len(json.dumps(extra_data, separators=(',', ':'), ensure_ascii=False).encode())
+        if size > EXTRA_DATA_MAX_BYTES:
+            raise serializers.ValidationError(
+                f'extra_data must be at most {EXTRA_DATA_MAX_BYTES} bytes, got {size}'
+            )
         return extra_data
 
     def validate(self, data):

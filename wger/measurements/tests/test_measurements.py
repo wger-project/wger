@@ -364,6 +364,47 @@ class MeasurementExtraDataApiTestCase(WgerTestCase):
         self.assertEqual(response.data['extra_data'], {'unit': 'lb'})
         self.assertEqual(Measurement.objects.get(pk=response.data['id']).unit, 'lb')
 
+    def test_extra_data_size_bound(self):
+        """
+        Test that an oversized extra_data blob is refused
+
+        The column is an unbounded JSONField, so this is the only thing keeping
+        a client from pushing arbitrarily large blobs into the table
+        """
+        response = self.client.post(
+            self.url,
+            {
+                'category': 'cccccccc-cccc-cccc-cccc-0000000000b0',
+                'date': '2023-05-01T12:00:00Z',
+                'value': 180,
+                'extra_data': {'unit': 'lb', 'blob': 'x' * 1000},
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('extra_data', response.data)
+
+    def test_extra_data_size_bound_leaves_room(self):
+        """
+        Test that a large but sane extra_data payload still passes
+
+        The importer's provenance is ~200 bytes; the bound is headroom, not a
+        fitted cap
+        """
+        response = self.client.post(
+            self.url,
+            {
+                'category': 'cccccccc-cccc-cccc-cccc-0000000000b0',
+                'date': '2023-05-01T12:00:00Z',
+                'value': 180,
+                'extra_data': {'unit': 'lb', 'source_name': 'x' * 900},
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 201)
+
     def test_invalid_body_weight_unit(self):
         """
         Test that body weight entries only accept kg and lb as unit
