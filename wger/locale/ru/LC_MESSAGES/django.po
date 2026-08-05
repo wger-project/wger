@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-01-03 23:01+0000\n"
-"Last-Translator: Gevorg Danielyan <forza-dgn@ya.ru>\n"
+"PO-Revision-Date: 2026-08-06 10:02+0000\n"
+"Last-Translator: tovarishhh <bankir35@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.8.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -424,7 +424,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Почти у цели!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -438,6 +438,8 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Ниже приведен код для подтверждения вашей электронной почты. Пожалуйста, "
+"введите его в открытом окне вашего браузера."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
@@ -473,6 +475,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Ваш email-адрес используется для сброса пароля и, опционально, напоминаний о "
+"тренировках. Новый адрес станет активным только после подтверждения по "
+"присланной на него ссылке."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -516,7 +521,7 @@ msgstr "Нет аккаунта?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Быстрый вход"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
@@ -524,11 +529,11 @@ msgstr ""
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "или войдите в систему с помощью"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "У вас уже есть учетная запись?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -654,7 +659,7 @@ msgstr "Галерея"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Награды"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -859,7 +864,7 @@ msgstr "Условия обслуживания"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Язык браузера"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -2199,11 +2204,11 @@ msgstr ""
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 5 000 кг"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 20 000 кг"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
@@ -2415,7 +2420,7 @@ msgstr ""
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
-msgstr "Секция"
+msgstr "Единица"
 
 #: nutrition/forms.py:183 nutrition/templates/rate/form.html:77
 msgid "Basic caloric intake"
