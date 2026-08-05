@@ -95,6 +95,7 @@ class ChartType(models.TextChoices):
     BAR = 'bar'
     HEATMAP = 'heatmap'
     DELTA = 'delta'
+    DISTRIBUTION = 'distribution'
 
 
 GROUP_COMPONENTS: dict[str, list[tuple[str, str]]] = {
