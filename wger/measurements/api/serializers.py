@@ -269,9 +269,24 @@ class MeasurementSerializer(serializers.ModelSerializer):
 
     def validate_extra_data(self, extra_data):
         """
-        The unit key holds the unit the value was entered in
+        The unit key holds the unit the value was entered in, min and max the
+        range a daily aggregate summarises.
+
+        Those two have to be numbers: the chart aggregate casts them to a
+        decimal in SQL, and Postgres refuses to cast a JSON string, even a
+        numeric one. A single entry written with `"48"` would take down every
+        chart read of its category.
         """
-        return validate_json_object(extra_data, 'extra_data', EXTRA_DATA_MAX_BYTES)
+        validate_json_object(extra_data, 'extra_data', EXTRA_DATA_MAX_BYTES)
+
+        for key in ('min', 'max'):
+            value = (extra_data or {}).get(key)
+            if value is not None and not isinstance(value, (int, float)):
+                raise serializers.ValidationError(
+                    f'The {key} of an aggregate has to be a number, not {type(value).__name__}'
+                )
+
+        return extra_data
 
     def validate(self, data):
         """

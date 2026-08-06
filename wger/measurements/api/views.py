@@ -23,6 +23,10 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 # Third Party
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+)
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -130,6 +134,29 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
         except ValueError:
             raise InvalidBucket('max_points must be a number')
 
+    @extend_schema(
+        summary='Read the entries condensed into chart points',
+        parameters=[
+            OpenApiParameter(
+                'bucket',
+                description='Calendar unit to condense into. The default picks the finest one '
+                'that keeps the series under max_points.',
+                enum=['auto', 'hour', 'day', 'week', 'month'],
+            ),
+            OpenApiParameter(
+                'tz',
+                description='IANA name of the zone the buckets are cut in, the server zone by '
+                'default. The column is UTC, and a reading after midnight belongs to the day '
+                'the user had it.',
+            ),
+            OpenApiParameter(
+                'max_points',
+                type=int,
+                description=f'Points the auto bucket aims for, {DEFAULT_MAX_POINTS} by default',
+            ),
+        ],
+        responses={200: BucketSerializer(many=True)},
+    )
     @action(detail=False, methods=['get'], serializer_class=BucketSerializer)
     def aggregate(self, request):
         """
@@ -154,6 +181,19 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
 
         return Response(BucketSerializer(rows, many=True).data)
 
+    @extend_schema(
+        summary='Read how often each value occurred',
+        parameters=[
+            OpenApiParameter('tz', description='IANA name of the zone the days are cut in'),
+            OpenApiParameter(
+                'summed_per_day',
+                type=bool,
+                description='Count daily totals rather than single readings, for the metrics '
+                'whose samples mean nothing on their own (steps, sleep)',
+            ),
+        ],
+        responses={200: ValueCountSerializer(many=True)},
+    )
     @action(
         detail=False,
         url_path='value-counts',

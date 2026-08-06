@@ -190,3 +190,18 @@ class AggregateApiTestCase(WgerTestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]['value'], '5000.00')
         self.assertEqual(rows[0]['count'], 2)
+
+    def test_a_bound_stored_as_a_string_still_reads(self):
+        # Postgres refuses to cast a JSON string to numeric, even a numeric
+        # one, so a row predating the write validation would otherwise take
+        # every chart read of its category down with it
+        self.add(
+            timezone.make_aware(datetime.datetime(2026, 5, 4, 8)),
+            70,
+            extra={'min': '48', 'max': '165'},
+        )
+
+        rows = self.aggregate(bucket='day', tz='UTC')
+
+        self.assertEqual(rows[0]['min'], '48.00')
+        self.assertEqual(rows[0]['max'], '165.00')

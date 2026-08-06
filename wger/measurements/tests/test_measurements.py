@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import json
 from decimal import Decimal
 
 # Django
@@ -464,3 +465,45 @@ class MeasurementExtraDataApiTestCase(WgerTestCase):
         )
 
         self.assertEqual(response.status_code, 201)
+
+
+class AggregateBoundValidationTestCase(WgerTestCase):
+    """
+    The min and max of a daily aggregate have to be numbers: the chart
+    aggregate casts them in SQL, and a string breaks every read of the category
+    """
+
+    category_id = 'cccccccc-cccc-cccc-cccc-000000000002'
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+
+    def post(self, extra_data):
+        return self.client.post(
+            reverse('measurement-list'),
+            json.dumps(
+                {
+                    'category': self.category_id,
+                    'date': '2026-05-04T08:00:00Z',
+                    'value': '70.00',
+                    'extra_data': extra_data,
+                }
+            ),
+            content_type='application/json',
+        )
+
+    def test_a_numeric_bound_is_accepted(self):
+        response = self.post({'min': 48, 'max': 165.5})
+
+        self.assertEqual(response.status_code, 201, response.data)
+
+    def test_a_bound_written_as_a_string_is_refused(self):
+        for extra_data in ({'min': '48'}, {'max': 'abc'}):
+            response = self.post(extra_data)
+
+            self.assertEqual(response.status_code, 400)
+            self.assertIn('extra_data', response.data)
+
+    def test_extra_data_without_bounds_is_untouched(self):
+        self.assertEqual(self.post({'unit': 'kg', 'source_name': 'Withings'}).status_code, 201)

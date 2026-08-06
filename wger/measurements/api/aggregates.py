@@ -37,6 +37,7 @@ from django.db.models import (
     Min,
     Sum,
 )
+from django.db.models.fields.json import KeyTextTransform
 from django.db.models.functions import (
     Cast,
     Coalesce,
@@ -92,9 +93,12 @@ def _bounds_expression(key: str, aggregate):
     stands for in `extra_data`, and contributes that rather than its mean, so
     condensing an aggregate keeps the true extremes.
     """
+    # Read as text rather than as JSON: Postgres refuses to cast a JSON string
+    # to numeric, even a numeric one, and rows predating the write validation
+    # can hold `"48"`
     return aggregate(
         Coalesce(
-            Cast(F(f'extra_data__{key}'), DecimalField(max_digits=8, decimal_places=2)),
+            Cast(KeyTextTransform(key, 'extra_data'), DecimalField(max_digits=8, decimal_places=2)),
             F('value'),
         )
     )
@@ -134,33 +138,20 @@ def bucket_rows(queryset, unit: str, tz, max_points: int = DEFAULT_MAX_POINTS) -
     if unit not in BUCKET_UNITS:
         raise InvalidBucket(f'Unknown bucket: {unit}')
 
-    rows = (
+    return list(
         queryset.annotate(
             start=BUCKET_UNITS[unit]('date', tzinfo=tz),
-            stored_unit=F('extra_data__unit'),
+            unit=F('extra_data__unit'),
         )
-        .values('category', 'start', 'stored_unit')
+        .values('category', 'start', 'unit')
         .annotate(
             count=Count('id'),
-            total=Sum('value'),
-            low=_bounds_expression('min', Min),
-            high=_bounds_expression('max', Max),
+            sum=Sum('value'),
+            min=_bounds_expression('min', Min),
+            max=_bounds_expression('max', Max),
         )
         .order_by('start')
     )
-
-    return [
-        {
-            'category': row['category'],
-            'start': row['start'],
-            'unit': row['stored_unit'],
-            'count': row['count'],
-            'sum': row['total'],
-            'min': row['low'],
-            'max': row['high'],
-        }
-        for row in rows
-    ]
 
 
 def value_count_rows(queryset, tz, summed_per_day: bool = False) -> list[dict]:
@@ -175,19 +166,21 @@ def value_count_rows(queryset, tz, summed_per_day: bool = False) -> list[dict]:
     than single readings, for the metrics whose samples mean nothing alone.
     """
     if summed_per_day:
+        # A day is one value here, so the totals are counted in python: the
+        # database has already grouped them into days
         daily = (
-            queryset.annotate(day=TruncDay('date', tzinfo=tz), stored_unit=F('extra_data__unit'))
-            .values('category', 'day', 'stored_unit')
+            queryset.annotate(day=TruncDay('date', tzinfo=tz), unit=F('extra_data__unit'))
+            .values('category', 'day', 'unit')
             .annotate(value=Sum('value'), newest=Max('date'))
         )
         counted: dict[tuple, dict] = {}
         for row in daily:
-            key = (row['category'], row['stored_unit'], row['value'])
+            key = (row['category'], row['unit'], row['value'])
             entry = counted.setdefault(
                 key,
                 {
                     'category': row['category'],
-                    'unit': row['stored_unit'],
+                    'unit': row['unit'],
                     'value': row['value'],
                     'count': 0,
                     'newest': row['newest'],
@@ -197,20 +190,9 @@ def value_count_rows(queryset, tz, summed_per_day: bool = False) -> list[dict]:
             entry['newest'] = max(entry['newest'], row['newest'])
         return sorted(counted.values(), key=lambda r: (str(r['category']), r['value']))
 
-    rows = (
-        queryset.annotate(stored_unit=F('extra_data__unit'))
-        .values('category', 'stored_unit', 'value')
+    return list(
+        queryset.annotate(unit=F('extra_data__unit'))
+        .values('category', 'unit', 'value')
         .annotate(count=Count('id'), newest=Max('date'))
         .order_by('value')
     )
-
-    return [
-        {
-            'category': row['category'],
-            'unit': row['stored_unit'],
-            'value': row['value'],
-            'count': row['count'],
-            'newest': row['newest'],
-        }
-        for row in rows
-    ]
