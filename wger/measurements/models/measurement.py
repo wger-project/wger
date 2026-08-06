@@ -158,9 +158,13 @@ class Measurement(models.Model):
     def body_weight_for(cls, user: User) -> models.QuerySet:
         """
         Returns the user's body weight entries: the measurements in the
-        official body-weight category
+        official body-weight category.
+
+        The category comes along: every consumer reads it back per entry, be it
+        for the unit an entry without `extra_data` falls back to or for the
+        owner the legacy weight serializer returns
         """
-        return cls.objects.filter(
+        return cls.objects.select_related('category').filter(
             category__user=user,
             category__metric_type=MetricType.BODY_WEIGHT,
             category__is_official=True,

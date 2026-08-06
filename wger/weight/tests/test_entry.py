@@ -17,6 +17,9 @@ from decimal import Decimal
 
 # Django
 from django.contrib.auth.models import User
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
+from django.urls import reverse
 from django.utils import timezone
 
 # wger
@@ -267,3 +270,45 @@ class WeightEntryTokenAuthTestCase(WgerTestCase):
         Test that the endpoint is not open to anonymous callers
         """
         self.assertEqual(self.client.get(self.url).status_code, 403)
+
+
+class WeightEntryQueryCountTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
+    """
+    The endpoint returns the owner and the unit of every entry, both of which
+    live on the category. openScale lists the whole history in one call
+    """
+
+    def add_entries(self, count: int, offset: int):
+        category = Category.objects.get(
+            user__username='test',
+            metric_type=MetricType.BODY_WEIGHT,
+            is_official=True,
+        )
+        Measurement.objects.bulk_create(
+            Measurement(
+                category=category,
+                value=70,
+                date=timezone.now() - timezone.timedelta(days=offset + i),
+            )
+            for i in range(count)
+        )
+
+    def test_listing_does_not_query_per_entry(self):
+        """
+        Test that the query count of a listing does not grow with the entries
+        """
+        self.authenticate('test')
+        url = reverse('weightentry-list')
+
+        # Warms the caches a first request fills (auth, user profile)
+        self.client.get(url)
+
+        self.add_entries(10, offset=100)
+        with CaptureQueriesContext(connection) as short_list:
+            self.assertEqual(self.client.get(url, {'limit': 100}).status_code, 200)
+
+        self.add_entries(10, offset=200)
+        with CaptureQueriesContext(connection) as long_list:
+            self.assertEqual(self.client.get(url, {'limit': 100}).status_code, 200)
+
+        self.assertEqual(len(long_list.captured_queries), len(short_list.captured_queries))
