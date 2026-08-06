@@ -505,5 +505,12 @@ class AggregateBoundValidationTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 400)
             self.assertIn('extra_data', response.data)
 
+    def test_a_boolean_bound_is_refused(self):
+        for extra_data in ({'min': True}, {'max': False}):
+            response = self.post(extra_data)
+
+            self.assertEqual(response.status_code, 400)
+            self.assertIn('extra_data', response.data)
+
     def test_extra_data_without_bounds_is_untouched(self):
         self.assertEqual(self.post({'unit': 'kg', 'source_name': 'Withings'}).status_code, 201)

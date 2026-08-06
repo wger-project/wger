@@ -275,13 +275,16 @@ class MeasurementSerializer(serializers.ModelSerializer):
         Those two have to be numbers: the chart aggregate casts them to a
         decimal in SQL, and Postgres refuses to cast a JSON string, even a
         numeric one. A single entry written with `"48"` would take down every
-        chart read of its category.
+        chart read of its category. Booleans are rejected as well, `bool` is a
+        subclass of `int` but stored as `true`, which no cast accepts either.
         """
         validate_json_object(extra_data, 'extra_data', EXTRA_DATA_MAX_BYTES)
 
         for key in ('min', 'max'):
             value = (extra_data or {}).get(key)
-            if value is not None and not isinstance(value, (int, float)):
+            if value is not None and (
+                isinstance(value, bool) or not isinstance(value, (int, float))
+            ):
                 raise serializers.ValidationError(
                     f'The {key} of an aggregate has to be a number, not {type(value).__name__}'
                 )
