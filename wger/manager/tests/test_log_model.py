@@ -206,3 +206,31 @@ class LogModelTestCase(WgerTestCase):
         log1.save()
 
         self.assertEqual(log1.next_log, log2)
+
+    def test_notes_saved_and_retrieved(self):
+        """
+        Notes are persisted to the database and returned on retrieval
+        """
+
+        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
+        log.notes = 'Felt strong, increase weight next session'
+        log.save()
+
+        log.refresh_from_db()
+        self.assertEqual(log.notes, 'Felt strong, increase weight next session')
+
+    def test_notes_optional(self):
+        """
+        Notes default to None and are not required
+        """
+
+        log = WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            weight=10,
+            repetitions=10,
+        )
+        log.save()
+
+        log.refresh_from_db()
+        self.assertIsNone(log.notes)
