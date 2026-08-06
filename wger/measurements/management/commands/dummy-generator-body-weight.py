@@ -27,7 +27,6 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
-from wger.measurements.models.category import MetricType
 
 
 logger = logging.getLogger(__name__)
@@ -72,10 +71,8 @@ class Command(BaseCommand):
             new_entries = []
             self.stdout.write(f'   - generating for {user.username}')
 
-            category = Category.get_or_create_official(
+            category = Category.get_or_create_body_weight(
                 user,
-                MetricType.BODY_WEIGHT,
-                name='Body weight',
                 unit=user.userprofile.weight_unit,
             )
             existing_entries = [i.date for i in Measurement.objects.filter(category=category)]

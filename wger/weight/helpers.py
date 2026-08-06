@@ -89,12 +89,7 @@ def parse_weight_csv(request, cleaned_data):
     # Create the valid weight entries
     if distinct_weight_entries:
         profile_unit = request.user.userprofile.weight_unit
-        category = Category.get_or_create_official(
-            request.user,
-            MetricType.BODY_WEIGHT,
-            name='Body weight',
-            unit=profile_unit,
-        )
+        category = Category.get_or_create_body_weight(request.user, unit=profile_unit)
         for date, weight in distinct_weight_entries:
             weight_list.append(
                 Measurement(

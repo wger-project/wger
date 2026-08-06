@@ -42,7 +42,6 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
-from wger.measurements.models.category import MetricType
 
 
 class DemoUserTestCase(WgerTestCase):
@@ -111,12 +110,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
 
-        category = Category.get_or_create_official(
-            user,
-            MetricType.BODY_WEIGHT,
-            name='Body weight',
-            unit='kg',
-        )
+        category = Category.get_or_create_body_weight(user, unit='kg')
         temp = []
         for i in range(1, 5):
             creation_date = timezone.now() - datetime.timedelta(days=i)

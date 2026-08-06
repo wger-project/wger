@@ -40,7 +40,6 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
-from wger.measurements.models.category import MetricType
 from wger.utils.constants import TWOPLACES
 from wger.utils.units import (
     AbstractHeight,
@@ -528,12 +527,7 @@ class UserProfile(models.Model):
         """
         Create a new weight entry and return it
         """
-        category = Category.get_or_create_official(
-            self.user,
-            MetricType.BODY_WEIGHT,
-            name='Body weight',
-            unit=self.weight_unit,
-        )
+        category = Category.get_or_create_body_weight(self.user, unit=self.weight_unit)
         entry = Measurement(
             category=category,
             value=weight,

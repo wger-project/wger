@@ -307,3 +307,23 @@ class Category(models.Model):
             defaults={'name': name, 'unit': unit},
         )
         return category
+
+    @classmethod
+    def get_or_create_body_weight(cls, user, *, unit: str):
+        """
+        Returns the user's official body weight category.
+
+        Everything writing a body weight goes through here (signals, profile,
+        the legacy weight endpoint, the CSV import), so the name a category is
+        created with is decided in one place.
+
+        The unit is passed in rather than read off the profile: every caller
+        already holds it, and the profile instance in hand is the one that
+        knows about unsaved changes.
+        """
+        return cls.get_or_create_official(
+            user,
+            MetricType.BODY_WEIGHT,
+            name='Body weight',
+            unit=unit,
+        )

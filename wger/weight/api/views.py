@@ -23,7 +23,6 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
-from wger.measurements.models.category import MetricType
 from wger.weight.api.filtersets import WeightEntryFilterSet
 from wger.weight.api.serializers import WeightEntrySerializer
 
@@ -57,12 +56,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         The value is interpreted in the user's preferred weight unit.
         """
         profile = self.request.user.userprofile
-        category = Category.get_or_create_official(
-            self.request.user,
-            MetricType.BODY_WEIGHT,
-            name='Body weight',
-            unit=profile.weight_unit,
-        )
+        category = Category.get_or_create_body_weight(self.request.user, unit=profile.weight_unit)
         serializer.save(category=category, extra_data={'unit': profile.weight_unit})
 
     def perform_update(self, serializer):

@@ -267,12 +267,7 @@ class Command(BaseCommand):
         metric_type, name, unit = CATEGORIES[metric]
 
         if metric_type == MetricType.BODY_WEIGHT:
-            return Category.get_or_create_official(
-                user,
-                metric_type,
-                name=name,
-                unit=user.userprofile.weight_unit,
-            )
+            return Category.get_or_create_body_weight(user, unit=user.userprofile.weight_unit)
 
         category, _ = Category.objects.get_or_create(
             id=Category.deterministic_id(user.pk, metric_type),
