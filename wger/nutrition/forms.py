@@ -132,8 +132,6 @@ class BmrForm(forms.ModelForm):
         # The weight is written back as a measurement, so it is bounded like
         # one. Unbounded, the prefilled 0 of a user without entries was stored
         limits = limits_for(MetricType.BODY_WEIGHT, self.instance.weight_unit)
-        self.fields['weight'].min_value = limits.min
-        self.fields['weight'].max_value = limits.max
         self.fields['weight'].validators += [
             MinValueValidator(limits.min),
             MaxValueValidator(limits.max),
