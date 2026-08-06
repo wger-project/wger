@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2025-02-25 19:10+0000\n"
-"Last-Translator: Karol Solecki <karolsol203@gmail.com>\n"
+"PO-Revision-Date: 2026-08-06 10:01+0000\n"
+"Last-Translator: Dominik Matras <matrasss02@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.10.2-dev\n"
+"X-Generator: Weblate 2026.8.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -155,10 +155,12 @@ msgstr "Potwierdź"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Twoje konto nie posiada hasła. Wpisz swoją nazwę użytkownika \"{username}\" "
+"do potwierdzenia."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Wprowadzona nazwa użytkownika jest niepoprawna"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -345,11 +347,11 @@ msgstr "Liczba dni od ostatniego wpisu wagi (wpisz 0 by deaktywować)"
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Włącz trofea"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Włącz lub wyłącz system trofeów dla tego użytkownika"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -365,7 +367,7 @@ msgstr "Czas"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "Dystans"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -383,7 +385,7 @@ msgstr "Typ jednostki"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Rodzaj jednostki (powtórzenia, czas lub odległość)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -418,7 +420,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Już prawie koniec!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
