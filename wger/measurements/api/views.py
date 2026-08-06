@@ -23,13 +23,24 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 # Third Party
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # wger
+from wger.measurements.api.aggregates import (
+    DEFAULT_MAX_POINTS,
+    InvalidBucket,
+    bucket_rows,
+    parse_timezone,
+    value_count_rows,
+)
 from wger.measurements.api.filtersets import MeasurementEntryFilterSet
 from wger.measurements.api.serializers import (
+    BucketSerializer,
     CategorySerializer,
     MeasurementSerializer,
+    ValueCountSerializer,
 )
 from wger.measurements.models import (
     Category,
@@ -112,3 +123,58 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
             return Measurement.objects.none()
 
         return Measurement.objects.filter(category__user=self.request.user)
+
+    def _read_max_points(self) -> int:
+        try:
+            return max(1, int(self.request.query_params.get('max_points', DEFAULT_MAX_POINTS)))
+        except ValueError:
+            raise InvalidBucket('max_points must be a number')
+
+    @action(detail=False, methods=['get'], serializer_class=BucketSerializer)
+    def aggregate(self, request):
+        """
+        The entries condensed into what a chart draws: one row per category,
+        calendar bucket and stored unit.
+
+        Takes the filters of the list endpoint (`category`, `category__in`,
+        `date__gte`, ...) plus `bucket` (`auto`, the default, or one of hour,
+        day, week, month), `tz` and `max_points`. A separate route rather than
+        a mode of the list, because a bucket is not a measurement: it has no
+        id, and nothing that reads measurements should have to tell them apart.
+        """
+        try:
+            rows = bucket_rows(
+                self.filter_queryset(self.get_queryset()),
+                request.query_params.get('bucket', 'auto'),
+                parse_timezone(request.query_params.get('tz')),
+                self._read_max_points(),
+            )
+        except InvalidBucket as e:
+            return Response({'detail': str(e)}, status=400)
+
+        return Response(BucketSerializer(rows, many=True).data)
+
+    @action(
+        detail=False,
+        url_path='value-counts',
+        methods=['get'],
+        serializer_class=ValueCountSerializer,
+    )
+    def value_counts(self, request):
+        """
+        How often each value occurred, which is what a histogram bins.
+
+        Takes the same filters, plus `tz` and `summed_per_day` for the metrics
+        whose samples mean nothing on their own (steps, sleep), which are
+        counted as daily totals instead.
+        """
+        try:
+            rows = value_count_rows(
+                self.filter_queryset(self.get_queryset()),
+                parse_timezone(request.query_params.get('tz')),
+                request.query_params.get('summed_per_day') in ('1', 'true', 'True'),
+            )
+        except InvalidBucket as e:
+            return Response({'detail': str(e)}, status=400)
+
+        return Response(ValueCountSerializer(rows, many=True).data)

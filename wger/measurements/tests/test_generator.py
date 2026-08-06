@@ -81,6 +81,49 @@ class MeasurementGeneratorTestCase(WgerTestCase):
         self.assertFalse(group.measurement_set.exists())
         self.assertTrue(all(c.measurement_set.exists() for c in components))
 
+    def test_generator_health_heart_rate_is_a_daily_aggregate(self):
+        """
+        The default and --realistic write what the importer stores, one entry
+        per day, rather than the raw samples the platform delivers
+        """
+        for options in ([], ['--realistic']):
+            with self.subTest(options=options):
+                Measurement.objects.all().delete()
+
+                call_command(
+                    'dummy-generator-health-measurements',
+                    '--days',
+                    5,
+                    '--metrics',
+                    'heart_rate',
+                    *options,
+                )
+
+                category = Category.objects.get(user_id=1, metric_type=MetricType.HEART_RATE)
+                self.assertEqual(category.measurement_set.count(), 6)
+
+    def test_generator_health_raw_samples(self):
+        """
+        --raw-samples writes the platform volume, which is what the load tests
+        need and what the importer never stores
+        """
+        # Arrange
+        Measurement.objects.all().delete()
+
+        # Act
+        call_command(
+            'dummy-generator-health-measurements',
+            '--days',
+            5,
+            '--metrics',
+            'heart_rate',
+            '--raw-samples',
+        )
+
+        # Assert
+        category = Category.objects.get(user_id=1, metric_type=MetricType.HEART_RATE)
+        self.assertGreater(category.measurement_set.count(), 100)
+
 
 class BodyWeightGeneratorTestCase(WgerTestCase):
     def test_generator(self):

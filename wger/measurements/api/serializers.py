@@ -315,3 +315,32 @@ class MeasurementSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'value': f'Value must be between {limits.min} and {limits.max}'}
             )
+
+
+class BucketSerializer(serializers.Serializer):
+    """
+    One calendar bucket of a category's entries, see `api.aggregates`.
+
+    Read-only: buckets are derived, there is nothing to write back.
+    """
+
+    category = serializers.UUIDField(read_only=True)
+    start = serializers.DateTimeField(read_only=True)
+    unit = serializers.CharField(read_only=True, allow_null=True)
+    count = serializers.IntegerField(read_only=True)
+    sum = serializers.DecimalField(read_only=True, max_digits=10, decimal_places=2)
+    min = serializers.DecimalField(read_only=True, max_digits=10, decimal_places=2)
+    max = serializers.DecimalField(read_only=True, max_digits=10, decimal_places=2)
+
+
+class ValueCountSerializer(serializers.Serializer):
+    """
+    How often one value occurred, and when it was measured last. Read-only for
+    the same reason as `BucketSerializer`.
+    """
+
+    category = serializers.UUIDField(read_only=True)
+    value = serializers.DecimalField(read_only=True, max_digits=8, decimal_places=2)
+    unit = serializers.CharField(read_only=True, allow_null=True)
+    count = serializers.IntegerField(read_only=True)
+    newest = serializers.DateTimeField(read_only=True)

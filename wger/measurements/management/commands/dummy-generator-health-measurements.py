@@ -85,8 +85,8 @@ class Command(BaseCommand):
     help = (
         'Dummy generator for measurements as the Apple Health / Health Connect importer '
         'writes them (source, external_id and provenance in extra_data). By default only '
-        'a handful of entries per metric, --realistic generates the data volume the '
-        'platforms actually deliver.'
+        'a handful of entries per metric, --realistic the amount someone syncing every '
+        'day accumulates.'
     )
 
     def add_arguments(self, parser):
@@ -102,9 +102,18 @@ class Command(BaseCommand):
             '--realistic',
             action='store_true',
             dest='realistic',
-            help='Generate the raw sample volume the platforms deliver (heart rate samples, '
-            'hourly step/distance/energy buckets, sleep segments) instead of the daily '
-            'aggregates the importer writes today',
+            help='Generate the entries someone syncing every day accumulates (a weigh-in '
+            'every morning, blood pressure twice a day) instead of a handful per metric',
+        )
+        parser.add_argument(
+            '--raw-samples',
+            action='store_true',
+            dest='raw_samples',
+            help='Generate the raw sample volume the platforms deliver (a heart rate reading '
+            'every few minutes, hourly step/distance/energy buckets, one entry per sleep '
+            'segment) instead of the daily aggregates. This is for load tests: the importer '
+            'aggregates these metrics and never writes this volume, so a client reading it '
+            'sees an amount of data it cannot produce itself. Implies --realistic',
         )
         parser.add_argument(
             '--metrics',
@@ -144,7 +153,9 @@ class Command(BaseCommand):
 
         metrics = self.parse_metrics(options['metrics'])
         self.days = days
-        self.realistic = options['realistic']
+        self.raw_samples = options['raw_samples']
+        # The raw volume is only meaningful on top of the daily entries
+        self.realistic = options['realistic'] or self.raw_samples
         self.source = MeasurementSource(options['source']).value
         self.seed = options['seed']
         self.clamped = 0
@@ -159,10 +170,22 @@ class Command(BaseCommand):
             [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
         )
 
-        volume = 'realistic' if self.realistic else 'sparse'
+        if self.raw_samples:
+            volume = 'raw sample'
+        elif self.realistic:
+            volume = 'realistic'
+        else:
+            volume = 'sparse'
         self.stdout.write(
             f'** Generating {volume} health data ({self.source}) for the last {days} days'
         )
+        if self.raw_samples:
+            self.stdout.write(
+                self.style.WARNING(
+                    '   --raw-samples writes the platform volume, not what the importer '
+                    'stores: expect a few hundred entries per day and metric'
+                )
+            )
 
         for user in users:
             self.stdout.write(f'- processing user {user.username}')
@@ -500,7 +523,7 @@ class Command(BaseCommand):
             day = self.day_start(offset)
             samples = self.heart_rate_samples(rng, day, rng.uniform(48, 64))
 
-            if self.realistic:
+            if self.raw_samples:
                 entries += [
                     self.entry(
                         category,
@@ -591,15 +614,16 @@ class Command(BaseCommand):
         """
         Generates a cumulative metric (steps, distance, energy).
 
-        Sparse mode imports the daily total the platform aggregates itself,
-        realistic mode the raw interval records, one per active hour.
+        Writes the daily total the platform aggregates itself, which is what
+        the importer stores; --raw-samples writes the raw interval records
+        instead, one per active hour.
         """
         entries = []
         for offset in self.day_range():
             day = self.day_start(offset)
             total = rng.uniform(daily_min, daily_max) * (1.25 if day.weekday() >= 5 else 1)
 
-            if not self.realistic:
+            if not self.raw_samples:
                 entries.append(
                     self.entry(
                         category,
@@ -676,7 +700,7 @@ class Command(BaseCommand):
                 if not of_stage:
                     continue
 
-                if self.realistic:
+                if self.raw_samples:
                     entries += [
                         self.entry(
                             category,
