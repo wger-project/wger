@@ -83,6 +83,9 @@ METRIC_LIMITS: dict[str, dict[str | None, Limits]] = {
     MetricType.RESTING_HEART_RATE: {
         None: Limits(Decimal(30), Decimal(120), Decimal(40), Decimal(100)),
     },
+    # A saturation cannot exceed 100 %, and the floor is deliberately far below
+    # what a pulse oximeter still displays
+    MetricType.BLOOD_OXYGEN: {None: Limits(Decimal(50), Decimal(100), Decimal(90), Decimal(100))},
     # The cumulative types hold a whole day, and a rest day really is 0 steps
     MetricType.STEPS: {None: Limits(Decimal(0), Decimal(100000), Decimal(0), Decimal(30000))},
     MetricType.DISTANCE: {None: Limits(Decimal(0), Decimal(500), Decimal(0), Decimal(30))},

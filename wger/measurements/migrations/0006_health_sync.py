@@ -46,6 +46,7 @@ class Migration(migrations.Migration):
                     ('blood_pressure_diastolic', 'Blood Pressure Diastolic'),
                     ('heart_rate', 'Heart Rate'),
                     ('resting_heart_rate', 'Resting Heart Rate'),
+                    ('blood_oxygen', 'Blood Oxygen'),
                     ('steps', 'Steps'),
                     ('distance', 'Distance'),
                     ('energy', 'Energy'),

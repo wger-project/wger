@@ -38,6 +38,7 @@ class MetricType(models.TextChoices):
     BLOOD_PRESSURE_DIASTOLIC = 'blood_pressure_diastolic'
     HEART_RATE = 'heart_rate'
     RESTING_HEART_RATE = 'resting_heart_rate'
+    BLOOD_OXYGEN = 'blood_oxygen'
     STEPS = 'steps'
     DISTANCE = 'distance'
     ENERGY = 'energy'
