@@ -150,7 +150,7 @@ class Category(models.Model):
     class Meta:
         ordering = [
             'order',
-            '-name',
+            'name',
         ]
         constraints = [
             # A typed category is the one place its metric lives: the health

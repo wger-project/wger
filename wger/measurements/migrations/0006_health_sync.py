@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='category',
-            options={'ordering': ['order', '-name']},
+            options={'ordering': ['order', 'name']},
         ),
         migrations.AddField(
             model_name='category',
