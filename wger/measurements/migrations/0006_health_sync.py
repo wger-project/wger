@@ -40,6 +40,7 @@ class Migration(migrations.Migration):
                     ('custom', 'Custom'),
                     ('body_weight', 'Body Weight'),
                     ('body_fat', 'Body Fat'),
+                    ('lean_body_mass', 'Lean Body Mass'),
                     ('height', 'Height'),
                     ('blood_pressure', 'Blood Pressure'),
                     ('blood_pressure_systolic', 'Blood Pressure Systolic'),

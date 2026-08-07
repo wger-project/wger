@@ -72,6 +72,8 @@ METRIC_LIMITS: dict[str, dict[str | None, Limits]] = {
         None: _BODY_WEIGHT_KG,
     },
     MetricType.BODY_FAT: {None: Limits(Decimal(2), Decimal(60), Decimal(5), Decimal(50))},
+    # Always below the body weight it is part of, so the floor can sit lower
+    MetricType.LEAN_BODY_MASS: {None: Limits(Decimal(10), Decimal(250), Decimal(30), Decimal(90))},
     MetricType.HEIGHT: {None: Limits(Decimal(50), Decimal(250), Decimal(140), Decimal(210))},
     MetricType.BLOOD_PRESSURE_SYSTOLIC: {
         None: Limits(Decimal(50), Decimal(250), Decimal(90), Decimal(180)),

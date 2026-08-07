@@ -32,6 +32,7 @@ class MetricType(models.TextChoices):
     CUSTOM = 'custom'  # free-form, no mapping
     BODY_WEIGHT = 'body_weight'
     BODY_FAT = 'body_fat'
+    LEAN_BODY_MASS = 'lean_body_mass'
     HEIGHT = 'height'
     BLOOD_PRESSURE = 'blood_pressure'
     BLOOD_PRESSURE_SYSTOLIC = 'blood_pressure_systolic'
