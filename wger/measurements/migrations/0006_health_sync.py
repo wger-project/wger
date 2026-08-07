@@ -20,6 +20,11 @@ class Migration(migrations.Migration):
             name='order',
             field=models.IntegerField(default=0, verbose_name='Order'),
         ),
+        migrations.AlterField(
+            model_name='category',
+            name='unit',
+            field=models.CharField(blank=True, max_length=30, verbose_name='Unit'),
+        ),
         migrations.AddField(
             model_name='category',
             name='parent',

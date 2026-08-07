@@ -189,6 +189,9 @@ class Category(models.Model):
     unit = models.CharField(
         verbose_name='Unit',
         max_length=30,
+        # Not every metric has one: a step count is a bare number, and a
+        # free-form category may be too
+        blank=True,
     )
 
     metric_type = models.CharField(
