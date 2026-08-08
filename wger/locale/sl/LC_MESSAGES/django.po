@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-08-08 13:51+0000\n"
+"PO-Revision-Date: 2026-08-09 14:51+0000\n"
 "Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/wger/web/sl/>\n"
 "Language: sl\n"
@@ -2089,7 +2089,6 @@ msgid "Swiss Ball"
 msgstr "Švicarska žoga"
 
 #: i18n.tpl:36
-#, fuzzy
 msgid "Triceps"
 msgstr "Troglava nadlaktna mišica"
 
@@ -2778,6 +2777,12 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"Program wger je izdelan po principih svobodne in odprte-kode. Izvorna koda "
+"je javno na voljo, razvija jo naša skupnost, kar zagotavlja transparentnost "
+"in vam omogoča nadzor nad vašimi podatki (še posebno če vse gostite na "
+"svojem strežniku/računalniku). Brezplačna storitev gostovanja v celoti teče "
+"na tej odprto-kodni osnovi. Prepričani smo, da bi morala biti zmogljiva "
+"fitnes orodja dostopna vsem."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
@@ -2789,64 +2794,74 @@ msgstr "Pridružite se skupnosti"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Pridružite se strežniku Discord"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Skočite na strežnik Discord in klepetajte z razvijalci in uporabniki, "
+"postavljajte vprašanja ali debatirajte o novih zmožnostih."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
 msgstr ""
+"Dobite novice, posodobitve in najave o projektu na družbenem in družabnem "
+"omrežju Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Razširite dobro besedo: povejte svojim prijateljem, kolegom v telovadnici in "
+"delite na družabnih omrežjih. Vaše navdušenje nam pomaga rasti in doseči več "
+"ljudi."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
-msgstr ""
+msgstr "Prispevajte svoje znanje in veščine"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Poročajte o napakah in predlagajte nove zmožnosti"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
-msgstr ""
+msgstr "Imate težavo ali idejo? Povejte nam!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
-msgstr ""
+msgstr "Izboljšajte vaje"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Prispevajte nove vaje in uredite ali prevedite obstoječe."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
-msgstr ""
+msgstr "Prevedite program"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Pomagajte program napraviti dostopnejši v več jezikih za uporabnike z vsega "
+"sveta."
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
-msgstr ""
+msgstr "Prispevajte kodo ali dokumentacijo"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
 msgstr ""
+"Prenesite izvorno kodo in nam pomagajte pri izdelavi naslednje različice."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Donirajte denar"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2857,24 +2872,32 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Čeprav je program brezplačen in bo tak vedno ostal, poganjanje strežnika ni "
+"brezplačno. Ponujanje strežnika wger vključuje resnične redne stroške za "
+"gostovanje strežnika, prenašanje podatkov, varnostne kopije, itd. V razvoj "
+"je prav tako vloženega ogromno časa in truda prostovoljcev. Z vašim denarnim "
+"vložkom neposredno podpirate plačilo teh neizogibnih stroškov, pomagate "
+"ohranjati storitev zanesljivo, vedno boljšo in prosto za vse."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Sponzorirajte na GitHub-u"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Najlepša hvala!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Hvala, ker ste del skupnosti! Zelo cenimo vašo uporabo, povratne "
+"informacije, in vsakršno podporo, ki jo lahko nudite."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
-msgstr ""
+msgstr "Naš cilj"
 
 #: software/templates/about_us.html:158
 msgid ""
@@ -2882,6 +2905,9 @@ msgid ""
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
+"Cilj je izdelati odličen in prilagodljiv upravljalnik za fitnes skupaj s "
+"celostnim in celovitim seznamom vaj in prehranskih sestavin. Vse izdano pod "
+"svobodno in brezplačno licenco."
 
 #: software/templates/features.html:11
 msgid ""
@@ -2893,40 +2919,42 @@ msgstr ""
 
 #: software/templates/features.html:45
 msgid "Contact"
-msgstr ""
+msgstr "Stik z nami"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Aplikacija za telefone in tablice"
 
 #: software/templates/features.html:63 software/templates/features.html:337
 msgid "Donate"
-msgstr ""
+msgstr "Donirajte"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Razvijajte"
 
 #: software/templates/features.html:73 software/templates/features.html:476
 msgid "Community"
-msgstr ""
+msgstr "Skupnost"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Sledite svoji <br> poti do svojega <br> idealnega telesa"
 
 #: software/templates/features.html:113
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Pridružite se projektu wger, <b>svobodnemu in odprto-kodnemu upravljalniku "
+"za fitnes</b>, ki ga ustvarja odprta skupnost"
 
 #: software/templates/features.html:123
 msgid "Get Started"
-msgstr ""
+msgstr "Začnite"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
-msgstr ""
+msgstr "ljudi, ki <br> uporabljajo wger"
 
 #: software/templates/features.html:137
 msgid "exercises <br> for workout creation"
@@ -2934,11 +2962,11 @@ msgstr "vaje za <br> ustvarjanje treningov"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
-msgstr ""
+msgstr "jedi za <br> načrtovanje obrokov"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "ljudi, ki <br> nam sledijo na GitHub-u"
 
 #: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
@@ -2950,7 +2978,7 @@ msgstr "Načrtujte tedenski načrt treningov iz več kot 100 razpoložljivih vaj
 
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
-msgstr ""
+msgstr "Nastavite cilje ponovitev, nizov ali razdalje za vsako vajo"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
@@ -2963,25 +2991,28 @@ msgstr "Sledite opravljanim treningom, vključno z vašimi občutki glede izvedb
 
 #: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Načrtujte svoje <span>dnevne obroke</span>"
 
 #: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Zapolnite svoj teden s hranljivimi obroki, ki vam pomagajo delovati bolje"
 
 #: software/templates/features.html:218
 msgid "Build meals from a database of more than 2 million foods"
-msgstr ""
+msgstr "Sestavite obroke iz podatkovne zbirke več kot 2 milijonov sestavin"
 
 #: software/templates/features.html:221
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Dobite samodejno izračunane hranilne vrednosti (energija, beljakovine, "
+"ogljikovi hidrati, …) tako za posamezne obroke kot tudi za tedenski načrt"
 
 #: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Sledite <span>svojemu napredku</span>"
 
 #: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
@@ -2989,95 +3020,105 @@ msgstr "Sledite vsemu in zapisujte vse o vaših obrokih in treningih"
 
 #: software/templates/features.html:259
 msgid "Add custom notes"
-msgstr ""
+msgstr "Dodajte lastne opombe"
 
 #: software/templates/features.html:262
 msgid "Record your weight"
-msgstr ""
+msgstr "Zapisujte svojo težo"
 
 #: software/templates/features.html:265
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Imejte dnevnik fotografij, kjer lahko vidite svoj napredek"
 
 #: software/templates/features.html:268
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Uporabljajte prikaz koledarja za ogled starih vnosov"
 
 #: software/templates/features.html:287
 msgid "Try wger now"
-msgstr ""
+msgstr "Poskusite wger zdaj"
 
 #: software/templates/features.html:308
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "V gibanje spravila <span>skupnost</span>"
 
 #: software/templates/features.html:311
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"Program wger financira in ustvarja odprto-kodna skupnost: ljudje, kot vi, ki "
+"prevajajo, dodajajo vaje in podatke o hranilnih vrednostih, programirajo in "
+"še več."
 
 #: software/templates/features.html:317
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Ne prikazujemo oglasov, ne prodajamo vaših osebnih podatkov in izvorno kodo "
+"delimo pod svobodno, brezplačno in odprto-kodno licenco."
 
 #: software/templates/features.html:322
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Prispevajte še vi in nam pomagajte izboljšati wger!"
 
 #: software/templates/features.html:331
 msgid "Contribute"
-msgstr ""
+msgstr "Prispevajte"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Vpišite se zdaj, brezplačno je"
 
 #: software/templates/features.html:369
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Spletna inačica ni dovolj?"
 
 #: software/templates/features.html:371
 msgid "Get the code, too!"
-msgstr ""
+msgstr "Dobite tudi izvorno kodo!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Postavite zasebni strežnik za vašo telovadnico"
 
 #: software/templates/features.html:385
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Nočete, da so vaši podatki na tujem strežniku? Brezplačno lahko postavite "
+"strežnik wger na svojem računalniku!"
 
 #: software/templates/features.html:399
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Integrirajte s svojim lastnim programom"
 
 #: software/templates/features.html:402
 msgid "wger offers an open API that you can use for your app."
 msgstr ""
+"wger ponuja odprt programski vmesnik, ki ga lahk uporabite v svojem programu."
 
 #: software/templates/features.html:413
 msgid "Create your own version"
-msgstr ""
+msgstr "Ustvarite svojo lastno različico"
 
 #: software/templates/features.html:416
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Izvorna koda je na voljo pod licenco GNU AGPLv3! Svobodno lahko ustvarite "
+"svojo lastno izvedenko."
 
 #: software/templates/features.html:437
 msgid "Account"
-msgstr ""
+msgstr "Račun"
 
 #: software/templates/features.html:453
 msgid "Dashboard"
-msgstr ""
+msgstr "Pregledni pult"
 
 #: software/templates/features.html:485
 msgid "Workout routines"
@@ -3085,51 +3126,51 @@ msgstr "Rutine treningov"
 
 #: software/templates/features.html:491
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: software/templates/features.html:506
 msgid "Software"
-msgstr ""
+msgstr "Programska oprema"
 
 #: software/templates/features.html:512
 msgid "Report an issue"
-msgstr ""
+msgstr "Poročajte o napaki"
 
 #: software/templates/features.html:518
 msgid "Source Code"
-msgstr ""
+msgstr "Izvorna koda"
 
 #: software/templates/features.html:524
 msgid "Translation"
-msgstr ""
+msgstr "Prevajanje"
 
 #: utils/generic_views.py:241
 msgid "Yes, delete"
-msgstr ""
+msgstr "Da, izbriši"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Prvotni naslov tega predmeta, če je na voljo"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Povezava do prvotnega predmeta, če je na voljo"
 
 #: utils/models.py:87
 msgid "Author(s)"
-msgstr ""
+msgstr "Avtor(ji)"
 
 #: utils/models.py:91
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
+msgstr "Če vi niste avtor, sem vnesite ime ali vir."
 
 #: utils/models.py:95
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Povezava do profila avtorja, če je na voljo"
 
 #: utils/models.py:101
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Povezava do prvotnega vira, če je to izvedeno delo"
 
 #: utils/models.py:103
 msgid ""
@@ -3137,22 +3178,25 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Upoštevajte, da je izvedeno delo tisto, ki ni samo temelječe na predhodnem "
+"delu, ampak vsebuje tudi zadosti nove, ustvarjalne vsebine, ki upravičuje "
+"dodelitev lastnih avtorskih pravic."
 
 #: weight/forms.py:53
 msgid "Input"
-msgstr ""
+msgstr "Vnos"
 
 #: weight/forms.py:54
 msgid "Date format"
-msgstr ""
+msgstr "Zapis datuma"
 
 #: weight/management/commands/email-weight-reminder.py:81
 msgid "You have to enter your weight"
-msgstr ""
+msgstr "Vnesti morate svojo težo"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
-msgstr ""
+msgstr "Uvozi denvnike teže"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
@@ -3171,32 +3215,40 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
+"Lahko kopirate podatke iz svoje preglednice in jih prilepite v vnosno polje. "
+"\n"
+"Sistem bo poskušal zaznati obliko zapisa za uvoz. Upoštevati morate le, da \n"
+"prvi stolpec vsebuje <strong>datum</strong> in drugi <strong>težo</strong>. "
+"\n"
+"Vsi ostali stolpci bodo prezrti. Vrstic je lahko največ 1000.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
+"Če obstajajo napake, jih lahko v drugem koraku \n"
+"popravite ali zavržete."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
-msgstr ""
+msgstr "Predogled uvoženih vnosov"
 
 #: weight/templates/import_csv_preview.html:9
 msgid "Successfully converted values"
-msgstr ""
+msgstr "Uspešno pretvorjene vrednosti"
 
 #: weight/templates/import_csv_preview.html:10
 msgid "The following values could be converted."
-msgstr ""
+msgstr "Naslednje vrednosti je bilo moč pretvoriti."
 
 #: weight/templates/import_csv_preview.html:26
 msgid "Errors"
-msgstr ""
+msgstr "Napake"
 
 #: weight/templates/import_csv_preview.html:29
 msgid "The following values could not be converted."
-msgstr ""
+msgstr "Naslednjih vrednosti ni bilo moč pretvoriti."
 
 #: weight/templates/import_csv_preview.html:31
 msgid ""
@@ -3209,20 +3261,29 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
+"Teh vrednosti ni bilo moč pretvoriti v vnos za dnevnik teže. \n"
+"    Razlogov za to je lahko več. Od neprepoznavne oblike zapisa datuma ali "
+"števila, \n"
+"    do težave s kodiranim naborom znakov ali pa kej tretjega. Preverite, da "
+"na \n"
+"    seznamu ni očitnih napak (če so, jih lahko popravite) in ponovno \n"
+"    poskusite uvoziti seznam."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
+"Pomnite, da je pričakovana struktura <strong>datum</strong> \n"
+"    v prvem stolpcu in <strong>teža</strong> v drugem."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr ""
+msgstr "Napak ni bilo, vse vnose je bilo moč pretvoriti."
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
-msgstr ""
+msgstr "Uvozi vse uspešno pretvorjene vnose"
 
 #: weight/templates/import_csv_preview.html:59
 msgid ""
@@ -3232,21 +3293,28 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
+"Nadaljujte tu, če želite v dnevnik teže uvoziti vse vnose, ki so bili "
+"uspešno \n"
+"pretvorjeni. Vsi vnosi, ki so povzročili napako bodo preprosto prezrti. Vi \n"
+"se morate odločiti, ali so uporabni (neprepoznani vnosi) ali ne \n"
+"(npr. glave, komentarji, ird.)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
-msgstr ""
+msgstr "Uvozi"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"
-msgstr ""
+msgstr "Ali poskusi znova"
 
 #: weight/templates/import_csv_preview.html:76
 msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
+"Tukajšnji seznam lahko popravite in ponovno \n"
+"poskusite uvoziti kolikorkrat želite."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
-msgstr ""
+msgstr "Poskusi znova"
