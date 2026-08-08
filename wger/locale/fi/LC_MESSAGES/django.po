@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-08-08 13:51+0000\n"
+"PO-Revision-Date: 2026-08-09 14:51+0000\n"
 "Last-Translator: Mikael Siidorow <mikael+weblate@siidorow.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
@@ -1408,16 +1408,16 @@ msgstr "API-avain poistettiin"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Kaikki API-istunnot poistettiin käytöstä"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Päivitystunnus poistettiin käytöstä"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Päivitystunnuksia poistettiin käytöstä: {count}"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1470,29 +1470,29 @@ msgstr "Harjoitusten järjestelmänvalvojan historia"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
-msgstr ""
+msgstr "Tapahtumat viimeisen 24 tunnin ajalta"
 
 #: exercises/templates/history/overview.html:24
 msgid "Edits last 7d"
-msgstr ""
+msgstr "Tapahtumat viimeisten 7 päivän ajalta"
 
 #: exercises/templates/history/overview.html:32
 msgid "Edits last 30d"
-msgstr ""
+msgstr "Tapahtumat viimeisten 30 päivän ajalta"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Suodata"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Tyhjennä"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Tili on alle 60 päivää vanha"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
@@ -2432,7 +2432,7 @@ msgstr "Harjoitus %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Annos"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
@@ -2459,7 +2459,7 @@ msgstr ""
 
 #: nutrition/forms.py:213
 msgid "grams (g)"
-msgstr ""
+msgstr "gramma (g)"
 
 #: nutrition/forms.py:223
 msgid "Ingredient"
@@ -2471,11 +2471,11 @@ msgstr "Hae myös englanninkieliset nimet"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Määrä"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Syötä määrä ja valitse yksiköksi gramma (g) tai jokin annosyksiköistä."
 
 #: nutrition/models/ingredient.py:476
 msgid "Portion"
@@ -2522,7 +2522,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Vegaaninen"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
@@ -2559,7 +2559,7 @@ msgstr "Etsi"
 
 #: nutrition/templates/ingredient/overview.html:93
 msgid "Filter"
-msgstr ""
+msgstr "Suodattimet"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
@@ -2601,7 +2601,7 @@ msgstr "Suola"
 
 #: nutrition/templates/ingredient/view.html:167
 msgid "Dietary information"
-msgstr ""
+msgstr "Ruokavaliotiedot"
 
 #: nutrition/templates/ingredient/view.html:203
 msgid "Nutri-Score"
