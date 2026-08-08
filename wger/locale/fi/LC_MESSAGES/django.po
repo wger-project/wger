@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2025-12-08 07:00+0000\n"
-"Last-Translator: Petri Hämäläinen <petri.hamalainen@mailbox.org>\n"
+"PO-Revision-Date: 2026-08-08 13:51+0000\n"
+"Last-Translator: Mikael Siidorow <mikael+weblate@siidorow.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -150,10 +150,12 @@ msgstr "Vahvista"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Käyttäjätililläsi ei ole salasanaa. Syötä käyttäjätunnus \"{username}\" "
+"vahvistaaksesi."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Syötetty käyttäjätunnus ei täsmää"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -343,11 +345,11 @@ msgstr ""
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Ota käyttöön saavutukset"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Ota käyttöön palkinnot tälle käyttäjälle"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -381,7 +383,7 @@ msgstr "Yksikkötyyppi"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Yksikön tyyppi (toistot, aika tai matka)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -415,7 +417,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Melkein valmista!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -429,6 +431,8 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Alla on sähköpostiosoitteesi vahvistuskoodi. Syötä se avoimeen "
+"selainikkunaan."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
@@ -444,10 +448,14 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Linkki on voimassa %(expire_hours)s tuntia (%(date)s klo %(time)s asti). "
+"Voit pyytää uuden linkin omista asetuksistasi."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Jos painike ei toimi, kopioi alla oleva linkki ja liitä se selaimen "
+"osoiteriville:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -464,6 +472,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Sähköpostiosoitettasi käytetään salasanan palauttamiseen ja halutessasi "
+"treenimuistutusten lähettämiseen. Uusi osoite otetaan käyttöön vasta, kun "
+"vahvistat sen siihen lähetetystä linkistä."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -472,7 +483,7 @@ msgstr "Nykyinen sähköposti"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Vahvistusta odottava sähköpostiosoite: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
@@ -507,19 +518,19 @@ msgstr "Ei tiliä?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Nopeampi kirjautuminen"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Kirjaudu pääsyavaimella"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "Muut kirjautumistavat"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Onko sinulla jo tili?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -645,7 +656,7 @@ msgstr "Galleria"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Saavutukset"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -848,7 +859,7 @@ msgstr "Käyttöehdot"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Selaimen kieli"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -856,7 +867,7 @@ msgstr "Ominaisuudet"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "API:n käyttö"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -864,16 +875,22 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"APIin voi tunnistautua kahdella tavalla. Sovelluksissa suositellaan "
+"käyttämään JWT:tä, kun taas staattinen API-avain on tarkoitettu omiin "
+"skripteihin tai yksittäisiin integraatioihin."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Pitkäkestoiset päivitystunnukset"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"Päivitystunnusten avulla skriptit ja komentorivityökalut voivat käyttää "
+"wgerin APIa JWT-todennuksella ilman, että joka kerta tarvitsee kirjautua "
+"erikseen."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -881,13 +898,15 @@ msgstr "Luo uusi päivitystunnus"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Kopioi tämä päivitystunnus nyt."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Päivitystunnus näytetään vain kerran. Jos kadotat sen, luo uusi ja poista "
+"vanha istunto käytöstä alla olevasta luettelosta."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -895,6 +914,8 @@ msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr ""
+"Päivitystunnukset vanhenevat %(days)s päivän kuluttua niiden luomisesta, "
+"ellet poista niitä käytöstä aiemmin."
 
 #: core/templates/user/api_key.html:65
 msgid "Created"
@@ -902,15 +923,15 @@ msgstr "Luotu"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Vanhenee"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Poista käytöstä"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Poista kaikki päivitystunnukset käytöstä"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -918,7 +939,7 @@ msgstr "JWT-istunnot"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Poista kaikki JWT-istunnot käytöstä"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -933,13 +954,24 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Tällä hetkellä on <strong>%(counter)s</strong> aktiivinen "
+"JWT-istunto\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Tällä hetkellä on <strong>%(counter)s</strong> aktiivista "
+"JWT-istuntoa\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"Kun JWT-istunnot poistetaan käytöstä, käyttäjä kirjataan ulos kaikilta "
+"laitteilta, jotka ovat saaneet päivitystunnuksen JWT-kirjautumisrajapinnan "
+"kautta."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
@@ -969,10 +1001,14 @@ msgid ""
 "            <code>Authorization</code> header to use it.\n"
 "        "
 msgstr ""
+"\n"
+"            Käytä API-avainta lisäämällä <code>Token %(key)s</code> pyynnön\n"
+"            <code>Authorization</code>-otsakkeeseen.\n"
+"        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Esimerkki curl-komennolla:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -984,21 +1020,23 @@ msgstr "API-dokumentaatio"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Palaa sovellukseen"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Palataan wger-sovellukseen…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Jos wger-sovellus ei avaudu automaattisesti, napauta alla olevaa painiketta. "
+"Varmista, että sovellus on asennettu laitteellesi."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Avaa wger-sovellus"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1234,7 +1272,7 @@ msgstr "Mieltymykset"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Tili ja suojaus"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1254,15 +1292,15 @@ msgstr "Aseta salasana"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Kaksivaiheinen tunnistautuminen"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Käytössä"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Ei käytössä"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1270,11 +1308,11 @@ msgstr "Yhdistetyt tilit"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Vaaralliset toiminnot"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Tilisi ja kaikki harjoittelutietosi poistetaan pysyvästi."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1350,7 +1388,7 @@ msgstr "Asetukset päivitetty onnistuneesti"
 
 #: core/views/user.py:314
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Korjaa alla olevat virheet."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
@@ -1366,7 +1404,7 @@ msgstr "Muokkaa käyttäjää"
 
 #: core/views/user.py:503
 msgid "API key was deleted"
-msgstr ""
+msgstr "API-avain poistettiin"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
@@ -1458,15 +1496,15 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "uusi"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "loi"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "muokkasi"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
@@ -1474,15 +1512,15 @@ msgstr "poistettu"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "yhdisti kohteen"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "kohteeseen"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "media"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1490,7 +1528,7 @@ msgstr "käännökset"
 
 #: exercises/templates/history/overview.html:129
 msgid "Object was deleted"
-msgstr ""
+msgstr "Kohde on poistettu"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
@@ -1506,11 +1544,11 @@ msgstr "Perutaanko tämä muutos?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Kohde palautetaan muutosta edeltäneeseen tilaan."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Peruuta"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1518,15 +1556,15 @@ msgstr "Kumoa"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Valituilla suodattimilla ei löytynyt tapahtumia."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Tyhjennä suodattimet"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
-msgstr ""
+msgstr "Tapahtumahistorian sivutus"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
@@ -1541,12 +1579,12 @@ msgstr "Edellinen"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Sivu %(current)s / %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Seuraava"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1586,7 +1624,7 @@ msgstr "Tyyppi"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Kaikki"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1594,11 +1632,11 @@ msgstr "Toiminta"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Alkaen"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Asti"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -3173,7 +3211,7 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
-msgstr ""
+msgstr "Lähetä uudelleen"
 
 #~ msgid "Used for password resets and, optionally, e-mail reminders."
 #~ msgstr ""
