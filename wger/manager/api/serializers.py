@@ -17,6 +17,7 @@
 import datetime
 
 # Django
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 
 # Third Party
@@ -468,6 +469,31 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     @staticmethod
     def _local_start(obj: WorkoutSession) -> datetime.datetime | None:
         return timezone.localtime(obj.datetime_start) if obj.datetime_start else None
+
+    def validate(self, attrs):
+        """
+        Run the model validation on the interval the request would end up with
+
+        Sessions stored before the limit was introduced, or before it was lowered,
+        stay editable as long as the request leaves their times alone.
+        """
+        start = attrs.get('datetime_start')
+        end = attrs.get('datetime_end') if 'datetime_end' in attrs else None
+        if self.instance:
+            start = start or self.instance.datetime_start
+            if 'datetime_end' not in attrs:
+                end = self.instance.datetime_end
+            if (start, end) == (self.instance.datetime_start, self.instance.datetime_end):
+                return attrs
+        else:
+            start = start or timezone.now()
+
+        try:
+            WorkoutSession(datetime_start=start, datetime_end=end).clean()
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'datetime_end': e.messages})
+
+        return attrs
 
     def to_internal_value(self, data):
         return super().to_internal_value(self._translate_legacy_input(data))

@@ -16,6 +16,7 @@
 import datetime
 
 # Django
+from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -43,6 +44,84 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
         'datetime_start': timezone.make_aware(datetime.datetime(2014, 1, 25, 10, 0)),
         'datetime_end': timezone.make_aware(datetime.datetime(2014, 1, 25, 13, 0)),
     }
+
+
+class WorkoutSessionDurationTestCase(WgerTestCase):
+    """
+    Test the maximum session length
+    """
+
+    SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
+    ROUTINE = 3
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+
+    def create_session(self, hours):
+        return self.client.post(
+            reverse('workoutsession-list'),
+            data={
+                'routine': self.ROUTINE,
+                'impression': '2',
+                'datetime_start': '2025-03-12T10:00:00Z',
+                'datetime_end': f'2025-03-12T{10 + hours}:00:00Z',
+            },
+        )
+
+    def test_session_within_the_limit(self):
+        self.assertEqual(self.create_session(4).status_code, status.HTTP_201_CREATED)
+
+    def test_session_over_the_limit_is_rejected(self):
+        response = self.create_session(6)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('5 hours', response.json()['datetime_end'][0])
+
+    @override_settings(WGER_MAX_SESSION_LENGTH_HOURS=8)
+    def test_the_limit_is_configurable(self):
+        self.assertEqual(self.create_session(6).status_code, status.HTTP_201_CREATED)
+
+    def stretch_session(self):
+        """Make the fixture session longer than the limit, bypassing the validation"""
+
+        session = WorkoutSession.objects.get(pk=self.SESSION)
+        WorkoutSession.objects.filter(pk=self.SESSION).update(
+            datetime_end=session.datetime_start + datetime.timedelta(hours=8)
+        )
+
+    def test_session_over_the_limit_stays_editable(self):
+        """Sessions from before the limit can still be edited as long as it stays untouched"""
+
+        self.stretch_session()
+        url = reverse('workoutsession-detail', kwargs={'pk': self.SESSION})
+        stored = self.client.get(url).json()
+
+        response = self.client.patch(
+            url,
+            data={
+                'notes': 'Still editable',
+                'date': stored['date'],
+                'time_start': stored['time_start'],
+                'time_end': stored['time_end'],
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(WorkoutSession.objects.get(pk=self.SESSION).notes, 'Still editable')
+
+    def test_stretching_a_session_further_is_rejected(self):
+        """Editing the times of such a session does run into the limit"""
+
+        self.stretch_session()
+
+        response = self.client.patch(
+            reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
+            data={'time_end': '23:00'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):

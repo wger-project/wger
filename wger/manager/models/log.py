@@ -294,8 +294,7 @@ class WorkoutLog(models.Model):
 
             # 2. Check if the log falls within a reasonable window of an "open" session
             if not matching_session:
-                max_duration = datetime.timedelta(hours=WorkoutSession.MAX_SESSION_LENGTH_HOURS)
-                time_threshold = log_date - max_duration
+                time_threshold = log_date - WorkoutSession.max_duration()
 
                 matching_session = (
                     WorkoutSession.objects.filter(

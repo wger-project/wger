@@ -595,6 +595,12 @@ WGER_SETTINGS = {
 }
 
 #
+# How long a workout session may last. Doubles as the window in which a log
+# without a session is attached to an open one instead of starting a new one.
+WGER_MAX_SESSION_LENGTH_HOURS = 5
+
+
+#
 # Social authentication / OAuth
 # List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
 WGER_SOCIAL_PROVIDERS = []

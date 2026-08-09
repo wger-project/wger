@@ -19,6 +19,7 @@ import datetime
 from uuid import uuid4
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -33,8 +34,6 @@ class WorkoutSession(models.Model):
     """
     Model for a workout session
     """
-
-    MAX_SESSION_LENGTH_HOURS = 12
 
     IMPRESSION_BAD = '1'
     IMPRESSION_NEUTRAL = '2'
@@ -133,21 +132,30 @@ class WorkoutSession(models.Model):
         ]
         indexes = [models.Index(fields=['routine', 'datetime_start'])]
 
+    @classmethod
+    def max_duration(cls) -> datetime.timedelta:
+        """
+        How long a session may last, and how far back a log looks for an open one
+        """
+        return datetime.timedelta(hours=settings.WGER_MAX_SESSION_LENGTH_HOURS)
+
     def clean(self):
         """
         Perform some additional validations
         """
         # Note: We do NOT force both datetime_start and datetime_end to be present.
         # A missing datetime_end means the session is currently "open" and ongoing.
-        if self.datetime_end and self.datetime_start and self.datetime_start > self.datetime_end:
+        if not (self.datetime_start and self.datetime_end):
+            return
+
+        if self.datetime_start > self.datetime_end:
             raise ValidationError(_('The start time cannot be after the end time.'))
 
-        if self.datetime_end and self.datetime_start:
-            duration = self.datetime_end - self.datetime_start
-            if duration > datetime.timedelta(hours=self.MAX_SESSION_LENGTH_HOURS):
-                raise ValidationError(
-                    _(f'A session cannot be longer than {self.MAX_SESSION_LENGTH_HOURS} hours.')
-                )
+        if self.datetime_end - self.datetime_start > self.max_duration():
+            raise ValidationError(
+                _('A session cannot be longer than %(hours)s hours.')
+                % {'hours': settings.WGER_MAX_SESSION_LENGTH_HOURS}
+            )
 
     def get_owner_object(self):
         """
