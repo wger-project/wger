@@ -182,6 +182,21 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
             datetime.datetime(2025, 3, 12, 10, 0, tzinfo=datetime.timezone.utc),
         )
 
+    def test_filter_by_date(self):
+        """The deprecated date filter matches on the local day of datetime_start"""
+
+        session = WorkoutSession.objects.get(pk=self.SESSION)
+        day = timezone.localtime(session.datetime_start).date()
+
+        response = self.client.get(reverse('workoutsession-list'), {'date': day.isoformat()})
+        self.assertEqual([entry['id'] for entry in response.json()['results']], [self.SESSION])
+
+        response = self.client.get(
+            reverse('workoutsession-list'),
+            {'date': (day + datetime.timedelta(days=1)).isoformat()},
+        )
+        self.assertEqual(response.json()['results'], [])
+
     def test_untouched_when_no_deprecated_field_is_sent(self):
         """A request without the deprecated fields leaves the timestamps alone"""
 

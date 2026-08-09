@@ -17,7 +17,25 @@
 from django_filters import rest_framework as filters
 
 # wger
-from wger.manager.models import WorkoutLog
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession,
+)
+
+
+class WorkoutSessionFilterSet(filters.FilterSet):
+    # Deprecated, remove in 2.8 together with the fields in WorkoutSessionSerializer
+    date = filters.DateFilter(field_name='datetime_start', lookup_expr='date')
+
+    class Meta:
+        model = WorkoutSession
+        fields = {
+            'routine': ['exact'],
+            'notes': ['exact'],
+            'impression': ['exact'],
+            'datetime_start': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
+            'datetime_end': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
+        }
 
 
 class WorkoutLogFilterSet(filters.FilterSet):
