@@ -20,41 +20,57 @@
 
 'use strict';
 
-function updateIngredientValue(url) {
-  let formData = $('#nutritional-values-form').serializeArray();
-  $.get(url, formData, function (data) {
-    // Show any validation errors
-    $('#calculator-errors').html('');
-    if (data.errors) {
-      $.each(data.errors, function (index, value) {
-        $('#calculator-errors').append('<p class="ym-message">' + value + '</p>');
-      });
-    }
+function wgerGetCsrfToken() {
+  return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
 
-    // Replace the nutritional values
-    $('#value-energy').html(parseFloat(data.energy).toFixed(2));
-    $('#value-energy-kjoule').html(parseFloat(data.energy * 4.184).toFixed(2));
-    $('#value-protein').html(parseFloat(data.protein).toFixed(2));
-    $('#value-carbohydrates').html(parseFloat(data.carbohydrates).toFixed(2));
-    $('#value-carbohydrates-sugar').html(parseFloat(data.carbohydrates_sugar).toFixed(2));
-    $('#value-fat').html(parseFloat(data.fat).toFixed(2));
-    $('#value-fat-saturated').html(parseFloat(data.fat_saturated).toFixed(2));
-    $('#value-fiber').html(parseFloat(data.fiber).toFixed(2));
-    $('#value-sodium').html(parseFloat(data.sodium).toFixed(2));
-  });
+function updateIngredientValue(url) {
+  let form = document.getElementById('nutritional-values-form');
+  let params = new URLSearchParams(new FormData(form));
+
+  fetch(url + '?' + params.toString())
+    .then((response) => response.json())
+    .then(function (data) {
+      // Show any validation errors
+      let errorContainer = document.getElementById('calculator-errors');
+      errorContainer.innerHTML = '';
+      if (data.errors) {
+        Object.values(data.errors).forEach(function (value) {
+          errorContainer.innerHTML += '<p class="ym-message">' + value + '</p>';
+        });
+      }
+
+      // Replace the nutritional values. Fields without a value (e.g. sugar or
+      // sodium) have no element in the page, those are simply skipped.
+      let setValue = function (id, value) {
+        let element = document.getElementById(id);
+        if (element) {
+          element.textContent = parseFloat(value).toFixed(2);
+        }
+      };
+      setValue('value-energy', data.energy);
+      setValue('value-energy-kjoule', data.energy * 4.184);
+      setValue('value-protein', data.protein);
+      setValue('value-carbohydrates', data.carbohydrates);
+      setValue('value-carbohydrates-sugar', data.carbohydrates_sugar);
+      setValue('value-fat', data.fat);
+      setValue('value-fat-saturated', data.fat_saturated);
+      setValue('value-fiber', data.fiber);
+      setValue('value-sodium', data.sodium);
+    });
 }
 
 function wgerInitIngredientDetail(url) {
   // Prevent the form from being sent
-  $('#nutritional-values-form').submit(function (e) {
+  document.getElementById('nutritional-values-form').addEventListener('submit', function (e) {
     e.preventDefault();
   });
 
-  $('#id_amount').keyup(function () {
+  document.getElementById('id_amount').addEventListener('keyup', function () {
     updateIngredientValue(url);
   });
 
-  $('#id_unit').change(function () {
+  document.getElementById('id_unit').addEventListener('change', function () {
     updateIngredientValue(url);
   });
 }
@@ -64,65 +80,64 @@ function wgerInitIngredientDetail(url) {
  * Calories calculator
  */
 function wgerInitCaloriesCalculator() {
-  $('#form-transfer-calories').click(function (e) {
-    let baseCalories;
+  document.getElementById('form-transfer-calories').addEventListener('click', function (e) {
     e.preventDefault();
-    baseCalories = Number($('#id_base_calories').html());
-    $('#id_calories').val(baseCalories);
+    let baseCalories = Number(document.getElementById('id_base_calories').textContent);
+    document.getElementById('id_calories').value = baseCalories;
   });
 
-  $('#add-calories-total').click(function (e) {
-    let additionalCalories;
-    let baseCalories;
+  document.getElementById('add-calories-total').addEventListener('click', function (e) {
     e.preventDefault();
-    baseCalories = Number($('#id_base_calories').html());
-    additionalCalories = Number($('#id_additional_calories').val());
-    $('#id_calories').val(baseCalories + additionalCalories);
+    let baseCalories = Number(document.getElementById('id_base_calories').textContent);
+    let additionalCalories = Number(document.getElementById('id_additional_calories').value);
+    document.getElementById('id_calories').value = baseCalories + additionalCalories;
   });
 
-  $('#form-update-calories').click(function (e) {
+  document.getElementById('form-update-calories').addEventListener('click', function (e) {
     e.preventDefault();
 
-    // Get own ID and update the user profile
-    $.get('/api/v2/userprofile', function () {
-    }).done(function (userprofile) {
-      let totalCalories = $('#id_calories')[0].value;
-      $.ajax({
-        url: '/api/v2/userprofile/' + userprofile.results[0].user + '/',
-        type: 'PATCH',
-        data: {calories: totalCalories}
-      });
+    // The userprofile endpoint always operates on the current user's profile
+    // and updates are done with a POST request, no ID needed
+    fetch('/api/v2/userprofile/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': wgerGetCsrfToken()
+      },
+      body: new URLSearchParams({calories: document.getElementById('id_calories').value})
     });
   });
 
-  $('.calories-autoform').click(function (e) {
-    let $bmrForm;
-    let bmrUrl;
-    e.preventDefault();
+  document.querySelectorAll('.calories-autoform').forEach(function (form) {
+    form.addEventListener('click', function (e) {
+      e.preventDefault();
 
-    // BMR
-    $bmrForm = $('#bmr-form');
-    bmrUrl = $bmrForm.attr('action');
-    $.post(bmrUrl,
-      $bmrForm.serialize(),
-      function (data) {
-        let $activitiesForm;
-        let activitiesUrl;
-        $('#bmr-result-container').show();
-        $('#bmr-result-value').html(data.bmr);
+      // BMR
+      let bmrForm = document.getElementById('bmr-form');
+      fetch(bmrForm.getAttribute('action'), {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(bmrForm))
+      })
+        .then((response) => response.json())
+        .then(function (data) {
+          document.getElementById('bmr-result-container').style.display = '';
+          document.getElementById('bmr-result-value').innerHTML = data.bmr;
 
-        // Activities
-        $activitiesForm = $('#activities-form');
-        activitiesUrl = $activitiesForm.attr('action');
-        $.post(activitiesUrl,
-          $activitiesForm.serialize(),
-          function (activitiesData) {
-            $('#activities-result-container').show();
-            $('#activities-result-value').html(activitiesData.factor);
+          // Activities
+          let activitiesForm = document.getElementById('activities-form');
+          fetch(activitiesForm.getAttribute('action'), {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(activitiesForm))
+          })
+            .then((response) => response.json())
+            .then(function (activitiesData) {
+              document.getElementById('activities-result-container').style.display = '';
+              document.getElementById('activities-result-value').innerHTML = activitiesData.factor;
 
-            // Total calories
-            $('#id_base_calories').html(activitiesData.activities);
-          });
-      });
+              // Total calories
+              document.getElementById('id_base_calories').innerHTML = activitiesData.activities;
+            });
+        });
+    });
   });
 }

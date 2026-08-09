@@ -15,6 +15,8 @@
 
 # Django
 from django.test import SimpleTestCase
+from django.utils import translation
+from django.utils.translation import gettext
 
 # wger
 from wger.nutrition.dataclasses import IngredientData
@@ -284,6 +286,9 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         self.assertEqual(result.serving_size_amount, 2)
 
     def test_serving_size_only_grams(self):
+        # The fallback unit is translated into the product's language, so pin
+        # it to English to be independent of compiled locale files.
+        self.off_data1['lang'] = 'en'
         self.off_data1['serving_size'] = '30 g'
 
         result = extract_info_from_off(self.off_data1, 1)
@@ -291,6 +296,19 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         self.assertEqual(result.serving_size_gram, 30)
         self.assertEqual(result.serving_size_unit, 'Serving')
         self.assertEqual(result.serving_size_amount, 1)
+
+    def test_serving_size_fallback_unit_uses_product_language(self):
+        """
+        The fallback unit is translated into the product's language
+        """
+        self.off_data1['serving_size'] = '30 g'  # lang is already 'de' in the fixture
+
+        result = extract_info_from_off(self.off_data1, 1)
+
+        # Compute the expected value through the same catalog so the test works
+        # with and without compiled locale files
+        with translation.override('de'):
+            self.assertEqual(result.serving_size_unit, gettext('Serving'))
 
     def test_serving_size_volume_with_gram_equivalent(self):
         self.off_data1['serving_size'] = '200 ml (206 g)'
