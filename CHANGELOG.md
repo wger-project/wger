@@ -1,5 +1,9 @@
 # Changelog for the next release
 
+> [!IMPORTANT]
+> This release comes with some breaking changes for self-hoster. Please read carefully.
+
+
 ## Sync with Apple Health and Health Connect
 
 The mobile app can now import your body metrics from Apple Health (iOS) and
@@ -71,3 +75,17 @@ like openScale do not need any changes.
   body weight entry is stored in `extra_data.unit` (`kg` or `lb`). If it is
   missing, the unit of the category applies. `extra_data` is replaced as a
   whole on PATCH, so send back the keys you want to keep.
+
+## Upgrade steps
+
+* Pull new changes from the docker repo. There were changes to the sync rules due
+  to the new measurements. It is recommended to stop the powersync service while
+  the db migrations are running:
+  ```
+  docker compose pull 
+  docker compose down powersync
+  docker compose up -d web
+  docker compose up -d powersync
+  ```
+  
+  
