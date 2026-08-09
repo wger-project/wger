@@ -148,4 +148,16 @@ class Migration(migrations.Migration):
                 verbose_name='Value',
             ),
         ),
+
+        # Powersync only re-replicates existing rows when the sync rules file changes
+        # or when the data changes. In order to avoid problems for self-hoster that
+        # have not updated the docker repo, we do a no-op update, that forces a
+        # re-sync of the buckets
+        migrations.RunSQL(
+            sql=[
+                'UPDATE measurements_category SET id = id;',
+                'UPDATE measurements_measurement SET id = id;',
+            ],
+            reverse_sql=migrations.RunSQL.noop,
+        ),
     ]
