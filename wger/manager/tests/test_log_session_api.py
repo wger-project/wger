@@ -105,7 +105,9 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
         """POST without a session falls back to the legacy auto-create."""
 
         new_date = datetime.date(2030, 6, 15)
-        before = WorkoutSession.objects.filter(user_id=1, routine_id=1, datetime_start__date=new_date).count()
+        before = WorkoutSession.objects.filter(
+            user_id=1, routine_id=1, datetime_start__date=new_date
+        ).count()
         self.assertEqual(before, 0)
 
         response = self.client.post(

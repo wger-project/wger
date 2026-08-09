@@ -666,7 +666,9 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]
-        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
+        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by(
+            '-datetime_start'
+        )[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
 
