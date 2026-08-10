@@ -19,6 +19,7 @@ from unittest import mock
 # Django
 from django.conf import settings
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests.api_base_test import ApiBaseResourceTestCase
@@ -169,7 +170,7 @@ class RoutineTestCase(WgerTestCase):
         """
 
         # Arrange
-        today = datetime.date.today()
+        today = timezone.localdate()
         start = today - datetime.timedelta(days=5)
         self.routine.start = start
         self.routine.end = today + datetime.timedelta(weeks=3)
@@ -288,7 +289,7 @@ class RoutineTestCase(WgerTestCase):
         """
 
         # Arrange
-        today = datetime.date.today()
+        today = timezone.localdate()
         start = today - datetime.timedelta(days=5)
 
         self.routine.start = start
@@ -486,7 +487,7 @@ class RoutineTestCase(WgerTestCase):
         """
 
         # Arrange
-        today = datetime.date.today()
+        today = timezone.localdate()
         start = today - datetime.timedelta(days=10)
 
         self.routine.fit_in_week = True
