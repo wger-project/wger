@@ -20,11 +20,16 @@ import logging
 from django.conf import settings
 
 # Third Party
+from drf_spectacular.utils import extend_schema_field
 from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
 # wger
+from wger.core.api.serializers import (
+    LanguageSerializer,
+    LicenseSerializer,
+)
 from wger.nutrition.models import (
     Image,
     Ingredient,
@@ -34,6 +39,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+from wger.utils.api_schema import ThumbnailsSerializer
 from wger.utils.url import make_absolute_url
 
 
@@ -138,10 +144,14 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
     image = IngredientImageSerializer(read_only=True)
     thumbnails = serializers.SerializerMethodField()
+    # Declared explicitly instead of relying on Meta.depth, which builds an
+    # anonymous nested serializer per relation. Both ended up named "Nested" in
+    # the schema, so language was documented with the license's fields.
+    language = LanguageSerializer(read_only=True)
+    license = LicenseSerializer(read_only=True)
 
     class Meta:
         model = Ingredient
-        depth = 1
         fields = (
             'id',
             'uuid',
@@ -178,6 +188,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'thumbnails',
         )
 
+    @extend_schema_field(ThumbnailsSerializer(allow_null=True))
     def get_thumbnails(self, obj: Ingredient):
         if not hasattr(obj, 'image'):
             return None

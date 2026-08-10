@@ -57,6 +57,9 @@ from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.fields import (
     BooleanField,
     CharField,
+    DictField,
+    JSONField,
+    ListField,
 )
 from rest_framework.permissions import (
     AllowAny,
@@ -359,6 +362,19 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ('name',)
 
 
+@extend_schema(
+    request=LanguageCheckSerializer,
+    responses={
+        200: inline_serializer(
+            name='LanguageCheckResponse',
+            fields={'result': BooleanField()},
+        ),
+        400: OpenApiResponse(
+            description='The input could not be detected as the given language, '
+            'or the language itself is unknown'
+        ),
+    },
+)
 @api_view(['POST'])
 def check_language(request):
     """
@@ -370,6 +386,15 @@ def check_language(request):
     return Response({'result': True})
 
 
+@extend_schema(
+    request=None,
+    responses={
+        200: inline_serializer(
+            name='RefreshTokenResponse',
+            fields={'refresh_token': CharField()},
+        ),
+    },
+)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def issue_refresh_token(request):
@@ -388,6 +413,17 @@ def issue_refresh_token(request):
     return Response({'refresh_token': refresh_token})
 
 
+@extend_schema(
+    responses={
+        200: inline_serializer(
+            name='PowersyncTokenResponse',
+            fields={
+                'token': CharField(),
+                'powersync_url': CharField(),
+            },
+        ),
+    },
+)
 @api_view()
 @permission_classes([IsAuthenticated])
 def get_powersync_token(request):
@@ -406,11 +442,47 @@ def get_powersync_token(request):
     )
 
 
+@extend_schema(
+    responses={
+        200: inline_serializer(
+            name='PowersyncKeysResponse',
+            # A JWKS document. Left as free-form objects on purpose, the exact
+            # members depend on the configured key and are consumed by a JWT
+            # library rather than read field by field.
+            fields={'keys': ListField(child=DictField())},
+        ),
+    },
+)
 @api_view()
 def get_powersync_keys(request):
     return JsonResponse({'keys': [powersync.public_jwk()]})
 
 
+@extend_schema(
+    # COMPONENT_SPLIT_REQUEST appends "Request" to the name, so don't repeat it
+    request=inline_serializer(
+        name='PowersyncUpload',
+        fields={
+            'table': CharField(),
+            'data': JSONField(),
+        },
+    ),
+    responses={
+        # A permanent refusal stays 200 with an `error` key, because powersync
+        # treats any non-2xx as "retry" and would otherwise loop forever.
+        200: inline_serializer(
+            name='PowersyncUploadResponse',
+            fields={
+                'status': CharField(required=False),
+                'error': CharField(required=False),
+                'details': CharField(required=False),
+            },
+        ),
+        403: OpenApiResponse(description='The request is not authenticated'),
+        500: OpenApiResponse(description='Unclassified server error, the client should retry'),
+        503: OpenApiResponse(description='Transient database error, the client should retry'),
+    },
+)
 @api_view(['PUT', 'PATCH', 'DELETE'])
 def upload_powersync_data(request):
     if not request.user.is_authenticated:
