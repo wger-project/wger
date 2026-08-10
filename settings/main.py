@@ -120,6 +120,11 @@ if not DEBUG and not (JWT_PRIVATE_KEY and JWT_PUBLIC_KEY):
         stacklevel=1,
     )
 
+# Signing key for the OAuth2/OIDC provider, in PEM format. Only needed to act as
+# an identity provider, so no warning when it is unset. Newlines can be written
+# as "\n" in the environment.
+IDP_OIDC_PRIVATE_KEY = env.str('IDP_OIDC_PRIVATE_KEY', '', multiline=True)
+
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')

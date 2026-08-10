@@ -19,6 +19,7 @@
 import base64
 import hashlib
 import secrets
+from io import StringIO
 from urllib.parse import (
     parse_qs,
     urlparse,
@@ -26,7 +27,11 @@ from urllib.parse import (
 
 # Django
 from django.conf import settings
-from django.test import override_settings
+from django.core.management import call_command
+from django.test import (
+    SimpleTestCase,
+    override_settings,
+)
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -59,6 +64,25 @@ def generate_pkce_pair() -> tuple[str, str]:
     verifier = secrets.token_urlsafe(96)
     digest = hashlib.sha256(verifier.encode('ascii')).digest()
     return verifier, base64.urlsafe_b64encode(digest).rstrip(b'=').decode()
+
+
+class GenerateOidcKeyTestCase(SimpleTestCase):
+    """
+    Test the generate-oidc-key management command
+    """
+
+    def test_output_is_a_usable_env_value(self):
+        out = StringIO()
+        call_command('generate-oidc-key', '--key-size', '1024', stdout=out)
+
+        name, _, value = out.getvalue().splitlines()[-1].partition('=')
+        self.assertEqual(name, 'IDP_OIDC_PRIVATE_KEY')
+        self.assertNotIn('\n', value)
+
+        # The escaped newlines are what django-environ turns back into a PEM
+        pem = value.replace('\\n', '\n')
+        key = serialization.load_pem_private_key(pem.encode(), password=None)
+        self.assertEqual(key.key_size, 1024)
 
 
 class OidcProviderTestCase(WgerTestCase):
