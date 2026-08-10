@@ -380,14 +380,22 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         self.assertTrue(response.data['non_field_errors'])
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_set_existing_language(self):
+    def test_set_free_language_is_ignored(self):
         """
-        Test that it is possible to set the language if it doesn't duplicate a translation
+        Sending a language that doesn't duplicate a translation passes validation,
+        but the language itself is never changed over the API
         """
+        language_before = Translation.objects.get(pk=self.pk).language_id
+
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'language': 1, 'name': '123456'})
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(response.data.get('non_field_errors'))
+
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.language_id, language_before)
+        self.assertEqual(translation.name, '123456')
 
     def test_edit_only_one_language_per_base(self):
         """
