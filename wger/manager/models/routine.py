@@ -235,11 +235,7 @@ class Routine(models.Model):
         workout_session_map = defaultdict(set)
         for day in days:
             for session in day.workoutsession_set.all():
-                workout_session_map[day.id].add(
-                    timezone.localtime(session.datetime_start).date()
-                    if session.datetime_start
-                    else None
-                )
+                workout_session_map[day.id].add(session.local_day)
 
         # Main sequence generation logic
         labels = self.label_dict
@@ -457,7 +453,7 @@ class Routine(models.Model):
 
         # Iterate over each workout session associated with the routine
         for session in self.sessions.all():
-            session_date = timezone.localtime(session.datetime_start).date()
+            session_date = session.local_day
             week_number = session_date.isocalendar().week
 
             # TODO: filter for lb
