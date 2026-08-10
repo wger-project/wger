@@ -36,6 +36,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.openapi import AutoSchema
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -53,7 +54,10 @@ from rest_framework.decorators import (
     permission_classes,
 )
 from rest_framework.exceptions import ValidationError as DRFValidationError
-from rest_framework.fields import BooleanField
+from rest_framework.fields import (
+    BooleanField,
+    CharField,
+)
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -98,6 +102,18 @@ from wger.version import (
 logger = logging.getLogger(__name__)
 
 
+class UserProfileAutoSchema(AutoSchema):
+    """
+    Keeps the list route out of spectacular's list/pagination heuristic, which
+    would otherwise document the single profile object as a paginated list.
+    """
+
+    def _is_list_view(self, serializer=None):
+        if getattr(self.view, 'action', None) == 'list':
+            return False
+        return super()._is_list_view(serializer)
+
+
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
     API endpoint for the user profile
@@ -107,6 +123,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     the profile, use a POST request with the new data, not a PATCH.
     """
 
+    schema = UserProfileAutoSchema()
     serializer_class = UserprofileSerializer
     permission_classes = (
         IsAuthenticated,
@@ -130,6 +147,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         """
         return [(User, 'user')]
 
+    @extend_schema(operation_id='userprofile_list', responses={200: UserprofileSerializer})
     def list(self, request, *args, **kwargs):
         """
         Customized list view, that returns only the current user's data
@@ -154,9 +172,22 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    @extend_schema(responses={405: OpenApiResponse(description='Profiles cannot be deleted')})
     def destroy(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+    @extend_schema(
+        responses={
+            200: inline_serializer(
+                name='VerifyEmailResponse',
+                fields={
+                    'status': CharField(required=False),
+                    'result': CharField(required=False),
+                    'message': CharField(),
+                },
+            ),
+        },
+    )
     @action(detail=False, methods=['post'], url_name='verify-email', url_path='verify-email')
     def verify_email(self, request):
         """

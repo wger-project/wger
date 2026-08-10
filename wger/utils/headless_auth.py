@@ -22,6 +22,7 @@ from django.contrib.auth import get_user_model
 from allauth.headless.contrib.rest_framework.authentication import JWTTokenAuthentication
 from allauth.headless.tokens.strategies.jwt import internal
 from allauth.headless.tokens.strategies.jwt.strategy import JWTTokenStrategy
+from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from rest_framework.exceptions import AuthenticationFailed
 
 
@@ -58,6 +59,27 @@ class HeadlessJWTAuthentication(JWTTokenAuthentication):
             raise AuthenticationFailed('User inactive or deleted')
 
         return user, payload
+
+
+class HeadlessJWTScheme(OpenApiAuthenticationExtension):
+    """
+    Schema entry for HeadlessJWTAuthentication.
+
+    Without this, drf-spectacular derives the name from the TokenAuthentication
+    base class and collides with DRF's own "tokenAuth", documenting the wrong
+    "Token" prefix for this Bearer-based class.
+    """
+
+    target_class = 'wger.utils.headless_auth.HeadlessJWTAuthentication'
+    name = 'headlessJwtAuth'
+
+    def get_security_definition(self, auto_schema):
+        return {
+            'type': 'http',
+            'scheme': 'bearer',
+            'bearerFormat': 'JWT',
+            'description': 'Access token issued by the allauth headless endpoints',
+        }
 
 
 class WgerJWTTokenStrategy(JWTTokenStrategy):

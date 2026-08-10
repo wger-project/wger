@@ -513,6 +513,14 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'COMPONENT_SPLIT_REQUEST': True,
+    # Both are exposed as a plain "type" field on more than one component, which
+    # spectacular would otherwise name with a hash suffix (e.g. Type947Enum).
+    # The names end up as class names in generated clients, so pin them.
+    'ENUM_NAME_OVERRIDES': {
+        'DayTypeEnum': 'wger.manager.models.day.DayType.choices',
+        'ExerciseTypeEnum': 'wger.manager.models.slot_entry.ExerciseType.choices',
+        'IntensityEnum': 'wger.core.models.profile.UserProfile.INTENSITY',
+    },
 }
 
 #
