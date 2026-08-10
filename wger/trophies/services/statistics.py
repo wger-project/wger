@@ -22,6 +22,7 @@ from typing import Optional
 
 # Django
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # wger
 from wger.manager.consts import WEIGHT_UNIT_LB
@@ -91,11 +92,7 @@ class UserStatisticsService:
         stats.total_workouts = sessions.count()
 
         # Calculate streaks and other date-based stats
-        workout_dates = list(
-            sessions.values_list('datetime_start__date', flat=True)
-            .distinct()
-            .order_by('datetime_start__date')
-        )
+        workout_dates = sorted({session.local_day for session in sessions if session.local_day})
         current_streak, longest_streak = cls._calculate_streaks(workout_dates)
         stats.current_streak = current_streak
         stats.longest_streak = longest_streak
@@ -158,15 +155,11 @@ class UserStatisticsService:
         # Get the session date
         session_date = None
         if session:
-            session_date = session.datetime_start
+            session_date = session.local_day
         elif workout_log and workout_log.session:
-            session_date = workout_log.session.datetime_start
+            session_date = workout_log.session.local_day
 
         if session_date:
-            # Convert datetime to date if needed for comparison
-            if hasattr(session_date, 'date'):
-                session_date = session_date.date()
-
             # Check if this is a new workout day
             is_new_day = stats.last_workout_date is None or session_date > stats.last_workout_date
 
@@ -202,8 +195,8 @@ class UserStatisticsService:
                 cls._update_weekend_streak_incremental(stats, session_date)
 
         # Update workout times if session has time info
-        if session and session.datetime_start:
-            session_time = session.datetime_start.time()
+        if session and session.datetime_end:
+            session_time = timezone.localtime(session.datetime_start).time()
             if stats.earliest_workout_time is None or session_time < stats.earliest_workout_time:
                 stats.earliest_workout_time = session_time
             if stats.latest_workout_time is None or session_time > stats.latest_workout_time:
@@ -287,7 +280,7 @@ class UserStatisticsService:
         longest_streak = 1
         streak = 1
 
-        today = datetime.date.today()
+        today = timezone.localdate()
 
         for i in range(1, len(unique_dates)):
             if (unique_dates[i] - unique_dates[i - 1]).days == 1:
@@ -320,7 +313,9 @@ class UserStatisticsService:
         Returns:
             Tuple of (earliest_time, latest_time)
         """
-        times = [s.datetime_start.time() for s in sessions if s.datetime_start is not None]
+        # Only sessions with an end carry a time the user actually recorded. The
+        # rest are migrated rows that only ever had a date.
+        times = [timezone.localtime(s.datetime_start).time() for s in sessions if s.datetime_end]
         if not times:
             return None, None
         return min(times), max(times)
@@ -378,7 +373,7 @@ class UserStatisticsService:
                 streak = 1
 
         # Determine current streak
-        today = datetime.date.today()
+        today = timezone.localdate()
         last_complete = complete_weekends[-1]
 
         # Find the most recent Saturday

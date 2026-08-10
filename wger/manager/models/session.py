@@ -120,7 +120,21 @@ class WorkoutSession(models.Model):
         """
         Return a more human-readable representation
         """
-        return f'{self.routine} - {self.datetime_start.date() if self.datetime_start else ""}'
+        return f'{self.routine} - {self.local_day}'
+
+    @property
+    def local_day(self) -> datetime.date | None:
+        """
+        The calendar day this session counts for, e.g. for streaks
+
+        A session that runs over midnight counts for the day it started on. The
+        day is derived in the instance timezone; there is no per-user timezone
+        yet, see the ORM equivalent ``datetime_start__date``.
+        """
+        if not self.datetime_start:
+            return None
+
+        return timezone.localtime(self.datetime_start).date()
 
     class Meta:
         """
