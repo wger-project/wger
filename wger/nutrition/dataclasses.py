@@ -17,6 +17,7 @@ from dataclasses import (
     asdict,
     dataclass,
 )
+from decimal import Decimal
 from typing import Optional
 
 # wger
@@ -88,6 +89,14 @@ class IngredientData:
             'sodium',
             'fiber',
         ]
+        # The dumps are user generated, anything can turn up where a number is
+        # expected. Reject it like any other invalid value instead of letting a
+        # TypeError escape and abort the whole import run.
+        for field in ['energy'] + macros:
+            value = getattr(self, field)
+            if value is not None and not isinstance(value, (int, float, Decimal)):
+                raise ValueError(f'Value for {field} is not a number: {value!r}')
+
         for macro in macros:
             value = getattr(self, macro)
             if value and value > 100:
