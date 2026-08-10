@@ -297,11 +297,27 @@ class NutritionalValuesSerializer(serializers.Serializer):
     energy = serializers.FloatField()
     protein = serializers.FloatField()
     carbohydrates = serializers.FloatField()
-    carbohydrates_sugar = serializers.FloatField()
+    # These four default to None on NutritionalValues, so they go out as null
+    # for ingredients that don't carry the value
+    carbohydrates_sugar = serializers.FloatField(allow_null=True)
     fat = serializers.FloatField()
-    fat_saturated = serializers.FloatField()
-    fiber = serializers.FloatField()
-    sodium = serializers.FloatField()
+    fat_saturated = serializers.FloatField(allow_null=True)
+    fiber = serializers.FloatField(allow_null=True)
+    sodium = serializers.FloatField(allow_null=True)
+
+
+class IngredientValuesSerializer(NutritionalValuesSerializer):
+    """
+    Nutritional values for a given amount and unit of an ingredient.
+
+    Carries the form errors instead of usable values when the amount or unit
+    query parameters don't validate.
+    """
+
+    errors = serializers.DictField(
+        child=serializers.ListField(child=serializers.CharField()),
+        required=False,
+    )
 
 
 class MealInfoSerializer(serializers.ModelSerializer):

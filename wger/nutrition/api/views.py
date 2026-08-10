@@ -25,6 +25,11 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+)
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -38,6 +43,7 @@ from wger.nutrition.api.serializers import (
     IngredientImageSerializer,
     IngredientInfoSerializer,
     IngredientSerializer,
+    IngredientValuesSerializer,
     IngredientWeightUnitSerializer,
     LogItemSerializer,
     MealItemSerializer,
@@ -98,6 +104,24 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         self.throttle_scope = 'ingredient_list' if self.action == 'list' else 'ingredient_detail'
         return super().get_throttles()
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'amount',
+                OpenApiTypes.DECIMAL,
+                OpenApiParameter.QUERY,
+                required=True,
+                description='The amount to calculate the values for',
+            ),
+            OpenApiParameter(
+                'unit',
+                OpenApiTypes.INT,
+                OpenApiParameter.QUERY,
+                description='ID of an ingredient weight unit. Defaults to grams.',
+            ),
+        ],
+        responses={200: IngredientValuesSerializer},
+    )
     @action(detail=True)
     def get_values(self, request, pk):
         """
@@ -254,6 +278,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
@@ -347,6 +372,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(NutritionPlan, 'plan')]
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
@@ -395,6 +421,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(Meal, 'meal')]
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
@@ -431,6 +458,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(NutritionPlan, 'plan'), (Meal, 'meal')]
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
