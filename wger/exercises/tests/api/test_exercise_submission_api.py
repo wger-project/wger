@@ -32,7 +32,7 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 
 
-class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
+class ExerciseSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/exercise-submission/'
 
     @staticmethod
@@ -83,6 +83,24 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
             Alias.objects.count(),
             ExerciseComment.objects.count(),
         )
+
+    def test_submission_anonymous(self):
+        """Anonymous users cannot submit exercises"""
+        before = self.get_counts()
+        response = self.client.post(self.url, data=self.get_payload())
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(before, self.get_counts())
+
+    def test_submission_untrustworthy_user(self):
+        """Users without a verified email cannot submit exercises"""
+        self.authenticate('test')
+
+        before = self.get_counts()
+        response = self.client.post(self.url, data=self.get_payload())
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(before, self.get_counts())
 
     def test_successful_submission_full(self):
         """Test that all objects were correctly created."""
