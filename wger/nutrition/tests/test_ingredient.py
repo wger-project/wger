@@ -255,7 +255,7 @@ class IngredientDetailTestCase(WgerTestCase):
         self.ingredient_detail(editor=False)
 
     @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
-    def test_ingredient_detail_does_not_triggers_lazy_serving_sync(self, mock_sync: MagicMock):
+    def test_ingredient_detail_does_not_trigger_lazy_serving_sync(self, mock_sync: MagicMock):
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 6}))
 
         self.assertEqual(response.status_code, 200)
@@ -691,8 +691,15 @@ class IngredientModelTestCase(WgerTestCase):
 
 
 class IngredientInfoLazyServingUnitSyncApiTestCase(WgerTestCase):
+    """
+    Reading ingredients must not sync serving units from OFF
+
+    The sync does an HTTP request per ingredient, so wiring it into a read
+    endpoint would put an external call in the hot path of every request.
+    """
+
     @patch('wger.nutrition.models.Ingredient.sync_serving_unit_from_off_if_missing')
-    def test_detail_triggers_lazy_sync(self, mock_sync: MagicMock):
+    def test_detail_does_not_trigger_lazy_sync(self, mock_sync: MagicMock):
         self.client.get(reverse('api-ingredientinfo-detail', kwargs={'pk': 1}))
         mock_sync.assert_not_called()
 
