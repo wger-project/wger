@@ -80,6 +80,24 @@ class LogSessionMatchingTestCase(WgerTestCase):
 
         self.assertEqual(log.session_id, session.pk)
 
+    def test_the_most_recent_open_session_wins(self):
+        """With several open sessions in the window the newest one gets the log"""
+
+        self.make_session((2025, 3, 10, 8, 0))
+        newer = self.make_session((2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertEqual(log.session_id, newer.pk)
+
+    def test_a_covering_session_wins_over_an_open_one(self):
+        """A session the log falls into beats a more recent open session"""
+
+        covering = self.make_session((2025, 3, 10, 9, 0), (2025, 3, 10, 13, 0))
+        self.make_session((2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertEqual(log.session_id, covering.pk)
+
     def test_log_outside_the_window_starts_a_new_session(self):
         """A log too long after an open session gets one of its own"""
 
