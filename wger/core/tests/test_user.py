@@ -35,6 +35,7 @@ from wger.core.tests.base_testcase import (
     WgerTestCase,
 )
 from wger.manager.models import WorkoutSession
+from wger.nutrition.models import NutritionPlan
 
 
 class StatusUserTestCase(WgerTestCase):
@@ -393,6 +394,27 @@ class UserDetailPageSessionTableTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:overview', kwargs={'pk': 2}))
 
         self.assertContains(response, '-/-')
+
+
+class UserDetailPageMacroUnitTestCase(WgerTestCase):
+    """
+    Tests that nutrition plan macros on the user detail page are labeled in grams
+    """
+
+    def test_macros_labeled_in_grams_for_imperial_user(self):
+        """
+        Tests that the macro labels stay 'g' for users with imperial units
+        """
+        member = User.objects.get(pk=2)
+        member.userprofile.weight_unit = 'lb'
+        member.userprofile.save()
+        NutritionPlan.objects.create(user=member)
+
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:overview', kwargs={'pk': member.pk}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'oz')
 
 
 class UserTrustworthinessTestCase(WgerTestCase):

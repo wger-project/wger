@@ -321,10 +321,5 @@ class WorkoutLog(models.Model):
         if self.next_log and self.next_log.user != self.user:
             self.next_log = None
 
-        # If the user selected "Until Failure", do only 1 "repetition",
-        # anything else doesn't make sense.
-        if self.repetitions_unit == 2:
-            self.reps = 1
-
         # Save to db
         super().save(*args, **kwargs)

@@ -31,13 +31,13 @@ class SyncMode(enum.Enum):
 
 
 ENERGY_FACTOR = {
-    'protein': {'kg': 4, 'lb': 113},
-    'carbohydrates': {'kg': 4, 'lb': 113},
-    'fat': {'kg': 9, 'lb': 225},
-    'fiber': {'kg': 2, 'lb': 57},
+    'protein': 4,
+    'carbohydrates': 4,
+    'fat': 9,
+    'fiber': 2,
 }
 """
-Simple approximation of energy (kcal) provided per gram or ounce
+Simple approximation of energy (kcal) provided per gram
 
 The values are the conversion factors from EU Regulation 1169/2011, Annex XIV
 """

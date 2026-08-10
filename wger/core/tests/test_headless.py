@@ -136,6 +136,52 @@ class HeadlessSmokeTestCase(WgerTestCase):
         )
         self.assertIn(response.status_code, (401, 403))
 
+    def test_access_token_for_deactivated_user_is_rejected(self):
+        """
+        A JWT access token stays cryptographically valid after its user is
+        deactivated. Deactivation has to lock the account out of the API
+        immediately, not only after the token expires.
+        """
+        response = self.client.post(
+            reverse('headless:app:account:login'),
+            data=json.dumps({'username': 'test', 'password': 'testtest'}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        access_token = response.json()['meta']['access_token']
+
+        self.client.logout()
+        User.objects.filter(username='test').update(is_active=False)
+
+        response = self.client.get(
+            '/api/v2/workoutsession/',
+            HTTP_AUTHORIZATION=f'Bearer {access_token}',
+        )
+        self.assertIn(response.status_code, (401, 403))
+
+    def test_refresh_token_for_deactivated_user_is_rejected(self):
+        """
+        A deactivated user must not be able to mint new access tokens with
+        an existing refresh token.
+        """
+        response = self.client.post(
+            reverse('headless:app:account:login'),
+            data=json.dumps({'username': 'test', 'password': 'testtest'}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        refresh_token = response.json()['meta']['refresh_token']
+
+        self.client.logout()
+        User.objects.filter(username='test').update(is_active=False)
+
+        response = self.client.post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': refresh_token}),
+            content_type='application/json',
+        )
+        self.assertNotEqual(response.status_code, 200, response.content)
+
     def test_invalid_jwt_does_not_break_auth_chain(self):
         """
         A malformed Bearer token must not raise AuthenticationFailed in our

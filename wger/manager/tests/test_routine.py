@@ -170,7 +170,7 @@ class RoutineTestCase(WgerTestCase):
         """
 
         # Arrange
-        today = datetime.date.today()
+        today = timezone.localdate()
         start = today - datetime.timedelta(days=5)
         self.routine.start = start
         self.routine.end = today + datetime.timedelta(weeks=3)
@@ -289,7 +289,7 @@ class RoutineTestCase(WgerTestCase):
         """
 
         # Arrange
-        today = datetime.date.today()
+        today = timezone.localdate()
         start = today - datetime.timedelta(days=5)
 
         self.routine.start = start
@@ -489,7 +489,7 @@ class RoutineTestCase(WgerTestCase):
         """
 
         # Arrange
-        today = datetime.date.today()
+        today = timezone.localdate()
         start = today - datetime.timedelta(days=10)
 
         self.routine.fit_in_week = True

@@ -157,10 +157,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    @action(detail=False, url_name='verify-email', url_path='verify-email')
+    @action(detail=False, methods=['post'], url_name='verify-email', url_path='verify-email')
     def verify_email(self, request):
         """
         Verify the user's email address
+
+        POST only, a GET must not send out emails as a side effect
         """
         email_obj = request.user.userprofile.get_allauth_email
 

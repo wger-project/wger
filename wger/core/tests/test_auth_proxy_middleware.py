@@ -23,7 +23,6 @@ from django.urls import reverse
 
 # Third Party
 from allauth.account.models import EmailAddress
-from allauth.socialaccount.models import SocialApp
 
 
 User = get_user_model()
@@ -300,3 +299,68 @@ class AuthProxyMiddlewareTests(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], safe_next)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_session_user_is_replaced_on_mismatch(self):
+        """
+        The proxy is the authority: hitting the login page with a session that
+        belongs to a different user replaces it with the header user
+        """
+        other_user = User.objects.create_user(username='someone_else', password='password123')
+        self.client.force_login(other_user)
+
+        response = self.client.get(
+            self.login_url,
+            REMOTE_ADDR=TRUSTED_IP,
+            **{PROXY_HEADER_KEY: USERNAME},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(int(self.client.session['_auth_user_id']), self.existing_user.pk)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        AUTH_PROXY_CREATE_UNKNOWN_USER=True,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_existing_account_is_adopted_not_duplicated(self):
+        """
+        A header naming an existing user logs into that account, it does not
+        create a second one. Whoever controls the header controls every
+        account, including staff ones, which is why the header may only be
+        trusted from the proxy.
+        """
+        self.existing_user.is_staff = True
+        self.existing_user.save()
+        count_before = User.objects.count()
+
+        response = self.make_request(TRUSTED_IP, USERNAME)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), count_before)
+        self.assertEqual(int(self.client.session['_auth_user_id']), self.existing_user.pk)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_forwarded_for_does_not_grant_trust(self):
+        """
+        Only the peer address decides whether the header is trusted, a
+        client-supplied X-Forwarded-For must not be enough
+        """
+        response = self.client.get(
+            self.protected_url,
+            REMOTE_ADDR=UNTRUSTED_IP,
+            follow=True,
+            **{PROXY_HEADER_KEY: USERNAME, 'HTTP_X_FORWARDED_FOR': TRUSTED_IP},
+        )
+
+        self.assertNotIn('_auth_user_id', self.client.session)
+        self.assertContains(response, 'login', status_code=200)

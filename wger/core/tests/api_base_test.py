@@ -119,14 +119,6 @@ class ApiGetTestCase:
     Base test case for testing GET access to the API
     """
 
-    def test_ordering(self):
-        """
-        Test that ordering the resource works
-        """
-        pass
-
-        # TODO: implement this
-
     def test_get_detail(self):
         """
         Tests accessing the detail view of a resource
@@ -231,8 +223,12 @@ class ApiGetTestCase:
 
             # Different logged-in user
             self.authenticate(self.user_fail)
-            response = self.client.get(self.url_detail)
-            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+            response = self.client.get(url)
+            self.assertEqual(
+                response.status_code,
+                status.HTTP_404_NOT_FOUND,
+                f'URL {url} should return a 404 status code',
+            )
 
 
 class ApiPostTestCase:
@@ -305,11 +301,27 @@ class ApiPostTestCase:
             count_after = self.resource.objects.all().count()
             self.assertEqual(count_before + 1, count_after)
 
-            # Different logged in user
+            # Different logged in user.
+            #
+            # Whether this succeeds depends on the resource: if the data
+            # references objects of the other user, it is rejected. What must
+            # hold for all of them is that the new object never ends up in
+            # somebody else's account.
             self.authenticate(self.user_fail)
+            count_before = self.resource.objects.all().count()
             response = self.client.post(self.url, data=self.data)
-            # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-            # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            count_after = self.resource.objects.all().count()
+
+            if response.status_code == status.HTTP_201_CREATED:
+                self.assertEqual(count_before + 1, count_after)
+                created = self.resource.objects.get(pk=response.data['id'])
+                self.assertEqual(created.get_owner_object().user.username, self.user_fail)
+            else:
+                self.assertIn(
+                    response.status_code,
+                    (status.HTTP_400_BAD_REQUEST, status.HTTP_403_FORBIDDEN),
+                )
+                self.assertEqual(count_before, count_after)
 
         else:
             # Anonymous user
@@ -515,7 +527,6 @@ class ApiPutTestCase:
             #
             # Currently, resources that have a 'user' field 'succeed'
             if response.status_code == status.HTTP_201_CREATED:
-                # print(f'201: {self.url_detail}')
                 obj = self.resource.objects.get(pk=response.data['id'])
                 obj2 = self.resource.objects.get(pk=self.pk)
                 self.assertNotEqual(
@@ -525,8 +536,17 @@ class ApiPutTestCase:
                 self.assertEqual(obj.get_owner_object().user.username, self.user_fail)
                 self.assertEqual(count_before + 1, count_after)
 
-            elif response.status_code == status.HTTP_403_FORBIDDEN:
-                # print(f'403: {self.url_detail}')
+            else:
+                # 404 for resources whose queryset is filtered by owner, they
+                # don't leak that the object exists
+                self.assertIn(
+                    response.status_code,
+                    (
+                        status.HTTP_400_BAD_REQUEST,
+                        status.HTTP_403_FORBIDDEN,
+                        status.HTTP_404_NOT_FOUND,
+                    ),
+                )
                 self.assertEqual(count_before, count_after)
         else:
             # Anonymous user
