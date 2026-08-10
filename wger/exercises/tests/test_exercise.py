@@ -163,11 +163,9 @@ class ExerciseCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
         Test that it is not possible to set the license for a newly created
         exercise base (the license is always set to the default)
         """
-        self.data['license'] = 3
-
         self.authenticate('trainer1')
-        response = self.client.post(self.url, data=self.data)
+        response = self.client.post(self.url, data={**self.data, 'license': 3})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        exercise = Exercise.objects.get(pk=self.pk)
+        exercise = Exercise.objects.get(pk=response.json()['id'])
         self.assertEqual(exercise.license_id, CC_BY_SA_4_LICENSE_ID)

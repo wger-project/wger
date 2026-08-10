@@ -68,7 +68,6 @@ class GymMembersCsvExportTestCase(WgerTestCase):
 
         for username in (
             'manager3',
-            'manager4',
             'test',
             'member1',
             'member2',

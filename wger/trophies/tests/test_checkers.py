@@ -35,6 +35,7 @@ from wger.trophies.checkers.workout_count_based import WorkoutCountBasedChecker
 from wger.trophies.models import (
     Trophy,
     UserStatistics,
+    UserTrophy,
 )
 
 
@@ -522,10 +523,21 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         context = checker.get_context_data()
         self.assertIsNotNone(context)
 
+    def award_pr_trophy(self, checker: PersonalRecordChecker):
+        """
+        Awards the PR trophy, like the signal handler does after a positive check
+        """
+        UserTrophy.objects.create(
+            user=self.user,
+            trophy=self.trophy,
+            context_data=checker.get_context_data(),
+        )
+
     def test_improvement_detected_and_context_values(self):
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
         self.assertTrue(checker1.check())
+        self.award_pr_trophy(checker1)
 
         log2 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=110)
         checker2 = PersonalRecordChecker(self.user, self.trophy, {'log': log2})
@@ -534,10 +546,11 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         context = checker2.get_context_data()
         self.assertIsNotNone(context)
 
-    def no_award_if_not_an_improvement(self):
+    def test_no_award_if_not_an_improvement(self):
         log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=100)
         checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
         self.assertTrue(checker1.check())
+        self.award_pr_trophy(checker1)
 
         # lower weight
         log2 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=10, weight=90)

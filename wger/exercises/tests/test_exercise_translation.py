@@ -200,13 +200,11 @@ class ExerciseTranslationCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTes
         Test that it is not possible to set the license for a newly created
         exercise translation (the license is always set to the default)
         """
-        self.data['license'] = CC_0_LICENSE_ID
-
         self.authenticate('trainer1')
-        response = self.client.post(self.url, data=self.data)
+        response = self.client.post(self.url, data={**self.data, 'license': CC_0_LICENSE_ID})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        translation = Translation.objects.get(pk=self.pk)
+        translation = Translation.objects.get(pk=response.json()['id'])
         self.assertEqual(translation.license_id, CC_BY_SA_4_LICENSE_ID)
 
     def test_post_without_description_succeeds(self):

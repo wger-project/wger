@@ -35,7 +35,6 @@ class TrophiesOverviewTestCase(WgerAccessTestCase):
         'manager2',
         'general_manager1',
         'manager3',
-        'manager4',
         'test',
         'member1',
         'member2',

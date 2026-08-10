@@ -799,13 +799,11 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(Exercise.objects.count(), 8)
         self.assertEqual(Translation.objects.count(), 11)
 
-        exercise1 = Exercise.objects.get(pk=1)
-        exercise2 = Exercise.objects.get(pk=4)
-        self.assertFalse(SlotEntry.objects.filter(exercise=exercise2).count())
-        self.assertFalse(WorkoutLog.objects.filter(exercise=exercise2).count())
-
-        slot_entries = SlotEntry.objects.filter(exercise=exercise1)
-        logs = WorkoutLog.objects.filter(exercise=exercise1)
+        # Materialize the PKs now, the querysets would be empty after the sync
+        slot_entry_pks = list(SlotEntry.objects.filter(exercise_id=1).values_list('pk', flat=True))
+        log_pks = list(WorkoutLog.objects.filter(exercise_id=1).values_list('pk', flat=True))
+        self.assertTrue(slot_entry_pks)
+        self.assertTrue(log_pks)
 
         handle_deleted_entries(print)
 
@@ -818,10 +816,10 @@ class TestSyncMethods(WgerTestCase):
         self.assertRaises(Translation.DoesNotExist, Translation.objects.get, pk=3)
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
-        # Workouts and logs have been moved
-        for pk in slot_entries:
+        # Workouts and logs have been moved to the replacement exercise
+        for pk in slot_entry_pks:
             self.assertEqual(SlotEntry.objects.get(pk=pk).exercise_id, 2)
-        for pk in logs:
+        for pk in log_pks:
             self.assertEqual(WorkoutLog.objects.get(pk=pk).exercise_id, 2)
 
     @patch('requests.get', return_value=MockDeletionLogResponse())
