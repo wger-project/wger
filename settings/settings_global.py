@@ -139,6 +139,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Per-provider apps (allauth.socialaccount.providers.google, ...) are
     # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
+
+    # OAuth2/OIDC provider, used by API clients that log in as the user
+    'allauth.idp.oidc',
 ]
 
 MIDDLEWARE = [
@@ -474,6 +477,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'wger.utils.headless_auth.HeadlessJWTAuthentication',
+        # Also uses Bearer, but with opaque tokens, so it has to run before
+        # simplejwt, which raises instead of passing the token on. Placed after
+        # the headless class so app requests don't pay for the token lookup.
+        'allauth.idp.oidc.contrib.rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (

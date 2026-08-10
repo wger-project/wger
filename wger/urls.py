@@ -302,6 +302,9 @@ urlpatterns += [
     path('account/', include('allauth.urls')),
     # REST auth API consumed by the Flutter app.
     path('allauth/', include('allauth.headless.urls')),
+    # OAuth2/OIDC provider. Mounted at the root, the paths (/.well-known/... and
+    # /identity/o/...) are part of the include.
+    path('', include('allauth.idp.urls')),
     # API
     path(
         'api/v2/exercise-submission/',
