@@ -5,7 +5,7 @@ import datetime
 import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
-from django.db.models import Max, Min
+from django.db.models import F, Max, Min, Q
 from django.utils.timezone import make_aware
 
 
@@ -46,9 +46,11 @@ def build_interval(session):
 def forward_func(apps, schema_editor):
     WorkoutSession = apps.get_model('manager', 'WorkoutSession')
 
+    # Logs pinned to a session of another day must not move the session there
+    same_day = Q(logs__date__date=F('date'))
     queryset = WorkoutSession.objects.annotate(
-        first_log=Min('logs__date'),
-        last_log=Max('logs__date'),
+        first_log=Min('logs__date', filter=same_day),
+        last_log=Max('logs__date', filter=same_day),
     ).order_by('pk')
 
     batch = []
