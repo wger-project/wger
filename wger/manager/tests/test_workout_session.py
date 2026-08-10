@@ -100,9 +100,8 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
             url,
             data={
                 'notes': 'Still editable',
-                'date': stored['date'],
-                'time_start': stored['time_start'],
-                'time_end': stored['time_end'],
+                'datetime_start': stored['datetime_start'],
+                'datetime_end': stored['datetime_end'],
             },
             content_type='application/json',
         )
@@ -126,7 +125,7 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
 
 class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
     """
-    Test the deprecated date/time_start/time_end fields of the session API
+    Test that writes in the pre-2.7 shape still arrive
     """
 
     SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
@@ -136,18 +135,14 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
         super().setUp()
         self.user_login('test')
 
-    def test_read_derives_the_deprecated_triple(self):
-        """The deprecated fields are derived from the new ones, in local time"""
-
-        session = WorkoutSession.objects.get(pk=self.SESSION)
-        start = timezone.localtime(session.datetime_start)
-        end = timezone.localtime(session.datetime_end)
+    def test_the_deprecated_fields_are_not_returned(self):
+        """They are accepted on write, but they are not part of the response"""
 
         response = self.client.get(reverse('workoutsession-detail', kwargs={'pk': self.SESSION}))
 
-        self.assertEqual(response.json()['date'], start.date().isoformat())
-        self.assertEqual(response.json()['time_start'], start.time().isoformat())
-        self.assertEqual(response.json()['time_end'], end.time().isoformat())
+        self.assertNotIn('date', response.json())
+        self.assertNotIn('time_start', response.json())
+        self.assertNotIn('time_end', response.json())
 
     def test_create_with_the_deprecated_triple(self):
         """The deprecated fields are composed into datetime_start/datetime_end"""
@@ -261,18 +256,20 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
             datetime.datetime(2025, 3, 12, 10, 0, tzinfo=datetime.timezone.utc),
         )
 
-    def test_filter_by_date(self):
-        """The deprecated date filter matches on the local day of datetime_start"""
+    def test_filter_by_day(self):
+        """The viewset has a filterset, so a day can be selected without an error"""
 
         session = WorkoutSession.objects.get(pk=self.SESSION)
         day = timezone.localtime(session.datetime_start).date()
 
-        response = self.client.get(reverse('workoutsession-list'), {'date': day.isoformat()})
+        response = self.client.get(
+            reverse('workoutsession-list'), {'datetime_start__date': day.isoformat()}
+        )
         self.assertEqual([entry['id'] for entry in response.json()['results']], [self.SESSION])
 
         response = self.client.get(
             reverse('workoutsession-list'),
-            {'date': (day + datetime.timedelta(days=1)).isoformat()},
+            {'datetime_start__date': (day + datetime.timedelta(days=1)).isoformat()},
         )
         self.assertEqual(response.json()['results'], [])
 

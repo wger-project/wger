@@ -430,15 +430,10 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    # Deprecated, remove in 2.8. Derived from datetime_start/datetime_end on read
-    # and translated back on write, so that clients written against the pre-2.7
-    # API keep working, including PowerSync uploads that were queued by an older
-    # app version and only drain after the update.
+    # Write-only compatibility with the pre-2.7 API, remove in 2.8. The app
+    # queues its offline writes with the column names it had at the time, so
+    # uploads written before the update still arrive in the old shape.
     LEGACY_FIELDS = ('date', 'time_start', 'time_end')
-
-    date = serializers.SerializerMethodField()
-    time_start = serializers.SerializerMethodField()
-    time_end = serializers.SerializerMethodField()
 
     class Meta:
         model = WorkoutSession
@@ -446,29 +441,11 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
             'id',
             'routine',
             'day',
-            'date',
             'notes',
             'impression',
-            'time_start',
-            'time_end',
             'datetime_start',
             'datetime_end',
         )
-
-    def get_date(self, obj: WorkoutSession) -> datetime.date | None:
-        start = self._local_start(obj)
-        return start.date() if start else None
-
-    def get_time_start(self, obj: WorkoutSession) -> datetime.time | None:
-        start = self._local_start(obj)
-        return start.time() if start else None
-
-    def get_time_end(self, obj: WorkoutSession) -> datetime.time | None:
-        return timezone.localtime(obj.datetime_end).time() if obj.datetime_end else None
-
-    @staticmethod
-    def _local_start(obj: WorkoutSession) -> datetime.datetime | None:
-        return timezone.localtime(obj.datetime_start) if obj.datetime_start else None
 
     def validate(self, attrs):
         """
@@ -514,7 +491,11 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
         time_start = self._legacy_value('time_start', data, serializers.TimeField)
         time_end = self._legacy_value('time_end', data, serializers.TimeField)
 
-        local_start = self._local_start(self.instance) if self.instance else None
+        local_start = (
+            timezone.localtime(self.instance.datetime_start)
+            if self.instance and self.instance.datetime_start
+            else None
+        )
         if date is None:
             date = local_start.date() if local_start else timezone.localdate()
         if 'time_start' not in data:

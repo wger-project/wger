@@ -24,9 +24,6 @@ from wger.manager.models import (
 
 
 class WorkoutSessionFilterSet(filters.FilterSet):
-    # Deprecated, remove in 2.8 together with the fields in WorkoutSessionSerializer
-    date = filters.DateFilter(field_name='datetime_start', lookup_expr='date')
-
     class Meta:
         model = WorkoutSession
         fields = {
