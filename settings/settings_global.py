@@ -27,6 +27,10 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 from jwt.algorithms import RSAAlgorithm
 
 # wger
+from wger.core.api.docs import (
+    API_DESCRIPTION,
+    API_TAGS,
+)
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
 
@@ -505,8 +509,17 @@ SPECTACULAR_SETTINGS = {
         {'url': '/', 'description': 'This server'},
         {'url': 'https://wger.de', 'description': 'The "official" upstream wger instance'},
     ],
-    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
+    'DESCRIPTION': API_DESCRIPTION,
     'VERSION': get_version(),
+    'LICENSE': {
+        'name': 'AGPL-3.0-or-later',
+        'url': 'https://www.gnu.org/licenses/agpl-3.0.html',
+    },
+    'EXTERNAL_DOCS': {
+        'url': 'https://wger.readthedocs.io',
+        'description': 'wger documentation',
+    },
+    'TAGS': API_TAGS,
     'SERVE_INCLUDE_SCHEMA': True,
     'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
     'SWAGGER_UI_DIST': 'SIDECAR',
