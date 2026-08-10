@@ -133,7 +133,6 @@ class NutritionPlan(models.Model):
         nutritional_representation = cache.get(cache_mapper.get_nutrition_cache_by_key(self.pk))
         if not nutritional_representation:
             nutritional_values = NutritionalValues()
-            use_metric = self.user.userprofile.use_metric
             result = {
                 'total': NutritionalValues(),
                 'percent': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
@@ -142,25 +141,21 @@ class NutritionPlan(models.Model):
 
             # Energy
             for meal in self.meal_set.select_related():
-                nutritional_values += meal.get_nutritional_values(use_metric=use_metric)
+                nutritional_values += meal.get_nutritional_values()
             result['total'] = nutritional_values
 
             energy = nutritional_values.energy
 
-            # In percent. The macros are always in grams, regardless of the
-            # unit the user prefers, so the energy factor per gram applies.
+            # In percent
             if energy:
                 result['percent']['protein'] = (
-                    nutritional_values.protein * ENERGY_FACTOR['protein']['kg'] / energy * 100
+                    nutritional_values.protein * ENERGY_FACTOR['protein'] / energy * 100
                 )
                 result['percent']['carbohydrates'] = (
-                    nutritional_values.carbohydrates
-                    * ENERGY_FACTOR['carbohydrates']['kg']
-                    / energy
-                    * 100
+                    nutritional_values.carbohydrates * ENERGY_FACTOR['carbohydrates'] / energy * 100
                 )
                 result['percent']['fat'] = (
-                    nutritional_values.fat * ENERGY_FACTOR['fat']['kg'] / energy * 100
+                    nutritional_values.fat * ENERGY_FACTOR['fat'] / energy * 100
                 )
 
             # Per body weight

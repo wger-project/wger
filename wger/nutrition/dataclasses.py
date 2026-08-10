@@ -120,10 +120,10 @@ class IngredientData:
         # usually not included in the carbohydrate value. See the comments on the
         # threshold constants in consts.py for the tolerances used.
         energy_computed = (
-            self.protein * ENERGY_FACTOR['protein']['kg']
-            + self.carbohydrates * ENERGY_FACTOR['carbohydrates']['kg']
-            + self.fat * ENERGY_FACTOR['fat']['kg']
-            + (self.fiber or 0) * ENERGY_FACTOR['fiber']['kg']
+            self.protein * ENERGY_FACTOR['protein']
+            + self.carbohydrates * ENERGY_FACTOR['carbohydrates']
+            + self.fat * ENERGY_FACTOR['fat']
+            + (self.fiber or 0) * ENERGY_FACTOR['fiber']
         )
         if self.energy > ENERGY_CHECK_MIN_KCAL or energy_computed > ENERGY_CHECK_MIN_KCAL:
             energy_lower = (
