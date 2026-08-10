@@ -134,7 +134,6 @@ class NutritionPlan(models.Model):
         if not nutritional_representation:
             nutritional_values = NutritionalValues()
             use_metric = self.user.userprofile.use_metric
-            unit = 'kg' if use_metric else 'lb'
             result = {
                 'total': NutritionalValues(),
                 'percent': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
@@ -148,19 +147,20 @@ class NutritionPlan(models.Model):
 
             energy = nutritional_values.energy
 
-            # In percent
+            # In percent. The macros are always in grams, regardless of the
+            # unit the user prefers, so the energy factor per gram applies.
             if energy:
                 result['percent']['protein'] = (
-                    nutritional_values.protein * ENERGY_FACTOR['protein'][unit] / energy * 100
+                    nutritional_values.protein * ENERGY_FACTOR['protein']['kg'] / energy * 100
                 )
                 result['percent']['carbohydrates'] = (
                     nutritional_values.carbohydrates
-                    * ENERGY_FACTOR['carbohydrates'][unit]
+                    * ENERGY_FACTOR['carbohydrates']['kg']
                     / energy
                     * 100
                 )
                 result['percent']['fat'] = (
-                    nutritional_values.fat * ENERGY_FACTOR['fat'][unit] / energy * 100
+                    nutritional_values.fat * ENERGY_FACTOR['fat']['kg'] / energy * 100
                 )
 
             # Per body weight
