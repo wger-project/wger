@@ -51,6 +51,12 @@ class HeadlessJWTAuthentication(JWTTokenAuthentication):
             _ = user.pk
         except get_user_model().DoesNotExist as exc:
             raise AuthenticationFailed('Invalid token') from exc
+
+        # allauth loads the user without checking is_active, but deactivation
+        # has to lock the account out immediately, not at token expiry
+        if not user.is_active:
+            raise AuthenticationFailed('User inactive or deleted')
+
         return user, payload
 
 
