@@ -14,6 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.utils import timezone
+
 
 def get_user_last_activity(user):
     """
@@ -29,27 +32,20 @@ def get_user_last_activity(user):
         WorkoutSession,
     )
 
-    last_activity = None
+    dates = []
 
-    # Check workout logs
+    # Check workout logs. They use datetimes, the sessions and the user cache
+    # only dates
     last_log = WorkoutLog.objects.filter(user=user).order_by('date').last()
     if last_log:
-        last_activity = last_log.date
+        dates.append(timezone.localdate(last_log.date))
 
     # Check workout sessions
     last_session = WorkoutSession.objects.filter(user=user).order_by('date').last()
     if last_session:
-        last_session = last_session.date
+        dates.append(last_session.date)
 
-    # Return the last one
-    # if last_session:
-    #     if not last_activity:
-    #         last_activity = last_session
-    #
-    #     if last_activity < last_session:
-    #         last_activity = last_session
-
-    return last_activity
+    return max(dates) if dates else None
 
 
 _CSV_FORMULA_PREFIXES = ('=', '+', '-', '@', '\t', '\r')
