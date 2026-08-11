@@ -248,7 +248,7 @@ class PermissionView(viewsets.ViewSet):
             ),
         ],
         responses={
-            201: inline_serializer(
+            200: inline_serializer(
                 name='PermissionResponse',
                 fields={
                     'result': BooleanField(),
