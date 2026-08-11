@@ -131,6 +131,10 @@ class OidcProviderTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'idp/oidc/authorization_form.html')
 
+        # allauth's own template renders no action attribute, so this also
+        # asserts that wger's override is the one being used
+        self.assertContains(response, f'action="{reverse("idp:oidc:authorization")}"')
+
         response = self.client.post(
             reverse('idp:oidc:authorization'),
             {
