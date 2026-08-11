@@ -40,6 +40,7 @@ from django.utils.http import urlencode
 
 # Third Party
 import jwt
+from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.models import (
     Client,
     Token,
@@ -50,6 +51,10 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 # wger
 from wger.core.tasks import flush_expired_oidc_tokens_task
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.utils.oidc_auth import (
+    SCOPE_READ,
+    SCOPE_WRITE,
+)
 
 
 REDIRECT_URI = 'https://client.example.com/callback'
@@ -104,16 +109,18 @@ class OidcProviderTestCase(WgerTestCase):
 
     def setUp(self):
         super().setUp()
+        self.enterContext(override_settings(IDP_OIDC_PRIVATE_KEY=self.private_key))
+
         self.oidc_client = Client(type=Client.Type.PUBLIC, name='Test client')
         self.oidc_client.set_redirect_uris([REDIRECT_URI])
-        self.oidc_client.set_scopes(['openid', 'profile', 'email'])
+        self.oidc_client.set_scopes(['openid', 'profile', 'email', SCOPE_READ, SCOPE_WRITE])
         self.oidc_client.set_grant_types(
             [Client.GrantType.AUTHORIZATION_CODE, Client.GrantType.REFRESH_TOKEN]
         )
         self.oidc_client.set_response_types([Client.ResponseType.CODE])
         self.oidc_client.save()
 
-    def request_authorization(self, challenge: str, scope: str = 'openid profile'):
+    def request_authorization(self, challenge: str, scope: str = f'openid profile {SCOPE_READ}'):
         """
         Opens the consent screen, returns its response
         """
@@ -130,7 +137,9 @@ class OidcProviderTestCase(WgerTestCase):
         )
         return self.client.get(f'{reverse("idp:oidc:authorization")}?{query}')
 
-    def grant_authorization(self, challenge: str, scope: str = 'openid profile') -> str:
+    def grant_authorization(
+        self, challenge: str, scope: str = f'openid profile {SCOPE_READ}'
+    ) -> str:
         """
         Runs the browser part of the flow, returns the authorization code
         """
@@ -157,6 +166,7 @@ class OidcProviderTestCase(WgerTestCase):
         self.assertEqual(params['state'][0], 'some-state')
         return params['code'][0]
 
+    @override_settings(IDP_OIDC_PRIVATE_KEY='')
     def test_discovery_without_signing_key(self):
         """
         Discovery answers without a signing key configured, the key set is empty
@@ -181,8 +191,7 @@ class OidcProviderTestCase(WgerTestCase):
         self.assertEqual(response.json()['keys'], [])
 
     def test_jwks_publishes_the_signing_key(self):
-        with override_settings(IDP_OIDC_PRIVATE_KEY=self.private_key):
-            response = self.client.get(reverse('idp:oidc:jwks'))
+        response = self.client.get(reverse('idp:oidc:jwks'))
 
         self.assertEqual(response.status_code, 200)
         keys = response.json()['keys']
@@ -198,30 +207,28 @@ class OidcProviderTestCase(WgerTestCase):
         self.user_login('test')
         verifier, challenge = generate_pkce_pair()
 
-        with override_settings(IDP_OIDC_PRIVATE_KEY=self.private_key):
-            code = self.grant_authorization(challenge)
+        code = self.grant_authorization(challenge)
+        response = self.client.post(
+            reverse('idp:oidc:token'),
+            {
+                'grant_type': 'authorization_code',
+                'code': code,
+                'client_id': self.oidc_client.id,
+                'redirect_uri': REDIRECT_URI,
+                'code_verifier': verifier,
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        token = response.json()
 
-            response = self.client.post(
-                reverse('idp:oidc:token'),
-                {
-                    'grant_type': 'authorization_code',
-                    'code': code,
-                    'client_id': self.oidc_client.id,
-                    'redirect_uri': REDIRECT_URI,
-                    'code_verifier': verifier,
-                },
-            )
-            self.assertEqual(response.status_code, 200, response.content)
-            token = response.json()
-
-            id_token = jwt.decode(
-                token['id_token'],
-                options={'verify_signature': False},
-                audience=self.oidc_client.id,
-            )
+        id_token = jwt.decode(
+            token['id_token'],
+            options={'verify_signature': False},
+            audience=self.oidc_client.id,
+        )
 
         self.assertEqual(token['token_type'], 'Bearer')
-        self.assertEqual(token['scope'], 'openid profile')
+        self.assertEqual(token['scope'], f'openid profile {SCOPE_READ}')
         self.assertEqual(id_token['preferred_username'], 'test')
 
         # The access token authenticates a regular API request as the user that
@@ -238,20 +245,103 @@ class OidcProviderTestCase(WgerTestCase):
         self.user_login('test')
         _, challenge = generate_pkce_pair()
 
-        with override_settings(IDP_OIDC_PRIVATE_KEY=self.private_key):
-            code = self.grant_authorization(challenge)
-            response = self.client.post(
-                reverse('idp:oidc:token'),
-                {
-                    'grant_type': 'authorization_code',
-                    'code': code,
-                    'client_id': self.oidc_client.id,
-                    'redirect_uri': REDIRECT_URI,
-                },
-            )
+        code = self.grant_authorization(challenge)
+        response = self.client.post(
+            reverse('idp:oidc:token'),
+            {
+                'grant_type': 'authorization_code',
+                'code': code,
+                'client_id': self.oidc_client.id,
+                'redirect_uri': REDIRECT_URI,
+            },
+        )
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json()['error'], 'invalid_request')
+
+    def create_access_token(self, scopes: list[str]) -> str:
+        """
+        Mints an access token directly, without running the whole flow
+        """
+        value = secrets.token_urlsafe(32)
+        token = Token(
+            type=Token.Type.ACCESS_TOKEN,
+            user=User.objects.get(username='test'),
+            client=self.oidc_client,
+            hash=get_adapter().hash_token(value),
+            expires_at=timezone.now() + timedelta(hours=1),
+        )
+        token.set_scopes(scopes)
+        token.save()
+        return value
+
+    def test_read_scope_allows_reading(self):
+        token = self.create_access_token([SCOPE_READ])
+
+        response = self.client.get(
+            reverse('userprofile-list'),
+            HTTP_AUTHORIZATION=f'Bearer {token}',
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_read_scope_does_not_allow_writing(self):
+        token = self.create_access_token([SCOPE_READ])
+
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            data={'name': 'Biceps', 'unit': 'cm'},
+            HTTP_AUTHORIZATION=f'Bearer {token}',
+        )
+
+        self.assertEqual(response.status_code, 403)
+        self.assertIn(SCOPE_WRITE, response.json()['detail'])
+
+    def test_write_scope_allows_writing(self):
+        token = self.create_access_token([SCOPE_READ, SCOPE_WRITE])
+
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            data={'name': 'Biceps', 'unit': 'cm'},
+            HTTP_AUTHORIZATION=f'Bearer {token}',
+        )
+
+        self.assertEqual(response.status_code, 201)
+
+    @override_settings(IDP_OIDC_PRIVATE_KEY='')
+    def test_tokens_stop_working_without_a_signing_key(self):
+        """
+        No key means the provider is off, tokens it handed out are not accepted
+        """
+        token = self.create_access_token([SCOPE_READ])
+
+        response = self.client.get(
+            reverse('userprofile-list'),
+            HTTP_AUTHORIZATION=f'Bearer {token}',
+        )
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_identity_scopes_alone_grant_no_api_access(self):
+        """
+        openid and friends identify the user, they don't open the API
+        """
+        token = self.create_access_token(['openid', 'profile', 'email'])
+
+        response = self.client.get(
+            reverse('userprofile-list'),
+            HTTP_AUTHORIZATION=f'Bearer {token}',
+        )
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_scopes_are_advertised(self):
+        response = self.client.get(reverse('idp:oidc:configuration'))
+
+        self.assertEqual(
+            response.json()['scopes_supported'],
+            [SCOPE_READ, SCOPE_WRITE, 'email', 'openid', 'profile'],
+        )
 
     def test_flush_expired_oidc_tokens_task(self):
         """

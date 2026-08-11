@@ -12,41 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.urls import reverse
-
 # Third Party
-from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from rest_framework import serializers
-
-
-class OidcTokenScheme(OpenApiAuthenticationExtension):
-    """
-    Schema entry for allauth's OIDC access tokens.
-
-    Without this, drf-spectacular can't resolve the authentication class and
-    leaves the endpoints without the security scheme.
-    """
-
-    target_class = 'allauth.idp.oidc.contrib.rest_framework.authentication.TokenAuthentication'
-    name = 'oidcAuth'
-
-    def get_security_definition(self, auto_schema):
-        return {
-            'type': 'oauth2',
-            'description': 'Access token issued by the OAuth2/OIDC provider',
-            'flows': {
-                'authorizationCode': {
-                    'authorizationUrl': reverse('idp:oidc:authorization'),
-                    'tokenUrl': reverse('idp:oidc:token'),
-                    'scopes': {
-                        'openid': 'Identify the account',
-                        'profile': 'Read the username',
-                        'email': 'Read the email address',
-                    },
-                }
-            },
-        }
 
 
 class ThumbnailsSerializer(serializers.Serializer):
