@@ -29,6 +29,9 @@ from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import SAFE_METHODS
 
+# wger
+from wger.utils.url import make_absolute_url
+
 
 SCOPE_READ = 'api:read'
 SCOPE_WRITE = 'api:write'
@@ -124,15 +127,15 @@ class OidcTokenScheme(OpenApiAuthenticationExtension):
 
     def get_security_definition(self, auto_schema):
         # OpenAPI 3.0 wants absolute URLs here, a relative path makes code
-        # generators build a broken one
-        site = settings.SITE_URL.rstrip('/')
+        # generators build a broken one. Without SITE_URL the paths stay
+        # relative: a degraded schema beats one that can't be generated.
         return {
             'type': 'oauth2',
             'description': 'Access token issued by the OAuth2/OIDC provider',
             'flows': {
                 'authorizationCode': {
-                    'authorizationUrl': f'{site}{reverse("idp:oidc:authorization")}',
-                    'tokenUrl': f'{site}{reverse("idp:oidc:token")}',
+                    'authorizationUrl': make_absolute_url(reverse('idp:oidc:authorization')),
+                    'tokenUrl': make_absolute_url(reverse('idp:oidc:token')),
                     'scopes': {str(name): str(label) for name, label in API_SCOPES.items()},
                 }
             },

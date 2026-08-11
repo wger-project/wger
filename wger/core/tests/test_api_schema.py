@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.conf import settings
+from django.test import override_settings
 from django.urls import reverse
 
 # wger
@@ -28,6 +30,15 @@ class ApiSchemaTestCase(WgerTestCase):
         """The schema endpoint generates the schema"""
 
         response = self.client.get(reverse('schema'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_schema_without_site_url(self):
+        """The schema is generated even when SITE_URL is not configured"""
+
+        with override_settings():
+            del settings.SITE_URL
+            response = self.client.get(reverse('schema'))
+
         self.assertEqual(response.status_code, 200)
 
     def test_swagger_ui(self):
