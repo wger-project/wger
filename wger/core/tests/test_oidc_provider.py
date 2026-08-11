@@ -234,9 +234,13 @@ class OidcProviderTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200, response.content)
         token = response.json()
 
+        # Verified against the published key set, a mismatch between the two
+        # would break every relying party
+        jwks = self.client.get(reverse('idp:oidc:jwks')).json()
         id_token = jwt.decode(
             token['id_token'],
-            options={'verify_signature': False},
+            key=jwt.PyJWK.from_dict(jwks['keys'][0], algorithm='RS256').key,
+            algorithms=['RS256'],
             audience=self.oidc_client.id,
         )
 
@@ -336,6 +340,27 @@ class OidcProviderTestCase(WgerTestCase):
         params = parse_qs(urlparse(response['location']).query)
         self.assertEqual(params['error'], ['invalid_scope'])
         self.assertNotIn('code', params)
+
+    def test_consent_cannot_grant_more_than_was_asked_for(self):
+        """
+        A tampered consent post cannot widen the scopes beyond the request
+        """
+        self.user_login('test')
+        _, challenge = generate_pkce_pair()
+
+        response = self.request_authorization(challenge, SCOPE_READ)
+        response = self.client.post(
+            reverse('idp:oidc:authorization'),
+            {
+                'request': response.context['form']['request'].value(),
+                'scopes': [SCOPE_READ, SCOPE_WRITE],
+                'action': 'grant',
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('scopes', response.context['form'].errors)
+        self.assertFalse(Token.objects.exists())
 
     def test_user_can_grant_less_than_the_application_asked_for(self):
         """
@@ -506,7 +531,22 @@ class OidcProviderTestCase(WgerTestCase):
     def test_expired_token_is_rejected(self):
         token = self.create_access_token([SCOPE_READ], expires_in=-timedelta(seconds=1))
 
-        self.assertEqual(self.read_profile(token).status_code, 403)
+        # The chain falls through to simplejwt, which answers, and
+        # SessionAuthentication turns DRF's 401 into a 403
+        self.assertIn(self.read_profile(token).status_code, (401, 403))
+
+    def test_refresh_tokens_expire(self):
+        """
+        Only tokens with an expiry are ever cleaned up
+        """
+        self.user_login('test')
+        verifier, challenge = generate_pkce_pair()
+        code = self.grant_authorization(challenge)
+        self.redeem_code(code, code_verifier=verifier)
+
+        refresh_token = Token.objects.get(type=Token.Type.REFRESH_TOKEN)
+
+        self.assertIsNotNone(refresh_token.expires_at)
 
     def test_token_of_a_deactivated_user_is_rejected(self):
         """
@@ -568,6 +608,18 @@ class OidcProviderTestCase(WgerTestCase):
         )
 
         self.assertEqual(response.status_code, 403)
+
+    @override_settings(IDP_OIDC_PRIVATE_KEY='')
+    def test_the_flow_does_not_start_without_a_signing_key(self):
+        """
+        Otherwise users would consent to something that cannot be completed
+        """
+        self.user_login('test')
+        _, challenge = generate_pkce_pair()
+
+        response = self.request_authorization(challenge)
+
+        self.assertEqual(response.status_code, 404)
 
     def test_identity_scopes_alone_grant_no_api_access(self):
         """

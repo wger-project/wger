@@ -17,12 +17,14 @@
 
 # Django
 from django.conf import settings
+from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from allauth.idp.oidc.adapter import DefaultOIDCAdapter
 from allauth.idp.oidc.contrib.rest_framework.authentication import TokenAuthentication
+from allauth.idp.oidc.views import authorization
 from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import SAFE_METHODS
@@ -37,6 +39,27 @@ API_SCOPES = {
 }
 
 
+def is_provider_configured() -> bool:
+    """
+    Whether this installation acts as an OAuth2/OIDC provider
+    """
+    return bool(settings.IDP_OIDC_PRIVATE_KEY or getattr(settings, 'IDP_OIDC_PRIVATE_KEYS', None))
+
+
+def authorization_view(request, *args, **kwargs):
+    """
+    allauth's authorization view, but only if the provider is set up.
+
+    Without a signing key the flow would run all the way through the consent
+    screen and only fail afterwards, when the token endpoint tries to sign an
+    ID token. Users would grant access to something that cannot work.
+    """
+    if not is_provider_configured():
+        raise Http404('The OAuth2 provider is not configured')
+
+    return authorization(request, *args, **kwargs)
+
+
 class OidcTokenAuthentication(TokenAuthentication):
     """
     Access tokens of the OAuth2/OIDC provider, restricted by scope.
@@ -48,10 +71,10 @@ class OidcTokenAuthentication(TokenAuthentication):
     """
 
     def authenticate(self, request):
-        # Without a signing key the provider is switched off. Checked first so
-        # that installations not using it don't pay for the token lookup, which
-        # every request with a bearer token would otherwise trigger.
-        if not (settings.IDP_OIDC_PRIVATE_KEY or getattr(settings, 'IDP_OIDC_PRIVATE_KEYS', None)):
+        # Checked first so that installations without the provider don't pay for
+        # the token lookup, which every request with a bearer token would
+        # otherwise trigger.
+        if not is_provider_configured():
             return None
 
         result = super().authenticate(request)
@@ -84,6 +107,7 @@ class WgerOIDCAdapter(DefaultOIDCAdapter):
     }
 
     def populate_server_metadata(self, data: dict) -> None:
+        super().populate_server_metadata(data)
         data['scopes_supported'] = sorted({*data['scopes_supported'], *API_SCOPES})
 
 
@@ -99,13 +123,16 @@ class OidcTokenScheme(OpenApiAuthenticationExtension):
     name = 'oidcAuth'
 
     def get_security_definition(self, auto_schema):
+        # OpenAPI 3.0 wants absolute URLs here, a relative path makes code
+        # generators build a broken one
+        site = settings.SITE_URL.rstrip('/')
         return {
             'type': 'oauth2',
             'description': 'Access token issued by the OAuth2/OIDC provider',
             'flows': {
                 'authorizationCode': {
-                    'authorizationUrl': reverse('idp:oidc:authorization'),
-                    'tokenUrl': reverse('idp:oidc:token'),
+                    'authorizationUrl': f'{site}{reverse("idp:oidc:authorization")}',
+                    'tokenUrl': f'{site}{reverse("idp:oidc:token")}',
                     'scopes': {str(name): str(label) for name, label in API_SCOPES.items()},
                 }
             },

@@ -303,6 +303,11 @@ IDP_OIDC_ADAPTER = 'wger.utils.oidc_auth.WgerOIDCAdapter'
 # one set it themselves (see settings/main.py)
 IDP_OIDC_PRIVATE_KEY = ''
 
+# Without this refresh tokens never expire, and since only tokens with an expiry
+# are cleaned up, abandoned grants would pile up forever. Same lifetime as the
+# tokens the app gets.
+IDP_OIDC_REFRESH_TOKEN_EXPIRES_IN = HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN
+
 
 def jwk_b64_to_pem(b64_jwk_str: str):
     """

@@ -57,8 +57,9 @@ def flush_expired_oidc_tokens_task():
     """
     Delete expired access and refresh tokens of the OAuth2/OIDC provider.
 
-    Tokens stay in the table after they expire, so without this the table
-    grows for as long as applications keep refreshing.
+    Rotation already drops the previous refresh token on every refresh, what
+    stays behind are abandoned grants: tokens of applications that a user
+    connected once and never used again.
     """
     call_command('oidc_cleartokens')
 
