@@ -535,6 +535,10 @@ wheels = [
 ]
 
 [package.optional-dependencies]
+idp-oidc = [
+    { name = "oauthlib" },
+    { name = "pyjwt", extra = ["crypto"] },
+]
 mfa = [
     { name = "fido2" },
     { name = "qrcode" },
@@ -1221,6 +1225,15 @@ wheels = [
 ]
 
 [[package]]
+name = "oauthlib"
+version = "3.3.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0b/5f/19930f824ffeb0ad4372da4812c50edbd1434f678c90c2733e1188edfc63/oauthlib-3.3.1.tar.gz", hash = "sha256:0f0f8aa759826a193cf66c12ea1af1637f87b9b4622d46e866952bb022e538c9", size = 185918, upload-time = "2025-06-19T22:48:08.269Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/be/9c/92789c596b8df838baa98fa71844d84283302f7604ed565dafe5a6b5041a/oauthlib-3.3.1-py3-none-any.whl", hash = "sha256:88119c938d2b8fb88561af5f6ee0eec8cc8d552b7bb1f712743136eb7523b7a1", size = 160065, upload-time = "2025-06-19T22:48:06.508Z" },
+]
+
+[[package]]
 name = "openfoodfacts"
 version = "5.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1517,6 +1530,11 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/3b/81/58d0ac84e1ef3a3843791d6954d94c0b33d526c75eeb1efbce9d0a4c4077/pyjwt-2.13.0.tar.gz", hash = "sha256:41571c89ca91598c79e8ef18a2d07367d4810fbbd6f637794879baf1b7703423", size = 107515, upload-time = "2026-05-21T19:54:36.618Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a3/5e/ecf12fdb62546d64385c158514e9b2b671f7832108ef2ecd2020ce0af2d1/pyjwt-2.13.0-py3-none-any.whl", hash = "sha256:66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728", size = 31274, upload-time = "2026-05-21T19:54:35.362Z" },
+]
+
+[package.optional-dependencies]
+crypto = [
+    { name = "cryptography" },
 ]
 
 [[package]]
@@ -1952,7 +1970,7 @@ dependencies = [
     { name = "crispy-bootstrap5" },
     { name = "django" },
     { name = "django-activity-stream" },
-    { name = "django-allauth", extra = ["mfa"] },
+    { name = "django-allauth", extra = ["idp-oidc", "mfa"] },
     { name = "django-axes", extra = ["ipware"] },
     { name = "django-bootstrap-breadcrumbs2" },
     { name = "django-cors-headers" },
@@ -2012,7 +2030,7 @@ requires-dist = [
     { name = "crispy-bootstrap5", specifier = "~=2026.3" },
     { name = "django", specifier = "~=6.0.7" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
-    { name = "django-allauth", extras = ["mfa"], specifier = "~=65.19.0" },
+    { name = "django-allauth", extras = ["idp-oidc", "mfa"], specifier = "~=65.19.0" },
     { name = "django-axes", extras = ["ipware"], specifier = "~=8.3.1" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },

@@ -139,6 +139,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Per-provider apps (allauth.socialaccount.providers.google, ...) are
     # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
+
+    # OAuth2/OIDC provider, used by API clients that log in as the user
+    'allauth.idp.oidc',
 ]
 
 MIDDLEWARE = [
@@ -290,6 +293,20 @@ HEADLESS_CLIENTS = ('app',)
 HEADLESS_TOKEN_STRATEGY = 'wger.utils.headless_auth.WgerJWTTokenStrategy'
 HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
+
+#
+# allauth.idp.oidc — OAuth2/OIDC provider
+#
+IDP_OIDC_ADAPTER = 'wger.utils.oidc_auth.WgerOIDCAdapter'
+
+# Empty means the provider is switched off, installations that want to act as
+# one set it themselves (see settings/main.py)
+IDP_OIDC_PRIVATE_KEY = ''
+
+# Without this refresh tokens never expire, and since only tokens with an expiry
+# are cleaned up, abandoned grants would pile up forever. Same lifetime as the
+# tokens the app gets.
+IDP_OIDC_REFRESH_TOKEN_EXPIRES_IN = HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN
 
 
 def jwk_b64_to_pem(b64_jwk_str: str):
@@ -474,6 +491,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'wger.utils.headless_auth.HeadlessJWTAuthentication',
+        # Also uses Bearer, but with opaque tokens, so it has to run before
+        # simplejwt, which raises instead of passing the token on. Placed after
+        # the headless class so app requests don't pay for the token lookup.
+        'wger.utils.oidc_auth.OidcTokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (

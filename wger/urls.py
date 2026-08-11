@@ -47,6 +47,7 @@ from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.trophies.api import views as trophies_api_views
+from wger.utils import oidc_auth
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -302,6 +303,11 @@ urlpatterns += [
     path('account/', include('allauth.urls')),
     # REST auth API consumed by the Flutter app.
     path('allauth/', include('allauth.headless.urls')),
+    # OAuth2/OIDC provider. Mounted at the root, the paths (/.well-known/... and
+    # /identity/o/...) are part of the include. The authorization endpoint is
+    # wrapped to keep the flow from starting when the provider isn't configured.
+    path('identity/o/authorize', oidc_auth.authorization_view, name='oidc-authorize'),
+    path('', include('allauth.idp.urls')),
     # API
     path(
         'api/v2/exercise-submission/',
