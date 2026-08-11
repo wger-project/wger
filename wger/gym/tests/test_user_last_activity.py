@@ -55,7 +55,13 @@ class UserLastActivityTestCase(WgerTestCase):
         ).save()
 
     def add_session(self, date: datetime.date):
-        WorkoutSession(user=self.user, routine_id=1, date=date).save()
+        WorkoutSession(
+            user=self.user,
+            routine_id=1,
+            datetime_start=timezone.make_aware(
+                datetime.datetime.combine(date, datetime.time(12, 0))
+            ),
+        ).save()
 
     def test_no_activity(self):
         self.assertIsNone(get_user_last_activity(self.user))

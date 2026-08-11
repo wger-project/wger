@@ -13,7 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 import logging
+
+# Django
+from django.test import override_settings
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -24,6 +29,101 @@ from wger.manager.models import (
 
 
 logger = logging.getLogger(__name__)
+
+
+class LogSessionMatchingTestCase(WgerTestCase):
+    """
+    Test which session a log without an explicit one is attached to
+    """
+
+    def setUp(self):
+        super().setUp()
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+    @staticmethod
+    def make_session(start, end=None):
+        return WorkoutSession.objects.create(
+            user_id=1,
+            routine_id=1,
+            datetime_start=timezone.make_aware(datetime.datetime(*start)),
+            datetime_end=timezone.make_aware(datetime.datetime(*end)) if end else None,
+        )
+
+    @staticmethod
+    def make_log(date):
+        log = WorkoutLog(
+            user_id=1,
+            routine_id=1,
+            exercise_id=1,
+            weight=10,
+            repetitions=10,
+            date=timezone.make_aware(datetime.datetime(*date)),
+        )
+        log.save()
+        return log
+
+    def test_log_inside_a_session_over_midnight(self):
+        """A log after midnight belongs to the session that started the evening before"""
+
+        session = self.make_session((2025, 3, 10, 23, 0), (2025, 3, 11, 1, 0))
+        log = self.make_log((2025, 3, 11, 0, 30))
+
+        self.assertEqual(log.session_id, session.pk)
+        self.assertEqual(WorkoutSession.objects.count(), 1)
+
+    def test_log_joins_an_open_session(self):
+        """A log within the window of a session without an end joins it"""
+
+        session = self.make_session((2025, 3, 10, 23, 0))
+        log = self.make_log((2025, 3, 11, 1, 0))
+
+        self.assertEqual(log.session_id, session.pk)
+
+    def test_the_most_recent_open_session_wins(self):
+        """With several open sessions in the window the newest one gets the log"""
+
+        self.make_session((2025, 3, 10, 8, 0))
+        newer = self.make_session((2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertEqual(log.session_id, newer.pk)
+
+    def test_a_covering_session_wins_over_an_open_one(self):
+        """A session the log falls into beats a more recent open session"""
+
+        covering = self.make_session((2025, 3, 10, 9, 0), (2025, 3, 10, 13, 0))
+        self.make_session((2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertEqual(log.session_id, covering.pk)
+
+    def test_log_outside_the_window_starts_a_new_session(self):
+        """A log too long after an open session gets one of its own"""
+
+        session = self.make_session((2025, 3, 10, 10, 0))
+        log = self.make_log((2025, 3, 10, 16, 0))
+
+        self.assertNotEqual(log.session_id, session.pk)
+        self.assertEqual(WorkoutSession.objects.count(), 2)
+
+    @override_settings(WGER_MAX_SESSION_LENGTH_HOURS=8)
+    def test_the_window_follows_the_setting(self):
+        """The same log joins the session once the window is wide enough"""
+
+        session = self.make_session((2025, 3, 10, 10, 0))
+        log = self.make_log((2025, 3, 10, 16, 0))
+
+        self.assertEqual(log.session_id, session.pk)
+
+    def test_log_after_a_closed_session_starts_a_new_one(self):
+        """A closed session is not extended, even within the window"""
+
+        session = self.make_session((2025, 3, 10, 10, 0), (2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertNotEqual(log.session_id, session.pk)
+        self.assertEqual(WorkoutSession.objects.count(), 2)
 
 
 class LogModelTestCase(WgerTestCase):
@@ -66,7 +166,9 @@ class LogModelTestCase(WgerTestCase):
 
         # A duplicate (user, date, routine=None) — only possible because a NULL
         # routine escapes the unique_together guard.
-        WorkoutSession.objects.create(user_id=1, date=session.date, routine=None)
+        WorkoutSession.objects.create(
+            user_id=1, datetime_start=session.datetime_start, routine=None
+        )
         self.assertEqual(WorkoutSession.objects.count(), 2)
 
         # A second log for the same day must not crash and must not add a session.
@@ -90,7 +192,7 @@ class LogModelTestCase(WgerTestCase):
         log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         target = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
         self.assertEqual(log.user_id, target.user_id)
-        self.assertNotEqual(log.date.date(), target.date)
+        self.assertNotEqual(log.date.date(), target.datetime_start.date())
 
         log.session = target
         log.save()

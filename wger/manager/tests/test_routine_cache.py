@@ -19,6 +19,7 @@ import datetime
 # Django
 from django.core.cache import cache
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
 from wger.core.tests.api_base_test import ApiBaseTestCase
@@ -101,7 +102,7 @@ class RoutineCacheInvalidationTestCase(BaseTestCase, ApiBaseTestCase):
         WorkoutSession(
             user_id=self.USER_ID,
             routine_id=self.ROUTINE_ID,
-            date=datetime.date(2024, 5, 1),
+            datetime_start=timezone.make_aware(datetime.datetime(2024, 5, 1, 12, 0)),
         ).save()
 
         self.assert_volatile_caches_cleared()

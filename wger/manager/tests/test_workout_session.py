@@ -15,8 +15,17 @@
 # Standard Library
 import datetime
 
+# Django
+from django.test import override_settings
+from django.urls import reverse
+from django.utils import timezone
+
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests import api_base_test
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import WorkoutSession
 
 
@@ -30,9 +39,259 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = True
     data = {
         'routine': 3,
-        'date': datetime.date(2014, 1, 25),
         'notes': 'My new insights',
         'impression': '3',
-        'time_start': datetime.time(10, 0),
-        'time_end': datetime.time(13, 0),
+        'datetime_start': timezone.make_aware(datetime.datetime(2014, 1, 25, 10, 0)),
+        'datetime_end': timezone.make_aware(datetime.datetime(2014, 1, 25, 13, 0)),
     }
+
+
+class WorkoutSessionDurationTestCase(WgerTestCase):
+    """
+    Test the maximum session length
+    """
+
+    SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
+    ROUTINE = 3
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+
+    def create_session(self, hours):
+        return self.client.post(
+            reverse('workoutsession-list'),
+            data={
+                'routine': self.ROUTINE,
+                'impression': '2',
+                'datetime_start': '2025-03-12T10:00:00Z',
+                'datetime_end': f'2025-03-12T{10 + hours}:00:00Z',
+            },
+        )
+
+    def test_session_within_the_limit(self):
+        self.assertEqual(self.create_session(4).status_code, status.HTTP_201_CREATED)
+
+    def test_session_over_the_limit_is_rejected(self):
+        response = self.create_session(6)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('5 hours', response.json()['datetime_end'][0])
+
+    @override_settings(WGER_MAX_SESSION_LENGTH_HOURS=8)
+    def test_the_limit_is_configurable(self):
+        self.assertEqual(self.create_session(6).status_code, status.HTTP_201_CREATED)
+
+    def stretch_session(self):
+        """Make the fixture session longer than the limit, bypassing the validation"""
+
+        session = WorkoutSession.objects.get(pk=self.SESSION)
+        WorkoutSession.objects.filter(pk=self.SESSION).update(
+            datetime_end=session.datetime_start + datetime.timedelta(hours=8)
+        )
+
+    def test_session_over_the_limit_stays_editable(self):
+        """Sessions from before the limit can still be edited as long as it stays untouched"""
+
+        self.stretch_session()
+        url = reverse('workoutsession-detail', kwargs={'pk': self.SESSION})
+        stored = self.client.get(url).json()
+
+        response = self.client.patch(
+            url,
+            data={
+                'notes': 'Still editable',
+                'datetime_start': stored['datetime_start'],
+                'datetime_end': stored['datetime_end'],
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(WorkoutSession.objects.get(pk=self.SESSION).notes, 'Still editable')
+
+    def test_stretching_a_session_further_is_rejected(self):
+        """Editing the times of such a session does run into the limit"""
+
+        self.stretch_session()
+
+        response = self.client.patch(
+            reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
+            data={'time_end': '23:00'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
+    """
+    Test that writes in the pre-2.7 shape still arrive
+    """
+
+    SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
+    ROUTINE = 3
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+
+    def test_the_deprecated_fields_are_not_returned(self):
+        """They are accepted on write, but they are not part of the response"""
+
+        response = self.client.get(reverse('workoutsession-detail', kwargs={'pk': self.SESSION}))
+
+        self.assertNotIn('date', response.json())
+        self.assertNotIn('time_start', response.json())
+        self.assertNotIn('time_end', response.json())
+
+    def test_create_with_the_deprecated_triple(self):
+        """The deprecated fields are composed into datetime_start/datetime_end"""
+
+        response = self.client.post(
+            reverse('workoutsession-list'),
+            data={
+                'routine': self.ROUTINE,
+                'impression': '2',
+                'date': '2025-03-12',
+                'time_start': '10:00',
+                'time_end': '11:30',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        session = WorkoutSession.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            session.datetime_start,
+            timezone.make_aware(datetime.datetime(2025, 3, 12, 10, 0)),
+        )
+        self.assertEqual(
+            session.datetime_end,
+            timezone.make_aware(datetime.datetime(2025, 3, 12, 11, 30)),
+        )
+
+    def test_create_over_midnight_ends_on_the_next_day(self):
+        """An end time before the start time means the session ended the day after"""
+
+        response = self.client.post(
+            reverse('workoutsession-list'),
+            data={
+                'routine': self.ROUTINE,
+                'impression': '2',
+                'date': '2025-03-10',
+                'time_start': '23:00',
+                'time_end': '01:30',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        session = WorkoutSession.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            session.datetime_start,
+            timezone.make_aware(datetime.datetime(2025, 3, 10, 23, 0)),
+        )
+        self.assertEqual(
+            session.datetime_end,
+            timezone.make_aware(datetime.datetime(2025, 3, 11, 1, 30)),
+        )
+
+    def test_create_without_a_start_time_starts_at_midnight(self):
+        """A session without times covers the day it was logged on"""
+
+        response = self.client.post(
+            reverse('workoutsession-list'),
+            data={'routine': self.ROUTINE, 'impression': '2', 'date': '2025-03-12'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        session = WorkoutSession.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            session.datetime_start,
+            timezone.make_aware(datetime.datetime(2025, 3, 12, 0, 0)),
+        )
+        self.assertIsNone(session.datetime_end)
+
+    def test_patch_time_end_keeps_day_and_start(self):
+        """Closing a session takes the day and start time from the stored session"""
+
+        session = WorkoutSession.objects.get(pk=self.SESSION)
+        start = session.datetime_start
+
+        response = self.client.patch(
+            reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
+            data={'time_end': '12:30'},
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        session.refresh_from_db()
+        self.assertEqual(session.datetime_start, start)
+        self.assertEqual(
+            timezone.localtime(session.datetime_end),
+            timezone.make_aware(
+                datetime.datetime.combine(
+                    timezone.localtime(start).date(),
+                    datetime.time(12, 30),
+                )
+            ),
+        )
+
+    def test_the_new_fields_win(self):
+        """A request that sends both formats is not overwritten by the deprecated one"""
+
+        response = self.client.post(
+            reverse('workoutsession-list'),
+            data={
+                'routine': self.ROUTINE,
+                'impression': '2',
+                'date': '2020-01-01',
+                'time_start': '08:00',
+                'datetime_start': '2025-03-12T10:00:00Z',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        session = WorkoutSession.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            session.datetime_start,
+            datetime.datetime(2025, 3, 12, 10, 0, tzinfo=datetime.timezone.utc),
+        )
+
+    def test_filter_by_day(self):
+        """The viewset has a filterset, so a day can be selected without an error"""
+
+        session = WorkoutSession.objects.get(pk=self.SESSION)
+        day = timezone.localtime(session.datetime_start).date()
+
+        response = self.client.get(
+            reverse('workoutsession-list'), {'datetime_start__date': day.isoformat()}
+        )
+        self.assertEqual([entry['id'] for entry in response.json()['results']], [self.SESSION])
+
+        response = self.client.get(
+            reverse('workoutsession-list'),
+            {'datetime_start__date': (day + datetime.timedelta(days=1)).isoformat()},
+        )
+        self.assertEqual(response.json()['results'], [])
+
+    def test_untouched_when_no_deprecated_field_is_sent(self):
+        """A request without the deprecated fields leaves the timestamps alone"""
+
+        session = WorkoutSession.objects.get(pk=self.SESSION)
+
+        response = self.client.patch(
+            reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
+            data={'notes': 'Only the notes change'},
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        session.refresh_from_db()
+        self.assertEqual(session.notes, 'Only the notes change')
+        self.assertEqual(
+            session.datetime_start,
+            datetime.datetime(2025, 11, 1, 10, 0, tzinfo=datetime.timezone.utc),
+        )
+        self.assertEqual(
+            session.datetime_end,
+            datetime.datetime(2025, 11, 1, 10, 15, tzinfo=datetime.timezone.utc),
+        )

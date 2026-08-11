@@ -172,7 +172,7 @@ def workout_session_saved(sender, instance: WorkoutSession, created: bool, **kwa
                 session=instance,
             )
         else:
-            # Session updated (e.g., time_start changed) - update times
+            # Session updated (e.g., datetime_start changed) - update times
             UserStatisticsService.increment_workout(
                 user=instance.user,
                 session=instance,

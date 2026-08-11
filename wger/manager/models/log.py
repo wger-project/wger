@@ -14,10 +14,16 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.db import models
+from django.db import (
+    models,
+    transaction,
+)
 from django.utils import timezone
 
 # wger
@@ -248,6 +254,52 @@ class WorkoutLog(models.Model):
         if self.weight is not None and self.weight_unit is None:
             raise ValidationError('Weight unit must be present if weight has a value.')
 
+    def assign_session(self):
+        """
+        Attach this log to a session, creating one if nothing fits
+
+        In order: a session the log falls into, then the most recent session that
+        is still open and started no longer than a session may last ago, otherwise
+        a new one.
+        """
+        log_date = self.date
+        if isinstance(log_date, datetime.date) and not isinstance(log_date, datetime.datetime):
+            log_date = timezone.make_aware(datetime.datetime.combine(log_date, datetime.time()))
+        elif timezone.is_naive(log_date):
+            log_date = timezone.make_aware(log_date)
+
+        # Looking up and creating has to happen as one step, otherwise a batch
+        # upload creates a session per log. There is no row yet that could be
+        # locked, so the user row stands in for it.
+        with transaction.atomic():
+            User.objects.select_for_update().filter(pk=self.user_id).first()
+
+            session = WorkoutSession.objects.filter(
+                user=self.user,
+                routine=self.routine,
+                datetime_start__lte=log_date,
+                datetime_end__gte=log_date,
+            ).first()
+
+            if not session:
+                session = (
+                    WorkoutSession.objects.filter(
+                        user=self.user,
+                        routine=self.routine,
+                        datetime_end__isnull=True,
+                        datetime_start__gte=log_date - WorkoutSession.max_duration(),
+                        datetime_start__lte=log_date,
+                    )
+                    .order_by('-datetime_start')
+                    .first()
+                )
+
+            self.session = session or WorkoutSession.objects.create(
+                user=self.user,
+                datetime_start=log_date,
+                routine=self.routine,
+            )
+
     def save(self, *args, **kwargs):
         """
         Plumbing
@@ -271,28 +323,7 @@ class WorkoutLog(models.Model):
 
         # Auto-create a session only if the client didn't provide one.
         if not self.session_id:
-            try:
-                self.session = WorkoutSession.objects.get_or_create(
-                    user=self.user,
-                    date=self.date,
-                    routine=self.routine,
-                )[0]
-            except WorkoutSession.MultipleObjectsReturned:
-                # TODO: duplicate sessions can exist for the same (user, date, routine)
-                #       when routine is NULL, as the unique_together does not cover a NULL
-                #       routine in PostgreSQL.
-                #       This is a fix till we correctly take care of the problem, we just
-                #       reuse one session (ids are uuid7, so ordering by id yields the
-                #       earliest) instead of crashing the log POST with MultipleObjectsReturned.
-                self.session = (
-                    WorkoutSession.objects.filter(
-                        user=self.user,
-                        date=self.date,
-                        routine=self.routine,
-                    )
-                    .order_by('id')
-                    .first()
-                )
+            self.assign_session()
 
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:

@@ -19,9 +19,11 @@ import datetime
 from uuid import uuid4
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -76,12 +78,21 @@ class WorkoutSession(models.Model):
     The day the session belongs to
     """
 
-    date = models.DateField(
-        verbose_name='Date',
-        default=datetime.date.today,
+    datetime_start = models.DateTimeField(
+        verbose_name='Start date and time',
+        default=timezone.now,
     )
     """
-    The date the workout session was performed
+    The date and time the workout session started
+    """
+
+    datetime_end = models.DateTimeField(
+        verbose_name='End date and time',
+        blank=True,
+        null=True,
+    )
+    """
+    The date and time the workout session ended
     """
 
     notes = models.TextField(
@@ -105,29 +116,25 @@ class WorkoutSession(models.Model):
     The user's general impression of workout
     """
 
-    time_start = models.TimeField(
-        verbose_name='Start time',
-        blank=True,
-        null=True,
-    )
-    """
-    Time the workout session started
-    """
-
-    time_end = models.TimeField(
-        verbose_name='Finish time',
-        blank=True,
-        null=True,
-    )
-    """
-    Time the workout session ended
-    """
-
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return f'{self.routine} - {self.date}'
+        return f'{self.routine} - {self.local_day}'
+
+    @property
+    def local_day(self) -> datetime.date | None:
+        """
+        The calendar day this session counts for, e.g. for streaks
+
+        A session that runs over midnight counts for the day it started on. The
+        day is derived in the instance timezone; there is no per-user timezone
+        yet, see the ORM equivalent ``datetime_start__date``.
+        """
+        if not self.datetime_start:
+            return None
+
+        return timezone.localtime(self.datetime_start).date()
 
     class Meta:
         """
@@ -135,21 +142,34 @@ class WorkoutSession(models.Model):
         """
 
         ordering = [
-            'date',
+            'datetime_start',
         ]
-        unique_together = ('date', 'user', 'routine')
-        indexes = [models.Index(fields=['routine', 'date'])]
+        indexes = [models.Index(fields=['routine', 'datetime_start'])]
+
+    @classmethod
+    def max_duration(cls) -> datetime.timedelta:
+        """
+        How long a session may last, and how far back a log looks for an open one
+        """
+        return datetime.timedelta(hours=settings.WGER_MAX_SESSION_LENGTH_HOURS)
 
     def clean(self):
         """
         Perform some additional validations
         """
+        # Note: We do NOT force both datetime_start and datetime_end to be present.
+        # A missing datetime_end means the session is currently "open" and ongoing.
+        if not (self.datetime_start and self.datetime_end):
+            return
 
-        if (not self.time_end and self.time_start) or (self.time_end and not self.time_start):
-            raise ValidationError(_('If you enter a time, you must enter both start and end time.'))
-
-        if self.time_end and self.time_start and self.time_start > self.time_end:
+        if self.datetime_start > self.datetime_end:
             raise ValidationError(_('The start time cannot be after the end time.'))
+
+        if self.datetime_end - self.datetime_start > self.max_duration():
+            raise ValidationError(
+                _('A session cannot be longer than %(hours)s hours.')
+                % {'hours': settings.WGER_MAX_SESSION_LENGTH_HOURS}
+            )
 
     def get_owner_object(self):
         """

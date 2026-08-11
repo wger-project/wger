@@ -41,9 +41,9 @@ def get_user_last_activity(user):
         dates.append(timezone.localdate(last_log.date))
 
     # Check workout sessions
-    last_session = WorkoutSession.objects.filter(user=user).order_by('date').last()
+    last_session = WorkoutSession.objects.filter(user=user).order_by('datetime_start').last()
     if last_session:
-        dates.append(last_session.date)
+        dates.append(timezone.localdate(last_session.datetime_start))
 
     return max(dates) if dates else None
 
