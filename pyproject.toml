@@ -100,6 +100,13 @@ Funding = "https://buymeacoffee.com/wger"
 [project.scripts]
 wger = "wger.__main__:main"
 
+[tool.uv]
+# CI and Docker run on Linux: locking must fail if a version has no Linux artifacts
+required-environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "sys_platform == 'linux' and platform_machine == 'aarch64'",
+]
+
 [tool.setuptools]
 include-package-data = false
 packages = ["wger"]
