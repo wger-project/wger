@@ -18,6 +18,7 @@
 # Standard Library
 import base64
 import hashlib
+import re
 import secrets
 from datetime import timedelta
 from io import StringIO
@@ -31,6 +32,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import (
+    Client as TestClient,
     SimpleTestCase,
     override_settings,
 )
@@ -44,6 +46,13 @@ from allauth.idp.oidc.adapter import get_adapter
 from allauth.idp.oidc.models import (
     Client,
     Token,
+)
+from allauth.mfa.totp.internal.auth import (
+    TOTP,
+    format_hotp_value,
+    generate_totp_secret,
+    hotp_value,
+    yield_hotp_counters_from_time,
 )
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -200,6 +209,19 @@ class OidcProviderTestCase(WgerTestCase):
         self.assertEqual(keys[0]['key_ops'], ['verify'])
         self.assertIn('n', keys[0])
 
+    def redeem_code(self, code: str, **overrides):
+        """
+        Exchanges an authorization code for tokens
+        """
+        payload = {
+            'grant_type': 'authorization_code',
+            'code': code,
+            'client_id': self.oidc_client.id,
+            'redirect_uri': REDIRECT_URI,
+        }
+        payload.update(overrides)
+        return self.client.post(reverse('idp:oidc:token'), payload)
+
     def test_authorization_code_flow(self):
         """
         Authorization code flow with PKCE, the access token acts as the user
@@ -208,16 +230,7 @@ class OidcProviderTestCase(WgerTestCase):
         verifier, challenge = generate_pkce_pair()
 
         code = self.grant_authorization(challenge)
-        response = self.client.post(
-            reverse('idp:oidc:token'),
-            {
-                'grant_type': 'authorization_code',
-                'code': code,
-                'client_id': self.oidc_client.id,
-                'redirect_uri': REDIRECT_URI,
-                'code_verifier': verifier,
-            },
-        )
+        response = self.redeem_code(code, code_verifier=verifier)
         self.assertEqual(response.status_code, 200, response.content)
         token = response.json()
 
@@ -246,34 +259,268 @@ class OidcProviderTestCase(WgerTestCase):
         _, challenge = generate_pkce_pair()
 
         code = self.grant_authorization(challenge)
-        response = self.client.post(
-            reverse('idp:oidc:token'),
-            {
-                'grant_type': 'authorization_code',
-                'code': code,
-                'client_id': self.oidc_client.id,
-                'redirect_uri': REDIRECT_URI,
-            },
-        )
+        response = self.redeem_code(code)
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json()['error'], 'invalid_request')
 
-    def create_access_token(self, scopes: list[str]) -> str:
+    def test_code_is_rejected_with_a_wrong_verifier(self):
+        self.user_login('test')
+        _, challenge = generate_pkce_pair()
+        other_verifier, _ = generate_pkce_pair()
+
+        code = self.grant_authorization(challenge)
+        response = self.redeem_code(code, code_verifier=other_verifier)
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_code_cannot_be_redeemed_twice(self):
+        self.user_login('test')
+        verifier, challenge = generate_pkce_pair()
+
+        code = self.grant_authorization(challenge)
+        self.assertEqual(self.redeem_code(code, code_verifier=verifier).status_code, 200)
+        response = self.redeem_code(code, code_verifier=verifier)
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_code_is_rejected_for_another_redirect_uri(self):
+        self.user_login('test')
+        verifier, challenge = generate_pkce_pair()
+
+        code = self.grant_authorization(challenge)
+        response = self.redeem_code(
+            code,
+            code_verifier=verifier,
+            redirect_uri='https://attacker.example.com/callback',
+        )
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_unknown_redirect_uri_never_redirects(self):
         """
-        Mints an access token directly, without running the whole flow
+        An unregistered redirect URI has to fail on the provider, redirecting to
+        it would hand the authorization code to whoever asked for it
+        """
+        self.user_login('test')
+        _, challenge = generate_pkce_pair()
+        query = urlencode(
+            {
+                'client_id': self.oidc_client.id,
+                'redirect_uri': 'https://attacker.example.com/callback',
+                'response_type': 'code',
+                'scope': SCOPE_READ,
+                'code_challenge': challenge,
+                'code_challenge_method': 'S256',
+            }
+        )
+
+        response = self.client.get(f'{reverse("idp:oidc:authorization")}?{query}')
+
+        self.assertNotIn('Location', response.headers)
+        self.assertTemplateUsed(response, 'idp/oidc/error.html')
+
+    def test_client_cannot_request_a_scope_it_has_not_been_given(self):
+        """
+        The error goes back to the registered address, the user sees no consent
+        """
+        self.user_login('test')
+        self.oidc_client.set_scopes(['openid', SCOPE_READ])
+        self.oidc_client.save()
+        _, challenge = generate_pkce_pair()
+
+        response = self.request_authorization(challenge, scope=f'openid {SCOPE_WRITE}')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response['location'].startswith(REDIRECT_URI))
+        params = parse_qs(urlparse(response['location']).query)
+        self.assertEqual(params['error'], ['invalid_scope'])
+        self.assertNotIn('code', params)
+
+    def test_user_can_grant_less_than_the_application_asked_for(self):
+        """
+        Unchecking a permission on the consent screen limits the token
+        """
+        self.user_login('test')
+        verifier, challenge = generate_pkce_pair()
+
+        response = self.request_authorization(challenge, f'{SCOPE_READ} {SCOPE_WRITE}')
+        response = self.client.post(
+            reverse('idp:oidc:authorization'),
+            {
+                'request': response.context['form']['request'].value(),
+                'scopes': [SCOPE_READ],
+                'action': 'grant',
+            },
+        )
+        code = parse_qs(urlparse(response['location']).query)['code'][0]
+        token = self.redeem_code(code, code_verifier=verifier).json()
+
+        self.assertEqual(token['scope'], SCOPE_READ)
+
+        self.client.logout()
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            data={'name': 'Biceps', 'unit': 'cm'},
+            HTTP_AUTHORIZATION=f'Bearer {token["access_token"]}',
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_consent_form_carries_a_csrf_token(self):
+        """
+        Without it a third party page could grant itself access in the
+        background, using the session of a logged-in user
+        """
+        csrf_client = TestClient(enforce_csrf_checks=True)
+        csrf_client.force_login(User.objects.get(username='test'))
+        _, challenge = generate_pkce_pair()
+        query = urlencode(
+            {
+                'client_id': self.oidc_client.id,
+                'redirect_uri': REDIRECT_URI,
+                'response_type': 'code',
+                'scope': SCOPE_READ,
+                'code_challenge': challenge,
+                'code_challenge_method': 'S256',
+            }
+        )
+        response = csrf_client.get(f'{reverse("idp:oidc:authorization")}?{query}')
+
+        # Read the token out of the consent form itself, not out of the context
+        # and not out of some other form on the page, so that this fails if the
+        # form ever loses its {% csrf_token %}
+        form = re.search(
+            rf'<form[^>]*action="{reverse("idp:oidc:authorization")}".*?</form>',
+            response.content.decode(),
+            re.DOTALL,
+        )
+        self.assertIsNotNone(form)
+        match = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', form.group())
+        self.assertIsNotNone(match)
+
+        response = csrf_client.post(
+            reverse('idp:oidc:authorization'),
+            {
+                'csrfmiddlewaretoken': match.group(1),
+                'request': response.context['form']['request'].value(),
+                'scopes': [SCOPE_READ],
+                'action': 'grant',
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('code', parse_qs(urlparse(response['location']).query))
+
+    def test_code_cannot_be_redeemed_by_another_client(self):
+        self.user_login('test')
+        other_client = Client(type=Client.Type.PUBLIC, name='Other client')
+        other_client.set_redirect_uris([REDIRECT_URI])
+        other_client.set_scopes([SCOPE_READ])
+        other_client.set_grant_types([Client.GrantType.AUTHORIZATION_CODE])
+        other_client.set_response_types([Client.ResponseType.CODE])
+        other_client.save()
+        verifier, challenge = generate_pkce_pair()
+
+        code = self.grant_authorization(challenge)
+        response = self.redeem_code(code, code_verifier=verifier, client_id=other_client.id)
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_client_cannot_use_a_grant_type_it_has_not_been_given(self):
+        """
+        client_credentials would act without any user behind it
+        """
+        response = self.client.post(
+            reverse('idp:oidc:token'),
+            {
+                'grant_type': 'client_credentials',
+                'client_id': self.oidc_client.id,
+                'scope': SCOPE_READ,
+            },
+        )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertNotIn('access_token', response.json())
+
+    def test_refresh_token_grant_issues_a_usable_access_token(self):
+        self.user_login('test')
+        verifier, challenge = generate_pkce_pair()
+        code = self.grant_authorization(challenge)
+        refresh_token = self.redeem_code(code, code_verifier=verifier).json()['refresh_token']
+
+        response = self.client.post(
+            reverse('idp:oidc:token'),
+            {
+                'grant_type': 'refresh_token',
+                'refresh_token': refresh_token,
+                'client_id': self.oidc_client.id,
+            },
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        self.client.logout()
+        self.assertEqual(self.read_profile(response.json()['access_token']).status_code, 200)
+
+    def test_revoked_token_stops_working(self):
+        self.user_login('test')
+        verifier, challenge = generate_pkce_pair()
+        code = self.grant_authorization(challenge)
+        access_token = self.redeem_code(code, code_verifier=verifier).json()['access_token']
+        self.client.logout()
+
+        response = self.client.post(
+            reverse('idp:oidc:revoke'),
+            {'token': access_token, 'client_id': self.oidc_client.id},
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+
+        self.assertEqual(self.read_profile(access_token).status_code, 403)
+
+    def create_access_token(
+        self,
+        scopes: list[str],
+        token_type: str = Token.Type.ACCESS_TOKEN,
+        expires_in: timedelta = timedelta(hours=1),
+    ) -> str:
+        """
+        Mints a token directly, without running the whole flow
         """
         value = secrets.token_urlsafe(32)
         token = Token(
-            type=Token.Type.ACCESS_TOKEN,
+            type=token_type,
             user=User.objects.get(username='test'),
             client=self.oidc_client,
             hash=get_adapter().hash_token(value),
-            expires_at=timezone.now() + timedelta(hours=1),
+            expires_at=timezone.now() + expires_in,
         )
         token.set_scopes(scopes)
         token.save()
         return value
+
+    def read_profile(self, token: str):
+        return self.client.get(
+            reverse('userprofile-list'),
+            HTTP_AUTHORIZATION=f'Bearer {token}',
+        )
+
+    def test_expired_token_is_rejected(self):
+        token = self.create_access_token([SCOPE_READ], expires_in=-timedelta(seconds=1))
+
+        self.assertEqual(self.read_profile(token).status_code, 403)
+
+    def test_token_of_a_deactivated_user_is_rejected(self):
+        """
+        Deactivating an account locks it out immediately, not at token expiry
+        """
+        token = self.create_access_token([SCOPE_READ])
+        User.objects.filter(username='test').update(is_active=False)
+
+        self.assertEqual(self.read_profile(token).status_code, 403)
+
+    def test_refresh_token_is_not_accepted_as_a_bearer(self):
+        token = self.create_access_token([SCOPE_READ], token_type=Token.Type.REFRESH_TOKEN)
+
+        self.assertEqual(self.read_profile(token).status_code, 403)
 
     def test_read_scope_allows_reading(self):
         token = self.create_access_token([SCOPE_READ])
@@ -382,6 +629,35 @@ class OidcProviderTestCase(WgerTestCase):
         params = parse_qs(urlparse(response['location']).query)
         self.assertEqual(params['error'], ['access_denied'])
         self.assertNotIn('code', params)
+
+    def test_consent_is_only_reached_after_passing_mfa(self):
+        """
+        The browser flow runs through the regular login, two-factor included
+        """
+        user = User.objects.get(username='test')
+        secret = generate_totp_secret()
+        TOTP.activate(user, secret)
+        _, challenge = generate_pkce_pair()
+
+        response = self.request_authorization(challenge)
+        self.assertEqual(response.status_code, 302)
+        # LOGIN_URL carries no language prefix, posting to it would only yield
+        # the redirect that adds one
+        next_url = parse_qs(urlparse(response['location']).query)['next'][0]
+
+        # Username and password alone stop at the second factor
+        response = self.client.post(
+            reverse('core:user:login'),
+            {'login': 'test', 'password': 'testtest', 'next': next_url},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response['location'].startswith(reverse('mfa_authenticate')))
+
+        counters = list(yield_hotp_counters_from_time())
+        code = format_hotp_value(hotp_value(secret, counters[len(counters) // 2]))
+        response = self.client.post(response['location'], {'code': code}, follow=True)
+
+        self.assertTemplateUsed(response, 'idp/oidc/authorization_form.html')
 
     def test_anonymous_authorization_redirects_to_login(self):
         _, challenge = generate_pkce_pair()
