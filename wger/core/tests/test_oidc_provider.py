@@ -19,6 +19,7 @@
 import base64
 import hashlib
 import secrets
+from datetime import timedelta
 from io import StringIO
 from urllib.parse import (
     parse_qs,
@@ -27,21 +28,27 @@ from urllib.parse import (
 
 # Django
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import (
     SimpleTestCase,
     override_settings,
 )
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.http import urlencode
 
 # Third Party
 import jwt
-from allauth.idp.oidc.models import Client
+from allauth.idp.oidc.models import (
+    Client,
+    Token,
+)
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 # wger
+from wger.core.tasks import flush_expired_oidc_tokens_task
 from wger.core.tests.base_testcase import WgerTestCase
 
 
@@ -245,6 +252,31 @@ class OidcProviderTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json()['error'], 'invalid_request')
+
+    def test_flush_expired_oidc_tokens_task(self):
+        """
+        The periodic cleanup task deletes expired tokens and keeps valid ones
+        """
+        user = User.objects.get(username='test')
+        expired = Token.objects.create(
+            type=Token.Type.ACCESS_TOKEN,
+            client=self.oidc_client,
+            user=user,
+            hash='expired',
+            expires_at=timezone.now() - timedelta(days=1),
+        )
+        valid = Token.objects.create(
+            type=Token.Type.ACCESS_TOKEN,
+            client=self.oidc_client,
+            user=user,
+            hash='valid',
+            expires_at=timezone.now() + timedelta(days=1),
+        )
+
+        flush_expired_oidc_tokens_task()
+
+        self.assertFalse(Token.objects.filter(pk=expired.pk).exists())
+        self.assertTrue(Token.objects.filter(pk=valid.pk).exists())
 
     def test_cancelled_authorization_issues_no_code(self):
         self.user_login('test')
