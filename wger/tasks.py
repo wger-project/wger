@@ -78,9 +78,9 @@ def bootstrap(context, settings_path=None, process_static=True):
     """
     setup_django_environment(settings_path)
 
-    # Create Database if necessary
-    if not database_exists():
-        print('*** Database does not exist, creating one now')
+    # Create the database if necessary, or finish an interrupted setup
+    if not database_initialised():
+        print('*** Database is empty or incomplete, setting it up now')
         migrate_db(context, settings_path=settings_path)
         load_fixtures(context, settings_path=settings_path)
         create_or_reset_admin(context, settings_path=settings_path)
@@ -218,8 +218,10 @@ def setup_django_environment(settings_path: str = None):
     django.setup()
 
 
-def database_exists():
-    """Detect if the database exists"""
+def database_initialised():
+    """
+    Detect whether the database exists and was completely set up
+    """
 
     # can't be imported in global scope as they already require
     # the settings module during import
@@ -229,7 +231,7 @@ def database_exists():
     from django.db import DatabaseError
 
     try:
-        User.objects.count()
+        return User.objects.exists()
     except DatabaseError:
         return False
     except ImproperlyConfigured as e:
