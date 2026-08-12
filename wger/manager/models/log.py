@@ -271,11 +271,18 @@ class WorkoutLog(models.Model):
 
         # Auto-create a session only if the client didn't provide one.
         if not self.session_id:
+            # The day is only a default: an existing session for the date keeps
+            # its day, and the (user, date, routine) dedup semantics stay unchanged.
+            day = None
+            if self.slot_entry and self.slot_entry.slot.day.routine_id == self.routine_id:
+                day = self.slot_entry.slot.day
+
             try:
                 self.session = WorkoutSession.objects.get_or_create(
                     user=self.user,
                     date=self.date,
                     routine=self.routine,
+                    defaults={'day': day},
                 )[0]
             except WorkoutSession.MultipleObjectsReturned:
                 # TODO: duplicate sessions can exist for the same (user, date, routine)
@@ -300,3 +307,23 @@ class WorkoutLog(models.Model):
 
         # Save to db
         super().save(*args, **kwargs)
+
+        # The app creates its sessions itself and can leave the day empty, which
+        # hides them from days with need_logs_to_advance. Only filled in when all
+        # logs of the session agree on one day, like migration 0028 does: a wrong
+        # day would open the gate on a day the user never trained.
+        #
+        # Can be removed once the app versions that set the day are widely adopted.
+        if self.session_id and self.slot_entry and self.session.day_id is None:
+            days = list(
+                WorkoutLog.objects.filter(
+                    session_id=self.session_id,
+                    slot_entry__isnull=False,
+                )
+                .values_list('slot_entry__slot__day_id', 'slot_entry__slot__day__routine_id')
+                .distinct()
+            )
+
+            if len(days) == 1 and days[0][1] == self.session.routine_id:
+                self.session.day_id = days[0][0]
+                self.session.save(update_fields=['day'])

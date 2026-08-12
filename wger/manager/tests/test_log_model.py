@@ -18,6 +18,8 @@ import logging
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
+    Slot,
+    SlotEntry,
     WorkoutLog,
     WorkoutSession,
 )
@@ -49,6 +51,196 @@ class LogModelTestCase(WgerTestCase):
         ).save()
 
         self.assertEqual(WorkoutSession.objects.count(), 1)
+
+    def test_create_session_sets_day(self):
+        """
+        The auto-created session inherits the day of the log's slot entry, so
+        that need_logs_to_advance days can find it
+        """
+
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session = WorkoutSession.objects.get()
+        self.assertEqual(session.day_id, 1)
+
+    def test_create_session_without_slot_entry_has_no_day(self):
+        """
+        A free log without a slot entry can't know its day
+        """
+
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session = WorkoutSession.objects.get()
+        self.assertIsNone(session.day_id)
+
+    def test_fills_missing_day_on_a_client_created_session(self):
+        """
+        A session the client created without a day gets it from the log, so that
+        need_logs_to_advance days can find it
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        self.assertIsNone(session.day_id)
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 1)
+
+    def test_does_not_overwrite_the_day_of_a_session(self):
+        """
+        A session that already has a day keeps it, even when the log points
+        somewhere else
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        session.day_id = 3
+        session.save(update_fields=['day'])
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 3)
+
+    def test_does_not_fill_the_day_when_the_logs_span_several_days(self):
+        """
+        A session whose logs come from more than one day stays without one, since
+        no single day is the right answer
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        self.assertIsNone(session.day_id)
+
+        # A second entry, on another day of the same routine
+        other_slot = Slot.objects.create(day_id=3, order=1)
+        other_entry = SlotEntry.objects.create(slot=other_slot, exercise_id=1, order=1)
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 1)
+
+        # The day of the first log is no longer the whole truth, but an already
+        # set day is never taken away again
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry=other_entry,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 1)
+
+    def test_does_not_fill_the_day_when_earlier_logs_disagree(self):
+        """
+        Logs that were already there decide as well, not just the one being saved
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        other_slot = Slot.objects.create(day_id=3, order=1)
+        other_entry = SlotEntry.objects.create(slot=other_slot, exercise_id=1, order=1)
+
+        # Two logs from different days, written without going through save()
+        for slot_entry_id in (1, other_entry.pk):
+            WorkoutLog.objects.bulk_create(
+                [
+                    WorkoutLog(
+                        user_id=1,
+                        exercise_id=1,
+                        routine_id=1,
+                        slot_entry_id=slot_entry_id,
+                        session=session,
+                        weight=10,
+                        repetitions=10,
+                    )
+                ]
+            )
+
+        session.refresh_from_db()
+        self.assertIsNone(session.day_id)
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=20,
+            repetitions=8,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertIsNone(session.day_id)
+
+    def test_does_not_fill_the_day_from_another_routine(self):
+        """
+        The day of a slot entry from a different routine must not leak into the
+        session
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000003')
+        self.assertIsNone(session.day_id)
+        self.assertEqual(session.routine_id, 2)
+
+        # slot entry 1 lives in routine 1, the session in routine 2
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertIsNone(session.day_id)
 
     def test_save_reuses_session_when_duplicates_exist(self):
         """
