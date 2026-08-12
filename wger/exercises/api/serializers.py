@@ -533,6 +533,38 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
         return super().validate(value)
 
 
+class ExerciseSubmissionAliasSerializer(ExerciseAliasSerializer):
+    """
+    Alias serializer without ``translation``, for use inside a submission.
+
+    A subclass rather than a modified instance of the parent: both would be named
+    ExerciseAlias in the schema, and the narrower one would win for the alias
+    endpoint too.
+    """
+
+    class Meta(ExerciseAliasSerializer.Meta):
+        fields = (
+            'id',
+            'uuid',
+            'alias',
+        )
+
+
+class ExerciseSubmissionCommentSerializer(ExerciseCommentSerializer):
+    """
+    Comment serializer without ``translation``, for use inside a submission.
+
+    See ExerciseSubmissionAliasSerializer for why this is a subclass.
+    """
+
+    class Meta(ExerciseCommentSerializer.Meta):
+        fields = (
+            'id',
+            'uuid',
+            'comment',
+        )
+
+
 class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
     """
     Translation serializer used as a nested child of ``ExerciseSubmissionSerializer``.
@@ -540,11 +572,12 @@ class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
     Differs from the regular serializer only because:
     - the ``exercise`` FK isn't known until the parent creates it (passed via ``create()`` kwargs);
     - the payload also accepts nested ``aliases`` and ``comments`` lists,
-      which the regular CRUD endpoint doesn't.
+      which the regular CRUD endpoint doesn't;
+    - those take their ``translation`` from the parent, so they don't accept one.
     """
 
-    aliases = ExerciseAliasSerializer(many=True, required=False)
-    comments = ExerciseCommentSerializer(many=True, required=False)
+    aliases = ExerciseSubmissionAliasSerializer(many=True, required=False)
+    comments = ExerciseSubmissionCommentSerializer(many=True, required=False)
 
     class Meta(ExerciseTranslationSerializer.Meta):
         fields = (
@@ -555,13 +588,6 @@ class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
             'comments',
             'license_author',
         )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # ``translation`` is assigned by the parent submission in create()
-        for nested in ('aliases', 'comments'):
-            self.fields[nested].child.fields.pop('translation', None)
 
     def validate(self, data):
         data = super().validate(data)
