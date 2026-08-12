@@ -27,6 +27,10 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 from jwt.algorithms import RSAAlgorithm
 
 # wger
+from wger.core.api.docs import (
+    API_DESCRIPTION,
+    API_TAGS,
+)
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
 
@@ -135,6 +139,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Per-provider apps (allauth.socialaccount.providers.google, ...) are
     # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
+
+    # OAuth2/OIDC provider, used by API clients that log in as the user
+    'allauth.idp.oidc',
 ]
 
 MIDDLEWARE = [
@@ -286,6 +293,20 @@ HEADLESS_CLIENTS = ('app',)
 HEADLESS_TOKEN_STRATEGY = 'wger.utils.headless_auth.WgerJWTTokenStrategy'
 HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
+
+#
+# allauth.idp.oidc — OAuth2/OIDC provider
+#
+IDP_OIDC_ADAPTER = 'wger.utils.oidc_auth.WgerOIDCAdapter'
+
+# Empty means the provider is switched off, installations that want to act as
+# one set it themselves (see settings/main.py)
+IDP_OIDC_PRIVATE_KEY = ''
+
+# Without this refresh tokens never expire, and since only tokens with an expiry
+# are cleaned up, abandoned grants would pile up forever. Same lifetime as the
+# tokens the app gets.
+IDP_OIDC_REFRESH_TOKEN_EXPIRES_IN = HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN
 
 
 def jwk_b64_to_pem(b64_jwk_str: str):
@@ -466,10 +487,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'wger.utils.pagination.WgerLimitOffsetPagination',
     'PAGE_SIZE': 20,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    # JSON only, endpoints taking a file set MultiPartParser themselves.
+    'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'wger.utils.headless_auth.HeadlessJWTAuthentication',
+        # Also uses Bearer, but with opaque tokens, so it has to run before
+        # simplejwt, which raises instead of passing the token on. Placed after
+        # the headless class so app requests don't pay for the token lookup.
+        'wger.utils.oidc_auth.OidcTokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
@@ -505,14 +532,31 @@ SPECTACULAR_SETTINGS = {
         {'url': '/', 'description': 'This server'},
         {'url': 'https://wger.de', 'description': 'The "official" upstream wger instance'},
     ],
-    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
+    'DESCRIPTION': API_DESCRIPTION,
     'VERSION': get_version(),
+    'LICENSE': {
+        'name': 'AGPL-3.0-or-later',
+        'url': 'https://www.gnu.org/licenses/agpl-3.0.html',
+    },
+    'EXTERNAL_DOCS': {
+        'url': 'https://wger.readthedocs.io',
+        'description': 'wger documentation',
+    },
+    'TAGS': API_TAGS,
     'SERVE_INCLUDE_SCHEMA': True,
     'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'COMPONENT_SPLIT_REQUEST': True,
+    # Both are exposed as a plain "type" field on more than one component, which
+    # spectacular would otherwise name with a hash suffix (e.g. Type947Enum).
+    # The names end up as class names in generated clients, so pin them.
+    'ENUM_NAME_OVERRIDES': {
+        'DayTypeEnum': 'wger.manager.models.day.DayType.choices',
+        'ExerciseTypeEnum': 'wger.manager.models.slot_entry.ExerciseType.choices',
+        'IntensityEnum': 'wger.core.models.profile.UserProfile.INTENSITY',
+    },
 }
 
 #

@@ -36,6 +36,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.openapi import AutoSchema
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -53,7 +54,13 @@ from rest_framework.decorators import (
     permission_classes,
 )
 from rest_framework.exceptions import ValidationError as DRFValidationError
-from rest_framework.fields import BooleanField
+from rest_framework.fields import (
+    BooleanField,
+    CharField,
+    DictField,
+    JSONField,
+    ListField,
+)
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -98,6 +105,18 @@ from wger.version import (
 logger = logging.getLogger(__name__)
 
 
+class UserProfileAutoSchema(AutoSchema):
+    """
+    Keeps the list route out of spectacular's list/pagination heuristic, which
+    would otherwise document the single profile object as a paginated list.
+    """
+
+    def _is_list_view(self, serializer=None):
+        if getattr(self.view, 'action', None) == 'list':
+            return False
+        return super()._is_list_view(serializer)
+
+
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
     API endpoint for the user profile
@@ -107,6 +126,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     the profile, use a POST request with the new data, not a PATCH.
     """
 
+    schema = UserProfileAutoSchema()
     serializer_class = UserprofileSerializer
     permission_classes = (
         IsAuthenticated,
@@ -130,6 +150,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         """
         return [(User, 'user')]
 
+    @extend_schema(operation_id='userprofile_list', responses={200: UserprofileSerializer})
     def list(self, request, *args, **kwargs):
         """
         Customized list view, that returns only the current user's data
@@ -154,13 +175,28 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    @extend_schema(responses={405: OpenApiResponse(description='Profiles cannot be deleted')})
     def destroy(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    @action(detail=False, url_name='verify-email', url_path='verify-email')
+    @extend_schema(
+        responses={
+            200: inline_serializer(
+                name='VerifyEmailResponse',
+                fields={
+                    'status': CharField(required=False),
+                    'result': CharField(required=False),
+                    'message': CharField(),
+                },
+            ),
+        },
+    )
+    @action(detail=False, methods=['post'], url_name='verify-email', url_path='verify-email')
     def verify_email(self, request):
         """
         Verify the user's email address
+
+        POST only, a GET must not send out emails as a side effect
         """
         email_obj = request.user.userprofile.get_allauth_email
 
@@ -208,11 +244,12 @@ class PermissionView(viewsets.ViewSet):
                 'permission',
                 OpenApiTypes.STR,
                 OpenApiParameter.QUERY,
+                required=True,
                 description='The name of the django permission such as "exercises.change_muscle"',
             ),
         ],
         responses={
-            201: inline_serializer(
+            200: inline_serializer(
                 name='PermissionResponse',
                 fields={
                     'result': BooleanField(),
@@ -326,6 +363,19 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ('name',)
 
 
+@extend_schema(
+    request=LanguageCheckSerializer,
+    responses={
+        200: inline_serializer(
+            name='LanguageCheckResponse',
+            fields={'result': BooleanField()},
+        ),
+        400: OpenApiResponse(
+            description='The input could not be detected as the given language, '
+            'or the language itself is unknown'
+        ),
+    },
+)
 @api_view(['POST'])
 def check_language(request):
     """
@@ -337,6 +387,15 @@ def check_language(request):
     return Response({'result': True})
 
 
+@extend_schema(
+    request=None,
+    responses={
+        200: inline_serializer(
+            name='RefreshTokenResponse',
+            fields={'refresh_token': CharField()},
+        ),
+    },
+)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def issue_refresh_token(request):
@@ -355,6 +414,17 @@ def issue_refresh_token(request):
     return Response({'refresh_token': refresh_token})
 
 
+@extend_schema(
+    responses={
+        200: inline_serializer(
+            name='PowersyncTokenResponse',
+            fields={
+                'token': CharField(),
+                'powersync_url': CharField(),
+            },
+        ),
+    },
+)
 @api_view()
 @permission_classes([IsAuthenticated])
 def get_powersync_token(request):
@@ -373,11 +443,47 @@ def get_powersync_token(request):
     )
 
 
+@extend_schema(
+    responses={
+        200: inline_serializer(
+            name='PowersyncKeysResponse',
+            # A JWKS document. Left as free-form objects on purpose, the exact
+            # members depend on the configured key and are consumed by a JWT
+            # library rather than read field by field.
+            fields={'keys': ListField(child=DictField())},
+        ),
+    },
+)
 @api_view()
 def get_powersync_keys(request):
     return JsonResponse({'keys': [powersync.public_jwk()]})
 
 
+@extend_schema(
+    # COMPONENT_SPLIT_REQUEST appends "Request" to the name, so don't repeat it
+    request=inline_serializer(
+        name='PowersyncUpload',
+        fields={
+            'table': CharField(),
+            'data': JSONField(),
+        },
+    ),
+    responses={
+        # A permanent refusal stays 200 with an `error` key, because powersync
+        # treats any non-2xx as "retry" and would otherwise loop forever.
+        200: inline_serializer(
+            name='PowersyncUploadResponse',
+            fields={
+                'status': CharField(required=False),
+                'error': CharField(required=False),
+                'details': CharField(required=False),
+            },
+        ),
+        403: OpenApiResponse(description='The request is not authenticated'),
+        500: OpenApiResponse(description='Unclassified server error, the client should retry'),
+        503: OpenApiResponse(description='Transient database error, the client should retry'),
+    },
+)
 @api_view(['PUT', 'PATCH', 'DELETE'])
 def upload_powersync_data(request):
     if not request.user.is_authenticated:

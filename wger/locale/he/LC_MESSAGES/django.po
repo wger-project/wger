@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2025-11-17 06:51+0000\n"
-"Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
+"PO-Revision-Date: 2026-08-09 14:51+0000\n"
+"Last-Translator: Mordechai Neeman <neeman2009@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -144,15 +144,15 @@ msgstr "אישור"
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
-msgstr ""
+msgstr "לחשבון שלך אין סיסמה. הקלד את שם המשתמש \"{username}\" כדי לאשר."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "שם המשתמש שהוזן אינו תואם"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
-msgstr ""
+msgstr "לְהַגִישׁ"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -175,10 +175,12 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"אם רישיון עבר התאמה מקומית (למשל, רישיונות Creative Commons למדינות השונות), "
+"יש להוסיף אותם כאן כרשומות נפרדות."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr ""
+msgstr "שם מקוצר"
 
 #: core/models/license.py:45
 msgid "Link"
@@ -186,7 +188,7 @@ msgstr "קישור"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
-msgstr ""
+msgstr "קישור לטקסט הרישיון או למידע אחר"
 
 #: core/models/profile.py:60
 #, python-format
@@ -230,14 +232,16 @@ msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
+"סמן כדי להפעיל תזכורות אוטומטיות לאימונים. עליך לספק כתובת דוא\"ל תקינה כדי "
+"שזה יעבוד."
 
 #: core/models/profile.py:130
 msgid "Remind before expiration"
-msgstr ""
+msgstr "תזכורת לפני פקיעת תוקף"
 
 #: core/models/profile.py:131
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr ""
+msgstr "מספר הימים שבהם תרצה לקבל תזכורת לפני פקיעת התוקף של אימון."
 
 #: core/models/profile.py:137
 msgid "Default duration of workouts"
@@ -248,6 +252,8 @@ msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
+"משך ברירת המחדל (בשבועות) עבור אימונים שאינם משובצים בלוח זמנים. משמש עבור "
+"תזכורות אימון בדוא\"ל."
 
 #: core/models/profile.py:157
 msgid "Notification language"
@@ -258,6 +264,8 @@ msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
+"השפה שבה יישלחו אליך התראות בדוא\"ל, כגון תזכורות לאימונים. הגדרה זו אינה "
+"משפיעה על השפה המוצגת באתר."
 
 #: core/models/profile.py:192 gym/views/export.py:65
 msgid "Age"
@@ -286,7 +294,7 @@ msgstr "ממוצע שעות ביום"
 #: core/models/profile.py:245 core/models/profile.py:266
 #: core/models/profile.py:287
 msgid "Physical intensity"
-msgstr ""
+msgstr "עוצמה פיזית"
 
 #: core/models/profile.py:246 core/models/profile.py:267
 #: core/models/profile.py:288
@@ -311,7 +319,7 @@ msgstr "סה״כ קלוריות ביום"
 
 #: core/models/profile.py:299
 msgid "Total caloric intake, including e.g. any surplus"
-msgstr ""
+msgstr "סך הצריכה הקלורית, כולל למשל כל עודף"
 
 #: core/models/profile.py:311
 msgid "Weight unit"
@@ -319,7 +327,7 @@ msgstr "יחידת משקל"
 
 #: core/models/profile.py:319
 msgid "Automatic reminders for weight entries"
-msgstr ""
+msgstr "תזכורות אוטומטיות לרישומי משקל"
 
 #: core/models/profile.py:320
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"

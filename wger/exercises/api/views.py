@@ -25,11 +25,13 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
+from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -64,7 +66,9 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.api_schema import ImageThumbnailsSerializer
 from wger.utils.cache import CacheKeyMapper
+from wger.utils.url import make_absolute_url
 
 
 class ExerciseViewSet(ModelViewSet):
@@ -346,6 +350,8 @@ class ExerciseImageViewSet(ModelViewSet):
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
     permission_classes = (CanContributeExercises,)
+    # the image is uploaded as a file, which JSON cannot carry
+    parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -358,10 +364,11 @@ class ExerciseImageViewSet(ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
+    @extend_schema(responses={200: ImageThumbnailsSerializer})
     @action(detail=True)
     def thumbnails(self, request, pk):
         """
-        Return a list of the image's thumbnails
+        Return the image's thumbnails, one per configured alias
         """
         image = self.get_object()
 
@@ -369,10 +376,10 @@ class ExerciseImageViewSet(ModelViewSet):
         for alias in aliases.all():
             t = get_thumbnailer(image.image)
             thumbnails[alias] = {
-                'url': t.get_thumbnail(aliases.get(alias)).url,
+                'url': make_absolute_url(t.get_thumbnail(aliases.get(alias)).url, request),
                 'settings': aliases.get(alias),
             }
-        thumbnails['original'] = image.image.url
+        thumbnails['original'] = make_absolute_url(image.image.url, request)
         return Response(thumbnails)
 
     def perform_create(self, serializer):
@@ -406,6 +413,8 @@ class ExerciseVideoViewSet(ModelViewSet):
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
     permission_classes = (CanContributeExercises,)
+    # the video is uploaded as a file, which JSON cannot carry
+    parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',

@@ -234,6 +234,21 @@ class ExerciseImageThumbnailsApiTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 404)
 
+    def test_thumbnails_are_absolute_urls(self):
+        """Every url in the response includes the host, as everywhere else in the API"""
+        image = ExerciseImage(exercise=Translation.objects.get(pk=2).exercise)
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as image_file:
+            image.image.save('protestschwein.jpg', File(image_file))
+        image.save()
+
+        response = self.client.get(reverse('exerciseimage-thumbnails', kwargs={'pk': image.pk}))
+        self.assertEqual(response.status_code, 200)
+
+        thumbnails = response.json()
+        self.assertTrue(thumbnails['original'].startswith('http'))
+        for alias in ('small', 'medium'):
+            self.assertTrue(thumbnails[alias]['url'].startswith('http'))
+
 
 # TODO: add POST and DELETE tests
 class ExerciseImagesApiTestCase(
@@ -251,3 +266,4 @@ class ExerciseImagesApiTestCase(
     resource = ExerciseImage
     overview_cached = True
     data = {'is_main': True}
+    patch_format = 'multipart'

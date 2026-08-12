@@ -20,7 +20,11 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.manager.models import Routine
+from wger.manager.models import (
+    Routine,
+    SetsConfig,
+    SlotEntry,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -31,25 +35,27 @@ class CopyRoutineTestCase(WgerTestCase):
     Tests copying a routine or template
     """
 
-    def copy_routine_and_assert(self):
+    def copy_routine_and_assert(self, pk: int):
         """
         Helper function to test copying routines
         """
 
         # Copy the routine
         count_before = Routine.objects.count()
-        self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
+        self.client.get(reverse('manager:routine:copy', kwargs={'pk': pk}))
         count_after = Routine.objects.count()
 
         self.assertEqual(count_after, count_before + 1)
 
-        routine_original = Routine.objects.get(pk=3)
+        routine_original = Routine.objects.get(pk=pk)
         routine_copy = Routine.objects.latest('pk')
 
         self.assertEqual(routine_copy.name, routine_original.name)
         self.assertEqual(routine_copy.description, routine_original.description)
-        self.assertEqual(routine_copy.is_template, routine_original.is_template)
-        self.assertEqual(routine_copy.is_public, routine_original.is_public)
+
+        # Copies are always private, regular routines
+        self.assertFalse(routine_copy.is_template)
+        self.assertFalse(routine_copy.is_public)
         self.assertEqual(routine_copy.start, datetime.date.today())
         self.assertEqual(routine_copy.end, datetime.date.today() + routine_original.duration)
 
@@ -77,9 +83,9 @@ class CopyRoutineTestCase(WgerTestCase):
                 slot_entries_original = slots_original[j].entries.all()
                 slot_entries_copy = slots_copy[j].entries.all()
 
-                for l in range(slot_entries_original.count()):
-                    entry_copy = slot_entries_copy[l]
-                    entry_orig = slot_entries_original[l]
+                for k in range(slot_entries_original.count()):
+                    entry_copy = slot_entries_copy[k]
+                    entry_orig = slot_entries_original[k]
 
                     self.assertEqual(entry_orig.exercise_id, entry_copy.exercise_id)
                     self.assertEqual(entry_orig.repetition_unit_id, entry_copy.repetition_unit_id)
@@ -96,18 +102,26 @@ class CopyRoutineTestCase(WgerTestCase):
 
     def test_copy_workout_owner(self):
         """
-        Test copying a workout as the owner user
+        Test copying a full workout with days, slots, entries and configs
         """
 
-        self.user_login('test')
-        self.copy_routine_and_assert()
+        # Guard against empty fixtures, the deep comparison would silently
+        # collapse into zero iterations
+        self.assertTrue(Routine.objects.get(pk=1).days.count())
+        self.assertTrue(SlotEntry.objects.filter(slot__day__routine_id=1).exists())
+        self.assertTrue(SetsConfig.objects.filter(slot_entry__slot__day__routine_id=1).exists())
 
-    def test_copy_workout(self):
+        self.user_login('admin')
+        self.copy_routine_and_assert(pk=1)
+
+    def test_copy_empty_routine(self):
         """
-        Test copying a workout (not template)
+        Test copying a routine without any days
         """
+        self.assertFalse(Routine.objects.get(pk=3).days.count())
+
         self.user_login('test')
-        self.copy_routine_and_assert()
+        self.copy_routine_and_assert(pk=3)
 
     def test_copy_workout_other(self):
         """

@@ -30,11 +30,13 @@ from django.db.models.functions import Length
 
 # Third Party
 from actstream import action as actstream_action
+from drf_spectacular.utils import extend_schema_field
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
 # wger
+from wger.core.api.serializers import LicenseSerializer
 from wger.core.models import License
 from wger.exercises.api.validators import validate_language_matches
 from wger.exercises.models import (
@@ -50,6 +52,7 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.api_schema import ThumbnailsSerializer
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 from wger.utils.db import is_postgres_db
@@ -225,6 +228,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'is_ai_generated',
         )
 
+    @extend_schema_field(ThumbnailsSerializer(allow_null=True))
     def get_thumbnails(self, obj: ExerciseImage):
         if not obj.image:
             return None
@@ -394,11 +398,11 @@ class MuscleSerializer(serializers.ModelSerializer):
             'image_url_secondary',
         )
 
-    def get_image_url_main(self, obj: Muscle):
+    def get_image_url_main(self, obj: Muscle) -> str | None:
         """Absolute URL to the main muscle image"""
         return make_absolute_url(obj.image_url_main, self.context.get('request'))
 
-    def get_image_url_secondary(self, obj: Muscle):
+    def get_image_url_secondary(self, obj: Muscle) -> str | None:
         """Absolute URL to the secondary muscle image"""
         return make_absolute_url(obj.image_url_secondary, self.context.get('request'))
 
@@ -529,6 +533,38 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
         return super().validate(value)
 
 
+class ExerciseSubmissionAliasSerializer(ExerciseAliasSerializer):
+    """
+    Alias serializer without ``translation``, for use inside a submission.
+
+    A subclass rather than a modified instance of the parent: both would be named
+    ExerciseAlias in the schema, and the narrower one would win for the alias
+    endpoint too.
+    """
+
+    class Meta(ExerciseAliasSerializer.Meta):
+        fields = (
+            'id',
+            'uuid',
+            'alias',
+        )
+
+
+class ExerciseSubmissionCommentSerializer(ExerciseCommentSerializer):
+    """
+    Comment serializer without ``translation``, for use inside a submission.
+
+    See ExerciseSubmissionAliasSerializer for why this is a subclass.
+    """
+
+    class Meta(ExerciseCommentSerializer.Meta):
+        fields = (
+            'id',
+            'uuid',
+            'comment',
+        )
+
+
 class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
     """
     Translation serializer used as a nested child of ``ExerciseSubmissionSerializer``.
@@ -536,11 +572,12 @@ class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
     Differs from the regular serializer only because:
     - the ``exercise`` FK isn't known until the parent creates it (passed via ``create()`` kwargs);
     - the payload also accepts nested ``aliases`` and ``comments`` lists,
-      which the regular CRUD endpoint doesn't.
+      which the regular CRUD endpoint doesn't;
+    - those take their ``translation`` from the parent, so they don't accept one.
     """
 
-    aliases = ExerciseAliasSerializer(many=True, required=False)
-    comments = ExerciseCommentSerializer(many=True, required=False)
+    aliases = ExerciseSubmissionAliasSerializer(many=True, required=False)
+    comments = ExerciseSubmissionCommentSerializer(many=True, required=False)
 
     class Meta(ExerciseTranslationSerializer.Meta):
         fields = (
@@ -551,13 +588,6 @@ class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
             'comments',
             'license_author',
         )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # ``translation`` is assigned by the parent submission in create()
-        for nested in ('aliases', 'comments'):
-            self.fields[nested].child.fields.pop('translation', None)
 
     def validate(self, data):
         data = super().validate(data)
@@ -611,10 +641,12 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     author_history = serializers.ListSerializer(child=serializers.CharField())
     total_authors_history = serializers.ListSerializer(child=serializers.CharField())
     last_update_global = serializers.DateTimeField(read_only=True)
+    # Declared explicitly instead of relying on Meta.depth, which would expose
+    # it as an anonymous "Nested" component in the schema.
+    license = LicenseSerializer(read_only=True)
 
     class Meta:
         model = Exercise
-        depth = 1
         fields = (
             'id',
             'uuid',

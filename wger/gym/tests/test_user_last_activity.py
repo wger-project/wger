@@ -17,6 +17,7 @@ import datetime
 
 # Django
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -34,56 +35,53 @@ class UserLastActivityTestCase(WgerTestCase):
     TODO: check if we want to get rid of usercache.last_activity
     """
 
-    def test_user_last_activity(self):
+    def setUp(self):
+        super().setUp()
+
+        self.user = User.objects.get(username='admin')
+
+        # Start from a clean slate, the fixtures have both logs and sessions
+        WorkoutLog.objects.filter(user=self.user).delete()
+        WorkoutSession.objects.filter(user=self.user).delete()
+
+    def add_log(self, date: datetime.date):
+        WorkoutLog(
+            user=self.user,
+            exercise_id=1,
+            routine_id=1,
+            weight=80,
+            repetitions=5,
+            date=timezone.make_aware(datetime.datetime.combine(date, datetime.time(12, 0))),
+        ).save()
+
+    def add_session(self, date: datetime.date):
+        WorkoutSession(user=self.user, routine_id=1, date=date).save()
+
+    def test_no_activity(self):
+        self.assertIsNone(get_user_last_activity(self.user))
+
+    def test_only_logs(self):
+        self.add_log(datetime.date(2024, 3, 1))
+        self.add_log(datetime.date(2024, 3, 5))
+
+        self.assertEqual(get_user_last_activity(self.user), datetime.date(2024, 3, 5))
+
+    def test_only_sessions(self):
         """
-        Test the helper function for last user activity
+        Users that only track sessions are active too
         """
-        self.user_login('admin')
-        user = User.objects.get(username='admin')
-        log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
-        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        self.add_session(datetime.date(2024, 3, 7))
 
-        self.assertEqual(user.usercache.last_activity, datetime.date(2025, 11, 1))
-        self.assertEqual(
-            get_user_last_activity(user),
-            datetime.datetime(2025, 10, 31, 23, 0, tzinfo=datetime.timezone.utc),
-        )
+        self.assertEqual(get_user_last_activity(self.user), datetime.date(2024, 3, 7))
 
-        # Log more recent than session
-        log.date = datetime.date(2014, 10, 2)
-        log.save()
-        session.date = datetime.date(2014, 10, 1)
-        session.save()
-        user = User.objects.get(username='admin')
-        self.assertEqual(
-            get_user_last_activity(user),
-            datetime.datetime(2025, 10, 31, 23, 0, tzinfo=datetime.timezone.utc),
-        )
-        self.assertEqual(
-            user.usercache.last_activity,
-            datetime.date(2025, 11, 1),
-        )
+    def test_log_more_recent_than_session(self):
+        self.add_log(datetime.date(2024, 3, 10))
+        self.add_session(datetime.date(2024, 3, 2))
 
-        # Session more recent than log
-        log.date = datetime.date(2014, 9, 1)
-        log.save()
-        session.date = datetime.date(2014, 10, 5)
-        session.save()
-        user = User.objects.get(username='admin')
-        self.assertEqual(
-            get_user_last_activity(user),
-            datetime.datetime(2025, 10, 31, 23, 0, tzinfo=datetime.timezone.utc),
-        )
-        self.assertEqual(
-            user.usercache.last_activity,
-            datetime.date(2025, 11, 1),
-        )
+        self.assertEqual(get_user_last_activity(self.user), datetime.date(2024, 3, 10))
 
-        # No logs, but session
-        WorkoutLog.objects.filter(user=user).delete()
-        user = User.objects.get(username='admin')
-        self.assertEqual(get_user_last_activity(user), None)
-        self.assertEqual(
-            user.usercache.last_activity,
-            datetime.date(2025, 11, 1),
-        )
+    def test_session_more_recent_than_log(self):
+        self.add_log(datetime.date(2024, 3, 2))
+        self.add_session(datetime.date(2024, 3, 10))
+
+        self.assertEqual(get_user_last_activity(self.user), datetime.date(2024, 3, 10))

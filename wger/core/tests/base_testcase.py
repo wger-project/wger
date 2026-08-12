@@ -62,6 +62,23 @@ def get_user_list(users):
         return [users]
 
 
+def get_field_snapshot(entry) -> dict:
+    """
+    Helper function that returns the field values of a model instance
+
+    Comparing two model instances only compares their PKs, so the values have
+    to be read out to detect that an object was modified.
+    """
+    snapshot = {
+        field.attname: getattr(entry, field.attname) for field in entry._meta.concrete_fields
+    }
+
+    for field in entry._meta.many_to_many:
+        snapshot[field.name] = set(getattr(entry, field.name).values_list('pk', flat=True))
+
+    return snapshot
+
+
 def delete_testcase_add_methods(cls):
     """
     Helper function that dynamically adds test methods.
@@ -74,16 +91,17 @@ def delete_testcase_add_methods(cls):
     """
 
     for user in get_user_list(cls.user_fail):
-
-        def test_unauthorized(self):
+        # The user is bound as a default argument, a closure over the loop
+        # variable would make every method use the last user
+        def test_unauthorized(self, user=user):
             self.user_login(user)
-            self.delete_object(fail=False)
+            self.delete_object(fail=True)
 
         setattr(cls, f'test_unauthorized_{user}', test_unauthorized)
 
     for user in get_user_list(cls.user_success):
 
-        def test_authorized(self):
+        def test_authorized(self, user=user):
             self.user_login(user)
             self.delete_object(fail=False)
 
@@ -347,10 +365,10 @@ class WgerEditTestCase(WgerTestCase):
         # Fetch the edit page
         response = self.client.get(get_reverse(self.url, kwargs={'pk': self.pk}))
         entry_before = self.object_class.objects.get(pk=self.pk)
+        values_before = get_field_snapshot(entry_before)
 
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
-            self.assertTemplateUsed('login.html')
 
         else:
             self.assertEqual(response.status_code, 200)
@@ -372,8 +390,10 @@ class WgerEditTestCase(WgerTestCase):
         # Check the results
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
-            self.assertTemplateUsed('login.html')
-            self.assertEqual(entry_before, entry_after)
+
+            # A successful POST also redirects, so the status code alone proves
+            # nothing. The object itself must be unchanged.
+            self.assertEqual(values_before, get_field_snapshot(entry_after))
 
         else:
             self.assertEqual(response.status_code, 302)

@@ -39,11 +39,11 @@ class BaseMealItem:
     This just provides some common helper functions
     """
 
-    def get_nutritional_values(self, use_metric=True):
+    def get_nutritional_values(self):
         """
         Sums the nutritional info for the ingredient in the MealItem
 
-        :param use_metric Flag that controls the units used
+        All values are in grams
         """
         values = NutritionalValues()
 
@@ -69,23 +69,6 @@ class BaseMealItem:
 
         if self.ingredient.sodium:
             values.sodium = self.ingredient.sodium * item_weight / 100
-
-        # # If necessary, convert weight units
-        # if not use_metric:
-        #     for key, value in nutritional_info.items():
-        #
-        #         # Energy is not a weight!
-        #         if key == 'energy':
-        #             continue
-        #
-        #         # Everything else, to ounces
-        #         nutritional_info[key] = AbstractWeight(value, 'g').oz
-        #
-        # nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
-
-        # Only 2 decimal places, anything else doesn't make sense
-        # for i in nutritional_info:
-        #     nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return values
 

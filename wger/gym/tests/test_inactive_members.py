@@ -25,23 +25,24 @@ class EmailInactiveUserTestCase(WgerTestCase):
     Test email reminders for inactive users
     """
 
-    def test_reminder(self, fail=False):
+    def test_reminder(self):
         """
         Test email reminders for inactive users
         """
 
         call_command('inactive-members')
-        self.assertEqual(len(mail.outbox), 6)
 
-        recipment_list = [message.to[0] for message in mail.outbox]
-        trainer_list = [
-            'trainer4@example.com',
-            'trainer5@example.com',
-            'trainer1@example.com',
-            'trainer2@example.com',
-            'trainer3@example.com',
-        ]
-        recipment_list.sort()
-        trainer_list.sort()
-
-        self.assertEqual(recipment_list.sort(), trainer_list.sort())
+        # Everybody in the gym with the gym_trainer permission and the
+        # overview_inactive preference gets the overview, including the admin
+        recipient_list = [message.to[0] for message in mail.outbox]
+        self.assertCountEqual(
+            recipient_list,
+            [
+                'admin@example.com',
+                'trainer1@example.com',
+                'trainer2@example.com',
+                'trainer3@example.com',
+                'trainer4@example.com',
+                'trainer5@example.com',
+            ],
+        )

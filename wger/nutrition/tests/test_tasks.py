@@ -119,9 +119,17 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': 'FOO'}):
+        with self.settings(
+            TESTING=False,
+            WGER_SETTINGS={
+                'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF,
+                'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
+            },
+        ):
             result = fetch_ingredient_image(1)
-            mock_logger.assert_not_called()
+
+            # The log entry proves the TESTING guard was passed
+            mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_request.assert_not_called()
             self.assertIsNone(result)
 
@@ -131,15 +139,18 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
         Test that no images are fetched if the appropriate setting is not set
         """
-        ingredient = Ingredient.objects.get(pk=1)
-        ingredient.source_name = 'blabla'
-        ingredient.save()
-
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': False}):
+        with self.settings(
+            TESTING=False,
+            WGER_SETTINGS={
+                'DOWNLOAD_INGREDIENTS_FROM': False,
+                'INGREDIENT_IMAGE_CHECK_INTERVAL': datetime.timedelta(days=5),
+            },
+        ):
             result = fetch_ingredient_image(1)
-            mock_logger.assert_not_called()
+
+            mock_logger.assert_any_call('No image backend configured, skipping...')
             mock_request.assert_not_called()
-            self.assertEqual(result, None)
+            self.assertIsNone(result)
 
     @patch('openfoodfacts.api.ProductResource.get', autospec=True)
     @patch('wger.nutrition.models.Image.from_json', autospec=True)

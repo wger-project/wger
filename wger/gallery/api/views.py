@@ -20,10 +20,7 @@ import logging
 
 # Third Party
 from rest_framework import viewsets
-from rest_framework.parsers import (
-    FormParser,
-    MultiPartParser,
-)
+from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 
 # wger
@@ -39,7 +36,7 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     API endpoint for gallery image
     """
 
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [MultiPartParser]
     permission_classes = [IsAuthenticated]
     serializer_class = ImageSerializer
     is_private = True

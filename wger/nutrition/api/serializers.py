@@ -20,11 +20,16 @@ import logging
 from django.conf import settings
 
 # Third Party
+from drf_spectacular.utils import extend_schema_field
 from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import serializers
 
 # wger
+from wger.core.api.serializers import (
+    LanguageSerializer,
+    LicenseSerializer,
+)
 from wger.nutrition.models import (
     Image,
     Ingredient,
@@ -34,6 +39,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+from wger.utils.api_schema import ThumbnailsSerializer
 from wger.utils.url import make_absolute_url
 
 
@@ -136,12 +142,16 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     """
 
     weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
-    image = IngredientImageSerializer(read_only=True)
+    image = IngredientImageSerializer(read_only=True, allow_null=True)
     thumbnails = serializers.SerializerMethodField()
+    # Declared explicitly instead of relying on Meta.depth, which builds an
+    # anonymous nested serializer per relation. Both ended up named "Nested" in
+    # the schema, so language was documented with the license's fields.
+    language = LanguageSerializer(read_only=True)
+    license = LicenseSerializer(read_only=True)
 
     class Meta:
         model = Ingredient
-        depth = 1
         fields = (
             'id',
             'uuid',
@@ -178,6 +188,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'thumbnails',
         )
 
+    @extend_schema_field(ThumbnailsSerializer(allow_null=True))
     def get_thumbnails(self, obj: Ingredient):
         if not hasattr(obj, 'image'):
             return None
@@ -244,8 +255,10 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     ingredient = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
     weight_unit = serializers.PrimaryKeyRelatedField(read_only=True)
-    weight_unit_obj = IngredientWeightUnitSerializer(source='weight_unit', read_only=True)
-    image = IngredientImageSerializer(source='ingredient.image', read_only=True)
+    weight_unit_obj = IngredientWeightUnitSerializer(
+        source='weight_unit', read_only=True, allow_null=True
+    )
+    image = IngredientImageSerializer(source='ingredient.image', read_only=True, allow_null=True)
 
     class Meta:
         model = MealItem
@@ -286,11 +299,27 @@ class NutritionalValuesSerializer(serializers.Serializer):
     energy = serializers.FloatField()
     protein = serializers.FloatField()
     carbohydrates = serializers.FloatField()
-    carbohydrates_sugar = serializers.FloatField()
+    # These four default to None on NutritionalValues, so they go out as null
+    # for ingredients that don't carry the value
+    carbohydrates_sugar = serializers.FloatField(allow_null=True)
     fat = serializers.FloatField()
-    fat_saturated = serializers.FloatField()
-    fiber = serializers.FloatField()
-    sodium = serializers.FloatField()
+    fat_saturated = serializers.FloatField(allow_null=True)
+    fiber = serializers.FloatField(allow_null=True)
+    sodium = serializers.FloatField(allow_null=True)
+
+
+class IngredientValuesSerializer(NutritionalValuesSerializer):
+    """
+    Nutritional values for a given amount and unit of an ingredient.
+
+    Carries the form errors instead of usable values when the amount or unit
+    query parameters don't validate.
+    """
+
+    errors = serializers.DictField(
+        child=serializers.ListField(child=serializers.CharField()),
+        required=False,
+    )
 
 
 class MealInfoSerializer(serializers.ModelSerializer):

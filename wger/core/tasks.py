@@ -52,6 +52,18 @@ def flush_expired_long_lived_sessions_task():
     SessionStore.clear_expired()
 
 
+@app.task
+def flush_expired_oidc_tokens_task():
+    """
+    Delete expired access and refresh tokens of the OAuth2/OIDC provider.
+
+    Rotation already drops the previous refresh token on every refresh, what
+    stays behind are abandoned grants: tokens of applications that a user
+    connected once and never used again.
+    """
+    call_command('oidc_cleartokens')
+
+
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
@@ -69,4 +81,12 @@ def setup_periodic_tasks(sender, **kwargs):
         ),
         flush_expired_long_lived_sessions_task.s(),
         name='Flush expired long-lived sessions',
+    )
+    sender.add_periodic_task(
+        crontab(
+            hour=str(random.randint(0, 23)),
+            minute=str(random.randint(0, 59)),
+        ),
+        flush_expired_oidc_tokens_task.s(),
+        name='Flush expired OIDC tokens',
     )

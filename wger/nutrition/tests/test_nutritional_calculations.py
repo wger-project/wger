@@ -18,6 +18,7 @@ import logging
 from decimal import Decimal
 
 # Django
+from django.core.cache import cache
 from django.urls import reverse
 
 # wger
@@ -234,6 +235,24 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         self.assertAlmostEqual(values['per_kg']['carbohydrates'], Decimal(4.96), 2)
         self.assertAlmostEqual(values['per_kg']['fat'], Decimal(1.51), 2)
         self.assertAlmostEqual(values['per_kg']['protein'], Decimal(4.33), 2)
+
+    def test_calculations_user_imperial(self):
+        """
+        Tests that the macro percentages don't depend on the user's weight unit
+        """
+        self.user_login('test')
+        plan = models.NutritionPlan.objects.get(pk='11111111-1111-1111-1111-000000000004')
+
+        profile = plan.user.userprofile
+        profile.weight_unit = 'lb'
+        profile.save()
+        cache.clear()
+
+        values = plan.get_nutritional_values()
+
+        self.assertAlmostEqual(values['percent']['carbohydrates'], Decimal(29.79), 2)
+        self.assertAlmostEqual(values['percent']['fat'], Decimal(20.36), 2)
+        self.assertAlmostEqual(values['percent']['protein'], Decimal(26.06), 2)
 
 
 class NutritionalValuesApiTestCase(WgerTestCase):

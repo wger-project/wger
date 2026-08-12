@@ -75,6 +75,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
 
@@ -96,6 +97,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(WorkoutLog.objects.count(), before)
@@ -116,6 +118,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
 

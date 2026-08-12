@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-01-03 23:01+0000\n"
-"Last-Translator: Gevorg Danielyan <forza-dgn@ya.ru>\n"
+"PO-Revision-Date: 2026-08-08 13:51+0000\n"
+"Last-Translator: tovarishhh <bankir35@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -157,10 +157,12 @@ msgstr "Подтвердить"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"На вашем аккаунте не установлен пароль. Введите имя пользователя \"{username}"
+"\" для подтверждения."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Введенное имя пользователя не совпадает"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -351,11 +353,11 @@ msgstr "Количество дней после последней записи
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
-msgstr ""
+msgstr "Включить награды"
 
 #: core/models/profile.py:347
 msgid "Enable or disable the trophy system for this user"
-msgstr ""
+msgstr "Включить или выключить систему наград для этого пользователя"
 
 #: core/models/profile.py:424
 msgid "The sum of all hours has to be 24"
@@ -389,7 +391,7 @@ msgstr "Тип единицы"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Тип единиц измерения (повторения, время, дистанция)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -424,7 +426,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Почти у цели!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -438,6 +440,8 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Ниже приведен код для подтверждения вашей электронной почты. Пожалуйста, "
+"введите его в открытом окне вашего браузера."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
@@ -453,10 +457,13 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Ссылка доступна в течение %(expire_hours)s часов (до %(date)s, %(time)s). Вы "
+"можете запросить новую ссылку в настройках вашего профиля."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Если кнопка не работает, скопируйте и вставьте эту ссылку в ваш браузер:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -473,6 +480,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Ваш email-адрес используется для сброса пароля и, опционально, напоминаний о "
+"тренировках. Новый адрес станет активным только после подтверждения по "
+"присланной на него ссылке."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -481,7 +491,7 @@ msgstr "Текущий адрес электронной почты"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Ожидается подтверждение: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
@@ -516,7 +526,7 @@ msgstr "Нет аккаунта?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Быстрый вход"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
@@ -524,11 +534,11 @@ msgstr ""
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "или войдите в систему с помощью"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "У вас уже есть учетная запись?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -654,7 +664,7 @@ msgstr "Галерея"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Награды"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -859,7 +869,7 @@ msgstr "Условия обслуживания"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Язык браузера"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -867,7 +877,7 @@ msgstr "Особенности"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "Доступ к API"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -875,16 +885,21 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Есть два способа авторизоваться в API: JWT — предпочтительный способ для "
+"клиентских приложений, статичный API-ключ предназначен для личных скриптов "
+"или одноразовых интеграций."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Долгосрочные refresh tokens"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"Refresh tokens позволяют скриптам и CLI-инструментам общаться с wger API, "
+"используя JWT flow без необходимости интерактивно авторизоваться каждый раз."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -892,13 +907,15 @@ msgstr "Создать новый refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Скопируйте этот token сейчас."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Он показывается только один раз. Если вы потеряете его, сгенерируйте новый и "
+"отзовите старую сессию ниже."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -913,15 +930,15 @@ msgstr "Создано"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Истекает"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Отозвать"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Отозвать все refresh tokens"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -929,7 +946,7 @@ msgstr "Сеансы JWT"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Отозвать все JWT-сессии"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -944,9 +961,25 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                В данный момент активна <strong>%(counter)s</strong> JWT-"
+"сессия\n"
+"            "
 msgstr[1] ""
+"\n"
+"                В данный момент активны <strong>%(counter)s</strong> JWT-"
+"сессий\n"
+"            "
 msgstr[2] ""
+"\n"
+"                В данный момент активно <strong>%(counter)s</strong> JWT-"
+"сессий\n"
+"            "
 msgstr[3] ""
+"\n"
+"                В данный момент активны <strong>%(counter)s</strong> JWT-"
+"сессий\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
@@ -1246,7 +1279,7 @@ msgstr "Настройки"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Аккаунт и безопасность"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1266,15 +1299,15 @@ msgstr "Задать пароль"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Двухфакторная аутентификация"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Вкл"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Выкл"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1282,11 +1315,11 @@ msgstr "Связанные аккаунты"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Опасная зона"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Ваш аккаунт и все данные о тренировках будут безвозвратно удалены."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1553,7 +1586,7 @@ msgstr "Предыдущая"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Страница %(current)s из %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
@@ -2079,7 +2112,7 @@ msgstr "Никакое (упражнение с весом тела)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Новичок"
 
 #: i18n.tpl:43
 msgid "Consistent"
@@ -2087,11 +2120,11 @@ msgstr "Стабильный"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Убежденный"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Одержимый"
 
 #: i18n.tpl:46
 msgid "Legend"
@@ -2099,51 +2132,51 @@ msgstr "Условное обозначение"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Ветеран"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Титан"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Неудержимый"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Воин выходного дня"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Подниматель слонов"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Подниматель автобусов"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Подниматель самолетов"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Подниматель синих китов"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Подниматель космических станций"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Миллионер"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Атлант"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Ранняя пташка"
 
 #: i18n.tpl:59
 msgid "Night Owl"
@@ -2151,11 +2184,11 @@ msgstr "Сова"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Новый Год — Новый Я"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Феникс"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2191,47 +2224,47 @@ msgstr "Завершите 1000 тренировок"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Удержать 30-дневную серию тренировок"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Тренироваться по субботам и воскресеньям 4 недели подряд"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 5 000 кг"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 20 000 кг"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 50 000 кг"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 150 000 кг"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 450 000 кг"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 1 000 000 кг"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Суммарно поднять 10 000 000 кг"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Завершить тренировку до 06:00"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Завершить тренировку после 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
@@ -2239,11 +2272,11 @@ msgstr "Потренируйтесь 1 января"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Вернуться к тренировкам после 30-дневного перерыва"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Установить новый личный рекорд в любом упражнении"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2411,11 +2444,11 @@ msgstr "Тренировка для %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Порция"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
-msgstr "Секция"
+msgstr "Единица"
 
 #: nutrition/forms.py:183 nutrition/templates/rate/form.html:77
 msgid "Basic caloric intake"
