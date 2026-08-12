@@ -244,6 +244,7 @@ class PermissionView(viewsets.ViewSet):
                 'permission',
                 OpenApiTypes.STR,
                 OpenApiParameter.QUERY,
+                required=True,
                 description='The name of the django permission such as "exercises.change_muscle"',
             ),
         ],
