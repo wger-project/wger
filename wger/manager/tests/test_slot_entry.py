@@ -555,14 +555,14 @@ class SlotEntryTestCase(WgerTestCase):
             requirements={'rules': ['repetitions']},
         ).save()
 
-    def _log_repetitions(self, iteration: int, repetitions: int):
+    def _log_repetitions(self, iteration: int, repetitions: int | None, weight: int = 20):
         WorkoutLog(
             exercise_id=1,
             user_id=1,
             routine_id=1,
             slot_entry=self.slot_entry,
             iteration=iteration,
-            weight=20,
+            weight=weight,
             repetitions=repetitions,
         ).save()
 
@@ -621,6 +621,278 @@ class SlotEntryTestCase(WgerTestCase):
 
         # The +2.5 config only takes effect at iteration 2
         self.assertEqual(self.slot_entry.get_config_data(1).weight, Decimal(20))
+
+    def _setup_gated_deload(self):
+        """
+        Constant 100 kg with a deload to 80 kg at iteration 6, gated on reaching
+        the prescribed weight and 5 repetitions
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=6,
+            value=80,
+            operation=OperationChoices.REPLACE,
+            requirements={'rules': ['weight', 'repetitions']},
+        ).save()
+
+    def test_requirements_deload_without_qualification(self):
+        """
+        A gated replace config is not applied while the requirements are unmet
+        """
+        self._setup_gated_deload()
+
+        for i in range(1, 10):
+            self._log_repetitions(iteration=i, repetitions=3, weight=90)
+
+        self.assertEqual(self.slot_entry.get_config_data(6).weight, Decimal(100))
+        self.assertEqual(self.slot_entry.get_config_data(10).weight, Decimal(100))
+
+    def test_requirements_deload_on_time(self):
+        """
+        A gated replace config is applied at its own iteration when the
+        requirements were met in the iteration before
+        """
+        self._setup_gated_deload()
+
+        self._log_repetitions(iteration=5, repetitions=5, weight=100)
+
+        self.assertEqual(self.slot_entry.get_config_data(5).weight, Decimal(100))
+        self.assertEqual(self.slot_entry.get_config_data(6).weight, Decimal(80))
+        self.assertEqual(self.slot_entry.get_config_data(9).weight, Decimal(80))
+
+    def test_requirements_deload_late_qualification(self):
+        """
+        A gated replace config that wasn't met at its own iteration is applied
+        at the next iteration whose logs meet the requirements
+        """
+        self._setup_gated_deload()
+
+        self._log_repetitions(iteration=7, repetitions=5, weight=100)
+
+        self.assertEqual(self.slot_entry.get_config_data(7).weight, Decimal(100))
+        self.assertEqual(self.slot_entry.get_config_data(8).weight, Decimal(80))
+        self.assertEqual(self.slot_entry.get_config_data(10).weight, Decimal(80))
+
+    def test_requirements_gated_increment_applied_once(self):
+        """
+        A gated non-repeating increment is applied exactly once even when the
+        requirements are met again on later iterations
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=6,
+            value=5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['repetitions']},
+        ).save()
+
+        self._log_repetitions(iteration=6, repetitions=5)
+        self._log_repetitions(iteration=7, repetitions=5)
+        self._log_repetitions(iteration=8, repetitions=5)
+
+        self.assertEqual(self.slot_entry.get_config_data(6).weight, Decimal(100))
+        self.assertEqual(self.slot_entry.get_config_data(7).weight, Decimal(105))
+        self.assertEqual(self.slot_entry.get_config_data(9).weight, Decimal(105))
+
+    def test_requirements_gated_percent_step(self):
+        """
+        A gated percent progression compounds only on qualifying iterations
+        """
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=10,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.PERCENT,
+            repeat=True,
+            requirements={'rules': ['repetitions']},
+        ).save()
+
+        self._log_repetitions(iteration=1, repetitions=5)
+        self._log_repetitions(iteration=2, repetitions=3)
+        self._log_repetitions(iteration=3, repetitions=5)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(110))
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(110))
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal(121))
+        self.assertEqual(self.slot_entry.get_config_data(5).weight, Decimal(121))
+
+    def test_requirements_gated_minus_step(self):
+        """
+        A gated minus progression only decreases on qualifying iterations
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.MINUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['repetitions']},
+        ).save()
+
+        self._log_repetitions(iteration=1, repetitions=5)
+        self._log_repetitions(iteration=2, repetitions=3)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('97.5'))
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('97.5'))
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal('97.5'))
+
+    def test_requirements_multiple_logs_one_step(self):
+        """
+        Several qualifying logs in the same iteration advance the progression
+        by a single step
+        """
+        self._setup_gated_weight_progression()
+
+        self._log_repetitions(iteration=1, repetitions=5)
+        self._log_repetitions(iteration=1, repetitions=6)
+        self._log_repetitions(iteration=1, repetitions=3)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('22.5'))
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('22.5'))
+
+    def test_requirements_not_met_across_logs(self):
+        """
+        Requirements are only met when a single log fulfils all required fields
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['weight', 'repetitions']},
+        ).save()
+
+        # One log only reaches the weight, the other only the repetitions
+        self._log_repetitions(iteration=1, repetitions=3, weight=100)
+        self._log_repetitions(iteration=1, repetitions=5, weight=90)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(100))
+
+    def test_requirements_empty_rules(self):
+        """
+        Configs with an empty rules list progress without qualification
+        """
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=1,
+            value=20,
+            requirements={'rules': []},
+        ).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': []},
+        ).save()
+
+        self.assertEqual(self.slot_entry.get_config_data(1).weight, Decimal(20))
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('22.5'))
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(25))
+
+    def test_requirements_threshold_follows_prescription(self):
+        """
+        The requirement threshold is the value prescribed for the iteration the
+        log belongs to, not the initial value
+        """
+        self._setup_gated_weight_progression()
+
+        # The prescribed repetitions themselves progress: 5, 6, 7, ...
+        RepetitionsConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=1,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+        ).save()
+
+        self._log_repetitions(iteration=1, repetitions=5)
+        self._log_repetitions(iteration=2, repetitions=6)
+        self._log_repetitions(iteration=3, repetitions=6)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('22.5'))
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(25))
+
+        # 6 repetitions no longer meet the prescribed 7
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal(25))
+
+    def test_requirements_null_log_value(self):
+        """
+        A log without a value for a required field does not qualify
+        """
+        self._setup_gated_weight_progression()
+
+        self._log_repetitions(iteration=1, repetitions=None)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(20))
+
+    def test_requirements_other_user_logs_ignored(self):
+        """
+        Qualifying logs of other users do not advance the progression
+        """
+        self._setup_gated_weight_progression()
+
+        WorkoutLog(
+            exercise_id=1,
+            user_id=2,
+            routine_id=1,
+            slot_entry=self.slot_entry,
+            iteration=1,
+            weight=20,
+            repetitions=5,
+        ).save()
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(20))
+
+    def test_config_data_iteration_below_one(self):
+        """
+        Iterations below one return the iteration 1 configuration
+        """
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=20).save()
+
+        self.assertEqual(self.slot_entry.get_config_data(0).weight, Decimal(20))
+
+    def test_max_weight_not_above_weight_not_emitted(self):
+        """
+        A max weight that is not above the weight is not part of the config data
+        """
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        MaxWeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+
+        config_data = self.slot_entry.get_config_data(1)
+        self.assertEqual(config_data.weight, Decimal(100))
+        self.assertEqual(config_data.max_weight, None)
 
     def test_weight_config_with_logs_and_range(self):
         """
