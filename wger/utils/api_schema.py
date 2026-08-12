@@ -27,3 +27,25 @@ class ThumbnailsSerializer(serializers.Serializer):
 
     small = serializers.URLField()
     medium = serializers.URLField()
+
+
+class ThumbnailAliasSerializer(serializers.Serializer):
+    """
+    One generated thumbnail: where it is and the size it was generated for.
+
+    The url is relative to the server, unlike the absolute ones in an image's
+    ``thumbnails`` field.
+    """
+
+    url = serializers.CharField()
+    settings = serializers.DictField()
+
+
+class ImageThumbnailsSerializer(serializers.Serializer):
+    """
+    An image's thumbnails, one entry per available size, plus the original.
+    """
+
+    small = ThumbnailAliasSerializer()
+    medium = ThumbnailAliasSerializer()
+    original = serializers.CharField()

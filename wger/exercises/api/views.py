@@ -25,6 +25,7 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
+from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -65,6 +66,7 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.api_schema import ImageThumbnailsSerializer
 from wger.utils.cache import CacheKeyMapper
 
 
@@ -361,10 +363,11 @@ class ExerciseImageViewSet(ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
+    @extend_schema(responses={200: ImageThumbnailsSerializer})
     @action(detail=True)
     def thumbnails(self, request, pk):
         """
-        Return a list of the image's thumbnails
+        Return the image's thumbnails, one per configured alias
         """
         image = self.get_object()
 
