@@ -7,6 +7,9 @@
 
 ### Sync with Apple Health and Health Connect
 The mobile app can now import your body metrics from Apple Health (iOS) and Health Connect (Android). Once enabled in the settings, the data your smart scale, blood pressure monitor, smartwatch or what other health apps record is imported automatically and shows up alongside your manually entered entries. At the moment we support these:
+### Double progression support
+Progression requirements can now reference the top of the prescribed range via the new rules `max_repetitions` and `max_weight`, and the new `all_sets` flag requires every prescribed set to qualify. Together they enable classic double progression schemes ("work from 8 to 12 reps at a fixed weight, add weight only once all sets reach 12"), e.g. `{"rules": ["max_repetitions"], "all_sets": true}`.
+
 
 - body weight
 - body fat
