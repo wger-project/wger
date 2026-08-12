@@ -129,14 +129,16 @@ class SlotEntryTestCase(WgerTestCase):
             step=StepChoices.PERCENT,
         ).save()
 
-        self.assertEqual(self.slot_entry.calculate_weight(1), 80)
-        self.assertEqual(self.slot_entry.calculate_weight(2), 80)
-        self.assertEqual(self.slot_entry.calculate_weight(3), 82.5)
-        self.assertEqual(self.slot_entry.calculate_weight(4), 82.5)
-        self.assertEqual(self.slot_entry.calculate_weight(5), 82.5)
-        self.assertEqual(self.slot_entry.calculate_weight(6), 42)
-        self.assertEqual(self.slot_entry.calculate_weight(7), 40)
-        self.assertEqual(self.slot_entry.calculate_weight(8), 44)
+        configs = list(self.slot_entry.weightconfig_set.all())
+
+        self.assertEqual(SlotEntry.walk_config_values(configs, 1), 80)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 2), 80)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 3), 82.5)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 4), 82.5)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 5), 82.5)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 6), 42)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 7), 40)
+        self.assertEqual(SlotEntry.walk_config_values(configs, 8), 44)
 
     def test_weight_config_with_logs(self):
         """
@@ -242,6 +244,8 @@ class SlotEntryTestCase(WgerTestCase):
             ),
         )
 
+        # The iteration 2 log reached the displayed prescription (4 repetitions
+        # after rounding, 80 kg), so the weight advances here
         self.assertDictEqual(
             asdict(self.slot_entry.get_config_data(3)),
             asdict(
@@ -249,7 +253,7 @@ class SlotEntryTestCase(WgerTestCase):
                     slot_entry_id=self.slot_entry.pk,
                     exercise=1,
                     sets=4,
-                    weight=Decimal(80),
+                    weight=Decimal('82.5'),
                     weight_rounding=Decimal('2.5'),
                     weight_unit=1,
                     weight_unit_name='kg',
@@ -894,6 +898,110 @@ class SlotEntryTestCase(WgerTestCase):
         self.assertEqual(config_data.weight, Decimal(100))
         self.assertEqual(config_data.max_weight, None)
 
+    def test_requirements_multi_phase_progression(self):
+        """
+        A later gated config takes over at its scheduled iteration and applies
+        its own increment to the earned value
+        """
+        self._setup_gated_weight_progression()
+
+        # Bigger jumps from iteration 6 on
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=6,
+            value=5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['repetitions']},
+        ).save()
+
+        # Qualifies at every second iteration
+        for i in range(1, 9):
+            self._log_repetitions(iteration=i, repetitions=5 if i % 2 == 0 else 3)
+
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('22.5'))
+        self.assertEqual(self.slot_entry.get_config_data(5).weight, Decimal(25))
+
+        # From iteration 6 on each earned step is +5
+        self.assertEqual(self.slot_entry.get_config_data(7).weight, Decimal(30))
+        self.assertEqual(self.slot_entry.get_config_data(9).weight, Decimal(35))
+        self.assertEqual(self.slot_entry.get_config_data(10).weight, Decimal(35))
+
+    def test_ungated_config_ignores_unearned_gated_steps(self):
+        """
+        An ungated config applies on schedule without back-applying the
+        increments of earlier non-qualifying gated configs
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['repetitions']},
+        ).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=5,
+            value=10,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+        ).save()
+
+        # No qualifying logs at all
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal(80))
+        self.assertEqual(self.slot_entry.get_config_data(5).weight, Decimal(90))
+        self.assertEqual(self.slot_entry.get_config_data(6).weight, Decimal(90))
+
+    def test_requirements_threshold_uses_rounded_value(self):
+        """
+        The requirement threshold is the rounded value as it is displayed
+        """
+        self._setup_gated_weight_progression()
+
+        # The prescribed 5 repetitions are displayed as 4
+        self.slot_entry.repetition_rounding = 2
+        self.slot_entry.save()
+
+        self._log_repetitions(iteration=1, repetitions=4)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('22.5'))
+
+    def test_max_config_follows_base_requirements(self):
+        """
+        Max configs advance together with the gated base config
+        """
+        self._setup_gated_weight_progression()
+
+        MaxWeightConfig(slot_entry=self.slot_entry, iteration=1, value=25).save()
+        MaxWeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+        ).save()
+
+        self._log_repetitions(iteration=1, repetitions=3)
+        self._log_repetitions(iteration=2, repetitions=5)
+
+        config_data = self.slot_entry.get_config_data(3)
+        self.assertEqual(config_data.weight, Decimal('22.5'))
+        self.assertEqual(config_data.max_weight, Decimal('27.5'))
+
+        # No further qualification, both bounds hold
+        config_data = self.slot_entry.get_config_data(5)
+        self.assertEqual(config_data.weight, Decimal('22.5'))
+        self.assertEqual(config_data.max_weight, Decimal('27.5'))
+
     def test_weight_config_with_logs_and_range(self):
         """
         Test that the weight is correctly calculated for each step / iteration
@@ -1109,25 +1217,32 @@ class SlotEntryTestCase(WgerTestCase):
         self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(100))
 
 
-class SlotEntryDuplicateConfigTestCase(SimpleTestCase):
-    def test_duplicate_configs(self):
+class WalkConfigValuesTestCase(SimpleTestCase):
+    """
+    Tests for the ungated config walk
+    """
+
+    @staticmethod
+    def _walk_series(configs, iterations: int):
+        return [SlotEntry.walk_config_values(configs, i) for i in range(1, iterations + 1)]
+
+    def test_repeat_expansion(self):
+        """A repeating config applies every iteration until another config takes over"""
+
         configs = [
             WeightConfig(
-                pk=1,
                 iteration=1,
                 value=80,
                 operation=OperationChoices.REPLACE,
                 repeat=False,
             ),
             WeightConfig(
-                pk=2,
                 iteration=2,
                 value=2,
                 operation=OperationChoices.PLUS,
                 repeat=True,
             ),
             WeightConfig(
-                pk=3,
                 iteration=6,
                 value=50,
                 operation=OperationChoices.REPLACE,
@@ -1135,52 +1250,28 @@ class SlotEntryDuplicateConfigTestCase(SimpleTestCase):
             ),
         ]
 
-        result = SlotEntry.duplicate_configs(
-            10,
-            configs=configs,
+        self.assertEqual(
+            self._walk_series(configs, 10),
+            [80, 82, 84, 86, 88, 50, 50, 50, 50, 50],
         )
 
-        # Repeats the config of iteration 2 up to the 8th one, the rest remains unchanged
-        self.assertEqual(len(result), 6)
-
-        self.assertEqual(result[0].iteration, 1)
-        self.assertEqual(result[0].value, 80)
-
-        self.assertEqual(result[1].iteration, 2)
-        self.assertEqual(result[1].value, 2)
-
-        self.assertEqual(result[2].iteration, 3)
-        self.assertEqual(result[2].value, 2)
-
-        self.assertEqual(result[3].iteration, 4)
-        self.assertEqual(result[3].value, 2)
-
-        self.assertEqual(result[4].iteration, 5)
-        self.assertEqual(result[4].value, 2)
-
-        self.assertEqual(result[5].iteration, 6)
-        self.assertEqual(result[5].value, 50)
-
-    def test_duplicate_configs_2(self):
-        """Test that repeat configs can follow each other"""
+    def test_chained_repeats(self):
+        """Repeat configs can follow each other"""
 
         configs = [
             WeightConfig(
-                pk=1,
                 iteration=1,
                 value=80,
                 operation=OperationChoices.REPLACE,
                 repeat=False,
             ),
             WeightConfig(
-                pk=2,
                 iteration=2,
                 value=2,
                 operation=OperationChoices.PLUS,
                 repeat=True,
             ),
             WeightConfig(
-                pk=3,
                 iteration=5,
                 value=3,
                 operation=OperationChoices.MINUS,
@@ -1188,58 +1279,43 @@ class SlotEntryDuplicateConfigTestCase(SimpleTestCase):
             ),
         ]
 
-        result = SlotEntry.duplicate_configs(
-            10,
-            configs=configs,
+        self.assertEqual(
+            self._walk_series(configs, 10),
+            [80, 82, 84, 86, 83, 80, 77, 74, 71, 68],
         )
 
-        # Repeats the config of iteration 2 up to the 8th one, the rest remains unchanged
-        self.assertEqual(len(result), 10)
+    def test_hold_without_repeat(self):
+        """A non-repeating config applies once and the value holds afterwards"""
 
-        self.assertEqual(result[0].iteration, 1)
-        self.assertEqual(result[0].value, 80)
-        self.assertFalse(result[0].repeat)
+        configs = [
+            WeightConfig(iteration=1, value=80, operation=OperationChoices.REPLACE),
+            WeightConfig(iteration=3, value=2.5, operation=OperationChoices.PLUS),
+        ]
 
-        self.assertEqual(result[1].iteration, 2)
-        self.assertEqual(result[1].value, 2)
-        self.assertTrue(result[1].repeat)
+        self.assertEqual(
+            self._walk_series(configs, 5),
+            [80, 80, Decimal('82.5'), Decimal('82.5'), Decimal('82.5')],
+        )
 
-        self.assertEqual(result[2].iteration, 3)
-        self.assertEqual(result[2].value, 2)
-        self.assertTrue(result[2].repeat)
+    def test_no_configs(self):
+        self.assertIsNone(SlotEntry.walk_config_values([], 5))
 
-        self.assertEqual(result[3].iteration, 4)
-        self.assertEqual(result[3].value, 2)
-        self.assertTrue(result[3].repeat)
-
-        self.assertEqual(result[4].iteration, 5)
-        self.assertEqual(result[4].value, 3)
-        self.assertTrue(result[4].repeat)
-
-        self.assertEqual(result[5].iteration, 6)
-        self.assertEqual(result[5].value, 3)
-        self.assertTrue(result[5].repeat)
-
-
-class CalculateConfigValueTestCase(SimpleTestCase):
     def test_compound_weight_is_capped(self):
         """Percent progressions can't push the output past MAX_COMPOUND_VALUE"""
 
         configs = [
             WeightConfig(iteration=1, value=100, operation=OperationChoices.REPLACE),
             # +50% per iteration, repeated enough times to blow past 9999.99
-            *[
-                WeightConfig(
-                    iteration=i,
-                    value=50,
-                    operation=OperationChoices.PLUS,
-                    step=StepChoices.PERCENT,
-                )
-                for i in range(2, 20)
-            ],
+            WeightConfig(
+                iteration=2,
+                value=50,
+                operation=OperationChoices.PLUS,
+                step=StepChoices.PERCENT,
+                repeat=True,
+            ),
         ]
 
-        result = SlotEntry.calculate_config_value(configs)
+        result = SlotEntry.walk_config_values(configs, 19)
 
         self.assertEqual(result, MAX_COMPOUND_VALUE)
 
@@ -1251,7 +1327,7 @@ class CalculateConfigValueTestCase(SimpleTestCase):
             RiRConfig(iteration=2, value=50, operation=OperationChoices.PLUS),
         ]
 
-        result = SlotEntry.calculate_config_value(configs, max_value=MAX_COMPOUND_RIR)
+        result = SlotEntry.walk_config_values(configs, 2, max_value=MAX_COMPOUND_RIR)
 
         self.assertEqual(result, MAX_COMPOUND_RIR)
 
@@ -1261,6 +1337,6 @@ class CalculateConfigValueTestCase(SimpleTestCase):
             WeightConfig(iteration=2, value=5, operation=OperationChoices.PLUS),
         ]
 
-        result = SlotEntry.calculate_config_value(configs)
+        result = SlotEntry.walk_config_values(configs, 2)
 
         self.assertEqual(result, Decimal(85))

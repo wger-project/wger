@@ -16,15 +16,12 @@
 # Third Party
 from rest_framework import serializers
 
+# wger
+from wger.manager.consts import REQUIREMENTS_RULES_KEYS
+
 
 REQUIREMENTS_REQUIRED_KEYS = [
     'rules',
-]
-REQUIREMENTS_RULES_KEYS = [
-    'weight',
-    'repetitions',
-    'rir',
-    'rest',
 ]
 
 
