@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-07-30 17:01+0000\n"
+"PO-Revision-Date: 2026-08-12 12:47+0000\n"
 "Last-Translator: Armando Schiano di Cola <armando.schianodicola@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -1020,7 +1020,7 @@ msgstr ""
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Esempio con curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -1032,21 +1032,23 @@ msgstr "Documentazione API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Torna all'app"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Tornando all'app wger…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Se non accade nulla, tocca il pulsante qui sotto. Assicurati che l'app wger "
+"sia installata su questo dispositivo."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Tocca per tornare all'app"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1280,7 +1282,7 @@ msgstr "Preferenze"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Account e sicurezza"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1300,15 +1302,15 @@ msgstr "Imposta password"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Autenticazione a due fattori"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "Acceso"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Spento"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1316,11 +1318,13 @@ msgstr "Account collegati"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Zona pericolosa"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
 msgstr ""
+"Il tuo account e tutti i dati di allenamento verranno eliminati "
+"definitivamente."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1417,16 +1421,16 @@ msgstr "La chiave API è stata eliminata"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Tutte le sessioni API sono state revocate"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Il token di aggiornamento è stato revocato"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Revocati {count} token di aggiornamento"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1501,11 +1505,11 @@ msgstr "Reset"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Account creato meno di 60 giorni fa"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "nuovo"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
@@ -1513,7 +1517,7 @@ msgstr "creato"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "modificato"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
@@ -1521,11 +1525,11 @@ msgstr "eliminato"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "unito"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "in"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
