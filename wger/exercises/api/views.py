@@ -68,6 +68,7 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.api_schema import ImageThumbnailsSerializer
 from wger.utils.cache import CacheKeyMapper
+from wger.utils.url import make_absolute_url
 
 
 class ExerciseViewSet(ModelViewSet):
@@ -375,10 +376,10 @@ class ExerciseImageViewSet(ModelViewSet):
         for alias in aliases.all():
             t = get_thumbnailer(image.image)
             thumbnails[alias] = {
-                'url': t.get_thumbnail(aliases.get(alias)).url,
+                'url': make_absolute_url(t.get_thumbnail(aliases.get(alias)).url, request),
                 'settings': aliases.get(alias),
             }
-        thumbnails['original'] = image.image.url
+        thumbnails['original'] = make_absolute_url(image.image.url, request)
         return Response(thumbnails)
 
     def perform_create(self, serializer):
