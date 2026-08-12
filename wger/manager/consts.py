@@ -16,6 +16,14 @@
 
 RIR_OPTIONS = [None, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5]
 
+REQUIREMENTS_RULES_KEYS = [
+    'weight',
+    'repetitions',
+    'rir',
+    'rest',
+]
+"""Log fields that progression requirements can reference"""
+
 REP_UNIT_REPETITIONS = 1
 REP_UNIT_TILL_FAILURE = 2
 REP_UNIT_MAX_REPS = 7

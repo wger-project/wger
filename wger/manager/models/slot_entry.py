@@ -15,16 +15,12 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import copy
-import enum
 import importlib
 import logging
+from collections import defaultdict
+from dataclasses import dataclass
 from decimal import Decimal
-from typing import (
-    Callable,
-    Dict,
-    List,
-)
+from typing import List
 
 # Django
 from django.conf import settings
@@ -39,6 +35,7 @@ from wger.core.models import (
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
     REP_UNIT_REPETITIONS,
+    REQUIREMENTS_RULES_KEYS,
     WEIGHT_UNIT_KG,
 )
 from wger.manager.dataclasses import (
@@ -54,19 +51,6 @@ from wger.manager.models.abstract_config import (
     StepChoices,
 )
 from wger.utils.cache import CacheKeyMapper
-
-
-class ConfigType(enum.Enum):
-    WEIGHT = enum.auto()
-    MAXWEIGHT = enum.auto()
-    REPETITIONS = enum.auto()
-    MAXREPETITIONS = enum.auto()
-    RIR = enum.auto()
-    MAXRIR = enum.auto()
-    REST = enum.auto()
-    MAXREST = enum.auto()
-    SETS = enum.auto()
-    MAXSETS = enum.auto()
 
 
 class ExerciseType(models.TextChoices):
@@ -90,6 +74,116 @@ class ExerciseType(models.TextChoices):
 
 
 logger = logging.getLogger(__name__)
+
+
+PROGRESSION_FIELDS = [
+    'weight',
+    'maxweight',
+    'repetitions',
+    'maxrepetitions',
+    'rir',
+    'maxrir',
+    'rest',
+    'maxrest',
+    'sets',
+    'maxsets',
+]
+"""Fields with progression configs"""
+
+BASE_FIELD = {
+    'maxweight': 'weight',
+    'maxrepetitions': 'repetitions',
+    'maxrir': 'rir',
+    'maxrest': 'rest',
+    'maxsets': 'sets',
+}
+"""Maps max fields to their base field, both advance together"""
+
+FIELD_CAPS = {
+    field: MAX_COMPOUND_RIR if field in ('rir', 'maxrir') else MAX_COMPOUND_VALUE
+    for field in PROGRESSION_FIELDS
+}
+"""Caps per field, mirror the limits of the display serializer fields"""
+
+
+def _apply_config_value(
+    value: Decimal | None,
+    config: AbstractChangeConfig,
+    max_value: Decimal,
+) -> Decimal:
+    """
+    Applies a single config step to the running value.
+
+    ``max_value`` clamps the result so e.g. repeated percent progressions
+    can't overflow the display field's ``max_digits``.
+    """
+    out = value if value is not None else Decimal(0)
+
+    if config.replace:
+        out = config.value
+    else:
+        step = config.value if config.step == StepChoices.ABSOLUTE else out * config.value / 100
+
+        if config.operation == OperationChoices.PLUS:
+            out += step
+        else:
+            out -= step
+
+    # Safety net
+    if out > max_value:
+        out = max_value
+
+    return out
+
+
+@dataclass(slots=True)
+class _WalkState:
+    """
+    Walk state of a single progression field.
+
+    ``value`` is the running value after all applied configs, ``active`` the
+    config whose run covers the current iteration and ``armed`` a gated
+    non-repeating config waiting for a qualifying iteration.
+
+    ``advance`` must run for every field of an iteration before any ``apply``,
+    the requirement gates of max fields read the candidate of their base field.
+    """
+
+    value: Decimal | None = None
+    active: AbstractChangeConfig | None = None
+    armed: AbstractChangeConfig | None = None
+
+    def advance(self, config: AbstractChangeConfig | None) -> AbstractChangeConfig | None:
+        """
+        Moves to the next iteration and returns the config that wants to apply.
+
+        A config owns its own iteration, a repeating config also owns every
+        following iteration until another config takes over. A non-repeating
+        gated config that couldn't apply yet stays armed until it fires or a
+        newer config takes over.
+        """
+        if config is not None:
+            self.active = config
+            self.armed = None
+            return config
+
+        if self.active is not None and self.active.repeat:
+            return self.active
+
+        return self.armed
+
+    def apply(
+        self,
+        candidate: AbstractChangeConfig,
+        is_open: bool,
+        max_value: Decimal,
+    ) -> None:
+        """Applies the candidate or arms it for a later qualifying iteration"""
+        if is_open:
+            self.value = _apply_config_value(self.value, candidate, max_value)
+            self.armed = None
+        elif not candidate.repeat:
+            self.armed = candidate
 
 
 class SlotEntry(models.Model):
@@ -199,18 +293,7 @@ class SlotEntry(models.Model):
         """
         return any(
             config.iteration != 1
-            for field in [
-                'weight',
-                'maxweight',
-                'repetitions',
-                'maxrepetitions',
-                'rir',
-                'maxrir',
-                'rest',
-                'maxrest',
-                'sets',
-                'maxsets',
-            ]
+            for field in PROGRESSION_FIELDS
             for config in getattr(self, f'{field}config_set').all()
         )
 
@@ -241,122 +324,59 @@ class SlotEntry(models.Model):
         """
         return self.slot.day.routine
 
-    def load_all_configs(
-        self, iteration: int
-    ) -> Dict[str, Dict[str, List[AbstractChangeConfig] | AbstractChangeConfig]]:
-        data = {
-            'weight': [c for c in self.weightconfig_set.all() if c.iteration <= iteration],
-            'maxweight': [c for c in self.maxweightconfig_set.all() if c.iteration <= iteration],
-            'repetitions': [
-                c for c in self.repetitionsconfig_set.all() if c.iteration <= iteration
-            ],
-            'maxrepetitions': [
-                c for c in self.maxrepetitionsconfig_set.all() if c.iteration <= iteration
-            ],
-            'rir': [c for c in self.rirconfig_set.all() if c.iteration <= iteration],
-            'maxrir': [c for c in self.maxrirconfig_set.all() if c.iteration <= iteration],
-            'rest': [c for c in self.restconfig_set.all() if c.iteration <= iteration],
-            'maxrest': [c for c in self.maxrestconfig_set.all() if c.iteration <= iteration],
-            'sets': [c for c in self.setsconfig_set.all() if c.iteration <= iteration],
-            'maxsets': [c for c in self.maxsetsconfig_set.all() if c.iteration <= iteration],
-        }
-        last_entries = {key: data[key][-1] if data[key] else None for key in data}
-
-        configs = {
-            'all': data,
-            'last': last_entries,
-        }
-
-        return configs
-
-    def get_configuration_entries(
-        self, config_type: ConfigType, iteration
-    ) -> List[AbstractChangeConfig]:
-        configs = {
-            ConfigType.WEIGHT: self.weightconfig_set.all(),
-            ConfigType.MAXWEIGHT: self.maxweightconfig_set.all(),
-            ConfigType.REPETITIONS: self.repetitionsconfig_set.all(),
-            ConfigType.MAXREPETITIONS: self.maxrepetitionsconfig_set.all(),
-            ConfigType.RIR: self.rirconfig_set.all(),
-            ConfigType.MAXRIR: self.maxrirconfig_set.all(),
-            ConfigType.REST: self.restconfig_set.all(),
-            ConfigType.MAXREST: self.maxrestconfig_set.all(),
-            ConfigType.SETS: self.setsconfig_set.all(),
-            ConfigType.MAXSETS: self.maxsetsconfig_set.all(),
-        }[config_type]
-
-        return [c for c in configs if c.iteration <= iteration]
-
     @staticmethod
-    def calculate_config_value(
+    def walk_config_values(
         configs: List[AbstractChangeConfig],
+        iteration: int,
         max_value: Decimal = MAX_COMPOUND_VALUE,
     ) -> Decimal | None:
         """
-        Calculates the result of a list of configs.
+        Walks the configs iteration by iteration, without requirement gating,
+        and returns the value at the requested iteration.
 
-        ``max_value`` clamps the running result so e.g. repeated percent progressions
-        can't overflow the display field's ``max_digits``. Callers for RiR-like
-        fields should pass ``MAX_COMPOUND_RIR``.
+        The ungated special case of the walk in ``get_config_data``, both
+        loops build on ``_WalkState``.
         """
-        if not configs:
-            return None
+        target = max(iteration, 1)
+        by_iteration = {c.iteration: c for c in configs if c.iteration <= target}
 
-        out = Decimal(0)
-        for config in configs:
-            if config.replace:
-                out = config.value
-            else:
-                step = (
-                    config.value
-                    if config.step == StepChoices.ABSOLUTE
-                    else out * config.value / 100
-                )
+        state = _WalkState()
+        for i in range(1, target + 1):
+            candidate = state.advance(by_iteration.get(i))
+            if candidate is not None:
+                state.apply(candidate, True, max_value)
 
-                if config.operation == OperationChoices.PLUS:
-                    out += step
-                else:
-                    out -= step
+        return state.value
 
-            # Safety net
-            if out > max_value:
-                out = max_value
-
-        return out
+    def _display_rounding(self, field: str) -> Decimal | int | None:
+        """Rounding applied to a field for display and requirement thresholds"""
+        return {
+            'weight': self.weight_rounding,
+            'repetitions': self.repetition_rounding,
+            'rir': Decimal('0.5'),
+            'rest': 1,
+        }.get(field)
 
     @staticmethod
-    def duplicate_configs(
-        iteration: int,
-        configs: List[AbstractChangeConfig],
-    ) -> List[AbstractChangeConfig]:
-        """Duplicates configs according to the "repeat" parameter"""
+    def _requirements_met(requirements, log_data: List[WorkoutLog], thresholds: dict) -> bool:
+        """True if any single log reaches the thresholds of all required fields"""
 
-        out = []
-        for config in configs:
-            if config.repeat:
-                for i in range(config.iteration, iteration + 1):
-                    # If there is another config responsible for the iteration, finish here
-                    if any(other.iteration == i and other.pk != config.pk for other in configs):
-                        break
+        def rule_met(log: WorkoutLog, rule: str) -> bool:
+            log_value = getattr(log, rule, None)
+            threshold = thresholds.get(rule)
+            return log_value is not None and threshold is not None and log_value >= threshold
 
-                    new_config = copy.copy(config)
-                    new_config.iteration = i
-                    out.append(new_config)
-            else:
-                out.append(config)
-
-        return out
+        return any(all(rule_met(log, rule) for rule in requirements.rules) for log in log_data)
 
     def get_config_data(self, iteration: int) -> SetConfigData:
         """
-        This method calculates the configuration for a given iteration of a slot entry.
+        Calculates the configuration for a given iteration of a slot entry.
 
-        It processes each field (weight, repetitions, rir, rest, sets, etc.) individually
-        and for each one it checks if there are any requirements set (minimum values for other
-        fields) and checks if they are met by the logs of the previous iterations.
-
-        E.g. the weight could have the requirements of weight and weight. Only if these are
-        met, the weight will be increased.
+        The configs of every field are walked iteration by iteration. Configs
+        without requirements apply on their calendar schedule. Configs with
+        requirements only apply on iterations where a log of the previous
+        iteration reaches the displayed prescription of all required fields,
+        earning one application per qualifying iteration.
         """
 
         # If there are no progressions, the value will be always the same
@@ -398,96 +418,70 @@ class SlotEntry(models.Model):
 
             return custom_logic.calculate()
 
-        max_iterations = {
-            'weight': 1,
-            'maxweight': 1,
-            'repetitions': 1,
-            'maxrepetitions': 1,
-            'rir': 1,
-            'maxrir': 1,
-            'rest': 1,
-            'maxrest': 1,
-            'sets': 1,
-            'maxsets': 1,
+        target = max(iteration, 1)
+        configs_by_field = {
+            field: {
+                config.iteration: config
+                for config in getattr(self, f'{field}config_set').all()
+                if config.iteration <= target
+            }
+            for field in PROGRESSION_FIELDS
         }
+        states = {field: _WalkState() for field in PROGRESSION_FIELDS}
 
-        def _requirement_met(log: WorkoutLog, field_name: str) -> bool:
-            """Checks if the requirements for a single field are met for this log"""
+        logs_by_iteration = defaultdict(list)
+        for log in logs:
+            logs_by_iteration[log.iteration].append(log)
 
-            log_value = getattr(log, field_name, None)
-            if log_value is None:
-                return False
+        for i in range(1, target + 1):
+            # Thresholds are the displayed prescriptions of the previous iteration
+            thresholds = {
+                rule: round_value(states[rule].value, self._display_rounding(rule))
+                for rule in REQUIREMENTS_RULES_KEYS
+            }
+            log_data = logs_by_iteration.get(i - 1, [])
 
-            min_value = min_values.get(field_name)
-            if min_value is None:
-                return False
+            # All fields advance first, the gates below read the candidates
+            # of their base fields
+            candidates = {
+                field: states[field].advance(configs_by_field[field].get(i))
+                for field in PROGRESSION_FIELDS
+            }
 
-            return log_value >= min_value
-
-        for i in range(1, iteration + 1):
-            configs = self.load_all_configs(i)['last']
-
-            log_data = [
-                log for log in logs if log.iteration == i - 1 and log.slot_entry_id == self.id
-            ]
-
-            for field, config in configs.items():
-                if not config:
+            for field in PROGRESSION_FIELDS:
+                candidate = candidates[field]
+                if candidate is None:
                     continue
 
-                requirements = config.requirements_object
+                # Min and max configs advance together, gated by the base config
+                gate_config = candidate
+                base_field = BASE_FIELD.get(field)
+                if base_field and configs_by_field[base_field]:
+                    gate_config = candidates[base_field] or states[base_field].active or candidate
 
-                if not requirements:
-                    max_iterations[field] = i
-                    continue
+                requirements = gate_config.requirements_object
+                # Iteration 1 is the baseline and always applies
+                is_open = (
+                    i == 1
+                    or not requirements
+                    or self._requirements_met(requirements, log_data, thresholds)
+                )
+                states[field].apply(candidate, is_open, FIELD_CAPS[field])
 
-                # Precompute threshold values for all required fields once per iteration
-                # to avoid recalculating them for every log entry.
-                min_values: Dict[str, Decimal | None] = {}
-                for req_field in requirements.rules:
-                    calc_fn: Callable[[int], Decimal | None] | None = getattr(
-                        self, f'calculate_{req_field}', None
-                    )
-                    if not callable(calc_fn):
-                        logger.error(
-                            f'Missing method calculate_{req_field} on SlotEntry {self.id}',
-                        )
-                        min_values[req_field] = None
-                        continue
+        sets = states['sets'].value
+        max_sets = states['maxsets'].value
 
-                    try:
-                        min_values[req_field] = calc_fn(max_iterations[req_field])
-                    except Exception as e:
-                        logger.error(
-                            f'Error during calculate_{req_field} for SlotEntry {self.id}: {e}',
-                        )
-                        min_values[req_field] = None
+        weight = states['weight'].value
+        max_weight = states['maxweight'].value
 
-                # Field has requirements, check if they are met
-                # logger.debug(f'Requirements for {field} in iteration {i}: {requirements.rules}')
-                for log in log_data:
-                    # If any log satisfies all required fields for the config, the field is ready
-                    all_fields_met = all(
-                        _requirement_met(log, req_field) for req_field in requirements.rules
-                    )
-                    if all_fields_met:
-                        max_iterations[field] = i
-                        break
+        repetitions = states['repetitions'].value
+        max_repetitions = states['maxrepetitions'].value
 
-        sets = self.calculate_sets(max_iterations['sets'])
-        max_sets = self.calculate_maxsets(max_iterations['maxsets'])
+        rir = states['rir'].value
+        max_rir = states['maxrir'].value
 
-        weight = self.calculate_weight(max_iterations['weight'])
-        max_weight = self.calculate_maxweight(max_iterations['maxweight'])
-
-        repetitions = self.calculate_repetitions(max_iterations['repetitions'])
-        max_repetitions = self.calculate_maxrepetitions(max_iterations['maxrepetitions'])
-
-        rir = self.calculate_rir(max_iterations['rir'])
-        max_rir = self.calculate_maxrir(max_iterations['maxrir'])
-
-        rest = self.calculate_rest(max_iterations['rest'])
-        max_rest = self.calculate_maxrest(max_iterations['maxrest'])
+        rest = states['rest'].value
+        max_rest = states['maxrest'].value
 
         result = SetConfigData(
             slot_entry_id=self.id,
@@ -496,8 +490,8 @@ class SlotEntry(models.Model):
             comment=self.comment,
             sets=sets if sets is not None else 1,
             max_sets=round_value(max_sets, 1),
-            weight=round_value(weight, self.weight_rounding),
-            max_weight=round_value(max_weight, self.weight_rounding)
+            weight=round_value(weight, self._display_rounding('weight')),
+            max_weight=round_value(max_weight, self._display_rounding('weight'))
             if max_weight and weight and max_weight > weight
             else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
@@ -505,8 +499,8 @@ class SlotEntry(models.Model):
             weight_unit_name=self.weight_unit.name
             if weight is not None and self.weight_unit is not None
             else None,
-            repetitions=round_value(repetitions, self.repetition_rounding),
-            max_repetitions=round_value(max_repetitions, self.repetition_rounding)
+            repetitions=round_value(repetitions, self._display_rounding('repetitions')),
+            max_repetitions=round_value(max_repetitions, self._display_rounding('repetitions'))
             if max_repetitions and repetitions and max_repetitions > repetitions
             else None,
             repetitions_rounding=self.repetition_rounding if repetitions is not None else None,
@@ -514,10 +508,14 @@ class SlotEntry(models.Model):
             repetitions_unit_name=self.repetition_unit.name
             if repetitions is not None and self.repetition_unit is not None
             else None,
-            rir=round_value(rir, 0.5),
-            max_rir=round_value(max_rir, 0.5) if max_rir and rir and max_rir > rir else None,
-            rest=round_value(rest, 1),
-            max_rest=round_value(max_rest, 1) if max_rest and rest and max_rest > rest else None,
+            rir=round_value(rir, self._display_rounding('rir')),
+            max_rir=round_value(max_rir, self._display_rounding('rir'))
+            if max_rir and rir and max_rir > rir
+            else None,
+            rest=round_value(rest, self._display_rounding('rest')),
+            max_rest=round_value(max_rest, self._display_rounding('rest'))
+            if max_rest and rest and max_rest > rest
+            else None,
         )
 
         cache.set(
@@ -527,88 +525,3 @@ class SlotEntry(models.Model):
         )
 
         return result
-
-    #
-    # Note: don't rename these methods, they are accessed in get_config via getattr
-    #
-    def calculate_sets(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.SETS, iteration),
-            )
-        )
-
-    def calculate_maxsets(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.MAXSETS, iteration),
-            )
-        )
-
-    def calculate_weight(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.WEIGHT, iteration),
-            )
-        )
-
-    def calculate_maxweight(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.MAXWEIGHT, iteration),
-            )
-        )
-
-    def calculate_repetitions(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.REPETITIONS, iteration),
-            )
-        )
-
-    def calculate_maxrepetitions(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.MAXREPETITIONS, iteration),
-            )
-        )
-
-    def calculate_rir(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.RIR, iteration),
-            ),
-            max_value=MAX_COMPOUND_RIR,
-        )
-
-    def calculate_maxrir(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.MAXRIR, iteration),
-            ),
-            max_value=MAX_COMPOUND_RIR,
-        )
-
-    def calculate_rest(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.REST, iteration),
-            )
-        )
-
-    def calculate_maxrest(self, iteration: int) -> Decimal | None:
-        return self.calculate_config_value(
-            self.duplicate_configs(
-                iteration,
-                self.get_configuration_entries(ConfigType.MAXREST, iteration),
-            )
-        )
