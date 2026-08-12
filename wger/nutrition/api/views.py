@@ -25,6 +25,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.openapi import AutoSchema
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -186,6 +187,19 @@ class IngredientInfoViewSet(IngredientViewSet):
         )
 
 
+class IngredientSyncAutoSchema(AutoSchema):
+    """
+    Gives the cursor-paginated response its own component.
+
+    This endpoint shares its serializer with /api/v2/ingredientinfo/, so both
+    wrappers would be called PaginatedIngredientInfoList. The cursor one has no
+    count, and whichever is generated last wins.
+    """
+
+    def get_paginated_name(self, serializer_name: str) -> str:
+        return f'Cursor{super().get_paginated_name(serializer_name)}'
+
+
 class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Cursor-paginated read-only endpoint designed for syncing the ingredient
@@ -200,6 +214,7 @@ class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
     Note: the response does not contain a `count` key.
     """
 
+    schema = IngredientSyncAutoSchema()
     serializer_class = IngredientInfoSerializer
     pagination_class = IngredientCursorPagination
     filterset_class = IngredientFilterSet
