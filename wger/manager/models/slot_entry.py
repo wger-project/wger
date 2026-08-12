@@ -474,7 +474,9 @@ class SlotEntry(models.Model):
                         # Advance exactly one earned increment per qualifying iteration
                         # instead of jumping to the calendar index, which would
                         # back-fill increments for skipped, non-qualifying iterations.
-                        max_iterations[field] += 1
+                        # Clamped to i so that logs stamped with iteration 0 can't
+                        # advance the pointer into a future iteration's config.
+                        max_iterations[field] = min(max_iterations[field] + 1, i)
                         break
 
         sets = self.calculate_sets(max_iterations['sets'])

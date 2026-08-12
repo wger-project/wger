@@ -530,7 +530,7 @@ class SlotEntryTestCase(WgerTestCase):
         self.assertEqual(config_data.rir, None)
         self.assertEqual(config_data.weight, 80)
 
-    def _setup_gated_weight_progression(self):
+    def _setup_gated_weight_progression(self, gate_base_config: bool = False):
         """
         Base weight of 20, +2.5 kg per iteration (repeating), gated on reaching
         the prescribed 5 repetitions
@@ -543,6 +543,7 @@ class SlotEntryTestCase(WgerTestCase):
             slot_entry=self.slot_entry,
             iteration=1,
             value=20,
+            requirements={'rules': ['repetitions']} if gate_base_config else None,
         ).save()
         WeightConfig(
             slot_entry=self.slot_entry,
@@ -608,6 +609,18 @@ class SlotEntryTestCase(WgerTestCase):
         self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('22.5'))
         self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(25))
         self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal('27.5'))
+
+    def test_requirements_iteration_zero_log_does_not_advance(self):
+        """
+        A log stamped with iteration 0 doesn't advance a gated progression into
+        the config of a later iteration
+        """
+        self._setup_gated_weight_progression(gate_base_config=True)
+
+        self._log_repetitions(iteration=0, repetitions=5)
+
+        # The +2.5 config only takes effect at iteration 2
+        self.assertEqual(self.slot_entry.get_config_data(1).weight, Decimal(20))
 
     def test_weight_config_with_logs_and_range(self):
         """
