@@ -30,6 +30,7 @@ from django.core.management import (
 import requests
 from invoke import (
     Collection,
+    Config,
     Program,
     task,
 )
@@ -234,8 +235,19 @@ def database_exists():
     except ImproperlyConfigured as e:
         print(style.ERROR('Your settings file seems broken: '), e)
         sys.exit(0)
-    else:
-        return True
+
+
+class WgerConfig(Config):
+    """
+    Invoke configuration that ignores the per-user config file
+
+    The CLI has no user level configuration, and invoke reading ~/.invoke.yaml is a
+    trap when HOME points to a folder the current process can't read (e.g. process
+    supervisors that don't reset HOME when dropping privileges).
+    """
+
+    def load_user(self, merge: bool = True) -> None:
+        self._set(_user_found=False)
 
 
 def make_program():
@@ -246,5 +258,5 @@ def make_program():
         load_fixtures,
         load_online_fixtures,
     )
-    return Program(namespace=ns)
+    return Program(namespace=ns, config_class=WgerConfig)
     # program.run()
