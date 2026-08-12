@@ -487,6 +487,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'wger.utils.pagination.WgerLimitOffsetPagination',
     'PAGE_SIZE': 20,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    # JSON only, endpoints taking a file set MultiPartParser themselves.
+    'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',

@@ -388,6 +388,7 @@ class OidcProviderTestCase(WgerTestCase):
             reverse('measurement-category-list'),
             data={'name': 'Biceps', 'unit': 'cm'},
             HTTP_AUTHORIZATION=f'Bearer {token["access_token"]}',
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, 403)
 
@@ -579,6 +580,7 @@ class OidcProviderTestCase(WgerTestCase):
             reverse('measurement-category-list'),
             data={'name': 'Biceps', 'unit': 'cm'},
             HTTP_AUTHORIZATION=f'Bearer {token}',
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, 403)
@@ -591,6 +593,7 @@ class OidcProviderTestCase(WgerTestCase):
             reverse('measurement-category-list'),
             data={'name': 'Biceps', 'unit': 'cm'},
             HTTP_AUTHORIZATION=f'Bearer {token}',
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, 201)

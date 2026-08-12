@@ -59,10 +59,13 @@ class ActstreamCreateMixin(_ActstreamMixinBase):
 class ActstreamUpdateMixin(_ActstreamMixinBase):
     """PATCHing ``self.data`` to ``self.url_detail`` emits an UPDATED event."""
 
+    patch_format = 'json'
+    """Resources holding a file only parse multipart, those set 'multipart'."""
+
     def test_actstream_event_on_update(self):
         self.authenticate('admin')
         before = self._count_actions(StreamVerbs.UPDATED.value)
-        response = self.client.patch(self.url_detail, data=self.data)
+        response = self.client.patch(self.url_detail, data=self.data, format=self.patch_format)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
         self.assertEqual(self._count_actions(StreamVerbs.UPDATED.value), before + 1)
 

@@ -34,6 +34,7 @@ class ExerciseVideosApiTestCase(
     resource = ExerciseVideo
     overview_cached = False
     data = {'is_main': True}
+    patch_format = 'multipart'
 
     def get_resource_name(self):
         # The video endpoint is registered as ``video``, not ``exercisevideo``.

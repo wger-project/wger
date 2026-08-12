@@ -251,3 +251,4 @@ class ExerciseImagesApiTestCase(
     resource = ExerciseImage
     overview_cached = True
     data = {'is_main': True}
+    patch_format = 'multipart'

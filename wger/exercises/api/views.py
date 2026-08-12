@@ -30,6 +30,7 @@ from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -346,6 +347,8 @@ class ExerciseImageViewSet(ModelViewSet):
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
     permission_classes = (CanContributeExercises,)
+    # the image is uploaded as a file, which JSON cannot carry
+    parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -406,6 +409,8 @@ class ExerciseVideoViewSet(ModelViewSet):
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
     permission_classes = (CanContributeExercises,)
+    # the video is uploaded as a file, which JSON cannot carry
+    parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
