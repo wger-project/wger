@@ -2,6 +2,7 @@
 
 import django.contrib.postgres.indexes
 import django.contrib.postgres.search
+from django.contrib.postgres.operations import BtreeGinExtension
 from django.db import migrations
 
 
@@ -11,6 +12,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        # A GIN index over a varchar column needs btree_gin. The extension is also
+        # created in exercises 0029, but nothing guarantees that runs first.
+        BtreeGinExtension(),
         migrations.AddIndex(
             model_name='ingredient',
             index=django.contrib.postgres.indexes.GinIndex(
