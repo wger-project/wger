@@ -84,6 +84,7 @@ class ExerciseViewSet(ModelViewSet):
     throttle_classes = (CreateScopedRateThrottle,)
     throttle_scope = 'exercise_create'
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = (
         'category',
         'muscles',
@@ -171,6 +172,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     throttle_scope = 'exercise_create'
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = (
         'uuid',
         'created',
@@ -222,6 +224,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_class = ExerciseFilterSet
     filterset_fields = (
         'uuid',
@@ -305,6 +308,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
@@ -324,6 +328,7 @@ class DeletionLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DeletionLog.objects.all()
     serializer_class = DeletionLogSerializer
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = ('model_type',)
 
 
@@ -335,6 +340,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseCategory.objects.all()
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
@@ -454,6 +460,7 @@ class ExerciseCommentViewSet(ModelViewSet):
     serializer_class = ExerciseCommentSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = ('comment', 'translation')
 
     def get_queryset(self):
@@ -497,6 +504,7 @@ class ExerciseAliasViewSet(ModelViewSet):
     queryset = Alias.objects.all()
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = ('alias', 'translation')
 
     def perform_create(self, serializer):
@@ -530,6 +538,7 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = ('name', 'is_front', 'name_en')
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
