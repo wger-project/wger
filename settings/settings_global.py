@@ -643,6 +643,9 @@ WGER_SETTINGS = {
 # List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
 WGER_SOCIAL_PROVIDERS = []
 
+# Whether to link to the mobile app in the app stores in the footer and on the landing page.
+WGER_SHOW_APP_STORE_LINKS = True
+
 
 #
 # Auth Proxy Authentication
