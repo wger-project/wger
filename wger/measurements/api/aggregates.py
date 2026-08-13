@@ -168,10 +168,13 @@ def value_count_rows(queryset, tz, summed_per_day: bool = False) -> list[dict]:
     if summed_per_day:
         # A day is one value here, so the totals are counted in python: the
         # database has already grouped them into days
+        # order_by() drops the caller's ordering: a sort column outside the
+        # grouping lands in the GROUP BY and splits the totals up again
         daily = (
             queryset.annotate(day=TruncDay('date', tzinfo=tz), unit=F('extra_data__unit'))
             .values('category', 'day', 'unit')
             .annotate(value=Sum('value'), newest=Max('date'))
+            .order_by()
         )
         counted: dict[tuple, dict] = {}
         for row in daily:

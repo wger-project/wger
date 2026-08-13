@@ -191,6 +191,16 @@ class AggregateApiTestCase(WgerTestCase):
         self.assertEqual(rows[0]['value'], '5000.00')
         self.assertEqual(rows[0]['count'], 2)
 
+    def test_daily_totals_survive_an_ordering_parameter(self):
+        for day, hour, value in ((4, 8, 3000), (4, 20, 2000), (5, 8, 5000)):
+            self.add(timezone.make_aware(datetime.datetime(2026, 5, day, hour)), value)
+
+        rows = self.value_counts(summed_per_day='true', tz='UTC', ordering='date')
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['value'], '5000.00')
+        self.assertEqual(rows[0]['count'], 2)
+
     def test_a_bound_stored_as_a_string_still_reads(self):
         # Postgres refuses to cast a JSON string to numeric, even a numeric
         # one, so a row predating the write validation would otherwise take
