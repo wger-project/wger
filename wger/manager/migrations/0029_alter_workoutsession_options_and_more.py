@@ -68,7 +68,7 @@ def forward_func(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('manager', '0027_cleanup_fields'),
+        ('manager', '0028_backfill_session_day'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

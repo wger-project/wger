@@ -22,7 +22,7 @@ from django.test import SimpleTestCase
 from django.utils import timezone
 
 
-migration = import_module('wger.manager.migrations.0028_alter_workoutsession_options_and_more')
+migration = import_module('wger.manager.migrations.0029_alter_workoutsession_options_and_more')
 
 DAY = datetime.date(2025, 3, 10)
 
