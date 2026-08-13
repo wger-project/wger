@@ -42,7 +42,13 @@ class ExerciseFilterSet(filters.FilterSet):
 
     name__search = filters.CharFilter(method='search_name_fulltext')
     name__exact = filters.CharFilter(method='search_name_exact')
-    language__code = filters.CharFilter(method='search_language_code')
+    language__code = filters.CharFilter(
+        method='search_language_code',
+        help_text=(
+            'Filter by language code. Multiple values may be separated by commas. '
+            'Unknown codes fall back to English.'
+        ),
+    )
 
     def _languages_from_params(self):
         if languages_param := self.data.get('language__code'):

@@ -50,7 +50,13 @@ class LogItemFilterSet(filters.FilterSet):
 class IngredientFilterSet(filters.FilterSet):
     code = filters.CharFilter(method='search_barcode')
     name__search = filters.CharFilter(method='search_name_fulltext')
-    language__code = filters.CharFilter(method='search_languagecode')
+    language__code = filters.CharFilter(
+        method='search_languagecode',
+        help_text=(
+            'Filter by language code. Multiple values may be separated by commas. '
+            'Unknown codes are ignored.'
+        ),
+    )
 
     def search_barcode(self, queryset, name, value):
         """

@@ -226,16 +226,6 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     ordering = ['id']
     filterset_class = ExerciseFilterSet
-    filterset_fields = (
-        'uuid',
-        'category',
-        'muscles',
-        'muscles_secondary',
-        'equipment',
-        'variation_group',
-        'license',
-        'license_author',
-    )
 
     def get_queryset(self):
         """
