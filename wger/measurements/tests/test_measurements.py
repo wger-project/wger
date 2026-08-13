@@ -322,6 +322,54 @@ class MeasurementValueLimitsTestCase(WgerTestCase):
             200,
         )
 
+    def test_limits_when_moving_to_another_category(self):
+        """
+        Test that a value is re-checked when the entry moves to a stricter category
+        """
+        steps = self.create_category(MetricType.STEPS, 'count')
+        oxygen = self.create_category(MetricType.BLOOD_OXYGEN, '%')
+        entry_id = self.add_entry(steps.pk, 300).data['id']
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry_id}),
+            {'category': str(oxygen.pk)},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('value', response.data)
+
+    def test_limits_when_restamping_the_unit(self):
+        """
+        Test that a value is re-checked when the entry is restamped to another unit
+        """
+        entry_id = self.add_entry(self.body_weight_id, 700, {'unit': 'lb'}).data['id']
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry_id}),
+            {'extra_data': {'unit': 'kg'}},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('value', response.data)
+
+    def test_editing_the_extra_data_of_an_entry_outside_the_limits(self):
+        """
+        Test that a stored value outside the limits does not block an edit that
+        leaves its bounds unchanged
+        """
+        entry = Measurement.objects.filter(category_id=self.body_weight_id).first()
+        Measurement.objects.filter(pk=entry.pk).update(value=550)
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': entry.pk}),
+            {'extra_data': {'unit': 'kg', 'source_name': 'Scale'}},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 200)
+
     def test_editing_an_entry_whose_stored_unit_is_unknown(self):
         """
         Test that a stored unit outside kg and lb does not block other edits

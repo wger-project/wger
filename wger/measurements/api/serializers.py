@@ -321,18 +321,34 @@ class MeasurementSerializer(serializers.ModelSerializer):
         kilograms and daily step counts. Since a category can hold mixed units,
         the entry's own unit decides which of them applies.
 
-        Only a value the payload carries is checked: entries predating the
-        limits exist, and re-checking a stored one would block every edit to it.
+        A stored value is only re-checked when the payload moves the entry under
+        a different bound, by changing its category or its unit: entries
+        predating the limits exist, and re-checking a stored value on every
+        update would block all other edits to them.
         """
-        value = data.get('value')
-        if value is None or category is None:
+        if category is None:
             return
 
         limits = limits_for(category.metric_type, unit or category.unit)
+
+        value = data.get('value')
+        if value is None:
+            if self.instance is None or limits == self._stored_limits():
+                return
+            value = self.instance.value
+
         if not limits.min <= value <= limits.max:
             raise serializers.ValidationError(
                 {'value': f'Value must be between {limits.min} and {limits.max}'}
             )
+
+    def _stored_limits(self):
+        """
+        The bounds that applied to the entry before the update
+        """
+        category = self.instance.category
+        unit = (self.instance.extra_data or {}).get('unit')
+        return limits_for(category.metric_type, unit or category.unit)
 
 
 class BucketSerializer(serializers.Serializer):
