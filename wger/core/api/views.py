@@ -74,7 +74,6 @@ import wger.gallery.powersync  # noqa: F401
 import wger.manager.powersync  # noqa: F401
 import wger.measurements.powersync  # noqa: F401
 import wger.nutrition.powersync  # noqa: F401
-import wger.weight.powersync  # noqa: F401
 from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
@@ -439,7 +438,9 @@ def upload_powersync_data(request):
             status=200,
         )
 
-    logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
+    # Debug, not info: clients push one row per request, so a first health
+    # import writes a five figure number of these lines for a single user
+    logger.debug(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
 
     handler = POWERSYNC_REGISTRY.get(table)
     if handler is None:

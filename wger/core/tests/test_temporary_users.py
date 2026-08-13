@@ -38,7 +38,10 @@ from wger.nutrition.models import (
     Meal,
     NutritionPlan,
 )
-from wger.weight.models import WeightEntry
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
 
 
 class DemoUserTestCase(WgerTestCase):
@@ -96,7 +99,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(Meal.objects.filter(plan__user=user).count(), 20)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 40)
+        self.assertEqual(Measurement.body_weight_for(user).count(), 40)
 
     def test_demo_data_body_weight(self):
         """
@@ -107,20 +110,21 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
 
+        category = Category.get_or_create_body_weight(user, unit='kg')
         temp = []
         for i in range(1, 5):
             creation_date = timezone.now() - datetime.timedelta(days=i)
-            entry = WeightEntry(
-                user=user,
-                weight=80 + 0.5 * i + random.randint(1, 3),
+            entry = Measurement(
+                category=category,
+                value=80 + 0.5 * i + random.randint(1, 3),
                 date=creation_date,
             )
             temp.append(entry)
-        WeightEntry.objects.bulk_create(temp)
+        Measurement.objects.bulk_create(temp)
         create_demo_entries(user)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 44)
+        self.assertEqual(Measurement.body_weight_for(user).count(), 44)
 
     def test_demo_user(self):
         """
