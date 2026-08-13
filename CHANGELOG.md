@@ -2,6 +2,9 @@
 
 ## New features
 
+* Improved openAPI spec. The spec now properly describes the different parts of
+  the API and can be used to generate clients.
+
 ### OAuth2 provider
 
 wger can now act as an OAuth2 provider itself, so that other applications can let
