@@ -70,8 +70,8 @@ class DateBasedChecker(BaseTrophyChecker):
 
         return WorkoutSession.objects.filter(
             user=self.user,
-            date__month=month,
-            date__day=day,
+            datetime_start__month=month,
+            datetime_start__day=day,
         ).exists()
 
     def get_progress(self) -> float:

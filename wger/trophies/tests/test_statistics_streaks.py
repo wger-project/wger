@@ -20,6 +20,7 @@ from unittest import mock
 # Django
 from django.contrib.auth.models import User
 from django.test import SimpleTestCase
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -34,15 +35,13 @@ FROZEN_TODAY = datetime.date(2024, 6, 19)
 
 def frozen_today():
     """
-    Freezes datetime.date.today() so the streak calculations are deterministic
+    Freezes the current day so the streak calculations are deterministic
     """
 
-    class FrozenDate(datetime.date):
-        @classmethod
-        def today(cls):
-            return FROZEN_TODAY
-
-    return mock.patch('datetime.date', FrozenDate)
+    return mock.patch(
+        'wger.trophies.services.statistics.timezone.localdate',
+        return_value=FROZEN_TODAY,
+    )
 
 
 def days_ago(days: int) -> datetime.date:
@@ -91,6 +90,53 @@ class CalculateStreaksTestCase(SimpleTestCase):
             datetime.date(2024, 1, 1),
         ]
         self.assertEqual(self.calculate(dates), (0, 3))
+
+
+class CalculateWorkoutTimesTestCase(SimpleTestCase):
+    """
+    Test which sessions contribute to the earliest and latest workout time
+    """
+
+    @staticmethod
+    def session(start, end=None):
+        return WorkoutSession(
+            datetime_start=timezone.make_aware(start),
+            datetime_end=timezone.make_aware(end) if end else None,
+        )
+
+    def test_times_are_taken_in_the_local_timezone(self):
+        """The stored value is UTC, the reported time is the one the user saw"""
+
+        sessions = [
+            self.session(
+                datetime.datetime(2024, 6, 19, 7, 30), datetime.datetime(2024, 6, 19, 9, 0)
+            )
+        ]
+
+        earliest, latest = UserStatisticsService._calculate_workout_times(sessions)
+
+        self.assertEqual(earliest, datetime.time(7, 30))
+        self.assertEqual(latest, datetime.time(7, 30))
+
+    def test_sessions_without_an_end_are_ignored(self):
+        """Migrated sessions that only ever had a date must not count as a time"""
+
+        sessions = [
+            self.session(datetime.datetime(2024, 6, 19, 0, 0)),
+            self.session(
+                datetime.datetime(2024, 6, 20, 18, 0), datetime.datetime(2024, 6, 20, 19, 0)
+            ),
+        ]
+
+        earliest, latest = UserStatisticsService._calculate_workout_times(sessions)
+
+        self.assertEqual(earliest, datetime.time(18, 0))
+        self.assertEqual(latest, datetime.time(18, 0))
+
+    def test_no_session_with_an_end_yields_nothing(self):
+        sessions = [self.session(datetime.datetime(2024, 6, 19, 0, 0))]
+
+        self.assertEqual(UserStatisticsService._calculate_workout_times(sessions), (None, None))
 
 
 class CalculateWeekendStreakTestCase(SimpleTestCase):
@@ -153,7 +199,12 @@ class IncrementWorkoutStreakTestCase(WgerTestCase):
         UserStatistics.objects.filter(user=self.user).delete()
 
     def increment(self, date: datetime.date) -> UserStatistics:
-        session = WorkoutSession(user=self.user, date=date)
+        session = WorkoutSession(
+            user=self.user,
+            datetime_start=timezone.make_aware(
+                datetime.datetime.combine(date, datetime.time(12, 0))
+            ),
+        )
         return UserStatisticsService.increment_workout(self.user, session=session)
 
     def test_first_workout_starts_a_streak(self):

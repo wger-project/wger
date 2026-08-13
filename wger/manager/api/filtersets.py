@@ -17,7 +17,22 @@
 from django_filters import rest_framework as filters
 
 # wger
-from wger.manager.models import WorkoutLog
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession,
+)
+
+
+class WorkoutSessionFilterSet(filters.FilterSet):
+    class Meta:
+        model = WorkoutSession
+        fields = {
+            'routine': ['exact'],
+            'notes': ['exact'],
+            'impression': ['exact'],
+            'datetime_start': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
+            'datetime_end': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
+        }
 
 
 class WorkoutLogFilterSet(filters.FilterSet):
