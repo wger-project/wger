@@ -27,7 +27,6 @@ from invoke import Config
 from wger.tasks import WgerConfig
 
 
-
 class WgerConfigTestCase(SimpleTestCase):
     """
     Test the invoke configuration used by the CLI
