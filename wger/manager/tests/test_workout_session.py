@@ -67,6 +67,7 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
                 'datetime_start': '2025-03-12T10:00:00Z',
                 'datetime_end': f'2025-03-12T{10 + hours}:00:00Z',
             },
+            content_type='application/json',
         )
 
     def test_session_within_the_limit(self):
@@ -156,6 +157,7 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
                 'time_start': '10:00',
                 'time_end': '11:30',
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -181,6 +183,7 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
                 'time_start': '23:00',
                 'time_end': '01:30',
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -200,6 +203,7 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
         response = self.client.post(
             reverse('workoutsession-list'),
             data={'routine': self.ROUTINE, 'impression': '2', 'date': '2025-03-12'},
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -247,6 +251,7 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
                 'time_start': '08:00',
                 'datetime_start': '2025-03-12T10:00:00Z',
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
