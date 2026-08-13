@@ -250,7 +250,12 @@ class WeightEntryTokenAuthTestCase(WgerTestCase):
         """
         date = timezone.now()
 
-        response = self.client.post(self.url, {'weight': 81.5, 'date': date}, **self.auth)
+        response = self.client.post(
+            self.url,
+            {'weight': 81.5, 'date': date},
+            content_type='application/json',
+            **self.auth,
+        )
         self.assertEqual(response.status_code, 201)
         pk = response.data['id']
 

@@ -106,6 +106,7 @@ class MeasurementLeafOnlyTestCase(WgerTestCase):
                 'date': '2021-08-12',
                 'value': 120,
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, 400)
@@ -127,6 +128,7 @@ class MeasurementLeafOnlyTestCase(WgerTestCase):
                 'date': '2021-08-12',
                 'value': 120,
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, 400)

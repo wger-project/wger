@@ -57,7 +57,7 @@ class CategoryGroupApiTestCase(WgerTestCase):
 
     def create_category(self, **data):
         payload = {'name': 'Systolic', 'unit': 'mmHg', **data}
-        return self.client.post(self.url, payload)
+        return self.client.post(self.url, payload, content_type='application/json')
 
     def detail_url(self, pk):
         return reverse('measurement-category-detail', kwargs={'pk': pk})
@@ -196,7 +196,7 @@ class TypedCategoryTestCase(WgerTestCase):
 
     def create_category(self, **data):
         payload = {'name': 'Steps', 'unit': 'count', **data}
-        return self.client.post(self.url, payload)
+        return self.client.post(self.url, payload, content_type='application/json')
 
     def detail_url(self, pk):
         return reverse('measurement-category-detail', kwargs={'pk': pk})
