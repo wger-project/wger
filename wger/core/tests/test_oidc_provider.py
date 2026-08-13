@@ -252,7 +252,7 @@ class OidcProviderTestCase(WgerTestCase):
         # granted it. Log out first, otherwise SessionAuthentication answers.
         self.client.logout()
         response = self.client.get(
-            reverse('userprofile-list'),
+            reverse('userprofile'),
             HTTP_AUTHORIZATION=f'Bearer {token["access_token"]}',
         )
         self.assertEqual(response.status_code, 200)
@@ -525,7 +525,7 @@ class OidcProviderTestCase(WgerTestCase):
 
     def read_profile(self, token: str):
         return self.client.get(
-            reverse('userprofile-list'),
+            reverse('userprofile'),
             HTTP_AUTHORIZATION=f'Bearer {token}',
         )
 
@@ -567,7 +567,7 @@ class OidcProviderTestCase(WgerTestCase):
         token = self.create_access_token([SCOPE_READ])
 
         response = self.client.get(
-            reverse('userprofile-list'),
+            reverse('userprofile'),
             HTTP_AUTHORIZATION=f'Bearer {token}',
         )
 
@@ -606,7 +606,7 @@ class OidcProviderTestCase(WgerTestCase):
         token = self.create_access_token([SCOPE_READ])
 
         response = self.client.get(
-            reverse('userprofile-list'),
+            reverse('userprofile'),
             HTTP_AUTHORIZATION=f'Bearer {token}',
         )
 
@@ -631,7 +631,7 @@ class OidcProviderTestCase(WgerTestCase):
         token = self.create_access_token(['openid', 'profile', 'email'])
 
         response = self.client.get(
-            reverse('userprofile-list'),
+            reverse('userprofile'),
             HTTP_AUTHORIZATION=f'Bearer {token}',
         )
 

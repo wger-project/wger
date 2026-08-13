@@ -20,7 +20,6 @@ import logging
 
 # Django
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import (
     DataError,
@@ -36,7 +35,6 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
-from drf_spectacular.openapi import AutoSchema
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -45,11 +43,11 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from rest_framework import (
+    generics,
     status,
     viewsets,
 )
 from rest_framework.decorators import (
-    action,
     api_view,
     permission_classes,
 )
@@ -66,6 +64,7 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 # wger
 # The per-app powersync modules are imported for their side effect: each one
@@ -93,7 +92,6 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.utils.headless_long_lived import mint_long_lived_refresh_token
-from wger.utils.permissions import WgerPermission
 from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
     MIN_APP_VERSION,
@@ -105,81 +103,49 @@ from wger.version import (
 logger = logging.getLogger(__name__)
 
 
-class UserProfileAutoSchema(AutoSchema):
-    """
-    Keeps the list route out of spectacular's list/pagination heuristic, which
-    would otherwise document the single profile object as a paginated list.
-    """
-
-    def _is_list_view(self, serializer=None):
-        if getattr(self.view, 'action', None) == 'list':
-            return False
-        return super()._is_list_view(serializer)
-
-
-class UserProfileViewSet(viewsets.ModelViewSet):
+class UserProfileView(generics.RetrieveUpdateAPIView):
     """
     API endpoint for the user profile
 
-    This endpoint works somewhat differently than the others since it always
-    returns the data for the currently logged-in user's profile. To update
-    the profile, use a POST request with the new data, not a PATCH.
+    Every user has exactly one profile, so this endpoint has no list and no
+    detail route: it always reads and writes the profile of the logged-in user.
+    Updating it takes a PATCH since wger 2.7; up to 2.6 it took a POST.
     """
 
-    schema = UserProfileAutoSchema()
     serializer_class = UserprofileSerializer
-    permission_classes = (
-        IsAuthenticated,
-        WgerPermission,
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self) -> UserProfile:
+        return self.request.user.userprofile
+
+    # Only way to update the profile up to wger 2.6, kept for clients that talk
+    # to those servers. Deprecated instead of hidden so it reaches the schema.
+    @extend_schema(
+        operation_id='userprofile_update_legacy',
+        deprecated=True,
+        summary='Update the profile of servers up to wger 2.6',
+        description=(
+            'Updates the profile of the logged-in user, exactly like PATCH does.\n\n'
+            'Use this if your client needs to work with wger 2.6 or older, which '
+            'accept only POST on this endpoint. Servers from 2.7 on accept both, '
+            'so prefer PATCH in this case.'
+        ),
+        request=UserprofileSerializer,
+        responses={200: UserprofileSerializer},
     )
+    def post(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return UserProfile.objects.none()
 
-        return UserProfile.objects.filter(user=self.request.user)
+class VerifyEmailView(APIView):
+    """
+    Sends a verification email to the logged-in user
+    """
 
-    @staticmethod
-    def get_owner_objects():
-        """
-        Return objects to check for ownership permission
-        """
-        return [(User, 'user')]
-
-    @extend_schema(operation_id='userprofile_list', responses={200: UserprofileSerializer})
-    def list(self, request, *args, **kwargs):
-        """
-        Customized list view, that returns only the current user's data
-        """
-        queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset.first(), many=False)
-
-        return Response(serializer.data)
-
-    def retrieve(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(request.user.userprofile, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-    def update(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def partial_update(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    @extend_schema(responses={405: OpenApiResponse(description='Profiles cannot be deleted')})
-    def destroy(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    permission_classes = (IsAuthenticated,)
 
     @extend_schema(
+        request=None,
         responses={
             200: inline_serializer(
                 name='VerifyEmailResponse',
@@ -191,8 +157,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             ),
         },
     )
-    @action(detail=False, methods=['post'], url_name='verify-email', url_path='verify-email')
-    def verify_email(self, request):
+    def post(self, request):
         """
         Verify the user's email address
 
