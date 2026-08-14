@@ -134,7 +134,9 @@ class WorkoutSession(models.Model):
         if not self.datetime_start:
             return None
 
-        return timezone.localtime(self.datetime_start).date()
+        return timezone.localtime(
+            self.datetime_start, timezone=self.user.userprofile.zone_info
+        ).date()
 
     class Meta:
         """
