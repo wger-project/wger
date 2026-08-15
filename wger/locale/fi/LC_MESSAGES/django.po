@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-08-15 19:51+0000\n"
+"PO-Revision-Date: 2026-08-16 20:51+0000\n"
 "Last-Translator: Mikael Siidorow <mikael+weblate@siidorow.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
@@ -555,10 +555,8 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Selaat\n"
-"                sivustoa käyttäjänä \"%(current_user)s\", kaikki toiminnot\n"
-"kohdistuvat\n"
-"                heidän tietoihinsa.\n"
+"Selaat sivustoa käyttäjänä \"%(current_user)s\", kaikki toiminnot "
+"kohdistuvat heidän tietoihinsa.\n"
 "            "
 
 #: core/templates/delete.html:4
@@ -1002,8 +1000,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            Käytä API-avainta lisäämällä <code>Token %(key)s</code> pyynnön\n"
-"            <code>Authorization</code>-otsakkeeseen.\n"
+"            Käytä API-avainta lisäämällä <code>Token %(key)s</code> pyynnön "
+"<code>Authorization</code>-otsakkeeseen.\n"
 "        "
 
 #: core/templates/user/api_key.html:196
@@ -2522,6 +2520,11 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
+"Kun lähetät lomakkeen, ylläpitäjille ilmoitetaan uudesta elintarvikkeesta. "
+"Tarkastuksen jälkeen se lisätään tietokantaan. Sitä ennen se ei näy "
+"elintarvikeluettelossa eikä haussa. Jos annoit sähköpostiosoitteesi "
+"rekisteröityessäsi, saat ilmoituksen, kun elintarvike on hyväksytty ja "
+"lisätty tietokantaan."
 
 #: nutrition/templates/ingredient/overview.html:32
 #: nutrition/templates/ingredient/overview.html:104
@@ -2586,7 +2589,7 @@ msgstr "Sokerin osuus hiilihydraateista"
 #: nutrition/templates/ingredient/view.html:191
 #: nutrition/templates/ingredient/view.html:212
 msgid "n.A."
-msgstr ""
+msgstr "Ei saatavilla"
 
 #: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
@@ -2618,7 +2621,7 @@ msgstr "Lisää uusi painoyksikkö"
 
 #: nutrition/templates/rate/form.html:26
 msgid "Basal metabolic rate"
-msgstr ""
+msgstr "Perusaineenvaihdunta"
 
 #: nutrition/templates/rate/form.html:27
 msgid ""
@@ -2627,10 +2630,13 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
+"Perusaineenvaihdunta tarkoittaa energiamäärää, jonka elimistö kuluttaa "
+"levossa vuorokaudessa. Se on vähimmäismäärä energiaa, jonka elimistö "
+"tarvitsee toimiakseen ilman fyysistä aktiivisuutta."
 
 #: nutrition/templates/rate/form.html:38
 msgid "Your basic metabolic rate is: "
-msgstr ""
+msgstr "Perusaineenvaihduntasi on: "
 
 #: nutrition/templates/rate/form.html:48
 msgid "Physical activities"
@@ -2642,20 +2648,25 @@ msgid ""
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
 msgstr ""
+"Fyysisen aktiivisuuden taso (PAL) on kerroin, joka kuvaa päivittäistä "
+"aktiivisuuttasi. Sitä käytetään päivittäisen kokonaisenergiantarpeen "
+"laskemiseen."
 
 #: nutrition/templates/rate/form.html:60
 msgid "Factor for daily activities: "
-msgstr ""
+msgstr "Aktiivisuuskerroin: "
 
 #: nutrition/templates/rate/form.html:68
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
+"Ylläpitokalorit ovat arvio päivittäisestä kalorimäärästä, jonka tarvitset "
+"painon ylläpitämiseen aktiivisuustasollasi."
 
 #: nutrition/templates/rate/form.html:82
 msgid "Calculate basic caloric intake"
-msgstr ""
+msgstr "Laske ylläpitokalorit"
 
 #: nutrition/templates/rate/form.html:89
 msgid ""
@@ -2664,18 +2675,22 @@ msgid ""
 "Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
+"Päivittäinen kalorimäärä on päivässä syötävien kalorien kokonaismäärä. "
+"Siihen voi sisältyä esimerkiksi kaloriylijäämä tai -vaje, jos olet "
+"massakaudella tai dieetillä. Jos tiedät sopivan kalorimäärän jo ennestään, "
+"voit syöttää sen suoraan."
 
 #: nutrition/templates/rate/form.html:103
 msgid "Transfer basic intake to total daily calories"
-msgstr "Siirrä perusenergiansaanti päivittäiseen energiamäärään"
+msgstr "Aseta ylläpitokalorit päivittäiseksi kalorimääräksi"
 
 #: nutrition/templates/rate/form.html:107
 msgid "Add additional calories to total daily calories"
-msgstr "Lisää lisäkalorit päivittäiseen energiamäärään"
+msgstr "Huomioi kalorikorjaus päivittäisessä kalorimäärässä"
 
 #: nutrition/templates/rate/form.html:111
 msgid "Save total calories to profile"
-msgstr "Tallenna päivittäinen energiamäärä profiiliisi"
+msgstr "Tallenna päivittäinen kalorimäärä profiiliisi"
 
 #: nutrition/templates/rate/form.html:122
 msgid ""
@@ -2710,15 +2725,15 @@ msgstr "Ravintotiedot"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
-msgstr ""
+msgstr "Yhteensä"
 
 #: nutrition/views/plan.py:239
 msgid "Percent of energy"
-msgstr ""
+msgstr "Energiaosuus (%)"
 
 #: nutrition/views/plan.py:240
 msgid "g per body kg"
-msgstr ""
+msgstr "g / painokilo"
 
 #: nutrition/views/unit_ingredient.py:64
 msgid "Add a new weight unit"
