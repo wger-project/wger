@@ -38,12 +38,23 @@ from wger.nutrition.models import (
 )
 from wger.utils.db import (
     PostgresILikeContains,
+    PostgresILikeExact,
     is_postgres_db,
 )
 from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
+
+
+def _has_literal_trigram(value: str) -> bool:
+    """Return whether a substring lookup has a guaranteed indexable trigram."""
+    consecutive = 0
+    for character in value:
+        consecutive = consecutive + 1 if character.isalnum() else 0
+        if consecutive == 3:
+            return True
+    return False
 
 
 class LogItemFilterSet(filters.FilterSet):
@@ -102,9 +113,18 @@ class IngredientFilterSet(filters.FilterSet):
                 return barcode_qs
 
         if is_postgres_db():
-            contains = PostgresILikeContains(F('name'), value)
+            # A trigram index cannot accelerate unrestricted one- or two-character
+            # substring patterns. Exact matching still supports valid short names.
+            if len(value) < 3:
+                exact = PostgresILikeExact(F('name'), value)
+                return queryset.filter(exact).order_by('name')
+
+            candidates = Q(name__trigram_similar=value)
+            if _has_literal_trigram(value):
+                candidates |= PostgresILikeContains(F('name'), value)
+
             return (
-                queryset.filter(contains | Q(name__trigram_similar=value))
+                queryset.filter(candidates)
                 .annotate(
                     match_rank=Case(
                         When(name__iexact=value, then=Value(3)),

@@ -26,6 +26,7 @@ from rest_framework import status
 # wger
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
+from wger.nutrition.api.filtersets import _has_literal_trigram
 from wger.nutrition.models import Ingredient
 
 
@@ -281,6 +282,8 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
         'Banana Bread',
         'Salmon',
         'Smoked Salmon',
+        '餅',
+        '牛乳',
     )
 
     @classmethod
@@ -309,6 +312,10 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertIn(first, names)
         self.assertIn(second, names)
         self.assertLess(names.index(first), names.index(second))
+
+    def test_substring_search_requires_an_indexable_trigram(self):
+        self.assertFalse(_has_literal_trigram('q--'))
+        self.assertTrue(_has_literal_trigram('jäätelö'))
 
     def test_search_finds_words_in_long_ingredient_names(self):
         cases = (
@@ -350,6 +357,17 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertIn('Chicken', names)
         self.assertIn('Chickpea Salad', names)
+
+    def test_short_search_only_returns_exact_names(self):
+        self.assertEqual(self.search_names('c'), [])
+        self.assertEqual(self.search_names('ch'), [])
+        self.assertEqual(self.search_names('餅'), ['餅'])
+        self.assertEqual(self.search_names('牛乳'), ['牛乳'])
+
+    def test_short_search_escapes_like_metacharacters(self):
+        for query in ('%', '_', '\\'):
+            with self.subTest(query=query):
+                self.assertEqual(self.search_names(query), [])
 
     def test_search_finds_a_correctly_spelled_name_from_a_typo(self):
         names = self.search_names('chickn')

@@ -18,10 +18,26 @@ from functools import wraps
 # Django
 from django.conf import settings
 from django.db import models
-from django.db.models.lookups import Contains
+from django.db.models.lookups import (
+    Contains,
+    Exact,
+)
 
 # wger
 from wger.utils.uuid import uuid7
+
+
+class PostgresILikeExact(Exact):
+    """Case-insensitive equality that can use a plain trigram index."""
+
+    def process_rhs(self, compiler, connection):
+        rhs, params = super().process_rhs(compiler, connection)
+        if params:
+            params = (connection.ops.prep_for_like_query(params[0]), *params[1:])
+        return rhs, params
+
+    def get_rhs_op(self, connection, rhs):
+        return f'ILIKE {rhs}'
 
 
 class PostgresILikeContains(Contains):

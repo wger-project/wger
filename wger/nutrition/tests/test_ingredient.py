@@ -281,7 +281,9 @@ class IngredientSearchTestCase(WgerTestCase):
 
         self.assertEqual(result['count'], 2)
 
-        ingredient_1 = result['results'][0]
+        ingredients = {ingredient['id']: ingredient for ingredient in result['results']}
+
+        ingredient_1 = ingredients[2]
         self.assertEqual(ingredient_1['id'], 2)
         self.assertEqual(ingredient_1['name'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(ingredient_1['uuid'], '44dc5966-73a2-4df7-8b15-f6d37a8990d9')
@@ -289,7 +291,7 @@ class IngredientSearchTestCase(WgerTestCase):
         self.assertEqual(ingredient_1['image'], None)
         self.assertEqual(ingredient_1['thumbnails'], None)
 
-        ingredient_2 = result['results'][1]
+        ingredient_2 = ingredients[1]
         self.assertEqual(ingredient_2['id'], 1)
         self.assertEqual(ingredient_2['name'], 'Test ingredient 1')
         self.assertEqual(ingredient_2['uuid'], '7908c204-907f-4b1e-ad4e-f482e9769ade')
