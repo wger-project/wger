@@ -18,6 +18,7 @@ import json
 from decimal import Decimal
 
 # Third Party
+import jsonschema
 from rest_framework import serializers
 
 # wger
@@ -69,6 +70,8 @@ class CategorySerializer(serializers.ModelSerializer):
             'parent',
             'order',
             'is_official',
+            'dynamic_type',
+            'dynamic_params',
         )
         read_only_fields = ('is_official',)
 
@@ -158,7 +161,36 @@ class CategorySerializer(serializers.ModelSerializer):
                 )
 
         self._validate_unique_metric_type(metric_type)
+        self._validate_dynamic(data)
         return data
+
+    def _validate_dynamic(self, data):
+        """
+        The dynamic_params JSON has to match the schema of the selected
+        dynamic_type
+        """
+        dynamic_type = data.get(
+            'dynamic_type', getattr(self.instance, 'dynamic_type', Category.DynamicType.NONE)
+        )
+        dynamic_params = data.get('dynamic_params', getattr(self.instance, 'dynamic_params', {}))
+
+        if dynamic_type == Category.DynamicType.NONE:
+            data['dynamic_params'] = {}
+            return
+
+        schemas = {
+            Category.DynamicType.BMI: {
+                'type': 'object',
+                'additionalProperties': False,
+            },
+        }
+
+        schema = schemas.get(dynamic_type)
+        if schema:
+            try:
+                jsonschema.validate(instance=dynamic_params, schema=schema)
+            except jsonschema.exceptions.ValidationError as e:
+                raise serializers.ValidationError({'dynamic_params': e.message})
 
     def _validate_unique_metric_type(self, metric_type):
         """

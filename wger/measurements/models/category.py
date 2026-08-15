@@ -247,6 +247,18 @@ class Category(models.Model):
         default=False,
     )
 
+    class DynamicType(models.TextChoices):
+        NONE = 'NONE', 'None'
+        BMI = 'BMI', 'BMI'
+
+    dynamic_type = models.CharField(
+        max_length=20, choices=DynamicType.choices, default=DynamicType.NONE, db_index=True
+    )
+
+    dynamic_params = models.JSONField(
+        default=dict, blank=True, help_text='Configuration parameters for dynamic calculations'
+    )
+
     def get_owner_object(self):
         """
         Returns the object that has owner information

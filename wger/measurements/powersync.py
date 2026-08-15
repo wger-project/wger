@@ -42,7 +42,7 @@ class CategoryHandler(PowerSyncHandler):
     model = Category
     serializer_class = CategorySerializer
     viewset_class = CategoryViewSet
-    json_fields = frozenset({'chart_config'})
+    json_fields = frozenset({'chart_config', 'dynamic_params'})
 
     # The serializer checks the "one category per metric type" rule, for which
     # it needs to know whose categories to look at

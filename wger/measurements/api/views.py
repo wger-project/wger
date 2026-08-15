@@ -99,6 +99,18 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(User, 'user'), (Category, 'parent')]
 
+    @action(detail=False, methods=['get'], url_path='dynamic-types')
+    def dynamic_types(self, request):
+        """
+        Dedicated route for virtual/calculated categories
+        Returns a list of available dynamic calculation types from the model Enum.
+        URL: /api/v2/measurement-category/dynamic-types/
+        """
+        choices = [
+            {'value': choice.value, 'label': choice.label} for choice in Category.DynamicType
+        ]
+        return Response(choices)
+
 
 class MeasurementViewSet(WgerOwnerObjectModelViewSet):
     """
