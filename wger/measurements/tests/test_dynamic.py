@@ -75,6 +75,26 @@ class DynamicMeasurementTestCase(WgerTestCase):
             )
         return category
 
+    def make_log(
+        self,
+        weight,
+        reps,
+        days_ago: int = 0,
+        weight_unit: int = 1,
+        exercise_id: int = 1,
+    ) -> WorkoutLog:
+        with self.captureOnCommitCallbacks(execute=True):
+            log = WorkoutLog(
+                user=self.user,
+                exercise_id=exercise_id,
+                weight=Decimal(weight),
+                repetitions=Decimal(reps),
+                weight_unit_id=weight_unit,
+                date=timezone.now() - datetime.timedelta(days=days_ago),
+            )
+            log.save()
+        return log
+
     def calculated_rows(self, category):
         return Measurement.objects.filter(
             category=category,
@@ -522,26 +542,6 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
     estimate per day
     """
 
-    def make_log(
-        self,
-        weight,
-        reps,
-        days_ago: int = 0,
-        weight_unit: int = 1,
-        exercise_id: int = 1,
-    ) -> WorkoutLog:
-        with self.captureOnCommitCallbacks(execute=True):
-            log = WorkoutLog(
-                user=self.user,
-                exercise_id=exercise_id,
-                weight=Decimal(weight),
-                repetitions=Decimal(reps),
-                weight_unit_id=weight_unit,
-                date=timezone.now() - datetime.timedelta(days=days_ago),
-            )
-            log.save()
-        return log
-
     def enable_one_rm(self, **params) -> Category:
         with self.captureOnCommitCallbacks(execute=True):
             category = Category.objects.create(
@@ -674,3 +674,144 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
             content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class OneRmTotalTestCase(DynamicMeasurementTestCase):
+    """
+    The 1RM total sums the rolling-window maxima of several exercises
+    """
+
+    def enable_total(self, **params) -> Category:
+        with self.captureOnCommitCallbacks(execute=True):
+            category = Category.objects.create(
+                user=self.user,
+                name='Total',
+                unit='kg',
+                dynamic_type=Category.DynamicType.ONE_RM_TOTAL,
+                dynamic_params={'exercise_ids': [1, 2], **params},
+            )
+        return category
+
+    def test_sums_the_window_maxima(self):
+        """
+        A training day sums the best in-window estimate of every exercise
+        """
+        self.make_log('100', 5, exercise_id=1)
+        self.make_log('80', 3, exercise_id=2)
+
+        category = self.enable_total()
+        rows = self.calculated_rows(category)
+
+        # 112.51 + 84.71
+        self.assertEqual(rows.count(), 1)
+        self.assertEqual(rows[0].value, Decimal('197.22'))
+
+    def test_window_max_beats_todays_set(self):
+        """
+        The best set of the window counts, not the most recent one
+        """
+        self.make_log('110', 5, days_ago=10, exercise_id=1)
+        self.make_log('100', 5, exercise_id=1)
+        self.make_log('80', 3, exercise_id=2)
+
+        category = self.enable_total()
+        rows = self.calculated_rows(category)
+
+        # Today: brzycki(110, 5) + brzycki(80, 3) = 123.76 + 84.71. The day
+        # ten days back has no second exercise in its window, so no entry.
+        self.assertEqual(rows.count(), 1)
+        self.assertEqual(rows[0].value, Decimal('208.47'))
+
+    def test_no_entry_without_full_coverage(self):
+        """
+        A day where one exercise has nothing in its window gets no entry
+        """
+        self.make_log('100', 5, exercise_id=1)
+        self.make_log('80', 3, days_ago=40, exercise_id=2)
+
+        category = self.enable_total()
+
+        self.assertEqual(self.calculated_rows(category).count(), 0)
+
+    def test_window_days_param(self):
+        """
+        A wider window keeps older sets in the total
+        """
+        self.make_log('100', 5, exercise_id=1)
+        self.make_log('80', 3, days_ago=40, exercise_id=2)
+
+        category = self.enable_total(window_days=60)
+        rows = self.calculated_rows(category)
+
+        self.assertEqual(rows.count(), 1)
+        self.assertEqual(rows[0].value, Decimal('197.22'))
+
+    def test_every_training_day_gets_a_point(self):
+        """
+        Each day one of the exercises was trained carries the total of its
+        own window
+        """
+        self.make_log('80', 3, days_ago=10, exercise_id=2)
+        self.make_log('100', 5, days_ago=5, exercise_id=1)
+        self.make_log('110', 5, exercise_id=1)
+
+        category = self.enable_total()
+        rows = self.calculated_rows(category)
+
+        # Day -10 has no exercise 1 in its window yet: no entry. Day -5 and
+        # today pair their own squat best with the day -10 deadlift.
+        self.assertEqual(rows.count(), 2)
+        self.assertEqual(rows[0].value, Decimal('197.22'))
+        self.assertEqual(rows[1].value, Decimal('208.47'))
+
+    def test_api_refuses_single_exercise(self):
+        """
+        A total needs at least two exercises
+        """
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': 'Total',
+                'unit': 'kg',
+                'dynamic_type': 'ONE_RM_TOTAL',
+                'dynamic_params': {'exercise_ids': [1]},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_refuses_duplicate_exercises(self):
+        """
+        The same exercise cannot enter the total twice
+        """
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': 'Total',
+                'unit': 'kg',
+                'dynamic_type': 'ONE_RM_TOTAL',
+                'dynamic_params': {'exercise_ids': [1, 1]},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_refuses_unknown_exercises(self):
+        """
+        Every exercise of the list has to exist
+        """
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': 'Total',
+                'unit': 'kg',
+                'dynamic_type': 'ONE_RM_TOTAL',
+                'dynamic_params': {'exercise_ids': [1, 999999]},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('dynamic_params', response.data)

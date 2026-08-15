@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                     ('BMI', 'BMI'),
                     ('WHTR', 'Waist-to-height ratio'),
                     ('ONE_REP_MAX', '1RM'),
+                    ('ONE_RM_TOTAL', '1RM total'),
                 ],
                 db_index=True,
                 default='NONE',

@@ -14,6 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import datetime
 import uuid
 from decimal import Decimal
 
@@ -139,16 +140,53 @@ class WaistToHeightRatio(DynamicMeasurementType):
         ]
 
 
+DEFAULT_MAX_REPS = 5
+DEFAULT_WINDOW_DAYS = 30
+
+MAX_REPS_SCHEMA = {'type': 'integer', 'minimum': 1, 'maximum': 10}
+
+
+def daily_best_estimates(user_id: int, exercise_id, max_reps) -> dict:
+    """
+    Per calendar day (UTC) the best Brzycki estimate among the qualifying
+    sets of the exercise, as day -> (value in kg, datetime of the set).
+
+    Qualifying means: 1 to max_reps repetitions counted in repetitions, a
+    weight over zero in kg or lb. The rep cap exists both because low-rep
+    sets are what a 1RM estimate is about and because the formula degrades
+    at high counts.
+    """
+    logs = WorkoutLog.objects.filter(
+        user_id=user_id,
+        exercise_id=exercise_id,
+        repetitions__gte=1,
+        repetitions__lte=max_reps,
+        repetitions_unit_id=REP_UNIT_REPETITIONS,
+        weight__gt=0,
+        weight_unit_id__in=(WEIGHT_UNIT_KG, WEIGHT_UNIT_LB),
+    )
+
+    # Per day the set with the highest estimate; the datetime breaks ties
+    best = {}
+    for log in logs:
+        weight = (
+            log.weight
+            if log.weight_unit_id == WEIGHT_UNIT_KG
+            else AbstractWeight(log.weight, 'lb').kg
+        )
+        one_rm = brzycki_one_rm(weight, log.repetitions).quantize(TWOPLACES)
+        day = log.date.date()
+        if day not in best or (one_rm, log.date) > best[day]:
+            best[day] = (one_rm, log.date)
+    return best
+
+
 @register
 class OneRepMax(DynamicMeasurementType):
     """
     One entry per calendar day (UTC) with qualifying logs of the configured
-    exercise: the highest Brzycki estimate of that day, in kg. Only sets of
-    at most max_reps repetitions count, both because low-rep sets are what a
-    1RM estimate is about and because the formula degrades at high counts.
+    exercise: the highest Brzycki estimate of that day, in kg
     """
-
-    DEFAULT_MAX_REPS = 5
 
     slug = Category.DynamicType.ONE_REP_MAX
     label = '1RM'
@@ -156,7 +194,7 @@ class OneRepMax(DynamicMeasurementType):
         'type': 'object',
         'properties': {
             'exercise_id': {'type': 'integer', 'minimum': 1},
-            'max_reps': {'type': 'integer', 'minimum': 1, 'maximum': 10},
+            'max_reps': MAX_REPS_SCHEMA,
         },
         'required': ['exercise_id'],
         'additionalProperties': False,
@@ -171,30 +209,11 @@ class OneRepMax(DynamicMeasurementType):
 
     def compute(self, category: Category) -> list[DesiredRow]:
         params = category.dynamic_params
-        max_reps = params.get('max_reps', self.DEFAULT_MAX_REPS)
-
-        logs = WorkoutLog.objects.filter(
-            user_id=category.user_id,
-            exercise_id=params.get('exercise_id'),
-            repetitions__gte=1,
-            repetitions__lte=max_reps,
-            repetitions_unit_id=REP_UNIT_REPETITIONS,
-            weight__gt=0,
-            weight_unit_id__in=(WEIGHT_UNIT_KG, WEIGHT_UNIT_LB),
+        best = daily_best_estimates(
+            category.user_id,
+            params.get('exercise_id'),
+            params.get('max_reps', DEFAULT_MAX_REPS),
         )
-
-        # Per day the set with the highest estimate; the datetime breaks ties
-        best = {}
-        for log in logs:
-            weight = (
-                log.weight
-                if log.weight_unit_id == WEIGHT_UNIT_KG
-                else AbstractWeight(log.weight, 'lb').kg
-            )
-            one_rm = brzycki_one_rm(weight, log.repetitions).quantize(TWOPLACES)
-            day = log.date.date()
-            if day not in best or (one_rm, log.date) > best[day]:
-                best[day] = (one_rm, log.date)
 
         return [
             DesiredRow(
@@ -204,3 +223,82 @@ class OneRepMax(DynamicMeasurementType):
             )
             for day, (value, date) in best.items()
         ]
+
+
+@register
+class OneRmTotal(DynamicMeasurementType):
+    """
+    One entry per day any of the configured exercises was trained: the sum
+    of the exercises' best estimates in the rolling window ending that day,
+    in kg. The window says "what you can lift right now", so a lift whose
+    last heavy set expired lowers the total at the next training day.
+
+    A day only gets an entry when every exercise has a qualifying set in
+    its window, a partial total would read as a drop.
+    """
+
+    slug = Category.DynamicType.ONE_RM_TOTAL
+    label = '1RM total'
+    params_schema = {
+        'type': 'object',
+        'properties': {
+            'exercise_ids': {
+                'type': 'array',
+                'items': {'type': 'integer', 'minimum': 1},
+                'minItems': 2,
+                'maxItems': 5,
+                'uniqueItems': True,
+            },
+            'max_reps': MAX_REPS_SCHEMA,
+            'window_days': {'type': 'integer', 'minimum': 7, 'maximum': 120},
+        },
+        'required': ['exercise_ids'],
+        'additionalProperties': False,
+    }
+    depends_on = [
+        Dependency(WorkoutLog, user_id=lambda log: log.user_id),
+    ]
+
+    def validate_params(self, user_id, params):
+        exercise_ids = params.get('exercise_ids') or []
+        found = Exercise.objects.filter(pk__in=exercise_ids).count()
+        if found != len(exercise_ids):
+            raise ValueError('One or more of the exercises do not exist')
+
+    def compute(self, category: Category) -> list[DesiredRow]:
+        params = category.dynamic_params
+        max_reps = params.get('max_reps', DEFAULT_MAX_REPS)
+        window = datetime.timedelta(days=params.get('window_days', DEFAULT_WINDOW_DAYS))
+
+        per_exercise = [
+            daily_best_estimates(category.user_id, exercise_id, max_reps)
+            for exercise_id in params.get('exercise_ids', [])
+        ]
+        if not per_exercise:
+            return []
+
+        rows = []
+        training_days = sorted(set().union(*(days.keys() for days in per_exercise)))
+        for day in training_days:
+            floor = day - window
+
+            total = Decimal(0)
+            for days in per_exercise:
+                in_window = [entry for d, entry in days.items() if floor < d <= day]
+                if not in_window:
+                    total = None
+                    break
+                total += max(in_window)[0]
+            if total is None:
+                continue
+
+            # The entry sits at the set that produced the day's point
+            row_datetime = max(days[day][1] for days in per_exercise if day in days)
+            rows.append(
+                DesiredRow(
+                    external_id=uuid.uuid5(category.pk, day.isoformat()),
+                    date=row_datetime,
+                    value=total,
+                )
+            )
+        return rows

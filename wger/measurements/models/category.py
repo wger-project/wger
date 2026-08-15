@@ -252,6 +252,7 @@ class Category(models.Model):
         BMI = 'BMI', 'BMI'
         WHTR = 'WHTR', 'Waist-to-height ratio'
         ONE_REP_MAX = 'ONE_REP_MAX', '1RM'
+        ONE_RM_TOTAL = 'ONE_RM_TOTAL', '1RM total'
 
     dynamic_type = models.CharField(
         max_length=20, choices=DynamicType.choices, default=DynamicType.NONE, db_index=True
