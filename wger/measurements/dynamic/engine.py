@@ -118,10 +118,16 @@ def _run_scheduled(category_id) -> None:
         return
     done.add(category_id)
 
-    if settings.WGER_SETTINGS['USE_CELERY']:
-        # wger
-        from wger.measurements.tasks import reconcile_dynamic_category_task
+    # This runs after the commit, so a failure here has nothing to roll back
+    # and would only turn an unrelated request into a 500. The daily task
+    # picks the category up again
+    try:
+        if settings.WGER_SETTINGS['USE_CELERY']:
+            # wger
+            from wger.measurements.tasks import reconcile_dynamic_category_task
 
-        reconcile_dynamic_category_task.delay(str(category_id))
-    else:
-        reconcile_by_id(category_id)
+            reconcile_dynamic_category_task.delay(str(category_id))
+        else:
+            reconcile_by_id(category_id)
+    except Exception:
+        logger.exception(f'Could not reconcile dynamic category {category_id}')

@@ -43,9 +43,11 @@ from wger.measurements.models import (
 )
 from wger.measurements.models.category import MetricType
 from wger.measurements.models.measurement import MeasurementSource
-from wger.measurements.utils.bmi import calculate_bmi
 from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight
+from wger.utils.units import (
+    AbstractHeight,
+    AbstractWeight,
+)
 
 
 @register
@@ -69,13 +71,26 @@ class Bmi(DynamicMeasurementType):
     ]
 
     def compute(self, category: Category) -> list[DesiredRow]:
+        profile = category.user.userprofile
+        if not profile.height or profile.height <= 0:
+            return []
+
+        # The profile height is centimeters, the formula wants meters
+        height_sq = (Decimal(profile.height) / 100) ** 2
+
+        # Calculated entries are never an input, otherwise a body weight
+        # category calculating itself would grow with every run
+        entries = Measurement.body_weight_for(category.user).exclude(
+            source=MeasurementSource.CALCULATED
+        )
+
         return [
             DesiredRow(
-                external_id=row['source_id'],
-                date=row['date'],
-                value=row['value'],
+                external_id=entry.pk,
+                date=entry.date,
+                value=round(entry.value_in('kg') / height_sq, 2),
             )
-            for row in calculate_bmi(category.user)
+            for entry in entries
         ]
 
 
@@ -105,6 +120,21 @@ class WaistToHeightRatio(DynamicMeasurementType):
             raise ValueError('The source category does not exist')
         if source.dynamic_type != Category.DynamicType.NONE:
             raise ValueError('A calculated category cannot be the source of another one')
+        if self._cm_factor(source.unit) is None:
+            raise ValueError('The source category has to be measured in cm or inches')
+
+    @staticmethod
+    def _cm_factor(unit: str) -> Decimal | None:
+        """
+        What a value of this unit has to be multiplied with to become
+        centimeters, or None if it is not a length this type understands
+        """
+        normalized = (unit or '').strip().lower()
+        if normalized == 'cm':
+            return Decimal(1)
+        if normalized in ('in', 'inch', 'inches'):
+            return AbstractHeight.INCHES_IN_CM
+        return None
 
     @staticmethod
     def _source_category(user_id, params) -> Category | None:
@@ -130,14 +160,22 @@ class WaistToHeightRatio(DynamicMeasurementType):
         entries = Measurement.objects.filter(category=source).exclude(
             source=MeasurementSource.CALCULATED
         )
-        return [
-            DesiredRow(
-                external_id=entry.pk,
-                date=entry.date,
-                value=round(entry.value / height, 2),
+
+        rows = []
+        for entry in entries:
+            # An entry can carry a unit of its own, and a value whose unit
+            # this type cannot read would produce a plausible wrong ratio
+            factor = self._cm_factor(entry.unit)
+            if factor is None:
+                continue
+            rows.append(
+                DesiredRow(
+                    external_id=entry.pk,
+                    date=entry.date,
+                    value=round(entry.value * factor / height, 2),
+                )
             )
-            for entry in entries
-        ]
+        return rows
 
 
 DEFAULT_MAX_REPS = 5

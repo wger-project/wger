@@ -17,7 +17,6 @@
 import logging
 
 # Django
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import (
     post_delete,
@@ -39,18 +38,13 @@ from wger.measurements.models import (
     Measurement,
 )
 from wger.measurements.models.measurement import MeasurementSource
-from wger.utils.helpers import disable_for_loaddata
+from wger.utils.helpers import (
+    deletion_originates_from_user,
+    disable_for_loaddata,
+)
 
 
 logger = logging.getLogger(__name__)
-
-
-def _deletion_originates_from_user(origin) -> bool:
-    """
-    True if this delete is part of removing a User account: everything the
-    reconcile would look at is going away in the same cascade
-    """
-    return isinstance(origin, User) or getattr(origin, 'model', None) is User
 
 
 def _dispatch_source_change(sender, instance):
@@ -90,7 +84,7 @@ def _source_saved(sender, instance, **kwargs):
 
 
 def _source_deleted(sender, instance, origin=None, **kwargs):
-    if _deletion_originates_from_user(origin):
+    if deletion_originates_from_user(origin):
         return
     _dispatch_source_change(sender, instance)
 

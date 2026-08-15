@@ -32,6 +32,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 # wger
+from wger.measurements import dynamic
 from wger.measurements.api.aggregates import (
     DEFAULT_MAX_POINTS,
     InvalidBucket,
@@ -40,7 +41,6 @@ from wger.measurements.api.aggregates import (
     value_count_rows,
 )
 from wger.measurements.api.filtersets import MeasurementEntryFilterSet
-from wger.measurements import dynamic
 from wger.measurements.api.serializers import (
     BucketSerializer,
     CategorySerializer,

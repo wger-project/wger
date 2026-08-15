@@ -16,6 +16,7 @@
 # Standard Library
 import datetime
 from decimal import Decimal
+from unittest.mock import patch
 
 # Django
 from django.contrib.auth.models import User
@@ -36,6 +37,7 @@ from wger.measurements.models import (
 )
 from wger.measurements.models.measurement import MeasurementSource
 from wger.measurements.powersync import MeasurementHandler
+from wger.measurements.tasks import reconcile_all_dynamic_categories_task
 
 
 # Pinned in test-measurement-categories.json, the official body weight
@@ -358,6 +360,63 @@ class ExistingEntriesTestCase(DynamicMeasurementTestCase):
         self.assertFalse(Measurement.objects.filter(pk=self.entry.pk).exists())
 
 
+class ReconcileFailureTestCase(DynamicMeasurementTestCase):
+    """
+    A computation that raises stays contained: neither the safety net nor an
+    unrelated request goes down with it
+    """
+
+    def test_catch_all_continues_after_a_failure(self):
+        """
+        The daily task reconciles the remaining categories
+        """
+        first = self.enable_bmi()
+        second = Category.objects.create(
+            user=self.user,
+            name='Second',
+            unit='',
+            dynamic_type=Category.DynamicType.BMI,
+        )
+        order = list(
+            Category.objects.exclude(dynamic_type=Category.DynamicType.NONE).values_list(
+                'pk', flat=True
+            )
+        )
+        self.assertEqual(set(order), {first.pk, second.pk})
+
+        seen = []
+
+        def reconcile(category):
+            seen.append(category.pk)
+            if category.pk == order[0]:
+                raise ValueError('boom')
+
+        with patch('wger.measurements.tasks.reconcile', side_effect=reconcile):
+            reconcile_all_dynamic_categories_task()
+
+        self.assertEqual(seen, order)
+
+    def test_scheduled_reconcile_does_not_reach_the_request(self):
+        """
+        The callback runs after the commit, a failure there must not turn an
+        unrelated write into a 500
+        """
+        category = self.enable_bmi()
+
+        with patch(
+            'wger.measurements.dynamic.engine.reconcile_by_id',
+            side_effect=ValueError('boom'),
+        ):
+            with self.captureOnCommitCallbacks(execute=True):
+                Measurement.objects.create(
+                    category=self.weight_category,
+                    date=timezone.now(),
+                    value=Decimal('81.00'),
+                )
+
+        self.assertTrue(Category.objects.filter(pk=category.pk).exists())
+
+
 class ApiWriteBlockTestCase(DynamicMeasurementTestCase):
     """
     The entries of a calculated category cannot be written through the API
@@ -637,6 +696,41 @@ class WhtrTestCase(DynamicMeasurementTestCase):
             content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_source_in_inches_is_converted(self):
+        """
+        A source measured in inches is read as centimeters
+        """
+        self.waist.unit = 'in'
+        self.waist.save()
+        self.create_waist('34.00')
+
+        category = self.enable_whtr()
+        rows = self.calculated_rows(category)
+
+        # 34 in = 86.36 cm, / 180 = 0.48 (and not the raw 34 / 180 = 0.19)
+        self.assertEqual(rows[0].value, Decimal('0.48'))
+
+    def test_api_refuses_a_source_that_is_not_a_length(self):
+        """
+        A category holding kilograms cannot be the source of a ratio
+        """
+        weights = Category.objects.create(user=self.user, name='Dumbbells', unit='kg')
+
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': 'WHtR',
+                'unit': '',
+                'dynamic_type': 'WHTR',
+                'dynamic_params': {'category_id': str(weights.pk)},
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('dynamic_params', response.data)
 
     def test_unrelated_patch_survives_a_deleted_source(self):
         """

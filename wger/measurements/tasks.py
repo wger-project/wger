@@ -48,8 +48,13 @@ def reconcile_all_dynamic_categories_task():
     """
     count = 0
     for category in Category.objects.exclude(dynamic_type=Category.DynamicType.NONE).iterator():
-        reconcile(category)
-        count += 1
+        # One category the computation chokes on must not take the safety net
+        # down with it, the others would stay stale for good
+        try:
+            reconcile(category)
+            count += 1
+        except Exception:
+            logger.exception(f'Could not reconcile dynamic category {category.pk}')
     logger.info(f'Reconciled {count} dynamic measurement categories')
 
 

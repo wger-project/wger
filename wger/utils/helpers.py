@@ -73,6 +73,20 @@ def disable_for_loaddata(signal_handler):
     return wrapper
 
 
+def deletion_originates_from_user(origin) -> bool:
+    """
+    True if a delete is part of removing a User account.
+
+    Signal handlers that write derived rows have to sit this one out:
+    everything they would look at or recreate is going away in the same
+    cascade, and a new row would break the foreign key check at COMMIT.
+    """
+    # Django
+    from django.contrib.auth.models import User
+
+    return isinstance(origin, User) or getattr(origin, 'model', None) is User
+
+
 def make_uid(input):
     """
     Small wrapper to generate a UID, usually used in URLs to allow for

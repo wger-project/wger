@@ -44,21 +44,13 @@ from wger.trophies.models.user_trophy import UserTrophy
 from wger.trophies.services import UserStatisticsService
 from wger.trophies.services.trophy import TrophyService
 from wger.trophies.tasks import evaluate_user_trophies_task
-from wger.utils.helpers import disable_for_loaddata
+from wger.utils.helpers import (
+    deletion_originates_from_user,
+    disable_for_loaddata,
+)
 
 
 logger = logging.getLogger(__name__)
-
-
-def _deletion_originates_from_user(origin) -> bool:
-    """
-    True if this delete is part of removing a User account.
-
-    During a user deletion the statistics row is cascade-deleted too;
-    recreating it from a workout-deletion signal would leave an orphan row
-    and break the transaction's foreign key check at COMMIT.
-    """
-    return isinstance(origin, User) or getattr(origin, 'model', None) is User
 
 
 def _trigger_trophy_evaluation(user_id: int):
@@ -137,7 +129,7 @@ def workout_log_deleted(sender, instance: WorkoutLog, origin=None, **kwargs):
     if not instance.user_id:
         return
 
-    if _deletion_originates_from_user(origin):
+    if deletion_originates_from_user(origin):
         return
 
     try:
@@ -196,7 +188,7 @@ def workout_session_deleted(sender, instance: WorkoutSession, origin=None, **kwa
     if not instance.user_id:
         return
 
-    if _deletion_originates_from_user(origin):
+    if deletion_originates_from_user(origin):
         return
 
     try:
