@@ -41,6 +41,8 @@ class MeasurementSource(models.TextChoices):
     USER = 'user'
     GOOGLE = 'google'
     APPLE = 'apple'
+    # Written by the server for calculated categories, see measurements.dynamic
+    CALCULATED = 'calculated'
 
 
 class Measurement(models.Model):

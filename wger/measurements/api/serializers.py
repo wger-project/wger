@@ -22,6 +22,7 @@ import jsonschema
 from rest_framework import serializers
 
 # wger
+from wger.measurements import dynamic
 from wger.measurements.limits import (
     CHART_CONFIG_MAX_BYTES,
     EXTRA_DATA_MAX_BYTES,
@@ -178,17 +179,10 @@ class CategorySerializer(serializers.ModelSerializer):
             data['dynamic_params'] = {}
             return
 
-        schemas = {
-            Category.DynamicType.BMI: {
-                'type': 'object',
-                'additionalProperties': False,
-            },
-        }
-
-        schema = schemas.get(dynamic_type)
-        if schema:
+        calc = dynamic.get_type(dynamic_type)
+        if calc is not None:
             try:
-                jsonschema.validate(instance=dynamic_params, schema=schema)
+                jsonschema.validate(instance=dynamic_params, schema=calc.params_schema)
             except jsonschema.exceptions.ValidationError as e:
                 raise serializers.ValidationError({'dynamic_params': e.message})
 
@@ -297,6 +291,12 @@ class MeasurementSerializer(serializers.ModelSerializer):
                 f'Measurements cannot be added to a {category.metric_type} category, '
                 f'they belong in its components'
             )
+        # The entries of a calculated category are written by the server; the
+        # engine itself saves through the model layer and never gets here
+        if category.dynamic_type != Category.DynamicType.NONE:
+            raise serializers.ValidationError(
+                'The entries of a calculated category are maintained by the server'
+            )
         return category
 
     def validate_extra_data(self, extra_data):
@@ -327,6 +327,15 @@ class MeasurementSerializer(serializers.ModelSerializer):
         """
         The unit and the range of the value both depend on the metric type
         """
+        # Also blocks updates that leave the category field untouched
+        if (
+            self.instance is not None
+            and self.instance.category.dynamic_type != Category.DynamicType.NONE
+        ):
+            raise serializers.ValidationError(
+                'The entries of a calculated category are maintained by the server'
+            )
+
         category = data.get('category') or (self.instance.category if self.instance else None)
         extra_data = data.get('extra_data', self.instance.extra_data if self.instance else {})
         unit = extra_data.get('unit')
@@ -381,6 +390,17 @@ class MeasurementSerializer(serializers.ModelSerializer):
         category = self.instance.category
         unit = (self.instance.extra_data or {}).get('unit')
         return limits_for(category.metric_type, unit or category.unit)
+
+
+class DynamicTypeSerializer(serializers.Serializer):
+    """
+    One calculated category type of the registry. Read-only: the registry is
+    code, there is nothing to write back.
+    """
+
+    value = serializers.CharField(read_only=True)
+    label = serializers.CharField(read_only=True)
+    params_schema = serializers.JSONField(read_only=True)
 
 
 class BucketSerializer(serializers.Serializer):

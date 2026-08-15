@@ -72,3 +72,12 @@ class MeasurementHandler(PowerSyncHandler):
         # Ownership is enforced through the category FK, not via a direct
         # user_id on the Measurement row.
         return {}
+
+    def handle_delete(self, payload, user_id):
+        entry = self._get_or_none(payload, user_id)
+        if entry is not None and entry.category.dynamic_type != Category.DynamicType.NONE:
+            return {
+                'error': 'Forbidden',
+                'details': 'The entries of a calculated category are maintained by the server',
+            }
+        return super().handle_delete(payload, user_id)

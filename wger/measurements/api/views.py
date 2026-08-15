@@ -40,9 +40,11 @@ from wger.measurements.api.aggregates import (
     value_count_rows,
 )
 from wger.measurements.api.filtersets import MeasurementEntryFilterSet
+from wger.measurements import dynamic
 from wger.measurements.api.serializers import (
     BucketSerializer,
     CategorySerializer,
+    DynamicTypeSerializer,
     MeasurementSerializer,
     ValueCountSerializer,
 )
@@ -99,17 +101,26 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(User, 'user'), (Category, 'parent')]
 
-    @action(detail=False, methods=['get'], url_path='dynamic-types')
+    @extend_schema(
+        summary='Read the available calculated category types',
+        responses={200: DynamicTypeSerializer(many=True)},
+    )
+    @action(
+        detail=False,
+        methods=['get'],
+        url_path='dynamic-types',
+        serializer_class=DynamicTypeSerializer,
+    )
     def dynamic_types(self, request):
         """
-        Dedicated route for virtual/calculated categories
-        Returns a list of available dynamic calculation types from the model Enum.
-        URL: /api/v2/measurement-category/dynamic-types/
+        The calculated types a category can be switched to, with the schema
+        their dynamic_params have to match
         """
-        choices = [
-            {'value': choice.value, 'label': choice.label} for choice in Category.DynamicType
+        rows = [
+            {'value': calc.slug, 'label': calc.label, 'params_schema': calc.params_schema}
+            for calc in dynamic.all_types()
         ]
-        return Response(choices)
+        return Response(DynamicTypeSerializer(rows, many=True).data)
 
 
 class MeasurementViewSet(WgerOwnerObjectModelViewSet):
@@ -139,6 +150,17 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
             return Measurement.objects.none()
 
         return Measurement.objects.filter(category__user=self.request.user)
+
+    def perform_destroy(self, instance):
+        """
+        The entries of a calculated category are maintained by the server;
+        deleting one would only have the next reconcile recreate it
+        """
+        if instance.category.dynamic_type != Category.DynamicType.NONE:
+            raise PermissionDenied(
+                'The entries of a calculated category are maintained by the server'
+            )
+        instance.delete()
 
     def _read_max_points(self) -> int:
         try:
