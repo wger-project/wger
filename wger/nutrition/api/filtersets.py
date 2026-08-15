@@ -17,9 +17,14 @@
 import logging
 
 # Django
-from django.contrib.postgres.search import (
-    TrigramSimilarity,
-    TrigramWordSimilarity,
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import (
+    Case,
+    F,
+    IntegerField,
+    Q,
+    Value,
+    When,
 )
 
 # Third Party
@@ -31,7 +36,10 @@ from wger.nutrition.models import (
     Ingredient,
     LogItem,
 )
-from wger.utils.db import is_postgres_db
+from wger.utils.db import (
+    PostgresILikeContains,
+    is_postgres_db,
+)
 from wger.utils.language import load_language
 
 
@@ -94,20 +102,20 @@ class IngredientFilterSet(filters.FilterSet):
                 return barcode_qs
 
         if is_postgres_db():
-            # Note: this uses the default value for pg_trgm.similarity_threshold (0.3) which
-            # might be too strict (doesn't find "butter" from "buttr"). If this needs to be
-            # changed later, e.g.:
-
-            # with connection.cursor() as cursor:
-            #     cursor.execute('SET LOCAL pg_trgm.similarity_threshold = 0.15')
-
+            contains = PostgresILikeContains(F('name'), value)
             return (
-                queryset.filter(name__trigram_word_similar=value)
+                queryset.filter(contains | Q(name__trigram_similar=value))
                 .annotate(
-                    word_similarity=TrigramWordSimilarity(value, 'name'),
+                    match_rank=Case(
+                        When(name__iexact=value, then=Value(3)),
+                        When(name__istartswith=value, then=Value(2)),
+                        When(name__icontains=value, then=Value(1)),
+                        default=Value(0),
+                        output_field=IntegerField(),
+                    ),
                     similarity=TrigramSimilarity('name', value),
                 )
-                .order_by('-word_similarity', '-similarity', 'name')
+                .order_by('-match_rank', '-similarity', 'name')
             )
         else:
             # Explicit order_by('name') because the viewset strips Meta.ordering.

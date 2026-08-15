@@ -18,9 +18,21 @@ from functools import wraps
 # Django
 from django.conf import settings
 from django.db import models
+from django.db.models.lookups import Contains
 
 # wger
 from wger.utils.uuid import uuid7
+
+
+class PostgresILikeContains(Contains):
+    """Case-insensitive containment using PostgreSQL's native ILIKE operator.
+
+    Django implements ``icontains`` as ``UPPER(column) LIKE UPPER(value)``, which
+    cannot use a trigram index defined on the untransformed column.
+    """
+
+    def get_rhs_op(self, connection, rhs):
+        return f'ILIKE {rhs}'
 
 
 def is_postgres_db():

@@ -37,12 +37,13 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         Logged-out users are also allowed to use the search
         """
         response = self.client.get(self.url + '?name__search=test&language__code=en')
-        result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 2)
-        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['id'], 2)
+        self.assertCountEqual(
+            [(result['id'], result['name']) for result in response.data['results']],
+            [(1, 'Test ingredient 1'), (2, 'Ingredient, test, 2, organic, raw')],
+        )
 
     def test_basic_search_logged_in(self):
         """
@@ -50,12 +51,13 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         self.authenticate('test')
         response = self.client.get(self.url + '?name__search=test&language__code=en')
-        result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 2)
-        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['id'], 2)
+        self.assertCountEqual(
+            [(result['id'], result['name']) for result in response.data['results']],
+            [(1, 'Test ingredient 1'), (2, 'Ingredient, test, 2, organic, raw')],
+        )
 
     def test_search_language_code_en_no_results(self):
         """
@@ -351,6 +353,11 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
 
     def test_search_finds_a_correctly_spelled_name_from_a_typo(self):
         names = self.search_names('chickn')
+
+        self.assertEqual(names[:1], ['Chicken'])
+
+    def test_search_preserves_typo_matches_from_whole_name_similarity(self):
+        names = self.search_names('chiken')
 
         self.assertEqual(names[:1], ['Chicken'])
 
