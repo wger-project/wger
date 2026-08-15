@@ -52,6 +52,7 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.models.measurement import MeasurementSource
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -153,13 +154,11 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
 
     def perform_destroy(self, instance):
         """
-        The entries of a calculated category are maintained by the server;
-        deleting one would only have the next reconcile recreate it
+        A calculated entry is maintained by the server; deleting one would
+        only have the next reconcile recreate it
         """
-        if instance.category.dynamic_type != Category.DynamicType.NONE:
-            raise PermissionDenied(
-                'The entries of a calculated category are maintained by the server'
-            )
+        if instance.source == MeasurementSource.CALCULATED:
+            raise PermissionDenied('A calculated entry is maintained by the server')
         instance.delete()
 
     def _read_max_points(self) -> int:

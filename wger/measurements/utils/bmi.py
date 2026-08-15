@@ -26,6 +26,7 @@ def calculate_bmi(user) -> list[dict]:
     """
     # wger
     from wger.measurements.models import Measurement
+    from wger.measurements.models.measurement import MeasurementSource
 
     profile = user.userprofile
     if not profile.height or profile.height <= 0:
@@ -33,11 +34,15 @@ def calculate_bmi(user) -> list[dict]:
 
     height_sq = (Decimal(profile.height) / 100) ** 2
 
+    # Calculated entries are never an input, otherwise a body weight category
+    # that calculates itself would grow with every run
+    entries = Measurement.body_weight_for(user).exclude(source=MeasurementSource.CALCULATED)
+
     return [
         {
             'source_id': entry.id,
             'date': entry.date,
             'value': round(entry.value_in('kg') / height_sq, 2),
         }
-        for entry in Measurement.body_weight_for(user).order_by('date')
+        for entry in entries.order_by('date')
     ]

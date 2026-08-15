@@ -38,6 +38,7 @@ from wger.measurements.models.category import (
     BODY_WEIGHT_UNITS,
     MetricType,
 )
+from wger.measurements.models.measurement import MeasurementSource
 
 
 def validate_json_object(value, field: str, max_bytes: int):
@@ -162,13 +163,13 @@ class CategorySerializer(serializers.ModelSerializer):
                 )
 
         self._validate_unique_metric_type(metric_type)
-        self._validate_dynamic(data)
+        self._validate_dynamic(data, metric_type)
         return data
 
-    def _validate_dynamic(self, data):
+    def _validate_dynamic(self, data, metric_type):
         """
-        The dynamic_params JSON has to match the schema of the selected
-        dynamic_type
+        What a category may be calculated from, and whether its parameters fit
+        the type it selects
         """
         dynamic_type = data.get(
             'dynamic_type', getattr(self.instance, 'dynamic_type', Category.DynamicType.NONE)
@@ -178,6 +179,29 @@ class CategorySerializer(serializers.ModelSerializer):
         if dynamic_type == Category.DynamicType.NONE:
             data['dynamic_params'] = {}
             return
+
+        # A stored configuration is only re-checked when the payload moves it.
+        # What it points at can be deleted afterwards, and that must not block
+        # renaming or reordering the category (see _validate_value_range)
+        if 'dynamic_type' not in data and 'dynamic_params' not in data:
+            return
+
+        # A typed category has a writer already, the health import or the
+        # server itself. Two of them would fight over the same rows, and for
+        # body weight the calculated entries would even end up as the input of
+        # their own computation
+        if metric_type != MetricType.CUSTOM:
+            raise serializers.ValidationError(
+                {'dynamic_type': f'A {metric_type} category cannot be calculated'}
+            )
+
+        if self.instance is not None and self._has_own_entries():
+            raise serializers.ValidationError(
+                {
+                    'dynamic_type': 'The category holds entries of its own, move or delete '
+                    'them before calculating it'
+                }
+            )
 
         calc = dynamic.get_type(dynamic_type)
         if calc is not None:
@@ -190,6 +214,14 @@ class CategorySerializer(serializers.ModelSerializer):
                 calc.validate_params(self._get_user_id(), dynamic_params)
             except ValueError as e:
                 raise serializers.ValidationError({'dynamic_params': str(e)})
+
+    def _has_own_entries(self) -> bool:
+        """
+        Whether the category holds entries that are not the output of a
+        calculation. The engine only ever replaces its own rows, so these
+        would stay in the series without anything maintaining them.
+        """
+        return self.instance.measurement_set.exclude(source=MeasurementSource.CALCULATED).exists()
 
     def _validate_unique_metric_type(self, metric_type):
         """
@@ -332,14 +364,11 @@ class MeasurementSerializer(serializers.ModelSerializer):
         """
         The unit and the range of the value both depend on the metric type
         """
-        # Also blocks updates that leave the category field untouched
-        if (
-            self.instance is not None
-            and self.instance.category.dynamic_type != Category.DynamicType.NONE
-        ):
-            raise serializers.ValidationError(
-                'The entries of a calculated category are maintained by the server'
-            )
+        # Being maintained by the server is a property of the entry, not of
+        # its category: rows the user wrote before the category was switched
+        # over stay editable
+        if self.instance is not None and self.instance.source == MeasurementSource.CALCULATED:
+            raise serializers.ValidationError('A calculated entry is maintained by the server')
 
         category = data.get('category') or (self.instance.category if self.instance else None)
         extra_data = data.get('extra_data', self.instance.extra_data if self.instance else {})

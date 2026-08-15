@@ -29,6 +29,7 @@ from rest_framework import status
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.consts import WEIGHT_UNIT_LB
 from wger.manager.models import WorkoutLog
+from wger.measurements.dynamic.engine import reconcile
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -241,6 +242,120 @@ class EngineTestCase(DynamicMeasurementTestCase):
             )
 
         self.assertEqual(self.calculated_rows(category).count(), 0)
+
+
+class TypedCategoryTestCase(DynamicMeasurementTestCase):
+    """
+    Calculated types belong on custom categories, not on the typed ones the
+    server and the health importer maintain themselves
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+
+    def test_official_category_refuses_dynamic_type(self):
+        """
+        The official body weight category cannot be turned into a BMI one
+        """
+        response = self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': self.weight_category.pk}),
+            {'dynamic_type': 'BMI'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.weight_category.refresh_from_db()
+        self.assertEqual(self.weight_category.dynamic_type, Category.DynamicType.NONE)
+
+    def test_calculated_rows_never_feed_themselves(self):
+        """
+        A BMI computation ignores calculated entries, so a category that ends
+        up as the source of its own type does not grow with every run
+        """
+        self.create_weight('81.00')
+
+        # Past the check above this is only reachable through a bulk write
+        with self.captureOnCommitCallbacks(execute=True):
+            self.weight_category.dynamic_type = Category.DynamicType.BMI
+            self.weight_category.save()
+        first_run = self.calculated_rows(self.weight_category).count()
+
+        reconcile(self.weight_category)
+
+        self.assertEqual(self.calculated_rows(self.weight_category).count(), first_run)
+
+
+class ExistingEntriesTestCase(DynamicMeasurementTestCase):
+    """
+    Entries a user wrote themselves stay theirs, also in a category that was
+    switched to a calculated type afterwards
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.category = Category.objects.create(user=self.user, name='Waist', unit='cm')
+        self.entry = Measurement.objects.create(
+            category=self.category,
+            date=timezone.now(),
+            value=Decimal('90.00'),
+        )
+        self.user_login('test')
+
+    def test_activation_refused_with_own_entries(self):
+        """
+        A category holding entries of its own cannot be switched over
+        """
+        response = self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': self.category.pk}),
+            {'dynamic_type': 'BMI'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_own_entries_stay_editable(self):
+        """
+        An entry of the user's own remains editable, the block is about the
+        calculated rows and not about the category
+        """
+        with self.captureOnCommitCallbacks(execute=True):
+            self.category.dynamic_type = Category.DynamicType.BMI
+            self.category.save()
+
+        response = self.client.patch(
+            reverse('measurement-detail', kwargs={'pk': self.entry.pk}),
+            {'value': 95},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_own_entries_stay_deletable(self):
+        """
+        The same for deleting, on the REST and the PowerSync path
+        """
+        with self.captureOnCommitCallbacks(execute=True):
+            self.category.dynamic_type = Category.DynamicType.BMI
+            self.category.save()
+
+        response = self.client.delete(
+            reverse('measurement-detail', kwargs={'pk': self.entry.pk}),
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_own_entries_stay_deletable_over_powersync(self):
+        """
+        The synced delete of an own entry is not refused either
+        """
+        with self.captureOnCommitCallbacks(execute=True):
+            self.category.dynamic_type = Category.DynamicType.BMI
+            self.category.save()
+
+        MeasurementHandler().handle_delete({'id': str(self.entry.pk)}, self.user.pk)
+
+        self.assertFalse(Measurement.objects.filter(pk=self.entry.pk).exists())
 
 
 class ApiWriteBlockTestCase(DynamicMeasurementTestCase):
@@ -522,6 +637,24 @@ class WhtrTestCase(DynamicMeasurementTestCase):
             content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_unrelated_patch_survives_a_deleted_source(self):
+        """
+        Renaming the category still works once its source is gone; only a
+        payload that moves the configuration is checked against the data
+        """
+        self.create_waist('90.00')
+        category = self.enable_whtr()
+        self.waist.delete()
+
+        self.user_login('test')
+        response = self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': category.pk}),
+            {'name': 'Ratio'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_api_requires_source(self):
         """

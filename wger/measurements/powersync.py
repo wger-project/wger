@@ -26,6 +26,7 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.models.measurement import MeasurementSource
 from wger.utils.powersync import (
     PowerSyncHandler,
     register_handler,
@@ -75,9 +76,9 @@ class MeasurementHandler(PowerSyncHandler):
 
     def handle_delete(self, payload, user_id):
         entry = self._get_or_none(payload, user_id)
-        if entry is not None and entry.category.dynamic_type != Category.DynamicType.NONE:
+        if entry is not None and entry.source == MeasurementSource.CALCULATED:
             return {
                 'error': 'Forbidden',
-                'details': 'The entries of a calculated category are maintained by the server',
+                'details': 'A calculated entry is maintained by the server',
             }
         return super().handle_delete(payload, user_id)
