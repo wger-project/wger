@@ -180,10 +180,14 @@ class CategorySerializer(serializers.ModelSerializer):
             data['dynamic_params'] = {}
             return
 
-        # A stored configuration is only re-checked when the payload moves it.
-        # What it points at can be deleted afterwards, and that must not block
-        # renaming or reordering the category (see _validate_value_range)
-        if 'dynamic_type' not in data and 'dynamic_params' not in data:
+        # A stored configuration is only re-checked when the payload actually
+        # moves it. What it points at can be deleted afterwards, and that must
+        # not block renaming or reordering the category, also not for the
+        # clients that send the whole object back (see _validate_value_range)
+        if self.instance is not None and (dynamic_type, dynamic_params) == (
+            self.instance.dynamic_type,
+            self.instance.dynamic_params,
+        ):
             return
 
         # A typed category has a writer already, the health import or the

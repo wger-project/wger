@@ -750,6 +750,29 @@ class WhtrTestCase(DynamicMeasurementTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_full_object_patch_survives_a_deleted_source(self):
+        """
+        A client that sends the whole category back, configuration included,
+        can rename it as well
+        """
+        self.create_waist('90.00')
+        category = self.enable_whtr()
+        self.waist.delete()
+
+        self.user_login('test')
+        response = self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': category.pk}),
+            {
+                'name': 'Ratio',
+                'unit': '',
+                'dynamic_type': 'WHTR',
+                'dynamic_params': category.dynamic_params,
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_api_requires_source(self):
         """
         The category_id param is mandatory
