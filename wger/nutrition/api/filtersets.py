@@ -17,7 +17,10 @@
 import logging
 
 # Django
-from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.postgres.search import (
+    TrigramSimilarity,
+    TrigramWordSimilarity,
+)
 
 # Third Party
 from django_filters import rest_framework as filters
@@ -99,9 +102,12 @@ class IngredientFilterSet(filters.FilterSet):
             #     cursor.execute('SET LOCAL pg_trgm.similarity_threshold = 0.15')
 
             return (
-                queryset.filter(name__trigram_similar=value)
-                .annotate(similarity=TrigramSimilarity('name', value))
-                .order_by('-similarity', 'name')
+                queryset.filter(name__trigram_word_similar=value)
+                .annotate(
+                    word_similarity=TrigramWordSimilarity(value, 'name'),
+                    similarity=TrigramSimilarity('name', value),
+                )
+                .order_by('-word_similarity', '-similarity', 'name')
             )
         else:
             # Explicit order_by('name') because the viewset strips Meta.ordering.

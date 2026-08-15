@@ -14,7 +14,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+from unittest import skipUnless
 from unittest.mock import patch
+
+# Django
+from django.db import connection
 
 # Third Party
 from rest_framework import status
@@ -251,3 +255,107 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         mock_fetch.assert_called_once_with('0000000000000')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 0)
+
+
+@skipUnless(connection.vendor == 'postgresql', 'PostgreSQL ingredient search only')
+class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
+    """Regression tests for ingredient search retrieval and ranking."""
+
+    url = '/api/v2/ingredient/'
+
+    corpus = (
+        'Chicken',
+        'Chicken, Boiled Without Salt',
+        "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich",
+        'Chickpea Salad',
+        'Lunch out (placeholder)',
+        'Pasta Carbonara, Bacon',
+        '"Oat Milk Mocha" Oat Milk Latte Bar',
+        'Milk',
+        'Rice',
+        'Rice Pudding',
+        'Salty Liquorice',
+        'Banana',
+        'Banana Bread',
+        'Salmon',
+        'Smoked Salmon',
+    )
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        for name in cls.corpus:
+            Ingredient.objects.create(
+                name=name,
+                source_name='Test',
+                language_id=2,
+                energy=100,
+                protein=10,
+                carbohydrates=10,
+                fat=10,
+            )
+
+    def search_names(self, query):
+        response = self.client.get(
+            self.url,
+            {'name__search': query, 'language__code': 'en'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        return [result['name'] for result in response.data['results']]
+
+    def assert_ranked_before(self, names, first, second):
+        self.assertIn(first, names)
+        self.assertIn(second, names)
+        self.assertLess(names.index(first), names.index(second))
+
+    def test_search_finds_words_in_long_ingredient_names(self):
+        cases = (
+            ('chicken', 'Chicken, Boiled Without Salt'),
+            ('chicken', "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich"),
+            ('lunch', 'Lunch out (placeholder)'),
+            ('pasta', 'Pasta Carbonara, Bacon'),
+            ('milk', '"Oat Milk Mocha" Oat Milk Latte Bar'),
+            ('rice', 'Rice Pudding'),
+            ('banana', 'Banana Bread'),
+            ('salmon', 'Smoked Salmon'),
+        )
+
+        for query, expected_name in cases:
+            with self.subTest(query=query, expected_name=expected_name):
+                names = self.search_names(query)
+                self.assertIn(expected_name, names)
+
+    def test_search_ranks_exact_names_first(self):
+        cases = ('Chicken', 'Milk', 'Rice', 'Banana', 'Salmon')
+
+        for expected_name in cases:
+            with self.subTest(expected_name=expected_name):
+                names = self.search_names(expected_name.lower())
+                self.assertEqual(names[:1], [expected_name])
+
+    def test_search_ranks_leading_matches_before_later_word_matches(self):
+        names = self.search_names('chicken')
+
+        self.assertEqual(names[:1], ['Chicken'])
+        self.assert_ranked_before(
+            names,
+            'Chicken, Boiled Without Salt',
+            "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich",
+        )
+
+    def test_search_supports_partial_words(self):
+        names = self.search_names('chick')
+
+        self.assertIn('Chicken', names)
+        self.assertIn('Chickpea Salad', names)
+
+    def test_search_finds_a_correctly_spelled_name_from_a_typo(self):
+        names = self.search_names('chickn')
+
+        self.assertEqual(names[:1], ['Chicken'])
+
+    def test_search_ranks_whole_words_above_inside_word_matches(self):
+        names = self.search_names('rice')
+
+        self.assert_ranked_before(names, 'Rice', 'Salty Liquorice')
+        self.assert_ranked_before(names, 'Rice Pudding', 'Salty Liquorice')
