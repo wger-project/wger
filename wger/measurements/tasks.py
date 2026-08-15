@@ -15,6 +15,10 @@
 
 # Standard Library
 import logging
+import random
+
+# Third Party
+from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
@@ -47,3 +51,15 @@ def reconcile_all_dynamic_categories_task():
         reconcile(category)
         count += 1
     logger.info(f'Reconciled {count} dynamic measurement categories')
+
+
+@app.on_after_finalize.connect
+def setup_periodic_tasks(sender, **kwargs):
+    sender.add_periodic_task(
+        crontab(
+            hour=str(random.randint(0, 23)),
+            minute=str(random.randint(0, 59)),
+        ),
+        reconcile_all_dynamic_categories_task.s(),
+        name='Reconcile dynamic measurement categories',
+    )
