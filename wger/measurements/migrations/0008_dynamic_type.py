@@ -22,7 +22,12 @@ class Migration(migrations.Migration):
             model_name='category',
             name='dynamic_type',
             field=models.CharField(
-                choices=[('NONE', 'None'), ('BMI', 'BMI')],
+                choices=[
+                    ('NONE', 'None'),
+                    ('BMI', 'BMI'),
+                    ('WHTR', 'Waist-to-height ratio'),
+                    ('ONE_REP_MAX', '1RM'),
+                ],
                 db_index=True,
                 default='NONE',
                 max_length=20,

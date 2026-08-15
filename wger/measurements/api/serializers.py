@@ -186,6 +186,11 @@ class CategorySerializer(serializers.ModelSerializer):
             except jsonschema.exceptions.ValidationError as e:
                 raise serializers.ValidationError({'dynamic_params': e.message})
 
+            try:
+                calc.validate_params(self._get_user_id(), dynamic_params)
+            except ValueError as e:
+                raise serializers.ValidationError({'dynamic_params': str(e)})
+
     def _validate_unique_metric_type(self, metric_type):
         """
         Only one category per metric type and user.

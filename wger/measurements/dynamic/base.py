@@ -78,6 +78,13 @@ class DynamicMeasurementType:
         """
         raise NotImplementedError
 
+    def validate_params(self, user_id: int, params: dict) -> None:
+        """
+        Semantic checks beyond the shape of the params, e.g. that a referenced
+        row exists and belongs to the user. Raises ValueError with the message
+        to show.
+        """
+
 
 _registry: dict[str, DynamicMeasurementType] = {}
 

@@ -95,20 +95,29 @@ def reconcile_by_id(category_id) -> None:
 
 def schedule_reconcile(category_id) -> None:
     """
-    Queues a reconcile for after the current transaction, deduplicated so a
-    batch of source writes triggers one recompute rather than one per row
+    Queues a reconcile for after the current transaction.
+
+    Every call registers a callback, the deduplication happens when they run:
+    the first one of a flush does the work and marks the category, the
+    duplicates of the same batch see the mark and return. Marking on
+    execution rather than on registration keeps a rolled-back transaction
+    (whose callbacks Django discards) from blocking later reconciles.
     """
-    ids = getattr(_pending, 'ids', None)
-    if ids is None:
-        ids = _pending.ids = set()
-    if category_id in ids:
-        return
-    ids.add(category_id)
+    done = getattr(_pending, 'done', None)
+    if done:
+        # A new write batch begins, the marks of the previous flush are stale
+        done.clear()
     transaction.on_commit(lambda: _run_scheduled(category_id))
 
 
 def _run_scheduled(category_id) -> None:
-    getattr(_pending, 'ids', set()).discard(category_id)
+    done = getattr(_pending, 'done', None)
+    if done is None:
+        done = _pending.done = set()
+    if category_id in done:
+        return
+    done.add(category_id)
+
     if settings.WGER_SETTINGS['USE_CELERY']:
         # wger
         from wger.measurements.tasks import reconcile_dynamic_category_task

@@ -27,6 +27,8 @@ from rest_framework import status
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.consts import WEIGHT_UNIT_LB
+from wger.manager.models import WorkoutLog
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -386,3 +388,289 @@ class DynamicCategoryApiTestCase(DynamicMeasurementTestCase):
         rows = self.calculated_rows(Category.objects.get(pk=response.data['id']))
         self.assertEqual(rows.count(), 1)
         self.assertEqual(rows[0].value, Decimal('25.00'))
+
+
+class WhtrTestCase(DynamicMeasurementTestCase):
+    """
+    The waist-to-height ratio derives from a user-chosen source category
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.waist = Category.objects.create(user=self.user, name='Waist', unit='cm')
+
+    def create_waist(self, value, days_ago: int = 0) -> Measurement:
+        with self.captureOnCommitCallbacks(execute=True):
+            entry = Measurement.objects.create(
+                category=self.waist,
+                date=timezone.now() - datetime.timedelta(days=days_ago),
+                value=Decimal(value),
+            )
+        return entry
+
+    def enable_whtr(self, source: Category = None) -> Category:
+        with self.captureOnCommitCallbacks(execute=True):
+            category = Category.objects.create(
+                user=self.user,
+                name='WHtR',
+                unit='',
+                dynamic_type=Category.DynamicType.WHTR,
+                dynamic_params={'category_id': str((source or self.waist).pk)},
+            )
+        return category
+
+    def test_backfill(self):
+        """
+        Enabling the ratio computes one row per source entry
+        """
+        self.create_waist('90.00', days_ago=10)
+        self.create_waist('99.00')
+
+        category = self.enable_whtr()
+        rows = self.calculated_rows(category)
+
+        # height 180: 90 / 180 = 0.50, 99 / 180 = 0.55
+        self.assertEqual(rows.count(), 2)
+        self.assertEqual(rows[0].value, Decimal('0.50'))
+        self.assertEqual(rows[1].value, Decimal('0.55'))
+
+    def test_source_entry_update_recomputes(self):
+        """
+        Editing a source entry updates its ratio row
+        """
+        entry = self.create_waist('90.00')
+        category = self.enable_whtr()
+
+        with self.captureOnCommitCallbacks(execute=True):
+            entry.value = Decimal('81.00')
+            entry.save()
+
+        rows = self.calculated_rows(category)
+        self.assertEqual(rows[0].value, Decimal('0.45'))
+
+    def test_foreign_source_stays_empty(self):
+        """
+        Params pointing at another user's category yield no rows
+        """
+        admin = User.objects.get(username='admin')
+        foreign = Category.objects.create(user=admin, name='Waist', unit='cm')
+        Measurement.objects.create(
+            category=foreign,
+            date=timezone.now(),
+            value=Decimal('90.00'),
+        )
+
+        category = self.enable_whtr(source=foreign)
+        self.assertEqual(self.calculated_rows(category).count(), 0)
+
+    def test_api_refuses_foreign_source(self):
+        """
+        Creating a ratio category over another user's category returns a 400
+        """
+        admin = User.objects.get(username='admin')
+        foreign = Category.objects.create(user=admin, name='Waist', unit='cm')
+
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': 'WHtR',
+                'unit': '',
+                'dynamic_type': 'WHTR',
+                'dynamic_params': {'category_id': str(foreign.pk)},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('dynamic_params', response.data)
+
+    def test_api_refuses_dynamic_source(self):
+        """
+        A calculated category cannot be the source of another one
+        """
+        bmi = self.enable_bmi()
+
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': 'WHtR',
+                'unit': '',
+                'dynamic_type': 'WHTR',
+                'dynamic_params': {'category_id': str(bmi.pk)},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_api_requires_source(self):
+        """
+        The category_id param is mandatory
+        """
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {'name': 'WHtR', 'unit': '', 'dynamic_type': 'WHTR'},
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class OneRepMaxTestCase(DynamicMeasurementTestCase):
+    """
+    The 1RM type condenses the workout logs of one exercise into one
+    estimate per day
+    """
+
+    def make_log(
+        self,
+        weight,
+        reps,
+        days_ago: int = 0,
+        weight_unit: int = 1,
+        exercise_id: int = 1,
+    ) -> WorkoutLog:
+        with self.captureOnCommitCallbacks(execute=True):
+            log = WorkoutLog(
+                user=self.user,
+                exercise_id=exercise_id,
+                weight=Decimal(weight),
+                repetitions=Decimal(reps),
+                weight_unit_id=weight_unit,
+                date=timezone.now() - datetime.timedelta(days=days_ago),
+            )
+            log.save()
+        return log
+
+    def enable_one_rm(self, **params) -> Category:
+        with self.captureOnCommitCallbacks(execute=True):
+            category = Category.objects.create(
+                user=self.user,
+                name='1RM',
+                unit='kg',
+                dynamic_type=Category.DynamicType.ONE_REP_MAX,
+                dynamic_params={'exercise_id': 1, **params},
+            )
+        return category
+
+    def test_backfill_best_set_per_day(self):
+        """
+        Each day with logs gets one row holding its highest estimate
+        """
+        self.make_log('100', 5)
+        self.make_log('90', 5)
+        self.make_log('80', 3, days_ago=3)
+
+        category = self.enable_one_rm()
+        rows = self.calculated_rows(category)
+
+        self.assertEqual(rows.count(), 2)
+        # Brzycki: 80 / (1.0278 - 0.0278 * 3), 100 / (1.0278 - 0.0278 * 5)
+        self.assertEqual(rows[0].value, Decimal('84.71'))
+        self.assertEqual(rows[1].value, Decimal('112.51'))
+
+    def test_high_rep_sets_are_ignored(self):
+        """
+        Sets over max_reps do not enter the estimate
+        """
+        self.make_log('120', 8)
+        self.make_log('100', 5)
+
+        category = self.enable_one_rm()
+        rows = self.calculated_rows(category)
+
+        self.assertEqual(rows.count(), 1)
+        self.assertEqual(rows[0].value, Decimal('112.51'))
+
+    def test_max_reps_param(self):
+        """
+        The rep cap is configurable
+        """
+        self.make_log('120', 8)
+
+        category = self.enable_one_rm(max_reps=8)
+        rows = self.calculated_rows(category)
+
+        self.assertEqual(rows.count(), 1)
+        # 120 / (1.0278 - 0.0278 * 8)
+        self.assertEqual(rows[0].value, Decimal('148.99'))
+
+    def test_pound_logs_are_converted(self):
+        """
+        A log in lb is converted to kg before the formula
+        """
+        self.make_log('100', 1, weight_unit=WEIGHT_UNIT_LB)
+
+        category = self.enable_one_rm()
+        rows = self.calculated_rows(category)
+
+        # 100 lb = 45.36 kg, at one rep the estimate is the weight itself
+        self.assertEqual(rows[0].value, Decimal('45.36'))
+
+    def test_other_exercises_are_ignored(self):
+        """
+        Only logs of the configured exercise count
+        """
+        self.make_log('100', 5, exercise_id=2)
+
+        category = self.enable_one_rm()
+        self.assertEqual(self.calculated_rows(category).count(), 0)
+
+    def test_new_log_adds_row(self):
+        """
+        A log written after the category exists gets its day row
+        """
+        category = self.enable_one_rm()
+        self.make_log('100', 5)
+
+        rows = self.calculated_rows(category)
+        self.assertEqual(rows.count(), 1)
+        self.assertEqual(rows[0].value, Decimal('112.51'))
+
+    def test_deleted_log_removes_day(self):
+        """
+        Deleting the only log of a day deletes the day's row
+        """
+        log = self.make_log('100', 5)
+        category = self.enable_one_rm()
+        self.assertEqual(self.calculated_rows(category).count(), 1)
+
+        with self.captureOnCommitCallbacks(execute=True):
+            log.delete()
+
+        self.assertEqual(self.calculated_rows(category).count(), 0)
+
+    def test_api_refuses_unknown_exercise(self):
+        """
+        An exercise id that does not exist returns a 400
+        """
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': '1RM',
+                'unit': 'kg',
+                'dynamic_type': 'ONE_REP_MAX',
+                'dynamic_params': {'exercise_id': 999999},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('dynamic_params', response.data)
+
+    def test_api_refuses_out_of_range_cap(self):
+        """
+        The rep cap is bounded by the validity of the formula
+        """
+        self.user_login('test')
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {
+                'name': '1RM',
+                'unit': 'kg',
+                'dynamic_type': 'ONE_REP_MAX',
+                'dynamic_params': {'exercise_id': 1, 'max_reps': 15},
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
