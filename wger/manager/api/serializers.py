@@ -488,6 +488,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rir_target',
             'rest',
             'rest_target',
+            'notes',
         )
 
 
