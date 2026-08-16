@@ -17,7 +17,10 @@
 import logging
 
 # Django
-from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.postgres.search import (
+    TrigramSimilarity,
+    TrigramStrictWordSimilarity,
+)
 from django.db.models import (
     Case,
     F,
@@ -39,6 +42,7 @@ from wger.nutrition.models import (
 from wger.utils.db import (
     PostgresILikeContains,
     PostgresILikeExact,
+    PostgresILikeStartsWith,
     is_postgres_db,
 )
 from wger.utils.language import load_language
@@ -113,27 +117,39 @@ class IngredientFilterSet(filters.FilterSet):
                 return barcode_qs
 
         if is_postgres_db():
+            if not any(character.isalnum() for character in value):
+                return queryset.none()
+
             # A trigram index cannot accelerate unrestricted one- or two-character
             # substring patterns. Exact matching still supports valid short names.
             if len(value) < 3:
                 exact = PostgresILikeExact(F('name'), value)
                 return queryset.filter(exact).order_by('name')
 
+            exact = PostgresILikeExact(F('name'), value)
+            starts_with = PostgresILikeStartsWith(F('name'), value)
+            contains = PostgresILikeContains(F('name'), value)
+
             candidates = Q(name__trigram_similar=value)
-            if _has_literal_trigram(value):
-                candidates |= PostgresILikeContains(F('name'), value)
+            # Whole-name similarity already retrieves specific multi-word queries;
+            # the extra substring scan is useful for single terms in long names.
+            if len(value.split(maxsplit=1)) == 1 and _has_literal_trigram(value):
+                candidates |= contains
 
             return (
                 queryset.filter(candidates)
                 .annotate(
+                    word_similarity=TrigramStrictWordSimilarity(value, 'name'),
+                    similarity=TrigramSimilarity('name', value),
+                )
+                .annotate(
                     match_rank=Case(
-                        When(name__iexact=value, then=Value(3)),
-                        When(name__istartswith=value, then=Value(2)),
-                        When(name__icontains=value, then=Value(1)),
+                        When(exact, then=Value(3)),
+                        When(starts_with, then=Value(2)),
+                        When(word_similarity=1, then=Value(1)),
                         default=Value(0),
                         output_field=IntegerField(),
                     ),
-                    similarity=TrigramSimilarity('name', value),
                 )
                 .order_by('-match_rank', '-similarity', 'name')
             )

@@ -21,6 +21,7 @@ from django.db import models
 from django.db.models.lookups import (
     Contains,
     Exact,
+    StartsWith,
 )
 
 # wger
@@ -46,6 +47,13 @@ class PostgresILikeContains(Contains):
     Django implements ``icontains`` as ``UPPER(column) LIKE UPPER(value)``, which
     cannot use a trigram index defined on the untransformed column.
     """
+
+    def get_rhs_op(self, connection, rhs):
+        return f'ILIKE {rhs}'
+
+
+class PostgresILikeStartsWith(StartsWith):
+    """Case-insensitive prefix matching using PostgreSQL's native ILIKE operator."""
 
     def get_rhs_op(self, connection, rhs):
         return f'ILIKE {rhs}'

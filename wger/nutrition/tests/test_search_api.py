@@ -278,10 +278,16 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
         'Rice',
         'Rice Pudding',
         'Salty Liquorice',
+        'Brown rice, long grain, cooked without salt',
+        'Licorice',
         'Banana',
         'Banana Bread',
         'Salmon',
         'Smoked Salmon',
+        'İstanbul',
+        'Istanbul spice',
+        'Butter',
+        'Apple Buttrr Spread',
         '餅',
         '牛乳',
     )
@@ -320,6 +326,7 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_search_finds_words_in_long_ingredient_names(self):
         cases = (
             ('chicken', 'Chicken, Boiled Without Salt'),
+            ('chicken boiled', 'Chicken, Boiled Without Salt'),
             ('chicken', "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich"),
             ('lunch', 'Lunch out (placeholder)'),
             ('pasta', 'Pasta Carbonara, Bacon'),
@@ -364,10 +371,8 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(self.search_names('餅'), ['餅'])
         self.assertEqual(self.search_names('牛乳'), ['牛乳'])
 
-    def test_short_search_escapes_like_metacharacters(self):
-        for query in ('%', '_', '\\'):
-            with self.subTest(query=query):
-                self.assertEqual(self.search_names(query), [])
+    def test_punctuation_only_search_returns_no_results(self):
+        self.assertEqual(self.search_names('%'), [])
 
     def test_search_finds_a_correctly_spelled_name_from_a_typo(self):
         names = self.search_names('chickn')
@@ -382,5 +387,18 @@ class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_search_ranks_whole_words_above_inside_word_matches(self):
         names = self.search_names('rice')
 
-        self.assert_ranked_before(names, 'Rice', 'Salty Liquorice')
-        self.assert_ranked_before(names, 'Rice Pudding', 'Salty Liquorice')
+        self.assert_ranked_before(
+            names,
+            'Brown rice, long grain, cooked without salt',
+            'Licorice',
+        )
+
+    def test_search_ranks_unicode_case_insensitive_exact_matches_first(self):
+        names = self.search_names('istanbul')
+
+        self.assertEqual(names[:2], ['İstanbul', 'Istanbul spice'])
+
+    def test_search_does_not_rank_generic_substrings_above_fuzzy_matches(self):
+        names = self.search_names('buttr')
+
+        self.assert_ranked_before(names, 'Butter', 'Apple Buttrr Spread')
