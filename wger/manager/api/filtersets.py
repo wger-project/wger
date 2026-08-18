@@ -28,6 +28,7 @@ class WorkoutSessionFilterSet(filters.FilterSet):
         model = WorkoutSession
         fields = {
             'routine': ['exact'],
+            'day': ['exact'],
             'notes': ['exact'],
             'impression': ['exact'],
             'datetime_start': ['exact', 'date', 'gt', 'gte', 'lt', 'lte'],
