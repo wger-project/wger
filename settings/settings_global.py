@@ -377,6 +377,7 @@ AVAILABLE_LANGUAGES = (
     ('es-mx', 'Mexican Spanish'),
     ('es-ni', 'Nicaraguan Spanish'),
     ('es-ve', 'Venezuelan Spanish'),
+    ('fi', 'Finnish'),
     ('fr', 'French'),
     ('he', 'Hebrew'),
     ('hr', 'Croatian'),
