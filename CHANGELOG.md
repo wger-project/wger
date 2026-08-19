@@ -15,6 +15,8 @@ is switched off by default unless configured, see the docs for the setup.
 
 ## Bug fixes
 
+* Ingredient search now finds matching words in long ingredient names and ranks
+  more relevant results first
 * Gated progressions (configs with `requirements`) now advance exactly one step
   per qualifying workout instead of back-filling increments for skipped,
   non-qualifying iterations

@@ -14,7 +14,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+from unittest import skipUnless
 from unittest.mock import patch
+
+# Django
+from django.db import connection
 
 # Third Party
 from rest_framework import status
@@ -22,6 +26,7 @@ from rest_framework import status
 # wger
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
+from wger.nutrition.api.filtersets import _has_literal_trigram
 from wger.nutrition.models import Ingredient
 
 
@@ -33,12 +38,13 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         Logged-out users are also allowed to use the search
         """
         response = self.client.get(self.url + '?name__search=test&language__code=en')
-        result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 2)
-        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['id'], 2)
+        self.assertCountEqual(
+            [(result['id'], result['name']) for result in response.data['results']],
+            [(1, 'Test ingredient 1'), (2, 'Ingredient, test, 2, organic, raw')],
+        )
 
     def test_basic_search_logged_in(self):
         """
@@ -46,12 +52,13 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         self.authenticate('test')
         response = self.client.get(self.url + '?name__search=test&language__code=en')
-        result1 = response.data['results'][0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 2)
-        self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
-        self.assertEqual(result1['id'], 2)
+        self.assertCountEqual(
+            [(result['id'], result['name']) for result in response.data['results']],
+            [(1, 'Test ingredient 1'), (2, 'Ingredient, test, 2, organic, raw')],
+        )
 
     def test_search_language_code_en_no_results(self):
         """
@@ -251,3 +258,147 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         mock_fetch.assert_called_once_with('0000000000000')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 0)
+
+
+@skipUnless(connection.vendor == 'postgresql', 'PostgreSQL ingredient search only')
+class IngredientSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
+    """Regression tests for ingredient search retrieval and ranking."""
+
+    url = '/api/v2/ingredient/'
+
+    corpus = (
+        'Chicken',
+        'Chicken, Boiled Without Salt',
+        "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich",
+        'Chickpea Salad',
+        'Lunch out (placeholder)',
+        'Pasta Carbonara, Bacon',
+        '"Oat Milk Mocha" Oat Milk Latte Bar',
+        'Milk',
+        'Rice',
+        'Rice Pudding',
+        'Salty Liquorice',
+        'Brown rice, long grain, cooked without salt',
+        'Licorice',
+        'Banana',
+        'Banana Bread',
+        'Salmon',
+        'Smoked Salmon',
+        'İstanbul',
+        'Istanbul spice',
+        'Butter',
+        'Apple Buttrr Spread',
+        '餅',
+        '牛乳',
+    )
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        for name in cls.corpus:
+            Ingredient.objects.create(
+                name=name,
+                source_name='Test',
+                language_id=2,
+                energy=100,
+                protein=10,
+                carbohydrates=10,
+                fat=10,
+            )
+
+    def search_names(self, query):
+        response = self.client.get(
+            self.url,
+            {'name__search': query, 'language__code': 'en'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        return [result['name'] for result in response.data['results']]
+
+    def assert_ranked_before(self, names, first, second):
+        self.assertIn(first, names)
+        self.assertIn(second, names)
+        self.assertLess(names.index(first), names.index(second))
+
+    def test_substring_search_requires_an_indexable_trigram(self):
+        self.assertFalse(_has_literal_trigram('q--'))
+        self.assertTrue(_has_literal_trigram('jäätelö'))
+
+    def test_search_finds_words_in_long_ingredient_names(self):
+        cases = (
+            ('chicken', 'Chicken, Boiled Without Salt'),
+            ('chicken boiled', 'Chicken, Boiled Without Salt'),
+            ('chicken', "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich"),
+            ('lunch', 'Lunch out (placeholder)'),
+            ('pasta', 'Pasta Carbonara, Bacon'),
+            ('milk', '"Oat Milk Mocha" Oat Milk Latte Bar'),
+            ('rice', 'Rice Pudding'),
+            ('banana', 'Banana Bread'),
+            ('salmon', 'Smoked Salmon'),
+        )
+
+        for query, expected_name in cases:
+            with self.subTest(query=query, expected_name=expected_name):
+                names = self.search_names(query)
+                self.assertIn(expected_name, names)
+
+    def test_search_ranks_exact_names_first(self):
+        cases = ('Chicken', 'Milk', 'Rice', 'Banana', 'Salmon')
+
+        for expected_name in cases:
+            with self.subTest(expected_name=expected_name):
+                names = self.search_names(expected_name.lower())
+                self.assertEqual(names[:1], [expected_name])
+
+    def test_search_ranks_leading_matches_before_later_word_matches(self):
+        names = self.search_names('chicken')
+
+        self.assertEqual(names[:1], ['Chicken'])
+        self.assert_ranked_before(
+            names,
+            'Chicken, Boiled Without Salt',
+            "'Nduja Chicken, Mozzarella, Slow Roast Tomato Sandwich",
+        )
+
+    def test_search_supports_partial_words(self):
+        names = self.search_names('chick')
+
+        self.assertIn('Chicken', names)
+        self.assertIn('Chickpea Salad', names)
+
+    def test_short_search_only_returns_exact_names(self):
+        self.assertEqual(self.search_names('c'), [])
+        self.assertEqual(self.search_names('ch'), [])
+        self.assertEqual(self.search_names('餅'), ['餅'])
+        self.assertEqual(self.search_names('牛乳'), ['牛乳'])
+
+    def test_punctuation_only_search_returns_no_results(self):
+        self.assertEqual(self.search_names('%'), [])
+
+    def test_search_finds_a_correctly_spelled_name_from_a_typo(self):
+        names = self.search_names('chickn')
+
+        self.assertEqual(names[:1], ['Chicken'])
+
+    def test_search_preserves_typo_matches_from_whole_name_similarity(self):
+        names = self.search_names('chiken')
+
+        self.assertEqual(names[:1], ['Chicken'])
+
+    def test_search_ranks_whole_words_above_inside_word_matches(self):
+        names = self.search_names('rice')
+
+        self.assert_ranked_before(
+            names,
+            'Brown rice, long grain, cooked without salt',
+            'Licorice',
+        )
+
+    def test_search_ranks_unicode_case_insensitive_exact_matches_first(self):
+        names = self.search_names('istanbul')
+
+        self.assertEqual(names[:2], ['İstanbul', 'Istanbul spice'])
+
+    def test_search_does_not_rank_generic_substrings_above_fuzzy_matches(self):
+        names = self.search_names('buttr')
+
+        self.assert_ranked_before(names, 'Butter', 'Apple Buttrr Spread')
