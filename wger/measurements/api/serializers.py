@@ -93,6 +93,23 @@ class CategorySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('The metric type of a category cannot be changed')
         return metric_type
 
+    def validate_dynamic_type(self, dynamic_type):
+        """
+        The calculation is fixed once a category has one: it is what the
+        category is, the same reasoning as for the metric type. Stopping it
+        means deleting the category, changing it means creating another one,
+        and either way the values computed so far are not silently rewritten
+        under a name that promised something else.
+        """
+        instance = self.instance
+        if (
+            instance is not None
+            and instance.dynamic_type != Category.DynamicType.NONE
+            and dynamic_type != instance.dynamic_type
+        ):
+            raise serializers.ValidationError('The calculation of a category cannot be changed')
+        return dynamic_type
+
     def validate_parent(self, parent):
         """
         Enforce the structural rules for multi-value groups: one level of

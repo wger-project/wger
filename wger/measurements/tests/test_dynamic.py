@@ -288,6 +288,79 @@ class TypedCategoryTestCase(DynamicMeasurementTestCase):
         self.assertEqual(self.calculated_rows(self.weight_category).count(), first_run)
 
 
+class ImmutableCalculationTestCase(DynamicMeasurementTestCase):
+    """
+    The calculation of a category is fixed once it has one, like its metric
+    type: what it computes is what the category is
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.create_weight('81.00')
+        self.category = self.enable_bmi()
+        self.user_login('test')
+
+    def patch(self, payload):
+        return self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': self.category.pk}),
+            payload,
+            content_type='application/json',
+        )
+
+    def test_the_calculation_cannot_be_swapped(self):
+        """
+        A BMI category does not become a ratio one
+        """
+        response = self.patch({'dynamic_type': 'WHTR', 'dynamic_params': {'category_id': 'x'}})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.category.refresh_from_db()
+        self.assertEqual(self.category.dynamic_type, Category.DynamicType.BMI)
+
+    def test_the_calculation_cannot_be_turned_off(self):
+        """
+        Stopping a calculation means deleting the category
+        """
+        response = self.patch({'dynamic_type': 'NONE'})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(self.calculated_rows(self.category).count(), 1)
+
+    def test_everything_else_stays_editable(self):
+        """
+        Name, unit and the chart settings are presentation, not identity
+        """
+        response = self.patch({'name': 'Body mass index', 'unit': 'kg/m2'})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.category.refresh_from_db()
+        self.assertEqual(self.category.name, 'Body mass index')
+
+    def test_the_parameters_stay_editable(self):
+        """
+        They only change how the values are derived, so they are knobs rather
+        than identity
+        """
+        with self.captureOnCommitCallbacks(execute=True):
+            category = Category.objects.create(
+                user=self.user,
+                name='1RM',
+                unit='kg',
+                dynamic_type=Category.DynamicType.ONE_REP_MAX,
+                dynamic_params={'exercise_id': 1, 'max_reps': 5},
+            )
+
+        response = self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': category.pk}),
+            {'dynamic_params': {'exercise_id': 1, 'max_reps': 3}},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        category.refresh_from_db()
+        self.assertEqual(category.dynamic_params['max_reps'], 3)
+
+
 class ExistingEntriesTestCase(DynamicMeasurementTestCase):
     """
     Entries a user wrote themselves stay theirs, also in a category that was
