@@ -15,15 +15,25 @@
 
 
 # Django
+from django.contrib.postgres.search import (
+    TrigramSimilarity,
+    TrigramWordSimilarity,
+)
 from django.db.models import (
+    Case,
     Exists,
+    FloatField,
     OuterRef,
     Q,
     QuerySet,
+    Subquery,
+    Value,
+    When,
 )
 
 # Third Party
 from django_filters import rest_framework as filters
+from rest_framework.filters import OrderingFilter
 
 # wger
 from wger.exercises.models import (
@@ -32,6 +42,22 @@ from wger.exercises.models import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
+
+
+class RelevanceOrderingFilter(OrderingFilter):
+    """
+    Keeps the relevance ordering of the name search.
+
+    Without this the default ordering of the viewset replaces it. An ordering the
+    client asks for explicitly still wins.
+    """
+
+    def get_ordering(self, request, queryset, view):
+        searching = request.query_params.get('name__search')
+        if searching and not request.query_params.get(self.ordering_param):
+            return None
+
+        return super().get_ordering(request, queryset, view)
 
 
 class ExerciseFilterSet(filters.FilterSet):
@@ -61,6 +87,34 @@ class ExerciseFilterSet(filters.FilterSet):
             translation_subquery = translation_subquery.filter(language__in=languages)
         return queryset.filter(Exists(translation_subquery)).distinct()
 
+    def _order_by_relevance(self, queryset: QuerySet, value: str) -> QuerySet:
+        """
+        Sorts the exercises by their best matching translation.
+
+        The name lives on the translation, so the scores come from a subquery. Exact
+        and prefix matches score above the word similarity, which is at most 1, and
+        shorter names win ties, e.g. "Leg Curl" over "Alternating Biceps Curls".
+        """
+
+        matches = Translation.objects.filter(exercise=OuterRef('pk'))
+        if languages := self._languages_from_params():
+            matches = matches.filter(language__in=languages)
+
+        matches = matches.annotate(
+            match_score=Case(
+                When(name__iexact=value, then=Value(3.0)),
+                When(name__istartswith=value, then=Value(2.0)),
+                default=TrigramWordSimilarity(value, 'name'),
+                output_field=FloatField(),
+            ),
+            name_similarity=TrigramSimilarity('name', value),
+        ).order_by('-match_score', '-name_similarity')
+
+        return queryset.annotate(
+            match_score=Subquery(matches.values('match_score')[:1]),
+            name_similarity=Subquery(matches.values('name_similarity')[:1]),
+        ).order_by('-match_score', '-name_similarity')
+
     def search_name_fulltext(self, queryset: QuerySet, name: str, value: str):
         """
         Searches for exercise matches with the given name.
@@ -75,11 +129,19 @@ class ExerciseFilterSet(filters.FilterSet):
         if not is_postgres_db():
             return self.search_name_exact(queryset, name, value)
 
-        # Note: this uses the default value for pg_trgm.similarity_threshold (0.3)
-        return self._filter_by_translation(
+        # Whole-name similarity (pg_trgm.similarity_threshold, 0.3) keeps typos such as
+        # "bech press" working, word similarity (pg_trgm.word_similarity_threshold, 0.6)
+        # matches single words inside the long compound names most exercises have.
+        queryset = self._filter_by_translation(
             queryset=queryset,
-            q_expr=Q(name__trigram_similar=value) | Q(alias__alias__icontains=value),
+            q_expr=(
+                Q(name__trigram_similar=value)
+                | Q(name__trigram_word_similar=value)
+                | Q(alias__alias__icontains=value)
+            ),
         )
+
+        return self._order_by_relevance(queryset, value)
 
     def search_name_exact(self, queryset: QuerySet, name: str, value: str):
         """

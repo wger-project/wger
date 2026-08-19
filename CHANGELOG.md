@@ -17,6 +17,9 @@ is switched off by default unless configured, see the docs for the setup.
 
 * Ingredient search now finds matching words in long ingredient names and ranks
   more relevant results first
+* Exercise search now finds matching words in long exercise names, e.g. "curl"
+  finds "Alternating Biceps Curls With Dumbbell", and sorts the results by
+  relevance
 * Gated progressions (configs with `requirements`) now advance exactly one step
   per qualifying workout instead of back-filling increments for skipped,
   non-qualifying iterations

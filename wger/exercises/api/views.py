@@ -25,6 +25,7 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -36,7 +37,10 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 # wger
-from wger.exercises.api.filtersets import ExerciseFilterSet
+from wger.exercises.api.filtersets import (
+    ExerciseFilterSet,
+    RelevanceOrderingFilter,
+)
 from wger.exercises.api.permissions import CanContributeExercises
 from wger.exercises.api.serializers import (
     DeletionLogSerializer,
@@ -226,6 +230,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     ordering = ['id']
     filterset_class = ExerciseFilterSet
+    filter_backends = (DjangoFilterBackend, RelevanceOrderingFilter)
 
     def get_queryset(self):
         """
