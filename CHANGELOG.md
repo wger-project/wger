@@ -148,7 +148,7 @@ like openScale do not need any changes.
 * Pull new changes from the docker repo. There were changes to the sync rules due
   to the new measurements. It is recommended to stop the powersync service while
   the db migrations are running:
-  ```
+  ```bash
   docker compose pull 
   docker compose down powersync
   docker compose up -d web
