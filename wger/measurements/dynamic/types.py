@@ -50,6 +50,27 @@ from wger.utils.units import (
 )
 
 
+# The units a length may be written in, and what a value in one of them has to
+# be multiplied with to become centimeters. Mirrored in the clients, e.g.
+# LENGTH_UNITS in react's models/Calculation.ts
+LENGTH_UNITS = {
+    'mm': Decimal('0.1'),
+    'millimeter': Decimal('0.1'),
+    'millimeters': Decimal('0.1'),
+    'cm': Decimal(1),
+    'centimeter': Decimal(1),
+    'centimeters': Decimal(1),
+    'm': Decimal(100),
+    'meter': Decimal(100),
+    'meters': Decimal(100),
+    'in': AbstractHeight.INCHES_IN_CM,
+    'inch': AbstractHeight.INCHES_IN_CM,
+    'inches': AbstractHeight.INCHES_IN_CM,
+    '"': AbstractHeight.INCHES_IN_CM,
+    '″': AbstractHeight.INCHES_IN_CM,
+}
+
+
 @register
 class Bmi(DynamicMeasurementType):
     """
@@ -121,20 +142,15 @@ class WaistToHeightRatio(DynamicMeasurementType):
         if source.dynamic_type != Category.DynamicType.NONE:
             raise ValueError('A calculated category cannot be the source of another one')
         if self._cm_factor(source.unit) is None:
-            raise ValueError('The source category has to be measured in cm or inches')
+            raise ValueError('The source category has to be measured in a length unit')
 
     @staticmethod
     def _cm_factor(unit: str) -> Decimal | None:
         """
         What a value of this unit has to be multiplied with to become
-        centimeters, or None if it is not a length this type understands
+        centimeters, or None if it is not a length this type understands.
         """
-        normalized = (unit or '').strip().lower()
-        if normalized == 'cm':
-            return Decimal(1)
-        if normalized in ('in', 'inch', 'inches'):
-            return AbstractHeight.INCHES_IN_CM
-        return None
+        return LENGTH_UNITS.get((unit or '').strip().lower().rstrip('.'))
 
     @staticmethod
     def _source_category(user_id, params) -> Category | None:
