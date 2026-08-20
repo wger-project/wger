@@ -225,16 +225,48 @@ class CategorySerializer(serializers.ModelSerializer):
             )
 
         calc = dynamic.get_type(dynamic_type)
-        if calc is not None:
-            try:
-                jsonschema.validate(instance=dynamic_params, schema=calc.params_schema)
-            except jsonschema.exceptions.ValidationError as e:
-                raise serializers.ValidationError({'dynamic_params': e.message})
+        if calc is None:
+            return
 
-            try:
-                calc.validate_params(self._get_user_id(), dynamic_params)
-            except ValueError as e:
-                raise serializers.ValidationError({'dynamic_params': str(e)})
+        # The same calculation with the same settings yields the same series,
+        # so a second category of it would only compute and sync the same
+        # values twice (the same reasoning as one category per metric type)
+        if self._duplicate_calculation(dynamic_type, dynamic_params):
+            raise serializers.ValidationError(
+                {'dynamic_type': f'You already have a {calc.label} category with these settings'}
+            )
+
+        try:
+            jsonschema.validate(instance=dynamic_params, schema=calc.params_schema)
+        except jsonschema.exceptions.ValidationError as e:
+            raise serializers.ValidationError({'dynamic_params': e.message})
+
+        try:
+            calc.validate_params(self._get_user_id(), dynamic_params)
+        except ValueError as e:
+            raise serializers.ValidationError({'dynamic_params': str(e)})
+
+    def _duplicate_calculation(self, dynamic_type, dynamic_params) -> bool:
+        """
+        Whether the user already has this calculation, configured the same way.
+
+        The parameters are compared as they are stored. A value the user left
+        out and one they typed that happens to be the server's default read as
+        two configurations here, which lets a duplicate through rather than
+        refusing two categories that differ.
+        """
+        user_id = self._get_user_id()
+        if user_id is None:
+            return False
+
+        categories = Category.objects.filter(
+            user_id=user_id,
+            dynamic_type=dynamic_type,
+            dynamic_params=dynamic_params,
+        )
+        if self.instance is not None:
+            categories = categories.exclude(pk=self.instance.pk)
+        return categories.exists()
 
     def _has_own_entries(self) -> bool:
         """

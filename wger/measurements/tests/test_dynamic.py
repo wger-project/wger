@@ -361,6 +361,114 @@ class ImmutableCalculationTestCase(DynamicMeasurementTestCase):
         self.assertEqual(category.dynamic_params['max_reps'], 3)
 
 
+class DuplicateCalculationTestCase(DynamicMeasurementTestCase):
+    """
+    The same calculation with the same settings exists once per user, and as
+    often as it is configured differently
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+
+    def create(self, payload):
+        return self.client.post(
+            reverse('measurement-category-list'),
+            {'name': 'Second', 'unit': '', **payload},
+            content_type='application/json',
+        )
+
+    def test_a_second_bmi_is_refused(self):
+        """
+        Both would hold the same values forever
+        """
+        self.enable_bmi()
+
+        response = self.create({'dynamic_type': 'BMI'})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('dynamic_type', response.data)
+
+    def test_the_existing_one_can_still_be_edited(self):
+        """
+        A category is not a duplicate of itself
+        """
+        category = self.enable_bmi()
+
+        response = self.client.patch(
+            reverse('measurement-category-detail', kwargs={'pk': category.pk}),
+            {'name': 'Body mass index'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_a_ratio_of_the_same_category_is_refused(self):
+        """
+        Parameters do not make it a different series if they are the same
+        """
+        waist = Category.objects.create(user=self.user, name='Waist', unit='cm')
+        with self.captureOnCommitCallbacks(execute=True):
+            Category.objects.create(
+                user=self.user,
+                name='WHtR',
+                unit='',
+                dynamic_type=Category.DynamicType.WHTR,
+                dynamic_params={'category_id': str(waist.pk)},
+            )
+
+        response = self.create({
+            'dynamic_type': 'WHTR',
+            'dynamic_params': {'category_id': str(waist.pk)},
+        })
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('dynamic_type', response.data)
+
+    def test_a_ratio_of_another_category_is_fine(self):
+        """
+        Waist and hip are two ratios, not a duplicate
+        """
+        waist = Category.objects.create(user=self.user, name='Waist', unit='cm')
+        hip = Category.objects.create(user=self.user, name='Hip', unit='cm')
+        with self.captureOnCommitCallbacks(execute=True):
+            Category.objects.create(
+                user=self.user,
+                name='WHtR',
+                unit='',
+                dynamic_type=Category.DynamicType.WHTR,
+                dynamic_params={'category_id': str(waist.pk)},
+            )
+
+        response = self.create({
+            'dynamic_type': 'WHTR',
+            'dynamic_params': {'category_id': str(hip.pk)},
+        })
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_a_calculation_with_other_parameters_may_repeat(self):
+        """
+        Two 1RM categories are two exercises, not a duplicate
+        """
+        with self.captureOnCommitCallbacks(execute=True):
+            Category.objects.create(
+                user=self.user,
+                name='1RM bench',
+                unit='kg',
+                dynamic_type=Category.DynamicType.ONE_REP_MAX,
+                dynamic_params={'exercise_id': 1},
+            )
+
+        response = self.create({
+            'unit': 'kg',
+            'dynamic_type': 'ONE_REP_MAX',
+            'dynamic_params': {'exercise_id': 2},
+        })
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
 class ExistingEntriesTestCase(DynamicMeasurementTestCase):
     """
     Entries a user wrote themselves stay theirs, also in a category that was
@@ -783,6 +891,52 @@ class WhtrTestCase(DynamicMeasurementTestCase):
 
         # 34 in = 86.36 cm, / 180 = 0.48 (and not the raw 34 / 180 = 0.19)
         self.assertEqual(rows[0].value, Decimal('0.48'))
+
+    def test_the_unit_may_be_written_in_the_usual_ways(self):
+        """
+        The unit of a free-form category is text the user typed, so an
+        abbreviation or a spelled-out length counts as the same one
+        """
+        self.create_waist('34.00')
+
+        for unit in ('CM', ' cm.', 'centimeters', 'in', 'Inches', '"', 'mm', 'm'):
+            with self.subTest(unit=unit):
+                self.waist.unit = unit
+                self.waist.save()
+
+                with self.captureOnCommitCallbacks(execute=True):
+                    category = Category.objects.create(
+                        user=self.user,
+                        name=f'WHtR {unit}',
+                        unit='',
+                        dynamic_type=Category.DynamicType.WHTR,
+                        dynamic_params={'category_id': str(self.waist.pk)},
+                    )
+
+                self.assertEqual(self.calculated_rows(category).count(), 1)
+
+    def test_a_length_is_converted_to_centimeters(self):
+        """
+        Whatever length the source is measured in, the ratio is the same
+        """
+        for unit, value in (('cm', '90.00'), ('mm', '900.00'), ('m', '0.90')):
+            with self.subTest(unit=unit):
+                self.waist.unit = unit
+                self.waist.save()
+                Measurement.objects.filter(category=self.waist).delete()
+                self.create_waist(value)
+
+                with self.captureOnCommitCallbacks(execute=True):
+                    category = Category.objects.create(
+                        user=self.user,
+                        name=f'WHtR {unit}',
+                        unit='',
+                        dynamic_type=Category.DynamicType.WHTR,
+                        dynamic_params={'category_id': str(self.waist.pk)},
+                    )
+
+                # 90 cm at a height of 180 cm
+                self.assertEqual(self.calculated_rows(category)[0].value, Decimal('0.50'))
 
     def test_api_refuses_a_source_that_is_not_a_length(self):
         """
