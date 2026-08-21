@@ -194,7 +194,7 @@ class ExerciseSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(counts_before, counts_after)
-        self.assertIn('language', response.json().get('translations')[0])
+        self.assertIn('language', response.json()['translations']['0'])
 
     def test_unsuccessful_submission_language_mismatch_comment(self):
         """
