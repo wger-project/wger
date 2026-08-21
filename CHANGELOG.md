@@ -46,6 +46,16 @@ We have also updated the available charts:
 - new bar chart, used for values such as the blood pressure
 - heatmap, used for categories such as daily steps
 
+### Calculated categories
+A measurement category can now be calculated by wger instead of typed in by you.
+At the moment there's available:
+
+- BMI, from your body weight entries and the height
+- waist to height ratio, from a category you measure your waist in
+- the one-rep max of an exercise, estimated from your logged sets
+- the total of two to five exercises, the classic being bench press, squat and
+  deadlift added up
+
 ### Body weight understands units
 Every body weight entry now remembers the unit it was entered in and is converted
 when needed. Previously, changing the unit in the profile from metric to imperial
@@ -123,6 +133,14 @@ like openScale do not need any changes.
   body weight entry is stored in `extra_data.unit` (`kg` or `lb`). If it is
   missing, the unit of the category applies. `extra_data` is replaced as a
   whole on PATCH, so send back the keys you want to keep.
+- Categories gained `dynamic_type` and `dynamic_params` for the calculated
+  categories described above. `/api/v2/measurement-category/dynamic-types/`
+  lists what the server can calculate and which parameters each category takes.
+  Only free-form categories without entries of their own can be calculated,
+  and the calculation cannot be changed once it is set.
+- `source` gained the value `calculated` for the entries such a category holds.
+  They are refused on POST, PATCH and DELETE, since the server replaces them
+  whenever what they are computed from changes.
 
 ### Workout sessions
 * `/api/v2/workoutsession/` now uses `datetime_start` and `datetime_end`. The
