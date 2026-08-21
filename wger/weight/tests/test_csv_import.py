@@ -20,7 +20,7 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 logger = logging.getLogger(__name__)
@@ -40,7 +40,7 @@ class WeightCsvImportTestCase(WgerTestCase):
 
         # Do a direct post request
         # 1st step
-        count_before = WeightEntry.objects.count()
+        count_before = Measurement.objects.count()
         csv_input = """Datum	Gewicht	KJ
 05.01.10 00:00:00	error here	111
 22.01.aa 00:00:00	69,2	222
@@ -50,6 +50,7 @@ class WeightCsvImportTestCase(WgerTestCase):
 19.02.10 00:00:00	71	222
 26.02.10 00:00:00	71,9	222
 26.02.10 00:00:00	71,9	222
+07.03.10 00:00:00	7000	222
 19.03.10 00:00:00	72	 222"""
         response = self.client.post(
             reverse('weight:import-csv'),
@@ -58,7 +59,8 @@ class WeightCsvImportTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['weight_list']), 6)
-        self.assertEqual(len(response.context['error_list']), 4)
+        # the unparseable rows, the duplicate date, and the 7000 kg entry
+        self.assertEqual(len(response.context['error_list']), 5)
         hash_value = response.context['hash_value']
 
         # 2nd. step
@@ -72,7 +74,7 @@ class WeightCsvImportTestCase(WgerTestCase):
             },
         )
 
-        count_after = WeightEntry.objects.count()
+        count_after = Measurement.objects.count()
         self.assertEqual(response.status_code, 302)
 
         self.assertGreater(count_after, count_before)

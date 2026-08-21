@@ -12,6 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
+
+# Django
+from django.utils import timezone
+
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests import powersync_base_test
 from wger.manager.models import (
@@ -90,6 +99,36 @@ class WorkoutSessionPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestC
     }
 
     fk_ownership = (('routine', ROUTINE_OTHER),)
+
+    def test_create_with_deprecated_fields(self):
+        """
+        A push queued by an app version that predates 2.7 still lands on the day
+        and time it was recorded on
+        """
+
+        self.authenticate()
+        response = self.push(
+            'PUT',
+            {
+                'id': 'bbbbbbbb-bbbb-bbbb-bbbb-000000000098',
+                'date': '2030-01-15',
+                'time_start': '23:00:00',
+                'time_end': '01:30:00',
+                'routine': ROUTINE_OWNED,
+                'impression': '2',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000098')
+        self.assertEqual(
+            session.datetime_start,
+            timezone.make_aware(datetime.datetime(2030, 1, 15, 23, 0)),
+        )
+        self.assertEqual(
+            session.datetime_end,
+            timezone.make_aware(datetime.datetime(2030, 1, 16, 1, 30)),
+        )
 
 
 class RoutinePowerSyncTestCase(

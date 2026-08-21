@@ -36,12 +36,15 @@ from allauth.account.models import EmailAddress
 
 # wger
 from wger.gym.models import Gym
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
 from wger.utils.constants import TWOPLACES
 from wger.utils.units import (
     AbstractHeight,
     AbstractWeight,
 )
-from wger.weight.models import WeightEntry
 
 # Local
 from .language import Language
@@ -389,8 +392,9 @@ class UserProfile(models.Model):
         more consistent with the other settings (age, height, etc.)
         """
         try:
-            weight = WeightEntry.objects.filter(user=self.user).latest().weight
-        except WeightEntry.DoesNotExist:
+            entry = Measurement.body_weight_for(self.user).latest('date')
+            weight = entry.value_in(self.weight_unit)
+        except Measurement.DoesNotExist:
             weight = 0
         return weight
 
@@ -523,10 +527,13 @@ class UserProfile(models.Model):
         """
         Create a new weight entry and return it
         """
-        entry = WeightEntry()
-        entry.weight = weight
-        entry.user = self.user
-        entry.date = timezone.now()
+        category = Category.get_or_create_body_weight(self.user, unit=self.weight_unit)
+        entry = Measurement(
+            category=category,
+            value=weight,
+            date=timezone.now(),
+            extra_data={'unit': self.weight_unit},
+        )
         entry.save()
 
         return entry

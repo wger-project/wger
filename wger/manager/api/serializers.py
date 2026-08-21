@@ -13,6 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+
+# Django
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.utils import timezone
+
 # Third Party
 from rest_framework import serializers
 
@@ -423,18 +430,104 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
+    # Write-only compatibility with the pre-2.7 API, remove in 2.8. The app
+    # queues its offline writes with the column names it had at the time, so
+    # uploads written before the update still arrive in the old shape.
+    LEGACY_FIELDS = ('date', 'time_start', 'time_end')
+
     class Meta:
         model = WorkoutSession
         fields = (
             'id',
             'routine',
             'day',
-            'date',
             'notes',
             'impression',
-            'time_start',
-            'time_end',
+            'datetime_start',
+            'datetime_end',
         )
+
+    def validate(self, attrs):
+        """
+        Run the model validation on the interval the request would end up with
+
+        Sessions stored before the limit was introduced, or before it was lowered,
+        stay editable as long as the request leaves their times alone.
+        """
+        start = attrs.get('datetime_start')
+        end = attrs.get('datetime_end') if 'datetime_end' in attrs else None
+        if self.instance:
+            start = start or self.instance.datetime_start
+            if 'datetime_end' not in attrs:
+                end = self.instance.datetime_end
+            if (start, end) == (self.instance.datetime_start, self.instance.datetime_end):
+                return attrs
+        else:
+            start = start or timezone.now()
+
+        try:
+            WorkoutSession(datetime_start=start, datetime_end=end).clean()
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'datetime_end': e.messages})
+
+        return attrs
+
+    def to_internal_value(self, data):
+        return super().to_internal_value(self._translate_legacy_input(data))
+
+    def _translate_legacy_input(self, data):
+        """
+        Compose datetime_start/datetime_end out of the deprecated triple
+
+        Only components the request did not send are taken from the instance, so
+        a PATCH that just sets time_end keeps the day and start time it had. Values
+        sent in the new format always win.
+        """
+        if not any(key in data for key in self.LEGACY_FIELDS):
+            return data
+
+        data = data.copy()
+        date = self._legacy_value('date', data, serializers.DateField)
+        time_start = self._legacy_value('time_start', data, serializers.TimeField)
+        time_end = self._legacy_value('time_end', data, serializers.TimeField)
+
+        local_start = (
+            timezone.localtime(self.instance.datetime_start)
+            if self.instance and self.instance.datetime_start
+            else None
+        )
+        if date is None:
+            date = local_start.date() if local_start else timezone.localdate()
+        if 'time_start' not in data:
+            time_start = local_start.time() if local_start else datetime.time()
+        if 'time_end' not in data and self.instance and self.instance.datetime_end:
+            time_end = timezone.localtime(self.instance.datetime_end).time()
+
+        if 'datetime_start' not in data:
+            data['datetime_start'] = timezone.make_aware(
+                datetime.datetime.combine(date, time_start or datetime.time())
+            )
+        if 'datetime_end' not in data:
+            end = None
+            if time_end:
+                end = timezone.make_aware(datetime.datetime.combine(date, time_end))
+                if time_start and time_end < time_start:
+                    end += datetime.timedelta(days=1)
+            data['datetime_end'] = end
+
+        return data
+
+    @staticmethod
+    def _legacy_value(key, data, field_class):
+        """Parse one deprecated value, reporting errors under its own key"""
+
+        if data.get(key) in (None, ''):
+            return None
+
+        try:
+            return field_class().to_internal_value(data[key])
+        except serializers.ValidationError as e:
+            raise serializers.ValidationError({key: e.detail})
 
 
 class OwnerScopedSessionField(serializers.PrimaryKeyRelatedField):

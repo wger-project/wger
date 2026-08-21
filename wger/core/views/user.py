@@ -118,7 +118,7 @@ from wger.utils.headless_long_lived import (
     revoke_all_long_lived_sessions,
     revoke_long_lived_session,
 )
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 logger = logging.getLogger(__name__)
@@ -660,13 +660,17 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
                 }
             )
         context['routine_data'] = out
-        context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
-            :5
+        profile_unit = self.object.userprofile.weight_unit
+        context['weight_entries'] = [
+            {'date': entry.date, 'value': entry.value_in(profile_unit)}
+            for entry in Measurement.body_weight_for(self.object).order_by('-date')[:5]
         ]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]
-        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
+        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by(
+            '-datetime_start'
+        )[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
 
