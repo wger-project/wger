@@ -23,7 +23,7 @@ jobs:
         run: pip install ruff
 
       - name: Sort the imports
-        run: ruff check --select I --fix
+        run: ruff check --fix
 
       - name: Format the code
         run: ruff format
@@ -34,8 +34,8 @@ jobs:
         continue-on-error: true
 
         run: |
-          git config user.name Github-actions
-          git config user.email github-actions@github.com
+          git config user.name git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Automatic linting"
           git push
