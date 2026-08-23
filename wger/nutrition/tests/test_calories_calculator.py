@@ -23,9 +23,9 @@ from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.measurements.models import Measurement
 from wger.nutrition.forms import BmrForm
 from wger.utils.constants import TWOPLACES
-from wger.measurements.models import Measurement
 
 
 class CaloriesCalculatorTestCase(WgerTestCase):

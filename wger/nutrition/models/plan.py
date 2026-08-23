@@ -26,11 +26,11 @@ from django.urls import reverse
 from django.utils.timezone import make_aware
 
 # wger
+from wger.measurements.models import Measurement
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.utils.uuid import uuid7
-from wger.measurements.models import Measurement
 
 
 logger = logging.getLogger(__name__)

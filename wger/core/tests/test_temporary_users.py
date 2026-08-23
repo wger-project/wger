@@ -34,13 +34,13 @@ from wger.manager.models import (
     Routine,
     WorkoutLog,
 )
-from wger.nutrition.models import (
-    Meal,
-    NutritionPlan,
-)
 from wger.measurements.models import (
     Category,
     Measurement,
+)
+from wger.nutrition.models import (
+    Meal,
+    NutritionPlan,
 )
 
 

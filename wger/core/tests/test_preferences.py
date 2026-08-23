@@ -24,8 +24,8 @@ from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.utils.constants import TWOPLACES
 from wger.measurements.models import Measurement
+from wger.utils.constants import TWOPLACES
 
 
 logger = logging.getLogger(__name__)

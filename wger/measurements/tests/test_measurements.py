@@ -23,8 +23,6 @@ from django.db import (
     IntegrityError,
     transaction,
 )
-
-# Django
 from django.urls import reverse
 
 # wger

@@ -102,6 +102,7 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+from wger.measurements.models import Measurement
 from wger.nutrition.models import NutritionPlan
 from wger.utils.api_token import (
     blacklist_jwt_refresh_tokens,
@@ -118,7 +119,6 @@ from wger.utils.headless_long_lived import (
     revoke_all_long_lived_sessions,
     revoke_long_lived_session,
 )
-from wger.measurements.models import Measurement
 
 
 logger = logging.getLogger(__name__)
