@@ -14,8 +14,10 @@
 
 # Standard Library
 import datetime
+import zoneinfo
 
 # Django
+from django.contrib.auth.models import User
 from django.db import (
     IntegrityError,
     transaction,
@@ -126,6 +128,70 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class WorkoutSessionLocalDayTestCase(WgerTestCase):
+    """
+    Test in whose timezone the day of a session is derived
+    """
+
+    MEMBER1 = 14
+    """Fixture user with time_zone Pacific/Auckland"""
+
+    TEST_USER = 2
+    """Fixture user without a reported zone"""
+
+    @staticmethod
+    def session_at(user_id, start):
+        return WorkoutSession.objects.create(
+            user_id=user_id,
+            datetime_start=start,
+        )
+
+    def test_east_of_the_server_the_day_is_the_next_one(self):
+        """14:00 UTC is already the following day in Auckland"""
+
+        session = self.session_at(
+            self.MEMBER1,
+            datetime.datetime(2024, 6, 19, 14, 0, tzinfo=datetime.timezone.utc),
+        )
+
+        self.assertEqual(session.local_day, datetime.date(2024, 6, 20))
+
+    def test_west_of_the_server_the_day_is_the_previous_one(self):
+        """01:30 UTC is still the previous evening in Denver"""
+
+        profile = User.objects.get(pk=self.TEST_USER).userprofile
+        profile.time_zone = 'America/Denver'
+        profile.save()
+
+        session = self.session_at(
+            self.TEST_USER,
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        self.assertEqual(session.local_day, datetime.date(2024, 6, 18))
+
+    def test_the_viewers_zone_does_not_leak_in(self):
+        """The day belongs to the session's user, not to whoever is asking"""
+
+        session = self.session_at(
+            self.MEMBER1,
+            datetime.datetime(2024, 6, 19, 14, 0, tzinfo=datetime.timezone.utc),
+        )
+
+        with timezone.override(zoneinfo.ZoneInfo('America/Denver')):
+            self.assertEqual(session.local_day, datetime.date(2024, 6, 20))
+
+    def test_without_a_zone_the_instance_zone_decides(self):
+        """23:30 UTC is the next day in Europe/Berlin, the instance zone"""
+
+        session = self.session_at(
+            self.TEST_USER,
+            datetime.datetime(2024, 6, 19, 23, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        self.assertEqual(session.local_day, datetime.date(2024, 6, 20))
 
 
 class WorkoutSessionIntervalConstraintTestCase(WgerTestCase):
