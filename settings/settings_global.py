@@ -155,6 +155,9 @@ MIDDLEWARE = [
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
+    # Time zone middleware
+    'wger.core.middleware.TimezoneMiddleware',
+
     # Auth proxy middleware
     'wger.core.middleware.AuthProxyHeaderMiddleware',
 

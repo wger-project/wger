@@ -17,6 +17,10 @@
 # Standard Library
 import datetime
 import decimal
+from zoneinfo import (
+    ZoneInfo,
+    available_timezones,
+)
 
 # Django
 from django.conf import settings
@@ -63,6 +67,14 @@ def birthdate_validator(birthdate):
             _('%(birthdate)s is not a valid birthdate'),
             params={'birthdate': birthdate},
         )
+
+
+def validate_timezone(value: str) -> None:
+    """
+    Validates that the given string is a real IANA timezone name.
+    """
+    if value not in available_timezones():
+        raise ValidationError(f'"{value} is not a valid IANA timezone name')
 
 
 class UserProfile(models.Model):
@@ -326,6 +338,17 @@ class UserProfile(models.Model):
     )
     """Number of Days for email weight reminder"""
 
+    time_zone = models.CharField(
+        verbose_name='Timezone',
+        max_length=50,
+        default=settings.TIME_ZONE,
+        validators=[validate_timezone],
+    )
+    """
+    IANA timezone name (e.g. "Europe/Berlin") used to compute what calendar day
+    a workout session, log, or other "local" event counts for.
+    """
+
     #
     # API
     #
@@ -440,6 +463,16 @@ class UserProfile(models.Model):
         :return: Boolean
         """
         return self.weight_unit == 'kg'
+
+    @property
+    def zone_info(self) -> ZoneInfo:
+        """
+        Returns the parsed ZoneInfo object for this user's timezone
+        """
+        try:
+            return ZoneInfo(self.time_zone)
+        except Exception:
+            return ZoneInfo(settings.TIME_ZONE)
 
     def calculate_bmi(self):
         """

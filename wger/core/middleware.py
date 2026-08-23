@@ -26,6 +26,7 @@ from django.contrib.auth import (
 )
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import url_has_allowed_host_and_scheme
 
@@ -163,3 +164,26 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             request.user = None
 
         return None
+
+
+class TimezoneMiddleware:
+    """
+    Activates the current user's stored time_zone for the duration of the
+    request, default is server's global TIME_ZONE
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        user = getattr(request, 'user', None)
+        if user is not None and user.is_authenticated:
+            try:
+                timezone.activate(user.userprofile.zone_info)
+            except Exception:
+                # Falls back to  Django's default (settings.TIME_ZONE)
+                timezone.deactivate()
+        else:
+            timezone.deactivate()
+
+        return self.get_response(request)

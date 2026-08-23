@@ -77,6 +77,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'calories',
             'weight_unit',
             'num_days_weight_reminder',
+            'time_zone',
         )
 
 
