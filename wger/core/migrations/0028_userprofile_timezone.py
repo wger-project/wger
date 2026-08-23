@@ -1,5 +1,4 @@
 # Django
-from django.conf import settings
 from django.db import migrations, models
 
 # wger
@@ -16,7 +15,8 @@ class Migration(migrations.Migration):
             model_name='userprofile',
             name='time_zone',
             field=models.CharField(
-                default=settings.TIME_ZONE,
+                blank=True,
+                default='',
                 max_length=50,
                 validators=[validate_timezone],
                 verbose_name='Timezone',

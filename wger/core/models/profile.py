@@ -19,6 +19,7 @@ import datetime
 import decimal
 from zoneinfo import (
     ZoneInfo,
+    ZoneInfoNotFoundError,
     available_timezones,
 )
 
@@ -72,9 +73,11 @@ def birthdate_validator(birthdate):
 def validate_timezone(value: str) -> None:
     """
     Validates that the given string is a real IANA timezone name.
+
+    An empty value is allowed and means that no client has reported one.
     """
-    if value not in available_timezones():
-        raise ValidationError(f'"{value} is not a valid IANA timezone name')
+    if value and value not in available_timezones():
+        raise ValidationError(f'"{value}" is not a valid IANA timezone name')
 
 
 class UserProfile(models.Model):
@@ -341,12 +344,17 @@ class UserProfile(models.Model):
     time_zone = models.CharField(
         verbose_name='Timezone',
         max_length=50,
-        default=settings.TIME_ZONE,
+        blank=True,
+        default='',
         validators=[validate_timezone],
     )
     """
     IANA timezone name (e.g. "Europe/Berlin") used to compute what calendar day
     a workout session, log, or other "local" event counts for.
+
+    Empty means no client has reported one. That is not the same as the instance
+    timezone: features that would rather say nothing than say something wrong
+    check for it, see the time trophies.
     """
 
     #
@@ -467,12 +475,18 @@ class UserProfile(models.Model):
     @property
     def zone_info(self) -> ZoneInfo:
         """
-        Returns the parsed ZoneInfo object for this user's timezone
+        The user's timezone, falling back to the instance one
+
+        This is the only place the fallback is spelled out. Use
+        ``time_zone`` itself to tell a reported zone from an assumed one.
         """
+        if not self.time_zone:
+            return timezone.get_default_timezone()
+
         try:
             return ZoneInfo(self.time_zone)
-        except Exception:
-            return ZoneInfo(settings.TIME_ZONE)
+        except (ZoneInfoNotFoundError, ValueError):
+            return timezone.get_default_timezone()
 
     def calculate_bmi(self):
         """

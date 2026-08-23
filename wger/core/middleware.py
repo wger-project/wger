@@ -168,20 +168,26 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
 
 class TimezoneMiddleware:
     """
-    Activates the current user's stored time_zone for the duration of the
-    request, default is server's global TIME_ZONE
+    Activates the requesting user's time zone for the duration of the request
+
+    This is for rendering only: it decides the offset of the timestamps in a
+    response and the zone a date filter is resolved in. What day a stored row
+    counts for is derived from the zone of the user the row belongs to, which
+    is not necessarily the one asking.
     """
 
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
+        # wger
+        from wger.core.models import UserProfile
+
         user = getattr(request, 'user', None)
         if user is not None and user.is_authenticated:
             try:
                 timezone.activate(user.userprofile.zone_info)
-            except Exception:
-                # Falls back to  Django's default (settings.TIME_ZONE)
+            except UserProfile.DoesNotExist:
                 timezone.deactivate()
         else:
             timezone.deactivate()

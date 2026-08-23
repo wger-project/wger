@@ -133,9 +133,10 @@ class WorkoutSession(models.Model):
         """
         The calendar day this session counts for, e.g. for streaks
 
-        A session that runs over midnight counts for the day it started on. The
-        day is derived in the instance timezone; there is no per-user timezone
-        yet, see the ORM equivalent ``datetime_start__date``.
+        A session that runs over midnight counts for the day it started on, in
+        the timezone of the user it belongs to and not in the one of whoever is
+        asking. An ORM lookup such as ``datetime_start__date`` resolves in the
+        active timezone instead and is not an equivalent.
         """
         if not self.datetime_start:
             return None
