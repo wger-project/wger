@@ -17,7 +17,6 @@
 # Standard Library
 from collections import defaultdict
 from datetime import date
-from zoneinfo import available_timezones
 
 # Django
 from django import forms
@@ -57,6 +56,7 @@ from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
+from wger.core.models.profile import available_timezone_names
 
 
 class PasswordInputWithToggle(PasswordInput):
@@ -139,7 +139,7 @@ def timezone_choices():
     limits what the dropdown offers, not what the API stores.
     """
     groups = defaultdict(list)
-    for name in sorted(available_timezones()):
+    for name in sorted(available_timezone_names()):
         if '/' not in name or name.startswith('Etc/'):
             continue
         region, _, city = name.partition('/')

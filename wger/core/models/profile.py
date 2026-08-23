@@ -17,6 +17,7 @@
 # Standard Library
 import datetime
 import decimal
+from functools import lru_cache
 from zoneinfo import (
     ZoneInfo,
     ZoneInfoNotFoundError,
@@ -70,13 +71,21 @@ def birthdate_validator(birthdate):
         )
 
 
+@lru_cache(maxsize=1)
+def available_timezone_names() -> frozenset[str]:
+    """
+    The IANA names, cached: available_timezones() rescans the tzdata on every call
+    """
+    return frozenset(available_timezones())
+
+
 def validate_timezone(value: str) -> None:
     """
     Validates that the given string is a real IANA timezone name.
 
     An empty value is allowed and means that no client has reported one.
     """
-    if value and value not in available_timezones():
+    if value and value not in available_timezone_names():
         raise ValidationError(f'"{value}" is not a valid IANA timezone name')
 
 
