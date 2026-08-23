@@ -94,7 +94,8 @@ class UserStatisticsService:
 
         # The zone of the user the sessions belong to, fetched once for the
         # whole recalculation: local_day would load the profile per session
-        tz = user.userprofile.zone_info
+        profile = user.userprofile
+        tz = profile.zone_info
 
         # Calculate streaks and other date-based stats
         workout_dates = sorted({day for session in sessions if (day := session.local_day_in(tz))})
@@ -106,8 +107,14 @@ class UserStatisticsService:
         if workout_dates:
             stats.last_workout_date = workout_dates[-1]
 
-        # Calculate earliest and latest workout times
-        earliest, latest = cls._calculate_workout_times(sessions, tz)
+        # Calculate earliest and latest workout times. A clock time only means
+        # something in the user's own zone: without a reported one the time
+        # trophies stay unawarded rather than be awarded from a guess, since a
+        # trophy is never taken away again.
+        if profile.time_zone:
+            earliest, latest = cls._calculate_workout_times(sessions, tz)
+        else:
+            earliest, latest = None, None
         stats.earliest_workout_time = earliest
         stats.latest_workout_time = latest
 
@@ -157,7 +164,8 @@ class UserStatisticsService:
             volume = weight_kg * reps
             stats.total_weight_lifted += volume
 
-        tz = user.userprofile.zone_info
+        profile = user.userprofile
+        tz = profile.zone_info
 
         # Get the session date
         session_date = None
@@ -201,8 +209,9 @@ class UserStatisticsService:
                 # Update weekend streak
                 cls._update_weekend_streak_incremental(stats, session_date, tz)
 
-        # Update workout times if session has time info
-        if session and session.datetime_end:
+        # Update workout times if session has time info. Skipped without a
+        # reported zone, see update_statistics
+        if session and session.datetime_end and profile.time_zone:
             session_time = timezone.localtime(session.datetime_start, timezone=tz).time()
             if stats.earliest_workout_time is None or session_time < stats.earliest_workout_time:
                 stats.earliest_workout_time = session_time

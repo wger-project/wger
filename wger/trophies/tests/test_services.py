@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 from decimal import Decimal
 from unittest.mock import patch
 
@@ -68,6 +69,73 @@ class UserStatisticsServiceTestCase(WgerTestCase):
 
         self.assertEqual(stats.pk, existing.pk)
         self.assertEqual(stats.total_workouts, 5)
+
+    def make_session(self, start, end):
+        return WorkoutSession.objects.create(
+            user=self.user,
+            datetime_start=start,
+            datetime_end=end,
+        )
+
+    def test_workout_times_stay_unset_without_a_reported_zone(self):
+        """No time trophies from a guessed timezone: the times stay null"""
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        stats = UserStatisticsService.update_statistics(self.user)
+
+        self.assertIsNone(stats.earliest_workout_time)
+        self.assertIsNone(stats.latest_workout_time)
+
+    def test_increment_skips_the_times_without_a_zone(self):
+        """The signal path must not set the times from a guess either"""
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        stats = UserStatistics.objects.get(user=self.user)
+        self.assertIsNone(stats.earliest_workout_time)
+        self.assertIsNone(stats.latest_workout_time)
+
+    def test_workout_times_follow_the_reported_zone(self):
+        """01:30 UTC is an evening workout for a user in Denver, not an early one"""
+
+        profile = self.user.userprofile
+        profile.time_zone = 'America/Denver'
+        profile.save()
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        stats = UserStatisticsService.update_statistics(self.user)
+
+        self.assertEqual(stats.earliest_workout_time, datetime.time(19, 30))
+        self.assertEqual(stats.latest_workout_time, datetime.time(19, 30))
+
+    def test_a_late_zone_report_backfills_the_times(self):
+        """The first recalculation after the zone arrives fills in the history"""
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+        stats = UserStatisticsService.update_statistics(self.user)
+        self.assertIsNone(stats.earliest_workout_time)
+
+        profile = self.user.userprofile
+        profile.time_zone = 'America/Denver'
+        profile.save()
+
+        stats = UserStatisticsService.update_statistics(self.user)
+
+        self.assertEqual(stats.earliest_workout_time, datetime.time(19, 30))
 
     def test_update_statistics_creates_if_missing(self):
         """Test update_statistics creates statistics if missing"""
