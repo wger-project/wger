@@ -233,11 +233,13 @@ class Routine(models.Model):
         if not days:
             return []
 
-        # Precompute session dates from prefetched logs
+        # Precompute session dates from prefetched logs. The zone is the same
+        # for every session of this routine's user, fetch it once
+        tz = self.user.userprofile.zone_info
         workout_session_map = defaultdict(set)
         for day in days:
             for session in day.workoutsession_set.all():
-                workout_session_map[day.id].add(session.local_day)
+                workout_session_map[day.id].add(session.local_day_in(tz))
 
         # Main sequence generation logic
         labels = self.label_dict
@@ -454,8 +456,9 @@ class Routine(models.Model):
                     avg_log_data(res_group[key], cnt_group[key])
 
         # Iterate over each workout session associated with the routine
+        tz = self.user.userprofile.zone_info
         for session in self.sessions.all():
-            session_date = session.local_day
+            session_date = session.local_day_in(tz)
             week_number = session_date.isocalendar().week
 
             # TODO: filter for lb

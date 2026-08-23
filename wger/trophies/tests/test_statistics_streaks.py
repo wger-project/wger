@@ -55,7 +55,7 @@ class CalculateStreaksTestCase(SimpleTestCase):
 
     def calculate(self, dates):
         with frozen_today():
-            return UserStatisticsService._calculate_streaks(dates)
+            return UserStatisticsService._calculate_streaks(dates, timezone.get_default_timezone())
 
     def test_no_workouts(self):
         self.assertEqual(self.calculate([]), (0, 0))
@@ -113,7 +113,9 @@ class CalculateWorkoutTimesTestCase(SimpleTestCase):
             )
         ]
 
-        earliest, latest = UserStatisticsService._calculate_workout_times(sessions)
+        earliest, latest = UserStatisticsService._calculate_workout_times(
+            sessions, timezone.get_default_timezone()
+        )
 
         self.assertEqual(earliest, datetime.time(7, 30))
         self.assertEqual(latest, datetime.time(7, 30))
@@ -128,7 +130,9 @@ class CalculateWorkoutTimesTestCase(SimpleTestCase):
             ),
         ]
 
-        earliest, latest = UserStatisticsService._calculate_workout_times(sessions)
+        earliest, latest = UserStatisticsService._calculate_workout_times(
+            sessions, timezone.get_default_timezone()
+        )
 
         self.assertEqual(earliest, datetime.time(18, 0))
         self.assertEqual(latest, datetime.time(18, 0))
@@ -136,7 +140,12 @@ class CalculateWorkoutTimesTestCase(SimpleTestCase):
     def test_no_session_with_an_end_yields_nothing(self):
         sessions = [self.session(datetime.datetime(2024, 6, 19, 0, 0))]
 
-        self.assertEqual(UserStatisticsService._calculate_workout_times(sessions), (None, None))
+        self.assertEqual(
+            UserStatisticsService._calculate_workout_times(
+                sessions, timezone.get_default_timezone()
+            ),
+            (None, None),
+        )
 
 
 class CalculateWeekendStreakTestCase(SimpleTestCase):
@@ -149,7 +158,9 @@ class CalculateWeekendStreakTestCase(SimpleTestCase):
 
     def calculate(self, dates):
         with frozen_today():
-            return UserStatisticsService._calculate_weekend_streak(dates)
+            return UserStatisticsService._calculate_weekend_streak(
+                dates, timezone.get_default_timezone()
+            )
 
     def test_no_workouts(self):
         self.assertEqual(self.calculate([]), (0, None))

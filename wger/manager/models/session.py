@@ -137,13 +137,20 @@ class WorkoutSession(models.Model):
         the timezone of the user it belongs to and not in the one of whoever is
         asking. An ORM lookup such as ``datetime_start__date`` resolves in the
         active timezone instead and is not an equivalent.
+
+        Loads the owner's profile. Anything iterating over sessions of one user
+        should fetch the zone once and use ``local_day_in`` instead.
+        """
+        return self.local_day_in(self.user.userprofile.zone_info)
+
+    def local_day_in(self, tz: datetime.tzinfo) -> datetime.date | None:
+        """
+        The calendar day this session counts for, in the given timezone
         """
         if not self.datetime_start:
             return None
 
-        return timezone.localtime(
-            self.datetime_start, timezone=self.user.userprofile.zone_info
-        ).date()
+        return timezone.localtime(self.datetime_start, timezone=tz).date()
 
     class Meta:
         """
