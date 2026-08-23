@@ -23,12 +23,60 @@ from django.urls import reverse
 from django.utils import timezone
 
 # wger
+from wger.core.forms import timezone_choices
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.measurements.models import Measurement
 from wger.utils.constants import TWOPLACES
 
 
 logger = logging.getLogger(__name__)
+
+
+class TimezonePreferenceTestCase(WgerTestCase):
+    """
+    Test setting the timezone through the preferences form
+    """
+
+    FORM_DATA = {
+        'first_name': '',
+        'last_name': '',
+        'notification_language': 2,
+        'weight_unit': 'kg',
+        'birthdate': '02/25/1987',
+        'height': 180,
+    }
+
+    def post_preferences(self, time_zone):
+        self.user_login('test')
+        return self.client.post(
+            reverse('core:user:preferences'),
+            {**self.FORM_DATA, 'time_zone': time_zone},
+        )
+
+    def test_setting_the_zone(self):
+        response = self.post_preferences('Pacific/Auckland')
+
+        self.assertEqual(response.status_code, 302)
+        profile = User.objects.get(username='test').userprofile
+        self.assertEqual(profile.time_zone, 'Pacific/Auckland')
+
+    def test_clearing_the_zone(self):
+        profile = User.objects.get(username='test').userprofile
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        response = self.post_preferences('')
+
+        self.assertEqual(response.status_code, 302)
+        profile.refresh_from_db()
+        self.assertEqual(profile.time_zone, '')
+
+    def test_the_dropdown_offers_grouped_iana_names(self):
+        choices = dict(timezone_choices())
+
+        self.assertIn(('Europe/Berlin', 'Berlin'), choices['Europe'])
+        self.assertNotIn('Etc', choices)
+        self.assertEqual(choices['UTC'], 'UTC')
 
 
 class PreferencesTestCase(WgerTestCase):
