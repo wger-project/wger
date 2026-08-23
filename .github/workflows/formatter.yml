@@ -20,15 +20,13 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Get dependencies
-        run: pip install ruff isort
+        run: pip install ruff
+
+      - name: Sort the imports
+        run: ruff check --select I --fix
 
       - name: Format the code
         run: ruff format
-
-      # While ruff can also do some sorting, isort can still be configured to do more,
-      # like grouping imports, etc.
-      - name: Sort the imports
-        run: isort .
 
       - name: Push a commit with the changed files
 

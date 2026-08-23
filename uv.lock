@@ -1061,15 +1061,6 @@ wheels = [
 ]
 
 [[package]]
-name = "isort"
-version = "8.0.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ef/7c/ec4ab396d31b3b395e2e999c8f46dec78c5e29209fac49d1f4dace04041d/isort-8.0.1.tar.gz", hash = "sha256:171ac4ff559cdc060bcfff550bc8404a486fee0caab245679c2abe7cb253c78d", size = 769592, upload-time = "2026-02-28T10:08:20.685Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3e/95/c7c34aa53c16353c56d0b802fba48d5f5caa2cdee7958acbcb795c830416/isort-8.0.1-py3-none-any.whl", hash = "sha256:28b89bc70f751b559aeca209e6120393d43fbe2490de0559662be7a9787e3d75", size = 89733, upload-time = "2026-02-28T10:08:19.466Z" },
-]
-
-[[package]]
 name = "jmespath"
 version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2014,7 +2005,6 @@ dev = [
     { name = "django-extensions" },
     { name = "faker" },
     { name = "hatchling" },
-    { name = "isort" },
     { name = "ruff" },
     { name = "tblib" },
 ]
@@ -2073,7 +2063,6 @@ dev = [
     { name = "django-extensions", specifier = "~=4.1" },
     { name = "faker", specifier = "~=40.36.0" },
     { name = "hatchling", specifier = "~=1.31.0" },
-    { name = "isort", specifier = "~=8.0.1" },
     { name = "ruff", specifier = "~=0.16.2" },
     { name = "tblib", specifier = "~=3.2.0" },
 ]

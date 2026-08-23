@@ -76,7 +76,6 @@ dev = [
     "django-extensions~=4.1",
     "faker~=40.36.0",
     "hatchling~=1.31.0",
-    "isort~=8.0.1",
     "ruff~=0.16.2",
     "tblib~=3.2.0",
 ]
@@ -153,69 +152,39 @@ select = [
     "F", # Pyflakes
     "E", # Pycodestyle
     "W",
+    "I", # isort
 ]
+
+[tool.ruff.lint.per-file-ignores]
+# Import sorting was historically skipped for these (isort's "skip" list)
+"**/migrations/*.py" = ["I"]
+"settings/*.py" = ["I"]
+"extras/**/*.py" = ["I"]
+"**/apps.py" = ["I"]
+
+#
+# TODO: ruff doesn't understand force_grid_wrap=2 yet, if that is ever implemented,
+#       we should add the appropriate configurations
+[tool.ruff.lint.isort]
+known-first-party = ["wger"]
+section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
+combine-as-imports = true
+order-by-type = true
+lines-after-imports = 2
+
+[tool.ruff.lint.isort.sections]
+django = ["django"]
+
+[tool.ruff.lint.isort.import-heading]
+future = "Future"
+standard-library = "Standard Library"
+django = "Django"
+third-party = "Third Party"
+first-party = "wger"
+local-folder = "Local"
 
 [tool.ruff.format]
 quote-style = "single"
 indent-style = "space"
 skip-magic-trailing-comma = false # Like Black, respect magic trailing commas.
 line-ending = "auto"
-
-[tool.isort]
-src_paths = ["wger", "extras"]
-
-sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-skip = ["extras", "build", "dist", "node_modules", "migrations", "docs", "settings", "apps.py", "venv", ".venv", ]
-# If set to true - ensures that if a star import is present, nothing else is
-# imported from that namespace.
-combine_star = false
-# If set to true - imports will be sorted by their length instead of
-# alphabetically.
-length_sort = false
-# An integer that represents the longest line-length you want a single import to
-# take. Defaults to 80.
-line_length = 119
-# A comment to consistently place directly above future imports.
-import_heading_future = "Future"
-# A comment to consistently place directly above django imports.
-import_heading_django = "Django"
-# A comment to consistently place directly above imports from the standard library.
-import_heading_stdlib = "Standard Library"
-# A comment to consistently place directly above third-party imports.
-import_heading_thirdparty = "Third Party"
-# A comment to consistently place directly above wger imports.
-import_heading_firstparty = "wger"
-# A comment to consistently place directly above imports that start with '.'.
-import_heading_localfolder = "Local"
-# An integer that represents the number of spaces you would like to indent by or
-# Tab to indent by a single tab.
-indent = "'    '"
-# A list of imports that will be forced to display within the first party
-# category.
-known_first_party = ["wger"]
-known_django = ["django"]
-# An integer that represents how you want imports to be displayed if they're long
-# enough to span multiple lines. A full definition of all possible modes can be
-# found in isort's README.
-multi_line_output = 3
-force_grid_wrap = 2
-# If set to true - isort will create separate sections within "from" imports
-# for CONSTANTS, Classes, and modules/functions.
-order_by_type = true
-# Forces a certain number of lines after the imports and before the first line
-# of functional code. By default, this is 2 lines if the first line of code is a
-# class or function. Otherwise, it's 1.
-lines_after_imports = 2
-
-# If set to true - isort will combine as imports on the same line within for
-# import statements. By default, isort forces all as imports to display on their
-# own lines.
-combine_as_imports = true
-
-# If set to true - isort will add imports even if the file specified is
-# currently completely empty.
-force_adds = false
-# Include a trailing comma after the imports. This ensures that yapf doesn't
-# reformat the code
-include_trailing_comma = true
-
