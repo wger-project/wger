@@ -224,6 +224,21 @@ class StatisticsTimezoneTestCase(WgerTestCase):
         stats = UserStatisticsService.update_statistics(self.member)
         self.assertEqual(stats.last_workout_date, datetime.date(2024, 6, 19))
 
+    def test_the_incremental_weekend_lookup_uses_the_users_zone(self):
+        """A Saturday/Sunday pair on the Auckland calendar completes the weekend"""
+
+        # Saturday and Sunday morning in Auckland, still Friday and Saturday
+        # evening in the instance zone. Created one by one so the signal path
+        # (increment_workout and its DB lookup) does the counting, not the
+        # full recalculation.
+        self.make_session(self.utc(2024, 6, 14, 20, 0))
+        self.make_session(self.utc(2024, 6, 15, 20, 0))
+
+        stats = UserStatistics.objects.get(user=self.member)
+
+        self.assertEqual(stats.weekend_workout_streak, 1)
+        self.assertEqual(stats.last_complete_weekend_date, datetime.date(2024, 6, 15))
+
     def test_the_workout_time_follows_the_local_clock_across_dst(self):
         """01:30 UTC on the spring-forward day is 03:30 in Berlin, not 02:30"""
 
