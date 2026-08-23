@@ -148,7 +148,6 @@ class Migration(migrations.Migration):
                 verbose_name='Value',
             ),
         ),
-
         # Powersync only re-replicates existing rows when the sync rules file changes
         # or when the data changes. In order to avoid problems for self-hoster that
         # have not updated the docker repo, we do a no-op update, that forces a

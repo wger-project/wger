@@ -64,7 +64,8 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             return None
 
         # Only handle requests to the login page.
-        # Here the user will be logged in using the proxy headers and redirected to the original page.
+        # Here the user will be logged in using the proxy headers and redirected
+        # to the original page.
         if remove_language_code(request.path_info) != self.login_url_path:
             # logger.debug(f'AuthProxyMiddleware: not request to login page. Skipping.')
             return None
@@ -126,8 +127,9 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             # and log in the header user for consistency.
             else:
                 logger.warning(
-                    f"AuthProxyMiddleware: User mismatch. Session user '{request.user.get_username()}' "
-                    f"differs from proxy header user '{username}'. Logging out old user."
+                    'AuthProxyMiddleware: User mismatch. '
+                    f"Session user '{request.user.get_username()}' differs from "
+                    f"proxy header user '{username}'. Logging out old user."
                 )
                 logout(request)
 

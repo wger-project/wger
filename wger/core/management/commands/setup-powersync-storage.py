@@ -116,7 +116,9 @@ class Command(BaseCommand):
                         EXECUTE format('CREATE ROLE %%I LOGIN PASSWORD %%L', user_name, user_pwd);
                         RAISE NOTICE 'created role %%', user_name;
                     ELSE
-                        EXECUTE format('ALTER ROLE %%I WITH LOGIN PASSWORD %%L', user_name, user_pwd);
+                        EXECUTE format(
+                            'ALTER ROLE %%I WITH LOGIN PASSWORD %%L', user_name, user_pwd
+                        );
                         RAISE NOTICE 'role %% already exists, password updated', user_name;
                     END IF;
 

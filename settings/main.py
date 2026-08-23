@@ -327,7 +327,10 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'simple': {
-            'format': 'level={levelname} ts={asctime} module={module} path={pathname} line={lineno} message={message}',
+            'format': (
+                'level={levelname} ts={asctime} module={module} '
+                'path={pathname} line={lineno} message={message}'
+            ),
             'style': '{',
         },
     },

@@ -126,7 +126,9 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             models.UniqueConstraint(
                 fields=['exercise', 'language'],
                 name='unique_exercise_language_translation',
-                violation_error_message='A translation for this exercise and language already exists.',
+                violation_error_message=(
+                    'A translation for this exercise and language already exists.'
+                ),
             )
         ]
 

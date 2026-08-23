@@ -417,10 +417,12 @@ class DuplicateCalculationTestCase(DynamicMeasurementTestCase):
                 dynamic_params={'category_id': str(waist.pk)},
             )
 
-        response = self.create({
-            'dynamic_type': 'WHTR',
-            'dynamic_params': {'category_id': str(waist.pk)},
-        })
+        response = self.create(
+            {
+                'dynamic_type': 'WHTR',
+                'dynamic_params': {'category_id': str(waist.pk)},
+            }
+        )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('dynamic_type', response.data)
@@ -440,10 +442,12 @@ class DuplicateCalculationTestCase(DynamicMeasurementTestCase):
                 dynamic_params={'category_id': str(waist.pk)},
             )
 
-        response = self.create({
-            'dynamic_type': 'WHTR',
-            'dynamic_params': {'category_id': str(hip.pk)},
-        })
+        response = self.create(
+            {
+                'dynamic_type': 'WHTR',
+                'dynamic_params': {'category_id': str(hip.pk)},
+            }
+        )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -460,11 +464,13 @@ class DuplicateCalculationTestCase(DynamicMeasurementTestCase):
                 dynamic_params={'exercise_id': 1},
             )
 
-        response = self.create({
-            'unit': 'kg',
-            'dynamic_type': 'ONE_REP_MAX',
-            'dynamic_params': {'exercise_id': 2},
-        })
+        response = self.create(
+            {
+                'unit': 'kg',
+                'dynamic_type': 'ONE_REP_MAX',
+                'dynamic_params': {'exercise_id': 2},
+            }
+        )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

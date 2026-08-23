@@ -109,7 +109,9 @@ class Routine(models.Model):
 
     is_template = models.BooleanField(
         verbose_name='Workout template',
-        help_text='Marking a workout as a template will freeze it and allow you to make copies of it',
+        help_text=(
+            'Marking a workout as a template will freeze it and allow you to make copies of it'
+        ),
         default=False,
         null=False,
     )

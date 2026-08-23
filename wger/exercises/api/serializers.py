@@ -764,7 +764,9 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         if data.get('variation_group') and data.get('variations_connect_to'):
             raise serializers.ValidationError(
                 {
-                    'variation_group': 'Either set variation_group or variations_connect_to, not both.'
+                    'variation_group': (
+                        'Either set variation_group or variations_connect_to, not both.'
+                    )
                 }
             )
 

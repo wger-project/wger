@@ -114,7 +114,9 @@ class WorkoutSession(models.Model):
         max_length=2,
         choices=IMPRESSION,
         default=IMPRESSION_NEUTRAL,
-        help_text='Your impression about this workout session. Did you exercise as well as you could?',
+        help_text=(
+            'Your impression about this workout session. Did you exercise as well as you could?'
+        ),
     )
     """
     The user's general impression of workout
