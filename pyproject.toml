@@ -6,7 +6,6 @@ build-backend = "hatchling.build"
 name = "wger"
 dynamic = ["version", ]
 authors = [
-    { name = "Roland Geider", email = "roland@geider.net" },
     { name = "wger team", email = "hello@wger.de" },
 ]
 description = "FLOSS workout, fitness and weight manager/tracker"
