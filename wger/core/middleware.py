@@ -31,6 +31,7 @@ from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import url_has_allowed_host_and_scheme
 
 # wger
+from wger.core.models import UserProfile
 from wger.utils.helpers import remove_language_code
 
 
@@ -180,9 +181,6 @@ class TimezoneMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # wger
-        from wger.core.models import UserProfile
-
         user = getattr(request, 'user', None)
         if user is not None and user.is_authenticated:
             try:
