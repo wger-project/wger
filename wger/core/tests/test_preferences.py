@@ -71,6 +71,23 @@ class TimezonePreferenceTestCase(WgerTestCase):
         profile.refresh_from_db()
         self.assertEqual(profile.time_zone, '')
 
+    def test_a_zone_outside_the_dropdown_survives_the_form(self):
+        """An API-set zone the dropdown does not offer is kept, not silently cleared"""
+
+        profile = User.objects.get(username='test').userprofile
+        profile.time_zone = 'Etc/GMT+5'
+        profile.save()
+
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, 'Etc/GMT+5')
+
+        response = self.post_preferences('Etc/GMT+5')
+
+        self.assertEqual(response.status_code, 302)
+        profile.refresh_from_db()
+        self.assertEqual(profile.time_zone, 'Etc/GMT+5')
+
     def test_the_dropdown_offers_grouped_iana_names(self):
         choices = dict(timezone_choices())
 

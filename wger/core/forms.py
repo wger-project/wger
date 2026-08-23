@@ -187,6 +187,14 @@ class UserPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserPreferencesForm, self).__init__(*args, **kwargs)
 
+        # A zone set through the API can lie outside the dropdown (e.g.
+        # Etc/GMT+5). Without its option the browser submits the empty choice
+        # and the next save of the form silently clears the field.
+        tz_field = self.fields['time_zone']
+        current = self.instance.time_zone
+        if current and not tz_field.valid_value(current):
+            tz_field.choices = [*tz_field.choices, (current, current)]
+
         hattrs = self.fields['height'].widget.attrs
         hattrs.setdefault('type', 'number')
         hattrs.setdefault('step', '1')
