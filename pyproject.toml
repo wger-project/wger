@@ -157,10 +157,13 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 # Import sorting was historically skipped for these (isort's "skip" list)
-"**/migrations/*.py" = ["I"]
+"**/migrations/*.py" = ["I", "F401"]
 "settings/*.py" = ["I"]
 "extras/**/*.py" = ["I"]
 "**/apps.py" = ["I"]
+
+# These re-export the models of their app, the imports are the public API
+"**/__init__.py" = ["F401"]
 
 #
 # TODO: ruff doesn't understand force_grid_wrap=2 yet, if that is ever implemented,
