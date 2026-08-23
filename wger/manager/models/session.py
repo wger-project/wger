@@ -151,6 +151,13 @@ class WorkoutSession(models.Model):
             'datetime_start',
         ]
         indexes = [models.Index(fields=['routine', 'datetime_start'])]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(datetime_end__isnull=True)
+                | models.Q(datetime_end__gte=models.F('datetime_start')),
+                name='session_end_after_start',
+            ),
+        ]
 
     @classmethod
     def max_duration(cls) -> datetime.timedelta:

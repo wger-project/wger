@@ -121,4 +121,12 @@ class Migration(migrations.Migration):
             model_name='workoutsession',
             name='time_start',
         ),
+        migrations.AddConstraint(
+            model_name='workoutsession',
+            constraint=models.CheckConstraint(
+                condition=models.Q(('datetime_end__isnull', True))
+                | models.Q(('datetime_end__gte', F('datetime_start'))),
+                name='session_end_after_start',
+            ),
+        ),
     ]

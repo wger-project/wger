@@ -16,6 +16,10 @@
 import datetime
 
 # Django
+from django.db import (
+    IntegrityError,
+    transaction,
+)
 from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -122,6 +126,27 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class WorkoutSessionIntervalConstraintTestCase(WgerTestCase):
+    """
+    Test the database constraint on the session interval
+    """
+
+    START = timezone.make_aware(datetime.datetime(2025, 3, 10, 18, 0))
+
+    def test_an_end_before_the_start_is_rejected(self):
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            WorkoutSession.objects.create(
+                user_id=1,
+                datetime_start=self.START,
+                datetime_end=self.START - datetime.timedelta(hours=1),
+            )
+
+    def test_a_session_without_an_end_is_allowed(self):
+        session = WorkoutSession.objects.create(user_id=1, datetime_start=self.START)
+
+        self.assertIsNone(session.datetime_end)
 
 
 class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
