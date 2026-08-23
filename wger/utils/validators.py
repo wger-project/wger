@@ -4,7 +4,6 @@ from django.utils.dateparse import (
     parse_date,
     parse_datetime,
 )
-from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import Language

@@ -16,7 +16,6 @@
 
 # Standard Library
 import datetime
-from uuid import uuid4
 
 # Django
 from django.conf import settings

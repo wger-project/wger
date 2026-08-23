@@ -14,7 +14,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import os
 
 # Django
 from django.conf import settings
