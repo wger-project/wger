@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
@@ -11,13 +11,14 @@ authors = [
 description = "FLOSS workout, fitness and weight manager/tracker"
 readme = "README.md"
 requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE.txt", "AUTHORS.md"]
 classifiers = [
     # http://pypi.python.org/pypi?%3Aaction=list_classifiers
     'Development Status :: 5 - Production/Stable',
     'Environment :: Web Environment',
     'Intended Audience :: Other Audience',
     'Framework :: Django',
-    'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.12',
