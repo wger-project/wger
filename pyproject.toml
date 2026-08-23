@@ -106,13 +106,6 @@ required-environments = [
     "sys_platform == 'linux' and platform_machine == 'aarch64'",
 ]
 
-[tool.setuptools]
-include-package-data = false
-packages = ["wger"]
-
-[tool.distutils.bdist_wheel]
-universal = 1
-
 [tool.hatch.version]
 source = "code"
 path = "wger/version.py"
