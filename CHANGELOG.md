@@ -80,6 +80,11 @@ pip install wger-api-client
 
 * <https://github.com/wger-project/api-client>
 
+### Your own timezone
+Streaks, calendar days and trophies are now calculated in your own timezone.
+The apps report it automatically, until they have, or for accounts that only
+ever use scripts, the server's timezone is used like before.
+
 ### Others
 * Reworked internal structure for workout sessions. This now allows sessions to span
   midnight, and to log more than one session per day, e.g. morning  cardio and evening
@@ -155,6 +160,12 @@ like openScale do not need any changes.
   `date`, so a single day is selected with `?datetime_start__date=2026-01-15`
   and a range with `?datetime_start__gte=...`.
 
+### Userprofile
+* New field `time_zone` on `/api/v2/userprofile/`: the user's IANA timezone
+  name, e.g. `Pacific/Auckland`. Clients should write it whenever it differs
+  from what the profile holds. Empty means no client has reported one yet, and
+  the instance timezone is used as the fallback.
+
 ### Removed
 
 * Removed the temporary `/api/v2/issue-refresh-token` endpoint. It existed only
@@ -163,6 +174,10 @@ like openScale do not need any changes.
 
 ## Upgrade steps
 
+* Make sure `TIME_ZONE` is set correctly **before** upgrading, and treat it as
+  fixed afterwards. The migration converts the old session dates using this
+  zone, and it stays the fallback for users whose apps have not reported their
+  own one yet. Changing it later shifts those users' past training days.
 * Pull new changes from the docker repo. There were changes to the sync rules due
   to the new measurements. It is recommended to stop the powersync service while
   the db migrations are running:

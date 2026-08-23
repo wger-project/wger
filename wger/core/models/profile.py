@@ -347,6 +347,8 @@ class UserProfile(models.Model):
         blank=True,
         default='',
         validators=[validate_timezone],
+        help_text='IANA timezone name, e.g. "Europe/Berlin". Empty means no '
+        'client has reported one and the instance timezone is used.',
     )
     """
     IANA timezone name (e.g. "Europe/Berlin") used to compute what calendar day

@@ -17,6 +17,8 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 default='',
+                help_text='IANA timezone name, e.g. "Europe/Berlin". Empty means no '
+                'client has reported one and the instance timezone is used.',
                 max_length=50,
                 validators=[validate_timezone],
                 verbose_name='Timezone',
