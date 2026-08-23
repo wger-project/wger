@@ -155,9 +155,6 @@ MIDDLEWARE = [
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
-    # Time zone middleware
-    'wger.core.middleware.TimezoneMiddleware',
-
     # Auth proxy middleware
     'wger.core.middleware.AuthProxyHeaderMiddleware',
 
@@ -166,6 +163,11 @@ MIDDLEWARE = [
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
+
+    # Activates the user's time zone. Has to come after the authentication
+    # middlewares: reading request.user earlier caches it and the guest user
+    # would never be created
+    'wger.core.middleware.TimezoneMiddleware',
 
     # Send an appropriate Header so search engines don't index pages
     'wger.utils.middleware.RobotsExclusionMiddleware',

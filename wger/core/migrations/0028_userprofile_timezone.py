@@ -8,7 +8,7 @@ from wger.core.models.profile import validate_timezone
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('core', '0026_alter_userprofile_birthdate_alter_userprofile_height'),
+        ('core', '0027_powersync_publication'),
     ]
 
     operations = [
