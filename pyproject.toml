@@ -157,7 +157,7 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 # Import sorting was historically skipped for these (isort's "skip" list)
-"**/migrations/*.py" = ["I", "F401"]
+"**/migrations/*.py" = ["I", "F401", "E501"]
 "settings/*.py" = ["I"]
 "extras/**/*.py" = ["I"]
 "**/apps.py" = ["I"]
