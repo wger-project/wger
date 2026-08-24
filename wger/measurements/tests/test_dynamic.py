@@ -37,6 +37,7 @@ from wger.measurements.models import (
 )
 from wger.measurements.models.measurement import MeasurementSource
 from wger.measurements.powersync import MeasurementHandler
+from wger.measurements.signals import _dispatch_source_change
 from wger.measurements.tasks import reconcile_all_dynamic_categories_task
 
 
@@ -1210,6 +1211,35 @@ class OneRmTotalTestCase(DynamicMeasurementTestCase):
         # 112.51 + 84.71
         self.assertEqual(rows.count(), 1)
         self.assertEqual(rows[0].value, Decimal('197.22'))
+
+    def test_one_log_write_feeds_both_one_rm_types(self):
+        """
+        A single set updates every calculated category that depends on it
+        """
+        total = self.enable_total()
+        with self.captureOnCommitCallbacks(execute=True):
+            single = Category.objects.create(
+                user=self.user,
+                name='1RM',
+                unit='kg',
+                dynamic_type=Category.DynamicType.ONE_REP_MAX,
+                dynamic_params={'exercise_id': 1},
+            )
+
+        self.make_log('100', 5, exercise_id=1)
+        self.make_log('80', 3, exercise_id=2)
+
+        self.assertEqual(self.calculated_rows(single).count(), 1)
+        self.assertEqual(self.calculated_rows(total).count(), 1)
+
+    def test_the_dispatch_costs_one_query_per_write(self):
+        """
+        The categories of every type are looked up together, not one by one
+        """
+        log = self.make_log('100', 5)
+
+        with self.assertNumQueries(1):
+            _dispatch_source_change(WorkoutLog, log)
 
     def test_window_max_beats_todays_set(self):
         """

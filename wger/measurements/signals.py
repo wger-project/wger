@@ -56,6 +56,9 @@ def _dispatch_source_change(sender, instance):
     if isinstance(instance, Measurement) and instance.source == MeasurementSource.CALCULATED:
         return
 
+    # One category query per owner instead of one per type: almost every
+    # write belongs to a user without any calculated category
+    wanted: dict[int, set[str]] = {}
     for calc in all_types():
         for dep in calc.depends_on:
             if dep.model is not sender:
@@ -69,13 +72,15 @@ def _dispatch_source_change(sender, instance):
                 continue
             if user_id is None:
                 continue
+            wanted.setdefault(user_id, set()).add(calc.slug)
 
-            categories = Category.objects.filter(
-                user_id=user_id,
-                dynamic_type=calc.slug,
-            ).values_list('pk', flat=True)
-            for category_id in categories:
-                schedule_reconcile(category_id)
+    for user_id, slugs in wanted.items():
+        categories = Category.objects.filter(
+            user_id=user_id,
+            dynamic_type__in=slugs,
+        ).values_list('pk', flat=True)
+        for category_id in categories:
+            schedule_reconcile(category_id)
 
 
 @disable_for_loaddata
