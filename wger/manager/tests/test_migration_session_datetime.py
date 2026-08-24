@@ -76,11 +76,27 @@ class BuildIntervalTestCase(SimpleTestCase):
         self.assertEqual(start, local(2025, 3, 10, 10, 0))
         self.assertIsNone(end)
 
-    def test_only_an_end_starts_at_midnight(self):
+    def test_only_an_end_takes_the_start_from_the_logs(self):
+        start, end = migration.build_interval(
+            session(time_end=datetime.time(11, 30), first_log=local(2025, 3, 10, 10, 15))
+        )
+
+        self.assertEqual(start, local(2025, 3, 10, 10, 15))
+        self.assertEqual(end, local(2025, 3, 10, 11, 30))
+
+    def test_only_an_end_without_logs_becomes_an_open_start(self):
         start, end = migration.build_interval(session(time_end=datetime.time(11, 30)))
 
-        self.assertEqual(start, local(2025, 3, 10, 0, 0))
-        self.assertEqual(end, local(2025, 3, 10, 11, 30))
+        self.assertEqual(start, local(2025, 3, 10, 11, 30))
+        self.assertIsNone(end)
+
+    def test_a_log_after_the_end_leaves_the_session_open(self):
+        start, end = migration.build_interval(
+            session(time_end=datetime.time(11, 30), first_log=local(2025, 3, 10, 12, 0))
+        )
+
+        self.assertEqual(start, local(2025, 3, 10, 11, 30))
+        self.assertIsNone(end)
 
     def test_no_times_uses_the_logs(self):
         start, end = migration.build_interval(

@@ -34,9 +34,13 @@ def build_interval(session):
                 end = start
         return start, end
 
-    # An end without a start was never valid, but nothing enforced it
+    # An end without a start was never valid, but nothing enforced it: take the
+    # start from the logs, or keep the session open with the end as its start
     if session.time_end:
-        return combine(session.date, datetime.time(0, 0)), combine(session.date, session.time_end)
+        end = combine(session.date, session.time_end)
+        if session.first_log and session.first_log < end:
+            return session.first_log, end
+        return end, None
 
     # No times recorded: the logs know when it actually happened
     if session.first_log:
