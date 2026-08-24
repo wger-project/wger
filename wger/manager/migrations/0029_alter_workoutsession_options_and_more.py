@@ -28,6 +28,10 @@ def build_interval(session):
             # An end before the start means the session ran over midnight
             if session.time_end < session.time_start:
                 end += datetime.timedelta(days=1)
+            # A DST gap can invert the instants, and the check constraint
+            # compares instants (aware datetimes in one zone compare wall clock)
+            if end.timestamp() < start.timestamp():
+                end = start
         return start, end
 
     # An end without a start was never valid, but nothing enforced it

@@ -31,9 +31,9 @@ def local(*args):
     return timezone.make_aware(datetime.datetime(*args))
 
 
-def session(time_start=None, time_end=None, first_log=None, last_log=None):
+def session(time_start=None, time_end=None, first_log=None, last_log=None, date=DAY):
     return SimpleNamespace(
-        date=DAY,
+        date=date,
         time_start=time_start,
         time_end=time_end,
         first_log=first_log,
@@ -57,6 +57,18 @@ class BuildIntervalTestCase(SimpleTestCase):
 
         self.assertEqual(start, local(2025, 3, 10, 23, 0))
         self.assertEqual(end, local(2025, 3, 11, 1, 30))
+
+    def test_a_dst_gap_cannot_invert_the_interval(self):
+        with timezone.override('Europe/Berlin'):
+            start, end = migration.build_interval(
+                session(
+                    datetime.time(2, 30),
+                    datetime.time(3, 0),
+                    date=datetime.date(2025, 3, 30),
+                )
+            )
+
+        self.assertGreaterEqual(end.timestamp(), start.timestamp())
 
     def test_only_a_start_stays_open(self):
         start, end = migration.build_interval(session(time_start=datetime.time(10, 0)))
