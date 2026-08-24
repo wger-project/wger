@@ -51,7 +51,6 @@ TABLES = [
     'nutrition_mealitem',
     'nutrition_nutritionplan',
     'nutrition_synced_ingredient',
-    'weight_weightentry',
 ]
 
 
