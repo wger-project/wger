@@ -24,6 +24,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 # wger
+from wger.core.models import UserProfile
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
 from wger.manager.api.fields import DecimalOrIntegerField
 from wger.manager.api.validators import validate_requirements
@@ -481,41 +482,57 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
 
         Only components the request did not send are taken from the instance, so
         a PATCH that just sets time_end keeps the day and start time it had. Values
-        sent in the new format always win.
+        sent in the new format always win. The wall times resolve in the owner's
+        zone: a queued 07:00 is the user's 07:00, whatever zone the request
+        happens to run in.
         """
         if not any(key in data for key in self.LEGACY_FIELDS):
             return data
 
+        tz = self._owner_zone()
         data = data.copy()
         date = self._legacy_value('date', data, serializers.DateField)
         time_start = self._legacy_value('time_start', data, serializers.TimeField)
         time_end = self._legacy_value('time_end', data, serializers.TimeField)
 
         local_start = (
-            timezone.localtime(self.instance.datetime_start)
+            timezone.localtime(self.instance.datetime_start, tz)
             if self.instance and self.instance.datetime_start
             else None
         )
         if date is None:
-            date = local_start.date() if local_start else timezone.localdate()
+            date = local_start.date() if local_start else timezone.localdate(timezone=tz)
         if 'time_start' not in data:
             time_start = local_start.time() if local_start else datetime.time()
         if 'time_end' not in data and self.instance and self.instance.datetime_end:
-            time_end = timezone.localtime(self.instance.datetime_end).time()
+            time_end = timezone.localtime(self.instance.datetime_end, tz).time()
 
         if 'datetime_start' not in data:
             data['datetime_start'] = timezone.make_aware(
-                datetime.datetime.combine(date, time_start or datetime.time())
+                datetime.datetime.combine(date, time_start or datetime.time()), tz
             )
         if 'datetime_end' not in data:
             end = None
             if time_end:
-                end = timezone.make_aware(datetime.datetime.combine(date, time_end))
+                end = timezone.make_aware(datetime.datetime.combine(date, time_end), tz)
                 if time_start and time_end < time_start:
                     end += datetime.timedelta(days=1)
             data['datetime_end'] = end
 
         return data
+
+    def _owner_zone(self):
+        """The owner's timezone, falling back to the active one when unknown"""
+        if self.instance:
+            return self.instance.user.userprofile.zone_info
+        user_id = self.context.get('user_id')
+        if user_id is None:
+            request = self.context.get('request')
+            if request is not None and request.user.is_authenticated:
+                user_id = request.user.pk
+        if user_id is None:
+            return timezone.get_current_timezone()
+        return UserProfile.objects.get(user_id=user_id).zone_info
 
     @staticmethod
     def _legacy_value(key, data, field_class):

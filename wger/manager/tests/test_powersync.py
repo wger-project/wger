@@ -14,6 +14,7 @@
 
 # Standard Library
 import datetime
+import zoneinfo
 
 # Django
 from django.utils import timezone
@@ -22,6 +23,7 @@ from django.utils import timezone
 from rest_framework import status
 
 # wger
+from wger.core.models import UserProfile
 from wger.core.tests import powersync_base_test
 from wger.manager.models import (
     Routine,
@@ -128,6 +130,32 @@ class WorkoutSessionPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestC
         self.assertEqual(
             session.datetime_end,
             timezone.make_aware(datetime.datetime(2030, 1, 16, 1, 30)),
+        )
+
+    def test_deprecated_fields_resolve_in_the_owners_timezone(self):
+        """The queued wall time is the user's, not the zone the request runs in"""
+
+        profile = UserProfile.objects.get(user__username=self.user_access)
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        self.authenticate()
+        response = self.push(
+            'PUT',
+            {
+                'id': 'bbbbbbbb-bbbb-bbbb-bbbb-000000000097',
+                'date': '2030-01-15',
+                'time_start': '07:00:00',
+                'routine': ROUTINE_OWNED,
+                'impression': '2',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000097')
+        self.assertEqual(
+            session.datetime_start,
+            datetime.datetime(2030, 1, 15, 7, 0, tzinfo=zoneinfo.ZoneInfo('Pacific/Auckland')),
         )
 
 

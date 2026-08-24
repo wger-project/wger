@@ -262,6 +262,31 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
             timezone.make_aware(datetime.datetime(2025, 3, 12, 11, 30)),
         )
 
+    def test_the_triple_is_composed_in_the_owners_timezone(self):
+        """A queued 07:00 is the owner's 07:00, not the zone the request runs in"""
+
+        profile = User.objects.get(username='test').userprofile
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        response = self.client.post(
+            reverse('workoutsession-list'),
+            data={
+                'routine': self.ROUTINE,
+                'impression': '2',
+                'date': '2025-03-12',
+                'time_start': '07:00',
+            },
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        session = WorkoutSession.objects.get(pk=response.json()['id'])
+        self.assertEqual(
+            session.datetime_start,
+            datetime.datetime(2025, 3, 12, 7, 0, tzinfo=zoneinfo.ZoneInfo('Pacific/Auckland')),
+        )
+
     def test_create_over_midnight_ends_on_the_next_day(self):
         """An end time before the start time means the session ended the day after"""
 
