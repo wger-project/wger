@@ -15,10 +15,10 @@
 
 # Standard Library
 import logging
-import threading
 
 # Django
 from django.conf import settings
+from django.core.cache import cache
 from django.db import transaction
 
 # wger
@@ -32,7 +32,18 @@ from wger.measurements.models.measurement import MeasurementSource
 
 logger = logging.getLogger(__name__)
 
-_pending = threading.local()
+# One queued task per category: the marker suppresses further queueing until
+# the task starts, and the countdown gives a write burst (e.g. a draining
+# upload queue) time to finish so it collapses into that one run
+RECONCILE_DEBOUNCE_SECONDS = 15
+
+# A crashed task suppresses reconciles at most this long; the daily catch-all
+# repairs anything behind it
+RECONCILE_MARKER_TIMEOUT = 5 * 60
+
+
+def reconcile_marker_key(category_id) -> str:
+    return f'measurements-dynamic-reconcile-{category_id}'
 
 
 def reconcile(category: Category) -> None:
@@ -97,27 +108,16 @@ def schedule_reconcile(category_id) -> None:
     """
     Queues a reconcile for after the current transaction.
 
-    Every call registers a callback, the deduplication happens when they run:
-    the first one of a flush does the work and marks the category, the
-    duplicates of the same batch see the mark and return. Marking on
-    execution rather than on registration keeps a rolled-back transaction
-    (whose callbacks Django discards) from blocking later reconciles.
+    With celery the queueing is single-flight per category: while a task is
+    waiting, further writes queue nothing, and the task removes the marker
+    before it computes so a write arriving during the run queues a follow-up.
+    Without celery the reconcile runs right here, there is no later moment to
+    collapse a burst into.
     """
-    done = getattr(_pending, 'done', None)
-    if done:
-        # A new write batch begins, the marks of the previous flush are stale
-        done.clear()
     transaction.on_commit(lambda: _run_scheduled(category_id))
 
 
 def _run_scheduled(category_id) -> None:
-    done = getattr(_pending, 'done', None)
-    if done is None:
-        done = _pending.done = set()
-    if category_id in done:
-        return
-    done.add(category_id)
-
     # This runs after the commit, so a failure here has nothing to roll back
     # and would only turn an unrelated request into a 500. The daily task
     # picks the category up again
@@ -126,7 +126,12 @@ def _run_scheduled(category_id) -> None:
             # wger
             from wger.measurements.tasks import reconcile_dynamic_category_task
 
-            reconcile_dynamic_category_task.delay(str(category_id))
+            # add() is atomic across processes: True means no task is waiting
+            if cache.add(reconcile_marker_key(category_id), True, RECONCILE_MARKER_TIMEOUT):
+                reconcile_dynamic_category_task.apply_async(
+                    args=[str(category_id)],
+                    countdown=RECONCILE_DEBOUNCE_SECONDS,
+                )
         else:
             reconcile_by_id(category_id)
     except Exception:

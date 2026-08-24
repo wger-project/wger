@@ -19,7 +19,9 @@ from decimal import Decimal
 from unittest.mock import patch
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.urls import reverse
 from django.utils import timezone
 
@@ -30,7 +32,10 @@ from rest_framework import status
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.consts import WEIGHT_UNIT_LB
 from wger.manager.models import WorkoutLog
-from wger.measurements.dynamic.engine import reconcile
+from wger.measurements.dynamic.engine import (
+    reconcile,
+    reconcile_marker_key,
+)
 from wger.measurements.models import (
     Category,
     Measurement,
@@ -38,7 +43,10 @@ from wger.measurements.models import (
 from wger.measurements.models.measurement import MeasurementSource
 from wger.measurements.powersync import MeasurementHandler
 from wger.measurements.signals import _dispatch_source_change
-from wger.measurements.tasks import reconcile_all_dynamic_categories_task
+from wger.measurements.tasks import (
+    reconcile_all_dynamic_categories_task,
+    reconcile_dynamic_category_task,
+)
 
 
 # Pinned in test-measurement-categories.json, the official body weight
@@ -604,6 +612,37 @@ class ReconcileFailureTestCase(DynamicMeasurementTestCase):
                 )
 
         self.assertTrue(Category.objects.filter(pk=category.pk).exists())
+
+
+class SingleFlightSchedulingTestCase(DynamicMeasurementTestCase):
+    """
+    With celery, a burst of source writes queues one reconcile task per
+    category, and the task frees the slot before it computes
+    """
+
+    def setUp(self):
+        super().setUp()
+        cache.clear()
+
+    def test_a_write_burst_queues_one_task(self):
+        self.enable_bmi()
+
+        with patch.dict(settings.WGER_SETTINGS, {'USE_CELERY': True}):
+            with patch(
+                'wger.measurements.tasks.reconcile_dynamic_category_task.apply_async'
+            ) as apply_async:
+                self.create_weight('80')
+                self.create_weight('81')
+
+        self.assertEqual(apply_async.call_count, 1)
+
+    def test_the_task_frees_the_slot_before_computing(self):
+        category = self.enable_bmi()
+        cache.add(reconcile_marker_key(category.pk), True, 60)
+
+        reconcile_dynamic_category_task(str(category.pk))
+
+        self.assertIsNone(cache.get(reconcile_marker_key(category.pk)))
 
 
 class ApiWriteBlockTestCase(DynamicMeasurementTestCase):

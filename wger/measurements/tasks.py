@@ -17,6 +17,9 @@
 import logging
 import random
 
+# Django
+from django.core.cache import cache
+
 # Third Party
 from celery.schedules import crontab
 
@@ -25,6 +28,7 @@ from wger.celery_configuration import app
 from wger.measurements.dynamic.engine import (
     reconcile,
     reconcile_by_id,
+    reconcile_marker_key,
 )
 from wger.measurements.models import Category
 
@@ -37,6 +41,9 @@ def reconcile_dynamic_category_task(category_id: str):
     """
     Recomputes the calculated rows of one dynamic category
     """
+    # Marker first: a write arriving during the run has to queue a follow-up,
+    # or its change would wait for the daily catch-all
+    cache.delete(reconcile_marker_key(category_id))
     reconcile_by_id(category_id)
 
 
