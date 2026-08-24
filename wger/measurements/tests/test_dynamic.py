@@ -85,6 +85,7 @@ class DynamicMeasurementTestCase(WgerTestCase):
         days_ago: int = 0,
         weight_unit: int = 1,
         exercise_id: int = 1,
+        date: datetime.datetime = None,
     ) -> WorkoutLog:
         with self.captureOnCommitCallbacks(execute=True):
             log = WorkoutLog(
@@ -93,7 +94,7 @@ class DynamicMeasurementTestCase(WgerTestCase):
                 weight=Decimal(weight),
                 repetitions=Decimal(reps),
                 weight_unit_id=weight_unit,
-                date=timezone.now() - datetime.timedelta(days=days_ago),
+                date=date or timezone.now() - datetime.timedelta(days=days_ago),
             )
             log.save()
         return log
@@ -1051,6 +1052,27 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
         # Brzycki: 80 / (1.0278 - 0.0278 * 3), 100 / (1.0278 - 0.0278 * 5)
         self.assertEqual(rows[0].value, Decimal('84.71'))
         self.assertEqual(rows[1].value, Decimal('112.51'))
+
+    def test_days_are_cut_in_the_owners_timezone(self):
+        """
+        Two logs on one UTC day land on two days when the owner's midnight
+        lies between them
+        """
+        profile = self.user.userprofile
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        # Auckland midnight (UTC+12 in August) sits at 12:00 UTC
+        day = datetime.datetime(2026, 8, 10, tzinfo=datetime.timezone.utc)
+        self.make_log('100', 1, date=day.replace(hour=11, minute=30))
+        self.make_log('80', 1, date=day.replace(hour=12, minute=30))
+
+        category = self.enable_one_rm()
+        rows = self.calculated_rows(category)
+
+        self.assertEqual(rows.count(), 2)
+        self.assertEqual(rows[0].value, Decimal('100.00'))
+        self.assertEqual(rows[1].value, Decimal('80.00'))
 
     def test_high_rep_sets_are_ignored(self):
         """

@@ -20,6 +20,7 @@ from decimal import Decimal
 
 # Django
 from django.core.exceptions import ValidationError as DjangoValidationError
+from django.utils import timezone
 
 # wger
 from wger.core.models import UserProfile
@@ -200,9 +201,9 @@ DEFAULT_WINDOW_DAYS = 30
 MAX_REPS_SCHEMA = {'type': 'integer', 'minimum': 1, 'maximum': 10}
 
 
-def daily_best_estimates(user_id: int, exercise_id, max_reps) -> dict:
+def daily_best_estimates(user_id: int, exercise_id, max_reps, tz: datetime.tzinfo) -> dict:
     """
-    Per calendar day (UTC) the best Brzycki estimate among the qualifying
+    Per calendar day in ``tz`` the best Brzycki estimate among the qualifying
     sets of the exercise, as day -> (value in kg, datetime of the set).
 
     Qualifying means: 1 to max_reps repetitions counted in repetitions, a
@@ -229,7 +230,7 @@ def daily_best_estimates(user_id: int, exercise_id, max_reps) -> dict:
             else AbstractWeight(log.weight, 'lb').kg
         )
         one_rm = brzycki_one_rm(weight, log.repetitions).quantize(TWOPLACES)
-        day = log.date.date()
+        day = timezone.localdate(log.date, tz)
         if day not in best or (one_rm, log.date) > best[day]:
             best[day] = (one_rm, log.date)
     return best
@@ -238,8 +239,8 @@ def daily_best_estimates(user_id: int, exercise_id, max_reps) -> dict:
 @register
 class OneRepMax(DynamicMeasurementType):
     """
-    One entry per calendar day (UTC) with qualifying logs of the configured
-    exercise: the highest Brzycki estimate of that day, in kg
+    One entry per calendar day in the owner's timezone with qualifying logs
+    of the configured exercise: the highest Brzycki estimate of that day, in kg
     """
 
     slug = Category.DynamicType.ONE_REP_MAX
@@ -267,6 +268,7 @@ class OneRepMax(DynamicMeasurementType):
             category.user_id,
             params.get('exercise_id'),
             params.get('max_reps', DEFAULT_MAX_REPS),
+            category.user.userprofile.zone_info,
         )
 
         return [
@@ -323,9 +325,10 @@ class OneRmTotal(DynamicMeasurementType):
         params = category.dynamic_params
         max_reps = params.get('max_reps', DEFAULT_MAX_REPS)
         window = datetime.timedelta(days=params.get('window_days', DEFAULT_WINDOW_DAYS))
+        tz = category.user.userprofile.zone_info
 
         per_exercise = [
-            daily_best_estimates(category.user_id, exercise_id, max_reps)
+            daily_best_estimates(category.user_id, exercise_id, max_reps, tz)
             for exercise_id in params.get('exercise_ids', [])
         ]
         if not per_exercise:
