@@ -14,6 +14,7 @@
 
 # Standard Library
 import datetime
+import zoneinfo
 from unittest import mock
 
 # Django
@@ -534,6 +535,38 @@ class RoutineTestCase(WgerTestCase):
             self.routine.data_for_day(datetime.date(2024, 1, 7)),
             WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7)),
         )
+
+    def test_data_for_day_defaults_to_the_owners_today(self):
+        """
+        The default date resolves in the owner's zone, not the active one
+        """
+        # 26 hours apart, so their calendar days differ at every time of day
+        west = timezone.localdate(timezone=zoneinfo.ZoneInfo('Etc/GMT+12'))
+        east = timezone.localdate(timezone=zoneinfo.ZoneInfo('Pacific/Kiritimati'))
+        self.assertNotEqual(west, east)
+
+        sequence = [
+            WorkoutDayData(day=None, iteration=1, date=west),
+            WorkoutDayData(day=None, iteration=1, date=east),
+        ]
+        profile = self.routine.user.userprofile
+
+        # Both directions: the active zone can agree with at most one of them
+        for zone_name, expected in (
+            ('Etc/GMT+12', sequence[0]),
+            ('Pacific/Kiritimati', sequence[1]),
+        ):
+            profile.time_zone = zone_name
+            profile.save()
+
+            routine = Routine.objects.get(pk=self.routine.pk)
+            with mock.patch.object(
+                Routine,
+                'date_sequence',
+                new_callable=mock.PropertyMock,
+                return_value=sequence,
+            ):
+                self.assertEqual(routine.data_for_day(), expected)
 
     def _date_sequence_cache_ttl(self):
         """Capture the timeout date_sequence passes to cache.set, forcing a cache miss."""

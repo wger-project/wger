@@ -270,7 +270,7 @@ class Routine(models.Model):
             can_proceed = (
                 not current_day.need_logs_to_advance
                 or (current_day.need_logs_to_advance and has_session)
-                or current_date > timezone.localdate()
+                or current_date > timezone.localdate(timezone=tz)
             )
 
             wrapped = False
@@ -321,7 +321,7 @@ class Routine(models.Model):
         # mutation
         ttl = settings.WGER_SETTINGS['ROUTINE_CACHE_TTL']
         if any(day.need_logs_to_advance for day in days_list):
-            now = timezone.localtime()
+            now = timezone.localtime(timezone=tz)
             next_midnight = (now + datetime.timedelta(days=1)).replace(
                 hour=0, minute=0, second=0, microsecond=0
             )
@@ -336,7 +336,8 @@ class Routine(models.Model):
         the results for "today"
         """
         if date is None:
-            date = timezone.localdate()
+            # The owner's "today", like the days of the sequence itself
+            date = timezone.localdate(timezone=self.user.userprofile.zone_info)
 
         for data in self.date_sequence:
             if data.date == date:
