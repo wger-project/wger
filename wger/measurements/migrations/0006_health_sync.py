@@ -3,6 +3,28 @@
 import django.core.validators
 import django.db.models.deletion
 from django.db import migrations, models
+from django.db.backends.base.schema import BaseDatabaseSchemaEditor
+from django.db.migrations.state import StateApps
+
+from wger.utils.db import postgres_only
+
+
+TOUCH_SQL = [
+    'UPDATE measurements_category SET id = id;',
+    'UPDATE measurements_measurement SET id = id;',
+]
+
+
+@postgres_only
+def touch_synced_rows(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
+    """
+    Make PowerSync re-replicate the measurement buckets
+
+    It only picks up existing rows again when the sync rules file or the data
+    changes, which self-hosters on an outdated docker repo don't get.
+    """
+    for statement in TOUCH_SQL:
+        schema_editor.execute(statement)
 
 
 class Migration(migrations.Migration):
@@ -148,15 +170,5 @@ class Migration(migrations.Migration):
                 verbose_name='Value',
             ),
         ),
-        # Powersync only re-replicates existing rows when the sync rules file changes
-        # or when the data changes. In order to avoid problems for self-hoster that
-        # have not updated the docker repo, we do a no-op update, that forces a
-        # re-sync of the buckets
-        migrations.RunSQL(
-            sql=[
-                'UPDATE measurements_category SET id = id;',
-                'UPDATE measurements_measurement SET id = id;',
-            ],
-            reverse_sql=migrations.RunSQL.noop,
-        ),
+        migrations.RunPython(touch_synced_rows, migrations.RunPython.noop),
     ]
