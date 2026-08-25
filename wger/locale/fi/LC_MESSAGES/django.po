@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-08-09 14:51+0000\n"
+"PO-Revision-Date: 2026-08-16 20:51+0000\n"
 "Last-Translator: Mikael Siidorow <mikael+weblate@siidorow.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/wger/web/fi/>\n"
 "Language: fi\n"
@@ -555,10 +555,8 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Selaat\n"
-"                sivustoa käyttäjänä \"%(current_user)s\", kaikki toiminnot\n"
-"kohdistuvat\n"
-"                heidän tietoihinsa.\n"
+"Selaat sivustoa käyttäjänä \"%(current_user)s\", kaikki toiminnot "
+"kohdistuvat heidän tietoihinsa.\n"
 "            "
 
 #: core/templates/delete.html:4
@@ -1002,8 +1000,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            Käytä API-avainta lisäämällä <code>Token %(key)s</code> pyynnön\n"
-"            <code>Authorization</code>-otsakkeeseen.\n"
+"            Käytä API-avainta lisäämällä <code>Token %(key)s</code> pyynnön "
+"<code>Authorization</code>-otsakkeeseen.\n"
 "        "
 
 #: core/templates/user/api_key.html:196
@@ -1644,7 +1642,7 @@ msgstr "Lisää lihas"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Jos jätät päivämäärä­kentän tyhjäksi, päivämäärä luetaan kuvasta"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -2103,7 +2101,7 @@ msgstr "ei mitään (kehonpainoharjoittelu)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Aloittelija"
 
 #: i18n.tpl:43
 msgid "Consistent"
@@ -2111,75 +2109,75 @@ msgstr "Johdonmukainen"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Omistautunut"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Hurahtanut"
 
 #: i18n.tpl:46
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Konkari"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titaani"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Pysäyttämätön"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Viikonloppusoturi"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Norsunnostaja"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Bussinnostaja"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Lentokoneen­nostaja"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Sinivalaan­nostaja"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Avaruusaseman­nostaja"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Miljonääri"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Aamuvirkku"
 
 #: i18n.tpl:59
 msgid "Night Owl"
-msgstr ""
+msgstr "Yökyöpeli"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Uusi vuosi, uusi minä"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Feeniks"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2187,7 +2185,7 @@ msgstr "Henkilökohtainen ennätys"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
-msgstr ""
+msgstr "Tee ensimmäinen treenisi loppuun"
 
 #: i18n.tpl:64
 msgid "Complete 10 workouts"
@@ -2215,47 +2213,47 @@ msgstr "Suorita 1000 harjoitusta"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Treenaa 30 päivää putkeen"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Treenaa lauantaina ja sunnuntaina neljänä peräkkäisenä viikonloppuna"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 5 000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 20 000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 50 000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 150 000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 450 000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 1 000 000 kg"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Nosta yhteensä 10 000 000 kg"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Treenaa ennen klo 6:ta"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Treenaa klo 21:n jälkeen"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
@@ -2263,11 +2261,11 @@ msgstr "Harjoittele tammikuun 1. päivänä"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Palaa treenien pariin 30 päivän tauon jälkeen"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Tee uusi henkilökohtainen ennätys missä tahansa liikkeessä"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2331,11 +2329,11 @@ msgstr "Toistot"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr ""
+msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "palautus"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2487,16 +2485,21 @@ msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
 msgstr ""
+"Ainesosasi '%(ingredient)s' lisättiin onnistuneesti\n"
+"yleiseen tietokantaan."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
+"Se on nyt saatavilla ainesosaluettelossa, ja voit lisätä sen "
+"ravintosuunnitelmiin.\n"
+"Löydät sen tästä osoitteesta:"
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
-msgstr ""
+msgstr "Kiitos, että olet mukana tekemässä sivustosta parempaa!"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
@@ -2517,6 +2520,11 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
+"Kun lähetät lomakkeen, ylläpitäjille ilmoitetaan uudesta elintarvikkeesta. "
+"Tarkastuksen jälkeen se lisätään tietokantaan. Sitä ennen se ei näy "
+"elintarvikeluettelossa eikä haussa. Jos annoit sähköpostiosoitteesi "
+"rekisteröityessäsi, saat ilmoituksen, kun elintarvike on hyväksytty ja "
+"lisätty tietokantaan."
 
 #: nutrition/templates/ingredient/overview.html:32
 #: nutrition/templates/ingredient/overview.html:104
@@ -2581,7 +2589,7 @@ msgstr "Sokerin osuus hiilihydraateista"
 #: nutrition/templates/ingredient/view.html:191
 #: nutrition/templates/ingredient/view.html:212
 msgid "n.A."
-msgstr ""
+msgstr "Ei saatavilla"
 
 #: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
@@ -2613,7 +2621,7 @@ msgstr "Lisää uusi painoyksikkö"
 
 #: nutrition/templates/rate/form.html:26
 msgid "Basal metabolic rate"
-msgstr ""
+msgstr "Perusaineenvaihdunta"
 
 #: nutrition/templates/rate/form.html:27
 msgid ""
@@ -2622,10 +2630,13 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
+"Perusaineenvaihdunta tarkoittaa energiamäärää, jonka elimistö kuluttaa "
+"levossa vuorokaudessa. Se on vähimmäismäärä energiaa, jonka elimistö "
+"tarvitsee toimiakseen ilman fyysistä aktiivisuutta."
 
 #: nutrition/templates/rate/form.html:38
 msgid "Your basic metabolic rate is: "
-msgstr ""
+msgstr "Perusaineenvaihduntasi on: "
 
 #: nutrition/templates/rate/form.html:48
 msgid "Physical activities"
@@ -2637,20 +2648,25 @@ msgid ""
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
 msgstr ""
+"Fyysisen aktiivisuuden taso (PAL) on kerroin, joka kuvaa päivittäistä "
+"aktiivisuuttasi. Sitä käytetään päivittäisen kokonaisenergiantarpeen "
+"laskemiseen."
 
 #: nutrition/templates/rate/form.html:60
 msgid "Factor for daily activities: "
-msgstr ""
+msgstr "Aktiivisuuskerroin: "
 
 #: nutrition/templates/rate/form.html:68
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
+"Ylläpitokalorit ovat arvio päivittäisestä kalorimäärästä, jonka tarvitset "
+"painon ylläpitämiseen aktiivisuustasollasi."
 
 #: nutrition/templates/rate/form.html:82
 msgid "Calculate basic caloric intake"
-msgstr ""
+msgstr "Laske ylläpitokalorit"
 
 #: nutrition/templates/rate/form.html:89
 msgid ""
@@ -2659,18 +2675,22 @@ msgid ""
 "Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
+"Päivittäinen kalorimäärä on päivässä syötävien kalorien kokonaismäärä. "
+"Siihen voi sisältyä esimerkiksi kaloriylijäämä tai -vaje, jos olet "
+"massakaudella tai dieetillä. Jos tiedät sopivan kalorimäärän jo ennestään, "
+"voit syöttää sen suoraan."
 
 #: nutrition/templates/rate/form.html:103
 msgid "Transfer basic intake to total daily calories"
-msgstr ""
+msgstr "Aseta ylläpitokalorit päivittäiseksi kalorimääräksi"
 
 #: nutrition/templates/rate/form.html:107
 msgid "Add additional calories to total daily calories"
-msgstr ""
+msgstr "Huomioi kalorikorjaus päivittäisessä kalorimäärässä"
 
 #: nutrition/templates/rate/form.html:111
 msgid "Save total calories to profile"
-msgstr ""
+msgstr "Tallenna päivittäinen kalorimäärä profiiliisi"
 
 #: nutrition/templates/rate/form.html:122
 msgid ""
@@ -2678,6 +2698,9 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
+"Huomaa, että nämä laskelmat ovat vain suuntaa-antavia. Jos laadit "
+"ravintosuunnitelmasi näiden arvojen perusteella, seuraa muutaman viikon "
+"ajan, miten kehosi reagoi, ja säädä päivittäistä energiamäärää tarvittaessa."
 
 #: nutrition/views/ingredient.py:250
 msgid "Add a new ingredient"
@@ -2685,16 +2708,16 @@ msgstr "Lisää uusi raaka-aine"
 
 #: nutrition/views/plan.py:128
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Ravintosuunnitelma"
 
 #: nutrition/views/plan.py:130
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Käyttäjän %s ravintosuunnitelma"
 
 #: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
-msgstr ""
+msgstr "<i>Tämä suunnitelma on tyhjä. Mitä oikein odotit PDF:ssä näkyvän?</i>"
 
 #: nutrition/views/plan.py:230
 msgid "Nutritional data"
@@ -2702,27 +2725,27 @@ msgstr "Ravintotiedot"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
-msgstr ""
+msgstr "Yhteensä"
 
 #: nutrition/views/plan.py:239
 msgid "Percent of energy"
-msgstr ""
+msgstr "Energiaosuus (%)"
 
 #: nutrition/views/plan.py:240
 msgid "g per body kg"
-msgstr ""
+msgstr "g / painokilo"
 
 #: nutrition/views/unit_ingredient.py:64
 msgid "Add a new weight unit"
-msgstr ""
+msgstr "Lisää ainesosalle uusi annosmitta"
 
 #: nutrition/views/unit_ingredient.py:99
 msgid "Edit a weight unit to ingredient connection"
-msgstr ""
+msgstr "Muokkaa ainesosalle määritettyä annosmittaa"
 
 #: nutrition/views/unit_ingredient.py:129
 msgid "Delete?"
-msgstr ""
+msgstr "Poistetaanko?"
 
 #: software/templates/about_us.html:9
 msgid ""
@@ -2731,10 +2754,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger auttaa sinua seuraamaan treenejäsi, hallitsemaan ravitsemustasi ja "
+"saavuttamaan kuntotavoitteesi. Se on vapaa ja avoimen lähdekoodin "
+"ohjelmisto, jota voit ylläpitää itse omalla palvelimellasi. Lisäksi "
+"tarjoamme helppokäyttöisen, maksuttoman verkkopalvelun."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Avoin lähdekoodi ja maksuton käyttö ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2744,10 +2771,16 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger perustuu avoimen lähdekoodin periaatteisiin. Sen lähdekoodi on "
+"julkisesti saatavilla, ja yhteisö kehittää sitä. Tämä tekee toiminnasta "
+"läpinäkyvää ja auttaa sinua pitämään tietosi omassa hallinnassasi, etenkin "
+"jos ylläpidät palvelua itse. Maksuton wger-palvelu perustuu kokonaan tähän "
+"avoimeen lähdekoodiin. Uskomme, että jokaisella pitäisi olla mahdollisuus "
+"huolehtia kunnostaan hyvillä työkaluilla."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Näin voit auttaa"
 
 #: software/templates/about_us.html:40
 msgid "Join the Community"
@@ -2755,52 +2788,59 @@ msgstr "Liity yhteisöön"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Liity Discord-palvelimelle"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Tule mukaan Discord-palvelimelle juttelemaan kehittäjien ja muiden "
+"käyttäjien kanssa, esittämään kysymyksiä tai keskustelemaan uusista "
+"ominaisuuksista."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Seuraa projektin uutisia, päivityksiä ja tiedotteita Mastodonissa."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Kerro wgeristä ystävillesi ja treenikavereillesi tai jaa siitä somessa! Näin "
+"autat meitä kasvamaan ja tavoittamaan yhä useampia."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
-msgstr ""
+msgstr "Osallistu osaamisellasi"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Ilmoita virheistä tai ehdota ominaisuuksia"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
-msgstr ""
+msgstr "Onko sinulla ongelma tai idea? Kerro siitä meille!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
-msgstr ""
+msgstr "Kehitä liikkeitä"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Lisää uusia liikkeitä ja muokkaa tai käännä jo olemassa olevia."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
-msgstr ""
+msgstr "Käännä sovellus"
 
 #: software/templates/about_us.html:86
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Auta kääntämään sovellus useammille kielille, jotta se palvelee käyttäjiä "
+"ympäri maailmaa."
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
@@ -2808,11 +2848,11 @@ msgstr "Osallistu koodiin tai dokumentaatioon"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Tutustu lähdekoodiin ja auta meitä kehittämään seuraavaa versiota."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Tee lahjoitus"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2823,24 +2863,32 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Projekti on ja pysyy maksuttomana, mutta palvelinten ylläpito ei ole "
+"ilmaista. wgerin ylläpidosta syntyy jatkuvia kuluja palvelinresursseista, "
+"tiedonsiirrosta, varmuuskopioista ja muusta. Kehittäminen vaatii myös "
+"vapaaehtoisilta paljon aikaa ja vaivaa. Lahjoituksesi auttaa kattamaan nämä "
+"välttämättömät kulut ja pitämään palvelun luotettavana, kehittyvänä ja "
+"maksuttomana kaikille."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Sponsoroi GitHubissa"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Kiitos!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Kiitos, että olet mukana yhteisössä! Olemme kiitollisia siitä, että käytät "
+"palvelua, annat palautetta ja tuet meitä mahdollisuuksiesi mukaan."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
-msgstr ""
+msgstr "Tavoitteemme"
 
 #: software/templates/about_us.html:158
 msgid ""
@@ -2848,12 +2896,17 @@ msgid ""
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
 msgstr ""
+"Tavoitteenamme on kehittää monipuolinen ja joustava kuntoilusovellus sekä "
+"mahdollisimman kattava luettelo liikkeistä ja ainesosista. Sovellus ja sen "
+"sisältö julkaistaan vapaalla lisenssillä."
 
 #: software/templates/features.html:11
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
+"wger Workout Manager on maksuton, avoimen lähdekoodin verkkosovellus, jonka "
+"avulla hallitset liikkeitäsi ja treenejäsi."
 
 #: software/templates/features.html:45
 msgid "Contact"
@@ -2861,15 +2914,15 @@ msgstr "Yhteydenotto"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobiilisovellus"
 
 #: software/templates/features.html:63 software/templates/features.html:337
 msgid "Donate"
-msgstr ""
+msgstr "Lahjoita"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Kehitä"
 
 #: software/templates/features.html:73 software/templates/features.html:476
 msgid "Community"
@@ -2877,167 +2930,190 @@ msgstr "Yhteisö"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Kohti <br> vahvempaa <br> sinua"
 
 #: software/templates/features.html:113
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Liity wgeriin, yhteisön kehittämään <b>maksuttomaan ja avoimen lähdekoodin "
+"kuntoilusovellukseen</b>"
 
 #: software/templates/features.html:123
 msgid "Get Started"
-msgstr ""
+msgstr "Aloita"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
-msgstr ""
+msgstr "ihmistä <br> käyttää wgeriä"
 
 #: software/templates/features.html:137
 msgid "exercises <br> for workout creation"
-msgstr ""
+msgstr "liikettä <br> treenien suunnitteluun"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
-msgstr ""
+msgstr "ruoka-ainetta <br> ateriasuunnitteluun"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "tähteä <br> GitHubissa"
 
 #: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Luo itsellesi sopivat <span>treenirutiinit</span>"
 
 #: software/templates/features.html:177
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Laadi viikoittainen treeniohjelma yli sadan liikkeen valikoimasta"
 
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Aseta jokaiselle liikkeelle toistojen ja sarjojen määrä, kesto tai "
+"tavoitematka"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Saat opastusta treeneihisi vaihe vaiheelta"
 
 #: software/templates/features.html:186
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Pidä kirjaa tekemistäsi treeneistä ja siitä, miten ne mielestäsi sujuivat"
 
 #: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Suunnittele <span>päivän ateriat</span>"
 
 #: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Suunnittele viikkosi täyteen ravitsevia aterioita, jotka tukevat "
+"suorituskykyäsi"
 
 #: software/templates/features.html:218
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Suunnittele aterioita yli kaksi miljoonaa elintarviketta sisältävän "
+"tietokannan avulla"
 
 #: software/templates/features.html:221
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Näet automaattisesti lasketut ravintoarvot, kuten energian, proteiinin ja "
+"hiilihydraattien määrät, niin yksittäisistä aterioista kuin koko viikon "
+"ruokasuunnitelmastakin"
 
 #: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Seuraa <span>edistymistäsi</span>"
 
 #: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
-msgstr ""
+msgstr "Pidä kirjaa aterioistasi ja treeneistäsi yksityiskohtaisesti"
 
 #: software/templates/features.html:259
 msgid "Add custom notes"
-msgstr ""
+msgstr "Lisää omia muistiinpanoja"
 
 #: software/templates/features.html:262
 msgid "Record your weight"
-msgstr ""
+msgstr "Kirjaa painosi"
 
 #: software/templates/features.html:265
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Pidä kuvapäiväkirjaa ja seuraa edistymistäsi"
 
 #: software/templates/features.html:268
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Tarkastele aiempia merkintöjä kalenterinäkymässä"
 
 #: software/templates/features.html:287
 msgid "Try wger now"
-msgstr ""
+msgstr "Kokeile wgeriä nyt"
 
 #: software/templates/features.html:308
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "<span>Yhteisön</span> voimin"
 
 #: software/templates/features.html:311
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wgeriä rahoittaa ja kehittää avoimen lähdekoodin yhteisö: sinun kaltaisesi "
+"ihmiset, jotka kääntävät, lisäävät liikkeitä ja ravintotietoja, kehittävät "
+"sovellusta ja tekevät paljon muuta."
 
 #: software/templates/features.html:317
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Emme näytä mainoksia emmekä myy henkilötietojasi. Lähdekoodi on julkaistu "
+"vapaalla avoimen lähdekoodin lisenssillä."
 
 #: software/templates/features.html:322
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Auta tekemään wgeristä entistä parempi!"
 
 #: software/templates/features.html:331
 msgid "Contribute"
-msgstr ""
+msgstr "Tule mukaan"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Rekisteröidy maksutta nyt"
 
 #: software/templates/features.html:369
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Eikö verkkoversio riitä?"
 
 #: software/templates/features.html:371
 msgid "Get the code, too!"
-msgstr ""
+msgstr "Hanki myös lähdekoodi!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Ota käyttöön oma palvelin kuntosalillesi"
 
 #: software/templates/features.html:385
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Pidä tietosi omassa hallinnassasi. Voit käyttää wgeriä maksutta omalla "
+"palvelimellasi!"
 
 #: software/templates/features.html:399
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Integroi wger omaan sovellukseesi"
 
 #: software/templates/features.html:402
 msgid "wger offers an open API that you can use for your app."
 msgstr ""
+"wger tarjoaa avoimen ohjelmointirajapinnan, jota voit hyödyntää omassa "
+"sovelluksessasi."
 
 #: software/templates/features.html:413
 msgid "Create your own version"
-msgstr ""
+msgstr "Luo oma versiosi"
 
 #: software/templates/features.html:416
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Lähdekoodi on saatavilla GNU AGPLv3 -lisenssillä! Voit halutessasi forkata "
+"sen GitHubissa."
 
 #: software/templates/features.html:437
 msgid "Account"
-msgstr ""
+msgstr "Tili"
 
 #: software/templates/features.html:453
 msgid "Dashboard"
@@ -3049,51 +3125,52 @@ msgstr "Harjoitusrutiinit"
 
 #: software/templates/features.html:491
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: software/templates/features.html:506
 msgid "Software"
-msgstr ""
+msgstr "Ohjelmisto"
 
 #: software/templates/features.html:512
 msgid "Report an issue"
-msgstr ""
+msgstr "Ilmoita ongelmasta"
 
 #: software/templates/features.html:518
 msgid "Source Code"
-msgstr ""
+msgstr "Lähdekoodi"
 
 #: software/templates/features.html:524
 msgid "Translation"
-msgstr ""
+msgstr "Kääntäminen"
 
 #: utils/generic_views.py:241
 msgid "Yes, delete"
-msgstr ""
+msgstr "Poista"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Tämän teoksen alkuperäinen nimi, jos saatavilla"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Linkki alkuperäiseen teokseen, jos saatavilla"
 
 #: utils/models.py:87
 msgid "Author(s)"
-msgstr ""
+msgstr "Tekijä(t)"
 
 #: utils/models.py:91
 msgid "If you are not the author, enter the name or source here."
 msgstr ""
+"Jos et ole sisällön alkuperäinen tekijä, ilmoita sen tekijän nimi tai lähde."
 
 #: utils/models.py:95
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Linkki tekijän profiiliin, jos saatavilla"
 
 #: utils/models.py:101
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Linkki alkuperäiseen lähteeseen, jos kyseessä on muunnelma"
 
 #: utils/models.py:103
 msgid ""
@@ -3101,28 +3178,32 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Huomaa, että johdannaisteos ei pelkästään perustu aiempaan teokseen, vaan "
+"sisältää myös riittävästi uutta ja luovaa sisältöä, jotta se ylittää "
+"teoskynnyksen ja saa oman tekijänoikeussuojansa."
 
 #: weight/forms.py:53
 msgid "Input"
-msgstr ""
+msgstr "Syötä tiedot"
 
 #: weight/forms.py:54
 msgid "Date format"
-msgstr ""
+msgstr "Päivämäärän muoto"
 
 #: weight/management/commands/email-weight-reminder.py:81
 msgid "You have to enter your weight"
-msgstr ""
+msgstr "Muista kirjata painosi"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
-msgstr ""
+msgstr "Painomerkintöjen tuonti"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
+"Tuo painomerkintäsi Workout Manageriin liittämällä ne tähän tekstikenttään."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3133,32 +3214,39 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
+"Voit kopioida tietoja laskentataulukostasi tekstikenttään. Järjestelmä "
+"yrittää tunnistaa tuotavien tietojen muodon automaattisesti. Varmista vain, "
+"että ensimmäisessä sarakkeessa on <strong>päivämäärä</strong> ja toisessa "
+"<strong>paino</strong>. Muut sarakkeet jätetään huomiotta. Rivien "
+"enimmäismäärä on 1 000.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
+"Jos tuonnissa ilmenee virheitä, voit seuraavassa vaiheessa korjata "
+"virheelliset rivit tai jättää ne tuomatta."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
-msgstr ""
+msgstr "CSV-tuonnin esikatselu"
 
 #: weight/templates/import_csv_preview.html:9
 msgid "Successfully converted values"
-msgstr ""
+msgstr "Onnistuneesti muunnetut arvot"
 
 #: weight/templates/import_csv_preview.html:10
 msgid "The following values could be converted."
-msgstr ""
+msgstr "Seuraavat arvot voitiin muuntaa."
 
 #: weight/templates/import_csv_preview.html:26
 msgid "Errors"
-msgstr ""
+msgstr "Virheet"
 
 #: weight/templates/import_csv_preview.html:29
 msgid "The following values could not be converted."
-msgstr ""
+msgstr "Seuraavia arvoja ei voitu muuntaa."
 
 #: weight/templates/import_csv_preview.html:31
 msgid ""
@@ -3171,20 +3259,26 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
+"Näitä arvoja ei voitu muuntaa painomerkinnöiksi. Syynä voi olla esimerkiksi "
+"tunnistamaton päivämäärä- tai numeromuoto, merkistökoodausongelma tai jokin "
+"muu ongelma. Tarkista, ettei luettelossa ole ilmeisiä virheitä, korjaa ne "
+"tarvittaessa ja yritä tuontia uudelleen."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
+"Muista, että ensimmäisessä sarakkeessa tulee olla <strong>päivämäärä</"
+"strong> ja toisessa <strong>paino</strong>."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr ""
+msgstr "Virheitä ei ilmennyt, ja kaikki merkinnät voitiin muuntaa!"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
-msgstr ""
+msgstr "Tuo kaikki onnistuneesti muunnetut merkinnät"
 
 #: weight/templates/import_csv_preview.html:59
 msgid ""
@@ -3194,6 +3288,10 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
+"Jatka, jos haluat tuoda painopäiväkirjaasi kaikki onnistuneesti muunnetut "
+"merkinnät. Virheen aiheuttaneet merkinnät ohitetaan. Voit itse päättää, "
+"ovatko ne hyödyllisiä (tunnistamattomat merkinnät) vai eivät (esimerkiksi "
+"otsikot, kommentit jne.)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -3201,13 +3299,15 @@ msgstr "Tuo"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"
-msgstr ""
+msgstr "Tai yritä tuontia uudelleen"
 
 #: weight/templates/import_csv_preview.html:76
 msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
+"Voit korjata luetteloa tässä ja lähettää sen uudelleen niin monta kertaa "
+"kuin haluat."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"

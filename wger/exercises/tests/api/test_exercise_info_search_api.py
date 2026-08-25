@@ -13,7 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from unittest import skipUnless
+
 # Django
+from django.db import connection
 from django.urls import reverse
 
 # Third Party
@@ -22,6 +26,11 @@ from rest_framework import status
 # wger
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
+from wger.exercises.models import (
+    Exercise,
+    ExerciseCategory,
+    Translation,
+)
 
 
 class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
@@ -150,3 +159,97 @@ class ExerciseInfoFilterApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(results), 1)
+
+
+@skipUnless(connection.vendor == 'postgresql', 'PostgreSQL exercise search only')
+class ExerciseInfoSearchRankingApiTestCase(BaseTestCase, ApiBaseTestCase):
+    """Retrieval and ranking of the exercise name search"""
+
+    corpus = (
+        'Curl',
+        'Leg Curl',
+        'Curl With Kettlebell',
+        'Alternating Biceps Curls With Dumbbell',
+        'Barbell Reverse Wrist Curl',
+        'Rowing Machine',
+        'Bent Over Rowing',
+        'Butterfly Narrow Grip',
+        'Bench Press',
+        'Decline Bench Press Barbell',
+    )
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        category = ExerciseCategory.objects.first()
+        for name in cls.corpus:
+            exercise = Exercise.objects.create(
+                category=category,
+                license_id=2,
+                license_author='test',
+            )
+            Translation.objects.create(
+                exercise=exercise,
+                language_id=2,
+                name=name,
+                description='A description for the search test corpus.',
+            )
+
+    def search_names(self, query, **params):
+        response = self.client.get(
+            reverse('exerciseinfo-list'),
+            {'name__search': query, 'language__code': 'en', **params},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        names = []
+        for item in response.data['results']:
+            names += [
+                translation['name']
+                for translation in item['translations']
+                if translation['name'] in self.corpus
+            ]
+        return names
+
+    def assert_ranked_before(self, names, first, second):
+        self.assertIn(first, names)
+        self.assertIn(second, names)
+        self.assertLess(names.index(first), names.index(second))
+
+    def test_search_finds_words_in_long_exercise_names(self):
+        names = self.search_names('curl')
+
+        for expected_name in (
+            'Alternating Biceps Curls With Dumbbell',
+            'Barbell Reverse Wrist Curl',
+            'Leg Curl',
+        ):
+            with self.subTest(expected_name=expected_name):
+                self.assertIn(expected_name, names)
+
+    def test_search_ranks_exact_names_first(self):
+        self.assertEqual(self.search_names('curl')[:1], ['Curl'])
+        self.assertEqual(self.search_names('bench press')[:1], ['Bench Press'])
+
+    def test_search_ranks_shorter_names_before_longer_ones(self):
+        names = self.search_names('curl')
+
+        self.assert_ranked_before(names, 'Leg Curl', 'Alternating Biceps Curls With Dumbbell')
+
+    def test_search_matches_word_beginnings(self):
+        names = self.search_names('row')
+
+        self.assertIn('Rowing Machine', names)
+        self.assertIn('Bent Over Rowing', names)
+
+    def test_search_ignores_matches_inside_a_word(self):
+        self.assertNotIn('Butterfly Narrow Grip', self.search_names('row'))
+
+    def test_search_finds_a_correctly_spelled_name_from_a_typo(self):
+        self.assertIn('Bench Press', self.search_names('bech press'))
+
+    def test_search_keeps_an_explicitly_requested_ordering(self):
+        names = self.search_names('curl', ordering='-id')
+
+        self.assertEqual(names[:1], ['Barbell Reverse Wrist Curl'])

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-05-27 18:11+0000\n"
+"PO-Revision-Date: 2026-08-14 07:05+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -140,7 +140,7 @@ msgstr "Gelieve je huidige wachtwoord in te geven."
 #: gym/templates/gym/list.html:23 nutrition/templates/ingredient/view.html:259
 #: nutrition/templates/ingredient/view.html:304
 msgid "Delete"
-msgstr "Verwijder"
+msgstr "Verwijderen"
 
 #: core/forms.py:276
 msgid "Invalid password"
@@ -1451,12 +1451,12 @@ msgstr "Bewerkingen laatste 30 d"
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Toepassen"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Resetten"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
@@ -1464,11 +1464,11 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "nieuw"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "aangemaakt"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
@@ -1480,7 +1480,7 @@ msgstr "verwijderd"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "samen­gevoegd"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
@@ -1488,7 +1488,7 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "media"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1552,7 +1552,7 @@ msgstr ""
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1565,7 +1565,7 @@ msgstr "Spieroverzicht"
 
 #: exercises/views/categories.py:72
 msgid "Add category"
-msgstr "Creëer categorie"
+msgstr "Categorie toevoegen"
 
 #: exercises/views/categories.py:121
 msgid "This will also delete all exercises in this category."
@@ -2066,7 +2066,7 @@ msgstr "Meters"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
-msgstr "Geen (oefening met lichaamsgewicht)"
+msgstr "geen (oefening met lichaamsgewicht)"
 
 #: i18n.tpl:42
 msgid "Beginner"
@@ -2506,7 +2506,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Veganistisch"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115

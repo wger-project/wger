@@ -17,7 +17,18 @@
 import logging
 
 # Django
-from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.postgres.search import (
+    TrigramSimilarity,
+    TrigramStrictWordSimilarity,
+)
+from django.db.models import (
+    Case,
+    F,
+    IntegerField,
+    Q,
+    Value,
+    When,
+)
 
 # Third Party
 from django_filters import rest_framework as filters
@@ -28,11 +39,26 @@ from wger.nutrition.models import (
     Ingredient,
     LogItem,
 )
-from wger.utils.db import is_postgres_db
+from wger.utils.db import (
+    PostgresILikeContains,
+    PostgresILikeExact,
+    PostgresILikeStartsWith,
+    is_postgres_db,
+)
 from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
+
+
+def _has_literal_trigram(value: str) -> bool:
+    """Return whether a substring lookup has a guaranteed indexable trigram."""
+    consecutive = 0
+    for character in value:
+        consecutive = consecutive + 1 if character.isalnum() else 0
+        if consecutive == 3:
+            return True
+    return False
 
 
 class LogItemFilterSet(filters.FilterSet):
@@ -91,17 +117,41 @@ class IngredientFilterSet(filters.FilterSet):
                 return barcode_qs
 
         if is_postgres_db():
-            # Note: this uses the default value for pg_trgm.similarity_threshold (0.3) which
-            # might be too strict (doesn't find "butter" from "buttr"). If this needs to be
-            # changed later, e.g.:
+            if not any(character.isalnum() for character in value):
+                return queryset.none()
 
-            # with connection.cursor() as cursor:
-            #     cursor.execute('SET LOCAL pg_trgm.similarity_threshold = 0.15')
+            # A trigram index cannot accelerate unrestricted one- or two-character
+            # substring patterns. Exact matching still supports valid short names.
+            if len(value) < 3:
+                exact = PostgresILikeExact(F('name'), value)
+                return queryset.filter(exact).order_by('name')
+
+            exact = PostgresILikeExact(F('name'), value)
+            starts_with = PostgresILikeStartsWith(F('name'), value)
+            contains = PostgresILikeContains(F('name'), value)
+
+            candidates = Q(name__trigram_similar=value)
+            # Whole-name similarity already retrieves specific multi-word queries;
+            # the extra substring scan is useful for single terms in long names.
+            if len(value.split(maxsplit=1)) == 1 and _has_literal_trigram(value):
+                candidates |= contains
 
             return (
-                queryset.filter(name__trigram_similar=value)
-                .annotate(similarity=TrigramSimilarity('name', value))
-                .order_by('-similarity', 'name')
+                queryset.filter(candidates)
+                .annotate(
+                    word_similarity=TrigramStrictWordSimilarity(value, 'name'),
+                    similarity=TrigramSimilarity('name', value),
+                )
+                .annotate(
+                    match_rank=Case(
+                        When(exact, then=Value(3)),
+                        When(starts_with, then=Value(2)),
+                        When(word_similarity=1, then=Value(1)),
+                        default=Value(0),
+                        output_field=IntegerField(),
+                    ),
+                )
+                .order_by('-match_rank', '-similarity', 'name')
             )
         else:
             # Explicit order_by('name') because the viewset strips Meta.ordering.

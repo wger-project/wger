@@ -101,6 +101,11 @@ ever use scripts, the server's timezone is used like before.
 
 ### Bug fixes
 
+* Ingredient search now finds matching words in long ingredient names and ranks
+  more relevant results first
+* Exercise search now finds matching words in long exercise names, e.g. "curl"
+  finds "Alternating Biceps Curls With Dumbbell", and sorts the results by
+  relevance
 * Gated progressions (configs with `requirements`) now advance exactly one step
   per qualifying workout instead of back-filling increments for skipped,
   non-qualifying iterations

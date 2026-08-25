@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-01-31 16:01+0000\n"
-"Last-Translator: youkarin <svyoukarin@gmail.com>\n"
+"PO-Revision-Date: 2026-08-21 11:53+0000\n"
+"Last-Translator: zzqayy <zzqayy@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/wger/web/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -152,11 +152,11 @@ msgstr "确认"
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
-msgstr ""
+msgstr "密码未填写,请填写\"{username}\"后提交"
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "输入的用户名不匹配"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -379,7 +379,7 @@ msgstr "单位类型"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "单位类型（重复次数、时间或距离）"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -412,7 +412,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "就快要成功了!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -425,7 +425,7 @@ msgstr "你收到这封邮件，是因为用户 \"%(user_display)s\" 使用你�
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
-msgstr ""
+msgstr "验证码已列在下方,请在打开的浏览器中输入该验证码。"
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
@@ -441,10 +441,12 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"该链接有效期为 %(expire_hours)s 小时（至 %(date)s，%(time)s）。您可以从个人资"
+"料设置中申请一个新的链接。"
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
-msgstr ""
+msgstr "如果按钮不起作用，请将此链接复制粘贴到您的浏览器中："
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -461,6 +463,8 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"您的电子邮件地址将用于密码重置，也可选择用于健身提醒。新的邮箱地址只有您在确"
+"认发送给您的链接后才会生效。"
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"

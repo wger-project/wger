@@ -18,9 +18,45 @@ from functools import wraps
 # Django
 from django.conf import settings
 from django.db import models
+from django.db.models.lookups import (
+    Contains,
+    Exact,
+    StartsWith,
+)
 
 # wger
 from wger.utils.uuid import uuid7
+
+
+class PostgresILikeExact(Exact):
+    """Case-insensitive equality that can use a plain trigram index."""
+
+    def process_rhs(self, compiler, connection):
+        rhs, params = super().process_rhs(compiler, connection)
+        if params:
+            params = (connection.ops.prep_for_like_query(params[0]), *params[1:])
+        return rhs, params
+
+    def get_rhs_op(self, connection, rhs):
+        return f'ILIKE {rhs}'
+
+
+class PostgresILikeContains(Contains):
+    """Case-insensitive containment using PostgreSQL's native ILIKE operator.
+
+    Django implements ``icontains`` as ``UPPER(column) LIKE UPPER(value)``, which
+    cannot use a trigram index defined on the untransformed column.
+    """
+
+    def get_rhs_op(self, connection, rhs):
+        return f'ILIKE {rhs}'
+
+
+class PostgresILikeStartsWith(StartsWith):
+    """Case-insensitive prefix matching using PostgreSQL's native ILIKE operator."""
+
+    def get_rhs_op(self, connection, rhs):
+        return f'ILIKE {rhs}'
 
 
 def is_postgres_db():
