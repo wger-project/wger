@@ -3,6 +3,38 @@ from django.db import migrations, models
 BATCH_SIZE = 2000
 
 
+def official_category(user_id, weight_unit):
+    """
+    The official body weight category a user gets, in the unit they entered
+    their weight in so far
+    """
+    return {
+        'user_id': user_id,
+        'metric_type': 'body_weight',
+        'is_official': True,
+        'name': 'Body weight',
+        'unit': weight_unit or 'kg',
+    }
+
+
+def measurement_from(entry, category_id, unit):
+    """
+    The measurement a weight entry becomes.
+
+    The uuid is carried over as the id, so a client that already synchronises
+    weight entries keeps their identity. [unit] is the category's, which is
+    what the values were entered in.
+    """
+    return {
+        'id': entry.uuid,
+        'category_id': category_id,
+        'date': entry.date,
+        'value': entry.weight,
+        'source': 'user',
+        'extra_data': {'unit': unit},
+    }
+
+
 def migrate_weight_to_measurements(apps, schema_editor):
     """
     Give every user an official 'body_weight' Category and create a
@@ -24,15 +56,7 @@ def migrate_weight_to_measurements(apps, schema_editor):
     # get theirs via the post_save signal on registration.
     batch = []
     for user_id, unit in UserProfile.objects.values_list('user_id', 'weight_unit').iterator():
-        batch.append(
-            Category(
-                user_id=user_id,
-                metric_type='body_weight',
-                is_official=True,
-                name='Body weight',
-                unit=unit or 'kg',
-            )
-        )
+        batch.append(Category(**official_category(user_id, unit)))
         if len(batch) >= BATCH_SIZE:
             Category.objects.bulk_create(batch)
             batch = []
@@ -55,25 +79,13 @@ def migrate_weight_to_measurements(apps, schema_editor):
         if entry.user_id not in category_by_user:
             # Entries of users without a profile (created outside the normal
             # signal path)
-            category, _ = Category.objects.get_or_create(
-                user_id=entry.user_id,
-                metric_type='body_weight',
-                is_official=True,
-                defaults={'name': 'Body weight', 'unit': 'kg'},
-            )
+            fields = official_category(entry.user_id, None)
+            defaults = {'name': fields.pop('name'), 'unit': fields.pop('unit')}
+            category, _ = Category.objects.get_or_create(**fields, defaults=defaults)
             category_by_user[entry.user_id] = (category.id, category.unit)
 
         category_id, unit = category_by_user[entry.user_id]
-        batch.append(
-            Measurement(
-                id=entry.uuid,
-                category_id=category_id,
-                date=entry.date,
-                value=entry.weight,
-                source='user',
-                extra_data={'unit': unit},
-            )
-        )
+        batch.append(Measurement(**measurement_from(entry, category_id, unit)))
         if len(batch) >= BATCH_SIZE:
             Measurement.objects.bulk_create(batch)
             batch = []
