@@ -41,10 +41,17 @@ measurements be considerably faster, which is noticeable with histories of sever
 thousand entries.
 
 We have also updated the available charts:
-- the line chart now shows a 7-day average and a trend line besides the measured value
+- the line chart now shows a moving average and a trend line besides the measured value
 - the chart for body weight, body fat now shows when the different nutrition plans were active
 - new bar chart, used for values such as the blood pressure
 - heatmap, used for categories such as daily steps
+- new change chart, one bar per week showing how far the value moved in it
+- new distribution chart, showing how often each value occurred, with the median
+  and the newest reading marked
+
+Which chart a category gets follows from its type, but you can also pick it yourself
+when you edit the category. Only the charts that suit the type are offered, and a
+group is always drawn from what its components are.
 
 ### Calculated categories
 A measurement category can now be calculated by wger instead of typed in by you.
@@ -161,10 +168,9 @@ like openScale do not need any changes.
   and a range with `?datetime_start__gte=...`.
 
 ### Userprofile
-* New field `time_zone` on `/api/v2/userprofile/`: the user's IANA timezone
-  name, e.g. `Pacific/Auckland`. Clients should write it whenever it differs
-  from what the profile holds. Empty means no client has reported one yet, and
-  the instance timezone is used as the fallback.
+* New field `time_zone` on `/api/v2/userprofile/` for the user's IANA timezone
+  name, e.g. `America/Toronto`. Date sensitive calculations, like the trophies
+  are done using this value.
 
 ### Removed
 
