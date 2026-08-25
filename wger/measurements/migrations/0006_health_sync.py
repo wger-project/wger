@@ -129,7 +129,12 @@ class Migration(migrations.Migration):
             model_name='measurement',
             name='source',
             field=models.CharField(
-                choices=[('user', 'User'), ('google', 'Google'), ('apple', 'Apple')],
+                choices=[
+                    ('user', 'User'),
+                    ('google', 'Google'),
+                    ('apple', 'Apple'),
+                    ('calculated', 'Calculated'),
+                ],
                 default='user',
                 max_length=10,
                 verbose_name='Source',
