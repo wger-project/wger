@@ -2,6 +2,9 @@
 
 ## New features
 
+* Support double progression: progression requirements can now gate against the
+  top of a rep or weight range with `max_repetitions` and `max_weight` rules,
+  and require all prescribed sets to qualify with `"all_sets": true`.
 * Improved openAPI spec. The spec now properly describes the different parts of
   the API and can be used to generate clients.
 

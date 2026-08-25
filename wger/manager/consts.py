@@ -21,8 +21,16 @@ REQUIREMENTS_RULES_KEYS = [
     'repetitions',
     'rir',
     'rest',
+    'max_repetitions',
+    'max_weight',
 ]
 """Log fields that progression requirements can reference"""
+
+REQUIREMENTS_MAX_RULES = {
+    'max_repetitions': 'repetitions',
+    'max_weight': 'weight',
+}
+"""Maps max requirement rules to the log field they read from"""
 
 REP_UNIT_REPETITIONS = 1
 REP_UNIT_TILL_FAILURE = 2

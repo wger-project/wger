@@ -35,6 +35,7 @@ from wger.core.models import (
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
     REP_UNIT_REPETITIONS,
+    REQUIREMENTS_MAX_RULES,
     REQUIREMENTS_RULES_KEYS,
     WEIGHT_UNIT_KG,
 )
@@ -98,6 +99,16 @@ BASE_FIELD = {
     'maxsets': 'sets',
 }
 """Maps max fields to their base field, both advance together"""
+
+RULE_FIELD_MAP = {
+    'weight': 'weight',
+    'repetitions': 'repetitions',
+    'rir': 'rir',
+    'rest': 'rest',
+    'max_repetitions': 'maxrepetitions',
+    'max_weight': 'maxweight',
+}
+"""Maps requirement rule names to their progression field in _WalkState"""
 
 FIELD_CAPS = {
     field: MAX_COMPOUND_RIR if field in ('rir', 'maxrir') else MAX_COMPOUND_VALUE
@@ -352,19 +363,44 @@ class SlotEntry(models.Model):
         """Rounding applied to a field for display and requirement thresholds"""
         return {
             'weight': self.weight_rounding,
+            'max_weight': self.weight_rounding,
+            'maxweight': self.weight_rounding,
             'repetitions': self.repetition_rounding,
+            'max_repetitions': self.repetition_rounding,
+            'maxrepetitions': self.repetition_rounding,
             'rir': Decimal('0.5'),
             'rest': 1,
         }.get(field)
 
     @staticmethod
-    def _requirements_met(requirements, log_data: List[WorkoutLog], thresholds: dict) -> bool:
-        """True if any single log reaches the thresholds of all required fields"""
+    def _requirements_met(
+        requirements,
+        log_data: List[WorkoutLog],
+        thresholds: dict,
+        prescribed_sets: int = 1,
+    ) -> bool:
+        """
+        True if the logs meet the requirements thresholds.
+
+        If requirements.all_sets is True, at least `prescribed_sets` (floored at 1)
+        must be logged and every logged set must qualify. Otherwise, any single
+        qualifying set is sufficient.
+        """
 
         def rule_met(log: WorkoutLog, rule: str) -> bool:
-            log_value = getattr(log, rule, None)
+            log_field = REQUIREMENTS_MAX_RULES.get(rule, rule)
+            log_value = getattr(log, log_field, None)
             threshold = thresholds.get(rule)
             return log_value is not None and threshold is not None and log_value >= threshold
+
+        if not requirements.rules:
+            return True
+
+        if getattr(requirements, 'all_sets', False):
+            min_sets = max(prescribed_sets, 1)
+            if len(log_data) < min_sets:
+                return False
+            return all(all(rule_met(log, rule) for rule in requirements.rules) for log in log_data)
 
         return any(all(rule_met(log, rule) for rule in requirements.rules) for log in log_data)
 
@@ -436,9 +472,13 @@ class SlotEntry(models.Model):
         for i in range(1, target + 1):
             # Thresholds are the displayed prescriptions of the previous iteration
             thresholds = {
-                rule: round_value(states[rule].value, self._display_rounding(rule))
+                rule: round_value(
+                    states[RULE_FIELD_MAP[rule]].value,
+                    self._display_rounding(rule),
+                )
                 for rule in REQUIREMENTS_RULES_KEYS
             }
+            prescribed_sets = max(int(states['sets'].value or 1), 1)
             log_data = logs_by_iteration.get(i - 1, [])
 
             # All fields advance first, the gates below read the candidates
@@ -464,7 +504,7 @@ class SlotEntry(models.Model):
                 is_open = (
                     i == 1
                     or not requirements
-                    or self._requirements_met(requirements, log_data, thresholds)
+                    or self._requirements_met(requirements, log_data, thresholds, prescribed_sets)
                 )
                 states[field].apply(candidate, is_open, FIELD_CAPS[field])
 

@@ -24,6 +24,11 @@ REQUIREMENTS_REQUIRED_KEYS = [
     'rules',
 ]
 
+REQUIREMENTS_ALLOWED_KEYS = [
+    'rules',
+    'all_sets',
+]
+
 
 def validate_requirements(value: dict | None):
     """Validates the requirements field."""
@@ -37,9 +42,16 @@ def validate_requirements(value: dict | None):
     if not all(key in value for key in REQUIREMENTS_REQUIRED_KEYS):
         raise serializers.ValidationError("Missing required keys: 'rules'")
 
+    for key in value:
+        if key not in REQUIREMENTS_ALLOWED_KEYS:
+            raise serializers.ValidationError(f"Unknown key: '{key}'")
+
     if 'rules' in value and not isinstance(value['rules'], list):
         raise serializers.ValidationError("'rules' must be a list.")
 
     for rule in value['rules']:
         if rule not in REQUIREMENTS_RULES_KEYS:
             raise serializers.ValidationError(f'Invalid rule: {rule}')
+
+    if 'all_sets' in value and not isinstance(value['all_sets'], bool):
+        raise serializers.ValidationError("'all_sets' must be a boolean.")
