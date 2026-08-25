@@ -155,9 +155,20 @@ class AggregateApiTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 400)
 
     def test_another_users_category_is_not_aggregated(self):
+        self.add(timezone.make_aware(datetime.datetime(2026, 5, 4, 8)), 60)
+        self.assertEqual(len(self.aggregate(bucket='day', tz='UTC')), 1)
+
         self.user_login('admin')
 
-        self.assertEqual(self.aggregate(bucket='day'), [])
+        self.assertEqual(self.aggregate(bucket='day', tz='UTC'), [])
+
+    def test_another_users_category_has_no_value_counts(self):
+        self.add(timezone.make_aware(datetime.datetime(2026, 5, 4, 8)), 60)
+        self.assertEqual(len(self.value_counts()), 1)
+
+        self.user_login('admin')
+
+        self.assertEqual(self.value_counts(), [])
 
     def test_value_counts_count_how_often_a_value_occurred(self):
         # A year of readings comes back as the distinct values it covers

@@ -99,7 +99,8 @@ class UserStatisticsService:
 
         # Calculate streaks and other date-based stats
         workout_dates = sorted({day for session in sessions if (day := session.local_day_in(tz))})
-        current_streak, longest_streak = cls._calculate_streaks(workout_dates, tz)
+        today = timezone.localdate(timezone=tz)
+        current_streak, longest_streak = cls._calculate_streaks(workout_dates, today)
         stats.current_streak = current_streak
         stats.longest_streak = longest_streak
 
@@ -119,7 +120,7 @@ class UserStatisticsService:
         stats.latest_workout_time = latest
 
         # Calculate weekend workout streak
-        weekend_streak, last_complete_weekend = cls._calculate_weekend_streak(workout_dates, tz)
+        weekend_streak, last_complete_weekend = cls._calculate_weekend_streak(workout_dates, today)
         stats.weekend_workout_streak = weekend_streak
         stats.last_complete_weekend_date = last_complete_weekend
 
@@ -274,7 +275,7 @@ class UserStatisticsService:
         return total
 
     @classmethod
-    def _calculate_streaks(cls, workout_dates: list, tz: datetime.tzinfo) -> tuple:
+    def _calculate_streaks(cls, workout_dates: list, today: datetime.date) -> tuple:
         """
         Calculate current and longest workout streaks.
 
@@ -284,7 +285,7 @@ class UserStatisticsService:
 
         Args:
             workout_dates: List of dates with workouts, sorted ascending
-            tz: the timezone of the user the dates belong to
+            today: the current day in the timezone the dates were cut in
 
         Returns:
             Tuple of (current_streak, longest_streak)
@@ -298,8 +299,6 @@ class UserStatisticsService:
         current_streak = 1
         longest_streak = 1
         streak = 1
-
-        today = timezone.localdate(timezone=tz)
 
         for i in range(1, len(unique_dates)):
             if (unique_dates[i] - unique_dates[i - 1]).days == 1:
@@ -345,13 +344,13 @@ class UserStatisticsService:
         return min(times), max(times)
 
     @classmethod
-    def _calculate_weekend_streak(cls, workout_dates: list, tz: datetime.tzinfo) -> tuple:
+    def _calculate_weekend_streak(cls, workout_dates: list, today: datetime.date) -> tuple:
         """
         Calculate consecutive weekends with workouts on both Saturday and Sunday.
 
         Args:
             workout_dates: List of workout dates
-            tz: the timezone of the user the dates belong to, decides "today"
+            today: the current day in the timezone the dates were cut in
 
         Returns:
             Tuple of (weekend_streak, last_complete_weekend_date)
@@ -398,7 +397,6 @@ class UserStatisticsService:
                 streak = 1
 
         # Determine current streak
-        today = timezone.localdate(timezone=tz)
         last_complete = complete_weekends[-1]
 
         # Find the most recent Saturday

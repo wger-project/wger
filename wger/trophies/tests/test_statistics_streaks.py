@@ -15,7 +15,6 @@
 
 # Standard Library
 import datetime
-from unittest import mock
 
 # Django
 from django.contrib.auth.models import User
@@ -30,18 +29,7 @@ from wger.trophies.services.statistics import UserStatisticsService
 
 
 FROZEN_TODAY = datetime.date(2024, 6, 19)
-"""A Wednesday; the most recent Saturday is 2024-06-15"""
-
-
-def frozen_today():
-    """
-    Freezes the current day so the streak calculations are deterministic
-    """
-
-    return mock.patch(
-        'wger.trophies.services.statistics.timezone.localdate',
-        return_value=FROZEN_TODAY,
-    )
+"""The day the calculations run on; a Wednesday, the most recent Saturday is 2024-06-15"""
 
 
 def days_ago(days: int) -> datetime.date:
@@ -54,8 +42,7 @@ class CalculateStreaksTestCase(SimpleTestCase):
     """
 
     def calculate(self, dates):
-        with frozen_today():
-            return UserStatisticsService._calculate_streaks(dates, timezone.get_default_timezone())
+        return UserStatisticsService._calculate_streaks(dates, FROZEN_TODAY)
 
     def test_no_workouts(self):
         self.assertEqual(self.calculate([]), (0, 0))
@@ -157,10 +144,7 @@ class CalculateWeekendStreakTestCase(SimpleTestCase):
     """
 
     def calculate(self, dates):
-        with frozen_today():
-            return UserStatisticsService._calculate_weekend_streak(
-                dates, timezone.get_default_timezone()
-            )
+        return UserStatisticsService._calculate_weekend_streak(dates, FROZEN_TODAY)
 
     def test_no_workouts(self):
         self.assertEqual(self.calculate([]), (0, None))
