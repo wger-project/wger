@@ -495,14 +495,16 @@ REST_FRAMEWORK = {
     # JSON only, endpoints taking a file set MultiPartParser themselves.
     'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # The token-based classes activate the user's timezone, which the
+        # middleware only manages for session requests; see timezone_auth
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'wger.utils.timezone_auth.TimezoneTokenAuthentication',
         'wger.utils.headless_auth.HeadlessJWTAuthentication',
         # Also uses Bearer, but with opaque tokens, so it has to run before
         # simplejwt, which raises instead of passing the token on. Placed after
         # the headless class so app requests don't pay for the token lookup.
         'wger.utils.oidc_auth.OidcTokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'wger.utils.timezone_auth.TimezoneJWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',

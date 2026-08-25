@@ -30,6 +30,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import SAFE_METHODS
 
 # wger
+from wger.utils.timezone_auth import activate_user_timezone
 from wger.utils.url import make_absolute_url
 
 
@@ -92,6 +93,7 @@ class OidcTokenAuthentication(TokenAuthentication):
                 code='insufficient_scope',
             )
 
+        activate_user_timezone(user)
         return user, token
 
 
