@@ -6,7 +6,7 @@ import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
 from django.db.models import F, Max, Min, Q
-from django.utils.timezone import make_aware
+from django.utils.timezone import localtime, make_aware
 
 
 BATCH_SIZE = 2000
@@ -51,6 +51,19 @@ def build_interval(session):
     return combine(session.date, datetime.time(0, 0)), None
 
 
+def split_interval(datetime_start, datetime_end):
+    """
+    Map the start and end datetimes back onto the old date/time triple
+
+    The instants survive the roundtrip; sessions that had no times recorded read
+    back as a start at midnight.
+    """
+    start = localtime(datetime_start)
+    end = localtime(datetime_end).time() if datetime_end else None
+
+    return start.date(), start.time(), end
+
+
 def forward_func(apps, schema_editor):
     WorkoutSession = apps.get_model('manager', 'WorkoutSession')
 
@@ -72,6 +85,30 @@ def forward_func(apps, schema_editor):
 
     if batch:
         WorkoutSession.objects.bulk_update(batch, ['datetime_start', 'datetime_end'])
+
+
+def reverse_func(apps, schema_editor):
+    """
+    Restore the old triple so the migration can be rolled back
+
+    Sessions sharing a day within a routine are only possible after the upgrade
+    and make the rollback fail on the restored unique_together.
+    """
+    WorkoutSession = apps.get_model('manager', 'WorkoutSession')
+
+    batch = []
+    for session in WorkoutSession.objects.order_by('pk').iterator(chunk_size=BATCH_SIZE):
+        session.date, session.time_start, session.time_end = split_interval(
+            session.datetime_start, session.datetime_end
+        )
+        batch.append(session)
+
+        if len(batch) >= BATCH_SIZE:
+            WorkoutSession.objects.bulk_update(batch, ['date', 'time_start', 'time_end'])
+            batch = []
+
+    if batch:
+        WorkoutSession.objects.bulk_update(batch, ['date', 'time_start', 'time_end'])
 
 
 class Migration(migrations.Migration):
@@ -116,7 +153,7 @@ class Migration(migrations.Migration):
                 fields=['routine', 'datetime_start'], name='manager_wor_routine_46e75a_idx'
             ),
         ),
-        migrations.RunPython(forward_func, migrations.RunPython.noop),
+        migrations.RunPython(forward_func, reverse_func),
         migrations.RemoveField(
             model_name='workoutsession',
             name='date',
