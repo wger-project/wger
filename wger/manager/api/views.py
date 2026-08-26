@@ -216,6 +216,7 @@ class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = RoutineSerializer
+    permission_classes = [RoutinePermission]
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('name', 'description', 'created')
@@ -238,6 +239,7 @@ class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = RoutineSerializer
+    permission_classes = [RoutinePermission]
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('name', 'description', 'created')
