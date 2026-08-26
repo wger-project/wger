@@ -111,6 +111,9 @@ class CategoryViewSet(WgerOwnerObjectModelViewSet):
         methods=['get'],
         url_path='dynamic-types',
         serializer_class=DynamicTypeSerializer,
+        pagination_class=None,
+        # The registry is not a queryset, the filters of the viewset do nothing here
+        filter_backends=[],
     )
     def dynamic_types(self, request):
         """
@@ -190,7 +193,7 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
         ],
         responses={200: BucketSerializer(many=True)},
     )
-    @action(detail=False, methods=['get'], serializer_class=BucketSerializer)
+    @action(detail=False, methods=['get'], serializer_class=BucketSerializer, pagination_class=None)
     def aggregate(self, request):
         """
         The entries condensed into what a chart draws: one row per category,
@@ -232,6 +235,7 @@ class MeasurementViewSet(WgerOwnerObjectModelViewSet):
         url_path='value-counts',
         methods=['get'],
         serializer_class=ValueCountSerializer,
+        pagination_class=None,
     )
     def value_counts(self, request):
         """
