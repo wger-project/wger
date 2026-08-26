@@ -31,9 +31,27 @@ from celery.schedules import crontab
 # wger
 from wger.celery_configuration import app
 from wger.core.models import LongLivedSession
+from wger.utils.mail import (
+    get_delivery_connection,
+    message_from_dict,
+)
 
 
 logger = logging.getLogger(__name__)
+
+
+@app.task(
+    autoretry_for=(Exception,),
+    retry_backoff=True,
+    retry_kwargs={'max_retries': 5},
+)
+def send_email_task(payload: dict):
+    """
+    Deliver a single email, see wger.core.mail.CeleryEmailBackend
+    """
+    message = message_from_dict(payload)
+    message.connection = get_delivery_connection()
+    message.send()
 
 
 @app.task

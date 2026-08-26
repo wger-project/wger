@@ -197,6 +197,13 @@ WGER_SETTINGS['CACHE_API_EXERCISES_CELERY'] = env.bool('CACHE_API_EXERCISES_CELE
 WGER_SETTINGS['CACHE_API_EXERCISES_CELERY_FORCE_UPDATE'] = env.bool(
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE', False
 )
+
+# Let a worker do the SMTP round trip, it would otherwise happen inside the
+# request that triggered the email (registration, password reset, ...)
+EMAIL_DELIVERY_BACKEND = EMAIL_BACKEND
+if WGER_SETTINGS['USE_CELERY']:
+    EMAIL_BACKEND = 'wger.core.mail.CeleryEmailBackend'
+
 WGER_SHOW_APP_STORE_LINKS = env.bool('WGER_SHOW_APP_STORE_LINKS', True)
 
 #

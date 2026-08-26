@@ -236,6 +236,10 @@ STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
 EMAIL_SUBJECT_PREFIX = '[wger] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Backend that performs the delivery when EMAIL_BACKEND only queues it, see
+# wger.core.mail
+EMAIL_DELIVERY_BACKEND = EMAIL_BACKEND
+
 #
 # django-allauth
 #

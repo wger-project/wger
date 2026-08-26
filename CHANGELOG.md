@@ -4,6 +4,9 @@
 
 * Improved openAPI spec. The spec now properly describes the different parts of
   the API and can be used to generate clients.
+* Emails are now send asynchronously via the celery queue, this should make
+  registration, password resets, etc. feel a bit snappier. If celery is not configured,
+  the emails are send as before
 
 ### OAuth2 provider
 
