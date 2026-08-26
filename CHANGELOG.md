@@ -7,6 +7,10 @@
 * Emails are now send asynchronously via the celery queue, this should make
   registration, password resets, etc. feel a bit snappier. If celery is not configured,
   the emails are send as before
+* Faster and stronger password hashing: passwords are now hashed with argon2 instead
+  of PBKDF2. Argon2 is what Django itself recommends, but PBKDF2 is only the default
+  because it needs no additional library. Existing passwords keep working and are
+  migrated automatically on the next login.
 
 ### OAuth2 provider
 
