@@ -18,6 +18,7 @@ import random
 
 # Django
 from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from django.core.management import call_command
 from django.http import HttpRequest
 from django.urls import reverse
@@ -52,6 +53,17 @@ class DemoUserTestCase(WgerTestCase):
         Counts the number of temporary users
         """
         return User.objects.filter(userprofile__is_temporary=1).count()
+
+    def test_anonymous_request_creates_no_session(self):
+        """
+        Reading a public page without logging in creates no session row
+        """
+        before = Session.objects.count()
+
+        response = self.client.get(reverse('software:features'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Session.objects.count(), before)
 
     def test_demo_data_no_guest_account(self):
         """
