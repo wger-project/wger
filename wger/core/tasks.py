@@ -18,16 +18,40 @@ import random
 
 # Django
 from django.contrib.sessions.backends.db import SessionStore
+from django.contrib.sessions.models import Session
 from django.core.management import call_command
+from django.db.models import (
+    Exists,
+    OuterRef,
+)
 
 # Third Party
 from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
+from wger.core.models import LongLivedSession
+from wger.utils.mail import (
+    get_delivery_connection,
+    message_from_dict,
+)
 
 
 logger = logging.getLogger(__name__)
+
+
+@app.task(
+    autoretry_for=(Exception,),
+    retry_backoff=True,
+    retry_kwargs={'max_retries': 5},
+)
+def send_email_task(payload: dict):
+    """
+    Deliver a single email, see wger.core.mail.CeleryEmailBackend
+    """
+    message = message_from_dict(payload)
+    message.connection = get_delivery_connection()
+    message.send()
 
 
 @app.task
@@ -47,9 +71,14 @@ def flush_expired_jwt_tokens_task():
 @app.task
 def flush_expired_long_lived_sessions_task():
     """
-    Delete all expired DB-backed sessions
+    Delete all expired DB-backed sessions and their index rows
     """
     SessionStore.clear_expired()
+
+    # Index rows of sessions that are gone, the session table is the truth.
+    LongLivedSession.objects.filter(
+        ~Exists(Session.objects.filter(session_key=OuterRef('session_key')))
+    ).delete()
 
 
 @app.task

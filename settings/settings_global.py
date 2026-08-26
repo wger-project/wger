@@ -236,10 +236,29 @@ STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
 
 
 #
+# Password hashing
+#
+# Django's own list, but with argon2 moved to the front. It is both faster and
+# harder to attack than PBKDF2, which is only the default because it needs no
+# third party library. Existing hashes stay valid and are rewritten to argon2
+# on the next successful login.
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
+
+#
 # Email
 #
 EMAIL_SUBJECT_PREFIX = '[wger] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Backend that performs the delivery when EMAIL_BACKEND only queues it, see
+# wger.core.mail
+EMAIL_DELIVERY_BACKEND = EMAIL_BACKEND
 
 #
 # django-allauth

@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import importlib
 import json
 import logging
 from datetime import timedelta
+from unittest import mock
 
 # Django
 from django.contrib.auth.models import User
@@ -23,6 +25,7 @@ from django.contrib.sessions.models import Session
 from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 
 # Third Party
 from rest_framework.authtoken.models import Token
@@ -34,9 +37,11 @@ from rest_framework_simplejwt.token_blacklist.models import (
 from rest_framework_simplejwt.tokens import RefreshToken
 
 # wger
+from wger.core.models import LongLivedSession
 from wger.core.tasks import flush_expired_long_lived_sessions_task
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.headless_long_lived import (
+    LONG_LIVED_CREATED_AT,
     LONG_LIVED_FLAG,
     list_long_lived_sessions,
     mint_long_lived_refresh_token,
@@ -442,7 +447,7 @@ class LongLivedRefreshTokenTestCase(WgerTestCase):
     def test_flush_expired_long_lived_sessions_task(self):
         """
         The periodic cleanup task deletes expired DB-backed long-lived sessions
-        while leaving still-valid ones untouched.
+        and their index rows, while leaving still-valid ones untouched.
         """
         user = User.objects.get(username='test')
 
@@ -460,3 +465,128 @@ class LongLivedRefreshTokenTestCase(WgerTestCase):
 
         self.assertFalse(Session.objects.filter(session_key=expired_key).exists())
         self.assertTrue(Session.objects.filter(session_key=live_key).exists())
+
+        self.assertFalse(LongLivedSession.objects.filter(session_key=expired_key).exists())
+        self.assertTrue(LongLivedSession.objects.filter(session_key=live_key).exists())
+
+    def test_overview_does_not_decode_any_session(self):
+        """
+        Rendering the overview must not decode session payloads, no matter how
+        many sessions of other users are in the table. The dates it shows come
+        from the index and from the session row itself.
+        """
+        admin = User.objects.get(username='admin')
+        for _ in range(20):
+            mint_long_lived_refresh_token(admin, lifetime_seconds=120 * 86400)
+
+        self.user_login('test')
+        user = User.objects.get(username='test')
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        entry = LongLivedSession.objects.get(user=user)
+
+        decoded = []
+        original = Session.get_decoded
+
+        def counting_get_decoded(session):
+            decoded.append(session.session_key)
+            return original(session)
+
+        with mock.patch.object(Session, 'get_decoded', counting_get_decoded):
+            response = self.client.get(reverse('core:user:api-key'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(decoded, [])
+        self.assertContains(response, timezone.localtime(entry.created).strftime('%Y-%m-%d %H:%M'))
+
+    def test_deleting_the_user_removes_the_index(self):
+        """
+        The index rows of a deleted user are removed with them.
+        """
+        user = User.objects.get(username='test')
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        self.assertEqual(LongLivedSession.objects.filter(user=user).count(), 1)
+
+        user.delete()
+        self.assertEqual(LongLivedSession.objects.count(), 0)
+
+    def test_session_deleted_outside_the_app_is_not_listed(self):
+        """
+        A session that was removed without going through the revoke views does
+        not show up in the overview any more.
+        """
+        user = User.objects.get(username='test')
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        session_key = list_long_lived_sessions(user)[0].session_key
+
+        Session.objects.filter(session_key=session_key).delete()
+
+        self.assertEqual(list_long_lived_sessions(user), [])
+
+
+class LongLivedSessionBackfillTestCase(WgerTestCase):
+    """
+    Tests the data migration that indexes the sessions created before the index
+    existed. The test settings skip migrations, so the function is called with
+    the current models instead of the historical ones.
+    """
+
+    MIGRATION = 'wger.core.migrations.0028_longlivedsession'
+
+    def index_existing_sessions(self):
+        module = importlib.import_module(self.MIGRATION)
+        module.index_existing_sessions(Session, LongLivedSession, User)
+
+    def test_existing_sessions_are_indexed(self):
+        """
+        Long-lived sessions without an index row get one, with the user and the
+        creation date taken from the session payload.
+        """
+        user = User.objects.get(username='test')
+
+        # A regular browser session that must be left alone.
+        self.user_login('test')
+
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        keys = set(LongLivedSession.objects.values_list('session_key', flat=True))
+        self.assertEqual(len(keys), 2)
+
+        LongLivedSession.objects.all().delete()
+        self.index_existing_sessions()
+
+        self.assertEqual(
+            set(LongLivedSession.objects.values_list('session_key', flat=True)),
+            keys,
+        )
+        for entry in LongLivedSession.objects.all():
+            data = Session.objects.get(session_key=entry.session_key).get_decoded()
+            self.assertEqual(entry.user, user)
+            self.assertEqual(entry.created, parse_datetime(data[LONG_LIVED_CREATED_AT]))
+
+    def test_expired_sessions_are_skipped(self):
+        """
+        Sessions that already expired are not indexed, the cleanup task would
+        drop them right away.
+        """
+        user = User.objects.get(username='test')
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+        session_key = LongLivedSession.objects.get().session_key
+
+        Session.objects.filter(session_key=session_key).update(
+            expire_date=timezone.now() - timedelta(days=1),
+        )
+        LongLivedSession.objects.all().delete()
+        self.index_existing_sessions()
+
+        self.assertEqual(LongLivedSession.objects.count(), 0)
+
+    def test_running_twice_does_not_duplicate(self):
+        """
+        Sessions that are already indexed are not indexed a second time.
+        """
+        user = User.objects.get(username='test')
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+
+        self.index_existing_sessions()
+
+        self.assertEqual(LongLivedSession.objects.count(), 1)
