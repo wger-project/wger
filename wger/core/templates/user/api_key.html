@@ -69,25 +69,23 @@
             </thead>
             <tbody>
                 {% for session in long_lived_sessions %}
-                    {% with data=session.get_decoded %}
-                        <tr>
-                            <td>{{ data.wger_long_lived_refresh_created_at|default:"—" }}</td>
-                            <td>{{ session.expire_date|date:"Y-m-d H:i" }}</td>
-                            <td>
-                                <button
-                                    type="button"
-                                    class="btn btn-sm btn-outline-danger"
-                                    hx-post="{% url 'core:user:api-key' %}"
-                                    hx-vals='{"revoke_refresh_token": "{{ session.session_key }}"}'
-                                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                    hx-target="body"
-                                    hx-push-url="true"
-                                >
-                                    {% translate "Revoke" %}
-                                </button>
-                            </td>
-                        </tr>
-                    {% endwith %}
+                    <tr>
+                        <td>{{ session.long_lived.created|date:"Y-m-d H:i" }}</td>
+                        <td>{{ session.expire_date|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-danger"
+                                hx-post="{% url 'core:user:api-key' %}"
+                                hx-vals='{"revoke_refresh_token": "{{ session.session_key }}"}'
+                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                hx-target="body"
+                                hx-push-url="true"
+                            >
+                                {% translate "Revoke" %}
+                            </button>
+                        </td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
