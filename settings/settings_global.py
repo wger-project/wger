@@ -576,6 +576,13 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'COMPONENT_SPLIT_REQUEST': True,
+    # postprocess_schema_enums is spectacular's own default and has to be
+    # repeated: assigning the list replaces it, and without it no enum becomes a
+    # named component, which renames a good part of every generated client.
+    'POSTPROCESSING_HOOKS': [
+        'drf_spectacular.hooks.postprocess_schema_enums',
+        'wger.utils.api_schema.strip_patch_defaults',
+    ],
     # Both are exposed as a plain "type" field on more than one component, which
     # spectacular would otherwise name with a hash suffix (e.g. Type947Enum).
     # The names end up as class names in generated clients, so pin them.
