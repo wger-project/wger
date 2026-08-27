@@ -119,6 +119,7 @@ from wger.utils.headless_long_lived import (
     revoke_all_long_lived_sessions,
     revoke_long_lived_session,
 )
+from wger.utils.oidc_auth import is_provider_configured
 
 
 logger = logging.getLogger(__name__)
@@ -324,6 +325,7 @@ def preferences(request):
     context['email_verified'] = request.user.userprofile.is_verified
     context['mfa_enabled'] = is_mfa_enabled(request.user)
     context['has_usable_password'] = request.user.has_usable_password()
+    context['oidc_provider_configured'] = is_provider_configured()
 
     return render(request, 'user/preferences.html', context)
 
