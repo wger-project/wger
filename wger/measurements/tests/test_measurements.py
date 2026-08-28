@@ -413,6 +413,41 @@ class MeasurementExtraDataApiTestCase(WgerTestCase):
         self.assertEqual(response.data['extra_data'], {'unit': 'lb'})
         self.assertEqual(Measurement.objects.get(pk=response.data['id']).unit, 'lb')
 
+    def test_body_weight_entry_is_stamped_with_the_category_unit(self):
+        """
+        Test that a body weight entry written without a unit gets one
+        """
+        response = self.client.post(
+            self.url,
+            {
+                'category': 'cccccccc-cccc-cccc-cccc-0000000000b0',
+                'date': '2023-05-01T12:00:00Z',
+                'value': 77,
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data['extra_data'], {'unit': 'kg'})
+
+    def test_entry_of_another_type_is_not_stamped(self):
+        """
+        Test that only body weight is stamped, elsewhere an absent unit means
+        the category unit applies
+        """
+        response = self.client.post(
+            self.url,
+            {
+                'category': 'cccccccc-cccc-cccc-cccc-000000000001',
+                'date': '2023-05-01T12:00:00Z',
+                'value': 42,
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data['extra_data'], {})
+
     def test_extra_data_size_bound(self):
         """
         Test that an oversized extra_data blob is refused

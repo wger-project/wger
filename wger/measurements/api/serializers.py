@@ -424,6 +424,23 @@ class MeasurementSerializer(serializers.ModelSerializer):
         unit = (self.instance.extra_data or {}).get('unit')
         return limits_for(category.metric_type, unit or category.unit)
 
+    def create(self, validated_data):
+        """
+        Stamps a body weight entry with the unit it was written in.
+
+        The unit of that category is switchable and an entry without a stamp
+        reads through to it, so a switch would change what the stored number
+        means. Body weight is the only type this applies to, its values are
+        the only ones converted on read.
+        """
+        category = validated_data.get('category')
+        if category is not None and category.metric_type == MetricType.BODY_WEIGHT:
+            extra_data = dict(validated_data.get('extra_data') or {})
+            extra_data.setdefault('unit', category.unit)
+            validated_data['extra_data'] = extra_data
+
+        return super().create(validated_data)
+
 
 class DynamicTypeSerializer(serializers.Serializer):
     """
