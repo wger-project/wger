@@ -264,9 +264,11 @@ class CategorySerializer(serializers.ModelSerializer):
         metric_type = validated_data.get('metric_type', MetricType.CUSTOM)
         user_id = validated_data.get('user_id') or getattr(validated_data.get('user'), 'pk', None)
 
-        # A client that creates the category offline derives the same key, so
-        # only fill it in when the payload brought none of its own
-        if 'id' not in validated_data and Category.has_deterministic_id(metric_type) and user_id:
+        # The key of a typed category is not a free parameter, it follows from
+        # owner and type, so a key the payload brought is overwritten rather
+        # than trusted: our own clients derive the same value, and one that
+        # does not would create a category no other device can address
+        if Category.has_deterministic_id(metric_type) and user_id:
             validated_data['id'] = Category.deterministic_id(user_id, metric_type)
 
         category = super().create(validated_data)

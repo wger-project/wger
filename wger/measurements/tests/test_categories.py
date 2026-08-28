@@ -213,6 +213,34 @@ class TypedCategoryTestCase(WgerTestCase):
             str(Category.deterministic_id(self.user.pk, MetricType.STEPS)),
         )
 
+    def test_derived_id_overrides_the_one_sent(self):
+        """
+        Test that a key the payload brings is replaced by the derived one
+        """
+        response = self.create_category(
+            metric_type=MetricType.STEPS,
+            id='cccccccc-cccc-cccc-cccc-0000000000ff',
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(
+            response.data['id'],
+            str(Category.deterministic_id(self.user.pk, MetricType.STEPS)),
+        )
+
+    def test_custom_category_keeps_the_id_sent(self):
+        """
+        Test that a free-form category is created under the key it was given
+        """
+        response = self.create_category(
+            name='Biceps',
+            unit='cm',
+            id='cccccccc-cccc-cccc-cccc-0000000000ff',
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data['id'], 'cccccccc-cccc-cccc-cccc-0000000000ff')
+
     def test_official_category_keeps_random_id(self):
         """
         Test that the server-managed body weight category is not derived
