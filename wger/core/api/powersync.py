@@ -52,7 +52,7 @@ def create_token(user_id):
             'sub': str(user_id),
             'iat': now,
             'aud': 'powersync',
-            'exp': now + 600,
+            'exp': now + settings.POWERSYNC_TOKEN_LIFETIME,
         },
         _private_key(),
         algorithm=jwk['alg'],

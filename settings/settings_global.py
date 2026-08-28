@@ -319,6 +319,11 @@ HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
 
 #
+# PowerSync
+#
+POWERSYNC_TOKEN_LIFETIME = 600
+
+#
 # allauth.idp.oidc — OAuth2/OIDC provider
 #
 IDP_OIDC_ADAPTER = 'wger.utils.oidc_auth.WgerOIDCAdapter'
