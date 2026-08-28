@@ -21,11 +21,17 @@ from django.db import (
     IntegrityError,
     OperationalError,
 )
+from django.test import (
+    SimpleTestCase,
+    override_settings,
+)
 
 # Third Party
+import jwt
 from rest_framework import status
 
 # wger
+from wger.core.api.powersync import create_token
 from wger.core.models import UserProfile
 from wger.core.tests import powersync_base_test
 
@@ -113,3 +119,19 @@ class UserProfilePowerSyncTestCase(
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json().get('error'), 'Validation failed')
+
+
+class PowerSyncTokenLifetimeTestCase(SimpleTestCase):
+    """Lifetime of the JWT handed to the sync service"""
+
+    @staticmethod
+    def lifetime():
+        claims = jwt.decode(create_token(1), options={'verify_signature': False})
+        return claims['exp'] - claims['iat']
+
+    def test_default(self):
+        self.assertEqual(self.lifetime(), 600)
+
+    @override_settings(POWERSYNC_TOKEN_LIFETIME=120)
+    def test_configured(self):
+        self.assertEqual(self.lifetime(), 120)
