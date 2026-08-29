@@ -13,11 +13,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from unittest.mock import patch
+
 # Django
-from django.test import SimpleTestCase
+from django.core.cache import cache
+from django.test import (
+    SimpleTestCase,
+    override_settings,
+)
+from django.utils import translation
 
 # Third Party
 from drf_spectacular.generators import SchemaGenerator
+
+# wger
+from wger.utils.api_schema import CachedSchemaGenerator
+from wger.utils.cache import CacheKeyMapper
+from wger.version import get_version_with_git
 
 
 class SchemaPaginationTestCase(SimpleTestCase):
@@ -58,3 +71,88 @@ class SchemaPaginationTestCase(SimpleTestCase):
                 paginated.append(f'{method} {path}')
 
         self.assertEqual(paginated, [])
+
+
+class SchemaCacheTestCase(SimpleTestCase):
+    """
+    The caching of the generated schema
+    """
+
+    SCHEMA = {'openapi': '3.0.3'}
+
+    def setUp(self):
+        cache.clear()
+
+    @patch.object(SchemaGenerator, 'get_schema')
+    def test_repeated_requests_reuse_the_cached_schema(self, generate):
+        """
+        The schema is generated once and served from the cache afterwards
+        """
+        generate.return_value = self.SCHEMA
+
+        with translation.override('en'):
+            first = CachedSchemaGenerator().get_schema(public=True)
+            second = CachedSchemaGenerator().get_schema(public=True)
+
+        self.assertEqual(generate.call_count, 1)
+        self.assertEqual(first, self.SCHEMA)
+        self.assertEqual(second, self.SCHEMA)
+
+    @patch.object(SchemaGenerator, 'get_schema')
+    def test_explicit_version_is_not_cached(self, generate):
+        """
+        A version passed by the caller never reaches a cache key
+        """
+        generate.return_value = self.SCHEMA
+
+        with translation.override('en'):
+            CachedSchemaGenerator(api_version='whatever').get_schema(public=True)
+            CachedSchemaGenerator(api_version='whatever').get_schema(public=True)
+
+            self.assertEqual(generate.call_count, 2)
+            key = CacheKeyMapper.api_schema_key(get_version_with_git(), 'en')
+            self.assertIsNone(cache.get(key))
+
+    @patch.object(SchemaGenerator, 'get_schema')
+    def test_unknown_language_is_not_cached(self, generate):
+        """
+        A language outside of settings.LANGUAGES never reaches a cache key
+        """
+        generate.return_value = self.SCHEMA
+
+        with translation.override('not-a-language'):
+            CachedSchemaGenerator().get_schema(public=True)
+            CachedSchemaGenerator().get_schema(public=True)
+
+        self.assertEqual(generate.call_count, 2)
+
+    @override_settings(DEBUG=True)
+    @patch.object(SchemaGenerator, 'get_schema')
+    def test_debug_always_generates(self, generate):
+        """
+        During development the schema follows the code, not the version stamp
+        """
+        generate.return_value = self.SCHEMA
+
+        with translation.override('en'):
+            CachedSchemaGenerator().get_schema(public=True)
+            CachedSchemaGenerator().get_schema(public=True)
+
+        self.assertEqual(generate.call_count, 2)
+
+    @patch.object(SchemaGenerator, 'get_schema')
+    def test_languages_are_cached_separately(self, generate):
+        """
+        Each language gets its own entry, the descriptions in the schema are
+        translated
+        """
+        generate.return_value = self.SCHEMA
+
+        for language in ('en', 'de'):
+            with translation.override(language):
+                CachedSchemaGenerator().get_schema(public=True)
+
+        self.assertEqual(generate.call_count, 2)
+        for language in ('en', 'de'):
+            key = CacheKeyMapper.api_schema_key(get_version_with_git(), language)
+            self.assertEqual(cache.get(key), self.SCHEMA)

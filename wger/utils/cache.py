@@ -50,6 +50,13 @@ class CacheKeyMapper:
         return f'nutrition-cache-log-{self.get_pk(params)}'
 
     @classmethod
+    def api_schema_key(cls, build: str, language: str) -> str:
+        """
+        get the cache key of the generated OpenAPI schema
+        """
+        return f'api-schema-{build}-{language}'
+
+    @classmethod
     def get_exercise_api_key(cls, base_uuid: str):
         """
         get the exercise base cache key used in the API
