@@ -17,6 +17,7 @@
 import datetime
 
 # Django
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 
@@ -28,6 +29,10 @@ from wger.core.models import UserProfile
 from wger.manager.api.consts import BASE_CONFIG_FIELDS
 from wger.manager.api.fields import DecimalOrIntegerField
 from wger.manager.api.validators import validate_requirements
+from wger.manager.consts import (
+    WEIGHT_UNIT_KG,
+    WEIGHT_UNIT_LB,
+)
 from wger.manager.models import (
     Day,
     MaxRepetitionsConfig,
@@ -46,6 +51,42 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+
+
+def profile_weight_unit_id(profile) -> int:
+    """Map a user profile's kg/lb preference to the WeightUnit PK used by routines."""
+    return WEIGHT_UNIT_KG if profile.use_metric else WEIGHT_UNIT_LB
+
+
+def apply_profile_weight_unit(serializer, validated_data, profile) -> None:
+    """
+    Default weight_unit from the profile when the client omitted it.
+
+    The model default is kg, so ``validated_data`` always has a unit after
+    validation. Inspect ``initial_data`` so an explicit kg/lb (or null) is
+    kept. Used only from ``create()`` so PATCH/edits do not clobber stored
+    units if the profile later changes.
+    """
+    initial = getattr(serializer, 'initial_data', None)
+    if initial is not None and 'weight_unit' in initial:
+        return
+    if profile is None:
+        return
+
+    validated_data.pop('weight_unit', None)
+    validated_data['weight_unit_id'] = profile_weight_unit_id(profile)
+
+
+def _user_from_validated_data(validated_data, serializer):
+    """Resolve the owning user from create() kwargs, then the request."""
+    user = validated_data.get('user')
+    if user is None and validated_data.get('user_id') is not None:
+        user = User.objects.filter(pk=validated_data['user_id']).first()
+    if user is None:
+        request = serializer.context.get('request')
+        if request is not None and getattr(request.user, 'is_authenticated', False):
+            user = request.user
+    return user
 
 
 class RoutineSerializer(serializers.ModelSerializer):
@@ -361,6 +402,12 @@ class SlotEntrySerializer(serializers.ModelSerializer):
             'config',
         )
 
+    def create(self, validated_data):
+        slot = validated_data.get('slot')
+        profile = slot.day.routine.user.userprofile if slot is not None else None
+        apply_profile_weight_unit(self, validated_data, profile)
+        return super().create(validated_data)
+
 
 class SetConfigDataSerializer(serializers.Serializer):
     """
@@ -599,6 +646,12 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rest',
             'rest_target',
         )
+
+    def create(self, validated_data):
+        user = _user_from_validated_data(validated_data, self)
+        profile = getattr(user, 'userprofile', None)
+        apply_profile_weight_unit(self, validated_data, profile)
+        return super().create(validated_data)
 
 
 class LogDisplaySerializer(serializers.Serializer):
