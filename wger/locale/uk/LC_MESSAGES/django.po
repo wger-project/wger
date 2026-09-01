@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-01 14:48+0000\n"
+"PO-Revision-Date: 2026-09-01 16:03+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -156,10 +156,12 @@ msgstr "Підтвердити"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Ваш акаунт не має пароля. Введіть ім'я користувача «{username}» для "
+"підтвердження."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Введене ім'я користувача не збігається"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -385,7 +387,7 @@ msgstr "Тип одиниці"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Тип одиниці вимірювання (повторення, час або дистанція)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -419,7 +421,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Майже там!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -450,10 +452,13 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Посилання дійсне протягом %(expire_hours)s год. (до %(time)s %(date)s). Ви "
+"можете запросити нове посилання в налаштуваннях профілю."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Якщо кнопка не працює, скопіюйте це посилання та вставте його в браузер:"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -470,6 +475,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Ваша електронна адреса використовується для скидання пароля та, за бажанням, "
+"для нагадувань про тренування. Нова адреса стане активною лише після того, "
+"як ви підтвердите її за посиланням, що надіслано на неї."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -478,7 +486,7 @@ msgstr "Поточна електронна адреса"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Очікує підтвердження: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
@@ -513,15 +521,15 @@ msgstr "Немає облікового запису?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Швидкий вхід"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Увійти за допомогою ключ-перепустки"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "або увійти через"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
@@ -856,7 +864,7 @@ msgstr "Умови надання послуг"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Мова браузера"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -864,7 +872,7 @@ msgstr "Особливості"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "Доступ до API"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -872,6 +880,9 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Є два способи автентифікації в API: JWT є пріоритетним механізмом для "
+"клієнтських додатків, а статичний API-ключ призначений для особистих "
+"скриптів або разових інтеграцій."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
@@ -882,6 +893,9 @@ msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"Токени оновлення дозволяють скриптам і CLI-інструментам взаємодіяти з API "
+"wger за допомогою потоку JWT без необхідності щоразу входити в акаунт "
+"інтерактивно."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -896,6 +910,8 @@ msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Він відображається лише один раз. Якщо ви втратите його, згенеруйте новий та "
+"відкличте стару сесію нижче."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -903,6 +919,8 @@ msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr ""
+"Термін дії токенів оновлення закінчується через %(days)s днів після їх "
+"генерації, якщо ви не відкличете їх раніше."
 
 #: core/templates/user/api_key.html:65
 msgid "Created"
@@ -910,15 +928,15 @@ msgstr "Створено"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Дійсний до"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Відкликати"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Відкликати всі токени оновлення"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -926,7 +944,7 @@ msgstr "Сеанси JWT"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Відкликати всі сесії JWT"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -950,6 +968,8 @@ msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"Відкликання сеансів JWT призведе до виходу на всіх пристроях, які отримали "
+"токен оновлення через кінцеву точку входу JWT."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
@@ -994,21 +1014,23 @@ msgstr "Документація API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Повернутися в додаток"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Повернення в додаток wger…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Якщо нічого не відбувається, натисніть кнопку нижче. Переконайтеся, що "
+"додаток wger встановлено на цьому пристрої."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Натисніть, щоб повернутися в додаток"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1242,7 +1264,7 @@ msgstr "Налаштування"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Обліковий запис і безпека"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1283,6 +1305,7 @@ msgstr ""
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
 msgstr ""
+"Ваш обліковий запис та всі дані про тренування будуть видалені назавжди."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1378,16 +1401,16 @@ msgstr "Ключ API видалено"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Усі сесії API відкликано"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Токен оновлення відкликано"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Відкликано токенів оновлення: {count}"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1453,12 +1476,12 @@ msgstr "Зміни за останні 30 дн"
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Застосувати"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Скинути"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
@@ -1470,19 +1493,19 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr "створив"
+msgstr "створено"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "змінено"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
-msgstr "видалив"
+msgstr "видалено"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "об'єднано"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
@@ -1518,7 +1541,7 @@ msgstr "Об'єкт буде відновлено до попереднього 
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1549,7 +1572,7 @@ msgstr "Попередня"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Сторінка %(current)s із %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
@@ -1614,7 +1637,7 @@ msgstr "Додати м'язи"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Якщо залишити поле дати порожнім, її буде зчитано із зображення"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -2406,7 +2429,7 @@ msgstr "Тренування для %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Порція"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
@@ -2446,11 +2469,11 @@ msgstr "Також шукайте імена англійською мовою"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Кількість"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Введіть кількість і виберіть грами (г) або одну з одиниць порції."
 
 #: nutrition/models/ingredient.py:476
 msgid "Portion"
@@ -2509,7 +2532,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Веганський"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
@@ -2920,8 +2943,8 @@ msgstr "Відстежуйте свій <br> шлях до свого <br> ід�
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
-"Приєднуйтесь до wger, безплатного фітнес-трекера з відкритим вихідним кодом "
-"<b>, що розробляється спільнотою</b>"
+"Приєднуйтеся до wger <b>безкоштовного фітнес-трекера з відкритим кодом, який "
+"розвиває спільнота</b>"
 
 #: software/templates/features.html:123
 msgid "Get Started"
