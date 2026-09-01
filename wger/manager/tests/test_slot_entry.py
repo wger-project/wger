@@ -1216,6 +1216,352 @@ class SlotEntryTestCase(WgerTestCase):
         # Iteration 3 must reflect the config, not the cached iteration-1 result
         self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(100))
 
+    def test_requirements_max_repetitions_rule(self):
+        """
+        max_repetitions rule gates against the top of the rep range, not the bottom
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions']},
+        ).save()
+
+        # Logging bottom of range (8 reps) does NOT meet max_repetitions threshold (12)
+        self._log_repetitions(iteration=1, repetitions=8, weight=60)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+        # Logging top of range (12 reps) meets max_repetitions threshold
+        self._log_repetitions(iteration=2, repetitions=12, weight=60)
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('62.5'))
+
+    def test_requirements_max_weight_rule(self):
+        """
+        max_weight rule gates against the top of the weight range, not the bottom
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
+        MaxWeightConfig(slot_entry=self.slot_entry, iteration=1, value=100).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=5).save()
+        RepetitionsConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=1,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_weight']},
+        ).save()
+
+        # Logging bottom of weight range (80kg) does NOT meet max_weight threshold (100kg)
+        self._log_repetitions(iteration=1, repetitions=5, weight=80)
+        self.assertEqual(self.slot_entry.get_config_data(2).repetitions, Decimal(5))
+
+        # Logging top of weight range (100kg) meets max_weight threshold
+        self._log_repetitions(iteration=2, repetitions=5, weight=100)
+        self.assertEqual(self.slot_entry.get_config_data(3).repetitions, Decimal(6))
+
+    def test_requirements_all_sets_partial_qualification_does_not_advance(self):
+        """
+        When all_sets is True, all logged sets must meet the requirement
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # 3 sets logged: 12, 12, 10 -> not all sets reached 12 reps
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=10, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+    def test_requirements_all_sets_under_logged_does_not_advance(self):
+        """
+        When all_sets is True, logging fewer than prescribed sets does not qualify
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # Only 2 sets logged (3 prescribed), even though both hit 12 reps
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+    def test_requirements_all_sets_empty_logs_does_not_advance(self):
+        """
+        When all_sets is True and no logs exist, requirements are not met vacuously
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # No logs for iteration 1
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+    def test_requirements_all_sets_full_qualification_advances(self):
+        """
+        When all_sets is True and all prescribed sets meet thresholds, progression advances
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # 3 sets logged, all meeting 12 reps
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('62.5'))
+
+    def test_requirements_all_sets_extra_qualifying_sets_advance(self):
+        """
+        When all_sets is True and more sets than prescribed are logged, all must qualify
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # 4 sets logged (3 prescribed), all 4 qualifying
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=13, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('62.5'))
+
+    def test_requirements_all_sets_extra_sets_with_one_failing_does_not_advance(self):
+        """
+        When all_sets is True and extra sets are logged, even 1 failing set prevents advancement
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # 4 sets logged: first 3 qualify, 4th fails
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=8, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+    def test_requirements_all_sets_false_single_qualifying_set_advances(self):
+        """
+        When all_sets is False (default), a single qualifying set is sufficient
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': False},
+        ).save()
+
+        # 3 sets logged: only 1 hits 12 reps
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=10, weight=60)
+        self._log_repetitions(iteration=1, repetitions=8, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('62.5'))
+
+    def test_requirements_classic_double_progression_lifecycle(self):
+        """
+        Full lifecycle of double progression across multiple workouts
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # Workout 1: 8, 8, 8 -> stays 60kg
+        self._log_repetitions(iteration=1, repetitions=8, weight=60)
+        self._log_repetitions(iteration=1, repetitions=8, weight=60)
+        self._log_repetitions(iteration=1, repetitions=8, weight=60)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+        # Workout 2: 10, 10, 9 -> stays 60kg
+        self._log_repetitions(iteration=2, repetitions=10, weight=60)
+        self._log_repetitions(iteration=2, repetitions=10, weight=60)
+        self._log_repetitions(iteration=2, repetitions=9, weight=60)
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(60))
+
+        # Workout 3: 12, 12, 11 -> stays 60kg
+        self._log_repetitions(iteration=3, repetitions=12, weight=60)
+        self._log_repetitions(iteration=3, repetitions=12, weight=60)
+        self._log_repetitions(iteration=3, repetitions=11, weight=60)
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal(60))
+
+        # Workout 4: 12, 12, 12 -> all sets hit top of range! Advances to 62.5kg
+        self._log_repetitions(iteration=4, repetitions=12, weight=60)
+        self._log_repetitions(iteration=4, repetitions=12, weight=60)
+        self._log_repetitions(iteration=4, repetitions=12, weight=60)
+        self.assertEqual(self.slot_entry.get_config_data(5).weight, Decimal('62.5'))
+
+        # Workout 5: drop back to bottom of range at new weight (8, 8, 8 @ 62.5kg) -> stays 62.5kg
+        self._log_repetitions(iteration=5, repetitions=8, weight=Decimal('62.5'))
+        self._log_repetitions(iteration=5, repetitions=8, weight=Decimal('62.5'))
+        self._log_repetitions(iteration=5, repetitions=8, weight=Decimal('62.5'))
+        self.assertEqual(self.slot_entry.get_config_data(6).weight, Decimal('62.5'))
+
+    def test_requirements_all_sets_multiple_rules(self):
+        """
+        When all_sets is True with multiple rules, every set must meet every rule
+        """
+        self.slot_entry.weight_rounding = 2.5
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        SetsConfig(slot_entry=self.slot_entry, iteration=1, value=3).save()
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=60).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=2.5,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions', 'weight'], 'all_sets': True},
+        ).save()
+
+        # Set 1 meets both (12 reps, 60kg), Set 2 fails weight (12 reps, 55kg),
+        # Set 3 meets both (12 reps, 60kg)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+        self._log_repetitions(iteration=1, repetitions=12, weight=55)
+        self._log_repetitions(iteration=1, repetitions=12, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(60))
+
+        # Iteration 2: all 3 sets meet both rules
+        self._log_repetitions(iteration=2, repetitions=12, weight=60)
+        self._log_repetitions(iteration=2, repetitions=12, weight=60)
+        self._log_repetitions(iteration=2, repetitions=12, weight=60)
+
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('62.5'))
+
 
 class WalkConfigValuesTestCase(SimpleTestCase):
     """

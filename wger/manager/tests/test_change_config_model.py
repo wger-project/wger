@@ -61,3 +61,16 @@ class ChangeConfigTestCase(WgerTestCase):
         config.requirements = {'rules': ['weight', 'repetitions']}
 
         self.assertTrue(config.requirements_object)
+
+    def test_requirements_all_sets_flag(self):
+        """
+        Test that all_sets is parsed and defaults to False
+        """
+        config_default = SetsConfig(requirements={'rules': ['max_repetitions']})
+        self.assertFalse(config_default.requirements_object.all_sets)
+
+        config_true = SetsConfig(requirements={'rules': ['max_repetitions'], 'all_sets': True})
+        self.assertTrue(config_true.requirements_object.all_sets)
+
+        config_false = SetsConfig(requirements={'rules': ['max_repetitions'], 'all_sets': False})
+        self.assertFalse(config_false.requirements_object.all_sets)
