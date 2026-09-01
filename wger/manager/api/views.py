@@ -53,6 +53,10 @@ from wger.manager.api.serializers import (
     WorkoutLogSerializer,
     WorkoutSessionSerializer,
 )
+from wger.manager.consts import (
+    WEIGHT_UNIT_KG,
+    WEIGHT_UNIT_LB,
+)
 from wger.manager.models import (
     Day,
     MaxRepetitionsConfig,
@@ -71,6 +75,7 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+from wger.manager.models.weight_unit import WeightUnit
 from wger.utils.cache import CacheKeyMapper
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
@@ -313,9 +318,22 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
 
     def perform_create(self, serializer: WorkoutLogSerializer):
         """
-        Set the owner
+        Set the owner and default weight unit from the user's profile.
         """
-        serializer.save(user=self.request.user)
+        weight_unit = serializer.validated_data.get('weight_unit')
+        if weight_unit is None:
+            profile = self.request.user.userprofile
+            profile_unit = profile.weight_unit
+            if profile_unit == 'lb':
+                unit_id = WEIGHT_UNIT_LB
+            else:
+                unit_id = WEIGHT_UNIT_KG
+            serializer.save(
+                user=self.request.user,
+                weight_unit=WeightUnit.objects.get(pk=unit_id),
+            )
+        else:
+            serializer.save(user=self.request.user)
 
     @staticmethod
     def get_owner_objects():
@@ -427,6 +445,23 @@ class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
             return SlotEntry.objects.none()
 
         return SlotEntry.objects.filter(slot__day__routine__user=self.request.user)
+
+    def perform_create(self, serializer):
+        """
+        Set the weight unit from the user's profile preference if not
+        explicitly provided in the request.
+        """
+        weight_unit = serializer.validated_data.get('weight_unit')
+        if weight_unit is None:
+            profile = self.request.user.userprofile
+            profile_unit = profile.weight_unit
+            if profile_unit == 'lb':
+                unit_id = WEIGHT_UNIT_LB
+            else:
+                unit_id = WEIGHT_UNIT_KG
+            serializer.save(weight_unit=WeightUnit.objects.get(pk=unit_id))
+        else:
+            serializer.save()
 
     @staticmethod
     def get_owner_objects():
