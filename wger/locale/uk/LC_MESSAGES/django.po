@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-01 17:30+0000\n"
+"PO-Revision-Date: 2026-09-02 17:51+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -642,7 +642,7 @@ msgstr "Тренування"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
 msgid "Routines"
-msgstr "Рутини"
+msgstr "Програми тренувань"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:83
 msgid "Calendar"
@@ -2063,7 +2063,7 @@ msgstr "Еспандер"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
-msgstr "SZ-Штанга"
+msgstr "W-подібний гриф"
 
 #: i18n.tpl:33
 msgid "Seconds"
@@ -2091,7 +2091,7 @@ msgstr "Метри"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
-msgstr "немає (вправа з вагою тіла)"
+msgstr "Вправи з власною вагою тіла"
 
 #: i18n.tpl:42
 msgid "Beginner"
