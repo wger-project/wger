@@ -91,6 +91,9 @@ INSTALLED_APPS = [
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'django_recaptcha',
 
+    # Cloudflare Turnstile support, see https://github.com/ronaldgrn/django-cf-turnstile
+    'django_cf_turnstile',
+
     # The sitemaps app
     'django.contrib.sitemaps',
 
@@ -655,6 +658,10 @@ WGER_SETTINGS = {
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
+    # CAPTCHA_PROVIDER: 'recaptcha', 'turnstile', or 'none'
+    'CAPTCHA_PROVIDER': 'none',
+    # Deprecated: USE_RECAPTCHA is kept for backwards compatibility
+    # If set to True and CAPTCHA_PROVIDER is 'none', it will use 'recaptcha'
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
 
@@ -706,6 +713,12 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 RECAPTCHA_REQUIRED_SCORE = 0
+
+#
+# Cloudflare Turnstile
+#
+CF_TURNSTILE_SITE_KEY = ''
+CF_TURNSTILE_SECRET_KEY = ''
 
 #
 # Storage options

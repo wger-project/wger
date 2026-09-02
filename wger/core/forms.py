@@ -50,6 +50,7 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
+from django_cf_turnstile.fields import TurnstileCaptchaField
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV3
 
@@ -85,7 +86,8 @@ class WgerLoginForm(AllauthLoginForm):
 class WgerSignupForm(AllauthSignupForm):
     """
     allauth's signup form with wger's password-toggle widgets and an optional
-    reCAPTCHA field (shown when WGER_SETTINGS['USE_RECAPTCHA'] is set).
+    CAPTCHA field (shown when WGER_SETTINGS['CAPTCHA_PROVIDER'] is set to
+    'recaptcha' or 'turnstile').
 
     The crispy helper uses ``form_tag = False`` because both consumers — the
     dedicated signup page and the landing page — provide their own ``<form>``.
@@ -107,11 +109,18 @@ class WgerSignupForm(AllauthSignupForm):
                 css_class='form-row',
             ),
         ]
-        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
+        captcha_provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+        if captcha_provider == 'recaptcha':
             self.fields['captcha'] = ReCaptchaField(
                 widget=ReCaptchaV3(action='register'),
                 label='reCaptcha',
                 help_text=gettext_lazy('The form is secured with reCAPTCHA'),
+            )
+            layout_fields.append('captcha')
+        elif captcha_provider == 'turnstile':
+            self.fields['captcha'] = TurnstileCaptchaField(
+                label='Turnstile',
+                help_text=gettext_lazy('The form is secured with Cloudflare Turnstile'),
             )
             layout_fields.append('captcha')
 
