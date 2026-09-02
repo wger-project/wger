@@ -40,6 +40,7 @@ dependencies = [
     "django-filter~=26.1",
     "django-formtools~=2.7",
     "django-prometheus~=2.5.0",
+    "django-cf-turnstile~=0.1.0",
     "django-recaptcha~=4.1.0",
     "django-redis~=7.0.0",
     "django-simple-history~=3.13.0",

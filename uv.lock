@@ -639,6 +639,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-cf-turnstile"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/57/97/09cd52730e58d9a227802b779a397c7705c287429f9cbab2084bcdda6ac4/django_cf_turnstile-0.1.0.tar.gz", hash = "sha256:bdc2e06d2dd75d18f6be53436c4a58b467cac7f0ef7737989c4eaa814b9d6b5f", size = 7321, upload-time = "2025-06-14T12:46:42.196Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7a/ec/92abc03db369177f12b5685ee96aa3706d194ad1d45ac918f1d07f124689/django_cf_turnstile-0.1.0-py3-none-any.whl", hash = "sha256:2acfcda3cb85eefb43da63bddbc833776fbd901726d1b1e744eee5f1009d197f", size = 6880, upload-time = "2025-06-14T12:46:40.812Z" },
+]
+
+[[package]]
 name = "django-cors-headers"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2034,6 +2046,7 @@ dependencies = [
     { name = "django-allauth", extra = ["idp-oidc", "mfa"] },
     { name = "django-axes", extra = ["ipware"] },
     { name = "django-bootstrap-breadcrumbs2" },
+    { name = "django-cf-turnstile" },
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
     { name = "django-environ" },
@@ -2094,6 +2107,7 @@ requires-dist = [
     { name = "django-allauth", extras = ["idp-oidc", "mfa"], specifier = "~=65.19.0" },
     { name = "django-axes", extras = ["ipware"], specifier = "~=8.3.1" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
+    { name = "django-cf-turnstile", specifier = "~=0.1.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },
     { name = "django-crispy-forms", specifier = "~=2.5" },
     { name = "django-environ", specifier = "~=0.14.0" },

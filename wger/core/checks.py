@@ -55,4 +55,42 @@ def settings_check(app_configs, **kwargs):
                 id='wger.E001',
             )
         )
+
+    # Validate CAPTCHA_PROVIDER setting
+    captcha_provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+    valid_captcha_providers = ('none', 'recaptcha', 'turnstile')
+    if captcha_provider not in valid_captcha_providers:
+        errors.append(
+            Error(
+                f"Invalid CAPTCHA_PROVIDER: '{captcha_provider}'",
+                hint=f'CAPTCHA_PROVIDER must be one of {valid_captcha_providers}',
+                obj=settings,
+                id='wger.E002',
+            )
+        )
+
+    # Check that the required keys are set for the selected captcha provider
+    if captcha_provider == 'recaptcha':
+        if not settings.RECAPTCHA_PUBLIC_KEY or not settings.RECAPTCHA_PRIVATE_KEY:
+            errors.append(
+                Warning(
+                    'reCAPTCHA keys not configured',
+                    hint='CAPTCHA_PROVIDER is set to "recaptcha" but RECAPTCHA_PUBLIC_KEY '
+                    'and/or RECAPTCHA_PRIVATE_KEY are not set. CAPTCHA will not work.',
+                    obj=settings,
+                    id='wger.W004',
+                )
+            )
+    elif captcha_provider == 'turnstile':
+        if not settings.CF_TURNSTILE_SITE_KEY or not settings.CF_TURNSTILE_SECRET_KEY:
+            errors.append(
+                Warning(
+                    'Cloudflare Turnstile keys not configured',
+                    hint='CAPTCHA_PROVIDER is set to "turnstile" but CF_TURNSTILE_SITE_KEY '
+                    'and/or CF_TURNSTILE_SECRET_KEY are not set. CAPTCHA will not work.',
+                    obj=settings,
+                    id='wger.W005',
+                )
+            )
+
     return errors

@@ -2,6 +2,10 @@
 
 ## New features
 
+* Added Cloudflare Turnstile as an alternative captcha provider. You can now choose
+  between reCAPTCHA, Turnstile, or no captcha via the `CAPTCHA_PROVIDER` setting.
+  Turnstile is a privacy-friendly, invisible captcha that doesn't require users
+  to solve puzzles. See the docs for configuration details.
 * Improved openAPI spec. The spec now properly describes the different parts of
   the API and can be used to generate clients.
 * Emails are now send asynchronously via the celery queue, this should make
