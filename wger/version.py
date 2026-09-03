@@ -35,24 +35,25 @@ Always use versions in the x.y.z format, without any suffixes like "beta1" or su
 MIN_SERVER_VERSION = Version('2.5.0')
 """Minimum version of the server required to run sync commands on this server"""
 
-VERSION = Version('2.7.0')
+VERSION_STRING = '2.7.0'
 """
-Current version of the app
+Current version of the app.
 
-Note that this string is also extracted by .github/workflows/docker.yml and used
-as-is to set the docker version, only use [A-Za-z0-9_.-]
+This literal is what the API reports and what .github/workflows/docker.yml
+extracts to tag the images, so both agree. It must be valid semver: write
+pre-releases as "2.8.0-dev", not "2.8.0.dev0".
 """
 
-
-def get_version(version: Version = None) -> str:
-    if version is None:
-        version = VERSION
-
-    return str(version)
+VERSION = Version(VERSION_STRING)
+"""Parsed form of VERSION_STRING, for version comparisons"""
 
 
-def get_version_with_git(version: Version = None) -> str:
-    version = get_version(version)
+def get_version() -> str:
+    return VERSION_STRING
+
+
+def get_version_with_git() -> str:
+    version = VERSION_STRING
     git_sha1 = os.environ.get('APP_BUILD_COMMIT', '')[:7]
     if git_sha1:
         version += f'+git{git_sha1}'
