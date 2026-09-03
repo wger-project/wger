@@ -17,7 +17,6 @@ import logging
 
 # Django
 from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
 
 
 logger = logging.getLogger(__name__)
@@ -49,6 +48,13 @@ class CacheKeyMapper:
         get nutritional info values canonical representation  using primary key.
         """
         return f'nutrition-cache-log-{self.get_pk(params)}'
+
+    @classmethod
+    def api_schema_key(cls, build: str, language: str) -> str:
+        """
+        get the cache key of the generated OpenAPI schema
+        """
+        return f'api-schema-{build}-{language}'
 
     @classmethod
     def get_exercise_api_key(cls, base_uuid: str):

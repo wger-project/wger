@@ -102,6 +102,7 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+from wger.measurements.models import Measurement
 from wger.nutrition.models import NutritionPlan
 from wger.utils.api_token import (
     blacklist_jwt_refresh_tokens,
@@ -118,7 +119,7 @@ from wger.utils.headless_long_lived import (
     revoke_all_long_lived_sessions,
     revoke_long_lived_session,
 )
-from wger.weight.models import WeightEntry
+from wger.utils.oidc_auth import is_provider_configured
 
 
 logger = logging.getLogger(__name__)
@@ -324,6 +325,7 @@ def preferences(request):
     context['email_verified'] = request.user.userprofile.is_verified
     context['mfa_enabled'] = is_mfa_enabled(request.user)
     context['has_usable_password'] = request.user.has_usable_password()
+    context['oidc_provider_configured'] = is_provider_configured()
 
     return render(request, 'user/preferences.html', context)
 
@@ -660,13 +662,17 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
                 }
             )
         context['routine_data'] = out
-        context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
-            :5
+        profile_unit = self.object.userprofile.weight_unit
+        context['weight_entries'] = [
+            {'date': entry.date, 'value': entry.value_in(profile_unit)}
+            for entry in Measurement.body_weight_for(self.object).order_by('-date')[:5]
         ]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]
-        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
+        context['session'] = WorkoutSession.objects.filter(user=self.object).order_by(
+            '-datetime_start'
+        )[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
 

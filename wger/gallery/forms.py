@@ -66,6 +66,6 @@ class ImageForm(ModelForm):
                 date_str = exif_data.get(36867)
                 if date_str:
                     return datetime.strptime(date_str, '%Y:%m:%d %H:%M:%S').date()
-        except Exception as e:
+        except Exception:
             pass
         return None

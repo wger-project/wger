@@ -164,6 +164,11 @@ MIDDLEWARE = [
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
 
+    # Activates the user's time zone. Has to come after the authentication
+    # middlewares: reading request.user earlier caches it and the guest user
+    # would never be created
+    'wger.core.middleware.TimezoneMiddleware',
+
     # Send an appropriate Header so search engines don't index pages
     'wger.utils.middleware.RobotsExclusionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -515,14 +520,16 @@ REST_FRAMEWORK = {
     # JSON only, endpoints taking a file set MultiPartParser themselves.
     'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # The token-based classes activate the user's timezone, which the
+        # middleware only manages for session requests; see timezone_auth
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'wger.utils.timezone_auth.TimezoneTokenAuthentication',
         'wger.utils.headless_auth.HeadlessJWTAuthentication',
         # Also uses Bearer, but with opaque tokens, so it has to run before
         # simplejwt, which raises instead of passing the token on. Placed after
         # the headless class so app requests don't pay for the token lookup.
         'wger.utils.oidc_auth.OidcTokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'wger.utils.timezone_auth.TimezoneJWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -574,6 +581,13 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'COMPONENT_SPLIT_REQUEST': True,
+    # postprocess_schema_enums is spectacular's own default and has to be
+    # repeated: assigning the list replaces it, and without it no enum becomes a
+    # named component, which renames a good part of every generated client.
+    'POSTPROCESSING_HOOKS': [
+        'drf_spectacular.hooks.postprocess_schema_enums',
+        'wger.utils.api_schema.strip_patch_defaults',
+    ],
     # Both are exposed as a plain "type" field on more than one component, which
     # spectacular would otherwise name with a hash suffix (e.g. Type947Enum).
     # The names end up as class names in generated clients, so pin them.
@@ -662,6 +676,12 @@ WGER_SETTINGS = {
     'TROPHIES_ENABLED': True,
     'TROPHIES_INACTIVE_USER_DAYS': 30,  # Days of inactivity before skipping trophy evaluation
 }
+
+#
+# How long a workout session may last. Doubles as the window in which a log
+# without a session is attached to an open one instead of starting a new one.
+WGER_MAX_SESSION_LENGTH_HOURS = 5
+
 
 #
 # Social authentication / OAuth

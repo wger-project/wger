@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+from collections import defaultdict
 from datetime import date
 
 # Django
@@ -55,6 +56,7 @@ from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
+from wger.core.models.profile import available_timezone_names
 
 
 class PasswordInputWithToggle(PasswordInput):
@@ -128,6 +130,24 @@ class WgerSignupForm(AllauthSignupForm):
         )
 
 
+def timezone_choices():
+    """
+    The IANA zones as grouped dropdown choices, e.g. ('Europe/Berlin', 'Berlin')
+
+    Skips the bare abbreviations and the Etc/ area (whose numeric offsets are
+    inverted). The validator on the model accepts every IANA name, so this only
+    limits what the dropdown offers, not what the API stores.
+    """
+    groups = defaultdict(list)
+    for name in sorted(available_timezone_names()):
+        if '/' not in name or name.startswith('Etc/'):
+            continue
+        region, _, city = name.partition('/')
+        groups[region].append((name, city.replace('_', ' ')))
+
+    return [('', gettext_lazy('Not set')), ('UTC', 'UTC')] + sorted(groups.items())
+
+
 class UserPreferencesForm(forms.ModelForm):
     first_name = forms.CharField(label=gettext_lazy('First name'), required=False)
     last_name = forms.CharField(label=gettext_lazy('Last name'), required=False)
@@ -144,6 +164,16 @@ class UserPreferencesForm(forms.ModelForm):
         ),
     )
 
+    time_zone = forms.ChoiceField(
+        label=gettext_lazy('Timezone'),
+        required=False,
+        choices=timezone_choices,
+        help_text=gettext_lazy(
+            'Used to decide which day a workout counts for. '
+            'The mobile app reports it automatically.'
+        ),
+    )
+
     class Meta:
         model = UserProfile
         fields = (
@@ -151,10 +181,19 @@ class UserPreferencesForm(forms.ModelForm):
             'weight_unit',
             'birthdate',
             'height',
+            'time_zone',
         )
 
     def __init__(self, *args, **kwargs):
         super(UserPreferencesForm, self).__init__(*args, **kwargs)
+
+        # A zone set through the API can lie outside the dropdown (e.g.
+        # Etc/GMT+5). Without its option the browser submits the empty choice
+        # and the next save of the form silently clears the field.
+        tz_field = self.fields['time_zone']
+        current = self.instance.time_zone
+        if current and not tz_field.valid_value(current):
+            tz_field.choices = [*tz_field.choices, (current, current)]
 
         hattrs = self.fields['height'].widget.attrs
         hattrs.setdefault('type', 'number')
@@ -182,6 +221,7 @@ class UserPreferencesForm(forms.ModelForm):
                 _('Other settings'),
                 'notification_language',
                 'weight_unit',
+                'time_zone',
             ),
             ButtonHolder(Submit('submit', _('Save'), css_class='btn-success btn-block')),
         )

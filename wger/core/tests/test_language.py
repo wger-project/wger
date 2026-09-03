@@ -17,7 +17,6 @@
 
 # Django
 from django.urls import (
-    reverse,
     reverse_lazy,
 )
 

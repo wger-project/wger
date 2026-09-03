@@ -19,6 +19,7 @@
 import logging
 
 # Django
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 # Third Party
@@ -43,6 +44,12 @@ def check_fk_ownership(payload: dict, owner_objects: list[tuple], user_id: int) 
     Returns True if all checks pass, False otherwise.
     """
     for model_class, field_name in owner_objects:
+        # ``user`` fields need no ownership check: serializers never expose
+        # them and the owner is forced server-side on save. They also lack
+        # get_owner_object(), so the generic path below would crash on them.
+        if model_class is User:
+            continue
+
         pk = payload.get(field_name)
         if pk is None:
             continue
@@ -59,7 +66,9 @@ def check_fk_ownership(payload: dict, owner_objects: list[tuple], user_id: int) 
             continue
 
         owner = obj.get_owner_object()
-        if owner and hasattr(owner, 'user') and owner.user_id != user_id:
+        # Ask for the id rather than for ``user``: the latter dereferences the
+        # foreign key and loads the whole user row, which this never looks at
+        if owner and hasattr(owner, 'user_id') and owner.user_id != user_id:
             logger.warning(f'{model_class.__name__} {pk} does not belong to user {user_id}')
             return False
     return True

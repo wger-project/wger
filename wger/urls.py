@@ -48,6 +48,7 @@ from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.trophies.api import views as trophies_api_views
 from wger.utils import oidc_auth
+from wger.utils.api_schema import CachedSchemaGenerator
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -329,11 +330,6 @@ urlpatterns += [
     path('api/v2/', include(router.urls)),
     path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
-    path(
-        'api/v2/issue-refresh-token',
-        core_api_views.issue_refresh_token,
-        name='issue_refresh_token',
-    ),
     # Others
     path(
         'api/v2/version/',
@@ -377,7 +373,7 @@ urlpatterns += [
     # which requires context only the GET handler provides, and crash with 500.
     path(
         'api/v2/schema',
-        SpectacularAPIView.as_view(),
+        SpectacularAPIView.as_view(generator_class=CachedSchemaGenerator),
         name='schema',
     ),
     path(

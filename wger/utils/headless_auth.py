@@ -25,6 +25,9 @@ from allauth.headless.tokens.strategies.jwt.strategy import JWTTokenStrategy
 from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from rest_framework.exceptions import AuthenticationFailed
 
+# wger
+from wger.utils.timezone_auth import activate_user_timezone
+
 
 class HeadlessJWTAuthentication(JWTTokenAuthentication):
     """
@@ -38,9 +41,12 @@ class HeadlessJWTAuthentication(JWTTokenAuthentication):
 
     def authenticate(self, request):
         try:
-            return super().authenticate(request)
+            result = super().authenticate(request)
         except AuthenticationFailed:
             return None
+        if result is not None:
+            activate_user_timezone(result[0])
+        return result
 
     def authenticate_credentials(self, key):
         user, payload = super().authenticate_credentials(key)

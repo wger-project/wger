@@ -23,12 +23,77 @@ from django.urls import reverse
 from django.utils import timezone
 
 # wger
+from wger.core.forms import timezone_choices
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.measurements.models import Measurement
 from wger.utils.constants import TWOPLACES
-from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)
+
+
+class TimezonePreferenceTestCase(WgerTestCase):
+    """
+    Test setting the timezone through the preferences form
+    """
+
+    FORM_DATA = {
+        'first_name': '',
+        'last_name': '',
+        'notification_language': 2,
+        'weight_unit': 'kg',
+        'birthdate': '02/25/1987',
+        'height': 180,
+    }
+
+    def post_preferences(self, time_zone):
+        self.user_login('test')
+        return self.client.post(
+            reverse('core:user:preferences'),
+            {**self.FORM_DATA, 'time_zone': time_zone},
+        )
+
+    def test_setting_the_zone(self):
+        response = self.post_preferences('Pacific/Auckland')
+
+        self.assertEqual(response.status_code, 302)
+        profile = User.objects.get(username='test').userprofile
+        self.assertEqual(profile.time_zone, 'Pacific/Auckland')
+
+    def test_clearing_the_zone(self):
+        profile = User.objects.get(username='test').userprofile
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        response = self.post_preferences('')
+
+        self.assertEqual(response.status_code, 302)
+        profile.refresh_from_db()
+        self.assertEqual(profile.time_zone, '')
+
+    def test_a_zone_outside_the_dropdown_survives_the_form(self):
+        """An API-set zone the dropdown does not offer is kept, not silently cleared"""
+
+        profile = User.objects.get(username='test').userprofile
+        profile.time_zone = 'Etc/GMT+5'
+        profile.save()
+
+        self.user_login('test')
+        response = self.client.get(reverse('core:user:preferences'))
+        self.assertContains(response, 'Etc/GMT+5')
+
+        response = self.post_preferences('Etc/GMT+5')
+
+        self.assertEqual(response.status_code, 302)
+        profile.refresh_from_db()
+        self.assertEqual(profile.time_zone, 'Etc/GMT+5')
+
+    def test_the_dropdown_offers_grouped_iana_names(self):
+        choices = dict(timezone_choices())
+
+        self.assertIn(('Europe/Berlin', 'Berlin'), choices['Europe'])
+        self.assertNotIn('Etc', choices)
+        self.assertEqual(choices['UTC'], 'UTC')
 
 
 class PreferencesTestCase(WgerTestCase):
@@ -238,10 +303,10 @@ class UserBodyweightTestCase(WgerTestCase):
         Tests that a new weight entry is created
         """
         user = User.objects.get(pk=2)
-        count_before = WeightEntry.objects.filter(user=user).count()
+        count_before = Measurement.body_weight_for(user).count()
 
         entry = user.userprofile.user_bodyweight(80)
-        count_after = WeightEntry.objects.filter(user=user).count()
+        count_after = Measurement.body_weight_for(user).count()
         self.assertEqual(count_before, count_after - 1)
         self.assertEqual(entry.date.date(), timezone.now().date())
 
@@ -250,13 +315,13 @@ class UserBodyweightTestCase(WgerTestCase):
         Tests that a new weight entry is created
         """
         user = User.objects.get(pk=2)
-        count_before = WeightEntry.objects.filter(user=user).count()
-        last_entry = WeightEntry.objects.filter(user=user).latest()
+        count_before = Measurement.body_weight_for(user).count()
+        last_entry = Measurement.body_weight_for(user).latest('date')
         last_entry.date = timezone.now() - datetime.timedelta(weeks=1)
         last_entry.save()
 
         entry = user.userprofile.user_bodyweight(80)
-        count_after = WeightEntry.objects.filter(user=user).count()
+        count_after = Measurement.body_weight_for(user).count()
         self.assertEqual(count_before, count_after - 1)
         self.assertEqual(entry.date.date(), timezone.now().date())
 
@@ -265,13 +330,13 @@ class UserBodyweightTestCase(WgerTestCase):
         Tests that a new weight entry is created even if others exist today
         """
         user = User.objects.get(pk=2)
-        count_before = WeightEntry.objects.filter(user=user).count()
-        last_entry = WeightEntry.objects.filter(user=user).latest()
+        count_before = Measurement.body_weight_for(user).count()
+        last_entry = Measurement.body_weight_for(user).latest('date')
         last_entry.date = timezone.now() - datetime.timedelta(hours=1)
         last_entry.save()
 
         entry = user.userprofile.user_bodyweight(80)
-        count_after = WeightEntry.objects.filter(user=user).count()
+        count_after = Measurement.body_weight_for(user).count()
         self.assertEqual(count_before, count_after - 1)
         self.assertEqual(entry.date.date(), timezone.now().date())
 
@@ -280,11 +345,11 @@ class UserBodyweightTestCase(WgerTestCase):
         Tests that a new weight entry is created if there are no weight entries
         """
         user = User.objects.get(pk=2)
-        WeightEntry.objects.filter(user=user).delete()
+        Measurement.body_weight_for(user).delete()
 
-        count_before = WeightEntry.objects.filter(user=user).count()
+        count_before = Measurement.body_weight_for(user).count()
         entry = user.userprofile.user_bodyweight(80)
-        count_after = WeightEntry.objects.filter(user=user).count()
+        count_after = Measurement.body_weight_for(user).count()
         self.assertEqual(count_before, count_after - 1)
         self.assertEqual(entry.date.date(), timezone.now().date())
 
@@ -300,13 +365,9 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         """
         self.user_login('test')
         user = User.objects.get(pk=2)
-        entry = WeightEntry()
-        entry.date = timezone.now()
-        entry.user = user
-        entry.weight = 100
-        entry.save()
+        entry = user.userprofile.user_bodyweight(100)
         self.assertEqual(user.userprofile.weight, 100)
-        entry.weight = 150
+        entry.value = 150
         entry.save()
         self.assertEqual(user.userprofile.weight, 150)
 
@@ -316,7 +377,7 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         """
         self.user_login('test')
         user = User.objects.get(pk=2)
-        WeightEntry.objects.filter(user=user).delete()
+        Measurement.body_weight_for(user).delete()
         self.assertEqual(user.userprofile.weight, 0)
 
     def test_bmi(self):

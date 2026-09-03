@@ -31,8 +31,8 @@ from django.utils.translation import gettext as _
 from formtools.preview import FormPreview
 
 # wger
+from wger.measurements.models import Measurement
 from wger.weight import helpers
-from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)
@@ -50,11 +50,12 @@ def export_csv(request):
     # Convert all weight data to CSV
     writer = csv.writer(response)
 
-    weights = WeightEntry.objects.filter(user=request.user)
+    weights = Measurement.body_weight_for(request.user).order_by('date')
+    profile_unit = request.user.userprofile.weight_unit
     writer.writerow([_('Date'), _('Weight')])
 
     for entry in weights:
-        writer.writerow([entry.date, entry.weight])
+        writer.writerow([entry.date, entry.value_in(profile_unit)])
 
     # Send the data to the browser
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
@@ -85,5 +86,5 @@ class WeightCsvImportFormPreview(FormPreview):
 
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
-        WeightEntry.objects.bulk_create(weight_list)
+        Measurement.objects.bulk_create(weight_list)
         return HttpResponseRedirect(reverse('weight:overview'))

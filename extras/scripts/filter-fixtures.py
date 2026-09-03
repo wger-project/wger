@@ -25,7 +25,7 @@ After dumping the database (or parts of it), just copy the file and filter it:
     mv categories.json muscles.json equipment.json translations.json exercise-base-data.json ../../wger/exercises/fixtures
     ...
     rm *.json
-"""
+"""  # noqa: E501
 
 import json
 import sys

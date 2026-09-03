@@ -19,8 +19,10 @@ import datetime
 # Django
 from django.core.cache import cache
 from django.urls import reverse
+from django.utils import timezone
 
 # wger
+from wger.core.models import UserProfile
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
 from wger.manager.models import (
@@ -101,10 +103,30 @@ class RoutineCacheInvalidationTestCase(BaseTestCase, ApiBaseTestCase):
         WorkoutSession(
             user_id=self.USER_ID,
             routine_id=self.ROUTINE_ID,
-            date=datetime.date(2024, 5, 1),
+            datetime_start=timezone.make_aware(datetime.datetime(2024, 5, 1, 12, 0)),
         ).save()
 
         self.assert_volatile_caches_cleared()
+
+    def test_changing_the_timezone_resets_the_cache(self):
+        # The date sequences cut their calendar days in the owner's zone
+        self.prime_caches()
+
+        profile = UserProfile.objects.get(user_id=self.USER_ID)
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        self.assert_volatile_caches_cleared()
+
+    def test_saving_the_profile_without_a_zone_change_keeps_the_cache(self):
+        self.prime_caches()
+
+        profile = UserProfile.objects.get(user_id=self.USER_ID)
+        profile.height = 180
+        profile.save()
+
+        for key in self.volatile_keys:
+            self.assertIsNotNone(cache.get(key))
 
     def test_log_without_routine_keeps_the_cache(self):
         self.prime_caches()

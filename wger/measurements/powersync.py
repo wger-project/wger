@@ -18,11 +18,15 @@ from wger.measurements.api.serializers import (
     CategorySerializer,
     MeasurementSerializer,
 )
-from wger.measurements.api.views import MeasurementViewSet
+from wger.measurements.api.views import (
+    CategoryViewSet,
+    MeasurementViewSet,
+)
 from wger.measurements.models import (
     Category,
     Measurement,
 )
+from wger.measurements.models.measurement import MeasurementSource
 from wger.utils.powersync import (
     PowerSyncHandler,
     register_handler,
@@ -31,10 +35,28 @@ from wger.utils.powersync import (
 
 @register_handler
 class CategoryHandler(PowerSyncHandler):
-    """Measurement categories — directly owned by ``user`` so no FK ownership check is needed."""
+    """
+    Measurement categories — directly owned by ``user``; the ``parent`` FK
+    (multi-value groups) additionally needs an ownership check.
+    """
 
     model = Category
     serializer_class = CategorySerializer
+    viewset_class = CategoryViewSet
+    json_fields = frozenset({'chart_config', 'dynamic_params'})
+
+    # The serializer checks the "one category per metric type" rule, for which
+    # it needs to know whose categories to look at
+    pass_user_id_in_context = True
+
+    def handle_delete(self, payload, user_id):
+        entry = self._get_or_none(payload, user_id)
+        if entry is not None and entry.is_official:
+            return {
+                'error': 'Forbidden',
+                'details': 'Official categories cannot be deleted',
+            }
+        return super().handle_delete(payload, user_id)
 
 
 @register_handler
@@ -45,8 +67,18 @@ class MeasurementHandler(PowerSyncHandler):
     serializer_class = MeasurementSerializer
     viewset_class = MeasurementViewSet
     user_filter = 'category__user_id'
+    json_fields = frozenset({'extra_data'})
 
     def create_save_kwargs(self, payload, user_id):
         # Ownership is enforced through the category FK, not via a direct
         # user_id on the Measurement row.
         return {}
+
+    def handle_delete(self, payload, user_id):
+        entry = self._get_or_none(payload, user_id)
+        if entry is not None and entry.source == MeasurementSource.CALCULATED:
+            return {
+                'error': 'Forbidden',
+                'details': 'A calculated entry is maintained by the server',
+            }
+        return super().handle_delete(payload, user_id)

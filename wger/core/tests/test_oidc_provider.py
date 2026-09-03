@@ -60,6 +60,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 # wger
 from wger.core.tasks import flush_expired_oidc_tokens_task
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.core.views.oidc import connected_applications
 from wger.utils.oidc_auth import (
     SCOPE_READ,
     SCOPE_WRITE,
@@ -106,9 +107,9 @@ class GenerateOidcKeyTestCase(SimpleTestCase):
         self.assertEqual(key.key_size, 1024)
 
 
-class OidcProviderTestCase(WgerTestCase):
+class OidcTestCase(WgerTestCase):
     """
-    End-to-end test for the OAuth2/OIDC provider (allauth.idp.oidc)
+    A configured provider and one client to run flows against
     """
 
     @classmethod
@@ -128,6 +129,35 @@ class OidcProviderTestCase(WgerTestCase):
         )
         self.oidc_client.set_response_types([Client.ResponseType.CODE])
         self.oidc_client.save()
+
+    def create_access_token(
+        self,
+        scopes: list[str],
+        token_type: str = Token.Type.ACCESS_TOKEN,
+        expires_in: timedelta = timedelta(hours=1),
+        username: str = 'test',
+        client: Client | None = None,
+    ) -> str:
+        """
+        Mints a token directly, without running the whole flow
+        """
+        value = secrets.token_urlsafe(32)
+        token = Token(
+            type=token_type,
+            user=User.objects.get(username=username),
+            client=client or self.oidc_client,
+            hash=get_adapter().hash_token(value),
+            expires_at=timezone.now() + expires_in,
+        )
+        token.set_scopes(scopes)
+        token.save()
+        return value
+
+
+class OidcProviderTestCase(OidcTestCase):
+    """
+    End-to-end test for the OAuth2/OIDC provider (allauth.idp.oidc)
+    """
 
     def request_authorization(self, challenge: str, scope: str = f'openid profile {SCOPE_READ}'):
         """
@@ -502,27 +532,6 @@ class OidcProviderTestCase(WgerTestCase):
 
         self.assertEqual(self.read_profile(access_token).status_code, 403)
 
-    def create_access_token(
-        self,
-        scopes: list[str],
-        token_type: str = Token.Type.ACCESS_TOKEN,
-        expires_in: timedelta = timedelta(hours=1),
-    ) -> str:
-        """
-        Mints a token directly, without running the whole flow
-        """
-        value = secrets.token_urlsafe(32)
-        token = Token(
-            type=token_type,
-            user=User.objects.get(username='test'),
-            client=self.oidc_client,
-            hash=get_adapter().hash_token(value),
-            expires_at=timezone.now() + expires_in,
-        )
-        token.set_scopes(scopes)
-        token.save()
-        return value
-
     def read_profile(self, token: str):
         return self.client.get(
             reverse('userprofile'),
@@ -721,3 +730,203 @@ class OidcProviderTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response['location'].startswith(f'{settings.LOGIN_URL}?next='))
+
+
+class ConnectedApplicationsTestCase(OidcTestCase):
+    """
+    The page listing the applications a user has given access to, and the
+    button that takes it back
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.url = reverse('core:user:connected-applications')
+        self.user_login('test')
+
+    def read_scopes(self, name: str) -> str:
+        """
+        The permission wording the consent screen shows for a scope
+        """
+        return str(get_adapter().scope_display[name])
+
+    def test_a_granted_application_is_listed(self):
+        self.create_access_token([SCOPE_READ])
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Test client')
+
+    def test_permissions_are_worded_as_on_the_consent_screen(self):
+        """
+        The page someone checks later must not describe the access differently
+        from the page they agreed to
+        """
+        self.create_access_token([SCOPE_READ])
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, self.read_scopes(SCOPE_READ))
+        self.assertNotContains(response, self.read_scopes(SCOPE_WRITE))
+
+    def test_the_scopes_of_all_live_tokens_are_shown(self):
+        """
+        An access token can be minted for a subset of what was granted, so what
+        the application can do is the union over its tokens
+        """
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token([SCOPE_READ, SCOPE_WRITE], token_type=Token.Type.REFRESH_TOKEN)
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, self.read_scopes(SCOPE_READ), count=1)
+        self.assertContains(response, self.read_scopes(SCOPE_WRITE), count=1)
+
+    def test_the_expiry_shown_is_that_of_the_longest_lived_token(self):
+        """
+        What the user wants to know is when the connection lapses if nobody
+        touches it, which is the refresh token, not the hourly access token
+        """
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token(
+            [SCOPE_READ],
+            token_type=Token.Type.REFRESH_TOKEN,
+            expires_in=timedelta(days=120),
+        )
+
+        applications = connected_applications(User.objects.get(username='test'))
+
+        self.assertEqual(len(applications), 1)
+        self.assertGreater(applications[0].expires_at, timezone.now() + timedelta(days=119))
+
+    def test_applications_are_listed_by_name(self):
+        """
+        Not by when they were connected: rotation resets that, so the order
+        would reshuffle itself while the user is reading the page
+        """
+        later = Client(type=Client.Type.PUBLIC, name='Aardvark')
+        later.set_scopes([SCOPE_READ])
+        later.save()
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token([SCOPE_READ], client=later)
+
+        applications = connected_applications(User.objects.get(username='test'))
+
+        self.assertEqual([a.name for a in applications], ['Aardvark', 'Test client'])
+
+    def test_one_entry_per_application_not_per_token(self):
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token([SCOPE_READ], token_type=Token.Type.REFRESH_TOKEN)
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, 'Test client', count=1)
+
+    def test_expired_tokens_are_not_a_connection(self):
+        """
+        Housekeeping only runs daily, so the page has to filter them itself
+        """
+        self.create_access_token([SCOPE_READ], expires_in=-timedelta(seconds=1))
+
+        response = self.client.get(self.url)
+
+        self.assertNotContains(response, 'Test client')
+        self.assertContains(response, 'No application has access')
+
+    def test_an_authorization_code_is_not_a_connection(self):
+        """
+        A code is a step in the flow: it may never be redeemed, and until it is
+        the application has nothing
+        """
+        self.create_access_token([SCOPE_READ], token_type=Token.Type.AUTHORIZATION_CODE)
+
+        response = self.client.get(self.url)
+
+        self.assertNotContains(response, 'Test client')
+
+    def test_only_the_callers_own_connections_are_listed(self):
+        self.create_access_token([SCOPE_READ], username='admin')
+
+        response = self.client.get(self.url)
+
+        self.assertNotContains(response, 'Test client')
+
+    def test_disconnecting_deletes_every_token_of_that_application(self):
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token([SCOPE_READ], token_type=Token.Type.REFRESH_TOKEN)
+        # A code that is still redeemable would hand back a fresh token right
+        # after the user thought they had ended the connection
+        self.create_access_token([SCOPE_READ], token_type=Token.Type.AUTHORIZATION_CODE)
+
+        response = self.client.post(self.url, {'disconnect': self.oidc_client.id}, follow=True)
+
+        self.assertContains(response, 'no longer has access')
+        self.assertFalse(Token.objects.filter(client=self.oidc_client).exists())
+
+    def test_disconnecting_leaves_the_other_applications_alone(self):
+        other = Client(type=Client.Type.PUBLIC, name='Other client')
+        other.set_scopes([SCOPE_READ])
+        other.save()
+        self.create_access_token([SCOPE_READ])
+        self.create_access_token([SCOPE_READ], client=other)
+
+        response = self.client.post(self.url, {'disconnect': self.oidc_client.id}, follow=True)
+
+        # Not assertNotContains: the success message names the application that
+        # was just disconnected, so the page mentions it either way
+        self.assertContains(response, 'Other client')
+        self.assertFalse(Token.objects.filter(client=self.oidc_client).exists())
+        self.assertTrue(Token.objects.filter(client=other).exists())
+
+    def test_disconnecting_cannot_reach_another_users_tokens(self):
+        """
+        The client is shared, the grants are not
+        """
+        self.create_access_token([SCOPE_READ], username='admin')
+
+        self.client.post(self.url, {'disconnect': self.oidc_client.id})
+
+        self.assertTrue(Token.objects.filter(user__username='admin').exists())
+
+    def test_disconnecting_something_that_is_not_connected_says_nothing(self):
+        """
+        No message either way: there is nothing to report, and confirming that
+        an unknown client id exists would be an answer in itself
+        """
+        response = self.client.post(self.url, {'disconnect': 'no-such-client'}, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'no longer has access')
+
+    def test_nothing_connected(self):
+        response = self.client.get(self.url)
+
+        self.assertContains(response, 'No application has access')
+
+    @override_settings(IDP_OIDC_PRIVATE_KEY='')
+    def test_page_is_gone_while_the_provider_is_off(self):
+        """
+        Same answer as the authorization view: without a signing key nothing
+        can be connected, and the tokens that exist are already refused
+        """
+        self.assertEqual(self.client.get(self.url).status_code, 404)
+
+    def test_the_settings_page_links_here(self):
+        response = self.client.get(reverse('core:user:preferences'))
+
+        self.assertContains(response, self.url)
+
+    @override_settings(IDP_OIDC_PRIVATE_KEY='')
+    def test_the_settings_page_hides_the_link_while_the_provider_is_off(self):
+        response = self.client.get(reverse('core:user:preferences'))
+
+        self.assertNotContains(response, self.url)
+
+    def test_anonymous_users_are_sent_to_the_login(self):
+        self.user_logout()
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(settings.LOGIN_URL, response['location'])

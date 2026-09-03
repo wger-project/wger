@@ -18,7 +18,7 @@ Gym 1 - Test 123
 #10 manager2
 #12 general_manager1
 #2  test
-#14 member1
+#14 member1  (time_zone Pacific/Auckland; use for day/timezone tests)
 #15 member2
 #16 member3
 #17 member4

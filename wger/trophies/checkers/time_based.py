@@ -17,7 +17,6 @@
 # Standard Library
 import datetime
 from typing import (
-    Any,
     Optional,
 )
 

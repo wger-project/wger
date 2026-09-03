@@ -222,7 +222,10 @@ class Command(BaseCommand):
                 return {
                     'valid': False,
                     'issue_type': 'oversized',
-                    'message': f'File too large: {file_size / (1024 * 1024):.1f}MB (max {MAX_FILE_SIZE_MB}MB)',
+                    'message': (
+                        f'File too large: {file_size / (1024 * 1024):.1f}MB '
+                        f'(max {MAX_FILE_SIZE_MB}MB)'
+                    ),
                 }
         except Exception as e:
             return {
@@ -255,7 +258,9 @@ class Command(BaseCommand):
             return {
                 'valid': False,
                 'issue_type': 'invalid_format',
-                'message': f'Unsupported format: {img_format} (allowed: {", ".join(allowed_formats)})',
+                'message': (
+                    f'Unsupported format: {img_format} (allowed: {", ".join(allowed_formats)})'
+                ),
             }
 
         # Check for animation

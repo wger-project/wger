@@ -16,7 +16,7 @@
     "htmx.org": "^2.0.8"
   },
   "devDependencies": {
-    "@wger-project/react-components": "26.8.12"
+    "@wger-project/react-components": "26.8.28"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss wger/core/static/bootstrap-compiled.css"

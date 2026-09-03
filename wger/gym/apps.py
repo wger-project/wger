@@ -23,4 +23,4 @@ class GymConfig(AppConfig):
     verbose_name = 'Gym'
 
     def ready(self):
-        import wger.gym.signals
+        import wger.gym.signals  # noqa: F401

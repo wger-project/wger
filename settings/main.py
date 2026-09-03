@@ -206,6 +206,7 @@ if WGER_SETTINGS['USE_CELERY']:
     EMAIL_BACKEND = 'wger.core.mail.CeleryEmailBackend'
 
 WGER_SHOW_APP_STORE_LINKS = env.bool('WGER_SHOW_APP_STORE_LINKS', True)
+WGER_MAX_SESSION_LENGTH_HOURS = env.int('WGER_MAX_SESSION_LENGTH_HOURS', 5)
 
 #
 # Auth Proxy Authentication
@@ -334,7 +335,10 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'simple': {
-            'format': 'level={levelname} ts={asctime} module={module} path={pathname} line={lineno} message={message}',
+            'format': (
+                'level={levelname} ts={asctime} module={module} '
+                'path={pathname} line={lineno} message={message}'
+            ),
             'style': '{',
         },
     },

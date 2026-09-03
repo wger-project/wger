@@ -14,6 +14,7 @@
 
 # Standard Library
 import datetime
+import zoneinfo
 
 # Django
 from django.contrib.auth.models import User
@@ -55,7 +56,13 @@ class UserLastActivityTestCase(WgerTestCase):
         ).save()
 
     def add_session(self, date: datetime.date):
-        WorkoutSession(user=self.user, routine_id=1, date=date).save()
+        WorkoutSession(
+            user=self.user,
+            routine_id=1,
+            datetime_start=timezone.make_aware(
+                datetime.datetime.combine(date, datetime.time(12, 0))
+            ),
+        ).save()
 
     def test_no_activity(self):
         self.assertIsNone(get_user_last_activity(self.user))
@@ -85,3 +92,25 @@ class UserLastActivityTestCase(WgerTestCase):
         self.add_session(datetime.date(2024, 3, 10))
 
         self.assertEqual(get_user_last_activity(self.user), datetime.date(2024, 3, 10))
+
+
+class UserLastActivityTimezoneTestCase(WgerTestCase):
+    """
+    Test that the activity day is derived in the member's zone, not the viewer's
+    """
+
+    def test_the_day_is_the_members_one(self):
+        """14:00 UTC is already the next day for member1 (Pacific/Auckland)"""
+
+        member = User.objects.get(username='member1')
+        WorkoutLog.objects.filter(user=member).delete()
+        WorkoutSession.objects.filter(user=member).delete()
+
+        WorkoutSession.objects.create(
+            user=member,
+            datetime_start=datetime.datetime(2024, 6, 19, 14, 0, tzinfo=datetime.timezone.utc),
+        )
+
+        # The active zone is the viewer's (e.g. a trainer) and must not matter
+        with timezone.override(zoneinfo.ZoneInfo('America/Denver')):
+            self.assertEqual(get_user_last_activity(member), datetime.date(2024, 6, 20))

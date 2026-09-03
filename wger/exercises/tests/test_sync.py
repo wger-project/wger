@@ -560,8 +560,8 @@ class MockExerciseResponse:
                             "uuid": "581338a1-8e52-405b-99eb-f0724c528bc8",
                             "name": "Balançoire Kettlebell à 2 mains",
                             "exercise": 2,
-                            "description": "<p>Balançoire Kettlebell à deux mains de style russe</p>",
-                            "description_source": "Balançoire Kettlebell à deux mains de style russe",
+                            "description": "<p>Balançoire Kettlebell à deux mains de style russe</p>",  # noqa: E501
+                            "description_source": "Balançoire Kettlebell à deux mains de style russe",  # noqa: E501
                             "created": "2015-08-03",
                             "language": 3,
                             "aliases": [],

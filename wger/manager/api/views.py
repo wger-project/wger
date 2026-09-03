@@ -28,7 +28,10 @@ from rest_framework.response import Response
 
 # wger
 from wger.manager.api.consts import BASE_CONFIG_FILTER_FIELDS
-from wger.manager.api.filtersets import WorkoutLogFilterSet
+from wger.manager.api.filtersets import (
+    WorkoutLogFilterSet,
+    WorkoutSessionFilterSet,
+)
 from wger.manager.api.permissions import RoutinePermission
 from wger.manager.api.serializers import (
     DaySerializer,
@@ -213,6 +216,7 @@ class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = RoutineSerializer
+    permission_classes = [RoutinePermission]
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('name', 'description', 'created')
@@ -235,6 +239,7 @@ class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = RoutineSerializer
+    permission_classes = [RoutinePermission]
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('name', 'description', 'created')
@@ -254,14 +259,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = WorkoutSessionSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = (
-        'date',
-        'routine',
-        'notes',
-        'impression',
-        'time_start',
-        'time_end',
-    )
+    filterset_class = WorkoutSessionFilterSet
 
     def get_queryset(self):
         """
