@@ -103,7 +103,8 @@ Under the hood, weight entries are measurements now: they live in the official b
 The `/api/v2/weightentry/` endpoint will keep working during this release, so tools like openScale do not need any changes.
 
 ### Measurement API
-- Measurement categories gained `metric_type`, `parent`, `order` and `is_official`. There can be only one category per account and metric type, categories can be nested one level deep to group multi-value metrics, and measurements can only be added to categories that are not a group. `is_official` is read-only and filterable, official categories cannot be deleted and their `metric_type` cannot be changed.
+- Measurement categories gained `metric_type`, `parent`, `order` and `is_official`.
+  There can be only one category per account and metric type, categories can be nested one level deep to group multi-value metrics, and measurements can only be added to categories that are not a group. `is_official` is read-only and filterable, official categories cannot be deleted and their `metric_type` cannot be changed.
 - Measurements gained `source`, `external_id` and `extra_data`. The unit of a body weight entry is stored in `extra_data.unit` (`kg` or `lb`). If it is missing, the unit of the category applies. `extra_data` is replaced as a whole on PATCH, so send back the keys you want to keep.
 - Categories gained `dynamic_type` and `dynamic_params` for the calculated categories described above. `/api/v2/measurement-category/dynamic-types/` lists what the server can calculate and which parameters each category takes. Only free-form categories without entries of their own can be calculated, and the calculation cannot be changed once it is set.
 - `source` gained the value `calculated` for the entries such a category holds. They are refused on POST, PATCH and DELETE, since the server replaces them whenever what they are computed from changes.
