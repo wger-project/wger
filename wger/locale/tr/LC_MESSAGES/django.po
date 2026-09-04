@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2024-07-20 17:09+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"PO-Revision-Date: 2026-09-05 06:09+0000\n"
+"Last-Translator: Gym boi <mailforappsies@proton.me>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -151,10 +151,12 @@ msgstr "Onayla"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Hesabınızın şifresi yok. Onaylamak için kullanıcı adınız olan \"{username}"
+"\"'ı yazın."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Girilen kullanıcı adı eşleşmiyor"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -363,7 +365,7 @@ msgstr "Zaman"
 
 #: core/models/rep_unit.py:34
 msgid "Distance"
-msgstr ""
+msgstr "Mesafe"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
 #: core/templates/user/overview.html:306 core/views/user.py:680
@@ -381,7 +383,7 @@ msgstr "Birim Türü"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr ""
+msgstr "Ölçüm birimi türü (tekrar, vakit, mesafe)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -415,7 +417,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Neredeyse bitti!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -429,6 +431,8 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Eposta onaylama kodunuz aşağıda belirtilmiştir. Lütfen tarayıcınızdaki açık "
+"pencereye giriniz."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
@@ -444,10 +448,13 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Bu bağlantı %(expire_hours)s saat boyunca geçerli (%(date)s,%(time)s "
+"tarihine kadar.) Profil ayarlarından yeni bir bağlantı talep edebilirsin."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
+"Bu düğme çalışmıyor ise bu bağlantıyı kopyalayıp tarayıcınıza yapıştırın."
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -464,6 +471,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"E-posta adresin şifre değişikliği ve tercihen antrenman hatırlatmaları için "
+"kullanılır. Yeni bir adres ancak kendisine gönderilen bağlantı üzerinden "
+"onayladığın takdirde aktif edilir."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -472,7 +482,7 @@ msgstr "Mevcut e-posta"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Doğrulama bekliyor:<strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
@@ -511,15 +521,15 @@ msgstr ""
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Giriş anahtarıyla oturum aç"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "ile oturum aç"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Zaten bir hesabınız var mı?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -621,7 +631,7 @@ msgstr "Eğitim"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
 msgid "Routines"
-msgstr ""
+msgstr "Programlar"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:83
 msgid "Calendar"
@@ -638,7 +648,7 @@ msgstr "Galeri"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Kupalar"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
