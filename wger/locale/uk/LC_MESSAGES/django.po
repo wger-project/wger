@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-05 07:10+0000\n"
+"PO-Revision-Date: 2026-09-05 07:14+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -2339,7 +2339,7 @@ msgstr "Повтори"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr "Повторів можете зробити"
+msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
