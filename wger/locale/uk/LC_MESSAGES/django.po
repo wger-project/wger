@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-05 07:14+0000\n"
+"PO-Revision-Date: 2026-09-05 08:45+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -111,8 +111,8 @@ msgstr "Адреса електронної пошти"
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Використовується для скидання пароля і, при необхідності, нагадування "
-"електронною поштою."
+"Використовується для скидання пароля і, за потреби, нагадування електронною "
+"поштою."
 
 #: core/forms.py:234
 msgid "This e-mail address is already in use."
@@ -234,7 +234,7 @@ msgstr "Метричні (кілограм)"
 
 #: core/models/profile.py:86
 msgid "Imperial (pound)"
-msgstr "Імперичні (фунт)"
+msgstr "Імперські (фунт)"
 
 #: core/models/profile.py:119
 msgid "Activate workout reminders"
@@ -245,8 +245,8 @@ msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
-"Відмітьте для активації автоматичних нагадувань для тренувань. Для роботи "
-"цієї функції необхідно вказати дійсну адресу електронної пошти."
+"Позначте для активації автоматичних нагадувань тренування. Для роботи цієї "
+"функції необхідно вказати дійсну адресу електронної пошти."
 
 #: core/models/profile.py:130
 msgid "Remind before expiration"
@@ -278,7 +278,7 @@ msgid ""
 "for workouts. This does not affect the language used on the website."
 msgstr ""
 "Мова, яка використовується при надсиланні вам сповіщень електронною поштою, "
-"наприклад, нагадування про тренування. Це не стосується мови веб-сайту."
+"наприклад, нагадування про тренування. Це не стосується мови вебсайту."
 
 #: core/models/profile.py:192 gym/views/export.py:65
 msgid "Age"
@@ -416,12 +416,12 @@ msgid ""
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
 "Під час обробки Вашого запиту на сервері сталася помилка. Спробуйте оновити "
-"веб-переглядач. Якщо це не допоможе, повторіть спробу пізніше. Якщо проблема "
-"не зникає, Ви можете звернутися за допомогою зазначеними нижче способами:"
+"вебпереглядач. Якщо це не допоможе, повторіть спробу пізніше. Якщо проблема "
+"не зникає, Ви можете звернутися по допомогу у зазначені нижче способи:"
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr "Майже там!"
+msgstr "Ще зовсім трохи!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -558,8 +558,8 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Ви є\n"
-"                переглядаючи сайт як користувач \"%(current_user)s\", усі "
+"Ви\n"
+"                переглядаєте сайт як користувач \"%(current_user)s\", усі "
 "дії виконуються на\n"
 "                їхні дані.\n"
 "            "
@@ -1030,11 +1030,11 @@ msgstr "Документація API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr "Повернутися в додаток"
+msgstr "Повернутися в застосунок"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr "Повернення в додаток wger…"
+msgstr "Повернення в застосунок wger…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
@@ -1042,11 +1042,11 @@ msgid ""
 "installed on this device."
 msgstr ""
 "Якщо нічого не відбувається, натисніть кнопку нижче. Переконайтеся, що "
-"додаток wger встановлено на цьому пристрої."
+"застосунок wger встановлено на цьому пристрої."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr "Натисніть, щоб повернутися в додаток"
+msgstr "Натисніть, щоб повернутися в застосунок"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1446,7 +1446,7 @@ msgstr "Тренажерний зал"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
-msgstr "На латині, напр. \"Pectoralis major\""
+msgstr "Латиною, наприклад. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
 msgid "Alternative name"
@@ -1698,7 +1698,7 @@ msgstr "Щорічно"
 
 #: gym/models/contract.py:144
 msgid "Half yearly"
-msgstr "На півроку"
+msgstr "На пів року"
 
 #: gym/models/contract.py:145
 msgid "Monthly"
@@ -1706,7 +1706,7 @@ msgstr "Щомісячно"
 
 #: gym/models/contract.py:146
 msgid "Biweekly"
-msgstr "Двічі на тиждень"
+msgstr "Кожні два тижні"
 
 #: gym/models/contract.py:147
 msgid "Weekly"
@@ -1723,7 +1723,7 @@ msgstr "Тип контракту"
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
 #: nutrition/forms.py:67
 msgid "Amount"
-msgstr "Сума"
+msgstr "Кількість"
 
 #: gym/models/contract.py:221 gym/templates/contract/view.html:63
 msgid "Payment type"
@@ -1782,7 +1782,7 @@ msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
 msgstr ""
-"Кількість тижнів відсутності користувача, по закінченню яких його "
+"Кількість тижнів відсутності користувача, після закінчення яких його "
 "присутність буде вважатися неактивною"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
@@ -2003,7 +2003,7 @@ msgstr "Груди"
 
 #: i18n.tpl:12
 msgid "Dumbbell"
-msgstr "Гантелі"
+msgstr "Гантель"
 
 #: i18n.tpl:13
 msgid "Glutes"
@@ -2023,7 +2023,7 @@ msgstr "Лавка похила"
 
 #: i18n.tpl:17
 msgid "Kettlebell"
-msgstr "Гирі"
+msgstr "Гиря"
 
 #: i18n.tpl:18
 msgid "Kilometers"
@@ -2063,7 +2063,7 @@ msgstr "Хвилини"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr "Пластини"
+msgstr "Вагові диски"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2119,7 +2119,7 @@ msgstr "Послідовний"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr "Присвячений"
+msgstr "Наполегливий"
 
 #: i18n.tpl:45
 msgid "Obsessed"
@@ -2127,7 +2127,7 @@ msgstr "Одержимий"
 
 #: i18n.tpl:46
 msgid "Legend"
-msgstr "Умовне позначення"
+msgstr "Легенда"
 
 #: i18n.tpl:47
 msgid "Veteran"
@@ -2155,7 +2155,7 @@ msgstr "Підйомник автобуса"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr "Літак-підйомник"
+msgstr "Здатний підняти літак"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
@@ -2289,7 +2289,7 @@ msgstr "Вміст"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr "Утворити попередній перегляд"
+msgstr "Створити попередній перегляд"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2355,7 +2355,7 @@ msgstr "Вправа"
 
 #: manager/management/commands/email-reminders.py:89
 msgid "Routine will expire soon"
-msgstr "Термін дії процедури скоро закінчиться"
+msgstr "Термін дії плану тренувань скоро закінчиться"
 
 #: manager/models/session.py:41
 msgid "Bad"
@@ -2424,7 +2424,7 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
-"Ваш останній запис ваги від %(date)s (%(days)s і днів тому).\n"
+"Ваш останній запис ваги від %(date)s (%(days)s днів тому).\n"
 "Натисніть посилання для доступу до застосунку та введіть нову."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
@@ -2481,7 +2481,7 @@ msgstr "Інгредієнт"
 
 #: nutrition/forms.py:227
 msgid "Also search for names in English"
-msgstr "Також шукайте імена англійською мовою"
+msgstr "Також шукайте назви англійською мовою"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
@@ -2607,7 +2607,7 @@ msgstr "Вміст цукру в вуглеводах"
 #: nutrition/templates/ingredient/view.html:191
 #: nutrition/templates/ingredient/view.html:212
 msgid "n.A."
-msgstr "немає в наявності"
+msgstr "немає даних"
 
 #: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
@@ -2719,10 +2719,10 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-"Будь ласка, запримітьте, що ці розрахунки тільки приблизні. Якщо Ви "
+"Будь ласка, зверніть увагу, що ці розрахунки тільки приблизні. Якщо Ви "
 "створюєте\n"
 "свій план харчування на цих значеннях, поспостерігайте за собою кілька\n"
-"тижнів і при необхідності змініть загальну кількість."
+"тижнів і за потреби змініть загальну кількість."
 
 #: nutrition/views/ingredient.py:250
 msgid "Add a new ingredient"
@@ -2886,7 +2886,7 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
-"Хоча проект є безкоштовним і завжди ним залишатиметься, робота сервера не є "
+"Хоча проєкт є безкоштовним і завжди ним залишатиметься, робота сервера не є "
 "такою! Надання хостингової версії wger передбачає реальні постійні витрати "
 "на хостинг сервера, пропускну здатність, резервне копіювання тощо. Розробка "
 "також вимагає значного часу та зусиль від волонтерів. Ваш внесок "
@@ -3203,7 +3203,7 @@ msgstr ""
 
 #: weight/forms.py:53
 msgid "Input"
-msgstr "Віхдні дані"
+msgstr "Вхідні дані"
 
 #: weight/forms.py:54
 msgid "Date format"
@@ -3298,7 +3298,7 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr "Не було жодних помилок, всі записи можуть бути конветовані!"
+msgstr "Не було жодних помилок, всі записи можуть бути конвертовані!"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
