@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-02 17:51+0000\n"
+"PO-Revision-Date: 2026-09-05 07:10+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -24,7 +24,7 @@ msgstr ""
 "? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
 "14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
 "100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -959,9 +959,21 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Наразі активна <strong>%(counter)s</strong> JWT-сесія\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Наразі активні <strong>%(counter)s</strong> JWT-сесії\n"
+"            "
 msgstr[2] ""
+"\n"
+"                Наразі активно <strong>%(counter)s</strong> JWT-сесій\n"
+"            "
 msgstr[3] ""
+"\n"
+"                Наразі активно <strong>%(counter)s</strong> JWT-сесій\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
@@ -999,10 +1011,14 @@ msgid ""
 "            <code>Authorization</code> header to use it.\n"
 "        "
 msgstr ""
+"\n"
+"            Щоб скористатися ним, передайте <code>Token %(key)s</code> у\n"
+"<code>Authorization</code> заголовку.\n"
+"        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Приклад запиту за допомогою curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -1489,7 +1505,7 @@ msgstr "Обліковий запис молодший за 60 днів"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "новий"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
@@ -1509,11 +1525,11 @@ msgstr "об'єднано"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "у"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "медіафайли"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1625,11 +1641,11 @@ msgstr "Дія"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Від"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "До"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
