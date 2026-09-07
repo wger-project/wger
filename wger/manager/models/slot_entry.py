@@ -35,7 +35,7 @@ from wger.core.models import (
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
     REP_UNIT_REPETITIONS,
-    REQUIREMENTS_RULES_KEYS,
+    REQUIREMENT_RULES,
     WEIGHT_UNIT_KG,
 )
 from wger.manager.dataclasses import (
@@ -358,13 +358,40 @@ class SlotEntry(models.Model):
         }.get(field)
 
     @staticmethod
-    def _requirements_met(requirements, log_data: List[WorkoutLog], thresholds: dict) -> bool:
-        """True if any single log reaches the thresholds of all required fields"""
+    def _requirements_met(
+        requirements,
+        log_data: List[WorkoutLog],
+        thresholds: dict,
+        prescribed_sets: Decimal | None,
+    ) -> bool:
+        """
+        True if the logs of the gating iteration satisfy the requirements.
+
+        Default policy: any single log reaching the thresholds of all required
+        fields is enough. With ``all_sets`` every log must reach the thresholds
+        and at least the prescribed number of sets must have been logged
+        (strict double progression: no set may fall below the top of the
+        range, and under-logging never qualifies).
+        """
 
         def rule_met(log: WorkoutLog, rule: str) -> bool:
-            log_value = getattr(log, rule, None)
-            threshold = thresholds.get(rule)
+            # Unknown rules can only be persisted by writes that bypass the API
+            # validator; treat them as unmet (safe-hold) instead of raising
+            log_field, threshold_field = REQUIREMENT_RULES.get(rule, (None, None))
+            if log_field is None:
+                return False
+            log_value = getattr(log, log_field, None)
+            threshold = thresholds.get(threshold_field)
             return log_value is not None and threshold is not None and log_value >= threshold
+
+        if requirements.all_sets:
+            # Floor the prescribed count at 1: it covers both a missing
+            # SetsConfig (None) and a degenerate <= 0 prescription, and keeps
+            # the length check subsuming the empty-log case (all([]) is True).
+            min_sets = prescribed_sets if prescribed_sets and prescribed_sets >= 1 else 1
+            return len(log_data) >= min_sets and all(
+                all(rule_met(log, rule) for rule in requirements.rules) for log in log_data
+            )
 
         return any(all(rule_met(log, rule) for rule in requirements.rules) for log in log_data)
 
@@ -434,11 +461,18 @@ class SlotEntry(models.Model):
             logs_by_iteration[log.iteration].append(log)
 
         for i in range(1, target + 1):
-            # Thresholds are the displayed prescriptions of the previous iteration
+            # Thresholds are the displayed prescriptions of the previous iteration.
+            # Max fields (used by the max_* double progression rules) round like
+            # their base field.
             thresholds = {
-                rule: round_value(states[rule].value, self._display_rounding(rule))
-                for rule in REQUIREMENTS_RULES_KEYS
+                threshold_field: round_value(
+                    states[threshold_field].value,
+                    self._display_rounding(BASE_FIELD.get(threshold_field, threshold_field)),
+                )
+                for _, threshold_field in REQUIREMENT_RULES.values()
             }
+            # Prescribed set count of the previous iteration, used by all_sets
+            prescribed_sets = states['sets'].value
             log_data = logs_by_iteration.get(i - 1, [])
 
             # All fields advance first, the gates below read the candidates
@@ -464,7 +498,7 @@ class SlotEntry(models.Model):
                 is_open = (
                     i == 1
                     or not requirements
-                    or self._requirements_met(requirements, log_data, thresholds)
+                    or self._requirements_met(requirements, log_data, thresholds, prescribed_sets)
                 )
                 states[field].apply(candidate, is_open, FIELD_CAPS[field])
 

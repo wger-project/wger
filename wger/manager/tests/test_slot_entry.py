@@ -1217,6 +1217,428 @@ class SlotEntryTestCase(WgerTestCase):
         self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(100))
 
 
+class DoubleProgressionTestCase(WgerTestCase):
+    """
+    Tests for double progression: the max_* requirement rules and the all_sets
+    flag.
+
+    The max_* rules gate on the top of the prescribed range (e.g. only add
+    weight once the top of the rep range is reached), all_sets additionally
+    requires every prescribed set to qualify.
+    """
+
+    slot_entry: SlotEntry
+
+    def setUp(self):
+        super().setUp()
+
+        self.slot_entry = SlotEntry(
+            slot_id=1,
+            exercise_id=1,
+            order=1,
+        )
+        self.slot_entry.save()
+
+    def _build_double_progression(
+        self,
+        requirements,
+        *,
+        slot_entry=None,
+        sets=3,
+        repeat=False,
+    ):
+        """Range 8-12 reps over ``sets`` sets, +2.5 kg gated by ``requirements``."""
+
+        entry = slot_entry or self.slot_entry
+        entry.weight_rounding = Decimal('2.5')
+        entry.repetition_rounding = 1
+        entry.save()
+
+        SetsConfig(slot_entry=entry, iteration=1, value=sets).save()
+        RepetitionsConfig(slot_entry=entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=entry, iteration=1, value=80).save()
+        WeightConfig(
+            slot_entry=entry,
+            iteration=2,
+            value=Decimal('2.5'),
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=repeat,
+            requirements=requirements,
+        ).save()
+
+    def _log_set(self, iteration, repetitions, *, slot_entry=None, weight=80, **kwargs):
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_entry=slot_entry or self.slot_entry,
+            iteration=iteration,
+            weight=weight,
+            repetitions=repetitions,
+            **kwargs,
+        ).save()
+
+    def test_max_repetitions_holds_until_top(self):
+        """Headline case: weight holds at 10 reps, advances once the top (12) is hit"""
+
+        self._build_double_progression({'rules': ['max_repetitions']})
+
+        self._log_set(1, repetitions=10)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+        self._log_set(2, repetitions=12)
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('82.5'))
+
+    def test_max_repetitions_vs_repetitions(self):
+        """``repetitions`` bumps at the bottom (8); ``max_repetitions`` does not"""
+
+        entry_max = SlotEntry(slot_id=1, exercise_id=2, order=2)
+        entry_max.save()
+
+        self._build_double_progression({'rules': ['repetitions']})
+        self._build_double_progression({'rules': ['max_repetitions']}, slot_entry=entry_max)
+
+        self._log_set(1, repetitions=8)
+        self._log_set(1, repetitions=8, slot_entry=entry_max)
+
+        # bottom-of-range rule advances at 8
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+        # top-of-range rule holds at 8
+        self.assertEqual(entry_max.get_config_data(2).weight, Decimal(80))
+
+    def test_max_repetitions_any_policy_opt_out(self):
+        """Without ``all_sets`` the permissive 'any' default advances on one top set"""
+
+        self._build_double_progression({'rules': ['max_repetitions']})
+
+        # 12 / 8 / 8 - only one set hit the top
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=8)
+        self._log_set(1, repetitions=8)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+    def test_max_repetitions_partial_no_advance(self):
+        """Three logs below the top (11/11/11) hold under the 'any' default"""
+
+        self._build_double_progression({'rules': ['max_repetitions']})
+
+        self._log_set(1, repetitions=11)
+        self._log_set(1, repetitions=11)
+        self._log_set(1, repetitions=11)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_max_repetitions_missing_log(self):
+        """No log for the prior iteration holds the weight"""
+
+        self._build_double_progression({'rules': ['max_repetitions']})
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_max_repetitions_all_sets_strict_holds(self):
+        """Canonical 3x12: 12/8/8 with ``all_sets`` holds (not every set at the top)"""
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=8)
+        self._log_set(1, repetitions=8)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_max_repetitions_all_sets_strict_advances(self):
+        """Canonical 3x12: 12/12/12 with ``all_sets`` advances"""
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+    def test_all_sets_under_logging_holds(self):
+        """Logging only two sets when 3 are prescribed holds (prescribed count gate)"""
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_all_sets_over_logging_holds(self):
+        """An extra sub-top set (12/12/12/8) holds under ``all_sets``"""
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=8)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_all_sets_over_logging_all_top_advances(self):
+        """Four genuine top sets (12/12/12/12) advance (4 >= 3 and all at the top)"""
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+    def test_all_sets_empty_logs_no_advance(self):
+        """``all_sets`` with no logs for the prior iteration holds (0 >= prescribed)"""
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_all_sets_no_backfill_after_skipped_iteration(self):
+        """
+        A repeating all_sets progression earns exactly one step per qualifying
+        iteration and doesn't back-fill increments for skipped iterations
+        """
+        self._build_double_progression(
+            {'rules': ['max_repetitions'], 'all_sets': True},
+            repeat=True,
+        )
+
+        # Only iteration 2's logs qualify (all three sets at the top)
+        self._log_set(1, repetitions=10)
+        self._log_set(1, repetitions=10)
+        self._log_set(1, repetitions=10)
+        self._log_set(2, repetitions=12)
+        self._log_set(2, repetitions=12)
+        self._log_set(2, repetitions=12)
+        self._log_set(3, repetitions=9)
+        self._log_set(3, repetitions=9)
+        self._log_set(3, repetitions=9)
+
+        # One earned step, not the calendar index
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('82.5'))
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal('82.5'))
+
+    def test_all_sets_warmup_sets_excluded(self):
+        """
+        A warm-up SlotEntry logged at low reps in the same iteration does not affect
+        the work entry's ``all_sets`` evaluation (logs are scoped by slot entry)
+        """
+
+        self._build_double_progression({'rules': ['max_repetitions'], 'all_sets': True})
+
+        warmup = SlotEntry(slot_id=1, exercise_id=1, order=2, type='warmup')
+        warmup.save()
+
+        # Work entry: 3 sets all at the top
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        self._log_set(1, repetitions=12)
+        # Warm-up logged at low reps in the same iteration, but on a different entry
+        self._log_set(1, repetitions=5, slot_entry=warmup)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+    def test_all_sets_no_sets_config_defaults_to_one(self):
+        """
+        Without a ``SetsConfig`` the prescribed count is ``None`` and floors to 1:
+        zero logs hold (0 >= 1 is False), a single top log advances.
+        """
+
+        self.slot_entry.weight_rounding = Decimal('2.5')
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=Decimal('2.5'),
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['max_repetitions'], 'all_sets': True},
+        ).save()
+
+        # No logs for the prior iteration -> holds (0 >= 1 is False)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+        # One log at the top -> advances (default prescribed count of 1 is met)
+        self._log_set(1, repetitions=12)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+    def test_all_sets_zero_sets_config_floors_to_one(self):
+        """
+        A degenerate ``SetsConfig(value=0)`` floors the prescribed count to 1, so an
+        *empty* log set holds instead of vacuously advancing (``0 >= 0`` together
+        with ``all([])`` over no logs would otherwise advance the weight).
+        """
+
+        self._build_double_progression(
+            {'rules': ['max_repetitions'], 'all_sets': True},
+            sets=0,
+        )
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+    def test_all_sets_combined_rules(self):
+        """
+        The strict ``all_sets`` path with combined ``['max_repetitions', 'rir']`` is
+        not reps-specific: every set must meet *both* rules.
+        """
+
+        entry_met = self.slot_entry
+        entry_unmet = SlotEntry(slot_id=1, exercise_id=2, order=2)
+        entry_unmet.save()
+
+        for entry in (entry_met, entry_unmet):
+            self._build_double_progression(
+                {'rules': ['max_repetitions', 'rir'], 'all_sets': True},
+                slot_entry=entry,
+            )
+            RiRConfig(slot_entry=entry, iteration=1, value=2).save()
+
+        # All 3 sets meet both rules (reps 12 >= 12 and rir 2 >= 2)
+        self._log_set(1, repetitions=12, rir=2, slot_entry=entry_met)
+        self._log_set(1, repetitions=12, rir=2, slot_entry=entry_met)
+        self._log_set(1, repetitions=12, rir=2, slot_entry=entry_met)
+
+        # One set fails the rir rule (1 < 2 under the >= gate) -> strict path holds
+        self._log_set(1, repetitions=12, rir=2, slot_entry=entry_unmet)
+        self._log_set(1, repetitions=12, rir=2, slot_entry=entry_unmet)
+        self._log_set(1, repetitions=12, rir=1, slot_entry=entry_unmet)
+
+        self.assertEqual(entry_met.get_config_data(2).weight, Decimal('82.5'))
+        self.assertEqual(entry_unmet.get_config_data(2).weight, Decimal(80))
+
+    def test_combined_rules(self):
+        """``{'rules': ['max_repetitions', 'rir']}`` requires both in the same log"""
+
+        entry_met = self.slot_entry
+        entry_unmet = SlotEntry(slot_id=1, exercise_id=2, order=2)
+        entry_unmet.save()
+
+        for entry in (entry_met, entry_unmet):
+            self._build_double_progression(
+                {'rules': ['max_repetitions', 'rir']},
+                slot_entry=entry,
+            )
+            RiRConfig(slot_entry=entry, iteration=1, value=2).save()
+
+        # both rules met: 12 reps (>= 12) and rir 2 (>= 2)
+        self._log_set(1, repetitions=12, rir=2, slot_entry=entry_met)
+        # reps met but rir too high (1 < 2 under the >= gate)
+        self._log_set(1, repetitions=12, rir=1, slot_entry=entry_unmet)
+
+        self.assertEqual(entry_met.get_config_data(2).weight, Decimal('82.5'))
+        self.assertEqual(entry_unmet.get_config_data(2).weight, Decimal(80))
+
+    def test_max_weight_symmetry(self):
+        """``max_weight`` reads log.weight and gates against the prescribed top load"""
+
+        # entry that logs the top of the load range -> reps advance
+        entry_top = SlotEntry(slot_id=1, exercise_id=1, order=1)
+        entry_top.repetition_rounding = 1
+        entry_top.save()
+        # entry that logs below the top -> reps hold
+        entry_low = SlotEntry(slot_id=1, exercise_id=2, order=2)
+        entry_low.repetition_rounding = 1
+        entry_low.save()
+
+        for entry in (entry_top, entry_low):
+            WeightConfig(slot_entry=entry, iteration=1, value=100).save()
+            MaxWeightConfig(slot_entry=entry, iteration=1, value=110).save()
+            RepetitionsConfig(slot_entry=entry, iteration=1, value=5).save()
+            RepetitionsConfig(
+                slot_entry=entry,
+                iteration=2,
+                value=1,
+                operation=OperationChoices.PLUS,
+                step=StepChoices.ABSOLUTE,
+                requirements={'rules': ['max_weight']},
+            ).save()
+
+        self._log_set(1, repetitions=1, slot_entry=entry_top, weight=110)
+        self._log_set(1, repetitions=1, slot_entry=entry_low, weight=105)
+
+        self.assertEqual(entry_top.get_config_data(2).repetitions, Decimal(6))
+        self.assertEqual(entry_low.get_config_data(2).repetitions, Decimal(5))
+
+    def test_repeat_true_with_max_repetitions(self):
+        """``repeat=True`` advances every iteration the top is hit, then stalls"""
+
+        self._build_double_progression({'rules': ['max_repetitions']}, repeat=True)
+
+        self._log_set(1, repetitions=12)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+        self._log_set(2, repetitions=12)
+        self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal(85))
+
+        # Stall: top not hit, weight holds at its current value
+        self._log_set(3, repetitions=8)
+        self.assertEqual(self.slot_entry.get_config_data(4).weight, Decimal(85))
+
+    def test_progressing_max_rep_top_with_weight_gate(self):
+        """
+        A progressing rep-range top: the weight gate always compares against the
+        top as prescribed for the iteration the logs belong to
+        """
+
+        self.slot_entry.weight_rounding = Decimal('2.5')
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=8).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=12).save()
+        MaxRepetitionsConfig(slot_entry=self.slot_entry, iteration=3, value=14).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=Decimal('2.5'),
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            repeat=True,
+            requirements={'rules': ['max_repetitions']},
+        ).save()
+
+        self._log_set(1, repetitions=12)
+        self._log_set(2, repetitions=12)
+        self._log_set(3, repetitions=14)
+
+        # At iteration 3 the rep-range top has moved to 14 and the weight has
+        # bumped twice (once per qualifying log against the top prescribed at
+        # the time: 12, 12)
+        transition = self.slot_entry.get_config_data(3)
+        self.assertEqual(transition.weight, Decimal(85))
+        self.assertEqual(transition.max_repetitions, Decimal(14))
+
+        # The iteration-3 log hit the new top of 14 -> third bump
+        config_data = self.slot_entry.get_config_data(4)
+        self.assertEqual(config_data.weight, Decimal('87.5'))
+        self.assertEqual(config_data.max_repetitions, Decimal(14))
+
+    def test_unknown_rule_holds(self):
+        """
+        A bogus rule persisted past the (serializer-only) validator must hold the
+        progression (safe fail) instead of raising
+        """
+
+        self._build_double_progression({'rules': ['bogus']})
+        self._log_set(1, repetitions=12)
+
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+
 class WalkConfigValuesTestCase(SimpleTestCase):
     """
     Tests for the ungated config walk

@@ -16,13 +16,27 @@
 
 RIR_OPTIONS = [None, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5]
 
-REQUIREMENTS_RULES_KEYS = [
-    'weight',
-    'repetitions',
-    'rir',
-    'rest',
-]
-"""Log fields that progression requirements can reference"""
+REQUIREMENT_RULES = {
+    'weight': ('weight', 'weight'),
+    'repetitions': ('repetitions', 'repetitions'),
+    'rir': ('rir', 'rir'),
+    'rest': ('rest', 'rest'),
+    'max_weight': ('weight', 'maxweight'),
+    'max_repetitions': ('repetitions', 'maxrepetitions'),
+}
+"""
+Rules that progression requirements can reference.
+
+Maps the rule key to ``(log field, threshold field)``: the workout log field
+the rule reads, and the progression field whose displayed prescription serves
+as the threshold. The ``max_*`` rules compare the same log field as their base
+rule but against the top of the prescribed range, enabling double progression
+(e.g. ``max_repetitions``: increase the weight only once the top of the rep
+range is reached).
+"""
+
+REQUIREMENTS_RULES_KEYS = list(REQUIREMENT_RULES.keys())
+"""Rule keys accepted in a progression requirement"""
 
 REP_UNIT_REPETITIONS = 1
 REP_UNIT_TILL_FAILURE = 2
