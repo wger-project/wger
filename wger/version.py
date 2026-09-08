@@ -35,13 +35,15 @@ Always use versions in the x.y.z format, without any suffixes like "beta1" or su
 MIN_SERVER_VERSION = Version('2.5.0')
 """Minimum version of the server required to run sync commands on this server"""
 
-VERSION_STRING = '2.7.0'
+VERSION_STRING = '2.8.0-dev.0'
 """
 Current version of the app.
 
 This literal is what the API reports and what .github/workflows/docker.yml
 extracts to tag the images, so both agree. It must be valid semver: write
-pre-releases as "2.8.0-dev", not "2.8.0.dev0".
+pre-releases as "2.8.0-dev", not "2.8.0.dev0", otherwise the docker workflow
+will silently produce no version tags (only a warning in the log) but the build
+will complete successfully otherwise.
 """
 
 VERSION = Version(VERSION_STRING)

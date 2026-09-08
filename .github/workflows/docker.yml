@@ -61,6 +61,9 @@ jobs:
         with:
           # Think if we want to also build branches, PRs, tags, etc.
           # https://github.com/docker/metadata-action
+          #
+          # - Release versions "2.7.0": latest, 2.7.0, 2.7
+          # - Pre-release "2.8.0-dev.0": latest, 2.8.0-dev.0
           tags: |
             type=raw,value=latest
             type=semver,pattern={{version}},value=${{ steps.version.outputs.version }}
@@ -151,6 +154,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
+          # Keep in sync with the tags in build-prod, see the notes there
           tags: |
             type=raw,value=latest
             type=semver,pattern={{version}},value=${{ needs.build-prod.outputs.version }}
