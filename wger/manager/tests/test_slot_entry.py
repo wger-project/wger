@@ -1291,6 +1291,44 @@ class DoubleProgressionTestCase(WgerTestCase):
         self._log_set(2, repetitions=12)
         self.assertEqual(self.slot_entry.get_config_data(3).weight, Decimal('82.5'))
 
+    def test_max_repetitions_without_range_gates_on_repetitions(self):
+        """Without a max reps config the top of the range is the prescribed value"""
+
+        self.slot_entry.weight_rounding = Decimal('2.5')
+        self.slot_entry.repetition_rounding = 1
+        self.slot_entry.save()
+
+        RepetitionsConfig(slot_entry=self.slot_entry, iteration=1, value=10).save()
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=80).save()
+        WeightConfig(
+            slot_entry=self.slot_entry,
+            iteration=2,
+            value=Decimal('2.5'),
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+            requirements={'rules': ['max_repetitions']},
+        ).save()
+
+        self._log_set(1, repetitions=9)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+        self._log_set(1, repetitions=10)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
+    def test_max_repetitions_with_max_below_min_gates_on_repetitions(self):
+        """A max reps config not above the min is no range and is not displayed either"""
+
+        self._build_double_progression({'rules': ['max_repetitions']})
+        MaxRepetitionsConfig.objects.filter(slot_entry=self.slot_entry).update(value=6)
+
+        self.assertIsNone(self.slot_entry.get_config_data(1).max_repetitions)
+
+        self._log_set(1, repetitions=7)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal(80))
+
+        self._log_set(1, repetitions=8)
+        self.assertEqual(self.slot_entry.get_config_data(2).weight, Decimal('82.5'))
+
     def test_max_repetitions_vs_repetitions(self):
         """``repetitions`` bumps at the bottom (8); ``max_repetitions`` does not"""
 

@@ -32,7 +32,7 @@ the rule reads, and the progression field whose displayed prescription serves
 as the threshold. The ``max_*`` rules compare the same log field as their base
 rule but against the top of the prescribed range, enabling double progression
 (e.g. ``max_repetitions``: increase the weight only once the top of the rep
-range is reached).
+range is reached). Without a range they behave like their base rule.
 """
 
 REQUIREMENTS_RULES_KEYS = list(REQUIREMENT_RULES.keys())

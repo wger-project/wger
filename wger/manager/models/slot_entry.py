@@ -106,6 +106,25 @@ FIELD_CAPS = {
 """Caps per field, mirror the limits of the display serializer fields"""
 
 
+def _range_top(states: dict, field: str) -> Decimal | None:
+    """
+    Value a requirement threshold is read from.
+
+    A max field gates on the top of the displayed range, which is the base
+    value when no range is prescribed (no max config, or a max not above the
+    base). Other fields are read as-is.
+    """
+    value = states[field].value
+    base_field = BASE_FIELD.get(field)
+    if base_field is None:
+        return value
+
+    base_value = states[base_field].value
+    if value is None or (base_value is not None and value <= base_value):
+        return base_value
+    return value
+
+
 def _apply_config_value(
     value: Decimal | None,
     config: AbstractChangeConfig,
@@ -466,7 +485,7 @@ class SlotEntry(models.Model):
             # their base field.
             thresholds = {
                 threshold_field: round_value(
-                    states[threshold_field].value,
+                    _range_top(states, threshold_field),
                     self._display_rounding(BASE_FIELD.get(threshold_field, threshold_field)),
                 )
                 for _, threshold_field in REQUIREMENT_RULES.values()
