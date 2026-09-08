@@ -69,7 +69,9 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
 @task(
     help={
         'settings-path': 'Path to settings file. Leave empty for default (settings.main)',
-        'process-static': 'Whether to process static files (install npm packages and process css). Default: True',
+        'process-static': (
+            'Whether to process static files (install npm packages and process css). Default: True'
+        ),
     }
 )
 def bootstrap(context, settings_path=None, process_static=True):

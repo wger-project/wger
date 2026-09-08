@@ -12,7 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
+import zoneinfo
+
+# Django
+from django.utils import timezone
+
+# Third Party
+from rest_framework import status
+
 # wger
+from wger.core.models import UserProfile
 from wger.core.tests import powersync_base_test
 from wger.manager.models import (
     Routine,
@@ -90,6 +101,62 @@ class WorkoutSessionPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestC
     }
 
     fk_ownership = (('routine', ROUTINE_OTHER),)
+
+    def test_create_with_deprecated_fields(self):
+        """
+        A push queued by an app version that predates 2.7 still lands on the day
+        and time it was recorded on
+        """
+
+        self.authenticate()
+        response = self.push(
+            'PUT',
+            {
+                'id': 'bbbbbbbb-bbbb-bbbb-bbbb-000000000098',
+                'date': '2030-01-15',
+                'time_start': '23:00:00',
+                'time_end': '01:30:00',
+                'routine': ROUTINE_OWNED,
+                'impression': '2',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000098')
+        self.assertEqual(
+            session.datetime_start,
+            timezone.make_aware(datetime.datetime(2030, 1, 15, 23, 0)),
+        )
+        self.assertEqual(
+            session.datetime_end,
+            timezone.make_aware(datetime.datetime(2030, 1, 16, 1, 30)),
+        )
+
+    def test_deprecated_fields_resolve_in_the_owners_timezone(self):
+        """The queued wall time is the user's, not the zone the request runs in"""
+
+        profile = UserProfile.objects.get(user__username=self.user_access)
+        profile.time_zone = 'Pacific/Auckland'
+        profile.save()
+
+        self.authenticate()
+        response = self.push(
+            'PUT',
+            {
+                'id': 'bbbbbbbb-bbbb-bbbb-bbbb-000000000097',
+                'date': '2030-01-15',
+                'time_start': '07:00:00',
+                'routine': ROUTINE_OWNED,
+                'impression': '2',
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000097')
+        self.assertEqual(
+            session.datetime_start,
+            datetime.datetime(2030, 1, 15, 7, 0, tzinfo=zoneinfo.ZoneInfo('Pacific/Auckland')),
+        )
 
 
 class RoutinePowerSyncTestCase(

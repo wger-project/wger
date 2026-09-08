@@ -34,16 +34,20 @@ def get_user_last_activity(user):
 
     dates = []
 
+    # The day is derived in the member's zone, not in the one of the trainer
+    # looking at the list
+    tz = user.userprofile.zone_info
+
     # Check workout logs. They use datetimes, the sessions and the user cache
     # only dates
     last_log = WorkoutLog.objects.filter(user=user).order_by('date').last()
     if last_log:
-        dates.append(timezone.localdate(last_log.date))
+        dates.append(timezone.localdate(last_log.date, timezone=tz))
 
     # Check workout sessions
-    last_session = WorkoutSession.objects.filter(user=user).order_by('date').last()
+    last_session = WorkoutSession.objects.filter(user=user).order_by('datetime_start').last()
     if last_session:
-        dates.append(last_session.date)
+        dates.append(timezone.localdate(last_session.datetime_start, timezone=tz))
 
     return max(dates) if dates else None
 

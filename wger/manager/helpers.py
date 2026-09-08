@@ -74,10 +74,11 @@ def render_workout_day(
     set_count = 1
     day_markers.append(len(data))
 
+    day_name = _('Rest day') if day_data.day.is_rest else day_data.day.name
     data.append(
         [
             Paragraph(
-                f'<para align="center">{_("Rest day") if day_data.day.is_rest else day_data.day.name}</para>',
+                f'<para align="center">{day_name}</para>',
                 styleSheet['SubHeader'],
             )
         ]

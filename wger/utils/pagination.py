@@ -29,6 +29,24 @@ class WgerLimitOffsetPagination(LimitOffsetPagination):
     max_limit = 999
 
 
+class IngredientLimitOffsetPagination(WgerLimitOffsetPagination):
+    """
+    Reports at most ``count_cap`` results for a filtered list, so clients also
+    cannot page past it. Counting every match runs the search filter a second
+    time, which on the multi-million row table dominates the response time.
+    """
+
+    count_cap = 1000
+
+    def get_count(self, queryset):
+        # Mirrors ApproximateCountQuerySet.count(): no WHERE means no filter
+        if not getattr(queryset, 'query', None) or not queryset.query.where:
+            return super().get_count(queryset)
+
+        # Without the ordering the database can stop at the first count_cap rows
+        return super().get_count(queryset.order_by().values('pk')[: self.count_cap])
+
+
 class IngredientCursorPagination(CursorPagination):
     """
     Cursor-based pagination for ingredient sync.

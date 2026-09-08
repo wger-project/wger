@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 from decimal import Decimal
 from unittest.mock import patch
 
@@ -69,6 +70,73 @@ class UserStatisticsServiceTestCase(WgerTestCase):
         self.assertEqual(stats.pk, existing.pk)
         self.assertEqual(stats.total_workouts, 5)
 
+    def make_session(self, start, end):
+        return WorkoutSession.objects.create(
+            user=self.user,
+            datetime_start=start,
+            datetime_end=end,
+        )
+
+    def test_workout_times_stay_unset_without_a_reported_zone(self):
+        """No time trophies from a guessed timezone: the times stay null"""
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        stats = UserStatisticsService.update_statistics(self.user)
+
+        self.assertIsNone(stats.earliest_workout_time)
+        self.assertIsNone(stats.latest_workout_time)
+
+    def test_increment_skips_the_times_without_a_zone(self):
+        """The signal path must not set the times from a guess either"""
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        stats = UserStatistics.objects.get(user=self.user)
+        self.assertIsNone(stats.earliest_workout_time)
+        self.assertIsNone(stats.latest_workout_time)
+
+    def test_workout_times_follow_the_reported_zone(self):
+        """01:30 UTC is an evening workout for a user in Denver, not an early one"""
+
+        profile = self.user.userprofile
+        profile.time_zone = 'America/Denver'
+        profile.save()
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+
+        stats = UserStatisticsService.update_statistics(self.user)
+
+        self.assertEqual(stats.earliest_workout_time, datetime.time(19, 30))
+        self.assertEqual(stats.latest_workout_time, datetime.time(19, 30))
+
+    def test_a_late_zone_report_backfills_the_times(self):
+        """The first recalculation after the zone arrives fills in the history"""
+
+        self.make_session(
+            datetime.datetime(2024, 6, 19, 1, 30, tzinfo=datetime.timezone.utc),
+            datetime.datetime(2024, 6, 19, 2, 30, tzinfo=datetime.timezone.utc),
+        )
+        stats = UserStatisticsService.update_statistics(self.user)
+        self.assertIsNone(stats.earliest_workout_time)
+
+        profile = self.user.userprofile
+        profile.time_zone = 'America/Denver'
+        profile.save()
+
+        stats = UserStatisticsService.update_statistics(self.user)
+
+        self.assertEqual(stats.earliest_workout_time, datetime.time(19, 30))
+
     def test_update_statistics_creates_if_missing(self):
         """Test update_statistics creates statistics if missing"""
         self.assertEqual(UserStatistics.objects.filter(user=self.user).count(), 0)
@@ -102,6 +170,90 @@ class UserStatisticsServiceTestCase(WgerTestCase):
         # Should recalculate from actual workout data (none in test db)
         self.assertEqual(stats.total_workouts, 0)
         self.assertEqual(stats.total_weight_lifted, Decimal('0'))
+
+
+class StatisticsTimezoneTestCase(WgerTestCase):
+    """
+    Test that the day-based statistics follow the zone of the user they belong to
+    """
+
+    def setUp(self):
+        super().setUp()
+        # member1 carries time_zone Pacific/Auckland in the fixtures
+        self.member = User.objects.get(username='member1')
+        WorkoutLog.objects.filter(user=self.member).delete()
+        WorkoutSession.objects.filter(user=self.member).delete()
+        UserStatistics.objects.filter(user=self.member).delete()
+
+    def make_session(self, start, end=None):
+        return WorkoutSession.objects.create(
+            user=self.member,
+            datetime_start=start,
+            datetime_end=end,
+        )
+
+    @staticmethod
+    def utc(*args):
+        return datetime.datetime(*args, tzinfo=datetime.timezone.utc)
+
+    def test_streak_days_split_in_the_users_zone(self):
+        """Two sessions on one server day are two consecutive Auckland days"""
+
+        # 23:00 and 01:00 on the Auckland clock, around midnight
+        self.make_session(self.utc(2024, 6, 19, 11, 0))
+        self.make_session(self.utc(2024, 6, 19, 13, 0))
+
+        stats = UserStatisticsService.update_statistics(self.member)
+
+        self.assertEqual(stats.longest_streak, 2)
+        self.assertEqual(stats.last_workout_date, datetime.date(2024, 6, 20))
+
+    def test_a_zone_change_moves_the_days(self):
+        """A recalculation reads the whole history in the newly reported zone"""
+
+        # 02:00 in Auckland on Jun 20, 08:00 in Denver on Jun 19
+        self.make_session(self.utc(2024, 6, 19, 14, 0))
+
+        stats = UserStatisticsService.update_statistics(self.member)
+        self.assertEqual(stats.last_workout_date, datetime.date(2024, 6, 20))
+
+        profile = self.member.userprofile
+        profile.time_zone = 'America/Denver'
+        profile.save()
+
+        stats = UserStatisticsService.update_statistics(self.member)
+        self.assertEqual(stats.last_workout_date, datetime.date(2024, 6, 19))
+
+    def test_the_incremental_weekend_lookup_uses_the_users_zone(self):
+        """A Saturday/Sunday pair on the Auckland calendar completes the weekend"""
+
+        # Saturday and Sunday morning in Auckland, still Friday and Saturday
+        # evening in the instance zone. Created one by one so the signal path
+        # (increment_workout and its DB lookup) does the counting, not the
+        # full recalculation.
+        self.make_session(self.utc(2024, 6, 14, 20, 0))
+        self.make_session(self.utc(2024, 6, 15, 20, 0))
+
+        stats = UserStatistics.objects.get(user=self.member)
+
+        self.assertEqual(stats.weekend_workout_streak, 1)
+        self.assertEqual(stats.last_complete_weekend_date, datetime.date(2024, 6, 15))
+
+    def test_the_workout_time_follows_the_local_clock_across_dst(self):
+        """01:30 UTC on the spring-forward day is 03:30 in Berlin, not 02:30"""
+
+        profile = self.member.userprofile
+        profile.time_zone = 'Europe/Berlin'
+        profile.save()
+
+        self.make_session(
+            self.utc(2024, 3, 31, 1, 30),
+            self.utc(2024, 3, 31, 2, 30),
+        )
+
+        stats = UserStatisticsService.update_statistics(self.member)
+
+        self.assertEqual(stats.earliest_workout_time, datetime.time(3, 30))
 
 
 class TrophyServiceTestCase(WgerTestCase):

@@ -124,8 +124,10 @@ class IngredientFilterSet(filters.FilterSet):
             # substring patterns. Exact matching still supports valid short names.
             if len(value) < 3:
                 exact = PostgresILikeExact(F('name'), value)
-                return queryset.filter(exact).order_by('name')
+                return queryset.filter(exact).order_by('name', 'id')
 
+            # 'id' breaks ties: names repeat thousands of times, and tied rows
+            # come back in any order, so LIMIT picks a different subset each time
             exact = PostgresILikeExact(F('name'), value)
             starts_with = PostgresILikeStartsWith(F('name'), value)
             contains = PostgresILikeContains(F('name'), value)
@@ -151,12 +153,12 @@ class IngredientFilterSet(filters.FilterSet):
                         output_field=IntegerField(),
                     ),
                 )
-                .order_by('-match_rank', '-similarity', 'name')
+                .order_by('-match_rank', '-similarity', 'name', 'id')
             )
         else:
             # Explicit order_by('name') because the viewset strips Meta.ordering.
             # Search results are small, so sorting them is cheap.
-            return queryset.filter(name__icontains=value).order_by('name')
+            return queryset.filter(name__icontains=value).order_by('name', 'id')
 
     def search_languagecode(self, queryset, name, value):
         """

@@ -26,12 +26,26 @@ from rest_framework import status
 # wger
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
-from wger.nutrition.api.filtersets import _has_literal_trigram
+from wger.nutrition.api.filtersets import (
+    IngredientFilterSet,
+    _has_literal_trigram,
+)
 from wger.nutrition.models import Ingredient
 
 
 class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/ingredient/'
+
+    def test_search_ordering_ends_in_a_unique_tiebreaker(self):
+        """Names repeat, so without a unique key LIMIT returns a random subset."""
+        for term in ('test', 'ab'):
+            with self.subTest(term=term):
+                filterset = IngredientFilterSet(
+                    {'name__search': term},
+                    queryset=Ingredient.objects.all(),
+                )
+
+                self.assertEqual(filterset.qs.query.order_by[-1], 'id')
 
     def test_basic_search_logged_out(self):
         """

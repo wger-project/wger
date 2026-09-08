@@ -11,22 +11,26 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Django
-from django.core.management import call_command
+# Local
+from .base import (
+    Dependency,
+    DesiredRow,
+    DynamicMeasurementType,
+    all_types,
+    get_type,
+    register,
+    source_models,
+)
 
-# wger
-from wger.core.tests.base_testcase import WgerTestCase
-from wger.weight.models import WeightEntry
 
-
-class WeightEntryGeneratorTestCase(WgerTestCase):
-    def test_generator(self):
-        # Arrange
-        WeightEntry.objects.all().delete()
-
-        # Act
-        call_command('dummy-generator-body-weight', '--nr-entries', 100)
-
-        # Assert
-        self.assertEqual(WeightEntry.objects.filter(user_id=1).count(), 100)
+__all__ = [
+    'Dependency',
+    'DesiredRow',
+    'DynamicMeasurementType',
+    'all_types',
+    'get_type',
+    'register',
+    'source_models',
+]

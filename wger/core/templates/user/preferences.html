@@ -65,6 +65,14 @@
                 <span class="{% fa_class 'globe' %} me-2 text-muted"></span>
                 {% translate "API key" %}
             </a>
+            {% if oidc_provider_configured %}
+                <a href="{% url 'core:user:connected-applications' %}"
+                   class="list-group-item list-group-item-action">
+                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                    <span class="{% fa_class 'plug' %} me-2 text-muted"></span>
+                    {% translate "Connected applications" %}
+                </a>
+            {% endif %}
         </div>
     </div>
 

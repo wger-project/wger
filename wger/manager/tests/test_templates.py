@@ -64,3 +64,26 @@ class RoutineTemplatesTestCase(WgerTestCase):
         self.client.force_login(User.objects.get(username='test'))
         response = self.client.post(reverse('public-templates-list'), data={})
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_public_template_detail_api(self):
+        """A public template listed by the API can also be retrieved by a non-owner"""
+        self.client.force_login(User.objects.get(username='test'))
+        listing = self.client.get(reverse('public-templates-list'))
+        template = listing.data['results'][0]
+        self.assertNotEqual(Routine.objects.get(pk=template['id']).user.username, 'test')
+
+        response = self.client.get(
+            reverse('public-templates-detail', kwargs={'pk': template['id']})
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], template['id'])
+
+    def test_private_template_detail_api(self):
+        """The user's own templates can be retrieved"""
+        self.client.force_login(User.objects.get(username='test'))
+        listing = self.client.get(reverse('templates-list'))
+        template = listing.data['results'][0]
+
+        response = self.client.get(reverse('templates-detail', kwargs={'pk': template['id']}))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], template['id'])

@@ -18,12 +18,14 @@ from decimal import Decimal
 
 # Django
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models.base import Exercise
 from wger.exercises.models.category import ExerciseCategory
 from wger.manager.models.log import WorkoutLog
+from wger.manager.models.session import WorkoutSession
 from wger.trophies.checkers.date_based import DateBasedChecker
 from wger.trophies.checkers.inactivity_return import InactivityReturnChecker
 from wger.trophies.checkers.personal_record import PersonalRecordChecker
@@ -432,6 +434,28 @@ class DateBasedCheckerTestCase(WgerTestCase):
 
         checker = DateBasedChecker(self.user, self.trophy, {'month': 1, 'day': 1})
         self.assertEqual(checker.get_progress(), 100.0)
+
+    def test_check_other_date_achieved(self):
+        """Dates other than Jan 1st are looked up in the sessions"""
+
+        WorkoutSession.objects.create(
+            user=self.user,
+            datetime_start=timezone.make_aware(datetime.datetime(2024, 12, 24, 12, 0)),
+        )
+
+        checker = DateBasedChecker(self.user, self.trophy, {'month': 12, 'day': 24})
+        self.assertTrue(checker.check())
+
+    def test_check_other_date_not_achieved(self):
+        """No session on that day means the trophy is not achieved"""
+
+        WorkoutSession.objects.create(
+            user=self.user,
+            datetime_start=timezone.make_aware(datetime.datetime(2024, 12, 23, 12, 0)),
+        )
+
+        checker = DateBasedChecker(self.user, self.trophy, {'month': 12, 'day': 24})
+        self.assertFalse(checker.check())
 
 
 class InactivityReturnCheckerTestCase(WgerTestCase):

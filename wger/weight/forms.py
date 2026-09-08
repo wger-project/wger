@@ -18,7 +18,6 @@
 from django import forms
 from django.forms import (
     CharField,
-    DateTimeField,
     Form,
     Textarea,
 )

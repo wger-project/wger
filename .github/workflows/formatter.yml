@@ -6,6 +6,7 @@ on:
       - "master"
     paths:
       - '**.py'
+      - 'pyproject.toml'
 
 
 permissions:
@@ -19,16 +20,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
       - name: Get dependencies
-        run: pip install ruff isort
+        run: uv sync --only-group dev
+
+      # --exit-zero applies whatever can be fixed and does not abort on the
+      # rest, otherwise a single unfixable violation (a long line, say) would
+      # discard the fixes that were already written to disk. Pull requests are
+      # gated by the ruff workflow, this job only keeps master tidy.
+      - name: Lint the code
+        run: uv run ruff check --fix --exit-zero
 
       - name: Format the code
-        run: ruff format
-
-      # While ruff can also do some sorting, isort can still be configured to do more,
-      # like grouping imports, etc.
-      - name: Sort the imports
-        run: isort .
+        run: uv run ruff format
 
       - name: Push a commit with the changed files
 
@@ -36,8 +44,8 @@ jobs:
         continue-on-error: true
 
         run: |
-          git config user.name Github-actions
-          git config user.email github-actions@github.com
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Automatic linting"
           git push

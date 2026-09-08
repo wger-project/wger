@@ -26,10 +26,12 @@ from django.contrib.auth import (
 )
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import url_has_allowed_host_and_scheme
 
 # wger
+from wger.core.models import UserProfile
 from wger.utils.helpers import remove_language_code
 
 
@@ -64,7 +66,8 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             return None
 
         # Only handle requests to the login page.
-        # Here the user will be logged in using the proxy headers and redirected to the original page.
+        # Here the user will be logged in using the proxy headers and redirected
+        # to the original page.
         if remove_language_code(request.path_info) != self.login_url_path:
             # logger.debug(f'AuthProxyMiddleware: not request to login page. Skipping.')
             return None
@@ -126,8 +129,9 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             # and log in the header user for consistency.
             else:
                 logger.warning(
-                    f"AuthProxyMiddleware: User mismatch. Session user '{request.user.get_username()}' "
-                    f"differs from proxy header user '{username}'. Logging out old user."
+                    'AuthProxyMiddleware: User mismatch. '
+                    f"Session user '{request.user.get_username()}' differs from "
+                    f"proxy header user '{username}'. Logging out old user."
                 )
                 logout(request)
 
@@ -161,3 +165,29 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             request.user = None
 
         return None
+
+
+class TimezoneMiddleware:
+    """
+    Activates the requesting user's time zone for the duration of the request
+
+    This is for rendering only: it decides the offset of the timestamps in a
+    response and the zone a date filter is resolved in. What day a stored row
+    counts for is derived from the zone of the user the row belongs to, which
+    is not necessarily the one asking.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        user = getattr(request, 'user', None)
+        if user is not None and user.is_authenticated:
+            try:
+                timezone.activate(user.userprofile.zone_info)
+            except UserProfile.DoesNotExist:
+                timezone.deactivate()
+        else:
+            timezone.deactivate()
+
+        return self.get_response(request)

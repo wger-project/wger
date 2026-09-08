@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 import decimal
 import json
 
@@ -24,9 +23,9 @@ from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.measurements.models import Measurement
 from wger.nutrition.forms import BmrForm
 from wger.utils.constants import TWOPLACES
-from wger.weight.models import WeightEntry
 
 
 class CaloriesCalculatorTestCase(WgerTestCase):
@@ -90,6 +89,29 @@ class CaloriesCalculatorTestCase(WgerTestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('height', form.errors)
 
+    def test_bmr_refuses_an_implausible_weight(self):
+        """The weight is written back as a measurement, so it is bounded like one."""
+        for weight in (0, 10, 400):
+            form = BmrForm(data={'age': 30, 'height': 180, 'gender': 1, 'weight': weight})
+            self.assertFalse(form.is_valid())
+            self.assertIn('weight', form.errors)
+
+    def test_bmr_writes_no_entry_for_a_prefilled_zero(self):
+        """
+        The form is prefilled with the profile weight, which is 0 without any
+        entry; submitting that unchanged used to store it
+        """
+        self.user_login('test')
+        user = User.objects.get(username=self.current_user)
+        Measurement.body_weight_for(user).delete()
+
+        response = self.client.post(
+            reverse('nutrition:calories:bmr'), {'age': 30, 'height': 180, 'gender': 1, 'weight': 0}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(Measurement.body_weight_for(user).exists())
+
     def test_automatic_weight_entry_bmr(self):
         """
         Tests that weight entries are automatically created or updated
@@ -99,21 +121,21 @@ class CaloriesCalculatorTestCase(WgerTestCase):
         user = User.objects.get(username=self.current_user)
 
         # A new weight entry is always created
-        entry1 = WeightEntry.objects.filter(user=user).latest()
+        entry1 = Measurement.body_weight_for(user).latest('date')
         response = self.client.post(
             reverse('nutrition:calories:bmr'), {'age': 30, 'height': 180, 'gender': 1, 'weight': 80}
         )
         self.assertEqual(response.status_code, 200)
-        entry2 = WeightEntry.objects.filter(user=user).latest()
-        self.assertEqual(entry1.weight, 83)
-        self.assertEqual(entry2.weight, 80)
+        entry2 = Measurement.body_weight_for(user).latest('date')
+        self.assertEqual(entry1.value, 83)
+        self.assertEqual(entry2.value, 80)
 
         # No existing entries
-        WeightEntry.objects.filter(user=user).delete()
+        Measurement.body_weight_for(user).delete()
         response = self.client.post(
             reverse('nutrition:calories:bmr'), {'age': 30, 'height': 180, 'gender': 1, 'weight': 80}
         )
         self.assertEqual(response.status_code, 200)
-        entry = WeightEntry.objects.filter(user=user).latest()
-        self.assertEqual(entry.weight, 80)
+        entry = Measurement.body_weight_for(user).latest('date')
+        self.assertEqual(entry.value, 80)
         self.assertEqual(entry.date.date(), timezone.now().date())

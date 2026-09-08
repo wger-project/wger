@@ -16,6 +16,6 @@
 ## Please check that the PR fulfills these requirements
 
 - [ ] Tests for the changes have been added (for bug fixes / features)
-- [ ] Code has been formatted to avoid unnecessary diffs (`ruff format && isort .`)
+- [ ] Code has been formatted to avoid unnecessary diffs (`ruff format && ruff check --fix`)
 - [ ] If the feature is big enough or if there are manual steps needed (deployment
   changes etc.), write a small writeup in `CHANGELOG.md`

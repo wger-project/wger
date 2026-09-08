@@ -2,7 +2,7 @@
 
 Thank you all for contributing to the project, you are true heroes! 🫶
 
-*Generated on 2026-06-17*
+*Generated on 2026-08-28*
 
 ---
 
@@ -167,6 +167,9 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Marcello Mendo - [https://github.com/Marcelluxx](https://github.com/Marcelluxx)
 - Ewin7 - [https://github.com/Ewin7](https://github.com/Ewin7)
 - birjd002 - [https://github.com/birjd002](https://github.com/birjd002)
+- Mikael Siidorow - [https://github.com/MikaelSiidorow](https://github.com/MikaelSiidorow)
+- Ben Tucker - [https://github.com/bentucker](https://github.com/bentucker)
+- Amit Mishra - [https://github.com/amitmishra11](https://github.com/amitmishra11)
 
 ## Translators
 
@@ -177,10 +180,12 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - SlyBat - [https://github.com/AW-G](https://github.com/AW-G)
 - Hissabat Manager - [https://github.com/Chinguetti-Quizz](https://github.com/Chinguetti-Quizz)
 - My Google - [https://github.com/ahmedtahraoui90](https://github.com/ahmedtahraoui90)
+- E Sa
 
 ### Bulgarian
 
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Bozhidar Videnov - [https://github.com/bozhidarv](https://github.com/bozhidarv)
 
 ### Catalan
 
@@ -192,6 +197,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - youkarin - [https://github.com/yukarin4869](https://github.com/yukarin4869)
 - KW Lam - [https://github.com/loksonlkw](https://github.com/loksonlkw)
 - Herb Huang
+- zzqayy - [https://github.com/zzqayy](https://github.com/zzqayy)
 
 ### Chinese (Simplified)
 
@@ -242,6 +248,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 - David - [https://github.com/DMachiels](https://github.com/DMachiels)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Philip Goto - [https://github.com/flipflop97](https://github.com/flipflop97)
 
 ### Finnish
 
@@ -250,6 +257,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Nikolay Korotkiy - [https://github.com/sikmir](https://github.com/sikmir)
 - Juuso Haapanen - [https://github.com/juusohaapanen](https://github.com/juusohaapanen)
 - J. Lavoie
+- Mikael Siidorow - [https://github.com/MikaelSiidorow](https://github.com/MikaelSiidorow)
 
 ### French
 
@@ -267,6 +275,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 - Antoine Vibien - [https://github.com/r1llettes](https://github.com/r1llettes)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- DocteurAgadir - [https://github.com/Gnoule](https://github.com/Gnoule)
 
 ### German
 
@@ -303,6 +312,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - shlomi assaf - [https://github.com/shlomiassaf](https://github.com/shlomiassaf)
 - Tsz Hong CHAN - [https://github.com/tomyan112](https://github.com/tomyan112)
 - n,rdo
+- Mordechai Neeman
 
 ### Hindi
 
@@ -315,6 +325,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Adam Cool
 - László Mócsy - [https://github.com/LamaxStudio](https://github.com/LamaxStudio)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- tomorigabor - [https://github.com/tomorigabor](https://github.com/tomorigabor)
 
 ### Italian
 
@@ -331,6 +342,9 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - J. Lavoie
 - Stefano Rossi - [https://github.com/stefanorossiti](https://github.com/stefanorossiti)
 - Dario Coltri - [https://github.com/casacoltri](https://github.com/casacoltri)
+- Armando Schiano di Cola - [https://github.com/armandoschianodicola](https://github.com/armandoschianodicola)
+- NP
+- Leonardo Lalli - [https://github.com/Leonardo-Lalli](https://github.com/Leonardo-Lalli)
 
 ### Japanese
 
@@ -348,12 +362,15 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - 성동하 - [https://github.com/tomjovi](https://github.com/tomjovi)
 - namong79 - [https://github.com/namong79](https://github.com/namong79)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- KT Park - [https://github.com/kk673](https://github.com/kk673)
 
 ### Norwegian Bokmål
 
 - GS Bacon - [https://github.com/Z0ink5](https://github.com/Z0ink5)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
 - Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
+- Christoffer Gjønvik Holsæther - [https://github.com/christoffer-holsaether](https://github.com/christoffer-holsaether)
+- Para - [https://github.com/bablecopherye](https://github.com/bablecopherye)
 
 ### Persian
 
@@ -374,6 +391,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Jacob - [https://github.com/devzom](https://github.com/devzom)
 - Henio Szewczyk - [https://github.com/hszewczyk](https://github.com/hszewczyk)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Dominik Matras - [https://github.com/dominikmatras](https://github.com/dominikmatras)
 
 ### Portuguese
 
@@ -418,6 +436,11 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - Ryeori - [https://github.com/daniqshu](https://github.com/daniqshu)
 - Roland Geider - [https://github.com/rolandgeider](https://github.com/rolandgeider)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- tovarishhh - [https://github.com/bezbiletnym](https://github.com/bezbiletnym)
+
+### Slovenian
+
+- Jure Repinc - [https://github.com/JLP](https://github.com/JLP)
 
 ### Spanish
 
@@ -447,6 +470,7 @@ Thank you all for contributing to the project, you are true heroes! 🫶
 - tygyh - [https://github.com/tygyh](https://github.com/tygyh)
 - stefan - [https://github.com/clint1337](https://github.com/clint1337)
 - Allan Nordhøy - [https://github.com/comradekingu](https://github.com/comradekingu)
+- Jonas - [https://github.com/frassefraze](https://github.com/frassefraze)
 
 ### Tamil
 

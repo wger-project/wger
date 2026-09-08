@@ -25,7 +25,12 @@ import logging
 from django.utils.timezone import make_aware
 
 # wger
-from wger.weight.models import WeightEntry
+from wger.measurements.limits import limits_for
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
+from wger.measurements.models.category import MetricType
 
 
 logger = logging.getLogger(__name__)
@@ -46,6 +51,11 @@ def parse_weight_csv(request, cleaned_data):
     MAX_ROW_COUNT = 1000
     row_count = 0
 
+    # The values are read in the unit of the profile, so that is the unit the
+    # bounds are resolved in. This is the one path that writes body weight
+    # without going through a serializer
+    limits = limits_for(MetricType.BODY_WEIGHT, request.user.userprofile.weight_unit)
+
     # Process the CSV items first
     for row in parsed_csv:
         try:
@@ -53,16 +63,18 @@ def parse_weight_csv(request, cleaned_data):
                 datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             )
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
-            duplicate_date_in_db = WeightEntry.objects.filter(
-                date=parsed_date, user=request.user
-            ).exists()
+            duplicate_date_in_db = (
+                Measurement.body_weight_for(request.user).filter(date=parsed_date).exists()
+            )
             # within the list there are no duplicate dates
             unique_among_csv = parsed_date not in entry_dates
 
             # there is no existing weight entry in the database for that date
             unique_in_db = not duplicate_date_in_db
 
-            if unique_among_csv and unique_in_db and parsed_weight:
+            plausible_weight = limits.min <= parsed_weight <= limits.max
+
+            if unique_among_csv and unique_in_db and plausible_weight:
                 distinct_weight_entries.append((parsed_date, parsed_weight))
                 entry_dates.add(parsed_date)
             else:
@@ -75,7 +87,17 @@ def parse_weight_csv(request, cleaned_data):
             break
 
     # Create the valid weight entries
-    for date, weight in distinct_weight_entries:
-        weight_list.append(WeightEntry(date=date, weight=weight, user=request.user))
+    if distinct_weight_entries:
+        profile_unit = request.user.userprofile.weight_unit
+        category = Category.get_or_create_body_weight(request.user, unit=profile_unit)
+        for date, weight in distinct_weight_entries:
+            weight_list.append(
+                Measurement(
+                    date=date,
+                    value=weight,
+                    category=category,
+                    extra_data={'unit': profile_unit},
+                )
+            )
 
     return weight_list, error_list

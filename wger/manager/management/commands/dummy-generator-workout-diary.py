@@ -95,33 +95,42 @@ class Command(BaseCommand):
                                 )
 
                                 hour_start = random.randint(8, 20)
-                                time_start = datetime.time(
-                                    hour_start,
-                                    random.randint(0, 59),
-                                    random.randint(0, 59),
+                                datetime_start = make_aware(
+                                    datetime.datetime.combine(
+                                        day_data.date,
+                                        datetime.time(
+                                            hour_start,
+                                            random.randint(0, 59),
+                                            random.randint(0, 59),
+                                        ),
+                                    )
                                 )
-                                time_end = datetime.time(
-                                    hour_start + random.randint(1, 3),
-                                    random.randint(0, 59),
-                                    random.randint(0, 59),
+                                datetime_end = datetime_start + datetime.timedelta(
+                                    hours=random.randint(1, 3),
+                                    minutes=random.randint(0, 59),
+                                    seconds=random.randint(0, 59),
                                 )
 
-                                session = WorkoutSession.objects.get_or_create(
+                                session = WorkoutSession.objects.filter(
                                     user=user,
-                                    date=day_data.date,
                                     routine=routine,
-                                    defaults={
-                                        'impression': random.choice(
+                                    datetime_start__date=day_data.date,
+                                ).first()
+
+                                if not session:
+                                    session = WorkoutSession.objects.create(
+                                        user=user,
+                                        routine=routine,
+                                        datetime_start=datetime_start,
+                                        datetime_end=datetime_end,
+                                        impression=random.choice(
                                             [
                                                 WorkoutSession.IMPRESSION_GOOD,
                                                 WorkoutSession.IMPRESSION_BAD,
                                                 WorkoutSession.IMPRESSION_NEUTRAL,
                                             ]
                                         ),
-                                        'time_start': time_start,
-                                        'time_end': time_end,
-                                    },
-                                )[0]
+                                    )
 
                                 logs.append(
                                     WorkoutLog(
