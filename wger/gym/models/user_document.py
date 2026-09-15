@@ -19,6 +19,7 @@ import uuid
 
 # Django
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 from django.db import models as m
 from django.utils.translation import gettext_lazy as _
 
@@ -69,7 +70,11 @@ class UserDocument(m.Model):
     Last time when this document was edited
     """
 
-    document = m.FileField(verbose_name=_('Document'), upload_to=gym_document_upload_dir)
+    document = m.FileField(
+        verbose_name=_('Document'),
+        upload_to=gym_document_upload_dir,
+        validators=[FileExtensionValidator(allowed_extensions=['pdf', 'jpg', 'jpeg', 'png'])],
+    )
     """
     Uploaded document
     """
