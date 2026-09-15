@@ -12,11 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from unittest.mock import patch
+
 # Django
 from django.urls import reverse
 
+# Third Party
+from reportlab.platypus import Paragraph
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.models import Routine
 
 
 class RoutinePdfLogExportTestCase(WgerTestCase):
@@ -127,3 +134,48 @@ class RoutinePdfTableExportTestCase(WgerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
+
+
+class RoutinePdfEscapingTestCase(WgerTestCase):
+    """
+    Tests that user submitted text is escaped before it is passed to reportlab
+    """
+
+    name = 'Squat <img src=x.png>'
+    description = 'Bench <img src="http://localhost:1/x.png"/>'
+
+    def setUp(self):
+        super().setUp()
+
+        routine = Routine.objects.get(pk=3)
+        routine.name = self.name
+        routine.description = self.description
+        routine.save()
+
+        self.user_login('test')
+
+    def paragraph_markup(self, url_name):
+        """
+        Returns the markup of every Paragraph the view builds itself
+        """
+        with patch('wger.manager.views.pdf.Paragraph', side_effect=Paragraph) as paragraph:
+            response = self.client.get(reverse(url_name, kwargs={'pk': 3}))
+
+        self.assertEqual(response.status_code, 200)
+        return [call.args[0] for call in paragraph.call_args_list]
+
+    def test_log_pdf_escapes_routine_text(self):
+        markup = self.paragraph_markup('manager:routine:pdf-log')
+
+        self.assertTrue(markup)
+        for entry in markup:
+            self.assertNotIn('<img', entry)
+        self.assertIn('&lt;img', ' '.join(markup))
+
+    def test_table_pdf_escapes_routine_text(self):
+        markup = self.paragraph_markup('manager:routine:pdf-table')
+
+        self.assertTrue(markup)
+        for entry in markup:
+            self.assertNotIn('<img', entry)
+        self.assertIn('&lt;img', ' '.join(markup))

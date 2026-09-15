@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+from xml.sax.saxutils import escape
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -164,9 +165,9 @@ def export_pdf(request, id: int):
         for item in meal.mealitem_set.select_related():
             ingredient_markers.append(len(data))
 
-            p = Paragraph(f'<para>{item.ingredient.name}</para>', styleSheet['Normal'])
+            p = Paragraph(f'<para>{escape(item.ingredient.name)}</para>', styleSheet['Normal'])
             if item.weight_unit:
-                unit_name = ' × ' + item.weight_unit.name
+                unit_name = ' × ' + escape(item.weight_unit.name)
             else:
                 unit_name = 'g'
 
@@ -210,7 +211,7 @@ def export_pdf(request, id: int):
     if plan.description:
         p = Paragraph(
             '<para align="center"><strong>%(description)s</strong></para>'
-            % {'description': plan.description},
+            % {'description': escape(plan.description)},
             styleSheet['HeaderBold'],
         )
         elements.append(p)
