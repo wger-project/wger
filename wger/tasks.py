@@ -136,7 +136,7 @@ def load_fixtures(context, settings_path: str = None):
     # Core
     call_command('loaddata', 'languages.json')
     call_command('loaddata', 'groups.json')
-    call_command('loaddata', 'users.json')
+    load_admin_fixture()
     call_command('loaddata', 'licenses.json')
     call_command('loaddata', 'setting_repetition_units.json')
     call_command('loaddata', 'setting_weight_units.json')
@@ -270,7 +270,20 @@ def load_admin_fixture():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(current_dir, 'core', 'fixtures/')
 
+    # can't be imported in global scope as it already requires
+    # the settings module during import
+    # Django
+    from django.contrib.auth.models import User
+
+    # wger
+    from wger.measurements.models import Category
+
     call_command('loaddata', path + 'users.json')
+
+    # loaddata skips the signal that gives every user the official body
+    # weight category
+    admin = User.objects.get(username='admin')
+    Category.get_or_create_body_weight(admin, unit=admin.userprofile.weight_unit)
 
 
 class WgerConfig(Config):

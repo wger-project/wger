@@ -458,6 +458,27 @@ class OfficialCategoryTestCase(WgerTestCase):
         self.assertEqual(category.metric_type, MetricType.BODY_WEIGHT)
         self.assertEqual(category.unit, user.userprofile.weight_unit)
 
+    def test_create_body_weight_forbidden(self):
+        """
+        Test that a body weight category cannot be created over the API, also
+        not by a user who has no official one
+        """
+        Category.objects.filter(pk=self.official).delete()
+
+        response = self.client.post(
+            reverse('measurement-category-list'),
+            {'name': 'Weight', 'unit': 'kg', 'metric_type': MetricType.BODY_WEIGHT},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('metric_type', response.data)
+        self.assertFalse(
+            Category.objects.filter(
+                user__username='test', metric_type=MetricType.BODY_WEIGHT
+            ).exists()
+        )
+
     def test_delete_official_forbidden(self):
         """
         Test that the official category cannot be deleted over the API
