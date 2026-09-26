@@ -68,14 +68,14 @@ class WorkoutSession(models.Model):
 
     routine = models.ForeignKey(
         'Routine',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='sessions',
         null=True,
     )
 
     day = models.ForeignKey(
         'Day',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
     )
     """
