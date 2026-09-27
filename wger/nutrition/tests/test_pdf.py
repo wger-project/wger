@@ -12,14 +12,26 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from unittest.mock import patch
+from xml.sax.saxutils import escape
+
 # Django
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+# Third Party
+from reportlab.platypus import Paragraph
+
 # wger
 from wger.core.models import Language
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import (
+    Ingredient,
+    IngredientWeightUnit,
+    MealItem,
+    NutritionPlan,
+)
 
 
 class NutritionalPlanPdfExportTestCase(WgerTestCase):
@@ -97,3 +109,50 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
+
+
+class NutritionalPlanPdfEscapingTestCase(WgerTestCase):
+    """
+    Tests that user submitted text is escaped before it is passed to reportlab
+    """
+
+    plan_id = '11111111-1111-1111-1111-000000000004'
+    description = 'Cutting <img src=x.png>'
+    ingredient_name = 'Beans <img src="http://localhost:1/x.png"/>'
+    unit_name = 'Cup <img src=x.png>'
+
+    def setUp(self):
+        super().setUp()
+
+        plan = NutritionPlan.objects.get(pk=self.plan_id)
+        plan.description = self.description
+        plan.save()
+
+        Ingredient.objects.update(name=self.ingredient_name)
+        for item in MealItem.objects.filter(meal__plan=plan):
+            item.weight_unit = IngredientWeightUnit.objects.create(
+                ingredient=item.ingredient,
+                name=self.unit_name,
+                gram=50,
+            )
+            item.save()
+
+        self.user_login('test')
+
+    def test_export_pdf_escapes_user_text(self):
+        with patch('wger.nutrition.views.plan.Paragraph', side_effect=Paragraph) as paragraph:
+            response = self.client.get(
+                reverse('nutrition:plan:export-pdf', kwargs={'id': self.plan_id})
+            )
+
+        self.assertEqual(response.status_code, 200)
+        markup = [call.args[0] for call in paragraph.call_args_list]
+
+        self.assertTrue(markup)
+        for entry in markup:
+            self.assertNotIn('<img', entry)
+
+        joined = ' '.join(markup)
+        self.assertIn(escape(self.description), joined)
+        self.assertIn(escape(self.ingredient_name), joined)
+        self.assertIn(escape(self.unit_name), joined)
