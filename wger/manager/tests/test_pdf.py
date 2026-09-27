@@ -14,6 +14,7 @@
 
 # Standard Library
 from unittest.mock import patch
+from xml.sax.saxutils import escape
 
 # Django
 from django.urls import reverse
@@ -23,7 +24,11 @@ from reportlab.platypus import Paragraph
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.manager.models import Routine
+from wger.exercises.models import Translation
+from wger.manager.models import (
+    Day,
+    Routine,
+)
 
 
 class RoutinePdfLogExportTestCase(WgerTestCase):
@@ -143,39 +148,51 @@ class RoutinePdfEscapingTestCase(WgerTestCase):
 
     name = 'Squat <img src=x.png>'
     description = 'Bench <img src="http://localhost:1/x.png"/>'
+    day_name = 'Push <img src=x.png>'
+    exercise_name = 'Crunches <img src="http://localhost:1/x.png"/>'
+    routine_pk = 1
 
     def setUp(self):
         super().setUp()
 
-        routine = Routine.objects.get(pk=3)
+        routine = Routine.objects.get(pk=self.routine_pk)
         routine.name = self.name
         routine.description = self.description
         routine.save()
 
-        self.user_login('test')
+        Day.objects.filter(routine=routine).update(name=self.day_name, is_rest=False)
+        Translation.objects.update(name=self.exercise_name)
+
+        self.user_login('admin')
 
     def paragraph_markup(self, url_name):
         """
-        Returns the markup of every Paragraph the view builds itself
+        Returns the markup of every Paragraph built while exporting the routine
         """
-        with patch('wger.manager.views.pdf.Paragraph', side_effect=Paragraph) as paragraph:
-            response = self.client.get(reverse(url_name, kwargs={'pk': 3}))
+        with (
+            patch('wger.manager.views.pdf.Paragraph', side_effect=Paragraph) as view_paragraph,
+            patch('wger.manager.helpers.Paragraph', side_effect=Paragraph) as helper_paragraph,
+        ):
+            response = self.client.get(reverse(url_name, kwargs={'pk': self.routine_pk}))
 
         self.assertEqual(response.status_code, 200)
-        return [call.args[0] for call in paragraph.call_args_list]
+        calls = view_paragraph.call_args_list + helper_paragraph.call_args_list
+        return [call.args[0] for call in calls]
 
-    def test_log_pdf_escapes_routine_text(self):
-        markup = self.paragraph_markup('manager:routine:pdf-log')
-
-        self.assertTrue(markup)
-        for entry in markup:
-            self.assertNotIn('<img', entry)
-        self.assertIn('&lt;img', ' '.join(markup))
-
-    def test_table_pdf_escapes_routine_text(self):
-        markup = self.paragraph_markup('manager:routine:pdf-table')
+    def assert_escaped(self, url_name):
+        markup = self.paragraph_markup(url_name)
 
         self.assertTrue(markup)
         for entry in markup:
             self.assertNotIn('<img', entry)
-        self.assertIn('&lt;img', ' '.join(markup))
+
+        joined = ' '.join(markup)
+        self.assertIn(escape(self.name), joined)
+        self.assertIn(escape(self.day_name), joined)
+        self.assertIn(escape(self.exercise_name), joined)
+
+    def test_log_pdf_escapes_user_text(self):
+        self.assert_escaped('manager:routine:pdf-log')
+
+    def test_table_pdf_escapes_user_text(self):
+        self.assert_escaped('manager:routine:pdf-table')
