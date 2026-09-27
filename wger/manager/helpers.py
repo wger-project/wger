@@ -15,6 +15,7 @@
 
 # Standard Library
 from decimal import Decimal
+from xml.sax.saxutils import escape
 
 # Django
 from django.core.cache import cache
@@ -78,7 +79,7 @@ def render_workout_day(
     data.append(
         [
             Paragraph(
-                f'<para align="center">{day_name}</para>',
+                f'<para align="center">{escape(day_name)}</para>',
                 styleSheet['SubHeader'],
             )
         ]
@@ -103,7 +104,9 @@ def render_workout_day(
             group_exercise_marker[slot_count]['end'] = len(data)
 
             # Process the settings
-            slot_entries_out = [Paragraph(slot_set.text_repr, styleSheet['Small'], bulletText='')]
+            slot_entries_out = [
+                Paragraph(escape(slot_set.text_repr), styleSheet['Small'], bulletText='')
+            ]
 
             # Add the exercise's main image
             # image = Paragraph('', styleSheet['Small'])
@@ -122,7 +125,7 @@ def render_workout_day(
 
             # Put the name and images and comments together
             exercise_content = [
-                Paragraph(exercise.get_translation().name, styleSheet['Small']),
+                Paragraph(escape(exercise.get_translation().name), styleSheet['Small']),
                 # image,
             ]
 
