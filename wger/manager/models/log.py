@@ -104,13 +104,13 @@ class WorkoutLog(models.Model):
     routine = models.ForeignKey(
         'Routine',
         verbose_name='Workout',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
     )
 
     slot_entry = models.ForeignKey(
         'SlotEntry',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
     )
 
