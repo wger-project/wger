@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-14 19:51+0000\n"
+"PO-Revision-Date: 2026-09-29 03:07+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -362,7 +362,7 @@ msgstr "Сума всіх годин повинна дорівнювати 24"
 
 #: core/models/rep_unit.py:32 i18n.tpl:30
 msgid "Repetitions"
-msgstr "Повтори"
+msgstr "Повторення"
 
 #: core/models/rep_unit.py:33 core/templates/user/overview.html:93
 msgid "Time"
@@ -441,7 +441,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
-msgstr "Будь ласка, натисніть кнопку нижче, щоб підтвердити свою електронну адресу."
+msgstr "Натисни кнопку нижче, щоб підтвердити електронну адресу."
 
 #: core/templates/account/email/email_confirmation_message.html:106
 msgid "Confirm email"
@@ -635,7 +635,7 @@ msgstr "Нічого не знайдено"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:151
 msgid "Imprint"
-msgstr "Відбиток"
+msgstr "Правова інформація"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
 msgid "Training"
@@ -735,7 +735,7 @@ msgstr "Про це програмне забезпечення"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr "Підтримайте та долучайтеся"
+msgstr "Підтримати та долучитися"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
@@ -869,7 +869,7 @@ msgstr "Мова браузера"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
-msgstr "Особливості"
+msgstr "Функції"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
@@ -1115,7 +1115,7 @@ msgstr "Не знайдено жодних тренувань."
 
 #: core/templates/user/overview.html:78
 msgid "Log"
-msgstr "Журнал"
+msgstr "Записати"
 
 #: core/templates/user/overview.html:91
 msgid "General impression"
@@ -1459,7 +1459,7 @@ msgstr "Простіша назва м'яза"
 #: exercises/models/video.py:52
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Максимальний розмір файлу - %(size)sМБ."
+msgstr "Максимальний розмір файлу — %(size)sМБ."
 
 #: exercises/models/video.py:59 exercises/models/video.py:67
 msgid "File type is not supported"
@@ -1791,7 +1791,7 @@ msgstr "Показувати назву в заголовку"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr "Показати назву тренажерного залу в заголовку сайта"
+msgstr "Показати назву тренажерного залу в заголовку сайту"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
@@ -1963,7 +1963,7 @@ msgstr "Редагувати тренажерний зал"
 
 #: i18n.tpl:2
 msgid "Abs"
-msgstr "Прес"
+msgstr "М'язи преса"
 
 #: i18n.tpl:3
 msgid "Arms"
@@ -1979,7 +1979,7 @@ msgstr "Штанга"
 
 #: i18n.tpl:6
 msgid "Bench"
-msgstr "Лавка"
+msgstr "Лава"
 
 #: i18n.tpl:7
 msgid "Biceps"
@@ -2011,15 +2011,15 @@ msgstr "Сідниці"
 
 #: i18n.tpl:14
 msgid "Gym mat"
-msgstr "Мат"
+msgstr "Килимок"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr "Підколінні сухожилля"
+msgstr "Задня поверхня стегна"
 
 #: i18n.tpl:16
 msgid "Incline bench"
-msgstr "Похила лавка"
+msgstr "Похила лава"
 
 #: i18n.tpl:17
 msgid "Kettlebell"
@@ -2067,7 +2067,7 @@ msgstr "Вагові диски"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr "Перекладина"
+msgstr "Турнік"
 
 #: i18n.tpl:29
 msgid "Quads"
@@ -2107,7 +2107,7 @@ msgstr "Метри"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
-msgstr "Вправи з власною вагою тіла"
+msgstr "Власна вага (без обладнання)"
 
 #: i18n.tpl:42
 msgid "Beginner"
@@ -2183,7 +2183,7 @@ msgstr "Нічна сова"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr "Новий рік, нова я"
+msgstr "Новий рік, новий суттєвий крок"
 
 #: i18n.tpl:61
 msgid "Phoenix"
@@ -2195,11 +2195,11 @@ msgstr "Особистий рекорд"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
-msgstr "Завершіть своє перше тренування"
+msgstr "Виконай перше тренування"
 
 #: i18n.tpl:64
 msgid "Complete 10 workouts"
-msgstr "Виконайте 10 тренувань"
+msgstr "Виконай 10 тренувань"
 
 #: i18n.tpl:65
 msgid "Complete 50 workouts"
@@ -2207,7 +2207,7 @@ msgstr "Виконайте 50 тренувань"
 
 #: i18n.tpl:66
 msgid "Complete 100 workouts"
-msgstr "Виконайте 100 тренувань"
+msgstr "Виконай 100 тренувань"
 
 #: i18n.tpl:67
 msgid "Complete 200 workouts"
@@ -2219,7 +2219,7 @@ msgstr "Виконайте 500 тренувань"
 
 #: i18n.tpl:69
 msgid "Complete 1000 workouts"
-msgstr "Виконайте 1000 тренувань"
+msgstr "Виконай 1000 тренувань"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2231,7 +2231,7 @@ msgstr "Тренуйтеся в суботу та неділю протягом 
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr "Підняти загальну вагу 5.000 кг"
+msgstr "Підняти сумарно 5 000 кг"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
@@ -2267,7 +2267,7 @@ msgstr "Завершіть тренування після 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
-msgstr "Тренуйтеся 1 січня"
+msgstr "Потренуйся 1 січня"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2335,7 +2335,7 @@ msgstr "Підходи"
 
 #: manager/dataclasses.py:124 manager/helpers.py:89
 msgid "Reps"
-msgstr "Повтори"
+msgstr "Повторення"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
@@ -2387,8 +2387,7 @@ msgstr ""
 #: manager/templates/routines/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr ""
-"Ваше поточне тренування \"%(routine)s\" закінчується через %(days)s днів."
+msgstr "Термін дії програми «%(routine)s» закінчується через %(days)s дн."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2457,7 +2456,7 @@ msgstr "Основне споживання калорій"
 
 #: nutrition/forms.py:184
 msgid "Your basic caloric intake as calculated for your data"
-msgstr "Ваше основне споживання калорій, розраховане для ваших даних"
+msgstr "Твоя базова норма калорій, розраховані для твоїх даних"
 
 #: nutrition/forms.py:189
 msgid "Additional calories"
@@ -2589,7 +2588,7 @@ msgstr "Фільтр"
 
 #: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
 msgid "Macronutrients"
-msgstr "Макроелементи"
+msgstr "Макронутрієнти"
 
 #: nutrition/templates/ingredient/view.html:87
 msgid "kJ"
@@ -2611,7 +2610,7 @@ msgstr "немає даних"
 
 #: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
-msgstr "Вміст насичених жирів у жирах"
+msgstr "Насичені жири"
 
 #: nutrition/templates/ingredient/view.html:135
 msgid "Others"
@@ -2627,7 +2626,7 @@ msgstr "Натрій"
 
 #: nutrition/templates/ingredient/view.html:167
 msgid "Dietary information"
-msgstr "Інформація про харчування"
+msgstr "Поживна цінність"
 
 #: nutrition/templates/ingredient/view.html:203
 msgid "Nutri-Score"
@@ -2639,7 +2638,7 @@ msgstr "Додати нову одиницю ваги"
 
 #: nutrition/templates/rate/form.html:26
 msgid "Basal metabolic rate"
-msgstr "Базальний рівень метаболізму"
+msgstr "Базовий метаболізм (BMR)"
 
 #: nutrition/templates/rate/form.html:27
 msgid ""
@@ -2648,7 +2647,7 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
-"Рівень базального метаболізму - це кількість енергії, витраченої щодня\n"
+"Базовий метаболізм (BMR) - це кількість енергії, витраченої щодня\n"
 "в стані спокою. Це мінімальна кількість енергії, необхідна для "
 "функціонування\n"
 "організму, без будь-яких додаткових фізичних навантажень."
@@ -2742,7 +2741,7 @@ msgstr "<i>Це порожній план, що ви очікували на PDF
 
 #: nutrition/views/plan.py:230
 msgid "Nutritional data"
-msgstr "Харчові дані"
+msgstr "Харчова цінність"
 
 #: nutrition/views/plan.py:238
 msgid "Total"
@@ -2762,7 +2761,7 @@ msgstr "Додати нову одиницю ваги"
 
 #: nutrition/views/unit_ingredient.py:99
 msgid "Edit a weight unit to ingredient connection"
-msgstr "Змінити одиницю ваги з'єднання інгредієнтів"
+msgstr "Змінити одиницю ваги для інгредієнта"
 
 #: nutrition/views/unit_ingredient.py:129
 msgid "Delete?"
@@ -2962,7 +2961,7 @@ msgstr ""
 
 #: software/templates/features.html:123
 msgid "Get Started"
-msgstr "Почати роботу"
+msgstr "Старт"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
@@ -2982,7 +2981,7 @@ msgstr "зірки <br> на GitHub"
 
 #: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr "Створіть свій ідеальний <span>тренувальний режим</span>"
+msgstr "Створити свій ідеальний <span>тренувальний режим</span>"
 
 #: software/templates/features.html:177
 msgid "Design a weekly workout plan from more than 100 exercises"
@@ -2991,8 +2990,7 @@ msgstr "Складіть тижневий план тренувань з пон�
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
-"Встановіть кількість повторень і підходів, тривалість або дистанцію для "
-"кожної вправи"
+"Задавайте підходи, повторення, тривалість чи дистанцію для кожної вправи"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
