@@ -71,7 +71,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "coverage~=7.15.0",
+    "coverage~=7.16.1",
     "django-debug-toolbar~=7.1.0",
     "django-extensions~=4.1",
     "faker~=40.37.0",
