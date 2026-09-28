@@ -81,7 +81,7 @@ dev = [
 ]
 
 docker = [
-    "gunicorn~=26.1.0",
+    "gunicorn~=26.2.0",
 ]
 
 
