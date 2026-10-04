@@ -95,9 +95,9 @@
         {% url 'gym:gym:edit' gym.id as url %}
         {% modal_link url=url text=text css_class='dropdown-item' %}
 
-        {% translate 'Export' as text %}
-        {% url 'gym:export:users' gym.id as url %}
-        {% modal_link url=url text=text css_class='dropdown-item' %}
+        <a href="{% url 'gym:export:users' gym.id %}" class="dropdown-item">
+            {% translate 'Export' %}
+        </a>
     </div>
 </div>
 {% endif %}
