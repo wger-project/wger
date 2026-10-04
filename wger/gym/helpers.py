@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.contrib.auth.models import Permission
+from django.db.models import Q
 from django.utils import timezone
 
 
@@ -86,6 +88,44 @@ def is_any_gym_admin(user):
         or user.has_perm('gym.manage_gyms')
         or user.has_perm('gym.gym_trainer')
     )
+
+
+def holds_gym_permission(user, *codenames: str) -> bool:
+    """
+    Whether the user holds any of the given gym permissions, directly or
+    through a group. Superusers hold all of them.
+
+    Unlike has_perm this also works for deactivated accounts.
+    """
+    if user.is_superuser:
+        return True
+
+    return Permission.objects.filter(
+        Q(user=user) | Q(group__user=user),
+        content_type__app_label='gym',
+        codename__in=codenames,
+    ).exists()
+
+
+def outranks(actor, target) -> bool:
+    """
+    Whether the actor has more gym privileges than the target, needed for
+    actions that hand over the target's account (password, email)
+
+    - superusers outrank everybody
+    - general managers outrank everybody except other general managers
+    - managers only outrank accounts without any gym role
+    """
+    if actor.is_superuser:
+        return True
+
+    if holds_gym_permission(target, 'manage_gyms'):
+        return False
+
+    if actor.has_perm('gym.manage_gyms'):
+        return True
+
+    return not holds_gym_permission(target, 'manage_gym', 'gym_trainer')
 
 
 def get_permission_list(user):

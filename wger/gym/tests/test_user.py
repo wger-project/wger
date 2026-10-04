@@ -297,6 +297,125 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertFalse(self.client.session.get('trainer.identity'))
 
 
+class ResetPasswordTargetRoleTestCase(WgerTestCase):
+    """
+    Only accounts with fewer privileges than the caller can have their password reset
+    """
+
+    def reset(self, username: str, target_pk: int) -> int:
+        """
+        Resets the target's password as the given user and returns the status code
+
+        Also checks that the password only changed when the request succeeded.
+        """
+        old_hash = User.objects.get(pk=target_pk).password
+        self.user_login(username)
+
+        response = self.client.post(
+            reverse('gym:gym:reset-user-password', kwargs={'user_pk': target_pk})
+        )
+
+        changed = User.objects.get(pk=target_pk).password != old_hash
+        self.assertEqual(changed, response.status_code == 200)
+        return response.status_code
+
+    def test_manager_cannot_reset_admin(self):
+        self.assertEqual(self.reset('manager1', 1), 403)
+
+    def test_manager_cannot_reset_fellow_manager(self):
+        self.assertEqual(self.reset('manager1', 10), 403)
+
+    def test_manager_cannot_reset_trainer(self):
+        self.assertEqual(self.reset('manager1', 4), 403)
+
+    def test_manager_cannot_reset_deactivated_trainer(self):
+        User.objects.filter(pk=4).update(is_active=False)
+        self.assertEqual(self.reset('manager1', 4), 403)
+
+    def test_manager_can_reset_member(self):
+        self.assertEqual(self.reset('manager1', 14), 200)
+
+    def test_general_manager_cannot_reset_admin(self):
+        self.assertEqual(self.reset('general_manager1', 1), 403)
+
+    def test_general_manager_cannot_reset_general_manager(self):
+        self.assertEqual(self.reset('general_manager1', 13), 403)
+
+    def test_general_manager_cannot_reset_superuser(self):
+        User.objects.filter(pk=19).update(is_superuser=True)
+        self.assertEqual(self.reset('general_manager1', 19), 403)
+
+    def test_general_manager_can_reset_trainer(self):
+        self.assertEqual(self.reset('general_manager1', 7), 200)
+
+    def test_superuser_can_reset_general_manager(self):
+        User.objects.filter(pk=1).update(is_superuser=True)
+        self.assertEqual(self.reset('admin', 12), 200)
+
+
+class EditUserTargetRoleTestCase(WgerTestCase):
+    """
+    Changing the email of another account needs more privileges than that account
+    """
+
+    def edit(self, username: str, target_pk: int) -> int:
+        """
+        Sets the target's email as the given user and returns the status code
+        """
+        old_email = User.objects.get(pk=target_pk).email
+        self.user_login(username)
+
+        response = self.client.post(
+            reverse('core:user:edit', kwargs={'pk': target_pk}),
+            {'first_name': 'New', 'last_name': 'Name', 'email': 'new-address@example.com'},
+        )
+
+        changed = User.objects.get(pk=target_pk).email != old_email
+        self.assertEqual(changed, response.status_code == 302)
+        return response.status_code
+
+    def test_manager_cannot_edit_admin(self):
+        self.assertEqual(self.edit('manager1', 1), 403)
+
+    def test_manager_cannot_edit_trainer(self):
+        self.assertEqual(self.edit('manager1', 4), 403)
+
+    def test_manager_can_edit_member(self):
+        self.assertEqual(self.edit('manager1', 14), 302)
+
+    def test_general_manager_cannot_edit_general_manager(self):
+        self.assertEqual(self.edit('general_manager1', 13), 403)
+
+    def test_general_manager_can_edit_manager(self):
+        self.assertEqual(self.edit('general_manager1', 11), 302)
+
+
+class EditUserPermissionTargetRoleTestCase(WgerTestCase):
+    """
+    The gym roles of an account can only be edited when the user could grant all of them
+    """
+
+    def edit_roles(self, username: str, target_pk: int, roles: list[str]) -> int:
+        self.user_login(username)
+        response = self.client.post(
+            reverse('gym:gym:edit-user-permission', kwargs={'user_pk': target_pk}),
+            {'role': roles},
+        )
+        return response.status_code
+
+    def test_manager_cannot_demote_general_manager(self):
+        status = self.edit_roles('manager1', 12, ['user'])
+
+        self.assertEqual(status, 403)
+        self.assertTrue(User.objects.get(pk=12).groups.filter(name='general_gym_manager').exists())
+
+    def test_manager_can_remove_trainer_role(self):
+        status = self.edit_roles('manager1', 4, ['user'])
+
+        self.assertEqual(status, 302)
+        self.assertFalse(User.objects.get(pk=4).groups.filter(name='gym_trainer').exists())
+
+
 class GymScopeGuardsTestCase(WgerTestCase):
     """
     Test the gym-scope guards

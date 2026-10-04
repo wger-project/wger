@@ -92,7 +92,10 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
-from wger.gym.helpers import is_same_gym
+from wger.gym.helpers import (
+    is_same_gym,
+    outranks,
+)
 from wger.gym.models import (
     AdminUserNote,
     Contract,
@@ -496,6 +499,10 @@ class UserEditView(
             and not user.has_perm('gym.manage_gyms')
             and not is_same_gym(user, self.get_object())
         ):
+            return HttpResponseForbidden()
+
+        # A new email address hands over the account through the password reset
+        if not outranks(user, self.get_object()):
             return HttpResponseForbidden()
 
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
