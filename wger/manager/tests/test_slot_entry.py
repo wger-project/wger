@@ -1610,6 +1610,40 @@ class DoubleProgressionTestCase(WgerTestCase):
         self.assertEqual(entry_top.get_config_data(2).repetitions, Decimal(6))
         self.assertEqual(entry_low.get_config_data(2).repetitions, Decimal(5))
 
+    def test_max_weight_without_range_gates_on_weight(self):
+        """Without a max weight config, or with one below the min, the top is the weight"""
+
+        # no max weight config
+        entry_none = SlotEntry(slot_id=1, exercise_id=1, order=2)
+        entry_none.repetition_rounding = 1
+        entry_none.save()
+        # max weight config below the min
+        entry_below = SlotEntry(slot_id=1, exercise_id=2, order=3)
+        entry_below.repetition_rounding = 1
+        entry_below.save()
+        MaxWeightConfig(slot_entry=entry_below, iteration=1, value=90).save()
+
+        for entry in (entry_none, entry_below):
+            WeightConfig(slot_entry=entry, iteration=1, value=100).save()
+            RepetitionsConfig(slot_entry=entry, iteration=1, value=5).save()
+            RepetitionsConfig(
+                slot_entry=entry,
+                iteration=2,
+                value=1,
+                operation=OperationChoices.PLUS,
+                step=StepChoices.ABSOLUTE,
+                requirements={'rules': ['max_weight']},
+            ).save()
+
+        self.assertIsNone(entry_below.get_config_data(1).max_weight)
+
+        for entry in (entry_none, entry_below):
+            self._log_set(1, repetitions=5, slot_entry=entry, weight=95)
+            self.assertEqual(entry.get_config_data(2).repetitions, Decimal(5))
+
+            self._log_set(1, repetitions=5, slot_entry=entry, weight=100)
+            self.assertEqual(entry.get_config_data(2).repetitions, Decimal(6))
+
     def test_repeat_true_with_max_repetitions(self):
         """``repeat=True`` advances every iteration the top is hit, then stalls"""
 
