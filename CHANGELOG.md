@@ -5,9 +5,9 @@
 
 ## New features
 
-### Others
 
-<!-- Add other changes here. -->
+### Others
+* 
 
 ### Bug fixes
 
@@ -19,14 +19,12 @@
   this change.
 
 ## New settings
+*(for self-hoster)*
 
-(for self-hoster)
-
-<!-- Add new settings here. -->
+* 
 
 ## Breaking API changes
-
-(only relevant if you have your own scripts or interact with the REST API)
+*(only relevant if you have your own scripts or interact with the REST API)*
 
 * Creating exercises via `POST /api/v2/exercise/` now requires the `add_exercise`
   permission. Regular users should use `/api/v2/exercise-submission/`, which
