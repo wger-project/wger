@@ -9,8 +9,7 @@
 Progression requirements can now reference the top of the prescribed range via the new rules `max_repetitions` and `max_weight`, and the new `all_sets` flag requires every prescribed set to qualify. Together they enable classic double progression schemes ("work from 8 to 12 reps at a fixed weight, add weight only once all sets reach 12"), e.g. `{"rules": ["max_repetitions"], "all_sets": true}`.
 
 ### Others
-
-<!-- Add other changes here. -->
+* 
 
 ### Bug fixes
 
@@ -22,14 +21,12 @@ Progression requirements can now reference the top of the prescribed range via t
   this change.
 
 ## New settings
+*(for self-hoster)*
 
-(for self-hoster)
-
-<!-- Add new settings here. -->
+* 
 
 ## Breaking API changes
-
-(only relevant if you have your own scripts or interact with the REST API)
+*(only relevant if you have your own scripts or interact with the REST API)*
 
 * Creating exercises via `POST /api/v2/exercise/` now requires the `add_exercise`
   permission. Regular users should use `/api/v2/exercise-submission/`, which
