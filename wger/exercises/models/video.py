@@ -20,6 +20,8 @@ import uuid
 
 # Django
 from django.core.exceptions import ValidationError
+from django.core.files import File
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -46,28 +48,38 @@ from wger.utils.models import (
 
 MAX_FILE_SIZE_MB = 100
 
+VIDEO_EXTENSIONS = ['mp4', 'mov', 'webm', 'ogv', 'ogg']
+
+# Box types an MP4 / QuickTime file starts with, at offset 4
+ISO_MEDIA_BOXES = (b'ftyp', b'moov', b'mdat', b'wide', b'free', b'skip')
+
+
+def has_video_signature(value: File) -> bool:
+    """
+    Checks the file's magic bytes for an MP4 / QuickTime, WebM or Ogg container
+    """
+    value.seek(0)
+    header = value.read(8)
+    value.seek(0)
+    return header[4:8] in ISO_MEDIA_BOXES or header.startswith((b'\x1a\x45\xdf\xa3', b'OggS'))
+
 
 def validate_video(value):
     if value.size > 1024 * 1024 * MAX_FILE_SIZE_MB:
         raise ValidationError(_('Maximum file size is %(size)sMB.') % {'size': MAX_FILE_SIZE_MB})
 
-    # Editing existing video
-    if not hasattr(value.file, 'temporary_file_path'):
+    # The extension decides the content type the file is served with
+    FileExtensionValidator(VIDEO_EXTENSIONS)(value)
+
+    if not has_video_signature(value):
+        raise ValidationError(_('File is not a valid video'))
+
+    # ffmpeg is not installed or the upload is only held in memory, skip
+    if not ffmpeg or not hasattr(value, 'temporary_file_path'):
         return
-
-    if value.file.content_type not in ['video/mp4', 'video/webm', 'video/ogg']:
-        raise ValidationError(_('File type is not supported'))
-
-    # ffmpeg is not installed, skip
-    if not ffmpeg:
-        return
-
-    # ffmpeg needs to access this
-    if not hasattr(value.file, 'temporary_file_path'):
-        raise ValidationError(_('File type is not supported'))
 
     try:
-        ffmpeg.probe(value.file.temporary_file_path())
+        ffmpeg.probe(value.temporary_file_path())
     except ffmpeg.Error:
         raise ValidationError(_('File is not a valid video'))
 
