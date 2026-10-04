@@ -21,7 +21,6 @@ from datetime import date
 # Django
 from django import forms
 from django.conf import settings
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import (
@@ -39,6 +38,7 @@ from django.utils.translation import (
 # Third Party
 from allauth.account.forms import (
     LoginForm as AllauthLoginForm,
+    ResetPasswordForm as AllauthResetPasswordForm,
     SignupForm as AllauthSignupForm,
 )
 from allauth.account.utils import filter_users_by_email
@@ -345,20 +345,29 @@ class UsernameConfirmationForm(Form):
         return username
 
 
-class PasswordResetFormCaptcha(PasswordResetForm):
-    captcha = ReCaptchaField(
-        widget=ReCaptchaV3(action='password_reset'),
-        label='reCaptcha',
-        help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-    )
+class WgerResetPasswordForm(AllauthResetPasswordForm):
+    """
+    allauth's password reset form with an optional reCAPTCHA field (shown when
+    WGER_SETTINGS['USE_RECAPTCHA'] is set).
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        layout_fields = ['email']
+        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
+            self.fields['captcha'] = ReCaptchaField(
+                widget=ReCaptchaV3(action='password_reset'),
+                label='reCaptcha',
+                help_text=gettext_lazy('The form is secured with reCAPTCHA'),
+            )
+            layout_fields.append('captcha')
+
         self.helper = FormHelper()
+        self.helper.form_tag = False
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            'email',
-            'captcha',
+            *layout_fields,
+            # Not named "submit", see WgerSignupForm
             ButtonHolder(Submit('submitBtn', _('Submit'), css_class='btn-success btn-block')),
         )
