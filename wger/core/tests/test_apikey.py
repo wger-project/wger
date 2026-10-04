@@ -590,3 +590,77 @@ class LongLivedSessionBackfillTestCase(WgerTestCase):
         self.index_existing_sessions()
 
         self.assertEqual(LongLivedSession.objects.count(), 1)
+
+
+class ApiKeyTrainerLoginTestCase(WgerTestCase):
+    """
+    A trainer logged in as one of their members can't read or change the
+    member's API credentials
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.member = User.objects.get(username='test')
+        self.user_login('trainer1')
+        response = self.client.post(
+            reverse('core:user:trainer-login', kwargs={'user_pk': self.member.pk})
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(self.client.session.get('trainer.identity'))
+
+    def test_token_is_not_shown(self):
+        """
+        The member's API key is not rendered
+        """
+        token = Token.objects.get(user=self.member)
+
+        response = self.client.get(reverse('core:user:api-key'))
+        self.assertEqual(response.status_code, 403)
+        self.assertNotContains(response, token.key, status_code=403)
+
+    def test_token_can_not_be_rotated(self):
+        """
+        The member's API key can't be replaced with a new one
+        """
+        key_before = Token.objects.get(user=self.member).key
+
+        response = self.client.post(reverse('core:user:api-key'), {'new_key': True})
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(Token.objects.get(user=self.member).key, key_before)
+
+    def test_token_can_not_be_deleted(self):
+        """
+        The member's API key can't be deleted
+        """
+        response = self.client.post(reverse('core:user:api-key'), {'delete_key': 'true'})
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(Token.objects.filter(user=self.member).exists())
+
+    def test_refresh_token_can_not_be_generated(self):
+        """
+        No long-lived refresh token can be minted for the member
+        """
+        response = self.client.post(reverse('core:user:api-key'), {'new_refresh_token': 'true'})
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(list_long_lived_sessions(self.member), [])
+
+    def test_jwt_sessions_can_not_be_revoked(self):
+        """
+        The member's API sessions can't be revoked
+        """
+        RefreshToken.for_user(self.member)
+
+        response = self.client.post(reverse('core:user:api-key'), {'revoke_jwt_sessions': 'true'})
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(BlacklistedToken.objects.filter(token__user=self.member).exists())
+
+    def test_page_works_again_after_switching_back(self):
+        """
+        Once back in their own account, the trainer can open their API key page
+        """
+        trainer = User.objects.get(username='trainer1')
+        self.client.post(reverse('core:user:trainer-login', kwargs={'user_pk': trainer.pk}))
+        self.assertFalse(self.client.session.get('trainer.identity'))
+
+        response = self.client.get(reverse('core:user:api-key'))
+        self.assertEqual(response.status_code, 200)

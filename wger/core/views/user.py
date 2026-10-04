@@ -518,6 +518,10 @@ def api_key(request):
     Allows the user to generate an API key for the REST API
     """
 
+    # A trainer logged in as a member must not get credentials that outlive the session
+    if request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
+
     context = {}
     context.update(csrf(request))
 
