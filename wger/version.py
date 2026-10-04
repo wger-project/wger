@@ -35,7 +35,7 @@ Always use versions in the x.y.z format, without any suffixes like "beta1" or su
 MIN_SERVER_VERSION = Version('2.5.0')
 """Minimum version of the server required to run sync commands on this server"""
 
-VERSION_STRING = '2.8.0-dev.0'
+VERSION_STRING = '2.8.0-dev.1'
 """
 Current version of the app.
 
