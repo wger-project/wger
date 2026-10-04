@@ -93,6 +93,10 @@ class CategorySerializer(serializers.ModelSerializer):
         """
         if self.instance and metric_type != self.instance.metric_type:
             raise serializers.ValidationError('The metric type of a category cannot be changed')
+
+        # The server creates the official category itself
+        if self.instance is None and metric_type == MetricType.BODY_WEIGHT:
+            raise serializers.ValidationError('The body weight category is managed by the server')
         return metric_type
 
     def validate_dynamic_type(self, dynamic_type):

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.27"]
+requires = ["hatchling>=1.32.4"]
 build-backend = "hatchling.build"
 
 [project]
@@ -50,10 +50,10 @@ dependencies = [
     "django[argon2]~=6.0.7",
     "drf-spectacular[sidecar]~=0.30.0",
     "easy-thumbnails~=2.10.1",
-    "flower~=2.1.0",
+    "flower~=2.2.0",
     "fontawesomefree~=6.6.0",
     "gevent>=26.5.0",
-    "icalendar~=7.2.0",
+    "icalendar~=7.3.0",
     "invoke~=3.0.3",
     "lingua-language-detector~=2.2.0",
     "markdownify~=1.2",
@@ -66,22 +66,22 @@ dependencies = [
     "reportlab~=5.0.0",
     "requests~=2.34.0",
     "tqdm~=4.70.0",
-    "tzdata~=2026.2",
+    "tzdata~=2026.3",
 ]
 
 [dependency-groups]
 dev = [
-    "coverage~=7.15.0",
+    "coverage~=7.16.1",
     "django-debug-toolbar~=7.1.0",
     "django-extensions~=4.1",
-    "faker~=40.36.0",
-    "hatchling~=1.31.0",
+    "faker~=40.37.0",
+    "hatchling~=1.32.4",
     "ruff~=0.16.2",
     "tblib~=3.2.0",
 ]
 
 docker = [
-    "gunicorn~=26.1.0",
+    "gunicorn~=26.2.0",
 ]
 
 

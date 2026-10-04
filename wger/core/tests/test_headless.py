@@ -20,6 +20,7 @@ import json
 
 # Django
 from django.contrib.auth.models import User
+from django.test import Client
 from django.urls import reverse
 
 # Third Party
@@ -181,6 +182,54 @@ class HeadlessSmokeTestCase(WgerTestCase):
             content_type='application/json',
         )
         self.assertNotEqual(response.status_code, 200, response.content)
+
+    def _login_refresh_token(self) -> str:
+        response = self.client.post(
+            reverse('headless:app:account:login'),
+            data=json.dumps({'username': 'test', 'password': 'testtest'}),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200, response.content)
+        return response.json()['meta']['refresh_token']
+
+    def _refresh(self, refresh_token: str):
+        # A cookie-less client, like the app
+        return Client().post(
+            reverse('headless:app:tokens:refresh'),
+            data=json.dumps({'refresh_token': refresh_token}),
+            content_type='application/json',
+        )
+
+    def test_refresh_token_survives_a_lost_response(self):
+        """
+        When the answer to a refresh never reaches the client, it still holds the
+        token it sent. That token has to keep working, and the successor the
+        client never saw is dropped in favour of the new one.
+        """
+        first = self._login_refresh_token()
+
+        lost = self._refresh(first)
+        self.assertEqual(lost.status_code, 200, lost.content)
+        lost_token = lost.json()['data']['refresh_token']
+
+        retry = self._refresh(first)
+        self.assertEqual(retry.status_code, 200, retry.content)
+        self.assertNotEqual(retry.json()['data']['refresh_token'], lost_token)
+
+        self.assertEqual(self._refresh(lost_token).status_code, 400)
+
+    def test_refresh_token_is_retired_once_its_successor_is_used(self):
+        """
+        Rotation still happens: after the successor has been used once, the
+        token it replaced is rejected.
+        """
+        first = self._login_refresh_token()
+
+        second = self._refresh(first).json()['data']['refresh_token']
+        response = self._refresh(second)
+        self.assertEqual(response.status_code, 200, response.content)
+
+        self.assertEqual(self._refresh(first).status_code, 400)
 
     def test_invalid_jwt_does_not_break_auth_chain(self):
         """
