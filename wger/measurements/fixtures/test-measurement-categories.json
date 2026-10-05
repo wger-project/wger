@@ -34,5 +34,16 @@
             "name": "Admin's chest",
             "unit": "cm"
         }
+    },
+    {
+        "pk": "cccccccc-cccc-cccc-cccc-0000000000b0",
+        "model": "measurements.category",
+        "fields": {
+            "user": 2,
+            "name": "Body weight",
+            "unit": "kg",
+            "metric_type": "body_weight",
+            "is_official": true
+        }
     }
 ]

@@ -14,6 +14,12 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.db.models.functions import (
+    ExtractDay,
+    ExtractMonth,
+)
+
 # Local
 from .base import BaseTrophyChecker
 
@@ -68,11 +74,18 @@ class DateBasedChecker(BaseTrophyChecker):
         # wger
         from wger.manager.models import WorkoutSession
 
-        return WorkoutSession.objects.filter(
-            user=self.user,
-            date__month=month,
-            date__day=day,
-        ).exists()
+        # Extract with an explicit tzinfo: bare __month/__day resolve in the
+        # active timezone, which in a celery task is the instance one
+        tz = self.user.userprofile.zone_info
+        return (
+            WorkoutSession.objects.filter(user=self.user)
+            .annotate(
+                local_month=ExtractMonth('datetime_start', tzinfo=tz),
+                local_dom=ExtractDay('datetime_start', tzinfo=tz),
+            )
+            .filter(local_month=month, local_dom=day)
+            .exists()
+        )
 
     def get_progress(self) -> float:
         """

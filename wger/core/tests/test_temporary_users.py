@@ -18,6 +18,7 @@ import random
 
 # Django
 from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from django.core.management import call_command
 from django.http import HttpRequest
 from django.urls import reverse
@@ -34,11 +35,14 @@ from wger.manager.models import (
     Routine,
     WorkoutLog,
 )
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
 from wger.nutrition.models import (
     Meal,
     NutritionPlan,
 )
-from wger.weight.models import WeightEntry
 
 
 class DemoUserTestCase(WgerTestCase):
@@ -52,6 +56,17 @@ class DemoUserTestCase(WgerTestCase):
         Counts the number of temporary users
         """
         return User.objects.filter(userprofile__is_temporary=1).count()
+
+    def test_anonymous_request_creates_no_session(self):
+        """
+        Reading a public page without logging in creates no session row
+        """
+        before = Session.objects.count()
+
+        response = self.client.get(reverse('software:features'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Session.objects.count(), before)
 
     def test_demo_data_no_guest_account(self):
         """
@@ -96,7 +111,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(Meal.objects.filter(plan__user=user).count(), 20)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 40)
+        self.assertEqual(Measurement.body_weight_for(user).count(), 40)
 
     def test_demo_data_body_weight(self):
         """
@@ -107,20 +122,21 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=4)
 
+        category = Category.get_or_create_body_weight(user, unit='kg')
         temp = []
         for i in range(1, 5):
             creation_date = timezone.now() - datetime.timedelta(days=i)
-            entry = WeightEntry(
-                user=user,
-                weight=80 + 0.5 * i + random.randint(1, 3),
+            entry = Measurement(
+                category=category,
+                value=80 + 0.5 * i + random.randint(1, 3),
                 date=creation_date,
             )
             temp.append(entry)
-        WeightEntry.objects.bulk_create(temp)
+        Measurement.objects.bulk_create(temp)
         create_demo_entries(user)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 44)
+        self.assertEqual(Measurement.body_weight_for(user).count(), 44)
 
     def test_demo_user(self):
         """

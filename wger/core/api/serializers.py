@@ -77,6 +77,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'calories',
             'weight_unit',
             'num_days_weight_reminder',
+            'time_zone',
         )
 
 
@@ -192,11 +193,13 @@ class LanguageCheckSerializer(serializers.Serializer):
                     'check': {
                         'result': False,
                         'detected_language': detected_language_code,
-                        'message': f'The detected language is "{detected_language.name.capitalize()}" ({detected_language_code}), '
-                        f'which does not match your selected language "{language.full_name.capitalize()}" '
-                        f'({language.short_name}). If you believe this is incorrect, try adding more content '
-                        f'or rephrasing your text, as language detection works better with longer or more '
-                        f'complete sentences.',
+                        'message': 'The detected language is '
+                        f'"{detected_language.name.capitalize()}" ({detected_language_code}), '
+                        'which does not match your selected language '
+                        f'"{language.full_name.capitalize()}" ({language.short_name}). '
+                        'If you believe this is incorrect, try adding more content or '
+                        'rephrasing your text, as language detection works better with '
+                        'longer or more complete sentences.',
                     }
                 }
             )

@@ -48,7 +48,11 @@ jobs:
       - name: Read version from wger/version.py
         id: version
         run: |
-          VERSION=$(sed -n "s/^VERSION = Version('\(.*\)')/\1/p" wger/version.py)
+          VERSION=$(sed -n "s/^VERSION_STRING = '\(.*\)'/\1/p" wger/version.py)
+          if [ -z "$VERSION" ]; then
+            echo "::error::could not read VERSION_STRING from wger/version.py"
+            exit 1
+          fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Docker meta
@@ -57,9 +61,13 @@ jobs:
         with:
           # Think if we want to also build branches, PRs, tags, etc.
           # https://github.com/docker/metadata-action
+          #
+          # - Release versions "2.7.0": latest, 2.7.0, 2.7
+          # - Pre-release "2.8.0-dev.0": latest, 2.8.0-dev.0
           tags: |
             type=raw,value=latest
-            type=raw,value=${{ steps.version.outputs.version }}
+            type=semver,pattern={{version}},value=${{ steps.version.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.version.outputs.version }}
           images: |
             ${{ env.REGISTRY_IMAGE }}
 
@@ -146,9 +154,11 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
+          # Keep in sync with the tags in build-prod, see the notes there
           tags: |
             type=raw,value=latest
-            type=raw,value=${{ needs.build-prod.outputs.version }}
+            type=semver,pattern={{version}},value=${{ needs.build-prod.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ needs.build-prod.outputs.version }}
           images: |
             ${{ env.REGISTRY_IMAGE }}
 

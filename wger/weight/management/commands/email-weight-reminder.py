@@ -12,9 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import datetime
-
 # Django
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -29,7 +26,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import UserProfile
-from wger.weight.models import WeightEntry
+from wger.measurements.models import Measurement
 
 
 class Command(BaseCommand):
@@ -51,12 +48,12 @@ class Command(BaseCommand):
             today = timezone.now()
 
             try:
-                last_entry = WeightEntry.objects.filter(user=profile.user).latest().date
+                last_entry = Measurement.body_weight_for(profile.user).latest('date').date
                 datediff = (today - last_entry).days
 
                 if datediff >= profile.num_days_weight_reminder:
                     self.send_email(profile.user, last_entry, datediff)
-            except WeightEntry.DoesNotExist:
+            except Measurement.DoesNotExist:
                 pass
 
     @staticmethod

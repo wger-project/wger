@@ -102,6 +102,7 @@ JWT_PUBLIC_KEY = env.str('JWT_PUBLIC_KEY', '')
 JWT_PRIVATE_KEY = env.str('JWT_PRIVATE_KEY', '')
 POWERSYNC_URL_PATH = env.str('POWERSYNC_URL_PATH', 'ps')
 POWERSYNC_URL = env.str('POWERSYNC_URL', '')
+POWERSYNC_TOKEN_LIFETIME = env.int('POWERSYNC_TOKEN_LIFETIME', 600)
 if not DEBUG and any(
     key and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_JWT_KEY_HASHES
     for key in (JWT_PUBLIC_KEY, JWT_PRIVATE_KEY)
@@ -197,7 +198,15 @@ WGER_SETTINGS['CACHE_API_EXERCISES_CELERY'] = env.bool('CACHE_API_EXERCISES_CELE
 WGER_SETTINGS['CACHE_API_EXERCISES_CELERY_FORCE_UPDATE'] = env.bool(
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE', False
 )
+
+# Let a worker do the SMTP round trip, it would otherwise happen inside the
+# request that triggered the email (registration, password reset, ...)
+EMAIL_DELIVERY_BACKEND = EMAIL_BACKEND
+if WGER_SETTINGS['USE_CELERY']:
+    EMAIL_BACKEND = 'wger.core.mail.CeleryEmailBackend'
+
 WGER_SHOW_APP_STORE_LINKS = env.bool('WGER_SHOW_APP_STORE_LINKS', True)
+WGER_MAX_SESSION_LENGTH_HOURS = env.int('WGER_MAX_SESSION_LENGTH_HOURS', 5)
 
 #
 # Auth Proxy Authentication
@@ -326,7 +335,10 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'simple': {
-            'format': 'level={levelname} ts={asctime} module={module} path={pathname} line={lineno} message={message}',
+            'format': (
+                'level={levelname} ts={asctime} module={module} '
+                'path={pathname} line={lineno} message={message}'
+            ),
             'style': '{',
         },
     },

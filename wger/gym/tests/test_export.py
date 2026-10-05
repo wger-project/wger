@@ -108,3 +108,21 @@ class GymMembersCsvExportTestCase(WgerTestCase):
                     ('=', '+', '-', '@'),
                     msg=f'unsanitised formula cell in export: {cell!r}',
                 )
+
+
+class GymMembersExportLinkTestCase(WgerTestCase):
+    """
+    The export is a file download, the member list must not load it into the page
+    """
+
+    def test_export_link_is_a_plain_download(self):
+        self.user_login('admin')
+        response = self.client.get(reverse('gym:gym:user-list', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+        export_url = reverse('gym:export:users', kwargs={'gym_pk': 1})
+        content = response.content.decode()
+        start = content.index(f'href="{export_url}"')
+        link = content[content.rindex('<a', 0, start) : content.index('>', start)]
+
+        self.assertNotIn('hx-get', link)

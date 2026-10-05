@@ -71,10 +71,11 @@ class Command(BaseCommand):
 
         new_entries = []
         for user in users:
+            # Official categories (body weight) are filled by their own generator
             categories = (
                 [Category.objects.get(pk=options['category_id'])]
                 if options['category_id']
-                else Category.objects.filter(user=user)
+                else Category.objects.filter(user=user, is_official=False)
             )
 
             self.stdout.write(f'- processing user {user.username}')

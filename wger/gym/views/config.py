@@ -50,7 +50,7 @@ class GymConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredM
         """
         if request.user.has_perm('gym.change_gymconfig'):
             gym_id = request.user.userprofile.gym_id
-            if gym_id != int(self.kwargs['pk']):
+            if gym_id != self.get_object().gym_id:
                 return HttpResponseForbidden()
         return super(GymConfigUpdateView, self).dispatch(request, *args, **kwargs)
 

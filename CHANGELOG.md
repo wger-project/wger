@@ -1,34 +1,42 @@
 # Changelog for the next release
 
+> [!IMPORTANT]
+> This release comes with some breaking changes for self-hoster. Please read carefully.
+
 ## New features
 
-* Improved openAPI spec. The spec now properly describes the different parts of
-  the API and can be used to generate clients.
+### Double progression
+Progression requirements can now reference the top of the prescribed range via the new rules `max_repetitions` and `max_weight`, and the new `all_sets` flag requires every prescribed set to qualify. Together they enable classic double progression schemes ("work from 8 to 12 reps at a fixed weight, add weight only once all sets reach 12"), e.g. `{"rules": ["max_repetitions"], "all_sets": true}`.
 
-### OAuth2 provider
+### Others
+* ...
 
-wger can now act as an OAuth2 provider itself, so that other applications can let
-their users log in with their wger account and access the API on their behalf. This
-is switched off by default unless configured, see the docs for the setup.
+### Bug fixes
 
-* <https://wger.readthedocs.io/en/latest/administration/oauth2_provider.html>
+* Deleting a routine, day, slot, or slot entry now preserves completed workout
+  sessions and logs, including performed and target values. Only the references
+  to deleted routine structure are cleared. Explicit session deletion and account
+  deletion continue to remove the corresponding history. Apply the usual database
+  migrations when upgrading; previously deleted history cannot be restored by
+  this change.
 
-## Bug fixes
+## New settings
+*(for self-hoster)*
 
-* Ingredient search now finds matching words in long ingredient names and ranks
-  more relevant results first
-* Exercise search now finds matching words in long exercise names, e.g. "curl"
-  finds "Alternating Biceps Curls With Dumbbell", and sorts the results by
-  relevance
-* Gated progressions (configs with `requirements`) now advance exactly one step
-  per qualifying workout instead of back-filling increments for skipped,
-  non-qualifying iterations
-* Gated progressions now reach configs scheduled for later iterations, so
-  multi-phase plans (e.g. bigger increments from week 6 on) work when the
-  requirements are only met intermittently
-* Ungated configs no longer back-apply increments of earlier gated configs
-  whose requirements were never met
-* Progression requirements are now checked against the rounded values as they
-  are displayed, so reaching the shown prescription always counts
-* The min and max configs of a field now advance together, following the
-  requirements of the base config
+* ...
+
+## Breaking API changes
+*(only relevant if you have your own scripts or interact with the REST API)*
+
+* Creating exercises via `POST /api/v2/exercise/` now requires the `add_exercise`
+  permission. Regular users should use `/api/v2/exercise-submission/`, which
+  creates the exercise together with at least one translation.
+
+## Upgrade steps
+
+  ```bash
+  docker compose pull 
+  docker compose down powersync
+  docker compose up -d web
+  docker compose up -d powersync
+  ```

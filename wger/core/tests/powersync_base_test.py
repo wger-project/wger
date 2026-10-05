@@ -98,7 +98,7 @@ class PowerSyncCreateTestCase:
         Return the value of the field that the client-supplied ``id`` should
         round-trip into. Defaults to ``pk`` (correct for UUID-PK models like
         Category). Models with an integer PK and a separate UUID column
-        (WeightEntry) override this to return ``obj.uuid``.
+        override this to return ``obj.uuid``.
         """
         return obj.pk
 

@@ -48,7 +48,10 @@ class ExerciseSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
             'translations': [
                 {
                     'name': '1-Arm Half-Kneeling Lat Pulldown',
-                    'description_source': 'Attach a D-Handle to a high pully. And use your lat muscles to pull the weight single handedly.',
+                    'description_source': (
+                        'Attach a D-Handle to a high pully. And use your lat muscles '
+                        'to pull the weight single handedly.'
+                    ),
                     'language': 2,
                     'license_author': 'tester',
                     'aliases': [

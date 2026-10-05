@@ -14,7 +14,6 @@
 
 # Standard Library
 import random
-# Standard library
 import re
 
 # Django

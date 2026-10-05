@@ -26,7 +26,6 @@ def migrate_routines(apps) -> dict[int, Any]:
     WeightConfig = apps.get_model('manager', 'WeightConfig')
     RepetitionsConfig = apps.get_model('manager', 'RepetitionsConfig')
     RiRConfig = apps.get_model('manager', 'RiRConfig')
-    RestConfig = apps.get_model('manager', 'RestConfig')
 
     REPLACE_OP = 'r'
     ABS_STEP = 'abs'

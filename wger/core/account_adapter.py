@@ -14,6 +14,10 @@
 
 # Standard Library
 from datetime import timedelta
+from urllib.parse import (
+    urlsplit,
+    urlunsplit,
+)
 
 # Django
 from django.conf import settings
@@ -27,10 +31,28 @@ from allauth.account.adapter import DefaultAccountAdapter
 
 # wger
 from wger.core.models import UserProfile
+from wger.utils.url import make_absolute_url
+
+
+def on_site_url(url: str) -> str:
+    """
+    Rebuild an absolute URL on SITE_URL instead of the host of the request
+
+    The Host header is set by the client, so links with a secret key must not
+    be built from it.
+    """
+    parts = urlsplit(url)
+    return make_absolute_url(urlunsplit(('', '', parts.path, parts.query, parts.fragment)))
 
 
 class WgerAccountAdapter(DefaultAccountAdapter):
     """Wger Account Adapter for allauth"""
+
+    def get_reset_password_from_key_url(self, key):
+        return on_site_url(super().get_reset_password_from_key_url(key))
+
+    def get_email_confirmation_url(self, request, emailconfirmation):
+        return on_site_url(super().get_email_confirmation_url(request, emailconfirmation))
 
     def is_open_for_signup(self, request):
         return settings.WGER_SETTINGS['ALLOW_REGISTRATION']

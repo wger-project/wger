@@ -63,7 +63,10 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
-from wger.utils.pagination import IngredientCursorPagination
+from wger.utils.pagination import (
+    IngredientCursorPagination,
+    IngredientLimitOffsetPagination,
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -92,6 +95,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
     # Strip default ordering ('name'), this makes the API/DB more performant
     queryset = Ingredient.objects.prefetch_related('ingredientweightunit_set').order_by()
+    pagination_class = IngredientLimitOffsetPagination
     throttle_scope = 'ingredient_list'
 
     def get_throttles(self):

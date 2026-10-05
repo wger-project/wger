@@ -16,18 +16,18 @@
 
 # Django
 from django.conf.urls import include
-from django.contrib.auth import views
-from django.urls import (
-    path,
-    re_path,
+from django.urls import path
+from django.views.generic import (
+    RedirectView,
+    TemplateView,
 )
-from django.views.generic import TemplateView
 
 # wger
 from wger.core.views import (
     languages,
     license,
     misc,
+    oidc,
     repetition_units,
     user,
     weight_units,
@@ -75,6 +75,11 @@ patterns_user = [
     path('registration', user.WgerSignupView.as_view(), name='registration'),
     path('preferences', user.preferences, name='preferences'),
     path('api-key', user.api_key, name='api-key'),
+    path(
+        'connected-applications',
+        oidc.overview,
+        name='connected-applications',
+    ),
     path('app-auth/', user.app_auth_handoff, name='app-auth-handoff'),
     path('demo-entries', misc.demo_entries, name='demo-entries'),
     path('<int:pk>/activate', user.UserActivateView.as_view(), name='activate'),
@@ -82,32 +87,16 @@ patterns_user = [
     path('<int:pk>/edit', user.UserEditView.as_view(), name='edit'),
     path('<int:pk>/overview', user.UserDetailView.as_view(), name='overview'),
     path('list', user.UserListView.as_view(), name='list'),
-    # Password reset is implemented by Django, no need to cook our own soup here
-    # (besides the templates)
     path(
         'password/change',
         user.WgerPasswordChangeView.as_view(),
         name='change-password',
     ),
+    # The password reset is handled by allauth, keep the old URL for bookmarks
     path(
         'password/reset/',
-        user.WgerPasswordResetView.as_view(),
+        RedirectView.as_view(pattern_name='account_reset_password'),
         name='password_reset',
-    ),
-    path(
-        'password/reset/done/',
-        views.PasswordResetDoneView.as_view(),
-        name='password_reset_done',
-    ),
-    re_path(
-        r'^password/reset/check/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
-        user.WgerPasswordResetConfirmView.as_view(),
-        name='password_reset_confirm',
-    ),
-    path(
-        'password/reset/complete/',
-        views.PasswordResetCompleteView.as_view(),
-        name='password_reset_complete',
     ),
 ]
 

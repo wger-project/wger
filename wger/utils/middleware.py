@@ -58,10 +58,6 @@ def get_user(request):
         create_user = check_current_request(request)
         user = auth.get_user(request)
 
-        # Set the flag in the session
-        if not request.session.get('has_demo_data'):
-            request.session['has_demo_data'] = False
-
         # Django didn't find a user, so create one now
         if (
             settings.WGER_SETTINGS['ALLOW_GUEST_USERS']

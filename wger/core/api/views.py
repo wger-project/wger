@@ -74,7 +74,6 @@ import wger.gallery.powersync  # noqa: F401
 import wger.manager.powersync  # noqa: F401
 import wger.measurements.powersync  # noqa: F401
 import wger.nutrition.powersync  # noqa: F401
-import wger.weight.powersync  # noqa: F401
 from wger.core.api import powersync
 from wger.core.api.serializers import (
     LanguageCheckSerializer,
@@ -91,7 +90,6 @@ from wger.core.models import (
     UserProfile,
     WeightUnit,
 )
-from wger.utils.headless_long_lived import mint_long_lived_refresh_token
 from wger.utils.powersync import REGISTRY as POWERSYNC_REGISTRY
 from wger.version import (
     MIN_APP_VERSION,
@@ -353,33 +351,6 @@ def check_language(request):
 
 
 @extend_schema(
-    request=None,
-    responses={
-        200: inline_serializer(
-            name='RefreshTokenResponse',
-            fields={'refresh_token': CharField()},
-        ),
-    },
-)
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def issue_refresh_token(request):
-    """
-    Temporary endpoint for issuing refresh tokens for authenticated users.
-
-    This endpoint is used to allow users of the mobile app to seamlessly move from
-    permanent tokens to JWT ones.
-
-    TODO: remove one version after the iniial offline-mode release
-    """
-    refresh_token = mint_long_lived_refresh_token(
-        request.user,
-        settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
-    )
-    return Response({'refresh_token': refresh_token})
-
-
-@extend_schema(
     responses={
         200: inline_serializer(
             name='PowersyncTokenResponse',
@@ -467,7 +438,9 @@ def upload_powersync_data(request):
             status=200,
         )
 
-    logger.info(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
+    # Debug, not info: clients push one row per request, so a first health
+    # import writes a five figure number of these lines for a single user
+    logger.debug(f'Received PowerSync data for table {table} via {http_verb} for user {user_id}')
 
     handler = POWERSYNC_REGISTRY.get(table)
     if handler is None:

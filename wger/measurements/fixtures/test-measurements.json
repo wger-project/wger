@@ -26,5 +26,68 @@
             "value": 21,
             "notes": "some extra information"
         }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000001",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2012-10-01T14:30:21.592Z",
+            "value": 77
+        }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000002",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2012-10-10T14:30:21.592Z",
+            "value": 77.2
+        }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000003",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2012-11-01T14:30:21.592Z",
+            "value": 80.6
+        }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000004",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2013-01-01T14:30:21.592Z",
+            "value": 80
+        }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000005",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2013-01-10T14:30:21.592Z",
+            "value": 81
+        }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000006",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2013-01-20T14:30:21.592Z",
+            "value": 82
+        }
+    },
+    {
+        "pk": "11111111-1111-1111-1111-000000000007",
+        "model": "measurements.measurement",
+        "fields": {
+            "category": "cccccccc-cccc-cccc-cccc-0000000000b0",
+            "date": "2013-01-30T14:30:21.592Z",
+            "value": 83
+        }
     }
 ]

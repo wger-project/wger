@@ -12,19 +12,19 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2026-08-23 18:25+0000\n"
+"Last-Translator: Bozhidar Videnov <bozhv@pm.me>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/wger/web/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
-msgstr ""
+msgstr "Фитнес под разбиране"
 
 #: config/models/gym_config.py:48
 msgid ""
@@ -66,25 +66,25 @@ msgstr "Регистрация"
 #: core/forms.py:128 core/forms.py:239 gym/views/export.py:62
 #: gym/views/gym.py:220
 msgid "First name"
-msgstr ""
+msgstr "Първо име"
 
 #: core/forms.py:129 core/forms.py:240 core/templates/user/overview.html:310
 #: gym/views/export.py:63 gym/views/gym.py:220
 msgid "Last name"
-msgstr ""
+msgstr "Фамилия"
 
 #: core/forms.py:131 core/models/profile.py:200
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Дата на раждане"
 
 #: core/forms.py:172
 msgid "Personal data"
-msgstr ""
+msgstr "Линчни данни"
 
 #: core/forms.py:190
 msgid "Other settings"
-msgstr ""
+msgstr "Други настройки"
 
 #: core/forms.py:195 core/views/user.py:705 core/views/user.py:729
 #: core/views/user.py:743 gym/forms.py:73 utils/generic_views.py:132
@@ -103,7 +103,7 @@ msgstr "Е-мейл"
 
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
-msgstr ""
+msgstr "Използва се за възтановяване на пароли, по желание за имейл подсещания."
 
 #: core/forms.py:234
 msgid "This e-mail address is already in use."
@@ -112,11 +112,11 @@ msgstr "Този имейл адрес вече се използва."
 #: core/forms.py:256 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:220
 msgid "Password"
-msgstr ""
+msgstr "Парола"
 
 #: core/forms.py:258
 msgid "Please enter your current password."
-msgstr ""
+msgstr "Моля въведете текущата си парола."
 
 #: core/forms.py:267 core/forms.py:304 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
@@ -136,25 +136,27 @@ msgstr "Изтрии"
 
 #: core/forms.py:276
 msgid "Invalid password"
-msgstr ""
+msgstr "Невалидна парола"
 
 #: core/forms.py:289
 msgid "Confirm"
-msgstr ""
+msgstr "Потвърди"
 
 #: core/forms.py:297
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
+"Акаунтът ви няма парола. Въведете потребителското име \"{username}\" за да "
+"потвърдите."
 
 #: core/forms.py:313
 msgid "The entered username does not match"
-msgstr ""
+msgstr "Въведеното потребителско име не съвпада"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
-msgstr ""
+msgstr "Предай"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -170,7 +172,7 @@ msgstr "Пълно име на езика на английски"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "Пълно име"
 
 #: core/models/license.py:31
 msgid ""

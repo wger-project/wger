@@ -53,7 +53,7 @@ def overview(request):
     return render(request, 'images/overview.html', context)
 
 
-class ImageAddView(WgerFormMixin, CreateView):
+class ImageAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
     """
     Generic view to add a new weight entry
     """
@@ -67,7 +67,7 @@ class ImageAddView(WgerFormMixin, CreateView):
         """
         Set the initial data for the form.
 
-        Read the comment on weight/models.py WeightEntry about why we need
+        Read the note on manager.models.WorkoutSession.user about why we need
         to pass the user here.
         """
         return {'user': self.request.user, 'date': datetime.today()}
