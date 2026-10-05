@@ -604,6 +604,15 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rest_target',
         )
 
+    def save(self, **kwargs):
+        """
+        Answer the model validation in WorkoutLog.save() with a 400
+        """
+        try:
+            return super().save(**kwargs)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages)
+
 
 class LogDisplaySerializer(serializers.Serializer):
     """
