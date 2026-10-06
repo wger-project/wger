@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-10-03 00:44+0000\n"
+"PO-Revision-Date: 2026-10-07 16:51+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -24,7 +24,7 @@ msgstr ""
 "? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
 "14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
 "100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -692,7 +692,7 @@ msgstr "Обладнання"
 
 #: core/templates/navigation.html:125
 msgid "Muscles"
-msgstr "М'язи"
+msgstr "Групи м'язів"
 
 #: core/templates/navigation.html:131
 #: exercises/templates/categories/admin-overview.html:4
@@ -1121,7 +1121,7 @@ msgstr "Загальне враження"
 
 #: core/templates/user/overview.html:92 core/templates/user/overview.html:416
 msgid "Notes"
-msgstr "Примітки"
+msgstr "Нотатки"
 
 #: core/templates/user/overview.html:126 core/templates/user/overview.html:139
 #: manager/helpers.py:89 weight/templates/import_csv_preview.html:14
@@ -1813,7 +1813,7 @@ msgstr "Якщо нічого не вказано, буде використан
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
-msgstr "Примітки користувача"
+msgstr "Нотатки користувача"
 
 #: gym/templates/contract/list.html:34
 msgid "Show"
@@ -3163,7 +3163,7 @@ msgstr "Так, вилучити"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr "Оригінальна назва цього об'єкта, якщо є"
+msgstr "Оригінальна назва цього об'єкта, якщо вона відома"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"
