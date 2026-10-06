@@ -182,12 +182,8 @@ class SlotData:
 
     @property
     def exercises(self) -> List[int]:
-        out = set()
-
-        for set_config in self.sets:
-            out.add(set_config.exercise)
-
-        return list(out)
+        # dict.fromkeys removes duplicates and keeps the order of the sets
+        return list(dict.fromkeys(set_config.exercise for set_config in self.sets))
 
     @property
     def is_superset(self) -> bool:
