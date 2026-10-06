@@ -63,6 +63,15 @@ class ApiBaseTestCase(APITestCase):
     Dictionary with the data used for testing
     """
 
+    def object_for_response_id(self, response_id):
+        """
+        The object a create or update response refers to.
+
+        Most resources echo their primary key. A resource whose public id is
+        not the model pk overrides this.
+        """
+        return self.resource.objects.get(pk=response_id)
+
     special_endpoints = ()
     """
     A list of special endpoints to check, e.g. the canonical representation of
@@ -314,7 +323,7 @@ class ApiPostTestCase:
 
             if response.status_code == status.HTTP_201_CREATED:
                 self.assertEqual(count_before + 1, count_after)
-                created = self.resource.objects.get(pk=response.data['id'])
+                created = self.object_for_response_id(response.data['id'])
                 self.assertEqual(created.get_owner_object().user.username, self.user_fail)
             else:
                 self.assertIn(
@@ -527,7 +536,7 @@ class ApiPutTestCase:
             #
             # Currently, resources that have a 'user' field 'succeed'
             if response.status_code == status.HTTP_201_CREATED:
-                obj = self.resource.objects.get(pk=response.data['id'])
+                obj = self.object_for_response_id(response.data['id'])
                 obj2 = self.resource.objects.get(pk=self.pk)
                 self.assertNotEqual(
                     obj.get_owner_object().user.username,
