@@ -12,6 +12,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.core.cache import cache
+
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
@@ -116,3 +122,27 @@ class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
         self.assertIn(
             'images/muscles/secondary/muscle-1.svg', response_object['image_url_secondary']
         )
+
+    def test_get_overview_returns_more_than_the_default_page_size(self):
+        """
+        Clients such as the exercise form's muscle dropdown fetch the list
+        without a `limit` parameter, so the first page must contain all
+        muscles even when there are more than PAGE_SIZE.
+        """
+        cache.clear()
+        Muscle.objects.bulk_create(
+            Muscle(name=f'Additional muscle {i}', is_front=True) for i in range(30)
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_object = response.json()
+        self.assertEqual(response_object['count'], Muscle.objects.count())
+        self.assertEqual(len(response_object['results']), Muscle.objects.count())
+        self.assertIsNone(response_object['next'])
+
+        # An explicit limit still paginates
+        response = self.client.get(self.url, {'limit': 5})
+        response_object = response.json()
+        self.assertEqual(len(response_object['results']), 5)
+        self.assertIsNotNone(response_object['next'])

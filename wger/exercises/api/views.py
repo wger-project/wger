@@ -75,6 +75,7 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.api_schema import ImageThumbnailsSerializer
 from wger.utils.cache import CacheKeyMapper
+from wger.utils.pagination import MuscleLimitOffsetPagination
 from wger.utils.url import make_absolute_url
 
 
@@ -538,6 +539,7 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
+    pagination_class = MuscleLimitOffsetPagination
     ordering_fields = '__all__'
     ordering = ['name', 'id']
     filterset_fields = ('name', 'is_front', 'name_en')
