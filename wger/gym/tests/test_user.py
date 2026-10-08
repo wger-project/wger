@@ -390,6 +390,52 @@ class EditUserTargetRoleTestCase(WgerTestCase):
         self.assertEqual(self.edit('general_manager1', 11), 302)
 
 
+class DeleteUserTargetRoleTestCase(WgerTestCase):
+    """
+    Managers can only delete accounts without a gym role, also deactivated ones
+    """
+
+    def delete(self, username: str, target_pk: int) -> int:
+        """
+        Deletes the target as the given user and returns the status code
+
+        Also checks that the account is only gone when the request succeeded.
+        """
+        self.user_login(username)
+        response = self.client.post(
+            reverse('core:user:delete', kwargs={'user_pk': target_pk}),
+            {'password': self.current_password},
+        )
+
+        deleted = not User.objects.filter(pk=target_pk).exists()
+        self.assertEqual(deleted, response.status_code == 302)
+        return response.status_code
+
+    def test_manager_cannot_delete_deactivated_manager(self):
+        User.objects.filter(pk=10).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 10), 403)
+
+    def test_manager_cannot_delete_deactivated_trainer(self):
+        User.objects.filter(pk=4).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 4), 403)
+
+    def test_manager_cannot_delete_deactivated_general_manager(self):
+        User.objects.filter(pk=12).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 12), 403)
+
+    def test_manager_cannot_delete_deactivated_admin(self):
+        User.objects.filter(pk=1).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 1), 403)
+
+    def test_manager_cannot_delete_deactivated_superuser(self):
+        User.objects.filter(pk=21).update(is_superuser=True, is_active=False)
+        self.assertEqual(self.delete('manager1', 21), 403)
+
+    def test_manager_can_delete_deactivated_member(self):
+        User.objects.filter(pk=14).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 14), 302)
+
+
 class EditUserPermissionTargetRoleTestCase(WgerTestCase):
     """
     The gym roles of an account can only be edited when the user could grant all of them

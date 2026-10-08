@@ -87,6 +87,7 @@ from wger.core.forms import (
     UserPreferencesForm,
 )
 from wger.gym.helpers import (
+    holds_gym_permission,
     is_same_gym,
     outranks,
 )
@@ -156,9 +157,7 @@ def delete(request, user_pk=None):
         if not request.user.has_perm('gym.manage_gyms') and (
             not request.user.has_perm('gym.manage_gym')
             or not is_same_gym(request.user, user)
-            or user.has_perm('gym.manage_gym')
-            or user.has_perm('gym.gym_trainer')
-            or user.has_perm('gym.manage_gyms')
+            or holds_gym_permission(user, 'manage_gym', 'gym_trainer', 'manage_gyms')
         ):
             return HttpResponseForbidden()
     else:
