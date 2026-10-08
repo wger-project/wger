@@ -19,6 +19,12 @@ import requests
 from wger.version import get_version
 
 
+# Default (connect, read) timeout in seconds for outgoing requests. Without a
+# timeout a stalled or unresponsive remote makes requests.get() block forever,
+# hanging the sync management commands and celery workers that call these helpers.
+DEFAULT_REQUEST_TIMEOUT = (10, 60)
+
+
 def wger_user_agent():
     return f'wger/{get_version()} - https://github.com/wger-project'
 
@@ -40,7 +46,7 @@ def get_all_paginated(url: str, headers=None):
 
     results = []
     while True:
-        response = requests.get(url, headers=headers).json()
+        response = requests.get(url, headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT).json()
         url = response['next']
         results.extend(response['results'])
 
@@ -61,7 +67,7 @@ def get_paginated(url: str, headers=None):
         headers = {}
 
     while True:
-        response = requests.get(url, headers=headers).json()
+        response = requests.get(url, headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT).json()
 
         for result in response['results']:
             yield result
