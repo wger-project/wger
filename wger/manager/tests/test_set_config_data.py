@@ -20,6 +20,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.api.serializers import SetConfigDataSerializer
 from wger.manager.dataclasses import (
     SetConfigData,
+    SlotData,
     round_value,
 )
 from wger.manager.models.abstract_config import MAX_COMPOUND_RIR
@@ -187,3 +188,21 @@ class SetConfigDataTestCase(WgerTestCase):
         data = SetConfigDataSerializer(self.config).data
 
         self.assertEqual(Decimal(data['rir']), capped_rir)
+
+
+class SlotDataExercisesTestCase(WgerTestCase):
+    """
+    Test that the list of exercises of a slot keeps the order of its sets
+    """
+
+    def test_exercises_keep_set_order(self):
+        # Two rounds of a circuit, the ids are chosen so that a plain set
+        # would return them in a different order
+        exercise_ids = [2034, 2115, 974, 2108, 2116] * 2
+        slot_data = SlotData(
+            comment='',
+            sets=[SetConfigData(exercise=i, sets=1) for i in exercise_ids],
+        )
+
+        self.assertEqual(slot_data.exercises, [2034, 2115, 974, 2108, 2116])
+        self.assertTrue(slot_data.is_superset)
