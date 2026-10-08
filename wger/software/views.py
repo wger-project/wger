@@ -45,23 +45,22 @@ def fetch_github_stats() -> dict:
         return context
 
     context = {
-        'nr_users': 1,
-        'nr_exercises': 1,
-        'nr_ingredients': 1,
+        'nr_users': User.objects.count(),
+        'nr_exercises': Exercise.objects.count(),
+        'nr_ingredients': Ingredient.objects.count(),
         'nr_stars': 1,
     }
 
     try:
         result_github_api = requests.get(GITHUB_API_URL, timeout=GITHUB_API_TIMEOUT).json()
-        context['nr_users'] = User.objects.count()
-        context['nr_exercises'] = Exercise.objects.count()
-        context['nr_ingredients'] = Ingredient.objects.count()
-        context['nr_stars'] = result_github_api.get('stargazers_count', '2000')
-        cache.set(CACHE_KEY, context, CACHE_TTL_SUCCESS)
     except Exception as e:
         logger.error(f'Error fetching github stats: {e}')
         # Cache the fallback so an unreachable GitHub API is not retried on every visit.
         cache.set(CACHE_KEY, context, CACHE_TTL_FAILURE)
+        return context
+
+    context['nr_stars'] = result_github_api.get('stargazers_count', '2000')
+    cache.set(CACHE_KEY, context, CACHE_TTL_SUCCESS)
 
     return context
 
