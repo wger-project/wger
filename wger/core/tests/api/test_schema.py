@@ -73,6 +73,22 @@ class SchemaPaginationTestCase(SimpleTestCase):
         self.assertEqual(paginated, [])
 
 
+class SchemaMeasurementCategoryTestCase(SimpleTestCase):
+    """
+    The category of a measurement in the generated schema
+    """
+
+    def test_category_is_required_in_the_response_only(self):
+        """
+        A create may name the metric_type instead, a stored entry always has one
+        """
+        schemas = SchemaGenerator().get_schema(request=None, public=True)['components']['schemas']
+
+        self.assertIn('category', schemas['Measurement']['required'])
+        self.assertNotIn('category', schemas['MeasurementRequest']['required'])
+        self.assertIn('metric_type', schemas['MeasurementRequest']['properties'])
+
+
 class SchemaCacheTestCase(SimpleTestCase):
     """
     The caching of the generated schema

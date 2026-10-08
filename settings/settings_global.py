@@ -589,6 +589,7 @@ SPECTACULAR_SETTINGS = {
     'POSTPROCESSING_HOOKS': [
         'drf_spectacular.hooks.postprocess_schema_enums',
         'wger.utils.api_schema.strip_patch_defaults',
+        'wger.utils.api_schema.require_measurement_category',
     ],
     # Both are exposed as a plain "type" field on more than one component, which
     # spectacular would otherwise name with a hash suffix (e.g. Type947Enum).
