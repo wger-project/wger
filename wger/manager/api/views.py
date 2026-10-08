@@ -56,6 +56,10 @@ from wger.manager.api.serializers import (
     WorkoutLogSerializer,
     WorkoutSessionSerializer,
 )
+from wger.manager.consts import (
+    WEIGHT_UNIT_KG,
+    WEIGHT_UNIT_LB,
+)
 from wger.manager.models import (
     Day,
     MaxRepetitionsConfig,
@@ -86,6 +90,13 @@ def request_user_or_trainer_q(request):
     if trainer_identity_pk:
         return Q(user=request.user) | Q(user_id=trainer_identity_pk)
     return Q(user=request.user)
+
+
+def profile_weight_unit_id(user) -> int:
+    """
+    The id of the WeightUnit matching the user's profile preference
+    """
+    return WEIGHT_UNIT_LB if user.userprofile.weight_unit == 'lb' else WEIGHT_UNIT_KG
 
 
 class RoutineViewSet(viewsets.ModelViewSet):
@@ -311,9 +322,12 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
 
     def perform_create(self, serializer: WorkoutLogSerializer):
         """
-        Set the owner
+        Set the owner and, if the client sent no weight unit, the profile's one
         """
-        serializer.save(user=self.request.user)
+        extra = {'user': self.request.user}
+        if 'weight_unit' not in serializer.validated_data:
+            extra['weight_unit_id'] = profile_weight_unit_id(self.request.user)
+        serializer.save(**extra)
 
     @staticmethod
     def get_owner_objects():
@@ -425,6 +439,15 @@ class SlotEntryViewSet(WgerOwnerObjectModelViewSet):
             return SlotEntry.objects.none()
 
         return SlotEntry.objects.filter(slot__day__routine__user=self.request.user)
+
+    def perform_create(self, serializer: SlotEntrySerializer):
+        """
+        New entries start in the profile's weight unit unless the client chose one
+        """
+        if 'weight_unit' in serializer.validated_data:
+            serializer.save()
+        else:
+            serializer.save(weight_unit_id=profile_weight_unit_id(self.request.user))
 
     @staticmethod
     def get_owner_objects():
