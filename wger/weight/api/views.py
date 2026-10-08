@@ -15,6 +15,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import uuid
+
+# Django
+from django.http import Http404
+
 # Third Party
 from rest_framework import viewsets
 
@@ -24,7 +30,11 @@ from wger.measurements.models import (
     Measurement,
 )
 from wger.weight.api.filtersets import WeightEntryFilterSet
-from wger.weight.api.serializers import WeightEntrySerializer
+from wger.weight.api.serializers import (
+    SIGNED_LONG_MAX,
+    WeightEntrySerializer,
+    compatible_weight_entry_id,
+)
 
 
 class WeightEntryViewSet(viewsets.ModelViewSet):
@@ -49,6 +59,36 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         # Measurement orders by -date, the historic weight endpoint by date.
         # The id breaks ties so that paging through the entries is stable
         return Measurement.body_weight_for(self.request.user).order_by('date', 'id')
+
+    def get_object(self):
+        """
+        Accept the legacy numeric id as well as the measurement UUID.
+
+        Clients written against the integer primary key, and openScale-sync
+        which stores the id as a Java long, address entries by the number this
+        endpoint returns. Newer callers can still use the UUID.
+        """
+        lookup = self.kwargs[self.lookup_url_kwarg or self.lookup_field]
+        try:
+            uuid.UUID(str(lookup))
+        except (ValueError, AttributeError):
+            return self.get_object_by_compatible_id(lookup)
+        return super().get_object()
+
+    def get_object_by_compatible_id(self, lookup):
+        try:
+            wanted = int(lookup)
+        except (TypeError, ValueError):
+            raise Http404
+        if wanted < 0 or wanted > SIGNED_LONG_MAX:
+            raise Http404
+
+        queryset = self.filter_queryset(self.get_queryset())
+        for entry in queryset:
+            if compatible_weight_entry_id(entry.id) == wanted:
+                self.check_object_permissions(self.request, entry)
+                return entry
+        raise Http404
 
     def perform_create(self, serializer):
         """

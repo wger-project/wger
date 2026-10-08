@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import uuid
 from decimal import Decimal
 
 # Django
@@ -31,6 +32,21 @@ from wger.measurements.models import (
 )
 from wger.measurements.models.category import MetricType
 from wger.utils.api_token import create_token
+from wger.weight.api.serializers import (
+    SIGNED_LONG_MAX,
+    compatible_weight_entry_id,
+)
+
+
+def measurement_for_compatible_id(user, compatible_id):
+    matches = [
+        measurement
+        for measurement in Measurement.objects.filter(category__user=user)
+        if compatible_weight_entry_id(measurement.id) == compatible_id
+    ]
+    if len(matches) != 1:
+        raise Measurement.DoesNotExist
+    return matches[0]
 
 
 class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -46,6 +62,12 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
 
     def get_resource_name(self):
         return 'weightentry'
+
+    def object_for_response_id(self, response_id):
+        for entry in Measurement.objects.all():
+            if compatible_weight_entry_id(entry.id) == response_id:
+                return entry
+        raise Measurement.DoesNotExist
 
 
 class WeightEntryOfficialCategoryTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
@@ -127,7 +149,7 @@ class WeightEntryUnitTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
         response = self.client.post(self.url, {'weight': 180, 'date': timezone.now()})
 
         self.assertEqual(response.status_code, 201)
-        entry = Measurement.objects.get(pk=response.data['id'])
+        entry = measurement_for_compatible_id(user, response.data['id'])
         self.assertEqual(entry.value, Decimal('180.00'))
         self.assertEqual(entry.extra_data, {'unit': 'lb'})
 
@@ -317,3 +339,55 @@ class WeightEntryQueryCountTestCase(api_base_test.ApiBaseTestCase, WgerTestCase)
             self.assertEqual(self.client.get(url, {'limit': 100}).status_code, 200)
 
         self.assertEqual(len(long_list.captured_queries), len(short_list.captured_queries))
+
+
+class WeightEntryCompatibleIdTestCase(api_base_test.ApiBaseTestCase, WgerTestCase):
+    """
+    openScale-sync stores weight entry ids as a Java long
+    """
+
+    url = '/api/v2/weightentry/'
+    entry_pk = '11111111-1111-1111-1111-000000000001'
+
+    def test_list_and_detail_use_a_signed_long(self):
+        """
+        Test that the public id fits in a signed 64-bit integer
+        """
+        entry = Measurement.objects.get(pk=self.entry_pk)
+        expected = compatible_weight_entry_id(entry.id)
+
+        self.authenticate('test')
+        detail = self.client.get(f'{self.url}{self.entry_pk}/')
+        self.assertEqual(detail.status_code, 200)
+        self.assertIsInstance(detail.data['id'], int)
+        self.assertEqual(detail.data['id'], expected)
+        self.assertLessEqual(detail.data['id'], SIGNED_LONG_MAX)
+
+        listing = self.client.get(self.url)
+        ids = {row['id'] for row in listing.data['results']}
+        self.assertIn(expected, ids)
+        self.assertTrue(
+            all(isinstance(row_id, int) and 0 <= row_id <= SIGNED_LONG_MAX for row_id in ids)
+        )
+
+    def test_numeric_id_round_trip(self):
+        """
+        Test that the number from the list can update and delete the entry
+        """
+        self.authenticate('test')
+        compatible_id = compatible_weight_entry_id(uuid.UUID(self.entry_pk))
+
+        response = self.client.patch(f'{self.url}{compatible_id}/', {'weight': 79})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], compatible_id)
+        self.assertEqual(Measurement.objects.get(pk=self.entry_pk).value, Decimal('79.00'))
+
+        self.assertEqual(self.client.delete(f'{self.url}{compatible_id}/').status_code, 204)
+        self.assertFalse(Measurement.objects.filter(pk=self.entry_pk).exists())
+
+    def test_unknown_numeric_id_is_not_found(self):
+        """
+        Test that a long which matches no entry is a 404
+        """
+        self.authenticate('test')
+        self.assertEqual(self.client.get(f'{self.url}1/').status_code, 404)
