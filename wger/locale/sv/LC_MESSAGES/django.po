@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-06-18 10:05+0000\n"
-"Last-Translator: Jonas <frassefraze@hotmail.com>\n"
+"PO-Revision-Date: 2026-10-13 12:31+0000\n"
+"Last-Translator: kentanyll <georkors100@student.kau.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -408,10 +408,13 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Det uppstod ett fel på servern när din begäran bearbetades. Försök att "
+"uppdatera webbläsaren och om det inte hjälper kan du försöka igen senare. Om "
+"problemet kvarstår kan du söka hjälp på följande sätt:"
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Snart klart!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -513,19 +516,19 @@ msgstr "Inget konto?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Snabbare inloggning"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Logga in med en passnyckel"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "eller logga in med"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Har du redan ett konto?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -533,6 +536,8 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
+"Du surfar på webbplatsen som användaren ”%(current_user)s”, och alla "
+"åtgärder utförs på dennes data."
 
 #: core/templates/base.html:17 core/templates/base_wide.html:14
 #, python-format
@@ -548,6 +553,11 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
+"Du är\n"
+"……………när man surfar på webbplatsen som användaren ” %(current_user)s ” "
+"utförs alla åtgärder på\n"
+"……………sina uppgifter.\n"
+"            "
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -620,7 +630,7 @@ msgstr "Ingenting hittades"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:151
 msgid "Imprint"
-msgstr ""
+msgstr "Impressum"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
 msgid "Training"
@@ -645,7 +655,7 @@ msgstr "Galleri"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Troféer"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -720,7 +730,7 @@ msgstr "Om programvaran"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Stöd & Engagera dig"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
@@ -848,7 +858,7 @@ msgstr "Villkor för tjänsten"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Webbläsarens språk"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -856,7 +866,7 @@ msgstr "Funktioner"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "API-åtkomst"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -864,10 +874,13 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Det finns två sätt att autentisera sig mot API:et: JWT är den rekommenderade "
+"metoden för klientapplikationer, medan den statiska API-nyckeln är avsedd "
+"för personliga skript eller engångsintegrationer."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Uppdateringstoken med lång livslängd"
 
 #: core/templates/user/api_key.html:19
 msgid ""
