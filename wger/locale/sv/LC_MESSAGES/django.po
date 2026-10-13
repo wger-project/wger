@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-10-13 17:36+0000\n"
+"PO-Revision-Date: 2026-10-13 17:51+0000\n"
 "Last-Translator: kentanyll <georkors100@student.kau.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
@@ -1447,15 +1447,15 @@ msgstr "Ett enklare namn på muskeln"
 #: exercises/models/video.py:52
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "Den maximala filstorleken är %(size)s MB."
 
 #: exercises/models/video.py:59 exercises/models/video.py:67
 msgid "File type is not supported"
-msgstr ""
+msgstr "Denna filtyp stöds inte"
 
 #: exercises/models/video.py:72
 msgid "File is not a valid video"
-msgstr ""
+msgstr "Filen är inte en giltig videofil"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1489,19 +1489,19 @@ msgstr "Återställa"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Konto som är yngre än 60 dagar"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "nya"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "skapad"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "redigerad"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
@@ -1509,15 +1509,15 @@ msgstr "tog bort"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "sammanslagna"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "till"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "media"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1529,7 +1529,7 @@ msgstr "Objektet togs bort"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
-msgstr ""
+msgstr "Återställ ändringen"
 
 #: exercises/templates/history/overview.html:187
 msgid "Open object"
@@ -1537,27 +1537,27 @@ msgstr "Öppna objekt"
 
 #: exercises/templates/history/overview.html:198
 msgid "Revert this change?"
-msgstr ""
+msgstr "Ska denna ändring återställas?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Objektet återställs till sitt tidigare tillstånd."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
-msgstr ""
+msgstr "Återställ"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Inga ändringar matchar filtren."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Återställ filter"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
@@ -1576,12 +1576,12 @@ msgstr "Föregående"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Sida %(current)s av %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Nästa"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1621,7 +1621,7 @@ msgstr "Typ"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1629,11 +1629,11 @@ msgstr "Åtgärd"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Från"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Tll"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1641,7 +1641,7 @@ msgstr "Lägg till muskel"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Om datum lämnas tomt kommer det att läsas från bilden istället"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -1778,11 +1778,11 @@ msgstr ""
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
 msgid "Show name in header"
-msgstr ""
+msgstr "Visa namn i rubriken"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Visa gymmets namn i webbplatsens rubrik"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
