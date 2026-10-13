@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-10-13 12:31+0000\n"
+"PO-Revision-Date: 2026-10-13 17:36+0000\n"
 "Last-Translator: kentanyll <georkors100@student.kau.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
@@ -887,6 +887,8 @@ msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"Med hjälp av uppdateringstoken kan skript och CLI-verktyg kommunicera med "
+"wger-API:et via JWT-flödet utan att behöva logga in interaktivt varje gång."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -894,13 +896,15 @@ msgstr "Generera en ny refresh-token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Kopiera den här koden nu."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Den visas endast en gång. Om du tappar bort den ska du skapa en ny och "
+"återkalla den gamla sessionen nedan."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -908,6 +912,8 @@ msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr ""
+"Uppdateringstoken upphör att gälla %(days)s dagar efter att de genererades, "
+"såvida du inte återkallar dem tidigare."
 
 #: core/templates/user/api_key.html:65
 msgid "Created"
@@ -915,15 +921,15 @@ msgstr "Skapad"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Utgår"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Upphäv"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Återkalla alla uppdateringstoken"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -931,7 +937,7 @@ msgstr "JWT-sessioner"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Återkalla alla JWT-sessioner"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -946,13 +952,25 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                …………Det finns för närvarande <strong>%(counter)s</strong> "
+"aktiv JWT-session\n"
+"………\n"
+"            "
 msgstr[1] ""
+"\n"
+"                …………Det finns för närvarande <strong> %(counter)</strong> "
+"aktiva JWT-sessioner\n"
+"………\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"När JWT-sessioner återkallas loggas alla enheter ut som har erhållit en "
+"uppdateringstoken via JWT-inloggningsändpunkten."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
@@ -982,10 +1000,14 @@ msgid ""
 "            <code>Authorization</code> header to use it.\n"
 "        "
 msgstr ""
+"\n"
+"            Pass<code>Token%(key)s</code> i den\n"
+"            <code>Auktorisering</code> rubrik för att använda den.\n"
+"        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Exempel med curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -997,21 +1019,23 @@ msgstr "API-dokumentation"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Gå tillbaka till appen"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Återgå till wger-appen…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Om ingenting händer, tryck på knappen nedan. Se till att wger-appen är "
+"installerad på den här enheten."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Tryck för att återgå till appen"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1245,7 +1269,7 @@ msgstr "Preferenser"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Konto och säkerhet"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
@@ -1265,15 +1289,15 @@ msgstr "Ange lösenord"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Tvåfaktorsautentisering"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "På"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Av"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1281,11 +1305,11 @@ msgstr "Anslutna konton"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Riskzon"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Ditt konto och all träningsdata kommer att raderas permanent."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1381,16 +1405,16 @@ msgstr "API-nyckeln togs bort"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Alla API-sessioner har återkallats"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Uppdateringstokenet har återkallats"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Återkallade {count} uppdateringstoken(er)"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1418,7 +1442,7 @@ msgstr "Alternativt namn"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Ett enklare namn på muskeln"
 
 #: exercises/models/video.py:52
 #, python-format
@@ -1456,12 +1480,12 @@ msgstr "Redigeringar senaste 30d"
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Ansök"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Återställa"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
@@ -1960,7 +1984,7 @@ msgstr "Vader"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Cardio"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -1980,7 +2004,7 @@ msgstr "Gym mat"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr ""
+msgstr "Hamstrings"
 
 #: i18n.tpl:16
 msgid "Incline bench"
@@ -2000,7 +2024,7 @@ msgstr "Kilometer i timmen"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "Lats"
 
 #: i18n.tpl:21
 msgid "Legs"
@@ -2008,7 +2032,7 @@ msgstr "Ben"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Ländrygg"
 
 #: i18n.tpl:23
 msgid "Max Reps"
@@ -2020,7 +2044,7 @@ msgstr "Mil"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Miles per timme"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2028,7 +2052,7 @@ msgstr "Minuter"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Tallrikar"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2036,11 +2060,11 @@ msgstr "Pull-up bar"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "Fyrhjulingar"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Motståndsband"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -2076,7 +2100,7 @@ msgstr "ingen (kroppsvikt träning)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Nybörjare"
 
 #: i18n.tpl:43
 msgid "Consistent"
@@ -2084,11 +2108,11 @@ msgstr "Konsekvent"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Hängiven"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Besatt"
 
 #: i18n.tpl:46
 msgid "Legend"
@@ -2096,51 +2120,51 @@ msgstr "Legend"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Veteran"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titan"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Ostoppbar"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Helgkrigare"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Elefantlyftare"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Busslyftare"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Planlyftare"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Blåvalslyftare"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Rymdstationslyftare"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Miljönar"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Tidig Fågel"
 
 #: i18n.tpl:59
 msgid "Night Owl"
@@ -2148,11 +2172,11 @@ msgstr "Nattuggla"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Nytt År, Nytt Jag"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Phoenix"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2188,47 +2212,47 @@ msgstr "Slutför 1000 träningspass"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Håll en 30-dagars träningsserie"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Träna på lördag och söndag under 4 helger i följd"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Lyft totalt 5.000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Lyft totalt 20.000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Lyft totalt 50.000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Lyft totalt 150.000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Lyft totalt 450.000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Lyft totalt 1.000.000 kg"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Lyft totalt 10.000.000 kg"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Slutför ett träningspass före 06:00"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Slutför ett träningspass efter 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
@@ -2236,11 +2260,11 @@ msgstr "Träna den 1 januari"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Återgå till träningen efter 30 dagars inaktivitet"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Sätt ett nytt personbästa i valfri övning"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2254,7 +2278,7 @@ msgstr "Innehåll"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Skapa förhandsvisning"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2304,11 +2328,11 @@ msgstr "Reps"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr ""
+msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "vila"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2361,7 +2385,8 @@ msgstr ""
 "Du får regelbundet sådana påminnelser tills du lägger till ett nytt "
 "träningspass.\n"
 "Alternativt kan du lägga till träningspass till ett loop schema, sådana "
-"scheman ger aldrig påminnelser."
+"scheman\n"
+"ger aldrig påminnelser."
 
 #: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2377,7 +2402,7 @@ msgstr ""
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr "1%(site)s lag"
+msgstr "%(site)s laget"
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -2406,7 +2431,7 @@ msgstr "Träning för %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Servering"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
@@ -2434,7 +2459,7 @@ msgstr ""
 
 #: nutrition/forms.py:213
 msgid "grams (g)"
-msgstr ""
+msgstr "gram (g)"
 
 #: nutrition/forms.py:223
 msgid "Ingredient"
@@ -2446,30 +2471,32 @@ msgstr "Sök även efter namn på engelska"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Antal"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Ange en mängd och välj gram (g) eller någon av portionsenheterna."
 
 #: nutrition/models/ingredient.py:476
 msgid "Portion"
-msgstr "Portion"
+msgstr "Del"
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
 msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
-msgstr "Din ingrediens '%(ingredient)s' lades till den allmänna databasen."
+msgstr ""
+"Din ingrediens '%(ingredient)s' lades till den allmänna\n"
+"databasen."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
-"Det är nu tillgänglig på ingrediensöversikten och kan användas i kostplaner. "
-"Du kan finna den på denna adress:"
+"Det är nu tillgänglig på ingrediensöversikten och\n"
+"kan användas i kostplaner. Du kan finna den på denna adress:"
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
@@ -2483,7 +2510,9 @@ msgstr "Ladda upp ingredient"
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr "Tack för att du laddat upp en ingrediens. Detta är väldigt uppskattat!"
+msgstr ""
+"Tack för att du laddat upp en ingrediens. Detta är\n"
+"väldigt uppskattat!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -2505,7 +2534,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Vegansk"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
@@ -2550,7 +2579,7 @@ msgstr "Makronäringsämnen"
 
 #: nutrition/templates/ingredient/view.html:87
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:103 nutrition/views/plan.py:267
 msgid "Sugar content in carbohydrates"
@@ -2576,7 +2605,7 @@ msgstr "Andra"
 
 #: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Fiber"
 
 #: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
 msgid "Sodium"
@@ -2683,12 +2712,12 @@ msgstr "Lägg till en ny ingrediens"
 
 #: nutrition/views/plan.py:128
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Näringsplan"
 
 #: nutrition/views/plan.py:130
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Näringsplan för %s"
 
 #: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
