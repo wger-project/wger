@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import uuid
+
 # Third Party
 from rest_framework import serializers
 
@@ -26,6 +29,22 @@ from wger.measurements.limits import (
 )
 from wger.measurements.models import Measurement
 from wger.measurements.models.category import MetricType
+
+
+# Java's signed long. openScale-sync parses this id with Long.parseLong.
+SIGNED_LONG_MAX = (1 << 63) - 1
+
+
+def compatible_weight_entry_id(pk: uuid.UUID) -> int:
+    """
+    Stable positive id for the legacy weight endpoint.
+
+    Body weight now lives on Measurement, whose primary key is a UUID. The
+    openScale sync still models ``/api/v2/weightentry/`` ids as a Java long
+    (wger-project/wger#2525). The low 63 bits of the UUID fit that type.
+    A collision would require two of one user's entries to share those bits.
+    """
+    return pk.int & SIGNED_LONG_MAX
 
 
 class WeightEntrySerializer(serializers.ModelSerializer):
@@ -75,4 +94,5 @@ class WeightEntrySerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         unit = self.context['request'].user.userprofile.weight_unit
         data['weight'] = self.fields['weight'].to_representation(instance.value_in(unit))
+        data['id'] = compatible_weight_entry_id(instance.id)
         return data
