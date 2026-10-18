@@ -19,7 +19,21 @@ import nh3
 from markdown_it import MarkdownIt
 
 
-ALLOWED_TAGS = {'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
+ALLOWED_TAGS = {'a', 'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p'}
+
+# Links keep only their target, and only for web and mail addresses
+# (no javascript: or data: URLs); nh3 adds rel="noopener noreferrer".
+ALLOWED_ATTRIBUTES = {'a': {'href'}}
+ALLOWED_URL_SCHEMES = {'http', 'https', 'mailto'}
+
+
+def _clean(html):
+    return nh3.clean(
+        html,
+        tags=ALLOWED_TAGS,
+        attributes=ALLOWED_ATTRIBUTES,
+        url_schemes=ALLOWED_URL_SCHEMES,
+    )
 
 
 def render_markdown(text):
@@ -33,7 +47,7 @@ def render_markdown(text):
     md = MarkdownIt('commonmark', {'breaks': True, 'html': True})
     raw_html = md.render(text)
 
-    return nh3.clean(raw_html, tags=ALLOWED_TAGS, attributes={})
+    return _clean(raw_html)
 
 
 def sanitize_html(text):
@@ -43,4 +57,4 @@ def sanitize_html(text):
     if not text:
         return ''
 
-    return nh3.clean(text, tags=ALLOWED_TAGS, attributes={})
+    return _clean(text)
