@@ -595,6 +595,11 @@ def app_auth_handoff(request):
     itself. The value is treated as opaque but constrained to base64url characters
     and a sane length to prevent abuse of the reflection.
     """
+
+    # A trainer logged in as a member must not get credentials that outlive the session
+    if request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
+
     token = mint_long_lived_refresh_token(
         request.user,
         settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,

@@ -34,11 +34,10 @@ FAILURE_LIMIT = 3
 @override_settings(AXES_ENABLED=True, AXES_FAILURE_LIMIT=FAILURE_LIMIT)
 class AxesLockoutTestCase(WgerTestCase):
     """
-    Tests the brute force protection
+    Tests the per-IP brute force protection
 
-    allauth's own login rate limit is switched off (see settings_global), so
-    django-axes is the only thing standing between an attacker and unlimited
-    password guessing.
+    allauth additionally throttles per username (see settings_global), the
+    failure limit here stays below that.
     """
 
     def setUp(self):
@@ -98,8 +97,7 @@ class AxesLockoutTestCase(WgerTestCase):
 
     def test_api_login_is_covered(self):
         """
-        The API login endpoint has to be protected too, it is the reason
-        allauth's own rate limiting was switched off
+        The API login endpoint has to be protected too
         """
         for _ in range(FAILURE_LIMIT):
             self.api_login('wrong password')
@@ -118,6 +116,7 @@ class AxesLockoutTestCase(WgerTestCase):
         self.assertFalse(response.wsgi_request.user.is_authenticated)
 
 
+@override_settings(ACCOUNT_RATE_LIMITS={'login_failed': None})
 class AxesDisabledInTestsTestCase(WgerTestCase):
     """
     The shared base test case switches axes off so the other tests can log in

@@ -24,6 +24,7 @@ from django.contrib.auth import (
     login,
     logout,
 )
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -191,3 +192,30 @@ class TimezoneMiddleware:
             timezone.deactivate()
 
         return self.get_response(request)
+
+
+class TrainerLoginMiddleware:
+    """
+    Keeps a trainer logged in as a member out of allauth's account pages
+
+    These change how the account is logged into or recovered (email, password,
+    two-factor, social connections), which would outlive the trainer session.
+    Logging out stays possible.
+    """
+
+    allowed_url_names = {'account_logout'}
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        return self.get_response(request)
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        if not request.session.get('trainer.identity'):
+            return None
+        if request.resolver_match.url_name in self.allowed_url_names:
+            return None
+        if view_func.__module__.startswith('allauth.'):
+            return HttpResponseForbidden()
+        return None
