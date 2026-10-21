@@ -82,3 +82,22 @@ class PlanCopyTestCase(WgerTestCase):
                 copied_dict = model_to_dict(copied_meal_item, exclude=['id', 'meal'])
                 self.assertEqual(orig_dict, copied_dict)
                 self.assertNotEqual(orig_meal_item.id, copied_meal_item.id)
+
+
+class PlanDiaryPageTestCase(WgerTestCase):
+    """
+    The React frontend links each diary date of a plan as /<lang>/nutrition/<plan>/<date>,
+    so the page must also load when opened directly (new tab, reload, bookmark).
+    """
+
+    def test_diary_date_page_loads_directly(self):
+        self.user_login()
+        response = self.client.get(
+            f'/en/nutrition/{PLAN_OWNED_BY_TEST_USER}/2026-10-11', follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_diary_page_loads_directly(self):
+        self.user_login()
+        response = self.client.get(f'/en/nutrition/{PLAN_OWNED_BY_TEST_USER}/diary', follow=True)
+        self.assertEqual(response.status_code, 200)
