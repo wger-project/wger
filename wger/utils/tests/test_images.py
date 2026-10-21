@@ -15,7 +15,10 @@
 # Standard Library
 import io
 from tempfile import NamedTemporaryFile
-from unittest import skipUnless
+from unittest import (
+    mock,
+    skipUnless,
+)
 
 # Django
 from django.core.exceptions import ValidationError
@@ -72,6 +75,20 @@ class ValidateImageStaticNoAnimationTestCase(SimpleTestCase):
     def test_animated_avif_is_rejected(self):
         with self.assertRaisesMessage(ValidationError, 'Animated images are not supported'):
             validate_image_static_no_animation(upload(make_image('AVIF', frames=2)))
+
+    def test_animated_png_is_rejected(self):
+        with self.assertRaisesMessage(ValidationError, 'Animated images are not supported'):
+            validate_image_static_no_animation(upload(make_image('PNG', frames=2)))
+
+    def test_truncated_image_is_rejected(self):
+        with self.assertRaisesMessage(ValidationError, 'File is not a valid image'):
+            validate_image_static_no_animation(upload(make_image('JPEG')[:200]))
+
+    def test_decompression_bomb_is_rejected(self):
+        # 16 pixels are more than twice the limit, which is where Pillow raises
+        with mock.patch.object(Image, 'MAX_IMAGE_PIXELS', 7):
+            with self.assertRaisesMessage(ValidationError, 'The image dimensions are too large'):
+                validate_image_static_no_animation(upload(make_image('PNG')))
 
     def test_files_that_are_no_image_are_rejected(self):
         for content in (b'', b'not an image'):
