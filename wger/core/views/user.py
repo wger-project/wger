@@ -88,6 +88,7 @@ from wger.core.forms import (
 )
 from wger.gym.helpers import (
     holds_gym_permission,
+    holds_permissions_beyond,
     is_same_gym,
     outranks,
 )
@@ -216,11 +217,13 @@ def trainer_login(request, user_pk):
         if user.pk != trainer_identity_pk:
             return HttpResponseForbidden()
 
-    # Direct trainer-login: target must not itself be a privileged account.
+    # Direct trainer-login: target must not itself be a privileged account,
+    # nor hold permissions the trainer lacks (e.g. exercise editors)
     if request.user.has_perm('gym.gym_trainer') and (
         user.has_perm('gym.gym_trainer')
         or user.has_perm('gym.manage_gym')
         or user.has_perm('gym.manage_gyms')
+        or holds_permissions_beyond(user, request.user)
     ):
         return HttpResponseForbidden()
 

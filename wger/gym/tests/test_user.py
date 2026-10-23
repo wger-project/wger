@@ -17,6 +17,7 @@ import datetime
 
 # Django
 from django.contrib.auth.models import (
+    Group,
     Permission,
     User,
 )
@@ -287,6 +288,19 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.client.session.get('trainer.identity'))
 
+    def test_exercise_admin(self):
+        """
+        Test changing the identity to a user maintaining the exercise database
+        """
+        for group in ('exercises_admin', 'exercises_editor'):
+            User.objects.get(pk=2).groups.set([Group.objects.get(name=group)])
+
+            self.user_login('trainer1')
+            response = self.client.post(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
+            self.assertEqual(response.status_code, 403)
+            self.assertFalse(self.client.session.get('trainer.identity'))
+            self.user_logout()
+
     def test_get_does_not_rebind_session(self):
         """
         ``trainer_login`` must reject unsafe HTTP methods
@@ -335,6 +349,10 @@ class ResetPasswordTargetRoleTestCase(WgerTestCase):
     def test_manager_can_reset_member(self):
         self.assertEqual(self.reset('manager1', 14), 200)
 
+    def test_manager_cannot_reset_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.reset('manager1', 14), 403)
+
     def test_general_manager_cannot_reset_admin(self):
         self.assertEqual(self.reset('general_manager1', 1), 403)
 
@@ -382,6 +400,10 @@ class EditUserTargetRoleTestCase(WgerTestCase):
 
     def test_manager_can_edit_member(self):
         self.assertEqual(self.edit('manager1', 14), 302)
+
+    def test_manager_cannot_edit_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.edit('manager1', 14), 403)
 
     def test_general_manager_cannot_edit_general_manager(self):
         self.assertEqual(self.edit('general_manager1', 13), 403)

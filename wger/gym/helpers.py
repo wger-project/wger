@@ -107,6 +107,27 @@ def holds_gym_permission(user, *codenames: str) -> bool:
     ).exists()
 
 
+def holds_permissions_beyond(target, actor) -> bool:
+    """
+    Whether the target holds any permission the actor doesn't, directly or
+    through a group (e.g. exercise editors). Superusers hold all of them.
+
+    Unlike has_perm this also works for deactivated accounts.
+    """
+    if actor.is_superuser:
+        return False
+
+    if target.is_superuser:
+        return True
+
+    actor_permissions = Permission.objects.filter(Q(user=actor) | Q(group__user=actor))
+    return (
+        Permission.objects.filter(Q(user=target) | Q(group__user=target))
+        .exclude(pk__in=actor_permissions)
+        .exists()
+    )
+
+
 def outranks(actor, target) -> bool:
     """
     Whether the actor has more gym privileges than the target, needed for
@@ -114,7 +135,8 @@ def outranks(actor, target) -> bool:
 
     - superusers outrank everybody
     - general managers outrank everybody except other general managers
-    - managers only outrank accounts without any gym role
+    - managers only outrank accounts without any gym role and without
+      permissions they don't hold themselves
     """
     if actor.is_superuser:
         return True
@@ -125,7 +147,9 @@ def outranks(actor, target) -> bool:
     if actor.has_perm('gym.manage_gyms'):
         return True
 
-    return not holds_gym_permission(target, 'manage_gym', 'gym_trainer')
+    return not holds_gym_permission(
+        target, 'manage_gym', 'gym_trainer'
+    ) and not holds_permissions_beyond(target, actor)
 
 
 def get_permission_list(user):
