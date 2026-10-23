@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.14'",
@@ -1357,16 +1357,16 @@ wheels = [
 
 [[package]]
 name = "openfoodfacts"
-version = "5.3.0"
+version = "5.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
     { name = "requests" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/08/46/ddf2e944688d9133f06366e9208ea655dcd623cc2bece4b8b835fa3c4403/openfoodfacts-5.3.0.tar.gz", hash = "sha256:7d62170b390ee33f2f87e82e909642cf17d58e6fd8ba787c8ee70798373dab7b", size = 61345, upload-time = "2026-07-07T12:37:57.963Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/61/92/53bb42e2675f827c6179157ec957c42bb118ef9676beaf55622a7a6fe103/openfoodfacts-5.4.0.tar.gz", hash = "sha256:10e3781102fbd5dee441aeb80d927767c36cc5dc58798001ce8f114b7cb711a4", size = 62842, upload-time = "2026-10-19T07:36:00.466Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f0/8a/0cd7e05c52f7dc9137575fdd8b20bd0679145a5322b6c20f00331d5d5ef4/openfoodfacts-5.3.0-py3-none-any.whl", hash = "sha256:00121bcaf476c1bac15c03ac5eb6c46fc31cd58a6b767eefa95e9e04148eb435", size = 64852, upload-time = "2026-07-07T12:37:57.03Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/1d/34b551e3aead0f6036aac4ce5a24401504d1d8cd04383f1bd2c4df47faac/openfoodfacts-5.4.0-py3-none-any.whl", hash = "sha256:3d10e317a18cb531c484ef38732a4febbeceb0a528a22dddeec83453c65aae06", size = 66238, upload-time = "2026-10-19T07:36:01.5Z" },
 ]
 
 [[package]]
@@ -2221,7 +2221,7 @@ requires-dist = [
     { name = "markdown-it-py", specifier = "~=4.2" },
     { name = "markdownify", specifier = "~=1.2" },
     { name = "nh3", specifier = "~=0.3" },
-    { name = "openfoodfacts", specifier = "~=5.3.0" },
+    { name = "openfoodfacts", specifier = "~=5.4.0" },
     { name = "packaging", specifier = "~=26.2" },
     { name = "pillow", specifier = "~=13.0.0" },
     { name = "psycopg", extras = ["binary"], specifier = "~=3.3.2" },
