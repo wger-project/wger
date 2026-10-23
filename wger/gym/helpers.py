@@ -152,6 +152,23 @@ def outranks(actor, target) -> bool:
     ) and not holds_permissions_beyond(target, actor)
 
 
+def may_change_activation(actor, target) -> bool:
+    """
+    Whether the actor may deactivate or reactivate the target's account
+
+    - superusers and general managers can (de)activate every account
+    - managers can't (de)activate general managers or superusers
+    - trainers only (de)activate accounts without any gym role
+    """
+    if actor.has_perm('gym.manage_gyms'):
+        return True
+
+    if actor.has_perm('gym.manage_gym'):
+        return not holds_gym_permission(target, 'manage_gyms')
+
+    return not holds_gym_permission(target, 'manage_gyms', 'manage_gym', 'gym_trainer')
+
+
 def get_permission_list(user):
     """
     Calculate available user permissions

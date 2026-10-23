@@ -90,6 +90,7 @@ from wger.gym.helpers import (
     holds_gym_permission,
     holds_permissions_beyond,
     is_same_gym,
+    may_change_activation,
     outranks,
 )
 from wger.gym.models import (
@@ -398,19 +399,8 @@ class UserDeactivateView(
         ) and not is_same_gym(request.user, edit_user):
             return HttpResponseForbidden()
 
-        # A user with only the trainer permission must not be able to (de)activate
-        # other gym staff (managers, fellow trainers, general managers). Group
-        # membership is checked directly so the rule still applies when the
-        # target account is currently deactivated (``has_perm`` returns ``False``
-        # for inactive users).
-        if (
-            request.user.has_perm('gym.gym_trainer')
-            and not request.user.has_perm('gym.manage_gym')
-            and not request.user.has_perm('gym.manage_gyms')
-            and edit_user.groups.filter(
-                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
-            ).exists()
-        ):
+        # Gym staff must not lock out the accounts above them
+        if not may_change_activation(request.user, edit_user):
             return HttpResponseForbidden()
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
@@ -446,19 +436,8 @@ class UserActivateView(
         ) and not is_same_gym(request.user, edit_user):
             return HttpResponseForbidden()
 
-        # A user with only the trainer permission must not be able to
-        # (de)activate other gym staff (managers, fellow trainers,
-        # general managers). Group membership is checked directly so the
-        # rule still applies when the target account is currently
-        # deactivated (``has_perm`` returns ``False`` for inactive users).
-        if (
-            request.user.has_perm('gym.gym_trainer')
-            and not request.user.has_perm('gym.manage_gym')
-            and not request.user.has_perm('gym.manage_gyms')
-            and edit_user.groups.filter(
-                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
-            ).exists()
-        ):
+        # Gym staff must not reactivate the accounts above them
+        if not may_change_activation(request.user, edit_user):
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
