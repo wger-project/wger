@@ -80,6 +80,19 @@ class TrainerLoginAccountManagementTestCase(WgerTestCase):
         self.member.refresh_from_db()
         self.assertFalse(self.member.has_usable_password())
 
+    def test_account_can_not_be_deleted(self):
+        """
+        A member without a usable password (social login) can't be deleted by
+        typing the username
+        """
+        self.member.set_unusable_password()
+        self.member.save()
+        self.impersonate_member()
+
+        response = self.client.post(reverse('core:user:delete'), {'username': 'test'})
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(User.objects.filter(pk=self.member.pk).exists())
+
     def test_logout_still_works(self):
         """
         The session can still be ended

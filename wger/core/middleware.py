@@ -200,7 +200,8 @@ class TrainerLoginMiddleware:
 
     These change how the account is logged into or recovered (email, password,
     two-factor, social connections), which would outlive the trainer session.
-    Logging out stays possible.
+    Logging out stays possible. Deleting the member's own account is blocked
+    as well, trainers can't delete members otherwise.
     """
 
     allowed_url_names = {'account_logout'}
@@ -217,5 +218,8 @@ class TrainerLoginMiddleware:
         if request.resolver_match.url_name in self.allowed_url_names:
             return None
         if view_func.__module__.startswith('allauth.'):
+            return HttpResponseForbidden()
+        # Both delete routes share the name, only the one without user_pk is the own account
+        if request.resolver_match.view_name == 'core:user:delete' and 'user_pk' not in view_kwargs:
             return HttpResponseForbidden()
         return None
