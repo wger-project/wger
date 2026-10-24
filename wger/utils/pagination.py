@@ -29,6 +29,20 @@ class WgerLimitOffsetPagination(LimitOffsetPagination):
     max_limit = 999
 
 
+class MuscleLimitOffsetPagination(WgerLimitOffsetPagination):
+    """
+    The muscle table is small and bounded, so the first page returns all of it.
+
+    Clients such as the exercise form's muscle dropdown request the list
+    without a ``limit`` parameter and do not follow ``next``; raising the
+    ``default_limit`` to the hard upper bound keeps the paginated response
+    envelope while making that first page complete. An explicit ``limit``
+    or ``offset`` still paginates as usual.
+    """
+
+    default_limit = WgerLimitOffsetPagination.max_limit
+
+
 class IngredientLimitOffsetPagination(WgerLimitOffsetPagination):
     """
     Reports at most ``count_cap`` results for a filtered list, so clients also
