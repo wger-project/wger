@@ -15,9 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-10-20 20:39+0000\n"
-"Last-Translator: Tomek Jabłoński "
-"<tomekjabonski@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-10-25 06:51+0000\n"
+"Last-Translator: Tomek Jabłoński <tekj@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -480,7 +479,7 @@ msgstr "Aktualny adres e-mail"
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr ""
+msgstr "Oczekuje na potwierdzenie: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
@@ -515,7 +514,7 @@ msgstr "Brak konta?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Szybsze logowanie"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
@@ -523,7 +522,7 @@ msgstr "Zaloguj się przy użyciu klucza dostępu (passkey)"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "albo zaloguj się z"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
