@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-10-03 00:44+0000\n"
+"PO-Revision-Date: 2026-10-10 18:51+0000\n"
 "Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -24,7 +24,7 @@ msgstr ""
 "? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
 "14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
 "100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -254,7 +254,9 @@ msgstr "Нагадати перед завершенням"
 
 #: core/models/profile.py:131
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr "Кількість днів для нагадування перед закінченням тренування."
+msgstr ""
+"Кількість днів, за які ви бажаєте отримувати нагадування до закінчення "
+"тренування."
 
 #: core/models/profile.py:137
 msgid "Default duration of workouts"
@@ -340,7 +342,7 @@ msgstr "Одиниця ваги"
 
 #: core/models/profile.py:319
 msgid "Automatic reminders for weight entries"
-msgstr "Автоматичні нагадування для записів ваги"
+msgstr "Автоматичні нагадування про введення ваги"
 
 #: core/models/profile.py:320
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
@@ -428,7 +430,9 @@ msgstr "Ще зовсім трохи!"
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr "Ви отримали цей лист, тому що користувач «%(user_display)s» вказав вашу електронну адресу для реєстрації облікового запису на %(site_domain)s."
+msgstr ""
+"Ви отримали цей лист, оскільки користувач «%(user_display)s» надав вашу "
+"адресу електронної пошти для реєстрації облікового запису на %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
 msgid ""
@@ -541,8 +545,8 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Ви переглядаєте сайт як користувач \"%(current_user)s\", усі дії виконуються "
-"з його даними."
+"Ви переглядаєте сайт як користувач «%(current_user)s»; всі дії виконуються з "
+"його даними."
 
 #: core/templates/base.html:17 core/templates/base_wide.html:14
 #, python-format
@@ -558,10 +562,9 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Ви\n"
-"                переглядаєте сайт як користувач \"%(current_user)s\", усі "
-"дії виконуються з\n"
-"                їхніми даними.\n"
+"Ви переглядаєте сайт\n"
+" як користувач «%(current_user)s»; всі дії виконуються\n"
+"з його даними.\n"
 "            "
 
 #: core/templates/delete.html:4
@@ -692,7 +695,7 @@ msgstr "Обладнання"
 
 #: core/templates/navigation.html:125
 msgid "Muscles"
-msgstr "М'язи"
+msgstr "Групи м'язів"
 
 #: core/templates/navigation.html:131
 #: exercises/templates/categories/admin-overview.html:4
@@ -894,8 +897,8 @@ msgid ""
 "flow without logging in interactively each time."
 msgstr ""
 "Токени оновлення дозволяють скриптам і CLI-інструментам взаємодіяти з API "
-"wger за допомогою потоку JWT без необхідності щоразу входити в обліковий "
-"запис інтерактивно."
+"wger за допомогою потоку JWT без необхідності щоразу проводити інтерактивний "
+"вхід."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -1100,7 +1103,7 @@ msgstr "Опис"
 
 #: core/templates/user/overview.html:42
 msgid "Number of logs (days)"
-msgstr "Кількість записів (днів)"
+msgstr "Кількість записів за дні"
 
 #: core/templates/user/overview.html:43 core/views/user.py:681
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:161
@@ -1121,7 +1124,7 @@ msgstr "Загальне враження"
 
 #: core/templates/user/overview.html:92 core/templates/user/overview.html:416
 msgid "Notes"
-msgstr "Примітки"
+msgstr "Нотатки"
 
 #: core/templates/user/overview.html:126 core/templates/user/overview.html:139
 #: manager/helpers.py:89 weight/templates/import_csv_preview.html:14
@@ -1319,7 +1322,8 @@ msgstr "Небезпечна зона"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr "Ваш обліковий запис і всі дані про тренування буде видалено назавжди."
+msgstr ""
+"Ваш обліковий запис та всі дані про тренування будуть видалені назавжди."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1477,7 +1481,7 @@ msgstr "Історія адміністрування вправ"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
-msgstr "Зміни за останні 24 год"
+msgstr "Зміни за останні 24 години"
 
 #: exercises/templates/history/overview.html:24
 msgid "Edits last 7d"
@@ -1485,7 +1489,7 @@ msgstr "Зміни за останні 7 днів"
 
 #: exercises/templates/history/overview.html:32
 msgid "Edits last 30d"
-msgstr "Зміни за останні 30 дн"
+msgstr "Зміни за останні 30 днів"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1801,7 +1805,7 @@ msgstr "Отримувати електронні листи з оглядом �
 
 #: gym/models/user_config.py:93
 msgid "Include this user in the email list with inactive members"
-msgstr "Включити цього користувача до списку листів з неактивними членами"
+msgstr "Включити цього користувача до списку неактивних учасників"
 
 #: gym/models/user_document.py:72
 msgid "Document"
@@ -1813,7 +1817,7 @@ msgstr "Якщо нічого не вказано, буде використан
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
-msgstr "Примітки користувача"
+msgstr "Нотатки користувача"
 
 #: gym/templates/contract/list.html:34
 msgid "Show"
@@ -2069,7 +2073,7 @@ msgstr "Турнік"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr "Квадрицепс"
+msgstr "Квадрицепси"
 
 #: i18n.tpl:31
 msgid "Resistance band"
@@ -3163,7 +3167,7 @@ msgstr "Так, вилучити"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr "Оригінальна назва цього об'єкта, якщо є"
+msgstr "Оригінальна назва цього об'єкта, якщо вона відома"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"

@@ -87,7 +87,10 @@ from wger.core.forms import (
     UserPreferencesForm,
 )
 from wger.gym.helpers import (
+    holds_gym_permission,
+    holds_permissions_beyond,
     is_same_gym,
+    may_change_activation,
     outranks,
 )
 from wger.gym.models import (
@@ -156,9 +159,7 @@ def delete(request, user_pk=None):
         if not request.user.has_perm('gym.manage_gyms') and (
             not request.user.has_perm('gym.manage_gym')
             or not is_same_gym(request.user, user)
-            or user.has_perm('gym.manage_gym')
-            or user.has_perm('gym.gym_trainer')
-            or user.has_perm('gym.manage_gyms')
+            or holds_gym_permission(user, 'manage_gym', 'gym_trainer', 'manage_gyms')
         ):
             return HttpResponseForbidden()
     else:
@@ -217,11 +218,13 @@ def trainer_login(request, user_pk):
         if user.pk != trainer_identity_pk:
             return HttpResponseForbidden()
 
-    # Direct trainer-login: target must not itself be a privileged account.
+    # Direct trainer-login: target must not itself be a privileged account,
+    # nor hold permissions the trainer lacks (e.g. exercise editors)
     if request.user.has_perm('gym.gym_trainer') and (
         user.has_perm('gym.gym_trainer')
         or user.has_perm('gym.manage_gym')
         or user.has_perm('gym.manage_gyms')
+        or holds_permissions_beyond(user, request.user)
     ):
         return HttpResponseForbidden()
 
@@ -396,19 +399,8 @@ class UserDeactivateView(
         ) and not is_same_gym(request.user, edit_user):
             return HttpResponseForbidden()
 
-        # A user with only the trainer permission must not be able to (de)activate
-        # other gym staff (managers, fellow trainers, general managers). Group
-        # membership is checked directly so the rule still applies when the
-        # target account is currently deactivated (``has_perm`` returns ``False``
-        # for inactive users).
-        if (
-            request.user.has_perm('gym.gym_trainer')
-            and not request.user.has_perm('gym.manage_gym')
-            and not request.user.has_perm('gym.manage_gyms')
-            and edit_user.groups.filter(
-                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
-            ).exists()
-        ):
+        # Gym staff must not lock out the accounts above them
+        if not may_change_activation(request.user, edit_user):
             return HttpResponseForbidden()
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
@@ -444,19 +436,8 @@ class UserActivateView(
         ) and not is_same_gym(request.user, edit_user):
             return HttpResponseForbidden()
 
-        # A user with only the trainer permission must not be able to
-        # (de)activate other gym staff (managers, fellow trainers,
-        # general managers). Group membership is checked directly so the
-        # rule still applies when the target account is currently
-        # deactivated (``has_perm`` returns ``False`` for inactive users).
-        if (
-            request.user.has_perm('gym.gym_trainer')
-            and not request.user.has_perm('gym.manage_gym')
-            and not request.user.has_perm('gym.manage_gyms')
-            and edit_user.groups.filter(
-                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
-            ).exists()
-        ):
+        # Gym staff must not reactivate the accounts above them
+        if not may_change_activation(request.user, edit_user):
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
@@ -596,6 +577,11 @@ def app_auth_handoff(request):
     itself. The value is treated as opaque but constrained to base64url characters
     and a sane length to prevent abuse of the reflection.
     """
+
+    # A trainer logged in as a member must not get credentials that outlive the session
+    if request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
+
     token = mint_long_lived_refresh_token(
         request.user,
         settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,

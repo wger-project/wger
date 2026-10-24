@@ -15,8 +15,9 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-08-06 10:01+0000\n"
-"Last-Translator: Dominik Matras <matrasss02@gmail.com>\n"
+"PO-Revision-Date: 2026-10-20 20:39+0000\n"
+"Last-Translator: Tomek Jabłoński "
+"<tomekjabonski@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 2026.8.1.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -434,6 +435,8 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
+"Twój kod do weryfikacji jest poniżej. Wprowadź go w otwartej karcie "
+"przeglądarki."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
@@ -452,7 +455,7 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"
-msgstr ""
+msgstr "Jeżeli przycisk nie działa, skopiuj i wklej link do okna przeglądarki"
 
 #: core/templates/account/email/email_confirmation_message.html:125
 msgid "the wger Team"
@@ -516,7 +519,7 @@ msgstr ""
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Zaloguj się przy użyciu klucza dostępu (passkey)"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"

@@ -12,28 +12,27 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-06-18 10:05+0000\n"
-"Last-Translator: Jonas <frassefraze@hotmail.com>\n"
+"PO-Revision-Date: 2026-10-15 14:51+0000\n"
+"Last-Translator: Jonatan Nyberg <nickwick@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
-msgstr "Standard gym"
+msgstr "Standardgym"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
-"Välj standard gymmet för den här installationen. Detta kommer att tilldela "
-"alla nya registrerade användare här gym och uppdatera alla befintliga "
-"användare utan ett gym."
+"Välj standardgym för den här installationen. Alla nyregistrerade användare "
+"och alla befintliga användare som saknar gym kopplas till detta gym."
 
 #: config/views/gym_config.py:46 core/templates/language/view.html:64
 #: core/templates/license/list.html:17
@@ -83,7 +82,7 @@ msgstr "Födelsedatum"
 
 #: core/forms.py:172
 msgid "Personal data"
-msgstr "Personlig data"
+msgstr "Personuppgifter"
 
 #: core/forms.py:190
 msgid "Other settings"
@@ -106,12 +105,11 @@ msgstr "E-post"
 
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
-msgstr ""
-"Används för lösenordsåterställning och, frivilligt, för e-postpåminnelser"
+msgstr "Används för lösenordsåterställning och, om du vill, e-postpåminnelser."
 
 #: core/forms.py:234
 msgid "This e-mail address is already in use."
-msgstr "Denna mail används redan."
+msgstr "Den här e-postadressen används redan."
 
 #: core/forms.py:256 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:220
@@ -160,19 +158,19 @@ msgstr "Användarnamnet stämmer inte överens"
 
 #: core/forms.py:332 weight/templates/import_csv_form.html:9
 msgid "Submit"
-msgstr "Ladda upp"
+msgstr "Skicka"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
-msgstr "Språk kort namn"
+msgstr "Språkets kortnamn"
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
-msgstr "Språk fullständigt namn"
+msgstr "Språkets fullständiga namn"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
 msgid "Language full name in English"
-msgstr "Språk, fullständigt namn på engelska"
+msgstr "Språkets fullständiga namn på engelska"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -183,12 +181,12 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
-"Om en licens har lokaliserats, t.ex. Creative Commons licenser för de olika "
-"länder, lägg till dem som separata inmatningar här."
+"Om en licens har lokalanpassats, t.ex. Creative Commons-licenserna för olika "
+"länder, lägger du till varje version som en separat post här."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr "Kort namn, t.ex. OM-AR-OU 3"
+msgstr "Kort namn, t.ex. CC-BY-SA 3"
 
 #: core/models/license.py:45
 msgid "Link"
@@ -196,7 +194,7 @@ msgstr "Länk"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
-msgstr "Länk till licens text eller annan information"
+msgstr "Länk till licenstext eller annan information"
 
 #: core/models/profile.py:60
 #, python-format
@@ -217,7 +215,7 @@ msgstr "Låg"
 
 #: core/models/profile.py:78
 msgid "Medium"
-msgstr "Medium"
+msgstr "Medel"
 
 #: core/models/profile.py:79
 msgid "High"
@@ -225,11 +223,11 @@ msgstr "Hög"
 
 #: core/models/profile.py:85
 msgid "Metric (kilogram)"
-msgstr "Metriska (kg)"
+msgstr "Metriska enheter (kilogram)"
 
 #: core/models/profile.py:86
 msgid "Imperial (pound)"
-msgstr "Imperial (pund)"
+msgstr "Brittiska enheter (pund)"
 
 #: core/models/profile.py:119
 msgid "Activate workout reminders"
@@ -240,28 +238,28 @@ msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
-"Välj för att aktivera automatiska träningspåminnelser. Du behöver ange en "
+"Markera för att aktivera automatiska träningspåminnelser. Du behöver ange en "
 "giltig e-postadress för att detta ska fungera."
 
 #: core/models/profile.py:130
 msgid "Remind before expiration"
-msgstr "Påminn före förfallodagen"
+msgstr "Påminn innan giltighetstiden går ut"
 
 #: core/models/profile.py:131
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr "Antalet dagar du vill bli påmind innan ett träningspass löper ut."
+msgstr "Hur många dagar före träningsprogrammets slut du vill bli påmind."
 
 #: core/models/profile.py:137
 msgid "Default duration of workouts"
-msgstr "Standardvaraktigheten för träningspass"
+msgstr "Standardlängd för träningsprogram"
 
 #: core/models/profile.py:139
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
-"Standardlängden i veckor av träningspass utanför ett schema. Används för e-"
-"postpåminnelser."
+"Standardlängd i veckor för träningsprogram som inte ingår i ett schema. "
+"Används för träningspåminnelser via e-post."
 
 #: core/models/profile.py:157
 msgid "Notification language"
@@ -272,7 +270,8 @@ msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
-"Språk som används i e-postnotiser. Detta påverkar inte språket på hemsidan."
+"Språk för e-postmeddelanden till dig, t.ex. träningspåminnelser. Detta "
+"påverkar inte språket på webbplatsen."
 
 #: core/models/profile.py:192 gym/views/export.py:65
 msgid "Age"
@@ -284,11 +283,11 @@ msgstr "Längd (cm)"
 
 #: core/models/profile.py:225
 msgid "Hours of sleep"
-msgstr "Timmars sömn"
+msgstr "Antal timmars sömn"
 
 #: core/models/profile.py:226
 msgid "The average hours of sleep per day"
-msgstr "Genomsnittlig sömntid per natt"
+msgstr "Genomsnittligt antal timmars sömn per dygn"
 
 #: core/models/profile.py:235
 msgid "Work"
@@ -322,7 +321,7 @@ msgstr "Fritid"
 
 #: core/models/profile.py:298 nutrition/templates/rate/form.html:67
 msgid "Total daily calories"
-msgstr "Totala dagliga kalorier"
+msgstr "Totalt dagligt kaloriintag"
 
 #: core/models/profile.py:299
 msgid "Total caloric intake, including e.g. any surplus"
@@ -334,11 +333,12 @@ msgstr "Viktenhet"
 
 #: core/models/profile.py:319
 msgid "Automatic reminders for weight entries"
-msgstr "Automatiska påminnleser för viktnoteringar"
+msgstr "Automatiska påminnelser om att registrera vikten"
 
 #: core/models/profile.py:320
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
-msgstr "Antal dagar sedan senaste viktnotering (Ange 0 för att avaktivera)"
+msgstr ""
+"Antal dagar efter den senaste viktregistreringen (ange 0 för att inaktivera)"
 
 #: core/models/profile.py:346
 msgid "Enable trophies"
@@ -380,7 +380,7 @@ msgstr "Enhetstyp"
 
 #: core/models/rep_unit.py:54
 msgid "The type of unit (repetitions, time, or distance)"
-msgstr "Typ av enhete (repetitioner, tid eller distans)"
+msgstr "Typ av enhet (repetitioner, tid eller distans)"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
@@ -408,10 +408,13 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Det uppstod ett fel på servern när din begäran bearbetades. Försök att ladda "
+"om sidan. Om det inte hjälper kan du försöka igen senare. Om problemet "
+"kvarstår kan du söka hjälp på följande sätt:"
 
 #: core/templates/account/email/email_confirmation_message.html:81
 msgid "Almost there!"
-msgstr ""
+msgstr "Snart klart!"
 
 #: core/templates/account/email/email_confirmation_message.html:85
 #, python-format
@@ -427,15 +430,16 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Din verifieringskod listas nedan. Vänligen skriv in den i din webläsare."
+"Din kod för att bekräfta e-postadressen visas nedan. Ange den i det öppna "
+"webbläsarfönstret."
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
-msgstr "Vänligt tryck på knappen nedan för att bekräfta din e-postadress."
+msgstr "Klicka på knappen nedan för att bekräfta din e-postadress."
 
 #: core/templates/account/email/email_confirmation_message.html:106
 msgid "Confirm email"
-msgstr "Verifiera e-post"
+msgstr "Bekräfta e-postadress"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #, python-format
@@ -467,22 +471,22 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
-"Din epost-adress används för lösenordsåterställning och, eventuellt, "
-"påminnelser. En ny adress aktiveras enbart genom att verifiera den genom "
-"länken som skickas."
+"Din e-postadress används för lösenordsåterställning och, om du vill, "
+"träningspåminnelser. En ny adress aktiveras först när du bekräftar den via "
+"länken som skickas till den."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
-msgstr "Aktuell e-post"
+msgstr "Nuvarande e-postadress"
 
 #: core/templates/account/email_change.html:30
 #, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
-msgstr "Väntar på verifiering: <strong>%(email)s</strong>"
+msgstr "Väntar på bekräftelse: <strong>%(email)s</strong>"
 
 #: core/templates/account/email_change.html:38
 msgid "Resend confirmation email"
-msgstr "Skicka om e-postverifiering"
+msgstr "Skicka bekräftelsemejlet igen"
 
 #: core/templates/account/email_change.html:42
 msgid "Cancel change"
@@ -494,7 +498,7 @@ msgstr "Ändra till"
 
 #: core/templates/account/email_change.html:66
 msgid "Change email"
-msgstr "Ändra e-post"
+msgstr "Ändra e-postadress"
 
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
@@ -513,19 +517,19 @@ msgstr "Inget konto?"
 
 #: core/templates/account/login.html:104
 msgid "Faster sign in"
-msgstr ""
+msgstr "Snabbare inloggning"
 
 #: core/templates/account/login.html:113
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Logga in med en passnyckel"
 
 #: core/templates/account/login.html:120
 msgid "or sign in with"
-msgstr ""
+msgstr "eller logga in med"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Har du redan ett konto?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -533,6 +537,8 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
+"Du surfar på webbplatsen som användaren ”%(current_user)s”, och alla "
+"åtgärder utförs på dennes data."
 
 #: core/templates/base.html:17 core/templates/base_wide.html:14
 #, python-format
@@ -548,11 +554,15 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
+"Du surfar\n"
+"                på webbplatsen som användaren \"%(current_user)s\". Alla "
+"åtgärder utförs på\n"
+"                denna användares data.\n"
+"            "
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
-msgstr ""
-"Är du säkes på att du vill ta bort detta? Denna handilng kan ej ångras."
+msgstr "Är du säker på att du vill ta bort detta? Åtgärden kan inte ångras."
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:345
 msgid "Languages"
@@ -560,7 +570,7 @@ msgstr "Språk"
 
 #: core/templates/language/overview.html:22
 msgid "Nothing found."
-msgstr "Ingenting hittades"
+msgstr "Ingenting hittades."
 
 #: core/templates/language/overview.html:22
 #: nutrition/templates/ingredient/overview.html:44
@@ -597,7 +607,7 @@ msgstr "Alternativ"
 
 #: core/templates/license/list.html:4
 msgid "License list"
-msgstr "Licens lista"
+msgstr "Licenslista"
 
 #: core/templates/license/list.html:30
 #: core/templates/repetition_unit/list.html:32
@@ -620,7 +630,7 @@ msgstr "Ingenting hittades"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:151
 msgid "Imprint"
-msgstr ""
+msgstr "Utgivaruppgifter"
 
 #: core/templates/navigation.html:28 software/templates/features.html:458
 msgid "Training"
@@ -628,7 +638,7 @@ msgstr "Träning"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:28
 msgid "Routines"
-msgstr "Rutiner"
+msgstr "Program"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:83
 msgid "Calendar"
@@ -645,7 +655,7 @@ msgstr "Galleri"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Troféer"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -657,7 +667,7 @@ msgstr "Dina mallar"
 
 #: core/templates/navigation.html:95
 msgid "Public templates"
-msgstr "Publika mallar"
+msgstr "Offentliga mallar"
 
 #: core/templates/navigation.html:103 software/templates/features.html:51
 #: software/templates/features.html:480
@@ -670,7 +680,7 @@ msgstr "Administration"
 
 #: core/templates/navigation.html:113
 msgid "Exercise edit history"
-msgstr "Övningens redigeringshistorik"
+msgstr "Redigeringshistorik för övningar"
 
 #: core/templates/navigation.html:119
 msgid "Equipment"
@@ -699,12 +709,12 @@ msgstr "BMI-kalkylator"
 
 #: core/templates/navigation.html:172 nutrition/templates/rate/form.html:18
 msgid "Daily calories calculator"
-msgstr "Dagliga-kalorier-kalkylator"
+msgstr "Kalkylator för dagligt kaloribehov"
 
 #: core/templates/navigation.html:178
 #: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
-msgstr "Ingrediensöversikt"
+msgstr "Livsmedelsöversikt"
 
 #: core/templates/navigation.html:193 software/templates/features.html:463
 msgid "Body weight"
@@ -720,11 +730,11 @@ msgstr "Om programvaran"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Stöd oss och engagera dig"
 
 #: core/templates/navigation.html:226 software/templates/features.html:528
 msgid "REST API"
-msgstr "REST API"
+msgstr "REST-API"
 
 #: core/templates/navigation.html:232 utils/models.py:69
 msgid "License"
@@ -732,7 +742,7 @@ msgstr "Licens"
 
 #: core/templates/navigation.html:238
 msgid "Developer documentation"
-msgstr "Dokument för utvecklare"
+msgstr "Utvecklardokumentation"
 
 #: core/templates/navigation.html:245
 msgid "Get the code"
@@ -753,7 +763,7 @@ msgstr "Logga ut"
 
 #: core/templates/navigation.html:319
 msgid "My preferences"
-msgstr "Mina preferenser"
+msgstr "Mina inställningar"
 
 #: core/templates/navigation.html:353
 msgid "Licenses"
@@ -762,7 +772,7 @@ msgstr "Licenser"
 #: core/templates/navigation.html:361
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
-msgstr "Repetitioner"
+msgstr "Repetitionsenheter"
 
 #: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:232
@@ -779,11 +789,11 @@ msgstr "Gym"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr "Lösenordsåterställning fullbordad"
+msgstr "Lösenordsåterställningen är klar"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Ditt lösenord har satts. Du kan nu logga in."
+msgstr "Ditt lösenord har sparats. Du kan nu logga in."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
@@ -791,7 +801,7 @@ msgstr "Logga in"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr "Lösenordsåterställning lyckad"
+msgstr "Lösenordsåterställningen lyckades"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
@@ -799,7 +809,7 @@ msgid ""
 "address you submitted. You should be receiving it shortly."
 msgstr ""
 "Vi har skickat instruktioner för att välja lösenord till e-postadressen du "
-"angav. Du borde få den inom kort."
+"angav. Mejlet bör komma fram inom kort."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -807,7 +817,7 @@ msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
-"Du får detta mail eftersom du begärt en lösenordsåterställning för ditt "
+"Du får detta mejl eftersom du begärt en lösenordsåterställning för ditt "
 "användarkonto på %(site_name)s."
 
 #: core/templates/registration/password_reset_email.html:4
@@ -816,7 +826,7 @@ msgstr "Vänligen gå till följande sida för att välja ett nytt lösenord:"
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
-msgstr "Ditt användarnamn, i fall du har glömt:"
+msgstr "Ditt användarnamn, om du har glömt det:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
@@ -825,7 +835,7 @@ msgstr "Tack för att du använder vår sida!"
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr "%(site_name)s lag"
+msgstr "Teamet bakom %(site_name)s"
 
 #: core/templates/template.html:87
 #: exercises/templates/history/overview.html:202
@@ -835,7 +845,7 @@ msgstr "Stäng"
 #: core/templates/template.html:103
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
-msgstr "Du använder ett gästkonto, data som anges tas bort efter en vecka."
+msgstr "Du använder ett gästkonto. Alla data du anger tas bort efter en vecka."
 
 #: core/templates/template.html:108
 msgid "Create some demo entries"
@@ -848,7 +858,7 @@ msgstr "Villkor för tjänsten"
 
 #: core/templates/template.html:182 software/templates/features.html:595
 msgid "Browser language"
-msgstr ""
+msgstr "Webbläsarens språk"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -856,7 +866,7 @@ msgstr "Funktioner"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "API-åtkomst"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -864,30 +874,37 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Det finns två sätt att autentisera sig mot API:et: JWT är den rekommenderade "
+"metoden för klientapplikationer, medan den statiska API-nyckeln är avsedd "
+"för personliga skript eller engångsintegrationer."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Uppdateringstoken med lång livslängd"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"Med hjälp av uppdateringstoken kan skript och CLI-verktyg kommunicera med "
+"wger-API:et via JWT-flödet utan att behöva logga in interaktivt varje gång."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
-msgstr "Generera en ny refresh-token"
+msgstr "Skapa en ny uppdateringstoken"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Kopiera denna token nu."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Den visas endast en gång. Om du tappar bort den ska du skapa en ny och "
+"återkalla den gamla sessionen nedan."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -895,6 +912,8 @@ msgid ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr ""
+"Uppdateringstoken upphör att gälla %(days)s dagar efter att de genererades, "
+"såvida du inte återkallar dem tidigare."
 
 #: core/templates/user/api_key.html:65
 msgid "Created"
@@ -902,15 +921,15 @@ msgstr "Skapad"
 
 #: core/templates/user/api_key.html:66
 msgid "Expires"
-msgstr ""
+msgstr "Löper ut"
 
 #: core/templates/user/api_key.html:86
 msgid "Revoke"
-msgstr ""
+msgstr "Återkalla"
 
 #: core/templates/user/api_key.html:105
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Återkalla alla uppdateringstoken"
 
 #: core/templates/user/api_key.html:110
 msgid "JWT sessions"
@@ -918,7 +937,7 @@ msgstr "JWT-sessioner"
 
 #: core/templates/user/api_key.html:123
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Återkalla alla JWT-sessioner"
 
 #: core/templates/user/api_key.html:129
 #, python-format
@@ -933,25 +952,35 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Det finns för närvarande <strong>%(counter)s</strong> aktiv "
+"JWT-session\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Det finns för närvarande <strong>%(counter)s</strong> aktiva "
+"JWT-sessioner\n"
+"            "
 
 #: core/templates/user/api_key.html:138
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"När JWT-sessioner återkallas loggas alla enheter ut som har erhållit en "
+"uppdateringstoken via JWT-inloggningsändpunkten."
 
 #: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
 msgid "API key"
-msgstr "API key"
+msgstr "API-nyckel"
 
 #: core/templates/user/api_key.html:156
 msgid "Delete current API key and generate new one"
-msgstr "Ta bort nuvarande API key och skapa en ny"
+msgstr "Ta bort den nuvarande API-nyckeln och skapa en ny"
 
 #: core/templates/user/api_key.html:158
 msgid "Generate new API key"
-msgstr "Generera nya API key"
+msgstr "Skapa en ny API-nyckel"
 
 #: core/templates/user/api_key.html:174
 msgid "Delete API key"
@@ -959,7 +988,7 @@ msgstr "Ta bort API-nyckel"
 
 #: core/templates/user/api_key.html:184
 msgid "You have no API key yet"
-msgstr "Du har ingen API key ännu"
+msgstr "Du har ingen API-nyckel ännu"
 
 #: core/templates/user/api_key.html:190
 #, python-format
@@ -969,10 +998,14 @@ msgid ""
 "            <code>Authorization</code> header to use it.\n"
 "        "
 msgstr ""
+"\n"
+"            Skicka <code>Token %(key)s</code> i HTTP-huvudfältet\n"
+"            <code>Authorization</code> för att använda nyckeln.\n"
+"        "
 
 #: core/templates/user/api_key.html:196
 msgid "Example with curl:"
-msgstr ""
+msgstr "Exempel med curl:"
 
 #: core/templates/user/api_key.html:210 software/templates/features.html:533
 msgid "Documentation"
@@ -984,21 +1017,23 @@ msgstr "API-dokumentation"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Gå tillbaka till appen"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Återgår till wger-appen…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Om ingenting händer, tryck på knappen nedan. Se till att wger-appen är "
+"installerad på den här enheten."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Tryck för att återgå till appen"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:82
@@ -1017,10 +1052,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Denna handling kommer ta bort användarkontot \"%(username)s\".\n"
-"Den kommer också oåterkalleligen ta bort all data associerad med kontot "
-"(träningspass, loggar, etc.).\n"
-"Detta kan inte ångras. "
+"Den här åtgärden tar bort användarkontot \"%(username)s\".\n"
+"Alla data som hör till kontot (träningspass, loggar osv.) tas också bort "
+"permanent.\n"
+"Åtgärden går inte att ångra. "
 
 #: core/templates/user/overview.html:28 core/templates/user/overview.html:78
 #: core/templates/user/overview.html:126 core/templates/user/overview.html:162
@@ -1028,7 +1063,7 @@ msgstr ""
 #: core/templates/user/overview.html:452
 #, python-format
 msgid "last %(number)s"
-msgstr "sista %(number)s"
+msgstr "senaste %(number)s"
 
 #: core/templates/user/overview.html:33 core/templates/user/overview.html:167
 #: core/templates/user/overview.html:369 core/templates/user/overview.html:408
@@ -1036,7 +1071,7 @@ msgstr "sista %(number)s"
 #: gym/templates/gym/member_list.html:262
 #: gym/templates/gym/member_list.html:302
 msgid "Overview"
-msgstr "Överblick"
+msgstr "Översikt"
 
 #: core/templates/user/overview.html:40 core/templates/user/overview.html:90
 #: core/templates/user/overview.html:138 core/templates/user/overview.html:174
@@ -1062,15 +1097,15 @@ msgstr "Senaste aktiviteten"
 
 #: core/templates/user/overview.html:68
 msgid "No workouts found."
-msgstr "Inga träningspass hittade."
+msgstr "Inga träningsprogram hittades."
 
 #: core/templates/user/overview.html:78
 msgid "Log"
-msgstr "Log"
+msgstr "Logg"
 
 #: core/templates/user/overview.html:91
 msgid "General impression"
-msgstr "Generellt intryck"
+msgstr "Helhetsintryck"
 
 #: core/templates/user/overview.html:92 core/templates/user/overview.html:416
 msgid "Notes"
@@ -1136,7 +1171,7 @@ msgstr "Roller"
 
 #: core/templates/user/overview.html:269
 msgid "Password reset confirmation"
-msgstr "Lösenordsåterställningsbekräftelse"
+msgstr "Bekräftelse av lösenordsåterställning"
 
 #: core/templates/user/overview.html:273
 msgid "Do you really want to change this user&#39;s password?"
@@ -1198,7 +1233,7 @@ msgstr "Inaktiv"
 #: core/templates/user/overview.html:374 gym/templates/contract/list.html:4
 #: gym/templates/gym/member_list.html:218
 msgid "Contracts"
-msgstr "Kontrakt"
+msgstr "Avtal"
 
 #: core/templates/user/overview.html:452 gym/templates/document/list.html:4
 msgid "Documents"
@@ -1215,7 +1250,7 @@ msgstr "Konfiguration"
 
 #: core/templates/user/overview.html:503 gym/models/user_config.py:92
 msgid "Include in inactive overview"
-msgstr "Inkludera i inaktiv överblick"
+msgstr "Ta med i översikten över inaktiva medlemmar"
 
 #: core/templates/user/overview.html:534 core/templates/user/overview.html:541
 msgid "Log in as this user"
@@ -1224,23 +1259,24 @@ msgstr "Logga in som denna användare"
 #: core/templates/user/overview.html:539
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr "Admininloggning är bara tillgängligt för använder i %(gym_name)s"
+msgstr ""
+"Administratörsinloggning är endast tillgänglig för användare i %(gym_name)s"
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
-msgstr "Preferenser"
+msgstr "Inställningar"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Konto och säkerhet"
 
 #: core/templates/user/preferences.html:27
 msgid "Verified email"
-msgstr "Verifierad e-post"
+msgstr "Verifierad e-postadress"
 
 #: core/templates/user/preferences.html:29
 msgid "Unverified email"
-msgstr "Overifierad e-post"
+msgstr "Overifierad e-postadress"
 
 #: core/templates/user/preferences.html:36 core/views/user.py:692
 msgid "Change password"
@@ -1252,15 +1288,15 @@ msgstr "Ange lösenord"
 
 #: core/templates/user/preferences.html:48
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Tvåfaktorsautentisering"
 
 #: core/templates/user/preferences.html:50
 msgid "On"
-msgstr ""
+msgstr "På"
 
 #: core/templates/user/preferences.html:52
 msgid "Off"
-msgstr ""
+msgstr "Av"
 
 #: core/templates/user/preferences.html:60
 msgid "Connected accounts"
@@ -1268,11 +1304,11 @@ msgstr "Anslutna konton"
 
 #: core/templates/user/preferences.html:74
 msgid "Danger zone"
-msgstr ""
+msgstr "Riskzon"
 
 #: core/templates/user/preferences.html:79
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Ditt konto och all träningsdata kommer att raderas permanent."
 
 #: core/templatetags/wger_extras.py:108 i18n.tpl:39
 msgid "kg"
@@ -1303,7 +1339,7 @@ msgstr "oz"
 #: exercises/views/equipment.py:103 exercises/views/muscles.py:99
 #: nutrition/views/ingredient.py:212
 msgid "Successfully deleted"
-msgstr "Borttagning genomförd"
+msgstr "Borttagningen lyckades"
 
 #: core/views/languages.py:100 core/views/license.py:103
 #: core/views/repetition_units.py:114 core/views/weight_units.py:115
@@ -1333,14 +1369,14 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
-"Vi har skapat exempel-pass, scheman, viktloggar, kroppsvikt och näringsplan "
-"så du kan lära dig hur sidan fungerar. Känn dig fri att ändra eller ta bort "
-"dom!"
+"Vi har skapat exempel på träningspass, träningsscheman, viktloggar, "
+"kroppsviktsregistreringar och kostplaner så att du lättare kan se vad "
+"webbplatsen kan göra. Du får gärna redigera eller ta bort dem!"
 
 #: core/views/user.py:180
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
-msgstr "Konto \"{0}\" är nu borttaget"
+msgstr "Kontot \"{0}\" har tagits bort"
 
 #: core/views/user.py:311
 msgid "Settings successfully updated"
@@ -1352,7 +1388,7 @@ msgstr "Vänligen korrigera felen nedan."
 
 #: core/views/user.py:378
 msgid "The user was successfully deactivated"
-msgstr "Användaren har nu tagits bort"
+msgstr "Användaren har nu inaktiverats"
 
 #: core/views/user.py:430
 msgid "The user was successfully activated"
@@ -1368,16 +1404,16 @@ msgstr "API-nyckeln togs bort"
 
 #: core/views/user.py:508
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Alla API-sessioner har återkallats"
 
 #: core/views/user.py:524
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Uppdateringstoken återkallades"
 
 #: core/views/user.py:532
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Återkallade uppdateringstoken: {count}"
 
 #: core/views/user.py:678 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:161
@@ -1397,7 +1433,7 @@ msgstr "Gym"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
-msgstr "På latin, e.g. \"Pectoralis major\""
+msgstr "På latin, t.ex. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
 msgid "Alternative name"
@@ -1405,20 +1441,20 @@ msgstr "Alternativt namn"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Ett enklare namn på muskeln"
 
 #: exercises/models/video.py:52
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "Den maximala filstorleken är %(size)s MB."
 
 #: exercises/models/video.py:59 exercises/models/video.py:67
 msgid "File type is not supported"
-msgstr ""
+msgstr "Denna filtyp stöds inte"
 
 #: exercises/models/video.py:72
 msgid "File is not a valid video"
-msgstr ""
+msgstr "Filen är inte en giltig videofil"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1426,45 +1462,45 @@ msgstr "Utrustningslista"
 
 #: exercises/templates/history/overview.html:7
 msgid "Exercise admin history"
-msgstr "Övningens adminhistorik"
+msgstr "Administrationshistorik för övningar"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
-msgstr "Redigeringar senaste 24h"
+msgstr "Redigeringar det senaste dygnet"
 
 #: exercises/templates/history/overview.html:24
 msgid "Edits last 7d"
-msgstr "Redigeringar senaste 7d"
+msgstr "Redigeringar de senaste 7 dagarna"
 
 #: exercises/templates/history/overview.html:32
 msgid "Edits last 30d"
-msgstr "Redigeringar senaste 30d"
+msgstr "Redigeringar de senaste 30 dagarna"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Tillämpa"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Återställ"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Konto som är yngre än 60 dagar"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "ny"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "skapade"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "redigerade"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
@@ -1472,15 +1508,15 @@ msgstr "tog bort"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "slog samman"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "med"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "media"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1492,7 +1528,7 @@ msgstr "Objektet togs bort"
 
 #: exercises/templates/history/overview.html:180
 msgid "Revert change"
-msgstr ""
+msgstr "Återställ ändringen"
 
 #: exercises/templates/history/overview.html:187
 msgid "Open object"
@@ -1500,31 +1536,31 @@ msgstr "Öppna objekt"
 
 #: exercises/templates/history/overview.html:198
 msgid "Revert this change?"
-msgstr ""
+msgstr "Ska denna ändring återställas?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Objektet återställs till sitt tidigare tillstånd."
 
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
-msgstr ""
+msgstr "Återställ"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Inga ändringar matchar filtren."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Återställ filter"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
-msgstr "Historiksidnavigering"
+msgstr "Sidnavigering i historiken"
 
 #: exercises/templates/history/overview.html:251
 #: exercises/templates/history/overview.html:260
@@ -1539,12 +1575,12 @@ msgstr "Föregående"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Sida %(current)s av %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Nästa"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1584,7 +1620,7 @@ msgstr "Typ"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1592,11 +1628,11 @@ msgstr "Åtgärd"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Från"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Till"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1604,7 +1640,7 @@ msgstr "Lägg till muskel"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Om datum lämnas tomt kommer det att läsas från bilden istället"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -1620,18 +1656,17 @@ msgstr "Gymadministratör"
 
 #: gym/forms.py:64 gym/templates/gym/member_list.html:52
 msgid "General manager"
-msgstr "Generell manager"
+msgstr "Huvudadministratör"
 
 #: gym/forms.py:98
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Krävs. 30 tecken eller färre. Endast bokstäver, siffror och @/. / +/-/ _"
+"Obligatoriskt. Högst 30 tecken. Endast bokstäver, siffror och @/./+/-/_."
 
 #: gym/forms.py:100
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
 msgstr ""
-"Det här värdet kan endast innehålla bokstäver, siffror och @/. / /-/ _ "
-"tecken."
+"Detta värde får endast innehålla bokstäver, siffror och tecknen @/.//-/_."
 
 #: gym/forms.py:114
 msgid "A user with that username already exists."
@@ -1672,7 +1707,7 @@ msgstr "Dagligen"
 
 #: gym/models/contract.py:194 gym/templates/contract/view.html:34
 msgid "Contract type"
-msgstr "Kontrakttyp"
+msgstr "Avtalstyp"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
 #: nutrition/forms.py:67
@@ -1685,11 +1720,11 @@ msgstr "Betalningstyp"
 
 #: gym/models/contract.py:225
 msgid "How often the amount will be charged to the member"
-msgstr "Hur ofta beloppet kommer att debiteras från medlemmen"
+msgstr "Hur ofta medlemmen debiteras beloppet"
 
 #: gym/models/contract.py:231 gym/templates/contract/view.html:24
 msgid "Contract is active"
-msgstr "Kontraktet är aktiv"
+msgstr "Avtalet är aktivt"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
 msgid "Start date"
@@ -1736,28 +1771,29 @@ msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
 msgstr ""
-"Antal veckor sedan senaste gången en användare loggat sin närvaro för att "
-"anses vara inaktiv"
+"Antal veckor utan registrerad närvaro innan en användare räknas som inaktiv"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
 msgid "Show name in header"
-msgstr ""
+msgstr "Visa namn i sidhuvudet"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Visa gymmets namn i webbplatsens sidhuvud"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
-msgstr "Överblick över inaktiva användare"
+msgstr "Översikt över inaktiva medlemmar"
 
 #: gym/models/user_config.py:66
 msgid "Receive email overviews of inactive members"
-msgstr "Ta emot e-postöversikter av inaktiva medlemmar"
+msgstr "Få översikter över inaktiva medlemmar via e-post"
 
 #: gym/models/user_config.py:93
 msgid "Include this user in the email list with inactive members"
-msgstr "Inkludera den här användaren i e-postlistan med inaktiva medlemmar"
+msgstr ""
+"Ta med den här användaren i översikten över inaktiva medlemmar som skickas "
+"via e-post"
 
 #: gym/models/user_document.py:72
 msgid "Document"
@@ -1791,7 +1827,8 @@ msgstr "Avtalstyper"
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
-msgstr "Följande användare har inte besökt gymmet de sista %(weeks)s veckorna"
+msgstr ""
+"Följande användare har inte besökt gymmet under de senaste %(weeks)s veckorna"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
@@ -1811,7 +1848,7 @@ msgstr "Administratörer och tränare"
 
 #: gym/templates/gym/member_list.html:48
 msgid "Gym manager"
-msgstr "Gymmanager"
+msgstr "Gymansvarig"
 
 #: gym/templates/gym/member_list.html:76
 msgid "This gym has no administrators or trainers"
@@ -1864,9 +1901,10 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Skriv ner lösenordet eller spara den exporterade filen, vilket innehåller "
-"all användardata, och spara den på en säker plats. Lösenordet kan inte "
-"återställas senare."
+"Skriv ner användarens lösenord eller spara den exporterade\n"
+"filen, som innehåller alla användaruppgifter, och förvara uppgifterna på en "
+"säker plats. Lösenordet\n"
+"kan inte hämtas i efterhand."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -1877,12 +1915,12 @@ msgid ""
 "This user's password has been reset. Please notify the user of their new "
 "password."
 msgstr ""
-"Denna användares lösenord har återställts. Vänligen meddela användaren om "
-"deras nya lösenord."
+"Den här användarens lösenord har återställts. Meddela användaren det nya "
+"lösenordet."
 
 #: gym/views/admin_notes.py:96 gym/views/document.py:96
 msgid "Add note"
-msgstr "Lägga till anteckning"
+msgstr "Lägg till anteckning"
 
 #: gym/views/contract.py:70
 msgid "Add contract"
@@ -1890,7 +1928,7 @@ msgstr "Lägg till avtal"
 
 #: gym/views/contract_option.py:60
 msgid "Add option"
-msgstr "Lägga till alternativ"
+msgstr "Lägg till alternativ"
 
 #: gym/views/contract_option.py:159 gym/views/contract_type.py:159
 #, python-brace-format
@@ -1907,7 +1945,7 @@ msgstr "Kön"
 
 #: gym/views/gym.py:347
 msgid "Add user to gym"
-msgstr "Lägg till användare till gym"
+msgstr "Lägg till användare i gymmet"
 
 #: gym/views/gym.py:451
 msgid "Edit gym"
@@ -1931,7 +1969,7 @@ msgstr "Skivstång"
 
 #: i18n.tpl:6
 msgid "Bench"
-msgstr "Bänk"
+msgstr "Träningsbänk"
 
 #: i18n.tpl:7
 msgid "Biceps"
@@ -1947,7 +1985,7 @@ msgstr "Vader"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Konditionsträning"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -1963,15 +2001,15 @@ msgstr "Sätesmuskler"
 
 #: i18n.tpl:14
 msgid "Gym mat"
-msgstr "Gym mat"
+msgstr "Träningsmatta"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr ""
+msgstr "Baksida lår"
 
 #: i18n.tpl:16
 msgid "Incline bench"
-msgstr "Luta bänken"
+msgstr "Lutande träningsbänk"
 
 #: i18n.tpl:17
 msgid "Kettlebell"
@@ -1983,11 +2021,11 @@ msgstr "Kilometer"
 
 #: i18n.tpl:19
 msgid "Kilometers Per Hour"
-msgstr "Kilometer i timmen"
+msgstr "Kilometer per timme"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "Breda ryggmuskeln"
 
 #: i18n.tpl:21
 msgid "Legs"
@@ -1995,19 +2033,19 @@ msgstr "Ben"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Ländrygg"
 
 #: i18n.tpl:23
 msgid "Max Reps"
-msgstr "Max antal Reps"
+msgstr "Maximalt antal repetitioner"
 
 #: i18n.tpl:24
 msgid "Miles"
-msgstr "Mil"
+msgstr "Engelska mil"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Engelska mil per timme"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2015,23 +2053,23 @@ msgstr "Minuter"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Viktskivor"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr "Pull-up bar"
+msgstr "Chinsstång"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "Framsida lår"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Motståndsband"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
-msgstr "SZ-Bar"
+msgstr "Curlstång"
 
 #: i18n.tpl:33
 msgid "Seconds"
@@ -2043,7 +2081,7 @@ msgstr "Axlar"
 
 #: i18n.tpl:35
 msgid "Swiss Ball"
-msgstr "Schweizisk boll"
+msgstr "Pilatesboll"
 
 #: i18n.tpl:36
 msgid "Triceps"
@@ -2051,7 +2089,7 @@ msgstr "Triceps"
 
 #: i18n.tpl:37
 msgid "Until Failure"
-msgstr "Tills Misslyckande"
+msgstr "Till muskulär utmattning"
 
 #: i18n.tpl:38
 msgid "Meters"
@@ -2059,11 +2097,11 @@ msgstr "Meter"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
-msgstr "ingen (kroppsvikt träning)"
+msgstr "ingen (kroppsviktsövning)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Nybörjare"
 
 #: i18n.tpl:43
 msgid "Consistent"
@@ -2071,11 +2109,11 @@ msgstr "Konsekvent"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Hängiven"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Besatt"
 
 #: i18n.tpl:46
 msgid "Legend"
@@ -2083,51 +2121,51 @@ msgstr "Legend"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Veteran"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titan"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Ostoppbar"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Helgkrigare"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Elefantlyftare"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Busslyftare"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Flygplanslyftare"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Blåvalslyftare"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Rymdstationslyftare"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Miljonär"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Morgonpigg"
 
 #: i18n.tpl:59
 msgid "Night Owl"
@@ -2135,11 +2173,11 @@ msgstr "Nattuggla"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Nytt år, nytt jag"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Fenix"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2175,47 +2213,47 @@ msgstr "Slutför 1000 träningspass"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Träna 30 dagar i rad"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Träna på lördag och söndag under 4 helger i följd"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Lyft totalt 5 000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Lyft totalt 20 000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Lyft totalt 50 000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Lyft totalt 150 000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Lyft totalt 450 000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Lyft totalt 1 000 000 kg"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Lyft totalt 10 000 000 kg"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Slutför ett träningspass före 06:00"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Slutför ett träningspass efter 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
@@ -2223,11 +2261,11 @@ msgstr "Träna den 1 januari"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Återgå till träningen efter 30 dagars inaktivitet"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Sätt ett nytt personbästa i valfri övning"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2241,7 +2279,7 @@ msgstr "Innehåll"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Skapa förhandsvisning"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2256,7 +2294,7 @@ msgstr "Fyll i formuläret"
 #: mailer/templates/mailer/gym/form.html:31
 #: mailer/templates/mailer/gym/preview.html:65
 msgid "You will receive a preview email for you to review"
-msgstr "Du kommer få ett förhandsvisningsmejl du kan granska"
+msgstr "Du får en förhandsvisning via e-post som du kan granska"
 
 #: mailer/templates/mailer/gym/form.html:32
 #: mailer/templates/mailer/gym/preview.html:66
@@ -2287,15 +2325,15 @@ msgstr "Set"
 
 #: manager/dataclasses.py:124 manager/helpers.py:89
 msgid "Reps"
-msgstr "Reps"
+msgstr "Repetitioner"
 
 #: manager/dataclasses.py:158
 msgid "RiR"
-msgstr ""
+msgstr "RiR"
 
 #: manager/dataclasses.py:165
 msgid "rest"
-msgstr ""
+msgstr "vila"
 
 #: manager/helpers.py:80
 msgid "Rest day"
@@ -2303,15 +2341,15 @@ msgstr "Vilodag"
 
 #: manager/helpers.py:89
 msgid "Exercise"
-msgstr "Träning"
+msgstr "Övning"
 
 #: manager/management/commands/email-reminders.py:89
 msgid "Routine will expire soon"
-msgstr "Rutinen löper snart ut"
+msgstr "Programmet löper snart ut"
 
 #: manager/models/session.py:41
 msgid "Bad"
-msgstr "Dålig"
+msgstr "Dåligt"
 
 #: manager/models/session.py:42
 msgid "Neutral"
@@ -2323,7 +2361,7 @@ msgstr "Bra"
 
 #: manager/models/session.py:149
 msgid "If you enter a time, you must enter both start and end time."
-msgstr "Om du anger en tid måste du ange både start-och sluttid."
+msgstr "Om du anger en tid måste du ange både start- och sluttid."
 
 #: manager/models/session.py:152
 msgid "The start time cannot be after the end time."
@@ -2332,12 +2370,15 @@ msgstr "Starttiden kan inte vara efter sluttiden."
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(routine)s' expired %(days)s days ago."
-msgstr "Din nuvarande rutin '%(routine)s' upphörde för %(days)s dagar sedan."
+msgstr ""
+"Ditt nuvarande träningsprogram '%(routine)s' löpte ut för %(days)s dagar "
+"sedan."
 
 #: manager/templates/routines/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr "Din nuvarande rutin '%(routine)s' löper ut om %(days)s dagar."
+msgstr ""
+"Ditt nuvarande träningsprogram '%(routine)s' löper ut om %(days)s dagar."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2346,9 +2387,10 @@ msgid ""
 "never produce reminders."
 msgstr ""
 "Du får regelbundet sådana påminnelser tills du lägger till ett nytt "
-"träningspass.\n"
-"Alternativt kan du lägga till träningspass till ett loop schema, sådana "
-"scheman ger aldrig påminnelser."
+"träningsprogram.\n"
+"Alternativt kan du lägga till träningsprogram i ett upprepande schema. "
+"Sådana scheman\n"
+"ger aldrig några påminnelser."
 
 #: manager/templates/routines/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2356,15 +2398,15 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Om du inte vill ta emot e-post påminnelser någonsin, avaktivera alternativet "
-"i inställningarna."
+"Om du inte vill få några påminnelser via e-post, stäng av\n"
+"alternativet i dina inställningar."
 
 #: manager/templates/routines/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr "1%(site)s lag"
+msgstr "Teamet bakom %(site)s"
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -2372,28 +2414,27 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
-"Ditt senaste viktinträde är från %(date)s (%(days)s dagar sedan).\n"
-"Klicka på länken för att komma åt programmet och ange ett nytt viktinträde."
+"Din senaste viktregistrering är från %(date)s (%(days)s dagar sedan).\n"
+"Klicka på länken för att öppna programmet och registrera din vikt på nytt."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
 msgstr ""
-"Du kommes regelbundet få sådana påminnelser tills du anger din nuvarande "
-"vikt."
+"Du får regelbundet sådana påminnelser tills du anger din nuvarande vikt."
 
 #: manager/views/pdf.py:75 manager/views/pdf.py:144
 msgid "Workout"
-msgstr "Träning"
+msgstr "Träningsprogram"
 
 #: manager/views/pdf.py:77 manager/views/pdf.py:146
 #, python-format
 msgid "Workout for %s"
-msgstr "Träning för %s"
+msgstr "Träningsprogram för %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 msgid "Serving"
-msgstr ""
+msgstr "Portion"
 
 #: nutrition/forms.py:71 nutrition/forms.py:212
 msgid "Unit"
@@ -2401,11 +2442,11 @@ msgstr "Enhet"
 
 #: nutrition/forms.py:183 nutrition/templates/rate/form.html:77
 msgid "Basic caloric intake"
-msgstr "Grundläggande kaloriintag"
+msgstr "Grundläggande energibehov"
 
 #: nutrition/forms.py:184
 msgid "Your basic caloric intake as calculated for your data"
-msgstr "Ditt grundläggande kaloriintag som beräknats för din data"
+msgstr "Ditt grundläggande energibehov, beräknat utifrån dina uppgifter"
 
 #: nutrition/forms.py:189
 msgid "Additional calories"
@@ -2416,16 +2457,16 @@ msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
-"Extra kalorier att lägga till basen (för att subtrahera, ange ett negativt "
-"tal)"
+"Extra kalorier att lägga till det grundläggande energibehovet (ange ett "
+"negativt tal för att dra av kalorier)"
 
 #: nutrition/forms.py:213
 msgid "grams (g)"
-msgstr ""
+msgstr "gram (g)"
 
 #: nutrition/forms.py:223
 msgid "Ingredient"
-msgstr "Ingrediens"
+msgstr "Livsmedel"
 
 #: nutrition/forms.py:227
 msgid "Also search for names in English"
@@ -2433,11 +2474,11 @@ msgstr "Sök även efter namn på engelska"
 
 #: nutrition/forms.py:243
 msgid "Quantity"
-msgstr ""
+msgstr "Mängd"
 
 #: nutrition/forms.py:245
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Ange en mängd och välj gram (g) eller någon av portionsenheterna."
 
 #: nutrition/models/ingredient.py:476
 msgid "Portion"
@@ -2448,15 +2489,17 @@ msgstr "Portion"
 msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
-msgstr "Din ingrediens '%(ingredient)s' lades till den allmänna databasen."
+msgstr ""
+"Ditt livsmedel '%(ingredient)s' har lagts till i den gemensamma\n"
+"databasen."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
-"Det är nu tillgänglig på ingrediensöversikten och kan användas i kostplaner. "
-"Du kan finna den på denna adress:"
+"Det finns nu i livsmedelsöversikten och kan\n"
+"läggas till i kostplaner. Du hittar det på denna adress:"
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
@@ -2464,13 +2507,15 @@ msgstr "Tack för att du bidrar och gör sidan bättre!"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
-msgstr "Ladda upp ingredient"
+msgstr "Skicka in ett livsmedel"
 
 #: nutrition/templates/ingredient/form.html:5
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr "Tack för att du laddat upp en ingrediens. Detta är väldigt uppskattat!"
+msgstr ""
+"Tack för att du skickar in ett livsmedel. Det uppskattas\n"
+"verkligen!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -2481,18 +2526,17 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
-"När du har skickat formuläret kommer administratörerna att meddelas.\n"
-"När det är granskat, kommer det att läggas till i databasen. Tills detta "
-"händer\n"
-"syns den inte i översikten eller i sökresultat. Om du lagt till din e-"
-"postadress \n"
-"när du registrerade dig kommer du bli meddelad när processen är slutförd."
+"När du har skickat in formuläret meddelas administratörerna.\n"
+"När livsmedlet har granskats läggs det till i databasen. Fram till dess\n"
+"syns det inte i översikten eller i sökresultaten. Om du angav din e-"
+"postadress\n"
+"när du registrerade dig får du ett meddelande när processen har slutförts."
 
 #: nutrition/templates/ingredient/overview.html:32
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:173
 msgid "Vegan"
-msgstr ""
+msgstr "Veganskt"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
@@ -2503,11 +2547,11 @@ msgstr "Vegetariskt"
 #: nutrition/templates/ingredient/overview.html:44
 #: nutrition/templates/ingredient/overview.html:47
 msgid "No ingredients."
-msgstr "Inga ingredienser."
+msgstr "Inga livsmedel."
 
 #: nutrition/templates/ingredient/overview.html:54
 msgid "Ingredient pagination"
-msgstr "Ingredienssidnavigering"
+msgstr "Sidnavigering för livsmedel"
 
 #: nutrition/templates/ingredient/overview.html:59
 msgid "First page"
@@ -2516,7 +2560,7 @@ msgstr "Första sidan"
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
 msgid "previous"
-msgstr "tidigare"
+msgstr "föregående"
 
 #: nutrition/templates/ingredient/overview.html:77
 #: nutrition/templates/ingredient/overview.html:82
@@ -2537,11 +2581,11 @@ msgstr "Makronäringsämnen"
 
 #: nutrition/templates/ingredient/view.html:87
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:103 nutrition/views/plan.py:267
 msgid "Sugar content in carbohydrates"
-msgstr "Sockerinehåll i kolhydraterna"
+msgstr "Varav sockerarter"
 
 #: nutrition/templates/ingredient/view.html:108
 #: nutrition/templates/ingredient/view.html:124
@@ -2551,19 +2595,19 @@ msgstr "Sockerinehåll i kolhydraterna"
 #: nutrition/templates/ingredient/view.html:191
 #: nutrition/templates/ingredient/view.html:212
 msgid "n.A."
-msgstr "n.A."
+msgstr "Uppgift saknas"
 
 #: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
 msgid "Saturated fat content in fats"
-msgstr "Mättat-fett innehåll i fettet"
+msgstr "Varav mättat fett"
 
 #: nutrition/templates/ingredient/view.html:135
 msgid "Others"
-msgstr "Andra"
+msgstr "Övrigt"
 
 #: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "Fiber"
 
 #: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
 msgid "Sodium"
@@ -2592,9 +2636,10 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
-"Den basala ämnesomsättningen är mängden energi som förbrukas dagligen under "
-"vila. Detta är den minsta mängden energi som behövs för att kroppen ska "
-"fungera, utan någon ytterligare fysisk aktivitet."
+"Den basala ämnesomsättningen är mängden energi som förbrukas dagligen\n"
+"under vila. Detta är den minsta mängden energi som behövs för att kroppen "
+"ska fungera, utan\n"
+"någon ytterligare fysisk aktivitet."
 
 #: nutrition/templates/rate/form.html:38
 msgid "Your basic metabolic rate is: "
@@ -2616,19 +2661,19 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:60
 msgid "Factor for daily activities: "
-msgstr "Faktorer för dagliga aktiviteter: "
+msgstr "Faktor för dagliga aktiviteter: "
 
 #: nutrition/templates/rate/form.html:68
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
-"Det grundläggande kaloriintaget är mängden kalorier din ämnesomsättning "
-"behöver baserat på din nivå av fysisk aktivitet."
+"Det grundläggande energibehovet är det antal kalorier kroppen\n"
+"behöver utifrån din fysiska aktivitetsnivå."
 
 #: nutrition/templates/rate/form.html:82
 msgid "Calculate basic caloric intake"
-msgstr "Beräkna grundläggande kaloriintag"
+msgstr "Beräkna grundläggande energibehov"
 
 #: nutrition/templates/rate/form.html:89
 msgid ""
@@ -2637,22 +2682,22 @@ msgid ""
 "Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
-"De totala kalorierna är de faktiska totala kalorierna per dag. Detta kan "
-"innefatta t.ex. ett överskott eller underskott om du \"bulkar\" eller "
-"\"cuttar\". Alternativt kan du själv ange mängden kalorier om du känner till "
-"värdet."
+"Det totala kaloriintaget är det antal kalorier du ska få i dig per dag. Det\n"
+"kan inkludera ett överskott eller underskott om du bulkar eller deffar. "
+"Alternativt\n"
+"kan du själv ange antalet kalorier om du känner till värdet."
 
 #: nutrition/templates/rate/form.html:103
 msgid "Transfer basic intake to total daily calories"
-msgstr "Överför grundläggande intag till totala dagliga kalorier"
+msgstr "Överför grundläggande energibehov till totalt dagligt kaloriintag"
 
 #: nutrition/templates/rate/form.html:107
 msgid "Add additional calories to total daily calories"
-msgstr "Lägg till extra kalorier till totala dagliga kalorier"
+msgstr "Lägg till extra kalorier i det totala dagliga kaloriintaget"
 
 #: nutrition/templates/rate/form.html:111
 msgid "Save total calories to profile"
-msgstr "Spara totala mängd kalorier till profil"
+msgstr "Spara totalt kaloriintag i profilen"
 
 #: nutrition/templates/rate/form.html:122
 msgid ""
@@ -2660,26 +2705,27 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-"Observera att dessa beräkningar är approximation. Om du baserar din kostplan "
-"på dessa värden borde du observera dig själv under några veckor och ändra "
-"det totala beloppet om det behövs."
+"Observera att dessa beräkningar bara är uppskattningar.\n"
+"Om du baserar din kostplan på dessa värden bör du följa\n"
+"din utveckling under några veckor och justera det totala kaloriintaget vid "
+"behov."
 
 #: nutrition/views/ingredient.py:250
 msgid "Add a new ingredient"
-msgstr "Lägg till en ny ingrediens"
+msgstr "Lägg till ett nytt livsmedel"
 
 #: nutrition/views/plan.py:128
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Kostplan"
 
 #: nutrition/views/plan.py:130
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Kostplan för %s"
 
 #: nutrition/views/plan.py:202
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
-msgstr "<i>Detta är en tom plan, vad förväntade du dig på PDFen?</i>"
+msgstr "<i>Detta är en tom plan, vad förväntade du dig i PDF-filen?</i>"
 
 #: nutrition/views/plan.py:230
 msgid "Nutritional data"
@@ -2691,11 +2737,11 @@ msgstr "Totalt"
 
 #: nutrition/views/plan.py:239
 msgid "Percent of energy"
-msgstr "Procent av energi"
+msgstr "Energiprocent"
 
 #: nutrition/views/plan.py:240
 msgid "g per body kg"
-msgstr "g / kroppsvikt (kg)"
+msgstr "g per kg kroppsvikt"
 
 #: nutrition/views/unit_ingredient.py:64
 msgid "Add a new weight unit"
@@ -2703,7 +2749,7 @@ msgstr "Lägg till en ny viktenhet"
 
 #: nutrition/views/unit_ingredient.py:99
 msgid "Edit a weight unit to ingredient connection"
-msgstr "Redigera en viktenhet- till ingrediens anslutning"
+msgstr "Redigera kopplingen mellan viktenhet och livsmedel"
 
 #: nutrition/views/unit_ingredient.py:129
 msgid "Delete?"
@@ -2716,10 +2762,14 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger hjälper dig att följa upp dina träningspass, hantera din kost och nå "
+"dina träningsmål. Vi erbjuder programmet som gratis programvara med öppen "
+"källkod som du kan driva själv, och vi tillhandahåller även en smidig, "
+"gratis och webbaserad version för enkel åtkomst."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Öppen källkod och gratis att använda ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2729,10 +2779,15 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger bygger på principerna för öppen källkod. Källkoden är tillgänglig för "
+"allmänheten och utvecklas av vår användargemenskap, vilket garanterar "
+"öppenhet och ger dig kontroll över dina data (särskilt om du själv står för "
+"driften). Den kostnadsfria webbtjänsten bygger helt på denna öppna källkod. "
+"Vi anser att kraftfulla träningsverktyg ska vara tillgängliga för alla."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Så här kan du hjälpa till"
 
 #: software/templates/about_us.html:40
 msgid "Join the Community"
@@ -2740,23 +2795,28 @@ msgstr "Gå med i gemenskapen"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Gå med i Discord-servern"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Gå in på Discord-servern för att chatta med utvecklarna och andra användare, "
+"ställa frågor eller diskutera nya funktioner."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Få nyheter, uppdateringar och meddelanden om projektet på Mastodon."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Sprid budskapet: Berätta för dina vänner och träningskompisar, eller dela på "
+"sociala medier! Din entusiasm hjälper oss att växa och nå ut till fler "
+"människor."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
@@ -2764,11 +2824,11 @@ msgstr "Bidra med dina färdigheter"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Rapportera fel eller föreslå funktioner"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
-msgstr ""
+msgstr "Har du ett problem eller ett förslag? Hör av dig till oss!"
 
 #: software/templates/about_us.html:81
 msgid "Improve the exercises"
@@ -2776,7 +2836,7 @@ msgstr "Förbättra övningarna"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Lägg till nya övningar och redigera eller översätt de befintliga."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
@@ -2786,6 +2846,8 @@ msgstr "Översätt applikationen"
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Hjälp till att göra appen tillgänglig på fler språk för användare över hela "
+"världen."
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
@@ -2793,11 +2855,11 @@ msgstr "Bidra med kod eller dokumentation"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Ta en titt på källkoden och hjälp oss att utveckla nästa version."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Gör en donation"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2808,20 +2870,29 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Även om projektet är gratis och alltid kommer att förbli det, så är det inte "
+"gratis att driva servern! Att tillhandahålla den webbaserade versionen av "
+"wger medför reella, löpande kostnader för serverutrymme, bandbredd, "
+"säkerhetskopiering osv. Utvecklingen kräver dessutom betydande tid och "
+"insatser från volontärer. Ditt bidrag stöder direkt dessa nödvändiga "
+"kostnader och bidrar till att tjänsten förblir pålitlig, förbättras och "
+"förblir gratis för alla."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
-msgstr ""
+msgstr "Bli sponsor på GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Tack så mycket!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Tack för att du är en del av vår gemenskap! Vi uppskattar att du använder "
+"tjänsten, ger oss feedback och stöder oss på alla sätt du kan."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
@@ -2832,7 +2903,10 @@ msgid ""
 "The goal is to build an awesome and flexible fitness manager, along with a "
 "comprehensive and complete list of exercises and ingredients, all released "
 "under a free license."
-msgstr "Målet är att bygga en fantastisk och flexibel fitness manager, tillsammans med en omfattande och fullständig lista av övningar och ingredienser, allt släppt under en fri licens."
+msgstr ""
+"Målet är att bygga ett fantastiskt och flexibelt verktyg för "
+"träningsplanering, tillsammans med en omfattande och fullständig lista över "
+"övningar och livsmedel, allt utgivet under en fri licens."
 
 #: software/templates/features.html:11
 msgid ""
@@ -2846,15 +2920,15 @@ msgstr "Kontakt"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobilapp"
 
 #: software/templates/features.html:63 software/templates/features.html:337
 msgid "Donate"
-msgstr ""
+msgstr "Donera"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Utveckla"
 
 #: software/templates/features.html:73 software/templates/features.html:476
 msgid "Community"
@@ -2862,12 +2936,14 @@ msgstr "Gemenskap"
 
 #: software/templates/features.html:110
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Följ din <br> väg mot din <br> drömkropp"
 
 #: software/templates/features.html:113
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Gå med i wger, den användardrivna <b>kostnadsfria träningsappen med öppen "
+"källkod</b>"
 
 #: software/templates/features.html:123
 msgid "Get Started"
@@ -2875,7 +2951,7 @@ msgstr "Kom igång"
 
 #: software/templates/features.html:133
 msgid "people <br> using wger"
-msgstr ""
+msgstr "personer <br> använder wger"
 
 #: software/templates/features.html:137
 msgid "exercises <br> for workout creation"
@@ -2883,58 +2959,64 @@ msgstr "övningar <br> för att skapa träningspass"
 
 #: software/templates/features.html:141
 msgid "foods <br> for meal planning"
-msgstr ""
+msgstr "livsmedel <br> för måltidsplanering"
 
 #: software/templates/features.html:145
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "stjärnor <br> på GitHub"
 
 #: software/templates/features.html:173
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Skapa dina perfekta <span>träningsprogram</span>"
 
 #: software/templates/features.html:177
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Välj bland över 100 övningar och skapa ett träningsprogram för veckan"
 
 #: software/templates/features.html:180
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Ange mål för antal repetitioner och set, tid eller distans för varje övning"
 
 #: software/templates/features.html:183
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Bli vägledd genom dina träningspass steg för steg"
 
 #: software/templates/features.html:186
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Håll koll på de träningspass du har genomfört, inklusive hur du tyckte att "
+"det gick"
 
 #: software/templates/features.html:211
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Planera dina <span>dagliga måltider</span>"
 
 #: software/templates/features.html:215
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Fyll din vecka med näringsrika måltider som hjälper dig att prestera bättre"
 
 #: software/templates/features.html:218
 msgid "Build meals from a database of more than 2 million foods"
-msgstr ""
+msgstr "Skapa måltider utifrån en databas med över 2 miljoner livsmedel"
 
 #: software/templates/features.html:221
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Få automatiskt beräknade näringsvärden (energi, protein, kolhydrater, …) för "
+"både enskilda måltider och hela din veckoplan"
 
 #: software/templates/features.html:251
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Håll koll på <span>dina framsteg</span>"
 
 #: software/templates/features.html:256
 msgid "Track and annotate everything about your meals and workouts"
-msgstr ""
+msgstr "Håll koll på och anteckna allt som rör dina måltider och träningspass"
 
 #: software/templates/features.html:259
 msgid "Add custom notes"
@@ -2946,11 +3028,11 @@ msgstr "Registrera din vikt"
 
 #: software/templates/features.html:265
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "För en fotodagbok för att följa dina framsteg"
 
 #: software/templates/features.html:268
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Använd kalendervyn för att se tidigare poster"
 
 #: software/templates/features.html:287
 msgid "Try wger now"
@@ -2958,23 +3040,28 @@ msgstr "Prova wger nu"
 
 #: software/templates/features.html:308
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "Drivs av <span>gemenskapen</span>"
 
 #: software/templates/features.html:311
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger finansieras och skapas av open source-gemenskapen: människor som du som "
+"översätter, lägger till övningar och näringsinformation, utvecklar "
+"programmet och mycket mer."
 
 #: software/templates/features.html:317
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Vi använder inga annonser, säljer inte dina personuppgifter och vi delar "
+"koden under en fri och öppen källkodslicens."
 
 #: software/templates/features.html:322
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Hjälp till och gör wger ännu bättre!"
 
 #: software/templates/features.html:331
 msgid "Contribute"
@@ -2982,11 +3069,11 @@ msgstr "Bidra"
 
 #: software/templates/features.html:355
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Registrera dig gratis nu"
 
 #: software/templates/features.html:369
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Räcker inte webbversionen?"
 
 #: software/templates/features.html:371
 msgid "Get the code, too!"
@@ -2994,21 +3081,23 @@ msgstr "Hämta koden också!"
 
 #: software/templates/features.html:382
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Sätt upp en privat server för ditt gym"
 
 #: software/templates/features.html:385
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Vill du inte ha dina data på en onlinetjänst? Konfigurera en wger-instans på "
+"din egen server gratis!"
 
 #: software/templates/features.html:399
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Integrera med din egen app"
 
 #: software/templates/features.html:402
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "wger erbjuder ett öppet API som du kan använda i din app."
 
 #: software/templates/features.html:413
 msgid "Create your own version"
@@ -3019,6 +3108,8 @@ msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Källkoden finns tillgänglig under GNU AGPLv3-licensen! Skapa gärna en egen "
+"förgrening av projektet på GitHub."
 
 #: software/templates/features.html:437
 msgid "Account"
@@ -3030,23 +3121,23 @@ msgstr "Instrumentpanel"
 
 #: software/templates/features.html:485
 msgid "Workout routines"
-msgstr "Träningsrutiner"
+msgstr "Träningsprogram"
 
 #: software/templates/features.html:491
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: software/templates/features.html:506
 msgid "Software"
-msgstr ""
+msgstr "Programvara"
 
 #: software/templates/features.html:512
 msgid "Report an issue"
-msgstr ""
+msgstr "Rapportera ett problem"
 
 #: software/templates/features.html:518
 msgid "Source Code"
-msgstr ""
+msgstr "Källkod"
 
 #: software/templates/features.html:524
 msgid "Translation"
@@ -3058,27 +3149,28 @@ msgstr "Ja, ta bort"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Den ursprungliga titeln på detta objekt, om tillgänglig"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Länk till originalobjektet, om tillgängligt"
 
 #: utils/models.py:87
 msgid "Author(s)"
-msgstr "Skapare"
+msgstr "Upphovspersoner"
 
 #: utils/models.py:91
 msgid "If you are not the author, enter the name or source here."
-msgstr "Om du inte är skaparen, ange namn eller källa här."
+msgstr "Om du inte är upphovspersonen anger du namn eller källa här."
 
 #: utils/models.py:95
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Länk till upphovspersonens profil, om sådan finns"
 
 #: utils/models.py:101
 msgid "Link to the original source, if this is a derivative work"
 msgstr ""
+"Länk till originalkällan, om detta är en bearbetning av ett tidigare verk"
 
 #: utils/models.py:103
 msgid ""
@@ -3086,10 +3178,12 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"En bearbetning bygger på ett tidigare verk men innehåller också tillräckligt "
+"mycket nytt, kreativt innehåll för att ha ett eget upphovsrättsligt skydd."
 
 #: weight/forms.py:53
 msgid "Input"
-msgstr "Input"
+msgstr "Inmatning"
 
 #: weight/forms.py:54
 msgid "Date format"
@@ -3101,14 +3195,15 @@ msgstr "Du måste ange din vikt"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
-msgstr "Importera viktloggarna"
+msgstr "Importera viktloggar"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
-"Använd importfältet för att importera dina viktloggar till träningsmanagern."
+"Använd importfältet för att importera dina viktloggar till Workout\n"
+"Manager."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3119,29 +3214,32 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
-"Du kan kopiera och klistra in från kalkylbladet till textinmatningen, "
-"systemet kommer att försöka gissa formatet att importera. Det enda att tänka "
-"på är att den första kolumnen är <strong>datumet</strong> och den andra "
+"Du kan kopiera från ditt kalkylblad och klistra in i textfältet.\n"
+"Systemet försöker identifiera formatet för importen. Tänk på att\n"
+"den första kolumnen ska innehålla <strong>datum</strong> och den andra "
 "<strong>vikt</strong>.\n"
-"Alla ytterligare kolumner ignoreras. Radgränsen är 1000.\n"
+"Alla ytterligare kolumner ignoreras. Gränsen är 1 000 rader.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
-msgstr "Om det finns fel, kan du korrigera eller ta bort dom i ett andra steg."
+msgstr ""
+"Om några poster innehåller fel kan du rätta till dem eller välja bort dem i "
+"ett\n"
+"andra steg."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
-msgstr "Förhandsgranska importerade CSV-inträden"
+msgstr "Förhandsgranska importerade CSV-poster"
 
 #: weight/templates/import_csv_preview.html:9
 msgid "Successfully converted values"
-msgstr "Konvertering av värden genomförd"
+msgstr "Värden som konverterades"
 
 #: weight/templates/import_csv_preview.html:10
 msgid "The following values could be converted."
-msgstr "Följande värden kan konverteras."
+msgstr "Följande värden kunde konverteras."
 
 #: weight/templates/import_csv_preview.html:26
 msgid "Errors"
@@ -3162,27 +3260,28 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
-"Dessa värden kunde inte konverteras till ett viktloggsinträde.\n"
-"  Skälen till detta kan vara allt från oredovisade datum, felaktiga "
-"nummerformat, problem med kodning eller något annat. Kontrollera att det "
-"inte finns några uppenbara fel i listan (och korrigera dem om det finns!) "
-"och försök att importera listan igen."
+"Dessa värden kunde inte konverteras till poster i viktloggen.\n"
+"    Orsaken kan vara ett datum- eller talformat som inte känns igen,\n"
+"    ett problem med teckenkodningen eller något annat. Kontrollera att\n"
+"    listan inte innehåller några uppenbara fel (och rätta till dem om det "
+"finns några!)\n"
+"    och försök importera listan igen."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
-"Kom ihåg att den förväntade strukturen är <strong>datum</strong> på de "
-"första kolumnerna och <strong>vikt</strong> på andra."
+"Kom ihåg att den förväntade strukturen är <strong>datum</strong>\n"
+"    i den första kolumnen och <strong>vikt</strong> i den andra."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr "Alla inträden har blivit konverterade!"
+msgstr "Inga fel uppstod, alla poster kunde konverteras!"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
-msgstr "Importera alla lyckat konverterade inträden"
+msgstr "Importera alla poster som kunde konverteras"
 
 #: weight/templates/import_csv_preview.html:59
 msgid ""
@@ -3192,10 +3291,10 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
-"Fortsätt här om du vill importera alla viktlogsinträden som lyckades "
-"importeras. Alla inträden som producerade ett fel ignoreras. Det är upp till "
-"dig att avgöra om de är användbara (oredovisade poster) eller inte (t.ex. "
-"huvuden, kommentarer, etc.)."
+"Fortsätt här om du vill importera alla poster som kunde konverteras\n"
+"till din viktlogg. Alla poster som gav ett fel ignoreras.\n"
+"Du avgör själv om de är användbara (poster som inte kändes igen)\n"
+"eller inte (t.ex. rubriker och kommentarer)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"

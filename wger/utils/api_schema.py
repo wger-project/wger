@@ -82,6 +82,22 @@ def strip_patch_defaults(result, generator, **kwargs):
     return result
 
 
+def require_measurement_category(result, generator, **kwargs):
+    """
+    Lists ``category`` as required in the ``Measurement`` response.
+
+    A create may name the ``metric_type`` instead, so the field is optional in
+    the serializer, and spectacular derives the required fields of a response
+    from there as well. Every stored entry has a category.
+    """
+    component = result.get('components', {}).get('schemas', {}).get('Measurement')
+    if component is not None:
+        required = {*component.get('required', []), 'category'}
+        component['required'] = [name for name in component['properties'] if name in required]
+
+    return result
+
+
 class CachedSchemaGenerator(SchemaGenerator):
     """
     Serves the generated schema out of the cache.

@@ -9,7 +9,10 @@
 Progression requirements can now reference the top of the prescribed range via the new rules `max_repetitions` and `max_weight`, and the new `all_sets` flag requires every prescribed set to qualify. Together they enable classic double progression schemes ("work from 8 to 12 reps at a fixed weight, add weight only once all sets reach 12"), e.g. `{"rules": ["max_repetitions"], "all_sets": true}`.
 
 ### Others
-* ...
+* `/api/v2/measurement/` accepts a `metric_type` instead of a `category` id when
+  writing, and can be filtered by `metric_type` and `external_id`. Integrations
+  such as scale apps no longer have to look up their category first or keep
+  track of the ids of the entries they wrote.
 
 ### Bug fixes
 

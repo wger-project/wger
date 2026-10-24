@@ -33,6 +33,7 @@ from invoke import (
 
 # wger
 from wger import tasks
+from wger.measurements.models import Category
 from wger.tasks import WgerConfig
 
 
@@ -116,6 +117,21 @@ class BootstrapTestCase(TestCase):
         tasks.ensure_admin_user()
 
         self.assertTrue(User.objects.get(username='admin').check_password('adminadmin'))
+
+    def test_admin_fixture_creates_body_weight_category(self):
+        tasks.load_admin_fixture()
+
+        admin = User.objects.get(username='admin')
+        self.assertTrue(Category.objects.filter(user=admin, is_official=True).exists())
+
+    def test_admin_reset_keeps_body_weight_category(self):
+        tasks.load_admin_fixture()
+        admin = User.objects.get(username='admin')
+        category = Category.objects.get(user=admin, is_official=True)
+
+        tasks.load_admin_fixture()
+
+        self.assertEqual(Category.objects.get(user=admin, is_official=True), category)
 
     def test_ensure_admin_user_keeps_existing_password(self):
         User.objects.create_user('admin', password='secret')

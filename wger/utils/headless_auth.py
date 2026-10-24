@@ -17,6 +17,7 @@
 
 # Django
 from django.contrib.auth import get_user_model
+from django.contrib.sessions.backends.base import UpdateError
 
 # Third Party
 from allauth.headless import app_settings
@@ -114,6 +115,13 @@ class WgerJWTTokenStrategy(JWTTokenStrategy):
     """
 
     def refresh_token(self, refresh_token: str) -> tuple[str, str] | None:
+        try:
+            return self._refresh_token(refresh_token)
+        except UpdateError:
+            # Session deleted while the refresh was running, e.g. a concurrent logout
+            return None
+
+    def _refresh_token(self, refresh_token: str) -> tuple[str, str] | None:
         validated = internal.validate_refresh_token(refresh_token)
         if validated is None or validated[0] is None:
             return None

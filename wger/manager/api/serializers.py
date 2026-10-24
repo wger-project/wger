@@ -650,6 +650,15 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
         apply_profile_weight_unit(self, validated_data, profile)
         return super().create(validated_data)
 
+    def save(self, **kwargs):
+        """
+        Answer the model validation in WorkoutLog.save() with a 400
+        """
+        try:
+            return super().save(**kwargs)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages)
+
 
 class LogDisplaySerializer(serializers.Serializer):
     """

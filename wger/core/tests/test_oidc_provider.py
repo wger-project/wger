@@ -930,3 +930,33 @@ class ConnectedApplicationsTestCase(OidcTestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertIn(settings.LOGIN_URL, response['location'])
+
+
+class OidcTrainerLoginTestCase(OidcTestCase):
+    """
+    A trainer logged in as one of their members can't connect an application
+    to the member's account
+    """
+
+    def setUp(self):
+        super().setUp()
+        member = User.objects.get(username='test')
+        self.user_login('trainer1')
+        self.client.post(reverse('core:user:trainer-login', kwargs={'user_pk': member.pk}))
+        self.assertTrue(self.client.session.get('trainer.identity'))
+
+    def test_authorization_is_refused(self):
+        query = urlencode(
+            {
+                'client_id': self.oidc_client.id,
+                'redirect_uri': REDIRECT_URI,
+                'response_type': 'code',
+                'scope': f'openid {SCOPE_READ}',
+                'state': 'some-state',
+                'code_challenge': generate_pkce_pair()[1],
+                'code_challenge_method': 'S256',
+            }
+        )
+        response = self.client.get(f'{reverse("idp:oidc:authorization")}?{query}')
+
+        self.assertEqual(response.status_code, 403)

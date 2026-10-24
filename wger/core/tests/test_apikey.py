@@ -644,6 +644,15 @@ class ApiKeyTrainerLoginTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
         self.assertEqual(list_long_lived_sessions(self.member), [])
 
+    def test_app_auth_handoff_does_not_issue_token(self):
+        """
+        The app handoff doesn't mint a long-lived refresh token for the member
+        """
+        response = self.client.get(reverse('core:user:app-auth-handoff'))
+        self.assertEqual(response.status_code, 403)
+        self.assertNotContains(response, 'token=', status_code=403)
+        self.assertEqual(list_long_lived_sessions(self.member), [])
+
     def test_jwt_sessions_can_not_be_revoked(self):
         """
         The member's API sessions can't be revoked

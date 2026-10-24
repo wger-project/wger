@@ -17,13 +17,19 @@
 
 # Standard Library
 import json
+from unittest import mock
 
 # Django
 from django.contrib.auth.models import User
-from django.test import Client
+from django.contrib.sessions.models import Session
+from django.test import (
+    Client,
+    override_settings,
+)
 from django.urls import reverse
 
 # Third Party
+from allauth.headless.tokens.strategies.jwt import internal
 from rest_framework_simplejwt.tokens import RefreshToken
 
 # wger
@@ -230,6 +236,31 @@ class HeadlessSmokeTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200, response.content)
 
         self.assertEqual(self._refresh(first).status_code, 400)
+
+    def test_refresh_is_rejected_when_the_session_is_deleted_meanwhile(self):
+        """
+        A session deleted while the refresh is running, e.g. by a logout in a
+        concurrent request, rejects the refresh token with a 400.
+        """
+        create_access_token = internal.create_access_token
+
+        def delete_session_then_create(user, session, claims):
+            Session.objects.filter(session_key=session.session_key).delete()
+            return create_access_token(user, session, claims)
+
+        for rotate in (True, False):
+            with (
+                self.subTest(rotate=rotate),
+                override_settings(HEADLESS_JWT_ROTATE_REFRESH_TOKEN=rotate),
+            ):
+                refresh_token = self._login_refresh_token()
+                with mock.patch.object(
+                    internal,
+                    'create_access_token',
+                    side_effect=delete_session_then_create,
+                ):
+                    response = self._refresh(refresh_token)
+                self.assertEqual(response.status_code, 400)
 
     def test_invalid_jwt_does_not_break_auth_chain(self):
         """

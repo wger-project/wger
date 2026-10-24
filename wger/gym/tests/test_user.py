@@ -17,6 +17,7 @@ import datetime
 
 # Django
 from django.contrib.auth.models import (
+    Group,
     Permission,
     User,
 )
@@ -287,6 +288,19 @@ class TrainerLoginTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.client.session.get('trainer.identity'))
 
+    def test_exercise_admin(self):
+        """
+        Test changing the identity to a user maintaining the exercise database
+        """
+        for group in ('exercises_admin', 'exercises_editor'):
+            User.objects.get(pk=2).groups.set([Group.objects.get(name=group)])
+
+            self.user_login('trainer1')
+            response = self.client.post(reverse('core:user:trainer-login', kwargs={'user_pk': 2}))
+            self.assertEqual(response.status_code, 403)
+            self.assertFalse(self.client.session.get('trainer.identity'))
+            self.user_logout()
+
     def test_get_does_not_rebind_session(self):
         """
         ``trainer_login`` must reject unsafe HTTP methods
@@ -334,6 +348,10 @@ class ResetPasswordTargetRoleTestCase(WgerTestCase):
 
     def test_manager_can_reset_member(self):
         self.assertEqual(self.reset('manager1', 14), 200)
+
+    def test_manager_cannot_reset_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.reset('manager1', 14), 403)
 
     def test_general_manager_cannot_reset_admin(self):
         self.assertEqual(self.reset('general_manager1', 1), 403)
@@ -383,11 +401,129 @@ class EditUserTargetRoleTestCase(WgerTestCase):
     def test_manager_can_edit_member(self):
         self.assertEqual(self.edit('manager1', 14), 302)
 
+    def test_manager_cannot_edit_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.edit('manager1', 14), 403)
+
     def test_general_manager_cannot_edit_general_manager(self):
         self.assertEqual(self.edit('general_manager1', 13), 403)
 
     def test_general_manager_can_edit_manager(self):
         self.assertEqual(self.edit('general_manager1', 11), 302)
+
+
+class DeleteUserTargetRoleTestCase(WgerTestCase):
+    """
+    Managers can only delete accounts without a gym role, also deactivated ones
+    """
+
+    def delete(self, username: str, target_pk: int) -> int:
+        """
+        Deletes the target as the given user and returns the status code
+
+        Also checks that the account is only gone when the request succeeded.
+        """
+        self.user_login(username)
+        response = self.client.post(
+            reverse('core:user:delete', kwargs={'user_pk': target_pk}),
+            {'password': self.current_password},
+        )
+
+        deleted = not User.objects.filter(pk=target_pk).exists()
+        self.assertEqual(deleted, response.status_code == 302)
+        return response.status_code
+
+    def test_manager_cannot_delete_deactivated_manager(self):
+        User.objects.filter(pk=10).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 10), 403)
+
+    def test_manager_cannot_delete_deactivated_trainer(self):
+        User.objects.filter(pk=4).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 4), 403)
+
+    def test_manager_cannot_delete_deactivated_general_manager(self):
+        User.objects.filter(pk=12).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 12), 403)
+
+    def test_manager_cannot_delete_deactivated_admin(self):
+        User.objects.filter(pk=1).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 1), 403)
+
+    def test_manager_cannot_delete_deactivated_superuser(self):
+        User.objects.filter(pk=21).update(is_superuser=True, is_active=False)
+        self.assertEqual(self.delete('manager1', 21), 403)
+
+    def test_manager_can_delete_deactivated_member(self):
+        User.objects.filter(pk=14).update(is_active=False)
+        self.assertEqual(self.delete('manager1', 14), 302)
+
+
+class ActivationTargetRoleTestCase(WgerTestCase):
+    """
+    Gym staff can't (de)activate accounts above them
+    """
+
+    def set_active(self, username: str, target_pk: int, active: bool) -> int:
+        """
+        (De)activates the target as the given user and returns the status code
+
+        Also checks that the flag only changed when the request succeeded.
+        """
+        User.objects.filter(pk=target_pk).update(is_active=not active)
+        self.user_login(username)
+
+        url_name = 'core:user:activate' if active else 'core:user:deactivate'
+        response = self.client.post(reverse(url_name, kwargs={'pk': target_pk}))
+
+        changed = User.objects.get(pk=target_pk).is_active == active
+        self.assertEqual(changed, response.status_code == 302)
+        return response.status_code
+
+    def test_manager_cannot_deactivate_admin(self):
+        self.assertEqual(self.set_active('manager1', 1, False), 403)
+
+    def test_manager_cannot_deactivate_general_manager(self):
+        self.assertEqual(self.set_active('manager1', 12, False), 403)
+
+    def test_manager_cannot_deactivate_superuser(self):
+        User.objects.filter(pk=21).update(is_superuser=True)
+        self.assertEqual(self.set_active('manager1', 21, False), 403)
+
+    def test_manager_cannot_activate_general_manager(self):
+        self.assertEqual(self.set_active('manager1', 12, True), 403)
+
+    def test_manager_can_deactivate_fellow_manager(self):
+        self.assertEqual(self.set_active('manager1', 10, False), 302)
+
+    def test_manager_can_deactivate_trainer(self):
+        self.assertEqual(self.set_active('manager1', 4, False), 302)
+
+    def test_trainer_cannot_deactivate_admin(self):
+        self.assertEqual(self.set_active('trainer1', 1, False), 403)
+
+    def test_trainer_cannot_deactivate_superuser(self):
+        User.objects.filter(pk=21).update(is_superuser=True)
+        self.assertEqual(self.set_active('trainer1', 21, False), 403)
+
+    def test_trainer_cannot_activate_superuser(self):
+        User.objects.filter(pk=21).update(is_superuser=True)
+        self.assertEqual(self.set_active('trainer1', 21, True), 403)
+
+    def test_trainer_cannot_deactivate_direct_manager(self):
+        content_type = ContentType.objects.get_for_model(Gym)
+        permission = Permission.objects.get(content_type=content_type, codename='manage_gym')
+        User.objects.get(pk=14).user_permissions.add(permission)
+        self.assertEqual(self.set_active('trainer1', 14, False), 403)
+
+    def test_trainer_can_deactivate_member(self):
+        self.assertEqual(self.set_active('trainer1', 14, False), 302)
+
+    def test_general_manager_can_deactivate_manager(self):
+        self.assertEqual(self.set_active('general_manager1', 9, False), 302)
+
+    def test_superuser_can_deactivate_general_manager(self):
+        User.objects.filter(pk=1).update(is_superuser=True)
+        self.assertEqual(self.set_active('admin', 12, False), 302)
 
 
 class EditUserPermissionTargetRoleTestCase(WgerTestCase):

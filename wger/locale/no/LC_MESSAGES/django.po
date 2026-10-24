@@ -12,17 +12,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-07-23 21:01+0000\n"
-"Last-Translator: Christoffer Gjønvik Holsæther "
-"<christofferholsaether@gmail.com>\n"
+"PO-Revision-Date: 2026-10-15 14:51+0000\n"
+"Last-Translator: Stnrsn0 <stnrsn0@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
-"web/nb_NO/>\n"
+"web/nb/>\n"
 "Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -393,7 +392,7 @@ msgstr "Forbudt!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr "Du er ikke tillatt tilgang til denne siden"
+msgstr "Du har ikke tilgang til denne siden"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -449,6 +448,8 @@ msgid ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr ""
+"Lenken er gyldig i %(expire_hours)s timer (frem til %(date)s, kl. %(time)s). "
+"Du kan be om en ny lenke i profilinnstillingene dine."
 
 #: core/templates/account/email/email_confirmation_message.html:116
 msgid "If the button doesn't work, copy and paste this link into your browser:"

@@ -98,6 +98,19 @@ class ExerciseTranslationApiTestCase(
     def get_resource_name(self):
         return 'exercise-translation'
 
+    def test_get_overview_filter_by_language(self):
+        """
+        Filtering the overview by ``language`` only returns translations in
+        that language.
+        """
+        response = self.client.get(self.url + '?language=1')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            {result['id'] for result in response.data['results']},
+            set(Translation.objects.filter(language_id=1).values_list('id', flat=True)),
+        )
+
 
 class ExerciseInfoApiTestCase(
     api_base_test.BaseTestCase,
