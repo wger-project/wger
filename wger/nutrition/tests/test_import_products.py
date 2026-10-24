@@ -28,6 +28,7 @@ import requests
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.consts import OFF_FULL_DUMP_URL
+from wger.nutrition.management.products import ImportProductCommand
 from wger.nutrition.models import Ingredient
 
 
@@ -201,3 +202,23 @@ class ImportOffDeltaTestCase(WgerTestCase):
 
         with self.assertRaises(requests.HTTPError):
             self.run_delta_import(response)
+
+
+class DownloadFileTestCase(WgerTestCase):
+    """
+    Tests downloading the product dumps
+    """
+
+    def test_error_response_is_not_saved_as_file(self):
+        response = mock.Mock(status_code=403, headers={})
+        response.iter_content.return_value = [b'<html>403 Forbidden</html>']
+        response.raise_for_status.side_effect = requests.HTTPError('403 Forbidden')
+
+        with tempfile.TemporaryDirectory() as folder:
+            destination = os.path.join(folder, 'dump.json.gz')
+
+            with mock.patch('requests.get', return_value=response):
+                with self.assertRaises(requests.HTTPError):
+                    ImportProductCommand().download_file('https://example.com/dump', destination)
+
+            self.assertFalse(os.path.exists(destination))

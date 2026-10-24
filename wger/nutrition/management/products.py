@@ -174,10 +174,8 @@ class ImportProductCommand(BaseCommand):
 
         self.stdout.write(f'Downloading {url}... (this may take a while)')
         response = requests.get(url, stream=True, headers=wger_headers())
+        response.raise_for_status()
         total_size = int(response.headers.get('content-length', 0))
-
-        if response.status_code == 404:
-            raise Exception(f'Could not open {url}!')
 
         with open(destination, 'wb') as fid:
             with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
