@@ -17,9 +17,13 @@ import gzip
 import json
 import os
 import tempfile
+from unittest import mock
 
 # Django
 from django.core.management import call_command
+
+# Third Party
+import requests
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -164,3 +168,36 @@ class ImportOffProductsTestCase(WgerTestCase):
 
         self.assertEqual(Ingredient.objects.count(), count_before + 1)
         self.assertTrue(Ingredient.objects.filter(remote_id='1001').exists())
+
+
+class ImportOffDeltaTestCase(WgerTestCase):
+    """
+    Tests fetching the delta index for the daily delta import
+    """
+
+    delta_file = 'openfoodfacts_products_1_2.json.gz'
+
+    def run_delta_import(self, index_response: mock.Mock):
+        with tempfile.TemporaryDirectory() as folder:
+            with gzip.open(os.path.join(folder, self.delta_file), 'wt') as dump:
+                dump.write(json.dumps(off_product('2000', 'Delta product')) + '\n')
+
+            # The command module name has dashes and cannot be patched by path
+            with mock.patch('requests.get', return_value=index_response) as mock_get:
+                call_command('import-off-products', '--delta-updates', folder=folder)
+            return mock_get
+
+    def test_index_is_fetched_with_user_agent(self):
+        response = mock.Mock(text=f'{self.delta_file}\nolder_file.json.gz\n')
+
+        mock_get = self.run_delta_import(response)
+
+        self.assertIn('wger/', mock_get.call_args.kwargs['headers']['User-Agent'])
+        self.assertTrue(Ingredient.objects.filter(remote_id='2000').exists())
+
+    def test_error_page_from_index_is_not_used_as_file_name(self):
+        response = mock.Mock(text='<html>\n<head><title>403 Forbidden</title></head>')
+        response.raise_for_status.side_effect = requests.HTTPError('403 Forbidden')
+
+        with self.assertRaises(requests.HTTPError):
+            self.run_delta_import(response)
