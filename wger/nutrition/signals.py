@@ -25,6 +25,7 @@ from easy_thumbnails.files import get_thumbnailer
 # wger
 from wger.nutrition.models import (
     Image,
+    LogItem,
     Meal,
     MealItem,
     NutritionPlan,
@@ -45,6 +46,20 @@ post_save.connect(reset_nutritional_values_canonical_form, sender=Meal)
 post_delete.connect(reset_nutritional_values_canonical_form, sender=Meal)
 post_save.connect(reset_nutritional_values_canonical_form, sender=MealItem)
 post_delete.connect(reset_nutritional_values_canonical_form, sender=MealItem)
+
+
+def fetch_ingredient_image(sender, instance: MealItem | LogItem, raw: bool = False, **kwargs):
+    """
+    Fetch the image of ingredients that are used in a plan or the diary
+    """
+    if raw:
+        return
+
+    instance.ingredient.fetch_image_in_background()
+
+
+post_save.connect(fetch_ingredient_image, sender=MealItem)
+post_save.connect(fetch_ingredient_image, sender=LogItem)
 
 
 def auto_delete_file_on_delete(sender, instance: Image, **kwargs):
