@@ -13,6 +13,9 @@ Progression requirements can now reference the top of the prescribed range via t
   writing, and can be filtered by `metric_type` and `external_id`. Integrations
   such as scale apps no longer have to look up their category first or keep
   track of the ids of the entries they wrote.
+* Exercise contributions always have an author: if none is given, the username
+  is used. Everyone who edits an exercise or translation is credited as an
+  author, images and videos keep the author of the file.
 
 ### Bug fixes
 
