@@ -44,6 +44,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Read version from wger/version.py
         id: version
