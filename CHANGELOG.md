@@ -13,6 +13,10 @@ Progression requirements can now reference the top of the prescribed range via t
   writing, and can be filtered by `metric_type` and `external_id`. Integrations
   such as scale apps no longer have to look up their category first or keep
   track of the ids of the entries they wrote.
+* Measurements have a new generic `device` source for data written by a wearable
+  or sensor app on behalf of the user. Put vendor and model in `extra_data`. It
+  is deduplicated on `external_id` and checked against the metric limits like
+  every other source.
 
 ### Bug fixes
 
