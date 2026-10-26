@@ -37,6 +37,7 @@ from django.utils.translation import gettext as _
 
 # wger
 from wger.manager.consts import (
+    REP_UNIT_MAX_REPS,
     REP_UNIT_REPETITIONS,
     REP_UNIT_TILL_FAILURE,
 )
@@ -93,10 +94,19 @@ class SetConfigData:
 
         This converts the values to something readable like "10 × 100 kg @ 2.00RiR"
         """
+        return self._text_repr(short=False)
 
+    @property
+    def text_repr_short(self) -> str:
+        """
+        Text representation without sets, RiR and rest, e.g. "10 × 100 kg"
+        """
+        return self._text_repr(short=True)
+
+    def _text_repr(self, short: bool) -> str:
         out = []
 
-        if self.sets and self.sets > 1:
+        if not short and self.sets and self.sets > 1:
             sets = self.sets
             if self.max_sets:
                 sets = f'{sets}-{self.max_sets}'
@@ -134,6 +144,16 @@ class SetConfigData:
             if self.weight:
                 out.append('×')
 
+        # These units are meaningful without a repetitions value
+        elif self.repetitions_unit in (REP_UNIT_TILL_FAILURE, REP_UNIT_MAX_REPS):
+            if self.repetitions_unit == REP_UNIT_TILL_FAILURE and self.weight:
+                out.append('∞')
+            else:
+                out.append(_(self.repetitions_unit_name))
+
+            if self.weight:
+                out.append('×')
+
         if self.weight:
             weight = round_value(self.weight, self.weight_rounding)
             max_weight = (
@@ -150,6 +170,9 @@ class SetConfigData:
                 unit = _(self.weight_unit_name)
 
             out.append(f'{weight} {unit}'.strip())
+
+        if short:
+            return ' '.join(out)
 
         if self.rir:
             rir = round_value(self.rir, 0.5)

@@ -34,7 +34,9 @@ from wger.core.models import (
 )
 from wger.exercises.models import Exercise
 from wger.manager.consts import (
+    REP_UNIT_MAX_REPS,
     REP_UNIT_REPETITIONS,
+    REP_UNIT_TILL_FAILURE,
     REQUIREMENT_RULES,
     WEIGHT_UNIT_KG,
 )
@@ -536,6 +538,12 @@ class SlotEntry(models.Model):
         rest = states['rest'].value
         max_rest = states['maxrest'].value
 
+        # "Until Failure" and "Max Reps" don't need a repetitions value
+        has_repetitions_unit = repetitions is not None or self.repetition_unit_id in (
+            REP_UNIT_TILL_FAILURE,
+            REP_UNIT_MAX_REPS,
+        )
+
         result = SetConfigData(
             slot_entry_id=self.id,
             exercise=self.exercise_id,
@@ -557,9 +565,9 @@ class SlotEntry(models.Model):
             if max_repetitions and repetitions and max_repetitions > repetitions
             else None,
             repetitions_rounding=self.repetition_rounding if repetitions is not None else None,
-            repetitions_unit=self.repetition_unit_id if repetitions is not None else None,
+            repetitions_unit=self.repetition_unit_id if has_repetitions_unit else None,
             repetitions_unit_name=self.repetition_unit.name
-            if repetitions is not None and self.repetition_unit is not None
+            if has_repetitions_unit and self.repetition_unit is not None
             else None,
             rir=round_value(rir, self._display_rounding('rir')),
             max_rir=round_value(max_rir, self._display_rounding('rir'))
