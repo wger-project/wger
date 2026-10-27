@@ -1,6 +1,6 @@
-# Promt for generating trophy icons
+# Prompt for generating trophy icons
 
-(these are the promts used to generate the trophy icons. As with everything AI, this can change
+(these are the prompts used to generate the trophy icons. As with everything AI, this can change
 at any time in the future, so it's best to also just update one of the ones we already have so that
 the design remains somewhat consistent)
 
@@ -13,7 +13,7 @@ Available background shapes:
 * Diamond (for other trophies)
 
 
-## Promt
+## Prompt
 
 You are an expert graphic designer specializing in creating trophy icons for fitness applications.
 Your task is to design a set of visually appealing and easily recognizable trophy icons that
