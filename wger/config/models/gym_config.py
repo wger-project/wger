@@ -38,7 +38,7 @@ class GymConfig(models.Model):
     System wide configuration for gyms
 
     At the moment this only allows to set one gym as the default
-    TODO: close registration (users can only become members thorough an admin)
+    TODO: close registration (users can only become members through an admin)
     """
 
     default_gym = models.ForeignKey(
