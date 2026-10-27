@@ -14,9 +14,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-from typing import List
-
 # Django
 from django.db import models
 
@@ -120,7 +117,7 @@ class Day(models.Model):
         """
         return self.routine
 
-    def get_slots_gym_mode(self, iteration: int) -> List[SlotData]:
+    def get_slots_gym_mode(self, iteration: int) -> list[SlotData]:
         """
         Return the sets for this day
         """
@@ -128,7 +125,7 @@ class Day(models.Model):
 
         return [SlotData(comment=s.comment, sets=s.set_data_gym(iteration)) for s in slots]
 
-    def get_slots_display_mode(self, iteration: int) -> List[SlotData]:
+    def get_slots_display_mode(self, iteration: int) -> list[SlotData]:
         """
         Return the sets for this day.
 
