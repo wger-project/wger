@@ -18,7 +18,6 @@
 import copy
 import datetime
 import logging
-from typing import List
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -53,7 +52,7 @@ def copy_routine(request, pk):
         if not trainer_identity_pk or routine.user.pk != trainer_identity_pk:
             return HttpResponseForbidden()
 
-    def copy_config(configs: List[AbstractChangeConfig], slot_entry: SlotEntry):
+    def copy_config(configs: list[AbstractChangeConfig], slot_entry: SlotEntry):
         for config in configs:
             config_copy = copy.copy(config)
             config_copy.pk = None

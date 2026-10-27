@@ -18,7 +18,6 @@ from dataclasses import (
     dataclass,
 )
 from decimal import Decimal
-from typing import Optional
 
 # wger
 from wger.nutrition.consts import (
@@ -48,12 +47,12 @@ class IngredientData:
     energy: float
     protein: float
     carbohydrates: float
-    carbohydrates_sugar: Optional[float]
+    carbohydrates_sugar: float | None
     fat: float
-    fat_saturated: Optional[float]
-    fiber: Optional[float]
-    sodium: Optional[float]
-    code: Optional[str]
+    fat_saturated: float | None
+    fiber: float | None
+    sodium: float | None
+    code: str | None
     source_name: str
     source_url: str
     common_name: str | None
@@ -64,12 +63,12 @@ class IngredientData:
     license_object_url: str
     license_derivative_source_url: str = ''
     license_author_url: str = ''
-    is_vegan: Optional[bool] = None
-    is_vegetarian: Optional[bool] = None
-    serving_size_gram: Optional[int] = None
-    serving_size_unit: Optional[str] = None
-    serving_size_amount: Optional[float] = None
-    nutriscore: Optional[str] = None
+    is_vegan: bool | None = None
+    is_vegetarian: bool | None = None
+    serving_size_gram: int | None = None
+    serving_size_unit: str | None = None
+    serving_size_amount: float | None = None
+    nutriscore: str | None = None
 
     def sanity_checks(self):
         if not self.name:
