@@ -12,9 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from datetime import datetime, timezone
+from decimal import Decimal
+
 # wger
 from wger.core.tests import powersync_base_test
 from wger.nutrition.models import (
+    IngredientWeightUnit,
     LogItem,
     Meal,
     MealItem,
@@ -134,3 +139,57 @@ class LogItemPowerSyncTestCase(powersync_base_test.PowerSyncResourceTestCase):
     }
 
     fk_ownership = (('plan', PLAN_OTHER_UUID),)
+
+    def test_portion_date_update_clears_unit_and_preserves_context(self):
+        entry = LogItem.objects.get(pk=self.pk_owned)
+        entry.weight_unit = IngredientWeightUnit.objects.create(
+            ingredient=entry.ingredient, name='Serving', gram=125
+        )
+        entry.meal_id = MEAL_OWNED_UUID
+        entry.comment = 'Keep this comment'
+        entry.save()
+        before = LogItem.objects.values().get(pk=entry.pk)
+
+        self.authenticate()
+        response = self.push(
+            'PATCH',
+            {
+                'id': self.pk_owned,
+                'amount': '80.50',
+                'weight_unit': None,
+                'datetime': '2026-10-25T02:30:00+01:00',
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
+        entry.refresh_from_db()
+        self.assertEqual(entry.amount, Decimal('80.50'))
+        self.assertIsNone(entry.weight_unit_id)
+        self.assertEqual(entry.datetime, datetime(2026, 10, 25, 1, 30, tzinfo=timezone.utc))
+        after = LogItem.objects.values().get(pk=entry.pk)
+        for field in before.keys() - {'amount', 'weight_unit_id', 'datetime'}:
+            self.assertEqual(after[field], before[field], field)
+
+    def test_other_user_cannot_change_portion_or_date(self):
+        entry = LogItem.objects.get(pk=self.pk_owned)
+        entry.weight_unit = IngredientWeightUnit.objects.create(
+            ingredient=entry.ingredient, name='Serving', gram=125
+        )
+        entry.save()
+        before = LogItem.objects.values().get(pk=entry.pk)
+
+        self.authenticate(self.user_fail)
+        response = self.push(
+            'PATCH',
+            {
+                'id': self.pk_owned,
+                'amount': '80.50',
+                'weight_unit': None,
+                'datetime': '2026-10-25T01:30:00Z',
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(response.json(), {'status': 'ok!'})
+        self.assertEqual(LogItem.objects.values().get(pk=entry.pk), before)

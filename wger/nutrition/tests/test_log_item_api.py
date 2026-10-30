@@ -13,13 +13,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from datetime import datetime, timezone
+from decimal import Decimal
+
 # Third Party
 from rest_framework import status
 
 # wger
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
-from wger.nutrition.models import LogItem
+from wger.nutrition.models import (
+    IngredientWeightUnit,
+    LogItem,
+)
 
 
 PLAN_OWNED = 'cc000000-0000-0000-0000-000000000001'
@@ -134,6 +141,35 @@ class LogItemApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(LogItem.objects.get(pk=LOG_OTHER).amount, 75)
+
+    def test_patch_portion_date_clears_unit_and_preserves_context(self):
+        entry = LogItem.objects.get(pk=LOG_OWNED)
+        entry.weight_unit = IngredientWeightUnit.objects.create(
+            ingredient=entry.ingredient, name='Serving', gram=125
+        )
+        entry.comment = 'Keep this comment'
+        entry.save()
+        before = LogItem.objects.values().get(pk=entry.pk)
+        self.authenticate('test')
+
+        response = self.client.patch(
+            f'{self.url}{LOG_OWNED}/',
+            data={
+                'amount': 80.5,
+                'weight_unit': None,
+                'datetime': '2026-10-25T02:30:00+01:00',
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        entry.refresh_from_db()
+        self.assertEqual(entry.amount, Decimal('80.50'))
+        self.assertIsNone(entry.weight_unit_id)
+        self.assertEqual(entry.datetime, datetime(2026, 10, 25, 1, 30, tzinfo=timezone.utc))
+        after = LogItem.objects.values().get(pk=entry.pk)
+        for field in before.keys() - {'amount', 'weight_unit_id', 'datetime'}:
+            self.assertEqual(after[field], before[field], field)
 
     def test_delete_other_user_entry(self):
         self.authenticate('test')
