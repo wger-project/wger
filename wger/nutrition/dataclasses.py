@@ -18,7 +18,7 @@ from dataclasses import (
     dataclass,
 )
 from decimal import Decimal
-from typing import Optional
+from math import isfinite
 
 # wger
 from wger.nutrition.consts import (
@@ -48,12 +48,12 @@ class IngredientData:
     energy: float
     protein: float
     carbohydrates: float
-    carbohydrates_sugar: Optional[float]
+    carbohydrates_sugar: float | None
     fat: float
-    fat_saturated: Optional[float]
-    fiber: Optional[float]
-    sodium: Optional[float]
-    code: Optional[str]
+    fat_saturated: float | None
+    fiber: float | None
+    sodium: float | None
+    code: str | None
     source_name: str
     source_url: str
     common_name: str | None
@@ -64,12 +64,12 @@ class IngredientData:
     license_object_url: str
     license_derivative_source_url: str = ''
     license_author_url: str = ''
-    is_vegan: Optional[bool] = None
-    is_vegetarian: Optional[bool] = None
-    serving_size_gram: Optional[int] = None
-    serving_size_unit: Optional[str] = None
-    serving_size_amount: Optional[float] = None
-    nutriscore: Optional[str] = None
+    is_vegan: bool | None = None
+    is_vegetarian: bool | None = None
+    serving_size_gram: int | None = None
+    serving_size_unit: str | None = None
+    serving_size_amount: float | None = None
+    nutriscore: str | None = None
 
     def sanity_checks(self):
         if not self.name:
@@ -94,8 +94,16 @@ class IngredientData:
         # TypeError escape and abort the whole import run.
         for field in ['energy'] + macros:
             value = getattr(self, field)
-            if value is not None and not isinstance(value, (int, float, Decimal)):
+            if value is None:
+                continue
+            if not isinstance(value, (int, float, Decimal)):
                 raise ValueError(f'Value for {field} is not a number: {value!r}')
+            if (isinstance(value, float) and not isfinite(value)) or (
+                isinstance(value, Decimal) and not value.is_finite()
+            ):
+                raise ValueError(f'Value for {field} is not finite: {value}')
+            if value < 0:
+                raise ValueError(f'Value for {field} is negative: {value}')
 
         for macro in macros:
             value = getattr(self, macro)

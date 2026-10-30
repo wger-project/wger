@@ -389,6 +389,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     max_rest = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
     type = serializers.CharField()
     text_repr = serializers.CharField()
+    text_repr_short = serializers.CharField()
     comment = serializers.CharField()
 
 

@@ -1177,6 +1177,29 @@ class SlotEntryTestCase(WgerTestCase):
             ),
         )
 
+    def test_repetitions_unit_without_repetitions(self):
+        """
+        Test that "Until Failure" and "Max Reps" are kept without a repetitions config,
+        other units are not
+        """
+        WeightConfig(slot_entry=self.slot_entry, iteration=1, value=20).save()
+
+        for unit_id, expected_unit, expected_name in (
+            (2, 2, 'Until Failure'),
+            (7, 7, 'Max Reps'),
+            (1, None, None),
+            (3, None, None),
+        ):
+            with self.subTest(unit_id=unit_id):
+                self.slot_entry.repetition_unit_id = unit_id
+                self.slot_entry.save()
+                cache.clear()
+
+                data = self.slot_entry.get_config_data(1)
+                self.assertEqual(data.repetitions_unit, expected_unit)
+                self.assertEqual(data.repetitions_unit_name, expected_name)
+                self.assertIsNone(data.repetitions)
+
     def test_has_progression_flag(self):
         """Tests that the has_progression flag is automatically set"""
 

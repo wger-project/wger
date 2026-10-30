@@ -190,6 +190,172 @@ class SetConfigDataTestCase(WgerTestCase):
         self.assertEqual(Decimal(data['rir']), capped_rir)
 
 
+class SetConfigDataUnitsTestCase(WgerTestCase):
+    """
+    Test the long and short text representation for the different units
+    """
+
+    def assert_texts(self, config: SetConfigData, text_repr: str, text_repr_short: str):
+        self.assertEqual(config.text_repr, text_repr)
+        self.assertEqual(config.text_repr_short, text_repr_short)
+
+    def test_seconds(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions=45,
+            repetitions_unit=3,
+            repetitions_unit_name='Seconds',
+            rest=15,
+        )
+        self.assert_texts(config, '45 Seconds 15s rest', '45 Seconds')
+
+    def test_until_failure_with_weight_without_repetitions(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions_unit=2,
+            repetitions_unit_name='Until Failure',
+            weight=20,
+            weight_unit=1,
+            weight_unit_name='kg',
+            rir=2,
+            rest=15,
+        )
+        self.assert_texts(config, '∞ × 20 kg @ 2 RiR 15s rest', '∞ × 20 kg')
+
+    def test_until_failure_without_repetitions(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions_unit=2,
+            repetitions_unit_name='Until Failure',
+            rest=15,
+        )
+        self.assert_texts(config, 'Until Failure 15s rest', 'Until Failure')
+
+    def test_max_reps_without_repetitions(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions_unit=7,
+            repetitions_unit_name='Max Reps',
+            rest=15,
+        )
+        self.assert_texts(config, 'Max Reps 15s rest', 'Max Reps')
+
+    def test_max_reps_with_weight_without_repetitions(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions_unit=7,
+            repetitions_unit_name='Max Reps',
+            weight=20,
+            weight_unit=1,
+            weight_unit_name='kg',
+        )
+        self.assert_texts(config, 'Max Reps × 20 kg', 'Max Reps × 20 kg')
+
+    def test_kilometers_and_speed(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions=5,
+            repetitions_unit=6,
+            repetitions_unit_name='Kilometers',
+            weight=12,
+            weight_unit=6,
+            weight_unit_name='Kilometers Per Hour',
+            rest=15,
+        )
+        self.assert_texts(
+            config,
+            '5 Kilometers × 12 Kilometers Per Hour 15s rest',
+            '5 Kilometers × 12 Kilometers Per Hour',
+        )
+
+    def test_pounds(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions=8,
+            repetitions_unit=1,
+            repetitions_unit_name='Repetitions',
+            weight=65,
+            weight_unit=2,
+            weight_unit_name='lb',
+            rest=15,
+        )
+        self.assert_texts(config, '8 × 65 lb 15s rest', '8 × 65 lb')
+
+    def test_body_weight_zero(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions=10,
+            repetitions_unit=1,
+            repetitions_unit_name='Repetitions',
+            weight=0,
+            weight_unit=5,
+            weight_unit_name='Body Weight',
+            rest=15,
+        )
+        self.assert_texts(config, '10 Reps 15s rest', '10 Reps')
+
+    def test_plates(self):
+        config = SetConfigData(
+            exercise=1,
+            repetitions=8,
+            repetitions_unit=1,
+            repetitions_unit_name='Repetitions',
+            weight=2,
+            weight_unit=3,
+            weight_unit_name='Plates',
+            rest=15,
+        )
+        self.assert_texts(config, '8 × 2 Plates 15s rest', '8 × 2 Plates')
+
+    def test_ranges(self):
+        config = SetConfigData(
+            exercise=1,
+            sets=3,
+            repetitions=8,
+            max_repetitions=12,
+            repetitions_unit=1,
+            repetitions_unit_name='Repetitions',
+            weight=60,
+            max_weight=70,
+            weight_unit=1,
+            weight_unit_name='kg',
+            rir=2,
+            rest=15,
+            max_rest=30,
+        )
+        self.assert_texts(
+            config,
+            '3 Sets, 8-12 × 60-70 kg @ 2 RiR 15-30s rest',
+            '8-12 × 60-70 kg',
+        )
+
+    def test_weight_only(self):
+        config = SetConfigData(
+            exercise=1,
+            weight=40,
+            weight_unit=1,
+            weight_unit_name='kg',
+            rest=15,
+        )
+        self.assert_texts(config, '40 kg 15s rest', '40 kg')
+
+    def test_short_text_serialized(self):
+        config = SetConfigData(
+            exercise=1,
+            sets=3,
+            repetitions=8,
+            repetitions_unit=1,
+            weight=40,
+            weight_unit=1,
+            weight_unit_name='kg',
+            rest=15,
+        )
+        data = SetConfigDataSerializer(config).data
+
+        self.assertEqual(data['text_repr'], '3 Sets, 8 × 40 kg 15s rest')
+        self.assertEqual(data['text_repr_short'], '8 × 40 kg')
+
+
 class SlotDataExercisesTestCase(WgerTestCase):
     """
     Test that the list of exercises of a slot keeps the order of its sets

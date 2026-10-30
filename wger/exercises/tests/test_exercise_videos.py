@@ -28,7 +28,10 @@ from django.urls import reverse
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import ExerciseVideo
-from wger.exercises.tests.api_mixins import ActstreamUpdateMixin
+from wger.exercises.tests.api_mixins import (
+    ActstreamUpdateMixin,
+    LicenseAuthorUpdateMixin,
+)
 
 
 HTML_PAYLOAD = b'<!DOCTYPE html><script>document.title = "xss"</script>'
@@ -112,6 +115,7 @@ class ExerciseVideoUploadTestCase(WgerTestCase):
 # TODO: add POST and DELETE tests
 class ExerciseVideosApiTestCase(
     ActstreamUpdateMixin,
+    LicenseAuthorUpdateMixin,
     api_base_test.BaseTestCase,
     api_base_test.ApiBaseTestCase,
     api_base_test.ApiGetTestCase,

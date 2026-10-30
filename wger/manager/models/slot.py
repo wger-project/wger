@@ -1,6 +1,3 @@
-# Standard Library
-from typing import List
-
 # Django
 from django.db import models
 
@@ -72,7 +69,7 @@ class Slot(models.Model):
         entries = getattr(self, 'prefetched_entries', self.entries.all())
         return len(entries) > 1
 
-    def set_data(self, iteration: int) -> List[SetExerciseData]:
+    def set_data(self, iteration: int) -> list[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
         entries = getattr(self, 'prefetched_entries', self.entries.all())
 
