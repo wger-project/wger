@@ -19,6 +19,10 @@ Progression requirements can now reference the top of the prescribed range via t
 * The routine date sequences (`date-sequence-gym`, `date-sequence-display`) have
   a new `text_repr_short` per set: repetitions and weight only, without sets,
   RiR and rest, e.g. for notifications.
+* Measurements have a new generic `device` source for data written by a wearable
+  or sensor app on behalf of the user. Put vendor and model in `extra_data`. It
+  is deduplicated on `external_id` and checked against the metric limits like
+  every other source.
 
 ### Bug fixes
 

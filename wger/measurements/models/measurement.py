@@ -41,6 +41,9 @@ class MeasurementSource(models.TextChoices):
     USER = 'user'
     GOOGLE = 'google'
     APPLE = 'apple'
+    # A wearable or sensor app writing on the user's behalf, vendor and model
+    # go into the entry's extra_data
+    DEVICE = 'device'
     # Written by the server for calculated categories, see measurements.dynamic
     CALCULATED = 'calculated'
 
