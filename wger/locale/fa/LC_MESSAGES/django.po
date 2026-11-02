@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2025-10-12 17:07+0000\n"
-"Last-Translator: Mahmuoud Salehi <hismom42-Mahmoud@yahoo.com>\n"
+"PO-Revision-Date: 2026-11-03 21:51+0000\n"
+"Last-Translator: Mofcious <mofcious@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/wger/web/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 2026.11.1.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -103,7 +103,7 @@ msgstr "ایمیل"
 
 #: core/forms.py:211
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "استفاده شده برای بازیابی رمز عبور و به صورت اختیاری, یادآوری ایمیل"
+msgstr "استفاده شده برای بازیابی رمز عبور و یادآوری ایمیل (به صورت اختیاری)"
 
 #: core/forms.py:234
 msgid "This e-mail address is already in use."
@@ -158,7 +158,7 @@ msgstr ""
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
-msgstr "نام مخفف زبان "
+msgstr "نام مخفف زبان"
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
@@ -381,7 +381,7 @@ msgstr ""
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
-msgstr "ممنوع"
+msgstr "ممنوع!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
@@ -393,11 +393,11 @@ msgstr "صفحه ای یافت نشد"
 
 #: core/templates/404.html:7
 msgid "The page you requested does not exist."
-msgstr "این صفحه وجو ندارد"
+msgstr "این صفحه وجو ندارد."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr "خطا"
+msgstr "خطایی رخ داده است"
 
 #: core/templates/500.html:8
 msgid ""
@@ -705,7 +705,7 @@ msgstr "وزن بدن"
 
 #: core/templates/navigation.html:200 core/templates/user/overview.html:131
 msgid "Weight overview"
-msgstr "بازنگری وزن "
+msgstr "بازنگری وزن"
 
 #: core/templates/navigation.html:214
 msgid "About this software"
@@ -809,7 +809,7 @@ msgstr "لطفا به صفحه مربوطه بروید و پسورد خود را
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
-msgstr "نام کاربری شما، اگر که فراموش کرده اید."
+msgstr "نام کاربری شما، اگر که فراموش کرده اید:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
@@ -2470,7 +2470,7 @@ msgstr "صفحه اول"
 #: nutrition/templates/ingredient/overview.html:66
 #: nutrition/templates/ingredient/overview.html:71
 msgid "previous"
-msgstr ""
+msgstr "قبلی"
 
 #: nutrition/templates/ingredient/overview.html:77
 #: nutrition/templates/ingredient/overview.html:82
@@ -2517,7 +2517,7 @@ msgstr ""
 
 #: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
 msgid "Fiber"
-msgstr ""
+msgstr "فیبر"
 
 #: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
 msgid "Sodium"
