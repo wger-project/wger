@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.32.4"]
+requires = ["hatchling>=1.33.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -75,7 +75,7 @@ dev = [
     "django-debug-toolbar~=8.0.0",
     "django-extensions~=4.1",
     "faker~=40.43.0",
-    "hatchling~=1.32.4",
+    "hatchling~=1.33.0",
     "ruff~=0.17.0",
     "tblib~=3.2.0",
 ]
