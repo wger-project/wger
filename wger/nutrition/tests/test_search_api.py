@@ -168,6 +168,44 @@ class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(result1['name'], 'Ingredient, test, 2, organic, raw')
         self.assertEqual(result1['id'], 2)
 
+    def test_name_exact_finds_full_name(self):
+        """
+        The exact filter returns the ingredient with exactly that name
+        """
+        response = self.client.get(self.url, {'name__exact': 'Test ingredient 1'})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['id'], 1)
+
+    def test_name_exact_ignores_case(self):
+        """
+        The exact filter is not case-sensitive
+        """
+        response = self.client.get(self.url, {'name__exact': 'tEST iNGREDIENT 1'})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(response.data['results'][0]['id'], 1)
+
+    def test_name_exact_does_not_match_part_of_name(self):
+        """
+        Only part of the name is not enough for the exact filter
+        """
+        response = self.client.get(self.url, {'name__exact': 'Test ingredient'})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 0)
+
+    def test_name_exact_treats_wildcards_as_text(self):
+        """
+        Characters like % have no special meaning in the exact filter
+        """
+        response = self.client.get(self.url, {'name__exact': 'Test%'})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 0)
+
     def test_filter_nutriscore_exact(self):
         """
         Exact match on nutriscore returns only ingredients with that grade

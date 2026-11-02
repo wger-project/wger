@@ -76,6 +76,10 @@ class LogItemFilterSet(filters.FilterSet):
 class IngredientFilterSet(filters.FilterSet):
     code = filters.CharFilter(method='search_barcode')
     name__search = filters.CharFilter(method='search_name_fulltext')
+    name__exact = filters.CharFilter(
+        method='search_name_exact',
+        help_text='Case-insensitive search for ingredients with exactly this name.',
+    )
     language__code = filters.CharFilter(
         method='search_languagecode',
         help_text=(
@@ -157,6 +161,17 @@ class IngredientFilterSet(filters.FilterSet):
             # Explicit order_by('name') because the viewset strips Meta.ordering.
             # Search results are small, so sorting them is cheap.
             return queryset.filter(name__icontains=value).order_by('name')
+
+    def search_name_exact(self, queryset, name, value):
+        """
+        Case-insensitive search for ingredients with exactly the given name
+        """
+
+        if is_postgres_db():
+            exact = PostgresILikeExact(F('name'), value)
+            return queryset.filter(exact).order_by('name')
+
+        return queryset.filter(name__iexact=value).order_by('name')
 
     def search_languagecode(self, queryset, name, value):
         """
