@@ -58,6 +58,9 @@ def parse_weight_csv(request, cleaned_data):
 
     # Process the CSV items first
     for row in parsed_csv:
+        if not row:
+            continue
+
         try:
             parsed_date = make_aware(
                 datetime.datetime.strptime(row[0], cleaned_data['date_format'])
