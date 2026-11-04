@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
 # wger
@@ -21,6 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
+    WgerTestCase,
     delete_testcase_add_methods,
 )
 from wger.gym.models import UserDocument
@@ -118,4 +122,40 @@ class DeleteDocumentTestCase(WgerDeleteTestCase):
     )
 
 
+
 delete_testcase_add_methods(DeleteDocumentTestCase)
+
+
+class UserDocumentFileValidationTest(WgerTestCase):
+    """
+    Tests file extension validation on the UserDocument.document field
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.get(username='admin')
+
+    def test_valid_file_extension(self):
+        """
+        A file with an allowed extension (.pdf) should pass full_clean() without errors
+        """
+        doc = UserDocument(
+            user=self.user,
+            member=self.user,
+            document=SimpleUploadedFile('safe.pdf', b'%PDF-1.4 fake content'),
+            original_name='safe.pdf',
+        )
+        doc.full_clean()
+
+    def test_invalid_file_extension(self):
+        """
+        A file with a disallowed extension (.txt) should raise a ValidationError
+        """
+        doc = UserDocument(
+            user=self.user,
+            member=self.user,
+            document=SimpleUploadedFile('malware.txt', b'not allowed content'),
+            original_name='malware.txt',
+        )
+        with self.assertRaises(ValidationError):
+            doc.full_clean()
