@@ -14,7 +14,9 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import math
 import re
+from decimal import Decimal
 
 # Django
 from django.utils import translation
@@ -36,14 +38,24 @@ OFF_REQUIRED_NUTRIMENTS = [
     'carbohydrates_100g',
     'fat_100g',
 ]
+# Avoid magnifying rounding errors in very small servings, as OFF does when
+# aggregating nutrition data to 100 g.
+MIN_SERVING_MASS_GRAMS = 5
 
 MASS_PATTERN = re.compile(r'(?P<mass>\d+(?:[\.,]\d+)?)\s*(?P<unit>kg|g|mg)\b', re.IGNORECASE)
+# Nutrient conversion must not mistake part of a negative, fraction or
+# scientific notation for a positive weight. Keep display-label parsing as-is.
+NUTRIENT_MASS_PATTERN = re.compile(
+    r'(?<![\w.,+/\-\u2212])(?P<mass>[+-]?(?:\d+(?:[.,]\d+)?|[.,]\d+))\s*'
+    r'(?P<unit>kg|g|mg)\b',
+    re.IGNORECASE,
+)
 AMOUNT_AND_UNIT_PATTERN = re.compile(
     r'^\s*(?P<amount>\d+(?:[\.,]\d+)?)\s*(?P<unit>[^\d\(\),;\|][^\(\),;\|]*)$'
 )
 
 
-def _mass_match_to_gram(match: re.Match) -> int | None:
+def _mass_match_to_gram(match: re.Match) -> float | None:
     mass = float(match.group('mass').replace(',', '.'))
     unit = match.group('unit').lower()
 
@@ -52,10 +64,77 @@ def _mass_match_to_gram(match: re.Match) -> int | None:
         return None
 
     gram_value = mass * factor
-    if gram_value <= 0:
+    if not math.isfinite(gram_value) or gram_value <= 0:
         return None
 
-    return int(round(gram_value))
+    return gram_value
+
+
+def _serving_mass_in_grams(serving_size: str, pattern: re.Pattern = MASS_PATTERN) -> float | None:
+    # Prefer the explicit mass in parentheses, e.g. "200 ml (206 g)".
+    for text in [*re.findall(r'\(([^\)]*)\)', serving_size), serving_size]:
+        for match in pattern.finditer(text):
+            if (mass := _mass_match_to_gram(match)) is not None:
+                return mass
+    return None
+
+
+def _serving_weight_for_nutrients(product_data: dict) -> float | None:
+    unit = product_data.get('serving_quantity_unit')
+    if unit == 'g':
+        if isinstance(product_data.get('serving_quantity'), bool):
+            return None
+        try:
+            mass = float(product_data.get('serving_quantity'))
+        except (TypeError, ValueError, OverflowError):
+            return None
+        return mass if math.isfinite(mass) and mass > 0 else None
+
+    if unit and unit != 'ml':
+        return None
+
+    # Never assume ml are grams. An explicit mass in a legacy label or alongside
+    # a volume ("200 ml (206 g)") can still be used, without rounding fractions.
+    return _serving_mass_in_grams(product_data.get('serving_size') or '', NUTRIENT_MASS_PATTERN)
+
+
+def _nutriments_with_serving_fallback(product_data: dict) -> dict:
+    nutriments = product_data['nutriments'].copy()
+    nutrients = ['proteins', 'carbohydrates', 'fat', 'sugars', 'saturated-fat', 'sodium', 'fiber']
+
+    # Existing per-100g energy, including kJ, wins over any per-serving energy.
+    if all(nutriments.get(f'{name}_100g') is None for name in ('energy-kcal', 'energy-kj')):
+        nutrients.append(
+            'energy-kcal' if nutriments.get('energy-kcal_serving') is not None else 'energy-kj'
+        )
+
+    missing = [
+        nutrient
+        for nutrient in nutrients
+        if nutriments.get(f'{nutrient}_100g') is None
+        and nutriments.get(f'{nutrient}_serving') is not None
+    ]
+    if not missing or (mass := _serving_weight_for_nutrients(product_data)) is None:
+        return nutriments
+    if mass < MIN_SERVING_MASS_GRAMS:
+        return nutriments
+
+    for nutrient in missing:
+        value = nutriments[f'{nutrient}_serving']
+        if isinstance(value, bool) or not isinstance(value, (int, float, Decimal)):
+            raise ValueError(f'Invalid per-serving value for {nutrient}: {value!r}')
+        try:
+            numeric_value = float(value)
+        except (ValueError, OverflowError) as error:
+            raise ValueError(f'Invalid per-serving value for {nutrient}: {value!r}') from error
+        if not math.isfinite(numeric_value) or value < 0:
+            raise ValueError(f'Invalid per-serving value for {nutrient}: {value!r}')
+        per_100g = numeric_value / mass * 100
+        if not math.isfinite(per_100g):
+            raise ValueError(f'Invalid per-serving value for {nutrient}: {value!r}')
+        nutriments[f'{nutrient}_100g'] = per_100g
+
+    return nutriments
 
 
 def extract_serving_size_data(
@@ -89,29 +168,16 @@ def extract_serving_size_data(
         with translation.override(language_code):
             unit = gettext('Serving')
 
-    # Prefer mass values in parenthesis, e.g. "200 ml (206 g)".
-    parenthesis_matches = [
-        _mass_match_to_gram(match)
-        for content in re.findall(r'\(([^\)]*)\)', serving_size)
-        for match in MASS_PATTERN.finditer(content)
-    ]
-    parenthesis_matches = [value for value in parenthesis_matches if value is not None]
-
-    all_matches = [_mass_match_to_gram(match) for match in MASS_PATTERN.finditer(serving_size)]
-    all_matches = [value for value in all_matches if value is not None]
-
-    gram = (
-        parenthesis_matches[0] if parenthesis_matches else (all_matches[0] if all_matches else None)
-    )
-
-    return gram, unit[:200], amount
+    mass = _serving_mass_in_grams(serving_size)
+    return round(mass) if mass is not None else None, unit[:200], amount
 
 
 def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     if not all(req in product_data for req in OFF_REQUIRED_TOP_LEVEL):
         raise KeyError('Missing required top-level key')
 
-    if not all(req in product_data['nutriments'] for req in OFF_REQUIRED_NUTRIMENTS):
+    nutriments = _nutriments_with_serving_fallback(product_data)
+    if not all(nutriments.get(req) is not None for req in OFF_REQUIRED_NUTRIMENTS):
         raise KeyError('Missing required nutrition key')
 
     # Basics
@@ -134,23 +200,23 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     common_name = product_data.get('generic_name', '')
 
     # If the energy is not available in kcal, convert from kJ
-    if 'energy-kcal_100g' in product_data['nutriments']:
-        energy = product_data['nutriments']['energy-kcal_100g']
-    elif 'energy-kj_100g' in product_data['nutriments']:
-        energy = product_data['nutriments']['energy-kj_100g'] / KJ_PER_KCAL
+    if nutriments.get('energy-kcal_100g') is not None:
+        energy = nutriments['energy-kcal_100g']
+    elif nutriments.get('energy-kj_100g') is not None:
+        energy = nutriments['energy-kj_100g'] / KJ_PER_KCAL
     else:
         raise KeyError('Energy is not available')
 
     code = product_data['code']
-    protein = product_data['nutriments']['proteins_100g']
-    carbs = product_data['nutriments']['carbohydrates_100g']
-    fat = product_data['nutriments']['fat_100g']
+    protein = nutriments['proteins_100g']
+    carbs = nutriments['carbohydrates_100g']
+    fat = nutriments['fat_100g']
 
     # these are optional
-    saturated = product_data['nutriments'].get('saturated-fat_100g', None)
-    sodium = product_data['nutriments'].get('sodium_100g', None)
-    sugars = product_data['nutriments'].get('sugars_100g', None)
-    fiber = product_data['nutriments'].get('fiber_100g', None)
+    saturated = nutriments.get('saturated-fat_100g', None)
+    sodium = nutriments.get('sodium_100g', None)
+    sugars = nutriments.get('sugars_100g', None)
+    fiber = nutriments.get('fiber_100g', None)
     brand = product_data.get('brands', '')
     serving_size = product_data.get('serving_size', '')
 

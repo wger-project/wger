@@ -170,6 +170,77 @@ class ImportOffProductsTestCase(WgerTestCase):
         self.assertEqual(Ingredient.objects.count(), count_before + 1)
         self.assertTrue(Ingredient.objects.filter(remote_id='1001').exists())
 
+    def test_per_serving_products_are_imported_and_updated(self):
+        count_before = Ingredient.objects.count()
+        product = off_product(
+            '15061',
+            'Per-serving product',
+            serving_size='20 g',
+            serving_quantity='20',
+            serving_quantity_unit='g',
+            nutriments={
+                'energy-kcal_serving': 120,
+                'proteins_serving': 2,
+                'carbohydrates_serving': 6,
+                'fat_serving': 8,
+            },
+        )
+
+        self.run_import([product])
+
+        ingredient = Ingredient.objects.get(remote_id='15061')
+        self.assertEqual(Ingredient.objects.count(), count_before + 1)
+        self.assertEqual((ingredient.energy, ingredient.protein), (600, 10))
+
+        product['nutriments'].update(proteins_serving=4)
+        product['nutriments']['energy-kcal_serving'] = 112
+        self.run_import([product])
+
+        ingredient.refresh_from_db()
+        self.assertEqual(Ingredient.objects.count(), count_before + 1)
+        self.assertEqual((ingredient.energy, ingredient.protein), (560, 20))
+
+    def test_invalid_per_serving_data_does_not_abort_the_run(self):
+        count_before = Ingredient.objects.count()
+        invalid_mass = off_product('15062', 'Zero serving weight', serving_quantity=0)
+        invalid_nutrient = off_product('15063', 'Negative serving nutrient', serving_quantity=20)
+        for product in (invalid_mass, invalid_nutrient):
+            product['serving_quantity_unit'] = 'g'
+            del product['nutriments']['proteins_100g']
+            product['nutriments']['proteins_serving'] = -1
+
+        self.run_import([invalid_mass, invalid_nutrient, off_product('15064', 'Valid product')])
+
+        self.assertEqual(Ingredient.objects.count(), count_before + 1)
+        self.assertFalse(Ingredient.objects.filter(remote_id__in=['15062', '15063']).exists())
+        self.assertTrue(Ingredient.objects.filter(remote_id='15064').exists())
+
+    def test_small_serving_fallback_is_skipped_without_aborting_the_run(self):
+        count_before = Ingredient.objects.count()
+        incomplete = off_product(
+            '15065',
+            'Small serving with missing nutrition',
+            serving_quantity=0.5,
+            serving_quantity_unit='g',
+            serving_size='0.5 g',
+        )
+        del incomplete['nutriments']['proteins_100g']
+        incomplete['nutriments']['proteins_serving'] = 0.05
+        complete = off_product(
+            '15066',
+            'Small serving with complete nutrition',
+            serving_quantity=0.5,
+            serving_quantity_unit='g',
+            serving_size='0.5 g',
+        )
+
+        self.run_import([incomplete, complete])
+
+        self.assertEqual(Ingredient.objects.count(), count_before + 1)
+        self.assertFalse(Ingredient.objects.filter(remote_id='15065').exists())
+        ingredient = Ingredient.objects.get(remote_id='15066')
+        self.assertEqual((ingredient.energy, ingredient.protein), (600, 10))
+
 
 class ImportOffDeltaTestCase(WgerTestCase):
     """
