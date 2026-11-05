@@ -530,9 +530,11 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return None
 
         try:
-            return int(round(float(amount) * conversion[normalized_unit]))
-        except (TypeError, ValueError):
+            gram = int(round(float(amount) * conversion[normalized_unit]))
+        except (OverflowError, TypeError, ValueError):
             return None
+
+        return gram if gram >= 0 else None
 
     @staticmethod
     def _fetch_off_product(code: str, context: str = ''):
