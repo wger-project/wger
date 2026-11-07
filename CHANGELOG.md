@@ -23,6 +23,8 @@ Progression requirements can now reference the top of the prescribed range via t
   or sensor app on behalf of the user. Put vendor and model in `extra_data`. It
   is deduplicated on `external_id` and checked against the metric limits like
   every other source.
+* Workout logs have an optional `notes` field, so individual sets can get a note
+  (e.g. form cues or how the set felt) in addition to the notes of the session.
 
 ### Bug fixes
 
