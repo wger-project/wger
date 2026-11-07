@@ -26,6 +26,8 @@ Progression requirements can now reference the top of the prescribed range via t
 
 ### Bug fixes
 
+* Counted messages for token expiry, confirmation links, inactive-member reminders,
+  and workout-session limits now use locale-aware plural forms.
 * Deleting a routine, day, slot, or slot entry now preserves completed workout
   sessions and logs, including performed and target values. Only the references
   to deleted routine structure are cleared. Explicit session deletion and account

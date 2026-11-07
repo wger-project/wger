@@ -20,6 +20,7 @@ from xml.sax.saxutils import escape
 
 # Django
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.forms import model_to_dict
 from django.http import (
     HttpResponse,
@@ -65,6 +66,7 @@ logger = logging.getLogger(__name__)
 
 
 @login_required
+@transaction.atomic
 def copy(request, pk):
     """
     Copy the nutrition plan

@@ -18,6 +18,7 @@ import zoneinfo
 
 # Django
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import (
     IntegrityError,
     transaction,
@@ -25,6 +26,7 @@ from django.db import (
 from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import override
 
 # Third Party
 from rest_framework import status
@@ -59,6 +61,24 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
 
     SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
     ROUTINE = 3
+
+    def test_limit_message_uses_the_configured_count(self):
+        start = timezone.now()
+        for hours in (1, 2, 21):
+            with (
+                self.subTest(hours=hours),
+                override('en'),
+                override_settings(WGER_MAX_SESSION_LENGTH_HOURS=hours),
+            ):
+                session = WorkoutSession(
+                    datetime_start=start,
+                    datetime_end=start + datetime.timedelta(hours=hours + 1),
+                )
+                unit = 'hour' if hours == 1 else 'hours'
+                with self.assertRaisesMessage(
+                    ValidationError, f'A session cannot be longer than {hours} {unit}.'
+                ):
+                    session.clean()
 
     def setUp(self):
         super().setUp()

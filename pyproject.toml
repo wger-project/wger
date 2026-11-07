@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.32.4"]
+requires = ["hatchling>=1.33.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -31,8 +31,8 @@ dependencies = [
     "celery[redis]~=5.6.0",
     "crispy-bootstrap5~=2026.3",
     "django-activity-stream~=2.0.0",
-    "django-allauth[mfa,idp-oidc]~=65.20.0",
-    "django-axes[ipware]~=8.3.1",
+    "django-allauth[mfa,idp-oidc]~=65.21.1",
+    "django-axes[ipware]~=9.0.0",
     "django-bootstrap-breadcrumbs2==1.0.0",
     "django-cors-headers~=4.9.0",
     "django-crispy-forms~=2.5",
@@ -66,7 +66,7 @@ dependencies = [
     "reportlab~=5.1.0",
     "requests~=2.34.0",
     "tqdm~=4.70.0",
-    "tzdata~=2026.5",
+    "tzdata~=2026.6",
 ]
 
 [dependency-groups]
@@ -75,7 +75,7 @@ dev = [
     "django-debug-toolbar~=8.0.0",
     "django-extensions~=4.1",
     "faker~=40.43.0",
-    "hatchling~=1.32.4",
+    "hatchling~=1.33.0",
     "ruff~=0.17.0",
     "tblib~=3.2.0",
 ]

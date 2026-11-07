@@ -28,7 +28,7 @@ schema reset) without asking.
 
 ## Layout
 
-```
+```text
 wger/<app>/
 ├── models/        one file per model (or group), re-exported from models/__init__.py
 ├── api/           DRF serializers, viewsets, filtersets
@@ -88,6 +88,10 @@ wger/<app>/
   inline.
 - **i18n:** user-visible strings go through `gettext`/`{% translate %}`. Translations come from Weblate, don't edit the
   `.po` files of other languages. If a client already has the string, reuse its English text exactly.
+  Strings with a number use plural forms (`ngettext`, `{% blocktranslate count %}`) and keep the placeholder in the
+  singular too: in some languages that form also covers numbers like 21. Update the `.po` files from inside `wger/`
+  with `uv run python ../manage.py makemessages --all --extension html,txt,py,tpl`; without `tpl` the strings from
+  `i18n.tpl` and the `.tpl` emails drop out.
 - **Logs:** never log secrets at any level (tokens, passwords, auth response bodies).
 - **Secrets / debug flags:** never commit a real `SECRET_KEY` or leave `DEBUG=True` in non-test config.
 - **Install/config changes:** new env vars, settings or docker changes also need the documentation in `../docs`
