@@ -32,7 +32,7 @@ from wger.exercises.models import (
 from wger.exercises.views.helper import StreamVerbs
 
 
-class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
+class ExerciseSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/exercise-submission/'
 
     @staticmethod
@@ -48,7 +48,10 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
             'translations': [
                 {
                     'name': '1-Arm Half-Kneeling Lat Pulldown',
-                    'description_source': 'Attach a D-Handle to a high pully. And use your lat muscles to pull the weight single handedly.',
+                    'description_source': (
+                        'Attach a D-Handle to a high pully. And use your lat muscles '
+                        'to pull the weight single handedly.'
+                    ),
                     'language': 2,
                     'license_author': 'tester',
                     'aliases': [
@@ -83,6 +86,24 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
             Alias.objects.count(),
             ExerciseComment.objects.count(),
         )
+
+    def test_submission_anonymous(self):
+        """Anonymous users cannot submit exercises"""
+        before = self.get_counts()
+        response = self.client.post(self.url, data=self.get_payload())
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(before, self.get_counts())
+
+    def test_submission_untrustworthy_user(self):
+        """Users without a verified email cannot submit exercises"""
+        self.authenticate('test')
+
+        before = self.get_counts()
+        response = self.client.post(self.url, data=self.get_payload())
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(before, self.get_counts())
 
     def test_successful_submission_full(self):
         """Test that all objects were correctly created."""
@@ -176,7 +197,7 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(counts_before, counts_after)
-        self.assertIn('language', response.json().get('translations')[0])
+        self.assertIn('language', response.json()['translations']['0'])
 
     def test_unsuccessful_submission_language_mismatch_comment(self):
         """
@@ -277,3 +298,46 @@ class SearchSubmissionApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         # Nothing was created (the create runs in a transaction)
         self.assertEqual(before, after)
+
+    def _submit_with_authors(self, **author):
+        """Submit with the given license author on the exercise and every translation"""
+        self.authenticate('admin')
+
+        payload = self.get_payload()
+        for obj in (payload, *payload['translations']):
+            obj.pop('license_author')
+            obj.update(author)
+
+        response = self.client.post(self.url, data=payload)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
+        return Exercise.objects.get(pk=response.json()['id'])
+
+    def test_submission_without_license_author_uses_username(self):
+        """Exercise and translations get the username when no author is sent"""
+        exercise = self._submit_with_authors()
+
+        self.assertEqual(exercise.license_author, 'admin')
+        self.assertEqual(
+            set(exercise.translations.values_list('license_author', flat=True)),
+            {'admin'},
+        )
+
+    def test_submission_with_empty_license_author_uses_username(self):
+        """Exercise and translations get the username when the author is empty"""
+        exercise = self._submit_with_authors(license_author='')
+
+        self.assertEqual(exercise.license_author, 'admin')
+        self.assertEqual(
+            set(exercise.translations.values_list('license_author', flat=True)),
+            {'admin'},
+        )
+
+    def test_submission_keeps_license_author(self):
+        """An author that is sent is stored as is"""
+        exercise = self._submit_with_authors(license_author='Jane Doe')
+
+        self.assertEqual(exercise.license_author, 'Jane Doe')
+        self.assertEqual(
+            set(exercise.translations.values_list('license_author', flat=True)),
+            {'Jane Doe'},
+        )

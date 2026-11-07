@@ -102,12 +102,6 @@ class Ingredient(AbstractLicenseModel, models.Model):
             ),
         )
 
-    ENERGY_APPROXIMATION = 15
-    """
-    How much the calculated energy from protein, etc. can deviate from the
-    energy amount given (in percent).
-    """
-
     objects = ApproximateCountManager()
 
     language = models.ForeignKey(
@@ -433,11 +427,19 @@ class Ingredient(AbstractLicenseModel, models.Model):
         if not request.user.is_authenticated:
             return
 
-        if not settings.WGER_SETTINGS['USE_CELERY']:
-            logger.info('Celery deactivated, skipping retrieving ingredient image')
+        self.fetch_image_in_background()
+
+    def fetch_image_in_background(self):
+        """
+        Lets celery fetch the image if it is not available locally
+        """
+        if hasattr(self, 'image'):
             return
 
-        # Let celery fetch the image
+        if not settings.WGER_SETTINGS['USE_CELERY']:
+            logger.debug('Celery deactivated, skipping retrieving ingredient image')
+            return
+
         # wger
         from wger.nutrition.tasks import fetch_ingredient_image_task
 

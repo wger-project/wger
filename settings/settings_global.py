@@ -27,6 +27,10 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 from jwt.algorithms import RSAAlgorithm
 
 # wger
+from wger.core.api.docs import (
+    API_DESCRIPTION,
+    API_TAGS,
+)
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.version import get_version
 
@@ -135,6 +139,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # Per-provider apps (allauth.socialaccount.providers.google, ...) are
     # added conditionally in main.py based on WGER_SOCIAL_PROVIDERS.
+
+    # OAuth2/OIDC provider, used by API clients that log in as the user
+    'allauth.idp.oidc',
 ]
 
 MIDDLEWARE = [
@@ -156,6 +163,14 @@ MIDDLEWARE = [
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
+
+    # Activates the user's time zone. Has to come after the authentication
+    # middlewares: reading request.user earlier caches it and the guest user
+    # would never be created
+    'wger.core.middleware.TimezoneMiddleware',
+
+    # Blocks allauth's account pages while a trainer is logged in as a member
+    'wger.core.middleware.TrainerLoginMiddleware',
 
     # Send an appropriate Header so search engines don't index pages
     'wger.utils.middleware.RobotsExclusionMiddleware',
@@ -224,10 +239,29 @@ STATICFILES_DIRS = (('node', os.path.join(BASE_DIR, '..', 'node_modules')),)
 
 
 #
+# Password hashing
+#
+# Django's own list, but with argon2 moved to the front. It is both faster and
+# harder to attack than PBKDF2, which is only the default because it needs no
+# third party library. Existing hashes stay valid and are rewritten to argon2
+# on the next successful login.
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
+
+#
 # Email
 #
 EMAIL_SUBJECT_PREFIX = '[wger] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Backend that performs the delivery when EMAIL_BACKEND only queues it, see
+# wger.core.mail
+EMAIL_DELIVERY_BACKEND = EMAIL_BACKEND
 
 #
 # django-allauth
@@ -245,18 +279,20 @@ ACCOUNT_CHANGE_EMAIL = True
 # authentication backend resolves the email against its EmailAddress table.
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
-# Use wger's own login/signup forms (allauth's forms + the password-visibility
-# toggle, and a conditional reCAPTCHA field on signup).
+# Use wger's own login/signup/password reset forms (allauth's forms + the
+# password-visibility toggle, and a conditional reCAPTCHA field on signup and
+# password reset).
 ACCOUNT_FORMS = {
     'login': 'wger.core.forms.WgerLoginForm',
     'signup': 'wger.core.forms.WgerSignupForm',
+    'reset_password': 'wger.core.forms.WgerResetPasswordForm',
 }
 
-# django-axes handles login brute-force protection at the backend level (it
-# wraps every authenticate() call, so it also covers the API login endpoints).
-# Disable allauth's overlapping login throttles to avoid running two systems;
-# the non-login limits (signup, password reset, ...) stay at allauth's defaults.
-ACCOUNT_RATE_LIMITS = {'login_failed': None, 'login': None}
+# Failed logins are throttled per key: per username for passwords and per user
+# for second factor codes (allauth.mfa counts those under the same action, axes
+# never sees them). No per-IP part, behind the reverse proxy every client has
+# the same address. django-axes additionally locks out per IP.
+ACCOUNT_RATE_LIMITS = {'login': None, 'login_failed': '5/300s/key'}
 
 #
 # Two-factor authentication (allauth.mfa)
@@ -286,6 +322,25 @@ HEADLESS_CLIENTS = ('app',)
 HEADLESS_TOKEN_STRATEGY = 'wger.utils.headless_auth.WgerJWTTokenStrategy'
 HEADLESS_JWT_ALGORITHM = 'RS256'
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 120 * 24 * 3600
+
+#
+# PowerSync
+#
+POWERSYNC_TOKEN_LIFETIME = 600
+
+#
+# allauth.idp.oidc — OAuth2/OIDC provider
+#
+IDP_OIDC_ADAPTER = 'wger.utils.oidc_auth.WgerOIDCAdapter'
+
+# Empty means the provider is switched off, installations that want to act as
+# one set it themselves (see settings/main.py)
+IDP_OIDC_PRIVATE_KEY = ''
+
+# Without this refresh tokens never expire, and since only tokens with an expiry
+# are cleaned up, abandoned grants would pile up forever. Same lifetime as the
+# tokens the app gets.
+IDP_OIDC_REFRESH_TOKEN_EXPIRES_IN = HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN
 
 
 def jwk_b64_to_pem(b64_jwk_str: str):
@@ -356,6 +411,7 @@ AVAILABLE_LANGUAGES = (
     ('es-mx', 'Mexican Spanish'),
     ('es-ni', 'Nicaraguan Spanish'),
     ('es-ve', 'Venezuelan Spanish'),
+    ('fi', 'Finnish'),
     ('fr', 'French'),
     ('he', 'Hebrew'),
     ('hr', 'Croatian'),
@@ -466,11 +522,19 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'wger.utils.pagination.WgerLimitOffsetPagination',
     'PAGE_SIZE': 20,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    # JSON only, endpoints taking a file set MultiPartParser themselves.
+    'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # The token-based classes activate the user's timezone, which the
+        # middleware only manages for session requests; see timezone_auth
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'wger.utils.timezone_auth.TimezoneTokenAuthentication',
         'wger.utils.headless_auth.HeadlessJWTAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # Also uses Bearer, but with opaque tokens, so it has to run before
+        # simplejwt, which raises instead of passing the token on. Placed after
+        # the headless class so app requests don't pay for the token lookup.
+        'wger.utils.oidc_auth.OidcTokenAuthentication',
+        'wger.utils.timezone_auth.TimezoneJWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -505,14 +569,39 @@ SPECTACULAR_SETTINGS = {
         {'url': '/', 'description': 'This server'},
         {'url': 'https://wger.de', 'description': 'The "official" upstream wger instance'},
     ],
-    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
+    'DESCRIPTION': API_DESCRIPTION,
     'VERSION': get_version(),
+    'LICENSE': {
+        'name': 'AGPL-3.0-or-later',
+        'url': 'https://www.gnu.org/licenses/agpl-3.0.html',
+    },
+    'EXTERNAL_DOCS': {
+        'url': 'https://wger.readthedocs.io',
+        'description': 'wger documentation',
+    },
+    'TAGS': API_TAGS,
     'SERVE_INCLUDE_SCHEMA': True,
     'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'COMPONENT_SPLIT_REQUEST': True,
+    # postprocess_schema_enums is spectacular's own default and has to be
+    # repeated: assigning the list replaces it, and without it no enum becomes a
+    # named component, which renames a good part of every generated client.
+    'POSTPROCESSING_HOOKS': [
+        'drf_spectacular.hooks.postprocess_schema_enums',
+        'wger.utils.api_schema.strip_patch_defaults',
+        'wger.utils.api_schema.require_measurement_category',
+    ],
+    # Both are exposed as a plain "type" field on more than one component, which
+    # spectacular would otherwise name with a hash suffix (e.g. Type947Enum).
+    # The names end up as class names in generated clients, so pin them.
+    'ENUM_NAME_OVERRIDES': {
+        'DayTypeEnum': 'wger.manager.models.day.DayType.choices',
+        'ExerciseTypeEnum': 'wger.manager.models.slot_entry.ExerciseType.choices',
+        'IntensityEnum': 'wger.core.models.profile.UserProfile.INTENSITY',
+    },
 }
 
 #
@@ -595,9 +684,18 @@ WGER_SETTINGS = {
 }
 
 #
+# How long a workout session may last. Doubles as the window in which a log
+# without a session is attached to an open one instead of starting a new one.
+WGER_MAX_SESSION_LENGTH_HOURS = 5
+
+
+#
 # Social authentication / OAuth
 # List of allauth provider IDs to load, e.g. ['google', 'github', 'gitlab'].
 WGER_SOCIAL_PROVIDERS = []
+
+# Whether to link to the mobile app in the app stores in the footer and on the landing page.
+WGER_SHOW_APP_STORE_LINKS = True
 
 
 #

@@ -90,4 +90,4 @@ class NutritionalPlanCacheTestCase(WgerTestCase):
         plan.get_nutritional_values()
         self.assertTrue(cache.get(cache_mapper.get_nutrition_cache_by_key(plan)))
         meal_item.delete()
-        self.assertFalse(cache.get(cache_mapper.get_nutrition_cache_by_key(meal_item)))
+        self.assertFalse(cache.get(cache_mapper.get_nutrition_cache_by_key(plan)))

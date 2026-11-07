@@ -35,6 +35,9 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 
+# wger
+from wger.core.models import LongLivedSession
+
 
 # Marker stored on the session payload to identify long-lived sessions later.
 LONG_LIVED_FLAG = 'wger_long_lived_refresh'
@@ -76,54 +79,60 @@ def mint_long_lived_refresh_token(user, lifetime_seconds: int) -> str:
     # second save, /tokens/refresh would not find the jti and reject the
     # token as unknown.
     session.save()
+
+    # Index the session so it can be listed and revoked without scanning the
+    # whole session table.
+    LongLivedSession.objects.update_or_create(
+        session_key=session.session_key,
+        defaults={'user': user},
+    )
     return token
 
 
 def list_long_lived_sessions(user):
     """
-    Iterate over the unexpired long-lived sessions belonging to *user*. Yields
-    ``Session`` model instances, sorted by creation time (newest first).
+    Return the unexpired long-lived sessions belonging to *user* as ``Session``
+    model instances, sorted by creation time (newest first). Each one carries
+    its index row as ``long_lived``.
     """
-    user_id = str(user.pk)
-    rows = []
-    for s in Session.objects.filter(expire_date__gt=timezone.now()):
-        try:
-            data = s.get_decoded()
-        except Exception:
-            # A corrupted session row should not break the page. Django's
-            # signed_cookies/db backends both protect against tampering, so
-            # decode failures only happen for legitimate edge cases (e.g. a
-            # cleared SECRET_KEY across deployments).
+    entries = list(LongLivedSession.objects.filter(user=user))
+    sessions = {
+        s.session_key: s
+        for s in Session.objects.filter(
+            session_key__in=[entry.session_key for entry in entries],
+            expire_date__gt=timezone.now(),
+        )
+    }
+
+    result = []
+    for entry in entries:
+        session = sessions.get(entry.session_key)
+
+        # Index rows without a session (deleted outside of the app) are skipped
+        if session is None:
             continue
-        if data.get(SESSION_KEY) != user_id:
-            continue
-        if not data.get(LONG_LIVED_FLAG):
-            continue
-        rows.append((s, data.get(LONG_LIVED_CREATED_AT) or ''))
-    rows.sort(key=lambda row: row[1], reverse=True)
-    return [row[0] for row in rows]
+
+        session.long_lived = entry
+        result.append(session)
+    return result
 
 
 def revoke_long_lived_session(user, session_key: str) -> bool:
     """
     Delete a single long-lived session by key, but only when it actually
-    belongs to *user* and is marked long-lived. Returns ``True`` if a row was
-    deleted.
+    belongs to *user*. Returns ``True`` if a session was deleted.
     """
     try:
-        s = Session.objects.get(
-            session_key=session_key,
-            expire_date__gt=timezone.now(),
-        )
-    except Session.DoesNotExist:
+        entry = LongLivedSession.objects.get(user=user, session_key=session_key)
+    except LongLivedSession.DoesNotExist:
         return False
-    data = s.get_decoded()
-    if data.get(SESSION_KEY) != str(user.pk):
-        return False
-    if not data.get(LONG_LIVED_FLAG):
-        return False
-    s.delete()
-    return True
+
+    deleted, _ = Session.objects.filter(
+        session_key=session_key,
+        expire_date__gt=timezone.now(),
+    ).delete()
+    entry.delete()
+    return bool(deleted)
 
 
 def revoke_all_long_lived_sessions(user) -> int:
@@ -131,6 +140,11 @@ def revoke_all_long_lived_sessions(user) -> int:
     Delete every long-lived session belonging to *user*. Returns the number
     of revoked sessions.
     """
-    sessions = list_long_lived_sessions(user)
-    Session.objects.filter(session_key__in=[s.session_key for s in sessions]).delete()
-    return len(sessions)
+    entries = LongLivedSession.objects.filter(user=user)
+    keys = list(entries.values_list('session_key', flat=True))
+    deleted, _ = Session.objects.filter(
+        session_key__in=keys,
+        expire_date__gt=timezone.now(),
+    ).delete()
+    entries.delete()
+    return deleted

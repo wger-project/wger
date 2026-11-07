@@ -90,13 +90,21 @@ class AuthProxyUserBackend(BaseBackend):
             logger.error(f"AuthProxy: Error fetching user '{username}': {e}")
             return None
 
+        if not user.is_active:
+            logger.warning(f"AuthProxy: User '{username}' is inactive, refusing login.")
+            return None
+
         return user
 
     def get_user(self, user_id):
         """
         Standard Django method to retrieve a user by ID.
+
+        Inactive users are refused here as well, so that deactivating an
+        account also ends its existing proxy sessions.
         """
         try:
-            return User.objects.get(pk=user_id)
+            user = User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+        return user if user.is_active else None

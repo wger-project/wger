@@ -104,12 +104,12 @@ class DeleteDocumentTestCase(WgerDeleteTestCase):
     object_class = UserDocument
     url = 'gym:document:delete'
     user_success = (
-        'admin',
         'trainer1',
         'trainer2',
         'trainer3',
     )
     user_fail = (
+        'admin',
         'member1',
         'member2',
         'trainer4',

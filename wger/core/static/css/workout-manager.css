@@ -28,30 +28,21 @@
 /* font-face kit by Fonts2u - http://www.fonts2u.com */
 @font-face {
     font-family: "Open Sans Light";
-    src: url("/static/fonts/OpenSans-Light.eot?") format("eot"),
-    url("/static/fonts/OpenSans-Light.woff") format("woff"),
-    url("/static/fonts/OpenSans-Light.ttf") format("truetype"),
-    url("/static/fonts/OpenSans-Light.svg#OpenSans-Light") format("svg");
+    src: url("/static/fonts/OpenSans-Light.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Open Sans";
-    src: url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
-    url("/static/fonts/OpenSans-Regular.woff") format("woff"),
-    url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
-    url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
+    src: url("/static/fonts/OpenSans-Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Open Sans Bold";
-    src: url("/static/fonts/OpenSans-Bold.eot?") format("eot"),
-    url("/static/fonts/OpenSans-Bold.woff") format("woff"),
-    url("/static/fonts/OpenSans-Bold.ttf") format("truetype"),
-    url("/static/fonts/OpenSans-Bold.svg#OpenSans-Bold") format("svg");
+    src: url("/static/fonts/OpenSans-Bold.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
@@ -84,123 +75,12 @@ a img {
 }
 
 /*
- * "invisible" elements, simply hidden (they still take all the space)
- */
-.invisible {
-    display: none;
-}
-
-.align-right {
-    text-align: right;
-}
-
-
-/*
- * Set the sizes for the background where the muscles are shown on the exercise view page
- */
-div.muscle-background {
-    width: 150px;
-    height: 276px;
-    background-size: 150px;
-    background-repeat: no-repeat;
-}
-
-/*
- * Set an additional padding to the generated DIV on the edit set page
- */
-#exercise-search-log {
-    padding-left: 1em;
-}
-
-
-/**************************************************************
- * Mouse hover options
- **************************************************************/
-
-/*
- * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
- */
-.editoptions {
-    visibility: hidden;
-}
-
-ul:hover .editoptions,
-tr:hover .editoptions,
-tbody tr:hover td .editoptions {
-    visibility: visible;
-}
-
-/*
- * Deactivate the default background color on hover
- */
-.editoptions a:hover,
-.ui-tabs-nav a:hover,
-.ui-tabs-nav a:focus,
-.ajax-exercise-select a:hover,
-.no-hover a:hover,
-.no-hover:hover {
-    background-color: transparent;
-}
-
-
-/*
  * Make more space for the page title
  */
 #page-title {
     margin-top: 0.5em;
 }
 
-/*
- * Links in warning boxes get a different style, the default blue doesn't match
- * well with orange
- */
-div.warning a,
-div.success a,
-div.info a,
-div.success a:hover,
-div.success a:active,
-div.warning a:hover,
-div.warning a:active,
-div.info a:hover,
-div.info a:active {
-    color: black;
-    text-decoration: underline;
-    background-color: transparent;
-}
-
-/**************************************************************
- * Autocompleter
- **************************************************************/
-
-/*
- * Category heading for the ajax autocompleter
- */
-.ui-autocomplete-category {
-    margin: 0;
-    text-align: center;
-    zoom: 1;
-    width: 100%;
-    font-weight: bold;
-    background-color: #d3d7cf;
-    border-bottom: 1px solid #888a85;
-}
-
-/*
- * Give the result list from the autocompleter a maximum size
- */
-.ui-autocomplete {
-    max-height: 500px;
-    max-width: 500px;
-    overflow-y: auto;
-    overflow-x: hidden; /* prevent horizontal scrollbar */
-}
-
-/*
- * Give odd child's a different background colour (thanks CSS3!)
- */
-.ui-autocomplete li.ui-menu-item:nth-child(odd) {
-    background: #eeeeec;
-}
 
 /**************************************************************
  * extra-bold fonts
@@ -212,152 +92,9 @@ div.info a:active {
 }
 
 
-/**************************************************************
- * Styling for the SVG elements on the weight chart
- **************************************************************/
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-}
-
-.area {
-    fill: lightsteelblue;
-}
-
-.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 1.5px;
-}
-
-.dot {
-    fill: white;
-    stroke: steelblue;
-    stroke-width: 1.5px;
-}
-
-circle {
-    cursor: pointer;
-}
-
-circle:hover {
-    fill: #204a87;
-    stroke: #204a87;
-}
-
-.brush .extent {
-    stroke: #fff;
-    fill-opacity: 0.125;
-    shape-rendering: crispEdges;
-}
-
-/* Color series from d3.scale.category10() */
-circle.color-1f77b4:hover {
-    fill: #1f77b4;
-}
-
-circle.color-ff7f0e:hover {
-    fill: #ff7f0e;
-}
-
-circle.color-2ca02c:hover {
-    fill: #2ca02c;
-}
-
-circle.color-d62728:hover {
-    fill: #d62728;
-}
-
-circle.color-9467bd:hover {
-    fill: #9467bd;
-}
-
-circle.color-8c564b:hover {
-    fill: #8c564b;
-}
-
-circle.color-e377c2:hover {
-    fill: #e377c2;
-}
-
-circle.color-7f7f7f:hover {
-    fill: #7f7f7f;
-}
-
-circle.color-bcbd22:hover {
-    fill: #bcbd22;
-}
-
-circle.color-17becf:hover {
-    fill: #17becf;
-}
-
 /*
- * Autocompleter
+ * Spacing below the tables generated by DataTables
  */
-.autocomplete-wrapper {
-    margin: 44px auto 44px;
-    max-width: 600px;
-}
-
-.autocomplete-wrapper label {
-    display: block;
-    margin-bottom: 0.75em;
-    color: #3f4e5e;
-    font-size: 1.25em;
-}
-
-.autocomplete-wrapper .text-field {
-    padding: 0 15px;
-    width: 100%;
-    height: 40px;
-    border: 1px solid #cbd3dd;
-    font-size: 1.125em;
-}
-
-.autocomplete-wrapper ::-webkit-input-placeholder,
-.autocomplete-wrapper ::-moz-placeholder,
-.autocomplete-wrapper :-moz-placeholder,
-.autocomplete-wrapper :-ms-input-placeholder {
-    color: #cbd3dd;
-    font-style: italic;
-    font-size: 18px;
-}
-
-.autocomplete-suggestions {
-    overflow: auto;
-    border: 1px solid #cbd3dd;
-    background: #fff;
-}
-
-.autocomplete-suggestion {
-    overflow: hidden;
-    padding: 5px 15px 5px 22px;
-    white-space: nowrap;
-}
-
-.autocomplete-selected {
-    background: #f0f0f0;
-}
-
-.autocomplete-suggestions strong {
-    color: #3465a4;
-    font-weight: bold;
-}
-
-.autocomplete-group {
-    background-color: #d3d7cf;
-    padding-left: 13px;
-}
-
-.autocomplete-group strong {
-    color: black;
-    font-weight: bold;
-}
-
 .dt-container {
     margin-bottom: 1.5rem;
 }

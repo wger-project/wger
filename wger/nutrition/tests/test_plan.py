@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from unittest import mock
+
 # Django
 from django.forms import model_to_dict
 from django.urls import (
@@ -23,7 +26,10 @@ from django.urls import (
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import (
+    MealItem,
+    NutritionPlan,
+)
 
 
 class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -43,6 +49,23 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
 
 
 PLAN_OWNED_BY_TEST_USER = 'cc000000-0000-0000-0000-000000000002'
+
+
+class PlanCopyRollbackTestCase(WgerTestCase):
+    def test_copy_failure_rolls_back(self):
+        """
+        A failure while copying leaves no partial plan behind
+        """
+        self.user_login()
+        count = NutritionPlan.objects.count()
+
+        with mock.patch.object(MealItem, 'save', side_effect=RuntimeError):
+            with self.assertRaises(RuntimeError):
+                self.client.get(
+                    reverse('nutrition:plan:copy', kwargs={'pk': PLAN_OWNED_BY_TEST_USER}),
+                )
+
+        self.assertEqual(NutritionPlan.objects.count(), count)
 
 
 class PlanCopyTestCase(WgerTestCase):
@@ -82,3 +105,22 @@ class PlanCopyTestCase(WgerTestCase):
                 copied_dict = model_to_dict(copied_meal_item, exclude=['id', 'meal'])
                 self.assertEqual(orig_dict, copied_dict)
                 self.assertNotEqual(orig_meal_item.id, copied_meal_item.id)
+
+
+class PlanDiaryPageTestCase(WgerTestCase):
+    """
+    The React frontend links each diary date of a plan as /<lang>/nutrition/<plan>/<date>,
+    so the page must also load when opened directly (new tab, reload, bookmark).
+    """
+
+    def test_diary_date_page_loads_directly(self):
+        self.user_login()
+        response = self.client.get(
+            f'/en/nutrition/{PLAN_OWNED_BY_TEST_USER}/2026-10-11', follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_diary_page_loads_directly(self):
+        self.user_login()
+        response = self.client.get(f'/en/nutrition/{PLAN_OWNED_BY_TEST_USER}/diary', follow=True)
+        self.assertEqual(response.status_code, 200)

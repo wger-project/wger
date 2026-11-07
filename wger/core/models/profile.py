@@ -17,6 +17,12 @@
 # Standard Library
 import datetime
 import decimal
+from functools import lru_cache
+from zoneinfo import (
+    ZoneInfo,
+    ZoneInfoNotFoundError,
+    available_timezones,
+)
 
 # Django
 from django.conf import settings
@@ -36,12 +42,15 @@ from allauth.account.models import EmailAddress
 
 # wger
 from wger.gym.models import Gym
+from wger.measurements.models import (
+    Category,
+    Measurement,
+)
 from wger.utils.constants import TWOPLACES
 from wger.utils.units import (
     AbstractHeight,
     AbstractWeight,
 )
-from wger.weight.models import WeightEntry
 
 # Local
 from .language import Language
@@ -60,6 +69,24 @@ def birthdate_validator(birthdate):
             _('%(birthdate)s is not a valid birthdate'),
             params={'birthdate': birthdate},
         )
+
+
+@lru_cache(maxsize=1)
+def available_timezone_names() -> frozenset[str]:
+    """
+    The IANA names, cached: available_timezones() rescans the tzdata on every call
+    """
+    return frozenset(available_timezones())
+
+
+def validate_timezone(value: str) -> None:
+    """
+    Validates that the given string is a real IANA timezone name.
+
+    An empty value is allowed and means that no client has reported one.
+    """
+    if value and value not in available_timezone_names():
+        raise ValidationError(f'"{value}" is not a valid IANA timezone name')
 
 
 class UserProfile(models.Model):
@@ -323,6 +350,24 @@ class UserProfile(models.Model):
     )
     """Number of Days for email weight reminder"""
 
+    time_zone = models.CharField(
+        verbose_name='Timezone',
+        max_length=50,
+        blank=True,
+        default='',
+        validators=[validate_timezone],
+        help_text='IANA timezone name, e.g. "Europe/Berlin". Empty means no '
+        'client has reported one and the instance timezone is used.',
+    )
+    """
+    IANA timezone name (e.g. "Europe/Berlin") used to compute what calendar day
+    a workout session, log, or other "local" event counts for.
+
+    Empty means no client has reported one. That is not the same as the instance
+    timezone: features that would rather say nothing than say something wrong
+    check for it, see the time trophies.
+    """
+
     #
     # API
     #
@@ -389,8 +434,9 @@ class UserProfile(models.Model):
         more consistent with the other settings (age, height, etc.)
         """
         try:
-            weight = WeightEntry.objects.filter(user=self.user).latest().weight
-        except WeightEntry.DoesNotExist:
+            entry = Measurement.body_weight_for(self.user).latest('date')
+            weight = entry.value_in(self.weight_unit)
+        except Measurement.DoesNotExist:
             weight = 0
         return weight
 
@@ -436,6 +482,22 @@ class UserProfile(models.Model):
         :return: Boolean
         """
         return self.weight_unit == 'kg'
+
+    @property
+    def zone_info(self) -> ZoneInfo:
+        """
+        The user's timezone, falling back to the instance one
+
+        This is the only place the fallback is spelled out. Use
+        ``time_zone`` itself to tell a reported zone from an assumed one.
+        """
+        if not self.time_zone:
+            return timezone.get_default_timezone()
+
+        try:
+            return ZoneInfo(self.time_zone)
+        except (ZoneInfoNotFoundError, ValueError):
+            return timezone.get_default_timezone()
 
     def calculate_bmi(self):
         """
@@ -523,10 +585,13 @@ class UserProfile(models.Model):
         """
         Create a new weight entry and return it
         """
-        entry = WeightEntry()
-        entry.weight = weight
-        entry.user = self.user
-        entry.date = timezone.now()
+        category = Category.get_or_create_body_weight(self.user, unit=self.weight_unit)
+        entry = Measurement(
+            category=category,
+            value=weight,
+            date=timezone.now(),
+            extra_data={'unit': self.weight_unit},
+        )
         entry.save()
 
         return entry

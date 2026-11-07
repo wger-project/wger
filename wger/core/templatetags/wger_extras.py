@@ -21,10 +21,7 @@ from functools import lru_cache
 from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.safestring import mark_safe
-from django.utils.translation import (
-    gettext_lazy as _,
-    pgettext,
-)
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.tests.base_testcase import get_reverse
@@ -98,21 +95,15 @@ def trans_weight_unit(unit, user=None):
     """
     Returns the correct (translated) weight unit
 
-    :param unit: the weight unit. Allowed values are 'kg' and 'g'
+    :param unit: the weight unit. The only allowed value is 'kg'
     :param user: the user object, needed to access the profile. If this evaluates
                  to False, metric is used
     :return: translated unit
     """
-    if not user or user.userprofile.use_metric:
-        if unit == 'kg':
+    if unit == 'kg':
+        if not user or user.userprofile.use_metric:
             return _('kg')
-        if unit == 'g':
-            return pgettext('weight unit, i.e. grams', 'g')
-    else:
-        if unit == 'kg':
-            return _('lb')
-        if unit == 'g':
-            return pgettext('weight unit, i.e. ounces', 'oz')
+        return _('lb')
 
 
 @register.filter

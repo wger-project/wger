@@ -1,3 +1,6 @@
+# Standard Library
+from datetime import timedelta
+
 # Django
 from django.conf import settings
 from django.core.checks import (
@@ -22,6 +25,22 @@ def settings_check(app_configs, **kwargs):
                 hint='No wger instance configured, sync commands will not work',
                 obj=settings,
                 id='wger.W001',
+            )
+        )
+
+    # A very short refresh token lifetime is usually a unit mix-up: the
+    # REFRESH_TOKEN_LIFETIME environment variable is in hours, not days
+    # or minutes. Apps can only stay logged in for this long while unused.
+    refresh_lifetime = settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME']
+    if refresh_lifetime < timedelta(days=7):
+        errors.append(
+            Warning(
+                f'Very short JWT refresh token lifetime: {refresh_lifetime}',
+                hint='The REFRESH_TOKEN_LIFETIME environment variable is set in hours '
+                '(default 2880, i.e. 120 days). Users of the mobile app have to log in '
+                'again after not opening it for longer than this value.',
+                obj=settings,
+                id='wger.W003',
             )
         )
 

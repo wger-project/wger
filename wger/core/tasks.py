@@ -18,16 +18,40 @@ import random
 
 # Django
 from django.contrib.sessions.backends.db import SessionStore
+from django.contrib.sessions.models import Session
 from django.core.management import call_command
+from django.db.models import (
+    Exists,
+    OuterRef,
+)
 
 # Third Party
 from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
+from wger.core.models import LongLivedSession
+from wger.utils.mail import (
+    get_delivery_connection,
+    message_from_dict,
+)
 
 
 logger = logging.getLogger(__name__)
+
+
+@app.task(
+    autoretry_for=(Exception,),
+    retry_backoff=True,
+    retry_kwargs={'max_retries': 5},
+)
+def send_email_task(payload: dict):
+    """
+    Deliver a single email, see wger.core.mail.CeleryEmailBackend
+    """
+    message = message_from_dict(payload)
+    message.connection = get_delivery_connection()
+    message.send()
 
 
 @app.task
@@ -47,9 +71,26 @@ def flush_expired_jwt_tokens_task():
 @app.task
 def flush_expired_long_lived_sessions_task():
     """
-    Delete all expired DB-backed sessions
+    Delete all expired DB-backed sessions and their index rows
     """
     SessionStore.clear_expired()
+
+    # Index rows of sessions that are gone, the session table is the truth.
+    LongLivedSession.objects.filter(
+        ~Exists(Session.objects.filter(session_key=OuterRef('session_key')))
+    ).delete()
+
+
+@app.task
+def flush_expired_oidc_tokens_task():
+    """
+    Delete expired access and refresh tokens of the OAuth2/OIDC provider.
+
+    Rotation already drops the previous refresh token on every refresh, what
+    stays behind are abandoned grants: tokens of applications that a user
+    connected once and never used again.
+    """
+    call_command('oidc_cleartokens')
 
 
 @app.on_after_finalize.connect
@@ -69,4 +110,12 @@ def setup_periodic_tasks(sender, **kwargs):
         ),
         flush_expired_long_lived_sessions_task.s(),
         name='Flush expired long-lived sessions',
+    )
+    sender.add_periodic_task(
+        crontab(
+            hour=str(random.randint(0, 23)),
+            minute=str(random.randint(0, 59)),
+        ),
+        flush_expired_oidc_tokens_task.s(),
+        name='Flush expired OIDC tokens',
     )

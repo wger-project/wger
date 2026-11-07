@@ -21,6 +21,8 @@ from django.urls import (
     reverse,
     reverse_lazy,
 )
+from django.utils import timezone
+from django.utils.formats import date_format
 
 # Third Party
 from allauth.account.models import EmailAddress
@@ -32,6 +34,8 @@ from wger.core.tests.base_testcase import (
     WgerEditTestCase,
     WgerTestCase,
 )
+from wger.manager.models import WorkoutSession
+from wger.nutrition.models import NutritionPlan
 
 
 class StatusUserTestCase(WgerTestCase):
@@ -359,6 +363,58 @@ class UserDetailPageTestCase2(WgerAccessTestCase):
         'member1',
         'member2',
     )
+
+
+class UserDetailPageSessionTableTestCase(WgerTestCase):
+    """
+    Test the workout session table on the user detail page
+    """
+
+    def test_session_date_and_times_are_rendered(self):
+        """The session table shows the day and the start/end times of a session"""
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005')
+        start = timezone.localtime(session.datetime_start)
+        end = timezone.localtime(session.datetime_end)
+
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:overview', kwargs={'pk': 2}))
+
+        self.assertContains(response, date_format(start))
+        self.assertContains(response, f'{start:%H:%M} - {end:%H:%M}')
+
+    def test_session_without_end_shows_no_times(self):
+        """An open session (no end) falls back to the placeholder"""
+
+        WorkoutSession.objects.filter(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005').update(
+            datetime_end=None
+        )
+
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:overview', kwargs={'pk': 2}))
+
+        self.assertContains(response, '-/-')
+
+
+class UserDetailPageMacroUnitTestCase(WgerTestCase):
+    """
+    Tests that nutrition plan macros on the user detail page are labeled in grams
+    """
+
+    def test_macros_labeled_in_grams_for_imperial_user(self):
+        """
+        Tests that the macro labels stay 'g' for users with imperial units
+        """
+        member = User.objects.get(pk=2)
+        member.userprofile.weight_unit = 'lb'
+        member.userprofile.save()
+        NutritionPlan.objects.create(user=member)
+
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:overview', kwargs={'pk': member.pk}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'oz')
 
 
 class UserTrustworthinessTestCase(WgerTestCase):

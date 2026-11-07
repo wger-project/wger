@@ -26,11 +26,11 @@ from django.urls import reverse
 from django.utils.timezone import make_aware
 
 # wger
+from wger.measurements.models import Measurement
 from wger.nutrition.consts import ENERGY_FACTOR
 from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.utils.uuid import uuid7
-from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)
@@ -133,8 +133,6 @@ class NutritionPlan(models.Model):
         nutritional_representation = cache.get(cache_mapper.get_nutrition_cache_by_key(self.pk))
         if not nutritional_representation:
             nutritional_values = NutritionalValues()
-            use_metric = self.user.userprofile.use_metric
-            unit = 'kg' if use_metric else 'lb'
             result = {
                 'total': NutritionalValues(),
                 'percent': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
@@ -143,7 +141,7 @@ class NutritionPlan(models.Model):
 
             # Energy
             for meal in self.meal_set.select_related():
-                nutritional_values += meal.get_nutritional_values(use_metric=use_metric)
+                nutritional_values += meal.get_nutritional_values()
             result['total'] = nutritional_values
 
             energy = nutritional_values.energy
@@ -151,26 +149,22 @@ class NutritionPlan(models.Model):
             # In percent
             if energy:
                 result['percent']['protein'] = (
-                    nutritional_values.protein * ENERGY_FACTOR['protein'][unit] / energy * 100
+                    nutritional_values.protein * ENERGY_FACTOR['protein'] / energy * 100
                 )
                 result['percent']['carbohydrates'] = (
-                    nutritional_values.carbohydrates
-                    * ENERGY_FACTOR['carbohydrates'][unit]
-                    / energy
-                    * 100
+                    nutritional_values.carbohydrates * ENERGY_FACTOR['carbohydrates'] / energy * 100
                 )
                 result['percent']['fat'] = (
-                    nutritional_values.fat * ENERGY_FACTOR['fat'][unit] / energy * 100
+                    nutritional_values.fat * ENERGY_FACTOR['fat'] / energy * 100
                 )
 
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
-            if weight_entry and weight_entry.weight:
-                result['per_kg']['protein'] = nutritional_values.protein / weight_entry.weight
-                result['per_kg']['carbohydrates'] = (
-                    nutritional_values.carbohydrates / weight_entry.weight
-                )
-                result['per_kg']['fat'] = nutritional_values.fat / weight_entry.weight
+            if weight_entry and weight_entry.value:
+                weight_kg = weight_entry.value_in('kg')
+                result['per_kg']['protein'] = nutritional_values.protein / weight_kg
+                result['per_kg']['carbohydrates'] = nutritional_values.carbohydrates / weight_kg
+                result['per_kg']['fat'] = nutritional_values.fat / weight_kg
 
             nutritional_representation = result
             cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)
@@ -184,13 +178,13 @@ class NutritionPlan(models.Model):
         target = self.creation_date
         target_aware = make_aware(datetime.datetime.combine(target, datetime.time()))
         closest_entry_gte = (
-            WeightEntry.objects.filter(user=self.user)
+            Measurement.body_weight_for(self.user)
             .filter(date__gte=target_aware)
             .order_by('date')
             .first()
         )
         closest_entry_lte = (
-            WeightEntry.objects.filter(user=self.user)
+            Measurement.body_weight_for(self.user)
             .filter(date__lte=target_aware)
             .order_by('-date')
             .first()

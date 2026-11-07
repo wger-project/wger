@@ -63,22 +63,15 @@ if os.environ.get('DJANGO_ADMINS'):
 
 if os.environ.get('PS_DATABASE_URI'):
     DATABASES = {'default': env.db_url('PS_DATABASE_URI')}
-elif os.environ.get('DJANGO_DB_ENGINE'):
+else:
     DATABASES = {
         'default': {
             'ENGINE': env.str('DJANGO_DB_ENGINE'),
             'NAME': env.str('DJANGO_DB_DATABASE'),
-            'USER': env.str('DJANGO_DB_USER'),
-            'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
-            'HOST': env.str('DJANGO_DB_HOST'),
-            'PORT': env.int('DJANGO_DB_PORT'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': env.str('DJANGO_DB_DATABASE', '/home/wger/db/database.sqlite'),
+            'USER': env.str('DJANGO_DB_USER', ''),
+            'PASSWORD': env.str('DJANGO_DB_PASSWORD', ''),
+            'HOST': env.str('DJANGO_DB_HOST', ''),
+            'PORT': env.int('DJANGO_DB_PORT', 5432),
         }
     }
 PS_STORAGE_PG_URI = env.str(
@@ -109,6 +102,7 @@ JWT_PUBLIC_KEY = env.str('JWT_PUBLIC_KEY', '')
 JWT_PRIVATE_KEY = env.str('JWT_PRIVATE_KEY', '')
 POWERSYNC_URL_PATH = env.str('POWERSYNC_URL_PATH', 'ps')
 POWERSYNC_URL = env.str('POWERSYNC_URL', '')
+POWERSYNC_TOKEN_LIFETIME = env.int('POWERSYNC_TOKEN_LIFETIME', 600)
 if not DEBUG and any(
     key and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_JWT_KEY_HASHES
     for key in (JWT_PUBLIC_KEY, JWT_PRIVATE_KEY)
@@ -126,6 +120,11 @@ if not DEBUG and not (JWT_PRIVATE_KEY and JWT_PUBLIC_KEY):
         'add the output to your environment.',
         stacklevel=1,
     )
+
+# Signing key for the OAuth2/OIDC provider, in PEM format. Only needed to act as
+# an identity provider, so no warning when it is unset. Newlines can be written
+# as "\n" in the environment.
+IDP_OIDC_PRIVATE_KEY = env.str('IDP_OIDC_PRIVATE_KEY', '', multiline=True)
 
 
 # Your reCaptcha keys
@@ -199,6 +198,15 @@ WGER_SETTINGS['CACHE_API_EXERCISES_CELERY'] = env.bool('CACHE_API_EXERCISES_CELE
 WGER_SETTINGS['CACHE_API_EXERCISES_CELERY_FORCE_UPDATE'] = env.bool(
     'CACHE_API_EXERCISES_CELERY_FORCE_UPDATE', False
 )
+
+# Let a worker do the SMTP round trip, it would otherwise happen inside the
+# request that triggered the email (registration, password reset, ...)
+EMAIL_DELIVERY_BACKEND = EMAIL_BACKEND
+if WGER_SETTINGS['USE_CELERY']:
+    EMAIL_BACKEND = 'wger.core.mail.CeleryEmailBackend'
+
+WGER_SHOW_APP_STORE_LINKS = env.bool('WGER_SHOW_APP_STORE_LINKS', True)
+WGER_MAX_SESSION_LENGTH_HOURS = env.int('WGER_MAX_SESSION_LENGTH_HOURS', 5)
 
 #
 # Auth Proxy Authentication
@@ -327,7 +335,10 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'simple': {
-            'format': 'level={levelname} ts={asctime} module={module} path={pathname} line={lineno} message={message}',
+            'format': (
+                'level={levelname} ts={asctime} module={module} '
+                'path={pathname} line={lineno} message={message}'
+            ),
             'style': '{',
         },
     },

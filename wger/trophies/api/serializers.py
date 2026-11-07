@@ -62,15 +62,15 @@ class TrophySerializer(serializers.ModelSerializer):
         )
         read_only_fields = fields
 
-    def get_name(self, obj: Trophy):
+    def get_name(self, obj: Trophy) -> str:
         """Translate the trophy name"""
         return _(obj.name)
 
-    def get_description(self, obj: Trophy):
+    def get_description(self, obj: Trophy) -> str:
         """Translate the trophy description"""
         return _(obj.description)
 
-    def get_image(self, obj: Trophy):
+    def get_image(self, obj: Trophy) -> str | None:
         """Build absolute URL to trophy image, if possible."""
 
         request = self.context.get('request')

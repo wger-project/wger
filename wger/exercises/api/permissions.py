@@ -25,7 +25,7 @@ class CanContributeExercises(BasePermission):
     administrator users with the appropriate exercise permission are allowed to
     perform CRUD operations
 
-    TODO: at the moment the "exercises.delete_exercise" is hard coded here
+    TODO: at the moment the "exercises.delete_exercise" is hard-coded here
           and while it is enough and works, ideally we would want to set the
           individual permissions for e.g. aliases or videos.
     """
@@ -52,3 +52,19 @@ class CanContributeExercises(BasePermission):
         # Only admins are allowed to delete entries
         if request.method in self.DELETE_METHODS:
             return request.user.has_perm('exercises.delete_exercise')
+
+
+class CanCreateExercises(CanContributeExercises):
+    """
+    Like CanContributeExercises, but creating requires the add_exercise permission.
+
+    Regular users submit new exercises (base data plus translations) through
+    the submission endpoint, so this endpoint doesn't produce untranslated
+    exercises.
+    """
+
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            return request.user.is_authenticated and request.user.has_perm('exercises.add_exercise')
+
+        return super().has_permission(request, view)

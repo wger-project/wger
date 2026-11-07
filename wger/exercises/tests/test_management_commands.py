@@ -96,8 +96,10 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         )
         self.assertNotIn('-> deleted', self.out.getvalue())
 
-    def atest_fix_untranslated(self):
+    def test_fix_untranslated(self):
+        # Exercise 1 has translations in two languages, both have to go
         Translation.objects.get(pk=1).delete()
+        Translation.objects.get(pk=5).delete()
 
         call_command('exercises-health-check', '--delete-untranslated', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())

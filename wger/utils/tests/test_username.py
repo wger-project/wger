@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import random
+
 # Django
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -21,6 +24,9 @@ from wger.utils.username import generate_username_suggestions
 
 
 class TestGenerateUsernameSuggestions(TestCase):
+    # Creating a user creates a profile, which needs a notification language
+    fixtures = ('test-languages',)
+
     def test_returns_correct_count(self):
         """
         Should return the number of suggestions
@@ -28,16 +34,25 @@ class TestGenerateUsernameSuggestions(TestCase):
         result = generate_username_suggestions('john', count=3)
         self.assertEqual(len(result), 3)
 
-    def test_suggestions_are_unique_in_db(self):
+    def test_taken_suggestions_are_filtered_out(self):
         """
-        Suggestions should not exist in the database
+        Names that are already in use are not suggested
+
+        The candidates are random, so the generator is seeded to get the same
+        list twice: once to find out what it would suggest, once to check that
+        the name taken in between is gone.
         """
-        suggestions = generate_username_suggestions('john', 100)
-        taken = set(
-            User.objects.filter(username__in=suggestions).values_list('username', flat=True)
-        )
-        for suggestion in suggestions:
-            self.assertNotIn(suggestion, taken)
+        random.seed(1)
+        candidates = generate_username_suggestions('john', count=100)
+        self.assertGreater(len(candidates), 1)
+
+        User.objects.create(username=candidates[0])
+
+        random.seed(1)
+        suggestions = generate_username_suggestions('john', count=100)
+
+        self.assertNotIn(candidates[0], suggestions)
+        self.assertEqual(len(suggestions), len(candidates) - 1)
 
     def test_suggestions_start_with_base(self):
         """

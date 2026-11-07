@@ -72,8 +72,10 @@ from wger.gym.forms import (
 )
 from wger.gym.helpers import (
     get_permission_list,
+    holds_gym_permission,
     is_any_gym_admin,
     is_same_gym,
+    outranks,
     sanitize_csv_cell,
 )
 from wger.gym.models import (
@@ -266,6 +268,9 @@ def reset_user_password(request, user_pk):
     if request.user.has_perm('gym.manage_gym') and not is_same_gym(request.user, user):
         return HttpResponseForbidden()
 
+    if not outranks(request.user, user):
+        return HttpResponseForbidden()
+
     if request.method != 'POST':
         form = forms.Form()
         form.helper = FormHelper()
@@ -308,6 +313,10 @@ def gym_permissions_user_edit(request, user_pk):
         return HttpResponseForbidden()
 
     if user.has_perm('gym.manage_gym') and not is_same_gym(user, member):
+        return HttpResponseForbidden()
+
+    # Saving removes all gym roles, so the member must not hold one the user can't grant
+    if not user.has_perm('gym.manage_gyms') and holds_gym_permission(member, 'manage_gyms'):
         return HttpResponseForbidden()
 
     # Calculate available user permissions

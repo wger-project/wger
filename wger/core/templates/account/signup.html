@@ -9,7 +9,7 @@
 
 
 {% block content %}
-    <form method="post" action="{% url 'core:user:registration' %}">
+    <form method="post" action="{% url 'core:user:registration' %}" data-disable-on-submit>
         {% csrf_token %}
         {% if redirect_field_value %}
             <input type="hidden"

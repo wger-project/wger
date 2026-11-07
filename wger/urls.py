@@ -47,6 +47,8 @@ from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.trophies.api import views as trophies_api_views
+from wger.utils import oidc_auth
+from wger.utils.api_schema import CachedSchemaGenerator
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
@@ -135,7 +137,8 @@ router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='wo
 # Core app
 router.register(r'language', core_api_views.LanguageViewSet, basename='language')
 router.register(r'license', core_api_views.LicenseViewSet, basename='license')
-router.register(r'userprofile', core_api_views.UserProfileViewSet, basename='userprofile')
+# userprofile is not registered here: a user has exactly one profile, so it is
+# a plain path without list or detail routes (see UserProfileView)
 router.register(
     r'setting-repetitionunit',
     core_api_views.RepetitionUnitViewSet,
@@ -302,6 +305,11 @@ urlpatterns += [
     path('account/', include('allauth.urls')),
     # REST auth API consumed by the Flutter app.
     path('allauth/', include('allauth.headless.urls')),
+    # OAuth2/OIDC provider. Mounted at the root, the paths (/.well-known/... and
+    # /identity/o/...) are part of the include. The authorization endpoint is
+    # wrapped to keep the flow from starting when the provider isn't configured.
+    path('identity/o/authorize', oidc_auth.authorization_view, name='oidc-authorize'),
+    path('', include('allauth.idp.urls')),
     # API
     path(
         'api/v2/exercise-submission/',
@@ -309,14 +317,19 @@ urlpatterns += [
         name='exercise-submission',
     ),
     path('api/v2/check-language/', core_api_views.check_language, name='check-language'),
+    path(
+        'api/v2/userprofile/',
+        core_api_views.UserProfileView.as_view(),
+        name='userprofile',
+    ),
+    path(
+        'api/v2/userprofile/verify-email/',
+        core_api_views.VerifyEmailView.as_view(),
+        name='userprofile-verify-email',
+    ),
     path('api/v2/', include(router.urls)),
     path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
-    path(
-        'api/v2/issue-refresh-token',
-        core_api_views.issue_refresh_token,
-        name='issue_refresh_token',
-    ),
     # Others
     path(
         'api/v2/version/',
@@ -354,19 +367,23 @@ urlpatterns += [
         name='powersync-data',
     ),
     # Api documentation
+    #
+    # metadata_class=None disables the OPTIONS handler on the HTML views: its
+    # metadata response would otherwise be rendered through the UI template,
+    # which requires context only the GET handler provides, and crash with 500.
     path(
         'api/v2/schema',
-        SpectacularAPIView.as_view(),
+        SpectacularAPIView.as_view(generator_class=CachedSchemaGenerator),
         name='schema',
     ),
     path(
         'api/v2/schema/ui',
-        SpectacularSwaggerView.as_view(url_name='schema'),
+        SpectacularSwaggerView.as_view(url_name='schema', metadata_class=None),
         name='api-swagger-ui',
     ),
     path(
         'api/v2/schema/redoc',
-        SpectacularRedocView.as_view(url_name='schema'),
+        SpectacularRedocView.as_view(url_name='schema', metadata_class=None),
         name='api-redoc',
     ),
 ]

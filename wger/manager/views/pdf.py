@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+from xml.sax.saxutils import escape
 
 # Django
 from django.http import (
@@ -86,12 +87,13 @@ def workout_log(request, pk: int):
 
     # Set the title
     p = Paragraph(
-        f'<para align="center"><strong>{routine.name}</strong></para>', styleSheet['HeaderBold']
+        f'<para align="center"><strong>{escape(routine.name)}</strong></para>',
+        styleSheet['HeaderBold'],
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
     if routine.description:
-        p = Paragraph(f'<para align="center">{routine.description}</para>')
+        p = Paragraph(f'<para align="center">{escape(routine.description)}</para>')
         elements.append(p)
         elements.append(Spacer(10 * cm, 1.5 * cm))
 
@@ -155,7 +157,8 @@ def workout_view(request, pk):
 
     # Set the title
     p = Paragraph(
-        '<para align="center"><strong>%(description)s</strong></para>' % {'description': routine},
+        '<para align="center"><strong>%(description)s</strong></para>'
+        % {'description': escape(str(routine))},
         styleSheet['HeaderBold'],
     )
     elements.append(p)

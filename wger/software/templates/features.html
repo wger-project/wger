@@ -51,12 +51,14 @@
                                 {% translate "Exercises" %}
                             </a>
                         </li>
-                        <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold"
-                               href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                                {% translate "Mobile app" %}
-                            </a>
-                        </li>
+                        {% if show_app_store_links %}
+                            <li class="nav-item mx-2 my-1">
+                                <a class="nav-link fw-semibold"
+                                   href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                                    {% translate "Mobile app" %}
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item mx-2 my-1">
                             <a class="nav-link fw-semibold"
                                href="https://www.buymeacoffee.com/wger">
@@ -349,7 +351,8 @@
                     <!-- form -->
                     <form method="post"
                           action="{% url 'core:user:registration' %}"
-                          class="row justify-content-center">
+                          class="row justify-content-center"
+                          data-disable-on-submit>
                         {% csrf_token %}
                         <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
                             {% translate "Sign Up Now For Free" %}
@@ -577,7 +580,7 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 py-3">
                 <div class="btn-group dropup">
                     <button class="btn btn-outline-light dropdown-toggle"
                             type="button"
@@ -617,34 +620,38 @@
                     </ul>
                 </div>
 
-                <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                    <img
-                        src="{% static 'images/logos/play-store/badge.svg' %}"
-                        alt="google play logo"
-                        height="55"
-                    />
-                </a>
-                <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792">
-                    <img
-                        src="{% static 'images/logos/app-store/black.svg' %}"
-                        alt="app store logo"
-                        height="55"
-                    />
-                </a>
-                <a href="https://flathub.org/apps/de.wger.flutter">
-                    <img
-                        src="{% static 'images/logos/flathub/black.svg' %}"
-                        alt="flathub logo"
-                        height="55"
-                    />
-                </a>
-                <a href="https://f-droid.org/de/packages/de.wger.flutter/">
-                    <img
-                        src="{% static 'images/logos/fdroid/get-it-on.svg' %}"
-                        alt="fdroid logo"
-                        height="55"
-                    />
-                </a>
+                {% if show_app_store_links %}
+                    <div class="d-flex flex-wrap gap-2 app-store-badges">
+                        <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                            <img
+                                src="{% static 'images/logos/play-store/badge.svg' %}"
+                                alt="google play logo"
+                                height="55"
+                            />
+                        </a>
+                        <a href="https://apps.apple.com/us/app/wger-workout-manager/id6502226792">
+                            <img
+                                src="{% static 'images/logos/app-store/black.svg' %}"
+                                alt="app store logo"
+                                height="55"
+                            />
+                        </a>
+                        <a href="https://flathub.org/apps/de.wger.flutter">
+                            <img
+                                src="{% static 'images/logos/flathub/black.svg' %}"
+                                alt="flathub logo"
+                                height="55"
+                            />
+                        </a>
+                        <a href="https://f-droid.org/de/packages/de.wger.flutter/">
+                            <img
+                                src="{% static 'images/logos/fdroid/get-it-on.svg' %}"
+                                alt="fdroid logo"
+                                height="55"
+                            />
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </footer>

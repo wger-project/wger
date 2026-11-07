@@ -853,6 +853,7 @@
             "workout_reminder_active": false,
             "work_intensity": "1",
             "user": 14,
+            "time_zone": "Pacific/Auckland",
             "work_hours": 8,
             "freetime_intensity": "1",
             "gender": "1",

@@ -13,17 +13,119 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import datetime
 import logging
+
+# Django
+from django.test import override_settings
+from django.utils import timezone
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
+    Slot,
+    SlotEntry,
     WorkoutLog,
     WorkoutSession,
 )
 
 
 logger = logging.getLogger(__name__)
+
+
+class LogSessionMatchingTestCase(WgerTestCase):
+    """
+    Test which session a log without an explicit one is attached to
+    """
+
+    def setUp(self):
+        super().setUp()
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+    @staticmethod
+    def make_session(start, end=None):
+        return WorkoutSession.objects.create(
+            user_id=1,
+            routine_id=1,
+            datetime_start=timezone.make_aware(datetime.datetime(*start)),
+            datetime_end=timezone.make_aware(datetime.datetime(*end)) if end else None,
+        )
+
+    @staticmethod
+    def make_log(date):
+        log = WorkoutLog(
+            user_id=1,
+            routine_id=1,
+            exercise_id=1,
+            weight=10,
+            repetitions=10,
+            date=timezone.make_aware(datetime.datetime(*date)),
+        )
+        log.save()
+        return log
+
+    def test_log_inside_a_session_over_midnight(self):
+        """A log after midnight belongs to the session that started the evening before"""
+
+        session = self.make_session((2025, 3, 10, 23, 0), (2025, 3, 11, 1, 0))
+        log = self.make_log((2025, 3, 11, 0, 30))
+
+        self.assertEqual(log.session_id, session.pk)
+        self.assertEqual(WorkoutSession.objects.count(), 1)
+
+    def test_log_joins_an_open_session(self):
+        """A log within the window of a session without an end joins it"""
+
+        session = self.make_session((2025, 3, 10, 23, 0))
+        log = self.make_log((2025, 3, 11, 1, 0))
+
+        self.assertEqual(log.session_id, session.pk)
+
+    def test_the_most_recent_open_session_wins(self):
+        """With several open sessions in the window the newest one gets the log"""
+
+        self.make_session((2025, 3, 10, 8, 0))
+        newer = self.make_session((2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertEqual(log.session_id, newer.pk)
+
+    def test_a_covering_session_wins_over_an_open_one(self):
+        """A session the log falls into beats a more recent open session"""
+
+        covering = self.make_session((2025, 3, 10, 9, 0), (2025, 3, 10, 13, 0))
+        self.make_session((2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertEqual(log.session_id, covering.pk)
+
+    def test_log_outside_the_window_starts_a_new_session(self):
+        """A log too long after an open session gets one of its own"""
+
+        session = self.make_session((2025, 3, 10, 10, 0))
+        log = self.make_log((2025, 3, 10, 16, 0))
+
+        self.assertNotEqual(log.session_id, session.pk)
+        self.assertEqual(WorkoutSession.objects.count(), 2)
+
+    @override_settings(WGER_MAX_SESSION_LENGTH_HOURS=8)
+    def test_the_window_follows_the_setting(self):
+        """The same log joins the session once the window is wide enough"""
+
+        session = self.make_session((2025, 3, 10, 10, 0))
+        log = self.make_log((2025, 3, 10, 16, 0))
+
+        self.assertEqual(log.session_id, session.pk)
+
+    def test_log_after_a_closed_session_starts_a_new_one(self):
+        """A closed session is not extended, even within the window"""
+
+        session = self.make_session((2025, 3, 10, 10, 0), (2025, 3, 10, 11, 0))
+        log = self.make_log((2025, 3, 10, 12, 0))
+
+        self.assertNotEqual(log.session_id, session.pk)
+        self.assertEqual(WorkoutSession.objects.count(), 2)
 
 
 class LogModelTestCase(WgerTestCase):
@@ -50,6 +152,196 @@ class LogModelTestCase(WgerTestCase):
 
         self.assertEqual(WorkoutSession.objects.count(), 1)
 
+    def test_create_session_sets_day(self):
+        """
+        The auto-created session inherits the day of the log's slot entry, so
+        that need_logs_to_advance days can find it
+        """
+
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session = WorkoutSession.objects.get()
+        self.assertEqual(session.day_id, 1)
+
+    def test_create_session_without_slot_entry_has_no_day(self):
+        """
+        A free log without a slot entry can't know its day
+        """
+
+        WorkoutLog.objects.all().delete()
+        WorkoutSession.objects.all().delete()
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session = WorkoutSession.objects.get()
+        self.assertIsNone(session.day_id)
+
+    def test_fills_missing_day_on_a_client_created_session(self):
+        """
+        A session the client created without a day gets it from the log, so that
+        need_logs_to_advance days can find it
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        self.assertIsNone(session.day_id)
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 1)
+
+    def test_does_not_overwrite_the_day_of_a_session(self):
+        """
+        A session that already has a day keeps it, even when the log points
+        somewhere else
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        session.day_id = 3
+        session.save(update_fields=['day'])
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 3)
+
+    def test_does_not_fill_the_day_when_the_logs_span_several_days(self):
+        """
+        A session whose logs come from more than one day stays without one, since
+        no single day is the right answer
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        self.assertIsNone(session.day_id)
+
+        # A second entry, on another day of the same routine
+        other_slot = Slot.objects.create(day_id=3, order=1)
+        other_entry = SlotEntry.objects.create(slot=other_slot, exercise_id=1, order=1)
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 1)
+
+        # The day of the first log is no longer the whole truth, but an already
+        # set day is never taken away again
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry=other_entry,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertEqual(session.day_id, 1)
+
+    def test_does_not_fill_the_day_when_earlier_logs_disagree(self):
+        """
+        Logs that were already there decide as well, not just the one being saved
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000001')
+        other_slot = Slot.objects.create(day_id=3, order=1)
+        other_entry = SlotEntry.objects.create(slot=other_slot, exercise_id=1, order=1)
+
+        # Two logs from different days, written without going through save()
+        for slot_entry_id in (1, other_entry.pk):
+            WorkoutLog.objects.bulk_create(
+                [
+                    WorkoutLog(
+                        user_id=1,
+                        exercise_id=1,
+                        routine_id=1,
+                        slot_entry_id=slot_entry_id,
+                        session=session,
+                        weight=10,
+                        repetitions=10,
+                    )
+                ]
+            )
+
+        session.refresh_from_db()
+        self.assertIsNone(session.day_id)
+
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=20,
+            repetitions=8,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertIsNone(session.day_id)
+
+    def test_does_not_fill_the_day_from_another_routine(self):
+        """
+        The day of a slot entry from a different routine must not leak into the
+        session
+        """
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000003')
+        self.assertIsNone(session.day_id)
+        self.assertEqual(session.routine_id, 2)
+
+        # slot entry 1 lives in routine 1, the session in routine 2
+        WorkoutLog(
+            user_id=1,
+            exercise_id=1,
+            routine_id=1,
+            slot_entry_id=1,
+            session=session,
+            weight=10,
+            repetitions=10,
+        ).save()
+
+        session.refresh_from_db()
+        self.assertIsNone(session.day_id)
+
     def test_save_reuses_session_when_duplicates_exist(self):
         """
         Duplicate routine-less sessions can exist for one (user, date) because the
@@ -66,7 +358,9 @@ class LogModelTestCase(WgerTestCase):
 
         # A duplicate (user, date, routine=None) — only possible because a NULL
         # routine escapes the unique_together guard.
-        WorkoutSession.objects.create(user_id=1, date=session.date, routine=None)
+        WorkoutSession.objects.create(
+            user_id=1, datetime_start=session.datetime_start, routine=None
+        )
         self.assertEqual(WorkoutSession.objects.count(), 2)
 
         # A second log for the same day must not crash and must not add a session.
@@ -90,7 +384,7 @@ class LogModelTestCase(WgerTestCase):
         log = WorkoutLog.objects.get(pk='aaaaaaaa-aaaa-aaaa-aaaa-000000000001')
         target = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000002')
         self.assertEqual(log.user_id, target.user_id)
-        self.assertNotEqual(log.date.date(), target.date)
+        self.assertNotEqual(log.date.date(), target.datetime_start.date())
 
         log.session = target
         log.save()

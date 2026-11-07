@@ -14,11 +14,11 @@
 
 # Standard Library
 import io
+import tempfile
 from unittest.mock import patch
 
 # Django
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
 
 # Third Party
 from PIL import Image as PILImage
@@ -560,8 +560,8 @@ class MockExerciseResponse:
                             "uuid": "581338a1-8e52-405b-99eb-f0724c528bc8",
                             "name": "Balançoire Kettlebell à 2 mains",
                             "exercise": 2,
-                            "description": "<p>Balançoire Kettlebell à deux mains de style russe</p>",
-                            "description_source": "Balançoire Kettlebell à deux mains de style russe",
+                            "description": "<p>Balançoire Kettlebell à deux mains de style russe</p>",  # noqa: E501
+                            "description_source": "Balançoire Kettlebell à deux mains de style russe",  # noqa: E501
                             "created": "2015-08-03",
                             "language": 3,
                             "aliases": [],
@@ -708,6 +708,18 @@ class MockVideoResponse:
         }
 
 
+class MockValidVideoResponse(MockVideoResponse):
+    def __init__(self):
+        super().__init__()
+        self.content = b'\x00\x00\x00\x14ftypqt  \x00\x00\x00\x00qt  ' + b'\x00' * 64
+
+    @staticmethod
+    def json():
+        data = MockVideoResponse.json()
+        data['results'][0]['video'] = 'https://wger.de/media/exercise-video/2/clip.mov'
+        return data
+
+
 class TestSyncMethods(WgerTestCase):
     @patch('requests.get', return_value=MockLanguageResponse())
     def test_language_sync(self, mock_request):
@@ -799,13 +811,11 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(Exercise.objects.count(), 8)
         self.assertEqual(Translation.objects.count(), 11)
 
-        exercise1 = Exercise.objects.get(pk=1)
-        exercise2 = Exercise.objects.get(pk=4)
-        self.assertFalse(SlotEntry.objects.filter(exercise=exercise2).count())
-        self.assertFalse(WorkoutLog.objects.filter(exercise=exercise2).count())
-
-        slot_entries = SlotEntry.objects.filter(exercise=exercise1)
-        logs = WorkoutLog.objects.filter(exercise=exercise1)
+        # Materialize the PKs now, the querysets would be empty after the sync
+        slot_entry_pks = list(SlotEntry.objects.filter(exercise_id=1).values_list('pk', flat=True))
+        log_pks = list(WorkoutLog.objects.filter(exercise_id=1).values_list('pk', flat=True))
+        self.assertTrue(slot_entry_pks)
+        self.assertTrue(log_pks)
 
         handle_deleted_entries(print)
 
@@ -818,10 +828,10 @@ class TestSyncMethods(WgerTestCase):
         self.assertRaises(Translation.DoesNotExist, Translation.objects.get, pk=3)
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
-        # Workouts and logs have been moved
-        for pk in slot_entries:
+        # Workouts and logs have been moved to the replacement exercise
+        for pk in slot_entry_pks:
             self.assertEqual(SlotEntry.objects.get(pk=pk).exercise_id, 2)
-        for pk in logs:
+        for pk in log_pks:
             self.assertEqual(WorkoutLog.objects.get(pk=pk).exercise_id, 2)
 
     @patch('requests.get', return_value=MockDeletionLogResponse())
@@ -967,18 +977,26 @@ class TestSyncMethods(WgerTestCase):
         )
         self.assertEqual(ExerciseImage.objects.count(), count_before)
 
-    @patch('wger.exercises.sync.validate_video', side_effect=ValidationError('invalid video'))
     @patch('requests.get', return_value=MockVideoResponse())
-    def test_video_sync_skips_invalid_video(self, mock_request, mock_validate):
-        """A video rejected by validate_video is skipped, not stored."""
+    def test_video_sync_skips_invalid_video(self, mock_request):
+        """A download that is not a video is skipped, not stored."""
 
         count_before = ExerciseVideo.objects.count()
 
         # An invalid video must not abort the run or get stored
         download_exercise_videos(lambda x: x)
 
-        mock_validate.assert_called()
         self.assertFalse(
             ExerciseVideo.objects.filter(uuid='00000088-1d00-4e9d-a1a4-5f5ebd15e819').exists()
         )
         self.assertEqual(ExerciseVideo.objects.count(), count_before)
+
+    @patch('requests.get', return_value=MockValidVideoResponse())
+    def test_video_sync_stores_valid_video(self, mock_request):
+        """A downloaded video is stored under the remote file's extension."""
+
+        with tempfile.TemporaryDirectory() as media_root, self.settings(MEDIA_ROOT=media_root):
+            download_exercise_videos(lambda x: x)
+
+        video = ExerciseVideo.objects.get(uuid='00000088-1d00-4e9d-a1a4-5f5ebd15e819')
+        self.assertTrue(video.video.name.endswith('.mov'))

@@ -28,7 +28,6 @@ Add to your `settings.py` or `settings_global.py`:
 WGER_SETTINGS = {
     # Enable/disable the trophy system globally
     'TROPHIES_ENABLED': True,
-
     # Number of days of inactivity before skipping trophy evaluation for a user
     'TROPHIES_INACTIVE_USER_DAYS': 30,
 }
@@ -277,6 +276,7 @@ GET /api/v2/user-statistics/
 # wger/trophies/checkers/my_checker.py
 from .base import BaseTrophyChecker
 
+
 class MyCustomChecker(BaseTrophyChecker):
     def check(self) -> bool:
         # Your logic here
@@ -287,16 +287,17 @@ class MyCustomChecker(BaseTrophyChecker):
         return 50.0
 
     def get_current_value(self):
-        return "current"
+        return 'current'
 
     def get_target_value(self):
-        return "target"
+        return 'target'
 ```
 
 2. **Register the checker** in `wger/trophies/checkers/registry.py`:
 
 ```python
 from .my_checker import MyCustomChecker
+
 
 class CheckerRegistry:
     _registry: Dict[str, Type[BaseTrophyChecker]] = {
@@ -311,8 +312,8 @@ class CheckerRegistry:
 from wger.trophies.models import Trophy
 
 Trophy.objects.create(
-    name="My Custom Trophy",
-    description="Description of how to earn it",
+    name='My Custom Trophy',
+    description='Description of how to earn it',
     trophy_type=Trophy.TYPE_OTHER,
     checker_class='my_custom',
     checker_params={'param1': 'value1'},
@@ -328,8 +329,8 @@ Simply create a new Trophy object with an existing checker:
 
 ```python
 Trophy.objects.create(
-    name="Heavy Lifter",
-    description="Lift 10,000 kg total",
+    name='Heavy Lifter',
+    description='Lift 10,000 kg total',
     trophy_type=Trophy.TYPE_VOLUME,
     checker_class='volume',
     checker_params={'kg': 10000},
@@ -391,9 +392,7 @@ import datetime
 
 # Increment after workout
 UserStatisticsService.increment_workout(
-    user=request.user,
-    workout_date=datetime.date.today(),
-    weight_lifted=Decimal('150.5')
+    user=request.user, workout_date=datetime.date.today(), weight_lifted=Decimal('150.5')
 )
 
 # Recalculate all statistics
@@ -432,7 +431,7 @@ from wger.trophies.services.trophy import TrophyService
 # Evaluate all trophies for user
 newly_awarded = TrophyService.evaluate_all_trophies(request.user)
 for user_trophy in newly_awarded:
-    print(f"Earned: {user_trophy.trophy.name}")
+    print(f'Earned: {user_trophy.trophy.name}')
 
 # Get user's earned trophies
 earned = TrophyService.get_user_trophies(request.user)
@@ -440,12 +439,12 @@ earned = TrophyService.get_user_trophies(request.user)
 # Get progress for all trophies
 progress = TrophyService.get_all_trophy_progress(request.user)
 for item in progress:
-    print(f"{item['trophy'].name}: {item['progress']}%")
+    print(f'{item["trophy"].name}: {item["progress"]}%')
 
 # Batch re-evaluate for all active users
 results = TrophyService.reevaluate_trophies()
-print(f"Checked {results['users_checked']} users")
-print(f"Awarded {results['trophies_awarded']} trophies")
+print(f'Checked {results["users_checked"]} users')
+print(f'Awarded {results["trophies_awarded"]} trophies')
 ```
 
 ## Signals and Auto-Evaluation

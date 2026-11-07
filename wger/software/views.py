@@ -33,6 +33,10 @@ from wger.nutrition.models import Ingredient
 logger = logging.getLogger(__name__)
 
 CACHE_KEY = 'landing-page-context'
+GITHUB_API_URL = 'https://api.github.com/repos/wger-project/wger'
+GITHUB_API_TIMEOUT = 5
+CACHE_TTL_SUCCESS = 60 * 60 * 24 * 7  # one week
+CACHE_TTL_FAILURE = 60 * 60  # one hour
 
 
 def fetch_github_stats() -> dict:
@@ -41,21 +45,22 @@ def fetch_github_stats() -> dict:
         return context
 
     context = {
-        'nr_users': 1,
-        'nr_exercises': 1,
-        'nr_ingredients': 1,
+        'nr_users': User.objects.count(),
+        'nr_exercises': Exercise.objects.count(),
+        'nr_ingredients': Ingredient.objects.count(),
         'nr_stars': 1,
     }
 
     try:
-        result_github_api = requests.get('https://api.github.com/repos/wger-project/wger').json()
-        context['nr_users'] = User.objects.count()
-        context['nr_exercises'] = Exercise.objects.count()
-        context['nr_ingredients'] = Ingredient.objects.count()
-        context['nr_stars'] = result_github_api.get('stargazers_count', '2000')
-        cache.set(CACHE_KEY, context, 60 * 60 * 24 * 7)  # one week
+        result_github_api = requests.get(GITHUB_API_URL, timeout=GITHUB_API_TIMEOUT).json()
     except Exception as e:
         logger.error(f'Error fetching github stats: {e}')
+        # Cache the fallback so an unreachable GitHub API is not retried on every visit.
+        cache.set(CACHE_KEY, context, CACHE_TTL_FAILURE)
+        return context
+
+    context['nr_stars'] = result_github_api.get('stargazers_count', '2000')
+    cache.set(CACHE_KEY, context, CACHE_TTL_SUCCESS)
 
     return context
 

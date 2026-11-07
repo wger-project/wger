@@ -25,6 +25,12 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.openapi import AutoSchema
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+)
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -38,6 +44,7 @@ from wger.nutrition.api.serializers import (
     IngredientImageSerializer,
     IngredientInfoSerializer,
     IngredientSerializer,
+    IngredientValuesSerializer,
     IngredientWeightUnitSerializer,
     LogItemSerializer,
     MealItemSerializer,
@@ -56,7 +63,10 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
-from wger.utils.pagination import IngredientCursorPagination
+from wger.utils.pagination import (
+    IngredientCursorPagination,
+    IngredientLimitOffsetPagination,
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -85,6 +95,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
     # Strip default ordering ('name'), this makes the API/DB more performant
     queryset = Ingredient.objects.prefetch_related('ingredientweightunit_set').order_by()
+    pagination_class = IngredientLimitOffsetPagination
     throttle_scope = 'ingredient_list'
 
     def get_throttles(self):
@@ -98,6 +109,24 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         self.throttle_scope = 'ingredient_list' if self.action == 'list' else 'ingredient_detail'
         return super().get_throttles()
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'amount',
+                OpenApiTypes.DECIMAL,
+                OpenApiParameter.QUERY,
+                required=True,
+                description='The amount to calculate the values for',
+            ),
+            OpenApiParameter(
+                'unit',
+                OpenApiTypes.INT,
+                OpenApiParameter.QUERY,
+                description='ID of an ingredient weight unit. Defaults to grams.',
+            ),
+        ],
+        responses={200: IngredientValuesSerializer},
+    )
     @action(detail=True)
     def get_values(self, request, pk):
         """
@@ -162,6 +191,19 @@ class IngredientInfoViewSet(IngredientViewSet):
         )
 
 
+class IngredientSyncAutoSchema(AutoSchema):
+    """
+    Gives the cursor-paginated response its own component.
+
+    This endpoint shares its serializer with /api/v2/ingredientinfo/, so both
+    wrappers would be called PaginatedIngredientInfoList. The cursor one has no
+    count, and whichever is generated last wins.
+    """
+
+    def get_paginated_name(self, serializer_name: str) -> str:
+        return f'Cursor{super().get_paginated_name(serializer_name)}'
+
+
 class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Cursor-paginated read-only endpoint designed for syncing the ingredient
@@ -176,6 +218,7 @@ class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
     Note: the response does not contain a `count` key.
     """
 
+    schema = IngredientSyncAutoSchema()
     serializer_class = IngredientInfoSerializer
     pagination_class = IngredientCursorPagination
     filterset_class = IngredientFilterSet
@@ -254,6 +297,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
@@ -347,6 +391,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(NutritionPlan, 'plan')]
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
@@ -395,6 +440,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(Meal, 'meal')]
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
@@ -431,6 +477,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         return [(NutritionPlan, 'plan'), (Meal, 'meal')]
 
+    @extend_schema(responses={200: NutritionalValuesSerializer})
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """

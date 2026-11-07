@@ -16,7 +16,6 @@
 
 # Third Party
 from drf_spectacular.utils import (
-    OpenApiResponse,
     extend_schema,
 )
 from rest_framework import viewsets
@@ -105,7 +104,7 @@ class TrophyViewSet(viewsets.ReadOnlyModelViewSet):
             200: TrophyProgressSerializer(many=True),
         },
     )
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'], pagination_class=None)
     def progress(self, request):
         """
         Return all trophies with progress information for the current user.

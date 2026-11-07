@@ -83,15 +83,13 @@ class Meal(models.Model):
         """
         return self.plan
 
-    def get_nutritional_values(self, use_metric=True):
+    def get_nutritional_values(self):
         """
         Sums the nutritional info of all items in the meal
-
-        :param: use_metric Flag that controls the units used
         """
         nutritional_values = NutritionalValues()
 
         for item in self.mealitem_set.select_related():
-            nutritional_values += item.get_nutritional_values(use_metric=use_metric)
+            nutritional_values += item.get_nutritional_values()
 
         return nutritional_values

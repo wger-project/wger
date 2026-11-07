@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load i18n wger_extras %}
+
+{% block title %}{% translate "Connected applications" %}{% endblock %}
+
+
+{% block content %}
+    <p>
+        {% blocktranslate trimmed %}
+            These applications can use your account through the API. You gave them
+            permission when you logged in with your wger account.
+        {% endblocktranslate %}
+    </p>
+
+    {% if applications %}
+        {% for application in applications %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start gap-3">
+                        <div>
+                            <h5 class="card-title mb-1">{{ application.name }}</h5>
+                            {% if application.expires_at %}
+                                <p class="card-text mb-2">
+                                    <small class="text-muted">
+                                        {% blocktranslate trimmed with date=application.expires_at|date:"SHORT_DATE_FORMAT" %}
+                                            Access runs out on {{ date }} if the application is not used again
+                                        {% endblocktranslate %}
+                                    </small>
+                                </p>
+                            {% endif %}
+                            <ul class="list-unstyled mb-0">
+                                {% for permission in application.permissions %}
+                                    <li>
+                                        <span class="{% fa_class 'check' %} me-1 text-muted"></span>
+                                        {{ permission }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-danger flex-shrink-0"
+                            hx-post="{% url 'core:user:connected-applications' %}"
+                            hx-vals='{"disconnect": "{{ application.client_id }}"}'
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            hx-target="body"
+                            hx-push-url="true"
+                        >
+                            {% translate "Disconnect" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <p>
+            {% blocktranslate trimmed %}
+                Disconnecting takes the access away immediately. The application can
+                ask for it again, and you will be shown the same page you saw the
+                first time.
+            {% endblocktranslate %}
+        </p>
+    {% else %}
+        <div class="card bg-light mb-4">
+            <div class="card-body">
+                <em>{% translate "No application has access to your account." %}</em>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{#         #}
+{# Sidebar #}
+{#         #}
+{% block sidebar %}
+
+    <h5 class="mt-4">{% translate "Your account" %}</h5>
+
+    <p>
+        {% blocktranslate trimmed %}
+            This list is about other applications using your wger account. To manage
+            the accounts you use to log in to wger, see connected accounts in your
+            settings.
+        {% endblocktranslate %}
+    </p>
+
+    <p>
+        <a href="{% url 'core:user:preferences' %}">{% translate 'Settings' %}</a>
+    </p>
+{% endblock %}

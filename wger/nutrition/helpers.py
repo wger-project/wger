@@ -21,7 +21,6 @@ from dataclasses import (
     dataclass,
 )
 from decimal import Decimal
-from typing import Union
 
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
@@ -39,11 +38,11 @@ class BaseMealItem:
     This just provides some common helper functions
     """
 
-    def get_nutritional_values(self, use_metric=True):
+    def get_nutritional_values(self):
         """
         Sums the nutritional info for the ingredient in the MealItem
 
-        :param use_metric Flag that controls the units used
+        All values are in grams
         """
         values = NutritionalValues()
 
@@ -70,38 +69,19 @@ class BaseMealItem:
         if self.ingredient.sodium:
             values.sodium = self.ingredient.sodium * item_weight / 100
 
-        # # If necessary, convert weight units
-        # if not use_metric:
-        #     for key, value in nutritional_info.items():
-        #
-        #         # Energy is not a weight!
-        #         if key == 'energy':
-        #             continue
-        #
-        #         # Everything else, to ounces
-        #         nutritional_info[key] = AbstractWeight(value, 'g').oz
-        #
-        # nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
-
-        # Only 2 decimal places, anything else doesn't make sense
-        # for i in nutritional_info:
-        #     nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
-
         return values
 
 
 @dataclass
 class NutritionalValues:
-    # TODO: replace the Union with | when we drop support for python 3.9
-
-    energy: Union[Decimal, int, float] = 0
-    protein: Union[Decimal, int, float] = 0
-    carbohydrates: Union[Decimal, int, float] = 0
-    carbohydrates_sugar: Union[Decimal, int, float, None] = None
-    fat: Union[Decimal, int, float] = 0
-    fat_saturated: Union[Decimal, int, float, None] = None
-    fiber: Union[Decimal, int, float, None] = None
-    sodium: Union[Decimal, int, float, None] = None
+    energy: Decimal | int | float = 0
+    protein: Decimal | int | float = 0
+    carbohydrates: Decimal | int | float = 0
+    carbohydrates_sugar: Decimal | int | float | None = None
+    fat: Decimal | int | float = 0
+    fat_saturated: Decimal | int | float | None = None
+    fiber: Decimal | int | float | None = None
+    sodium: Decimal | int | float | None = None
 
     @property
     def energy_kilojoule(self):

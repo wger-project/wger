@@ -15,7 +15,12 @@ then
     exit 1
 fi
 
-wger bootstrap --no-process-static
+# Don't start the server if the bootstrap failed, e.g. because the database is
+# not reachable yet. The restart policy will try again.
+if ! wger bootstrap --no-process-static; then
+    echo "Bootstrapping the application failed, not starting the server"
+    exit 1
+fi
 
 # Collect static files
 if [ "$DJANGO_CLEAR_STATIC_FIRST" == "False" ]; then
@@ -31,10 +36,13 @@ then
 fi
 
 # Perform database migrations
-if [[ "$DJANGO_PERFORM_MIGRATIONS" == "True" ]];
+if [[ "${DJANGO_PERFORM_MIGRATIONS:-True}" == "True" ]];
 then
     echo "Performing database migrations"
-    python3 manage.py migrate
+    if ! python3 manage.py migrate; then
+        echo "Database migrations failed, not starting the server"
+        exit 1
+    fi
 fi
 
 # Sync exercises

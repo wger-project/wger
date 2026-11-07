@@ -17,6 +17,7 @@ import datetime
 
 # Django
 from django.urls import reverse
+from django.utils import timezone
 
 # Third Party
 from rest_framework import status
@@ -75,6 +76,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
 
@@ -96,6 +98,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(WorkoutLog.objects.count(), before)
@@ -104,7 +107,9 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
         """POST without a session falls back to the legacy auto-create."""
 
         new_date = datetime.date(2030, 6, 15)
-        before = WorkoutSession.objects.filter(user_id=1, routine_id=1, date=new_date).count()
+        before = WorkoutSession.objects.filter(
+            user_id=1, routine_id=1, datetime_start__date=new_date
+        ).count()
         self.assertEqual(before, 0)
 
         response = self.client.post(
@@ -116,13 +121,14 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'weight': 30,
                 'repetitions': 8,
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
 
         log = WorkoutLog.objects.get(pk=response.json()['id'])
         self.assertIsNotNone(log.session_id)
         self.assertEqual(log.session.user_id, 1)
-        self.assertEqual(log.session.date, new_date)
+        self.assertEqual(timezone.localtime(log.session.datetime_start).date(), new_date)
 
     def test_patch_log_with_foreign_session_rejected(self):
         """PATCH that tries to move a log onto a foreign session returns 403."""

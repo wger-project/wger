@@ -63,15 +63,13 @@ class SocialAuthEnabledLoginPageTestCase(WgerTestCase):
             '<form method="post" action="/account/wger-social/login/"',
         )
 
-    @mock.patch(
-        'allauth.socialaccount.adapter.DefaultSocialAccountAdapter.list_providers',
-        return_value=[],
-    )
-    def test_no_section_without_configured_providers(self, _):
-        """If no SocialApp rows exist, ``get_providers`` is empty and the section is hidden."""
+    @override_settings(WGER_SOCIAL_PROVIDERS=[])
+    def test_no_section_without_configured_providers(self):
+        """The section is only rendered when WGER_SOCIAL_PROVIDERS is set."""
         response = self.client.get(reverse('core:user:login'))
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'or login with')
+        self.assertFalse(response.context['use_social_auth'])
+        self.assertNotContains(response, 'or sign in with')
 
 
 @override_settings(WGER_SOCIAL_PROVIDERS=['wger'])

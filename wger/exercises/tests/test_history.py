@@ -306,3 +306,54 @@ class ExerciseHistoryControlExtras(WgerTestCase):
             response.context['context'][0]['verb'],
             StreamVerbs.DELETED.value,
         )
+
+
+class ExerciseHistoryPermissionTestCase(WgerTestCase):
+    """
+    Tests that the history admin views require the change_exercise permission
+    """
+
+    def get_revert_url(self) -> str:
+        translation = Translation.objects.get(pk=2)
+        translation.description = 'Boring exercise'
+        translation.save()
+        history_entry = translation.history.order_by('history_date').last()
+
+        translation.description = 'Very cool exercise!'
+        translation.save()
+
+        return reverse(
+            'exercise:history:revert',
+            kwargs={
+                'history_pk': history_entry.history_id,
+                'content_type_id': ContentType.objects.get_for_model(translation).id,
+            },
+        )
+
+    def assert_revert_denied(self):
+        response = self.client.post(self.get_revert_url())
+
+        # Not the redirect to the overview that a successful revert returns
+        self.assertIn(response.status_code, (302, 403))
+        if response.status_code == 302:
+            self.assertNotEqual(response['Location'], reverse('exercise:history:overview'))
+
+        # The description was not reverted
+        translation = Translation.objects.get(pk=2)
+        self.assertEqual(translation.description, 'Very cool exercise!')
+
+    def test_overview_anonymous(self):
+        response = self.client.get(reverse('exercise:history:overview'))
+        self.assertIn(response.status_code, (302, 403))
+
+    def test_overview_no_permission(self):
+        self.user_login('test')
+        response = self.client.get(reverse('exercise:history:overview'))
+        self.assertIn(response.status_code, (302, 403))
+
+    def test_revert_anonymous(self):
+        self.assert_revert_denied()
+
+    def test_revert_no_permission(self):
+        self.user_login('test')
+        self.assert_revert_denied()

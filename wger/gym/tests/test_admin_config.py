@@ -12,8 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.contrib.auth.models import User
+from django.urls import reverse
+
 # wger
-from wger.core.tests.base_testcase import WgerEditTestCase
+from wger.core.tests.base_testcase import (
+    WgerEditTestCase,
+    WgerTestCase,
+)
 from wger.gym.models import GymAdminConfig
 
 
@@ -35,3 +42,36 @@ class EditConfigTestCase(WgerEditTestCase):
         'general_manager2',
     )
     data = {'overview_inactive': False}
+
+
+class EditConfigPermissionTestCase(WgerTestCase):
+    """
+    Editing the own admin config needs the change_gymadminconfig permission
+    """
+
+    def url(self):
+        return reverse('gym:admin_config:edit', kwargs={'pk': 4})
+
+    def test_owner_with_permission(self):
+        """
+        A trainer can edit their own config
+        """
+        self.user_login('trainer1')
+        response = self.client.post(self.url(), {'overview_inactive': ''})
+
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(GymAdminConfig.objects.get(pk=4).overview_inactive)
+
+    def test_owner_without_permission(self):
+        """
+        Owning the config is not enough without the permission
+        """
+        user = User.objects.get(username='trainer1')
+        user.groups.clear()
+        user.user_permissions.clear()
+
+        self.user_login('trainer1')
+        response = self.client.post(self.url(), {'overview_inactive': ''})
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(GymAdminConfig.objects.get(pk=4).overview_inactive)

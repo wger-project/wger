@@ -237,7 +237,7 @@ patterns_contract_options = [
 # sub patterns for exports
 patterns_export = [
     path(
-        'users/<int:gym_pk>)',
+        'users/<int:gym_pk>',
         export.users,
         name='users',
     ),

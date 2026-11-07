@@ -28,7 +28,10 @@ from django.utils import translation
 # Third Party
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.models import EmailAddress
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import (
+    HTTP_200_OK,
+    HTTP_405_METHOD_NOT_ALLOWED,
+)
 
 # wger
 from wger.core.account_adapter import WgerAccountAdapter
@@ -54,7 +57,7 @@ class EmailVerificationFromAPITestCase(WgerTestCase):
         self.user_login('admin')
 
         mail.outbox = []
-        response = self.client.get(
+        response = self.client.post(
             reverse('userprofile-verify-email'),
         )
 
@@ -74,7 +77,7 @@ class EmailVerificationFromAPITestCase(WgerTestCase):
         self.user_login('admin')
 
         mail.outbox = []
-        response = self.client.get(reverse('userprofile-verify-email'))
+        response = self.client.post(reverse('userprofile-verify-email'))
         self.assertEqual(response.data['status'], 'sent')
         self.assertEqual(len(mail.outbox), 1)
 
@@ -102,7 +105,7 @@ class EmailVerificationFromAPITestCase(WgerTestCase):
         self.user_login('trainer1')
 
         mail.outbox = []
-        response = self.client.get(
+        response = self.client.post(
             reverse('userprofile-verify-email'),
         )
 
@@ -110,6 +113,18 @@ class EmailVerificationFromAPITestCase(WgerTestCase):
         self.assertEqual(response.data['status'], 'verified')
 
         # No email was sent
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_get_does_not_send_mail(self):
+        """
+        Sending mail is a side effect, a GET must not trigger it
+        """
+        self.user_login('admin')
+
+        mail.outbox = []
+        response = self.client.get(reverse('userprofile-verify-email'))
+
+        self.assertEqual(response.status_code, HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(len(mail.outbox), 0)
 
 

@@ -53,6 +53,8 @@ class WorkoutSessionHandler(PowerSyncHandler):
     model = WorkoutSession
     serializer_class = WorkoutSessionSerializer
     viewset_class = WorkoutSessionViewSet
+    # The legacy-triple shim resolves its wall times in the owner's zone
+    pass_user_id_in_context = True
 
 
 @register_handler

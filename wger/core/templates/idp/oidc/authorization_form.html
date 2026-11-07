@@ -1,0 +1,50 @@
+{% extends "template.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% comment %}
+    Consent screen of the OAuth2 provider. Overrides allauth's own template,
+    which is styled for its stand-alone entrance layout.
+{% endcomment %}
+
+{% block title %}{% translate "Authorize" %}{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+{% block template %}
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card my-4">
+                <div class="card-body p-4">
+                    <h2 class="mb-1">{{ client.name }}</h2>
+                    {# Keep the string on one line, it has to match allauth's catalog #}
+                    <p class="text-muted">
+                        {% blocktranslate with client_name=client.name site_name=site.name %}{{ client_name }} wants to access your {{ site_name }} account.{% endblocktranslate %}
+                    </p>
+
+                    <form method="post" action="{% url 'idp:oidc:authorization' %}" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit"
+                                    name="action"
+                                    value="grant"
+                                    class="btn btn-success w-100">
+                                {% translate "Authorize" %}
+                            </button>
+                            <button type="submit"
+                                    name="action"
+                                    value="cancel"
+                                    class="btn btn-outline-secondary w-100">
+                                {% translate "Cancel" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

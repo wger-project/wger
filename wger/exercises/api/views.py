@@ -25,17 +25,27 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
+from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 # wger
-from wger.exercises.api.filtersets import ExerciseFilterSet
-from wger.exercises.api.permissions import CanContributeExercises
+from wger.exercises.api.filtersets import (
+    ExerciseFilterSet,
+    ExerciseListFilterSet,
+    RelevanceOrderingFilter,
+)
+from wger.exercises.api.permissions import (
+    CanContributeExercises,
+    CanCreateExercises,
+)
 from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
@@ -64,28 +74,29 @@ from wger.exercises.models import (
     Translation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.api_schema import ImageThumbnailsSerializer
 from wger.utils.cache import CacheKeyMapper
+from wger.utils.url import make_absolute_url
 
 
 class ExerciseViewSet(ModelViewSet):
     """
     API endpoint for exercise objects.
 
+    Creating an exercise here requires the add_exercise permission, regular
+    users submit new exercises via /api/v2/exercise-submission/.
+
     For a read-only endpoint with all the information of an exercise, see /api/v2/exerciseinfo/
     """
 
     queryset = Exercise.with_translations.all()
     serializer_class = ExerciseSerializer
-    permission_classes = (CanContributeExercises,)
+    permission_classes = (CanCreateExercises,)
     throttle_classes = (CreateScopedRateThrottle,)
     throttle_scope = 'exercise_create'
     ordering_fields = '__all__'
-    filterset_fields = (
-        'category',
-        'muscles',
-        'muscles_secondary',
-        'equipment',
-    )
+    ordering = ['id']
+    filterset_class = ExerciseListFilterSet
 
     def perform_create(self, serializer):
         """
@@ -167,12 +178,14 @@ class ExerciseTranslationViewSet(ModelViewSet):
     throttle_scope = 'exercise_create'
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = (
         'uuid',
         'created',
         'exercise',
         'description',
         'name',
+        'language',
     )
 
     def perform_create(self, serializer):
@@ -218,17 +231,9 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_class = ExerciseFilterSet
-    filterset_fields = (
-        'uuid',
-        'category',
-        'muscles',
-        'muscles_secondary',
-        'equipment',
-        'variation_group',
-        'license',
-        'license_author',
-    )
+    filter_backends = (DjangoFilterBackend, RelevanceOrderingFilter)
 
     def get_queryset(self):
         """
@@ -301,6 +306,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
@@ -320,6 +326,7 @@ class DeletionLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DeletionLog.objects.all()
     serializer_class = DeletionLogSerializer
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = ('model_type',)
 
 
@@ -331,6 +338,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseCategory.objects.all()
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
@@ -346,6 +354,8 @@ class ExerciseImageViewSet(ModelViewSet):
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
     permission_classes = (CanContributeExercises,)
+    # the image is uploaded as a file, which JSON cannot carry
+    parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -358,10 +368,11 @@ class ExerciseImageViewSet(ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
+    @extend_schema(responses={200: ImageThumbnailsSerializer})
     @action(detail=True)
     def thumbnails(self, request, pk):
         """
-        Return a list of the image's thumbnails
+        Return the image's thumbnails, one per configured alias
         """
         image = self.get_object()
 
@@ -369,10 +380,10 @@ class ExerciseImageViewSet(ModelViewSet):
         for alias in aliases.all():
             t = get_thumbnailer(image.image)
             thumbnails[alias] = {
-                'url': t.get_thumbnail(aliases.get(alias)).url,
+                'url': make_absolute_url(t.get_thumbnail(aliases.get(alias)).url, request),
                 'settings': aliases.get(alias),
             }
-        thumbnails['original'] = image.image.url
+        thumbnails['original'] = make_absolute_url(image.image.url, request)
         return Response(thumbnails)
 
     def perform_create(self, serializer):
@@ -406,6 +417,8 @@ class ExerciseVideoViewSet(ModelViewSet):
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
     permission_classes = (CanContributeExercises,)
+    # the video is uploaded as a file, which JSON cannot carry
+    parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -445,6 +458,7 @@ class ExerciseCommentViewSet(ModelViewSet):
     serializer_class = ExerciseCommentSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = ('comment', 'translation')
 
     def get_queryset(self):
@@ -488,6 +502,7 @@ class ExerciseAliasViewSet(ModelViewSet):
     queryset = Alias.objects.all()
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
+    ordering = ['id']
     filterset_fields = ('alias', 'translation')
 
     def perform_create(self, serializer):
@@ -521,6 +536,7 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
+    ordering = ['name', 'id']
     filterset_fields = ('name', 'is_front', 'name_en')
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))

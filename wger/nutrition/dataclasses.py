@@ -17,9 +17,16 @@ from dataclasses import (
     asdict,
     dataclass,
 )
-from typing import Optional
+from decimal import Decimal
+from math import isfinite
 
 # wger
+from wger.nutrition.consts import (
+    ENERGY_CHECK_MIN_KCAL,
+    ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL,
+    ENERGY_CHECK_TOLERANCE_RELATIVE,
+    ENERGY_FACTOR,
+)
 from wger.nutrition.helpers import (
     change_html_entities_to_human_readable,
     remove_problematic_characters,
@@ -41,12 +48,12 @@ class IngredientData:
     energy: float
     protein: float
     carbohydrates: float
-    carbohydrates_sugar: Optional[float]
+    carbohydrates_sugar: float | None
     fat: float
-    fat_saturated: Optional[float]
-    fiber: Optional[float]
-    sodium: Optional[float]
-    code: Optional[str]
+    fat_saturated: float | None
+    fiber: float | None
+    sodium: float | None
+    code: str | None
     source_name: str
     source_url: str
     common_name: str | None
@@ -57,12 +64,12 @@ class IngredientData:
     license_object_url: str
     license_derivative_source_url: str = ''
     license_author_url: str = ''
-    is_vegan: Optional[bool] = None
-    is_vegetarian: Optional[bool] = None
-    serving_size_gram: Optional[int] = None
-    serving_size_unit: Optional[str] = None
-    serving_size_amount: Optional[float] = None
-    nutriscore: Optional[str] = None
+    is_vegan: bool | None = None
+    is_vegetarian: bool | None = None
+    serving_size_gram: int | None = None
+    serving_size_unit: str | None = None
+    serving_size_amount: float | None = None
+    nutriscore: str | None = None
 
     def sanity_checks(self):
         if not self.name:
@@ -82,6 +89,22 @@ class IngredientData:
             'sodium',
             'fiber',
         ]
+        # The dumps are user generated, anything can turn up where a number is
+        # expected. Reject it like any other invalid value instead of letting a
+        # TypeError escape and abort the whole import run.
+        for field in ['energy'] + macros:
+            value = getattr(self, field)
+            if value is None:
+                continue
+            if not isinstance(value, (int, float, Decimal)):
+                raise ValueError(f'Value for {field} is not a number: {value!r}')
+            if (isinstance(value, float) and not isfinite(value)) or (
+                isinstance(value, Decimal) and not value.is_finite()
+            ):
+                raise ValueError(f'Value for {field} is not finite: {value}')
+            if value < 0:
+                raise ValueError(f'Value for {field} is negative: {value}')
+
         for macro in macros:
             value = getattr(self, macro)
             if value and value > 100:
@@ -98,11 +121,41 @@ class IngredientData:
                 f'{self.carbohydrates_sugar} > {self.carbohydrates}'
             )
 
-        if self.carbohydrates + self.protein + self.fat > 100:
-            raise ValueError('Total of carbohydrates, protein and fat is greater than 100!')
+        # Labels can legally sum to slightly more than 100g per 100g of product because
+        # of the per-nutrient measurement tolerances allowed by EU Regulation 1169/2011:
+        # https://food.ec.europa.eu/system/files/2016-10/labelling_nutrition-vitamins_minerals-guidance_tolerances_1212_en.pdf
+        # The limit of 105 matches the threshold used by Open Food Facts' own data
+        # quality check "nutrition-value-total-over-105".
+        if self.carbohydrates + self.protein + self.fat > 105:
+            raise ValueError('Total of carbohydrates, protein and fat is greater than 105!')
 
         if self.nutriscore is not None and self.nutriscore not in ('a', 'b', 'c', 'd', 'e'):
             raise ValueError(f'Invalid nutriscore value: {self.nutriscore}')
+
+        # Energy plausibility: the declared energy must roughly match the energy
+        # computed from the macronutrients. Fiber counts with 2 kcal/g since it is
+        # usually not included in the carbohydrate value. See the comments on the
+        # threshold constants in consts.py for the tolerances used.
+        energy_computed = (
+            self.protein * ENERGY_FACTOR['protein']
+            + self.carbohydrates * ENERGY_FACTOR['carbohydrates']
+            + self.fat * ENERGY_FACTOR['fat']
+            + (self.fiber or 0) * ENERGY_FACTOR['fiber']
+        )
+        if self.energy > ENERGY_CHECK_MIN_KCAL or energy_computed > ENERGY_CHECK_MIN_KCAL:
+            energy_lower = (
+                self.energy * (1 - ENERGY_CHECK_TOLERANCE_RELATIVE)
+                - ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL
+            )
+            energy_upper = (
+                self.energy * (1 + ENERGY_CHECK_TOLERANCE_RELATIVE)
+                + ENERGY_CHECK_TOLERANCE_ABSOLUTE_KCAL
+            )
+            if not (energy_lower <= energy_computed <= energy_upper):
+                raise ValueError(
+                    f'Energy computed from the macronutrients ({energy_computed:.0f} kcal) '
+                    f'does not match the declared energy ({self.energy:.0f} kcal)'
+                )
 
     def dict(self):
         data = asdict(self)

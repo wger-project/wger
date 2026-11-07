@@ -21,13 +21,17 @@ from django.core.cache import cache
 from django.db.models import Q
 
 # Third Party
+from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
 from wger.manager.api.consts import BASE_CONFIG_FILTER_FIELDS
-from wger.manager.api.filtersets import WorkoutLogFilterSet
+from wger.manager.api.filtersets import (
+    WorkoutLogFilterSet,
+    WorkoutSessionFilterSet,
+)
 from wger.manager.api.permissions import RoutinePermission
 from wger.manager.api.serializers import (
     DaySerializer,
@@ -120,7 +124,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    @action(detail=True, url_path='date-sequence-display')
+    @extend_schema(responses={200: WorkoutDayDataDisplayModeSerializer(many=True)})
+    @action(detail=True, url_path='date-sequence-display', pagination_class=None)
     def date_sequence_display_mode(self, request, pk):
         """
         Return the day sequence of the routine
@@ -138,7 +143,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
 
         return Response(out)
 
-    @action(detail=True, url_path='date-sequence-gym')
+    @extend_schema(responses={200: WorkoutDayDataGymModeSerializer(many=True)})
+    @action(detail=True, url_path='date-sequence-gym', pagination_class=None)
     def date_sequence_gym_mode(self, request, pk):
         """
         Return the day sequence of the routine
@@ -153,6 +159,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
 
         return Response(out)
 
+    @extend_schema(responses={200: RoutineStructureSerializer})
     @action(detail=True)
     def structure(self, request, pk):
         """
@@ -167,7 +174,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
         return Response(out)
 
-    @action(detail=True, url_path='logs')
+    @extend_schema(responses={200: LogDisplaySerializer(many=True)})
+    @action(detail=True, url_path='logs', pagination_class=None)
     def logs(self, request, pk):
         """
         Returns the logs for the routine
@@ -181,6 +189,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
         return Response(out)
 
+    @extend_schema(responses={200: LogStatsDataSerializer})
     @action(detail=True, url_path='stats')
     def stats(self, request, pk):
         """
@@ -207,6 +216,7 @@ class UserRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = RoutineSerializer
+    permission_classes = [RoutinePermission]
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('name', 'description', 'created')
@@ -229,6 +239,7 @@ class PublicRoutineTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = RoutineSerializer
+    permission_classes = [RoutinePermission]
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('name', 'description', 'created')
@@ -248,14 +259,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = WorkoutSessionSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = (
-        'date',
-        'routine',
-        'notes',
-        'impression',
-        'time_start',
-        'time_end',
-    )
+    filterset_class = WorkoutSessionFilterSet
 
     def get_queryset(self):
         """
@@ -334,6 +338,7 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'id',
+        'routine',
         'order',
         'name',
         'description',
