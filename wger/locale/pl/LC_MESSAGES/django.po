@@ -91,10 +91,8 @@ msgid "Date of Birth"
 msgstr "Data urodzenia"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Czas"
+msgstr "Strefa czasowa"
 
 #: core/forms.py:172
 msgid ""
@@ -488,16 +486,13 @@ msgid "the wger Team"
 msgstr "Drużyna Wger"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Otrzymujesz tę wiadomość, ponieważ użytkownik \"%(user_display)s\" podał "
-"Twój adres e-mail, aby zarejestrować konto w serwisie %(site_domain)s."
+"Otrzymujesz tę wiadomość, ponieważ użytkownik %(user_display)s podał Twój "
+"adres e-mail, aby zarejestrować konto w serwisie %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
 #, python-format
@@ -569,10 +564,8 @@ msgid "or sign in with"
 msgstr "albo zaloguj się z"
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Hasło"
+msgstr "Resetowanie hasła"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -586,8 +579,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Zmień hasło"
 
@@ -647,10 +638,8 @@ msgstr "Czy na pewno chcesz to usunąć? Tej czynności nie będzie można cofn�
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Autor(rzy)"
+msgstr "Autoryzuj"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -1070,10 +1059,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Połączone konta"
+msgstr "Połączone aplikacje"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1101,10 +1088,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Brak konta?"
+msgstr "Twoje konto"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1113,10 +1098,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Inne ustawienia"
+msgstr "Ustawienia"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1451,20 +1434,16 @@ msgid "Please correct the errors below."
 msgstr "Popraw poniższe błędy."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Deaktywuj użytkownika"
+msgstr "Dezaktywować tego użytkownika?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Użytkownik pomyślnie zdezaktywowany"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Aktywuj użytkownika"
+msgstr "Aktywować tego użytkownika?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1889,9 +1868,7 @@ msgid "Contract types"
 msgstr "Typy kontraktów"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2018,16 +1995,12 @@ msgid "Gender"
 msgstr "Płeć"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Resetuj hasło użytkownika"
+msgstr "Tak, zresetuj hasło"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Resetuj hasło użytkownika"
+msgstr "Zresetować hasło tego użytkownika?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

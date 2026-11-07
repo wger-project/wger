@@ -71,10 +71,8 @@ msgid "Register"
 msgstr "Registreren"
 
 #: core/forms.py:148
-#, fuzzy
-#| msgid "Edit set"
 msgid "Not set"
-msgstr "Bewerk set"
+msgstr "Niet ingesteld"
 
 #: core/forms.py:152 core/forms.py:270 gym/views/export.py:62
 #: gym/views/gym.py:227
@@ -92,10 +90,8 @@ msgid "Date of Birth"
 msgstr "Geboortedatum"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Tijd"
+msgstr "Tijdzone"
 
 #: core/forms.py:172
 msgid ""
@@ -488,16 +484,13 @@ msgid "the wger Team"
 msgstr "het wger-team"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Je ontvangt deze e-mail omdat de gebruiker \"%(user_display)s\" je e-"
-"mailadres heeft opgegeven om een account te registreren op %(site_domain)s."
+"Je ontvangt deze e-mail omdat de gebruiker %(user_display)s je e-mailadres "
+"heeft opgegeven om een account te registreren op %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
 #, python-format
@@ -569,10 +562,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Wachtwoord"
+msgstr "Nieuw wachtwoord"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -586,8 +577,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Verander wachtwoord"
 
@@ -652,10 +641,8 @@ msgstr ""
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Auteur(s)"
+msgstr "Autoriseren"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -1070,10 +1057,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Gekoppelde accounts"
+msgstr "Gekoppelde applicaties"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1101,10 +1086,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Geen account?"
+msgstr "Je account"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1113,10 +1096,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Overige instellingen"
+msgstr "Instellingen"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1448,20 +1429,16 @@ msgid "Please correct the errors below."
 msgstr "Corrigeer de onderstaande fouten."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Gebruiker deactiveren"
+msgstr "Deze gebruiker deactiveren?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "De gebruiker werd met succes gedeactiveerd"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Activeer gebruiker"
+msgstr "Deze gebruiker activeren?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1887,9 +1864,7 @@ msgid "Contract types"
 msgstr "Contracttypes"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2013,16 +1988,12 @@ msgid "Gender"
 msgstr "Geslacht"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Reset gebruikers wachtwoord"
+msgstr "Ja, wachtwoord resetten"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Reset gebruikers wachtwoord"
+msgstr "Wachtwoord van deze gebruiker resetten?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

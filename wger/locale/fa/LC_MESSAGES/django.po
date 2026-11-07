@@ -473,16 +473,13 @@ msgid "the wger Team"
 msgstr "تیم WGER"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"شما این ایمیل را دریافت کردید زیرا کاربر «%(user_display)s» نشانی ایمیل شما "
-"را برای ثبت‌نام یک حساب در %(site_domain)s وارد کرده است."
+"شما این ایمیل را دریافت کردید زیرا کاربر %(user_display)s نشانی ایمیل شما را "
+"برای ثبت‌نام یک حساب در %(site_domain)s وارد کرده است."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
 #, python-format
@@ -554,10 +551,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "پسورد"
+msgstr "بازنشانی گذرواژه"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -571,10 +566,8 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Password"
 msgid "Change Password"
-msgstr "پسورد"
+msgstr "تغییر گذرواژه"
 
 #: core/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1086,10 +1079,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "تنظیمات دیگر"
+msgstr "تنظیمات"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1964,10 +1955,8 @@ msgid "Gender"
 msgstr ""
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset password"
 msgid "Yes, reset the password"
-msgstr "بازنشانی رمز عبور"
+msgstr "بله، رمز عبور بازنشانی شود"
 
 #: gym/views/gym.py:288
 msgid "Reset the password for this user?"

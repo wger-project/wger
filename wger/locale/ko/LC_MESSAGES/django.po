@@ -82,10 +82,8 @@ msgid "Date of Birth"
 msgstr "생일"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "시간"
+msgstr "시간대"
 
 #: core/forms.py:172
 msgid ""
@@ -455,10 +453,7 @@ msgstr "이메일 확인"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #: core/templates/account/email/email_confirmation_message.txt:17
-#, fuzzy, python-format
-#| msgid ""
-#| "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). "
-#| "You can request a new one from your profile settings."
+#, python-format
 msgid ""
 "The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
@@ -480,16 +475,13 @@ msgid "the wger Team"
 msgstr "wger 팀"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"사용자 \"%(user_display)s\"님이 %(site_domain)s에서 계정을 등록하기 위해 회원"
-"님의 이메일 주소를 입력했기 때문에 이 이메일을 받으셨습니다."
+"사용자 %(user_display)s님이 %(site_domain)s에서 계정을 등록하기 위해 회원님"
+"의 이메일 주소를 입력했기 때문에 이 이메일을 받으셨습니다."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
 #, python-format
@@ -561,10 +553,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "비밀번호"
+msgstr "비밀번호 초기화"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -578,8 +568,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "비밀번호 변경"
 
@@ -641,10 +629,8 @@ msgstr "이 항목을 삭제하시겠습니까? 이 작업은 취소할 수 없�
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "작성자"
+msgstr "승인"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -1058,10 +1044,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "연결된 계정"
+msgstr "연결된 애플리케이션"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1089,10 +1073,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "계정이 없나요?"
+msgstr "내 계정"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1101,10 +1083,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "기타 설정"
+msgstr "설정"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1436,20 +1416,16 @@ msgid "Please correct the errors below."
 msgstr ""
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "사용자 비활성화"
+msgstr "이 사용자를 비활성화할까요?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "사용자가 성공적으로 비활성화되었습니다"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "사용자 활성화"
+msgstr "이 사용자를 활성화할까요?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1874,9 +1850,7 @@ msgid "Contract types"
 msgstr "계약 유형"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -1996,16 +1970,12 @@ msgid "Gender"
 msgstr "성별"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "사용자 비밀번호 변경"
+msgstr "예, 비밀번호를 재설정합니다"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "사용자 비밀번호 변경"
+msgstr "이 사용자의 비밀번호를 재설정할까요?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

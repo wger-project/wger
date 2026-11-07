@@ -531,10 +531,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "கடவுச்சொல்"
+msgstr "கடவுச்சொல் மீட்டமைப்பு"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -548,10 +546,8 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Password"
 msgid "Change Password"
-msgstr "கடவுச்சொல்"
+msgstr "கடவுச்சொல்லை மாற்று"
 
 #: core/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1935,10 +1931,8 @@ msgid "Gender"
 msgstr ""
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Set password"
 msgid "Yes, reset the password"
-msgstr "கடவுச்சொல்லை அமை"
+msgstr "ஆம், கடவுச்சொல்லை மீட்டமை"
 
 #: gym/views/gym.py:288
 msgid "Reset the password for this user?"

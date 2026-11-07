@@ -89,10 +89,8 @@ msgid "Date of Birth"
 msgstr "Datum narození"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Čas"
+msgstr "Časové pásmo"
 
 #: core/forms.py:172
 msgid ""
@@ -465,10 +463,7 @@ msgstr "Potvrďte email"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #: core/templates/account/email/email_confirmation_message.txt:17
-#, fuzzy, python-format
-#| msgid ""
-#| "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). "
-#| "You can request a new one from your profile settings."
+#, python-format
 msgid ""
 "The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
@@ -498,15 +493,12 @@ msgid "the wger Team"
 msgstr "Tým wger"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Tento e-mail jste obdrželi, protože uživatel „%(user_display)s“ uvedl vaši e-"
+"Tento e-mail jste obdrželi, protože uživatel %(user_display)s uvedl vaši e-"
 "mailovou adresu při registraci účtu na %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
@@ -579,10 +571,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Heslo"
+msgstr "Reset hesla"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -596,8 +586,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Změna hesla"
 
@@ -660,10 +648,8 @@ msgstr "Jsi si jistý, že to chceš smazat? Tuhle akci už nejde pak odvolat."
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Autoři"
+msgstr "Autorizovat"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -1081,10 +1067,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Propojené účty"
+msgstr "Propojené aplikace"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1112,10 +1096,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Nemáte účet?"
+msgstr "Váš účet"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1124,10 +1106,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Další nastavení"
+msgstr "Nastavení"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1460,20 +1440,16 @@ msgid "Please correct the errors below."
 msgstr "Opravte prosím chyby níže."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Deaktivovat uživatele"
+msgstr "Deaktivovat tohoto uživatele?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Uživatel byl deaktivován"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Aktivovat uživatele"
+msgstr "Aktivovat tohoto uživatele?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1899,9 +1875,7 @@ msgid "Contract types"
 msgstr "Typy zakázek"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2033,16 +2007,12 @@ msgid "Gender"
 msgstr "Pohlaví"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Reset hesla"
+msgstr "Ano, resetovat heslo"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Reset hesla"
+msgstr "Resetovat heslo tohoto uživatele?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

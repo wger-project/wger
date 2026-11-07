@@ -85,10 +85,8 @@ msgid "Date of Birth"
 msgstr "Doğum tarihi"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Zaman"
+msgstr "Saat dilimi"
 
 #: core/forms.py:172
 msgid ""
@@ -464,10 +462,7 @@ msgstr "E-postayı onayla"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #: core/templates/account/email/email_confirmation_message.txt:17
-#, fuzzy, python-format
-#| msgid ""
-#| "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). "
-#| "You can request a new one from your profile settings."
+#, python-format
 msgid ""
 "The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
@@ -491,15 +486,12 @@ msgid "the wger Team"
 msgstr "wger Ekibi"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Bu e-postayı, \"%(user_display)s\" kullanıcısı %(site_domain)s üzerinde bir "
+"Bu e-postayı, %(user_display)s kullanıcısı %(site_domain)s üzerinde bir "
 "hesap oluşturmak için e-posta adresinizi verdiğinden alıyorsunuz."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
@@ -575,10 +567,8 @@ msgid "or sign in with"
 msgstr "ile oturum aç"
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Parola"
+msgstr "Şifre Sıfırlama"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -592,8 +582,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Parola değiştir"
 
@@ -656,10 +644,8 @@ msgstr "Bunu silmek istediğinizden emin misiniz? Bu eylem geri alınamaz."
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Yazar(lar)"
+msgstr "Yetkilendir"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -1074,10 +1060,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Bağlı hesaplar"
+msgstr "Bağlı uygulamalar"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1105,10 +1089,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Hesap yok?"
+msgstr "Hesabınız"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1117,10 +1099,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Diğer ayarlar"
+msgstr "Ayarlar"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1456,20 +1436,16 @@ msgid "Please correct the errors below."
 msgstr "Lütfen aşağıdaki hataları düzeltin."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Kullanıcıyı devre dışı bırak"
+msgstr "Bu kullanıcı devre dışı bırakılsın mı?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Kullanıcı başarıyla devre dışı bırakıldı"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Kullanıcıyı etkinleştir"
+msgstr "Bu kullanıcı etkinleştirilsin mi?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1897,9 +1873,7 @@ msgid "Contract types"
 msgstr "Sözleşme türleri"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2025,16 +1999,12 @@ msgid "Gender"
 msgstr "Cinsiyet"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Kullanıcı parolasını sıfırla"
+msgstr "Evet, parolayı sıfırla"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Kullanıcı parolasını sıfırla"
+msgstr "Bu kullanıcının parolası sıfırlansın mı?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

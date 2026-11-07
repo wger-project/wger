@@ -90,10 +90,8 @@ msgid "Date of Birth"
 msgstr "Data di nascita"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Tempo"
+msgstr "Fuso orario"
 
 #: core/forms.py:172
 msgid ""
@@ -473,10 +471,7 @@ msgstr "Conferma email"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #: core/templates/account/email/email_confirmation_message.txt:17
-#, fuzzy, python-format
-#| msgid ""
-#| "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). "
-#| "You can request a new one from your profile settings."
+#, python-format
 msgid ""
 "The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
@@ -500,15 +495,12 @@ msgid "the wger Team"
 msgstr "Il team wger"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Stai ricevendo questa email perché l’utente “%(user_display)s” ha fornito il "
+"Stai ricevendo questa email perché l’utente %(user_display)s ha fornito il "
 "tuo indirizzo email per registrare un account su %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
@@ -522,7 +514,6 @@ msgid "Email address"
 msgstr "Indirizzo email"
 
 #: core/templates/account/email_change.html:9
-#, fuzzy
 msgid ""
 "Your email address is used for password resets and, optionally, workout "
 "reminders. A new address only becomes active once you confirm it via the "
@@ -537,7 +528,7 @@ msgid "Current email"
 msgstr "Email attuale"
 
 #: core/templates/account/email_change.html:30
-#, fuzzy, python-format
+#, python-format
 msgid "Pending confirmation: <strong>%(email)s</strong>"
 msgstr "In attesa di conferma: <strong>%(email)s</strong>"
 
@@ -573,25 +564,20 @@ msgid "No account?"
 msgstr "Nessun account?"
 
 #: core/templates/account/login.html:104
-#, fuzzy
 msgid "Faster sign in"
 msgstr "Accesso veloce"
 
 #: core/templates/account/login.html:113
-#, fuzzy
 msgid "Sign in with a passkey"
 msgstr "Accedi con una passkey"
 
 #: core/templates/account/login.html:120
-#, fuzzy
 msgid "or sign in with"
 msgstr "o accedi con"
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Password"
+msgstr "Reimpostazione password"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -605,8 +591,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Cambia la password"
 
@@ -670,10 +654,8 @@ msgstr "Sei sicuro/a di volerlo eliminare? Questa azione sarà permanente."
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Autore(i)"
+msgstr "Autorizza"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -981,10 +963,7 @@ msgstr ""
 "annulla la sessione precedente qui sotto."
 
 #: core/templates/user/api_key.html:56
-#, fuzzy, python-format
-#| msgid ""
-#| "Refresh tokens expire %(days)s days after they were generated, unless you "
-#| "revoke them sooner."
+#, python-format
 msgid ""
 "Refresh tokens expire %(days)s day after they were generated, unless you "
 "revoke them sooner."
@@ -1116,10 +1095,8 @@ msgstr "Tocca per tornare all'app"
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Account collegati"
+msgstr "Applicazioni collegate"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1147,10 +1124,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Nessun account?"
+msgstr "Il tuo account"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1159,10 +1134,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Altre impostazioni"
+msgstr "Impostazioni"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1499,20 +1472,16 @@ msgid "Please correct the errors below."
 msgstr "Correggi gli errori qui sotto."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Disattiva utente"
+msgstr "Disattivare questo utente?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Utente è stato disattivato con successo"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Attiva utente"
+msgstr "Attivare questo utente?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1937,9 +1906,7 @@ msgid "Contract types"
 msgstr "Tipi di contratto"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2065,16 +2032,12 @@ msgid "Gender"
 msgstr "Sesso"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Reset password utente"
+msgstr "Sì, reimposta la password"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Reset password utente"
+msgstr "Reimpostare la password di questo utente?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

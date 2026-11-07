@@ -84,10 +84,8 @@ msgid "Date of Birth"
 msgstr "Fødselsdag"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Tid"
+msgstr "Tidszone"
 
 #: core/forms.py:172
 msgid ""
@@ -476,15 +474,12 @@ msgid "the wger Team"
 msgstr "wger Holdet"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Du modtager denne email, fordi brugeren \"%(user_display)s\" har angivet din "
+"Du modtager denne email, fordi brugeren %(user_display)s har angivet din "
 "emailadresse til at oprette en konto på %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
@@ -557,10 +552,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Kodeord"
+msgstr "Nulstil password"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -574,8 +567,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Ændre kodeord"
 
@@ -1053,10 +1044,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Tilknyttede konti"
+msgstr "Tilknyttede applikationer"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1084,10 +1073,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Ingen konto?"
+msgstr "Din konto"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1096,10 +1083,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Andre indstillinger"
+msgstr "Indstillinger"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1433,20 +1418,16 @@ msgid "Please correct the errors below."
 msgstr ""
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Deaktiver bruger"
+msgstr "Deaktiver denne bruger?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Brugeren blev deaktiveret"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Aktiver bruger"
+msgstr "Aktiver denne bruger?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1871,9 +1852,7 @@ msgid "Contract types"
 msgstr "Kontrakttyper"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -1997,16 +1976,12 @@ msgid "Gender"
 msgstr "Køn"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Nulstil brugerens kodeord"
+msgstr "Ja, nulstil kodeordet"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Nulstil brugerens kodeord"
+msgstr "Nulstil kodeordet for denne bruger?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

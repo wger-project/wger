@@ -81,10 +81,8 @@ msgid "Date of Birth"
 msgstr "תאריך לידה"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "זמן"
+msgstr "אזור זמן"
 
 #: core/forms.py:172
 msgid ""
@@ -542,10 +540,8 @@ msgid "or sign in with"
 msgstr ""
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "סיסמה"
+msgstr "איפוס סיסמה"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -559,10 +555,8 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Password"
 msgid "Change Password"
-msgstr "סיסמה"
+msgstr "החלפת סיסמה"
 
 #: core/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1031,10 +1025,8 @@ msgstr ""
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "חשבונות מקושרים"
+msgstr "יישומים מקושרים"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1062,10 +1054,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "אין חשבון?"
+msgstr "החשבון שלך"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1074,10 +1064,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "הגדרות אחרות"
+msgstr "הגדרות"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1404,20 +1392,16 @@ msgid "Please correct the errors below."
 msgstr ""
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "נטרול חשבון"
+msgstr "לנטרל את המשתמש הזה?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr ""
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "הפעלת חשבון"
+msgstr "להפעיל את המשתמש הזה?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1956,10 +1940,8 @@ msgid "Gender"
 msgstr ""
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset password"
 msgid "Yes, reset the password"
-msgstr "איפוס סיסמה"
+msgstr "כן, לאפס את הסיסמה"
 
 #: gym/views/gym.py:288
 msgid "Reset the password for this user?"

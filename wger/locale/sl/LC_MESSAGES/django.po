@@ -83,10 +83,8 @@ msgid "Date of Birth"
 msgstr "Datum rojstva"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Čas"
+msgstr "Časovni pas"
 
 #: core/forms.py:172
 msgid ""
@@ -458,10 +456,7 @@ msgstr "Potrdi e-pošto"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #: core/templates/account/email/email_confirmation_message.txt:17
-#, fuzzy, python-format
-#| msgid ""
-#| "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). "
-#| "You can request a new one from your profile settings."
+#, python-format
 msgid ""
 "The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
@@ -491,15 +486,12 @@ msgid "the wger Team"
 msgstr "Ekipa wger"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"To sporočilo ste prejeli, ker je uporabnik »%(user_display)s« uporabil ta e-"
+"To sporočilo ste prejeli, ker je uporabnik %(user_display)s uporabil ta e-"
 "poštni naslov za vpis računa na spletni strani %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
@@ -575,10 +567,8 @@ msgid "or sign in with"
 msgstr "ali pa se prijavite z"
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Geslo"
+msgstr "Ponastavitev gesla"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -592,8 +582,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Spremeni geslo"
 
@@ -659,10 +647,8 @@ msgstr ""
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Avtor(ji)"
+msgstr "Avtoriziraj"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -968,10 +954,7 @@ msgstr ""
 "prekličite staro sejo."
 
 #: core/templates/user/api_key.html:56
-#, fuzzy, python-format
-#| msgid ""
-#| "Refresh tokens expire %(days)s days after they were generated, unless you "
-#| "revoke them sooner."
+#, python-format
 msgid ""
 "Refresh tokens expire %(days)s day after they were generated, unless you "
 "revoke them sooner."
@@ -1123,10 +1106,8 @@ msgstr "Kliknite, da se vrnete v program"
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Povezani računi"
+msgstr "Povezane aplikacije"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1154,10 +1135,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "Še nimate računa?"
+msgstr "Vaš račun"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1166,10 +1145,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Druge nastavitve"
+msgstr "Nastavitve"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1503,20 +1480,16 @@ msgid "Please correct the errors below."
 msgstr "Odpravite spodnje napake."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Deaktiviraj uporabnika"
+msgstr "Želite deaktivirati tega uporabnika?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Uporabnik je bil uspešno deaktiviran"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Aktiviraj uporabnika"
+msgstr "Želite aktivirati tega uporabnika?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1941,9 +1914,7 @@ msgid "Contract types"
 msgstr "Vrste pogodb"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2070,16 +2041,12 @@ msgid "Gender"
 msgstr "Spol"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Ponastavi uporabnikovo geslo"
+msgstr "Da, ponastavi geslo"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Ponastavi uporabnikovo geslo"
+msgstr "Želite ponastaviti geslo tega uporabnika?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"

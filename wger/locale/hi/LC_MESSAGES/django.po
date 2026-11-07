@@ -547,10 +547,8 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Set password"
 msgid "Change Password"
-msgstr "पासवर्ड सेट करें"
+msgstr "पासवर्ड बदलें"
 
 #: core/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1934,10 +1932,8 @@ msgid "Gender"
 msgstr ""
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Set password"
 msgid "Yes, reset the password"
-msgstr "पासवर्ड सेट करें"
+msgstr "हाँ, पासवर्ड रीसेट करें"
 
 #: gym/views/gym.py:288
 msgid "Reset the password for this user?"

@@ -90,10 +90,8 @@ msgid "Date of Birth"
 msgstr "Fecha de cumpleaños"
 
 #: core/forms.py:168
-#, fuzzy
-#| msgid "Time"
 msgid "Timezone"
-msgstr "Tiempo"
+msgstr "Zona horaria"
 
 #: core/forms.py:172
 msgid ""
@@ -477,10 +475,7 @@ msgstr "Confirmar correo electrónico"
 
 #: core/templates/account/email/email_confirmation_message.html:110
 #: core/templates/account/email/email_confirmation_message.txt:17
-#, fuzzy, python-format
-#| msgid ""
-#| "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). "
-#| "You can request a new one from your profile settings."
+#, python-format
 msgid ""
 "The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
@@ -503,17 +498,14 @@ msgid "the wger Team"
 msgstr "El Equipo Wger"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this email because the user \"%(user_display)s\" has "
-#| "given your email address to register an account on %(site_domain)s."
+#, python-format
 msgid ""
 "You're receiving this email because the user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s."
 msgstr ""
-"Estás recibiendo este correo electrónico porque el usuario "
-"«%(user_display)s» ha proporcionado tu dirección de correo electrónico para "
-"registrar una cuenta en %(site_domain)s."
+"Estás recibiendo este correo electrónico porque el usuario %(user_display)s "
+"ha proporcionado tu dirección de correo electrónico para registrar una "
+"cuenta en %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.txt:14
 #, python-format
@@ -589,10 +581,8 @@ msgid "or sign in with"
 msgstr "o inicia sesión con"
 
 #: core/templates/account/password_reset.html:4
-#, fuzzy
-#| msgid "Password"
 msgid "Password Reset"
-msgstr "Contraseña"
+msgstr "Restablecer Contraseña"
 
 #: core/templates/account/password_reset.html:9
 msgid ""
@@ -606,8 +596,6 @@ msgstr ""
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
-#, fuzzy
-#| msgid "Change password"
 msgid "Change Password"
 msgstr "Cambiar contraseña"
 
@@ -671,10 +659,8 @@ msgstr ""
 
 #: core/templates/idp/oidc/authorization_form.html:9
 #: core/templates/idp/oidc/authorization_form.html:36
-#, fuzzy
-#| msgid "Author(s)"
 msgid "Authorize"
-msgstr "Autor(es)"
+msgstr "Autorizar"
 
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
@@ -982,10 +968,7 @@ msgstr ""
 "anterior más abajo."
 
 #: core/templates/user/api_key.html:56
-#, fuzzy, python-format
-#| msgid ""
-#| "Refresh tokens expire %(days)s days after they were generated, unless you "
-#| "revoke them sooner."
+#, python-format
 msgid ""
 "Refresh tokens expire %(days)s day after they were generated, unless you "
 "revoke them sooner."
@@ -1122,10 +1105,8 @@ msgstr "Toca para volver a la aplicación"
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
-#, fuzzy
-#| msgid "Connected accounts"
 msgid "Connected applications"
-msgstr "Cuentas conectadas"
+msgstr "Aplicaciones conectadas"
 
 #: core/templates/user/connected_applications.html:9
 msgid ""
@@ -1153,10 +1134,8 @@ msgid "No application has access to your account."
 msgstr ""
 
 #: core/templates/user/connected_applications.html:78
-#, fuzzy
-#| msgid "No account?"
 msgid "Your account"
-msgstr "¿No tienes cuenta?"
+msgstr "Tu cuenta"
 
 #: core/templates/user/connected_applications.html:81
 msgid ""
@@ -1165,10 +1144,8 @@ msgid ""
 msgstr ""
 
 #: core/templates/user/connected_applications.html:89
-#, fuzzy
-#| msgid "Other settings"
 msgid "Settings"
-msgstr "Otras configuraciones"
+msgstr "Configuración"
 
 #: core/templates/user/delete_account.html:3
 #: core/templates/user/preferences.html:92
@@ -1506,20 +1483,16 @@ msgid "Please correct the errors below."
 msgstr "Corrige los errores indicados a continuación."
 
 #: core/views/user.py:384
-#, fuzzy
-#| msgid "Deactivate user"
 msgid "Deactivate this user?"
-msgstr "Desactivar usuario"
+msgstr "¿Desactivar este usuario?"
 
 #: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "El usuario ha sido desactivado con éxito"
 
 #: core/views/user.py:421
-#, fuzzy
-#| msgid "Activate user"
 msgid "Activate this user?"
-msgstr "Activar usuario"
+msgstr "¿Activar este usuario?"
 
 #: core/views/user.py:422
 msgid "The user was successfully activated"
@@ -1945,9 +1918,7 @@ msgid "Contract types"
 msgstr "Tipos de contrato"
 
 #: gym/templates/gym/email_inactive_members.html:2
-#, fuzzy, python-format
-#| msgid ""
-#| "The following users have not visited the gym in the last %(weeks)s weeks"
+#, python-format
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
@@ -2073,16 +2044,12 @@ msgid "Gender"
 msgstr "Género"
 
 #: gym/views/gym.py:281
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Yes, reset the password"
-msgstr "Restablecer la contraseña del usuario"
+msgstr "Sí, restablecer la contraseña"
 
 #: gym/views/gym.py:288
-#, fuzzy
-#| msgid "Reset user password"
 msgid "Reset the password for this user?"
-msgstr "Restablecer la contraseña del usuario"
+msgstr "¿Restablecer la contraseña de este usuario?"
 
 #: gym/views/gym.py:385
 msgid "Add user to gym"
