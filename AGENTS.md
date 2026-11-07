@@ -146,6 +146,9 @@ wger/<app>/
 - **Visible changes go into CHANGELOG.md:** if a feature, behavior change or bug fix is noticeable for users,
   self-hosters or API clients, add a short entry to the matching section of `CHANGELOG.md` in the same change.
   Internal refactors and small fixes don't need one, when in doubt just ask.
+- **Important user-facing changes also go into the docs** (`../docs`, readthedocs): a new feature or changed behavior
+  into the user manual (`docs/manual/`), written from the user's view; a new field, accepted value or behavior of a
+  documented endpoint into `docs/api/`. Check whether an existing page now says something wrong.
 - **No advisory IDs** (GHSA etc.) in code, comments or commit messages.
 
 ## Scope

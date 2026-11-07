@@ -39,6 +39,7 @@ from rest_framework.viewsets import ModelViewSet
 # wger
 from wger.exercises.api.filtersets import (
     ExerciseFilterSet,
+    ExerciseListFilterSet,
     RelevanceOrderingFilter,
 )
 from wger.exercises.api.permissions import (
@@ -95,12 +96,7 @@ class ExerciseViewSet(ModelViewSet):
     throttle_scope = 'exercise_create'
     ordering_fields = '__all__'
     ordering = ['id']
-    filterset_fields = (
-        'category',
-        'muscles',
-        'muscles_secondary',
-        'equipment',
-    )
+    filterset_class = ExerciseListFilterSet
 
     def perform_create(self, serializer):
         """
