@@ -28,7 +28,7 @@ schema reset) without asking.
 
 ## Layout
 
-```
+```text
 wger/<app>/
 ├── models/        one file per model (or group), re-exported from models/__init__.py
 ├── api/           DRF serializers, viewsets, filtersets

@@ -26,6 +26,7 @@ from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
+from django.utils.translation import override
 
 # Third Party
 from rest_framework.authtoken.models import Token
@@ -55,6 +56,21 @@ class ApiKeyTestCase(WgerTestCase):
     """
     Tests the API key page
     """
+
+    def test_refresh_token_lifetime_pluralization(self):
+        self.user_login('test')
+        user = User.objects.get(username='test')
+        mint_long_lived_refresh_token(user, lifetime_seconds=120 * 86400)
+
+        for days in (1, 2, 21):
+            with (
+                self.subTest(days=days),
+                override('en'),
+                override_settings(HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN=days * 86400),
+            ):
+                response = self.client.get(reverse('core:user:api-key'))
+                unit = 'day' if days == 1 else 'days'
+                self.assertContains(response, f'Refresh tokens expire {days} {unit} after')
 
     def test_api_key_page(self):
         """

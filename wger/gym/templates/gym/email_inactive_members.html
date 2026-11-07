@@ -1,5 +1,9 @@
 {% load i18n wger_extras %}
-{% blocktranslate %}The following users have not visited the gym in the last {{ weeks }} weeks{% endblocktranslate %}
+{% blocktranslate trimmed count weeks=weeks %}
+The following users have not visited the gym in the last {{ weeks }} week
+{% plural %}
+The following users have not visited the gym in the last {{ weeks }} weeks
+{% endblocktranslate %}
 
 {% translate "User"|ljust:"25" %} {% translate "Last activity" %}
 ---------------------------------------------------------
