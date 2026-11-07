@@ -92,6 +92,20 @@ class LogItemApiTestCase(BaseTestCase, ApiBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.get_ids(response), [])
 
+    def test_entries_logged_together_have_a_fixed_order(self):
+        """Ties on datetime are ordered by id, so pages don't repeat or skip entries"""
+        self.authenticate('test')
+        data = {
+            'plan': PLAN_OWNED,
+            'ingredient': 1,
+            'amount': 100,
+            'datetime': '2016-05-16T10:00:00Z',
+        }
+        ids = [self.client.post(self.url, data=data).json()['id'] for _ in range(3)]
+
+        response = self.client.get(self.url, {'datetime__date': '2016-05-16'})
+        self.assertEqual(self.get_ids(response), sorted(ids, reverse=True))
+
     def test_post_to_own_plan(self):
         self.authenticate('test')
         count_before = LogItem.objects.count()
