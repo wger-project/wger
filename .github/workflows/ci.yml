@@ -51,6 +51,12 @@ jobs:
           uv sync --group dev --python ${{ matrix.python-version }}
           mkdir /tmp/wger-test
 
+      # Missing migrations, and two heads in one app (on a PR this runs on the merge commit)
+      - name: Check the migrations
+        if: matrix.python-version == 3.13
+        run: |
+          uv run ./manage.py makemigrations --check --dry-run
+
       # Only run the tests with coverage for one version of python.
       - name: Test the application with coverage
         if: matrix.python-version == 3.13
