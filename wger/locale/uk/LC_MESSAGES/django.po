@@ -13,18 +13,19 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-07 14:27+0100\n"
-"PO-Revision-Date: 2026-10-10 18:51+0000\n"
-"Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
+"PO-Revision-Date: 2026-11-07 20:33+0000\n"
+"Last-Translator: Борис Броварчук "
+"<digestivedigestive069@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 2026.10.1.dev0\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -72,7 +73,7 @@ msgstr "Зареєструватись"
 
 #: core/forms.py:148
 msgid "Not set"
-msgstr ""
+msgstr "Не задано"
 
 #: core/forms.py:152 core/forms.py:270 gym/views/export.py:62
 #: gym/views/gym.py:227
@@ -98,6 +99,8 @@ msgid ""
 "Used to decide which day a workout counts for. The mobile app reports it "
 "automatically."
 msgstr ""
+"Використовується для визначення дати, до якої зараховується тренування. "
+"Мобільний застосунок визначає її автоматично."
 
 #: core/forms.py:211
 msgid "Personal data"
@@ -510,6 +513,8 @@ msgstr ""
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
+"Щоб підтвердити правильність адреси, перейдіть за посиланням: %(activate_url)"
+"s"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:26
@@ -587,10 +592,12 @@ msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
+"Забули пароль? Введіть нижче свою адресу електронної пошти, і ми надішлемо "
+"вам лист із посиланням для його скидання."
 
 #: core/templates/account/password_reset_from_key.html:4
 msgid "Bad Token"
-msgstr ""
+msgstr "Недійсний токен"
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
@@ -604,6 +611,9 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
+"Посилання для скидання пароля недійсне. Можливо, його вже використали. Будь "
+"ласка, надішліть <a href=\"%(passwd_reset_url)s\">новий запит на скидання "
+"пароля</a>."
 
 #: core/templates/account/password_reset_from_key_done.html:4
 msgid "Password reset complete"
@@ -662,6 +672,8 @@ msgstr "Авторизувати"
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
 msgstr ""
+"Застосунок %(client_name)s хоче отримати доступ до вашого облікового запису "
+"на %(site_name)s."
 
 #: core/templates/idp/oidc/authorization_form.html:42
 #: exercises/templates/history/overview.html:213
@@ -1120,25 +1132,30 @@ msgid ""
 "These applications can use your account through the API. You gave them "
 "permission when you logged in with your wger account."
 msgstr ""
+"Ці застосунки можуть використовувати ваш обліковий запис через API. Ви "
+"надали їм дозвіл, коли увійшли за допомогою свого облікового запису wger."
 
 #: core/templates/user/connected_applications.html:25
 #, python-format
 msgid "Access runs out on %(date)s if the application is not used again"
-msgstr ""
+msgstr "Якщо ви знову не скористаєтеся застосунком, доступ припиниться %(date)s"
 
 #: core/templates/user/connected_applications.html:49
 msgid "Disconnect"
-msgstr ""
+msgstr "Від'єднати"
 
 #: core/templates/user/connected_applications.html:57
 msgid ""
 "Disconnecting takes the access away immediately. The application can ask for "
 "it again, and you will be shown the same page you saw the first time."
 msgstr ""
+"Після від'єднання доступ буде негайно скасовано. Застосунок зможе повторно "
+"запросити доступ, і ви побачите ту саму сторінку, що й під час першого "
+"запиту."
 
 #: core/templates/user/connected_applications.html:66
 msgid "No application has access to your account."
-msgstr ""
+msgstr "Жоден застосунок не має доступу до вашого облікового запису."
 
 #: core/templates/user/connected_applications.html:78
 msgid "Your account"
@@ -1149,6 +1166,9 @@ msgid ""
 "This list is about other applications using your wger account. To manage the "
 "accounts you use to log in to wger, see connected accounts in your settings."
 msgstr ""
+"У цьому списку наведено інші застосунки, які використовують ваш обліковий "
+"запис wger. Щоб керувати обліковими записами, за допомогою яких ви входите "
+"до wger, перейдіть до розділу «Підключені облікові записи» в налаштуваннях."
 
 #: core/templates/user/connected_applications.html:89
 msgid "Settings"
@@ -1470,7 +1490,7 @@ msgstr ""
 #: core/views/oidc.py:130
 #, python-brace-format
 msgid "{name} no longer has access"
-msgstr ""
+msgstr "{name} більше не має доступу"
 
 #: core/views/user.py:180
 #, python-brace-format
@@ -2482,10 +2502,10 @@ msgstr "Час початку не може бути після часу зак�
 #, python-format
 msgid "A session cannot be longer than %(hours)s hour."
 msgid_plural "A session cannot be longer than %(hours)s hours."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Тренування не може тривати довше ніж %(hours)s годину."
+msgstr[1] "Тренування не може тривати довше ніж %(hours)s години."
+msgstr[2] "Тренування не може тривати довше ніж %(hours)s годин."
+msgstr[3] "Тренування не може тривати довше ніж %(hours)s години."
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
@@ -3320,11 +3340,11 @@ msgstr ""
 
 #: utils/oidc_auth.py:44
 msgid "View your training, nutrition and body data"
-msgstr ""
+msgstr "Переглядайте свої тренування, харчування та дані про заміри тіла"
 
 #: utils/oidc_auth.py:45
 msgid "Add and change your training, nutrition and body data"
-msgstr ""
+msgstr "Додавайте та змінюйте дані про тренування, харчування й заміри тіла"
 
 #: weight/forms.py:52
 msgid "Input"
