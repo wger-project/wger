@@ -22,13 +22,17 @@ class CountedTemplateMessagesTestCase(SimpleTestCase):
 
     def test_confirmation_link_lifetime(self):
         for hours in (1, 2, 24):
-            with self.subTest(hours=hours):
-                text = self.render_message(
-                    'account/email/email_confirmation_message.html',
-                    {'expire_hours': hours, 'expire_date': timezone.now() + timedelta(hours=hours)},
-                )
-                unit = 'hour' if hours == 1 else 'hours'
-                self.assertIn(f'The link is valid for {hours} {unit} (until', text)
+            for extension in ('html', 'txt'):
+                with self.subTest(hours=hours, extension=extension):
+                    text = self.render_message(
+                        f'account/email/email_confirmation_message.{extension}',
+                        {
+                            'expire_hours': hours,
+                            'expire_date': timezone.now() + timedelta(hours=hours),
+                        },
+                    )
+                    unit = 'hour' if hours == 1 else 'hours'
+                    self.assertIn(f'The link is valid for {hours} {unit} (until', text)
 
     def test_inactive_member_reminder(self):
         for weeks in (1, 2, 21):
