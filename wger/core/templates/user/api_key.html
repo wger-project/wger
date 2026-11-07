@@ -53,7 +53,10 @@
 
     {% if long_lived_sessions %}
         <p>
-            {% blocktranslate trimmed with days=refresh_token_lifetime_days %}
+            {% blocktranslate trimmed count days=refresh_token_lifetime_days %}
+                Refresh tokens expire {{ days }} day after they were
+                generated, unless you revoke them sooner.
+            {% plural %}
                 Refresh tokens expire {{ days }} days after they were
                 generated, unless you revoke them sooner.
             {% endblocktranslate %}

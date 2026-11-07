@@ -185,6 +185,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
         'exercise',
         'description',
         'name',
+        'language',
     )
 
     def perform_create(self, serializer):

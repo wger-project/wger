@@ -14,8 +14,12 @@ Your email verification code is listed below. Please enter it in your open brows
 {% blocktranslate trimmed %}
 To confirm this is correct, go to {{ activate_url }}
 {% endblocktranslate %}
-{% blocktranslate with time=expire_date|time:"TIME_FORMAT" date=expire_date|date:"DATE_FORMAT" trimmed %}
-The link is valid for {{ expire_hours }} hours (until {{ date }}, {{ time }}). You can request a new one from your profile settings.
+{% blocktranslate with time=expire_date|time:"TIME_FORMAT" date=expire_date|date:"DATE_FORMAT" count expire_hours=expire_hours trimmed %}
+The link is valid for {{ expire_hours }} hour (until {{ date }}, {{ time }}).
+You can request a new one from your profile settings.
+{% plural %}
+The link is valid for {{ expire_hours }} hours (until {{ date }}, {{ time }}).
+You can request a new one from your profile settings.
 {% endblocktranslate %}
 {% endif %}
 {% endautoescape %}{% endblock content %}

@@ -36,7 +36,7 @@ then
 fi
 
 # Perform database migrations
-if [[ "$DJANGO_PERFORM_MIGRATIONS" == "True" ]];
+if [[ "${DJANGO_PERFORM_MIGRATIONS:-True}" == "True" ]];
 then
     echo "Performing database migrations"
     if ! python3 manage.py migrate; then

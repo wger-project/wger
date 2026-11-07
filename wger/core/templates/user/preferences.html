@@ -19,48 +19,48 @@
             {% translate "Account & security" %}
         </div>
         <div class="list-group list-group-flush">
-            <a href="{% url 'account_email' %}" class="list-group-item list-group-item-action">
-                <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
-                <span class="{% fa_class 'envelope' %} me-2 text-muted"></span>
-                {% translate "Email address" %}
-                {% if email_verified %}
-                    <small class="d-block ms-4 text-success">{% translate "Verified email" %}</small>
-                {% else %}
-                    <small class="d-block ms-4 text-muted">{% translate "Unverified email" %}</small>
-                {% endif %}
-            </a>
-            {% if has_usable_password %}
-                <a href="{% url 'core:user:change-password' %}" class="list-group-item list-group-item-action">
-                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
-                    <span class="{% fa_class 'key' %} me-2 text-muted"></span>
-                    {% translate "Change password" %}
-                </a>
-            {% else %}
-                <a href="{% url 'account_set_password' %}" class="list-group-item list-group-item-action">
-                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
-                    <span class="{% fa_class 'key' %} me-2 text-muted"></span>
-                    {% translate "Set password" %}
-                </a>
-            {% endif %}
-            <a href="{% url 'mfa_index' %}" class="list-group-item list-group-item-action">
-                <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
-                <span class="{% fa_class 'shield-halved' %} me-2 text-muted"></span>
-                {% translate "Two-factor authentication" %}
-                {% if mfa_enabled %}
-                    <span class="badge text-bg-success ms-1">{% translate "On" %}</span>
-                {% else %}
-                    <span class="badge text-bg-secondary ms-1">{% translate "Off" %}</span>
-                {% endif %}
-            </a>
-            {% get_providers as socialaccount_providers %}
-            {% if socialaccount_providers %}
-                <a href="{% url 'socialaccount_connections' %}" class="list-group-item list-group-item-action">
-                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
-                    <span class="{% fa_class 'link' %} me-2 text-muted"></span>
-                    {% translate "Connected accounts" %}
-                </a>
-            {% endif %}
             {% if not trainer_identity %}
+                <a href="{% url 'account_email' %}" class="list-group-item list-group-item-action">
+                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                    <span class="{% fa_class 'envelope' %} me-2 text-muted"></span>
+                    {% translate "Email address" %}
+                    {% if email_verified %}
+                        <small class="d-block ms-4 text-success">{% translate "Verified email" %}</small>
+                    {% else %}
+                        <small class="d-block ms-4 text-muted">{% translate "Unverified email" %}</small>
+                    {% endif %}
+                </a>
+                {% if has_usable_password %}
+                    <a href="{% url 'core:user:change-password' %}" class="list-group-item list-group-item-action">
+                        <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                        <span class="{% fa_class 'key' %} me-2 text-muted"></span>
+                        {% translate "Change password" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'account_set_password' %}" class="list-group-item list-group-item-action">
+                        <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                        <span class="{% fa_class 'key' %} me-2 text-muted"></span>
+                        {% translate "Set password" %}
+                    </a>
+                {% endif %}
+                <a href="{% url 'mfa_index' %}" class="list-group-item list-group-item-action">
+                    <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                    <span class="{% fa_class 'shield-halved' %} me-2 text-muted"></span>
+                    {% translate "Two-factor authentication" %}
+                    {% if mfa_enabled %}
+                        <span class="badge text-bg-success ms-1">{% translate "On" %}</span>
+                    {% else %}
+                        <span class="badge text-bg-secondary ms-1">{% translate "Off" %}</span>
+                    {% endif %}
+                </a>
+                {% get_providers as socialaccount_providers %}
+                {% if socialaccount_providers %}
+                    <a href="{% url 'socialaccount_connections' %}" class="list-group-item list-group-item-action">
+                        <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
+                        <span class="{% fa_class 'link' %} me-2 text-muted"></span>
+                        {% translate "Connected accounts" %}
+                    </a>
+                {% endif %}
                 <a href="{% url 'core:user:api-key' %}" class="list-group-item list-group-item-action">
                     <span class="{% fa_class 'chevron-right' %} float-end text-muted"></span>
                     <span class="{% fa_class 'globe' %} me-2 text-muted"></span>

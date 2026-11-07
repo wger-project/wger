@@ -43,8 +43,11 @@ class LogItem(BaseMealItem, models.Model):
 
     # Metaclass to set some other properties
     class Meta:
+        # id breaks ties between entries logged at the same time (a whole meal),
+        # so pages of the API list don't repeat or skip entries
         ordering = [
             '-datetime',
+            '-id',
         ]
 
     id = models.UUIDField(

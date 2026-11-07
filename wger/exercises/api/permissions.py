@@ -25,7 +25,7 @@ class CanContributeExercises(BasePermission):
     administrator users with the appropriate exercise permission are allowed to
     perform CRUD operations
 
-    TODO: at the moment the "exercises.delete_exercise" is hard coded here
+    TODO: at the moment the "exercises.delete_exercise" is hard-coded here
           and while it is enough and works, ideally we would want to set the
           individual permissions for e.g. aliases or videos.
     """
