@@ -169,6 +169,7 @@ class WorkoutLogSessionPinningRESTTestCase(WgerTestCase):
                 'repetitions': 5,
                 'notes': 'Felt strong, increase weight next session',
             },
+            content_type='application/json',
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
         self.assertEqual(response.json()['notes'], 'Felt strong, increase weight next session')
