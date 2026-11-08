@@ -32,7 +32,10 @@ from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
 )
-from wger.nutrition.sync import sync_ingredients
+from wger.nutrition.sync import (
+    download_ingredient_images,
+    sync_ingredients,
+)
 from wger.nutrition.tasks import (
     sync_all_ingredients_chunked_task,
     sync_ingredient_id_range_task,
@@ -285,6 +288,31 @@ class TestSyncMethods(WgerTestCase):
             headers=wger_headers(),
             timeout=DEFAULT_REQUEST_TIMEOUT,
         )
+
+    @patch('wger.nutrition.sync.Image.from_json')
+    @patch('requests.get')
+    def test_ingredient_image_download(self, mock_request, mock_from_json):
+        """download_ingredient_images fetches the list and each new image with a timeout."""
+        ingredient = Ingredient.objects.first()
+        image_url = 'https://example.com/media/ingredients/image.jpg'
+        mock_request.return_value.json.return_value = {
+            'next': None,
+            'results': [
+                {
+                    'uuid': '188324b5-587f-42d7-9abc-d2ca64c73d45',
+                    'ingredient_uuid': str(ingredient.uuid),
+                    'image': image_url,
+                }
+            ],
+        }
+
+        download_ingredient_images(lambda x: x)
+
+        mock_from_json.assert_called_once()
+        self.assertEqual(mock_request.call_count, 2)
+        self.assertEqual(mock_request.call_args.args[0], image_url)
+        for call in mock_request.call_args_list:
+            self.assertEqual(call.kwargs.get('timeout'), DEFAULT_REQUEST_TIMEOUT)
 
     @patch('requests.get', return_value=MockIngredientResponse())
     def test_ingredient_sync_fetches_count_when_progress_bar_enabled(self, mock_request):

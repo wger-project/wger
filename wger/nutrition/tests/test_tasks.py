@@ -35,7 +35,10 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    DEFAULT_REQUEST_TIMEOUT,
+    wger_headers,
+)
 
 
 mock_off_response = {
@@ -355,10 +358,12 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_request.assert_any_call(
                 'https://wger.de/api/v2/ingredient-image/?ingredient__uuid=7908c204-907f-4b1e-ad4e-f482e9769ade',
                 headers=wger_headers(),
+                timeout=DEFAULT_REQUEST_TIMEOUT,
             )
             mock_request.assert_any_call(
                 'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
                 headers=wger_headers(),
+                timeout=DEFAULT_REQUEST_TIMEOUT,
             )
             mock_from_json.assert_called()
             self.assertIsNone(result)

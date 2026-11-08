@@ -939,7 +939,10 @@ class TestSyncMethods(WgerTestCase):
 
     @patch('requests.get', return_value=MockImageResponse())
     def test_image_sync(self, mock_request):
-        """Test that download_exercise_images updates existing images and creates new ones"""
+        """
+        Test that download_exercise_images updates existing images and creates new ones,
+        passing a request timeout to every request
+        """
 
         # Arrange
         initial_image_count = ExerciseImage.objects.count()
@@ -973,6 +976,9 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(new_image.license_title, 'New Image Title')
         self.assertEqual(new_image.license_author, 'New Author')
 
+        for call in mock_request.call_args_list:
+            self.assertEqual(call.kwargs.get('timeout'), DEFAULT_REQUEST_TIMEOUT)
+
     @patch('requests.get', return_value=MockInvalidImageResponse())
     def test_image_sync_skips_invalid_image(self, mock_request):
         """A download whose bytes are not a valid image is skipped, not stored."""
@@ -1003,10 +1009,13 @@ class TestSyncMethods(WgerTestCase):
 
     @patch('requests.get', return_value=MockValidVideoResponse())
     def test_video_sync_stores_valid_video(self, mock_request):
-        """A downloaded video is stored under the remote file's extension."""
+        """A downloaded video is stored under the remote file's extension, fetched with timeout."""
 
         with tempfile.TemporaryDirectory() as media_root, self.settings(MEDIA_ROOT=media_root):
             download_exercise_videos(lambda x: x)
 
         video = ExerciseVideo.objects.get(uuid='00000088-1d00-4e9d-a1a4-5f5ebd15e819')
         self.assertTrue(video.video.name.endswith('.mov'))
+
+        for call in mock_request.call_args_list:
+            self.assertEqual(call.kwargs.get('timeout'), DEFAULT_REQUEST_TIMEOUT)

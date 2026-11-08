@@ -73,6 +73,7 @@ from wger.utils.constants import (
 )
 from wger.utils.language import load_language
 from wger.utils.requests import (
+    DEFAULT_REQUEST_TIMEOUT,
     get_paginated,
     wger_headers,
     wger_user_agent,
@@ -181,7 +182,7 @@ def fetch_ingredient_image(pk: int):
 def fetch_image_from_wger_instance(ingredient):
     url = make_uri(IMAGE_ENDPOINT, query={'ingredient__uuid': ingredient.uuid})
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
-    result = requests.get(url, headers=wger_headers()).json()
+    result = requests.get(url, headers=wger_headers(), timeout=DEFAULT_REQUEST_TIMEOUT).json()
     if result['count'] == 0:
         logger.info('No image for ingredient found in the remote server')
         return
@@ -193,7 +194,9 @@ def fetch_image_from_wger_instance(ingredient):
         logger.info('image already present locally, skipping...')
         return
     except Image.DoesNotExist:
-        retrieved_image = requests.get(image_data['image'], headers=wger_headers())
+        retrieved_image = requests.get(
+            image_data['image'], headers=wger_headers(), timeout=DEFAULT_REQUEST_TIMEOUT
+        )
         try:
             image = Image.from_json(ingredient, retrieved_image, image_data)
         except ValidationError as e:
@@ -312,7 +315,9 @@ def download_ingredient_images(
             continue
         except Image.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
-            retrieved_image = requests.get(image_data['image'], headers=headers)
+            retrieved_image = requests.get(
+                image_data['image'], headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT
+            )
             try:
                 Image.from_json(ingredient, retrieved_image, image_data)
             except ValidationError as e:

@@ -60,6 +60,7 @@ from wger.manager.models import (
     WorkoutLog,
 )
 from wger.utils.requests import (
+    DEFAULT_REQUEST_TIMEOUT,
     get_all_paginated,
     get_paginated,
     wger_headers,
@@ -411,7 +412,9 @@ def download_exercise_images(
             image.save()
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
-            retrieved_image = requests.get(image_data['image'], headers=headers)
+            retrieved_image = requests.get(
+                image_data['image'], headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT
+            )
             try:
                 ExerciseImage.from_json(exercise, retrieved_image, image_data)
             except ValidationError as e:
@@ -462,7 +465,9 @@ def download_exercise_videos(
 
         # Save the downloaded video
         # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
-        retrieved_video = requests.get(video_data['video'], headers=headers)
+        retrieved_video = requests.get(
+            video_data['video'], headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT
+        )
 
         # Temporary files on Windows don't support the delete attribute
         if os.name == 'nt':
