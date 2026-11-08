@@ -28,6 +28,7 @@ from functools import wraps
 from typing import Any
 
 # Django
+from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.utils.encoding import force_bytes
@@ -188,3 +189,16 @@ def remove_language_code(path):
 
     pattern = r'^/[a-z]{2}(-[a-z]{2,4})?/'
     return re.sub(pattern, '/', path)
+
+
+def captcha_provider() -> str:
+    """
+    The configured captcha provider: 'none', 'recaptcha' or 'turnstile'
+
+    The deprecated USE_RECAPTCHA=True still means 'recaptcha' when no other
+    provider is set.
+    """
+    provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+    if provider == 'none' and settings.WGER_SETTINGS.get('USE_RECAPTCHA'):
+        return 'recaptcha'
+    return provider

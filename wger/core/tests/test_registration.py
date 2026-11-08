@@ -25,6 +25,8 @@ from django.urls import reverse
 
 # Third Party
 from allauth.account.models import EmailAddress
+from django_cf_turnstile.fields import TurnstileCaptchaField
+from django_recaptcha.fields import ReCaptchaField
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -86,15 +88,14 @@ class RegistrationTestCase(WgerTestCase):
             response = self.client.get(reverse('core:user:registration'))
             self.assertNotIn('captcha', response.context['form'].fields)
 
-    def test_registration_captcha_backwards_compat(self):
+    def test_registration_captcha_use_recaptcha(self):
         """
-        The signup form shows a reCAPTCHA field when USE_RECAPTCHA is True
-        (backwards compatibility).
+        The signup form shows a reCAPTCHA field when only the deprecated
+        USE_RECAPTCHA is set
         """
         with self.settings(
             WGER_SETTINGS={
                 'USE_RECAPTCHA': True,
-                'CAPTCHA_PROVIDER': 'recaptcha',
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'MASTODON': False,
@@ -102,7 +103,24 @@ class RegistrationTestCase(WgerTestCase):
             }
         ):
             response = self.client.get(reverse('core:user:registration'))
-            self.assertIn('captcha', response.context['form'].fields)
+            self.assertIsInstance(response.context['form'].fields['captcha'], ReCaptchaField)
+
+    def test_registration_captcha_provider_over_use_recaptcha(self):
+        """
+        An explicit CAPTCHA_PROVIDER takes precedence over USE_RECAPTCHA
+        """
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': True,
+                'CAPTCHA_PROVIDER': 'turnstile',
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'MASTODON': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+            }
+        ):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileCaptchaField)
 
     def test_signup_submit_button_not_named_submit(self):
         """

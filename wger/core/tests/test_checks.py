@@ -16,6 +16,7 @@
 from datetime import timedelta
 
 # Django
+from django.conf import settings
 from django.test import SimpleTestCase
 from django.test.utils import override_settings
 
@@ -44,3 +45,20 @@ class RefreshTokenLifetimeCheckTestCase(SimpleTestCase):
     def test_no_warning_at_threshold(self):
         """Exactly one week is accepted"""
         self.assertNotIn('wger.W003', self.check_ids())
+
+
+class CaptchaCheckTestCase(SimpleTestCase):
+    """Tests for the captcha provider checks"""
+
+    @staticmethod
+    def check_ids():
+        return [entry.id for entry in settings_check(None)]
+
+    @override_settings(
+        WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'none', 'USE_RECAPTCHA': True},
+        RECAPTCHA_PUBLIC_KEY='',
+        RECAPTCHA_PRIVATE_KEY='',
+    )
+    def test_use_recaptcha_without_keys(self):
+        """The deprecated USE_RECAPTCHA without reCAPTCHA keys triggers the key warning"""
+        self.assertIn('wger.W004', self.check_ids())

@@ -11,6 +11,7 @@ from django.core.checks import (
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_OPTIONS
+from wger.utils.helpers import captcha_provider
 
 
 @register()
@@ -57,12 +58,12 @@ def settings_check(app_configs, **kwargs):
         )
 
     # Validate CAPTCHA_PROVIDER setting
-    captcha_provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+    provider = captcha_provider()
     valid_captcha_providers = ('none', 'recaptcha', 'turnstile')
-    if captcha_provider not in valid_captcha_providers:
+    if provider not in valid_captcha_providers:
         errors.append(
             Error(
-                f"Invalid CAPTCHA_PROVIDER: '{captcha_provider}'",
+                f"Invalid CAPTCHA_PROVIDER: '{provider}'",
                 hint=f'CAPTCHA_PROVIDER must be one of {valid_captcha_providers}',
                 obj=settings,
                 id='wger.E002',
@@ -70,7 +71,7 @@ def settings_check(app_configs, **kwargs):
         )
 
     # Check that the required keys are set for the selected captcha provider
-    if captcha_provider == 'recaptcha':
+    if provider == 'recaptcha':
         if not settings.RECAPTCHA_PUBLIC_KEY or not settings.RECAPTCHA_PRIVATE_KEY:
             errors.append(
                 Warning(
@@ -81,7 +82,7 @@ def settings_check(app_configs, **kwargs):
                     id='wger.W004',
                 )
             )
-    elif captcha_provider == 'turnstile':
+    elif provider == 'turnstile':
         if not settings.CF_TURNSTILE_SITE_KEY or not settings.CF_TURNSTILE_SECRET_KEY:
             errors.append(
                 Warning(

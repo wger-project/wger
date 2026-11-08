@@ -20,7 +20,6 @@ from datetime import date
 
 # Django
 from django import forms
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import (
@@ -58,6 +57,7 @@ from django_recaptcha.widgets import ReCaptchaV3
 # wger
 from wger.core.models import UserProfile
 from wger.core.models.profile import available_timezone_names
+from wger.utils.helpers import captcha_provider
 
 
 class PasswordInputWithToggle(PasswordInput):
@@ -87,11 +87,11 @@ class WgerLoginForm(AllauthLoginForm):
 
 def captcha_field(action: str) -> forms.Field | None:
     """
-    The field for WGER_SETTINGS['CAPTCHA_PROVIDER'], None if no captcha is configured
+    The field for the configured captcha provider, None if there is none
 
     The action labels the request in the reCAPTCHA admin console.
     """
-    provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+    provider = captcha_provider()
     if provider == 'recaptcha':
         return ReCaptchaField(
             widget=ReCaptchaV3(action=action),
@@ -109,8 +109,7 @@ def captcha_field(action: str) -> forms.Field | None:
 class WgerSignupForm(AllauthSignupForm):
     """
     allauth's signup form with wger's password-toggle widgets and an optional
-    CAPTCHA field (shown when WGER_SETTINGS['CAPTCHA_PROVIDER'] is set to
-    'recaptcha' or 'turnstile').
+    CAPTCHA field (see captcha_field).
 
     The crispy helper uses ``form_tag = False`` because both consumers — the
     dedicated signup page and the landing page — provide their own ``<form>``.
