@@ -28,7 +28,7 @@ schema reset) without asking.
 
 ## Layout
 
-```
+```text
 wger/<app>/
 ├── models/        one file per model (or group), re-exported from models/__init__.py
 ├── api/           DRF serializers, viewsets, filtersets
@@ -88,6 +88,10 @@ wger/<app>/
   inline.
 - **i18n:** user-visible strings go through `gettext`/`{% translate %}`. Translations come from Weblate, don't edit the
   `.po` files of other languages. If a client already has the string, reuse its English text exactly.
+  Strings with a number use plural forms (`ngettext`, `{% blocktranslate count %}`) and keep the placeholder in the
+  singular too: in some languages that form also covers numbers like 21. Update the `.po` files from inside `wger/`
+  with `uv run python ../manage.py makemessages --all --extension html,txt,py,tpl`; without `tpl` the strings from
+  `i18n.tpl` and the `.tpl` emails drop out.
 - **Logs:** never log secrets at any level (tokens, passwords, auth response bodies).
 - **Secrets / debug flags:** never commit a real `SECRET_KEY` or leave `DEBUG=True` in non-test config.
 - **Install/config changes:** new env vars, settings or docker changes also need the documentation in `../docs`
@@ -142,6 +146,9 @@ wger/<app>/
 - **Visible changes go into CHANGELOG.md:** if a feature, behavior change or bug fix is noticeable for users,
   self-hosters or API clients, add a short entry to the matching section of `CHANGELOG.md` in the same change.
   Internal refactors and small fixes don't need one, when in doubt just ask.
+- **Important user-facing changes also go into the docs** (`../docs`, readthedocs): a new feature or changed behavior
+  into the user manual (`docs/manual/`), written from the user's view; a new field, accepted value or behavior of a
+  documented endpoint into `docs/api/`. Check whether an existing page now says something wrong.
 - **No advisory IDs** (GHSA etc.) in code, comments or commit messages.
 
 ## Scope

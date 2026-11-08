@@ -19,12 +19,20 @@ Progression requirements can now reference the top of the prescribed range via t
 * The routine date sequences (`date-sequence-gym`, `date-sequence-display`) have
   a new `text_repr_short` per set: repetitions and weight only, without sets,
   RiR and rest, e.g. for notifications.
+* Measurements have a new generic `device` source for data written by a wearable
+  or sensor app on behalf of the user. Put vendor and model in `extra_data`. It
+  is deduplicated on `external_id` and checked against the metric limits like
+  every other source.
+* Workout logs have an optional `notes` field, so individual sets can get a note
+  (e.g. form cues or how the set felt) in addition to the notes of the session.
 
 ### Bug fixes
 
 * Open Food Facts imports can recover missing per-100g nutrition values from
   per-serving data when a serving weight of at least 5 g is available. Existing
   per-100g values and nutrition validation are preserved.
+* Counted messages for token expiry, confirmation links, inactive-member reminders,
+  and workout-session limits now use locale-aware plural forms.
 * Deleting a routine, day, slot, or slot entry now preserves completed workout
   sessions and logs, including performed and target values. Only the references
   to deleted routine structure are cleared. Explicit session deletion and account

@@ -21,6 +21,7 @@ import logging
 
 # Django
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect,
@@ -39,6 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 @login_required
+@transaction.atomic
 def copy_routine(request, pk):
     """
     Makes a copy of a routine

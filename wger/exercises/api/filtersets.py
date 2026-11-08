@@ -60,7 +60,32 @@ class RelevanceOrderingFilter(OrderingFilter):
         return super().get_ordering(request, queryset, view)
 
 
-class ExerciseFilterSet(filters.FilterSet):
+class ExerciseListFilterSet(filters.FilterSet):
+    """Filter exercises by equipment and muscles, including missing relations."""
+
+    equipment__isnull = filters.BooleanFilter(
+        field_name='equipment',
+        lookup_expr='isnull',
+        distinct=True,
+    )
+
+    muscles__isnull = filters.BooleanFilter(
+        field_name='muscles',
+        lookup_expr='isnull',
+        distinct=True,
+    )
+    muscles_secondary__isnull = filters.BooleanFilter(
+        field_name='muscles_secondary',
+        lookup_expr='isnull',
+        distinct=True,
+    )
+
+    class Meta:
+        model = Exercise
+        fields = ('category', 'muscles', 'muscles_secondary', 'equipment')
+
+
+class ExerciseFilterSet(ExerciseListFilterSet):
     """
     Filters for the regular exercises endpoints to support fulltext name search
     and language filtering, similar to IngredientFilterSet.

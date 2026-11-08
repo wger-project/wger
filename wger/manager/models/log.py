@@ -227,6 +227,15 @@ class WorkoutLog(models.Model):
     Target rest time
     """
 
+    notes = models.TextField(
+        verbose_name='Notes',
+        blank=True,
+        null=True,
+    )
+    """
+    Optional notes for this set, e.g. form cues, how it felt, etc.
+    """
+
     # Metaclass to set some other properties
     class Meta:
         ordering = ['date', 'repetitions', 'weight']
