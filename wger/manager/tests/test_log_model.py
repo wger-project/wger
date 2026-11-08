@@ -23,8 +23,6 @@ from django.utils import timezone
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
-    Slot,
-    SlotEntry,
     WorkoutLog,
     WorkoutSession,
 )
