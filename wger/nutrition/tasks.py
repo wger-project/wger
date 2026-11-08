@@ -38,7 +38,10 @@ from wger.nutrition.sync import (
     sync_ingredients,
     sync_ingredients_from_dump,
 )
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    wger_headers,
+    wger_request_timeout,
+)
 from wger.utils.url import make_uri
 
 
@@ -136,7 +139,7 @@ def sync_all_ingredients_chunked_task(
         server_url=remote,
         query={'ordering': '-id', 'limit': 1},
     )
-    data = requests.get(url, headers=wger_headers(), timeout=30).json()
+    data = requests.get(url, headers=wger_headers(), timeout=wger_request_timeout()).json()
     if data.get('count', 0) == 0:
         logger.info('Remote has no ingredients, nothing to sync.')
         return None

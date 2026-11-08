@@ -382,7 +382,9 @@ def sync_ingredients(
             query={**filter_query, 'limit': 1},
         )
         try:
-            count_response = requests.get(count_url, headers=wger_headers(), timeout=30).json()
+            count_response = requests.get(
+                count_url, headers=wger_headers(), timeout=wger_request_timeout()
+            ).json()
             total = count_response.get('count')
         except (requests.RequestException, ValueError) as e:
             logger.info(f'Could not fetch total ingredient count: {e}')
@@ -643,7 +645,9 @@ def download_ingredient_dump(
     else:
         file_path = Path(tempfile.NamedTemporaryFile(delete=False, suffix='.jsonl.gz').name)
 
-    response = requests.get(dump_url, stream=True, headers=wger_headers(), timeout=(10, 60))
+    response = requests.get(
+        dump_url, stream=True, headers=wger_headers(), timeout=wger_request_timeout()
+    )
     if response.status_code == 404:
         raise FileNotFoundError(
             f'Bulk ingredient dump not found at {dump_url}. '
