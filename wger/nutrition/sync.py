@@ -73,9 +73,9 @@ from wger.utils.constants import (
 )
 from wger.utils.language import load_language
 from wger.utils.requests import (
-    DEFAULT_REQUEST_TIMEOUT,
     get_paginated,
     wger_headers,
+    wger_request_timeout,
     wger_user_agent,
 )
 from wger.utils.url import make_uri
@@ -182,7 +182,7 @@ def fetch_ingredient_image(pk: int):
 def fetch_image_from_wger_instance(ingredient):
     url = make_uri(IMAGE_ENDPOINT, query={'ingredient__uuid': ingredient.uuid})
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
-    result = requests.get(url, headers=wger_headers(), timeout=DEFAULT_REQUEST_TIMEOUT).json()
+    result = requests.get(url, headers=wger_headers(), timeout=wger_request_timeout()).json()
     if result['count'] == 0:
         logger.info('No image for ingredient found in the remote server')
         return
@@ -195,7 +195,7 @@ def fetch_image_from_wger_instance(ingredient):
         return
     except Image.DoesNotExist:
         retrieved_image = requests.get(
-            image_data['image'], headers=wger_headers(), timeout=DEFAULT_REQUEST_TIMEOUT
+            image_data['image'], headers=wger_headers(), timeout=wger_request_timeout()
         )
         try:
             image = Image.from_json(ingredient, retrieved_image, image_data)
@@ -316,7 +316,7 @@ def download_ingredient_images(
         except Image.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(
-                image_data['image'], headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT
+                image_data['image'], headers=headers, timeout=wger_request_timeout()
             )
             try:
                 Image.from_json(ingredient, retrieved_image, image_data)

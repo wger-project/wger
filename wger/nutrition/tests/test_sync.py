@@ -41,8 +41,8 @@ from wger.nutrition.tasks import (
     sync_ingredient_id_range_task,
 )
 from wger.utils.requests import (
-    DEFAULT_REQUEST_TIMEOUT,
     wger_headers,
+    wger_request_timeout,
 )
 
 
@@ -148,7 +148,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/ingredient-sync/?page_size=999',
             headers=wger_headers(),
-            timeout=DEFAULT_REQUEST_TIMEOUT,
+            timeout=wger_request_timeout(),
         )
 
         # Assert
@@ -271,7 +271,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             expected_url,
             headers=wger_headers(),
-            timeout=DEFAULT_REQUEST_TIMEOUT,
+            timeout=wger_request_timeout(),
         )
 
     @patch('requests.get', return_value=MockIngredientResponse())
@@ -286,7 +286,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             expected_url,
             headers=wger_headers(),
-            timeout=DEFAULT_REQUEST_TIMEOUT,
+            timeout=wger_request_timeout(),
         )
 
     @patch('wger.nutrition.sync.Image.from_json')
@@ -312,7 +312,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(mock_request.call_count, 2)
         self.assertEqual(mock_request.call_args.args[0], image_url)
         for call in mock_request.call_args_list:
-            self.assertEqual(call.kwargs.get('timeout'), DEFAULT_REQUEST_TIMEOUT)
+            self.assertEqual(call.kwargs.get('timeout'), wger_request_timeout())
 
     @patch('requests.get', return_value=MockIngredientResponse())
     def test_ingredient_sync_fetches_count_when_progress_bar_enabled(self, mock_request):

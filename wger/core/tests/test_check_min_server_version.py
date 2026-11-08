@@ -27,7 +27,7 @@ from packaging.version import Version
 
 # wger
 from wger.core.api.min_server_version import check_min_server_version
-from wger.utils.requests import DEFAULT_REQUEST_TIMEOUT
+from wger.utils.requests import wger_request_timeout
 from wger.version import VERSION
 
 
@@ -43,7 +43,7 @@ class TestCheckMinServerVersion(unittest.TestCase):
         except CommandError:
             self.fail('check_min_server_version raised CommandError unexpectedly!')
 
-        self.assertEqual(mock_get.call_args.kwargs.get('timeout'), DEFAULT_REQUEST_TIMEOUT)
+        self.assertEqual(mock_get.call_args.kwargs.get('timeout'), wger_request_timeout())
 
     @patch('wger.core.api.min_server_version.requests.get')
     def test_version_too_low(self, mock_get):

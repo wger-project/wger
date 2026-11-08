@@ -21,14 +21,14 @@ from packaging.version import parse
 
 # wger
 from wger.core.api.endpoints import MIN_SERVER_VERSION_ENDPOINT
-from wger.utils.requests import DEFAULT_REQUEST_TIMEOUT
+from wger.utils.requests import wger_request_timeout
 from wger.utils.url import make_uri
 from wger.version import VERSION
 
 
 def check_min_server_version(remote_url):
     url = make_uri(MIN_SERVER_VERSION_ENDPOINT, server_url=remote_url)
-    min_version = parse(requests.get(url, timeout=DEFAULT_REQUEST_TIMEOUT).json())
+    min_version = parse(requests.get(url, timeout=wger_request_timeout()).json())
 
     if min_version > VERSION:
         raise CommandError(

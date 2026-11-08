@@ -12,17 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.conf import settings
+
 # Third Party
 import requests
 
 # wger
 from wger.version import get_version
-
-
-# Default (connect, read) timeout in seconds for outgoing requests. Without a
-# timeout a stalled or unresponsive remote makes requests.get() block forever,
-# hanging the sync management commands and celery workers that call these helpers.
-DEFAULT_REQUEST_TIMEOUT = (10, 60)
 
 
 def wger_user_agent():
@@ -31,6 +28,11 @@ def wger_user_agent():
 
 def wger_headers():
     return {'User-Agent': wger_user_agent()}
+
+
+def wger_request_timeout() -> tuple[int, int]:
+    """(connect, read) timeout in seconds for requests to a remote server"""
+    return 10, settings.WGER_REQUEST_TIMEOUT
 
 
 def get_all_paginated(url: str, headers=None):
@@ -46,7 +48,7 @@ def get_all_paginated(url: str, headers=None):
 
     results = []
     while True:
-        response = requests.get(url, headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT).json()
+        response = requests.get(url, headers=headers, timeout=wger_request_timeout()).json()
         url = response['next']
         results.extend(response['results'])
 
@@ -67,7 +69,7 @@ def get_paginated(url: str, headers=None):
         headers = {}
 
     while True:
-        response = requests.get(url, headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT).json()
+        response = requests.get(url, headers=headers, timeout=wger_request_timeout()).json()
 
         for result in response['results']:
             yield result

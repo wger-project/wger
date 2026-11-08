@@ -60,10 +60,10 @@ from wger.manager.models import (
     WorkoutLog,
 )
 from wger.utils.requests import (
-    DEFAULT_REQUEST_TIMEOUT,
     get_all_paginated,
     get_paginated,
     wger_headers,
+    wger_request_timeout,
 )
 from wger.utils.url import make_uri
 
@@ -413,7 +413,7 @@ def download_exercise_images(
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(
-                image_data['image'], headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT
+                image_data['image'], headers=headers, timeout=wger_request_timeout()
             )
             try:
                 ExerciseImage.from_json(exercise, retrieved_image, image_data)
@@ -466,7 +466,7 @@ def download_exercise_videos(
         # Save the downloaded video
         # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
         retrieved_video = requests.get(
-            video_data['video'], headers=headers, timeout=DEFAULT_REQUEST_TIMEOUT
+            video_data['video'], headers=headers, timeout=wger_request_timeout()
         )
 
         # Temporary files on Windows don't support the delete attribute
