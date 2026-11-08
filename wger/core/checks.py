@@ -84,4 +84,15 @@ def settings_check(app_configs, **kwargs):
                 )
             )
 
+    # USE_RECAPTCHA is deprecated, an explicit CAPTCHA_PROVIDER overrides it
+    if settings.WGER_SETTINGS.get('USE_RECAPTCHA'):
+        configured = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+        if configured == 'none':
+            message = 'USE_RECAPTCHA is deprecated'
+            hint = 'Set CAPTCHA_PROVIDER to "recaptcha" instead and remove USE_RECAPTCHA.'
+        else:
+            message = 'USE_RECAPTCHA is ignored'
+            hint = f'CAPTCHA_PROVIDER "{configured}" takes precedence, remove USE_RECAPTCHA.'
+        errors.append(Warning(message, hint=hint, obj=settings, id='wger.W005'))
+
     return errors

@@ -87,3 +87,41 @@ class CaptchaCheckTestCase(SimpleTestCase):
         ids = self.check_ids()
         self.assertNotIn('wger.W004', ids)
         self.assertNotIn('wger.E002', ids)
+
+    @staticmethod
+    def use_recaptcha_warnings():
+        return [entry for entry in settings_check(None) if entry.id == 'wger.W005']
+
+    @override_settings(
+        WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'none', 'USE_RECAPTCHA': True}
+    )
+    def test_use_recaptcha_deprecated(self):
+        """USE_RECAPTCHA without a provider warns to switch to CAPTCHA_PROVIDER"""
+        warnings = self.use_recaptcha_warnings()
+        self.assertEqual(len(warnings), 1)
+        self.assertEqual(warnings[0].msg, 'USE_RECAPTCHA is deprecated')
+
+    @override_settings(
+        WGER_SETTINGS={
+            **settings.WGER_SETTINGS,
+            'CAPTCHA_PROVIDER': 'turnstile',
+            'USE_RECAPTCHA': True,
+        }
+    )
+    def test_use_recaptcha_ignored(self):
+        """USE_RECAPTCHA next to another provider warns that it is ignored"""
+        warnings = self.use_recaptcha_warnings()
+        self.assertEqual(len(warnings), 1)
+        self.assertEqual(warnings[0].msg, 'USE_RECAPTCHA is ignored')
+        self.assertIn('turnstile', warnings[0].hint)
+
+    @override_settings(
+        WGER_SETTINGS={
+            **settings.WGER_SETTINGS,
+            'CAPTCHA_PROVIDER': 'recaptcha',
+            'USE_RECAPTCHA': False,
+        }
+    )
+    def test_no_use_recaptcha_warning(self):
+        """Without USE_RECAPTCHA there is no deprecation warning"""
+        self.assertEqual(self.use_recaptcha_warnings(), [])
