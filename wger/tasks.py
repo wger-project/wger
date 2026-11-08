@@ -36,6 +36,9 @@ from invoke import (
 )
 from tqdm import tqdm
 
+# wger
+from wger.utils.requests import wger_request_timeout
+
 
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
@@ -171,7 +174,7 @@ def load_online_fixtures(context, settings_path: str = None):
         url = f'{FIXTURE_URL}{name}.json.zip'
 
         print(f'Downloading fixture data from {url}...')
-        response = requests.get(url, stream=True)
+        response = requests.get(url, stream=True, timeout=wger_request_timeout())
         total_size = int(response.headers.get('content-length', 0))
         size = int(response.headers['content-length']) / (1024 * 1024)
         print(f'-> fixture size: {size:.3} MB')

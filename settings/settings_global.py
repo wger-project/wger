@@ -647,6 +647,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 USER_AGENTS_CACHE = 'default'
 
+# Read timeout in seconds for requests to remote servers
+WGER_REQUEST_TIMEOUT = 60
+
 #
 # Application specific configuration options
 #

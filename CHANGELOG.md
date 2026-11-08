@@ -42,6 +42,9 @@ Progression requirements can now reference the top of the prescribed range via t
   this change.
 * Sets with "Until Failure" or "Max Reps" but no repetitions value keep their
   unit in the routine API and show it in the set text.
+* The exercise and ingredient syncs no longer hang forever when the remote
+  server stops answering. Requests to it now time out, see
+  `WGER_REQUEST_TIMEOUT`.
 
 ## New settings
 *(for self-hoster)*
@@ -49,6 +52,9 @@ Progression requirements can now reference the top of the prescribed range via t
 * `CAPTCHA_PROVIDER` (`none`, `recaptcha` or `turnstile`) replaces `USE_RECAPTCHA`.
   `USE_RECAPTCHA=True` keeps working for now, but `manage.py check` warns about
   it. Turnstile needs `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
+* `WGER_REQUEST_TIMEOUT` (default `60`): seconds to wait for an answer from a
+  remote server, e.g. `WGER_INSTANCE` during the exercise and ingredient syncs,
+  before giving up.
 
 ## Breaking API changes
 *(only relevant if you have your own scripts or interact with the REST API)*

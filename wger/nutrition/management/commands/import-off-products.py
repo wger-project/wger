@@ -27,7 +27,10 @@ from wger.nutrition.consts import (
 )
 from wger.nutrition.extract_info.off import extract_info_from_off
 from wger.nutrition.management.products import ImportProductCommand
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    wger_headers,
+    wger_request_timeout,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -98,7 +101,7 @@ class Command(ImportProductCommand):
 
         # Fetch the index page with requests and read the result
         index_url = self.deltas_base_url + 'index.txt'
-        req = requests.get(index_url, headers=wger_headers())
+        req = requests.get(index_url, headers=wger_headers(), timeout=wger_request_timeout())
         req.raise_for_status()
         index_content = req.text
         newest_entry = index_content.split('\n')[0]

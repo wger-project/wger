@@ -73,8 +73,10 @@ from wger.utils.constants import (
 )
 from wger.utils.language import load_language
 from wger.utils.requests import (
+    WgerTimeoutSession,
     get_paginated,
     wger_headers,
+    wger_request_timeout,
     wger_user_agent,
 )
 from wger.utils.url import make_uri
@@ -181,7 +183,7 @@ def fetch_ingredient_image(pk: int):
 def fetch_image_from_wger_instance(ingredient):
     url = make_uri(IMAGE_ENDPOINT, query={'ingredient__uuid': ingredient.uuid})
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
-    result = requests.get(url, headers=wger_headers()).json()
+    result = requests.get(url, headers=wger_headers(), timeout=wger_request_timeout()).json()
     if result['count'] == 0:
         logger.info('No image for ingredient found in the remote server')
         return
@@ -193,7 +195,9 @@ def fetch_image_from_wger_instance(ingredient):
         logger.info('image already present locally, skipping...')
         return
     except Image.DoesNotExist:
-        retrieved_image = requests.get(image_data['image'], headers=wger_headers())
+        retrieved_image = requests.get(
+            image_data['image'], headers=wger_headers(), timeout=wger_request_timeout()
+        )
         try:
             image = Image.from_json(ingredient, retrieved_image, image_data)
         except ValidationError as e:
@@ -252,7 +256,9 @@ def fetch_image_from_off(ingredient: Ingredient):
         logger.info('could not load all image information, skipping...', e)
         return
 
-    off_response = download_image(image_url, return_struct=True)
+    # The OFF library sends its requests without a timeout
+    with WgerTimeoutSession() as session:
+        off_response = download_image(image_url, return_struct=True, session=session)
 
     # Save to DB
     url = make_uri(
@@ -312,7 +318,9 @@ def download_ingredient_images(
             continue
         except Image.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
-            retrieved_image = requests.get(image_data['image'], headers=headers)
+            retrieved_image = requests.get(
+                image_data['image'], headers=headers, timeout=wger_request_timeout()
+            )
             try:
                 Image.from_json(ingredient, retrieved_image, image_data)
             except ValidationError as e:
@@ -377,7 +385,9 @@ def sync_ingredients(
             query={**filter_query, 'limit': 1},
         )
         try:
-            count_response = requests.get(count_url, headers=wger_headers(), timeout=30).json()
+            count_response = requests.get(
+                count_url, headers=wger_headers(), timeout=wger_request_timeout()
+            ).json()
             total = count_response.get('count')
         except (requests.RequestException, ValueError) as e:
             logger.info(f'Could not fetch total ingredient count: {e}')
@@ -638,7 +648,9 @@ def download_ingredient_dump(
     else:
         file_path = Path(tempfile.NamedTemporaryFile(delete=False, suffix='.jsonl.gz').name)
 
-    response = requests.get(dump_url, stream=True, headers=wger_headers(), timeout=(10, 60))
+    response = requests.get(
+        dump_url, stream=True, headers=wger_headers(), timeout=wger_request_timeout()
+    )
     if response.status_code == 404:
         raise FileNotFoundError(
             f'Bulk ingredient dump not found at {dump_url}. '

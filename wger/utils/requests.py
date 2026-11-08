@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.conf import settings
+
 # Third Party
 import requests
 
@@ -27,6 +30,19 @@ def wger_headers():
     return {'User-Agent': wger_user_agent()}
 
 
+def wger_request_timeout() -> tuple[int, int]:
+    """(connect, read) timeout in seconds for requests to a remote server"""
+    return 10, settings.WGER_REQUEST_TIMEOUT
+
+
+class WgerTimeoutSession(requests.Session):
+    """Session that applies wger_request_timeout() to requests without their own timeout"""
+
+    def request(self, *args, **kwargs):
+        kwargs.setdefault('timeout', wger_request_timeout())
+        return super().request(*args, **kwargs)
+
+
 def get_all_paginated(url: str, headers=None):
     """
     Fetch all results from a paginated endpoint.
@@ -40,7 +56,7 @@ def get_all_paginated(url: str, headers=None):
 
     results = []
     while True:
-        response = requests.get(url, headers=headers).json()
+        response = requests.get(url, headers=headers, timeout=wger_request_timeout()).json()
         url = response['next']
         results.extend(response['results'])
 
@@ -61,7 +77,7 @@ def get_paginated(url: str, headers=None):
         headers = {}
 
     while True:
-        response = requests.get(url, headers=headers).json()
+        response = requests.get(url, headers=headers, timeout=wger_request_timeout()).json()
 
         for result in response['results']:
             yield result

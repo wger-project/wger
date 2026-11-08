@@ -35,7 +35,11 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    WgerTimeoutSession,
+    wger_headers,
+    wger_request_timeout,
+)
 
 
 mock_off_response = {
@@ -219,9 +223,13 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
             # Assert
             mock_from_json.assert_called()
+            self.assertIsInstance(
+                mock_download_image.call_args.kwargs['session'], WgerTimeoutSession
+            )
             mock_download_image.assert_called_with(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 return_struct=True,
+                session=ANY,
             )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_request.assert_called_with(
@@ -312,6 +320,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_download_image.assert_called_with(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 return_struct=True,
+                session=ANY,
             )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
@@ -355,10 +364,12 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_request.assert_any_call(
                 'https://wger.de/api/v2/ingredient-image/?ingredient__uuid=7908c204-907f-4b1e-ad4e-f482e9769ade',
                 headers=wger_headers(),
+                timeout=wger_request_timeout(),
             )
             mock_request.assert_any_call(
                 'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
                 headers=wger_headers(),
+                timeout=wger_request_timeout(),
             )
             mock_from_json.assert_called()
             self.assertIsNone(result)

@@ -103,6 +103,7 @@ JWT_PRIVATE_KEY = env.str('JWT_PRIVATE_KEY', '')
 POWERSYNC_URL_PATH = env.str('POWERSYNC_URL_PATH', 'ps')
 POWERSYNC_URL = env.str('POWERSYNC_URL', '')
 POWERSYNC_TOKEN_LIFETIME = env.int('POWERSYNC_TOKEN_LIFETIME', 600)
+WGER_REQUEST_TIMEOUT = env.int('WGER_REQUEST_TIMEOUT', 60)
 if not DEBUG and any(
     key and hashlib.sha256(key.encode()).hexdigest() in _DEFAULT_JWT_KEY_HASHES
     for key in (JWT_PUBLIC_KEY, JWT_PRIVATE_KEY)

@@ -33,7 +33,10 @@ from tqdm import tqdm
 from wger.nutrition.consts import SyncMode
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Ingredient
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    wger_headers,
+    wger_request_timeout,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -173,7 +176,9 @@ class ImportProductCommand(BaseCommand):
             return
 
         self.stdout.write(f'Downloading {url}... (this may take a while)')
-        response = requests.get(url, stream=True, headers=wger_headers())
+        response = requests.get(
+            url, stream=True, headers=wger_headers(), timeout=wger_request_timeout()
+        )
         response.raise_for_status()
         total_size = int(response.headers.get('content-length', 0))
 
