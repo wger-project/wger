@@ -133,8 +133,8 @@ RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', '')
 RECAPTCHA_REQUIRED_SCORE = env.float('RECAPTCHA_REQUIRED_SCORE', 0.75)
 
 # Your Cloudflare Turnstile keys
-CF_TURNSTILE_SITE_KEY = env.str('CF_TURNSTILE_SITE_KEY', '')
-CF_TURNSTILE_SECRET_KEY = env.str('CF_TURNSTILE_SECRET_KEY', '')
+TURNSTILE_SITE_KEY = env.str('TURNSTILE_SITE_KEY', '')
+TURNSTILE_SECRET_KEY = env.str('TURNSTILE_SECRET_KEY', '')
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be

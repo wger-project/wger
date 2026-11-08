@@ -1,0 +1,2 @@
+<script src="{{ widget.script_url }}" async defer></script>
+<div class="cf-turnstile {{ widget.attrs.class|default:'' }}"{% if widget.attrs.id %} id="{{ widget.attrs.id }}"{% endif %} data-sitekey="{{ widget.site_key }}" data-action="{{ widget.action }}"></div>

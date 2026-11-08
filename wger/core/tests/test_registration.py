@@ -25,10 +25,10 @@ from django.urls import reverse
 
 # Third Party
 from allauth.account.models import EmailAddress
-from django_cf_turnstile.fields import TurnstileCaptchaField
 from django_recaptcha.fields import ReCaptchaField
 
 # wger
+from wger.core.captcha import TurnstileField
 from wger.core.tests.base_testcase import WgerTestCase
 
 
@@ -120,7 +120,7 @@ class RegistrationTestCase(WgerTestCase):
             }
         ):
             response = self.client.get(reverse('core:user:registration'))
-            self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileCaptchaField)
+            self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileField)
 
     def test_signup_submit_button_not_named_submit(self):
         """

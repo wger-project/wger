@@ -62,3 +62,28 @@ class CaptchaCheckTestCase(SimpleTestCase):
     def test_use_recaptcha_without_keys(self):
         """The deprecated USE_RECAPTCHA without reCAPTCHA keys triggers the key warning"""
         self.assertIn('wger.W004', self.check_ids())
+
+    @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'hcaptcha'})
+    def test_unknown_provider(self):
+        """An unknown provider is an error"""
+        self.assertIn('wger.E002', self.check_ids())
+
+    @override_settings(
+        WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'turnstile'},
+        TURNSTILE_SITE_KEY='site-key',
+        TURNSTILE_SECRET_KEY='',
+    )
+    def test_turnstile_without_secret(self):
+        """Turnstile without its secret key triggers the key warning"""
+        self.assertIn('wger.W004', self.check_ids())
+
+    @override_settings(
+        WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'turnstile'},
+        TURNSTILE_SITE_KEY='site-key',
+        TURNSTILE_SECRET_KEY='secret-key',
+    )
+    def test_turnstile_configured(self):
+        """A fully configured provider passes the checks"""
+        ids = self.check_ids()
+        self.assertNotIn('wger.W004', ids)
+        self.assertNotIn('wger.E002', ids)

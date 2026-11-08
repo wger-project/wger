@@ -23,10 +23,10 @@ from django.test import override_settings
 from django.urls import reverse
 
 # Third Party
-from django_cf_turnstile.fields import TurnstileCaptchaField
 from django_recaptcha.fields import ReCaptchaField
 
 # wger
+from wger.core.captcha import TurnstileField
 from wger.core.tests.base_testcase import WgerTestCase
 
 
@@ -79,7 +79,7 @@ class PasswordResetTestCase(WgerTestCase):
         """
         response = self.client.get(reverse('account_reset_password'))
 
-        self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileCaptchaField)
+        self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileField)
 
     @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'none'})
     def test_captcha_none(self):

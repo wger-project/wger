@@ -68,9 +68,6 @@ RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 USE_RECAPTCHA = False
 
-# Cloudflare Turnstile test keys
-CF_TURNSTILE_SITE_KEY = ''
-CF_TURNSTILE_SECRET_KEY = ''
 WGER_SETTINGS['CAPTCHA_PROVIDER'] = 'none'
 
 # Test-only RSA keypair for JWT, safe to commit.

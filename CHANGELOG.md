@@ -47,8 +47,8 @@ Progression requirements can now reference the top of the prescribed range via t
 *(for self-hoster)*
 
 * `CAPTCHA_PROVIDER` (`none`, `recaptcha` or `turnstile`) replaces `USE_RECAPTCHA`,
-  which keeps working for now. Turnstile needs `CF_TURNSTILE_SITE_KEY` and
-  `CF_TURNSTILE_SECRET_KEY`.
+  which keeps working for now. Turnstile needs `TURNSTILE_SITE_KEY` and
+  `TURNSTILE_SECRET_KEY`.
 
 ## Breaking API changes
 *(only relevant if you have your own scripts or interact with the REST API)*

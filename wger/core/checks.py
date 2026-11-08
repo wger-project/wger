@@ -10,8 +10,11 @@ from django.core.checks import (
 )
 
 # wger
+from wger.core.captcha import (
+    PROVIDERS,
+    captcha_provider,
+)
 from wger.utils.constants import DOWNLOAD_INGREDIENT_OPTIONS
-from wger.utils.helpers import captcha_provider
 
 
 @register()
@@ -57,40 +60,27 @@ def settings_check(app_configs, **kwargs):
             )
         )
 
-    # Validate CAPTCHA_PROVIDER setting
-    provider = captcha_provider()
-    valid_captcha_providers = ('none', 'recaptcha', 'turnstile')
-    if provider not in valid_captcha_providers:
+    # The captcha provider must exist and have its keys
+    provider_name = captcha_provider()
+    valid_providers = ('none', *PROVIDERS)
+    if provider_name not in valid_providers:
         errors.append(
             Error(
-                f"Invalid CAPTCHA_PROVIDER: '{provider}'",
-                hint=f'CAPTCHA_PROVIDER must be one of {valid_captcha_providers}',
+                f"Invalid CAPTCHA_PROVIDER: '{provider_name}'",
+                hint=f'CAPTCHA_PROVIDER must be one of {valid_providers}',
                 obj=settings,
                 id='wger.E002',
             )
         )
-
-    # Check that the required keys are set for the selected captcha provider
-    if provider == 'recaptcha':
-        if not settings.RECAPTCHA_PUBLIC_KEY or not settings.RECAPTCHA_PRIVATE_KEY:
+    elif provider_name != 'none':
+        missing = PROVIDERS[provider_name].missing_settings()
+        if missing:
             errors.append(
                 Warning(
-                    'reCAPTCHA keys not configured',
-                    hint='CAPTCHA_PROVIDER is set to "recaptcha" but RECAPTCHA_PUBLIC_KEY '
-                    'and/or RECAPTCHA_PRIVATE_KEY are not set. CAPTCHA will not work.',
+                    f'Captcha provider "{provider_name}" is not configured',
+                    hint=f'Set {", ".join(missing)}, otherwise the captcha will not work.',
                     obj=settings,
                     id='wger.W004',
-                )
-            )
-    elif provider == 'turnstile':
-        if not settings.CF_TURNSTILE_SITE_KEY or not settings.CF_TURNSTILE_SECRET_KEY:
-            errors.append(
-                Warning(
-                    'Cloudflare Turnstile keys not configured',
-                    hint='CAPTCHA_PROVIDER is set to "turnstile" but CF_TURNSTILE_SITE_KEY '
-                    'and/or CF_TURNSTILE_SECRET_KEY are not set. CAPTCHA will not work.',
-                    obj=settings,
-                    id='wger.W005',
                 )
             )
 

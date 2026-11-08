@@ -50,14 +50,11 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
-from django_cf_turnstile.fields import TurnstileCaptchaField
-from django_recaptcha.fields import ReCaptchaField
-from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
+from wger.core.captcha import captcha_field
 from wger.core.models import UserProfile
 from wger.core.models.profile import available_timezone_names
-from wger.utils.helpers import captcha_provider
 
 
 class PasswordInputWithToggle(PasswordInput):
@@ -83,27 +80,6 @@ class WgerLoginForm(AllauthLoginForm):
         self.fields['password'].widget = PasswordInputWithToggle(
             attrs={'autocomplete': 'current-password'}
         )
-
-
-def captcha_field(action: str) -> forms.Field | None:
-    """
-    The field for the configured captcha provider, None if there is none
-
-    The action labels the request in the reCAPTCHA admin console.
-    """
-    provider = captcha_provider()
-    if provider == 'recaptcha':
-        return ReCaptchaField(
-            widget=ReCaptchaV3(action=action),
-            label='reCaptcha',
-            help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-        )
-    if provider == 'turnstile':
-        return TurnstileCaptchaField(
-            label='Turnstile',
-            help_text=gettext_lazy('The form is secured with Cloudflare Turnstile'),
-        )
-    return None
 
 
 class WgerSignupForm(AllauthSignupForm):

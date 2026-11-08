@@ -91,9 +91,6 @@ INSTALLED_APPS = [
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
     'django_recaptcha',
 
-    # Cloudflare Turnstile support, see https://github.com/ronaldgrn/django-cf-turnstile
-    'django_cf_turnstile',
-
     # The sitemaps app
     'django.contrib.sitemaps',
 
@@ -743,8 +740,8 @@ RECAPTCHA_REQUIRED_SCORE = 0
 #
 # Cloudflare Turnstile
 #
-CF_TURNSTILE_SITE_KEY = ''
-CF_TURNSTILE_SECRET_KEY = ''
+TURNSTILE_SITE_KEY = ''
+TURNSTILE_SECRET_KEY = ''
 
 #
 # Storage options
