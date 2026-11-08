@@ -37,7 +37,10 @@ from wger.nutrition.tasks import (
     sync_all_ingredients_chunked_task,
     sync_ingredient_id_range_task,
 )
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    DEFAULT_REQUEST_TIMEOUT,
+    wger_headers,
+)
 
 
 class MockIngredientResponse:
@@ -142,6 +145,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/ingredient-sync/?page_size=999',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
 
         # Assert
@@ -264,6 +268,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             expected_url,
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
 
     @patch('requests.get', return_value=MockIngredientResponse())
@@ -278,6 +283,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             expected_url,
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
 
     @patch('requests.get', return_value=MockIngredientResponse())

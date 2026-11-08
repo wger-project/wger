@@ -54,7 +54,10 @@ from wger.manager.models import (
     WorkoutLog,
 )
 from wger.utils.cache import CacheKeyMapper
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    DEFAULT_REQUEST_TIMEOUT,
+    wger_headers,
+)
 
 
 def _valid_png_bytes():
@@ -733,6 +736,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/language/',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
 
         # Assert
@@ -751,6 +755,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/license/',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
         self.assertEqual(
             License.objects.get(pk=1).url,
@@ -771,6 +776,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/exercisecategory/',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
         self.assertEqual(ExerciseCategory.objects.count(), 6)
         self.assertEqual(ExerciseCategory.objects.get(pk=1).name, 'A cooler, swaggier category')
@@ -786,6 +792,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/muscle/',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
         self.assertEqual(Muscle.objects.count(), 7)
         self.assertTrue(Muscle.objects.get(pk=2).is_front)
@@ -801,6 +808,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/equipment/',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
         self.assertEqual(Equipment.objects.count(), 4)
         self.assertEqual(Equipment.objects.get(pk=3).name, 'A big rock')
@@ -822,6 +830,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/deletion-log/?limit=100',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
         self.assertEqual(Exercise.objects.count(), 7)
         self.assertEqual(Translation.objects.count(), 8)
@@ -863,6 +872,7 @@ class TestSyncMethods(WgerTestCase):
         mock_request.assert_called_with(
             'https://wger.de/api/v2/exerciseinfo/?limit=100',
             headers=wger_headers(),
+            timeout=DEFAULT_REQUEST_TIMEOUT,
         )
         self.assertEqual(Exercise.objects.count(), 9)
         self.assertEqual(Translation.objects.count(), 14)
