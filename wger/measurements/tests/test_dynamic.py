@@ -95,6 +95,7 @@ class DynamicMeasurementTestCase(WgerTestCase):
         weight_unit: int = 1,
         exercise_id: int = 1,
         date: datetime.datetime = None,
+        rir=None,
     ) -> WorkoutLog:
         with self.captureOnCommitCallbacks(execute=True):
             log = WorkoutLog(
@@ -103,6 +104,7 @@ class DynamicMeasurementTestCase(WgerTestCase):
                 weight=Decimal(weight),
                 repetitions=Decimal(reps),
                 weight_unit_id=weight_unit,
+                rir=rir if rir is None else Decimal(rir),
                 date=date or timezone.now() - datetime.timedelta(days=days_ago),
             )
             log.save()
@@ -1089,9 +1091,9 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
         rows = self.calculated_rows(category)
 
         self.assertEqual(rows.count(), 2)
-        # Brzycki: 80 / (1.0278 - 0.0278 * 3), 100 / (1.0278 - 0.0278 * 5)
+        # Brzycki: 80 * 36 / (37 - 3), 100 * 36 / (37 - 5)
         self.assertEqual(rows[0].value, Decimal('84.71'))
-        self.assertEqual(rows[1].value, Decimal('112.51'))
+        self.assertEqual(rows[1].value, Decimal('112.50'))
 
     def test_days_are_cut_in_the_owners_timezone(self):
         """
@@ -1114,6 +1116,19 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
         self.assertEqual(rows[0].value, Decimal('100.00'))
         self.assertEqual(rows[1].value, Decimal('80.00'))
 
+    def test_rir_raises_the_estimate(self):
+        """
+        The reps in reserve raise the estimate without counting towards max_reps
+        """
+        self.make_log('100', 5, rir='2')
+
+        category = self.enable_one_rm()
+        rows = self.calculated_rows(category)
+
+        self.assertEqual(rows.count(), 1)
+        # 100 * 36 / (37 - 7)
+        self.assertEqual(rows[0].value, Decimal('120.00'))
+
     def test_high_rep_sets_are_ignored(self):
         """
         Sets over max_reps do not enter the estimate
@@ -1125,7 +1140,7 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
         rows = self.calculated_rows(category)
 
         self.assertEqual(rows.count(), 1)
-        self.assertEqual(rows[0].value, Decimal('112.51'))
+        self.assertEqual(rows[0].value, Decimal('112.50'))
 
     def test_max_reps_param(self):
         """
@@ -1137,8 +1152,8 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
         rows = self.calculated_rows(category)
 
         self.assertEqual(rows.count(), 1)
-        # 120 / (1.0278 - 0.0278 * 8)
-        self.assertEqual(rows[0].value, Decimal('148.99'))
+        # 120 * 36 / (37 - 8)
+        self.assertEqual(rows[0].value, Decimal('148.97'))
 
     def test_pound_logs_are_converted(self):
         """
@@ -1170,7 +1185,7 @@ class OneRepMaxTestCase(DynamicMeasurementTestCase):
 
         rows = self.calculated_rows(category)
         self.assertEqual(rows.count(), 1)
-        self.assertEqual(rows[0].value, Decimal('112.51'))
+        self.assertEqual(rows[0].value, Decimal('112.50'))
 
     def test_deleted_log_removes_day(self):
         """
@@ -1247,9 +1262,9 @@ class OneRmTotalTestCase(DynamicMeasurementTestCase):
         category = self.enable_total()
         rows = self.calculated_rows(category)
 
-        # 112.51 + 84.71
+        # 112.50 + 84.71
         self.assertEqual(rows.count(), 1)
-        self.assertEqual(rows[0].value, Decimal('197.22'))
+        self.assertEqual(rows[0].value, Decimal('197.21'))
 
     def test_one_log_write_feeds_both_one_rm_types(self):
         """
@@ -1291,10 +1306,10 @@ class OneRmTotalTestCase(DynamicMeasurementTestCase):
         category = self.enable_total()
         rows = self.calculated_rows(category)
 
-        # Today: brzycki(110, 5) + brzycki(80, 3) = 123.76 + 84.71. The day
+        # Today: brzycki(110, 5) + brzycki(80, 3) = 123.75 + 84.71. The day
         # ten days back has no second exercise in its window, so no entry.
         self.assertEqual(rows.count(), 1)
-        self.assertEqual(rows[0].value, Decimal('208.47'))
+        self.assertEqual(rows[0].value, Decimal('208.46'))
 
     def test_no_entry_without_full_coverage(self):
         """
@@ -1318,7 +1333,7 @@ class OneRmTotalTestCase(DynamicMeasurementTestCase):
         rows = self.calculated_rows(category)
 
         self.assertEqual(rows.count(), 1)
-        self.assertEqual(rows[0].value, Decimal('197.22'))
+        self.assertEqual(rows[0].value, Decimal('197.21'))
 
     def test_every_training_day_gets_a_point(self):
         """
@@ -1335,8 +1350,8 @@ class OneRmTotalTestCase(DynamicMeasurementTestCase):
         # Day -10 has no exercise 1 in its window yet: no entry. Day -5 and
         # today pair their own squat best with the day -10 deadlift.
         self.assertEqual(rows.count(), 2)
-        self.assertEqual(rows[0].value, Decimal('197.22'))
-        self.assertEqual(rows[1].value, Decimal('208.47'))
+        self.assertEqual(rows[0].value, Decimal('197.21'))
+        self.assertEqual(rows[1].value, Decimal('208.46'))
 
     def test_api_refuses_single_exercise(self):
         """

@@ -50,6 +50,7 @@ from wger.manager.models import (
     Day,
     WorkoutLog,
 )
+from wger.manager.one_rep_max import brzycki_intensity
 from wger.utils.cache import CacheKeyMapper
 
 
@@ -391,9 +392,6 @@ class Routine(models.Model):
         Returns:
             RoutineLogData: An object containing the calculated statistics.
         """
-        # wger
-        from wger.manager.helpers import brzycki_intensity
-
         result = RoutineLogData()
         intensity_counter = GroupedLogData()
 
@@ -491,7 +489,8 @@ class Routine(models.Model):
                     value=1,
                 )
 
-                if values_not_none:
+                intensity = brzycki_intensity(weight, reps) if values_not_none else None
+                if intensity is not None:
                     update_grouped_log_data(
                         entry=intensity_counter,
                         iter=iteration,
@@ -507,7 +506,7 @@ class Routine(models.Model):
                         week_nr=week_number,
                         date=session_date,
                         exercise=exercise,
-                        value=brzycki_intensity(weight, reps),
+                        value=intensity,
                     )
 
         calculate_average_intensity(result.intensity, intensity_counter)

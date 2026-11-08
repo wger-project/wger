@@ -14,7 +14,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-from decimal import Decimal
 from xml.sax.saxutils import escape
 
 # Django
@@ -205,12 +204,3 @@ def reset_routine_cache(instance: Routine, structure: bool = True):
             for slot in day.slots.all():
                 for entry in slot.entries.all():
                     cache.delete(CacheKeyMapper.slot_entry_configs_key(entry.id))
-
-
-def brzycki_one_rm(weight: float | None, reps: float | None) -> Decimal:
-    return Decimal(weight) / (Decimal(1.0278) - Decimal(0.0278) * Decimal(reps))
-
-
-def brzycki_intensity(weight, reps) -> Decimal:
-    one_rm = brzycki_one_rm(weight, reps)
-    return Decimal(weight / one_rm if one_rm != 0 else 0)

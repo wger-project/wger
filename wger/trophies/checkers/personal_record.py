@@ -16,11 +16,12 @@
 
 # Standard Library
 import logging
-from decimal import Decimal
 from typing import Optional
 
 # wger
+from wger.manager.consts import WEIGHT_UNIT_KG
 from wger.manager.models import WorkoutLog
+from wger.manager.one_rep_max import estimate_from_log
 from wger.trophies.models.trophy import Trophy
 from wger.trophies.models.user_trophy import UserTrophy
 
@@ -44,8 +45,7 @@ class PersonalRecordChecker(BaseTrophyChecker):
 
     def _estimate_one_rep_max(self) -> float:
         """
-        Estimates the user's one-rep max (1RM) using Brzycki's formula:
-        1RM = weight * (36 / (37 - repetitions))
+        Estimates the user's one-rep max (1RM) of the log in kg.
 
         Note: returning float because of serialization issues with Decimal in JSON.
         """
@@ -53,21 +53,10 @@ class PersonalRecordChecker(BaseTrophyChecker):
         if not log:
             raise ValueError('Log should not be None')
 
-        weight = log.weight
-        repetitions = log.repetitions
-        rir = log.rir
+        result = estimate_from_log(log, unit=WEIGHT_UNIT_KG)
+        if result is None:
+            raise ValueError('The log does not allow a 1RM estimate')
 
-        if weight is None:
-            raise ValueError('Weight should not be None')
-        if repetitions is None:
-            raise ValueError('Repetitions should not be None')
-        if rir is not None:
-            repetitions += rir
-
-        if repetitions == 37:
-            raise ValueError("In Brzycki's formula, repetitions cannot be equal to 37.")
-
-        result = weight * (Decimal('36') / (Decimal('37') - repetitions))
         return round(float(result), 2)
 
     def check(self) -> bool:
@@ -93,13 +82,13 @@ class PersonalRecordChecker(BaseTrophyChecker):
             .first()
         )
 
+        try:
+            current = self._estimate_one_rep_max()
+        except ValueError:
+            return False
+
         if last_pr and last_pr.context_data:
             prev = last_pr.context_data.get('one_rep_max_estimate')
-            try:
-                current = self._estimate_one_rep_max()
-            except Exception:
-                return False
-
             if prev is not None and prev >= current:
                 return False
 
