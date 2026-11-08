@@ -20,7 +20,6 @@ from datetime import date
 
 # Django
 from django import forms
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import (
@@ -51,10 +50,9 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
-from django_recaptcha.fields import ReCaptchaField
-from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
+from wger.core.captcha import captcha_field
 from wger.core.models import UserProfile
 from wger.core.models.profile import available_timezone_names
 
@@ -87,7 +85,7 @@ class WgerLoginForm(AllauthLoginForm):
 class WgerSignupForm(AllauthSignupForm):
     """
     allauth's signup form with wger's password-toggle widgets and an optional
-    reCAPTCHA field (shown when WGER_SETTINGS['USE_RECAPTCHA'] is set).
+    CAPTCHA field (see captcha_field).
 
     The crispy helper uses ``form_tag = False`` because both consumers — the
     dedicated signup page and the landing page — provide their own ``<form>``.
@@ -109,12 +107,9 @@ class WgerSignupForm(AllauthSignupForm):
                 css_class='form-row',
             ),
         ]
-        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
-            self.fields['captcha'] = ReCaptchaField(
-                widget=ReCaptchaV3(action='register'),
-                label='reCaptcha',
-                help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-            )
+        captcha = captcha_field('register')
+        if captcha is not None:
+            self.fields['captcha'] = captcha
             layout_fields.append('captcha')
 
         self.helper = FormHelper()
@@ -347,20 +342,17 @@ class UsernameConfirmationForm(Form):
 
 class WgerResetPasswordForm(AllauthResetPasswordForm):
     """
-    allauth's password reset form with an optional reCAPTCHA field (shown when
-    WGER_SETTINGS['USE_RECAPTCHA'] is set).
+    allauth's password reset form with an optional CAPTCHA field (same provider
+    as the signup form, see captcha_field).
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         layout_fields = ['email']
-        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
-            self.fields['captcha'] = ReCaptchaField(
-                widget=ReCaptchaV3(action='password_reset'),
-                label='reCaptcha',
-                help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-            )
+        captcha = captcha_field('password_reset')
+        if captcha is not None:
+            self.fields['captcha'] = captcha
             layout_fields.append('captcha')
 
         self.helper = FormHelper()

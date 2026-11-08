@@ -68,6 +68,8 @@ RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 USE_RECAPTCHA = False
 
+WGER_SETTINGS['CAPTCHA_PROVIDER'] = 'none'
+
 # Test-only RSA keypair for JWT, safe to commit.
 JWT_PRIVATE_KEY = (
     'eyJhbGciOiAiUlMyNTYiLCAia3R5IjogIlJTQSIsICJuIjogIjlSbXdqZDJadG9DUzg4N0hNY2JpNFpK'

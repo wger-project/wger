@@ -10,6 +10,10 @@ from django.core.checks import (
 )
 
 # wger
+from wger.core.captcha import (
+    PROVIDERS,
+    captcha_provider,
+)
 from wger.utils.constants import DOWNLOAD_INGREDIENT_OPTIONS
 
 
@@ -55,4 +59,40 @@ def settings_check(app_configs, **kwargs):
                 id='wger.E001',
             )
         )
+
+    # The captcha provider must exist and have its keys
+    provider_name = captcha_provider()
+    valid_providers = ('none', *PROVIDERS)
+    if provider_name not in valid_providers:
+        errors.append(
+            Error(
+                f"Invalid CAPTCHA_PROVIDER: '{provider_name}'",
+                hint=f'CAPTCHA_PROVIDER must be one of {valid_providers}',
+                obj=settings,
+                id='wger.E002',
+            )
+        )
+    elif provider_name != 'none':
+        missing = PROVIDERS[provider_name].missing_settings()
+        if missing:
+            errors.append(
+                Warning(
+                    f'Captcha provider "{provider_name}" is not configured',
+                    hint=f'Set {", ".join(missing)}, otherwise the captcha will not work.',
+                    obj=settings,
+                    id='wger.W004',
+                )
+            )
+
+    # USE_RECAPTCHA is deprecated, an explicit CAPTCHA_PROVIDER overrides it
+    if settings.WGER_SETTINGS.get('USE_RECAPTCHA'):
+        configured = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+        if configured == 'none':
+            message = 'USE_RECAPTCHA is deprecated'
+            hint = 'Set CAPTCHA_PROVIDER to "recaptcha" instead and remove USE_RECAPTCHA.'
+        else:
+            message = 'USE_RECAPTCHA is ignored'
+            hint = f'CAPTCHA_PROVIDER "{configured}" takes precedence, remove USE_RECAPTCHA.'
+        errors.append(Warning(message, hint=hint, obj=settings, id='wger.W005'))
+
     return errors

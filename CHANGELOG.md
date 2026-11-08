@@ -25,6 +25,10 @@ Progression requirements can now reference the top of the prescribed range via t
   every other source.
 * Workout logs have an optional `notes` field, so individual sets can get a note
   (e.g. form cues or how the set felt) in addition to the notes of the session.
+* Cloudflare Turnstile can be used as captcha on the registration and password
+  reset forms, as an alternative to Google reCAPTCHA. The `CAPTCHA_PROVIDER`
+  setting selects reCAPTCHA, Turnstile or no captcha, see the settings page in
+  the docs.
 
 ### Bug fixes
 
@@ -42,7 +46,9 @@ Progression requirements can now reference the top of the prescribed range via t
 ## New settings
 *(for self-hoster)*
 
-* ...
+* `CAPTCHA_PROVIDER` (`none`, `recaptcha` or `turnstile`) replaces `USE_RECAPTCHA`.
+  `USE_RECAPTCHA=True` keeps working for now, but `manage.py check` warns about
+  it. Turnstile needs `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
 
 ## Breaking API changes
 *(only relevant if you have your own scripts or interact with the REST API)*
