@@ -39,9 +39,13 @@ from rest_framework.viewsets import ModelViewSet
 # wger
 from wger.exercises.api.filtersets import (
     ExerciseFilterSet,
+    ExerciseListFilterSet,
     RelevanceOrderingFilter,
 )
-from wger.exercises.api.permissions import CanContributeExercises
+from wger.exercises.api.permissions import (
+    CanContributeExercises,
+    CanCreateExercises,
+)
 from wger.exercises.api.serializers import (
     DeletionLogSerializer,
     EquipmentSerializer,
@@ -79,22 +83,20 @@ class ExerciseViewSet(ModelViewSet):
     """
     API endpoint for exercise objects.
 
+    Creating an exercise here requires the add_exercise permission, regular
+    users submit new exercises via /api/v2/exercise-submission/.
+
     For a read-only endpoint with all the information of an exercise, see /api/v2/exerciseinfo/
     """
 
     queryset = Exercise.with_translations.all()
     serializer_class = ExerciseSerializer
-    permission_classes = (CanContributeExercises,)
+    permission_classes = (CanCreateExercises,)
     throttle_classes = (CreateScopedRateThrottle,)
     throttle_scope = 'exercise_create'
     ordering_fields = '__all__'
     ordering = ['id']
-    filterset_fields = (
-        'category',
-        'muscles',
-        'muscles_secondary',
-        'equipment',
-    )
+    filterset_class = ExerciseListFilterSet
 
     def perform_create(self, serializer):
         """
@@ -183,6 +185,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
         'exercise',
         'description',
         'name',
+        'language',
     )
 
     def perform_create(self, serializer):

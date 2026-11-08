@@ -17,7 +17,10 @@
 
 # Django
 from django.conf import settings
-from django.http import Http404
+from django.http import (
+    Http404,
+    HttpResponseForbidden,
+)
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -60,6 +63,10 @@ def authorization_view(request, *args, **kwargs):
     """
     if not is_provider_configured():
         raise Http404('The OAuth2 provider is not configured')
+
+    # A trainer logged in as a member must not get credentials that outlive the session
+    if request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
 
     return authorization(request, *args, **kwargs)
 

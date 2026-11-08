@@ -54,6 +54,7 @@ class AppStoreLinksTestCase(WgerTestCase):
 
         for store in self.stores + ('f-droid.org',):
             self.assertContains(response, store)
+        self.assertContains(response, 'class="d-flex flex-wrap gap-2 app-store-badges"')
 
     @override_settings(WGER_SHOW_APP_STORE_LINKS=False)
     @mock.patch('wger.software.views.requests.get')
@@ -63,3 +64,4 @@ class AppStoreLinksTestCase(WgerTestCase):
 
         for store in self.stores + ('f-droid.org',):
             self.assertNotContains(response, store)
+        self.assertNotContains(response, 'app-store-badges')

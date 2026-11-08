@@ -28,17 +28,12 @@ from django.contrib.auth import (
     logout as django_logout,
 )
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
 from django.contrib.auth.models import User
-from django.contrib.auth.views import (
-    PasswordChangeView,
-    PasswordResetConfirmView,
-    PasswordResetView,
-)
+from django.contrib.auth.views import PasswordChangeView
 from django.http import (
     HttpResponseForbidden,
     HttpResponseNotFound,
@@ -87,12 +82,17 @@ from rest_framework.authtoken.models import Token
 # wger
 from wger.core.forms import (
     PasswordConfirmationForm,
-    PasswordResetFormCaptcha,
     UsernameConfirmationForm,
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
-from wger.gym.helpers import is_same_gym
+from wger.gym.helpers import (
+    holds_gym_permission,
+    holds_permissions_beyond,
+    is_same_gym,
+    may_change_activation,
+    outranks,
+)
 from wger.gym.models import (
     AdminUserNote,
     Contract,
@@ -159,9 +159,7 @@ def delete(request, user_pk=None):
         if not request.user.has_perm('gym.manage_gyms') and (
             not request.user.has_perm('gym.manage_gym')
             or not is_same_gym(request.user, user)
-            or user.has_perm('gym.manage_gym')
-            or user.has_perm('gym.gym_trainer')
-            or user.has_perm('gym.manage_gyms')
+            or holds_gym_permission(user, 'manage_gym', 'gym_trainer', 'manage_gyms')
         ):
             return HttpResponseForbidden()
     else:
@@ -220,11 +218,13 @@ def trainer_login(request, user_pk):
         if user.pk != trainer_identity_pk:
             return HttpResponseForbidden()
 
-    # Direct trainer-login: target must not itself be a privileged account.
+    # Direct trainer-login: target must not itself be a privileged account,
+    # nor hold permissions the trainer lacks (e.g. exercise editors)
     if request.user.has_perm('gym.gym_trainer') and (
         user.has_perm('gym.gym_trainer')
         or user.has_perm('gym.manage_gym')
         or user.has_perm('gym.manage_gyms')
+        or holds_permissions_beyond(user, request.user)
     ):
         return HttpResponseForbidden()
 
@@ -399,19 +399,8 @@ class UserDeactivateView(
         ) and not is_same_gym(request.user, edit_user):
             return HttpResponseForbidden()
 
-        # A user with only the trainer permission must not be able to (de)activate
-        # other gym staff (managers, fellow trainers, general managers). Group
-        # membership is checked directly so the rule still applies when the
-        # target account is currently deactivated (``has_perm`` returns ``False``
-        # for inactive users).
-        if (
-            request.user.has_perm('gym.gym_trainer')
-            and not request.user.has_perm('gym.manage_gym')
-            and not request.user.has_perm('gym.manage_gyms')
-            and edit_user.groups.filter(
-                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
-            ).exists()
-        ):
+        # Gym staff must not lock out the accounts above them
+        if not may_change_activation(request.user, edit_user):
             return HttpResponseForbidden()
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
@@ -447,19 +436,8 @@ class UserActivateView(
         ) and not is_same_gym(request.user, edit_user):
             return HttpResponseForbidden()
 
-        # A user with only the trainer permission must not be able to
-        # (de)activate other gym staff (managers, fellow trainers,
-        # general managers). Group membership is checked directly so the
-        # rule still applies when the target account is currently
-        # deactivated (``has_perm`` returns ``False`` for inactive users).
-        if (
-            request.user.has_perm('gym.gym_trainer')
-            and not request.user.has_perm('gym.manage_gym')
-            and not request.user.has_perm('gym.manage_gyms')
-            and edit_user.groups.filter(
-                name__in=('gym_trainer', 'gym_manager', 'general_gym_manager')
-            ).exists()
-        ):
+        # Gym staff must not reactivate the accounts above them
+        if not may_change_activation(request.user, edit_user):
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
@@ -498,6 +476,10 @@ class UserEditView(
         ):
             return HttpResponseForbidden()
 
+        # A new email address hands over the account through the password reset
+        if not outranks(user, self.get_object()):
+            return HttpResponseForbidden()
+
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -517,6 +499,10 @@ def api_key(request):
     """
     Allows the user to generate an API key for the REST API
     """
+
+    # A trainer logged in as a member must not get credentials that outlive the session
+    if request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
 
     context = {}
     context.update(csrf(request))
@@ -591,6 +577,11 @@ def app_auth_handoff(request):
     itself. The value is treated as opaque but constrained to base64url characters
     and a sane length to prevent abuse of the reflection.
     """
+
+    # A trainer logged in as a member must not get credentials that outlive the session
+    if request.session.get('trainer.identity'):
+        return HttpResponseForbidden()
+
     token = mint_long_lived_refresh_token(
         request.user,
         settings.HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN,
@@ -742,43 +733,6 @@ class WgerPasswordChangeView(PasswordChangeView):
             ),
             ButtonHolder(Submit('submit', _('Save'), css_class='btn-success btn-block')),
         )
-        return form
-
-
-class WgerPasswordResetView(PasswordResetView):
-    template_name = 'form_content.html'
-    email_template_name = 'registration/password_reset_email.html'
-    success_url = reverse_lazy('core:user:password_reset_done')
-    from_email = settings.WGER_SETTINGS['EMAIL_FROM']
-
-    def get_form_class(self):
-        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
-            return PasswordResetFormCaptcha
-
-        # From django
-        return PasswordResetForm
-
-    def get_form(self, form_class=None):
-        # Massage django's default form. Our form already has a helper.
-        if not settings.WGER_SETTINGS['USE_RECAPTCHA']:
-            form = super().get_form(form_class)
-            form.helper = FormHelper()
-            form.helper.form_class = 'wger-form'
-            form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))
-            return form
-
-        return super().get_form(form_class)
-
-
-class WgerPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'form_content.html'
-    success_url = reverse_lazy('core:user:login')
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.helper = FormHelper()
-        form.helper.form_class = 'wger-form'
-        form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))
         return form
 
 

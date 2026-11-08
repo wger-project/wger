@@ -18,6 +18,7 @@ import zoneinfo
 
 # Django
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import (
     IntegrityError,
     transaction,
@@ -25,6 +26,7 @@ from django.db import (
 from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import override
 
 # Third Party
 from rest_framework import status
@@ -59,6 +61,24 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
 
     SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
     ROUTINE = 3
+
+    def test_limit_message_uses_the_configured_count(self):
+        start = timezone.now()
+        for hours in (1, 2, 21):
+            with (
+                self.subTest(hours=hours),
+                override('en'),
+                override_settings(WGER_MAX_SESSION_LENGTH_HOURS=hours),
+            ):
+                session = WorkoutSession(
+                    datetime_start=start,
+                    datetime_end=start + datetime.timedelta(hours=hours + 1),
+                )
+                unit = 'hour' if hours == 1 else 'hours'
+                with self.assertRaisesMessage(
+                    ValidationError, f'A session cannot be longer than {hours} {unit}.'
+                ):
+                    session.clean()
 
     def setUp(self):
         super().setUp()
@@ -120,10 +140,13 @@ class WorkoutSessionDurationTestCase(WgerTestCase):
         """Editing the times of such a session does run into the limit"""
 
         self.stretch_session()
+        session = WorkoutSession.objects.get(pk=self.SESSION)
 
         response = self.client.patch(
             reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
-            data={'time_end': '23:00'},
+            data={
+                'datetime_end': (session.datetime_start + datetime.timedelta(hours=9)).isoformat()
+            },
             content_type='application/json',
         )
 
@@ -215,167 +238,16 @@ class WorkoutSessionIntervalConstraintTestCase(WgerTestCase):
         self.assertIsNone(session.datetime_end)
 
 
-class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
+class WorkoutSessionFilterTestCase(WgerTestCase):
     """
-    Test that writes in the pre-2.7 shape still arrive
+    Test filtering sessions over the API
     """
 
     SESSION = 'bbbbbbbb-bbbb-bbbb-bbbb-000000000005'
-    ROUTINE = 3
 
     def setUp(self):
         super().setUp()
         self.user_login('test')
-
-    def test_the_deprecated_fields_are_not_returned(self):
-        """They are accepted on write, but they are not part of the response"""
-
-        response = self.client.get(reverse('workoutsession-detail', kwargs={'pk': self.SESSION}))
-
-        self.assertNotIn('date', response.json())
-        self.assertNotIn('time_start', response.json())
-        self.assertNotIn('time_end', response.json())
-
-    def test_create_with_the_deprecated_triple(self):
-        """The deprecated fields are composed into datetime_start/datetime_end"""
-
-        response = self.client.post(
-            reverse('workoutsession-list'),
-            data={
-                'routine': self.ROUTINE,
-                'impression': '2',
-                'date': '2025-03-12',
-                'time_start': '10:00',
-                'time_end': '11:30',
-            },
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        session = WorkoutSession.objects.get(pk=response.json()['id'])
-        self.assertEqual(
-            session.datetime_start,
-            timezone.make_aware(datetime.datetime(2025, 3, 12, 10, 0)),
-        )
-        self.assertEqual(
-            session.datetime_end,
-            timezone.make_aware(datetime.datetime(2025, 3, 12, 11, 30)),
-        )
-
-    def test_the_triple_is_composed_in_the_owners_timezone(self):
-        """A queued 07:00 is the owner's 07:00, not the zone the request runs in"""
-
-        profile = User.objects.get(username='test').userprofile
-        profile.time_zone = 'Pacific/Auckland'
-        profile.save()
-
-        response = self.client.post(
-            reverse('workoutsession-list'),
-            data={
-                'routine': self.ROUTINE,
-                'impression': '2',
-                'date': '2025-03-12',
-                'time_start': '07:00',
-            },
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        session = WorkoutSession.objects.get(pk=response.json()['id'])
-        self.assertEqual(
-            session.datetime_start,
-            datetime.datetime(2025, 3, 12, 7, 0, tzinfo=zoneinfo.ZoneInfo('Pacific/Auckland')),
-        )
-
-    def test_create_over_midnight_ends_on_the_next_day(self):
-        """An end time before the start time means the session ended the day after"""
-
-        response = self.client.post(
-            reverse('workoutsession-list'),
-            data={
-                'routine': self.ROUTINE,
-                'impression': '2',
-                'date': '2025-03-10',
-                'time_start': '23:00',
-                'time_end': '01:30',
-            },
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        session = WorkoutSession.objects.get(pk=response.json()['id'])
-        self.assertEqual(
-            session.datetime_start,
-            timezone.make_aware(datetime.datetime(2025, 3, 10, 23, 0)),
-        )
-        self.assertEqual(
-            session.datetime_end,
-            timezone.make_aware(datetime.datetime(2025, 3, 11, 1, 30)),
-        )
-
-    def test_create_without_a_start_time_starts_at_midnight(self):
-        """A session without times covers the day it was logged on"""
-
-        response = self.client.post(
-            reverse('workoutsession-list'),
-            data={'routine': self.ROUTINE, 'impression': '2', 'date': '2025-03-12'},
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        session = WorkoutSession.objects.get(pk=response.json()['id'])
-        self.assertEqual(
-            session.datetime_start,
-            timezone.make_aware(datetime.datetime(2025, 3, 12, 0, 0)),
-        )
-        self.assertIsNone(session.datetime_end)
-
-    def test_patch_time_end_keeps_day_and_start(self):
-        """Closing a session takes the day and start time from the stored session"""
-
-        session = WorkoutSession.objects.get(pk=self.SESSION)
-        start = session.datetime_start
-
-        response = self.client.patch(
-            reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
-            data={'time_end': '12:30'},
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        session.refresh_from_db()
-        self.assertEqual(session.datetime_start, start)
-        self.assertEqual(
-            timezone.localtime(session.datetime_end),
-            timezone.make_aware(
-                datetime.datetime.combine(
-                    timezone.localtime(start).date(),
-                    datetime.time(12, 30),
-                )
-            ),
-        )
-
-    def test_the_new_fields_win(self):
-        """A request that sends both formats is not overwritten by the deprecated one"""
-
-        response = self.client.post(
-            reverse('workoutsession-list'),
-            data={
-                'routine': self.ROUTINE,
-                'impression': '2',
-                'date': '2020-01-01',
-                'time_start': '08:00',
-                'datetime_start': '2025-03-12T10:00:00Z',
-            },
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        session = WorkoutSession.objects.get(pk=response.json()['id'])
-        self.assertEqual(
-            session.datetime_start,
-            datetime.datetime(2025, 3, 12, 10, 0, tzinfo=datetime.timezone.utc),
-        )
 
     def test_filter_by_day(self):
         """The viewset has a filterset, so a day can be selected without an error"""
@@ -393,26 +265,3 @@ class WorkoutSessionLegacyFieldsTestCase(WgerTestCase):
             {'datetime_start__date': (day + datetime.timedelta(days=1)).isoformat()},
         )
         self.assertEqual(response.json()['results'], [])
-
-    def test_untouched_when_no_deprecated_field_is_sent(self):
-        """A request without the deprecated fields leaves the timestamps alone"""
-
-        session = WorkoutSession.objects.get(pk=self.SESSION)
-
-        response = self.client.patch(
-            reverse('workoutsession-detail', kwargs={'pk': self.SESSION}),
-            data={'notes': 'Only the notes change'},
-            content_type='application/json',
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        session.refresh_from_db()
-        self.assertEqual(session.notes, 'Only the notes change')
-        self.assertEqual(
-            session.datetime_start,
-            datetime.datetime(2025, 11, 1, 10, 0, tzinfo=datetime.timezone.utc),
-        )
-        self.assertEqual(
-            session.datetime_end,
-            datetime.datetime(2025, 11, 1, 10, 15, tzinfo=datetime.timezone.utc),
-        )

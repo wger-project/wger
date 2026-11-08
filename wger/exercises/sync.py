@@ -472,17 +472,14 @@ def download_exercise_videos(
         img_temp.write(retrieved_video.content)
         img_temp.flush()
 
-        # Validate file
-        video_file = File(img_temp)
+        # Validate file, the extension check needs the remote name
+        video_file = File(img_temp, name=os.path.basename(video_data['video']))
         try:
             validate_video(video_file)
         except ValidationError as e:
             print_fn(style_fn(f'    invalid video, skipping: {"; ".join(e.messages)}'))
             continue
 
-        video.video.save(
-            os.path.basename(os.path.basename(video_data['video'])),
-            video_file,
-        )
+        video.video.save(video_file.name, video_file)
         video.save()
         print_fn(style_fn('    saved successfully'))

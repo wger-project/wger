@@ -34,7 +34,7 @@ jobs:
 
       # Check https://github.com/super-linter/super-linter for other options
       - name: Lint Code Base
-        uses: super-linter/super-linter@v8
+        uses: super-linter/super-linter@v9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true

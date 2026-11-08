@@ -23,7 +23,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, ngettext
 
 # wger
 from wger.utils.uuid import uuid7
@@ -68,14 +68,14 @@ class WorkoutSession(models.Model):
 
     routine = models.ForeignKey(
         'Routine',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='sessions',
         null=True,
     )
 
     day = models.ForeignKey(
         'Day',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
     )
     """
@@ -190,7 +190,11 @@ class WorkoutSession(models.Model):
 
         if self.datetime_end - self.datetime_start > self.max_duration():
             raise ValidationError(
-                _('A session cannot be longer than %(hours)s hours.')
+                ngettext(
+                    'A session cannot be longer than %(hours)s hour.',
+                    'A session cannot be longer than %(hours)s hours.',
+                    settings.WGER_MAX_SESSION_LENGTH_HOURS,
+                )
                 % {'hours': settings.WGER_MAX_SESSION_LENGTH_HOURS}
             )
 

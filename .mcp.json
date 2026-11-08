@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "wger": {
+      "command": "uvx",
+      "args": [
+        "wger-mcp",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "WGER_BASE_URL": "${WGER_MCP_BASE_URL:-http://localhost:8000}"
+      }
+    }
+  }
+}

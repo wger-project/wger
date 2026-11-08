@@ -80,6 +80,34 @@ def _log_action_creation(serializer, instance):
     )
 
 
+class LicenseAuthorDefaultMixin:
+    """
+    Stores the username as license author when none is given.
+
+    On create a missing or empty author is replaced. On update this depends on
+    ``credit_editor``: if set, every edit stores the editor unless a non-empty
+    author is sent, so the editor ends up in ``author_history``. If not set
+    (media, where the author is the creator of the file), only an explicitly
+    empty author is replaced and omitting it keeps the stored one.
+    """
+
+    credit_editor = False
+
+    def to_internal_value(self, data):
+        attrs = super().to_internal_value(data)
+
+        request = self.context.get('request')
+        user = getattr(request, 'user', None)
+        if user is None or not user.is_authenticated:
+            return attrs
+
+        replace_missing = self.instance is None or self.credit_editor
+        author = attrs.get('license_author', '')
+        if (replace_missing or 'license_author' in attrs) and not author.strip():
+            attrs['license_author'] = user.username
+        return attrs
+
+
 def _normalise_name(name: str) -> str:
     """
     Regex: matches space, hyphen and underscore, and replaces with an empty string.
@@ -122,10 +150,12 @@ def _check_duplicates(name, language, exclude_pk=None):
             return candidate.name
 
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class ExerciseSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     Exercise serializer
     """
+
+    credit_editor = True
 
     class Meta:
         model = Exercise
@@ -193,7 +223,7 @@ class AbsoluteUrlFileField(serializers.FileField):
         return make_absolute_url(value.url, self.context.get('request'))
 
 
-class ExerciseImageSerializer(serializers.ModelSerializer):
+class ExerciseImageSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
@@ -247,7 +277,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
         return result
 
 
-class ExerciseVideoSerializer(serializers.ModelSerializer):
+class ExerciseVideoSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     ExerciseVideo serializer
     """
@@ -445,10 +475,12 @@ class ExerciseTranslationInfoSerializer(serializers.ModelSerializer):
         )
 
 
-class ExerciseTranslationSerializer(serializers.ModelSerializer):
+class ExerciseTranslationSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     Exercise translation serializer
     """
+
+    credit_editor = True
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
@@ -687,7 +719,7 @@ def get_default_license() -> License:
     return License.objects.get(pk=CC_BY_SA_4_LICENSE_ID)
 
 
-class ExerciseSubmissionSerializer(serializers.ModelSerializer):
+class ExerciseSubmissionSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     Exercise submission serializer
     """

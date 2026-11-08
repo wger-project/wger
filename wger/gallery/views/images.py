@@ -53,7 +53,7 @@ def overview(request):
     return render(request, 'images/overview.html', context)
 
 
-class ImageAddView(WgerFormMixin, CreateView):
+class ImageAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
     """
     Generic view to add a new weight entry
     """

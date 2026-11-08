@@ -26,7 +26,10 @@ from wger.exercises.models import (
     Exercise,
     Translation,
 )
-from wger.exercises.tests.api_mixins import ActstreamApiMixin
+from wger.exercises.tests.api_mixins import (
+    ActstreamApiMixin,
+    LicenseAuthorApiMixin,
+)
 from wger.utils.constants import CC_BY_SA_4_LICENSE_ID
 
 
@@ -98,7 +101,11 @@ class ExerciseTestCase(WgerTestCase):
         )
 
 
-class ExerciseCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
+class ExerciseCustomApiTestCase(
+    ActstreamApiMixin,
+    LicenseAuthorApiMixin,
+    ExerciseCrudApiTestCase,
+):
     pk = 1
     resource = Exercise
 
@@ -112,6 +119,20 @@ class ExerciseCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
 
     def get_resource_name(self):
         return 'exercise'
+
+    def test_post_user_verified_email(self):
+        """Trustworthy users without the add_exercise permission can't create here"""
+        self.authenticate('trainer1')
+        count_before = Exercise.objects.count()
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(Exercise.objects.count(), count_before)
+
+    def test_post_user_with_permissions(self):
+        """Users with the add_exercise permission can create exercises directly"""
+        self.authenticate('admin')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_delete_replace_by(self):
         """Test that setting the replaced_by attribute works"""
@@ -163,7 +184,7 @@ class ExerciseCustomApiTestCase(ActstreamApiMixin, ExerciseCrudApiTestCase):
         Test that it is not possible to set the license for a newly created
         exercise base (the license is always set to the default)
         """
-        self.authenticate('trainer1')
+        self.authenticate('admin')
         response = self.client.post(self.url, data={**self.data, 'license': 3})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

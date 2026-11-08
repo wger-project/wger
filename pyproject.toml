@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.27"]
+requires = ["hatchling>=1.33.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -31,13 +31,13 @@ dependencies = [
     "celery[redis]~=5.6.0",
     "crispy-bootstrap5~=2026.3",
     "django-activity-stream~=2.0.0",
-    "django-allauth[mfa,idp-oidc]~=65.19.0",
-    "django-axes[ipware]~=8.3.1",
+    "django-allauth[mfa,idp-oidc]~=65.21.1",
+    "django-axes[ipware]~=9.0.0",
     "django-bootstrap-breadcrumbs2==1.0.0",
     "django-cors-headers~=4.9.0",
     "django-crispy-forms~=2.5",
     "django-environ~=0.14.0",
-    "django-filter~=26.1",
+    "django-filter~=26.2",
     "django-formtools~=2.7",
     "django-prometheus~=2.5.0",
     "django-cf-turnstile~=0.1.0",
@@ -47,42 +47,42 @@ dependencies = [
     "django-sortedm2m~=4.0.0",
     "django-storages~=1.14.6",
     "djangorestframework-simplejwt[crypto]~=5.5.1",
-    "djangorestframework~=3.17.1",
+    "djangorestframework~=3.18.2",
     "django[argon2]~=6.0.7",
     "drf-spectacular[sidecar]~=0.30.0",
     "easy-thumbnails~=2.10.1",
-    "flower~=2.1.0",
+    "flower~=2.2.0",
     "fontawesomefree~=6.6.0",
     "gevent>=26.5.0",
-    "icalendar~=7.2.0",
+    "icalendar~=7.3.0",
     "invoke~=3.0.3",
     "lingua-language-detector~=2.2.0",
     "markdownify~=1.2",
     "markdown-it-py~=4.2",
     "nh3~=0.3",
-    "openfoodfacts~=5.3.0",
+    "openfoodfacts~=5.4.0",
     "packaging~=26.2",
-    "pillow~=12.3.0",
+    "pillow~=13.0.0",
     "psycopg[binary]~=3.3.2",
-    "reportlab~=5.0.0",
+    "reportlab~=5.1.0",
     "requests~=2.34.0",
     "tqdm~=4.70.0",
-    "tzdata~=2026.2",
+    "tzdata~=2026.6",
 ]
 
 [dependency-groups]
 dev = [
-    "coverage~=7.15.0",
-    "django-debug-toolbar~=7.1.0",
+    "coverage~=7.17.0",
+    "django-debug-toolbar~=8.0.0",
     "django-extensions~=4.1",
-    "faker~=40.36.0",
-    "hatchling~=1.31.0",
-    "ruff~=0.16.2",
+    "faker~=40.43.0",
+    "hatchling~=1.33.0",
+    "ruff~=0.17.0",
     "tblib~=3.2.0",
 ]
 
 docker = [
-    "gunicorn~=26.1.0",
+    "gunicorn~=26.2.0",
 ]
 
 

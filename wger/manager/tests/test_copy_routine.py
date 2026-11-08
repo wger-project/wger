@@ -14,6 +14,7 @@
 # Standard Library
 import datetime
 import logging
+from unittest import mock
 
 # Django
 from django.urls import reverse
@@ -122,6 +123,19 @@ class CopyRoutineTestCase(WgerTestCase):
 
         self.user_login('test')
         self.copy_routine_and_assert(pk=3)
+
+    def test_copy_failure_rolls_back(self):
+        """
+        A failure while copying leaves no partial routine behind
+        """
+        self.user_login('admin')
+        count = Routine.objects.count()
+
+        with mock.patch.object(SetsConfig, 'save', side_effect=RuntimeError):
+            with self.assertRaises(RuntimeError):
+                self.client.get(reverse('manager:routine:copy', kwargs={'pk': 1}))
+
+        self.assertEqual(Routine.objects.count(), count)
 
     def test_copy_workout_other(self):
         """

@@ -37,6 +37,7 @@ from django.utils.translation import gettext as _
 
 # wger
 from wger.manager.consts import (
+    REP_UNIT_MAX_REPS,
     REP_UNIT_REPETITIONS,
     REP_UNIT_TILL_FAILURE,
 )
@@ -93,10 +94,19 @@ class SetConfigData:
 
         This converts the values to something readable like "10 × 100 kg @ 2.00RiR"
         """
+        return self._text_repr(short=False)
 
+    @property
+    def text_repr_short(self) -> str:
+        """
+        Text representation without sets, RiR and rest, e.g. "10 × 100 kg"
+        """
+        return self._text_repr(short=True)
+
+    def _text_repr(self, short: bool) -> str:
         out = []
 
-        if self.sets and self.sets > 1:
+        if not short and self.sets and self.sets > 1:
             sets = self.sets
             if self.max_sets:
                 sets = f'{sets}-{self.max_sets}'
@@ -134,6 +144,16 @@ class SetConfigData:
             if self.weight:
                 out.append('×')
 
+        # These units are meaningful without a repetitions value
+        elif self.repetitions_unit in (REP_UNIT_TILL_FAILURE, REP_UNIT_MAX_REPS):
+            if self.repetitions_unit == REP_UNIT_TILL_FAILURE and self.weight:
+                out.append('∞')
+            else:
+                out.append(_(self.repetitions_unit_name))
+
+            if self.weight:
+                out.append('×')
+
         if self.weight:
             weight = round_value(self.weight, self.weight_rounding)
             max_weight = (
@@ -150,6 +170,9 @@ class SetConfigData:
                 unit = _(self.weight_unit_name)
 
             out.append(f'{weight} {unit}'.strip())
+
+        if short:
+            return ' '.join(out)
 
         if self.rir:
             rir = round_value(self.rir, 0.5)
@@ -182,12 +205,8 @@ class SlotData:
 
     @property
     def exercises(self) -> List[int]:
-        out = set()
-
-        for set_config in self.sets:
-            out.add(set_config.exercise)
-
-        return list(out)
+        # dict.fromkeys removes duplicates and keeps the order of the sets
+        return list(dict.fromkeys(set_config.exercise for set_config in self.sets))
 
     @property
     def is_superset(self) -> bool:
@@ -270,9 +289,17 @@ def round_value(
 @dataclass(init=False)
 class ConfigRequirements:
     rules: List[str] = field(default_factory=list)
+    all_sets: bool = False
+    """
+    When set, every logged set of the gating iteration must meet all rules and
+    at least the prescribed number of sets must have been logged, instead of a
+    single qualifying set being enough. Used for strict double progression
+    ("all prescribed sets at the top of the range").
+    """
 
     def __init__(self, data: Dict[str, Any]):
         self.rules = data.get('rules', [])
+        self.all_sets = bool(data.get('all_sets', False))
 
     def __bool__(self):
         return bool(self.rules)

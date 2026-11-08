@@ -281,6 +281,40 @@ class TestSyncIngredientsFromDump(WgerTestCase):
         finally:
             Path(file_path).unlink()
 
+    def test_insert_mode_skips_negative_nutrients(self):
+        """Invalid nutrients do not enter the bulk insert or block valid records."""
+        bad_entry = {
+            **SAMPLE_INGREDIENTS[0],
+            'uuid': 'baaaaaad-0000-0000-0000-000000000001',
+            'sodium': '-1.000',
+        }
+        file_path = self._create_dump_file([bad_entry, SAMPLE_INGREDIENTS[1]])
+        self.addCleanup(Path(file_path).unlink)
+
+        count = sync_ingredients_from_dump(lambda x: x, file_path, mode=SyncMode.INSERT)
+
+        self.assertEqual(count, 1)
+        self.assertFalse(Ingredient.objects.filter(uuid=bad_entry['uuid']).exists())
+        valid_ingredient = Ingredient.objects.get(uuid=SAMPLE_INGREDIENTS[1]['uuid'])
+        self.assertEqual(valid_ingredient.sodium, Decimal('0.820'))
+
+    def test_update_mode_skips_negative_nutrients(self):
+        """An invalid update preserves existing data and the next record imports."""
+        ingredient = Ingredient.objects.get(uuid=SAMPLE_INGREDIENTS[0]['uuid'])
+        original_name, original_sodium = ingredient.name, ingredient.sodium
+        bad_entry = {**SAMPLE_INGREDIENTS[0], 'sodium': '-1.000'}
+        file_path = self._create_dump_file([bad_entry, SAMPLE_INGREDIENTS[1]])
+        self.addCleanup(Path(file_path).unlink)
+
+        count = sync_ingredients_from_dump(lambda x: x, file_path, mode=SyncMode.UPDATE)
+
+        self.assertEqual(count, 1)
+        ingredient.refresh_from_db()
+        self.assertEqual(ingredient.name, original_name)
+        self.assertEqual(ingredient.sodium, original_sodium)
+        valid_ingredient = Ingredient.objects.get(uuid=SAMPLE_INGREDIENTS[1]['uuid'])
+        self.assertEqual(valid_ingredient.sodium, Decimal('0.820'))
+
     def test_handles_plain_jsonl(self):
         """Test that import works with plain (non-gzipped) JSONL files."""
         file_path = self._create_dump_file(use_gzip=False)

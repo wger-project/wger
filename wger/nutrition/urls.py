@@ -18,7 +18,10 @@
 # Django
 from django.conf.urls import include
 from django.contrib.auth.decorators import login_required
-from django.urls import path
+from django.urls import (
+    path,
+    re_path,
+)
 
 # wger
 from wger.core.views.react import ReactView
@@ -41,6 +44,18 @@ patterns_plan = [
         '<uuid:id>/view/',
         ReactView.as_view(login_required=True),
         name='view',
+    ),
+    # The nutrition diary pages are React routes too (/<plan>/diary and /<plan>/<date>),
+    # so they need to load when opened directly, e.g. from a new tab or a bookmark
+    path(
+        '<uuid:id>/diary/',
+        ReactView.as_view(login_required=True),
+        name='diary',
+    ),
+    re_path(
+        r'^(?P<id>[0-9a-f-]+)/(?P<date>\d{4}-\d{2}-\d{2})/$',
+        ReactView.as_view(login_required=True),
+        name='diary-date',
     ),
     path(
         '<uuid:pk>/copy',

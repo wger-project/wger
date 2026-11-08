@@ -12,9 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-17 07:28+0000\n"
-"PO-Revision-Date: 2026-09-06 09:51+0000\n"
-"Last-Translator: Борис Броварчук <digestivedigestive069@gmail.com>\n"
+"POT-Creation-Date: 2026-11-07 14:27+0100\n"
+"PO-Revision-Date: 2026-11-07 20:33+0000\n"
+"Last-Translator: Борис Броварчук "
+"<digestivedigestive069@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -24,25 +25,25 @@ msgstr ""
 "? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
 "14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
 "100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 2026.9.1.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
-msgstr "Тренажерний зал за замовчуванням"
+msgstr "Основний спортзал"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
-"Виберіть тренажерний зал за замовчуванням для цієї установки. Цей зал буде "
+"Виберіть основний спортзал для цього екземпляра системи. Цей зал буде "
 "призначений всім новим зареєстрованим користувачам і для всіх наявних "
 "користувачів без тренажерного залу."
 
 #: config/views/gym_config.py:46 core/templates/language/view.html:64
 #: core/templates/license/list.html:17
 #: core/templates/repetition_unit/list.html:18
-#: core/templates/user/overview.html:230 core/templates/user/overview.html:493
+#: core/templates/user/overview.html:226 core/templates/user/overview.html:453
 #: core/templates/weight_unit/list.html:18
 #: exercises/templates/categories/admin-overview.html:17
 #: exercises/templates/equipment/admin-overview.html:17
@@ -54,51 +55,67 @@ msgstr ""
 #: gym/templates/gym/list.html:19 gym/templates/gym/list.html:48
 #: gym/templates/gym/member_list.html:94 gym/templates/gym/member_list.html:152
 #: gym/templates/gym/member_list.html:190
-#: nutrition/templates/ingredient/view.html:255
-#: nutrition/templates/ingredient/view.html:298
+#: nutrition/templates/ingredient/view.html:254
+#: nutrition/templates/ingredient/view.html:297
 msgid "Edit"
 msgstr "Змінити"
 
-#: core/forms.py:114 core/forms.py:321
+#: core/forms.py:116 core/forms.py:362
 msgid "The form is secured with reCAPTCHA"
 msgstr "Форма захищена reCAPTCHA"
 
-#: core/forms.py:123 core/templates/account/login.html:93
+#: core/forms.py:129 core/templates/account/login.html:93
 #: core/templates/account/signup.html:4 core/templates/navigation.html:269
 #: core/templates/navigation.html:282 core/templates/template.html:114
-#: software/templates/features.html:87 software/templates/features.html:442
+#: software/templates/features.html:89 software/templates/features.html:445
 msgid "Register"
 msgstr "Зареєструватись"
 
-#: core/forms.py:128 core/forms.py:239 gym/views/export.py:62
-#: gym/views/gym.py:220
+#: core/forms.py:148
+msgid "Not set"
+msgstr "Не задано"
+
+#: core/forms.py:152 core/forms.py:270 gym/views/export.py:62
+#: gym/views/gym.py:227
 msgid "First name"
 msgstr "Ім'я"
 
-#: core/forms.py:129 core/forms.py:240 core/templates/user/overview.html:310
-#: gym/views/export.py:63 gym/views/gym.py:220
+#: core/forms.py:153 core/forms.py:271 core/templates/user/overview.html:270
+#: gym/views/export.py:63 gym/views/gym.py:227
 msgid "Last name"
 msgstr "Прізвище"
 
-#: core/forms.py:131 core/models/profile.py:200
+#: core/forms.py:155 core/models/profile.py:227
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr "Дата народження"
 
+#: core/forms.py:168
+msgid "Timezone"
+msgstr "Часовий пояс"
+
 #: core/forms.py:172
+msgid ""
+"Used to decide which day a workout counts for. The mobile app reports it "
+"automatically."
+msgstr ""
+"Використовується для визначення дати, до якої зараховується тренування. "
+"Мобільний застосунок визначає її автоматично."
+
+#: core/forms.py:211
 msgid "Personal data"
 msgstr "Особисті дані"
 
-#: core/forms.py:190
+#: core/forms.py:221
 msgid "Other settings"
 msgstr "Інші параметри"
 
-#: core/forms.py:195 core/views/user.py:705 core/views/user.py:729
-#: core/views/user.py:743 gym/forms.py:73 utils/generic_views.py:132
+#: core/forms.py:226 core/views/user.py:734 gym/forms.py:73
+#: utils/generic_views.py:132
 msgid "Save"
 msgstr "Зберегти"
 
-#: core/forms.py:210 core/templates/user/overview.html:314
+#: core/forms.py:241 core/templates/user/overview.html:274
 #: gym/models/contract.py:256 gym/models/gym.py:58
 #: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:116
 #: gym/templates/gym/new_user.html:30 gym/views/export.py:61
@@ -108,29 +125,29 @@ msgstr "Зберегти"
 msgid "Email"
 msgstr "Адреса електронної пошти"
 
-#: core/forms.py:211
+#: core/forms.py:242
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Використовується для скидання пароля і, за потреби, нагадування електронною "
-"поштою."
+"Використовується для скидання пароля та, за потреби, надсилання нагадувань "
+"електронною поштою."
 
-#: core/forms.py:234
+#: core/forms.py:265
 msgid "This e-mail address is already in use."
 msgstr "Ця адреса електронної пошти вже використовується."
 
-#: core/forms.py:256 gym/templates/gym/new_user.html:26
-#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:220
+#: core/forms.py:287 gym/templates/gym/new_user.html:26
+#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:227
 msgid "Password"
 msgstr "Пароль"
 
-#: core/forms.py:258
+#: core/forms.py:289
 msgid "Please enter your current password."
 msgstr "Введіть свій поточний пароль."
 
-#: core/forms.py:267 core/forms.py:304 core/templates/language/view.html:70
+#: core/forms.py:298 core/forms.py:335 core/templates/language/view.html:70
 #: core/templates/license/list.html:21
 #: core/templates/repetition_unit/list.html:22
-#: core/templates/user/overview.html:259
+#: core/templates/user/overview.html:251
 #: core/templates/weight_unit/list.html:22
 #: exercises/templates/categories/admin-overview.html:21
 #: exercises/templates/equipment/admin-overview.html:21
@@ -138,32 +155,32 @@ msgstr "Введіть свій поточний пароль."
 #: gym/templates/admin_notes/list.html:37
 #: gym/templates/contract_option/list.html:35
 #: gym/templates/contract_type/list.html:36 gym/templates/document/list.html:46
-#: gym/templates/gym/list.html:23 nutrition/templates/ingredient/view.html:259
-#: nutrition/templates/ingredient/view.html:304
+#: gym/templates/gym/list.html:23 nutrition/templates/ingredient/view.html:258
+#: nutrition/templates/ingredient/view.html:303
 msgid "Delete"
-msgstr "Вилучити"
+msgstr "Видалити"
 
-#: core/forms.py:276
+#: core/forms.py:307
 msgid "Invalid password"
 msgstr "Неправильний пароль"
 
-#: core/forms.py:289
+#: core/forms.py:320
 msgid "Confirm"
 msgstr "Підтвердити"
 
-#: core/forms.py:297
+#: core/forms.py:328
 #, python-brace-format
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
-"Ваш акаунт не має пароля. Введіть ім'я користувача «{username}» для "
+"Ваш обліковий запис не має пароля. Введіть ім'я користувача «{username}» для "
 "підтвердження."
 
-#: core/forms.py:313
+#: core/forms.py:344
 msgid "The entered username does not match"
 msgstr "Введене ім'я користувача не збігається"
 
-#: core/forms.py:332 weight/templates/import_csv_form.html:9
+#: core/forms.py:372 weight/templates/import_csv_form.html:9
 msgid "Submit"
 msgstr "Надіслати"
 
@@ -173,7 +190,7 @@ msgstr "Коротке позначення мови"
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
-msgstr "Довге позначення мови"
+msgstr "Повна назва мови"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
 msgid "Language full name in English"
@@ -203,168 +220,169 @@ msgstr "Посилання"
 msgid "Link to license text or other information"
 msgstr "Посилання на текст ліцензії чи іншу інформацію"
 
-#: core/models/profile.py:60
+#: core/models/profile.py:69
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "%(birthdate)s це недійсно вказана дата народження"
+msgstr "'%(birthdate)s' — некоректна дата народження"
 
-#: core/models/profile.py:69
+#: core/models/profile.py:96
 msgid "Male"
 msgstr "Чоловік"
 
-#: core/models/profile.py:70
+#: core/models/profile.py:97
 msgid "Female"
 msgstr "Жінка"
 
-#: core/models/profile.py:77
+#: core/models/profile.py:104
 msgid "Low"
 msgstr "Низький"
 
-#: core/models/profile.py:78
+#: core/models/profile.py:105
 msgid "Medium"
 msgstr "Середній"
 
-#: core/models/profile.py:79
+#: core/models/profile.py:106
 msgid "High"
 msgstr "Високий"
 
-#: core/models/profile.py:85
+#: core/models/profile.py:112
 msgid "Metric (kilogram)"
 msgstr "Метричні (кілограм)"
 
-#: core/models/profile.py:86
+#: core/models/profile.py:113
 msgid "Imperial (pound)"
 msgstr "Імперські (фунт)"
 
-#: core/models/profile.py:119
+#: core/models/profile.py:146
 msgid "Activate workout reminders"
 msgstr "Активувати нагадування про тренування"
 
-#: core/models/profile.py:121
+#: core/models/profile.py:148
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
-"Позначте для активації автоматичних нагадувань про тренування.. Для роботи "
+"Позначте для активації автоматичних нагадувань про тренування. Для роботи "
 "цієї функції необхідно вказати дійсну адресу електронної пошти."
 
-#: core/models/profile.py:130
+#: core/models/profile.py:157
 msgid "Remind before expiration"
 msgstr "Нагадати перед завершенням"
 
-#: core/models/profile.py:131
+#: core/models/profile.py:158
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr "Кількість днів для нагадування перед закінченням тренування."
+msgstr ""
+"Кількість днів, за які ви бажаєте отримувати нагадування до закінчення "
+"тренування."
 
-#: core/models/profile.py:137
+#: core/models/profile.py:164
 msgid "Default duration of workouts"
 msgstr "Типова тривалість тренувань"
 
-#: core/models/profile.py:139
+#: core/models/profile.py:166
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
-"Типова тривалість тренувань в тижнях, які не заплановані. Використовується "
+"Типова тривалість тренувань у тижнях, які не заплановані. Використовується "
 "для нагадувань про тренування."
 
-#: core/models/profile.py:157
+#: core/models/profile.py:184
 msgid "Notification language"
 msgstr "Мова сповіщення"
 
-#: core/models/profile.py:159
+#: core/models/profile.py:186
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
-"Мова, яка використовується під час надсилання вам сповіщень електронною "
-"поштою, наприклад, нагадування про тренування. Це не стосується мови "
-"вебсайту."
+"Мова сповіщень електронною поштою, наприклад нагадувань про тренування. Це "
+"налаштування не впливає на мову вебсайту."
 
-#: core/models/profile.py:192 gym/views/export.py:65
+#: core/models/profile.py:219 gym/views/export.py:65
 msgid "Age"
 msgstr "Вік"
 
-#: core/models/profile.py:208
+#: core/models/profile.py:235
 msgid "Height (cm)"
 msgstr "Зріст (см)"
 
-#: core/models/profile.py:225
+#: core/models/profile.py:252
 msgid "Hours of sleep"
 msgstr "Годин сну"
 
-#: core/models/profile.py:226
+#: core/models/profile.py:253
 msgid "The average hours of sleep per day"
 msgstr "Середня кількість годин сну на добу"
 
-#: core/models/profile.py:235
+#: core/models/profile.py:262
 msgid "Work"
 msgstr "Робота"
 
-#: core/models/profile.py:236 core/models/profile.py:278
+#: core/models/profile.py:263 core/models/profile.py:305
 msgid "Average hours per day"
 msgstr "Середня кількість годин на добу"
 
-#: core/models/profile.py:245 core/models/profile.py:266
-#: core/models/profile.py:287
+#: core/models/profile.py:272 core/models/profile.py:293
+#: core/models/profile.py:314
 msgid "Physical intensity"
 msgstr "Фізична інтенсивність"
 
-#: core/models/profile.py:246 core/models/profile.py:267
-#: core/models/profile.py:288
+#: core/models/profile.py:273 core/models/profile.py:294
+#: core/models/profile.py:315
 msgid "Approximately"
 msgstr "Приблизно"
 
-#: core/models/profile.py:256
+#: core/models/profile.py:283
 msgid "Sport"
 msgstr "Спорт"
 
-#: core/models/profile.py:257
+#: core/models/profile.py:284
 msgid "Average hours per week"
 msgstr "Середня кількість годин на тиждень"
 
-#: core/models/profile.py:277
+#: core/models/profile.py:304
 msgid "Free time"
 msgstr "Вільний час"
 
-#: core/models/profile.py:298 nutrition/templates/rate/form.html:67
+#: core/models/profile.py:325 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
 msgstr "Денна кількість калорій"
 
-#: core/models/profile.py:299
+#: core/models/profile.py:326
 msgid "Total caloric intake, including e.g. any surplus"
-msgstr "Загальне споживання калорій, в тому числі, будь-який надлишок"
+msgstr "Загальне споживання калорій, у тому числі будь-який надлишок"
 
-#: core/models/profile.py:311
+#: core/models/profile.py:338
 msgid "Weight unit"
 msgstr "Одиниця ваги"
 
-#: core/models/profile.py:319
+#: core/models/profile.py:346
 msgid "Automatic reminders for weight entries"
-msgstr "Автоматичні нагадування для записів ваги"
+msgstr "Автоматичні нагадування про введення ваги"
 
-#: core/models/profile.py:320
+#: core/models/profile.py:347
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
 "Кількість днів після останнього запису ваги (введіть 0 для деактивації)"
 
-#: core/models/profile.py:346
+#: core/models/profile.py:391
 msgid "Enable trophies"
 msgstr "Увімкнути трофеї"
 
-#: core/models/profile.py:347
+#: core/models/profile.py:392
 msgid "Enable or disable the trophy system for this user"
 msgstr "Увімкнути або вимкнути систему трофеїв для цього користувача"
 
-#: core/models/profile.py:424
+#: core/models/profile.py:470
 msgid "The sum of all hours has to be 24"
-msgstr "Сума всіх годин повинна дорівнювати 24"
+msgstr "Загальна кількість годин має становити 24"
 
 #: core/models/rep_unit.py:32 i18n.tpl:30
 msgid "Repetitions"
-msgstr "Повтори"
+msgstr "Повторення"
 
-#: core/models/rep_unit.py:33 core/templates/user/overview.html:93
+#: core/models/rep_unit.py:33 core/templates/user/overview.html:89
 msgid "Time"
 msgstr "Час"
 
@@ -373,12 +391,12 @@ msgid "Distance"
 msgstr "Відстань"
 
 #: core/models/rep_unit.py:47 core/models/weight_unit.py:42
-#: core/templates/user/overview.html:306 core/views/user.py:680
+#: core/templates/user/overview.html:266 core/views/user.py:709
 #: exercises/models/muscle.py:36 gym/models/contract.py:52
 #: gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:108
-#: gym/views/gym.py:161 nutrition/templates/ingredient/view.html:242
+#: gym/views/gym.py:168 nutrition/templates/ingredient/view.html:241
 msgid "Name"
 msgstr "Ім'я"
 
@@ -421,6 +439,7 @@ msgstr ""
 "не зникає, Ви можете звернутися по допомогу у зазначені нижче способи:"
 
 #: core/templates/account/email/email_confirmation_message.html:81
+#: core/templates/account/email/email_confirmation_message.txt:2
 msgid "Almost there!"
 msgstr "Ще зовсім трохи!"
 
@@ -429,9 +448,12 @@ msgstr "Ще зовсім трохи!"
 msgid ""
 "You're receiving this email because the user \"%(user_display)s\" has given "
 "your email address to register an account on %(site_domain)s."
-msgstr "Ви отримали цей лист, тому що користувач «%(user_display)s» вказав вашу електронну адресу для реєстрації облікового запису на %(site_domain)s."
+msgstr ""
+"Ви отримали цей лист, оскільки користувач «%(user_display)s» надав вашу "
+"адресу електронної пошти для реєстрації облікового запису на %(site_domain)s."
 
 #: core/templates/account/email/email_confirmation_message.html:93
+#: core/templates/account/email/email_confirmation_message.txt:9
 msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
@@ -441,32 +463,61 @@ msgstr ""
 
 #: core/templates/account/email/email_confirmation_message.html:100
 msgid "Please click the button below to confirm your email address."
-msgstr "Будь ласка, натисніть кнопку нижче, щоб підтвердити свою електронну адресу."
+msgstr "Натисни кнопку нижче, щоб підтвердити електронну адресу."
 
 #: core/templates/account/email/email_confirmation_message.html:106
 msgid "Confirm email"
 msgstr "Підтвердити електронну пошту"
 
 #: core/templates/account/email/email_confirmation_message.html:110
+#: core/templates/account/email/email_confirmation_message.txt:17
 #, python-format
 msgid ""
+"The link is valid for %(expire_hours)s hour (until %(date)s, %(time)s). You "
+"can request a new one from your profile settings."
+msgid_plural ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
-msgstr ""
-"Посилання дійсне протягом %(expire_hours)s год. (до %(time)s %(date)s). Ви "
+msgstr[0] ""
+"Посилання дійсне протягом %(expire_hours)s год (до %(time)s %(date)s). Ви "
+"можете запросити нове посилання в налаштуваннях профілю."
+msgstr[1] ""
+"Посилання дійсне протягом %(expire_hours)s год (до %(time)s %(date)s). Ви "
+"можете запросити нове посилання в налаштуваннях профілю."
+msgstr[2] ""
+"Посилання дійсне протягом %(expire_hours)s год (до %(time)s %(date)s). Ви "
+"можете запросити нове посилання в налаштуваннях профілю."
+msgstr[3] ""
+"Посилання дійсне протягом %(expire_hours)s год (до %(time)s %(date)s). Ви "
 "можете запросити нове посилання в налаштуваннях профілю."
 
-#: core/templates/account/email/email_confirmation_message.html:116
+#: core/templates/account/email/email_confirmation_message.html:119
 msgid "If the button doesn't work, copy and paste this link into your browser:"
 msgstr ""
 "Якщо кнопка не працює, скопіюйте це посилання та вставте його в браузер:"
 
-#: core/templates/account/email/email_confirmation_message.html:125
+#: core/templates/account/email/email_confirmation_message.html:128
 msgid "the wger Team"
 msgstr "Команда wger"
 
+#: core/templates/account/email/email_confirmation_message.txt:4
+#, python-format
+msgid ""
+"You're receiving this email because the user %(user_display)s has given your "
+"email address to register an account on %(site_domain)s."
+msgstr ""
+"Ви отримали цей лист, оскільки користувач %(user_display)s надав вашу адресу "
+"електронної пошти для реєстрації облікового запису на %(site_domain)s."
+
+#: core/templates/account/email/email_confirmation_message.txt:14
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+"Щоб підтвердити правильність адреси, перейдіть за посиланням: %(activate_url)"
+"s"
+
 #: core/templates/account/email_change.html:4
-#: core/templates/user/preferences.html:25
+#: core/templates/user/preferences.html:26
 msgid "Email address"
 msgstr "Електронна адреса"
 
@@ -508,7 +559,7 @@ msgstr "Змінити електронну пошту"
 #: core/templates/account/login.html:4 core/templates/account/login.html:29
 #: core/templates/account/login.html:81 core/templates/account/signup.html:30
 #: core/templates/navigation.html:268 core/templates/navigation.html:275
-#: software/templates/features.html:82 software/templates/features.html:448
+#: software/templates/features.html:84 software/templates/features.html:451
 msgid "Login"
 msgstr "Вхід"
 
@@ -532,6 +583,50 @@ msgstr "Увійти за допомогою ключ-перепустки"
 msgid "or sign in with"
 msgstr "або увійти через"
 
+#: core/templates/account/password_reset.html:4
+msgid "Password Reset"
+msgstr "Відновлення Пароля"
+
+#: core/templates/account/password_reset.html:9
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"Забули пароль? Введіть нижче свою адресу електронної пошти, і ми надішлемо "
+"вам лист із посиланням для його скидання."
+
+#: core/templates/account/password_reset_from_key.html:4
+msgid "Bad Token"
+msgstr "Недійсний токен"
+
+#: core/templates/account/password_reset_from_key.html:4
+#: core/templates/account/password_reset_from_key.html:19
+msgid "Change Password"
+msgstr "Змінити пароль"
+
+#: core/templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Посилання для скидання пароля недійсне. Можливо, його вже використали. Будь "
+"ласка, надішліть <a href=\"%(passwd_reset_url)s\">новий запит на скидання "
+"пароля</a>."
+
+#: core/templates/account/password_reset_from_key_done.html:4
+msgid "Password reset complete"
+msgstr "Відновлення пароля завершено"
+
+#: core/templates/account/password_reset_from_key_done.html:8
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Пароль встановлено. Тепер ви можете увійти."
+
+#: core/templates/account/password_reset_from_key_done.html:10
+msgid "Log in"
+msgstr "Увійти"
+
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
 msgstr "Вже маєте обліковий запис?"
@@ -542,8 +637,8 @@ msgid ""
 "You are browsing the site as the user \"%(current_user)s\", all actions are "
 "performed on their data."
 msgstr ""
-"Ви переглядаєте сайт як користувач \"%(current_user)s\", усі дії виконуються "
-"з його даними."
+"Ви переглядаєте сайт як користувач «%(current_user)s»; всі дії виконуються з "
+"його даними."
 
 #: core/templates/base.html:17 core/templates/base_wide.html:14
 #, python-format
@@ -559,15 +654,31 @@ msgid ""
 "                their data.\n"
 "            "
 msgstr ""
-"Ви\n"
-"                переглядаєте сайт як користувач \"%(current_user)s\", усі "
-"дії виконуються на\n"
-"                їхні дані.\n"
+"Ви переглядаєте сайт\n"
+" як користувач «%(current_user)s»; всі дії виконуються\n"
+"з його даними.\n"
 "            "
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "Ви дійсно хочете вилучити це? Цю дію неможливо скасувати."
+
+#: core/templates/idp/oidc/authorization_form.html:9
+#: core/templates/idp/oidc/authorization_form.html:36
+msgid "Authorize"
+msgstr "Авторизувати"
+
+#: core/templates/idp/oidc/authorization_form.html:24
+#, python-format
+msgid "%(client_name)s wants to access your %(site_name)s account."
+msgstr ""
+"Застосунок %(client_name)s хоче отримати доступ до вашого облікового запису "
+"на %(site_name)s."
+
+#: core/templates/idp/oidc/authorization_form.html:42
+#: exercises/templates/history/overview.html:213
+msgid "Cancel"
+msgstr "Скасувати"
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:345
 msgid "Languages"
@@ -584,8 +695,8 @@ msgstr "Додати зараз."
 
 #: core/templates/language/overview.html:34 core/templates/license/list.html:43
 #: core/templates/repetition_unit/list.html:44
-#: core/templates/user/overview.html:370 core/templates/user/overview.html:410
-#: core/templates/user/overview.html:448
+#: core/templates/user/overview.html:330 core/templates/user/overview.html:370
+#: core/templates/user/overview.html:408
 #: core/templates/weight_unit/list.html:46 core/views/languages.py:81
 #: core/views/license.py:66 core/views/repetition_units.py:76
 #: core/views/weight_units.py:66
@@ -606,7 +717,7 @@ msgstr "Додати"
 
 #: core/templates/language/view.html:61 gym/models/contract.py:203
 #: gym/templates/contract/view.html:41 gym/templates/gym/member_list.html:270
-#: nutrition/templates/ingredient/view.html:295
+#: nutrition/templates/ingredient/view.html:294
 msgid "Options"
 msgstr "Параметри"
 
@@ -616,9 +727,9 @@ msgstr "Список ліцензій"
 
 #: core/templates/license/list.html:30
 #: core/templates/repetition_unit/list.html:32
-#: core/templates/user/overview.html:118 core/templates/user/overview.html:154
-#: core/templates/user/overview.html:211 core/templates/user/overview.html:391
-#: core/templates/user/overview.html:430 core/templates/user/overview.html:474
+#: core/templates/user/overview.html:114 core/templates/user/overview.html:150
+#: core/templates/user/overview.html:207 core/templates/user/overview.html:351
+#: core/templates/user/overview.html:390 core/templates/user/overview.html:434
 #: core/templates/weight_unit/list.html:32
 #: exercises/templates/categories/admin-overview.html:30
 #: exercises/templates/equipment/admin-overview.html:30
@@ -633,19 +744,19 @@ msgstr "Список ліцензій"
 msgid "Nothing found"
 msgstr "Нічого не знайдено"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:151
+#: core/templates/misc/about.html:4 core/templates/template.html:153
 msgid "Imprint"
-msgstr "Відбиток"
+msgstr "Правова інформація"
 
-#: core/templates/navigation.html:28 software/templates/features.html:458
+#: core/templates/navigation.html:28 software/templates/features.html:461
 msgid "Training"
 msgstr "Тренування"
 
-#: core/templates/navigation.html:36 core/templates/user/overview.html:28
+#: core/templates/navigation.html:36 core/templates/user/overview.html:24
 msgid "Routines"
 msgstr "Програми тренувань"
 
-#: core/templates/navigation.html:44 core/templates/user/overview.html:83
+#: core/templates/navigation.html:44 core/templates/user/overview.html:79
 msgid "Calendar"
 msgstr "Календар"
 
@@ -675,7 +786,7 @@ msgid "Public templates"
 msgstr "Загальнодоступні шаблони"
 
 #: core/templates/navigation.html:103 software/templates/features.html:51
-#: software/templates/features.html:480
+#: software/templates/features.html:483
 msgid "Exercises"
 msgstr "Вправи"
 
@@ -693,18 +804,18 @@ msgstr "Обладнання"
 
 #: core/templates/navigation.html:125
 msgid "Muscles"
-msgstr "М'язи"
+msgstr "Групи м'язів"
 
 #: core/templates/navigation.html:131
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
 msgstr "Категорії"
 
-#: core/templates/navigation.html:146 software/templates/features.html:468
+#: core/templates/navigation.html:146 software/templates/features.html:471
 msgid "Nutrition"
 msgstr "Харчування"
 
-#: core/templates/navigation.html:154 core/templates/user/overview.html:162
+#: core/templates/navigation.html:154 core/templates/user/overview.html:158
 msgid "Nutrition plans"
 msgstr "Плани харчування"
 
@@ -712,7 +823,7 @@ msgstr "Плани харчування"
 msgid "BMI calculator"
 msgstr "Калькулятор індексу маси тіла"
 
-#: core/templates/navigation.html:172 nutrition/templates/rate/form.html:18
+#: core/templates/navigation.html:172 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
 msgstr "Калькулятор щоденних калорій"
 
@@ -721,11 +832,11 @@ msgstr "Калькулятор щоденних калорій"
 msgid "Ingredient overview"
 msgstr "Огляд інгредієнтів"
 
-#: core/templates/navigation.html:193 software/templates/features.html:463
+#: core/templates/navigation.html:193 software/templates/features.html:466
 msgid "Body weight"
 msgstr "Вага тіла"
 
-#: core/templates/navigation.html:200 core/templates/user/overview.html:131
+#: core/templates/navigation.html:200 core/templates/user/overview.html:127
 msgid "Weight overview"
 msgstr "Огляд ваги"
 
@@ -735,9 +846,9 @@ msgstr "Про це програмне забезпечення"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr "Підтримайте та долучайтеся"
+msgstr "Підтримати та долучитися"
 
-#: core/templates/navigation.html:226 software/templates/features.html:528
+#: core/templates/navigation.html:226 software/templates/features.html:531
 msgid "REST API"
 msgstr "REST API"
 
@@ -753,8 +864,8 @@ msgstr "Документація для розробників"
 msgid "Get the code"
 msgstr "Отримати код"
 
-#: core/templates/navigation.html:252 core/templates/template.html:203
-#: software/templates/features.html:614
+#: core/templates/navigation.html:252 core/templates/template.html:205
+#: software/templates/features.html:617
 msgid "Translate"
 msgstr "Перекласти"
 
@@ -780,7 +891,7 @@ msgid "Repetition units"
 msgstr "Одиниці повторень"
 
 #: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
-#: nutrition/templates/ingredient/view.html:232
+#: nutrition/templates/ingredient/view.html:231
 msgid "Weight units"
 msgstr "Одиниця ваги"
 
@@ -792,56 +903,6 @@ msgstr "Список користувачів"
 msgid "Gyms"
 msgstr "Тренажерні зали"
 
-#: core/templates/registration/password_reset_complete.html:4
-msgid "Password reset complete"
-msgstr "Відновлення пароля завершено"
-
-#: core/templates/registration/password_reset_complete.html:8
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Пароль встановлено. Тепер ви можете увійти."
-
-#: core/templates/registration/password_reset_complete.html:10
-msgid "Log in"
-msgstr "Увійти"
-
-#: core/templates/registration/password_reset_done.html:4
-msgid "Password reset successful"
-msgstr "Пароль успішно відновлено"
-
-#: core/templates/registration/password_reset_done.html:8
-msgid ""
-"We've e-mailed you instructions for setting your password to the e-mail "
-"address you submitted. You should be receiving it shortly."
-msgstr ""
-"Ми надіслали на вказану вами адресу електронної пошти лист з інструкціями "
-"щодо встановлення пароля. Ви повинні отримати його найближчим часом."
-
-#: core/templates/registration/password_reset_email.html:2
-#, python-format
-msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
-msgstr ""
-"Ви отримали цей лист, тому що ви зробили запит на відновлення пароля для "
-"облікового запису користувача на %(site_name)s."
-
-#: core/templates/registration/password_reset_email.html:4
-msgid "Please go to the following page and choose a new password:"
-msgstr "Будь ласка, перейдіть на цю сторінку, та оберіть новий пароль:"
-
-#: core/templates/registration/password_reset_email.html:9
-msgid "Your username, in case you've forgotten:"
-msgstr "У разі, якщо ви забули своє ім'я користувача:"
-
-#: core/templates/registration/password_reset_email.html:11
-msgid "Thanks for using our site!"
-msgstr "Дякуємо за користування нашим сайтом!"
-
-#: core/templates/registration/password_reset_email.html:13
-#, python-format
-msgid "The %(site_name)s team"
-msgstr "Команда сайту %(site_name)s"
-
 #: core/templates/template.html:87
 #: exercises/templates/history/overview.html:202
 msgid "Close"
@@ -851,25 +912,25 @@ msgstr "Закрити"
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
-"Ви використовуєте обліковий запис гостя, введені дані будуть видалені через "
+"Ви використовуєте обліковий запис гостя, введені дані буде вилучено через "
 "тиждень."
 
 #: core/templates/template.html:108
 msgid "Create some demo entries"
 msgstr "Створіть деякі демонстраційні записи"
 
-#: core/templates/template.html:156 software/templates/features.html:568
+#: core/templates/template.html:158 software/templates/features.html:571
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Умови надання послуг"
 
-#: core/templates/template.html:182 software/templates/features.html:595
+#: core/templates/template.html:184 software/templates/features.html:598
 msgid "Browser language"
 msgstr "Мова браузера"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
-msgstr "Особливості"
+msgstr "Функції"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
@@ -895,12 +956,12 @@ msgid ""
 "flow without logging in interactively each time."
 msgstr ""
 "Токени оновлення дозволяють скриптам і CLI-інструментам взаємодіяти з API "
-"wger за допомогою потоку JWT без необхідності щоразу входити в акаунт "
-"інтерактивно."
+"wger за допомогою потоку JWT без необхідності щоразу проводити інтерактивний "
+"вхід."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
-msgstr "Згенерувати новий refresh token"
+msgstr "Згенерувати новий токен оновлення"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
@@ -917,37 +978,49 @@ msgstr ""
 #: core/templates/user/api_key.html:56
 #, python-format
 msgid ""
+"Refresh tokens expire %(days)s day after they were generated, unless you "
+"revoke them sooner."
+msgid_plural ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
-msgstr ""
+msgstr[0] ""
+"Термін дії токенів оновлення закінчується через %(days)s днів після їх "
+"генерації, якщо ви не відкличете їх раніше."
+msgstr[1] ""
+"Термін дії токенів оновлення закінчується через %(days)s днів після їх "
+"генерації, якщо ви не відкличете їх раніше."
+msgstr[2] ""
+"Термін дії токенів оновлення закінчується через %(days)s днів після їх "
+"генерації, якщо ви не відкличете їх раніше."
+msgstr[3] ""
 "Термін дії токенів оновлення закінчується через %(days)s днів після їх "
 "генерації, якщо ви не відкличете їх раніше."
 
-#: core/templates/user/api_key.html:65
+#: core/templates/user/api_key.html:68
 msgid "Created"
 msgstr "Створено"
 
-#: core/templates/user/api_key.html:66
+#: core/templates/user/api_key.html:69
 msgid "Expires"
 msgstr "Дійсний до"
 
-#: core/templates/user/api_key.html:86
+#: core/templates/user/api_key.html:88
 msgid "Revoke"
 msgstr "Відкликати"
 
-#: core/templates/user/api_key.html:105
+#: core/templates/user/api_key.html:106
 msgid "Revoke all refresh tokens"
 msgstr "Відкликати всі токени оновлення"
 
-#: core/templates/user/api_key.html:110
+#: core/templates/user/api_key.html:111
 msgid "JWT sessions"
 msgstr "Сеанси JWT"
 
-#: core/templates/user/api_key.html:123
+#: core/templates/user/api_key.html:124
 msgid "Revoke all JWT sessions"
-msgstr "Відкликати всі сесії JWT"
+msgstr "Завершити всі сеанси JWT"
 
-#: core/templates/user/api_key.html:129
+#: core/templates/user/api_key.html:130
 #, python-format
 msgid ""
 "\n"
@@ -976,35 +1049,35 @@ msgstr[3] ""
 "                Наразі активно <strong>%(counter)s</strong> JWT-сесій\n"
 "            "
 
-#: core/templates/user/api_key.html:138
+#: core/templates/user/api_key.html:139
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
-"Відкликання сеансів JWT призведе до виходу на всіх пристроях, які отримали "
-"токен оновлення через кінцеву точку входу JWT."
+"Після завершення сеансів JWT буде виконано вихід з усіх пристроїв, які "
+"отримали токен оновлення через кінцеву точку входу JWT."
 
-#: core/templates/user/api_key.html:143 core/templates/user/preferences.html:66
+#: core/templates/user/api_key.html:144 core/templates/user/preferences.html:67
 msgid "API key"
 msgstr "Ключ API"
 
-#: core/templates/user/api_key.html:156
+#: core/templates/user/api_key.html:157
 msgid "Delete current API key and generate new one"
 msgstr "Видалити поточний ключ API і створити новий"
 
-#: core/templates/user/api_key.html:158
+#: core/templates/user/api_key.html:159
 msgid "Generate new API key"
 msgstr "Згенерувати новий ключ API"
 
-#: core/templates/user/api_key.html:174
+#: core/templates/user/api_key.html:175
 msgid "Delete API key"
 msgstr "Видалити ключ API"
 
-#: core/templates/user/api_key.html:184
+#: core/templates/user/api_key.html:185
 msgid "You have no API key yet"
 msgstr "У вас ще немає ключа API"
 
-#: core/templates/user/api_key.html:190
+#: core/templates/user/api_key.html:191
 #, python-format
 msgid ""
 "\n"
@@ -1017,15 +1090,15 @@ msgstr ""
 "<code>Authorization</code> заголовку.\n"
 "        "
 
-#: core/templates/user/api_key.html:196
+#: core/templates/user/api_key.html:197
 msgid "Example with curl:"
 msgstr "Приклад запиту за допомогою curl:"
 
-#: core/templates/user/api_key.html:210 software/templates/features.html:533
+#: core/templates/user/api_key.html:211 software/templates/features.html:536
 msgid "Documentation"
 msgstr "Документація"
 
-#: core/templates/user/api_key.html:213
+#: core/templates/user/api_key.html:214
 msgid "API documentation"
 msgstr "Документація API"
 
@@ -1049,8 +1122,60 @@ msgstr ""
 msgid "Tap to return to app"
 msgstr "Натисніть, щоб повернутися в застосунок"
 
+#: core/templates/user/connected_applications.html:4
+#: core/templates/user/preferences.html:75
+msgid "Connected applications"
+msgstr "Підключені застосунки"
+
+#: core/templates/user/connected_applications.html:9
+msgid ""
+"These applications can use your account through the API. You gave them "
+"permission when you logged in with your wger account."
+msgstr ""
+"Ці застосунки можуть використовувати ваш обліковий запис через API. Ви "
+"надали їм дозвіл, коли увійшли за допомогою свого облікового запису wger."
+
+#: core/templates/user/connected_applications.html:25
+#, python-format
+msgid "Access runs out on %(date)s if the application is not used again"
+msgstr "Якщо ви знову не скористаєтеся застосунком, доступ припиниться %(date)s"
+
+#: core/templates/user/connected_applications.html:49
+msgid "Disconnect"
+msgstr "Від'єднати"
+
+#: core/templates/user/connected_applications.html:57
+msgid ""
+"Disconnecting takes the access away immediately. The application can ask for "
+"it again, and you will be shown the same page you saw the first time."
+msgstr ""
+"Після від'єднання доступ буде негайно скасовано. Застосунок зможе повторно "
+"запросити доступ, і ви побачите ту саму сторінку, що й під час першого "
+"запиту."
+
+#: core/templates/user/connected_applications.html:66
+msgid "No application has access to your account."
+msgstr "Жоден застосунок не має доступу до вашого облікового запису."
+
+#: core/templates/user/connected_applications.html:78
+msgid "Your account"
+msgstr "Ваш обліковий запис"
+
+#: core/templates/user/connected_applications.html:81
+msgid ""
+"This list is about other applications using your wger account. To manage the "
+"accounts you use to log in to wger, see connected accounts in your settings."
+msgstr ""
+"У цьому списку наведено інші застосунки, які використовують ваш обліковий "
+"запис wger. Щоб керувати обліковими записами, за допомогою яких ви входите "
+"до wger, перейдіть до розділу «Підключені облікові записи» в налаштуваннях."
+
+#: core/templates/user/connected_applications.html:89
+msgid "Settings"
+msgstr "Налаштування"
+
 #: core/templates/user/delete_account.html:3
-#: core/templates/user/preferences.html:82
+#: core/templates/user/preferences.html:92
 msgid "Delete account"
 msgstr "Видалити обліковий запис"
 
@@ -1066,99 +1191,111 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Ця дія видалить обліковий запис користувача \"%(username)s\" .\n"
-"Це також безповоротно видалить всі пов'язані з нею дані (тренування, журнали "
-"тощо)\n"
-"і не може бути скасована. "
+"Ця дія видалить обліковий запис користувача «%(username)s»\n"
+"і всі пов’язані з ним дані (тренування, записи тощо).\n"
+"Відновити їх буде неможливо. "
 
-#: core/templates/user/overview.html:28 core/templates/user/overview.html:78
-#: core/templates/user/overview.html:126 core/templates/user/overview.html:162
-#: core/templates/user/overview.html:374 core/templates/user/overview.html:416
-#: core/templates/user/overview.html:452
+#: core/templates/user/overview.html:24 core/templates/user/overview.html:74
+#: core/templates/user/overview.html:122 core/templates/user/overview.html:158
+#: core/templates/user/overview.html:334 core/templates/user/overview.html:376
+#: core/templates/user/overview.html:412
 #, python-format
 msgid "last %(number)s"
 msgstr "останні %(number)s"
 
-#: core/templates/user/overview.html:33 core/templates/user/overview.html:167
-#: core/templates/user/overview.html:369 core/templates/user/overview.html:408
-#: core/templates/user/overview.html:447 gym/templates/gym/member_list.html:226
+#: core/templates/user/overview.html:29 core/templates/user/overview.html:163
+#: core/templates/user/overview.html:329 core/templates/user/overview.html:368
+#: core/templates/user/overview.html:407 gym/templates/gym/member_list.html:226
 #: gym/templates/gym/member_list.html:262
 #: gym/templates/gym/member_list.html:302
 msgid "Overview"
 msgstr "Огляд"
 
-#: core/templates/user/overview.html:40 core/templates/user/overview.html:90
-#: core/templates/user/overview.html:138 core/templates/user/overview.html:174
-#: manager/helpers.py:88 software/templates/about_us.html:170
+#: core/templates/user/overview.html:36 core/templates/user/overview.html:86
+#: core/templates/user/overview.html:134 core/templates/user/overview.html:170
+#: manager/helpers.py:90 software/templates/about_us.html:170
 #: weight/templates/import_csv_preview.html:13
-#: weight/templates/import_csv_preview.html:42 weight/views.py:54
+#: weight/templates/import_csv_preview.html:42 weight/views.py:55
 msgid "Date"
 msgstr "Дата"
 
-#: core/templates/user/overview.html:41 core/templates/user/overview.html:175
+#: core/templates/user/overview.html:37 core/templates/user/overview.html:171
 #: gym/models/contract.py:58 gym/models/contract.py:109
 msgid "Description"
 msgstr "Опис"
 
-#: core/templates/user/overview.html:42
+#: core/templates/user/overview.html:38
 msgid "Number of logs (days)"
-msgstr "Кількість записів (днів)"
+msgstr "Кількість записів за дні"
 
-#: core/templates/user/overview.html:43 core/views/user.py:681
-#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:161
+#: core/templates/user/overview.html:39 core/views/user.py:710
+#: gym/templates/gym/email_inactive_members.html:8 gym/views/gym.py:168
 msgid "Last activity"
 msgstr "Остання активність"
 
-#: core/templates/user/overview.html:68
+#: core/templates/user/overview.html:64
 msgid "No workouts found."
 msgstr "Не знайдено жодних тренувань."
 
-#: core/templates/user/overview.html:78
+#: core/templates/user/overview.html:74
 msgid "Log"
-msgstr "Журнал"
+msgstr "Записати"
 
-#: core/templates/user/overview.html:91
+#: core/templates/user/overview.html:87
 msgid "General impression"
 msgstr "Загальне враження"
 
-#: core/templates/user/overview.html:92 core/templates/user/overview.html:416
+#: core/templates/user/overview.html:88 core/templates/user/overview.html:376
 msgid "Notes"
-msgstr "Примітки"
+msgstr "Нотатки"
 
-#: core/templates/user/overview.html:126 core/templates/user/overview.html:139
-#: manager/helpers.py:89 weight/templates/import_csv_preview.html:14
-#: weight/templates/import_csv_preview.html:43 weight/views.py:54
+#: core/templates/user/overview.html:122 core/templates/user/overview.html:135
+#: manager/helpers.py:91 weight/templates/import_csv_preview.html:14
+#: weight/templates/import_csv_preview.html:43 weight/views.py:55
 msgid "Weight"
 msgstr "Вага"
 
-#: core/templates/user/overview.html:176
-#: nutrition/templates/ingredient/view.html:84 nutrition/views/plan.py:245
+#: core/templates/user/overview.html:172
+#: nutrition/templates/ingredient/view.html:83 nutrition/views/plan.py:246
 msgid "Energy"
 msgstr "Енергія"
 
-#: core/templates/user/overview.html:177
-#: nutrition/templates/ingredient/view.html:91 nutrition/views/plan.py:251
+#: core/templates/user/overview.html:173
+#: nutrition/templates/ingredient/view.html:90 nutrition/views/plan.py:252
 msgid "Protein"
 msgstr "Білок"
 
-#: core/templates/user/overview.html:178
-#: nutrition/templates/ingredient/view.html:97 nutrition/views/plan.py:259
+#: core/templates/user/overview.html:174
+#: nutrition/templates/ingredient/view.html:96 nutrition/views/plan.py:260
 msgid "Carbohydrates"
 msgstr "Вуглеводи"
 
-#: core/templates/user/overview.html:179
-#: nutrition/templates/ingredient/view.html:113 nutrition/views/plan.py:273
+#: core/templates/user/overview.html:175
+#: nutrition/templates/ingredient/view.html:112 nutrition/views/plan.py:274
 msgid "Fat"
 msgstr "Жири"
 
-#: core/templates/user/overview.html:196
-#: nutrition/templates/ingredient/view.html:86
+#: core/templates/user/overview.html:192
+#: nutrition/templates/ingredient/view.html:85
 msgid "kcal"
 msgstr "ккал"
 
-#: core/templates/user/overview.html:227 core/templates/user/overview.html:366
-#: core/templates/user/overview.html:405 core/templates/user/overview.html:444
-#: core/templates/user/overview.html:489 gym/templates/gym/list.html:45
+#: core/templates/user/overview.html:195 core/templates/user/overview.html:198
+#: core/templates/user/overview.html:201
+#: nutrition/templates/ingredient/view.html:92
+#: nutrition/templates/ingredient/view.html:98
+#: nutrition/templates/ingredient/view.html:105
+#: nutrition/templates/ingredient/view.html:114
+#: nutrition/templates/ingredient/view.html:121
+#: nutrition/templates/ingredient/view.html:143
+#: nutrition/templates/ingredient/view.html:153
+msgctxt "weight unit, i.e. grams"
+msgid "g"
+msgstr "г"
+
+#: core/templates/user/overview.html:223 core/templates/user/overview.html:326
+#: core/templates/user/overview.html:365 core/templates/user/overview.html:404
+#: core/templates/user/overview.html:449 gym/templates/gym/list.html:45
 #: gym/templates/gym/member_list.html:91 gym/templates/gym/member_list.html:149
 #: gym/templates/gym/member_list.html:187
 #: gym/templates/gym/member_list.html:223
@@ -1167,110 +1304,90 @@ msgstr "ккал"
 msgid "Actions"
 msgstr "Дії"
 
-#: core/templates/user/overview.html:236
+#: core/templates/user/overview.html:232
 msgid "Deactivate user"
 msgstr "Деактивувати користувача"
 
-#: core/templates/user/overview.html:240
+#: core/templates/user/overview.html:236
 msgid "Activate user"
 msgstr "Активувати користувача"
 
-#: core/templates/user/overview.html:249
+#: core/templates/user/overview.html:240
 msgid "Reset user password"
 msgstr "Скинути пароль користувача"
 
-#: core/templates/user/overview.html:253 gym/templates/gym/member_list.html:30
+#: core/templates/user/overview.html:245 gym/templates/gym/member_list.html:30
 msgid "Roles"
 msgstr "Ролі"
 
-#: core/templates/user/overview.html:269
-msgid "Password reset confirmation"
-msgstr "Підтвердження відновлення пароля"
-
-#: core/templates/user/overview.html:273
-msgid "Do you really want to change this user&#39;s password?"
-msgstr "Ви дійсно бажаєте змінити пароль цього користувача?"
-
-#: core/templates/user/overview.html:276
-#: nutrition/templates/ingredient/view.html:180
-#: nutrition/templates/ingredient/view.html:195
-msgid "No"
-msgstr "Ні"
-
-#: core/templates/user/overview.html:277
-#: nutrition/templates/ingredient/view.html:178
-#: nutrition/templates/ingredient/view.html:193
-msgid "Yes"
-msgstr "Так"
-
-#: core/templates/user/overview.html:298 gym/templates/gym/member_list.html:105
+#: core/templates/user/overview.html:258 gym/templates/gym/member_list.html:105
 msgid "Details"
 msgstr "Деталі"
 
-#: core/templates/user/overview.html:302 gym/views/export.py:58
-#: manager/helpers.py:89 nutrition/views/plan.py:151
-#: nutrition/views/plan.py:157
+#: core/templates/user/overview.html:262 gym/views/export.py:58
+#: manager/helpers.py:91 nutrition/views/plan.py:152
+#: nutrition/views/plan.py:158
 msgid "Nr."
 msgstr "№"
 
-#: core/templates/user/overview.html:324 gym/models/contract.py:287
+#: core/templates/user/overview.html:284 gym/models/contract.py:287
 #: gym/models/gym.py:50 gym/templates/contract/view.html:75
 #: gym/templates/gym/member_list.html:112 gym/views/export.py:69
 msgid "Phone"
 msgstr "Телефон"
 
-#: core/templates/user/overview.html:328 gym/templates/contract/view.html:87
+#: core/templates/user/overview.html:288 gym/templates/contract/view.html:87
 #: gym/templates/gym/member_list.html:130
 msgid "Address"
 msgstr "Адреса"
 
-#: core/templates/user/overview.html:339
+#: core/templates/user/overview.html:299
 msgid "Registered"
 msgstr "Зареєстрований"
 
-#: core/templates/user/overview.html:343
+#: core/templates/user/overview.html:303
 msgid "Last login"
 msgstr "Останній вхід"
 
-#: core/templates/user/overview.html:348
+#: core/templates/user/overview.html:308
 msgid "Status"
 msgstr "Статус"
 
-#: core/templates/user/overview.html:351
+#: core/templates/user/overview.html:311
 msgid "Active"
 msgstr "Активний"
 
-#: core/templates/user/overview.html:353
+#: core/templates/user/overview.html:313
 msgid "Inactive"
 msgstr "Неактивний"
 
-#: core/templates/user/overview.html:374 gym/templates/contract/list.html:4
+#: core/templates/user/overview.html:334 gym/templates/contract/list.html:4
 #: gym/templates/gym/member_list.html:218
 msgid "Contracts"
 msgstr "Контракти"
 
-#: core/templates/user/overview.html:452 gym/templates/document/list.html:4
+#: core/templates/user/overview.html:412 gym/templates/document/list.html:4
 msgid "Documents"
 msgstr "Документи"
 
-#: core/templates/user/overview.html:459 gym/templates/document/list.html:33
+#: core/templates/user/overview.html:419 gym/templates/document/list.html:33
 msgid "Download"
 msgstr "Завантажити"
 
-#: core/templates/user/overview.html:500 gym/views/admin_config.py:44
-#: gym/views/admin_config.py:58 gym/views/user_config.py:46
+#: core/templates/user/overview.html:460 gym/views/admin_config.py:47
+#: gym/views/admin_config.py:61 gym/views/user_config.py:46
 msgid "Configuration"
 msgstr "Конфігурація"
 
-#: core/templates/user/overview.html:503 gym/models/user_config.py:92
+#: core/templates/user/overview.html:463 gym/models/user_config.py:92
 msgid "Include in inactive overview"
 msgstr "Включити в огляд неактивних"
 
-#: core/templates/user/overview.html:534 core/templates/user/overview.html:541
+#: core/templates/user/overview.html:494 core/templates/user/overview.html:501
 msgid "Log in as this user"
 msgstr "Увійти як цей користувач"
 
-#: core/templates/user/overview.html:539
+#: core/templates/user/overview.html:499
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr "Вхід адміністратора доступний лише для користувачів у %(gym_name)s"
@@ -1283,71 +1400,54 @@ msgstr "Налаштування"
 msgid "Account & security"
 msgstr "Обліковий запис і безпека"
 
-#: core/templates/user/preferences.html:27
+#: core/templates/user/preferences.html:28
 msgid "Verified email"
 msgstr "Підтверджена електронна пошта"
 
-#: core/templates/user/preferences.html:29
+#: core/templates/user/preferences.html:30
 msgid "Unverified email"
 msgstr "Непідтверджена електронна пошта"
 
-#: core/templates/user/preferences.html:36 core/views/user.py:692
+#: core/templates/user/preferences.html:37 core/views/user.py:721
 msgid "Change password"
 msgstr "Змінити пароль"
 
-#: core/templates/user/preferences.html:42
+#: core/templates/user/preferences.html:43
 msgid "Set password"
 msgstr "Встановити пароль"
 
-#: core/templates/user/preferences.html:48
+#: core/templates/user/preferences.html:49
 msgid "Two-factor authentication"
 msgstr "Двофакторна автентифікація"
 
-#: core/templates/user/preferences.html:50
+#: core/templates/user/preferences.html:51
 msgid "On"
 msgstr "Увімкнена"
 
-#: core/templates/user/preferences.html:52
+#: core/templates/user/preferences.html:53
 msgid "Off"
 msgstr "Вимкнена"
 
-#: core/templates/user/preferences.html:60
+#: core/templates/user/preferences.html:61
 msgid "Connected accounts"
 msgstr "Підключені облікові записи"
 
-#: core/templates/user/preferences.html:74
+#: core/templates/user/preferences.html:84
 msgid "Danger zone"
 msgstr "Небезпечна зона"
 
-#: core/templates/user/preferences.html:79
+#: core/templates/user/preferences.html:89
 msgid "Your account and all training data will be permanently deleted."
 msgstr ""
 "Ваш обліковий запис та всі дані про тренування будуть видалені назавжди."
 
-#: core/templatetags/wger_extras.py:108 i18n.tpl:39
+#: core/templatetags/wger_extras.py:105 i18n.tpl:39
 msgid "kg"
 msgstr "кг"
 
-#: core/templatetags/wger_extras.py:110
-#: nutrition/templates/ingredient/view.html:93
-#: nutrition/templates/ingredient/view.html:99
-#: nutrition/templates/ingredient/view.html:106
-#: nutrition/templates/ingredient/view.html:115
-#: nutrition/templates/ingredient/view.html:122
-#: nutrition/templates/ingredient/view.html:144
-#: nutrition/templates/ingredient/view.html:154
-msgctxt "weight unit, i.e. grams"
-msgid "g"
-msgstr "г"
-
-#: core/templatetags/wger_extras.py:113 i18n.tpl:40
+#: core/templatetags/wger_extras.py:106 i18n.tpl:40
 msgid "lb"
 msgstr "фунт"
-
-#: core/templatetags/wger_extras.py:115
-msgctxt "weight unit, i.e. ounces"
-msgid "oz"
-msgstr "унцій"
 
 #: core/views/languages.py:92 exercises/views/categories.py:122
 #: exercises/views/equipment.py:103 exercises/views/muscles.py:99
@@ -1359,20 +1459,20 @@ msgstr "Успішно вилучено"
 #: core/views/repetition_units.py:114 core/views/weight_units.py:115
 #: exercises/views/categories.py:128 exercises/views/muscles.py:106
 #: gallery/views/images.py:124 gym/views/admin_notes.py:196
-#: gym/views/document.py:207 gym/views/gym.py:489
+#: gym/views/document.py:207 gym/views/gym.py:527
 #: nutrition/views/ingredient.py:219
 #, python-brace-format
 msgid "Delete {0}?"
-msgstr "Вилучити {0}?"
+msgstr "Видалити {0}?"
 
 #: core/views/languages.py:118 core/views/license.py:85
-#: core/views/repetition_units.py:96 core/views/user.py:477
+#: core/views/repetition_units.py:96 core/views/user.py:493
 #: core/views/weight_units.py:86 exercises/views/categories.py:98
 #: exercises/views/equipment.py:81 exercises/views/muscles.py:87
 #: gym/views/admin_notes.py:161 gym/views/config.py:68
 #: gym/views/contract.py:187 gym/views/contract_option.py:123
 #: gym/views/contract_type.py:123 gym/views/document.py:172
-#: gym/views/gym.py:471 nutrition/views/ingredient.py:238
+#: gym/views/gym.py:509 nutrition/views/ingredient.py:238
 #, python-brace-format
 msgid "Edit {0}"
 msgstr "Змінити {0}"
@@ -1383,65 +1483,78 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
-"Ми створили зразок тренування, програми тренувань, журнали ваг, журнали маси "
-"тіла та плани харчування, щоб ви могли краще побачити, що може зробити цей "
-"сайт. Ви можете редагувати або видаляти їх!"
+"Ми створили приклади тренувань, розкладів тренувань, записів ваги та маси "
+"тіла, а також планів харчування, щоб ви могли ознайомитися з можливостями "
+"сайту. Ви можете редагувати або видаляти їх!"
+
+#: core/views/oidc.py:130
+#, python-brace-format
+msgid "{name} no longer has access"
+msgstr "{name} більше не має доступу"
 
 #: core/views/user.py:180
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
 msgstr "Обліковий запис \"{0}\" успішно видалено"
 
-#: core/views/user.py:311
+#: core/views/user.py:313
 msgid "Settings successfully updated"
 msgstr "Налаштування успішно оновлено"
 
-#: core/views/user.py:314
+#: core/views/user.py:316
 msgid "Please correct the errors below."
 msgstr "Будь ласка, виправте помилки нижче."
 
-#: core/views/user.py:378
+#: core/views/user.py:384
+msgid "Deactivate this user?"
+msgstr "Деактивувати цього користувача?"
+
+#: core/views/user.py:385
 msgid "The user was successfully deactivated"
 msgstr "Користувач був успішно деактивований"
 
-#: core/views/user.py:430
+#: core/views/user.py:421
+msgid "Activate this user?"
+msgstr "Активувати цього користувача?"
+
+#: core/views/user.py:422
 msgid "The user was successfully activated"
 msgstr "Користувач успішно активований"
 
-#: core/views/user.py:445
+#: core/views/user.py:457
 msgid "Edit user"
 msgstr "Редагувати користувача"
 
-#: core/views/user.py:503
+#: core/views/user.py:523
 msgid "API key was deleted"
 msgstr "Ключ API видалено"
 
-#: core/views/user.py:508
+#: core/views/user.py:528
 msgid "All API sessions were revoked"
 msgstr "Усі сесії API відкликано"
 
-#: core/views/user.py:524
+#: core/views/user.py:544
 msgid "Refresh token was revoked"
 msgstr "Токен оновлення відкликано"
 
-#: core/views/user.py:532
+#: core/views/user.py:552
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
 msgstr "Відкликано токенів оновлення: {count}"
 
-#: core/views/user.py:678 gym/templates/gym/member_list.html:26
-#: gym/views/gym.py:161
+#: core/views/user.py:707 gym/templates/gym/member_list.html:26
+#: gym/views/gym.py:168
 msgid "ID"
 msgstr "ID"
 
-#: core/views/user.py:679 gym/forms.py:95 gym/templates/contract/view.html:55
+#: core/views/user.py:708 gym/forms.py:95 gym/templates/contract/view.html:55
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:60
-#: gym/views/gym.py:161 gym/views/gym.py:220
+#: gym/views/gym.py:168 gym/views/gym.py:227
 msgid "Username"
 msgstr "Ім'я користувача"
 
-#: core/views/user.py:682 gym/templates/gym/new_user.html:34
-#: gym/views/export.py:59 gym/views/gym.py:220
+#: core/views/user.py:711 gym/templates/gym/new_user.html:34
+#: gym/views/export.py:59 gym/views/gym.py:227
 msgid "Gym"
 msgstr "Тренажерний зал"
 
@@ -1457,16 +1570,12 @@ msgstr "Альтернативна назва"
 msgid "A more basic name for the muscle"
 msgstr "Простіша назва м'яза"
 
-#: exercises/models/video.py:52
+#: exercises/models/video.py:69
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Максимальний розмір файлу - %(size)sМБ."
+msgstr "Максимальний розмір файлу — %(size)sМБ."
 
-#: exercises/models/video.py:59 exercises/models/video.py:67
-msgid "File type is not supported"
-msgstr "Тип файлу не підтримується"
-
-#: exercises/models/video.py:72
+#: exercises/models/video.py:75 exercises/models/video.py:84
 msgid "File is not a valid video"
 msgstr "Файл не є коректним відеофайлом"
 
@@ -1480,15 +1589,15 @@ msgstr "Історія адміністрування вправ"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
-msgstr "Зміни за останні 24 год"
+msgstr "Зміни за останні 24 години"
 
 #: exercises/templates/history/overview.html:24
 msgid "Edits last 7d"
-msgstr "Зміни за останні 7 дн"
+msgstr "Зміни за останні 7 днів"
 
 #: exercises/templates/history/overview.html:32
 msgid "Edits last 30d"
-msgstr "Зміни за останні 30 дн"
+msgstr "Зміни за останні 30 днів"
 
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
@@ -1556,10 +1665,6 @@ msgstr "Скасувати цю зміну?"
 msgid "The object will be restored to its previous state."
 msgstr "Об'єкт буде відновлено до попереднього стану."
 
-#: exercises/templates/history/overview.html:213
-msgid "Cancel"
-msgstr "Скасувати"
-
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
 msgstr "Повернути"
@@ -1622,7 +1727,7 @@ msgid "Delete equipment?"
 msgstr "Видалити обладнання?"
 
 #: exercises/views/history.py:111 gym/forms.py:58
-#: gym/templates/gym/email_inactive_members.html:4
+#: gym/templates/gym/email_inactive_members.html:8
 #: gym/templates/gym/new_user.html:22
 #: gym/templates/gym/reset_user_password.html:20
 msgid "User"
@@ -1722,7 +1827,7 @@ msgid "Contract type"
 msgstr "Тип контракту"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
-#: nutrition/forms.py:67
+#: nutrition/forms.py:73
 msgid "Amount"
 msgstr "Кількість"
 
@@ -1783,8 +1888,8 @@ msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
 msgstr ""
-"Кількість тижнів відсутності користувача, після закінчення яких його "
-"присутність буде вважатися неактивною"
+"Кількість тижнів відсутності користувача, після яких користувач "
+"вважатиметься неактивним"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:166
 msgid "Show name in header"
@@ -1792,7 +1897,7 @@ msgstr "Показувати назву в заголовку"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr "Показати назву тренажерного залу в заголовку сайта"
+msgstr "Показати назву тренажерного залу в заголовку сайту"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:200
 msgid "Overview of inactive members"
@@ -1804,7 +1909,7 @@ msgstr "Отримувати електронні листи з оглядом �
 
 #: gym/models/user_config.py:93
 msgid "Include this user in the email list with inactive members"
-msgstr "Включити цього користувача до списку листів з неактивними членами"
+msgstr "Включити цього користувача до списку неактивних учасників"
 
 #: gym/models/user_document.py:72
 msgid "Document"
@@ -1816,7 +1921,7 @@ msgstr "Якщо нічого не вказано, буде використан
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
-msgstr "Примітки користувача"
+msgstr "Нотатки користувача"
 
 #: gym/templates/contract/list.html:34
 msgid "Show"
@@ -1836,9 +1941,19 @@ msgstr "Типи контракту"
 
 #: gym/templates/gym/email_inactive_members.html:2
 #, python-format
-msgid ""
+msgid "The following users have not visited the gym in the last %(weeks)s week"
+msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
-msgstr ""
+msgstr[0] ""
+"Наступні користувачі не відвідували тренажерний зал протягом останніх "
+"%(weeks)s тижнів"
+msgstr[1] ""
+"Наступні користувачі не відвідували тренажерний зал протягом останніх "
+"%(weeks)s тижнів"
+msgstr[2] ""
+"Наступні користувачі не відвідували тренажерний зал протягом останніх "
+"%(weeks)s тижнів"
+msgstr[3] ""
 "Наступні користувачі не відвідували тренажерний зал протягом останніх "
 "%(weeks)s тижнів"
 
@@ -1850,7 +1965,7 @@ msgstr "Список тренажерних залів"
 msgid "Global gym configuration"
 msgstr "Глобальна конфігурація тренажерного залу"
 
-#: gym/templates/gym/list.html:69 gym/views/gym.py:174
+#: gym/templates/gym/list.html:69 gym/views/gym.py:181
 msgid "Add new gym"
 msgstr "Додати новий тренажерний зал"
 
@@ -1866,11 +1981,12 @@ msgstr "Менеджер тренажерного залу"
 msgid "This gym has no administrators or trainers"
 msgstr "У цьому тренажерному залі немає адміністраторів чи тренерів"
 
-#: gym/templates/gym/member_list.html:98
+#: gym/templates/gym/member_list.html:99
 msgid "Export"
 msgstr "Експортувати"
 
 #: gym/templates/gym/member_list.html:137
+#: gym/templates/gym/partial_user_list.html:9
 msgid "Members"
 msgstr "Учасники"
 
@@ -1902,7 +2018,7 @@ msgstr "Електронні листи"
 msgid "Add member"
 msgstr "Додати учасника"
 
-#: gym/templates/gym/new_user.html:48 nutrition/templates/rate/form.html:121
+#: gym/templates/gym/new_user.html:48 nutrition/templates/rate/form.html:120
 msgid "Info"
 msgstr "Інформація"
 
@@ -1913,10 +2029,10 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Будь ласка, вкажіть пароль користувача або збережіть експортований\n"
-"файл, який містить всі дані користувача і тримайте його в надійному місці. "
+"Будь ласка, запишіть пароль користувача або збережіть експортований\n"
+"файл, який містить всі дані користувача і зберігайте його у надійному місці. "
 "Пароль\n"
-"не може бути відновлений пізніше."
+"неможливо відновити пізніше."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -1954,17 +2070,25 @@ msgstr "Додати тип контракту"
 msgid "Gender"
 msgstr "Стать"
 
-#: gym/views/gym.py:347
+#: gym/views/gym.py:281
+msgid "Yes, reset the password"
+msgstr "Так, скинути пароль"
+
+#: gym/views/gym.py:288
+msgid "Reset the password for this user?"
+msgstr "Скинути пароль цього користувача?"
+
+#: gym/views/gym.py:385
 msgid "Add user to gym"
 msgstr "Додати користувача до залу"
 
-#: gym/views/gym.py:451
+#: gym/views/gym.py:489
 msgid "Edit gym"
 msgstr "Редагувати тренажерний зал"
 
 #: i18n.tpl:2
 msgid "Abs"
-msgstr "Прес"
+msgstr "М'язи преса"
 
 #: i18n.tpl:3
 msgid "Arms"
@@ -1980,7 +2104,7 @@ msgstr "Штанга"
 
 #: i18n.tpl:6
 msgid "Bench"
-msgstr "Лавка"
+msgstr "Лава"
 
 #: i18n.tpl:7
 msgid "Biceps"
@@ -2012,15 +2136,15 @@ msgstr "Сідниці"
 
 #: i18n.tpl:14
 msgid "Gym mat"
-msgstr "Мат"
+msgstr "Килимок"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr "Підколінні сухожилля"
+msgstr "Задня поверхня стегна"
 
 #: i18n.tpl:16
 msgid "Incline bench"
-msgstr "Лавка похила"
+msgstr "Похила лава"
 
 #: i18n.tpl:17
 msgid "Kettlebell"
@@ -2068,11 +2192,11 @@ msgstr "Вагові диски"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr "Перекладина"
+msgstr "Турнік"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr "Квадрицепс"
+msgstr "Квадрицепси"
 
 #: i18n.tpl:31
 msgid "Resistance band"
@@ -2108,7 +2232,7 @@ msgstr "Метри"
 
 #: i18n.tpl:41
 msgid "none (bodyweight exercise)"
-msgstr "Вправи з власною вагою тіла"
+msgstr "Власна вага (без обладнання)"
 
 #: i18n.tpl:42
 msgid "Beginner"
@@ -2148,23 +2272,23 @@ msgstr "Воїн вихідного дня"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr "Підйомник слонів"
+msgstr "Підкорювач ваги слона"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr "Підйомник автобуса"
+msgstr "Підкорювач ваги автобуса"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr "Здатний підняти літак"
+msgstr "Підкорювач ваги літака"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr "Підйомник синього кита"
+msgstr "Підкорювач ваги синього кита"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr "Підйомник космічної станції"
+msgstr "Підкорювач ваги космічної станції"
 
 #: i18n.tpl:56
 msgid "Millionaire"
@@ -2184,7 +2308,7 @@ msgstr "Нічна сова"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr "Новий рік, нова я"
+msgstr "Новий рік, новий суттєвий крок"
 
 #: i18n.tpl:61
 msgid "Phoenix"
@@ -2196,11 +2320,11 @@ msgstr "Особистий рекорд"
 
 #: i18n.tpl:63
 msgid "Complete your first workout"
-msgstr "Завершіть своє перше тренування"
+msgstr "Виконай перше тренування"
 
 #: i18n.tpl:64
 msgid "Complete 10 workouts"
-msgstr "Виконайте 10 тренувань"
+msgstr "Виконай 10 тренувань"
 
 #: i18n.tpl:65
 msgid "Complete 50 workouts"
@@ -2208,7 +2332,7 @@ msgstr "Виконайте 50 тренувань"
 
 #: i18n.tpl:66
 msgid "Complete 100 workouts"
-msgstr "Виконайте 100 тренувань"
+msgstr "Виконай 100 тренувань"
 
 #: i18n.tpl:67
 msgid "Complete 200 workouts"
@@ -2220,7 +2344,7 @@ msgstr "Виконайте 500 тренувань"
 
 #: i18n.tpl:69
 msgid "Complete 1000 workouts"
-msgstr "Виконайте 1000 тренувань"
+msgstr "Виконай 1000 тренувань"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
@@ -2232,7 +2356,7 @@ msgstr "Тренуйтеся в суботу та неділю протягом 
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr "Підняти загальну вагу 5.000 кг"
+msgstr "Підняти сумарно 5 000 кг"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
@@ -2268,7 +2392,7 @@ msgstr "Завершіть тренування після 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
-msgstr "Тренуйтеся 1 січня"
+msgstr "Потренуйся 1 січня"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
@@ -2330,27 +2454,27 @@ msgstr "Надсилати електронні листи"
 msgid "Correction"
 msgstr "Виправлення"
 
-#: manager/dataclasses.py:106
+#: manager/dataclasses.py:114
 msgid "Sets"
 msgstr "Підходи"
 
-#: manager/dataclasses.py:124 manager/helpers.py:89
+#: manager/dataclasses.py:132 manager/helpers.py:91
 msgid "Reps"
-msgstr "Повтори"
+msgstr "Повторення"
 
-#: manager/dataclasses.py:158
+#: manager/dataclasses.py:179
 msgid "RiR"
 msgstr "RiR"
 
-#: manager/dataclasses.py:165
+#: manager/dataclasses.py:186
 msgid "rest"
 msgstr "відпочинок"
 
-#: manager/helpers.py:80
+#: manager/helpers.py:78
 msgid "Rest day"
 msgstr "День відпочинку"
 
-#: manager/helpers.py:89
+#: manager/helpers.py:91
 msgid "Exercise"
 msgstr "Вправа"
 
@@ -2358,25 +2482,30 @@ msgstr "Вправа"
 msgid "Routine will expire soon"
 msgstr "Термін дії плану тренувань скоро закінчиться"
 
-#: manager/models/session.py:41
+#: manager/models/session.py:42
 msgid "Bad"
 msgstr "Погано"
 
-#: manager/models/session.py:42
+#: manager/models/session.py:43
 msgid "Neutral"
 msgstr "Нейтрально"
 
-#: manager/models/session.py:43
+#: manager/models/session.py:44
 msgid "Good"
 msgstr "Добре"
 
-#: manager/models/session.py:149
-msgid "If you enter a time, you must enter both start and end time."
-msgstr "Якщо вводити час, необхідно ввести час початку і закінчення."
-
-#: manager/models/session.py:152
+#: manager/models/session.py:189
 msgid "The start time cannot be after the end time."
 msgstr "Час початку не може бути після часу закінчення."
+
+#: manager/models/session.py:194
+#, python-format
+msgid "A session cannot be longer than %(hours)s hour."
+msgid_plural "A session cannot be longer than %(hours)s hours."
+msgstr[0] "Тренування не може тривати довше ніж %(hours)s годину."
+msgstr[1] "Тренування не може тривати довше ніж %(hours)s години."
+msgstr[2] "Тренування не може тривати довше ніж %(hours)s годин."
+msgstr[3] "Тренування не може тривати довше ніж %(hours)s години."
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
@@ -2388,8 +2517,7 @@ msgstr ""
 #: manager/templates/routines/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(routine)s' is about to expire in %(days)s days."
-msgstr ""
-"Ваше поточне тренування \"%(routine)s\" закінчується через %(days)s днів."
+msgstr "Термін дії програми «%(routine)s» закінчується через %(days)s дн."
 
 #: manager/templates/routines/email_reminder.tpl:9
 msgid ""
@@ -2426,7 +2554,7 @@ msgid ""
 "Please click the link to access the application and enter a new one."
 msgstr ""
 "Ваш останній запис ваги від %(date)s (%(days)s днів тому).\n"
-"Натисніть посилання для доступу до застосунку та введіть нову."
+"Натисніть посилання для доступу до застосунку та введіть нове значення."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
@@ -2435,36 +2563,37 @@ msgstr ""
 "Ви будете регулярно отримувати такі нагадування, поки не введете поточну "
 "вагу."
 
-#: manager/views/pdf.py:75 manager/views/pdf.py:144
+#: manager/views/pdf.py:76 manager/views/pdf.py:146
 msgid "Workout"
 msgstr "Тренування"
 
-#: manager/views/pdf.py:77 manager/views/pdf.py:146
+#: manager/views/pdf.py:78 manager/views/pdf.py:148
 #, python-format
 msgid "Workout for %s"
 msgstr "Тренування для %s"
 
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
+#: nutrition/tests/test_off.py:311
 msgid "Serving"
 msgstr "Порція"
 
-#: nutrition/forms.py:71 nutrition/forms.py:212
+#: nutrition/forms.py:77 nutrition/forms.py:226
 msgid "Unit"
 msgstr "Одиниця"
 
-#: nutrition/forms.py:183 nutrition/templates/rate/form.html:77
+#: nutrition/forms.py:197 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
 msgstr "Основне споживання калорій"
 
-#: nutrition/forms.py:184
+#: nutrition/forms.py:198
 msgid "Your basic caloric intake as calculated for your data"
-msgstr "Ваше основне споживання калорій, розраховане для ваших даних"
+msgstr "Твоя базова норма калорій, розраховані для твоїх даних"
 
-#: nutrition/forms.py:189
+#: nutrition/forms.py:203
 msgid "Additional calories"
 msgstr "Додаткові калорії"
 
-#: nutrition/forms.py:191
+#: nutrition/forms.py:205
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
@@ -2472,27 +2601,27 @@ msgstr ""
 "Додаткові калорії для додавання до базової ставки (для віднімання, введіть "
 "від'ємне число)"
 
-#: nutrition/forms.py:213
+#: nutrition/forms.py:227
 msgid "grams (g)"
 msgstr "грами (г)"
 
-#: nutrition/forms.py:223
+#: nutrition/forms.py:237
 msgid "Ingredient"
 msgstr "Інгредієнт"
 
-#: nutrition/forms.py:227
+#: nutrition/forms.py:241
 msgid "Also search for names in English"
-msgstr "Також шукайте назви англійською мовою"
+msgstr "Також можна шукати за англійськими назвами"
 
-#: nutrition/forms.py:243
+#: nutrition/forms.py:257
 msgid "Quantity"
 msgstr "Кількість"
 
-#: nutrition/forms.py:245
+#: nutrition/forms.py:259
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
 msgstr "Введіть кількість і виберіть грами (г) або одну з одиниць порції."
 
-#: nutrition/models/ingredient.py:476
+#: nutrition/models/ingredient.py:478
 msgid "Portion"
 msgstr "Порція"
 
@@ -2540,20 +2669,20 @@ msgid ""
 "sucessfully."
 msgstr ""
 "Після того, як ви надішлете форму, адміністратори отримають сповіщення. \n"
-"Після перегляду вона буде додана до бази даних. \n"
+"Після перегляду її буде додано до бази даних. \n"
 "Доки це не станеться, її не буде видно в огляді або в пошуку. \n"
 "Якщо ви додали електронну пошту під час реєстрації, ви отримаєте сповіщення "
 "про успішне завершення процесу."
 
 #: nutrition/templates/ingredient/overview.html:32
 #: nutrition/templates/ingredient/overview.html:104
-#: nutrition/templates/ingredient/view.html:173
+#: nutrition/templates/ingredient/view.html:172
 msgid "Vegan"
 msgstr "Веганський"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
-#: nutrition/templates/ingredient/view.html:188
+#: nutrition/templates/ingredient/view.html:187
 msgid "Vegetarian"
 msgstr "Вегетаріанський"
 
@@ -2588,81 +2717,91 @@ msgstr "Пошук"
 msgid "Filter"
 msgstr "Фільтр"
 
-#: nutrition/templates/ingredient/view.html:78 nutrition/views/plan.py:237
+#: nutrition/templates/ingredient/view.html:77 nutrition/views/plan.py:238
 msgid "Macronutrients"
-msgstr "Макроелементи"
+msgstr "Макронутрієнти"
 
-#: nutrition/templates/ingredient/view.html:87
+#: nutrition/templates/ingredient/view.html:86
 msgid "kJ"
 msgstr "кДж"
 
-#: nutrition/templates/ingredient/view.html:103 nutrition/views/plan.py:267
+#: nutrition/templates/ingredient/view.html:102 nutrition/views/plan.py:268
 msgid "Sugar content in carbohydrates"
-msgstr "Вміст цукру в вуглеводах"
+msgstr "Вміст цукру у вуглеводах"
 
-#: nutrition/templates/ingredient/view.html:108
-#: nutrition/templates/ingredient/view.html:124
-#: nutrition/templates/ingredient/view.html:146
-#: nutrition/templates/ingredient/view.html:156
-#: nutrition/templates/ingredient/view.html:176
-#: nutrition/templates/ingredient/view.html:191
-#: nutrition/templates/ingredient/view.html:212
+#: nutrition/templates/ingredient/view.html:107
+#: nutrition/templates/ingredient/view.html:123
+#: nutrition/templates/ingredient/view.html:145
+#: nutrition/templates/ingredient/view.html:155
+#: nutrition/templates/ingredient/view.html:175
+#: nutrition/templates/ingredient/view.html:190
+#: nutrition/templates/ingredient/view.html:211
 msgid "n.A."
 msgstr "немає даних"
 
-#: nutrition/templates/ingredient/view.html:119 nutrition/views/plan.py:281
+#: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:282
 msgid "Saturated fat content in fats"
-msgstr "Вміст жиру у жирах"
+msgstr "Насичені жири"
 
-#: nutrition/templates/ingredient/view.html:135
+#: nutrition/templates/ingredient/view.html:134
 msgid "Others"
 msgstr "Інші"
 
-#: nutrition/templates/ingredient/view.html:141 nutrition/views/plan.py:287
+#: nutrition/templates/ingredient/view.html:140 nutrition/views/plan.py:288
 msgid "Fiber"
-msgstr "Волокна"
+msgstr "Клітковина"
 
-#: nutrition/templates/ingredient/view.html:151 nutrition/views/plan.py:293
+#: nutrition/templates/ingredient/view.html:150 nutrition/views/plan.py:294
 msgid "Sodium"
 msgstr "Натрій"
 
-#: nutrition/templates/ingredient/view.html:167
+#: nutrition/templates/ingredient/view.html:166
 msgid "Dietary information"
-msgstr "Інформація про харчування"
+msgstr "Поживна цінність"
 
-#: nutrition/templates/ingredient/view.html:203
+#: nutrition/templates/ingredient/view.html:177
+#: nutrition/templates/ingredient/view.html:192
+msgid "Yes"
+msgstr "Так"
+
+#: nutrition/templates/ingredient/view.html:179
+#: nutrition/templates/ingredient/view.html:194
+msgid "No"
+msgstr "Ні"
+
+#: nutrition/templates/ingredient/view.html:202
 msgid "Nutri-Score"
 msgstr "Nutri-Score"
 
-#: nutrition/templates/ingredient/view.html:234
+#: nutrition/templates/ingredient/view.html:233
 msgid "Add new weight unit"
 msgstr "Додати нову одиницю ваги"
 
-#: nutrition/templates/rate/form.html:26
+#: nutrition/templates/rate/form.html:25
 msgid "Basal metabolic rate"
-msgstr "Базальний рівень метаболізму"
+msgstr "Базовий метаболізм (BMR)"
 
-#: nutrition/templates/rate/form.html:27
+#: nutrition/templates/rate/form.html:26
 msgid ""
 "The basal metabolic rate is the amount of energy expended daily\n"
 "at rest. This is the minimum energy needed for the body to function, without "
 "any\n"
 "additional physical activity."
 msgstr ""
-"Рівень базального метаболізму - це кількість енергії, витраченої щодня\n"
+"Базовий метаболізм (BMR) - це кількість енергії, витраченої щодня\n"
 "в стані спокою. Це мінімальна кількість енергії, необхідна для "
 "функціонування\n"
 "організму, без будь-яких додаткових фізичних навантажень."
 
-#: nutrition/templates/rate/form.html:38
+#: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
 msgstr "Ваша основна метаболічна норма: "
 
-#: nutrition/templates/rate/form.html:48
+#: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
 msgstr "Фізична активність"
 
-#: nutrition/templates/rate/form.html:49
+#: nutrition/templates/rate/form.html:48
 msgid ""
 "The physical activity level (PAL) is a factor used to to express\n"
 "the additional physical activity and is used to calculate the total energy\n"
@@ -2672,11 +2811,11 @@ msgstr ""
 "вираження додаткової фізичної активності та для розрахунку необхідної\n"
 "загальної денної енергії."
 
-#: nutrition/templates/rate/form.html:60
+#: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
 msgstr "Фактор для щоденної активності: "
 
-#: nutrition/templates/rate/form.html:68
+#: nutrition/templates/rate/form.html:67
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
@@ -2684,11 +2823,11 @@ msgstr ""
 "Базове споживання калорій - це кількість калорій, яку потребує Ваш\n"
 "метаболізм залежно від рівня вашої фізичної активності."
 
-#: nutrition/templates/rate/form.html:82
+#: nutrition/templates/rate/form.html:81
 msgid "Calculate basic caloric intake"
 msgstr "Розрахувати основне споживання калорій"
 
-#: nutrition/templates/rate/form.html:89
+#: nutrition/templates/rate/form.html:88
 msgid ""
 "The total calories are the actual total calories per day. This\n"
 "might include e.g. a surplus or deficit if you are bulking or cutting. "
@@ -2699,22 +2838,21 @@ msgstr ""
 "включати,\n"
 "наприклад, дефіцит калорій, якщо ви худнете, або надлишок, якщо набираєте "
 "вагу.\n"
-"В якості альтернативи можна просто ввести кількість калорій, якщо вона вам "
-"відома."
+"Як альтернативу, можна просто ввести кількість калорій, якщо вона вам відома."
 
-#: nutrition/templates/rate/form.html:103
+#: nutrition/templates/rate/form.html:102
 msgid "Transfer basic intake to total daily calories"
 msgstr "Перенести основне споживання в денну кількість калорій"
 
-#: nutrition/templates/rate/form.html:107
+#: nutrition/templates/rate/form.html:106
 msgid "Add additional calories to total daily calories"
 msgstr "Додати додаткові калорії в добову кількість калорій"
 
-#: nutrition/templates/rate/form.html:111
+#: nutrition/templates/rate/form.html:110
 msgid "Save total calories to profile"
 msgstr "Зберегти загальну кількість калорій у профіль"
 
-#: nutrition/templates/rate/form.html:122
+#: nutrition/templates/rate/form.html:121
 msgid ""
 "Please note that these calculations can only be an\n"
 "approximation. If you base your nutrition plan on these values, observe\n"
@@ -2729,32 +2867,32 @@ msgstr ""
 msgid "Add a new ingredient"
 msgstr "Додати новий інгредієнт"
 
-#: nutrition/views/plan.py:128
+#: nutrition/views/plan.py:129
 msgid "Nutritional plan"
 msgstr "План харчування"
 
-#: nutrition/views/plan.py:130
+#: nutrition/views/plan.py:131
 #, python-format
 msgid "Nutritional plan for %s"
 msgstr "План харчування для %s"
 
-#: nutrition/views/plan.py:202
+#: nutrition/views/plan.py:203
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr "<i>Це порожній план, що ви очікували на PDF?</i>"
 
-#: nutrition/views/plan.py:230
+#: nutrition/views/plan.py:231
 msgid "Nutritional data"
-msgstr "Харчові дані"
+msgstr "Харчова цінність"
 
-#: nutrition/views/plan.py:238
+#: nutrition/views/plan.py:239
 msgid "Total"
 msgstr "Разом"
 
-#: nutrition/views/plan.py:239
+#: nutrition/views/plan.py:240
 msgid "Percent of energy"
 msgstr "Відсоток енергії"
 
-#: nutrition/views/plan.py:240
+#: nutrition/views/plan.py:241
 msgid "g per body kg"
 msgstr "г на кг маси тіла"
 
@@ -2764,7 +2902,7 @@ msgstr "Додати нову одиницю ваги"
 
 #: nutrition/views/unit_ingredient.py:99
 msgid "Edit a weight unit to ingredient connection"
-msgstr "Змінити одиницю ваги з'єднання інгредієнтів"
+msgstr "Змінити одиницю ваги для інгредієнта"
 
 #: nutrition/views/unit_ingredient.py:129
 msgid "Delete?"
@@ -2795,12 +2933,11 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
-"wger побудований на принципах відкритого коду. Його код знаходиться у "
-"відкритому доступі, розроблений нашою спільнотою, що забезпечує прозорість і "
-"дає вам можливість контролювати свої дані (особливо у випадку самостійного "
-"хостингу). Безкоштовний хостинг повністю працює на цій основі з відкритим "
-"кодом. Ми вважаємо, що потужні фітнес-інструменти повинні бути доступні "
-"кожному."
+"wger побудований на принципах відкритого коду. Його код є у відкритому "
+"доступі, розроблений нашою спільнотою, що забезпечує прозорість і дає вам "
+"можливість контролювати свої дані (за умови самостійного хостингу). "
+"Безкоштовний хостинг повністю працює на цій основі з відкритим кодом. Ми "
+"вважаємо, що потужні фітнес-інструменти повинні бути доступні кожному."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
@@ -2857,7 +2994,7 @@ msgstr "Створюйте нові вправи та редагуйте або 
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
-msgstr "Перекласти програму"
+msgstr "Перекласти застосунок"
 
 #: software/templates/about_us.html:86
 msgid ""
@@ -2887,10 +3024,10 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
-"Хоча проєкт є безкоштовним і завжди ним залишатиметься, робота сервера не є "
-"такою! Надання хостингової версії wger передбачає реальні постійні витрати "
-"на хостинг сервера, пропускну здатність, резервне копіювання тощо. Розробка "
-"також вимагає значного часу та зусиль від волонтерів. Ваш внесок "
+"Хоча проєкт є безкоштовним і завжди ним залишатиметься, але утримання "
+"сервера — ні! Надання хостингової версії wger передбачає реальні постійні "
+"витрати на хостинг сервера, пропускну здатність, резервне копіювання тощо. "
+"Розробка також вимагає значного часу та зусиль від волонтерів. Ваш внесок "
 "безпосередньо підтримує ці важливі витрати, допомагаючи підтримувати сервіс "
 "надійним, вдосконаленим і безкоштовним для всіх."
 
@@ -2936,91 +3073,90 @@ msgstr ""
 msgid "Contact"
 msgstr "Контакт"
 
-#: software/templates/features.html:57
+#: software/templates/features.html:58
 msgid "Mobile app"
 msgstr "Мобільний застосунок"
 
-#: software/templates/features.html:63 software/templates/features.html:337
+#: software/templates/features.html:65 software/templates/features.html:339
 msgid "Donate"
 msgstr "Підтримка проєкту"
 
-#: software/templates/features.html:68
+#: software/templates/features.html:70
 msgid "Develop"
 msgstr "Розробка"
 
-#: software/templates/features.html:73 software/templates/features.html:476
+#: software/templates/features.html:75 software/templates/features.html:479
 msgid "Community"
 msgstr "Спільнота"
 
-#: software/templates/features.html:110
+#: software/templates/features.html:112
 msgid "Track your <br> way to your <br> ideal body"
 msgstr "Відстежуйте свій <br> шлях до свого <br> ідеального тіла"
 
-#: software/templates/features.html:113
+#: software/templates/features.html:115
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
 "Приєднуйтеся до wger <b>безкоштовного фітнес-трекера з відкритим кодом, який "
 "розвиває спільнота</b>"
 
-#: software/templates/features.html:123
+#: software/templates/features.html:125
 msgid "Get Started"
-msgstr "Почати роботу"
+msgstr "Старт"
 
-#: software/templates/features.html:133
+#: software/templates/features.html:135
 msgid "people <br> using wger"
 msgstr "люди <br> використовують wger"
 
-#: software/templates/features.html:137
+#: software/templates/features.html:139
 msgid "exercises <br> for workout creation"
 msgstr "вправи <br> для створення тренувань"
 
-#: software/templates/features.html:141
+#: software/templates/features.html:143
 msgid "foods <br> for meal planning"
-msgstr "продукти <br> для планування харчування"
+msgstr "продукти <br> для планування прийому їжі"
 
-#: software/templates/features.html:145
+#: software/templates/features.html:147
 msgid "stars <br> on GitHub"
 msgstr "зірки <br> на GitHub"
 
-#: software/templates/features.html:173
+#: software/templates/features.html:175
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr "Створіть свій ідеальний <span>тренувальний режим</span>"
+msgstr "Створюй власні <span>програми тренувань</span>"
 
-#: software/templates/features.html:177
+#: software/templates/features.html:179
 msgid "Design a weekly workout plan from more than 100 exercises"
 msgstr "Складіть тижневий план тренувань з понад 100 вправ"
 
-#: software/templates/features.html:180
+#: software/templates/features.html:182
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
-"Встановіть кількість повторень і підходів, тривалість або дистанцію для "
-"кожної вправи"
+"Задавайте підходи, повторення, тривалість чи дистанцію для кожної вправи"
 
-#: software/templates/features.html:183
+#: software/templates/features.html:185
 msgid "Get guided through your workouts step by step"
 msgstr "Крок за кроком керуйте своїми тренуваннями"
 
-#: software/templates/features.html:186
+#: software/templates/features.html:188
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
 "Відстежуйте тренування, які ви виконали, а також те, як ви себе почували"
 
-#: software/templates/features.html:211
+#: software/templates/features.html:213
 msgid "Plan your <span>daily meals</span>"
 msgstr "Сплануйте свій <span>щоденний раціон</span>"
 
-#: software/templates/features.html:215
+#: software/templates/features.html:217
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
 "Наповніть свій тиждень поживними стравами, які допоможуть вам працювати краще"
 
-#: software/templates/features.html:218
+#: software/templates/features.html:220
 msgid "Build meals from a database of more than 2 million foods"
 msgstr "Створюйте страви на основі бази даних з понад 2 мільйонів продуктів"
 
-#: software/templates/features.html:221
+#: software/templates/features.html:223
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
@@ -3028,40 +3164,40 @@ msgstr ""
 "Отримуйте автоматично розраховану поживну цінність (енергія, білки, "
 "вуглеводи, ...) як для окремих страв, так і для всього вашого тижневого плану"
 
-#: software/templates/features.html:251
+#: software/templates/features.html:253
 msgid "Keep track of <span>your progress</span>"
 msgstr "Відстежуйте <span>свій прогрес</span>"
 
-#: software/templates/features.html:256
+#: software/templates/features.html:258
 msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
-"Відстежуйте та коментуйте все, що стосується вашого харчування та тренувань"
+"Відстежуйте та коментуйте все, що стосується вашого прийому їжі та тренувань"
 
-#: software/templates/features.html:259
+#: software/templates/features.html:261
 msgid "Add custom notes"
 msgstr "Додати власні нотатки"
 
-#: software/templates/features.html:262
+#: software/templates/features.html:264
 msgid "Record your weight"
 msgstr "Запишіть свою вагу"
 
-#: software/templates/features.html:265
+#: software/templates/features.html:267
 msgid "Keep a photo log to see your progress"
 msgstr "Ведіть фотожурнал, щоб бачити свій прогрес"
 
-#: software/templates/features.html:268
+#: software/templates/features.html:270
 msgid "Use the calendar view to see past entries"
 msgstr "Використовуйте календар для перегляду минулих записів"
 
-#: software/templates/features.html:287
+#: software/templates/features.html:289
 msgid "Try wger now"
 msgstr "Спробувати wger зараз"
 
-#: software/templates/features.html:308
+#: software/templates/features.html:310
 msgid "Powered By <span>the community</span>"
 msgstr "Завдяки <span>спільноті</span>"
 
-#: software/templates/features.html:311
+#: software/templates/features.html:313
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
@@ -3070,7 +3206,7 @@ msgstr ""
 "люди, як ви, перекладають, додають вправи та інформацію про харчування, "
 "розробляють і багато іншого."
 
-#: software/templates/features.html:317
+#: software/templates/features.html:319
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
@@ -3078,31 +3214,31 @@ msgstr ""
 "Ми не використовуємо рекламу, не продаємо вашу особисту інформацію і "
 "ділимося кодом під вільною ліцензією з відкритим вихідним кодом."
 
-#: software/templates/features.html:322
+#: software/templates/features.html:324
 msgid "Pitch in and help make wger even better!"
 msgstr "Долучайтеся і допоможіть зробити wger ще кращим!"
 
-#: software/templates/features.html:331
+#: software/templates/features.html:333
 msgid "Contribute"
 msgstr "Зробити внесок"
 
-#: software/templates/features.html:355
+#: software/templates/features.html:358
 msgid "Sign Up Now For Free"
 msgstr "Зареєструватися зараз безплатно"
 
-#: software/templates/features.html:369
+#: software/templates/features.html:372
 msgid "Web version not enough?"
 msgstr "Вебверсії недостатньо?"
 
-#: software/templates/features.html:371
+#: software/templates/features.html:374
 msgid "Get the code, too!"
 msgstr "Отримати код!"
 
-#: software/templates/features.html:382
+#: software/templates/features.html:385
 msgid "Set up a private server for your gym"
 msgstr "Налаштуйте приватний сервер для свого спортзалу"
 
-#: software/templates/features.html:385
+#: software/templates/features.html:388
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
@@ -3110,21 +3246,21 @@ msgstr ""
 "Не хочете, щоб ваші дані були на онлайн-сервісі? Створіть екземпляр wger на "
 "власному сервері безплатно!"
 
-#: software/templates/features.html:399
+#: software/templates/features.html:402
 msgid "Integrate with your own app"
 msgstr "Інтеграція з вашим власним застосунком"
 
-#: software/templates/features.html:402
+#: software/templates/features.html:405
 msgid "wger offers an open API that you can use for your app."
 msgstr ""
 "wger пропонує відкритий API, який ви можете використовувати для свого "
 "застосунку."
 
-#: software/templates/features.html:413
+#: software/templates/features.html:416
 msgid "Create your own version"
 msgstr "Створіть власну версію"
 
-#: software/templates/features.html:416
+#: software/templates/features.html:419
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
@@ -3132,37 +3268,37 @@ msgstr ""
 "Вихідний код доступний під ліцензією GNU AGPLv3! Ви можете створити форк на "
 "GitHub."
 
-#: software/templates/features.html:437
+#: software/templates/features.html:440
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: software/templates/features.html:453
+#: software/templates/features.html:456
 msgid "Dashboard"
-msgstr "Панель"
+msgstr "Панель керування"
 
-#: software/templates/features.html:485
+#: software/templates/features.html:488
 msgid "Workout routines"
-msgstr "Процедури тренувань"
+msgstr "Програми тренувань"
 
-#: software/templates/features.html:491
+#: software/templates/features.html:494
 msgid "Discord"
-msgstr "Дискорд"
+msgstr "Discord"
 
-#: software/templates/features.html:506
+#: software/templates/features.html:509
 msgid "Software"
 msgstr "Програмне забезпечення"
 
-#: software/templates/features.html:512
+#: software/templates/features.html:515
 msgid "Report an issue"
 msgstr "Повідомити про проблему"
 
-#: software/templates/features.html:518
+#: software/templates/features.html:521
 msgid "Source Code"
 msgstr "Вихідний код"
 
-#: software/templates/features.html:524
+#: software/templates/features.html:527
 msgid "Translation"
-msgstr "Перекладання"
+msgstr "Переклад"
 
 #: utils/generic_views.py:241
 msgid "Yes, delete"
@@ -3170,7 +3306,7 @@ msgstr "Так, вилучити"
 
 #: utils/models.py:75
 msgid "The original title of this object, if available"
-msgstr "Оригінальна назва цього об'єкта, якщо є"
+msgstr "Оригінальна назва цього об'єкта, якщо вона відома"
 
 #: utils/models.py:81
 msgid "Link to original object, if available"
@@ -3202,29 +3338,37 @@ msgstr ""
 "роботі, але також містить достатньо нового творчого змісту, щоб надати їй "
 "право на власне авторське право."
 
-#: weight/forms.py:53
+#: utils/oidc_auth.py:44
+msgid "View your training, nutrition and body data"
+msgstr "Переглядайте свої тренування, харчування та дані про заміри тіла"
+
+#: utils/oidc_auth.py:45
+msgid "Add and change your training, nutrition and body data"
+msgstr "Додавайте та змінюйте дані про тренування, харчування й заміри тіла"
+
+#: weight/forms.py:52
 msgid "Input"
 msgstr "Вхідні дані"
 
-#: weight/forms.py:54
+#: weight/forms.py:53
 msgid "Date format"
 msgstr "Формат дати"
 
-#: weight/management/commands/email-weight-reminder.py:81
+#: weight/management/commands/email-weight-reminder.py:78
 msgid "You have to enter your weight"
 msgstr "Ви повинні ввести свою вагу"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
-msgstr "Імпортувати журнал ваги"
+msgstr "Імпортувати записи ваги"
 
 #: weight/templates/import_csv_form.html:15
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
-"Скористайтеся цим полем імпорту, щоб імпортувати ваші журнали ваги\n"
-"в Workout Manager."
+"За допомогою цього поля можна імпортувати записи ваги\n"
+"до Workout Manager."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3235,21 +3379,20 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
-"Можна скопіювати та вставити текст з електронної таблиці в текстове поле "
-"вводу, система\n"
-"спробує вгадати формат для імпорту. Єдине, що потрібно враховувати, це те, "
-"що перша\n"
-"колонка - це <strong>дата</strong>, друга - <strong>вага</strong>. Усі "
-"наступні стовпці\n"
-"ігноруються. Ліміт 1000 рядків.\n"
+"Можна скопіювати та вставити текст з електронної таблиці в текстове поле,\n"
+"система спробує автоматично визначити формат даних. Єдине, що потрібно "
+"враховувати,\n"
+"це те, що у першому стовпці має бути <strong>дата</strong>, у другому — "
+"<strong>вага</strong>.\n"
+"Усі наступні стовпці ігноруються. Ліміт 1000 рядків.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
-"Якщо є помилки, їх можна виправити або відхилити на\n"
-"другому етапі."
+"На наступному кроці ви зможете виправити помилки\n"
+"або відкинути записи з помилками."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
@@ -3257,11 +3400,11 @@ msgstr "Попередній перегляд імпортованих запи�
 
 #: weight/templates/import_csv_preview.html:9
 msgid "Successfully converted values"
-msgstr "Успішно конвертовані значення"
+msgstr "Успішно перетворені значення"
 
 #: weight/templates/import_csv_preview.html:10
 msgid "The following values could be converted."
-msgstr "Наступні значення можуть бути конвертовані."
+msgstr "Наведені нижче значення вдалося перетворити."
 
 #: weight/templates/import_csv_preview.html:26
 msgid "Errors"
@@ -3269,7 +3412,7 @@ msgstr "Помилки"
 
 #: weight/templates/import_csv_preview.html:29
 msgid "The following values could not be converted."
-msgstr "Не вдалося конвертувати наведені нижче значення."
+msgstr "Не вдалося перетворити наведені нижче значення."
 
 #: weight/templates/import_csv_preview.html:31
 msgid ""
@@ -3282,24 +3425,23 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
-"Ці значення не змогли бути конвертовані в запис журналу ваги. Причиною\n"
-"для цього могло бути що завгодно, від нерозпізнаного формату дати, або\n"
-"числа до проблеми з кодуванням або що-небудь інше. Будь ласка,\n"
-"перевірте, щоб не було очевидних помилок в списку (і виправте їх, якщо вони "
-"є!)\n"
-"і спробуйте імпортувати список ще раз."
+"Ці значення не вдалося перетворити на записи ваги.\n"
+"Причиною може бути нерозпізнаний формат дати чи числа,\n"
+"проблема з кодуванням або інша помилка. Перевірте список,\n"
+"виправте очевидні помилки\n"
+"та спробуйте імпортувати дані ще раз."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
-"Пам'ятайте, що очікувана структура: <strong>дата</strong> \n"
-"- в першому стовпці і <strong>вага</strong> - в другому."
+"Дані мають бути розташовані так: <strong>дата</strong>\n"
+"у першому стовпці, <strong>вага</strong> - у другому."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr "Не було жодних помилок, всі записи можуть бути конвертовані!"
+msgstr "Помилок немає — усі записи успішно перетворено!"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
@@ -3313,10 +3455,9 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
-"Продовжуйте тут, якщо ви бажаєте імпортувати до вашого журналу ваги всі\n"
-"записи, які були успішно перетворені. Всі записи, які викликали помилку,\n"
-"просто проігноруються. Ви повинні вирішити, чи є вони корисними "
-"(нерозпізнані записи)\n"
+"Натисніть «Продовжити», щоб імпортувати всі\n"
+"успішно оброблені записи ваги. Записи з помилками буде пропущено \n"
+"Ви повинні вирішити, чи є вони корисними (нерозпізнані записи)\n"
 "чи ні (наприклад, заголовки, коментарі тощо)."
 
 #: weight/templates/import_csv_preview.html:69
@@ -3332,12 +3473,59 @@ msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
-"Ви можете виправити список тут і повторно подати його так\n"
-"часто, як ви хочете."
+"Тут можна виправити список і надсилати його повторно\n"
+" скільки завгодно разів."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
-msgstr "Повторно подати"
+msgstr "Надіслати повторно"
+
+#~ msgid "Password reset successful"
+#~ msgstr "Пароль успішно відновлено"
+
+#~ msgid ""
+#~ "We've e-mailed you instructions for setting your password to the e-mail "
+#~ "address you submitted. You should be receiving it shortly."
+#~ msgstr ""
+#~ "Ми надіслали на вказану вами адресу електронної пошти лист з інструкціями "
+#~ "щодо встановлення пароля. Ви повинні отримати його найближчим часом."
+
+#, python-format
+#~ msgid ""
+#~ "You're receiving this e-mail because you requested a password reset for "
+#~ "your user account at %(site_name)s."
+#~ msgstr ""
+#~ "Ви отримали цей лист, тому що ви надіслали запит на відновлення пароля "
+#~ "для облікового запису користувача на %(site_name)s."
+
+#~ msgid "Please go to the following page and choose a new password:"
+#~ msgstr "Будь ласка, перейдіть на цю сторінку та оберіть новий пароль:"
+
+#~ msgid "Your username, in case you've forgotten:"
+#~ msgstr "У разі, якщо ви забули своє ім'я користувача:"
+
+#~ msgid "Thanks for using our site!"
+#~ msgstr "Дякуємо за користування нашим сайтом!"
+
+#, python-format
+#~ msgid "The %(site_name)s team"
+#~ msgstr "Команда сайту %(site_name)s"
+
+#~ msgid "Password reset confirmation"
+#~ msgstr "Підтвердження відновлення пароля"
+
+#~ msgid "Do you really want to change this user&#39;s password?"
+#~ msgstr "Ви дійсно бажаєте змінити пароль цього користувача?"
+
+#~ msgctxt "weight unit, i.e. ounces"
+#~ msgid "oz"
+#~ msgstr "унцій"
+
+#~ msgid "File type is not supported"
+#~ msgstr "Тип файлу не підтримується"
+
+#~ msgid "If you enter a time, you must enter both start and end time."
+#~ msgstr "Якщо вводити час, необхідно ввести час початку і закінчення."
 
 #~ msgid "Used for password resets and, optionally, e-mail reminders."
 #~ msgstr ""

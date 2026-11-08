@@ -597,3 +597,82 @@ class AggregateBoundValidationTestCase(WgerTestCase):
 
     def test_extra_data_without_bounds_is_untouched(self):
         self.assertEqual(self.post({'unit': 'kg', 'source_name': 'Withings'}).status_code, 201)
+
+
+class MeasurementMetricTypeApiTestCase(WgerTestCase):
+    """
+    Writing a measurement with metric_type instead of a category id
+    """
+
+    body_weight_id = 'cccccccc-cccc-cccc-cccc-0000000000b0'
+    custom_id = 'cccccccc-cccc-cccc-cccc-000000000002'
+
+    def setUp(self):
+        super().setUp()
+        self.user_login('test')
+        self.url = reverse('measurement-list')
+
+    def post(self, **fields):
+        payload = {'date': '2026-10-08T07:30:00Z', 'value': 80, **fields}
+        return self.client.post(self.url, payload, content_type='application/json')
+
+    def test_metric_type_resolves_to_the_category_of_that_type(self):
+        response = self.post(metric_type='body_weight')
+
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(str(response.data['category']), self.body_weight_id)
+        self.assertEqual(response.data['extra_data'], {'unit': 'kg'})
+        self.assertNotIn('metric_type', response.data)
+
+    def test_matching_category_and_metric_type_are_accepted(self):
+        response = self.post(category=self.body_weight_id, metric_type='body_weight')
+
+        self.assertEqual(response.status_code, 201, response.data)
+
+    def test_neither_category_nor_metric_type_is_refused(self):
+        response = self.post()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('category', response.data)
+
+    def test_metric_type_without_a_usable_category_is_refused(self):
+        """
+        Nothing is written, and no category is created on the fly: name and
+        unit are the user's choice
+        """
+        Category.objects.filter(pk='cccccccc-cccc-cccc-cccc-000000000003').update(
+            metric_type=MetricType.BLOOD_PRESSURE,
+        )
+        before = (Measurement.objects.count(), Category.objects.count())
+
+        for fields in (
+            {'category': self.custom_id, 'metric_type': 'body_weight'},
+            {'metric_type': 'body_fat'},
+            {'metric_type': 'custom'},
+            {'metric_type': 'blood_pressure'},
+        ):
+            with self.subTest(**fields):
+                response = self.post(**fields)
+
+                self.assertEqual(response.status_code, 400)
+                self.assertIn('metric_type', response.data)
+
+        self.assertEqual((Measurement.objects.count(), Category.objects.count()), before)
+
+    def test_category_of_another_user_is_not_used(self):
+        self.user_login('admin')
+
+        response = self.post(metric_type='body_weight')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('metric_type', response.data)
+
+    def test_duplicate_external_id_is_refused(self):
+        external_id = 'eeeeeeee-eeee-eeee-eeee-000000000001'
+        first = self.post(metric_type='body_weight', external_id=external_id)
+        self.assertEqual(first.status_code, 201)
+
+        response = self.post(metric_type='body_weight', external_id=external_id)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('non_field_errors', response.data)

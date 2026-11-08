@@ -13,12 +13,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from dataclasses import replace
+from decimal import Decimal
+
 # Django
 from django.test import SimpleTestCase
 
 # wger
 from wger.nutrition.dataclasses import IngredientData
 from wger.utils.constants import CC_0_LICENSE_ID
+
+
+NUTRIENT_FIELDS = (
+    'energy',
+    'protein',
+    'carbohydrates',
+    'carbohydrates_sugar',
+    'fat',
+    'fat_saturated',
+    'fiber',
+    'sodium',
+)
 
 
 class IngredientDataclassTestCase(SimpleTestCase):
@@ -55,6 +71,45 @@ class IngredientDataclassTestCase(SimpleTestCase):
     def test_validation_ok(self):
         """Test that the validation proceeds with correct data"""
         self.assertEqual(self.ingredient_data.sanity_checks(), None)
+
+    def test_validation_negative_nutrients(self):
+        """Reject negatives even when the energy plausibility check is skipped."""
+        baseline = replace(self.ingredient_data, **dict.fromkeys(NUTRIENT_FIELDS, 0))
+        for field in NUTRIENT_FIELDS:
+            for value in (-1, -1.0, Decimal('-1')):
+                with self.subTest(field=field, value=value, number_type=type(value)):
+                    ingredient = replace(baseline, **{field: value})
+                    with self.assertRaisesRegex(ValueError, field):
+                        ingredient.sanity_checks()
+
+    def test_validation_non_finite_nutrients(self):
+        """Reject NaN and infinities before comparisons or energy calculations."""
+        values = (
+            float('nan'),
+            float('inf'),
+            float('-inf'),
+            Decimal('NaN'),
+            Decimal('sNaN'),
+            Decimal('Infinity'),
+            Decimal('-Infinity'),
+        )
+        baseline = replace(self.ingredient_data, **dict.fromkeys(NUTRIENT_FIELDS, 0))
+        for field in NUTRIENT_FIELDS:
+            for value in values:
+                with self.subTest(field=field, value=value, number_type=type(value)):
+                    ingredient = replace(baseline, **{field: value})
+                    with self.assertRaisesRegex(ValueError, field):
+                        ingredient.sanity_checks()
+
+    def test_validation_zero_nutrients(self):
+        """Zero remains valid for every supported numeric type."""
+        for number_type in (int, float, Decimal):
+            with self.subTest(number_type=number_type):
+                ingredient = replace(
+                    self.ingredient_data,
+                    **dict.fromkeys(NUTRIENT_FIELDS, number_type(0)),
+                )
+                self.assertIsNone(ingredient.sanity_checks())
 
     def test_validation_bigger_100(self):
         """
