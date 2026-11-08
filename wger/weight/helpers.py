@@ -36,11 +36,22 @@ from wger.measurements.models.category import MetricType
 logger = logging.getLogger(__name__)
 
 
+def detect_csv_dialect(csv_input):
+    """
+    Detects the CSV dialect, preferring the delimiters that are not also used
+    as decimal separators, otherwise "80,5" would be split in two columns.
+    """
+    for delimiters in (';\t', None):
+        try:
+            return csv.Sniffer().sniff(csv_input, delimiters=delimiters)
+        except csv.Error:
+            pass
+
+    return 'excel'
+
+
 def parse_weight_csv(request, cleaned_data):
-    try:
-        dialect = csv.Sniffer().sniff(cleaned_data['csv_input'])
-    except csv.Error:
-        dialect = 'excel'
+    dialect = detect_csv_dialect(cleaned_data['csv_input'])
 
     # csv.reader expects a file-like object, so use StringIO
     parsed_csv = csv.reader(io.StringIO(cleaned_data['csv_input']), dialect)
