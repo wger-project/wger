@@ -7,21 +7,11 @@ from django.db.migrations.state import StateApps
 from wger.utils.db import postgres_only
 
 
-@postgres_only
 def add_publication(apps: StateApps, schema_editor: BaseDatabaseSchemaEditor):
-    # Note that "FOR ALL TABLES" applies for all tables created in the future as well
-    schema_editor.execute(
-        """
-        DO $$
-        BEGIN
-            IF NOT EXISTS (
-                SELECT 1 FROM pg_publication WHERE pubname = 'powersync'
-            ) THEN
-                CREATE PUBLICATION powersync FOR ALL TABLES;
-            END IF;
-        END $$;
-        """
-    )
+    # This used to create the publication "FOR ALL TABLES", which requires a database
+    # superuser and made the migration fail on managed databases. It is now created
+    # with an explicit list of tables, see migration 0027.
+    pass
 
 
 @postgres_only

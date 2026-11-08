@@ -21,6 +21,8 @@ from django.urls import (
     reverse,
     reverse_lazy,
 )
+from django.utils import timezone
+from django.utils.formats import date_format
 
 # Third Party
 from allauth.account.models import EmailAddress
@@ -32,6 +34,7 @@ from wger.core.tests.base_testcase import (
     WgerEditTestCase,
     WgerTestCase,
 )
+from wger.manager.models import WorkoutSession
 from wger.nutrition.models import NutritionPlan
 
 
@@ -360,6 +363,37 @@ class UserDetailPageTestCase2(WgerAccessTestCase):
         'member1',
         'member2',
     )
+
+
+class UserDetailPageSessionTableTestCase(WgerTestCase):
+    """
+    Test the workout session table on the user detail page
+    """
+
+    def test_session_date_and_times_are_rendered(self):
+        """The session table shows the day and the start/end times of a session"""
+
+        session = WorkoutSession.objects.get(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005')
+        start = timezone.localtime(session.datetime_start)
+        end = timezone.localtime(session.datetime_end)
+
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:overview', kwargs={'pk': 2}))
+
+        self.assertContains(response, date_format(start))
+        self.assertContains(response, f'{start:%H:%M} - {end:%H:%M}')
+
+    def test_session_without_end_shows_no_times(self):
+        """An open session (no end) falls back to the placeholder"""
+
+        WorkoutSession.objects.filter(pk='bbbbbbbb-bbbb-bbbb-bbbb-000000000005').update(
+            datetime_end=None
+        )
+
+        self.user_login('trainer1')
+        response = self.client.get(reverse('core:user:overview', kwargs={'pk': 2}))
+
+        self.assertContains(response, '-/-')
 
 
 class UserDetailPageMacroUnitTestCase(WgerTestCase):

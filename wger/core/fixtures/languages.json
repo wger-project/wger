@@ -286,5 +286,14 @@
       "full_name": "Català",
       "full_name_en": "Catalan"
     }
+  },
+  {
+    "model": "core.language",
+    "pk": 33,
+    "fields": {
+      "short_name": "fi",
+      "full_name": "Suomi",
+      "full_name_en": "Finnish"
+    }
   }
 ]

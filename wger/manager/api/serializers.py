@@ -13,6 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.utils import timezone
+
 # Third Party
 from rest_framework import serializers
 
@@ -362,24 +366,26 @@ class SetConfigDataSerializer(serializers.Serializer):
     slot_entry_id = serializers.IntegerField()
     exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
+    # Everything below is null wherever the slot entry has no config for it
     max_sets = serializers.IntegerField(allow_null=True)
-    weight = DecimalOrIntegerField(max_digits=6, decimal_places=2)
-    max_weight = DecimalOrIntegerField(max_digits=6, decimal_places=2)
+    weight = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
+    max_weight = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
     weight_unit = serializers.IntegerField(allow_null=True)
-    weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
-    repetitions = DecimalOrIntegerField(max_digits=6, decimal_places=2)
-    max_repetitions = DecimalOrIntegerField(max_digits=6, decimal_places=2)
+    weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2, allow_null=True)
+    repetitions = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
+    max_repetitions = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
     repetitions_unit = serializers.IntegerField(allow_null=True)
-    repetitions_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
-    rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
-    max_rir = DecimalOrIntegerField(max_digits=2, decimal_places=1)
+    repetitions_rounding = serializers.DecimalField(max_digits=4, decimal_places=2, allow_null=True)
+    rir = DecimalOrIntegerField(max_digits=2, decimal_places=1, allow_null=True)
+    max_rir = DecimalOrIntegerField(max_digits=2, decimal_places=1, allow_null=True)
     # max_digits=3 (not 2 like rir): RPE = 10 - RiR, so a RiR of 0 yields RPE 10,
     # which needs three digits to serialize.
-    rpe = DecimalOrIntegerField(max_digits=3, decimal_places=1)
-    rest = DecimalOrIntegerField(max_digits=6, decimal_places=2)
-    max_rest = DecimalOrIntegerField(max_digits=6, decimal_places=2)
+    rpe = DecimalOrIntegerField(max_digits=3, decimal_places=1, allow_null=True)
+    rest = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
+    max_rest = DecimalOrIntegerField(max_digits=6, decimal_places=2, allow_null=True)
     type = serializers.CharField()
     text_repr = serializers.CharField()
+    text_repr_short = serializers.CharField()
     comment = serializers.CharField()
 
 
@@ -401,8 +407,10 @@ class WorkoutDayDataDisplayModeSerializer(serializers.Serializer):
 
     iteration = serializers.IntegerField()
     date = serializers.DateField()
-    label = serializers.CharField()
-    day = DaySerializer()
+    # Both null on the placeholder entries a fit_in_week routine pads the rest
+    # of the week with: there is no day, and labels are per-date and sparse.
+    label = serializers.CharField(allow_null=True)
+    day = DaySerializer(allow_null=True)
     slots = SlotDataSerializer(many=True, source='slots_display_mode')
 
 
@@ -413,8 +421,9 @@ class WorkoutDayDataGymModeSerializer(serializers.Serializer):
 
     iteration = serializers.IntegerField()
     date = serializers.DateField()
-    label = serializers.CharField()
-    day = DaySerializer()
+    # See the display-mode serializer above: both are null on padding entries.
+    label = serializers.CharField(allow_null=True)
+    day = DaySerializer(allow_null=True)
     slots = SlotDataSerializer(many=True, source='slots_gym_mode')
 
 
@@ -429,12 +438,36 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
             'id',
             'routine',
             'day',
-            'date',
             'notes',
             'impression',
-            'time_start',
-            'time_end',
+            'datetime_start',
+            'datetime_end',
         )
+
+    def validate(self, attrs):
+        """
+        Run the model validation on the interval the request would end up with
+
+        Sessions stored before the limit was introduced, or before it was lowered,
+        stay editable as long as the request leaves their times alone.
+        """
+        start = attrs.get('datetime_start')
+        end = attrs.get('datetime_end') if 'datetime_end' in attrs else None
+        if self.instance:
+            start = start or self.instance.datetime_start
+            if 'datetime_end' not in attrs:
+                end = self.instance.datetime_end
+            if (start, end) == (self.instance.datetime_start, self.instance.datetime_end):
+                return attrs
+        else:
+            start = start or timezone.now()
+
+        try:
+            WorkoutSession(datetime_start=start, datetime_end=end).clean()
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'datetime_end': e.messages})
+
+        return attrs
 
 
 class OwnerScopedSessionField(serializers.PrimaryKeyRelatedField):
@@ -488,7 +521,17 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
             'rir_target',
             'rest',
             'rest_target',
+            'notes',
         )
+
+    def save(self, **kwargs):
+        """
+        Answer the model validation in WorkoutLog.save() with a 400
+        """
+        try:
+            return super().save(**kwargs)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages)
 
 
 class LogDisplaySerializer(serializers.Serializer):

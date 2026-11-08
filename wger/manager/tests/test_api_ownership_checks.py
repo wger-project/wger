@@ -61,6 +61,7 @@ class WorkoutLogSlotEntryOwnershipTestCase(WgerTestCase):
                 'date': '2024-01-01',
                 'iteration': 1,
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -90,6 +91,7 @@ class WorkoutLogSlotEntryOwnershipTestCase(WgerTestCase):
                 'date': '2024-01-01',
                 'iteration': 1,
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -125,6 +127,7 @@ class WorkoutLogNextLogOwnershipTestCase(WgerTestCase):
                 'date': '2024-01-01',
                 'iteration': 1,
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -154,6 +157,7 @@ class WorkoutSessionDayOwnershipTestCase(WgerTestCase):
                 'notes': '',
                 'impression': '2',
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -178,6 +182,7 @@ class WorkoutSessionDayOwnershipTestCase(WgerTestCase):
                 'notes': '',
                 'impression': '2',
             },
+            content_type='application/json',
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

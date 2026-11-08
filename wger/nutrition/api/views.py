@@ -25,6 +25,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.openapi import AutoSchema
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -62,7 +63,10 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
-from wger.utils.pagination import IngredientCursorPagination
+from wger.utils.pagination import (
+    IngredientCursorPagination,
+    IngredientLimitOffsetPagination,
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -91,6 +95,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
     # Strip default ordering ('name'), this makes the API/DB more performant
     queryset = Ingredient.objects.prefetch_related('ingredientweightunit_set').order_by()
+    pagination_class = IngredientLimitOffsetPagination
     throttle_scope = 'ingredient_list'
 
     def get_throttles(self):
@@ -186,6 +191,19 @@ class IngredientInfoViewSet(IngredientViewSet):
         )
 
 
+class IngredientSyncAutoSchema(AutoSchema):
+    """
+    Gives the cursor-paginated response its own component.
+
+    This endpoint shares its serializer with /api/v2/ingredientinfo/, so both
+    wrappers would be called PaginatedIngredientInfoList. The cursor one has no
+    count, and whichever is generated last wins.
+    """
+
+    def get_paginated_name(self, serializer_name: str) -> str:
+        return f'Cursor{super().get_paginated_name(serializer_name)}'
+
+
 class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Cursor-paginated read-only endpoint designed for syncing the ingredient
@@ -200,6 +218,7 @@ class IngredientSyncViewSet(viewsets.ReadOnlyModelViewSet):
     Note: the response does not contain a `count` key.
     """
 
+    schema = IngredientSyncAutoSchema()
     serializer_class = IngredientInfoSerializer
     pagination_class = IngredientCursorPagination
     filterset_class = IngredientFilterSet

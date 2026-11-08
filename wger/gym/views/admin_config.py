@@ -27,13 +27,16 @@ from django.views.generic import UpdateView
 
 # wger
 from wger.gym.models import GymAdminConfig
-from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerPermissionMixin,
+)
 
 
 logger = logging.getLogger(__name__)
 
 
-class ConfigUpdateView(WgerFormMixin, UpdateView):
+class ConfigUpdateView(WgerPermissionMixin, WgerFormMixin, UpdateView):
     """
     View to update an existing admin gym configuration
     """

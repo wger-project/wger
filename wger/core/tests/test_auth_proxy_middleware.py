@@ -364,3 +364,44 @@ class AuthProxyMiddlewareTests(TestCase):
 
         self.assertNotIn('_auth_user_id', self.client.session)
         self.assertContains(response, 'login', status_code=200)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_inactive_user_is_refused(self):
+        """
+        A deactivated account cannot log in through the proxy, even if the
+        identity provider still lets the person through
+        """
+        self.existing_user.is_active = False
+        self.existing_user.save()
+
+        response = self.client.get(
+            self.login_url,
+            REMOTE_ADDR=TRUSTED_IP,
+            follow=True,
+            **{PROXY_HEADER_KEY: USERNAME},
+        )
+
+        self.assertNotIn('_auth_user_id', self.client.session)
+        self.assertEqual(response.status_code, 200)
+
+    @override_settings(
+        AUTH_PROXY_TRUSTED_IPS=[TRUSTED_IP],
+        AUTH_PROXY_HEADER=PROXY_HEADER_KEY,
+        WGER_SETTINGS={'ALLOW_GUEST_USERS': False},
+    )
+    def test_deactivation_ends_proxy_session(self):
+        """
+        Deactivating an account ends a proxy session that already exists
+        """
+        self.client.get(self.login_url, REMOTE_ADDR=TRUSTED_IP, **{PROXY_HEADER_KEY: USERNAME})
+        self.assertEqual(int(self.client.session['_auth_user_id']), self.existing_user.pk)
+
+        self.existing_user.is_active = False
+        self.existing_user.save()
+
+        response = self.client.get(self.protected_url)
+        self.assertFalse(response.wsgi_request.user.is_authenticated)

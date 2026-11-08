@@ -93,7 +93,7 @@
 {% for log in session %}
 <tr>
     <td>
-        {{log.date}}
+        {{log.datetime_start|date}}
     </td>
     <td>
         {{log.get_impression_display}}
@@ -102,8 +102,8 @@
         {{log.notes|default:'-/-'|truncatewords:6}}
     </td>
     <td>
-        {% if log.time_start and log.time_end %}
-            {{log.time_start|time:"H:i"}} - {{log.time_end|time:"H:i"}}
+        {% if log.datetime_end %}
+            {{log.datetime_start|time:"H:i"}} - {{log.datetime_end|time:"H:i"}}
         {% else %}
             -/-
         {% endif %}
@@ -142,7 +142,7 @@
         {{weight.date}}
     </td>
     <td>
-        {{weight.weight}} {% trans_weight_unit 'kg' current_user %}
+        {{weight.value}} {% trans_weight_unit 'kg' current_user %}
     </td>
 </tr>
 {% empty %}

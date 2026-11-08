@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # Standard Library
-from typing import Any
 
 # Django
 from django.core.management.base import BaseCommand

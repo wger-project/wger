@@ -25,8 +25,10 @@ from django.urls import reverse
 
 # Third Party
 from allauth.account.models import EmailAddress
+from django_recaptcha.fields import ReCaptchaField
 
 # wger
+from wger.core.captcha import TurnstileField
 from wger.core.tests.base_testcase import WgerTestCase
 
 
@@ -38,13 +40,13 @@ class RegistrationTestCase(WgerTestCase):
     Tests registering a new user via the registration form
     """
 
-    def test_registration_captcha(self):
+    def test_registration_captcha_recaptcha(self):
         """
-        The signup form shows a reCAPTCHA field only when USE_RECAPTCHA is set.
+        The signup form shows a reCAPTCHA field when CAPTCHA_PROVIDER is 'recaptcha'.
         """
         with self.settings(
             WGER_SETTINGS={
-                'USE_RECAPTCHA': True,
+                'CAPTCHA_PROVIDER': 'recaptcha',
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'MASTODON': False,
@@ -54,9 +56,29 @@ class RegistrationTestCase(WgerTestCase):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIn('captcha', response.context['form'].fields)
 
+    def test_registration_captcha_turnstile(self):
+        """
+        The signup form shows a Turnstile field when CAPTCHA_PROVIDER is 'turnstile'.
+        """
         with self.settings(
             WGER_SETTINGS={
-                'USE_RECAPTCHA': False,
+                'CAPTCHA_PROVIDER': 'turnstile',
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'MASTODON': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+            }
+        ):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertIn('captcha', response.context['form'].fields)
+
+    def test_registration_captcha_none(self):
+        """
+        The signup form shows no captcha field when CAPTCHA_PROVIDER is 'none'.
+        """
+        with self.settings(
+            WGER_SETTINGS={
+                'CAPTCHA_PROVIDER': 'none',
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'MASTODON': False,
@@ -66,6 +88,40 @@ class RegistrationTestCase(WgerTestCase):
             response = self.client.get(reverse('core:user:registration'))
             self.assertNotIn('captcha', response.context['form'].fields)
 
+    def test_registration_captcha_use_recaptcha(self):
+        """
+        The signup form shows a reCAPTCHA field when only the deprecated
+        USE_RECAPTCHA is set
+        """
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': True,
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'MASTODON': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+            }
+        ):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertIsInstance(response.context['form'].fields['captcha'], ReCaptchaField)
+
+    def test_registration_captcha_provider_over_use_recaptcha(self):
+        """
+        An explicit CAPTCHA_PROVIDER takes precedence over USE_RECAPTCHA
+        """
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': True,
+                'CAPTCHA_PROVIDER': 'turnstile',
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'MASTODON': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+            }
+        ):
+            response = self.client.get(reverse('core:user:registration'))
+            self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileField)
+
     def test_signup_submit_button_not_named_submit(self):
         """
         The submit button must not be named "submit": a control with that name
@@ -74,7 +130,7 @@ class RegistrationTestCase(WgerTestCase):
         """
         with self.settings(
             WGER_SETTINGS={
-                'USE_RECAPTCHA': True,
+                'CAPTCHA_PROVIDER': 'recaptcha',
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'MASTODON': False,

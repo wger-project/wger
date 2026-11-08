@@ -18,9 +18,15 @@ from django_filters import rest_framework as filters
 
 # wger
 from wger.measurements.models import Measurement
+from wger.measurements.models.category import MetricType
 
 
 class MeasurementEntryFilterSet(filters.FilterSet):
+    metric_type = filters.ChoiceFilter(
+        field_name='category__metric_type',
+        choices=MetricType.choices,
+    )
+
     class Meta:
         model = Measurement
         fields = {
@@ -30,4 +36,6 @@ class MeasurementEntryFilterSet(filters.FilterSet):
                 'in',
             ],
             'date': ['exact', 'gt', 'gte', 'lt', 'lte'],
+            'source': ['exact'],
+            'external_id': ['exact', 'in'],
         }

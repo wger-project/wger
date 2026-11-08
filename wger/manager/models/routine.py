@@ -109,7 +109,9 @@ class Routine(models.Model):
 
     is_template = models.BooleanField(
         verbose_name='Workout template',
-        help_text='Marking a workout as a template will freeze it and allow you to make copies of it',
+        help_text=(
+            'Marking a workout as a template will freeze it and allow you to make copies of it'
+        ),
         default=False,
         null=False,
     )
@@ -231,11 +233,13 @@ class Routine(models.Model):
         if not days:
             return []
 
-        # Precompute session dates from prefetched logs
+        # Precompute session dates from prefetched logs. The zone is the same
+        # for every session of this routine's user, fetch it once
+        tz = self.user.userprofile.zone_info
         workout_session_map = defaultdict(set)
         for day in days:
             for session in day.workoutsession_set.all():
-                workout_session_map[day.id].add(session.date)
+                workout_session_map[day.id].add(session.local_day_in(tz))
 
         # Main sequence generation logic
         labels = self.label_dict
@@ -266,7 +270,7 @@ class Routine(models.Model):
             can_proceed = (
                 not current_day.need_logs_to_advance
                 or (current_day.need_logs_to_advance and has_session)
-                or current_date > timezone.localdate()
+                or current_date > timezone.localdate(timezone=tz)
             )
 
             wrapped = False
@@ -317,7 +321,7 @@ class Routine(models.Model):
         # mutation
         ttl = settings.WGER_SETTINGS['ROUTINE_CACHE_TTL']
         if any(day.need_logs_to_advance for day in days_list):
-            now = timezone.localtime()
+            now = timezone.localtime(timezone=tz)
             next_midnight = (now + datetime.timedelta(days=1)).replace(
                 hour=0, minute=0, second=0, microsecond=0
             )
@@ -332,7 +336,8 @@ class Routine(models.Model):
         the results for "today"
         """
         if date is None:
-            date = timezone.localdate()
+            # The owner's "today", like the days of the sequence itself
+            date = timezone.localdate(timezone=self.user.userprofile.zone_info)
 
         for data in self.date_sequence:
             if data.date == date:
@@ -452,8 +457,9 @@ class Routine(models.Model):
                     avg_log_data(res_group[key], cnt_group[key])
 
         # Iterate over each workout session associated with the routine
+        tz = self.user.userprofile.zone_info
         for session in self.sessions.all():
-            session_date = session.date
+            session_date = session.local_day_in(tz)
             week_number = session_date.isocalendar().week
 
             # TODO: filter for lb

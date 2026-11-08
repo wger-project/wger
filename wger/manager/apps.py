@@ -23,4 +23,4 @@ class ManagerConfig(AppConfig):
     verbose_name = 'Manager'
 
     def ready(self):
-        import wger.manager.signals
+        import wger.manager.signals  # noqa: F401

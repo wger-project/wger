@@ -21,7 +21,6 @@ from dataclasses import (
     dataclass,
 )
 from decimal import Decimal
-from typing import Union
 
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
@@ -75,16 +74,14 @@ class BaseMealItem:
 
 @dataclass
 class NutritionalValues:
-    # TODO: replace the Union with | when we drop support for python 3.9
-
-    energy: Union[Decimal, int, float] = 0
-    protein: Union[Decimal, int, float] = 0
-    carbohydrates: Union[Decimal, int, float] = 0
-    carbohydrates_sugar: Union[Decimal, int, float, None] = None
-    fat: Union[Decimal, int, float] = 0
-    fat_saturated: Union[Decimal, int, float, None] = None
-    fiber: Union[Decimal, int, float, None] = None
-    sodium: Union[Decimal, int, float, None] = None
+    energy: Decimal | int | float = 0
+    protein: Decimal | int | float = 0
+    carbohydrates: Decimal | int | float = 0
+    carbohydrates_sugar: Decimal | int | float | None = None
+    fat: Decimal | int | float = 0
+    fat_saturated: Decimal | int | float | None = None
+    fiber: Decimal | int | float | None = None
+    sodium: Decimal | int | float | None = None
 
     @property
     def energy_kilojoule(self):

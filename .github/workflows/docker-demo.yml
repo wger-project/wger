@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -44,4 +46,4 @@ jobs:
           push: true
           file: extras/docker/demo/Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: ${{ vars.REGISTRY_REPO }}/demo:latest,${{ vars.REGISTRY_REPO }}/demo:2.4-dev
+          tags: ${{ vars.REGISTRY_REPO }}/demo:latest

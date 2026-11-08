@@ -17,6 +17,9 @@ from django.core.files import File
 from django.test import SimpleTestCase
 from django.urls import reverse
 
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WgerTestCase
@@ -25,7 +28,10 @@ from wger.exercises.models import (
     ExerciseImage,
     Translation,
 )
-from wger.exercises.tests.api_mixins import ActstreamUpdateMixin
+from wger.exercises.tests.api_mixins import (
+    ActstreamUpdateMixin,
+    LicenseAuthorUpdateMixin,
+)
 
 
 class MainImageTestCase(WgerTestCase):
@@ -234,10 +240,26 @@ class ExerciseImageThumbnailsApiTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 404)
 
+    def test_thumbnails_are_absolute_urls(self):
+        """Every url in the response includes the host, as everywhere else in the API"""
+        image = ExerciseImage(exercise=Translation.objects.get(pk=2).exercise)
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as image_file:
+            image.image.save('protestschwein.jpg', File(image_file))
+        image.save()
+
+        response = self.client.get(reverse('exerciseimage-thumbnails', kwargs={'pk': image.pk}))
+        self.assertEqual(response.status_code, 200)
+
+        thumbnails = response.json()
+        self.assertTrue(thumbnails['original'].startswith('http'))
+        for alias in ('small', 'medium'):
+            self.assertTrue(thumbnails[alias]['url'].startswith('http'))
+
 
 # TODO: add POST and DELETE tests
 class ExerciseImagesApiTestCase(
     ActstreamUpdateMixin,
+    LicenseAuthorUpdateMixin,
     api_base_test.BaseTestCase,
     api_base_test.ApiBaseTestCase,
     api_base_test.ApiGetTestCase,
@@ -251,3 +273,19 @@ class ExerciseImagesApiTestCase(
     resource = ExerciseImage
     overview_cached = True
     data = {'is_main': True}
+    patch_format = 'multipart'
+
+    def test_upload_without_license_author_uses_username(self):
+        """An image uploaded without author gets the username"""
+        self.authenticate('admin')
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as image:
+            response = self.client.post(
+                self.url,
+                data={'exercise': 1, 'image': image, 'license_author': ''},
+                format='multipart',
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.content)
+        self.assertEqual(
+            ExerciseImage.objects.get(pk=response.json()['id']).license_author, 'admin'
+        )

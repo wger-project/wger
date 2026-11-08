@@ -34,6 +34,7 @@ def processor(request):
     context = {
         'mastodon': settings.WGER_SETTINGS.get('MASTODON', ''),
         'allow_registration': settings.WGER_SETTINGS.get('ALLOW_REGISTRATION', False),
+        'show_app_store_links': settings.WGER_SHOW_APP_STORE_LINKS,
 
         # Languages
         'i18n_language': get_language_data(

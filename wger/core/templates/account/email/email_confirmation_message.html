@@ -107,7 +107,10 @@
                     </a>
                 </div>
                 <p class="note">
-                    {% blocktranslate with time=expire_date|time:"TIME_FORMAT" date=expire_date|date:"DATE_FORMAT" trimmed %}
+                    {% blocktranslate with time=expire_date|time:"TIME_FORMAT" date=expire_date|date:"DATE_FORMAT" count expire_hours=expire_hours trimmed %}
+                        The link is valid for {{ expire_hours }} hour (until {{ date }}, {{ time }}).
+                        You can request a new one from your profile settings.
+                    {% plural %}
                         The link is valid for {{ expire_hours }} hours (until {{ date }}, {{ time }}).
                         You can request a new one from your profile settings.
                     {% endblocktranslate %}

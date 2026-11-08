@@ -15,10 +15,15 @@
 # Standard Library
 import datetime
 
+# Django
+from django.conf import settings
+from django.urls import reverse
+
 # wger
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
+    WgerTestCase,
 )
 from wger.gallery.models import Image
 
@@ -105,3 +110,27 @@ class DeleteGalleryImageTestCase(WgerDeleteTestCase):
 #             'user': 2,
 #             'description': 'Everything going well',
 #             'image': open('wger/exercises/tests/protestschwein.jpg', 'rb')}
+
+
+class AddGalleryImageAnonymousTestCase(WgerTestCase):
+    """
+    Anonymous visitors are sent to the login page instead of the upload form
+    """
+
+    def test_get(self):
+        response = self.client.get(reverse('gallery:images:add'))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response['Location'].startswith(f'{settings.LOGIN_URL}?next='))
+
+    def test_post(self):
+        count_before = Image.objects.count()
+
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as image:
+            response = self.client.post(
+                reverse('gallery:images:add'),
+                {'date': datetime.date(2021, 5, 1), 'user': 1, 'image': image},
+            )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Image.objects.count(), count_before)

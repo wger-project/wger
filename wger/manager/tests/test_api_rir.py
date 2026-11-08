@@ -41,6 +41,7 @@ class RiRApiTestCase(WgerTestCase):
                 'operation': 'r',
                 'step': 'abs',
             },
+            content_type='application/json',
         )
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -59,6 +60,7 @@ class RiRApiTestCase(WgerTestCase):
                 'operation': 'r',
                 'step': 'abs',
             },
+            content_type='application/json',
         )
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -77,6 +79,7 @@ class RiRApiTestCase(WgerTestCase):
                 'operation': 'r',
                 'step': 'abs',
             },
+            content_type='application/json',
         )
         data = response.json()
 
@@ -96,6 +99,7 @@ class RiRApiTestCase(WgerTestCase):
                 'rir': 1.3,
                 'rir_target': 1.6,
             },
+            content_type='application/json',
         )
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

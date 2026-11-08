@@ -80,6 +80,34 @@ def _log_action_creation(serializer, instance):
     )
 
 
+class LicenseAuthorDefaultMixin:
+    """
+    Stores the username as license author when none is given.
+
+    On create a missing or empty author is replaced. On update this depends on
+    ``credit_editor``: if set, every edit stores the editor unless a non-empty
+    author is sent, so the editor ends up in ``author_history``. If not set
+    (media, where the author is the creator of the file), only an explicitly
+    empty author is replaced and omitting it keeps the stored one.
+    """
+
+    credit_editor = False
+
+    def to_internal_value(self, data):
+        attrs = super().to_internal_value(data)
+
+        request = self.context.get('request')
+        user = getattr(request, 'user', None)
+        if user is None or not user.is_authenticated:
+            return attrs
+
+        replace_missing = self.instance is None or self.credit_editor
+        author = attrs.get('license_author', '')
+        if (replace_missing or 'license_author' in attrs) and not author.strip():
+            attrs['license_author'] = user.username
+        return attrs
+
+
 def _normalise_name(name: str) -> str:
     """
     Regex: matches space, hyphen and underscore, and replaces with an empty string.
@@ -122,10 +150,12 @@ def _check_duplicates(name, language, exclude_pk=None):
             return candidate.name
 
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class ExerciseSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     Exercise serializer
     """
+
+    credit_editor = True
 
     class Meta:
         model = Exercise
@@ -193,7 +223,7 @@ class AbsoluteUrlFileField(serializers.FileField):
         return make_absolute_url(value.url, self.context.get('request'))
 
 
-class ExerciseImageSerializer(serializers.ModelSerializer):
+class ExerciseImageSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
@@ -247,7 +277,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
         return result
 
 
-class ExerciseVideoSerializer(serializers.ModelSerializer):
+class ExerciseVideoSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     ExerciseVideo serializer
     """
@@ -445,10 +475,12 @@ class ExerciseTranslationInfoSerializer(serializers.ModelSerializer):
         )
 
 
-class ExerciseTranslationSerializer(serializers.ModelSerializer):
+class ExerciseTranslationSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     Exercise translation serializer
     """
+
+    credit_editor = True
 
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
@@ -533,6 +565,38 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
         return super().validate(value)
 
 
+class ExerciseSubmissionAliasSerializer(ExerciseAliasSerializer):
+    """
+    Alias serializer without ``translation``, for use inside a submission.
+
+    A subclass rather than a modified instance of the parent: both would be named
+    ExerciseAlias in the schema, and the narrower one would win for the alias
+    endpoint too.
+    """
+
+    class Meta(ExerciseAliasSerializer.Meta):
+        fields = (
+            'id',
+            'uuid',
+            'alias',
+        )
+
+
+class ExerciseSubmissionCommentSerializer(ExerciseCommentSerializer):
+    """
+    Comment serializer without ``translation``, for use inside a submission.
+
+    See ExerciseSubmissionAliasSerializer for why this is a subclass.
+    """
+
+    class Meta(ExerciseCommentSerializer.Meta):
+        fields = (
+            'id',
+            'uuid',
+            'comment',
+        )
+
+
 class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
     """
     Translation serializer used as a nested child of ``ExerciseSubmissionSerializer``.
@@ -540,11 +604,12 @@ class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
     Differs from the regular serializer only because:
     - the ``exercise`` FK isn't known until the parent creates it (passed via ``create()`` kwargs);
     - the payload also accepts nested ``aliases`` and ``comments`` lists,
-      which the regular CRUD endpoint doesn't.
+      which the regular CRUD endpoint doesn't;
+    - those take their ``translation`` from the parent, so they don't accept one.
     """
 
-    aliases = ExerciseAliasSerializer(many=True, required=False)
-    comments = ExerciseCommentSerializer(many=True, required=False)
+    aliases = ExerciseSubmissionAliasSerializer(many=True, required=False)
+    comments = ExerciseSubmissionCommentSerializer(many=True, required=False)
 
     class Meta(ExerciseTranslationSerializer.Meta):
         fields = (
@@ -555,13 +620,6 @@ class ExerciseTranslationSubmissionSerializer(ExerciseTranslationSerializer):
             'comments',
             'license_author',
         )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # ``translation`` is assigned by the parent submission in create()
-        for nested in ('aliases', 'comments'):
-            self.fields[nested].child.fields.pop('translation', None)
 
     def validate(self, data):
         data = super().validate(data)
@@ -661,7 +719,7 @@ def get_default_license() -> License:
     return License.objects.get(pk=CC_BY_SA_4_LICENSE_ID)
 
 
-class ExerciseSubmissionSerializer(serializers.ModelSerializer):
+class ExerciseSubmissionSerializer(LicenseAuthorDefaultMixin, serializers.ModelSerializer):
     """
     Exercise submission serializer
     """
@@ -738,7 +796,9 @@ class ExerciseSubmissionSerializer(serializers.ModelSerializer):
         if data.get('variation_group') and data.get('variations_connect_to'):
             raise serializers.ValidationError(
                 {
-                    'variation_group': 'Either set variation_group or variations_connect_to, not both.'
+                    'variation_group': (
+                        'Either set variation_group or variations_connect_to, not both.'
+                    )
                 }
             )
 

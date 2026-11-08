@@ -142,7 +142,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     """
 
     weight_units = IngredientWeightUnitSerializer(source='ingredientweightunit_set', many=True)
-    image = IngredientImageSerializer(read_only=True)
+    image = IngredientImageSerializer(read_only=True, allow_null=True)
     thumbnails = serializers.SerializerMethodField()
     # Declared explicitly instead of relying on Meta.depth, which builds an
     # anonymous nested serializer per relation. Both ended up named "Nested" in
@@ -254,9 +254,13 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     meal = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredient = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
-    weight_unit = serializers.PrimaryKeyRelatedField(read_only=True)
-    weight_unit_obj = IngredientWeightUnitSerializer(source='weight_unit', read_only=True)
-    image = IngredientImageSerializer(source='ingredient.image', read_only=True)
+    # Nullable like the model's own column, which redeclaring the field here
+    # would otherwise drop — weight_unit_obj below already says so.
+    weight_unit = serializers.PrimaryKeyRelatedField(read_only=True, allow_null=True)
+    weight_unit_obj = IngredientWeightUnitSerializer(
+        source='weight_unit', read_only=True, allow_null=True
+    )
+    image = IngredientImageSerializer(source='ingredient.image', read_only=True, allow_null=True)
 
     class Meta:
         model = MealItem

@@ -21,9 +21,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import (
     post_save,
     pre_delete,
+    pre_save,
 )
 
 # wger
+from wger.core.models import UserProfile
 from wger.gym.helpers import get_user_last_activity
 from wger.manager.helpers import reset_routine_cache
 from wger.manager.models import (
@@ -118,8 +120,30 @@ def handle_workout_session_change(sender, instance: WorkoutSession, **kwargs):
         reset_routine_cache(instance.routine, structure=False)
 
 
+def remember_time_zone(sender, instance: UserProfile, raw=False, **kwargs):
+    if raw or instance.pk is None:
+        return
+    instance._old_time_zone = (
+        UserProfile.objects.filter(pk=instance.pk).values_list('time_zone', flat=True).first()
+    )
+
+
+def handle_time_zone_change(sender, instance: UserProfile, created=False, raw=False, **kwargs):
+    if raw or created:
+        return
+    if getattr(instance, '_old_time_zone', instance.time_zone) == instance.time_zone:
+        return
+    # The date sequences cut their calendar days in the owner's zone; the
+    # structure caches do not depend on it
+    for routine in Routine.objects.filter(user_id=instance.user_id):
+        reset_routine_cache(routine, structure=False)
+
+
 post_save.connect(handle_workout_session_change, sender=WorkoutSession)
 post_save.connect(handle_workout_log_change, sender=WorkoutLog)
+
+pre_save.connect(remember_time_zone, sender=UserProfile)
+post_save.connect(handle_time_zone_change, sender=UserProfile)
 
 post_save.connect(update_cache_routine, sender=Routine)
 post_save.connect(update_cache_day, sender=Day)

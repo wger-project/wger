@@ -251,7 +251,7 @@ class UserDeleteTrophyIntegrationTestCase(WgerTestCase):
         user = User.objects.create_user(
             username='trophyuser', email='trophy@test.com', password='testpass'
         )
-        WorkoutSession.objects.create(user=user, date=timezone.now().date())
+        WorkoutSession.objects.create(user=user, datetime_start=timezone.now())
         Trophy.objects.create(
             name='DeleteTestTrophy',
             trophy_type=0,

@@ -24,12 +24,15 @@ from django.contrib.auth import (
     login,
     logout,
 )
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import url_has_allowed_host_and_scheme
 
 # wger
+from wger.core.models import UserProfile
 from wger.utils.helpers import remove_language_code
 
 
@@ -64,7 +67,8 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             return None
 
         # Only handle requests to the login page.
-        # Here the user will be logged in using the proxy headers and redirected to the original page.
+        # Here the user will be logged in using the proxy headers and redirected
+        # to the original page.
         if remove_language_code(request.path_info) != self.login_url_path:
             # logger.debug(f'AuthProxyMiddleware: not request to login page. Skipping.')
             return None
@@ -126,8 +130,9 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             # and log in the header user for consistency.
             else:
                 logger.warning(
-                    f"AuthProxyMiddleware: User mismatch. Session user '{request.user.get_username()}' "
-                    f"differs from proxy header user '{username}'. Logging out old user."
+                    'AuthProxyMiddleware: User mismatch. '
+                    f"Session user '{request.user.get_username()}' differs from "
+                    f"proxy header user '{username}'. Logging out old user."
                 )
                 logout(request)
 
@@ -160,4 +165,61 @@ class AuthProxyHeaderMiddleware(MiddlewareMixin):
             # Explicitly clear any potentially lingering user object
             request.user = None
 
+        return None
+
+
+class TimezoneMiddleware:
+    """
+    Activates the requesting user's time zone for the duration of the request
+
+    This is for rendering only: it decides the offset of the timestamps in a
+    response and the zone a date filter is resolved in. What day a stored row
+    counts for is derived from the zone of the user the row belongs to, which
+    is not necessarily the one asking.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        user = getattr(request, 'user', None)
+        if user is not None and user.is_authenticated:
+            try:
+                timezone.activate(user.userprofile.zone_info)
+            except UserProfile.DoesNotExist:
+                timezone.deactivate()
+        else:
+            timezone.deactivate()
+
+        return self.get_response(request)
+
+
+class TrainerLoginMiddleware:
+    """
+    Keeps a trainer logged in as a member out of allauth's account pages
+
+    These change how the account is logged into or recovered (email, password,
+    two-factor, social connections), which would outlive the trainer session.
+    Logging out stays possible. Deleting the member's own account is blocked
+    as well, trainers can't delete members otherwise.
+    """
+
+    allowed_url_names = {'account_logout'}
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        return self.get_response(request)
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        if not request.session.get('trainer.identity'):
+            return None
+        if request.resolver_match.url_name in self.allowed_url_names:
+            return None
+        if view_func.__module__.startswith('allauth.'):
+            return HttpResponseForbidden()
+        # Both delete routes share the name, only the one without user_pk is the own account
+        if request.resolver_match.view_name == 'core:user:delete' and 'user_pk' not in view_kwargs:
+            return HttpResponseForbidden()
         return None
