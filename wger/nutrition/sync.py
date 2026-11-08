@@ -73,6 +73,7 @@ from wger.utils.constants import (
 )
 from wger.utils.language import load_language
 from wger.utils.requests import (
+    WgerTimeoutSession,
     get_paginated,
     wger_headers,
     wger_request_timeout,
@@ -255,7 +256,9 @@ def fetch_image_from_off(ingredient: Ingredient):
         logger.info('could not load all image information, skipping...', e)
         return
 
-    off_response = download_image(image_url, return_struct=True)
+    # The OFF library sends its requests without a timeout
+    with WgerTimeoutSession() as session:
+        off_response = download_image(image_url, return_struct=True, session=session)
 
     # Save to DB
     url = make_uri(

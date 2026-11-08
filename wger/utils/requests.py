@@ -35,6 +35,14 @@ def wger_request_timeout() -> tuple[int, int]:
     return 10, settings.WGER_REQUEST_TIMEOUT
 
 
+class WgerTimeoutSession(requests.Session):
+    """Session that applies wger_request_timeout() to requests without their own timeout"""
+
+    def request(self, *args, **kwargs):
+        kwargs.setdefault('timeout', wger_request_timeout())
+        return super().request(*args, **kwargs)
+
+
 def get_all_paginated(url: str, headers=None):
     """
     Fetch all results from a paginated endpoint.

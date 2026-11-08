@@ -36,6 +36,7 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_WGER,
 )
 from wger.utils.requests import (
+    WgerTimeoutSession,
     wger_headers,
     wger_request_timeout,
 )
@@ -222,9 +223,13 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
             # Assert
             mock_from_json.assert_called()
+            self.assertIsInstance(
+                mock_download_image.call_args.kwargs['session'], WgerTimeoutSession
+            )
             mock_download_image.assert_called_with(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 return_struct=True,
+                session=ANY,
             )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_request.assert_called_with(
@@ -315,6 +320,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_download_image.assert_called_with(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 return_struct=True,
+                session=ANY,
             )
             mock_logger.assert_any_call('Fetching image for ingredient 1')
             mock_logger.assert_any_call(
