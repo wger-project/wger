@@ -30,8 +30,8 @@ from wger.manager.consts import (
     WEIGHT_UNIT_KG,
     WEIGHT_UNIT_LB,
 )
-from wger.manager.helpers import brzycki_one_rm
 from wger.manager.models import WorkoutLog
+from wger.manager.one_rep_max import estimate_from_log
 from wger.measurements.dynamic.base import (
     Dependency,
     DesiredRow,
@@ -45,10 +45,7 @@ from wger.measurements.models import (
 from wger.measurements.models.category import MetricType
 from wger.measurements.models.measurement import MeasurementSource
 from wger.utils.constants import TWOPLACES
-from wger.utils.units import (
-    AbstractHeight,
-    AbstractWeight,
-)
+from wger.utils.units import AbstractHeight
 
 
 # The units a length may be written in, and what a value in one of them has to
@@ -209,7 +206,8 @@ def daily_best_estimates(user_id: int, exercise_id, max_reps, tz: datetime.tzinf
     Qualifying means: 1 to max_reps repetitions counted in repetitions, a
     weight over zero in kg or lb. The rep cap exists both because low-rep
     sets are what a 1RM estimate is about and because the formula degrades
-    at high counts.
+    at high counts. The reps in reserve raise the estimate, but don't count
+    towards the cap.
     """
     logs = WorkoutLog.objects.filter(
         user_id=user_id,
@@ -224,12 +222,10 @@ def daily_best_estimates(user_id: int, exercise_id, max_reps, tz: datetime.tzinf
     # Per day the set with the highest estimate; the datetime breaks ties
     best = {}
     for log in logs:
-        weight = (
-            log.weight
-            if log.weight_unit_id == WEIGHT_UNIT_KG
-            else AbstractWeight(log.weight, 'lb').kg
-        )
-        one_rm = brzycki_one_rm(weight, log.repetitions).quantize(TWOPLACES)
+        one_rm = estimate_from_log(log, max_reps=max_reps, unit=WEIGHT_UNIT_KG)
+        if one_rm is None:
+            continue
+        one_rm = one_rm.quantize(TWOPLACES)
         day = timezone.localdate(log.date, tz)
         if day not in best or (one_rm, log.date) > best[day]:
             best[day] = (one_rm, log.date)

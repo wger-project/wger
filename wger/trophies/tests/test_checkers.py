@@ -24,6 +24,10 @@ from django.utils import timezone
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models.base import Exercise
 from wger.exercises.models.category import ExerciseCategory
+from wger.manager.consts import (
+    REP_UNIT_SECONDS,
+    WEIGHT_UNIT_LB,
+)
 from wger.manager.models.log import WorkoutLog
 from wger.manager.models.session import WorkoutSession
 from wger.trophies.checkers.date_based import DateBasedChecker
@@ -635,3 +639,56 @@ class PersonalRecordCheckerTestCase(WgerTestCase):
         checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
         with self.assertRaises(ValueError):
             checker._estimate_one_rep_max()
+
+    def test_estimate_of_lb_log_is_in_kg(self):
+        """The estimate of a set logged in lb is stored in kg"""
+        log = WorkoutLog(
+            user=self.user,
+            exercise=self.exercise,
+            repetitions=1,
+            weight=225,
+            weight_unit_id=WEIGHT_UNIT_LB,
+        )
+        checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
+
+        self.assertEqual(checker._estimate_one_rep_max(), 102.06)
+
+    def test_lb_log_compared_in_kg(self):
+        """A set in lb beats a kg record only if it is heavier after conversion"""
+        log1 = WorkoutLog(user=self.user, exercise=self.exercise, repetitions=1, weight=100)
+        checker1 = PersonalRecordChecker(self.user, self.trophy, {'log': log1})
+        self.assertTrue(checker1.check())
+        self.award_pr_trophy(checker1)
+
+        # 200 lb = 90.72 kg
+        log2 = WorkoutLog(
+            user=self.user,
+            exercise=self.exercise,
+            repetitions=1,
+            weight=200,
+            weight_unit_id=WEIGHT_UNIT_LB,
+        )
+        self.assertFalse(PersonalRecordChecker(self.user, self.trophy, {'log': log2}).check())
+
+        # 225 lb = 102.06 kg
+        log3 = WorkoutLog(
+            user=self.user,
+            exercise=self.exercise,
+            repetitions=1,
+            weight=225,
+            weight_unit_id=WEIGHT_UNIT_LB,
+        )
+        self.assertTrue(PersonalRecordChecker(self.user, self.trophy, {'log': log3}).check())
+
+    def test_log_in_seconds_is_no_pr(self):
+        """A set not counted in repetitions is never a personal record"""
+        log = WorkoutLog(
+            user=self.user,
+            exercise=self.exercise,
+            repetitions=30,
+            repetitions_unit_id=REP_UNIT_SECONDS,
+            weight=20,
+        )
+        checker = PersonalRecordChecker(self.user, self.trophy, {'log': log})
+
+        self.assertFalse(checker.check())

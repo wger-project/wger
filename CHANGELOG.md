@@ -32,6 +32,13 @@ Progression requirements can now reference the top of the prescribed range via t
 
 ### Bug fixes
 
+* All 1RM estimates (calculated "1RM" and "1RM total" measurements, personal
+  record trophies, routine statistics) now share one calculation. The reps in
+  reserve of a set now also raise the estimate of the calculated measurements,
+  existing curves change accordingly on their next recalculation. Personal
+  records compare sets logged in lb and kg correctly and are no longer awarded
+  for sets not counted in repetitions or not weighed in kg or lb. Personal
+  record trophies already awarded for such sets are deleted by a migration.
 * Counted messages for token expiry, confirmation links, inactive-member reminders,
   and workout-session limits now use locale-aware plural forms.
 * Deleting a routine, day, slot, or slot entry now preserves completed workout

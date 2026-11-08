@@ -300,6 +300,30 @@ class RoutineStatisticsTestCase(WgerTestCase):
             ),
         )
 
+    def test_intensity_skips_sets_outside_the_formula(self):
+        """
+        A set with 37 or more repetitions counts as a set, but not towards the
+        intensity
+        """
+        WorkoutLog(
+            user_id=1,
+            routine=self.routine,
+            date=datetime.date(2024, 2, 1),
+            repetitions_unit_id=REP_UNIT_REPETITIONS,
+            repetitions=40,
+            weight_unit_id=WEIGHT_UNIT_KG,
+            weight=10,
+            exercise_id=1,
+            iteration=1,
+        ).save()
+
+        stats = self.routine.calculate_log_statistics()
+
+        self.assertEqual(stats.sets.daily[datetime.date(2024, 2, 1)].total, 2)
+        self.assertAlmostEqual(
+            float(stats.intensity.daily[datetime.date(2024, 2, 1)].total), 0.8889, places=4
+        )
+
     def test_intensity_calculations(self):
         """Test that intensity (Brzycki) is correctly averaged across all grouping levels"""
         stats = self.routine.calculate_log_statistics()
