@@ -28,6 +28,9 @@ Progression requirements can now reference the top of the prescribed range via t
 
 ### Bug fixes
 
+* Open Food Facts imports can recover missing per-100g nutrition values from
+  per-serving data when a serving weight of at least 5 g is available. Existing
+  per-100g values and nutrition validation are preserved.
 * Counted messages for token expiry, confirmation links, inactive-member reminders,
   and workout-session limits now use locale-aware plural forms.
 * Deleting a routine, day, slot, or slot entry now preserves completed workout
