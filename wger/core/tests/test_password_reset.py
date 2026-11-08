@@ -22,6 +22,10 @@ from django.core import mail
 from django.test import override_settings
 from django.urls import reverse
 
+# Third Party
+from django_cf_turnstile.fields import TurnstileCaptchaField
+from django_recaptcha.fields import ReCaptchaField
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 
@@ -55,20 +59,32 @@ class PasswordResetTestCase(WgerTestCase):
         response = self.client.post(url, {'email': 'test@example.com'})
         self.assertEqual(response.status_code, 429)
 
-    @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'USE_RECAPTCHA': True})
-    def test_captcha_on(self):
+    @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'recaptcha'})
+    def test_captcha_recaptcha(self):
         """
-        The reset form has a reCAPTCHA field when USE_RECAPTCHA is set
+        The reset form has a reCAPTCHA field with its own action when CAPTCHA_PROVIDER
+        is 'recaptcha'
         """
         response = self.client.get(reverse('account_reset_password'))
 
-        self.assertIn('captcha', response.context['form'].fields)
+        field = response.context['form'].fields['captcha']
+        self.assertIsInstance(field, ReCaptchaField)
+        self.assertEqual(field.widget.action, 'password_reset')
         self.assertNotContains(response, 'name="submit"')
 
-    @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'USE_RECAPTCHA': False})
-    def test_captcha_off(self):
+    @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'turnstile'})
+    def test_captcha_turnstile(self):
         """
-        The reset form has no reCAPTCHA field when USE_RECAPTCHA is not set
+        The reset form has a Turnstile field when CAPTCHA_PROVIDER is 'turnstile'
+        """
+        response = self.client.get(reverse('account_reset_password'))
+
+        self.assertIsInstance(response.context['form'].fields['captcha'], TurnstileCaptchaField)
+
+    @override_settings(WGER_SETTINGS={**settings.WGER_SETTINGS, 'CAPTCHA_PROVIDER': 'none'})
+    def test_captcha_none(self):
+        """
+        The reset form has no captcha field when CAPTCHA_PROVIDER is 'none'
         """
         response = self.client.get(reverse('account_reset_password'))
 

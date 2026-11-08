@@ -85,6 +85,27 @@ class WgerLoginForm(AllauthLoginForm):
         )
 
 
+def captcha_field(action: str) -> forms.Field | None:
+    """
+    The field for WGER_SETTINGS['CAPTCHA_PROVIDER'], None if no captcha is configured
+
+    The action labels the request in the reCAPTCHA admin console.
+    """
+    provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
+    if provider == 'recaptcha':
+        return ReCaptchaField(
+            widget=ReCaptchaV3(action=action),
+            label='reCaptcha',
+            help_text=gettext_lazy('The form is secured with reCAPTCHA'),
+        )
+    if provider == 'turnstile':
+        return TurnstileCaptchaField(
+            label='Turnstile',
+            help_text=gettext_lazy('The form is secured with Cloudflare Turnstile'),
+        )
+    return None
+
+
 class WgerSignupForm(AllauthSignupForm):
     """
     allauth's signup form with wger's password-toggle widgets and an optional
@@ -111,19 +132,9 @@ class WgerSignupForm(AllauthSignupForm):
                 css_class='form-row',
             ),
         ]
-        captcha_provider = settings.WGER_SETTINGS.get('CAPTCHA_PROVIDER', 'none')
-        if captcha_provider == 'recaptcha':
-            self.fields['captcha'] = ReCaptchaField(
-                widget=ReCaptchaV3(action='register'),
-                label='reCaptcha',
-                help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-            )
-            layout_fields.append('captcha')
-        elif captcha_provider == 'turnstile':
-            self.fields['captcha'] = TurnstileCaptchaField(
-                label='Turnstile',
-                help_text=gettext_lazy('The form is secured with Cloudflare Turnstile'),
-            )
+        captcha = captcha_field('register')
+        if captcha is not None:
+            self.fields['captcha'] = captcha
             layout_fields.append('captcha')
 
         self.helper = FormHelper()
@@ -356,20 +367,17 @@ class UsernameConfirmationForm(Form):
 
 class WgerResetPasswordForm(AllauthResetPasswordForm):
     """
-    allauth's password reset form with an optional reCAPTCHA field (shown when
-    WGER_SETTINGS['USE_RECAPTCHA'] is set).
+    allauth's password reset form with an optional CAPTCHA field (same provider
+    as the signup form, see captcha_field).
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         layout_fields = ['email']
-        if settings.WGER_SETTINGS['USE_RECAPTCHA']:
-            self.fields['captcha'] = ReCaptchaField(
-                widget=ReCaptchaV3(action='password_reset'),
-                label='reCaptcha',
-                help_text=gettext_lazy('The form is secured with reCAPTCHA'),
-            )
+        captcha = captcha_field('password_reset')
+        if captcha is not None:
+            self.fields['captcha'] = captcha
             layout_fields.append('captcha')
 
         self.helper = FormHelper()

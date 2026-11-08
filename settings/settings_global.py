@@ -283,7 +283,7 @@ ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
 # Use wger's own login/signup/password reset forms (allauth's forms + the
-# password-visibility toggle, and a conditional reCAPTCHA field on signup and
+# password-visibility toggle, and a conditional captcha field on signup and
 # password reset).
 ACCOUNT_FORMS = {
     'login': 'wger.core.forms.WgerLoginForm',
