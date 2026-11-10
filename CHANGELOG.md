@@ -62,6 +62,8 @@ Progression requirements can now reference the top of the prescribed range via t
 * `WGER_REQUEST_TIMEOUT` (default `60`): seconds to wait for an answer from a
   remote server, e.g. `WGER_INSTANCE` during the exercise and ingredient syncs,
   before giving up.
+* `AWS_DEFAULT_ACL` (default empty): ACL for files uploaded to S3, e.g.
+  `public-read` for buckets whose files aren't public by default.
 
 ## Breaking API changes
 *(only relevant if you have your own scripts or interact with the REST API)*
