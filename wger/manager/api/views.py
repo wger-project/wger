@@ -22,7 +22,10 @@ from django.db.models import Q
 
 # Third Party
 from drf_spectacular.utils import extend_schema
-from rest_framework import viewsets
+from rest_framework import (
+    status,
+    viewsets,
+)
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -204,6 +207,28 @@ class RoutineViewSet(viewsets.ModelViewSet):
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
         return Response(out)
+
+    @extend_schema(
+        request=None,
+        responses={201: RoutineSerializer},
+        description=(
+            'Creates a copy of the routine, including its days, slots, entries and configs, '
+            'for the current user. The copy is always a private routine (not a template) '
+            'that starts today. Logs and sessions are not copied. Allowed for own routines '
+            'and public templates.'
+        ),
+    )
+    @action(detail=True, methods=['post'])
+    def copy(self, request, pk):
+        """
+        Copy the routine for the current user
+        """
+        routine_copy = self.get_object().copy_for_user(request.user)
+
+        return Response(
+            self.get_serializer(routine_copy).data,
+            status=status.HTTP_201_CREATED,
+        )
 
     @staticmethod
     def get_owner_objects():
