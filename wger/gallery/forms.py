@@ -8,7 +8,6 @@ from datetime import (
 from django.forms import (
     DateField,
     ModelForm,
-    widgets,
 )
 from django.utils.translation import gettext_lazy
 
@@ -37,10 +36,7 @@ class ImageForm(ModelForm):
 
     class Meta:
         model = Image
-        exclude = []
-        widgets = {
-            'user': widgets.HiddenInput(),
-        }
+        exclude = ['user']
 
     def save(self, commit=True):
         instance = super().save(commit=False)

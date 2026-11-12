@@ -17,6 +17,8 @@ import datetime
 
 # Django
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.files import File
 from django.urls import reverse
 
 # wger
@@ -110,6 +112,44 @@ class DeleteGalleryImageTestCase(WgerDeleteTestCase):
 #             'user': 2,
 #             'description': 'Everything going well',
 #             'image': open('wger/exercises/tests/protestschwein.jpg', 'rb')}
+
+
+class EditGalleryImageOwnerTestCase(WgerTestCase):
+    """
+    Editing an image keeps its owner, whatever user is submitted
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.owner = User.objects.get(username='test')
+        self.other = User.objects.get(username='admin')
+        self.image = Image.objects.filter(user=self.owner).first()
+        with open('wger/exercises/tests/wildschwein.jpg', 'rb') as image_file:
+            self.image.image.storage.save(self.image.image.name, File(image_file))
+        self.user_login('test')
+
+    def test_submitted_user_is_ignored(self):
+        response = self.client.post(
+            reverse('gallery:images:edit', kwargs={'pk': self.image.pk}),
+            {'date': '2021-05-01', 'user': self.other.pk, 'description': 'moved'},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.image.refresh_from_db()
+        self.assertEqual(self.image.description, 'moved')
+        self.assertEqual(self.image.user, self.owner)
+
+    def test_submitted_user_is_ignored_with_new_file(self):
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as image_file:
+            response = self.client.post(
+                reverse('gallery:images:edit', kwargs={'pk': self.image.pk}),
+                {'date': '2021-05-01', 'user': self.other.pk, 'image': image_file},
+            )
+
+        self.assertEqual(response.status_code, 302)
+        self.image.refresh_from_db()
+        self.assertEqual(self.image.user, self.owner)
+        self.assertTrue(self.image.image.name.startswith(f'gallery/{self.owner.pk}/'))
 
 
 class AddGalleryImageAnonymousTestCase(WgerTestCase):
