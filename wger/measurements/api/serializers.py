@@ -15,6 +15,8 @@
 
 # Standard Library
 import json
+import uuid
+from collections.abc import Mapping
 from decimal import Decimal
 
 # Third Party
@@ -94,6 +96,44 @@ class CategorySerializer(serializers.ModelSerializer):
             'dynamic_params',
         )
         read_only_fields = ('is_official',)
+
+    def to_internal_value(self, data):
+        """
+        Refuses a derived key before the field validators run: the uniqueness
+        check of the id would otherwise tell whether another user has a
+        category of that type
+        """
+        self._validate_derived_id(data)
+        return super().to_internal_value(data)
+
+    def _validate_derived_id(self, data):
+        """
+        A derived key (Category.deterministic_id) is only accepted for the typed
+        category of the writing user it is derived for. Anyone can compute the
+        keys of other users, so taking one would block their category.
+        """
+        if not isinstance(data, Mapping) or 'id' not in data:
+            return
+        try:
+            key = uuid.UUID(str(data['id']))
+        except ValueError:
+            return
+        if key.version != 5 or (self.instance is not None and key == self.instance.pk):
+            return
+
+        metric_type = data.get(
+            'metric_type',
+            self.instance.metric_type if self.instance else MetricType.CUSTOM,
+        )
+        user_id = self._get_user_id()
+        if (
+            user_id is not None
+            and Category.has_deterministic_id(metric_type)
+            and key == Category.deterministic_id(user_id, metric_type)
+        ):
+            return
+
+        raise serializers.ValidationError({'id': 'This id is reserved for a typed category'})
 
     def validate_chart_config(self, chart_config):
         """

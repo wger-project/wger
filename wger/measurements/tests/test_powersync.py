@@ -148,6 +148,21 @@ class TypedCategoryPowerSyncTestCase(powersync_base_test.PowerSyncBaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
         self.assertEqual(Category.objects.count(), count_before)
 
+    def test_derived_key_of_other_user_refused(self):
+        """
+        A category under another user's derived key is refused permanently
+        """
+        key = Category.deterministic_id(User.objects.get(username='admin').pk, MetricType.STEPS)
+
+        response = self.push(
+            'PUT',
+            {'id': str(key), 'name': 'x', 'unit': '', 'metric_type': MetricType.CUSTOM},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+        self.assertTrue(response.json().get('error'), response.content)
+        self.assertFalse(Category.objects.filter(pk=key).exists())
+
     def test_duplicate_typed_category_refused(self):
         """
         A second category of the same type is refused permanently

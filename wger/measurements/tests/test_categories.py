@@ -241,6 +241,76 @@ class TypedCategoryTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['id'], 'cccccccc-cccc-cccc-cccc-0000000000ff')
 
+    def test_derived_key_of_other_user_refused(self):
+        """
+        Test that a category cannot be created under another user's derived key
+        """
+        other = User.objects.get(username='admin')
+        key = Category.deterministic_id(other.pk, MetricType.STEPS)
+
+        for metric_type in (MetricType.CUSTOM, MetricType.STEPS):
+            with self.subTest(metric_type=metric_type):
+                response = self.create_category(id=str(key), metric_type=metric_type)
+
+                self.assertEqual(response.status_code, 400)
+                self.assertIn('id', response.data)
+                self.assertFalse(Category.objects.filter(pk=key).exists())
+
+    def test_derived_key_of_other_type_refused(self):
+        """
+        Test that a free-form category cannot take the user's own derived key
+        """
+        key = Category.deterministic_id(self.user.pk, MetricType.STEPS)
+
+        response = self.create_category(id=str(key))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('id', response.data)
+        self.assertFalse(Category.objects.filter(pk=key).exists())
+
+    def test_derived_key_refusal_does_not_reveal_existing_categories(self):
+        """
+        Test that probing another user's derived keys answers the same for a
+        category that exists and one that does not
+        """
+        other = User.objects.get(username='admin')
+        Category.objects.create(
+            id=Category.deterministic_id(other.pk, MetricType.HEART_RATE),
+            user=other,
+            name='Heart rate',
+            unit='bpm',
+            metric_type=MetricType.HEART_RATE,
+        )
+
+        tracked = self.create_category(
+            id=str(Category.deterministic_id(other.pk, MetricType.HEART_RATE))
+        )
+        untracked = self.create_category(
+            id=str(Category.deterministic_id(other.pk, MetricType.SLEEP))
+        )
+
+        self.assertEqual(tracked.status_code, 400)
+        self.assertEqual(
+            (tracked.status_code, tracked.data),
+            (untracked.status_code, untracked.data),
+        )
+
+    def test_id_cannot_be_moved_to_a_derived_key(self):
+        """
+        Test that an existing category cannot be re-keyed onto a derived key
+        """
+        key = Category.deterministic_id(User.objects.get(username='admin').pk, MetricType.STEPS)
+
+        response = self.client.patch(
+            self.detail_url(self.category_empty),
+            {'id': str(key)},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('id', response.data)
+        self.assertFalse(Category.objects.filter(pk=key).exists())
+
     def test_official_category_keeps_random_id(self):
         """
         Test that the server-managed body weight category is not derived
