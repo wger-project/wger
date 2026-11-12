@@ -181,10 +181,20 @@ class Routine(models.Model):
 
         If a day needs logs to continue it will be repeated until the user adds one.
         """
+        return self.get_date_sequence()
+
+    def get_date_sequence(self, with_history: bool = True) -> List[WorkoutDayData]:
+        """
+        Return the date sequence, see date_sequence
+
+        Without history the owner's sessions and logs are ignored, as for a fresh copy.
+        This variant is not cached here, only per user in the API.
+        """
         cache_key = CacheKeyMapper.routine_date_sequence_key(self.id)
-        cached_data = cache.get(cache_key)
-        if cached_data is not None:
-            return cached_data
+        if with_history:
+            cached_data = cache.get(cache_key)
+            if cached_data is not None:
+                return cached_data
 
         # wger
         from wger.manager.models import (
@@ -238,9 +248,10 @@ class Routine(models.Model):
         # for every session of this routine's user, fetch it once
         tz = self.user.userprofile.zone_info
         workout_session_map = defaultdict(set)
-        for day in days:
-            for session in day.workoutsession_set.all():
-                workout_session_map[day.id].add(session.local_day_in(tz))
+        if with_history:
+            for day in days:
+                for session in day.workoutsession_set.all():
+                    workout_session_map[day.id].add(session.local_day_in(tz))
 
         # Main sequence generation logic
         labels = self.label_dict
@@ -295,6 +306,7 @@ class Routine(models.Model):
                             date=placeholder_date,
                             day=None,
                             label=labels.get(placeholder_date),
+                            with_history=with_history,
                             # This is ugly, but we don't want to advance the iteration
                             iteration=iteration_counter[current_day.id] - 1,
                         )
@@ -310,6 +322,7 @@ class Routine(models.Model):
                     date=current_date,
                     day=current_day,
                     label=labels.get(current_date),
+                    with_history=with_history,
                 )
             )
             current_date += datetime.timedelta(days=1)
@@ -328,7 +341,8 @@ class Routine(models.Model):
             )
             ttl = min(ttl, max(1, int((next_midnight - now).total_seconds())))
 
-        cache.set(cache_key, sequence, ttl)
+        if with_history:
+            cache.set(cache_key, sequence, ttl)
         return sequence
 
     def data_for_day(self, date=None) -> WorkoutDayData | None:

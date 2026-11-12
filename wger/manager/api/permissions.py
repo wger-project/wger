@@ -29,7 +29,8 @@ class RoutinePermission(permissions.BasePermission):
 
     # Routine actions that expose the owner's personal training history
     # rather than the public template structure. They must stay
-    # owner-only, even on public templates.
+    # owner-only, even on public templates. The date-sequence actions stay
+    # open but leave out the owner's history for others (see RoutineViewSet).
     OWNER_ONLY_ACTIONS = frozenset({'logs', 'stats'})
 
     def has_object_permission(self, request, view, obj):

@@ -124,6 +124,11 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
+    def _date_sequence(self):
+        """The date sequence, following the owner's sessions and logs only for the owner"""
+        routine = self.get_object()
+        return routine.get_date_sequence(with_history=routine.user == self.request.user)
+
     @extend_schema(responses={200: WorkoutDayDataDisplayModeSerializer(many=True)})
     @action(detail=True, url_path='date-sequence-display', pagination_class=None)
     def date_sequence_display_mode(self, request, pk):
@@ -135,10 +140,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         if cached_data is not None:
             return Response(cached_data)
 
-        out = WorkoutDayDataDisplayModeSerializer(
-            self.get_object().date_sequence,
-            many=True,
-        ).data
+        out = WorkoutDayDataDisplayModeSerializer(self._date_sequence(), many=True).data
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
         return Response(out)
@@ -154,7 +156,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         if cached_data is not None:
             return Response(cached_data)
 
-        out = WorkoutDayDataGymModeSerializer(self.get_object().date_sequence, many=True).data
+        out = WorkoutDayDataGymModeSerializer(self._date_sequence(), many=True).data
         cache.set(cache_key, out, settings.WGER_SETTINGS['ROUTINE_CACHE_TTL'])
 
         return Response(out)

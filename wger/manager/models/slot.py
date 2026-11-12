@@ -69,15 +69,18 @@ class Slot(models.Model):
         entries = getattr(self, 'prefetched_entries', self.entries.all())
         return len(entries) > 1
 
-    def set_data(self, iteration: int) -> list[SetExerciseData]:
+    def set_data(self, iteration: int, with_history: bool = True) -> list[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
         entries = getattr(self, 'prefetched_entries', self.entries.all())
 
-        result = [SetExerciseData(data=e.get_config_data(iteration), config=e) for e in entries]
+        result = [
+            SetExerciseData(data=e.get_config_data(iteration, with_history), config=e)
+            for e in entries
+        ]
 
         return result
 
-    def set_data_gym(self, iteration: int) -> list[SetConfigData]:
+    def set_data_gym(self, iteration: int, with_history: bool = True) -> list[SetConfigData]:
         """
         Calculates the sets as they would be performed in the gym
 
@@ -109,7 +112,7 @@ class Slot(models.Model):
         - Exercise 1, 1 set
         - Exercise 1, 1 set
         """
-        set_data = self.set_data(iteration)
+        set_data = self.set_data(iteration, with_history)
 
         # If this is not a superset, adjust the sets and just return the data
         if len(set_data) == 1:

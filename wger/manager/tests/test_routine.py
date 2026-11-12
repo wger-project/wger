@@ -15,20 +15,28 @@
 # Standard Library
 import datetime
 import zoneinfo
+from decimal import Decimal
 from unittest import mock
 
 # Django
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 
 # wger
 from wger.core.tests.api_base_test import ApiBaseResourceTestCase
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models import Exercise
 from wger.manager.dataclasses import WorkoutDayData
 from wger.manager.models import (
     Day,
     Label,
+    RepetitionsConfig,
+    Slot,
+    SlotEntry,
+    WeightConfig,
+    WorkoutLog,
     WorkoutSession,
 )
 from wger.manager.models.routine import Routine
@@ -710,3 +718,116 @@ class RoutineLogsAndStatsScopeTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(self.detail_url)
         self.assertEqual(response.status_code, 200)
+
+
+class RoutineDateSequenceHistoryScopeTestCase(WgerTestCase):
+    """
+    The date sequence of a public template only follows the owner's sessions
+    and logs for the owner. Other users get the sequence without any history.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.owner = User.objects.get(username='trainer2')
+
+        # Day A only advances after a logged session, the owner had one on 01-03
+        self.days_template = Routine.objects.create(
+            user=self.owner,
+            name='Days',
+            start=datetime.date(2024, 1, 1),
+            end=datetime.date(2024, 1, 6),
+            is_template=True,
+            is_public=True,
+        )
+        day_a = Day.objects.create(
+            routine=self.days_template,
+            order=1,
+            name='A',
+            need_logs_to_advance=True,
+        )
+        Day.objects.create(routine=self.days_template, order=2, name='B')
+        WorkoutSession.objects.create(
+            user=self.owner,
+            routine=self.days_template,
+            day=day_a,
+            datetime_start=datetime.datetime(2024, 1, 3, 12, 0, tzinfo=datetime.timezone.utc),
+        )
+
+        # +2.5 kg per iteration once the previous iteration reached 5 repetitions
+        self.progression_template = Routine.objects.create(
+            user=self.owner,
+            name='Progression',
+            start=datetime.date(2024, 2, 1),
+            end=datetime.date(2024, 2, 3),
+            is_template=True,
+            is_public=True,
+        )
+        day = Day.objects.create(routine=self.progression_template, order=1, name='Squat')
+        exercise = Exercise.objects.first()
+        entry = SlotEntry.objects.create(
+            slot=Slot.objects.create(day=day, order=1),
+            exercise=exercise,
+            order=1,
+        )
+        RepetitionsConfig.objects.create(slot_entry=entry, iteration=1, value=5)
+        WeightConfig.objects.create(slot_entry=entry, iteration=1, value=100)
+        WeightConfig.objects.create(
+            slot_entry=entry,
+            iteration=2,
+            value=2.5,
+            operation='+',
+            repeat=True,
+            requirements={'rules': ['repetitions']},
+        )
+        when = datetime.datetime(2024, 2, 1, 18, 0, tzinfo=datetime.timezone.utc)
+        session = WorkoutSession.objects.create(
+            user=self.owner,
+            routine=self.progression_template,
+            day=day,
+            datetime_start=when,
+        )
+        WorkoutLog.objects.create(
+            user=self.owner,
+            session=session,
+            routine=self.progression_template,
+            slot_entry=entry,
+            exercise=exercise,
+            iteration=1,
+            date=when,
+            repetitions=5,
+            repetitions_unit_id=1,
+            weight=100,
+            weight_unit_id=1,
+        )
+
+    def day_names(self, url_name: str, username: str) -> list[str]:
+        self.user_login(username)
+        response = self.client.get(reverse(url_name, kwargs={'pk': self.days_template.pk}))
+        self.assertEqual(response.status_code, 200)
+        return [entry['day']['name'] for entry in response.data]
+
+    def weights(self, url_name: str, username: str) -> list[Decimal]:
+        self.user_login(username)
+        response = self.client.get(reverse(url_name, kwargs={'pk': self.progression_template.pk}))
+        self.assertEqual(response.status_code, 200)
+        return [Decimal(str(entry['slots'][0]['sets'][0]['weight'])) for entry in response.data]
+
+    def test_days_follow_sessions_only_for_owner(self):
+        """The owner's session moves the sequence on, for other users it does not"""
+        for url_name in ('routine-date-sequence-display-mode', 'routine-date-sequence-gym-mode'):
+            with self.subTest(url_name=url_name):
+                self.assertEqual(
+                    self.day_names(url_name, 'trainer2'),
+                    ['A', 'A', 'A', 'B', 'A', 'A'],
+                )
+                self.assertEqual(self.day_names(url_name, 'test'), ['A'] * 6)
+
+    def test_progression_follows_logs_only_for_owner(self):
+        """The owner's log unlocks the progression, for other users it does not"""
+        for url_name in ('routine-date-sequence-display-mode', 'routine-date-sequence-gym-mode'):
+            with self.subTest(url_name=url_name):
+                self.assertEqual(
+                    self.weights(url_name, 'trainer2'),
+                    [Decimal(100), Decimal('102.5'), Decimal('102.5')],
+                )
+                self.assertEqual(self.weights(url_name, 'test'), [Decimal(100)] * 3)

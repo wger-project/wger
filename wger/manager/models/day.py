@@ -117,15 +117,17 @@ class Day(models.Model):
         """
         return self.routine
 
-    def get_slots_gym_mode(self, iteration: int) -> list[SlotData]:
+    def get_slots_gym_mode(self, iteration: int, with_history: bool = True) -> list[SlotData]:
         """
         Return the sets for this day
         """
         slots = getattr(self, 'prefetched_slots', self.slots.all())
 
-        return [SlotData(comment=s.comment, sets=s.set_data_gym(iteration)) for s in slots]
+        return [
+            SlotData(comment=s.comment, sets=s.set_data_gym(iteration, with_history)) for s in slots
+        ]
 
-    def get_slots_display_mode(self, iteration: int) -> list[SlotData]:
+    def get_slots_display_mode(self, iteration: int, with_history: bool = True) -> list[SlotData]:
         """
         Return the sets for this day.
 
@@ -153,7 +155,7 @@ class Day(models.Model):
         for slot in slots:
             slot_data = SlotData(
                 comment=slot.comment,
-                sets=[s.data for s in slot.set_data(iteration)],
+                sets=[s.data for s in slot.set_data(iteration, with_history)],
             )
             exercises = slot_data.exercises
 

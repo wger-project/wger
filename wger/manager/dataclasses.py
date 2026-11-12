@@ -219,13 +219,14 @@ class WorkoutDayData:
     date: datetime.date
     iteration: int | None
     label: str | None = None
+    with_history: bool = True
 
     @property
     def slots_gym_mode(self) -> List[SlotData]:
         if not self.day:
             return []
 
-        return self.day.get_slots_gym_mode(self.iteration)
+        return self.day.get_slots_gym_mode(self.iteration, self.with_history)
 
     @property
     def slots_display_mode(self) -> List[SlotData]:
@@ -234,7 +235,7 @@ class WorkoutDayData:
         if not self.day:
             return []
 
-        return self.day.get_slots_display_mode(self.iteration)
+        return self.day.get_slots_display_mode(self.iteration, self.with_history)
 
 
 @dataclass
