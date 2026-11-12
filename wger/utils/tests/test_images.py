@@ -90,6 +90,16 @@ class ValidateImageStaticNoAnimationTestCase(SimpleTestCase):
             with self.assertRaisesMessage(ValidationError, 'The image dimensions are too large'):
                 validate_image_static_no_animation(upload(make_image('PNG')))
 
+    def test_images_over_the_pixel_limit_are_rejected(self):
+        # 16 pixels are over the limit but below twice the limit, where Pillow only warns
+        with mock.patch.object(Image, 'MAX_IMAGE_PIXELS', 15):
+            with self.assertRaisesMessage(ValidationError, 'The image dimensions are too large'):
+                validate_image_static_no_animation(upload(make_image('PNG')))
+
+    def test_images_at_the_pixel_limit_are_accepted(self):
+        with mock.patch.object(Image, 'MAX_IMAGE_PIXELS', 16):
+            validate_image_static_no_animation(upload(make_image('PNG')))
+
     def test_files_that_are_no_image_are_rejected(self):
         for content in (b'', b'not an image'):
             with self.subTest(content=content):

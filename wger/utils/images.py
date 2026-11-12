@@ -40,6 +40,10 @@ def validate_image_static_no_animation(value):
         # Unidentified as well as cut off within the header
         raise ValidationError('File is not a valid image.')
 
+    # Pillow only raises above twice its limit, below that it just warns
+    if img.width * img.height > Image.MAX_IMAGE_PIXELS:
+        raise ValidationError('The image dimensions are too large.')
+
     # Supported types
     if img_format not in IMAGE_ALLOWED_FORMATS:
         raise ValidationError(

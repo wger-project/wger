@@ -52,6 +52,8 @@ Progression requirements can now reference the top of the prescribed range via t
 * The exercise and ingredient syncs no longer hang forever when the remote
   server stops answering. Requests to it now time out, see
   `WGER_REQUEST_TIMEOUT`.
+* Gallery and exercise images with more than about 89 megapixels are now
+  rejected on upload.
 
 ## New settings
 *(for self-hoster)*
