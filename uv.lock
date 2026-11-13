@@ -879,14 +879,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-sortedm2m"
-version = "4.0.0"
-source = { registry = "https://pypi.org/simple" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/4f/59/368d68a415b2818dcf95044a14caa435d0140960be3b23ea8b264c8afda7/django_sortedm2m-4.0.0-py2.py3-none-any.whl", hash = "sha256:7e76f3f3ea3184b4ca1d4043ec75316c606d00f5534fc71e69981d8b2198ff33", size = 37782, upload-time = "2024-08-11T23:33:44.926Z" },
-]
-
-[[package]]
 name = "django-storages"
 version = "1.14.6"
 source = { registry = "https://pypi.org/simple" }
@@ -2260,7 +2252,6 @@ dependencies = [
     { name = "django-recaptcha" },
     { name = "django-redis" },
     { name = "django-simple-history" },
-    { name = "django-sortedm2m" },
     { name = "django-storages" },
     { name = "djangorestframework" },
     { name = "djangorestframework-simplejwt", extra = ["crypto"] },
@@ -2318,7 +2309,6 @@ requires-dist = [
     { name = "django-recaptcha", specifier = "~=4.1.0" },
     { name = "django-redis", specifier = "~=7.0.0" },
     { name = "django-simple-history", specifier = "~=3.13.0" },
-    { name = "django-sortedm2m", specifier = "~=4.0.0" },
     { name = "django-storages", specifier = "~=1.14.6" },
     { name = "djangorestframework", specifier = "~=3.18.2" },
     { name = "djangorestframework-simplejwt", extras = ["crypto"], specifier = "~=5.5.1" },
