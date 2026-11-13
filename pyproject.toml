@@ -27,7 +27,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "boto3~=1.43.2",
+    "boto3~=1.44.0",
     "celery[redis]~=5.7.0",
     "crispy-bootstrap5~=2026.3",
     "django-activity-stream~=2.0.0",
