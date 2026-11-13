@@ -54,6 +54,9 @@ Progression requirements can now reference the top of the prescribed range via t
   `WGER_REQUEST_TIMEOUT`.
 * Gallery and exercise images with more than about 89 megapixels are now
   rejected on upload.
+* `wger load-online-fixtures` downloads the ingredient fixture from
+  `https://wger.de/media/ingredients/` instead of GitHub. A failed download now
+  stops with an error instead of trying to load the error page.
 
 ## New settings
 *(for self-hoster)*

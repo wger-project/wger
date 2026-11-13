@@ -41,7 +41,7 @@ from wger.utils.requests import wger_request_timeout
 
 
 logger = logging.getLogger(__name__)
-FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
+FIXTURE_URL = 'https://wger.de/media/ingredients/ingredients.initial.json.zip'
 
 style = color_style()
 
@@ -165,33 +165,35 @@ def load_fixtures(context, settings_path: str = None):
 @task(help={'settings-path': 'Path to settings file. Leave empty for default (settings.main)'})
 def load_online_fixtures(context, settings_path: str = None):
     """
-    Downloads fixtures from server and installs them (at the moment only ingredients)
+    Downloads the initial ingredient fixture from the server and installs it
     """
     setup_django_environment(settings_path)
 
-    # Prepare the download
-    for name in ('ingredients',):
-        url = f'{FIXTURE_URL}{name}.json.zip'
+    print(f'Downloading fixture data from {FIXTURE_URL}...')
+    response = requests.get(FIXTURE_URL, stream=True, timeout=wger_request_timeout())
+    if response.status_code != 200:
+        print(
+            style.ERROR(f'Error: could not download {FIXTURE_URL} (status {response.status_code})')
+        )
+        sys.exit(1)
 
-        print(f'Downloading fixture data from {url}...')
-        response = requests.get(url, stream=True, timeout=wger_request_timeout())
-        total_size = int(response.headers.get('content-length', 0))
-        size = int(response.headers['content-length']) / (1024 * 1024)
-        print(f'-> fixture size: {size:.3} MB')
+    total_size = int(response.headers.get('content-length', 0))
+    if total_size:
+        print(f'-> fixture size: {total_size / (1024 * 1024):.3} MB')
 
-        # Save to temporary file and load the data
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip') as f:
-            print(f'-> saving to temp file {f.name}')
-            with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
-                for data in response.iter_content(chunk_size=1024):
-                    f.write(data)
-                    pbar.update(len(data))
-        f.close()
-        print('Loading downloaded data, this may take a while...')
-        call_command('loaddata', f.name, '--verbosity=3')
-        print('-> removing temp file')
-        print('')
-        os.unlink(f.name)
+    # Save to temporary file and load the data
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip') as f:
+        print(f'-> saving to temp file {f.name}')
+        with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
+            for data in response.iter_content(chunk_size=1024):
+                f.write(data)
+                pbar.update(len(data))
+    f.close()
+    print('Loading downloaded data, this may take a while...')
+    call_command('loaddata', f.name, '--verbosity=3')
+    print('-> removing temp file')
+    print('')
+    os.unlink(f.name)
 
 
 #

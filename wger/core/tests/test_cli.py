@@ -139,3 +139,44 @@ class BootstrapTestCase(TestCase):
         tasks.ensure_admin_user()
 
         self.assertTrue(User.objects.get(username='admin').check_password('secret'))
+
+
+class LoadOnlineFixturesTestCase(SimpleTestCase):
+    """
+    Tests the download in load_online_fixtures
+    """
+
+    def make_response(self, status_code: int, headers: dict) -> mock.Mock:
+        response = mock.Mock(status_code=status_code, headers=headers)
+        response.iter_content.return_value = [b'data']
+        return response
+
+    @mock.patch('wger.tasks.call_command')
+    @mock.patch('wger.tasks.requests.get')
+    @mock.patch('wger.tasks.setup_django_environment')
+    def test_error_status_aborts_without_loading(self, setup, get, call_command):
+        """A failed download exits with an error and loads nothing"""
+        get.return_value = self.make_response(404, {'content-length': '100'})
+
+        with self.assertRaises(SystemExit) as cm:
+            tasks.load_online_fixtures(Context())
+
+        self.assertEqual(cm.exception.code, 1)
+        call_command.assert_not_called()
+
+    @mock.patch('wger.tasks.call_command')
+    @mock.patch('wger.tasks.requests.get')
+    @mock.patch('wger.tasks.setup_django_environment')
+    def test_missing_content_length_is_loaded(self, setup, get, call_command):
+        """A response without content-length header is still downloaded and loaded"""
+        get.return_value = self.make_response(200, {})
+
+        tasks.load_online_fixtures(Context())
+
+        get.assert_called_once()
+        self.assertEqual(
+            get.call_args.args[0],
+            'https://wger.de/media/ingredients/ingredients.initial.json.zip',
+        )
+        call_command.assert_called_once()
+        self.assertEqual(call_command.call_args.args[0], 'loaddata')
