@@ -176,6 +176,11 @@ class UserStatisticsService:
             session_date = workout_log.session.local_day_in(tz)
 
         if session_date:
+            # A session for an earlier day can join or split runs the counters
+            # have already passed, so recalculate them from the history
+            if stats.last_workout_date and session_date < stats.last_workout_date:
+                return cls.update_statistics(user)
+
             # Check if this is a new workout day
             is_new_day = stats.last_workout_date is None or session_date > stats.last_workout_date
 
