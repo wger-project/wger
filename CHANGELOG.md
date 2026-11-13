@@ -23,6 +23,11 @@ Progression requirements can now reference the top of the prescribed range via t
   or sensor app on behalf of the user. Put vendor and model in `extra_data`. It
   is deduplicated on `external_id` and checked against the metric limits like
   every other source.
+* New `POST /api/v2/routine/<id>/copy/` endpoint that copies a routine, with all
+  its days, slots, entries and configs, for the current user. Like in the web
+  interface this works for the user's own routines and for public templates.
+  The copy is a private routine that starts today and is returned in the
+  response.
 * Workout logs have an optional `notes` field, so individual sets can get a note
   (e.g. form cues or how the set felt) in addition to the notes of the session.
 * Cloudflare Turnstile can be used as captcha on the registration and password

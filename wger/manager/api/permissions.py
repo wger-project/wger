@@ -35,10 +35,16 @@ class RoutinePermission(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """
-        If the routine is a public template, allow read-only access for everyone.
-        Otherwise, only the user who created the routine has access.
+        If the routine is a public template, allow read-only access for everyone, as well
+        as copying it. Otherwise, only the user who created the routine has access.
         """
         if obj.user == request.user:
+            return True
+
+        # Copying only reads the routine. The queryset of the view already limits the
+        # objects to the ones the user is allowed to see (own routines, the ones of the
+        # trainer and public templates)
+        if getattr(view, 'action', None) == 'copy':
             return True
 
         if obj.is_template and getattr(view, 'action', None) not in self.OWNER_ONLY_ACTIONS:

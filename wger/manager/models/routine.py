@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import copy
 import datetime
 import logging
 from collections import (
@@ -28,7 +29,10 @@ from typing import List
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
-from django.db import models
+from django.db import (
+    models,
+    transaction,
+)
 from django.db.models import Prefetch
 from django.urls import reverse
 from django.utils import timezone
@@ -160,6 +164,63 @@ class Routine(models.Model):
             self.is_public = False
 
         super().save(*args, **kwargs)
+
+    @transaction.atomic
+    def copy_for_user(self, user: User) -> 'Routine':
+        """
+        Makes a deep copy of the routine for the given user
+
+        The copy contains all days, slots, slot entries and configs. It is always a
+        private, regular routine (not a template) that starts today and has the same
+        duration as the original. Logs and sessions are not copied.
+
+        :param user: the owner of the new routine
+        :return: the newly created routine
+        """
+
+        def copy_object(obj, **attributes):
+            obj_copy = copy.copy(obj)
+            obj_copy.pk = None
+            for name, value in attributes.items():
+                setattr(obj_copy, name, value)
+            obj_copy.save()
+            return obj_copy
+
+        routine_copy = copy_object(
+            self,
+            created=None,
+            user=user,
+            is_template=False,
+            is_public=False,
+            start=datetime.date.today(),
+            end=datetime.date.today() + self.duration,
+        )
+
+        for day in self.days.all():
+            day_copy = copy_object(day, routine=routine_copy)
+
+            for slot in day.slots.all():
+                slot_copy = copy_object(slot, day=day_copy)
+
+                for entry in slot.entries.all():
+                    entry_copy = copy_object(entry, slot=slot_copy)
+
+                    for configs in (
+                        entry.weightconfig_set,
+                        entry.maxweightconfig_set,
+                        entry.repetitionsconfig_set,
+                        entry.maxrepetitionsconfig_set,
+                        entry.rirconfig_set,
+                        entry.maxrirconfig_set,
+                        entry.restconfig_set,
+                        entry.maxrestconfig_set,
+                        entry.setsconfig_set,
+                        entry.maxsetsconfig_set,
+                    ):
+                        for config in configs.all():
+                            copy_object(config, slot_entry=entry_copy)
+
+        return routine_copy
 
     @property
     def duration(self) -> datetime.timedelta:
