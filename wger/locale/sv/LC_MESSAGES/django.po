@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-07 14:27+0100\n"
-"PO-Revision-Date: 2026-10-15 14:51+0000\n"
-"Last-Translator: Jonatan Nyberg <nickwick@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-17 22:51+0000\n"
+"Last-Translator: Arash Molavi <ironyh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -67,7 +67,7 @@ msgstr "Registrera dig"
 
 #: core/forms.py:148
 msgid "Not set"
-msgstr ""
+msgstr "Inte angivet"
 
 #: core/forms.py:152 core/forms.py:270 gym/views/export.py:62
 #: gym/views/gym.py:227
@@ -93,6 +93,8 @@ msgid ""
 "Used to decide which day a workout counts for. The mobile app reports it "
 "automatically."
 msgstr ""
+"Används för att avgöra vilken dag ett träningspass räknas till. Mobilappen "
+"rapporterar tidszonen automatiskt."
 
 #: core/forms.py:211
 msgid "Personal data"
@@ -495,7 +497,7 @@ msgstr ""
 #: core/templates/account/email/email_confirmation_message.txt:14
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
-msgstr ""
+msgstr "Bekräfta att detta stämmer genom att gå till %(activate_url)s"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:26
@@ -573,10 +575,12 @@ msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
+"Har du glömt ditt lösenord? Ange din e-postadress nedan, så skickar vi ett "
+"mejl med en länk för att återställa det."
 
 #: core/templates/account/password_reset_from_key.html:4
 msgid "Bad Token"
-msgstr ""
+msgstr "Ogiltig återställningslänk"
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
@@ -590,6 +594,9 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
+"Länken för att återställa lösenordet är ogiltig, möjligen för att den redan "
+"har använts. Begär en <a href=\"%(passwd_reset_url)s\">ny "
+"återställningslänk</a>."
 
 #: core/templates/account/password_reset_from_key_done.html:4
 msgid "Password reset complete"
@@ -648,7 +655,7 @@ msgstr "Auktorisera"
 #: core/templates/idp/oidc/authorization_form.html:24
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
-msgstr ""
+msgstr "%(client_name)s vill få åtkomst till ditt konto på %(site_name)s."
 
 #: core/templates/idp/oidc/authorization_form.html:42
 #: exercises/templates/history/overview.html:213
@@ -1092,25 +1099,29 @@ msgid ""
 "These applications can use your account through the API. You gave them "
 "permission when you logged in with your wger account."
 msgstr ""
+"Dessa appar kan använda ditt konto via API:et. Du gav dem tillåtelse när du "
+"loggade in med ditt wger-konto."
 
 #: core/templates/user/connected_applications.html:25
 #, python-format
 msgid "Access runs out on %(date)s if the application is not used again"
-msgstr ""
+msgstr "Åtkomsten upphör den %(date)s om appen inte används igen"
 
 #: core/templates/user/connected_applications.html:49
 msgid "Disconnect"
-msgstr ""
+msgstr "Koppla från"
 
 #: core/templates/user/connected_applications.html:57
 msgid ""
 "Disconnecting takes the access away immediately. The application can ask for "
 "it again, and you will be shown the same page you saw the first time."
 msgstr ""
+"Om du kopplar från appen förlorar den åtkomsten omedelbart. Appen kan begära "
+"åtkomst igen, och då visas samma sida som första gången."
 
 #: core/templates/user/connected_applications.html:66
 msgid "No application has access to your account."
-msgstr ""
+msgstr "Ingen app har åtkomst till ditt konto."
 
 #: core/templates/user/connected_applications.html:78
 msgid "Your account"
@@ -1121,6 +1132,9 @@ msgid ""
 "This list is about other applications using your wger account. To manage the "
 "accounts you use to log in to wger, see connected accounts in your settings."
 msgstr ""
+"Den här listan visar andra appar som använder ditt wger-konto. Konton som du "
+"använder för att logga in på wger hanterar du under anslutna konton i "
+"inställningarna."
 
 #: core/templates/user/connected_applications.html:89
 msgid "Settings"
@@ -1443,7 +1457,7 @@ msgstr ""
 #: core/views/oidc.py:130
 #, python-brace-format
 msgid "{name} no longer has access"
-msgstr ""
+msgstr "{name} har inte längre åtkomst"
 
 #: core/views/user.py:180
 #, python-brace-format
@@ -2451,8 +2465,8 @@ msgstr "Starttiden kan inte vara efter sluttiden."
 #, python-format
 msgid "A session cannot be longer than %(hours)s hour."
 msgid_plural "A session cannot be longer than %(hours)s hours."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ett träningspass får inte vara längre än %(hours)s timme."
+msgstr[1] "Ett träningspass får inte vara längre än %(hours)s timmar."
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
@@ -3283,11 +3297,11 @@ msgstr ""
 
 #: utils/oidc_auth.py:44
 msgid "View your training, nutrition and body data"
-msgstr ""
+msgstr "Visa dina tränings-, kost- och kroppsdata"
 
 #: utils/oidc_auth.py:45
 msgid "Add and change your training, nutrition and body data"
-msgstr ""
+msgstr "Lägga till och ändra dina tränings-, kost- och kroppsdata"
 
 #: weight/forms.py:52
 msgid "Input"
