@@ -248,3 +248,15 @@ class IncrementWorkoutStreakTestCase(WgerTestCase):
     def test_jan_first_workout_is_flagged(self):
         stats = self.increment(datetime.date(2024, 1, 1))
         self.assertTrue(stats.worked_out_jan_1)
+
+    def test_session_logged_for_an_earlier_day_joins_the_streak(self):
+        for day in (3, 1, 2):
+            WorkoutSession.objects.create(
+                user=self.user,
+                datetime_start=timezone.make_aware(
+                    datetime.datetime(2024, 3, day, 12, 0),
+                ),
+            )
+
+        stats = UserStatistics.objects.get(user=self.user)
+        self.assertEqual(stats.longest_streak, 3)
