@@ -15,8 +15,9 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-07 14:27+0100\n"
-"PO-Revision-Date: 2026-10-25 06:51+0000\n"
-"Last-Translator: Tomek Jabłoński <tekj@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-21 14:51+0000\n"
+"Last-Translator: \"Dawid Adamski (Ani)\" "
+"<dawid458@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -73,7 +74,7 @@ msgstr "Zarejestruj"
 
 #: core/forms.py:148
 msgid "Not set"
-msgstr ""
+msgstr "Nie ustawione"
 
 #: core/forms.py:152 core/forms.py:270 gym/views/export.py:62
 #: gym/views/gym.py:227
@@ -99,6 +100,8 @@ msgid ""
 "Used to decide which day a workout counts for. The mobile app reports it "
 "automatically."
 msgstr ""
+"Używane do ustalenia, do jakiego dnia zalicza się trening. Aplikacja mobilna "
+"zgłasza je automatycznie."
 
 #: core/forms.py:211
 msgid "Personal data"
@@ -169,12 +172,12 @@ msgstr "Potwierdź"
 msgid ""
 "Your account has no password. Type the username \"{username}\" to confirm."
 msgstr ""
-"Twoje konto nie posiada hasła. Wpisz swoją nazwę użytkownika \"{username}\" "
-"do potwierdzenia."
+"Twoje konto nie ma hasła. Wpisz nazwę użytkownika „{username}”, aby "
+"potwierdzić."
 
 #: core/forms.py:344
 msgid "The entered username does not match"
-msgstr "Wprowadzona nazwa użytkownika jest niepoprawna"
+msgstr "Wpisana nazwa użytkownika jest niepoprawna."
 
 #: core/forms.py:372 weight/templates/import_csv_form.html:9
 msgid "Submit"
@@ -452,7 +455,7 @@ msgid ""
 "Your email verification code is listed below. Please enter it in your open "
 "browser window."
 msgstr ""
-"Twój kod do weryfikacji jest poniżej. Wprowadź go w otwartej karcie "
+"Twój kod weryfikacyjny znajduje się poniżej. Wpisz go w otwartym oknie "
 "przeglądarki."
 
 #: core/templates/account/email/email_confirmation_message.html:100
@@ -473,17 +476,25 @@ msgid_plural ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr[0] ""
+"Link jest ważny przez %(expire_hours)s godzinę (do %(date)s, %(time)s). "
+"Możesz wygenerować nowy w ustawieniach profilu."
 msgstr[1] ""
+"Link jest ważny przez %(expire_hours)s godziny (do %(date)s, %(time)s). "
+"Możesz wygenerować nowy w ustawieniach profilu."
 msgstr[2] ""
+"Link jest ważny przez %(expire_hours)s godzin (do %(date)s, %(time)s). "
+"Możesz wygenerować nowy w ustawieniach profilu."
 msgstr[3] ""
+"Link jest ważny przez %(expire_hours)s godzin (do %(date)s, %(time)s). "
+"Możesz wygenerować nowy w ustawieniach profilu."
 
 #: core/templates/account/email/email_confirmation_message.html:119
 msgid "If the button doesn't work, copy and paste this link into your browser:"
-msgstr "Jeżeli przycisk nie działa, skopiuj i wklej link do okna przeglądarki"
+msgstr "Jeżeli przycisk nie działa, skopiuj i wklej link do okna przeglądarki:"
 
 #: core/templates/account/email/email_confirmation_message.html:128
 msgid "the wger Team"
-msgstr "Drużyna Wger"
+msgstr "Zespół wger"
 
 #: core/templates/account/email/email_confirmation_message.txt:4
 #, python-format
@@ -498,6 +509,7 @@ msgstr ""
 #, python-format
 msgid "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
+"Aby potwierdzić, że wszystko się zgadza, przejdź pod adres %(activate_url)s"
 
 #: core/templates/account/email_change.html:4
 #: core/templates/user/preferences.html:26
@@ -510,6 +522,9 @@ msgid ""
 "reminders. A new address only becomes active once you confirm it via the "
 "link sent to it."
 msgstr ""
+"Twój adres e-mail służy do resetowania hasła, a opcjonalnie do przypomnień o "
+"treningach. Nowy adres staje się aktywny dopiero po potwierdzeniu go za "
+"pomocą linku wysłanego na ten adres."
 
 #: core/templates/account/email_change.html:20
 msgid "Current email"
@@ -572,10 +587,12 @@ msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
+"Zapomniałeś hasła? Wpisz swój adres e-mail poniżej, a wyślemy Ci wiadomość z "
+"linkiem do zresetowania hasła."
 
 #: core/templates/account/password_reset_from_key.html:4
 msgid "Bad Token"
-msgstr ""
+msgstr "Nieprawidłowy token"
 
 #: core/templates/account/password_reset_from_key.html:4
 #: core/templates/account/password_reset_from_key.html:19
@@ -589,6 +606,9 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
+"Link do resetowania hasła jest nieprawidłowy, prawdopodobnie został już "
+"użyty. Poproś o <a href=\"%(passwd_reset_url)s\">nowy link do resetowania "
+"hasła</a>."
 
 #: core/templates/account/password_reset_from_key_done.html:4
 msgid "Password reset complete"
@@ -604,7 +624,7 @@ msgstr "Zaloguj"
 
 #: core/templates/account/signup.html:26
 msgid "Already have an account?"
-msgstr ""
+msgstr "Masz już konto?"
 
 #: core/templates/base.html:10
 #, python-format
@@ -630,7 +650,8 @@ msgid ""
 "            "
 msgstr ""
 "Przeglądasz stronę jako użytkownik \"%(current_user)s\", wszystkie działania "
-"są wykonywane na jego danych."
+"są wykonywane na jego danych.\n"
+"            "
 
 #: core/templates/delete.html:4
 msgid "Are you sure you want to delete this? This action cannot be undone."
@@ -645,11 +666,13 @@ msgstr "Autoryzuj"
 #, python-format
 msgid "%(client_name)s wants to access your %(site_name)s account."
 msgstr ""
+"%(client_name)s chce uzyskać dostęp do Twojego konta w serwisie %(site_name)"
+"s."
 
 #: core/templates/idp/oidc/authorization_form.html:42
 #: exercises/templates/history/overview.html:213
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:345
 msgid "Languages"
@@ -725,7 +748,7 @@ msgstr "Trening"
 
 #: core/templates/navigation.html:36 core/templates/user/overview.html:24
 msgid "Routines"
-msgstr ""
+msgstr "Plany treningowe"
 
 #: core/templates/navigation.html:44 core/templates/user/overview.html:79
 msgid "Calendar"
@@ -742,7 +765,7 @@ msgstr "Galeria"
 #: core/templates/navigation.html:74 core/templates/navigation.html:404
 #: trophies/templates/trophies/overview.html:7
 msgid "Trophies"
-msgstr ""
+msgstr "Trofea"
 
 #: core/templates/navigation.html:79
 msgid "Workout templates"
@@ -817,7 +840,7 @@ msgstr "O tym programie"
 
 #: core/templates/navigation.html:220 software/templates/about_us.html:5
 msgid "Support & Get Involved"
-msgstr ""
+msgstr "Wsparcie i zaangażowanie"
 
 #: core/templates/navigation.html:226 software/templates/features.html:531
 msgid "REST API"
@@ -897,7 +920,7 @@ msgstr "Warunki świadczenia usługi"
 
 #: core/templates/template.html:184 software/templates/features.html:598
 msgid "Browser language"
-msgstr ""
+msgstr "Język przeglądarki"
 
 #: core/templates/template_features.html:46 software/templates/features.html:9
 msgid "Features"
@@ -905,7 +928,7 @@ msgstr "Cechy"
 
 #: core/templates/user/api_key.html:4
 msgid "API access"
-msgstr ""
+msgstr "Dostęp do API"
 
 #: core/templates/user/api_key.html:9
 msgid ""
@@ -913,16 +936,22 @@ msgid ""
 "mechanism for client applications, the static API key is intended for "
 "personal scripts or one-off integrations."
 msgstr ""
+"Masz do dyspozycji dwa sposoby uwierzytelnienia w API: JWT to zalecany "
+"mechanizm dla aplikacji klienckich, a statyczny klucz API jest przeznaczony "
+"do osobistych skryptów lub jednorazowych integracji."
 
 #: core/templates/user/api_key.html:16
 msgid "Long-lived refresh tokens"
-msgstr ""
+msgstr "Długoterminowe tokeny odświeżania"
 
 #: core/templates/user/api_key.html:19
 msgid ""
 "Refresh tokens let scripts and CLI tools talk to the wger API using the JWT "
 "flow without logging in interactively each time."
 msgstr ""
+"Tokeny odświeżania umożliwiają skryptom i narzędziom CLI komunikację z API "
+"wger za pomocą przepływu JWT, bez konieczności interaktywnego logowania za "
+"każdym razem."
 
 #: core/templates/user/api_key.html:35
 msgid "Generate a new refresh token"
@@ -930,13 +959,15 @@ msgstr "Wygeneruj nowy refresh token"
 
 #: core/templates/user/api_key.html:41
 msgid "Copy this token now."
-msgstr ""
+msgstr "Skopiuj ten token teraz."
 
 #: core/templates/user/api_key.html:42
 msgid ""
 "It is shown only once. If you lose it, generate a new one and revoke the old "
 "session below."
 msgstr ""
+"Jest wyświetlany tylko raz. Jeśli go stracisz, wygeneruj nowy i unieważnij "
+"starą sesję poniżej."
 
 #: core/templates/user/api_key.html:56
 #, python-format
@@ -947,9 +978,17 @@ msgid_plural ""
 "Refresh tokens expire %(days)s days after they were generated, unless you "
 "revoke them sooner."
 msgstr[0] ""
+"Tokeny odświeżania wygasają po %(days)s dniu od ich wygenerowania, chyba że "
+"odwołasz je wcześniej."
 msgstr[1] ""
+"Tokeny odświeżania wygasają po %(days)s dniach od ich wygenerowania, chyba "
+"że odwołasz je wcześniej."
 msgstr[2] ""
+"Tokeny odświeżania wygasają po %(days)s dniach od ich wygenerowania, chyba "
+"że odwołasz je wcześniej."
 msgstr[3] ""
+"Tokeny odświeżania wygasają po %(days)s dniach od ich wygenerowania, chyba "
+"że odwołasz je wcześniej."
 
 #: core/templates/user/api_key.html:68
 msgid "Created"
@@ -957,15 +996,15 @@ msgstr "Utworzono"
 
 #: core/templates/user/api_key.html:69
 msgid "Expires"
-msgstr ""
+msgstr "Wygasa"
 
 #: core/templates/user/api_key.html:88
 msgid "Revoke"
-msgstr ""
+msgstr "Unieważnij"
 
 #: core/templates/user/api_key.html:106
 msgid "Revoke all refresh tokens"
-msgstr ""
+msgstr "Unieważnij wszystkie tokeny odświeżania"
 
 #: core/templates/user/api_key.html:111
 msgid "JWT sessions"
@@ -973,7 +1012,7 @@ msgstr "Sesje JWT"
 
 #: core/templates/user/api_key.html:124
 msgid "Revoke all JWT sessions"
-msgstr ""
+msgstr "Unieważnij wszystkie sesje JWT"
 
 #: core/templates/user/api_key.html:130
 #, python-format
@@ -988,15 +1027,31 @@ msgid_plural ""
 "sessions\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Obecnie aktywna jest <strong>%(counter)s</strong> sesja JWT\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Obecnie aktywne są <strong>%(counter)s</strong> sesje JWT\n"
+"            "
 msgstr[2] ""
+"\n"
+"                Obecnie aktywnych jest <strong>%(counter)s</strong> sesji "
+"JWT\n"
+"            "
 msgstr[3] ""
+"\n"
+"                Obecnie aktywnych jest <strong>%(counter)s</strong> sesji "
+"JWT\n"
+"            "
 
 #: core/templates/user/api_key.html:139
 msgid ""
 "Revoking JWT sessions logs out every device that obtained a refresh token "
 "via the JWT login endpoint."
 msgstr ""
+"Anulowanie sesji JWT wylogowuje każde urządzenie, które uzyskało token "
+"odświeżania przez endpoint logowania JWT."
 
 #: core/templates/user/api_key.html:144 core/templates/user/preferences.html:67
 msgid "API key"
@@ -1026,10 +1081,14 @@ msgid ""
 "            <code>Authorization</code> header to use it.\n"
 "        "
 msgstr ""
+"\n"
+"            Prześlij <code>Token %(key)s</code> w nagłówku\n"
+"            <code>Authorization</code>, aby go użyć.\n"
+"        "
 
 #: core/templates/user/api_key.html:197
 msgid "Example with curl:"
-msgstr ""
+msgstr "Przykład z curlem:"
 
 #: core/templates/user/api_key.html:211 software/templates/features.html:536
 msgid "Documentation"
@@ -1041,21 +1100,23 @@ msgstr "Dokumentacja API"
 
 #: core/templates/user/app_auth_handoff.html:7
 msgid "Return to app"
-msgstr ""
+msgstr "Wróć do aplikacji"
 
 #: core/templates/user/app_auth_handoff.html:14
 msgid "Returning to the wger app…"
-msgstr ""
+msgstr "Powrót do aplikacji wger…"
 
 #: core/templates/user/app_auth_handoff.html:16
 msgid ""
 "If nothing happens, tap the button below. Make sure the wger app is "
 "installed on this device."
 msgstr ""
+"Jeśli nic się nie dzieje, dotknij przycisk poniżej. Upewnij się, że "
+"aplikacja wger jest zainstalowana na tym urządzeniu."
 
 #: core/templates/user/app_auth_handoff.html:23
 msgid "Tap to return to app"
-msgstr ""
+msgstr "Dotknij, aby wrócić do aplikacji"
 
 #: core/templates/user/connected_applications.html:4
 #: core/templates/user/preferences.html:75
@@ -1067,25 +1128,29 @@ msgid ""
 "These applications can use your account through the API. You gave them "
 "permission when you logged in with your wger account."
 msgstr ""
+"Te aplikacje mogą korzystać z Twojego konta przez API. Przyznałeś im "
+"uprawnienia, gdy logowałeś się do swojego konta wger."
 
 #: core/templates/user/connected_applications.html:25
 #, python-format
 msgid "Access runs out on %(date)s if the application is not used again"
-msgstr ""
+msgstr "Dostęp wygasa %(date)s, jeśli nie skorzystasz ponownie z aplikacji"
 
 #: core/templates/user/connected_applications.html:49
 msgid "Disconnect"
-msgstr ""
+msgstr "Rozłącz"
 
 #: core/templates/user/connected_applications.html:57
 msgid ""
 "Disconnecting takes the access away immediately. The application can ask for "
 "it again, and you will be shown the same page you saw the first time."
 msgstr ""
+"Rozłączenie natychmiast odbiera dostęp. Aplikacja może poprosić o niego "
+"ponownie, a zobaczysz tę samą stronę co za pierwszym razem."
 
 #: core/templates/user/connected_applications.html:66
 msgid "No application has access to your account."
-msgstr ""
+msgstr "Żadna aplikacja nie ma dostępu do Twojego konta."
 
 #: core/templates/user/connected_applications.html:78
 msgid "Your account"
@@ -1096,6 +1161,9 @@ msgid ""
 "This list is about other applications using your wger account. To manage the "
 "accounts you use to log in to wger, see connected accounts in your settings."
 msgstr ""
+"Ta lista dotyczy innych aplikacji korzystających z Twojego konta wger. Aby "
+"zarządzać kontami, których używasz do logowania do wger, sprawdź połączone "
+"konta w ustawieniach."
 
 #: core/templates/user/connected_applications.html:89
 msgid "Settings"
@@ -1327,7 +1395,7 @@ msgstr "Preferencje"
 
 #: core/templates/user/preferences.html:19
 msgid "Account & security"
-msgstr ""
+msgstr "Konto i bezpieczeństwo"
 
 #: core/templates/user/preferences.html:28
 msgid "Verified email"
@@ -1347,15 +1415,15 @@ msgstr "Ustaw hasło"
 
 #: core/templates/user/preferences.html:49
 msgid "Two-factor authentication"
-msgstr ""
+msgstr "Uwierzytelnianie dwuskładnikowe"
 
 #: core/templates/user/preferences.html:51
 msgid "On"
-msgstr ""
+msgstr "Wł."
 
 #: core/templates/user/preferences.html:53
 msgid "Off"
-msgstr ""
+msgstr "Wył."
 
 #: core/templates/user/preferences.html:61
 msgid "Connected accounts"
@@ -1363,11 +1431,11 @@ msgstr "Połączone konta"
 
 #: core/templates/user/preferences.html:84
 msgid "Danger zone"
-msgstr ""
+msgstr "Strefa niebezpieczeństwa"
 
 #: core/templates/user/preferences.html:89
 msgid "Your account and all training data will be permanently deleted."
-msgstr ""
+msgstr "Twoje konto i wszystkie dane treningowe zostaną trwale usunięte."
 
 #: core/templatetags/wger_extras.py:105 i18n.tpl:39
 msgid "kg"
@@ -1418,7 +1486,7 @@ msgstr ""
 #: core/views/oidc.py:130
 #, python-brace-format
 msgid "{name} no longer has access"
-msgstr ""
+msgstr "{name} nie ma już dostępu"
 
 #: core/views/user.py:180
 #, python-brace-format
@@ -1459,16 +1527,16 @@ msgstr "Klucz API został usunięty"
 
 #: core/views/user.py:528
 msgid "All API sessions were revoked"
-msgstr ""
+msgstr "Wszystkie sesje API zostały unieważnione"
 
 #: core/views/user.py:544
 msgid "Refresh token was revoked"
-msgstr ""
+msgstr "Token odświeżania został unieważniony"
 
 #: core/views/user.py:552
 #, python-brace-format
 msgid "Revoked {count} refresh token(s)"
-msgstr ""
+msgstr "Liczba unieważnionych tokenów odświeżania: {count}"
 
 #: core/views/user.py:707 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:168
@@ -1517,7 +1585,7 @@ msgstr "Historia administratora ćwiczeń"
 
 #: exercises/templates/history/overview.html:16
 msgid "Edits last 24h"
-msgstr "Edycje z ostatnich 24 godz."
+msgstr "Edycje z ostatnich 24 godzin"
 
 #: exercises/templates/history/overview.html:24
 msgid "Edits last 7d"
@@ -1530,28 +1598,28 @@ msgstr "Edycje z ostatnich 30 dni"
 #: exercises/templates/history/overview.html:49
 #: nutrition/templates/ingredient/overview.html:119
 msgid "Apply"
-msgstr ""
+msgstr "Zastosuj"
 
 #: exercises/templates/history/overview.html:50
 #: nutrition/templates/ingredient/overview.html:121
 msgid "Reset"
-msgstr ""
+msgstr "Resetuj"
 
 #: exercises/templates/history/overview.html:88
 msgid "Account younger than 60 days"
-msgstr ""
+msgstr "Konto ma mniej niż 60 dni"
 
 #: exercises/templates/history/overview.html:89
 msgid "new"
-msgstr ""
+msgstr "Nowy"
 
 #: exercises/templates/history/overview.html:94
 msgid "created"
-msgstr ""
+msgstr "Utworzono"
 
 #: exercises/templates/history/overview.html:96
 msgid "edited"
-msgstr ""
+msgstr "Zmodyfikowano"
 
 #: exercises/templates/history/overview.html:98
 msgid "deleted"
@@ -1559,15 +1627,15 @@ msgstr "usunięto"
 
 #: exercises/templates/history/overview.html:100
 msgid "merged"
-msgstr ""
+msgstr "Połączono"
 
 #: exercises/templates/history/overview.html:113
 msgid "into"
-msgstr ""
+msgstr "do"
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "Media"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1591,7 +1659,7 @@ msgstr "Cofnąć tę zmianę?"
 
 #: exercises/templates/history/overview.html:206
 msgid "The object will be restored to its previous state."
-msgstr ""
+msgstr "Obiekt zostanie przywrócony do poprzedniego stanu."
 
 #: exercises/templates/history/overview.html:220
 msgid "Revert"
@@ -1599,11 +1667,11 @@ msgstr "Odwracać"
 
 #: exercises/templates/history/overview.html:236
 msgid "No changes match the filters."
-msgstr ""
+msgstr "Brak zmian pasujących do filtrów."
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Wyczyść filtry"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
@@ -1622,12 +1690,12 @@ msgstr "Poprzednia"
 #: exercises/templates/history/overview.html:266
 #, python-format
 msgid "Page %(current)s of %(total)s"
-msgstr ""
+msgstr "Strona %(current)s z %(total)s"
 
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Dalej"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1667,7 +1735,7 @@ msgstr "Typ"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Wszystkie"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1675,11 +1743,11 @@ msgstr "Akcja"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "Od"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "Do"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -1687,7 +1755,7 @@ msgstr "Dodaj mięsień"
 
 #: gallery/forms.py:35
 msgid "If date is left empty, it will be read from the image instead"
-msgstr ""
+msgstr "Jeśli nie wpiszesz daty, zostanie odczytana ze zdjęcia"
 
 #: gallery/templates/images/overview.html:69
 msgid "Add image"
@@ -1872,14 +1940,10 @@ msgstr "Typy kontraktów"
 msgid "The following users have not visited the gym in the last %(weeks)s week"
 msgid_plural ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
-msgstr[0] ""
-"Następujacy członkowie nie odwiedzili siłowni od ostatnich %(weeks)s tygodni"
-msgstr[1] ""
-"Następujacy członkowie nie odwiedzili siłowni od ostatnich %(weeks)s tygodni"
-msgstr[2] ""
-"Następujacy członkowie nie odwiedzili siłowni od ostatnich %(weeks)s tygodni"
-msgstr[3] ""
-"Następujacy członkowie nie odwiedzili siłowni od ostatnich %(weeks)s tygodni"
+msgstr[0] "Następujący użytkownicy nie odwiedzili siłowni od %(weeks)s tygodnia"
+msgstr[1] "Następujący użytkownicy nie odwiedzili siłowni od %(weeks)s tygodni"
+msgstr[2] "Następujący użytkownicy nie odwiedzili siłowni od %(weeks)s tygodni"
+msgstr[3] "Następujący użytkownicy nie odwiedzili siłowni od %(weeks)s tygodnia"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
@@ -2124,7 +2188,7 @@ msgstr "Mięsień czworogłowy"
 
 #: i18n.tpl:31
 msgid "Resistance band"
-msgstr ""
+msgstr "Guma oporowa"
 
 #: i18n.tpl:32
 msgid "SZ-Bar"
@@ -2160,7 +2224,7 @@ msgstr "żaden (własny ciężar ciała)"
 
 #: i18n.tpl:42
 msgid "Beginner"
-msgstr ""
+msgstr "Początkujący"
 
 #: i18n.tpl:43
 msgid "Consistent"
@@ -2168,11 +2232,11 @@ msgstr "Konsekwentny"
 
 #: i18n.tpl:44
 msgid "Dedicated"
-msgstr ""
+msgstr "Zaangażowany"
 
 #: i18n.tpl:45
 msgid "Obsessed"
-msgstr ""
+msgstr "Zafascynowany"
 
 #: i18n.tpl:46
 msgid "Legend"
@@ -2180,51 +2244,51 @@ msgstr "Legenda"
 
 #: i18n.tpl:47
 msgid "Veteran"
-msgstr ""
+msgstr "Weteran"
 
 #: i18n.tpl:48
 msgid "Titan"
-msgstr ""
+msgstr "Titan"
 
 #: i18n.tpl:49
 msgid "Unstoppable"
-msgstr ""
+msgstr "Niepowstrzymany"
 
 #: i18n.tpl:50
 msgid "Weekend Warrior"
-msgstr ""
+msgstr "Weekendowy wojownik"
 
 #: i18n.tpl:51
 msgid "Elephant lifter"
-msgstr ""
+msgstr "Podnoszenie słonia"
 
 #: i18n.tpl:52
 msgid "Bus lifter"
-msgstr ""
+msgstr "Podnoszenie busa"
 
 #: i18n.tpl:53
 msgid "Plane lifter"
-msgstr ""
+msgstr "Siłacz: samolot"
 
 #: i18n.tpl:54
 msgid "Blue whale lifter"
-msgstr ""
+msgstr "Siłacz: płetwal błękitny"
 
 #: i18n.tpl:55
 msgid "Space Station lifter"
-msgstr ""
+msgstr "Podnosiciel ze Stacji Kosmicznej"
 
 #: i18n.tpl:56
 msgid "Millionaire"
-msgstr ""
+msgstr "Milioner"
 
 #: i18n.tpl:57
 msgid "Atlas"
-msgstr ""
+msgstr "Atlas"
 
 #: i18n.tpl:58
 msgid "Early Bird"
-msgstr ""
+msgstr "Ranny ptaszek"
 
 #: i18n.tpl:59
 msgid "Night Owl"
@@ -2232,11 +2296,11 @@ msgstr "Nocny Marek"
 
 #: i18n.tpl:60
 msgid "New Year, New Me"
-msgstr ""
+msgstr "Nowy rok, nowy start"
 
 #: i18n.tpl:61
 msgid "Phoenix"
-msgstr ""
+msgstr "Feniks"
 
 #: i18n.tpl:62
 msgid "Personal Record"
@@ -2272,47 +2336,47 @@ msgstr "Ukończ 1000 treningów"
 
 #: i18n.tpl:70
 msgid "Maintain a 30-day workout streak"
-msgstr ""
+msgstr "Utrzymaj 30-dniową serię treningów"
 
 #: i18n.tpl:71
 msgid "Work out on Saturday and Sunday for 4 consecutive weekends"
-msgstr ""
+msgstr "Ćwicz w sobotę i niedzielę przez 4 kolejne weekendy"
 
 #: i18n.tpl:72
 msgid "Lift a cumulative total of 5.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 5 000 kg"
 
 #: i18n.tpl:73
 msgid "Lift a cumulative total of 20.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 20 000 kg"
 
 #: i18n.tpl:74
 msgid "Lift a cumulative total of 50.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 50 000 kg"
 
 #: i18n.tpl:75
 msgid "Lift a cumulative total of 150.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 150 000 kg"
 
 #: i18n.tpl:76
 msgid "Lift a cumulative total of 450.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 450 000 kg"
 
 #: i18n.tpl:77
 msgid "Lift a cumulative total of 1.000.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 1 000 000 kg"
 
 #: i18n.tpl:78
 msgid "Lift a cumulative total of 10.000.000 kg"
-msgstr ""
+msgstr "Podnieś łącznie 10 000 000 kg"
 
 #: i18n.tpl:79
 msgid "Complete a workout before 6:00 AM"
-msgstr ""
+msgstr "Ukończ trening przed 6:00 rano"
 
 #: i18n.tpl:80
 msgid "Complete a workout after 9:00 PM"
-msgstr ""
+msgstr "Ukończ trening po 21:00"
 
 #: i18n.tpl:81
 msgid "Work out on January 1st"
@@ -2320,11 +2384,11 @@ msgstr "Trenuj 1 stycznia"
 
 #: i18n.tpl:82
 msgid "Return to training after being inactive for 30 days"
-msgstr ""
+msgstr "Wróć do treningu po 30 dniach przerwy"
 
 #: i18n.tpl:83
 msgid "Achieve a new Personal Record on any exercise"
-msgstr ""
+msgstr "Pobij nowy rekord życiowy w dowolnym ćwiczeniu"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2390,7 +2454,7 @@ msgstr "Liczba powtórzeń w rezerwie"
 
 #: manager/dataclasses.py:186
 msgid "rest"
-msgstr ""
+msgstr "Przerwa"
 
 #: manager/helpers.py:78
 msgid "Rest day"
@@ -2424,10 +2488,10 @@ msgstr "Czas rozpoczęcia nie może być po czasie zakończenia."
 #, python-format
 msgid "A session cannot be longer than %(hours)s hour."
 msgid_plural "A session cannot be longer than %(hours)s hours."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Sesja nie może trwać dłużej niż %(hours)s godzinę."
+msgstr[1] "Sesja nie może trwać dłużej niż %(hours)s godziny."
+msgstr[2] "Sesja nie może trwać dłużej niż %(hours)s godzin."
+msgstr[3] "Sesja nie może trwać dłużej niż %(hours)s godzin."
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
@@ -2494,7 +2558,7 @@ msgstr "Trening dla %s"
 #: nutrition/extract_info/off.py:71 nutrition/extract_info/off.py:90
 #: nutrition/tests/test_off.py:311
 msgid "Serving"
-msgstr ""
+msgstr "Porcja"
 
 #: nutrition/forms.py:77 nutrition/forms.py:226
 msgid "Unit"
@@ -2522,7 +2586,7 @@ msgstr ""
 
 #: nutrition/forms.py:227
 msgid "grams (g)"
-msgstr ""
+msgstr "gramy (g)"
 
 #: nutrition/forms.py:237
 msgid "Ingredient"
@@ -2534,11 +2598,11 @@ msgstr "Szukaj również w języku angielskim"
 
 #: nutrition/forms.py:257
 msgid "Quantity"
-msgstr ""
+msgstr "Ilość"
 
 #: nutrition/forms.py:259
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Podaj ilość i wybierz gramy (g) lub jedną z jednostek porcji."
 
 #: nutrition/models/ingredient.py:478
 msgid "Portion"
@@ -2596,7 +2660,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:172
 msgid "Vegan"
-msgstr ""
+msgstr "Wegański"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
@@ -2834,10 +2898,13 @@ msgid ""
 "yourself, and also provide a convenient, free, and hosted version for easy "
 "access."
 msgstr ""
+"wger pomaga Ci śledzić treningi, zarządzać dietą i osiągać cele sportowe. "
+"Oferujemy go jako darmowe oprogramowanie open-source, które możesz hostować "
+"samodzielnie, a także wygodną, darmową wersję hostowaną z łatwym dostępem."
 
 #: software/templates/about_us.html:18
 msgid "Open Source & free to use ❤️"
-msgstr ""
+msgstr "Kod otwarty & darmowy ❤️"
 
 #: software/templates/about_us.html:20
 msgid ""
@@ -2847,10 +2914,16 @@ msgid ""
 "runs entirely on this open-source foundation. We believe powerful fitness "
 "tools should be accessible to everyone."
 msgstr ""
+"wger opiera się na zasadach open source. Kod jest publicznie dostępny i "
+"rozwijany przez naszą społeczność, co zapewnia transparentność i daje Ci "
+"kontrolę nad Twoimi danymi (szczególnie przy samodzielnym hostowaniu). "
+"Bezpłatna wersja hostowana działa w całości na tej otwartej podstawie. "
+"Wierzymy, że skuteczne narzędzia do treningu powinny być dostępne dla "
+"każdego."
 
 #: software/templates/about_us.html:30
 msgid "How you can help"
-msgstr ""
+msgstr "Jak możesz pomóc"
 
 #: software/templates/about_us.html:40
 msgid "Join the Community"
@@ -2858,23 +2931,27 @@ msgstr "Dołącz do społeczności"
 
 #: software/templates/about_us.html:46
 msgid "Join the Discord server"
-msgstr ""
+msgstr "Dołącz do serwera Discord"
 
 #: software/templates/about_us.html:47
 msgid ""
 "Hop on the Discord server to chat with the developers and other users, ask "
 "questions, or discuss new features."
 msgstr ""
+"Dołącz do serwera Discord, aby rozmawiać z twórcami i innymi użytkownikami, "
+"zadawać pytania lub omawiać nowe funkcje."
 
 #: software/templates/about_us.html:55
 msgid "Get news, updates, and announcements about the project on Mastodon."
-msgstr ""
+msgstr "Śledź newsy, aktualizacje i ogłoszenia o projekcie na Mastodonie."
 
 #: software/templates/about_us.html:61
 msgid ""
 "Spread the word: Tell your friends, gym buddies, or share on social media! "
 "Your enthusiasm helps us grow and reach more people."
 msgstr ""
+"Poleć nas: powiedz znajomym, kolegom z siłowni lub udostępnij w mediach "
+"społecznościowych! Twój entuzjazm pomaga nam rosnąć i dotrzeć do nowych osób."
 
 #: software/templates/about_us.html:71
 msgid "Contribute your skills"
@@ -2882,7 +2959,7 @@ msgstr "Podziel się swoimi umiejętnościami"
 
 #: software/templates/about_us.html:76
 msgid "Report bugs or suggest features"
-msgstr ""
+msgstr "Zgłoś błąd lub zaproponuj funkcję"
 
 #: software/templates/about_us.html:78
 msgid "Have a problem or idea? Let us know!"
@@ -2894,7 +2971,7 @@ msgstr "Ulepsz ćwiczenia"
 
 #: software/templates/about_us.html:82
 msgid "Contribute new exercises, and edit or translate the existing ones."
-msgstr ""
+msgstr "Dodawaj nowe ćwiczenia oraz edytuj lub tłumacz istniejące."
 
 #: software/templates/about_us.html:85
 msgid "Translate the application"
@@ -2904,6 +2981,8 @@ msgstr "Przetłumacz aplikację"
 msgid ""
 "Help make the app accessible in more languages for users around the world."
 msgstr ""
+"Pomóż w tłumaczeniu aplikacji na więcej języków dla użytkowników z całego "
+"świata."
 
 #: software/templates/about_us.html:89
 msgid "Contribute code or documentation"
@@ -2911,11 +2990,11 @@ msgstr "Wnieś wkład w kod lub dokumentację"
 
 #: software/templates/about_us.html:90
 msgid "Check out the source code and help us build the next version."
-msgstr ""
+msgstr "Zajrzyj do kodu źródłowego i pomóż nam stworzyć kolejną wersję."
 
 #: software/templates/about_us.html:96
 msgid "Make a donation"
-msgstr ""
+msgstr "Wesprzyj nas"
 
 #: software/templates/about_us.html:100
 msgid ""
@@ -2926,6 +3005,12 @@ msgid ""
 "essential costs, helping to keep the service reliable, improving, and free "
 "for everyone."
 msgstr ""
+"Choć projekt jest darmowy i zawsze nim pozostanie, utrzymanie serwera już "
+"nie jest! Hostowana wersja wger wiąże się z realnymi, stałymi kosztami: "
+"hostingiem, przepustowością, kopiami zapasowymi itp. Rozwój projektu to też "
+"ogromny czas i wysiłek wolontariuszy. Twoja wpłata bezpośrednio wspiera te "
+"niezbędne koszty, dzięki czemu usługa pozostaje niezawodna, stale się "
+"rozwija i jest darmowa dla każdego."
 
 #: software/templates/about_us.html:135
 msgid "Sponsor on GitHub"
@@ -2933,13 +3018,15 @@ msgstr "Wesprzyj na GitHub"
 
 #: software/templates/about_us.html:142
 msgid "Thank You!"
-msgstr ""
+msgstr "Dziękuję!"
 
 #: software/templates/about_us.html:144
 msgid ""
 "Thank you for being part of the community! We appreciate your usage, "
 "feedback, and any support you can offer."
 msgstr ""
+"Dziękujemy, że jesteś częścią naszej społeczności! Doceniamy Twoje "
+"korzystanie z aplikacji, opinie oraz wszelką formę wsparcia."
 
 #: software/templates/about_us.html:155
 msgid "Our goal"
@@ -3237,11 +3324,11 @@ msgstr ""
 
 #: utils/oidc_auth.py:44
 msgid "View your training, nutrition and body data"
-msgstr ""
+msgstr "Zobacz trening, żywienie i dane o ciele"
 
 #: utils/oidc_auth.py:45
 msgid "Add and change your training, nutrition and body data"
-msgstr ""
+msgstr "Dodawaj i edytuj dane o treningu, żywieniu i ciele"
 
 #: weight/forms.py:52
 msgid "Input"
