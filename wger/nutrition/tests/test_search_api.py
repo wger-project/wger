@@ -18,7 +18,10 @@ from unittest import skipUnless
 from unittest.mock import patch
 
 # Django
+from django.contrib.auth.models import User
 from django.db import connection
+from django.test import RequestFactory
+from django.urls import reverse
 
 # Third Party
 from rest_framework import status
@@ -30,10 +33,193 @@ from wger.nutrition.api.filtersets import (
     IngredientFilterSet,
     _has_literal_trigram,
 )
-from wger.nutrition.models import Ingredient
+from wger.nutrition.api.views import IngredientViewSet
+from wger.nutrition.models import (
+    Ingredient,
+    LogItem,
+    NutritionPlan,
+)
 
 
-class SearchIngredientApiTestCase(BaseTestCase, ApiBaseTestCase):
+class PersonalIngredientSearchTestMixin:
+    def prepare_personal_search(self) -> None:
+        template = Ingredient.objects.get(name='Test ingredient 1')
+        self.history_ingredients = [
+            Ingredient.objects.create(
+                name=name,
+                language=template.language,
+                energy=100,
+                protein=10,
+                carbohydrates=10,
+                fat=10,
+            )
+            for name in (
+                'History search alpha',
+                'History search beta',
+                'History search beta',
+                'History search gamma',
+            )
+        ]
+        self.history_plan = NutritionPlan.objects.filter(user__username='test').first()
+        other_plan = NutritionPlan.objects.filter(user__username='admin').first()
+        self.own_history = {self.history_ingredients[1].pk, self.history_ingredients[3].pk}
+        self.other_history = {self.history_ingredients[2].pk}
+        for ingredient in (
+            self.history_ingredients[1],
+            self.history_ingredients[1],
+            self.history_ingredients[3],
+        ):
+            LogItem.objects.create(plan=self.history_plan, ingredient=ingredient, amount=100)
+        LogItem.objects.create(
+            plan=other_plan,
+            ingredient=self.history_ingredients[2],
+            amount=100,
+        )
+
+    def personal_search_ids(self, **params) -> list:
+        ids = None
+        for endpoint in ('api-ingredient-list', 'api-ingredientinfo-list'):
+            response = self.client.get(
+                reverse(endpoint),
+                {'name__search': 'history', 'language__code': 'en', **params},
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data['count'], len(self.history_ingredients))
+            endpoint_ids = [result['id'] for result in response.data['results']]
+            if ids is not None:
+                self.assertEqual(endpoint_ids, ids)
+            ids = endpoint_ids
+        return ids
+
+    def test_personal_search_prioritizes_own_history(self):
+        """Matching diary ingredients come first, retaining relevance within each group."""
+        self.prepare_personal_search()
+        self.authenticate('test')
+        baseline = self.personal_search_ids()
+        expected = [pk for pk in baseline if pk in self.own_history] + [
+            pk for pk in baseline if pk not in self.own_history
+        ]
+
+        self.assertNotEqual(baseline, expected)
+        self.assertEqual(self.personal_search_ids(prioritize_history='true'), expected)
+
+    def test_personal_search_is_opt_in(self):
+        """Authenticated searches retain anonymous ordering unless explicitly enabled."""
+        self.prepare_personal_search()
+        baseline = self.personal_search_ids()
+        self.authenticate('test')
+
+        self.assertEqual(self.personal_search_ids(), baseline)
+        self.assertEqual(self.personal_search_ids(prioritize_history='false'), baseline)
+
+    def test_personal_search_isolates_users(self):
+        """Switching users prioritizes only the new user's diary ingredients."""
+        self.prepare_personal_search()
+        baseline = self.personal_search_ids()
+        self.authenticate('admin')
+        expected = [pk for pk in baseline if pk in self.other_history] + [
+            pk for pk in baseline if pk not in self.other_history
+        ]
+
+        self.assertNotEqual(baseline, expected)
+        self.assertEqual(self.personal_search_ids(prioritize_history='true'), expected)
+
+    def test_personal_search_ignores_anonymous_opt_in(self):
+        """Anonymous requests ignore the history option and preserve ordinary results."""
+        self.prepare_personal_search()
+
+        self.assertEqual(
+            self.personal_search_ids(prioritize_history='true'),
+            self.personal_search_ids(),
+        )
+
+    def test_personal_search_preserves_filters(self):
+        """Logged ingredients must still match both the name and language filters."""
+        self.prepare_personal_search()
+        template = self.history_ingredients[0]
+        for name, language in (
+            ('Unrelated diary ingredient', template.language),
+            ('History search deutsch', Ingredient.objects.get(name='Testzutat 123').language),
+        ):
+            ingredient = Ingredient.objects.create(
+                name=name,
+                language=language,
+                energy=100,
+                protein=10,
+                carbohydrates=10,
+                fat=10,
+            )
+            LogItem.objects.create(plan=self.history_plan, ingredient=ingredient, amount=100)
+        self.authenticate('test')
+
+        self.assertCountEqual(
+            self.personal_search_ids(prioritize_history='true'),
+            [ingredient.pk for ingredient in self.history_ingredients],
+        )
+
+    def test_personal_search_paginates_without_duplicates(self):
+        """Repeated diary logs and equal ingredient names do not repeat or skip results."""
+        self.prepare_personal_search()
+        self.authenticate('test')
+        expected = self.personal_search_ids(prioritize_history='true')
+        first = self.personal_search_ids(prioritize_history='true', limit=2)
+        second = self.personal_search_ids(prioritize_history='true', limit=2, offset=2)
+
+        self.assertEqual(first + second, expected)
+        self.assertEqual(len(set(first + second)), len(self.history_ingredients))
+        self.assertEqual(first, self.personal_search_ids(prioritize_history='true', limit=2))
+
+    def test_personal_search_respects_explicit_ordering(self):
+        """An explicit ordering parameter takes precedence over history ranking."""
+        self.prepare_personal_search()
+        self.authenticate('test')
+
+        self.assertEqual(
+            self.personal_search_ids(prioritize_history='true', ordering='-id'),
+            sorted((ingredient.pk for ingredient in self.history_ingredients), reverse=True),
+        )
+
+    def test_personal_search_without_request_keeps_default_ordering(self):
+        """Using the filterset without an authenticated request does not inspect history."""
+        self.prepare_personal_search()
+        filterset = IngredientViewSet.filterset_class(
+            {'name__search': 'history', 'prioritize_history': 'true'},
+            queryset=Ingredient.objects.all(),
+        )
+
+        self.assertNotIn(LogItem._meta.db_table, str(filterset.qs.query))
+
+    def test_personal_search_without_search_does_not_query_history(self):
+        """Enabling history without a search term does not rank the whole catalogue."""
+        request = RequestFactory().get('/')
+        request.user = User.objects.get(username='test')
+        filterset = IngredientViewSet.filterset_class(
+            {'prioritize_history': 'true'},
+            queryset=Ingredient.objects.order_by(),
+            request=request,
+        )
+
+        self.assertNotIn(LogItem._meta.db_table, str(filterset.qs.query))
+        self.assertEqual(filterset.qs.query.order_by, ())
+
+    def test_personal_search_ranks_in_one_query(self):
+        """History ranking does not fetch diary entries or issue queries per ingredient."""
+        self.prepare_personal_search()
+        request = RequestFactory().get('/')
+        request.user = User.objects.get(username='test')
+        filterset = IngredientViewSet.filterset_class(
+            {'name__search': 'history', 'prioritize_history': 'true'},
+            queryset=Ingredient.objects.all(),
+            request=request,
+        )
+
+        with self.assertNumQueries(1):
+            ids = list(filterset.qs.values_list('pk', flat=True))
+
+        self.assertEqual(set(ids[:2]), self.own_history)
+
+
+class SearchIngredientApiTestCase(PersonalIngredientSearchTestMixin, BaseTestCase, ApiBaseTestCase):
     url = '/api/v2/ingredient/'
 
     def test_search_ordering_ends_in_a_unique_tiebreaker(self):
