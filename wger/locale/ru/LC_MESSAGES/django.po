@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-07 14:27+0100\n"
-"PO-Revision-Date: 2026-08-08 13:51+0000\n"
-"Last-Translator: tovarishhh <bankir35@gmail.com>\n"
+"PO-Revision-Date: 2026-11-26 07:51+0000\n"
+"Last-Translator: Nikita <huckler@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:56
 msgid "Default gym"
@@ -184,11 +184,11 @@ msgstr "Отправить"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
-msgstr "Короткое обозночение языка"
+msgstr "Короткое обозначение языка"
 
 #: core/models/language.py:39 core/templates/language/view.html:22
 msgid "Language full name"
-msgstr "Полное обозночение языка"
+msgstr "Полное обозначение языка"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
 msgid "Language full name in English"
@@ -241,15 +241,15 @@ msgstr "Средний"
 
 #: core/models/profile.py:106
 msgid "High"
-msgstr "Высший"
+msgstr "Высокий"
 
 #: core/models/profile.py:112
 msgid "Metric (kilogram)"
-msgstr "Метрика (килограммы)"
+msgstr "Метрическая система (килограммы)"
 
 #: core/models/profile.py:113
 msgid "Imperial (pound)"
-msgstr "Империал (фунты)"
+msgstr "Имперская система (фунты)"
 
 #: core/models/profile.py:146
 msgid "Activate workout reminders"
@@ -479,7 +479,7 @@ msgid_plural ""
 "The link is valid for %(expire_hours)s hours (until %(date)s, %(time)s). You "
 "can request a new one from your profile settings."
 msgstr[0] ""
-"Ссылка доступна в течение %(expire_hours)s часов (до %(date)s, %(time)s). Вы "
+"Ссылка доступна в течение %(expire_hours)s часа (до %(date)s, %(time)s). Вы "
 "можете запросить новую ссылку в настройках вашего профиля."
 msgstr[1] ""
 "Ссылка доступна в течение %(expire_hours)s часов (до %(date)s, %(time)s). Вы "
@@ -1611,7 +1611,7 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:123
 msgid "media"
-msgstr ""
+msgstr "медиа"
 
 #: exercises/templates/history/overview.html:126
 msgid "translations"
@@ -1647,7 +1647,7 @@ msgstr ""
 
 #: exercises/templates/history/overview.html:238
 msgid "Reset filters"
-msgstr ""
+msgstr "Сбросить фильтры"
 
 #: exercises/templates/history/overview.html:246
 msgid "History pagination"
@@ -1671,7 +1671,7 @@ msgstr "Страница %(current)s из %(total)s"
 #: exercises/templates/history/overview.html:273
 #: exercises/templates/history/overview.html:282
 msgid "Next"
-msgstr ""
+msgstr "Следующая"
 
 #: exercises/templates/history/overview.html:278
 #: exercises/templates/history/overview.html:283
@@ -1711,7 +1711,7 @@ msgstr "Тип"
 
 #: exercises/views/history.py:118 exercises/views/history.py:125
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: exercises/views/history.py:124
 msgid "Action"
@@ -1719,11 +1719,11 @@ msgstr "Действие"
 
 #: exercises/views/history.py:131
 msgid "From"
-msgstr ""
+msgstr "От"
 
 #: exercises/views/history.py:139
 msgid "To"
-msgstr ""
+msgstr "До"
 
 #: exercises/views/muscles.py:68
 msgid "Add muscle"
@@ -2477,10 +2477,10 @@ msgstr "Время начала не может быть после времен
 #, python-format
 msgid "A session cannot be longer than %(hours)s hour."
 msgid_plural "A session cannot be longer than %(hours)s hours."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Сессия не может длиться дольше %(hours)s часа."
+msgstr[1] "Сессия не может длиться дольше %(hours)s часов."
+msgstr[2] "Сессия не может длиться дольше %(hours)s часов."
+msgstr[3] "Сессия не может длиться дольше %(hours)s часов."
 
 #: manager/templates/routines/email_reminder.tpl:3
 #, python-format
@@ -2577,7 +2577,7 @@ msgstr ""
 
 #: nutrition/forms.py:227
 msgid "grams (g)"
-msgstr ""
+msgstr "граммы (гр)"
 
 #: nutrition/forms.py:237
 msgid "Ingredient"
@@ -2589,11 +2589,11 @@ msgstr "Также ищите названия на английском"
 
 #: nutrition/forms.py:257
 msgid "Quantity"
-msgstr ""
+msgstr "Количество"
 
 #: nutrition/forms.py:259
 msgid "Enter a quantity and choose grams (g) or one of the serving units."
-msgstr ""
+msgstr "Введите количество и выберите граммы (гр) или одну из мер порций."
 
 #: nutrition/models/ingredient.py:478
 msgid "Portion"
@@ -2647,7 +2647,7 @@ msgstr ""
 #: nutrition/templates/ingredient/overview.html:104
 #: nutrition/templates/ingredient/view.html:172
 msgid "Vegan"
-msgstr ""
+msgstr "Веганское"
 
 #: nutrition/templates/ingredient/overview.html:34
 #: nutrition/templates/ingredient/overview.html:115
