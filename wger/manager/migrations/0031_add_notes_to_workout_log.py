@@ -14,4 +14,8 @@ class Migration(migrations.Migration):
             name='notes',
             field=models.TextField(blank=True, null=True, verbose_name='Notes'),
         ),
+        migrations.AlterModelOptions(
+            name='workoutlog',
+            options={'ordering': ['date', 'repetitions', 'weight', 'id']},
+        ),
     ]

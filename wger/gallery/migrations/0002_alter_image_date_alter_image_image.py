@@ -28,4 +28,8 @@ class Migration(migrations.Migration):
                 width_field='width',
             ),
         ),
+        migrations.AlterModelOptions(
+            name='image',
+            options={'ordering': ['-date', '-id']},
+        ),
     ]

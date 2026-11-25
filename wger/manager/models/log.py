@@ -238,7 +238,9 @@ class WorkoutLog(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        ordering = ['date', 'repetitions', 'weight']
+        # id breaks ties between sets logged with the same values,
+        # so pages of the API list don't repeat or skip entries
+        ordering = ['date', 'repetitions', 'weight', 'id']
 
     def __str__(self):
         """

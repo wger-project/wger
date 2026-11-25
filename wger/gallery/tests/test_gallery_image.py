@@ -174,3 +174,9 @@ class AddGalleryImageAnonymousTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Image.objects.count(), count_before)
+
+
+class ImageOrderingTestCase(WgerTestCase):
+    def test_ties_are_ordered_by_id(self):
+        """Images of the same day keep one order, so API pages don't repeat or skip"""
+        self.assertTrue(str(Image.objects.all().query).endswith('"gallery_image"."id" DESC'))
