@@ -349,3 +349,10 @@ class LogModelTestCase(WgerTestCase):
         log1.save()
 
         self.assertEqual(log1.next_log, log2)
+
+
+class LogOrderingTestCase(WgerTestCase):
+    def test_ties_are_ordered_by_id(self):
+        """Sets logged with the same values keep one order, so API pages don't repeat or skip"""
+        query = str(WorkoutLog.objects.all().query)
+        self.assertTrue(query.endswith('"manager_workoutlog"."id" ASC'))

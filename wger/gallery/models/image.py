@@ -36,8 +36,10 @@ def gallery_upload_dir(instance, filename):
 
 class Image(models.Model):
     class Meta:
+        # id breaks ties between images of the same day
         ordering = [
             '-date',
+            '-id',
         ]
 
     date = models.DateField(
