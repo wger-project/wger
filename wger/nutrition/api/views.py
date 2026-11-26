@@ -38,6 +38,7 @@ from rest_framework.response import Response
 # wger
 from wger.nutrition.api.filtersets import (
     IngredientFilterSet,
+    IngredientSearchFilterSet,
     LogItemFilterSet,
 )
 from wger.nutrition.api.serializers import (
@@ -91,7 +92,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'last_imported',
         'nutriscore',
     )
-    filterset_class = IngredientFilterSet
+    filterset_class = IngredientSearchFilterSet
 
     # Strip default ordering ('name'), this makes the API/DB more performant
     queryset = Ingredient.objects.prefetch_related('ingredientweightunit_set').order_by()

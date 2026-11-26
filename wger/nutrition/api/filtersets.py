@@ -23,12 +23,15 @@ from django.contrib.postgres.search import (
 )
 from django.db.models import (
     Case,
+    Exists,
     F,
     IntegerField,
+    OuterRef,
     Q,
     Value,
     When,
 )
+from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from django_filters import rest_framework as filters
@@ -204,3 +207,33 @@ class IngredientFilterSet(filters.FilterSet):
             'license': ['exact'],
             'license_author': ['exact'],
         }
+
+
+class IngredientSearchFilterSet(IngredientFilterSet):
+    prioritize_history = filters.BooleanFilter(
+        method='rank_personal_history',
+        help_text=_(
+            'With name__search, prioritize ingredients previously logged by the authenticated '
+            'user. Defaults to false. Ignored for anonymous requests. Explicit ordering '
+            'takes precedence.'
+        ),
+    )
+
+    def rank_personal_history(self, queryset, name, value):
+        """Prepend personal diary usage while retaining the existing search ordering."""
+        if (
+            not value
+            or not self.form.cleaned_data.get('name__search')
+            or self.request is None
+            or not self.request.user.is_authenticated
+        ):
+            return queryset
+
+        history = LogItem.objects.filter(
+            ingredient_id=OuterRef('pk'),
+            plan__user=self.request.user,
+        )
+        ordering = queryset.query.order_by or ('name', 'id')
+        return queryset.alias(previously_logged=Exists(history)).order_by(
+            '-previously_logged', *ordering
+        )
