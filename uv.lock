@@ -703,15 +703,15 @@ mfa = [
 
 [[package]]
 name = "django-axes"
-version = "9.0.0"
+version = "9.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/be/99/5c830ecc3933a1b8ce2edbd9570dee7399a8c0fd001e496733a7bddf3ac9/django_axes-9.0.0.tar.gz", hash = "sha256:863aef4563673c1e77bb3d21be1ba1d2612b0cf9d5365c27c9af9ae1c614c3c0", size = 265598, upload-time = "2026-10-30T20:54:52.763Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3b/31/0b17d2c059493b201ab4c2fbc914324c7411962947e9e5c532838ea4c853/django_axes-9.1.0.tar.gz", hash = "sha256:cb28091b39a5d6d291ca049f2329f06f08c70dbba78627a42b59ae1e2defb906", size = 267235, upload-time = "2026-11-22T19:07:47.602Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2d/a0/da4e8cb4c43c8aa5266a5fcde1394fe68b2e86b43fc2a0df2b282b18962b/django_axes-9.0.0-py3-none-any.whl", hash = "sha256:fb7b0322a09d8f090d5a980690cb5468dc1903d3d950f1968c4e067348d58059", size = 79432, upload-time = "2026-10-30T20:54:51.056Z" },
+    { url = "https://files.pythonhosted.org/packages/35/58/6f94a0350cf0a9df9bb7288c48d446ef42e88b04f028cca29a0afe250363/django_axes-9.1.0-py3-none-any.whl", hash = "sha256:45898b0ab88b8a429d8cca0fac72fd3b000bd53989a4ee41e62fa9350fea2045", size = 79620, upload-time = "2026-11-22T19:07:45.765Z" },
 ]
 
 [package.optional-dependencies]
@@ -2298,7 +2298,7 @@ requires-dist = [
     { name = "django", extras = ["argon2"], specifier = "~=6.0.7" },
     { name = "django-activity-stream", specifier = "~=2.0.0" },
     { name = "django-allauth", extras = ["idp-oidc", "mfa"], specifier = "~=65.22.1" },
-    { name = "django-axes", extras = ["ipware"], specifier = "~=9.0.0" },
+    { name = "django-axes", extras = ["ipware"], specifier = "~=9.1.0" },
     { name = "django-bootstrap-breadcrumbs2", specifier = "==1.0.0" },
     { name = "django-cors-headers", specifier = "~=4.9.0" },
     { name = "django-crispy-forms", specifier = "~=2.5" },
