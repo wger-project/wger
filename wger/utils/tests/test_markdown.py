@@ -25,7 +25,7 @@ from wger.utils.markdown import (
 class TestMarkdown(unittest.TestCase):
     """
     Test the markdown rendering and HTML sanitization utilities.
-    Allowed tags: b, strong, i, em, ul, ol, li, p
+    Allowed tags: a (href only), b, strong, i, em, ul, ol, li, p
     """
 
     def test_render_markdown_basic(self):
@@ -91,12 +91,47 @@ class TestMarkdown(unittest.TestCase):
         """
         Test the direct HTML sanitizer used for legacy fields.
         """
-        html = '<b>Bold</b> and <a href="http://google.com">Link</a>'
+        html = '<b>Bold</b> and <u>underline</u>'
         output = sanitize_html(html)
 
         self.assertIn('<b>Bold</b>', output)
-        self.assertNotIn('<a href', output)  # Links are not in the allowed list
-        self.assertIn('Link', output)  # Content usually preserved
+        self.assertNotIn('<u>', output)  # Not in the allowed list
+        self.assertIn('underline', output)  # Content usually preserved
+
+    def test_links_are_kept(self):
+        """
+        Test that markdown and HTML links keep their href and get a safe rel.
+        """
+        output = render_markdown('Demo: [video](https://example.com/demo)')
+        self.assertIn(
+            '<a href="https://example.com/demo" rel="noopener noreferrer">video</a>', output
+        )
+
+        output = sanitize_html('<a href="https://example.com/demo">video</a>')
+        self.assertIn(
+            '<a href="https://example.com/demo" rel="noopener noreferrer">video</a>', output
+        )
+
+    def test_links_unsafe_parts_removed(self):
+        """
+        Test that script URLs and attributes other than href are removed from links.
+        """
+        output = render_markdown('[click](javascript:alert(1))')
+        self.assertNotIn('<a', output)  # markdown-it refuses to link it
+
+        output = render_markdown('<a href="javascript:alert(1)">click</a>')
+        self.assertNotIn('javascript', output)
+        self.assertIn('click', output)
+
+        output = sanitize_html('<a href="data:text/html,hi" onclick="x()" style="color:red">hi</a>')
+        self.assertNotIn('data:', output)
+        self.assertNotIn('onclick', output)
+        self.assertNotIn('style', output)
+        self.assertIn('hi', output)
+
+        output = sanitize_html('<a href="https://example.com" target="_blank" rel="opener">x</a>')
+        self.assertNotIn('target', output)
+        self.assertIn('rel="noopener noreferrer"', output)
 
     def test_empty_inputs(self):
         """
