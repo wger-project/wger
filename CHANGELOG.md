@@ -62,6 +62,8 @@ Progression requirements can now reference the top of the prescribed range via t
   stops with an error instead of trying to load the error page.
 * `/api/v2/trophy/progress/?include_repeatable=true` no longer reports earned
   trophies that are not repeatable as unearned.
+* Creating guest accounts with demo entries is now limited to 10 per IP address
+  and day. Above that, visitors get an empty guest account.
 
 ## New settings
 *(for self-hoster)*

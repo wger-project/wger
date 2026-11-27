@@ -15,14 +15,19 @@
 # Standard Library
 import datetime
 import random
+from unittest import mock
 
 # Django
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
+from django.core.cache import cache
 from django.core.management import call_command
 from django.http import HttpRequest
 from django.urls import reverse
 from django.utils import timezone
+
+# Third Party
+from rest_framework.settings import api_settings
 
 # wger
 from wger.core.demo import (
@@ -112,6 +117,27 @@ class DemoUserTestCase(WgerTestCase):
 
         # Body weight
         self.assertEqual(Measurement.body_weight_for(user).count(), 40)
+
+    def test_demo_entries_are_throttled_per_ip(self):
+        """
+        Requests without a session above the demo_entries rate create neither
+        a guest account nor demo data and still redirect to the dashboard
+        """
+        cache.clear()
+        self.addCleanup(cache.clear)
+        url = reverse('core:user:demo-entries')
+        before = self.count_temp_users()
+
+        with (
+            mock.patch.dict(api_settings.DEFAULT_THROTTLE_RATES, {'demo_entries': '2/day'}),
+            mock.patch('wger.core.views.misc.create_demo_entries') as create_entries,
+        ):
+            responses = [self.client_class().get(url) for _ in range(3)]
+
+        self.assertEqual(create_entries.call_count, 2)
+        self.assertEqual(self.count_temp_users(), before + 2)
+        for response in responses:
+            self.assertRedirects(response, reverse('core:dashboard'), fetch_redirect_response=False)
 
     def test_demo_data_body_weight(self):
         """

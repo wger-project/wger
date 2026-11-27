@@ -562,6 +562,9 @@ REST_FRAMEWORK = {
 
         # Language check of exercise descriptions, also open to anonymous callers
         'language_check': '30/min',
+
+        # Guest accounts with demo data (core:user:demo-entries), per IP
+        'demo_entries': '10/day',
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

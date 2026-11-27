@@ -25,6 +25,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
+# Third Party
+from rest_framework.throttling import SimpleRateThrottle
+
 # wger
 from wger.core.demo import (
     create_demo_entries,
@@ -33,6 +36,15 @@ from wger.core.demo import (
 
 
 logger = logging.getLogger(__name__)
+
+
+class DemoEntriesThrottle(SimpleRateThrottle):
+    """Per IP, also for guest users: a new guest account costs only a request"""
+
+    scope = 'demo_entries'
+
+    def get_cache_key(self, request, view):
+        return self.cache_format % {'scope': self.scope, 'ident': self.get_ident(request)}
 
 
 # ************************
@@ -58,6 +70,9 @@ def demo_entries(request):
     if (
         not request.user.is_authenticated or request.user.userprofile.is_temporary
     ) and not request.session.get('has_demo_data'):
+        if not DemoEntriesThrottle().allow_request(request, None):
+            return HttpResponseRedirect(reverse('core:dashboard'))
+
         # If we reach this from a page that has no user created by the
         # middleware, do that now
         if not request.user.is_authenticated:
