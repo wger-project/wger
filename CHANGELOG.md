@@ -60,6 +60,8 @@ Progression requirements can now reference the top of the prescribed range via t
 * `wger load-online-fixtures` downloads the ingredient fixture from
   `https://wger.de/media/ingredients/` instead of GitHub. A failed download now
   stops with an error instead of trying to load the error page.
+* `/api/v2/trophy/progress/?include_repeatable=true` no longer reports earned
+  trophies that are not repeatable as unearned.
 
 ## New settings
 *(for self-hoster)*

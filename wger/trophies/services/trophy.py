@@ -209,13 +209,10 @@ class TrophyService:
         trophies = trophies.order_by('order', 'name')
 
         # Get user's earned trophies
-        earned = {
-            ut.trophy_id: ut
-            for ut in UserTrophy.objects.filter(
-                user=user,
-                trophy__is_repeatable=include_repeatable,
-            ).select_related('trophy')
-        }
+        earned_qs = UserTrophy.objects.filter(user=user)
+        if not include_repeatable:
+            earned_qs = earned_qs.filter(trophy__is_repeatable=False)
+        earned = {ut.trophy_id: ut for ut in earned_qs.select_related('trophy')}
 
         for trophy in trophies:
             user_trophy = earned.get(trophy.id)

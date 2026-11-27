@@ -291,6 +291,18 @@ class TrophyIntegrationTestCase(WgerTestCase):
         pr_in_list = any(p['trophy'].id == self.personal_record_trophy.id for p in progress_list)
         self.assertTrue(pr_in_list)
 
+    def test_get_all_trophy_progress_include_repeatable_keeps_earned_trophies(self):
+        """With include_repeatable=True, earned trophies of both kinds are marked earned"""
+        TrophyService.award_trophy(self.user, self.beginner_trophy)
+        TrophyService.award_trophy(self.user, self.personal_record_trophy)
+
+        progress_list = TrophyService.get_all_trophy_progress(self.user, include_repeatable=True)
+        earned = {p['trophy'].id: p['is_earned'] for p in progress_list}
+
+        self.assertTrue(earned[self.beginner_trophy.id])
+        self.assertTrue(earned[self.personal_record_trophy.id])
+        self.assertFalse(earned[self.lifter_trophy.id])
+
     def test_trophy_not_awarded_twice(self):
         """Test same trophy is not awarded twice"""
         # Create user statistics
