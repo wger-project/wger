@@ -35,6 +35,7 @@ Progression requirements can now reference the top of the prescribed range via t
 
 ### Bug fixes
 
+* The weight CSV import preview now displays the parsed weight values.
 * All 1RM estimates (calculated "1RM" and "1RM total" measurements, personal
   record trophies, routine statistics) now share one calculation. The reps in
   reserve of a set now also raise the estimate of the calculated measurements,

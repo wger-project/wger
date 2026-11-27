@@ -59,6 +59,7 @@ class WeightCsvImportTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['weight_list']), 6)
+        self.assertContains(response, '<td>69.6</td>')
         # the unparseable rows, the duplicate date, and the 7000 kg entry
         self.assertEqual(len(response.context['error_list']), 5)
         hash_value = response.context['hash_value']
