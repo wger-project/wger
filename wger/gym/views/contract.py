@@ -38,11 +38,23 @@ from django.views.generic import (
 
 # wger
 from wger.gym.helpers import is_same_gym
-from wger.gym.models import Contract
+from wger.gym.models import (
+    Contract,
+    ContractOption,
+    ContractType,
+)
 from wger.utils.generic_views import WgerFormMixin
 
 
 logger = logging.getLogger(__name__)
+
+
+def scope_contract_form(form, member: User):
+    """Limit the contract type and option choices to the member's gym"""
+    gym_id = member.userprofile.gym_id
+    form.fields['contract_type'].queryset = ContractType.objects.filter(gym_id=gym_id)
+    form.fields['options'].queryset = ContractOption.objects.filter(gym_id=gym_id)
+    return form
 
 
 class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -111,6 +123,9 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
             return HttpResponseForbidden()
         return super(AddView, self).dispatch(request, *args, **kwargs)
 
+    def get_form(self, form_class=None):
+        return scope_contract_form(super().get_form(form_class), self.member)
+
     def form_valid(self, form):
         """
         Set user instances
@@ -178,6 +193,9 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         if not is_same_gym(contract.member, request.user):
             return HttpResponseForbidden()
         return super(UpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        return scope_contract_form(super().get_form(form_class), self.object.member)
 
     def get_context_data(self, **kwargs):
         """
