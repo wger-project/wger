@@ -14,13 +14,17 @@
 
 # Standard Library
 import logging
+from decimal import Decimal
+from types import SimpleNamespace
 
 # Django
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.measurements.models import Measurement
+from wger.weight.helpers import parse_weight_csv
 
 
 logger = logging.getLogger(__name__)
@@ -86,3 +90,31 @@ class WeightCsvImportTestCase(WgerTestCase):
 
         self.user_login('test')
         self.import_csv()
+
+
+class WeightCsvParserTestCase(WgerTestCase):
+    """
+    Test case for the CSV parser
+    """
+
+    def parse(self, csv_input):
+        request = SimpleNamespace(user=User.objects.get(username='test'))
+        return parse_weight_csv(request, {'csv_input': csv_input, 'date_format': '%Y-%m-%d'})
+
+    def test_semicolon_delimiter_with_decimal_comma(self):
+        weights, errors = self.parse('2031-01-01;80,5\n2031-01-02;81,5')
+
+        self.assertEqual([w.value for w in weights], [Decimal('80.5'), Decimal('81.5')])
+        self.assertEqual(errors, [])
+
+    def test_tab_delimiter_with_decimal_comma(self):
+        weights, errors = self.parse('2031-01-01\t80,5\n2031-01-02\t81,5')
+
+        self.assertEqual([w.value for w in weights], [Decimal('80.5'), Decimal('81.5')])
+        self.assertEqual(errors, [])
+
+    def test_comma_delimiter_still_works(self):
+        weights, errors = self.parse('2031-01-01,80.5\n2031-01-02,81.5')
+
+        self.assertEqual([w.value for w in weights], [Decimal('80.5'), Decimal('81.5')])
+        self.assertEqual(errors, [])
