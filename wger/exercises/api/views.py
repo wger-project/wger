@@ -354,6 +354,8 @@ class ExerciseImageViewSet(ModelViewSet):
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_image_upload'
     # the image is uploaded as a file, which JSON cannot carry
     parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
@@ -417,6 +419,8 @@ class ExerciseVideoViewSet(ModelViewSet):
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
     permission_classes = (CanContributeExercises,)
+    throttle_classes = (CreateScopedRateThrottle,)
+    throttle_scope = 'exercise_video_upload'
     # the video is uploaded as a file, which JSON cannot carry
     parser_classes = (MultiPartParser,)
     ordering_fields = '__all__'
@@ -426,6 +430,14 @@ class ExerciseVideoViewSet(ModelViewSet):
         'license',
         'license_author',
     )
+
+    def check_permissions(self, request):
+        super().check_permissions(request)
+
+        if settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']:
+            return
+        if request.method in ('POST', 'PUT') or 'video' in request.FILES:
+            self.permission_denied(request, message='Video uploads are disabled on this server.')
 
     def perform_create(self, serializer):
         """

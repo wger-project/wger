@@ -14,9 +14,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import tempfile
 from unittest import mock
 
 # Django
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
 # Third Party
@@ -33,6 +36,8 @@ from wger.exercises.api.views import (
     ExerciseTranslationViewSet,
     ExerciseViewSet,
 )
+from wger.exercises.models import ExerciseVideo
+from wger.exercises.tests.test_exercise_videos import VIDEO_HEADER
 
 
 class ExerciseCreateThrottleTestCase(BaseTestCase, ApiBaseTestCase):
@@ -103,3 +108,88 @@ class ExerciseCreateThrottleTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.assertEqual(first.status_code, status.HTTP_201_CREATED)
         self.assertEqual(second.status_code, status.HTTP_201_CREATED)
+
+
+class ExerciseUploadThrottleTestCase(BaseTestCase, ApiBaseTestCase):
+    """
+    Tests the create throttle of the image and video upload endpoints.
+    """
+
+    def setUp(self):
+        super().setUp()
+        media_root = tempfile.TemporaryDirectory()
+        self.addCleanup(media_root.cleanup)
+        media_settings = self.settings(MEDIA_ROOT=media_root.name)
+        media_settings.enable()
+        self.addCleanup(media_settings.disable)
+
+    def upload_video(self):
+        return self.client.post(
+            reverse('video-list'),
+            data={
+                'exercise': 1,
+                'license_author': 'tester',
+                'video': SimpleUploadedFile('clip.mp4', VIDEO_HEADER + b'\x00' * 64),
+            },
+            format='multipart',
+        )
+
+    def upload_image(self):
+        with open('wger/exercises/tests/protestschwein.jpg', 'rb') as image:
+            return self.client.post(
+                reverse('exerciseimage-list'),
+                data={'exercise': 1, 'license_author': 'tester', 'image': image},
+                format='multipart',
+            )
+
+    def test_video_upload_is_throttled(self):
+        """A second video upload within the window is rejected with 429."""
+        self.authenticate('trainer1')
+
+        with (
+            mock.patch.dict(settings.WGER_SETTINGS, {'ALLOW_UPLOAD_VIDEOS': True}),
+            mock.patch.dict(
+                api_settings.DEFAULT_THROTTLE_RATES, {'exercise_video_upload': '1/min'}
+            ),
+        ):
+            first = self.upload_video()
+            second = self.upload_video()
+
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED, first.content)
+        self.assertEqual(second.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+
+    def test_image_upload_is_throttled(self):
+        """A second image upload within the window is rejected with 429."""
+        self.authenticate('trainer1')
+
+        with mock.patch.dict(
+            api_settings.DEFAULT_THROTTLE_RATES, {'exercise_image_upload': '1/min'}
+        ):
+            first = self.upload_image()
+            second = self.upload_image()
+
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED, first.content)
+        self.assertEqual(second.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+
+    def test_disabled_video_upload_is_rejected(self):
+        """With ALLOW_UPLOAD_VIDEOS off, uploading or replacing a video is forbidden."""
+        self.authenticate('admin')
+        count_before = ExerciseVideo.objects.count()
+
+        with mock.patch.dict(settings.WGER_SETTINGS, {'ALLOW_UPLOAD_VIDEOS': False}):
+            response = self.upload_video()
+            replace = self.client.patch(
+                reverse('video-detail', kwargs={'pk': 1}),
+                data={'video': SimpleUploadedFile('clip.mp4', VIDEO_HEADER + b'\x00' * 64)},
+                format='multipart',
+            )
+            edit = self.client.patch(
+                reverse('video-detail', kwargs={'pk': 1}),
+                data={'license_author': 'someone else'},
+                format='multipart',
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(replace.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(edit.status_code, status.HTTP_200_OK)
+        self.assertEqual(ExerciseVideo.objects.count(), count_before)

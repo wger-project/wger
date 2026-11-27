@@ -21,6 +21,7 @@ from unittest.mock import (
 )
 
 # Django
+from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
@@ -50,6 +51,9 @@ class ExerciseVideoUploadTestCase(WgerTestCase):
         media_settings = self.settings(MEDIA_ROOT=media_root.name)
         media_settings.enable()
         self.addCleanup(media_settings.disable)
+        upload_setting = patch.dict(settings.WGER_SETTINGS, {'ALLOW_UPLOAD_VIDEOS': True})
+        upload_setting.start()
+        self.addCleanup(upload_setting.stop)
         self.user_login('admin')
 
     def upload(self, name: str, content: bytes, content_type: str = 'video/mp4'):

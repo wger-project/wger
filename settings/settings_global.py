@@ -555,6 +555,11 @@ REST_FRAMEWORK = {
         # exercise, translation) to stop scripts from bulk-creating exercises. Only
         # POSTs are throttled, reads and edits are not (see CreateScopedRateThrottle).
         'exercise_create': '20/hour',
+
+        # Uploads of exercise images and videos, POSTs only. Caps the disk space
+        # a single contributor can fill per day.
+        'exercise_image_upload': '50/day',
+        'exercise_video_upload': '10/day',
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

@@ -81,6 +81,9 @@ Progression requirements can now reference the top of the prescribed range via t
 * Creating exercises via `POST /api/v2/exercise/` now requires the `add_exercise`
   permission. Regular users should use `/api/v2/exercise-submission/`, which
   creates the exercise together with at least one translation.
+* Uploading exercise images and videos is now rate-limited (50 images and 10
+  videos per user and day, users with the `add_exercise` permission are exempt),
+  and `ALLOW_UPLOAD_VIDEOS=False` now actually disables video uploads.
 
 ## Upgrade steps
 
