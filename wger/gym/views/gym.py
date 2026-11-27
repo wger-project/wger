@@ -72,7 +72,6 @@ from wger.gym.forms import (
 )
 from wger.gym.helpers import (
     get_permission_list,
-    holds_gym_permission,
     is_any_gym_admin,
     is_same_gym,
     outranks,
@@ -315,8 +314,8 @@ def gym_permissions_user_edit(request, user_pk):
     if user.has_perm('gym.manage_gym') and not is_same_gym(user, member):
         return HttpResponseForbidden()
 
-    # Saving removes all gym roles, so the member must not hold one the user can't grant
-    if not user.has_perm('gym.manage_gyms') and holds_gym_permission(member, 'manage_gyms'):
+    # Removing a role would lift the outranks() check of the password reset and email change
+    if not user.has_perm('gym.manage_gyms') and not outranks(user, member):
         return HttpResponseForbidden()
 
     # Calculate available user permissions

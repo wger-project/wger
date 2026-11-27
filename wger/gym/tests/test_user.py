@@ -342,6 +342,23 @@ class ResetPasswordTargetRoleTestCase(WgerTestCase):
     def test_manager_cannot_reset_trainer(self):
         self.assertEqual(self.reset('manager1', 4), 403)
 
+    def demote_then_reset(self, target_pk: int) -> int:
+        """
+        Sets the target to the plain user role as manager1, then resets its password
+        """
+        self.user_login('manager1')
+        self.client.post(
+            reverse('gym:gym:edit-user-permission', kwargs={'user_pk': target_pk}),
+            {'role': ['user']},
+        )
+        return self.reset('manager1', target_pk)
+
+    def test_manager_cannot_reset_fellow_manager_after_demotion(self):
+        self.assertEqual(self.demote_then_reset(10), 403)
+
+    def test_manager_cannot_reset_trainer_after_demotion(self):
+        self.assertEqual(self.demote_then_reset(4), 403)
+
     def test_manager_cannot_reset_deactivated_trainer(self):
         User.objects.filter(pk=4).update(is_active=False)
         self.assertEqual(self.reset('manager1', 4), 403)
@@ -549,7 +566,8 @@ class ActivationTargetRoleTestCase(WgerTestCase):
 
 class EditUserPermissionTargetRoleTestCase(WgerTestCase):
     """
-    The gym roles of an account can only be edited when the user could grant all of them
+    Managers only edit the gym roles of accounts they outrank, general managers of all
+    accounts
     """
 
     def edit_roles(self, username: str, target_pk: int, roles: list[str]) -> int:
@@ -566,8 +584,26 @@ class EditUserPermissionTargetRoleTestCase(WgerTestCase):
         self.assertEqual(status, 403)
         self.assertTrue(User.objects.get(pk=12).groups.filter(name='general_gym_manager').exists())
 
-    def test_manager_can_remove_trainer_role(self):
+    def test_manager_cannot_demote_fellow_manager(self):
+        status = self.edit_roles('manager1', 10, ['user'])
+
+        self.assertEqual(status, 403)
+        self.assertTrue(User.objects.get(pk=10).groups.filter(name='gym_manager').exists())
+
+    def test_manager_cannot_remove_trainer_role(self):
         status = self.edit_roles('manager1', 4, ['user'])
+
+        self.assertEqual(status, 403)
+        self.assertTrue(User.objects.get(pk=4).groups.filter(name='gym_trainer').exists())
+
+    def test_manager_can_promote_member_to_trainer(self):
+        status = self.edit_roles('manager1', 14, ['user', 'trainer'])
+
+        self.assertEqual(status, 302)
+        self.assertTrue(User.objects.get(pk=14).groups.filter(name='gym_trainer').exists())
+
+    def test_general_manager_can_remove_trainer_role(self):
+        status = self.edit_roles('general_manager1', 4, ['user'])
 
         self.assertEqual(status, 302)
         self.assertFalse(User.objects.get(pk=4).groups.filter(name='gym_trainer').exists())
