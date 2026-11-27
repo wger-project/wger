@@ -140,6 +140,9 @@ class LanguageCheckSerializer(serializers.Serializer):
     language_code = serializers.CharField(required=False, min_length=2, max_length=2)
     input = serializers.CharField(min_length=10)
 
+    MAX_DETECTION_LENGTH = 10_000
+    """Detection time grows with the length, the start of the text is enough"""
+
     def validate(self, data):
         """
         Check that the detected language of the description corresponds with the
@@ -163,7 +166,7 @@ class LanguageCheckSerializer(serializers.Serializer):
 
         # Try to detect the language
         detector = LanguageDetectorBuilder.from_all_languages().build()
-        input_str = data.get('input')
+        input_str = data.get('input')[: self.MAX_DETECTION_LENGTH]
 
         detected_language = detector.detect_language_of(input_str)
         if detected_language is None:

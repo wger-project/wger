@@ -13,7 +13,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from unittest import mock
+
+# Django
+from django.core.cache import cache
+from django.urls import reverse
+
+# Third Party
+from rest_framework import status
+from rest_framework.settings import api_settings
+
 # wger
+from wger.core.api.serializers import LanguageCheckSerializer
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
 
@@ -67,3 +79,36 @@ class LanguageCheckApiTestCase(BaseTestCase, ApiBaseTestCase):
             self.url, data={'input': 'a breed of hunting dog from Japan.'}
         ).json()
         self.assertTrue(response.get('language'))
+
+    def test_detection_only_reads_the_start_of_long_inputs(self):
+        """
+        Language detection runs over at most MAX_DETECTION_LENGTH characters of the input
+        """
+        text = 'Hallo Welt - das ist ein Test. ' * 50_000
+        with mock.patch('wger.core.api.serializers.LanguageDetectorBuilder') as builder:
+            detector = builder.from_all_languages.return_value.build.return_value
+            detector.detect_language_of.return_value.iso_code_639_1.name = 'DE'
+            response = self.client.post(
+                reverse('check-language'), data={'language_code': 'de', 'input': text}
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        analysed = detector.detect_language_of.call_args.args[0]
+        self.assertEqual(analysed, text[: LanguageCheckSerializer.MAX_DETECTION_LENGTH])
+        confidence_input = detector.compute_language_confidence_values.call_args.args[0]
+        self.assertEqual(confidence_input, analysed)
+
+    def test_anonymous_requests_are_throttled(self):
+        """
+        Requests above the language_check rate are answered with 429
+        """
+        cache.clear()
+        self.addCleanup(cache.clear)
+        data = {'language_code': 'de', 'input': 'Hallo Welt - das ist ein Test'}
+
+        with mock.patch.dict(api_settings.DEFAULT_THROTTLE_RATES, {'language_check': '1/min'}):
+            first = self.client.post(reverse('check-language'), data=data)
+            second = self.client.post(reverse('check-language'), data=data)
+
+        self.assertEqual(first.status_code, status.HTTP_200_OK)
+        self.assertEqual(second.status_code, status.HTTP_429_TOO_MANY_REQUESTS)

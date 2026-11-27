@@ -559,6 +559,9 @@ REST_FRAMEWORK = {
         # a single contributor can fill per day.
         'exercise_image_upload': '50/day',
         'exercise_video_upload': '10/day',
+
+        # Language check of exercise descriptions, also open to anonymous callers
+        'language_check': '30/min',
     },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

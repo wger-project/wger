@@ -50,6 +50,7 @@ from rest_framework import (
 from rest_framework.decorators import (
     api_view,
     permission_classes,
+    throttle_classes,
 )
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.fields import (
@@ -64,6 +65,7 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework.response import Response
+from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
 
 # wger
@@ -326,6 +328,10 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ('name',)
 
 
+class LanguageCheckThrottle(UserRateThrottle):
+    scope = 'language_check'
+
+
 @extend_schema(
     request=LanguageCheckSerializer,
     responses={
@@ -340,6 +346,7 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     },
 )
 @api_view(['POST'])
+@throttle_classes([LanguageCheckThrottle])
 def check_language(request):
     """
     Checks the language of a string

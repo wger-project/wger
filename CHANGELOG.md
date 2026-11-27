@@ -84,6 +84,8 @@ Progression requirements can now reference the top of the prescribed range via t
 * Uploading exercise images and videos is now rate-limited (50 images and 10
   videos per user and day, users with the `add_exercise` permission are exempt),
   and `ALLOW_UPLOAD_VIDEOS=False` now actually disables video uploads.
+* `POST /api/v2/check-language/` is now rate-limited (30 requests per minute per
+  user or IP address) and only checks the first 10,000 characters of the input.
 * Opening the logout URL no longer logs out directly but asks for
   confirmation first, so a link on another site can't log users out (and
   delete guest accounts with their data).
