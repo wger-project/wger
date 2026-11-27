@@ -13,11 +13,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from unittest import mock
+
 # Django
 from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.nutrition.models import Ingredient
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
@@ -228,3 +232,26 @@ class IngredientOverviewTestCase(WgerTestCase):
         """
 
         self.ingredient_overview()
+
+    def test_barcode_parameters_do_not_query_off(self):
+        """
+        The overview ignores code and name__search, so unknown barcodes are not looked up on OFF
+        """
+        with mock.patch.object(Ingredient, 'fetch_ingredient_from_off', return_value=None) as fetch:
+            for params in ({'code': '4006381333931'}, {'name__search': '4006381333931'}):
+                response = self.client.get(reverse('nutrition:ingredient:list'), params)
+                self.assertEqual(response.status_code, 200)
+
+        fetch.assert_not_called()
+
+    def test_vegan_filter(self):
+        """
+        ?is_vegan=1 only lists vegan ingredients
+        """
+        Ingredient.objects.update(is_vegan=False)
+        vegan = Ingredient.objects.filter(language__short_name='en').first()
+        Ingredient.objects.filter(pk=vegan.pk).update(is_vegan=True)
+
+        response = self.client.get(reverse('nutrition:ingredient:list'), {'is_vegan': '1'})
+
+        self.assertEqual([i.pk for i in response.context['ingredients_list']], [vegan.pk])

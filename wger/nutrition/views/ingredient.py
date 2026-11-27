@@ -40,7 +40,7 @@ from django.views.generic import (
 )
 
 # wger
-from wger.nutrition.api.filtersets import IngredientFilterSet
+from wger.nutrition.api.filtersets import IngredientOverviewFilterSet
 from wger.nutrition.forms import (
     IngredientForm,
     UnitChooserForm,
@@ -79,7 +79,7 @@ class IngredientListView(ListView):
     template_name = 'ingredient/overview.html'
     context_object_name = 'ingredients_list'
     paginate_by = None  # disabled — cursor handled in get_context_data
-    filterset_class = IngredientFilterSet
+    filterset_class = IngredientOverviewFilterSet
 
     PAGE_SIZE = PAGINATION_OBJECTS_PER_PAGE
 

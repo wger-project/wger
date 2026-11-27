@@ -76,6 +76,22 @@ class LogItemFilterSet(filters.FilterSet):
         }
 
 
+class IngredientOverviewFilterSet(filters.FilterSet):
+    """
+    Filters of the public HTML ingredient overview
+
+    Only what the page offers, the barcode filters of IngredientFilterSet would
+    fetch from OFF without the API throttle.
+    """
+
+    class Meta:
+        model = Ingredient
+        fields = {
+            'is_vegan': ['exact'],
+            'is_vegetarian': ['exact'],
+        }
+
+
 class IngredientFilterSet(filters.FilterSet):
     code = filters.CharFilter(method='search_barcode')
     name__search = filters.CharFilter(method='search_name_fulltext')
