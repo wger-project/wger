@@ -240,24 +240,34 @@ GET /api/v2/user-statistics/
 
 **TrophyFilterSet** (`wger.trophies.api.filtersets`):
 
-- Filter trophies by type, active status, hidden status
-- Fields: `trophy_type`, `is_active`, `is_hidden`, `is_progressive`
+- Exact-match fields: `id`, `trophy_type`, `is_active`, `is_hidden`,
+  `is_progressive`, `is_repeatable`
+- List filters: `id__in`, `trophy_type__in` (comma-separated values)
 - Example: `/api/v2/trophy/?trophy_type=volume&is_active=true`
 
 **UserTrophyFilterSet** (`wger.trophies.api.filtersets`):
 
 - Filter user's earned trophies
-- Fields: `trophy`, `earned_at` (date range), `progress`
+- Exact-match fields: `id`, `earned_at`, `is_notified`, `trophy`,
+  `trophy__is_active`, `trophy__is_hidden`, `trophy__is_repeatable`,
+  `trophy__trophy_type`
+- List filters: `id__in`, `trophy__in`, `trophy__trophy_type__in`
+  (comma-separated values)
+- Timestamp comparisons: `earned_at__gt`, `earned_at__gte`,
+  `earned_at__lt`, `earned_at__lte`
 - Example: `/api/v2/user-trophy/?trophy=5&earned_at__gte=2024-01-01`
+
+Replace `5` with an existing trophy ID. Date-only bounds are interpreted
+at midnight in Django's current time zone.
 
 **Example API Usage:**
 
-```python
+```text
 # Get all volume-based trophies
 GET /api/v2/trophy/?trophy_type=volume
 
-# Get trophies earned in 2024
-GET /api/v2/user-trophy/?earned_at__year=2024
+# Get trophies earned in 2024 (UTC)
+GET /api/v2/user-trophy/?earned_at__gte=2024-01-01T00:00:00Z&earned_at__lt=2025-01-01T00:00:00Z
 
 # Get progress for all trophies (authenticated)
 GET /api/v2/trophy/progress/
@@ -265,6 +275,9 @@ GET /api/v2/trophy/progress/
 # Get current user's statistics
 GET /api/v2/user-statistics/
 ```
+
+The year range includes midnight on January 1, 2024 and excludes midnight
+on January 1, 2025. Both boundaries use UTC, as indicated by `Z`.
 
 ## Adding New Trophies
 
@@ -373,27 +386,34 @@ Service for managing user workout statistics.
 
 **Methods:**
 
-- `increment_workout(user, workout_date, weight_lifted)`: Incrementally
-  update statistics after a workout. Updates streak, total workouts,
-  weight lifted, and workout times.
+- `increment_workout(user, workout_log=None, session=None)`: Update
+  statistics from a new workout log or a workout session event. Adds log
+  volume, refreshes the workout count, and updates streaks and workout
+  times when the required session and time zone data are available.
 - `update_statistics(user)`: Recalculate all statistics from scratch
   by scanning workout history. Use for fixing inconsistencies.
 - `get_or_create_statistics(user)`: Get existing statistics or create
   new record with default values.
-- `handle_workout_deletion(user, workout_date)`: Update statistics
-  after a workout is deleted. Recalculates streaks if needed.
+- `handle_workout_deletion(user)`: Recalculate all statistics from
+  workout history after a workout is deleted.
 
 **Example Usage:**
 
+Assume `request.user` is authenticated and `workout_log` and `session` are
+saved `WorkoutLog` and `WorkoutSession` objects owned by that user.
+The increment calls illustrate alternative inputs used by signal handlers.
+Saving these models normally triggers the updates automatically. Only
+apply an increment for an event that has not already been processed;
+replaying a log increment adds its volume again.
+
 ```python
 from wger.trophies.services.statistics import UserStatisticsService
-from decimal import Decimal
-import datetime
 
-# Increment after workout
-UserStatisticsService.increment_workout(
-    user=request.user, workout_date=datetime.date.today(), weight_lifted=Decimal('150.5')
-)
+# Increment for a new workout log
+UserStatisticsService.increment_workout(user=request.user, workout_log=workout_log)
+
+# Alternatively, increment for a workout session event
+UserStatisticsService.increment_workout(user=request.user, session=session)
 
 # Recalculate all statistics
 stats = UserStatisticsService.update_statistics(request.user)
@@ -408,22 +428,32 @@ Service for evaluating and awarding trophies.
 
 **Methods:**
 
-- `evaluate_all_trophies(user, force=False)`: Evaluate all active
+- `evaluate_all_trophies(user)`: Evaluate all active
   trophies for a user. Returns list of newly awarded UserTrophy
-  objects. Skip already earned unless force=True.
-- `award_trophy(user, trophy, progress=100.0)`: Award a specific
-  trophy to a user. Creates UserTrophy record. Idempotent (safe to
-  call multiple times).
-- `get_user_trophies(user, include_hidden=False)`: Get all trophies
-  earned by a user. Filter hidden trophies unless specified.
-- `get_all_trophy_progress(user, include_hidden=False)`: Get progress
-  for all trophies. Returns list of dicts with trophy info, earned
-  status, progress %, current/target values.
-- `reevaluate_trophies(user_ids=None, trophy_id=None,
-  force_reevaluate=False)`: Batch re-evaluate trophies for multiple
-  users. Returns dict with users_checked, trophies_awarded counts.
+  objects. Skips earned non-repeatable trophies and always checks
+  repeatable trophies. Respects trophy settings and user inactivity checks.
+- `award_trophy(user, trophy, progress=100.0, context_data=None)`: Award
+  a specific trophy, with optional context data. Creates an award, or
+  returns the existing award for a non-repeatable trophy. Repeatable
+  trophies create a new award on every call.
+- `get_user_trophies(user)`: Get all trophies earned by a user,
+  including hidden trophies, ordered by `earned_at` (newest first).
+- `get_all_trophy_progress(user, include_hidden=False, include_repeatable=False)`:
+  Get progress for active trophies. Excludes unearned hidden trophies
+  unless `include_hidden=True`, and repeatable trophies unless
+  `include_repeatable=True`. Returns list of dicts with trophy info,
+  earned status, progress %, and current/target values.
+- `reevaluate_trophies(trophy_ids=None, user_ids=None)`: Batch evaluate
+  selected active trophies for selected users. Defaults to all active
+  trophies and recently active users. User skip rules still apply, and
+  earned non-repeatable trophies are skipped. Returns dict with
+  `users_checked` and `trophies_awarded` counts.
 
 **Example Usage:**
+
+Assume `request.user` is authenticated and `trophy` is an existing active
+`Trophy` object. Evaluation respects global and user trophy settings and
+inactivity checks. The batch example targets that trophy and the current user.
 
 ```python
 from wger.trophies.services.trophy import TrophyService
@@ -436,13 +466,13 @@ for user_trophy in newly_awarded:
 # Get user's earned trophies
 earned = TrophyService.get_user_trophies(request.user)
 
-# Get progress for all trophies
+# Get progress for active non-repeatable trophies
 progress = TrophyService.get_all_trophy_progress(request.user)
 for item in progress:
     print(f'{item["trophy"].name}: {item["progress"]}%')
 
-# Batch re-evaluate for all active users
-results = TrophyService.reevaluate_trophies()
+# Batch re-evaluate a selected trophy for the current user
+results = TrophyService.reevaluate_trophies(trophy_ids=[trophy.pk], user_ids=[request.user.pk])
 print(f'Checked {results["users_checked"]} users')
 print(f'Awarded {results["trophies_awarded"]} trophies')
 ```
