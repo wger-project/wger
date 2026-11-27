@@ -457,6 +457,15 @@ class DeleteUserTargetRoleTestCase(WgerTestCase):
         User.objects.filter(pk=14).update(is_active=False)
         self.assertEqual(self.delete('manager1', 14), 302)
 
+    def test_manager_cannot_delete_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.delete('manager1', 14), 403)
+
+    def test_manager_cannot_delete_deactivated_exercise_admin(self):
+        User.objects.filter(pk=14).update(is_active=False)
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.delete('manager1', 14), 403)
+
 
 class ActivationTargetRoleTestCase(WgerTestCase):
     """
@@ -517,6 +526,18 @@ class ActivationTargetRoleTestCase(WgerTestCase):
 
     def test_trainer_can_deactivate_member(self):
         self.assertEqual(self.set_active('trainer1', 14, False), 302)
+
+    def test_manager_cannot_deactivate_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.set_active('manager1', 14, False), 403)
+
+    def test_trainer_cannot_deactivate_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.set_active('trainer1', 14, False), 403)
+
+    def test_trainer_cannot_activate_exercise_admin(self):
+        User.objects.get(pk=14).groups.add(Group.objects.get(name='exercises_admin'))
+        self.assertEqual(self.set_active('trainer1', 14, True), 403)
 
     def test_general_manager_can_deactivate_manager(self):
         self.assertEqual(self.set_active('general_manager1', 9, False), 302)

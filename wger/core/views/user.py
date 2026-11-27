@@ -160,6 +160,7 @@ def delete(request, user_pk=None):
             not request.user.has_perm('gym.manage_gym')
             or not is_same_gym(request.user, user)
             or holds_gym_permission(user, 'manage_gym', 'gym_trainer', 'manage_gyms')
+            or holds_permissions_beyond(user, request.user)
         ):
             return HttpResponseForbidden()
     else:
