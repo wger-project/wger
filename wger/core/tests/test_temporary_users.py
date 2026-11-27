@@ -237,3 +237,27 @@ class DemoUserTestCase(WgerTestCase):
         self.client.post(reverse('account_logout'))
 
         self.assertTrue(User.objects.filter(pk=regular.pk).exists())
+
+    def test_get_does_not_log_out(self):
+        """
+        A GET to the logout URL keeps the user logged in and the temporary account intact
+        """
+        temp_user = create_temporary_user(HttpRequest())
+        self.client.force_login(temp_user)
+
+        self.client.get(reverse('account_logout'))
+
+        self.assertTrue(User.objects.filter(pk=temp_user.pk).exists())
+        self.assertEqual(self.client.session.get('_auth_user_id'), str(temp_user.pk))
+
+    def test_get_shows_confirmation(self):
+        """
+        A GET to the logout URL shows a confirmation page with a POST form
+        """
+        admin = User.objects.get(username='admin')
+        self.client.force_login(admin)
+
+        response = self.client.get(reverse('account_logout'))
+
+        self.assertContains(response, 'method="post"')
+        self.assertEqual(self.client.session.get('_auth_user_id'), str(admin.pk))

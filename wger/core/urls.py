@@ -68,7 +68,6 @@ patterns_language = [
 # sub patterns for user
 patterns_user = [
     path('login', user.WgerLoginView.as_view(), name='login'),
-    path('logout', user.logout, name='logout'),
     path('delete', user.delete, name='delete'),
     path('<int:user_pk>/delete', user.delete, name='delete'),
     path('<int:user_pk>/trainer-login', user.trainer_login, name='trainer-login'),

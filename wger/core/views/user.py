@@ -265,17 +265,6 @@ def trainer_login(request, user_pk):
         )
 
 
-def logout(request):
-    """
-    Logout the user. For temporary users, delete them.
-    """
-    user = request.user
-    django_logout(request)
-    if user.is_authenticated and user.userprofile.is_temporary:
-        user.delete()
-    return HttpResponseRedirect(reverse('core:user:login'))
-
-
 class WgerSignupView(AllauthSignupView):
     """
     allauth's signup view, with two wger carve-outs: registration disabled
