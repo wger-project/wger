@@ -249,12 +249,13 @@ class TypedCategoryTestCase(WgerTestCase):
         key = Category.deterministic_id(other.pk, MetricType.STEPS)
 
         for metric_type in (MetricType.CUSTOM, MetricType.STEPS):
-            with self.subTest(metric_type=metric_type):
-                response = self.create_category(id=str(key), metric_type=metric_type)
+            for key_form in (str(key), key.hex, key.urn, key.int):
+                with self.subTest(metric_type=metric_type, key_form=key_form):
+                    response = self.create_category(id=key_form, metric_type=metric_type)
 
-                self.assertEqual(response.status_code, 400)
-                self.assertIn('id', response.data)
-                self.assertFalse(Category.objects.filter(pk=key).exists())
+                    self.assertEqual(response.status_code, 400)
+                    self.assertIn('id', response.data)
+                    self.assertFalse(Category.objects.filter(pk=key).exists())
 
     def test_derived_key_of_other_type_refused(self):
         """

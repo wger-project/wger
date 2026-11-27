@@ -15,7 +15,6 @@
 
 # Standard Library
 import json
-import uuid
 from collections.abc import Mapping
 from decimal import Decimal
 
@@ -114,9 +113,10 @@ class CategorySerializer(serializers.ModelSerializer):
         """
         if not isinstance(data, Mapping) or 'id' not in data:
             return
+        # Same parsing as the id field, which also accepts an integer
         try:
-            key = uuid.UUID(str(data['id']))
-        except ValueError:
+            key = self.fields['id'].to_internal_value(data['id'])
+        except serializers.ValidationError:
             return
         if key.version != 5 or (self.instance is not None and key == self.instance.pk):
             return

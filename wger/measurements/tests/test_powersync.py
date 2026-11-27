@@ -154,14 +154,16 @@ class TypedCategoryPowerSyncTestCase(powersync_base_test.PowerSyncBaseTestCase):
         """
         key = Category.deterministic_id(User.objects.get(username='admin').pk, MetricType.STEPS)
 
-        response = self.push(
-            'PUT',
-            {'id': str(key), 'name': 'x', 'unit': '', 'metric_type': MetricType.CUSTOM},
-        )
+        for key_form in (str(key), key.int):
+            with self.subTest(key_form=key_form):
+                response = self.push(
+                    'PUT',
+                    {'id': key_form, 'name': 'x', 'unit': '', 'metric_type': MetricType.CUSTOM},
+                )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
-        self.assertTrue(response.json().get('error'), response.content)
-        self.assertFalse(Category.objects.filter(pk=key).exists())
+                self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
+                self.assertTrue(response.json().get('error'), response.content)
+                self.assertFalse(Category.objects.filter(pk=key).exists())
 
     def test_duplicate_typed_category_refused(self):
         """
